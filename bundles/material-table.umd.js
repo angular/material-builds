@@ -38,6 +38,10 @@ function __extends(d, b) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
 var _MatTable = _angular_cdk_table.CdkTable;
@@ -62,13 +66,15 @@ var MatTable = (function (_super) {
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatTable.ctorParameters = function () { return []; };
     return MatTable;
 }(_MatTable));
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
@@ -92,9 +98,7 @@ var MatCellDef = (function (_super) {
                     providers: [{ provide: _angular_cdk_table.CdkCellDef, useExisting: MatCellDef }]
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCellDef.ctorParameters = function () { return []; };
     return MatCellDef;
 }(_MatCellDef));
@@ -113,9 +117,7 @@ var MatHeaderCellDef = (function (_super) {
                     providers: [{ provide: _angular_cdk_table.CdkHeaderCellDef, useExisting: MatHeaderCellDef }]
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatHeaderCellDef.ctorParameters = function () { return []; };
     return MatHeaderCellDef;
 }(_MatHeaderCellDef));
@@ -134,12 +136,10 @@ var MatColumnDef = (function (_super) {
                     providers: [{ provide: _angular_cdk_table.CdkColumnDef, useExisting: MatColumnDef }],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatColumnDef.ctorParameters = function () { return []; };
     MatColumnDef.propDecorators = {
-        'name': [{ type: _angular_core.Input, args: ['matColumnDef',] },],
+        "name": [{ type: _angular_core.Input, args: ['matColumnDef',] },],
     };
     return MatColumnDef;
 }(_MatColumnDef));
@@ -148,11 +148,6 @@ var MatColumnDef = (function (_super) {
  */
 var MatHeaderCell = (function (_super) {
     __extends(MatHeaderCell, _super);
-    /**
-     * @param {?} columnDef
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
     function MatHeaderCell(columnDef, elementRef, renderer) {
         var _this = _super.call(this, columnDef, elementRef, renderer) || this;
         renderer.addClass(elementRef.nativeElement, "mat-column-" + columnDef.cssClassFriendlyName);
@@ -167,9 +162,7 @@ var MatHeaderCell = (function (_super) {
                     },
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatHeaderCell.ctorParameters = function () { return [
         { type: _angular_cdk_table.CdkColumnDef, },
         { type: _angular_core.ElementRef, },
@@ -182,11 +175,6 @@ var MatHeaderCell = (function (_super) {
  */
 var MatCell = (function (_super) {
     __extends(MatCell, _super);
-    /**
-     * @param {?} columnDef
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
     function MatCell(columnDef, elementRef, renderer) {
         var _this = _super.call(this, columnDef, elementRef, renderer) || this;
         renderer.addClass(elementRef.nativeElement, "mat-column-" + columnDef.cssClassFriendlyName);
@@ -201,9 +189,7 @@ var MatCell = (function (_super) {
                     },
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCell.ctorParameters = function () { return [
         { type: _angular_cdk_table.CdkColumnDef, },
         { type: _angular_core.ElementRef, },
@@ -212,6 +198,10 @@ var MatCell = (function (_super) {
     return MatCell;
 }(_MatCell));
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
@@ -235,9 +225,7 @@ var MatHeaderRowDef = (function (_super) {
                     inputs: ['columns: matHeaderRowDef'],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatHeaderRowDef.ctorParameters = function () { return []; };
     return MatHeaderRowDef;
 }(_MatHeaderRowDef));
@@ -258,9 +246,7 @@ var MatRowDef = (function (_super) {
                     inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatRowDef.ctorParameters = function () { return []; };
     return MatRowDef;
 }(_MatCdkRowDef));
@@ -285,9 +271,7 @@ var MatHeaderRow = (function (_super) {
                     preserveWhitespaces: false,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatHeaderRow.ctorParameters = function () { return []; };
     return MatHeaderRow;
 }(_MatHeaderRow));
@@ -312,12 +296,15 @@ var MatRow = (function (_super) {
                     preserveWhitespaces: false,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatRow.ctorParameters = function () { return []; };
     return MatRow;
 }(_MatRow));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatTableModule = (function () {
     function MatTableModule() {
@@ -333,13 +320,15 @@ var MatTableModule = (function () {
                         MatHeaderRowDef, MatRowDef],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatTableModule.ctorParameters = function () { return []; };
     return MatTableModule;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
  * sorting (using MatSort), and pagination (using MatPaginator).
@@ -349,9 +338,6 @@ var MatTableModule = (function () {
  * which defines how row data is converted to a string for filter matching.
  */
 var MatTableDataSource = (function () {
-    /**
-     * @param {?=} initialData
-     */
     function MatTableDataSource(initialData) {
         if (initialData === void 0) { initialData = []; }
         /**
@@ -371,7 +357,7 @@ var MatTableDataSource = (function () {
          * @param sortHeaderId The name of the column that represents the data.
          */
         this.sortingDataAccessor = function (data, sortHeaderId) {
-            var value = data[sortHeaderId];
+            var /** @type {?} */ value = data[sortHeaderId];
             return isNaN(+value) ? value : +value;
         };
         /**
@@ -386,56 +372,65 @@ var MatTableDataSource = (function () {
          */
         this.filterPredicate = function (data, filter) {
             // Transform the data into a lowercase string of all property values.
-            var accumulator = function (currentTerm, key) { return currentTerm + data[key]; };
-            var dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+            var /** @type {?} */ accumulator = function (currentTerm, key) { return currentTerm + data[key]; };
+            var /** @type {?} */ dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
             // Transform the filter by converting it to lowercase and removing whitespace.
-            var transformedFilter = filter.trim().toLowerCase();
+            var /** @type {?} */ transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
         };
         this._data = new rxjs_BehaviorSubject.BehaviorSubject(initialData);
         this._updateChangeSubscription();
     }
     Object.defineProperty(MatTableDataSource.prototype, "data", {
-        /**
+        get: /**
          * @return {?}
          */
-        get: function () { return this._data.value; },
-        /**
+        function () { return this._data.value; },
+        /** Array of data that should be rendered by the table, where each object represents one row. */
+        set: /**
          * Array of data that should be rendered by the table, where each object represents one row.
          * @param {?} data
          * @return {?}
          */
-        set: function (data) { this._data.next(data); },
+        function (data) { this._data.next(data); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatTableDataSource.prototype, "filter", {
-        /**
+        get: /**
          * @return {?}
          */
-        get: function () { return this._filter.value; },
+        function () { return this._filter.value; },
         /**
+         * Filter term that should be used to filter out objects from the data array. To override how
+         * data objects match to this filter string, provide a custom function for filterPredicate.
+         */
+        set: /**
          * Filter term that should be used to filter out objects from the data array. To override how
          * data objects match to this filter string, provide a custom function for filterPredicate.
          * @param {?} filter
          * @return {?}
          */
-        set: function (filter) { this._filter.next(filter); },
+        function (filter) { this._filter.next(filter); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatTableDataSource.prototype, "sort", {
-        /**
+        get: /**
          * @return {?}
          */
-        get: function () { return this._sort; },
+        function () { return this._sort; },
         /**
+         * Instance of the MatSort directive used by the table to control its sorting. Sort changes
+         * emitted by the MatSort will trigger an update to the table's rendered data.
+         */
+        set: /**
          * Instance of the MatSort directive used by the table to control its sorting. Sort changes
          * emitted by the MatSort will trigger an update to the table's rendered data.
          * @param {?} sort
          * @return {?}
          */
-        set: function (sort) {
+        function (sort) {
             this._sort = sort;
             this._updateChangeSubscription();
         },
@@ -443,11 +438,21 @@ var MatTableDataSource = (function () {
         configurable: true
     });
     Object.defineProperty(MatTableDataSource.prototype, "paginator", {
-        /**
+        get: /**
          * @return {?}
          */
-        get: function () { return this._paginator; },
+        function () { return this._paginator; },
         /**
+         * Instance of the MatPaginator component used by the table to control what page of the data is
+         * displayed. Page changes emitted by the MatPaginator will trigger an update to the
+         * table's rendered data.
+         *
+         * Note that the data source uses the paginator's properties to calculate which page of data
+         * should be displayed. If the paginator receives its properties as template inputs,
+         * e.g. `[pageLength]=100` or `[pageIndex]=1`, then be sure that the paginator's view has been
+         * initialized before assigning it to this data source.
+         */
+        set: /**
          * Instance of the MatPaginator component used by the table to control what page of the data is
          * displayed. Page changes emitted by the MatPaginator will trigger an update to the
          * table's rendered data.
@@ -459,7 +464,7 @@ var MatTableDataSource = (function () {
          * @param {?} paginator
          * @return {?}
          */
-        set: function (paginator) {
+        function (paginator) {
             this._paginator = paginator;
             this._updateChangeSubscription();
         },
@@ -470,9 +475,20 @@ var MatTableDataSource = (function () {
      * Subscribe to changes that should trigger an update to the table's rendered rows. When the
      * changes occur, process the current state of the filter, sort, and pagination along with
      * the provided base data and send it to the table for rendering.
+     */
+    /**
+     * Subscribe to changes that should trigger an update to the table's rendered rows. When the
+     * changes occur, process the current state of the filter, sort, and pagination along with
+     * the provided base data and send it to the table for rendering.
      * @return {?}
      */
-    MatTableDataSource.prototype._updateChangeSubscription = function () {
+    MatTableDataSource.prototype._updateChangeSubscription = /**
+     * Subscribe to changes that should trigger an update to the table's rendered rows. When the
+     * changes occur, process the current state of the filter, sort, and pagination along with
+     * the provided base data and send it to the table for rendering.
+     * @return {?}
+     */
+    function () {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // Otherwise, use an empty observable stream to take their place.
@@ -502,10 +518,22 @@ var MatTableDataSource = (function () {
      * Returns a filtered data array where each filter object contains the filter string within
      * the result of the filterTermAccessor function. If no filter is set, returns the data array
      * as provided.
+     */
+    /**
+     * Returns a filtered data array where each filter object contains the filter string within
+     * the result of the filterTermAccessor function. If no filter is set, returns the data array
+     * as provided.
      * @param {?} data
      * @return {?}
      */
-    MatTableDataSource.prototype._filterData = function (data) {
+    MatTableDataSource.prototype._filterData = /**
+     * Returns a filtered data array where each filter object contains the filter string within
+     * the result of the filterTermAccessor function. If no filter is set, returns the data array
+     * as provided.
+     * @param {?} data
+     * @return {?}
+     */
+    function (data) {
         var _this = this;
         // If there is a filter string, filter out data that does not contain it.
         // Each data object is converted to a string using the function defined by filterTermAccessor.
@@ -520,10 +548,22 @@ var MatTableDataSource = (function () {
      * Returns a sorted copy of the data if MatSort has a sort applied, otherwise just returns the
      * data array as provided. Uses the default data accessor for data lookup, unless a
      * sortDataAccessor function is defined.
+     */
+    /**
+     * Returns a sorted copy of the data if MatSort has a sort applied, otherwise just returns the
+     * data array as provided. Uses the default data accessor for data lookup, unless a
+     * sortDataAccessor function is defined.
      * @param {?} data
      * @return {?}
      */
-    MatTableDataSource.prototype._orderData = function (data) {
+    MatTableDataSource.prototype._orderData = /**
+     * Returns a sorted copy of the data if MatSort has a sort applied, otherwise just returns the
+     * data array as provided. Uses the default data accessor for data lookup, unless a
+     * sortDataAccessor function is defined.
+     * @param {?} data
+     * @return {?}
+     */
+    function (data) {
         var _this = this;
         // If there is no active sort or direction, return the data without trying to sort.
         if (!this.sort || !this.sort.active || this.sort.direction == '') {
@@ -540,10 +580,20 @@ var MatTableDataSource = (function () {
     /**
      * Returns a paged splice of the provided data array according to the provided MatPaginator's page
      * index and length. If there is no paginator provided, returns the data array as provided.
+     */
+    /**
+     * Returns a paged splice of the provided data array according to the provided MatPaginator's page
+     * index and length. If there is no paginator provided, returns the data array as provided.
      * @param {?} data
      * @return {?}
      */
-    MatTableDataSource.prototype._pageData = function (data) {
+    MatTableDataSource.prototype._pageData = /**
+     * Returns a paged splice of the provided data array according to the provided MatPaginator's page
+     * index and length. If there is no paginator provided, returns the data array as provided.
+     * @param {?} data
+     * @return {?}
+     */
+    function (data) {
         if (!this.paginator) {
             return data;
         }
@@ -554,10 +604,22 @@ var MatTableDataSource = (function () {
      * Updates the paginator to reflect the length of the filtered data, and makes sure that the page
      * index does not exceed the paginator's last page. Values are changed in a resolved promise to
      * guard against making property changes within a round of change detection.
+     */
+    /**
+     * Updates the paginator to reflect the length of the filtered data, and makes sure that the page
+     * index does not exceed the paginator's last page. Values are changed in a resolved promise to
+     * guard against making property changes within a round of change detection.
      * @param {?} filteredDataLength
      * @return {?}
      */
-    MatTableDataSource.prototype._updatePaginator = function (filteredDataLength) {
+    MatTableDataSource.prototype._updatePaginator = /**
+     * Updates the paginator to reflect the length of the filtered data, and makes sure that the page
+     * index does not exceed the paginator's last page. Values are changed in a resolved promise to
+     * guard against making property changes within a round of change detection.
+     * @param {?} filteredDataLength
+     * @return {?}
+     */
+    function (filteredDataLength) {
         var _this = this;
         Promise.resolve().then(function () {
             if (!_this.paginator) {
@@ -573,16 +635,34 @@ var MatTableDataSource = (function () {
     };
     /**
      * Used by the MatTable. Called when it connects to the data source.
+     * @docs-private
+     */
+    /**
+     * Used by the MatTable. Called when it connects to the data source.
      * \@docs-private
      * @return {?}
      */
-    MatTableDataSource.prototype.connect = function () { return this._renderData; };
+    MatTableDataSource.prototype.connect = /**
+     * Used by the MatTable. Called when it connects to the data source.
+     * \@docs-private
+     * @return {?}
+     */
+    function () { return this._renderData; };
+    /**
+     * Used by the MatTable. Called when it is destroyed. No-op.
+     * @docs-private
+     */
     /**
      * Used by the MatTable. Called when it is destroyed. No-op.
      * \@docs-private
      * @return {?}
      */
-    MatTableDataSource.prototype.disconnect = function () { };
+    MatTableDataSource.prototype.disconnect = /**
+     * Used by the MatTable. Called when it is destroyed. No-op.
+     * \@docs-private
+     * @return {?}
+     */
+    function () { };
     return MatTableDataSource;
 }());
 

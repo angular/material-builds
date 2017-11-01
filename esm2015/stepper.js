@@ -18,6 +18,11 @@ import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
 const _MatStepLabel = CdkStepLabel;
@@ -34,12 +39,15 @@ MatStepLabel.decorators = [
                 selector: '[matStepLabel]',
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatStepLabel.ctorParameters = () => [
     { type: TemplateRef, },
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Stepper data that is required for internationalization.
@@ -60,10 +68,13 @@ class MatStepperIntl {
 MatStepperIntl.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatStepperIntl.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatStepHeader {
     /**
@@ -170,9 +181,7 @@ MatStepHeader.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatStepHeader.ctorParameters = () => [
     { type: MatStepperIntl, },
     { type: FocusMonitor, },
@@ -181,13 +190,18 @@ MatStepHeader.ctorParameters = () => [
     { type: ChangeDetectorRef, },
 ];
 MatStepHeader.propDecorators = {
-    'icon': [{ type: Input },],
-    'label': [{ type: Input },],
-    'index': [{ type: Input },],
-    'selected': [{ type: Input },],
-    'active': [{ type: Input },],
-    'optional': [{ type: Input },],
+    "icon": [{ type: Input },],
+    "label": [{ type: Input },],
+    "index": [{ type: Input },],
+    "selected": [{ type: Input },],
+    "active": [{ type: Input },],
+    "optional": [{ type: Input },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
@@ -228,15 +242,13 @@ MatStep.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatStep.ctorParameters = () => [
     { type: MatStepper, decorators: [{ type: Inject, args: [forwardRef(() => MatStepper),] },] },
     { type: ErrorStateMatcher, decorators: [{ type: SkipSelf },] },
 ];
 MatStep.propDecorators = {
-    'stepLabel': [{ type: ContentChild, args: [MatStepLabel,] },],
+    "stepLabel": [{ type: ContentChild, args: [MatStepLabel,] },],
 };
 class MatStepper extends _MatStepper {
 }
@@ -245,13 +257,11 @@ MatStepper.decorators = [
                 selector: '[matStepper]'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatStepper.ctorParameters = () => [];
 MatStepper.propDecorators = {
-    '_stepHeader': [{ type: ViewChildren, args: [MatStepHeader, { read: ElementRef },] },],
-    '_steps': [{ type: ContentChildren, args: [MatStep,] },],
+    "_stepHeader": [{ type: ViewChildren, args: [MatStepHeader, { read: ElementRef },] },],
+    "_steps": [{ type: ContentChildren, args: [MatStep,] },],
 };
 class MatHorizontalStepper extends MatStepper {
 }
@@ -279,9 +289,7 @@ MatHorizontalStepper.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatHorizontalStepper.ctorParameters = () => [];
 class MatVerticalStepper extends MatStepper {
 }
@@ -309,10 +317,13 @@ MatVerticalStepper.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatVerticalStepper.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
@@ -331,9 +342,7 @@ MatStepperNext.decorators = [
                 providers: [{ provide: CdkStepper, useExisting: MatStepper }]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatStepperNext.ctorParameters = () => [];
 /**
  * Button that moves to the previous step in a stepper workflow.
@@ -347,10 +356,13 @@ MatStepperPrevious.decorators = [
                 providers: [{ provide: CdkStepper, useExisting: MatStepper }]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatStepperPrevious.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatStepperModule {
 }
@@ -382,11 +394,18 @@ MatStepperModule.decorators = [
                 providers: [MatStepperIntl, ErrorStateMatcher],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatStepperModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

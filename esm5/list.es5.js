@@ -16,6 +16,10 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { SPACE } from '@angular/cdk/keycodes';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * \@docs-private
  */
 var MatListBase = (function () {
@@ -48,9 +52,7 @@ var MatListDivider = (function () {
                     }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatListDivider.ctorParameters = function () { return []; };
     return MatListDivider;
 }());
@@ -74,9 +76,7 @@ var MatList = (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatList.ctorParameters = function () { return []; };
     return MatList;
 }(_MatListMixinBase));
@@ -93,9 +93,7 @@ var MatListCssMatStyler = (function () {
                     host: { 'class': 'mat-list' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatListCssMatStyler.ctorParameters = function () { return []; };
     return MatListCssMatStyler;
 }());
@@ -112,9 +110,7 @@ var MatNavListCssMatStyler = (function () {
                     host: { 'class': 'mat-nav-list' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatNavListCssMatStyler.ctorParameters = function () { return []; };
     return MatNavListCssMatStyler;
 }());
@@ -131,9 +127,7 @@ var MatDividerCssMatStyler = (function () {
                     host: { 'class': 'mat-divider' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatDividerCssMatStyler.ctorParameters = function () { return []; };
     return MatDividerCssMatStyler;
 }());
@@ -150,9 +144,7 @@ var MatListAvatarCssMatStyler = (function () {
                     host: { 'class': 'mat-list-avatar' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatListAvatarCssMatStyler.ctorParameters = function () { return []; };
     return MatListAvatarCssMatStyler;
 }());
@@ -169,9 +161,7 @@ var MatListIconCssMatStyler = (function () {
                     host: { 'class': 'mat-list-icon' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatListIconCssMatStyler.ctorParameters = function () { return []; };
     return MatListIconCssMatStyler;
 }());
@@ -188,9 +178,7 @@ var MatListSubheaderCssMatStyler = (function () {
                     host: { 'class': 'mat-subheader' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatListSubheaderCssMatStyler.ctorParameters = function () { return []; };
     return MatListSubheaderCssMatStyler;
 }());
@@ -199,12 +187,6 @@ var MatListSubheaderCssMatStyler = (function () {
  */
 var MatListItem = (function (_super) {
     __extends(MatListItem, _super);
-    /**
-     * @param {?} _renderer
-     * @param {?} _element
-     * @param {?} _list
-     * @param {?} navList
-     */
     function MatListItem(_renderer, _element, _list, navList) {
         var _this = _super.call(this) || this;
         _this._renderer = _renderer;
@@ -215,11 +197,11 @@ var MatListItem = (function (_super) {
         return _this;
     }
     Object.defineProperty(MatListItem.prototype, "_hasAvatar", {
-        /**
+        set: /**
          * @param {?} avatar
          * @return {?}
          */
-        set: function (avatar) {
+        function (avatar) {
             if (avatar != null) {
                 this._renderer.addClass(this._element.nativeElement, 'mat-list-item-avatar');
             }
@@ -233,33 +215,52 @@ var MatListItem = (function (_super) {
     /**
      * @return {?}
      */
-    MatListItem.prototype.ngAfterContentInit = function () {
+    MatListItem.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
         this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
     };
+    /** Whether this list item should show a ripple effect when clicked.  */
     /**
      * Whether this list item should show a ripple effect when clicked.
      * @return {?}
      */
-    MatListItem.prototype._isRippleDisabled = function () {
+    MatListItem.prototype._isRippleDisabled = /**
+     * Whether this list item should show a ripple effect when clicked.
+     * @return {?}
+     */
+    function () {
         return !this._isNavList || this.disableRipple || this._list.disableRipple;
     };
     /**
      * @return {?}
      */
-    MatListItem.prototype._handleFocus = function () {
+    MatListItem.prototype._handleFocus = /**
+     * @return {?}
+     */
+    function () {
         this._renderer.addClass(this._element.nativeElement, 'mat-list-item-focus');
     };
     /**
      * @return {?}
      */
-    MatListItem.prototype._handleBlur = function () {
+    MatListItem.prototype._handleBlur = /**
+     * @return {?}
+     */
+    function () {
         this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-focus');
     };
+    /** Retrieves the DOM element of the component host. */
     /**
      * Retrieves the DOM element of the component host.
      * @return {?}
      */
-    MatListItem.prototype._getHostElement = function () {
+    MatListItem.prototype._getHostElement = /**
+     * Retrieves the DOM element of the component host.
+     * @return {?}
+     */
+    function () {
         return this._element.nativeElement;
     };
     MatListItem.decorators = [
@@ -278,9 +279,7 @@ var MatListItem = (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatListItem.ctorParameters = function () { return [
         { type: Renderer2, },
         { type: ElementRef, },
@@ -288,12 +287,16 @@ var MatListItem = (function (_super) {
         { type: MatNavListCssMatStyler, decorators: [{ type: Optional },] },
     ]; };
     MatListItem.propDecorators = {
-        '_lines': [{ type: ContentChildren, args: [MatLine,] },],
-        '_hasAvatar': [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] },],
+        "_lines": [{ type: ContentChildren, args: [MatLine,] },],
+        "_hasAvatar": [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] },],
     };
     return MatListItem;
 }(_MatListItemMixinBase));
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * \@docs-private
  */
@@ -327,12 +330,6 @@ var MatListOptionChange = (function () {
  */
 var MatListOption = (function (_super) {
     __extends(MatListOption, _super);
-    /**
-     * @param {?} _renderer
-     * @param {?} _element
-     * @param {?} _changeDetector
-     * @param {?} selectionList
-     */
     function MatListOption(_renderer, _element, _changeDetector, selectionList) {
         var _this = _super.call(this) || this;
         _this._renderer = _renderer;
@@ -355,32 +352,32 @@ var MatListOption = (function (_super) {
         return _this;
     }
     Object.defineProperty(MatListOption.prototype, "disabled", {
-        /**
+        get: /**
          * Whether the option is disabled.
          * @return {?}
          */
-        get: function () {
+        function () {
             return (this.selectionList && this.selectionList.disabled) || this._disabled;
         },
-        /**
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._disabled = coerceBooleanProperty(value); },
+        function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatListOption.prototype, "selected", {
-        /**
+        get: /**
          * Whether the option is selected.
          * @return {?}
          */
-        get: function () { return this.selectionList.selectedOptions.isSelected(this); },
-        /**
+        function () { return this.selectionList.selectedOptions.isSelected(this); },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             var /** @type {?} */ isSelected = coerceBooleanProperty(value);
             if (isSelected !== this.selected) {
                 this.selectionList.selectedOptions.toggle(this);
@@ -394,7 +391,10 @@ var MatListOption = (function (_super) {
     /**
      * @return {?}
      */
-    MatListOption.prototype.ngOnInit = function () {
+    MatListOption.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
         if (this.selected) {
             this.selectionList.selectedOptions.select(this);
         }
@@ -402,40 +402,64 @@ var MatListOption = (function (_super) {
     /**
      * @return {?}
      */
-    MatListOption.prototype.ngAfterContentInit = function () {
+    MatListOption.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
         this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
     };
     /**
      * @return {?}
      */
-    MatListOption.prototype.ngOnDestroy = function () {
+    MatListOption.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
         this.selectionList._removeOptionFromList(this);
     };
+    /** Toggles the selection state of the option. */
     /**
      * Toggles the selection state of the option.
      * @return {?}
      */
-    MatListOption.prototype.toggle = function () {
+    MatListOption.prototype.toggle = /**
+     * Toggles the selection state of the option.
+     * @return {?}
+     */
+    function () {
         this.selected = !this.selected;
     };
+    /** Allows for programmatic focusing of the option. */
     /**
      * Allows for programmatic focusing of the option.
      * @return {?}
      */
-    MatListOption.prototype.focus = function () {
+    MatListOption.prototype.focus = /**
+     * Allows for programmatic focusing of the option.
+     * @return {?}
+     */
+    function () {
         this._element.nativeElement.focus();
     };
+    /** Whether this list item should show a ripple effect when clicked.  */
     /**
      * Whether this list item should show a ripple effect when clicked.
      * @return {?}
      */
-    MatListOption.prototype._isRippleDisabled = function () {
+    MatListOption.prototype._isRippleDisabled = /**
+     * Whether this list item should show a ripple effect when clicked.
+     * @return {?}
+     */
+    function () {
         return this.disabled || this.disableRipple || this.selectionList.disableRipple;
     };
     /**
      * @return {?}
      */
-    MatListOption.prototype._handleClick = function () {
+    MatListOption.prototype._handleClick = /**
+     * @return {?}
+     */
+    function () {
         if (!this.disabled) {
             this.toggle();
         }
@@ -443,7 +467,10 @@ var MatListOption = (function (_super) {
     /**
      * @return {?}
      */
-    MatListOption.prototype._handleFocus = function () {
+    MatListOption.prototype._handleFocus = /**
+     * @return {?}
+     */
+    function () {
         this._hasFocus = true;
         this.selectionList._setFocusedOption(this);
     };
@@ -452,18 +479,28 @@ var MatListOption = (function (_super) {
      * @param {?=} option
      * @return {?}
      */
-    MatListOption.prototype._createChangeEvent = function (option) {
+    MatListOption.prototype._createChangeEvent = /**
+     * Creates a selection event object from the specified option.
+     * @param {?=} option
+     * @return {?}
+     */
+    function (option) {
         if (option === void 0) { option = this; }
         var /** @type {?} */ event = new MatListOptionChange();
         event.source = option;
         event.selected = option.selected;
         return event;
     };
+    /** Retrieves the DOM element of the component host. */
     /**
      * Retrieves the DOM element of the component host.
      * @return {?}
      */
-    MatListOption.prototype._getHostElement = function () {
+    MatListOption.prototype._getHostElement = /**
+     * Retrieves the DOM element of the component host.
+     * @return {?}
+     */
+    function () {
         return this._element.nativeElement;
     };
     MatListOption.decorators = [
@@ -488,9 +525,7 @@ var MatListOption = (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatListOption.ctorParameters = function () { return [
         { type: Renderer2, },
         { type: ElementRef, },
@@ -498,12 +533,12 @@ var MatListOption = (function (_super) {
         { type: MatSelectionList, decorators: [{ type: Optional }, { type: Inject, args: [forwardRef(function () { return MatSelectionList; }),] },] },
     ]; };
     MatListOption.propDecorators = {
-        '_lines': [{ type: ContentChildren, args: [MatLine,] },],
-        'checkboxPosition': [{ type: Input },],
-        'disabled': [{ type: Input },],
-        'value': [{ type: Input },],
-        'selected': [{ type: Input },],
-        'selectionChange': [{ type: Output },],
+        "_lines": [{ type: ContentChildren, args: [MatLine,] },],
+        "checkboxPosition": [{ type: Input },],
+        "disabled": [{ type: Input },],
+        "value": [{ type: Input },],
+        "selected": [{ type: Input },],
+        "selectionChange": [{ type: Output },],
     };
     return MatListOption;
 }(_MatListOptionMixinBase));
@@ -512,10 +547,6 @@ var MatListOption = (function (_super) {
  */
 var MatSelectionList = (function (_super) {
     __extends(MatSelectionList, _super);
-    /**
-     * @param {?} _element
-     * @param {?} tabIndex
-     */
     function MatSelectionList(_element, tabIndex) {
         var _this = _super.call(this) || this;
         _this._element = _element;
@@ -529,52 +560,82 @@ var MatSelectionList = (function (_super) {
     /**
      * @return {?}
      */
-    MatSelectionList.prototype.ngAfterContentInit = function () {
+    MatSelectionList.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
         this._keyManager = new FocusKeyManager(this.options).withWrap();
     };
+    /** Focus the selection-list. */
     /**
      * Focus the selection-list.
      * @return {?}
      */
-    MatSelectionList.prototype.focus = function () {
+    MatSelectionList.prototype.focus = /**
+     * Focus the selection-list.
+     * @return {?}
+     */
+    function () {
         this._element.nativeElement.focus();
     };
+    /** Selects all of the options. */
     /**
      * Selects all of the options.
      * @return {?}
      */
-    MatSelectionList.prototype.selectAll = function () {
+    MatSelectionList.prototype.selectAll = /**
+     * Selects all of the options.
+     * @return {?}
+     */
+    function () {
         this.options.forEach(function (option) {
             if (!option.selected) {
                 option.toggle();
             }
         });
     };
+    /** Deselects all of the options. */
     /**
      * Deselects all of the options.
      * @return {?}
      */
-    MatSelectionList.prototype.deselectAll = function () {
+    MatSelectionList.prototype.deselectAll = /**
+     * Deselects all of the options.
+     * @return {?}
+     */
+    function () {
         this.options.forEach(function (option) {
             if (option.selected) {
                 option.toggle();
             }
         });
     };
+    /** Sets the focused option of the selection-list. */
     /**
      * Sets the focused option of the selection-list.
      * @param {?} option
      * @return {?}
      */
-    MatSelectionList.prototype._setFocusedOption = function (option) {
+    MatSelectionList.prototype._setFocusedOption = /**
+     * Sets the focused option of the selection-list.
+     * @param {?} option
+     * @return {?}
+     */
+    function (option) {
         this._keyManager.updateActiveItemIndex(this._getOptionIndex(option));
     };
+    /** Removes an option from the selection list and updates the active item. */
     /**
      * Removes an option from the selection list and updates the active item.
      * @param {?} option
      * @return {?}
      */
-    MatSelectionList.prototype._removeOptionFromList = function (option) {
+    MatSelectionList.prototype._removeOptionFromList = /**
+     * Removes an option from the selection list and updates the active item.
+     * @param {?} option
+     * @return {?}
+     */
+    function (option) {
         if (option._hasFocus) {
             var /** @type {?} */ optionIndex = this._getOptionIndex(option);
             // Check whether the option is the last item
@@ -586,12 +647,18 @@ var MatSelectionList = (function (_super) {
             }
         }
     };
+    /** Passes relevant key presses to our key manager. */
     /**
      * Passes relevant key presses to our key manager.
      * @param {?} event
      * @return {?}
      */
-    MatSelectionList.prototype._keydown = function (event) {
+    MatSelectionList.prototype._keydown = /**
+     * Passes relevant key presses to our key manager.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         switch (event.keyCode) {
             case SPACE:
                 this._toggleSelectOnFocusedOption();
@@ -606,7 +673,11 @@ var MatSelectionList = (function (_super) {
      * Toggles the selected state of the currently focused option.
      * @return {?}
      */
-    MatSelectionList.prototype._toggleSelectOnFocusedOption = function () {
+    MatSelectionList.prototype._toggleSelectOnFocusedOption = /**
+     * Toggles the selected state of the currently focused option.
+     * @return {?}
+     */
+    function () {
         var /** @type {?} */ focusedIndex = this._keyManager.activeItemIndex;
         if (focusedIndex != null && this._isValidIndex(focusedIndex)) {
             var /** @type {?} */ focusedOption = this.options.toArray()[focusedIndex];
@@ -621,7 +692,13 @@ var MatSelectionList = (function (_super) {
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of options.
      */
-    MatSelectionList.prototype._isValidIndex = function (index) {
+    MatSelectionList.prototype._isValidIndex = /**
+     * Utility to ensure all indexes are valid.
+     *
+     * @param {?} index The index to be checked.
+     * @return {?} True if the index is valid for our list of options.
+     */
+    function (index) {
         return index >= 0 && index < this.options.length;
     };
     /**
@@ -629,7 +706,12 @@ var MatSelectionList = (function (_super) {
      * @param {?} option
      * @return {?}
      */
-    MatSelectionList.prototype._getOptionIndex = function (option) {
+    MatSelectionList.prototype._getOptionIndex = /**
+     * Returns the index of the specified list option.
+     * @param {?} option
+     * @return {?}
+     */
+    function (option) {
         return this.options.toArray().indexOf(option);
     };
     MatSelectionList.decorators = [
@@ -651,18 +733,21 @@ var MatSelectionList = (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSelectionList.ctorParameters = function () { return [
         { type: ElementRef, },
         { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
     ]; };
     MatSelectionList.propDecorators = {
-        'options': [{ type: ContentChildren, args: [MatListOption,] },],
+        "options": [{ type: ContentChildren, args: [MatListOption,] },],
     };
     return MatSelectionList;
 }(_MatSelectionListMixinBase));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatListModule = (function () {
     function MatListModule() {
@@ -701,13 +786,20 @@ var MatListModule = (function () {
                     ],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatListModule.ctorParameters = function () { return []; };
     return MatListModule;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

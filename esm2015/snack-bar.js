@@ -18,6 +18,10 @@ import { first } from 'rxjs/operators/first';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Reference to a snack bar dispatched from the snack bar service.
  */
 class MatSnackBarRef {
@@ -114,6 +118,11 @@ class MatSnackBarRef {
     }
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 const MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
@@ -150,6 +159,11 @@ class MatSnackBarConfig {
         this.verticalPosition = 'bottom';
     }
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * A component used to open as the default snack bar, matching material spec.
@@ -200,13 +214,16 @@ SimpleSnackBar.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 SimpleSnackBar.ctorParameters = () => [
     { type: MatSnackBarRef, },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DATA,] },] },
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 const SHOW_ANIMATION = `${AnimationDurations.ENTERING} ${AnimationCurves.DECELERATION_CURVE}`;
 const HIDE_ANIMATION = `${AnimationDurations.EXITING} ${AnimationCurves.ACCELERATION_CURVE}`;
@@ -376,9 +393,7 @@ MatSnackBarContainer.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSnackBarContainer.ctorParameters = () => [
     { type: NgZone, },
     { type: Renderer2, },
@@ -386,8 +401,13 @@ MatSnackBarContainer.ctorParameters = () => [
     { type: ChangeDetectorRef, },
 ];
 MatSnackBarContainer.propDecorators = {
-    '_portalOutlet': [{ type: ViewChild, args: [CdkPortalOutlet,] },],
+    "_portalOutlet": [{ type: ViewChild, args: [CdkPortalOutlet,] },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Service to dispatch Material Design snack bar messages.
@@ -466,7 +486,7 @@ class MatSnackBar {
         }
         // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
         if (_config.duration && _config.duration > 0) {
-            snackBarRef.afterOpened().subscribe(() => snackBarRef._dismissAfter(/** @type {?} */ ((((_config)).duration))));
+            snackBarRef.afterOpened().subscribe(() => snackBarRef._dismissAfter(/** @type {?} */ ((/** @type {?} */ ((_config)).duration))));
         }
         if (_config.announcementMessage) {
             this._live.announce(_config.announcementMessage, _config.politeness);
@@ -591,9 +611,7 @@ class MatSnackBar {
 MatSnackBar.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSnackBar.ctorParameters = () => [
     { type: Overlay, },
     { type: LiveAnnouncer, },
@@ -609,6 +627,11 @@ MatSnackBar.ctorParameters = () => [
 function _applyConfigDefaults(config) {
     return extendObject(new MatSnackBarConfig(), config);
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatSnackBarModule {
 }
@@ -627,11 +650,18 @@ MatSnackBarModule.decorators = [
                 providers: [MatSnackBar, LIVE_ANNOUNCER_PROVIDER]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSnackBarModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

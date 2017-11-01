@@ -27,6 +27,10 @@ import { merge } from 'rxjs/observable/merge';
 import { of } from 'rxjs/observable/of';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * \@docs-private
  * @param {?} provider
  * @return {?}
@@ -36,6 +40,11 @@ function createMissingDateImplError(provider) {
         `modules at your application root: MatNativeDateModule, MatMomentDateModule, or provide a ` +
         `custom implementation.`);
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Datepicker data that requires internationalization.
@@ -84,10 +93,13 @@ class MatDatepickerIntl {
 MatDatepickerIntl.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDatepickerIntl.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * An internal class that represents the data corresponding to a single calendar cell.
@@ -179,22 +191,25 @@ MatCalendarBody.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatCalendarBody.ctorParameters = () => [];
 MatCalendarBody.propDecorators = {
-    'label': [{ type: Input },],
-    'rows': [{ type: Input },],
-    'todayValue': [{ type: Input },],
-    'selectedValue': [{ type: Input },],
-    'labelMinRequiredCells': [{ type: Input },],
-    'numCols': [{ type: Input },],
-    'allowDisabledSelection': [{ type: Input },],
-    'activeCell': [{ type: Input },],
-    'cellAspectRatio': [{ type: Input },],
-    'selectedValueChange': [{ type: Output },],
+    "label": [{ type: Input },],
+    "rows": [{ type: Input },],
+    "todayValue": [{ type: Input },],
+    "selectedValue": [{ type: Input },],
+    "labelMinRequiredCells": [{ type: Input },],
+    "numCols": [{ type: Input },],
+    "allowDisabledSelection": [{ type: Input },],
+    "activeCell": [{ type: Input },],
+    "cellAspectRatio": [{ type: Input },],
+    "selectedValueChange": [{ type: Output },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 const DAYS_PER_WEEK = 7;
 /**
@@ -225,11 +240,11 @@ class MatMonthView {
         if (!this._dateFormats) {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
-        const firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
-        const narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
-        const longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
+        const /** @type {?} */ firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
+        const /** @type {?} */ narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
+        const /** @type {?} */ longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
         // Rotate the labels for days of the week based on the configured first day of the week.
-        let weekdays = longWeekdays.map((long, i) => {
+        let /** @type {?} */ weekdays = longWeekdays.map((long, i) => {
             return { long, narrow: narrowWeekdays[i] };
         });
         this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
@@ -359,21 +374,24 @@ MatMonthView.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatMonthView.ctorParameters = () => [
     { type: DateAdapter, decorators: [{ type: Optional },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] },] },
     { type: ChangeDetectorRef, },
 ];
 MatMonthView.propDecorators = {
-    'activeDate': [{ type: Input },],
-    'selected': [{ type: Input },],
-    'dateFilter': [{ type: Input },],
-    'selectedChange': [{ type: Output },],
-    '_userSelection': [{ type: Output },],
+    "activeDate": [{ type: Input },],
+    "selected": [{ type: Input },],
+    "dateFilter": [{ type: Input },],
+    "selectedChange": [{ type: Output },],
+    "_userSelection": [{ type: Output },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * An internal component used to display a single year in the datepicker.
@@ -513,20 +531,23 @@ MatYearView.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatYearView.ctorParameters = () => [
     { type: DateAdapter, decorators: [{ type: Optional },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] },] },
     { type: ChangeDetectorRef, },
 ];
 MatYearView.propDecorators = {
-    'activeDate': [{ type: Input },],
-    'selected': [{ type: Input },],
-    'dateFilter': [{ type: Input },],
-    'selectedChange': [{ type: Output },],
+    "activeDate": [{ type: Input },],
+    "selected": [{ type: Input },],
+    "dateFilter": [{ type: Input },],
+    "selectedChange": [{ type: Output },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * A calendar that is used as part of the datepicker.
@@ -686,7 +707,7 @@ class MatCalendar {
      * @return {?}
      */
     ngOnChanges(changes) {
-        const /** @type {?} */ change = changes.minDate || changes.maxDate || changes.dateFilter;
+        const /** @type {?} */ change = changes["minDate"] || changes["maxDate"] || changes["dateFilter"];
         if (change && !change.firstChange) {
             const /** @type {?} */ view = this.monthView || this.yearView;
             if (view) {
@@ -941,9 +962,7 @@ MatCalendar.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatCalendar.ctorParameters = () => [
     { type: ElementRef, },
     { type: MatDatepickerIntl, },
@@ -953,17 +972,22 @@ MatCalendar.ctorParameters = () => [
     { type: ChangeDetectorRef, },
 ];
 MatCalendar.propDecorators = {
-    'startAt': [{ type: Input },],
-    'startView': [{ type: Input },],
-    'selected': [{ type: Input },],
-    'minDate': [{ type: Input },],
-    'maxDate': [{ type: Input },],
-    'dateFilter': [{ type: Input },],
-    'selectedChange': [{ type: Output },],
-    '_userSelection': [{ type: Output },],
-    'monthView': [{ type: ViewChild, args: [MatMonthView,] },],
-    'yearView': [{ type: ViewChild, args: [MatYearView,] },],
+    "startAt": [{ type: Input },],
+    "startView": [{ type: Input },],
+    "selected": [{ type: Input },],
+    "minDate": [{ type: Input },],
+    "maxDate": [{ type: Input },],
+    "dateFilter": [{ type: Input },],
+    "selectedChange": [{ type: Output },],
+    "_userSelection": [{ type: Output },],
+    "monthView": [{ type: ViewChild, args: [MatMonthView,] },],
+    "yearView": [{ type: ViewChild, args: [MatYearView,] },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Used to generate a unique ID for each datepicker instance.
@@ -1030,12 +1054,10 @@ MatDatepickerContent.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDatepickerContent.ctorParameters = () => [];
 MatDatepickerContent.propDecorators = {
-    '_calendar': [{ type: ViewChild, args: [MatCalendar,] },],
+    "_calendar": [{ type: ViewChild, args: [MatCalendar,] },],
 };
 /**
  * Component responsible for managing the datepicker popup/dialog.
@@ -1316,9 +1338,7 @@ MatDatepicker.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDatepicker.ctorParameters = () => [
     { type: MatDialog, },
     { type: Overlay, },
@@ -1330,13 +1350,18 @@ MatDatepicker.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MatDatepicker.propDecorators = {
-    'startAt': [{ type: Input },],
-    'startView': [{ type: Input },],
-    'touchUi': [{ type: Input },],
-    'disabled': [{ type: Input },],
-    'selectedChanged': [{ type: Output },],
-    'panelClass': [{ type: Input },],
+    "startAt": [{ type: Input },],
+    "startView": [{ type: Input },],
+    "touchUi": [{ type: Input },],
+    "disabled": [{ type: Input },],
+    "selectedChanged": [{ type: Output },],
+    "panelClass": [{ type: Input },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 const MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
@@ -1413,7 +1438,7 @@ class MatDatepickerInput {
          * The form control validator for the min date.
          */
         this._minValidator = (control) => {
-            const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+            const /** @type {?} */ controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             return (!this.min || !controlValue ||
                 this._dateAdapter.compareDate(this.min, controlValue) <= 0) ?
                 null : { 'matDatepickerMin': { 'min': this.min, 'actual': controlValue } };
@@ -1422,7 +1447,7 @@ class MatDatepickerInput {
          * The form control validator for the max date.
          */
         this._maxValidator = (control) => {
-            const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+            const /** @type {?} */ controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             return (!this.max || !controlValue ||
                 this._dateAdapter.compareDate(this.max, controlValue) >= 0) ?
                 null : { 'matDatepickerMax': { 'max': this.max, 'actual': controlValue } };
@@ -1431,7 +1456,7 @@ class MatDatepickerInput {
          * The form control validator for the date filter.
          */
         this._filterValidator = (control) => {
-            const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+            const /** @type {?} */ controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             return !this._dateFilter || !controlValue || this._dateFilter(controlValue) ?
                 null : { 'matDatepickerFilter': true };
         };
@@ -1672,9 +1697,7 @@ MatDatepickerInput.decorators = [
                 exportAs: 'matDatepickerInput',
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDatepickerInput.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer2, },
@@ -1683,15 +1706,20 @@ MatDatepickerInput.ctorParameters = () => [
     { type: MatFormField, decorators: [{ type: Optional },] },
 ];
 MatDatepickerInput.propDecorators = {
-    'matDatepicker': [{ type: Input },],
-    'matDatepickerFilter': [{ type: Input },],
-    'value': [{ type: Input },],
-    'min': [{ type: Input },],
-    'max': [{ type: Input },],
-    'disabled': [{ type: Input },],
-    'dateChange': [{ type: Output },],
-    'dateInput': [{ type: Output },],
+    "matDatepicker": [{ type: Input },],
+    "matDatepickerFilter": [{ type: Input },],
+    "value": [{ type: Input },],
+    "min": [{ type: Input },],
+    "max": [{ type: Input },],
+    "disabled": [{ type: Input },],
+    "dateChange": [{ type: Output },],
+    "dateInput": [{ type: Output },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatDatepickerToggle {
     /**
@@ -1722,7 +1750,7 @@ class MatDatepickerToggle {
      * @return {?}
      */
     ngOnChanges(changes) {
-        if (changes.datepicker) {
+        if (changes["datepicker"]) {
             this._watchStateChanges();
         }
     }
@@ -1762,7 +1790,7 @@ class MatDatepickerToggle {
 }
 MatDatepickerToggle.decorators = [
     { type: Component, args: [{selector: 'mat-datepicker-toggle',
-                template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
+                template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
                 host: {
                     'class': 'mat-datepicker-toggle',
                 },
@@ -1771,17 +1799,20 @@ MatDatepickerToggle.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDatepickerToggle.ctorParameters = () => [
     { type: MatDatepickerIntl, },
     { type: ChangeDetectorRef, },
 ];
 MatDatepickerToggle.propDecorators = {
-    'datepicker': [{ type: Input, args: ['for',] },],
-    'disabled': [{ type: Input },],
+    "datepicker": [{ type: Input, args: ['for',] },],
+    "disabled": [{ type: Input },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatDatepickerModule {
 }
@@ -1824,11 +1855,18 @@ MatDatepickerModule.decorators = [
                 ]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDatepickerModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

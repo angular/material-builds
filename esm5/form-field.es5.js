@@ -15,6 +15,11 @@ import { startWith } from 'rxjs/operators/startWith';
 import { MAT_PLACEHOLDER_GLOBAL_OPTIONS } from '@angular/material/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 var nextUniqueId = 0;
 /**
  * Single error message to be shown underneath the form field.
@@ -33,16 +38,18 @@ var MatError = (function () {
                     }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatError.ctorParameters = function () { return []; };
     MatError.propDecorators = {
-        'id': [{ type: Input },],
+        "id": [{ type: Input },],
     };
     return MatError;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
@@ -50,23 +57,13 @@ var MatError = (function () {
 var MatFormFieldControl = (function () {
     function MatFormFieldControl() {
     }
-    /**
-     * Sets the list of element IDs that currently describe this control.
-     * @abstract
-     * @param {?} ids
-     * @return {?}
-     */
-    MatFormFieldControl.prototype.setDescribedByIds = function (ids) { };
-    /**
-     * Handles a click on the control's container.
-     * @abstract
-     * @param {?} event
-     * @return {?}
-     */
-    MatFormFieldControl.prototype.onContainerClick = function (event) { };
     return MatFormFieldControl;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * \@docs-private
  * @return {?}
@@ -89,6 +86,11 @@ function getMatFormFieldDuplicatedHintError(align) {
 function getMatFormFieldMissingControlError() {
     return Error('mat-form-field must contain a MatFormFieldControl.');
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var nextUniqueId$2 = 0;
 /**
@@ -117,16 +119,19 @@ var MatHint = (function () {
                     }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatHint.ctorParameters = function () { return []; };
     MatHint.propDecorators = {
-        'align': [{ type: Input },],
-        'id': [{ type: Input },],
+        "align": [{ type: Input },],
+        "id": [{ type: Input },],
     };
     return MatHint;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * The floating placeholder for an `MatFormField`.
@@ -139,12 +144,15 @@ var MatPlaceholder = (function () {
                     selector: 'mat-placeholder'
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatPlaceholder.ctorParameters = function () { return []; };
     return MatPlaceholder;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Prefix to be placed the the front of the form field.
@@ -157,12 +165,15 @@ var MatPrefix = (function () {
                     selector: '[matPrefix]',
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatPrefix.ctorParameters = function () { return []; };
     return MatPrefix;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Suffix to be placed at the end of the form field.
@@ -175,24 +186,21 @@ var MatSuffix = (function () {
                     selector: '[matSuffix]',
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSuffix.ctorParameters = function () { return []; };
     return MatSuffix;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var nextUniqueId$1 = 0;
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
 var MatFormField = (function () {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _renderer
-     * @param {?} _changeDetectorRef
-     * @param {?} placeholderOptions
-     */
     function MatFormField(_elementRef, _renderer, _changeDetectorRef, placeholderOptions) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
@@ -216,66 +224,68 @@ var MatFormField = (function () {
         this.floatPlaceholder = this._placeholderOptions.float || 'auto';
     }
     Object.defineProperty(MatFormField.prototype, "dividerColor", {
-        /**
+        get: /**
          * @deprecated Use `color` instead.
          * @return {?}
          */
-        get: function () { return this.color; },
-        /**
+        function () { return this.color; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this.color = value; },
+        function (value) { this.color = value; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatFormField.prototype, "hideRequiredMarker", {
-        /**
+        get: /**
          * Whether the required marker should be hidden.
          * @return {?}
          */
-        get: function () { return this._hideRequiredMarker; },
-        /**
+        function () { return this._hideRequiredMarker; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._hideRequiredMarker = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatFormField.prototype, "_shouldAlwaysFloat", {
-        /**
+        /** Whether the floating label should always float or not. */
+        get: /**
          * Whether the floating label should always float or not.
          * @return {?}
          */
-        get: function () {
+        function () {
             return this._floatPlaceholder === 'always' && !this._showAlwaysAnimate;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatFormField.prototype, "_canPlaceholderFloat", {
-        /**
+        /** Whether the placeholder can float or not. */
+        get: /**
          * Whether the placeholder can float or not.
          * @return {?}
          */
-        get: function () { return this._floatPlaceholder !== 'never'; },
+        function () { return this._floatPlaceholder !== 'never'; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatFormField.prototype, "hintLabel", {
-        /**
+        get: /**
          * Text for the form field hint.
          * @return {?}
          */
-        get: function () { return this._hintLabel; },
-        /**
+        function () { return this._hintLabel; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._hintLabel = value;
             this._processHints();
         },
@@ -283,16 +293,16 @@ var MatFormField = (function () {
         configurable: true
     });
     Object.defineProperty(MatFormField.prototype, "floatPlaceholder", {
-        /**
+        get: /**
          * Whether the placeholder should always float, never float or float as the user types.
          * @return {?}
          */
-        get: function () { return this._floatPlaceholder; },
-        /**
+        function () { return this._floatPlaceholder; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             if (value !== this._floatPlaceholder) {
                 this._floatPlaceholder = value || this._placeholderOptions.float || 'auto';
                 this._changeDetectorRef.markForCheck();
@@ -304,7 +314,10 @@ var MatFormField = (function () {
     /**
      * @return {?}
      */
-    MatFormField.prototype.ngAfterContentInit = function () {
+    MatFormField.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
         var _this = this;
         this._validateControlChild();
         if (this._control.controlType) {
@@ -336,46 +349,73 @@ var MatFormField = (function () {
     /**
      * @return {?}
      */
-    MatFormField.prototype.ngAfterContentChecked = function () {
+    MatFormField.prototype.ngAfterContentChecked = /**
+     * @return {?}
+     */
+    function () {
         this._validateControlChild();
     };
     /**
      * @return {?}
      */
-    MatFormField.prototype.ngAfterViewInit = function () {
+    MatFormField.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
         // Avoid animations on load.
         this._subscriptAnimationState = 'enter';
         this._changeDetectorRef.detectChanges();
     };
+    /** Determines whether a class from the NgControl should be forwarded to the host element. */
     /**
      * Determines whether a class from the NgControl should be forwarded to the host element.
      * @param {?} prop
      * @return {?}
      */
-    MatFormField.prototype._shouldForward = function (prop) {
+    MatFormField.prototype._shouldForward = /**
+     * Determines whether a class from the NgControl should be forwarded to the host element.
+     * @param {?} prop
+     * @return {?}
+     */
+    function (prop) {
         var /** @type {?} */ ngControl = this._control ? this._control.ngControl : null;
-        return ngControl && ((ngControl))[prop];
+        return ngControl && (/** @type {?} */ (ngControl))[prop];
     };
+    /** Whether the form field has a placeholder. */
     /**
      * Whether the form field has a placeholder.
      * @return {?}
      */
-    MatFormField.prototype._hasPlaceholder = function () {
+    MatFormField.prototype._hasPlaceholder = /**
+     * Whether the form field has a placeholder.
+     * @return {?}
+     */
+    function () {
         return !!(this._control.placeholder || this._placeholderChild);
     };
+    /** Determines whether to display hints or errors. */
     /**
      * Determines whether to display hints or errors.
      * @return {?}
      */
-    MatFormField.prototype._getDisplayedMessages = function () {
+    MatFormField.prototype._getDisplayedMessages = /**
+     * Determines whether to display hints or errors.
+     * @return {?}
+     */
+    function () {
         return (this._errorChildren && this._errorChildren.length > 0 &&
             this._control.errorState) ? 'error' : 'hint';
     };
+    /** Animates the placeholder up and locks it in position. */
     /**
      * Animates the placeholder up and locks it in position.
      * @return {?}
      */
-    MatFormField.prototype._animateAndLockPlaceholder = function () {
+    MatFormField.prototype._animateAndLockPlaceholder = /**
+     * Animates the placeholder up and locks it in position.
+     * @return {?}
+     */
+    function () {
         var _this = this;
         if (this._placeholder && this._canPlaceholderFloat) {
             this._showAlwaysAnimate = true;
@@ -391,7 +431,12 @@ var MatFormField = (function () {
      * or child element with the `mat-placeholder` directive).
      * @return {?}
      */
-    MatFormField.prototype._validatePlaceholders = function () {
+    MatFormField.prototype._validatePlaceholders = /**
+     * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
+     * or child element with the `mat-placeholder` directive).
+     * @return {?}
+     */
+    function () {
         if (this._control.placeholder && this._placeholderChild) {
             throw getMatFormFieldPlaceholderConflictError();
         }
@@ -400,7 +445,11 @@ var MatFormField = (function () {
      * Does any extra processing that is required when handling the hints.
      * @return {?}
      */
-    MatFormField.prototype._processHints = function () {
+    MatFormField.prototype._processHints = /**
+     * Does any extra processing that is required when handling the hints.
+     * @return {?}
+     */
+    function () {
         this._validateHints();
         this._syncDescribedByIds();
     };
@@ -409,7 +458,12 @@ var MatFormField = (function () {
      * attribute being considered as `align="start"`.
      * @return {?}
      */
-    MatFormField.prototype._validateHints = function () {
+    MatFormField.prototype._validateHints = /**
+     * Ensure that there is a maximum of one of each `<mat-hint>` alignment specified, with the
+     * attribute being considered as `align="start"`.
+     * @return {?}
+     */
+    function () {
         var _this = this;
         if (this._hintChildren) {
             var /** @type {?} */ startHint_1;
@@ -435,7 +489,12 @@ var MatFormField = (function () {
      * its `aria-describedby` attribute accordingly.
      * @return {?}
      */
-    MatFormField.prototype._syncDescribedByIds = function () {
+    MatFormField.prototype._syncDescribedByIds = /**
+     * Sets the list of element IDs that describe the child control. This allows the control to update
+     * its `aria-describedby` attribute accordingly.
+     * @return {?}
+     */
+    function () {
         if (this._control) {
             var /** @type {?} */ ids = [];
             if (this._getDisplayedMessages() === 'hint') {
@@ -459,11 +518,16 @@ var MatFormField = (function () {
             this._control.setDescribedByIds(ids);
         }
     };
+    /** Throws an error if the form field's control is missing. */
     /**
      * Throws an error if the form field's control is missing.
      * @return {?}
      */
-    MatFormField.prototype._validateControlChild = function () {
+    MatFormField.prototype._validateControlChild = /**
+     * Throws an error if the form field's control is missing.
+     * @return {?}
+     */
+    function () {
         if (!this._control) {
             throw getMatFormFieldMissingControlError();
         }
@@ -511,9 +575,7 @@ var MatFormField = (function () {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatFormField.ctorParameters = function () { return [
         { type: ElementRef, },
         { type: Renderer2, },
@@ -521,23 +583,28 @@ var MatFormField = (function () {
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
     ]; };
     MatFormField.propDecorators = {
-        'color': [{ type: Input },],
-        'dividerColor': [{ type: Input },],
-        'hideRequiredMarker': [{ type: Input },],
-        'hintLabel': [{ type: Input },],
-        'floatPlaceholder': [{ type: Input },],
-        'underlineRef': [{ type: ViewChild, args: ['underline',] },],
-        '_connectionContainerRef': [{ type: ViewChild, args: ['connectionContainer',] },],
-        '_placeholder': [{ type: ViewChild, args: ['placeholder',] },],
-        '_control': [{ type: ContentChild, args: [MatFormFieldControl,] },],
-        '_placeholderChild': [{ type: ContentChild, args: [MatPlaceholder,] },],
-        '_errorChildren': [{ type: ContentChildren, args: [MatError,] },],
-        '_hintChildren': [{ type: ContentChildren, args: [MatHint,] },],
-        '_prefixChildren': [{ type: ContentChildren, args: [MatPrefix,] },],
-        '_suffixChildren': [{ type: ContentChildren, args: [MatSuffix,] },],
+        "color": [{ type: Input },],
+        "dividerColor": [{ type: Input },],
+        "hideRequiredMarker": [{ type: Input },],
+        "hintLabel": [{ type: Input },],
+        "floatPlaceholder": [{ type: Input },],
+        "underlineRef": [{ type: ViewChild, args: ['underline',] },],
+        "_connectionContainerRef": [{ type: ViewChild, args: ['connectionContainer',] },],
+        "_placeholder": [{ type: ViewChild, args: ['placeholder',] },],
+        "_control": [{ type: ContentChild, args: [MatFormFieldControl,] },],
+        "_placeholderChild": [{ type: ContentChild, args: [MatPlaceholder,] },],
+        "_errorChildren": [{ type: ContentChildren, args: [MatError,] },],
+        "_hintChildren": [{ type: ContentChildren, args: [MatHint,] },],
+        "_prefixChildren": [{ type: ContentChildren, args: [MatPrefix,] },],
+        "_suffixChildren": [{ type: ContentChildren, args: [MatSuffix,] },],
     };
     return MatFormField;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatFormFieldModule = (function () {
     function MatFormFieldModule() {
@@ -566,13 +633,20 @@ var MatFormFieldModule = (function () {
                     ],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatFormFieldModule.ctorParameters = function () { return []; };
     return MatFormFieldModule;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

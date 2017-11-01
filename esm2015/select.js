@@ -21,9 +21,15 @@ import { takeUntil } from 'rxjs/operators/takeUntil';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * This animation transforms the select's overlay panel on and off the page.
@@ -38,11 +44,13 @@ const transformPanel = trigger('transformPanel', [
     state('showing', style({
         opacity: 1,
         minWidth: 'calc(100% + 32px)',
+        // 32px = 2 * 16px padding
         transform: 'scaleY(1)'
     })),
     state('showing-multiple', style({
         opacity: 1,
         minWidth: 'calc(100% + 64px)',
+        // 64px = 48px padding on the left + 16px padding on the right
         transform: 'scaleY(1)'
     })),
     transition('void => *', [
@@ -71,6 +79,10 @@ const fadeInContent = trigger('fadeInContent', [
 ]);
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Returns an exception to be thrown when attempting to change a select's `multiple` option
  * after initialization.
  * \@docs-private
@@ -98,6 +110,11 @@ function getMatSelectNonArrayValueError() {
 function getMatSelectNonFunctionValueError() {
     return Error('`compareWith` must be a function.');
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 let nextUniqueId = 0;
 /**
@@ -187,9 +204,7 @@ MatSelectTrigger.decorators = [
                 selector: 'mat-select-trigger'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSelectTrigger.ctorParameters = () => [];
 class MatSelect extends _MatSelectMixinBase {
     /**
@@ -510,7 +525,7 @@ class MatSelect extends _MatSelectMixinBase {
     ngOnChanges(changes) {
         // Updating the disabled state is handled by `mixinDisabled`, but we need to additionally let
         // the parent form field know to run change detection when the disabled state changes.
-        if (changes.disabled) {
+        if (changes["disabled"]) {
             this.stateChanges.next();
         }
     }
@@ -814,7 +829,7 @@ class MatSelect extends _MatSelectMixinBase {
                 // Treat null as a special reset value.
                 return option.value != null && this._compareWith(option.value, value);
             }
-            catch (error) {
+            catch (/** @type {?} */ error) {
                 if (isDevMode()) {
                     // Notify developers of errors in their comparator.
                     console.warn(error);
@@ -917,10 +932,10 @@ class MatSelect extends _MatSelectMixinBase {
     _propagateChanges(fallbackValue) {
         let /** @type {?} */ valueToEmit = null;
         if (this.multiple) {
-            valueToEmit = ((this.selected)).map(option => option.value);
+            valueToEmit = (/** @type {?} */ (this.selected)).map(option => option.value);
         }
         else {
-            valueToEmit = this.selected ? ((this.selected)).value : fallbackValue;
+            valueToEmit = this.selected ? (/** @type {?} */ (this.selected)).value : fallbackValue;
         }
         this._value = valueToEmit;
         this._onChange(valueToEmit);
@@ -995,7 +1010,7 @@ class MatSelect extends _MatSelectMixinBase {
         // The farthest the panel can be scrolled before it hits the bottom
         const /** @type {?} */ maxScroll = scrollContainerHeight - panelHeight;
         // If no value is selected we open the popup to the first item.
-        let /** @type {?} */ selectedOptionOffset = this.empty ? 0 : ((this._getOptionIndex(this._selectionModel.selected[0])));
+        let /** @type {?} */ selectedOptionOffset = this.empty ? 0 : /** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0])));
         selectedOptionOffset += MatOption.countGroupLabelsBeforeOption(selectedOptionOffset, this.options, this.optionGroups);
         // We must maintain a scroll buffer so the selected option will be scrolled to the
         // center of the overlay panel rather than the top.
@@ -1258,7 +1273,7 @@ class MatSelect extends _MatSelectMixinBase {
         const /** @type {?} */ oldState = this.errorState;
         const /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
         const /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-        const /** @type {?} */ control = this.ngControl ? (this.ngControl.control) : null;
+        const /** @type {?} */ control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
         const /** @type {?} */ newState = matcher.isErrorState(control, parent);
         if (newState !== oldState) {
             this.errorState = newState;
@@ -1326,9 +1341,7 @@ MatSelect.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSelect.ctorParameters = () => [
     { type: ViewportRuler, },
     { type: ChangeDetectorRef, },
@@ -1345,32 +1358,37 @@ MatSelect.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] },] },
 ];
 MatSelect.propDecorators = {
-    'trigger': [{ type: ViewChild, args: ['trigger',] },],
-    'panel': [{ type: ViewChild, args: ['panel',] },],
-    'overlayDir': [{ type: ViewChild, args: [CdkConnectedOverlay,] },],
-    'options': [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
-    'optionGroups': [{ type: ContentChildren, args: [MatOptgroup,] },],
-    'panelClass': [{ type: Input },],
-    'customTrigger': [{ type: ContentChild, args: [MatSelectTrigger,] },],
-    'placeholder': [{ type: Input },],
-    'required': [{ type: Input },],
-    'multiple': [{ type: Input },],
-    'compareWith': [{ type: Input },],
-    'value': [{ type: Input },],
-    'disableRipple': [{ type: Input },],
-    'ariaLabel': [{ type: Input, args: ['aria-label',] },],
-    'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
-    'errorStateMatcher': [{ type: Input },],
-    'id': [{ type: Input },],
-    'openedChange': [{ type: Output },],
-    '_openedStream': [{ type: Output, args: ['opened',] },],
-    '_closedStream': [{ type: Output, args: ['closed',] },],
-    'onOpen': [{ type: Output },],
-    'onClose': [{ type: Output },],
-    'selectionChange': [{ type: Output },],
-    'change': [{ type: Output },],
-    'valueChange': [{ type: Output },],
+    "trigger": [{ type: ViewChild, args: ['trigger',] },],
+    "panel": [{ type: ViewChild, args: ['panel',] },],
+    "overlayDir": [{ type: ViewChild, args: [CdkConnectedOverlay,] },],
+    "options": [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
+    "optionGroups": [{ type: ContentChildren, args: [MatOptgroup,] },],
+    "panelClass": [{ type: Input },],
+    "customTrigger": [{ type: ContentChild, args: [MatSelectTrigger,] },],
+    "placeholder": [{ type: Input },],
+    "required": [{ type: Input },],
+    "multiple": [{ type: Input },],
+    "compareWith": [{ type: Input },],
+    "value": [{ type: Input },],
+    "disableRipple": [{ type: Input },],
+    "ariaLabel": [{ type: Input, args: ['aria-label',] },],
+    "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
+    "errorStateMatcher": [{ type: Input },],
+    "id": [{ type: Input },],
+    "openedChange": [{ type: Output },],
+    "_openedStream": [{ type: Output, args: ['opened',] },],
+    "_closedStream": [{ type: Output, args: ['closed',] },],
+    "onOpen": [{ type: Output },],
+    "onClose": [{ type: Output },],
+    "selectionChange": [{ type: Output },],
+    "change": [{ type: Output },],
+    "valueChange": [{ type: Output },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatSelectModule {
 }
@@ -1387,11 +1405,18 @@ MatSelectModule.decorators = [
                 providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER, ErrorStateMatcher]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSelectModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

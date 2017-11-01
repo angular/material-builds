@@ -38,6 +38,10 @@ function __extends(d, b) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * \@docs-private
  */
 var AnimationCurves = (function () {
@@ -62,6 +66,11 @@ var AnimationDurations = (function () {
 }());
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
 var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks');
@@ -72,9 +81,6 @@ var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 var MatCommonModule = (function () {
-    /**
-     * @param {?} sanityChecksEnabled
-     */
     function MatCommonModule(sanityChecksEnabled) {
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
@@ -93,7 +99,10 @@ var MatCommonModule = (function () {
     /**
      * @return {?}
      */
-    MatCommonModule.prototype._checkDoctype = function () {
+    MatCommonModule.prototype._checkDoctype = /**
+     * @return {?}
+     */
+    function () {
         if (this._document && !this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
@@ -102,7 +111,10 @@ var MatCommonModule = (function () {
     /**
      * @return {?}
      */
-    MatCommonModule.prototype._checkTheme = function () {
+    MatCommonModule.prototype._checkTheme = /**
+     * @return {?}
+     */
+    function () {
         if (this._document && typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
@@ -128,14 +140,21 @@ var MatCommonModule = (function () {
                         }],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCommonModule.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
     ]; };
     return MatCommonModule;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * \@docs-private
+ * @record
+ */
 
 /**
  * Mixin to augment a directive with a `disabled` property.
@@ -146,9 +165,6 @@ var MatCommonModule = (function () {
 function mixinDisabled(base) {
     return (function (_super) {
         __extends(class_1, _super);
-        /**
-         * @param {...?} args
-         */
         function class_1() {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -159,21 +175,35 @@ function mixinDisabled(base) {
             return _this;
         }
         Object.defineProperty(class_1.prototype, "disabled", {
-            /**
+            get: /**
              * @return {?}
              */
-            get: function () { return this._disabled; },
-            /**
+            function () { return this._disabled; },
+            set: /**
              * @param {?} value
              * @return {?}
              */
-            set: function (value) { this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value); },
+            function (value) { this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value); },
             enumerable: true,
             configurable: true
         });
         return class_1;
     }(base));
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * \@docs-private
+ * @record
+ */
+
+/**
+ * \@docs-private
+ * @record
+ */
 
 /**
  * Mixin to augment a directive with a `color` property.
@@ -185,9 +215,6 @@ function mixinDisabled(base) {
 function mixinColor(base, defaultColor) {
     return (function (_super) {
         __extends(class_1, _super);
-        /**
-         * @param {...?} args
-         */
         function class_1() {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -195,19 +222,20 @@ function mixinColor(base, defaultColor) {
             }
             var _this = _super.apply(this, args) || this;
             // Set the default color that can be specified from the mixin.
+            // Set the default color that can be specified from the mixin.
             _this.color = defaultColor;
             return _this;
         }
         Object.defineProperty(class_1.prototype, "color", {
-            /**
+            get: /**
              * @return {?}
              */
-            get: function () { return this._color; },
-            /**
+            function () { return this._color; },
+            set: /**
              * @param {?} value
              * @return {?}
              */
-            set: function (value) {
+            function (value) {
                 var /** @type {?} */ colorPalette = value || defaultColor;
                 if (colorPalette !== this._color) {
                     if (this._color) {
@@ -227,6 +255,15 @@ function mixinColor(base, defaultColor) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * \@docs-private
+ * @record
+ */
+
+/**
  * Mixin to augment a directive with a `disableRipple` property.
  * @template T
  * @param {?} base
@@ -235,9 +272,6 @@ function mixinColor(base, defaultColor) {
 function mixinDisableRipple(base) {
     return (function (_super) {
         __extends(class_1, _super);
-        /**
-         * @param {...?} args
-         */
         function class_1() {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -248,22 +282,32 @@ function mixinDisableRipple(base) {
             return _this;
         }
         Object.defineProperty(class_1.prototype, "disableRipple", {
-            /**
+            /** Whether the ripple effect is disabled or not. */
+            get: /**
              * Whether the ripple effect is disabled or not.
              * @return {?}
              */
-            get: function () { return this._disableRipple; },
-            /**
+            function () { return this._disableRipple; },
+            set: /**
              * @param {?} value
              * @return {?}
              */
-            set: function (value) { this._disableRipple = _angular_cdk_coercion.coerceBooleanProperty(value); },
+            function (value) { this._disableRipple = _angular_cdk_coercion.coerceBooleanProperty(value); },
             enumerable: true,
             configurable: true
         });
         return class_1;
     }(base));
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * \@docs-private
+ * @record
+ */
 
 /**
  * Mixin to augment a directive with a `tabIndex` property.
@@ -276,9 +320,6 @@ function mixinTabIndex(base, defaultTabIndex) {
     if (defaultTabIndex === void 0) { defaultTabIndex = 0; }
     return (function (_super) {
         __extends(class_1, _super);
-        /**
-         * @param {...?} args
-         */
         function class_1() {
             var args = [];
             for (var _i = 0; _i < arguments.length; _i++) {
@@ -289,15 +330,15 @@ function mixinTabIndex(base, defaultTabIndex) {
             return _this;
         }
         Object.defineProperty(class_1.prototype, "tabIndex", {
-            /**
+            get: /**
              * @return {?}
              */
-            get: function () { return this.disabled ? -1 : this._tabIndex; },
-            /**
+            function () { return this.disabled ? -1 : this._tabIndex; },
+            set: /**
              * @param {?} value
              * @return {?}
              */
-            set: function (value) {
+            function (value) {
                 // If the specified tabIndex value is null or undefined, fall back to the default value.
                 this._tabIndex = value != null ? value : defaultTabIndex;
             },
@@ -307,6 +348,16 @@ function mixinTabIndex(base, defaultTabIndex) {
         return class_1;
     }(base));
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
@@ -325,180 +376,27 @@ var DateAdapter = (function () {
         this._localeChanges = new rxjs_Subject.Subject();
     }
     Object.defineProperty(DateAdapter.prototype, "localeChanges", {
-        /**
+        /** A stream that emits when the locale changes. */
+        get: /**
          * A stream that emits when the locale changes.
          * @return {?}
          */
-        get: function () { return this._localeChanges; },
+        function () { return this._localeChanges; },
         enumerable: true,
         configurable: true
     });
     /**
-     * Gets the year component of the given date.
-     * @abstract
-     * @param {?} date The date to extract the year from.
-     * @return {?} The year component.
+     * Attempts to deserialize a value to a valid date object. This is different from parsing in that
+     * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
+     * string). The default implementation does not allow any deserialization, it simply checks that
+     * the given value is already a valid date object or null. The `<mat-datepicker>` will call this
+     * method on all of it's `@Input()` properties that accept dates. It is therefore possible to
+     * support passing values from your backend directly to these properties by overriding this method
+     * to also deserialize the format used by your backend.
+     * @param value The value to be deserialized into a date object.
+     * @returns The deserialized date object, either a valid date, null if the value can be
+     *     deserialized into a null date (e.g. the empty string), or an invalid date.
      */
-    DateAdapter.prototype.getYear = function (date) { };
-    /**
-     * Gets the month component of the given date.
-     * @abstract
-     * @param {?} date The date to extract the month from.
-     * @return {?} The month component (0-indexed, 0 = January).
-     */
-    DateAdapter.prototype.getMonth = function (date) { };
-    /**
-     * Gets the date of the month component of the given date.
-     * @abstract
-     * @param {?} date The date to extract the date of the month from.
-     * @return {?} The month component (1-indexed, 1 = first of month).
-     */
-    DateAdapter.prototype.getDate = function (date) { };
-    /**
-     * Gets the day of the week component of the given date.
-     * @abstract
-     * @param {?} date The date to extract the day of the week from.
-     * @return {?} The month component (0-indexed, 0 = Sunday).
-     */
-    DateAdapter.prototype.getDayOfWeek = function (date) { };
-    /**
-     * Gets a list of names for the months.
-     * @abstract
-     * @param {?} style The naming style (e.g. long = 'January', short = 'Jan', narrow = 'J').
-     * @return {?} An ordered list of all month names, starting with January.
-     */
-    DateAdapter.prototype.getMonthNames = function (style) { };
-    /**
-     * Gets a list of names for the dates of the month.
-     * @abstract
-     * @return {?} An ordered list of all date of the month names, starting with '1'.
-     */
-    DateAdapter.prototype.getDateNames = function () { };
-    /**
-     * Gets a list of names for the days of the week.
-     * @abstract
-     * @param {?} style The naming style (e.g. long = 'Sunday', short = 'Sun', narrow = 'S').
-     * @return {?} An ordered list of all weekday names, starting with Sunday.
-     */
-    DateAdapter.prototype.getDayOfWeekNames = function (style) { };
-    /**
-     * Gets the name for the year of the given date.
-     * @abstract
-     * @param {?} date The date to get the year name for.
-     * @return {?} The name of the given year (e.g. '2017').
-     */
-    DateAdapter.prototype.getYearName = function (date) { };
-    /**
-     * Gets the first day of the week.
-     * @abstract
-     * @return {?} The first day of the week (0-indexed, 0 = Sunday).
-     */
-    DateAdapter.prototype.getFirstDayOfWeek = function () { };
-    /**
-     * Gets the number of days in the month of the given date.
-     * @abstract
-     * @param {?} date The date whose month should be checked.
-     * @return {?} The number of days in the month of the given date.
-     */
-    DateAdapter.prototype.getNumDaysInMonth = function (date) { };
-    /**
-     * Clones the given date.
-     * @abstract
-     * @param {?} date The date to clone
-     * @return {?} A new date equal to the given date.
-     */
-    DateAdapter.prototype.clone = function (date) { };
-    /**
-     * Creates a date with the given year, month, and date. Does not allow over/under-flow of the
-     * month and date.
-     * @abstract
-     * @param {?} year The full year of the date. (e.g. 89 means the year 89, not the year 1989).
-     * @param {?} month The month of the date (0-indexed, 0 = January). Must be an integer 0 - 11.
-     * @param {?} date The date of month of the date. Must be an integer 1 - length of the given month.
-     * @return {?} The new date, or null if invalid.
-     */
-    DateAdapter.prototype.createDate = function (year, month, date) { };
-    /**
-     * Gets today's date.
-     * @abstract
-     * @return {?} Today's date.
-     */
-    DateAdapter.prototype.today = function () { };
-    /**
-     * Parses a date from a user-provided value.
-     * @abstract
-     * @param {?} value The value to parse.
-     * @param {?} parseFormat The expected format of the value being parsed
-     *     (type is implementation-dependent).
-     * @return {?} The parsed date.
-     */
-    DateAdapter.prototype.parse = function (value, parseFormat) { };
-    /**
-     * Formats a date as a string according to the given format.
-     * @abstract
-     * @param {?} date The value to format.
-     * @param {?} displayFormat The format to use to display the date as a string.
-     * @return {?} The formatted date string.
-     */
-    DateAdapter.prototype.format = function (date, displayFormat) { };
-    /**
-     * Adds the given number of years to the date. Years are counted as if flipping 12 pages on the
-     * calendar for each year and then finding the closest date in the new month. For example when
-     * adding 1 year to Feb 29, 2016, the resulting date will be Feb 28, 2017.
-     * @abstract
-     * @param {?} date The date to add years to.
-     * @param {?} years The number of years to add (may be negative).
-     * @return {?} A new date equal to the given one with the specified number of years added.
-     */
-    DateAdapter.prototype.addCalendarYears = function (date, years) { };
-    /**
-     * Adds the given number of months to the date. Months are counted as if flipping a page on the
-     * calendar for each month and then finding the closest date in the new month. For example when
-     * adding 1 month to Jan 31, 2017, the resulting date will be Feb 28, 2017.
-     * @abstract
-     * @param {?} date The date to add months to.
-     * @param {?} months The number of months to add (may be negative).
-     * @return {?} A new date equal to the given one with the specified number of months added.
-     */
-    DateAdapter.prototype.addCalendarMonths = function (date, months) { };
-    /**
-     * Adds the given number of days to the date. Days are counted as if moving one cell on the
-     * calendar for each day.
-     * @abstract
-     * @param {?} date The date to add days to.
-     * @param {?} days The number of days to add (may be negative).
-     * @return {?} A new date equal to the given one with the specified number of days added.
-     */
-    DateAdapter.prototype.addCalendarDays = function (date, days) { };
-    /**
-     * Gets the RFC 3339 compatible string (https://tools.ietf.org/html/rfc3339) for the given date.
-     * This method is used to generate date strings that are compatible with native HTML attributes
-     * such as the `min` or `max` attribute of an `<input>`.
-     * @abstract
-     * @param {?} date The date to get the ISO date string for.
-     * @return {?} The ISO date string date string.
-     */
-    DateAdapter.prototype.toIso8601 = function (date) { };
-    /**
-     * Checks whether the given object is considered a date instance by this DateAdapter.
-     * @abstract
-     * @param {?} obj The object to check
-     * @return {?} Whether the object is a date instance.
-     */
-    DateAdapter.prototype.isDateInstance = function (obj) { };
-    /**
-     * Checks whether the given date is valid.
-     * @abstract
-     * @param {?} date The date to check.
-     * @return {?} Whether the date is valid.
-     */
-    DateAdapter.prototype.isValid = function (date) { };
-    /**
-     * Gets date instance that is not valid.
-     * @abstract
-     * @return {?} An invalid date.
-     */
-    DateAdapter.prototype.invalid = function () { };
     /**
      * Attempts to deserialize a value to a valid date object. This is different from parsing in that
      * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
@@ -511,7 +409,19 @@ var DateAdapter = (function () {
      * @return {?} The deserialized date object, either a valid date, null if the value can be
      *     deserialized into a null date (e.g. the empty string), or an invalid date.
      */
-    DateAdapter.prototype.deserialize = function (value) {
+    DateAdapter.prototype.deserialize = /**
+     * Attempts to deserialize a value to a valid date object. This is different from parsing in that
+     * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
+     * string). The default implementation does not allow any deserialization, it simply checks that
+     * the given value is already a valid date object or null. The `<mat-datepicker>` will call this
+     * method on all of it's `\@Input()` properties that accept dates. It is therefore possible to
+     * support passing values from your backend directly to these properties by overriding this method
+     * to also deserialize the format used by your backend.
+     * @param {?} value The value to be deserialized into a date object.
+     * @return {?} The deserialized date object, either a valid date, null if the value can be
+     *     deserialized into a null date (e.g. the empty string), or an invalid date.
+     */
+    function (value) {
         if (value == null || this.isDateInstance(value) && this.isValid(value)) {
             return value;
         }
@@ -519,13 +429,29 @@ var DateAdapter = (function () {
     };
     /**
      * Sets the locale used for all dates.
+     * @param locale The new locale.
+     */
+    /**
+     * Sets the locale used for all dates.
      * @param {?} locale The new locale.
      * @return {?}
      */
-    DateAdapter.prototype.setLocale = function (locale) {
+    DateAdapter.prototype.setLocale = /**
+     * Sets the locale used for all dates.
+     * @param {?} locale The new locale.
+     * @return {?}
+     */
+    function (locale) {
         this.locale = locale;
         this._localeChanges.next();
     };
+    /**
+     * Compares two dates.
+     * @param first The first date to compare.
+     * @param second The second date to compare.
+     * @returns 0 if the dates are equal, a number less than 0 if the first date is earlier,
+     *     a number greater than 0 if the first date is later.
+     */
     /**
      * Compares two dates.
      * @param {?} first The first date to compare.
@@ -533,19 +459,40 @@ var DateAdapter = (function () {
      * @return {?} 0 if the dates are equal, a number less than 0 if the first date is earlier,
      *     a number greater than 0 if the first date is later.
      */
-    DateAdapter.prototype.compareDate = function (first, second) {
+    DateAdapter.prototype.compareDate = /**
+     * Compares two dates.
+     * @param {?} first The first date to compare.
+     * @param {?} second The second date to compare.
+     * @return {?} 0 if the dates are equal, a number less than 0 if the first date is earlier,
+     *     a number greater than 0 if the first date is later.
+     */
+    function (first, second) {
         return this.getYear(first) - this.getYear(second) ||
             this.getMonth(first) - this.getMonth(second) ||
             this.getDate(first) - this.getDate(second);
     };
     /**
      * Checks if two dates are equal.
+     * @param first The first date to check.
+     * @param second The second date to check.
+     * @returns Whether the two dates are equal.
+     *     Null dates are considered equal to other null dates.
+     */
+    /**
+     * Checks if two dates are equal.
      * @param {?} first The first date to check.
      * @param {?} second The second date to check.
+     * @return {?} Whether the two dates are equal.
      *     Null dates are considered equal to other null dates.
-     * @return {?}
      */
-    DateAdapter.prototype.sameDate = function (first, second) {
+    DateAdapter.prototype.sameDate = /**
+     * Checks if two dates are equal.
+     * @param {?} first The first date to check.
+     * @param {?} second The second date to check.
+     * @return {?} Whether the two dates are equal.
+     *     Null dates are considered equal to other null dates.
+     */
+    function (first, second) {
         if (first && second) {
             var /** @type {?} */ firstValid = this.isValid(first);
             var /** @type {?} */ secondValid = this.isValid(second);
@@ -558,13 +505,29 @@ var DateAdapter = (function () {
     };
     /**
      * Clamp the given date between min and max dates.
+     * @param date The date to clamp.
+     * @param min The minimum value to allow. If null or omitted no min is enforced.
+     * @param max The maximum value to allow. If null or omitted no max is enforced.
+     * @returns `min` if `date` is less than `min`, `max` if date is greater than `max`,
+     *     otherwise `date`.
+     */
+    /**
+     * Clamp the given date between min and max dates.
      * @param {?} date The date to clamp.
      * @param {?=} min The minimum value to allow. If null or omitted no min is enforced.
      * @param {?=} max The maximum value to allow. If null or omitted no max is enforced.
      * @return {?} `min` if `date` is less than `min`, `max` if date is greater than `max`,
      *     otherwise `date`.
      */
-    DateAdapter.prototype.clampDate = function (date, min, max) {
+    DateAdapter.prototype.clampDate = /**
+     * Clamp the given date between min and max dates.
+     * @param {?} date The date to clamp.
+     * @param {?=} min The minimum value to allow. If null or omitted no min is enforced.
+     * @param {?=} max The maximum value to allow. If null or omitted no max is enforced.
+     * @return {?} `min` if `date` is less than `min`, `max` if date is greater than `max`,
+     *     otherwise `date`.
+     */
+    function (date, min, max) {
         if (min && this.compareDate(date, min) < 0) {
             return min;
         }
@@ -576,6 +539,10 @@ var DateAdapter = (function () {
     return DateAdapter;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Extends an object with the *enumerable* and *own* properties of one or more source objects,
  * similar to Object.assign.
@@ -606,6 +573,10 @@ function extendObject(dest) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Whether the browser supports the Intl API.
  */
 var SUPPORTS_INTL_API = typeof Intl != 'undefined';
@@ -620,10 +591,11 @@ var DEFAULT_MONTH_NAMES = {
     'short': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 };
+var ɵ0$1 = function (i) { return String(i + 1); };
 /**
  * The default date names to use if Intl API is not available.
  */
-var DEFAULT_DATE_NAMES = range(31, function (i) { return String(i + 1); });
+var DEFAULT_DATE_NAMES = range(31, ɵ0$1);
 /**
  * The default day of the week names to use if Intl API is not available.
  */
@@ -657,9 +629,6 @@ function range(length, valueFunction) {
  */
 var NativeDateAdapter = (function (_super) {
     __extends(NativeDateAdapter, _super);
-    /**
-     * @param {?} matDateLocale
-     */
     function NativeDateAdapter(matDateLocale) {
         var _this = _super.call(this) || this;
         /**
@@ -676,35 +645,55 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} date
      * @return {?}
      */
-    NativeDateAdapter.prototype.getYear = function (date) {
+    NativeDateAdapter.prototype.getYear = /**
+     * @param {?} date
+     * @return {?}
+     */
+    function (date) {
         return date.getFullYear();
     };
     /**
      * @param {?} date
      * @return {?}
      */
-    NativeDateAdapter.prototype.getMonth = function (date) {
+    NativeDateAdapter.prototype.getMonth = /**
+     * @param {?} date
+     * @return {?}
+     */
+    function (date) {
         return date.getMonth();
     };
     /**
      * @param {?} date
      * @return {?}
      */
-    NativeDateAdapter.prototype.getDate = function (date) {
+    NativeDateAdapter.prototype.getDate = /**
+     * @param {?} date
+     * @return {?}
+     */
+    function (date) {
         return date.getDate();
     };
     /**
      * @param {?} date
      * @return {?}
      */
-    NativeDateAdapter.prototype.getDayOfWeek = function (date) {
+    NativeDateAdapter.prototype.getDayOfWeek = /**
+     * @param {?} date
+     * @return {?}
+     */
+    function (date) {
         return date.getDay();
     };
     /**
      * @param {?} style
      * @return {?}
      */
-    NativeDateAdapter.prototype.getMonthNames = function (style) {
+    NativeDateAdapter.prototype.getMonthNames = /**
+     * @param {?} style
+     * @return {?}
+     */
+    function (style) {
         var _this = this;
         if (SUPPORTS_INTL_API) {
             var /** @type {?} */ dtf_1 = new Intl.DateTimeFormat(this.locale, { month: style });
@@ -715,11 +704,16 @@ var NativeDateAdapter = (function (_super) {
     /**
      * @return {?}
      */
-    NativeDateAdapter.prototype.getDateNames = function () {
+    NativeDateAdapter.prototype.getDateNames = /**
+     * @return {?}
+     */
+    function () {
         var _this = this;
         if (SUPPORTS_INTL_API) {
             var /** @type {?} */ dtf_2 = new Intl.DateTimeFormat(this.locale, { day: 'numeric' });
-            return range(31, function (i) { return _this._stripDirectionalityCharacters(dtf_2.format(new Date(2017, 0, i + 1))); });
+            return range(31, function (i) {
+                return _this._stripDirectionalityCharacters(dtf_2.format(new Date(2017, 0, i + 1)));
+            });
         }
         return DEFAULT_DATE_NAMES;
     };
@@ -727,11 +721,17 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} style
      * @return {?}
      */
-    NativeDateAdapter.prototype.getDayOfWeekNames = function (style) {
+    NativeDateAdapter.prototype.getDayOfWeekNames = /**
+     * @param {?} style
+     * @return {?}
+     */
+    function (style) {
         var _this = this;
         if (SUPPORTS_INTL_API) {
             var /** @type {?} */ dtf_3 = new Intl.DateTimeFormat(this.locale, { weekday: style });
-            return range(7, function (i) { return _this._stripDirectionalityCharacters(dtf_3.format(new Date(2017, 0, i + 1))); });
+            return range(7, function (i) {
+                return _this._stripDirectionalityCharacters(dtf_3.format(new Date(2017, 0, i + 1)));
+            });
         }
         return DEFAULT_DAY_OF_WEEK_NAMES[style];
     };
@@ -739,7 +739,11 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} date
      * @return {?}
      */
-    NativeDateAdapter.prototype.getYearName = function (date) {
+    NativeDateAdapter.prototype.getYearName = /**
+     * @param {?} date
+     * @return {?}
+     */
+    function (date) {
         if (SUPPORTS_INTL_API) {
             var /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric' });
             return this._stripDirectionalityCharacters(dtf.format(date));
@@ -749,7 +753,10 @@ var NativeDateAdapter = (function (_super) {
     /**
      * @return {?}
      */
-    NativeDateAdapter.prototype.getFirstDayOfWeek = function () {
+    NativeDateAdapter.prototype.getFirstDayOfWeek = /**
+     * @return {?}
+     */
+    function () {
         // We can't tell using native JS Date what the first day of the week is, we default to Sunday.
         return 0;
     };
@@ -757,14 +764,22 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} date
      * @return {?}
      */
-    NativeDateAdapter.prototype.getNumDaysInMonth = function (date) {
+    NativeDateAdapter.prototype.getNumDaysInMonth = /**
+     * @param {?} date
+     * @return {?}
+     */
+    function (date) {
         return this.getDate(this._createDateWithOverflow(this.getYear(date), this.getMonth(date) + 1, 0));
     };
     /**
      * @param {?} date
      * @return {?}
      */
-    NativeDateAdapter.prototype.clone = function (date) {
+    NativeDateAdapter.prototype.clone = /**
+     * @param {?} date
+     * @return {?}
+     */
+    function (date) {
         return this.createDate(this.getYear(date), this.getMonth(date), this.getDate(date));
     };
     /**
@@ -773,7 +788,13 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} date
      * @return {?}
      */
-    NativeDateAdapter.prototype.createDate = function (year, month, date) {
+    NativeDateAdapter.prototype.createDate = /**
+     * @param {?} year
+     * @param {?} month
+     * @param {?} date
+     * @return {?}
+     */
+    function (year, month, date) {
         // Check for invalid month and date (except upper bound on date which we have to check after
         // creating the Date).
         if (month < 0 || month > 11) {
@@ -792,14 +813,21 @@ var NativeDateAdapter = (function (_super) {
     /**
      * @return {?}
      */
-    NativeDateAdapter.prototype.today = function () {
+    NativeDateAdapter.prototype.today = /**
+     * @return {?}
+     */
+    function () {
         return new Date();
     };
     /**
      * @param {?} value
      * @return {?}
      */
-    NativeDateAdapter.prototype.parse = function (value) {
+    NativeDateAdapter.prototype.parse = /**
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
         // We have no way using the native JS Date to set the parse format or locale, so we ignore these
         // parameters.
         if (typeof value == 'number') {
@@ -812,7 +840,12 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} displayFormat
      * @return {?}
      */
-    NativeDateAdapter.prototype.format = function (date, displayFormat) {
+    NativeDateAdapter.prototype.format = /**
+     * @param {?} date
+     * @param {?} displayFormat
+     * @return {?}
+     */
+    function (date, displayFormat) {
         if (!this.isValid(date)) {
             throw Error('NativeDateAdapter: Cannot format invalid date.');
         }
@@ -831,7 +864,12 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} years
      * @return {?}
      */
-    NativeDateAdapter.prototype.addCalendarYears = function (date, years) {
+    NativeDateAdapter.prototype.addCalendarYears = /**
+     * @param {?} date
+     * @param {?} years
+     * @return {?}
+     */
+    function (date, years) {
         return this.addCalendarMonths(date, years * 12);
     };
     /**
@@ -839,7 +877,12 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} months
      * @return {?}
      */
-    NativeDateAdapter.prototype.addCalendarMonths = function (date, months) {
+    NativeDateAdapter.prototype.addCalendarMonths = /**
+     * @param {?} date
+     * @param {?} months
+     * @return {?}
+     */
+    function (date, months) {
         var /** @type {?} */ newDate = this._createDateWithOverflow(this.getYear(date), this.getMonth(date) + months, this.getDate(date));
         // It's possible to wind up in the wrong month if the original month has more days than the new
         // month. In this case we want to go to the last day of the desired month.
@@ -855,14 +898,23 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} days
      * @return {?}
      */
-    NativeDateAdapter.prototype.addCalendarDays = function (date, days) {
+    NativeDateAdapter.prototype.addCalendarDays = /**
+     * @param {?} date
+     * @param {?} days
+     * @return {?}
+     */
+    function (date, days) {
         return this._createDateWithOverflow(this.getYear(date), this.getMonth(date), this.getDate(date) + days);
     };
     /**
      * @param {?} date
      * @return {?}
      */
-    NativeDateAdapter.prototype.toIso8601 = function (date) {
+    NativeDateAdapter.prototype.toIso8601 = /**
+     * @param {?} date
+     * @return {?}
+     */
+    function (date) {
         return [
             date.getUTCFullYear(),
             this._2digit(date.getUTCMonth() + 1),
@@ -873,10 +925,22 @@ var NativeDateAdapter = (function (_super) {
      * Returns the given value if given a valid Date or null. Deserializes valid ISO 8601 strings
      * (https://www.ietf.org/rfc/rfc3339.txt) into valid Dates and empty string into null. Returns an
      * invalid date for all other values.
+     */
+    /**
+     * Returns the given value if given a valid Date or null. Deserializes valid ISO 8601 strings
+     * (https://www.ietf.org/rfc/rfc3339.txt) into valid Dates and empty string into null. Returns an
+     * invalid date for all other values.
      * @param {?} value
      * @return {?}
      */
-    NativeDateAdapter.prototype.deserialize = function (value) {
+    NativeDateAdapter.prototype.deserialize = /**
+     * Returns the given value if given a valid Date or null. Deserializes valid ISO 8601 strings
+     * (https://www.ietf.org/rfc/rfc3339.txt) into valid Dates and empty string into null. Returns an
+     * invalid date for all other values.
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
         if (typeof value === 'string') {
             if (!value) {
                 return null;
@@ -896,20 +960,31 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} obj
      * @return {?}
      */
-    NativeDateAdapter.prototype.isDateInstance = function (obj) {
+    NativeDateAdapter.prototype.isDateInstance = /**
+     * @param {?} obj
+     * @return {?}
+     */
+    function (obj) {
         return obj instanceof Date;
     };
     /**
      * @param {?} date
      * @return {?}
      */
-    NativeDateAdapter.prototype.isValid = function (date) {
+    NativeDateAdapter.prototype.isValid = /**
+     * @param {?} date
+     * @return {?}
+     */
+    function (date) {
         return !isNaN(date.getTime());
     };
     /**
      * @return {?}
      */
-    NativeDateAdapter.prototype.invalid = function () {
+    NativeDateAdapter.prototype.invalid = /**
+     * @return {?}
+     */
+    function () {
         return new Date(NaN);
     };
     /**
@@ -919,7 +994,14 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} date
      * @return {?}
      */
-    NativeDateAdapter.prototype._createDateWithOverflow = function (year, month, date) {
+    NativeDateAdapter.prototype._createDateWithOverflow = /**
+     * Creates a date but allows the month and date to overflow.
+     * @param {?} year
+     * @param {?} month
+     * @param {?} date
+     * @return {?}
+     */
+    function (year, month, date) {
         var /** @type {?} */ result = new Date(year, month, date);
         // We need to correct for the fact that JS native Date treats years in range [0, 99] as
         // abbreviations for 19xx.
@@ -933,7 +1015,12 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} n The number to pad.
      * @return {?} The padded number.
      */
-    NativeDateAdapter.prototype._2digit = function (n) {
+    NativeDateAdapter.prototype._2digit = /**
+     * Pads a number to make it two digits.
+     * @param {?} n The number to pad.
+     * @return {?} The padded number.
+     */
+    function (n) {
         return ('00' + n).slice(-2);
     };
     /**
@@ -943,23 +1030,37 @@ var NativeDateAdapter = (function (_super) {
      * @param {?} str The string to strip direction characters from.
      * @return {?} The stripped string.
      */
-    NativeDateAdapter.prototype._stripDirectionalityCharacters = function (str) {
+    NativeDateAdapter.prototype._stripDirectionalityCharacters = /**
+     * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
+     * other browsers do not. We remove them to make output consistent and because they interfere with
+     * date parsing.
+     * @param {?} str The string to strip direction characters from.
+     * @return {?} The stripped string.
+     */
+    function (str) {
         return str.replace(/[\u200e\u200f]/g, '');
     };
     NativeDateAdapter.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     NativeDateAdapter.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
     ]; };
     return NativeDateAdapter;
 }(DateAdapter));
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 var MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
@@ -972,6 +1073,11 @@ var MAT_NATIVE_DATE_FORMATS = {
     }
 };
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 var NativeDateModule = (function () {
     function NativeDateModule() {
     }
@@ -983,27 +1089,29 @@ var NativeDateModule = (function () {
                     ],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     NativeDateModule.ctorParameters = function () { return []; };
     return NativeDateModule;
 }());
+var ɵ0$$1 = MAT_NATIVE_DATE_FORMATS;
 var MatNativeDateModule = (function () {
     function MatNativeDateModule() {
     }
     MatNativeDateModule.decorators = [
         { type: _angular_core.NgModule, args: [{
                     imports: [NativeDateModule],
-                    providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
+                    providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$$1 }],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatNativeDateModule.ctorParameters = function () { return []; };
     return MatNativeDateModule;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Error state matcher that matches when a control is invalid and dirty.
@@ -1016,15 +1124,18 @@ var ShowOnDirtyErrorStateMatcher = (function () {
      * @param {?} form
      * @return {?}
      */
-    ShowOnDirtyErrorStateMatcher.prototype.isErrorState = function (control, form) {
+    ShowOnDirtyErrorStateMatcher.prototype.isErrorState = /**
+     * @param {?} control
+     * @param {?} form
+     * @return {?}
+     */
+    function (control, form) {
         return !!(control && control.invalid && (control.dirty || (form && form.submitted)));
     };
     ShowOnDirtyErrorStateMatcher.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     ShowOnDirtyErrorStateMatcher.ctorParameters = function () { return []; };
     return ShowOnDirtyErrorStateMatcher;
 }());
@@ -1039,24 +1150,31 @@ var ErrorStateMatcher = (function () {
      * @param {?} form
      * @return {?}
      */
-    ErrorStateMatcher.prototype.isErrorState = function (control, form) {
+    ErrorStateMatcher.prototype.isErrorState = /**
+     * @param {?} control
+     * @param {?} form
+     * @return {?}
+     */
+    function (control, form) {
         return !!(control && control.invalid && (control.touched || (form && form.submitted)));
     };
     ErrorStateMatcher.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     ErrorStateMatcher.ctorParameters = function () { return []; };
     return ErrorStateMatcher;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig() {
         var _this = _super.call(this) || this;
-        _this._hammer = typeof window !== 'undefined' ? ((window)).Hammer : null;
+        _this._hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
         /* List of new event names to add to the gesture support list */
         _this.events = _this._hammer ? [
             'longpress',
@@ -1082,10 +1200,36 @@ var GestureConfig = (function (_super) {
      * http://hammerjs.github.io/recognizer-pan/
      * http://hammerjs.github.io/recognizer-press/
      *
+     * @param element Element to which to assign the new HammerJS gestures.
+     * @returns Newly-created HammerJS instance.
+     */
+    /**
+     * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
+     *
+     * Our gesture names come from the Material Design gestures spec:
+     * https://www.google.com/design/spec/patterns/gestures.html#gestures-touch-mechanics
+     *
+     * More information on default recognizers can be found in Hammer docs:
+     * http://hammerjs.github.io/recognizer-pan/
+     * http://hammerjs.github.io/recognizer-press/
+     *
      * @param {?} element Element to which to assign the new HammerJS gestures.
      * @return {?} Newly-created HammerJS instance.
      */
-    GestureConfig.prototype.buildHammer = function (element) {
+    GestureConfig.prototype.buildHammer = /**
+     * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
+     *
+     * Our gesture names come from the Material Design gestures spec:
+     * https://www.google.com/design/spec/patterns/gestures.html#gestures-touch-mechanics
+     *
+     * More information on default recognizers can be found in Hammer docs:
+     * http://hammerjs.github.io/recognizer-pan/
+     * http://hammerjs.github.io/recognizer-press/
+     *
+     * @param {?} element Element to which to assign the new HammerJS gestures.
+     * @return {?} Newly-created HammerJS instance.
+     */
+    function (element) {
         var /** @type {?} */ mc = new this._hammer(element);
         // Default Hammer Recognizers.
         var /** @type {?} */ pan = new this._hammer.Pan();
@@ -1100,7 +1244,7 @@ var GestureConfig = (function (_super) {
         pan.recognizeWith(swipe);
         // Add customized gestures to Hammer manager
         mc.add([swipe, press, pan, slide, longpress]);
-        return (mc);
+        return /** @type {?} */ (mc);
     };
     /**
      * Creates a new recognizer, without affecting the default recognizers of HammerJS
@@ -1109,12 +1253,19 @@ var GestureConfig = (function (_super) {
      * @param {...?} inheritances
      * @return {?}
      */
-    GestureConfig.prototype._createRecognizer = function (base, options) {
+    GestureConfig.prototype._createRecognizer = /**
+     * Creates a new recognizer, without affecting the default recognizers of HammerJS
+     * @param {?} base
+     * @param {?} options
+     * @param {...?} inheritances
+     * @return {?}
+     */
+    function (base, options) {
         var inheritances = [];
         for (var _i = 2; _i < arguments.length; _i++) {
             inheritances[_i - 2] = arguments[_i];
         }
-        var /** @type {?} */ recognizer = new ((base.constructor))(options);
+        var /** @type {?} */ recognizer = new (/** @type {?} */ (base.constructor))(options);
         inheritances.push(base);
         inheritances.forEach(function (item) { return recognizer.recognizeWith(item); });
         return recognizer;
@@ -1122,12 +1273,15 @@ var GestureConfig = (function (_super) {
     GestureConfig.decorators = [
         { type: _angular_core.Injectable },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     GestureConfig.ctorParameters = function () { return []; };
     return GestureConfig;
 }(_angular_platformBrowser.HammerGestureConfig));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Shared directive to count lines inside a text area, such as a list item.
@@ -1143,9 +1297,7 @@ var MatLine = (function () {
                     host: { 'class': 'mat-line' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatLine.ctorParameters = function () { return []; };
     return MatLine;
 }());
@@ -1154,11 +1306,6 @@ var MatLine = (function () {
  * \@docs-private
  */
 var MatLineSetter = (function () {
-    /**
-     * @param {?} _lines
-     * @param {?} _renderer
-     * @param {?} _element
-     */
     function MatLineSetter(_lines, _renderer, _element) {
         var _this = this;
         this._lines = _lines;
@@ -1173,7 +1320,11 @@ var MatLineSetter = (function () {
      * @param {?} count
      * @return {?}
      */
-    MatLineSetter.prototype._setLineClass = function (count) {
+    MatLineSetter.prototype._setLineClass = /**
+     * @param {?} count
+     * @return {?}
+     */
+    function (count) {
         this._resetClasses();
         if (count === 2 || count === 3) {
             this._setClass("mat-" + count + "-line", true);
@@ -1185,7 +1336,10 @@ var MatLineSetter = (function () {
     /**
      * @return {?}
      */
-    MatLineSetter.prototype._resetClasses = function () {
+    MatLineSetter.prototype._resetClasses = /**
+     * @return {?}
+     */
+    function () {
         this._setClass('mat-2-line', false);
         this._setClass('mat-3-line', false);
         this._setClass('mat-multi-line', false);
@@ -1195,7 +1349,12 @@ var MatLineSetter = (function () {
      * @param {?} isAdd
      * @return {?}
      */
-    MatLineSetter.prototype._setClass = function (className, isAdd) {
+    MatLineSetter.prototype._setClass = /**
+     * @param {?} className
+     * @param {?} isAdd
+     * @return {?}
+     */
+    function (className, isAdd) {
         if (isAdd) {
             this._renderer.addClass(this._element.nativeElement, className);
         }
@@ -1215,18 +1374,22 @@ var MatLineModule = (function () {
                     declarations: [MatLine],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatLineModule.ctorParameters = function () { return []; };
     return MatLineModule;
 }());
 
-var RippleState = {};
-RippleState.FADING_IN = 0;
-RippleState.VISIBLE = 1;
-RippleState.FADING_OUT = 2;
-RippleState.HIDDEN = 3;
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/** @enum {number} */
+var RippleState = {
+    FADING_IN: 0,
+    VISIBLE: 1,
+    FADING_OUT: 2,
+    HIDDEN: 3,
+};
 RippleState[RippleState.FADING_IN] = "FADING_IN";
 RippleState[RippleState.VISIBLE] = "VISIBLE";
 RippleState[RippleState.FADING_OUT] = "FADING_OUT";
@@ -1235,11 +1398,6 @@ RippleState[RippleState.HIDDEN] = "HIDDEN";
  * Reference to a previously launched ripple element.
  */
 var RippleRef = (function () {
-    /**
-     * @param {?} _renderer
-     * @param {?} element
-     * @param {?} config
-     */
     function RippleRef(_renderer, element, config) {
         this._renderer = _renderer;
         this.element = element;
@@ -1249,16 +1407,25 @@ var RippleRef = (function () {
          */
         this.state = RippleState.HIDDEN;
     }
+    /** Fades out the ripple element. */
     /**
      * Fades out the ripple element.
      * @return {?}
      */
-    RippleRef.prototype.fadeOut = function () {
+    RippleRef.prototype.fadeOut = /**
+     * Fades out the ripple element.
+     * @return {?}
+     */
+    function () {
         this._renderer.fadeOutRipple(this);
     };
     return RippleRef;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Fade-in duration for the ripples. Can be modified with the speedFactor option.
  */
@@ -1275,11 +1442,6 @@ var RIPPLE_FADE_OUT_DURATION = 400;
  * \@docs-private
  */
 var RippleRenderer = (function () {
-    /**
-     * @param {?} elementRef
-     * @param {?} _ngZone
-     * @param {?} platform
-     */
     function RippleRenderer(elementRef, _ngZone, platform) {
         this._ngZone = _ngZone;
         /**
@@ -1315,12 +1477,25 @@ var RippleRenderer = (function () {
     }
     /**
      * Fades in a ripple at the given coordinates.
+     * @param x Coordinate within the element, along the X axis at which to start the ripple.
+     * @param y Coordinate within the element, along the Y axis at which to start the ripple.
+     * @param config Extra ripple options.
+     */
+    /**
+     * Fades in a ripple at the given coordinates.
      * @param {?} x Coordinate within the element, along the X axis at which to start the ripple.
      * @param {?} y Coordinate within the element, along the Y axis at which to start the ripple.
      * @param {?=} config Extra ripple options.
      * @return {?}
      */
-    RippleRenderer.prototype.fadeInRipple = function (x, y, config) {
+    RippleRenderer.prototype.fadeInRipple = /**
+     * Fades in a ripple at the given coordinates.
+     * @param {?} x Coordinate within the element, along the X axis at which to start the ripple.
+     * @param {?} y Coordinate within the element, along the Y axis at which to start the ripple.
+     * @param {?=} config Extra ripple options.
+     * @return {?}
+     */
+    function (x, y, config) {
         var _this = this;
         if (config === void 0) { config = {}; }
         var /** @type {?} */ containerRect = this._containerElement.getBoundingClientRect();
@@ -1361,12 +1536,18 @@ var RippleRenderer = (function () {
         }, duration);
         return rippleRef;
     };
+    /** Fades out a ripple reference. */
     /**
      * Fades out a ripple reference.
      * @param {?} rippleRef
      * @return {?}
      */
-    RippleRenderer.prototype.fadeOutRipple = function (rippleRef) {
+    RippleRenderer.prototype.fadeOutRipple = /**
+     * Fades out a ripple reference.
+     * @param {?} rippleRef
+     * @return {?}
+     */
+    function (rippleRef) {
         // For ripples that are not active anymore, don't re-un the fade-out animation.
         if (!this._activeRipples.delete(rippleRef)) {
             return;
@@ -1381,24 +1562,35 @@ var RippleRenderer = (function () {
             ((rippleEl.parentNode)).removeChild(rippleEl);
         }, RIPPLE_FADE_OUT_DURATION);
     };
+    /** Fades out all currently active ripples. */
     /**
      * Fades out all currently active ripples.
      * @return {?}
      */
-    RippleRenderer.prototype.fadeOutAll = function () {
+    RippleRenderer.prototype.fadeOutAll = /**
+     * Fades out all currently active ripples.
+     * @return {?}
+     */
+    function () {
         this._activeRipples.forEach(function (ripple) { return ripple.fadeOut(); });
     };
+    /** Sets the trigger element and registers the mouse events. */
     /**
      * Sets the trigger element and registers the mouse events.
      * @param {?} element
      * @return {?}
      */
-    RippleRenderer.prototype.setTriggerElement = function (element) {
+    RippleRenderer.prototype.setTriggerElement = /**
+     * Sets the trigger element and registers the mouse events.
+     * @param {?} element
+     * @return {?}
+     */
+    function (element) {
         var _this = this;
         // Remove all previously register event listeners from the trigger element.
         if (this._triggerElement) {
             this._triggerEvents.forEach(function (fn, type) {
-                ((_this._triggerElement)).removeEventListener(type, fn);
+                /** @type {?} */ ((_this._triggerElement)).removeEventListener(type, fn);
             });
         }
         if (element) {
@@ -1414,7 +1606,12 @@ var RippleRenderer = (function () {
      * @param {?} event
      * @return {?}
      */
-    RippleRenderer.prototype.onMousedown = function (event) {
+    RippleRenderer.prototype.onMousedown = /**
+     * Function being called whenever the trigger is being pressed.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         if (!this.rippleDisabled) {
             this._isMousedown = true;
             this.fadeInRipple(event.clientX, event.clientY, this.rippleConfig);
@@ -1424,7 +1621,11 @@ var RippleRenderer = (function () {
      * Function being called whenever the trigger is being released.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseup = function () {
+    RippleRenderer.prototype.onMouseup = /**
+     * Function being called whenever the trigger is being released.
+     * @return {?}
+     */
+    function () {
         if (!this._isMousedown) {
             return;
         }
@@ -1442,13 +1643,20 @@ var RippleRenderer = (function () {
      * @param {?=} delay
      * @return {?}
      */
-    RippleRenderer.prototype.runTimeoutOutsideZone = function (fn, delay) {
+    RippleRenderer.prototype.runTimeoutOutsideZone = /**
+     * Runs a timeout outside of the Angular zone to avoid triggering the change detection.
+     * @param {?} fn
+     * @param {?=} delay
+     * @return {?}
+     */
+    function (fn, delay) {
         if (delay === void 0) { delay = 0; }
         this._ngZone.runOutsideAngular(function () { return setTimeout(fn, delay); });
     };
     return RippleRenderer;
 }());
 /**
+ * Enforces a style recalculation of a DOM element by computing its styles.
  * @param {?} element
  * @return {?}
  */
@@ -1472,16 +1680,19 @@ function distanceToFurthestCorner(x, y, rect) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @record
+ */
+
+/**
  * Injection token that can be used to specify the global ripple options.
  */
 var MAT_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-ripple-global-options');
 var MatRipple = (function () {
-    /**
-     * @param {?} elementRef
-     * @param {?} ngZone
-     * @param {?} platform
-     * @param {?} globalOptions
-     */
     function MatRipple(elementRef, ngZone, platform, globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
@@ -1503,7 +1714,11 @@ var MatRipple = (function () {
      * @param {?} changes
      * @return {?}
      */
-    MatRipple.prototype.ngOnChanges = function (changes) {
+    MatRipple.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
         if ((changes['trigger'] || changes['_matRippleTrigger']) && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
@@ -1512,10 +1727,14 @@ var MatRipple = (function () {
     /**
      * @return {?}
      */
-    MatRipple.prototype.ngOnDestroy = function () {
+    MatRipple.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
         // Set the trigger element to null to cleanup all listeners.
         this._rippleRenderer.setTriggerElement(null);
     };
+    /** Launches a manual ripple at the specified position. */
     /**
      * Launches a manual ripple at the specified position.
      * @param {?} x
@@ -1523,23 +1742,36 @@ var MatRipple = (function () {
      * @param {?=} config
      * @return {?}
      */
-    MatRipple.prototype.launch = function (x, y, config) {
+    MatRipple.prototype.launch = /**
+     * Launches a manual ripple at the specified position.
+     * @param {?} x
+     * @param {?} y
+     * @param {?=} config
+     * @return {?}
+     */
+    function (x, y, config) {
         if (config === void 0) { config = this.rippleConfig; }
         return this._rippleRenderer.fadeInRipple(x, y, config);
     };
+    /** Fades out all currently showing ripple elements. */
     /**
      * Fades out all currently showing ripple elements.
      * @return {?}
      */
-    MatRipple.prototype.fadeOutAll = function () {
+    MatRipple.prototype.fadeOutAll = /**
+     * Fades out all currently showing ripple elements.
+     * @return {?}
+     */
+    function () {
         this._rippleRenderer.fadeOutAll();
     };
     Object.defineProperty(MatRipple.prototype, "rippleConfig", {
-        /**
+        /** Ripple configuration from the directive's input values. */
+        get: /**
          * Ripple configuration from the directive's input values.
          * @return {?}
          */
-        get: function () {
+        function () {
             return {
                 centered: this.centered,
                 speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
@@ -1550,11 +1782,16 @@ var MatRipple = (function () {
         enumerable: true,
         configurable: true
     });
+    /** Updates the ripple renderer with the latest ripple configuration. */
     /**
      * Updates the ripple renderer with the latest ripple configuration.
      * @return {?}
      */
-    MatRipple.prototype._updateRippleRenderer = function () {
+    MatRipple.prototype._updateRippleRenderer = /**
+     * Updates the ripple renderer with the latest ripple configuration.
+     * @return {?}
+     */
+    function () {
         this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     };
@@ -1568,9 +1805,7 @@ var MatRipple = (function () {
                     }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatRipple.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
         { type: _angular_core.NgZone, },
@@ -1578,16 +1813,21 @@ var MatRipple = (function () {
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
     ]; };
     MatRipple.propDecorators = {
-        'trigger': [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
-        'centered': [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
-        'disabled': [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
-        'radius': [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
-        'speedFactor': [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
-        'color': [{ type: _angular_core.Input, args: ['matRippleColor',] },],
-        'unbounded': [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
+        "trigger": [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
+        "centered": [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
+        "disabled": [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
+        "radius": [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
+        "speedFactor": [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
+        "color": [{ type: _angular_core.Input, args: ['matRippleColor',] },],
+        "unbounded": [{ type: _angular_core.Input, args: ['matRippleUnbounded',] },],
     };
     return MatRipple;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatRippleModule = (function () {
     function MatRippleModule() {
@@ -1599,12 +1839,15 @@ var MatRippleModule = (function () {
                     declarations: [MatRipple],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatRippleModule.ctorParameters = function () { return []; };
     return MatRippleModule;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
@@ -1645,16 +1888,19 @@ var MatPseudoCheckbox = (function () {
                     },
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatPseudoCheckbox.ctorParameters = function () { return []; };
     MatPseudoCheckbox.propDecorators = {
-        'state': [{ type: _angular_core.Input },],
-        'disabled': [{ type: _angular_core.Input },],
+        "state": [{ type: _angular_core.Input },],
+        "disabled": [{ type: _angular_core.Input },],
     };
     return MatPseudoCheckbox;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatPseudoCheckboxModule = (function () {
     function MatPseudoCheckboxModule() {
@@ -1665,13 +1911,15 @@ var MatPseudoCheckboxModule = (function () {
                     declarations: [MatPseudoCheckbox]
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatPseudoCheckboxModule.ctorParameters = function () { return []; };
     return MatPseudoCheckboxModule;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * \@docs-private
  */
@@ -1713,15 +1961,18 @@ var MatOptgroup = (function (_super) {
                     }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatOptgroup.ctorParameters = function () { return []; };
     MatOptgroup.propDecorators = {
-        'label': [{ type: _angular_core.Input },],
+        "label": [{ type: _angular_core.Input },],
     };
     return MatOptgroup;
 }(_MatOptgroupMixinBase));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
@@ -1732,10 +1983,6 @@ var _uniqueIdCounter = 0;
  * Event object emitted by MatOption when selected or deselected.
  */
 var MatOptionSelectionChange = (function () {
-    /**
-     * @param {?} source
-     * @param {?=} isUserInput
-     */
     function MatOptionSelectionChange(source, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
@@ -1744,6 +1991,13 @@ var MatOptionSelectionChange = (function () {
     return MatOptionSelectionChange;
 }());
 /**
+ * Describes a parent component that manages a list of options.
+ * Contains properties that the options can inherit.
+ * \@docs-private
+ * @record
+ */
+
+/**
  * Injection token used to provide the parent component to options.
  */
 var MAT_OPTION_PARENT_COMPONENT = new _angular_core.InjectionToken('MAT_OPTION_PARENT_COMPONENT');
@@ -1751,12 +2005,6 @@ var MAT_OPTION_PARENT_COMPONENT = new _angular_core.InjectionToken('MAT_OPTION_P
  * Single option inside of a `<mat-select>` element.
  */
 var MatOption = (function () {
-    /**
-     * @param {?} _element
-     * @param {?} _changeDetectorRef
-     * @param {?} _parent
-     * @param {?} group
-     */
     function MatOption(_element, _changeDetectorRef, _parent, group) {
         this._element = _element;
         this._changeDetectorRef = _changeDetectorRef;
@@ -1772,52 +2020,56 @@ var MatOption = (function () {
         this.onSelectionChange = new _angular_core.EventEmitter();
     }
     Object.defineProperty(MatOption.prototype, "multiple", {
-        /**
+        /** Whether the wrapping component is in multiple selection mode. */
+        get: /**
          * Whether the wrapping component is in multiple selection mode.
          * @return {?}
          */
-        get: function () { return this._parent && this._parent.multiple; },
+        function () { return this._parent && this._parent.multiple; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatOption.prototype, "id", {
-        /**
+        /** The unique ID of the option. */
+        get: /**
          * The unique ID of the option.
          * @return {?}
          */
-        get: function () { return this._id; },
+        function () { return this._id; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatOption.prototype, "selected", {
-        /**
+        /** Whether or not the option is currently selected. */
+        get: /**
          * Whether or not the option is currently selected.
          * @return {?}
          */
-        get: function () { return this._selected; },
+        function () { return this._selected; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatOption.prototype, "disabled", {
-        /**
+        get: /**
          * Whether the option is disabled.
          * @return {?}
          */
-        get: function () { return (this.group && this.group.disabled) || this._disabled; },
-        /**
+        function () { return (this.group && this.group.disabled) || this._disabled; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        function (value) { this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatOption.prototype, "disableRipple", {
-        /**
+        /** Whether ripples for the option are disabled. */
+        get: /**
          * Whether ripples for the option are disabled.
          * @return {?}
          */
-        get: function () { return this._parent && this._parent.disableRipple; },
+        function () { return this._parent && this._parent.disableRipple; },
         enumerable: true,
         configurable: true
     });
@@ -1827,9 +2079,15 @@ var MatOption = (function () {
          * An active option displays styles as if it is focused, but the
          * focus is actually retained somewhere else. This comes in handy
          * for components like autocomplete where focus must remain on the input.
+         */
+        get: /**
+         * Whether or not the option is currently active and ready to be selected.
+         * An active option displays styles as if it is focused, but the
+         * focus is actually retained somewhere else. This comes in handy
+         * for components like autocomplete where focus must remain on the input.
          * @return {?}
          */
-        get: function () {
+        function () {
             return this._active;
         },
         enumerable: true,
@@ -1839,38 +2097,57 @@ var MatOption = (function () {
         /**
          * The displayed value of the option. It is necessary to show the selected option in the
          * select's trigger.
+         */
+        get: /**
+         * The displayed value of the option. It is necessary to show the selected option in the
+         * select's trigger.
          * @return {?}
          */
-        get: function () {
+        function () {
             // TODO(kara): Add input property alternative for node envs.
             return (this._getHostElement().textContent || '').trim();
         },
         enumerable: true,
         configurable: true
     });
+    /** Selects the option. */
     /**
      * Selects the option.
      * @return {?}
      */
-    MatOption.prototype.select = function () {
+    MatOption.prototype.select = /**
+     * Selects the option.
+     * @return {?}
+     */
+    function () {
         this._selected = true;
         this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
     };
+    /** Deselects the option. */
     /**
      * Deselects the option.
      * @return {?}
      */
-    MatOption.prototype.deselect = function () {
+    MatOption.prototype.deselect = /**
+     * Deselects the option.
+     * @return {?}
+     */
+    function () {
         this._selected = false;
         this._changeDetectorRef.markForCheck();
         this._emitSelectionChangeEvent();
     };
+    /** Sets focus onto this option. */
     /**
      * Sets focus onto this option.
      * @return {?}
      */
-    MatOption.prototype.focus = function () {
+    MatOption.prototype.focus = /**
+     * Sets focus onto this option.
+     * @return {?}
+     */
+    function () {
         var /** @type {?} */ element = this._getHostElement();
         if (typeof element.focus === 'function') {
             element.focus();
@@ -1880,9 +2157,20 @@ var MatOption = (function () {
      * This method sets display styles on the option to make it appear
      * active. This is used by the ActiveDescendantKeyManager so key
      * events will display the proper options as active on arrow key events.
+     */
+    /**
+     * This method sets display styles on the option to make it appear
+     * active. This is used by the ActiveDescendantKeyManager so key
+     * events will display the proper options as active on arrow key events.
      * @return {?}
      */
-    MatOption.prototype.setActiveStyles = function () {
+    MatOption.prototype.setActiveStyles = /**
+     * This method sets display styles on the option to make it appear
+     * active. This is used by the ActiveDescendantKeyManager so key
+     * events will display the proper options as active on arrow key events.
+     * @return {?}
+     */
+    function () {
         if (!this._active) {
             this._active = true;
             this._changeDetectorRef.markForCheck();
@@ -1892,27 +2180,49 @@ var MatOption = (function () {
      * This method removes display styles on the option that made it appear
      * active. This is used by the ActiveDescendantKeyManager so key
      * events will display the proper options as active on arrow key events.
+     */
+    /**
+     * This method removes display styles on the option that made it appear
+     * active. This is used by the ActiveDescendantKeyManager so key
+     * events will display the proper options as active on arrow key events.
      * @return {?}
      */
-    MatOption.prototype.setInactiveStyles = function () {
+    MatOption.prototype.setInactiveStyles = /**
+     * This method removes display styles on the option that made it appear
+     * active. This is used by the ActiveDescendantKeyManager so key
+     * events will display the proper options as active on arrow key events.
+     * @return {?}
+     */
+    function () {
         if (this._active) {
             this._active = false;
             this._changeDetectorRef.markForCheck();
         }
     };
+    /** Gets the label to be used when determining whether the option should be focused. */
     /**
      * Gets the label to be used when determining whether the option should be focused.
      * @return {?}
      */
-    MatOption.prototype.getLabel = function () {
+    MatOption.prototype.getLabel = /**
+     * Gets the label to be used when determining whether the option should be focused.
+     * @return {?}
+     */
+    function () {
         return this.viewValue;
     };
+    /** Ensures the option is selected when activated from the keyboard. */
     /**
      * Ensures the option is selected when activated from the keyboard.
      * @param {?} event
      * @return {?}
      */
-    MatOption.prototype._handleKeydown = function (event) {
+    MatOption.prototype._handleKeydown = /**
+     * Ensures the option is selected when activated from the keyboard.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         if (event.keyCode === _angular_cdk_keycodes.ENTER || event.keyCode === _angular_cdk_keycodes.SPACE) {
             this._selectViaInteraction();
             // Prevent the page from scrolling down and form submits.
@@ -1922,27 +2232,46 @@ var MatOption = (function () {
     /**
      * Selects the option while indicating the selection came from the user. Used to
      * determine if the select's view -> model callback should be invoked.
+     */
+    /**
+     * Selects the option while indicating the selection came from the user. Used to
+     * determine if the select's view -> model callback should be invoked.
      * @return {?}
      */
-    MatOption.prototype._selectViaInteraction = function () {
+    MatOption.prototype._selectViaInteraction = /**
+     * Selects the option while indicating the selection came from the user. Used to
+     * determine if the select's view -> model callback should be invoked.
+     * @return {?}
+     */
+    function () {
         if (!this.disabled) {
             this._selected = this.multiple ? !this._selected : true;
             this._changeDetectorRef.markForCheck();
             this._emitSelectionChangeEvent(true);
         }
     };
+    /** Returns the correct tabindex for the option depending on disabled state. */
     /**
      * Returns the correct tabindex for the option depending on disabled state.
      * @return {?}
      */
-    MatOption.prototype._getTabIndex = function () {
+    MatOption.prototype._getTabIndex = /**
+     * Returns the correct tabindex for the option depending on disabled state.
+     * @return {?}
+     */
+    function () {
         return this.disabled ? '-1' : '0';
     };
+    /** Gets the host DOM element. */
     /**
      * Gets the host DOM element.
      * @return {?}
      */
-    MatOption.prototype._getHostElement = function () {
+    MatOption.prototype._getHostElement = /**
+     * Gets the host DOM element.
+     * @return {?}
+     */
+    function () {
         return this._element.nativeElement;
     };
     /**
@@ -1950,10 +2279,21 @@ var MatOption = (function () {
      * @param {?=} isUserInput
      * @return {?}
      */
-    MatOption.prototype._emitSelectionChangeEvent = function (isUserInput) {
+    MatOption.prototype._emitSelectionChangeEvent = /**
+     * Emits the selection change event.
+     * @param {?=} isUserInput
+     * @return {?}
+     */
+    function (isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
     };
+    /**
+     * Counts the amount of option group labels that precede the specified option.
+     * @param optionIndex Index of the option at which to start counting.
+     * @param options Flat list of all of the options.
+     * @param optionGroups Flat list of all of the option groups.
+     */
     /**
      * Counts the amount of option group labels that precede the specified option.
      * @param {?} optionIndex Index of the option at which to start counting.
@@ -1961,7 +2301,14 @@ var MatOption = (function () {
      * @param {?} optionGroups Flat list of all of the option groups.
      * @return {?}
      */
-    MatOption.countGroupLabelsBeforeOption = function (optionIndex, options, optionGroups) {
+    MatOption.countGroupLabelsBeforeOption = /**
+     * Counts the amount of option group labels that precede the specified option.
+     * @param {?} optionIndex Index of the option at which to start counting.
+     * @param {?} options Flat list of all of the options.
+     * @param {?} optionGroups Flat list of all of the option groups.
+     * @return {?}
+     */
+    function (optionIndex, options, optionGroups) {
         if (optionGroups.length) {
             var /** @type {?} */ optionsArray = options.toArray();
             var /** @type {?} */ groups = optionGroups.toArray();
@@ -1998,9 +2345,7 @@ var MatOption = (function () {
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatOption.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
         { type: _angular_core.ChangeDetectorRef, },
@@ -2008,12 +2353,17 @@ var MatOption = (function () {
         { type: MatOptgroup, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatOption.propDecorators = {
-        'value': [{ type: _angular_core.Input },],
-        'disabled': [{ type: _angular_core.Input },],
-        'onSelectionChange': [{ type: _angular_core.Output },],
+        "value": [{ type: _angular_core.Input },],
+        "disabled": [{ type: _angular_core.Input },],
+        "onSelectionChange": [{ type: _angular_core.Output },],
     };
     return MatOption;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatOptionModule = (function () {
     function MatOptionModule() {
@@ -2025,18 +2375,28 @@ var MatOptionModule = (function () {
                     declarations: [MatOption, MatOptgroup]
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatOptionModule.ctorParameters = function () { return []; };
     return MatOptionModule;
 }());
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * InjectionToken that can be used to specify the global placeholder options.
  */
 var MAT_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-placeholder-global-options');
+/**
+ * @record
+ */
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Applies a CSS transform to an element, including browser-prefixed properties.
  * @param {?} element
@@ -2051,6 +2411,15 @@ function applyCssTransform(element, transformValue) {
     element.style.webkitTransform = value;
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.

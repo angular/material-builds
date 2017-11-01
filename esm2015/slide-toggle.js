@@ -14,6 +14,11 @@ import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 // Increasing integer for generating unique ids for slide-toggle components.
 let nextUniqueId = 0;
 const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
@@ -307,9 +312,7 @@ MatSlideToggle.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSlideToggle.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer2, },
@@ -319,16 +322,16 @@ MatSlideToggle.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
 ];
 MatSlideToggle.propDecorators = {
-    'name': [{ type: Input },],
-    'id': [{ type: Input },],
-    'labelPosition': [{ type: Input },],
-    'ariaLabel': [{ type: Input, args: ['aria-label',] },],
-    'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
-    'required': [{ type: Input },],
-    'checked': [{ type: Input },],
-    'change': [{ type: Output },],
-    '_inputElement': [{ type: ViewChild, args: ['input',] },],
-    '_ripple': [{ type: ViewChild, args: [MatRipple,] },],
+    "name": [{ type: Input },],
+    "id": [{ type: Input },],
+    "labelPosition": [{ type: Input },],
+    "ariaLabel": [{ type: Input, args: ['aria-label',] },],
+    "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
+    "required": [{ type: Input },],
+    "checked": [{ type: Input },],
+    "change": [{ type: Output },],
+    "_inputElement": [{ type: ViewChild, args: ['input',] },],
+    "_ripple": [{ type: ViewChild, args: [MatRipple,] },],
 };
 /**
  * Renderer for the Slide Toggle component, which separates DOM modification in its own class
@@ -404,6 +407,11 @@ class SlideToggleRenderer {
     }
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 class MatSlideToggleModule {
 }
 MatSlideToggleModule.decorators = [
@@ -416,11 +424,18 @@ MatSlideToggleModule.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSlideToggleModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

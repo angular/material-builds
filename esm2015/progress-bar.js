@@ -10,6 +10,11 @@ import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * <mat-progress-bar> component.
  */
 class MatProgressBar {
@@ -90,15 +95,13 @@ MatProgressBar.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatProgressBar.ctorParameters = () => [];
 MatProgressBar.propDecorators = {
-    'color': [{ type: Input },],
-    'value': [{ type: Input },],
-    'bufferValue': [{ type: Input },],
-    'mode': [{ type: Input },],
+    "color": [{ type: Input },],
+    "value": [{ type: Input },],
+    "bufferValue": [{ type: Input },],
+    "mode": [{ type: Input },],
 };
 /**
  * Clamps a value to be between two numbers, by default 0 and 100.
@@ -111,6 +114,11 @@ function clamp(v, min = 0, max = 100) {
     return Math.max(min, Math.min(max, v));
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 class MatProgressBarModule {
 }
 MatProgressBarModule.decorators = [
@@ -120,11 +128,18 @@ MatProgressBarModule.decorators = [
                 declarations: [MatProgressBar],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatProgressBarModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

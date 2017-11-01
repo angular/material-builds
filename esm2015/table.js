@@ -16,6 +16,11 @@ import { startWith } from 'rxjs/operators/startWith';
 import { empty } from 'rxjs/observable/empty';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
 const _MatTable = CdkTable;
@@ -37,10 +42,13 @@ MatTable.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTable.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
@@ -62,9 +70,7 @@ MatCellDef.decorators = [
                 providers: [{ provide: CdkCellDef, useExisting: MatCellDef }]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatCellDef.ctorParameters = () => [];
 /**
  * Header cell definition for the mat-table.
@@ -78,9 +84,7 @@ MatHeaderCellDef.decorators = [
                 providers: [{ provide: CdkHeaderCellDef, useExisting: MatHeaderCellDef }]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatHeaderCellDef.ctorParameters = () => [];
 /**
  * Column definition for the mat-table.
@@ -94,12 +98,10 @@ MatColumnDef.decorators = [
                 providers: [{ provide: CdkColumnDef, useExisting: MatColumnDef }],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatColumnDef.ctorParameters = () => [];
 MatColumnDef.propDecorators = {
-    'name': [{ type: Input, args: ['matColumnDef',] },],
+    "name": [{ type: Input, args: ['matColumnDef',] },],
 };
 /**
  * Header cell template container that adds the right classes and role.
@@ -124,9 +126,7 @@ MatHeaderCell.decorators = [
                 },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatHeaderCell.ctorParameters = () => [
     { type: CdkColumnDef, },
     { type: ElementRef, },
@@ -155,14 +155,17 @@ MatCell.decorators = [
                 },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatCell.ctorParameters = () => [
     { type: CdkColumnDef, },
     { type: ElementRef, },
     { type: Renderer2, },
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
@@ -184,9 +187,7 @@ MatHeaderRowDef.decorators = [
                 inputs: ['columns: matHeaderRowDef'],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatHeaderRowDef.ctorParameters = () => [];
 /**
  * Data row definition for the mat-table.
@@ -202,9 +203,7 @@ MatRowDef.decorators = [
                 inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatRowDef.ctorParameters = () => [];
 /**
  * Header template container that contains the cell outlet. Adds the right class and role.
@@ -224,9 +223,7 @@ MatHeaderRow.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatHeaderRow.ctorParameters = () => [];
 /**
  * Data row template container that contains the cell outlet. Adds the right class and role.
@@ -246,10 +243,13 @@ MatRow.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatRow.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatTableModule {
 }
@@ -264,11 +264,13 @@ MatTableModule.decorators = [
                     MatHeaderRowDef, MatRowDef],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTableModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
  * sorting (using MatSort), and pagination (using MatPaginator).
@@ -299,7 +301,7 @@ class MatTableDataSource {
          * @param sortHeaderId The name of the column that represents the data.
          */
         this.sortingDataAccessor = (data, sortHeaderId) => {
-            const value = data[sortHeaderId];
+            const /** @type {?} */ value = data[sortHeaderId];
             return isNaN(+value) ? value : +value;
         };
         /**
@@ -314,10 +316,10 @@ class MatTableDataSource {
          */
         this.filterPredicate = (data, filter) => {
             // Transform the data into a lowercase string of all property values.
-            const accumulator = (currentTerm, key) => currentTerm + data[key];
-            const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+            const /** @type {?} */ accumulator = (currentTerm, key) => currentTerm + data[key];
+            const /** @type {?} */ dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
             // Transform the filter by converting it to lowercase and removing whitespace.
-            const transformedFilter = filter.trim().toLowerCase();
+            const /** @type {?} */ transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
         };
         this._data = new BehaviorSubject(initialData);
@@ -484,6 +486,15 @@ class MatTableDataSource {
     disconnect() { }
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

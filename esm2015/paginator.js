@@ -13,6 +13,11 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { Subject } from 'rxjs/Subject';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
  * include it in a custom provider
  */
@@ -43,9 +48,9 @@ class MatPaginatorIntl {
                 return `0 of ${length}`;
             }
             length = Math.max(length, 0);
-            const startIndex = page * pageSize;
+            const /** @type {?} */ startIndex = page * pageSize;
             // If the start index exceeds the list length, do not try and fix the end index to the end.
-            const endIndex = startIndex < length ?
+            const /** @type {?} */ endIndex = startIndex < length ?
                 Math.min(startIndex + pageSize, length) :
                 startIndex + pageSize;
             return `${startIndex + 1} - ${endIndex} of ${length}`;
@@ -55,10 +60,13 @@ class MatPaginatorIntl {
 MatPaginatorIntl.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatPaginatorIntl.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * The default page size if there is no page size and there are no provided page size options.
@@ -260,20 +268,23 @@ MatPaginator.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatPaginator.ctorParameters = () => [
     { type: MatPaginatorIntl, },
     { type: ChangeDetectorRef, },
 ];
 MatPaginator.propDecorators = {
-    'pageIndex': [{ type: Input },],
-    'length': [{ type: Input },],
-    'pageSize': [{ type: Input },],
-    'pageSizeOptions': [{ type: Input },],
-    'page': [{ type: Output },],
+    "pageIndex": [{ type: Input },],
+    "length": [{ type: Input },],
+    "pageSize": [{ type: Input },],
+    "pageSizeOptions": [{ type: Input },],
+    "page": [{ type: Output },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatPaginatorModule {
 }
@@ -290,11 +301,18 @@ MatPaginatorModule.decorators = [
                 providers: [MatPaginatorIntl],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatPaginatorModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

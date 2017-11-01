@@ -19,6 +19,10 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
  * the default separation we chose.
  */
@@ -56,10 +60,6 @@ var MatSliderChange = (function () {
  * \@docs-private
  */
 var MatSliderBase = (function () {
-    /**
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     */
     function MatSliderBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -73,13 +73,6 @@ var _MatSliderMixinBase = mixinColor(mixinDisabled(MatSliderBase), 'accent');
  */
 var MatSlider = (function (_super) {
     __extends(MatSlider, _super);
-    /**
-     * @param {?} renderer
-     * @param {?} elementRef
-     * @param {?} _focusMonitor
-     * @param {?} _changeDetectorRef
-     * @param {?} _dir
-     */
     function MatSlider(renderer, elementRef, _focusMonitor, _changeDetectorRef, _dir) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
@@ -132,32 +125,32 @@ var MatSlider = (function (_super) {
         return _this;
     }
     Object.defineProperty(MatSlider.prototype, "invert", {
-        /**
+        get: /**
          * Whether the slider is inverted.
          * @return {?}
          */
-        get: function () { return this._invert; },
-        /**
+        function () { return this._invert; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._invert = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "max", {
-        /**
+        get: /**
          * The maximum value that the slider can have.
          * @return {?}
          */
-        get: function () { return this._max; },
-        /**
+        function () { return this._max; },
+        set: /**
          * @param {?} v
          * @return {?}
          */
-        set: function (v) {
+        function (v) {
             this._max = coerceNumberProperty(v, this._max);
             this._percent = this._calculatePercentage(this._value);
             // Since this also modifies the percentage, we need to let the change detection know.
@@ -167,16 +160,16 @@ var MatSlider = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "min", {
-        /**
+        get: /**
          * The minimum value that the slider can have.
          * @return {?}
          */
-        get: function () { return this._min; },
-        /**
+        function () { return this._min; },
+        set: /**
          * @param {?} v
          * @return {?}
          */
-        set: function (v) {
+        function (v) {
             this._min = coerceNumberProperty(v, this._min);
             // If the value wasn't explicitly set by the user, set it to the min.
             if (this._value === null) {
@@ -190,19 +183,19 @@ var MatSlider = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "step", {
-        /**
+        get: /**
          * The values at which the thumb will snap.
          * @return {?}
          */
-        get: function () { return this._step; },
-        /**
+        function () { return this._step; },
+        set: /**
          * @param {?} v
          * @return {?}
          */
-        set: function (v) {
+        function (v) {
             this._step = coerceNumberProperty(v, this._step);
             if (this._step % 1 !== 0) {
-                this._roundLabelTo = ((this._step.toString().split('.').pop())).length;
+                this._roundLabelTo = /** @type {?} */ ((this._step.toString().split('.').pop())).length;
             }
             // Since this could modify the label, we need to notify the change detection.
             this._changeDetectorRef.markForCheck();
@@ -211,45 +204,45 @@ var MatSlider = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "thumbLabel", {
-        /**
+        get: /**
          * Whether or not to show the thumb label.
          * @return {?}
          */
-        get: function () { return this._thumbLabel; },
-        /**
+        function () { return this._thumbLabel; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._thumbLabel = coerceBooleanProperty(value); },
+        function (value) { this._thumbLabel = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "_thumbLabelDeprecated", {
-        /**
+        get: /**
          * @deprecated
          * @return {?}
          */
-        get: function () { return this._thumbLabel; },
-        /**
+        function () { return this._thumbLabel; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._thumbLabel = value; },
+        function (value) { this._thumbLabel = value; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "tickInterval", {
-        /**
+        get: /**
          * How often to show ticks. Relative to the step so that a tick always appears on a step.
          * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
          * @return {?}
          */
-        get: function () { return this._tickInterval; },
-        /**
+        function () { return this._tickInterval; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             if (value === 'auto') {
                 this._tickInterval = 'auto';
             }
@@ -264,36 +257,36 @@ var MatSlider = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "_tickIntervalDeprecated", {
-        /**
+        get: /**
          * @deprecated
          * @return {?}
          */
-        get: function () { return this.tickInterval; },
-        /**
+        function () { return this.tickInterval; },
+        set: /**
          * @param {?} v
          * @return {?}
          */
-        set: function (v) { this.tickInterval = v; },
+        function (v) { this.tickInterval = v; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "value", {
-        /**
+        get: /**
          * Value of the slider.
          * @return {?}
          */
-        get: function () {
+        function () {
             // If the value needs to be read and it is still uninitialized, initialize it to the min.
             if (this._value === null) {
                 this.value = this._min;
             }
             return this._value;
         },
-        /**
+        set: /**
          * @param {?} v
          * @return {?}
          */
-        set: function (v) {
+        function (v) {
             if (v !== this._value) {
                 this._value = coerceNumberProperty(v, this._value || 0);
                 this._percent = this._calculatePercentage(this._value);
@@ -305,27 +298,28 @@ var MatSlider = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "vertical", {
-        /**
+        get: /**
          * Whether the slider is vertical.
          * @return {?}
          */
-        get: function () { return this._vertical; },
-        /**
+        function () { return this._vertical; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._vertical = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "displayValue", {
-        /**
+        /** The value to be used for display purposes. */
+        get: /**
          * The value to be used for display purposes.
          * @return {?}
          */
-        get: function () {
+        function () {
             // Note that this could be improved further by rounding something like 0.999 to 1 or
             // 0.899 to 0.9, however it is very performance sensitive, because it gets called on
             // every change detection cycle.
@@ -338,11 +332,12 @@ var MatSlider = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "percent", {
-        /**
+        /** The percentage of the slider that coincides with the value. */
+        get: /**
          * The percentage of the slider that coincides with the value.
          * @return {?}
          */
-        get: function () { return this._clamp(this._percent); },
+        function () { return this._clamp(this._percent); },
         enumerable: true,
         configurable: true
     });
@@ -350,9 +345,13 @@ var MatSlider = (function (_super) {
         /**
          * Whether the axis of the slider is inverted.
          * (i.e. whether moving the thumb in the positive x or y direction decreases the slider's value).
+         */
+        get: /**
+         * Whether the axis of the slider is inverted.
+         * (i.e. whether moving the thumb in the positive x or y direction decreases the slider's value).
          * @return {?}
          */
-        get: function () {
+        function () {
             // Standard non-inverted mode for a vertical slider should be dragging the thumb from bottom to
             // top. However from a y-axis standpoint this is inverted.
             return this.vertical ? !this.invert : this.invert;
@@ -361,11 +360,12 @@ var MatSlider = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "_isMinValue", {
-        /**
+        /** Whether the slider is at its minimum value. */
+        get: /**
          * Whether the slider is at its minimum value.
          * @return {?}
          */
-        get: function () {
+        function () {
             return this.percent === 0;
         },
         enumerable: true,
@@ -375,9 +375,13 @@ var MatSlider = (function (_super) {
         /**
          * The amount of space to leave between the slider thumb and the track fill & track background
          * elements.
+         */
+        get: /**
+         * The amount of space to leave between the slider thumb and the track fill & track background
+         * elements.
          * @return {?}
          */
-        get: function () {
+        function () {
             if (this.disabled) {
                 return DISABLED_THUMB_GAP;
             }
@@ -390,11 +394,12 @@ var MatSlider = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "_trackBackgroundStyles", {
-        /**
+        /** CSS styles for the track background element. */
+        get: /**
          * CSS styles for the track background element.
          * @return {?}
          */
-        get: function () {
+        function () {
             var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
             var /** @type {?} */ sign = this._invertMouseCoords ? '-' : '';
             return {
@@ -405,11 +410,12 @@ var MatSlider = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "_trackFillStyles", {
-        /**
+        /** CSS styles for the track fill element. */
+        get: /**
          * CSS styles for the track fill element.
          * @return {?}
          */
-        get: function () {
+        function () {
             var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
             var /** @type {?} */ sign = this._invertMouseCoords ? '' : '-';
             return {
@@ -420,11 +426,12 @@ var MatSlider = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "_ticksContainerStyles", {
-        /**
+        /** CSS styles for the ticks container element. */
+        get: /**
          * CSS styles for the ticks container element.
          * @return {?}
          */
-        get: function () {
+        function () {
             var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
             // For a horizontal slider in RTL languages we push the ticks container off the left edge
             // instead of the right edge to avoid causing a horizontal scrollbar to appear.
@@ -438,11 +445,12 @@ var MatSlider = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "_ticksStyles", {
-        /**
+        /** CSS styles for the ticks element. */
+        get: /**
          * CSS styles for the ticks element.
          * @return {?}
          */
-        get: function () {
+        function () {
             var /** @type {?} */ tickSize = this._tickIntervalPercent * 100;
             var /** @type {?} */ backgroundSize = this.vertical ? "2px " + tickSize + "%" : tickSize + "% 2px";
             var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
@@ -468,10 +476,10 @@ var MatSlider = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "_thumbContainerStyles", {
-        /**
+        get: /**
          * @return {?}
          */
-        get: function () {
+        function () {
             var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
             // For a horizontal slider in RTL languages we push the thumb container off the left edge
             // instead of the right edge to avoid causing a horizontal scrollbar to appear.
@@ -485,23 +493,23 @@ var MatSlider = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "_invertMouseCoords", {
-        /**
+        get: /**
          * Whether mouse events should be converted to a slider position by calculating their distance
          * from the right or bottom edge of the slider as opposed to the top or left.
          * @return {?}
          */
-        get: function () {
+        function () {
             return (this._direction == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "_direction", {
-        /**
+        get: /**
          * The language direction for this slider element.
          * @return {?}
          */
-        get: function () {
+        function () {
             return (this._dir && this._dir.value == 'rtl') ? 'rtl' : 'ltr';
         },
         enumerable: true,
@@ -510,7 +518,10 @@ var MatSlider = (function (_super) {
     /**
      * @return {?}
      */
-    MatSlider.prototype.ngOnInit = function () {
+    MatSlider.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
         var _this = this;
         this._focusMonitor
             .monitor(this._elementRef.nativeElement, this._renderer, true)
@@ -527,14 +538,20 @@ var MatSlider = (function (_super) {
     /**
      * @return {?}
      */
-    MatSlider.prototype.ngOnDestroy = function () {
+    MatSlider.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
         this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
         this._dirChangeSubscription.unsubscribe();
     };
     /**
      * @return {?}
      */
-    MatSlider.prototype._onMouseenter = function () {
+    MatSlider.prototype._onMouseenter = /**
+     * @return {?}
+     */
+    function () {
         if (this.disabled) {
             return;
         }
@@ -547,7 +564,11 @@ var MatSlider = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MatSlider.prototype._onClick = function (event) {
+    MatSlider.prototype._onClick = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         if (this.disabled) {
             return;
         }
@@ -565,7 +586,11 @@ var MatSlider = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MatSlider.prototype._onSlide = function (event) {
+    MatSlider.prototype._onSlide = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         if (this.disabled) {
             return;
         }
@@ -587,7 +612,11 @@ var MatSlider = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MatSlider.prototype._onSlideStart = function (event) {
+    MatSlider.prototype._onSlideStart = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         if (this.disabled || this._isSliding) {
             return;
         }
@@ -604,7 +633,10 @@ var MatSlider = (function (_super) {
     /**
      * @return {?}
      */
-    MatSlider.prototype._onSlideEnd = function () {
+    MatSlider.prototype._onSlideEnd = /**
+     * @return {?}
+     */
+    function () {
         this._isSliding = false;
         if (this._valueOnSlideStart != this.value) {
             this._emitChangeEvent();
@@ -614,7 +646,10 @@ var MatSlider = (function (_super) {
     /**
      * @return {?}
      */
-    MatSlider.prototype._onFocus = function () {
+    MatSlider.prototype._onFocus = /**
+     * @return {?}
+     */
+    function () {
         // We save the dimensions of the slider here so we can use them to update the spacing of the
         // ticks and determine where on the slider click and slide events happen.
         this._sliderDimensions = this._getSliderDimensions();
@@ -623,14 +658,21 @@ var MatSlider = (function (_super) {
     /**
      * @return {?}
      */
-    MatSlider.prototype._onBlur = function () {
+    MatSlider.prototype._onBlur = /**
+     * @return {?}
+     */
+    function () {
         this.onTouched();
     };
     /**
      * @param {?} event
      * @return {?}
      */
-    MatSlider.prototype._onKeydown = function (event) {
+    MatSlider.prototype._onKeydown = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         if (this.disabled) {
             return;
         }
@@ -683,7 +725,10 @@ var MatSlider = (function (_super) {
     /**
      * @return {?}
      */
-    MatSlider.prototype._onKeyup = function () {
+    MatSlider.prototype._onKeyup = /**
+     * @return {?}
+     */
+    function () {
         this._isSliding = false;
     };
     /**
@@ -691,7 +736,12 @@ var MatSlider = (function (_super) {
      * @param {?} numSteps
      * @return {?}
      */
-    MatSlider.prototype._increment = function (numSteps) {
+    MatSlider.prototype._increment = /**
+     * Increments the slider by the given number of steps (negative number decrements).
+     * @param {?} numSteps
+     * @return {?}
+     */
+    function (numSteps) {
         this.value = this._clamp((this.value || 0) + this.step * numSteps, this.min, this.max);
     };
     /**
@@ -699,7 +749,12 @@ var MatSlider = (function (_super) {
      * @param {?} pos
      * @return {?}
      */
-    MatSlider.prototype._updateValueFromPosition = function (pos) {
+    MatSlider.prototype._updateValueFromPosition = /**
+     * Calculate the new value from the new physical location. The value will always be snapped.
+     * @param {?} pos
+     * @return {?}
+     */
+    function (pos) {
         if (!this._sliderDimensions) {
             return;
         }
@@ -722,7 +777,11 @@ var MatSlider = (function (_super) {
      * Emits a change event if the current value is different from the last emitted value.
      * @return {?}
      */
-    MatSlider.prototype._emitChangeEvent = function () {
+    MatSlider.prototype._emitChangeEvent = /**
+     * Emits a change event if the current value is different from the last emitted value.
+     * @return {?}
+     */
+    function () {
         this._controlValueAccessorChangeFn(this.value);
         this.change.emit(this._createChangeEvent());
     };
@@ -730,14 +789,22 @@ var MatSlider = (function (_super) {
      * Emits an input event when the current value is different from the last emitted value.
      * @return {?}
      */
-    MatSlider.prototype._emitInputEvent = function () {
+    MatSlider.prototype._emitInputEvent = /**
+     * Emits an input event when the current value is different from the last emitted value.
+     * @return {?}
+     */
+    function () {
         this.input.emit(this._createChangeEvent());
     };
     /**
      * Updates the amount of space between ticks as a percentage of the width of the slider.
      * @return {?}
      */
-    MatSlider.prototype._updateTickIntervalPercent = function () {
+    MatSlider.prototype._updateTickIntervalPercent = /**
+     * Updates the amount of space between ticks as a percentage of the width of the slider.
+     * @return {?}
+     */
+    function () {
         if (!this.tickInterval || !this._sliderDimensions) {
             return;
         }
@@ -757,7 +824,12 @@ var MatSlider = (function (_super) {
      * @param {?=} value
      * @return {?}
      */
-    MatSlider.prototype._createChangeEvent = function (value) {
+    MatSlider.prototype._createChangeEvent = /**
+     * Creates a slider change object from the specified value.
+     * @param {?=} value
+     * @return {?}
+     */
+    function (value) {
         if (value === void 0) { value = this.value; }
         var /** @type {?} */ event = new MatSliderChange();
         event.source = this;
@@ -769,7 +841,12 @@ var MatSlider = (function (_super) {
      * @param {?} value
      * @return {?}
      */
-    MatSlider.prototype._calculatePercentage = function (value) {
+    MatSlider.prototype._calculatePercentage = /**
+     * Calculates the percentage of the slider that a value is.
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
         return ((value || 0) - this.min) / (this.max - this.min);
     };
     /**
@@ -777,7 +854,12 @@ var MatSlider = (function (_super) {
      * @param {?} percentage
      * @return {?}
      */
-    MatSlider.prototype._calculateValue = function (percentage) {
+    MatSlider.prototype._calculateValue = /**
+     * Calculates the value a percentage of the slider corresponds to.
+     * @param {?} percentage
+     * @return {?}
+     */
+    function (percentage) {
         return this.min + percentage * (this.max - this.min);
     };
     /**
@@ -787,7 +869,14 @@ var MatSlider = (function (_super) {
      * @param {?=} max
      * @return {?}
      */
-    MatSlider.prototype._clamp = function (value, min, max) {
+    MatSlider.prototype._clamp = /**
+     * Return a number between two numbers.
+     * @param {?} value
+     * @param {?=} min
+     * @param {?=} max
+     * @return {?}
+     */
+    function (value, min, max) {
         if (min === void 0) { min = 0; }
         if (max === void 0) { max = 1; }
         return Math.max(min, Math.min(value, max));
@@ -798,7 +887,13 @@ var MatSlider = (function (_super) {
      * take up.
      * @return {?}
      */
-    MatSlider.prototype._getSliderDimensions = function () {
+    MatSlider.prototype._getSliderDimensions = /**
+     * Get the bounding client rect of the slider track element.
+     * The track is used rather than the native element to ignore the extra space that the thumb can
+     * take up.
+     * @return {?}
+     */
+    function () {
         return this._sliderWrapper ? this._sliderWrapper.nativeElement.getBoundingClientRect() : null;
     };
     /**
@@ -806,42 +901,89 @@ var MatSlider = (function (_super) {
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.
      * @return {?}
      */
-    MatSlider.prototype._focusHostElement = function () {
+    MatSlider.prototype._focusHostElement = /**
+     * Focuses the native element.
+     * Currently only used to allow a blur event to fire but will be used with keyboard input later.
+     * @return {?}
+     */
+    function () {
         this._elementRef.nativeElement.focus();
     };
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value
+     */
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
      * @param {?} value
      * @return {?}
      */
-    MatSlider.prototype.writeValue = function (value) {
+    MatSlider.prototype.writeValue = /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
         this.value = value;
     };
+    /**
+     * Registers a callback to eb triggered when the value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     /**
      * Registers a callback to eb triggered when the value has changed.
      * Implemented as part of ControlValueAccessor.
      * @param {?} fn Callback to be registered.
      * @return {?}
      */
-    MatSlider.prototype.registerOnChange = function (fn) {
+    MatSlider.prototype.registerOnChange = /**
+     * Registers a callback to eb triggered when the value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param {?} fn Callback to be registered.
+     * @return {?}
+     */
+    function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
+    /**
+     * Registers a callback to be triggered when the component is touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be registered.
+     */
     /**
      * Registers a callback to be triggered when the component is touched.
      * Implemented as part of ControlValueAccessor.
      * @param {?} fn Callback to be registered.
      * @return {?}
      */
-    MatSlider.prototype.registerOnTouched = function (fn) {
+    MatSlider.prototype.registerOnTouched = /**
+     * Registers a callback to be triggered when the component is touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param {?} fn Callback to be registered.
+     * @return {?}
+     */
+    function (fn) {
         this.onTouched = fn;
     };
+    /**
+     * Sets whether the component should be disabled.
+     * Implemented as part of ControlValueAccessor.
+     * @param isDisabled
+     */
     /**
      * Sets whether the component should be disabled.
      * Implemented as part of ControlValueAccessor.
      * @param {?} isDisabled
      * @return {?}
      */
-    MatSlider.prototype.setDisabledState = function (isDisabled) {
+    MatSlider.prototype.setDisabledState = /**
+     * Sets whether the component should be disabled.
+     * Implemented as part of ControlValueAccessor.
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    function (isDisabled) {
         this.disabled = isDisabled;
     };
     MatSlider.decorators = [
@@ -884,9 +1026,7 @@ var MatSlider = (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSlider.ctorParameters = function () { return [
         { type: Renderer2, },
         { type: ElementRef, },
@@ -895,22 +1035,27 @@ var MatSlider = (function (_super) {
         { type: Directionality, decorators: [{ type: Optional },] },
     ]; };
     MatSlider.propDecorators = {
-        'invert': [{ type: Input },],
-        'max': [{ type: Input },],
-        'min': [{ type: Input },],
-        'step': [{ type: Input },],
-        'thumbLabel': [{ type: Input },],
-        '_thumbLabelDeprecated': [{ type: Input, args: ['thumb-label',] },],
-        'tickInterval': [{ type: Input },],
-        '_tickIntervalDeprecated': [{ type: Input, args: ['tick-interval',] },],
-        'value': [{ type: Input },],
-        'vertical': [{ type: Input },],
-        'change': [{ type: Output },],
-        'input': [{ type: Output },],
-        '_sliderWrapper': [{ type: ViewChild, args: ['sliderWrapper',] },],
+        "invert": [{ type: Input },],
+        "max": [{ type: Input },],
+        "min": [{ type: Input },],
+        "step": [{ type: Input },],
+        "thumbLabel": [{ type: Input },],
+        "_thumbLabelDeprecated": [{ type: Input, args: ['thumb-label',] },],
+        "tickInterval": [{ type: Input },],
+        "_tickIntervalDeprecated": [{ type: Input, args: ['tick-interval',] },],
+        "value": [{ type: Input },],
+        "vertical": [{ type: Input },],
+        "change": [{ type: Output },],
+        "input": [{ type: Output },],
+        "_sliderWrapper": [{ type: ViewChild, args: ['sliderWrapper',] },],
     };
     return MatSlider;
 }(_MatSliderMixinBase));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatSliderModule = (function () {
     function MatSliderModule() {
@@ -923,13 +1068,20 @@ var MatSliderModule = (function () {
                     providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSliderModule.ctorParameters = function () { return []; };
     return MatSliderModule;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

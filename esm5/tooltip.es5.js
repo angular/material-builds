@@ -21,6 +21,11 @@ import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Subject } from 'rxjs/Subject';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Time in ms to delay before changing the tooltip visibility to hidden
  */
 var TOUCHEND_HIDE_DELAY = 1500;
@@ -67,19 +72,6 @@ var MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
  * https://material.google.com/components/tooltips.html
  */
 var MatTooltip = (function () {
-    /**
-     * @param {?} renderer
-     * @param {?} _overlay
-     * @param {?} _elementRef
-     * @param {?} _scrollDispatcher
-     * @param {?} _viewContainerRef
-     * @param {?} _ngZone
-     * @param {?} _platform
-     * @param {?} _ariaDescriber
-     * @param {?} _focusMonitor
-     * @param {?} _scrollStrategy
-     * @param {?} _dir
-     */
     function MatTooltip(renderer, _overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir) {
         var _this = this;
         this._overlay = _overlay;
@@ -122,16 +114,16 @@ var MatTooltip = (function () {
         });
     }
     Object.defineProperty(MatTooltip.prototype, "position", {
-        /**
+        get: /**
          * Allows the user to define the position of the tooltip relative to the parent element
          * @return {?}
          */
-        get: function () { return this._position; },
-        /**
+        function () { return this._position; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             if (value !== this._position) {
                 this._position = value;
                 // TODO(andrewjs): When the overlay's position can be dynamically changed, do not destroy
@@ -145,16 +137,16 @@ var MatTooltip = (function () {
         configurable: true
     });
     Object.defineProperty(MatTooltip.prototype, "disabled", {
-        /**
+        get: /**
          * Disables the display of the tooltip.
          * @return {?}
          */
-        get: function () { return this._disabled; },
-        /**
+        function () { return this._disabled; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._disabled = coerceBooleanProperty(value);
             // If tooltip is disabled, hide immediately.
             if (this._disabled) {
@@ -165,30 +157,30 @@ var MatTooltip = (function () {
         configurable: true
     });
     Object.defineProperty(MatTooltip.prototype, "_positionDeprecated", {
-        /**
+        get: /**
          * @deprecated
          * @return {?}
          */
-        get: function () { return this._position; },
-        /**
+        function () { return this._position; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._position = value; },
+        function (value) { this._position = value; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatTooltip.prototype, "message", {
-        /**
+        get: /**
          * The message to be displayed in the tooltip
          * @return {?}
          */
-        get: function () { return this._message; },
-        /**
+        function () { return this._message; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message);
             // If the message is not a string (e.g. number), convert it to a string and trim it.
             this._message = value != null ? ("" + value).trim() : '';
@@ -199,16 +191,16 @@ var MatTooltip = (function () {
         configurable: true
     });
     Object.defineProperty(MatTooltip.prototype, "tooltipClass", {
-        /**
+        get: /**
          * Classes to be passed to the tooltip. Supports the same syntax as `ngClass`.
          * @return {?}
          */
-        get: function () { return this._tooltipClass; },
-        /**
+        function () { return this._tooltipClass; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._tooltipClass = value;
             if (this._tooltipInstance) {
                 this._setTooltipClass(this._tooltipClass);
@@ -219,9 +211,16 @@ var MatTooltip = (function () {
     });
     /**
      * Dispose the tooltip when destroyed.
+     */
+    /**
+     * Dispose the tooltip when destroyed.
      * @return {?}
      */
-    MatTooltip.prototype.ngOnDestroy = function () {
+    MatTooltip.prototype.ngOnDestroy = /**
+     * Dispose the tooltip when destroyed.
+     * @return {?}
+     */
+    function () {
         if (this._tooltipInstance) {
             this._disposeTooltip();
         }
@@ -233,12 +232,18 @@ var MatTooltip = (function () {
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
         this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
     };
+    /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
     /**
      * Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input
      * @param {?=} delay
      * @return {?}
      */
-    MatTooltip.prototype.show = function (delay) {
+    MatTooltip.prototype.show = /**
+     * Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input
+     * @param {?=} delay
+     * @return {?}
+     */
+    function (delay) {
         if (delay === void 0) { delay = this.showDelay; }
         if (this.disabled || !this.message) {
             return;
@@ -250,37 +255,59 @@ var MatTooltip = (function () {
         this._updateTooltipMessage(); /** @type {?} */
         ((this._tooltipInstance)).show(this._position, delay);
     };
+    /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input */
     /**
      * Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input
      * @param {?=} delay
      * @return {?}
      */
-    MatTooltip.prototype.hide = function (delay) {
+    MatTooltip.prototype.hide = /**
+     * Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input
+     * @param {?=} delay
+     * @return {?}
+     */
+    function (delay) {
         if (delay === void 0) { delay = this.hideDelay; }
         if (this._tooltipInstance) {
             this._tooltipInstance.hide(delay);
         }
     };
+    /** Shows/hides the tooltip */
     /**
      * Shows/hides the tooltip
      * @return {?}
      */
-    MatTooltip.prototype.toggle = function () {
+    MatTooltip.prototype.toggle = /**
+     * Shows/hides the tooltip
+     * @return {?}
+     */
+    function () {
         this._isTooltipVisible() ? this.hide() : this.show();
     };
+    /** Returns true if the tooltip is currently visible to the user */
     /**
      * Returns true if the tooltip is currently visible to the user
      * @return {?}
      */
-    MatTooltip.prototype._isTooltipVisible = function () {
+    MatTooltip.prototype._isTooltipVisible = /**
+     * Returns true if the tooltip is currently visible to the user
+     * @return {?}
+     */
+    function () {
         return !!this._tooltipInstance && this._tooltipInstance.isVisible();
     };
+    /** Handles the keydown events on the host element. */
     /**
      * Handles the keydown events on the host element.
      * @param {?} e
      * @return {?}
      */
-    MatTooltip.prototype._handleKeydown = function (e) {
+    MatTooltip.prototype._handleKeydown = /**
+     * Handles the keydown events on the host element.
+     * @param {?} e
+     * @return {?}
+     */
+    function (e) {
         if (this._isTooltipVisible() && e.keyCode === ESCAPE) {
             e.stopPropagation();
             this.hide(0);
@@ -290,7 +317,11 @@ var MatTooltip = (function () {
      * Create the tooltip to display
      * @return {?}
      */
-    MatTooltip.prototype._createTooltip = function () {
+    MatTooltip.prototype._createTooltip = /**
+     * Create the tooltip to display
+     * @return {?}
+     */
+    function () {
         var _this = this;
         var /** @type {?} */ overlayRef = this._createOverlay();
         var /** @type {?} */ portal = new ComponentPortal(TooltipComponent, this._viewContainerRef);
@@ -308,7 +339,11 @@ var MatTooltip = (function () {
      * Create the overlay config and position strategy
      * @return {?}
      */
-    MatTooltip.prototype._createOverlay = function () {
+    MatTooltip.prototype._createOverlay = /**
+     * Create the overlay config and position strategy
+     * @return {?}
+     */
+    function () {
         var _this = this;
         var /** @type {?} */ origin = this._getOrigin();
         var /** @type {?} */ overlay = this._getOverlayPosition();
@@ -325,9 +360,12 @@ var MatTooltip = (function () {
                 if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {
                     // After position changes occur and the overlay is clipped by
                     // a parent scrollable then close the tooltip.
+                    // After position changes occur and the overlay is clipped by
+                    // a parent scrollable then close the tooltip.
                     _this.hide(0);
                 }
                 else {
+                    // Otherwise recalculate the origin based on the new position.
                     // Otherwise recalculate the origin based on the new position.
                     _this._tooltipInstance._setTransformOrigin(change.connectionPair);
                 }
@@ -346,7 +384,11 @@ var MatTooltip = (function () {
      * Disposes the current tooltip and the overlay it is attached to
      * @return {?}
      */
-    MatTooltip.prototype._disposeTooltip = function () {
+    MatTooltip.prototype._disposeTooltip = /**
+     * Disposes the current tooltip and the overlay it is attached to
+     * @return {?}
+     */
+    function () {
         if (this._overlayRef) {
             this._overlayRef.dispose();
             this._overlayRef = null;
@@ -356,9 +398,18 @@ var MatTooltip = (function () {
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
      * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
+     */
+    /**
+     * Returns the origin position and a fallback position based on the user's position preference.
+     * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
      * @return {?}
      */
-    MatTooltip.prototype._getOrigin = function () {
+    MatTooltip.prototype._getOrigin = /**
+     * Returns the origin position and a fallback position based on the user's position preference.
+     * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
+     * @return {?}
+     */
+    function () {
         var /** @type {?} */ isDirectionLtr = !this._dir || this._dir.value == 'ltr';
         var /** @type {?} */ position;
         if (this.position == 'above' || this.position == 'below') {
@@ -383,11 +434,16 @@ var MatTooltip = (function () {
             fallback: { originX: x, originY: y }
         };
     };
+    /** Returns the overlay position and a fallback position based on the user's preference */
     /**
      * Returns the overlay position and a fallback position based on the user's preference
      * @return {?}
      */
-    MatTooltip.prototype._getOverlayPosition = function () {
+    MatTooltip.prototype._getOverlayPosition = /**
+     * Returns the overlay position and a fallback position based on the user's preference
+     * @return {?}
+     */
+    function () {
         var /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
         var /** @type {?} */ position;
         if (this.position == 'above') {
@@ -419,7 +475,11 @@ var MatTooltip = (function () {
      * Updates the tooltip message and repositions the overlay according to the new message length
      * @return {?}
      */
-    MatTooltip.prototype._updateTooltipMessage = function () {
+    MatTooltip.prototype._updateTooltipMessage = /**
+     * Updates the tooltip message and repositions the overlay according to the new message length
+     * @return {?}
+     */
+    function () {
         var _this = this;
         // Must wait for the message to be painted to the tooltip so that the overlay can properly
         // calculate the correct positioning based on the size of the text.
@@ -428,7 +488,7 @@ var MatTooltip = (function () {
             this._tooltipInstance._markForCheck();
             this._ngZone.onMicrotaskEmpty.asObservable().pipe(first()).subscribe(function () {
                 if (_this._tooltipInstance) {
-                    ((_this._overlayRef)).updatePosition();
+                    /** @type {?} */ ((_this._overlayRef)).updatePosition();
                 }
             });
         }
@@ -438,7 +498,12 @@ var MatTooltip = (function () {
      * @param {?} tooltipClass
      * @return {?}
      */
-    MatTooltip.prototype._setTooltipClass = function (tooltipClass) {
+    MatTooltip.prototype._setTooltipClass = /**
+     * Updates the tooltip class
+     * @param {?} tooltipClass
+     * @return {?}
+     */
+    function (tooltipClass) {
         if (this._tooltipInstance) {
             this._tooltipInstance.tooltipClass = tooltipClass;
             this._tooltipInstance._markForCheck();
@@ -450,7 +515,13 @@ var MatTooltip = (function () {
      * @param {?} y
      * @return {?}
      */
-    MatTooltip.prototype._invertPosition = function (x, y) {
+    MatTooltip.prototype._invertPosition = /**
+     * Inverts an overlay position.
+     * @param {?} x
+     * @param {?} y
+     * @return {?}
+     */
+    function (x, y) {
         if (this.position === 'above' || this.position === 'below') {
             if (y === 'top') {
                 y = 'bottom';
@@ -480,9 +551,7 @@ var MatTooltip = (function () {
                     },
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatTooltip.ctorParameters = function () { return [
         { type: Renderer2, },
         { type: Overlay, },
@@ -497,13 +566,13 @@ var MatTooltip = (function () {
         { type: Directionality, decorators: [{ type: Optional },] },
     ]; };
     MatTooltip.propDecorators = {
-        'position': [{ type: Input, args: ['matTooltipPosition',] },],
-        'disabled': [{ type: Input, args: ['matTooltipDisabled',] },],
-        '_positionDeprecated': [{ type: Input, args: ['tooltip-position',] },],
-        'showDelay': [{ type: Input, args: ['matTooltipShowDelay',] },],
-        'hideDelay': [{ type: Input, args: ['matTooltipHideDelay',] },],
-        'message': [{ type: Input, args: ['matTooltip',] },],
-        'tooltipClass': [{ type: Input, args: ['matTooltipClass',] },],
+        "position": [{ type: Input, args: ['matTooltipPosition',] },],
+        "disabled": [{ type: Input, args: ['matTooltipDisabled',] },],
+        "_positionDeprecated": [{ type: Input, args: ['tooltip-position',] },],
+        "showDelay": [{ type: Input, args: ['matTooltipShowDelay',] },],
+        "hideDelay": [{ type: Input, args: ['matTooltipHideDelay',] },],
+        "message": [{ type: Input, args: ['matTooltip',] },],
+        "tooltipClass": [{ type: Input, args: ['matTooltipClass',] },],
     };
     return MatTooltip;
 }());
@@ -512,9 +581,6 @@ var MatTooltip = (function () {
  * \@docs-private
  */
 var TooltipComponent = (function () {
-    /**
-     * @param {?} _changeDetectorRef
-     */
     function TooltipComponent(_changeDetectorRef) {
         this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -536,11 +602,22 @@ var TooltipComponent = (function () {
     }
     /**
      * Shows the tooltip with an animation originating from the provided origin
+     * @param position Position of the tooltip.
+     * @param delay Amount of milliseconds to the delay showing the tooltip.
+     */
+    /**
+     * Shows the tooltip with an animation originating from the provided origin
      * @param {?} position Position of the tooltip.
      * @param {?} delay Amount of milliseconds to the delay showing the tooltip.
      * @return {?}
      */
-    TooltipComponent.prototype.show = function (position, delay) {
+    TooltipComponent.prototype.show = /**
+     * Shows the tooltip with an animation originating from the provided origin
+     * @param {?} position Position of the tooltip.
+     * @param {?} delay Amount of milliseconds to the delay showing the tooltip.
+     * @return {?}
+     */
+    function (position, delay) {
         var _this = this;
         // Cancel the delayed hide if it is scheduled
         if (this._hideTimeoutId) {
@@ -553,15 +630,26 @@ var TooltipComponent = (function () {
             _this._visibility = 'visible';
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
+            // Mark for check so if any parent component has set the
+            // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();
         }, delay);
     };
     /**
      * Begins the animation to hide the tooltip after the provided delay in ms.
+     * @param delay Amount of milliseconds to delay showing the tooltip.
+     */
+    /**
+     * Begins the animation to hide the tooltip after the provided delay in ms.
      * @param {?} delay Amount of milliseconds to delay showing the tooltip.
      * @return {?}
      */
-    TooltipComponent.prototype.hide = function (delay) {
+    TooltipComponent.prototype.hide = /**
+     * Begins the animation to hide the tooltip after the provided delay in ms.
+     * @param {?} delay Amount of milliseconds to delay showing the tooltip.
+     * @return {?}
+     */
+    function (delay) {
         var _this = this;
         // Cancel the delayed show if it is scheduled
         if (this._showTimeoutId) {
@@ -571,29 +659,47 @@ var TooltipComponent = (function () {
             _this._visibility = 'hidden';
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
+            // Mark for check so if any parent component has set the
+            // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();
         }, delay);
     };
+    /** Returns an observable that notifies when the tooltip has been hidden from view. */
     /**
      * Returns an observable that notifies when the tooltip has been hidden from view.
      * @return {?}
      */
-    TooltipComponent.prototype.afterHidden = function () {
+    TooltipComponent.prototype.afterHidden = /**
+     * Returns an observable that notifies when the tooltip has been hidden from view.
+     * @return {?}
+     */
+    function () {
         return this._onHide.asObservable();
     };
+    /** Whether the tooltip is being displayed. */
     /**
      * Whether the tooltip is being displayed.
      * @return {?}
      */
-    TooltipComponent.prototype.isVisible = function () {
+    TooltipComponent.prototype.isVisible = /**
+     * Whether the tooltip is being displayed.
+     * @return {?}
+     */
+    function () {
         return this._visibility === 'visible';
     };
+    /** Sets the tooltip transform origin according to the position of the tooltip overlay. */
     /**
      * Sets the tooltip transform origin according to the position of the tooltip overlay.
      * @param {?} overlayPosition
      * @return {?}
      */
-    TooltipComponent.prototype._setTransformOrigin = function (overlayPosition) {
+    TooltipComponent.prototype._setTransformOrigin = /**
+     * Sets the tooltip transform origin according to the position of the tooltip overlay.
+     * @param {?} overlayPosition
+     * @return {?}
+     */
+    function (overlayPosition) {
         var /** @type {?} */ axis = (this._position === 'above' || this._position === 'below') ? 'Y' : 'X';
         var /** @type {?} */ position = axis == 'X' ? overlayPosition.overlayX : overlayPosition.overlayY;
         if (position === 'top' || position === 'bottom') {
@@ -612,16 +718,23 @@ var TooltipComponent = (function () {
     /**
      * @return {?}
      */
-    TooltipComponent.prototype._animationStart = function () {
+    TooltipComponent.prototype._animationStart = /**
+     * @return {?}
+     */
+    function () {
         this._closeOnInteraction = false;
     };
     /**
      * @param {?} event
      * @return {?}
      */
-    TooltipComponent.prototype._animationDone = function (event) {
+    TooltipComponent.prototype._animationDone = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         var _this = this;
-        var /** @type {?} */ toState = (event.toState);
+        var /** @type {?} */ toState = /** @type {?} */ (event.toState);
         if (toState === 'hidden' && !this.isVisible()) {
             this._onHide.next();
         }
@@ -636,9 +749,20 @@ var TooltipComponent = (function () {
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.
      * https://material.google.com/components/tooltips.html#tooltips-interaction
+     */
+    /**
+     * Interactions on the HTML body should close the tooltip immediately as defined in the
+     * material design spec.
+     * https://material.google.com/components/tooltips.html#tooltips-interaction
      * @return {?}
      */
-    TooltipComponent.prototype._handleBodyInteraction = function () {
+    TooltipComponent.prototype._handleBodyInteraction = /**
+     * Interactions on the HTML body should close the tooltip immediately as defined in the
+     * material design spec.
+     * https://material.google.com/components/tooltips.html#tooltips-interaction
+     * @return {?}
+     */
+    function () {
         if (this._closeOnInteraction) {
             this.hide(0);
         }
@@ -647,9 +771,20 @@ var TooltipComponent = (function () {
      * Marks that the tooltip needs to be checked in the next change detection run.
      * Mainly used for rendering the initial text before positioning a tooltip, which
      * can be problematic in components with OnPush change detection.
+     */
+    /**
+     * Marks that the tooltip needs to be checked in the next change detection run.
+     * Mainly used for rendering the initial text before positioning a tooltip, which
+     * can be problematic in components with OnPush change detection.
      * @return {?}
      */
-    TooltipComponent.prototype._markForCheck = function () {
+    TooltipComponent.prototype._markForCheck = /**
+     * Marks that the tooltip needs to be checked in the next change detection run.
+     * Mainly used for rendering the initial text before positioning a tooltip, which
+     * can be problematic in components with OnPush change detection.
+     * @return {?}
+     */
+    function () {
         this._changeDetectorRef.markForCheck();
     };
     TooltipComponent.decorators = [
@@ -676,14 +811,17 @@ var TooltipComponent = (function () {
                     }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     TooltipComponent.ctorParameters = function () { return [
         { type: ChangeDetectorRef, },
     ]; };
     return TooltipComponent;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatTooltipModule = (function () {
     function MatTooltipModule() {
@@ -703,13 +841,20 @@ var MatTooltipModule = (function () {
                     providers: [MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, ARIA_DESCRIBER_PROVIDER],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatTooltipModule.ctorParameters = function () { return []; };
     return MatTooltipModule;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

@@ -6,6 +6,8 @@ import { Subject } from 'rxjs/Subject';
 import { MatAccordion } from './accordion';
 /** Workaround for https://github.com/angular/angular/issues/17849 */
 export declare const _CdkAccordionItem: typeof CdkAccordionItem;
+/** Time and timing curve for expansion panel animations. */
+export declare const EXPANSION_PANEL_ANIMATION_TIMING = "225ms cubic-bezier(0.4,0.0,0.2,1)";
 /** @docs-private */
 export declare class MatExpansionPanelBase extends _CdkAccordionItem {
     constructor(accordion: MatAccordion, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher);
@@ -13,8 +15,6 @@ export declare class MatExpansionPanelBase extends _CdkAccordionItem {
 export declare const _MatExpansionPanelMixinBase: (new (...args: any[]) => CanDisable) & typeof MatExpansionPanelBase;
 /** MatExpansionPanel's states. */
 export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
-/** Time and timing curve for expansion panel animations. */
-export declare const EXPANSION_PANEL_ANIMATION_TIMING = "225ms cubic-bezier(0.4,0.0,0.2,1)";
 /**
  * <mat-expansion-panel> component.
  *

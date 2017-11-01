@@ -24,10 +24,10 @@ import { filter } from 'rxjs/operators/filter';
 import { of } from 'rxjs/observable/of';
 
 /**
- * Below are all the animations for the mat-menu component.
- * Animation duration and timing values are based on:
- * https://material.io/guidelines/components/menus.html#menus-usage
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * This animation controls the menu panel's entry and exit from the page.
  *
@@ -36,7 +36,6 @@ import { of } from 'rxjs/observable/of';
  * When the menu panel is removed from the DOM, it simply fades out after a brief
  * delay to display the ripple.
  */
-// TODO(kara): switch to :enter and :leave once Mobile Safari is sorted out.
 const transformMenu = trigger('transformMenu', [
     state('void', style({
         opacity: 0,
@@ -67,6 +66,10 @@ const fadeInItems = trigger('fadeInItems', [
     ])
 ]);
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Throws an exception for the case when menu trigger doesn't have a valid mat-menu instance
  * \@docs-private
@@ -100,6 +103,10 @@ function throwMatMenuInvalidPositionY() {
       Example: <mat-menu y-position="above" #menu="matMenu"></mat-menu>`);
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * \@docs-private
  */
@@ -219,12 +226,19 @@ MatMenuItem.decorators = [
                 template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div>",
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatMenuItem.ctorParameters = () => [
     { type: ElementRef, },
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Default `mat-menu` options that can be overridden.
+ * @record
+ */
 
 /**
  * Injection token to be used to override the default options for `mat-menu`.
@@ -473,25 +487,28 @@ MatMenu.decorators = [
                 exportAs: 'matMenu'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatMenu.ctorParameters = () => [
     { type: ElementRef, },
     { type: NgZone, },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
 ];
 MatMenu.propDecorators = {
-    'xPosition': [{ type: Input },],
-    'yPosition': [{ type: Input },],
-    'templateRef': [{ type: ViewChild, args: [TemplateRef,] },],
-    'items': [{ type: ContentChildren, args: [MatMenuItem,] },],
-    'overlapTrigger': [{ type: Input },],
-    'panelClass': [{ type: Input, args: ['class',] },],
-    'classList': [{ type: Input },],
-    'closed': [{ type: Output },],
-    'close': [{ type: Output },],
+    "xPosition": [{ type: Input },],
+    "yPosition": [{ type: Input },],
+    "templateRef": [{ type: ViewChild, args: [TemplateRef,] },],
+    "items": [{ type: ContentChildren, args: [MatMenuItem,] },],
+    "overlapTrigger": [{ type: Input },],
+    "panelClass": [{ type: Input, args: ['class',] },],
+    "classList": [{ type: Input },],
+    "closed": [{ type: Output },],
+    "close": [{ type: Output },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Injection token that determines the scroll handling while the menu is open.
@@ -698,7 +715,7 @@ class MatMenuTrigger {
         // If the menu was opened by mouse, we focus the root node, which allows for the keyboard
         // interactions to work. Otherwise, if the menu was opened by keyboard, we focus the first item.
         if (this._openedByMouse) {
-            let /** @type {?} */ rootNode = (((this._overlayRef)).overlayElement.firstElementChild);
+            let /** @type {?} */ rootNode = /** @type {?} */ (((this._overlayRef)).overlayElement.firstElementChild);
             if (rootNode) {
                 this.menu.resetActiveItem();
                 rootNode.focus();
@@ -843,7 +860,7 @@ class MatMenuTrigger {
      * @return {?}
      */
     _menuClosingActions() {
-        const /** @type {?} */ backdrop = ((this._overlayRef)).backdropClick();
+        const /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
         const /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of();
         const /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter(active => active !== this._menuItemInstance), filter(() => this._menuOpen)) : of();
         return merge(backdrop, parentClose, hover);
@@ -904,9 +921,7 @@ MatMenuTrigger.decorators = [
                 exportAs: 'matMenuTrigger'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatMenuTrigger.ctorParameters = () => [
     { type: Overlay, },
     { type: ElementRef, },
@@ -917,14 +932,24 @@ MatMenuTrigger.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MatMenuTrigger.propDecorators = {
-    '_deprecatedMatMenuTriggerFor': [{ type: Input, args: ['mat-menu-trigger-for',] },],
-    'menu': [{ type: Input, args: ['matMenuTriggerFor',] },],
-    'menuOpened': [{ type: Output },],
-    'onMenuOpen': [{ type: Output },],
-    'menuClosed': [{ type: Output },],
-    'onMenuClose': [{ type: Output },],
+    "_deprecatedMatMenuTriggerFor": [{ type: Input, args: ['mat-menu-trigger-for',] },],
+    "menu": [{ type: Input, args: ['matMenuTriggerFor',] },],
+    "menuOpened": [{ type: Output },],
+    "onMenuOpen": [{ type: Output },],
+    "menuClosed": [{ type: Output },],
+    "onMenuClose": [{ type: Output },],
 };
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+const ɵ0 = {
+    overlapTrigger: true,
+    xPosition: 'after',
+    yPosition: 'below',
+};
 class MatMenuModule {
 }
 MatMenuModule.decorators = [
@@ -941,20 +966,28 @@ MatMenuModule.decorators = [
                     MAT_MENU_SCROLL_STRATEGY_PROVIDER,
                     {
                         provide: MAT_MENU_DEFAULT_OPTIONS,
-                        useValue: {
-                            overlapTrigger: true,
-                            xPosition: 'after',
-                            yPosition: 'below',
-                        },
+                        useValue: ɵ0,
                     }
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatMenuModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

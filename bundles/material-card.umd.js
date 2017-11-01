@@ -12,6 +12,11 @@
 }(this, (function (exports,_angular_core,_angular_material_core) { 'use strict';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Content of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
@@ -24,9 +29,7 @@ var MatCardContent = (function () {
                     host: { 'class': 'mat-card-content' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardContent.ctorParameters = function () { return []; };
     return MatCardContent;
 }());
@@ -45,9 +48,7 @@ var MatCardTitle = (function () {
                     }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardTitle.ctorParameters = function () { return []; };
     return MatCardTitle;
 }());
@@ -66,9 +67,7 @@ var MatCardSubtitle = (function () {
                     }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardSubtitle.ctorParameters = function () { return []; };
     return MatCardSubtitle;
 }());
@@ -93,12 +92,10 @@ var MatCardActions = (function () {
                     }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardActions.ctorParameters = function () { return []; };
     MatCardActions.propDecorators = {
-        'align': [{ type: _angular_core.Input },],
+        "align": [{ type: _angular_core.Input },],
     };
     return MatCardActions;
 }());
@@ -115,9 +112,7 @@ var MatCardFooter = (function () {
                     host: { 'class': 'mat-card-footer' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardFooter.ctorParameters = function () { return []; };
     return MatCardFooter;
 }());
@@ -134,9 +129,7 @@ var MatCardImage = (function () {
                     host: { 'class': 'mat-card-image' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardImage.ctorParameters = function () { return []; };
     return MatCardImage;
 }());
@@ -153,9 +146,7 @@ var MatCardSmImage = (function () {
                     host: { 'class': 'mat-card-sm-image' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardSmImage.ctorParameters = function () { return []; };
     return MatCardSmImage;
 }());
@@ -172,9 +163,7 @@ var MatCardMdImage = (function () {
                     host: { 'class': 'mat-card-md-image' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardMdImage.ctorParameters = function () { return []; };
     return MatCardMdImage;
 }());
@@ -191,9 +180,7 @@ var MatCardLgImage = (function () {
                     host: { 'class': 'mat-card-lg-image' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardLgImage.ctorParameters = function () { return []; };
     return MatCardLgImage;
 }());
@@ -210,9 +197,7 @@ var MatCardXlImage = (function () {
                     host: { 'class': 'mat-card-xl-image' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardXlImage.ctorParameters = function () { return []; };
     return MatCardXlImage;
 }());
@@ -229,9 +214,7 @@ var MatCardAvatar = (function () {
                     host: { 'class': 'mat-card-avatar' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardAvatar.ctorParameters = function () { return []; };
     return MatCardAvatar;
 }());
@@ -260,9 +243,7 @@ var MatCard = (function () {
                     host: { 'class': 'mat-card' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCard.ctorParameters = function () { return []; };
     return MatCard;
 }());
@@ -283,9 +264,7 @@ var MatCardHeader = (function () {
                     host: { 'class': 'mat-card-header' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardHeader.ctorParameters = function () { return []; };
     return MatCardHeader;
 }());
@@ -306,12 +285,15 @@ var MatCardTitleGroup = (function () {
                     host: { 'class': 'mat-card-title-group' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardTitleGroup.ctorParameters = function () { return []; };
     return MatCardTitleGroup;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatCardModule = (function () {
     function MatCardModule() {
@@ -343,9 +325,7 @@ var MatCardModule = (function () {
                     ],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCardModule.ctorParameters = function () { return []; };
     return MatCardModule;
 }());

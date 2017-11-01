@@ -14,6 +14,11 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { SPACE } from '@angular/cdk/keycodes';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * \@docs-private
  */
 class MatListBase {
@@ -39,9 +44,7 @@ MatListDivider.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatListDivider.ctorParameters = () => [];
 /**
  * A Material Design list component.
@@ -60,9 +63,7 @@ MatList.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatList.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -76,9 +77,7 @@ MatListCssMatStyler.decorators = [
                 host: { 'class': 'mat-list' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatListCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -92,9 +91,7 @@ MatNavListCssMatStyler.decorators = [
                 host: { 'class': 'mat-nav-list' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatNavListCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -108,9 +105,7 @@ MatDividerCssMatStyler.decorators = [
                 host: { 'class': 'mat-divider' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDividerCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -124,9 +119,7 @@ MatListAvatarCssMatStyler.decorators = [
                 host: { 'class': 'mat-list-avatar' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatListAvatarCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -140,9 +133,7 @@ MatListIconCssMatStyler.decorators = [
                 host: { 'class': 'mat-list-icon' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatListIconCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -156,9 +147,7 @@ MatListSubheaderCssMatStyler.decorators = [
                 host: { 'class': 'mat-subheader' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatListSubheaderCssMatStyler.ctorParameters = () => [];
 /**
  * An item within a Material Design list.
@@ -239,9 +228,7 @@ MatListItem.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatListItem.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
@@ -249,9 +236,14 @@ MatListItem.ctorParameters = () => [
     { type: MatNavListCssMatStyler, decorators: [{ type: Optional },] },
 ];
 MatListItem.propDecorators = {
-    '_lines': [{ type: ContentChildren, args: [MatLine,] },],
-    '_hasAvatar': [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] },],
+    "_lines": [{ type: ContentChildren, args: [MatLine,] },],
+    "_hasAvatar": [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * \@docs-private
@@ -428,9 +420,7 @@ MatListOption.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatListOption.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
@@ -438,12 +428,12 @@ MatListOption.ctorParameters = () => [
     { type: MatSelectionList, decorators: [{ type: Optional }, { type: Inject, args: [forwardRef(() => MatSelectionList),] },] },
 ];
 MatListOption.propDecorators = {
-    '_lines': [{ type: ContentChildren, args: [MatLine,] },],
-    'checkboxPosition': [{ type: Input },],
-    'disabled': [{ type: Input },],
-    'value': [{ type: Input },],
-    'selected': [{ type: Input },],
-    'selectionChange': [{ type: Output },],
+    "_lines": [{ type: ContentChildren, args: [MatLine,] },],
+    "checkboxPosition": [{ type: Input },],
+    "disabled": [{ type: Input },],
+    "value": [{ type: Input },],
+    "selected": [{ type: Input },],
+    "selectionChange": [{ type: Output },],
 };
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
@@ -588,16 +578,19 @@ MatSelectionList.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSelectionList.ctorParameters = () => [
     { type: ElementRef, },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
 ];
 MatSelectionList.propDecorators = {
-    'options': [{ type: ContentChildren, args: [MatListOption,] },],
+    "options": [{ type: ContentChildren, args: [MatListOption,] },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatListModule {
 }
@@ -635,11 +628,18 @@ MatListModule.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatListModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

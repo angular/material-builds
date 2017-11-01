@@ -13,6 +13,11 @@ import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * \@docs-private
  */
 class MatButtonToggleGroupBase {
@@ -235,19 +240,17 @@ MatButtonToggleGroup.decorators = [
                 exportAs: 'matButtonToggleGroup',
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatButtonToggleGroup.ctorParameters = () => [
     { type: ChangeDetectorRef, },
 ];
 MatButtonToggleGroup.propDecorators = {
-    '_buttonToggles': [{ type: ContentChildren, args: [forwardRef(() => MatButtonToggle),] },],
-    'name': [{ type: Input },],
-    'vertical': [{ type: Input },],
-    'value': [{ type: Input },],
-    'selected': [{ type: Input },],
-    'change': [{ type: Output },],
+    "_buttonToggles": [{ type: ContentChildren, args: [forwardRef(() => MatButtonToggle),] },],
+    "name": [{ type: Input },],
+    "vertical": [{ type: Input },],
+    "value": [{ type: Input },],
+    "selected": [{ type: Input },],
+    "change": [{ type: Output },],
 };
 /**
  * Multiple selection button-toggle group. `ngModel` is not supported in this mode.
@@ -287,12 +290,10 @@ MatButtonToggleGroupMultiple.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatButtonToggleGroupMultiple.ctorParameters = () => [];
 MatButtonToggleGroupMultiple.propDecorators = {
-    'vertical': [{ type: Input },],
+    "vertical": [{ type: Input },],
 };
 /**
  * Single button inside of a toggle group.
@@ -537,9 +538,7 @@ MatButtonToggle.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatButtonToggle.ctorParameters = () => [
     { type: MatButtonToggleGroup, decorators: [{ type: Optional },] },
     { type: MatButtonToggleGroupMultiple, decorators: [{ type: Optional },] },
@@ -550,16 +549,21 @@ MatButtonToggle.ctorParameters = () => [
     { type: FocusMonitor, },
 ];
 MatButtonToggle.propDecorators = {
-    'ariaLabel': [{ type: Input, args: ['aria-label',] },],
-    'ariaLabelledby': [{ type: Input, args: ['aria-labelledby',] },],
-    '_inputElement': [{ type: ViewChild, args: ['input',] },],
-    'id': [{ type: Input },],
-    'name': [{ type: Input },],
-    'checked': [{ type: Input },],
-    'value': [{ type: Input },],
-    'disabled': [{ type: Input },],
-    'change': [{ type: Output },],
+    "ariaLabel": [{ type: Input, args: ['aria-label',] },],
+    "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
+    "_inputElement": [{ type: ViewChild, args: ['input',] },],
+    "id": [{ type: Input },],
+    "name": [{ type: Input },],
+    "checked": [{ type: Input },],
+    "value": [{ type: Input },],
+    "disabled": [{ type: Input },],
+    "change": [{ type: Output },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatButtonToggleModule {
 }
@@ -576,11 +580,18 @@ MatButtonToggleModule.decorators = [
                 providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatButtonToggleModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

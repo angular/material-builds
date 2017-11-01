@@ -24,6 +24,11 @@ import { Platform } from '@angular/cdk/platform';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * \@docs-private
  */
@@ -89,14 +94,17 @@ MatInkBar.decorators = [
                 },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatInkBar.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: NgZone, },
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
@@ -119,13 +127,16 @@ MatTabLabel.decorators = [
                 selector: '[mat-tab-label], [matTabLabel]',
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTabLabel.ctorParameters = () => [
     { type: TemplateRef, },
     { type: ViewContainerRef, },
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * \@docs-private
@@ -211,17 +222,20 @@ MatTab.decorators = [
                 exportAs: 'matTab',
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTab.ctorParameters = () => [
     { type: ViewContainerRef, },
 ];
 MatTab.propDecorators = {
-    'templateLabel': [{ type: ContentChild, args: [MatTabLabel,] },],
-    '_content': [{ type: ViewChild, args: [TemplateRef,] },],
-    'textLabel': [{ type: Input, args: ['label',] },],
+    "templateLabel": [{ type: ContentChild, args: [MatTabLabel,] },],
+    "_content": [{ type: ViewChild, args: [TemplateRef,] },],
+    "textLabel": [{ type: Input, args: ['label',] },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Wrapper for the contents of a tab.
@@ -366,21 +380,24 @@ MatTabBody.decorators = [
                 ]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTabBody.ctorParameters = () => [
     { type: ElementRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MatTabBody.propDecorators = {
-    '_portalOutlet': [{ type: ViewChild, args: [CdkPortalOutlet,] },],
-    '_onCentering': [{ type: Output },],
-    '_onCentered': [{ type: Output },],
-    '_content': [{ type: Input, args: ['content',] },],
-    'position': [{ type: Input, args: ['position',] },],
-    'origin': [{ type: Input, args: ['origin',] },],
+    "_portalOutlet": [{ type: ViewChild, args: [CdkPortalOutlet,] },],
+    "_onCentering": [{ type: Output },],
+    "_onCentered": [{ type: Output },],
+    "_content": [{ type: Input, args: ['content',] },],
+    "position": [{ type: Input, args: ['position',] },],
+    "origin": [{ type: Input, args: ['origin',] },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Used to generate unique ID's for each tab component
@@ -680,27 +697,30 @@ MatTabGroup.decorators = [
                 },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTabGroup.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
 ];
 MatTabGroup.propDecorators = {
-    '_tabs': [{ type: ContentChildren, args: [MatTab,] },],
-    '_tabBodyWrapper': [{ type: ViewChild, args: ['tabBodyWrapper',] },],
-    'dynamicHeight': [{ type: Input },],
-    '_dynamicHeightDeprecated': [{ type: Input, args: ['mat-dynamic-height',] },],
-    'selectedIndex': [{ type: Input },],
-    'headerPosition': [{ type: Input },],
-    'backgroundColor': [{ type: Input },],
-    'selectedIndexChange': [{ type: Output },],
-    'focusChange': [{ type: Output },],
-    'selectedTabChange': [{ type: Output },],
-    'selectChange': [{ type: Output },],
+    "_tabs": [{ type: ContentChildren, args: [MatTab,] },],
+    "_tabBodyWrapper": [{ type: ViewChild, args: ['tabBodyWrapper',] },],
+    "dynamicHeight": [{ type: Input },],
+    "_dynamicHeightDeprecated": [{ type: Input, args: ['mat-dynamic-height',] },],
+    "selectedIndex": [{ type: Input },],
+    "headerPosition": [{ type: Input },],
+    "backgroundColor": [{ type: Input },],
+    "selectedIndexChange": [{ type: Output },],
+    "focusChange": [{ type: Output },],
+    "selectedTabChange": [{ type: Output },],
+    "selectChange": [{ type: Output },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * \@docs-private
@@ -749,12 +769,15 @@ MatTabLabelWrapper.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTabLabelWrapper.ctorParameters = () => [
     { type: ElementRef, },
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
@@ -1166,9 +1189,7 @@ MatTabHeader.decorators = [
                 },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTabHeader.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer2, },
@@ -1177,14 +1198,19 @@ MatTabHeader.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MatTabHeader.propDecorators = {
-    '_labelWrappers': [{ type: ContentChildren, args: [MatTabLabelWrapper,] },],
-    '_inkBar': [{ type: ViewChild, args: [MatInkBar,] },],
-    '_tabListContainer': [{ type: ViewChild, args: ['tabListContainer',] },],
-    '_tabList': [{ type: ViewChild, args: ['tabList',] },],
-    'selectedIndex': [{ type: Input },],
-    'selectFocusedIndex': [{ type: Output },],
-    'indexFocused': [{ type: Output },],
+    "_labelWrappers": [{ type: ContentChildren, args: [MatTabLabelWrapper,] },],
+    "_inkBar": [{ type: ViewChild, args: [MatInkBar,] },],
+    "_tabListContainer": [{ type: ViewChild, args: ['tabListContainer',] },],
+    "_tabList": [{ type: ViewChild, args: ['tabList',] },],
+    "selectedIndex": [{ type: Input },],
+    "selectFocusedIndex": [{ type: Output },],
+    "indexFocused": [{ type: Output },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * \@docs-private
@@ -1326,9 +1352,7 @@ MatTabNav.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTabNav.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
@@ -1338,9 +1362,9 @@ MatTabNav.ctorParameters = () => [
     { type: ViewportRuler, },
 ];
 MatTabNav.propDecorators = {
-    '_inkBar': [{ type: ViewChild, args: [MatInkBar,] },],
-    '_tabLinks': [{ type: ContentChildren, args: [forwardRef(() => MatTabLink), { descendants: true },] },],
-    'backgroundColor': [{ type: Input },],
+    "_inkBar": [{ type: ViewChild, args: [MatInkBar,] },],
+    "_tabLinks": [{ type: ContentChildren, args: [forwardRef(() => MatTabLink), { descendants: true },] },],
+    "backgroundColor": [{ type: Input },],
 };
 class MatTabLinkBase {
 }
@@ -1431,9 +1455,7 @@ MatTabLink.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTabLink.ctorParameters = () => [
     { type: MatTabNav, },
     { type: ElementRef, },
@@ -1442,8 +1464,13 @@ MatTabLink.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
 ];
 MatTabLink.propDecorators = {
-    'active': [{ type: Input },],
+    "active": [{ type: Input },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatTabsModule {
 }
@@ -1480,11 +1507,23 @@ MatTabsModule.decorators = [
                 providers: [VIEWPORT_RULER_PROVIDER],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTabsModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

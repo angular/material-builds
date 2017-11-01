@@ -13,13 +13,13 @@ import * as tslib_1 from 'tslib';
 import { DOCUMENT } from '@angular/common';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * \@docs-private
  */
 var MatProgressSpinnerBase = (function () {
-    /**
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     */
     function MatProgressSpinnerBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -33,12 +33,6 @@ var INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-strok
  */
 var MatProgressSpinner = (function (_super) {
     __extends(MatProgressSpinner, _super);
-    /**
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     * @param {?} platform
-     * @param {?} _document
-     */
     function MatProgressSpinner(_renderer, _elementRef, platform, _document) {
         var _this = _super.call(this, _renderer, _elementRef) || this;
         _this._renderer = _renderer;
@@ -63,41 +57,41 @@ var MatProgressSpinner = (function (_super) {
         _this._fallbackAnimation = platform.EDGE || platform.TRIDENT;
         // On IE and Edge, we can't animate the `stroke-dashoffset`
         // reliably so we fall back to a non-spec animation.
-        var animationClass = "mat-progress-spinner-indeterminate" + (_this._fallbackAnimation ? '-fallback' : '') + "-animation";
+        var /** @type {?} */ animationClass = "mat-progress-spinner-indeterminate" + (_this._fallbackAnimation ? '-fallback' : '') + "-animation";
         _renderer.addClass(_elementRef.nativeElement, animationClass);
         return _this;
     }
     Object.defineProperty(MatProgressSpinner.prototype, "diameter", {
-        /**
+        get: /**
          * The diameter of the progress spinner (will set width and height of svg).
          * @return {?}
          */
-        get: function () {
+        function () {
             return this._diameter;
         },
-        /**
+        set: /**
          * @param {?} size
          * @return {?}
          */
-        set: function (size) {
+        function (size) {
             this._setDiameterAndInitStyles(size);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatProgressSpinner.prototype, "value", {
-        /**
+        get: /**
          * Value of the progress circle.
          * @return {?}
          */
-        get: function () {
+        function () {
             return this.mode === 'determinate' ? this._value : 0;
         },
-        /**
+        set: /**
          * @param {?} newValue
          * @return {?}
          */
-        set: function (newValue) {
+        function (newValue) {
             if (newValue != null && this.mode === 'determinate') {
                 this._value = Math.max(0, Math.min(100, newValue));
             }
@@ -109,29 +103,35 @@ var MatProgressSpinner = (function (_super) {
      * @param {?} changes
      * @return {?}
      */
-    MatProgressSpinner.prototype.ngOnChanges = function (changes) {
-        if (changes.strokeWidth || changes.diameter) {
+    MatProgressSpinner.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        if (changes["strokeWidth"] || changes["diameter"]) {
             this._elementSize =
                 this._diameter + Math.max(this.strokeWidth - this._baseStrokeWidth, 0);
         }
     };
     Object.defineProperty(MatProgressSpinner.prototype, "_circleRadius", {
-        /**
+        /** The radius of the spinner, adjusted for stroke width. */
+        get: /**
          * The radius of the spinner, adjusted for stroke width.
          * @return {?}
          */
-        get: function () {
+        function () {
             return (this.diameter - this._baseStrokeWidth) / 2;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatProgressSpinner.prototype, "_viewBox", {
-        /**
+        /** The view box of the spinner's svg element. */
+        get: /**
          * The view box of the spinner's svg element.
          * @return {?}
          */
-        get: function () {
+        function () {
             var /** @type {?} */ viewBox = this._circleRadius * 2 + this.strokeWidth;
             return "0 0 " + viewBox + " " + viewBox;
         },
@@ -139,22 +139,24 @@ var MatProgressSpinner = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatProgressSpinner.prototype, "_strokeCircumference", {
-        /**
+        /** The stroke circumference of the svg circle. */
+        get: /**
          * The stroke circumference of the svg circle.
          * @return {?}
          */
-        get: function () {
+        function () {
             return 2 * Math.PI * this._circleRadius;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatProgressSpinner.prototype, "_strokeDashOffset", {
-        /**
+        /** The dash offset of the svg circle. */
+        get: /**
          * The dash offset of the svg circle.
          * @return {?}
          */
-        get: function () {
+        function () {
             if (this.mode === 'determinate') {
                 return this._strokeCircumference * (100 - this._value) / 100;
             }
@@ -168,11 +170,12 @@ var MatProgressSpinner = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatProgressSpinner.prototype, "_circleStrokeWidth", {
-        /**
+        /** Stroke width of the circle in percent. */
+        get: /**
          * Stroke width of the circle in percent.
          * @return {?}
          */
-        get: function () {
+        function () {
             return this.strokeWidth / this._elementSize * 100;
         },
         enumerable: true,
@@ -183,7 +186,12 @@ var MatProgressSpinner = (function (_super) {
      * @param {?} size
      * @return {?}
      */
-    MatProgressSpinner.prototype._setDiameterAndInitStyles = function (size) {
+    MatProgressSpinner.prototype._setDiameterAndInitStyles = /**
+     * Sets the diameter and adds diameter-specific styles if necessary.
+     * @param {?} size
+     * @return {?}
+     */
+    function (size) {
         this._diameter = size;
         if (!MatProgressSpinner.diameters.has(this.diameter) && !this._fallbackAnimation) {
             this._attachStyleNode();
@@ -193,15 +201,19 @@ var MatProgressSpinner = (function (_super) {
      * Dynamically generates a style tag containing the correct animation for this diameter.
      * @return {?}
      */
-    MatProgressSpinner.prototype._attachStyleNode = function () {
+    MatProgressSpinner.prototype._attachStyleNode = /**
+     * Dynamically generates a style tag containing the correct animation for this diameter.
+     * @return {?}
+     */
+    function () {
         var /** @type {?} */ styleTag = MatProgressSpinner.styleTag;
         if (!styleTag) {
             styleTag = this._renderer.createElement('style');
             this._renderer.appendChild(this._document.head, styleTag);
             MatProgressSpinner.styleTag = styleTag;
         }
-        if (styleTag.sheet) {
-            ((styleTag.sheet)).insertRule(this._getAnimationText());
+        if (styleTag && styleTag.sheet) {
+            (/** @type {?} */ (styleTag.sheet)).insertRule(this._getAnimationText());
         }
         MatProgressSpinner.diameters.add(this.diameter);
     };
@@ -209,7 +221,11 @@ var MatProgressSpinner = (function (_super) {
      * Generates animation styles adjusted for the spinner's diameter.
      * @return {?}
      */
-    MatProgressSpinner.prototype._getAnimationText = function () {
+    MatProgressSpinner.prototype._getAnimationText = /**
+     * Generates animation styles adjusted for the spinner's diameter.
+     * @return {?}
+     */
+    function () {
         return INDETERMINATE_ANIMATION_TEMPLATE
             .replace(/START_VALUE/g, "" + 0.95 * this._strokeCircumference)
             .replace(/END_VALUE/g, "" + 0.2 * this._strokeCircumference)
@@ -219,6 +235,11 @@ var MatProgressSpinner = (function (_super) {
      * Tracks diameters of existing instances to de-dupe generated styles (default d = 100)
      */
     MatProgressSpinner.diameters = new Set([100]);
+    /**
+     * Used for storing all of the generated keyframe animations.
+     * \@dynamic
+     */
+    MatProgressSpinner.styleTag = null;
     MatProgressSpinner.decorators = [
         { type: Component, args: [{selector: 'mat-progress-spinner',
                     exportAs: 'matProgressSpinner',
@@ -240,9 +261,7 @@ var MatProgressSpinner = (function (_super) {
                     preserveWhitespaces: false,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatProgressSpinner.ctorParameters = function () { return [
         { type: Renderer2, },
         { type: ElementRef, },
@@ -250,10 +269,10 @@ var MatProgressSpinner = (function (_super) {
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
     ]; };
     MatProgressSpinner.propDecorators = {
-        'diameter': [{ type: Input },],
-        'strokeWidth': [{ type: Input },],
-        'mode': [{ type: Input },],
-        'value': [{ type: Input },],
+        "diameter": [{ type: Input },],
+        "strokeWidth": [{ type: Input },],
+        "mode": [{ type: Input },],
+        "value": [{ type: Input },],
     };
     return MatProgressSpinner;
 }(_MatProgressSpinnerMixinBase));
@@ -265,12 +284,6 @@ var MatProgressSpinner = (function (_super) {
  */
 var MatSpinner = (function (_super) {
     __extends(MatSpinner, _super);
-    /**
-     * @param {?} renderer
-     * @param {?} elementRef
-     * @param {?} platform
-     * @param {?} document
-     */
     function MatSpinner(renderer, elementRef, platform, document) {
         var _this = _super.call(this, renderer, elementRef, platform, document) || this;
         _this.mode = 'indeterminate';
@@ -293,9 +306,7 @@ var MatSpinner = (function (_super) {
                     preserveWhitespaces: false,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSpinner.ctorParameters = function () { return [
         { type: Renderer2, },
         { type: ElementRef, },
@@ -304,6 +315,11 @@ var MatSpinner = (function (_super) {
     ]; };
     return MatSpinner;
 }(MatProgressSpinner));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatProgressSpinnerModule = (function () {
     function MatProgressSpinnerModule() {
@@ -322,13 +338,20 @@ var MatProgressSpinnerModule = (function () {
                     ],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatProgressSpinnerModule.ctorParameters = function () { return []; };
     return MatProgressSpinnerModule;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

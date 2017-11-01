@@ -20,13 +20,13 @@ import { first } from 'rxjs/operators/first';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Reference to a snack bar dispatched from the snack bar service.
  */
 var MatSnackBarRef = (function () {
-    /**
-     * @param {?} containerInstance
-     * @param {?} _overlayRef
-     */
     function MatSnackBarRef(containerInstance, _overlayRef) {
         var _this = this;
         this._overlayRef = _overlayRef;
@@ -47,40 +47,61 @@ var MatSnackBarRef = (function () {
         this.onAction().subscribe(function () { return _this.dismiss(); });
         containerInstance._onExit.subscribe(function () { return _this._finishDismiss(); });
     }
+    /** Dismisses the snack bar. */
     /**
      * Dismisses the snack bar.
      * @return {?}
      */
-    MatSnackBarRef.prototype.dismiss = function () {
+    MatSnackBarRef.prototype.dismiss = /**
+     * Dismisses the snack bar.
+     * @return {?}
+     */
+    function () {
         if (!this._afterClosed.closed) {
             this.containerInstance.exit();
         }
         clearTimeout(this._durationTimeoutId);
     };
+    /** Marks the snackbar action clicked. */
     /**
      * Marks the snackbar action clicked.
      * @return {?}
      */
-    MatSnackBarRef.prototype.closeWithAction = function () {
+    MatSnackBarRef.prototype.closeWithAction = /**
+     * Marks the snackbar action clicked.
+     * @return {?}
+     */
+    function () {
         if (!this._onAction.closed) {
             this._onAction.next();
             this._onAction.complete();
         }
     };
+    /** Dismisses the snack bar after some duration */
     /**
      * Dismisses the snack bar after some duration
      * @param {?} duration
      * @return {?}
      */
-    MatSnackBarRef.prototype._dismissAfter = function (duration) {
+    MatSnackBarRef.prototype._dismissAfter = /**
+     * Dismisses the snack bar after some duration
+     * @param {?} duration
+     * @return {?}
+     */
+    function (duration) {
         var _this = this;
         this._durationTimeoutId = setTimeout(function () { return _this.dismiss(); }, duration);
     };
+    /** Marks the snackbar as opened */
     /**
      * Marks the snackbar as opened
      * @return {?}
      */
-    MatSnackBarRef.prototype._open = function () {
+    MatSnackBarRef.prototype._open = /**
+     * Marks the snackbar as opened
+     * @return {?}
+     */
+    function () {
         if (!this._afterOpened.closed) {
             this._afterOpened.next();
             this._afterOpened.complete();
@@ -90,34 +111,58 @@ var MatSnackBarRef = (function () {
      * Cleans up the DOM after closing.
      * @return {?}
      */
-    MatSnackBarRef.prototype._finishDismiss = function () {
+    MatSnackBarRef.prototype._finishDismiss = /**
+     * Cleans up the DOM after closing.
+     * @return {?}
+     */
+    function () {
         this._overlayRef.dispose();
         this._afterClosed.next();
         this._afterClosed.complete();
     };
+    /** Gets an observable that is notified when the snack bar is finished closing. */
     /**
      * Gets an observable that is notified when the snack bar is finished closing.
      * @return {?}
      */
-    MatSnackBarRef.prototype.afterDismissed = function () {
+    MatSnackBarRef.prototype.afterDismissed = /**
+     * Gets an observable that is notified when the snack bar is finished closing.
+     * @return {?}
+     */
+    function () {
         return this._afterClosed.asObservable();
     };
+    /** Gets an observable that is notified when the snack bar has opened and appeared. */
     /**
      * Gets an observable that is notified when the snack bar has opened and appeared.
      * @return {?}
      */
-    MatSnackBarRef.prototype.afterOpened = function () {
+    MatSnackBarRef.prototype.afterOpened = /**
+     * Gets an observable that is notified when the snack bar has opened and appeared.
+     * @return {?}
+     */
+    function () {
         return this.containerInstance._onEnter;
     };
+    /** Gets an observable that is notified when the snack bar action is called. */
     /**
      * Gets an observable that is notified when the snack bar action is called.
      * @return {?}
      */
-    MatSnackBarRef.prototype.onAction = function () {
+    MatSnackBarRef.prototype.onAction = /**
+     * Gets an observable that is notified when the snack bar action is called.
+     * @return {?}
+     */
+    function () {
         return this._onAction.asObservable();
     };
     return MatSnackBarRef;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
 /**
@@ -158,31 +203,38 @@ var MatSnackBarConfig = (function () {
 }());
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
  */
 var SimpleSnackBar = (function () {
-    /**
-     * @param {?} snackBarRef
-     * @param {?} data
-     */
     function SimpleSnackBar(snackBarRef, data) {
         this.snackBarRef = snackBarRef;
         this.data = data;
     }
+    /** Performs the action on the snack bar. */
     /**
      * Performs the action on the snack bar.
      * @return {?}
      */
-    SimpleSnackBar.prototype.action = function () {
+    SimpleSnackBar.prototype.action = /**
+     * Performs the action on the snack bar.
+     * @return {?}
+     */
+    function () {
         this.snackBarRef.closeWithAction();
     };
     Object.defineProperty(SimpleSnackBar.prototype, "hasAction", {
-        /**
+        /** If the action button should be shown. */
+        get: /**
          * If the action button should be shown.
          * @return {?}
          */
-        get: function () {
+        function () {
             return !!this.data.action;
         },
         enumerable: true,
@@ -209,9 +261,7 @@ var SimpleSnackBar = (function () {
                     }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     SimpleSnackBar.ctorParameters = function () { return [
         { type: MatSnackBarRef, },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DATA,] },] },
@@ -219,6 +269,10 @@ var SimpleSnackBar = (function () {
     return SimpleSnackBar;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 var SHOW_ANIMATION = AnimationDurations.ENTERING + " " + AnimationCurves.DECELERATION_CURVE;
 var HIDE_ANIMATION = AnimationDurations.EXITING + " " + AnimationCurves.ACCELERATION_CURVE;
 /**
@@ -227,12 +281,6 @@ var HIDE_ANIMATION = AnimationDurations.EXITING + " " + AnimationCurves.ACCELERA
  */
 var MatSnackBarContainer = (function (_super) {
     __extends(MatSnackBarContainer, _super);
-    /**
-     * @param {?} _ngZone
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     * @param {?} _changeDetectorRef
-     */
     function MatSnackBarContainer(_ngZone, _renderer, _elementRef, _changeDetectorRef) {
         var _this = _super.call(this) || this;
         _this._ngZone = _ngZone;
@@ -257,13 +305,20 @@ var MatSnackBarContainer = (function (_super) {
         _this._animationState = 'void';
         return _this;
     }
+    /** Attach a component portal as content to this snack bar container. */
     /**
      * Attach a component portal as content to this snack bar container.
      * @template T
      * @param {?} portal
      * @return {?}
      */
-    MatSnackBarContainer.prototype.attachComponentPortal = function (portal) {
+    MatSnackBarContainer.prototype.attachComponentPortal = /**
+     * Attach a component portal as content to this snack bar container.
+     * @template T
+     * @param {?} portal
+     * @return {?}
+     */
+    function (portal) {
         if (this._portalOutlet.hasAttached()) {
             throw Error('Attempting to attach snack bar content after content is already attached');
         }
@@ -284,19 +339,30 @@ var MatSnackBarContainer = (function (_super) {
         }
         return this._portalOutlet.attachComponentPortal(portal);
     };
+    /** Attach a template portal as content to this snack bar container. */
     /**
      * Attach a template portal as content to this snack bar container.
      * @return {?}
      */
-    MatSnackBarContainer.prototype.attachTemplatePortal = function () {
+    MatSnackBarContainer.prototype.attachTemplatePortal = /**
+     * Attach a template portal as content to this snack bar container.
+     * @return {?}
+     */
+    function () {
         throw Error('Not yet implemented');
     };
+    /** Handle end of animations, updating the state of the snackbar. */
     /**
      * Handle end of animations, updating the state of the snackbar.
      * @param {?} event
      * @return {?}
      */
-    MatSnackBarContainer.prototype.onAnimationEnd = function (event) {
+    MatSnackBarContainer.prototype.onAnimationEnd = /**
+     * Handle end of animations, updating the state of the snackbar.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         var fromState = event.fromState, toState = event.toState;
         if ((toState === 'void' && fromState !== 'void') || toState.startsWith('hidden')) {
             this._completeExit();
@@ -311,29 +377,44 @@ var MatSnackBarContainer = (function (_super) {
             });
         }
     };
+    /** Begin animation of snack bar entrance into view. */
     /**
      * Begin animation of snack bar entrance into view.
      * @return {?}
      */
-    MatSnackBarContainer.prototype.enter = function () {
+    MatSnackBarContainer.prototype.enter = /**
+     * Begin animation of snack bar entrance into view.
+     * @return {?}
+     */
+    function () {
         if (!this._destroyed) {
             this._animationState = "visible-" + this.snackBarConfig.verticalPosition;
             this._changeDetectorRef.detectChanges();
         }
     };
+    /** Begin animation of the snack bar exiting from view. */
     /**
      * Begin animation of the snack bar exiting from view.
      * @return {?}
      */
-    MatSnackBarContainer.prototype.exit = function () {
+    MatSnackBarContainer.prototype.exit = /**
+     * Begin animation of the snack bar exiting from view.
+     * @return {?}
+     */
+    function () {
         this._animationState = "hidden-" + this.snackBarConfig.verticalPosition;
         return this._onExit;
     };
+    /** Makes sure the exit callbacks have been invoked when the element is destroyed. */
     /**
      * Makes sure the exit callbacks have been invoked when the element is destroyed.
      * @return {?}
      */
-    MatSnackBarContainer.prototype.ngOnDestroy = function () {
+    MatSnackBarContainer.prototype.ngOnDestroy = /**
+     * Makes sure the exit callbacks have been invoked when the element is destroyed.
+     * @return {?}
+     */
+    function () {
         this._destroyed = true;
         this._completeExit();
     };
@@ -342,7 +423,12 @@ var MatSnackBarContainer = (function (_super) {
      * errors where we end up removing an element which is in the middle of an animation.
      * @return {?}
      */
-    MatSnackBarContainer.prototype._completeExit = function () {
+    MatSnackBarContainer.prototype._completeExit = /**
+     * Waits for the zone to settle before removing the element. Helps prevent
+     * errors where we end up removing an element which is in the middle of an animation.
+     * @return {?}
+     */
+    function () {
         var _this = this;
         this._ngZone.onMicrotaskEmpty.asObservable().pipe(first()).subscribe(function () {
             _this._onExit.next();
@@ -354,7 +440,12 @@ var MatSnackBarContainer = (function (_super) {
      * @param {?} classList
      * @return {?}
      */
-    MatSnackBarContainer.prototype._getCssClasses = function (classList) {
+    MatSnackBarContainer.prototype._getCssClasses = /**
+     * Convert the class list to a array of classes it can apply to the dom
+     * @param {?} classList
+     * @return {?}
+     */
+    function (classList) {
         if (classList) {
             if (Array.isArray(classList)) {
                 return classList;
@@ -387,9 +478,7 @@ var MatSnackBarContainer = (function (_super) {
                     ],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSnackBarContainer.ctorParameters = function () { return [
         { type: NgZone, },
         { type: Renderer2, },
@@ -397,22 +486,20 @@ var MatSnackBarContainer = (function (_super) {
         { type: ChangeDetectorRef, },
     ]; };
     MatSnackBarContainer.propDecorators = {
-        '_portalOutlet': [{ type: ViewChild, args: [CdkPortalOutlet,] },],
+        "_portalOutlet": [{ type: ViewChild, args: [CdkPortalOutlet,] },],
     };
     return MatSnackBarContainer;
 }(BasePortalOutlet));
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Service to dispatch Material Design snack bar messages.
  */
 var MatSnackBar = (function () {
-    /**
-     * @param {?} _overlay
-     * @param {?} _live
-     * @param {?} _injector
-     * @param {?} _breakpointObserver
-     * @param {?} _parentSnackBar
-     */
     function MatSnackBar(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar) {
         this._overlay = _overlay;
         this._live = _live;
@@ -427,19 +514,20 @@ var MatSnackBar = (function () {
         this._snackBarRefAtThisLevel = null;
     }
     Object.defineProperty(MatSnackBar.prototype, "_openedSnackBarRef", {
-        /**
+        /** Reference to the currently opened snackbar at *any* level. */
+        get: /**
          * Reference to the currently opened snackbar at *any* level.
          * @return {?}
          */
-        get: function () {
+        function () {
             var /** @type {?} */ parent = this._parentSnackBar;
             return parent ? parent._openedSnackBarRef : this._snackBarRefAtThisLevel;
         },
-        /**
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             if (this._parentSnackBar) {
                 this._parentSnackBar._openedSnackBarRef = value;
             }
@@ -454,12 +542,28 @@ var MatSnackBar = (function () {
      * Creates and dispatches a snack bar with a custom component for the content, removing any
      * currently opened snack bars.
      *
+     * @param component Component to be instantiated.
+     * @param config Extra configuration for the snack bar.
+     */
+    /**
+     * Creates and dispatches a snack bar with a custom component for the content, removing any
+     * currently opened snack bars.
+     *
      * @template T
      * @param {?} component Component to be instantiated.
      * @param {?=} config Extra configuration for the snack bar.
      * @return {?}
      */
-    MatSnackBar.prototype.openFromComponent = function (component, config) {
+    MatSnackBar.prototype.openFromComponent = /**
+     * Creates and dispatches a snack bar with a custom component for the content, removing any
+     * currently opened snack bars.
+     *
+     * @template T
+     * @param {?} component Component to be instantiated.
+     * @param {?=} config Extra configuration for the snack bar.
+     * @return {?}
+     */
+    function (component, config) {
         var _this = this;
         var /** @type {?} */ _config = _applyConfigDefaults(config);
         var /** @type {?} */ snackBarRef = this._attach(component, _config);
@@ -484,7 +588,7 @@ var MatSnackBar = (function () {
         }
         // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
         if (_config.duration && _config.duration > 0) {
-            snackBarRef.afterOpened().subscribe(function () { return snackBarRef._dismissAfter(/** @type {?} */ ((((_config)).duration))); });
+            snackBarRef.afterOpened().subscribe(function () { return snackBarRef._dismissAfter(/** @type {?} */ ((/** @type {?} */ ((_config)).duration))); });
         }
         if (_config.announcementMessage) {
             this._live.announce(_config.announcementMessage, _config.politeness);
@@ -494,12 +598,25 @@ var MatSnackBar = (function () {
     };
     /**
      * Opens a snackbar with a message and an optional action.
+     * @param message The message to show in the snackbar.
+     * @param action The label for the snackbar action.
+     * @param config Additional configuration options for the snackbar.
+     */
+    /**
+     * Opens a snackbar with a message and an optional action.
      * @param {?} message The message to show in the snackbar.
      * @param {?=} action The label for the snackbar action.
      * @param {?=} config Additional configuration options for the snackbar.
      * @return {?}
      */
-    MatSnackBar.prototype.open = function (message, action, config) {
+    MatSnackBar.prototype.open = /**
+     * Opens a snackbar with a message and an optional action.
+     * @param {?} message The message to show in the snackbar.
+     * @param {?=} action The label for the snackbar action.
+     * @param {?=} config Additional configuration options for the snackbar.
+     * @return {?}
+     */
+    function (message, action, config) {
         if (action === void 0) { action = ''; }
         var /** @type {?} */ _config = _applyConfigDefaults(config);
         // Since the user doesn't have access to the component, we can
@@ -510,9 +627,16 @@ var MatSnackBar = (function () {
     };
     /**
      * Dismisses the currently-visible snack bar.
+     */
+    /**
+     * Dismisses the currently-visible snack bar.
      * @return {?}
      */
-    MatSnackBar.prototype.dismiss = function () {
+    MatSnackBar.prototype.dismiss = /**
+     * Dismisses the currently-visible snack bar.
+     * @return {?}
+     */
+    function () {
         if (this._openedSnackBarRef) {
             this._openedSnackBarRef.dismiss();
         }
@@ -523,7 +647,13 @@ var MatSnackBar = (function () {
      * @param {?} config
      * @return {?}
      */
-    MatSnackBar.prototype._attachSnackBarContainer = function (overlayRef, config) {
+    MatSnackBar.prototype._attachSnackBarContainer = /**
+     * Attaches the snack bar container component to the overlay.
+     * @param {?} overlayRef
+     * @param {?} config
+     * @return {?}
+     */
+    function (overlayRef, config) {
         var /** @type {?} */ containerPortal = new ComponentPortal(MatSnackBarContainer, config.viewContainerRef);
         var /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
         containerRef.instance.snackBarConfig = config;
@@ -536,7 +666,14 @@ var MatSnackBar = (function () {
      * @param {?} config
      * @return {?}
      */
-    MatSnackBar.prototype._attach = function (component, config) {
+    MatSnackBar.prototype._attach = /**
+     * Places a new component as the content of the snack bar container.
+     * @template T
+     * @param {?} component
+     * @param {?} config
+     * @return {?}
+     */
+    function (component, config) {
         var /** @type {?} */ overlayRef = this._createOverlay(config);
         var /** @type {?} */ container = this._attachSnackBarContainer(overlayRef, config);
         var /** @type {?} */ snackBarRef = new MatSnackBarRef(container, overlayRef);
@@ -563,7 +700,12 @@ var MatSnackBar = (function () {
      * @param {?} config The user-specified snack bar config.
      * @return {?}
      */
-    MatSnackBar.prototype._createOverlay = function (config) {
+    MatSnackBar.prototype._createOverlay = /**
+     * Creates a new overlay and places it in the correct location.
+     * @param {?} config The user-specified snack bar config.
+     * @return {?}
+     */
+    function (config) {
         var /** @type {?} */ overlayConfig = new OverlayConfig();
         overlayConfig.direction = config.direction;
         var /** @type {?} */ positionStrategy = this._overlay.position().global();
@@ -599,7 +741,14 @@ var MatSnackBar = (function () {
      * @param {?} snackBarRef Reference to the snack bar.
      * @return {?}
      */
-    MatSnackBar.prototype._createInjector = function (config, snackBarRef) {
+    MatSnackBar.prototype._createInjector = /**
+     * Creates an injector to be used inside of a snack bar component.
+     * @template T
+     * @param {?} config Config that was used to create the snack bar.
+     * @param {?} snackBarRef Reference to the snack bar.
+     * @return {?}
+     */
+    function (config, snackBarRef) {
         var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         var /** @type {?} */ injectionTokens = new WeakMap();
         injectionTokens.set(MatSnackBarRef, snackBarRef);
@@ -609,9 +758,7 @@ var MatSnackBar = (function () {
     MatSnackBar.decorators = [
         { type: Injectable },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSnackBar.ctorParameters = function () { return [
         { type: Overlay, },
         { type: LiveAnnouncer, },
@@ -629,6 +776,11 @@ var MatSnackBar = (function () {
 function _applyConfigDefaults(config) {
     return extendObject(new MatSnackBarConfig(), config);
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatSnackBarModule = (function () {
     function MatSnackBarModule() {
@@ -648,13 +800,20 @@ var MatSnackBarModule = (function () {
                     providers: [MatSnackBar, LIVE_ANNOUNCER_PROVIDER]
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSnackBarModule.ctorParameters = function () { return []; };
     return MatSnackBarModule;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

@@ -15,6 +15,11 @@ import { startWith } from 'rxjs/operators/startWith';
 import { MAT_PLACEHOLDER_GLOBAL_OPTIONS } from '@angular/material/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 let nextUniqueId = 0;
 /**
  * Single error message to be shown underneath the form field.
@@ -34,35 +39,27 @@ MatError.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatError.ctorParameters = () => [];
 MatError.propDecorators = {
-    'id': [{ type: Input },],
+    "id": [{ type: Input },],
 };
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
  */
 class MatFormFieldControl {
-    /**
-     * Sets the list of element IDs that currently describe this control.
-     * @abstract
-     * @param {?} ids
-     * @return {?}
-     */
-    setDescribedByIds(ids) { }
-    /**
-     * Handles a click on the control's container.
-     * @abstract
-     * @param {?} event
-     * @return {?}
-     */
-    onContainerClick(event) { }
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * \@docs-private
  * @return {?}
@@ -85,6 +82,11 @@ function getMatFormFieldDuplicatedHintError(align) {
 function getMatFormFieldMissingControlError() {
     return Error('mat-form-field must contain a MatFormFieldControl.');
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 let nextUniqueId$2 = 0;
 /**
@@ -114,14 +116,17 @@ MatHint.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatHint.ctorParameters = () => [];
 MatHint.propDecorators = {
-    'align': [{ type: Input },],
-    'id': [{ type: Input },],
+    "align": [{ type: Input },],
+    "id": [{ type: Input },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * The floating placeholder for an `MatFormField`.
@@ -133,10 +138,13 @@ MatPlaceholder.decorators = [
                 selector: 'mat-placeholder'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatPlaceholder.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Prefix to be placed the the front of the form field.
@@ -148,10 +156,13 @@ MatPrefix.decorators = [
                 selector: '[matPrefix]',
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatPrefix.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Suffix to be placed at the end of the form field.
@@ -163,10 +174,13 @@ MatSuffix.decorators = [
                 selector: '[matSuffix]',
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSuffix.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 let nextUniqueId$1 = 0;
 /**
@@ -315,7 +329,7 @@ class MatFormField {
      */
     _shouldForward(prop) {
         let /** @type {?} */ ngControl = this._control ? this._control.ngControl : null;
-        return ngControl && ((ngControl))[prop];
+        return ngControl && (/** @type {?} */ (ngControl))[prop];
     }
     /**
      * Whether the form field has a placeholder.
@@ -471,9 +485,7 @@ MatFormField.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatFormField.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer2, },
@@ -481,21 +493,26 @@ MatFormField.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
 ];
 MatFormField.propDecorators = {
-    'color': [{ type: Input },],
-    'dividerColor': [{ type: Input },],
-    'hideRequiredMarker': [{ type: Input },],
-    'hintLabel': [{ type: Input },],
-    'floatPlaceholder': [{ type: Input },],
-    'underlineRef': [{ type: ViewChild, args: ['underline',] },],
-    '_connectionContainerRef': [{ type: ViewChild, args: ['connectionContainer',] },],
-    '_placeholder': [{ type: ViewChild, args: ['placeholder',] },],
-    '_control': [{ type: ContentChild, args: [MatFormFieldControl,] },],
-    '_placeholderChild': [{ type: ContentChild, args: [MatPlaceholder,] },],
-    '_errorChildren': [{ type: ContentChildren, args: [MatError,] },],
-    '_hintChildren': [{ type: ContentChildren, args: [MatHint,] },],
-    '_prefixChildren': [{ type: ContentChildren, args: [MatPrefix,] },],
-    '_suffixChildren': [{ type: ContentChildren, args: [MatSuffix,] },],
+    "color": [{ type: Input },],
+    "dividerColor": [{ type: Input },],
+    "hideRequiredMarker": [{ type: Input },],
+    "hintLabel": [{ type: Input },],
+    "floatPlaceholder": [{ type: Input },],
+    "underlineRef": [{ type: ViewChild, args: ['underline',] },],
+    "_connectionContainerRef": [{ type: ViewChild, args: ['connectionContainer',] },],
+    "_placeholder": [{ type: ViewChild, args: ['placeholder',] },],
+    "_control": [{ type: ContentChild, args: [MatFormFieldControl,] },],
+    "_placeholderChild": [{ type: ContentChild, args: [MatPlaceholder,] },],
+    "_errorChildren": [{ type: ContentChildren, args: [MatError,] },],
+    "_hintChildren": [{ type: ContentChildren, args: [MatHint,] },],
+    "_prefixChildren": [{ type: ContentChildren, args: [MatPrefix,] },],
+    "_suffixChildren": [{ type: ContentChildren, args: [MatSuffix,] },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatFormFieldModule {
 }
@@ -523,11 +540,18 @@ MatFormFieldModule.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatFormFieldModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

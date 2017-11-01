@@ -20,6 +20,11 @@ import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
 const _CdkAccordion = CdkAccordion;
@@ -60,19 +65,26 @@ MatAccordion.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatAccordion.ctorParameters = () => [];
 MatAccordion.propDecorators = {
-    'hideToggle': [{ type: Input },],
-    'displayMode': [{ type: Input },],
+    "hideToggle": [{ type: Input },],
+    "displayMode": [{ type: Input },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
 const _CdkAccordionItem = CdkAccordionItem;
+/**
+ * Time and timing curve for expansion panel animations.
+ */
+const EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 /**
  * \@docs-private
  */
@@ -93,19 +105,13 @@ MatExpansionPanelBase.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatExpansionPanelBase.ctorParameters = () => [
     { type: MatAccordion, },
     { type: ChangeDetectorRef, },
     { type: UniqueSelectionDispatcher, },
 ];
 const _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
-/**
- * Time and timing curve for expansion panel animations.
- */
-const EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 /**
  * <mat-expansion-panel> component.
  *
@@ -199,16 +205,14 @@ MatExpansionPanel.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatExpansionPanel.ctorParameters = () => [
     { type: MatAccordion, decorators: [{ type: Optional }, { type: Host },] },
     { type: ChangeDetectorRef, },
     { type: UniqueSelectionDispatcher, },
 ];
 MatExpansionPanel.propDecorators = {
-    'hideToggle': [{ type: Input },],
+    "hideToggle": [{ type: Input },],
 };
 class MatExpansionPanelActionRow {
 }
@@ -220,10 +224,13 @@ MatExpansionPanelActionRow.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatExpansionPanelActionRow.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * <mat-expansion-panel-header> component.
@@ -248,7 +255,7 @@ class MatExpansionPanelHeader {
         this._parentChangeSubscription = Subscription.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to  subscribe and trigger change detection manually.
-        this._parentChangeSubscription = merge(panel.opened, panel.closed, panel._inputChanges.pipe(filter(changes => !!(changes.hideToggle || changes.disabled))))
+        this._parentChangeSubscription = merge(panel.opened, panel.closed, panel._inputChanges.pipe(filter(changes => !!(changes["hideToggle"] || changes["disabled"]))))
             .subscribe(() => this._changeDetectorRef.markForCheck());
         _focusMonitor.monitor(_element.nativeElement, renderer, false);
     }
@@ -361,9 +368,7 @@ MatExpansionPanelHeader.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatExpansionPanelHeader.ctorParameters = () => [
     { type: Renderer2, },
     { type: MatExpansionPanel, decorators: [{ type: Host },] },
@@ -372,8 +377,8 @@ MatExpansionPanelHeader.ctorParameters = () => [
     { type: ChangeDetectorRef, },
 ];
 MatExpansionPanelHeader.propDecorators = {
-    'expandedHeight': [{ type: Input },],
-    'collapsedHeight': [{ type: Input },],
+    "expandedHeight": [{ type: Input },],
+    "collapsedHeight": [{ type: Input },],
 };
 /**
  * <mat-panel-description> directive.
@@ -390,9 +395,7 @@ MatExpansionPanelDescription.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatExpansionPanelDescription.ctorParameters = () => [];
 /**
  * <mat-panel-title> directive.
@@ -409,10 +412,13 @@ MatExpansionPanelTitle.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatExpansionPanelTitle.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatExpansionModule {
 }
@@ -439,14 +445,21 @@ MatExpansionModule.decorators = [
                 providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatExpansionModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { MatExpansionModule, _CdkAccordion, MatAccordion, _CdkAccordionItem, MatExpansionPanelBase, _MatExpansionPanelMixinBase, EXPANSION_PANEL_ANIMATION_TIMING, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle };
+export { MatExpansionModule, _CdkAccordion, MatAccordion, _CdkAccordionItem, EXPANSION_PANEL_ANIMATION_TIMING, MatExpansionPanelBase, _MatExpansionPanelMixinBase, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle };
 //# sourceMappingURL=expansion.js.map

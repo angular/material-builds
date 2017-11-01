@@ -15,6 +15,10 @@ import { AnimationCurves, AnimationDurations } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * \@docs-private
  * @param {?} id
  * @return {?}
@@ -44,6 +48,19 @@ function getSortHeaderMissingIdError() {
 function getSortInvalidDirectionError(direction) {
     return Error(`${direction} is not a valid sort direction ('asc' or 'desc').`);
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @record
+ */
+
+/**
+ * @record
+ */
 
 /**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
@@ -156,16 +173,14 @@ MatSort.decorators = [
                 exportAs: 'matSort'
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSort.ctorParameters = () => [];
 MatSort.propDecorators = {
-    'active': [{ type: Input, args: ['matSortActive',] },],
-    'start': [{ type: Input, args: ['matSortStart',] },],
-    'direction': [{ type: Input, args: ['matSortDirection',] },],
-    'disableClear': [{ type: Input, args: ['matSortDisableClear',] },],
-    'sortChange': [{ type: Output, args: ['matSortChange',] },],
+    "active": [{ type: Input, args: ['matSortActive',] },],
+    "start": [{ type: Input, args: ['matSortStart',] },],
+    "direction": [{ type: Input, args: ['matSortDirection',] },],
+    "disableClear": [{ type: Input, args: ['matSortDisableClear',] },],
+    "sortChange": [{ type: Output, args: ['matSortChange',] },],
 };
 /**
  * Returns the sort direction cycle to use given the provided parameters of order and clear.
@@ -183,6 +198,11 @@ function getSortDirectionCycle(start, disableClear) {
     }
     return sortOrder;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
@@ -212,10 +232,13 @@ class MatSortHeaderIntl {
 MatSortHeaderIntl.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSortHeaderIntl.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 const SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' + AnimationCurves.STANDARD_CURVE;
 /**
@@ -334,9 +357,7 @@ MatSortHeader.decorators = [
                 ]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSortHeader.ctorParameters = () => [
     { type: MatSortHeaderIntl, },
     { type: ChangeDetectorRef, },
@@ -344,11 +365,16 @@ MatSortHeader.ctorParameters = () => [
     { type: CdkColumnDef, decorators: [{ type: Optional },] },
 ];
 MatSortHeader.propDecorators = {
-    'id': [{ type: Input, args: ['mat-sort-header',] },],
-    'arrowPosition': [{ type: Input },],
-    'start': [{ type: Input, args: ['start',] },],
-    'disableClear': [{ type: Input },],
+    "id": [{ type: Input, args: ['mat-sort-header',] },],
+    "arrowPosition": [{ type: Input },],
+    "start": [{ type: Input, args: ['start',] },],
+    "disableClear": [{ type: Input },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatSortModule {
 }
@@ -360,11 +386,18 @@ MatSortModule.decorators = [
                 providers: [MatSortHeaderIntl]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSortModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

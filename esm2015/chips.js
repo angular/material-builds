@@ -20,6 +20,14 @@ import { Subscription } from 'rxjs/Subscription';
 import { mixinColor, mixinDisabled } from '@angular/material/core';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * @record
+ */
+
+/**
  * Event object emitted by MatChip when selected or deselected.
  */
 class MatChipSelectionChange {
@@ -60,9 +68,7 @@ MatBasicChip.decorators = [
                 host: { 'class': 'mat-basic-chip' },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatBasicChip.ctorParameters = () => [];
 /**
  * Material design styled Chip component. Used inside the MatChipList component.
@@ -329,23 +335,21 @@ MatChip.decorators = [
                 },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatChip.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
 ];
 MatChip.propDecorators = {
-    'selected': [{ type: Input },],
-    'value': [{ type: Input },],
-    'selectable': [{ type: Input },],
-    'removable': [{ type: Input },],
-    'selectionChange': [{ type: Output },],
-    'destroyed': [{ type: Output },],
-    'destroy': [{ type: Output },],
-    'removed': [{ type: Output },],
-    'onRemove': [{ type: Output, args: ['remove',] },],
+    "selected": [{ type: Input },],
+    "value": [{ type: Input },],
+    "selectable": [{ type: Input },],
+    "removable": [{ type: Input },],
+    "selectionChange": [{ type: Output },],
+    "destroyed": [{ type: Output },],
+    "destroy": [{ type: Output },],
+    "removed": [{ type: Output },],
+    "onRemove": [{ type: Output, args: ['remove',] },],
 };
 /**
  * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon
@@ -382,16 +386,19 @@ MatChipRemove.decorators = [
                 selector: '[matChipRemove]',
                 host: {
                     'class': 'mat-chip-remove',
-                    '(click)': '_handleClick($event)',
-                },
+                    '(click)': '_handleClick()',
+                }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatChipRemove.ctorParameters = () => [
     { type: MatChip, },
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 // Increasing integer for generating unique ids for chip-list components.
 let nextUniqueId = 0;
@@ -820,7 +827,7 @@ class MatChipList {
      */
     _keydown(event) {
         let /** @type {?} */ code = event.keyCode;
-        let /** @type {?} */ target = (event.target);
+        let /** @type {?} */ target = /** @type {?} */ (event.target);
         let /** @type {?} */ isInputEmpty = this._isInputEmpty(target);
         let /** @type {?} */ isRtl = this._dir && this._dir.value == 'rtl';
         let /** @type {?} */ isPrevKey = (code === (isRtl ? RIGHT_ARROW : LEFT_ARROW));
@@ -917,7 +924,7 @@ class MatChipList {
      */
     _isInputEmpty(element) {
         if (element && element.nodeName.toLowerCase() === 'input') {
-            let /** @type {?} */ input = (element);
+            let /** @type {?} */ input = /** @type {?} */ (element);
             return !input.value;
         }
         return false;
@@ -1155,9 +1162,7 @@ MatChipList.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatChipList.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
@@ -1168,20 +1173,29 @@ MatChipList.ctorParameters = () => [
     { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
 ];
 MatChipList.propDecorators = {
-    'multiple': [{ type: Input },],
-    'compareWith': [{ type: Input },],
-    'value': [{ type: Input },],
-    'id': [{ type: Input },],
-    'required': [{ type: Input },],
-    'placeholder': [{ type: Input },],
-    'disabled': [{ type: Input },],
-    'ariaOrientation': [{ type: Input, args: ['aria-orientation',] },],
-    'selectable': [{ type: Input },],
-    'tabIndex': [{ type: Input },],
-    'change': [{ type: Output },],
-    'valueChange': [{ type: Output },],
-    'chips': [{ type: ContentChildren, args: [MatChip,] },],
+    "multiple": [{ type: Input },],
+    "compareWith": [{ type: Input },],
+    "value": [{ type: Input },],
+    "id": [{ type: Input },],
+    "required": [{ type: Input },],
+    "placeholder": [{ type: Input },],
+    "disabled": [{ type: Input },],
+    "ariaOrientation": [{ type: Input, args: ['aria-orientation',] },],
+    "selectable": [{ type: Input },],
+    "tabIndex": [{ type: Input },],
+    "change": [{ type: Output },],
+    "valueChange": [{ type: Output },],
+    "chips": [{ type: ContentChildren, args: [MatChip,] },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @record
+ */
 
 /**
  * Directive that adds chip-specific behaviors to an input element inside <mat-form-field>.
@@ -1200,14 +1214,13 @@ class MatChipInput {
          *
          * Defaults to `[ENTER]`.
          */
-        // TODO(tinayuangao): Support Set here
         this.separatorKeyCodes = [ENTER];
         /**
          * Emitted when a chip is to be added.
          */
         this.chipEnd = new EventEmitter();
         this.placeholder = '';
-        this._inputElement = this._elementRef.nativeElement;
+        this._inputElement = /** @type {?} */ (this._elementRef.nativeElement);
     }
     /**
      * Register input for chip list
@@ -1300,19 +1313,22 @@ MatChipInput.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatChipInput.ctorParameters = () => [
     { type: ElementRef, },
 ];
 MatChipInput.propDecorators = {
-    'chipList': [{ type: Input, args: ['matChipInputFor',] },],
-    'addOnBlur': [{ type: Input, args: ['matChipInputAddOnBlur',] },],
-    'separatorKeyCodes': [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] },],
-    'chipEnd': [{ type: Output, args: ['matChipInputTokenEnd',] },],
-    'placeholder': [{ type: Input },],
+    "chipList": [{ type: Input, args: ['matChipInputFor',] },],
+    "addOnBlur": [{ type: Input, args: ['matChipInputAddOnBlur',] },],
+    "separatorKeyCodes": [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] },],
+    "chipEnd": [{ type: Output, args: ['matChipInputTokenEnd',] },],
+    "placeholder": [{ type: Input },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatChipsModule {
 }
@@ -1323,11 +1339,18 @@ MatChipsModule.decorators = [
                 declarations: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatChipsModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

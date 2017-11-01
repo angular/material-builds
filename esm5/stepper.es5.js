@@ -20,14 +20,15 @@ import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
 var _MatStepLabel = CdkStepLabel;
 var MatStepLabel = (function (_super) {
     __extends(MatStepLabel, _super);
-    /**
-     * @param {?} template
-     */
     function MatStepLabel(template) {
         return _super.call(this, template) || this;
     }
@@ -36,14 +37,17 @@ var MatStepLabel = (function (_super) {
                     selector: '[matStepLabel]',
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatStepLabel.ctorParameters = function () { return [
         { type: TemplateRef, },
     ]; };
     return MatStepLabel;
 }(_MatStepLabel));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Stepper data that is required for internationalization.
@@ -63,21 +67,17 @@ var MatStepperIntl = (function () {
     MatStepperIntl.decorators = [
         { type: Injectable },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatStepperIntl.ctorParameters = function () { return []; };
     return MatStepperIntl;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 var MatStepHeader = (function () {
-    /**
-     * @param {?} _intl
-     * @param {?} _focusMonitor
-     * @param {?} _element
-     * @param {?} renderer
-     * @param {?} changeDetectorRef
-     */
     function MatStepHeader(_intl, _focusMonitor, _element, renderer, changeDetectorRef) {
         this._intl = _intl;
         this._focusMonitor = _focusMonitor;
@@ -86,64 +86,64 @@ var MatStepHeader = (function () {
         this._intlSubscription = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
     Object.defineProperty(MatStepHeader.prototype, "index", {
-        /**
+        get: /**
          * Index of the given step.
          * @return {?}
          */
-        get: function () { return this._index; },
-        /**
+        function () { return this._index; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._index = coerceNumberProperty(value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatStepHeader.prototype, "selected", {
-        /**
+        get: /**
          * Whether the given step is selected.
          * @return {?}
          */
-        get: function () { return this._selected; },
-        /**
+        function () { return this._selected; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._selected = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatStepHeader.prototype, "active", {
-        /**
+        get: /**
          * Whether the given step label is active.
          * @return {?}
          */
-        get: function () { return this._active; },
-        /**
+        function () { return this._active; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._active = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatStepHeader.prototype, "optional", {
-        /**
+        get: /**
          * Whether the given step is optional.
          * @return {?}
          */
-        get: function () { return this._optional; },
-        /**
+        function () { return this._optional; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._optional = coerceBooleanProperty(value);
         },
         enumerable: true,
@@ -152,29 +152,47 @@ var MatStepHeader = (function () {
     /**
      * @return {?}
      */
-    MatStepHeader.prototype.ngOnDestroy = function () {
+    MatStepHeader.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
         this._intlSubscription.unsubscribe();
         this._focusMonitor.stopMonitoring(this._element.nativeElement);
     };
+    /** Returns string label of given step if it is a text label. */
     /**
      * Returns string label of given step if it is a text label.
      * @return {?}
      */
-    MatStepHeader.prototype._stringLabel = function () {
+    MatStepHeader.prototype._stringLabel = /**
+     * Returns string label of given step if it is a text label.
+     * @return {?}
+     */
+    function () {
         return this.label instanceof MatStepLabel ? null : this.label;
     };
+    /** Returns MatStepLabel if the label of given step is a template label. */
     /**
      * Returns MatStepLabel if the label of given step is a template label.
      * @return {?}
      */
-    MatStepHeader.prototype._templateLabel = function () {
+    MatStepHeader.prototype._templateLabel = /**
+     * Returns MatStepLabel if the label of given step is a template label.
+     * @return {?}
+     */
+    function () {
         return this.label instanceof MatStepLabel ? this.label : null;
     };
+    /** Returns the host HTML element. */
     /**
      * Returns the host HTML element.
      * @return {?}
      */
-    MatStepHeader.prototype._getHostElement = function () {
+    MatStepHeader.prototype._getHostElement = /**
+     * Returns the host HTML element.
+     * @return {?}
+     */
+    function () {
         return this._element.nativeElement;
     };
     MatStepHeader.decorators = [
@@ -190,9 +208,7 @@ var MatStepHeader = (function () {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatStepHeader.ctorParameters = function () { return [
         { type: MatStepperIntl, },
         { type: FocusMonitor, },
@@ -201,16 +217,20 @@ var MatStepHeader = (function () {
         { type: ChangeDetectorRef, },
     ]; };
     MatStepHeader.propDecorators = {
-        'icon': [{ type: Input },],
-        'label': [{ type: Input },],
-        'index': [{ type: Input },],
-        'selected': [{ type: Input },],
-        'active': [{ type: Input },],
-        'optional': [{ type: Input },],
+        "icon": [{ type: Input },],
+        "label": [{ type: Input },],
+        "index": [{ type: Input },],
+        "selected": [{ type: Input },],
+        "active": [{ type: Input },],
+        "optional": [{ type: Input },],
     };
     return MatStepHeader;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
@@ -218,22 +238,25 @@ var _MatStep = CdkStep;
 var _MatStepper = CdkStepper;
 var MatStep = (function (_super) {
     __extends(MatStep, _super);
-    /**
-     * @param {?} stepper
-     * @param {?} _errorStateMatcher
-     */
     function MatStep(stepper, _errorStateMatcher) {
         var _this = _super.call(this, stepper) || this;
         _this._errorStateMatcher = _errorStateMatcher;
         return _this;
     }
+    /** Custom error state matcher that additionally checks for validity of interacted form. */
     /**
      * Custom error state matcher that additionally checks for validity of interacted form.
      * @param {?} control
      * @param {?} form
      * @return {?}
      */
-    MatStep.prototype.isErrorState = function (control, form) {
+    MatStep.prototype.isErrorState = /**
+     * Custom error state matcher that additionally checks for validity of interacted form.
+     * @param {?} control
+     * @param {?} form
+     * @return {?}
+     */
+    function (control, form) {
         var /** @type {?} */ originalErrorState = this._errorStateMatcher.isErrorState(control, form);
         // Custom error state checks for the validity of form that is not submitted or touched
         // since user can trigger a form change by calling for another step without directly
@@ -251,15 +274,13 @@ var MatStep = (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatStep.ctorParameters = function () { return [
         { type: MatStepper, decorators: [{ type: Inject, args: [forwardRef(function () { return MatStepper; }),] },] },
         { type: ErrorStateMatcher, decorators: [{ type: SkipSelf },] },
     ]; };
     MatStep.propDecorators = {
-        'stepLabel': [{ type: ContentChild, args: [MatStepLabel,] },],
+        "stepLabel": [{ type: ContentChild, args: [MatStepLabel,] },],
     };
     return MatStep;
 }(_MatStep));
@@ -273,13 +294,11 @@ var MatStepper = (function (_super) {
                     selector: '[matStepper]'
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatStepper.ctorParameters = function () { return []; };
     MatStepper.propDecorators = {
-        '_stepHeader': [{ type: ViewChildren, args: [MatStepHeader, { read: ElementRef },] },],
-        '_steps': [{ type: ContentChildren, args: [MatStep,] },],
+        "_stepHeader": [{ type: ViewChildren, args: [MatStepHeader, { read: ElementRef },] },],
+        "_steps": [{ type: ContentChildren, args: [MatStep,] },],
     };
     return MatStepper;
 }(_MatStepper));
@@ -312,9 +331,7 @@ var MatHorizontalStepper = (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatHorizontalStepper.ctorParameters = function () { return []; };
     return MatHorizontalStepper;
 }(MatStepper));
@@ -347,13 +364,15 @@ var MatVerticalStepper = (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatVerticalStepper.ctorParameters = function () { return []; };
     return MatVerticalStepper;
 }(MatStepper));
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
@@ -374,9 +393,7 @@ var MatStepperNext = (function (_super) {
                     providers: [{ provide: CdkStepper, useExisting: MatStepper }]
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatStepperNext.ctorParameters = function () { return []; };
     return MatStepperNext;
 }(_MatStepperNext));
@@ -395,12 +412,15 @@ var MatStepperPrevious = (function (_super) {
                     providers: [{ provide: CdkStepper, useExisting: MatStepper }]
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatStepperPrevious.ctorParameters = function () { return []; };
     return MatStepperPrevious;
 }(_MatStepperPrevious));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatStepperModule = (function () {
     function MatStepperModule() {
@@ -433,13 +453,20 @@ var MatStepperModule = (function () {
                     providers: [MatStepperIntl, ErrorStateMatcher],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatStepperModule.ctorParameters = function () { return []; };
     return MatStepperModule;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

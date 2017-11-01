@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('rxjs/operators/filter'), require('rxjs/operators/first'), require('rxjs/operators/map'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/Subject'), require('@angular/animations')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', 'rxjs/operators/filter', 'rxjs/operators/first', 'rxjs/operators/map', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/Subject', '@angular/animations'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = global.ng.material.select || {}),global.ng.core,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.forms,global.ng.material.core,global.ng.material.formField,global.Rx.Observable,global.Rx,global.ng.animations));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,_angular_cdk_overlay,rxjs_operators_filter,rxjs_operators_first,rxjs_operators_map,rxjs_operators_startWith,rxjs_operators_takeUntil,_angular_forms,_angular_material_core,_angular_material_formField,rxjs_observable_merge,rxjs_Subject,_angular_animations) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('rxjs/operators/filter'), require('rxjs/operators/first'), require('rxjs/operators/map'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs/Observable'), require('rxjs/observable/merge'), require('rxjs/Subject'), require('@angular/animations')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', 'rxjs/operators/filter', 'rxjs/operators/first', 'rxjs/operators/map', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs/Observable', 'rxjs/observable/merge', 'rxjs/Subject', '@angular/animations'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = global.ng.material.select || {}),global.ng.core,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.forms,global.ng.material.core,global.ng.material.formField,global.Rx,global.Rx.Observable,global.Rx,global.ng.animations));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,_angular_cdk_overlay,rxjs_operators_filter,rxjs_operators_first,rxjs_operators_map,rxjs_operators_startWith,rxjs_operators_takeUntil,_angular_forms,_angular_material_core,_angular_material_formField,rxjs_Observable,rxjs_observable_merge,rxjs_Subject,_angular_animations) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -38,6 +38,11 @@ function __extends(d, b) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * This animation transforms the select's overlay panel on and off the page.
  *
  * When the panel is attached to the DOM, it expands its width by the amount of padding, scales it
@@ -50,11 +55,13 @@ var transformPanel = _angular_animations.trigger('transformPanel', [
     _angular_animations.state('showing', _angular_animations.style({
         opacity: 1,
         minWidth: 'calc(100% + 32px)',
+        // 32px = 2 * 16px padding
         transform: 'scaleY(1)'
     })),
     _angular_animations.state('showing-multiple', _angular_animations.style({
         opacity: 1,
         minWidth: 'calc(100% + 64px)',
+        // 64px = 48px padding on the left + 16px padding on the right
         transform: 'scaleY(1)'
     })),
     _angular_animations.transition('void => *', [
@@ -82,6 +89,10 @@ var fadeInContent = _angular_animations.trigger('fadeInContent', [
     ])
 ]);
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Returns an exception to be thrown when attempting to change a select's `multiple` option
  * after initialization.
@@ -111,6 +122,10 @@ function getMatSelectNonFunctionValueError() {
     return Error('`compareWith` must be a function.');
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 var nextUniqueId = 0;
 /**
  * The max height of the select's overlay panel
@@ -166,10 +181,6 @@ var MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
  * Change event object that is emitted when the select value has changed.
  */
 var MatSelectChange = (function () {
-    /**
-     * @param {?} source
-     * @param {?} value
-     */
     function MatSelectChange(source, value) {
         this.source = source;
         this.value = value;
@@ -180,10 +191,6 @@ var MatSelectChange = (function () {
  * \@docs-private
  */
 var MatSelectBase = (function () {
-    /**
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     */
     function MatSelectBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -202,29 +209,12 @@ var MatSelectTrigger = (function () {
                     selector: 'mat-select-trigger'
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSelectTrigger.ctorParameters = function () { return []; };
     return MatSelectTrigger;
 }());
 var MatSelect = (function (_super) {
     __extends(MatSelect, _super);
-    /**
-     * @param {?} _viewportRuler
-     * @param {?} _changeDetectorRef
-     * @param {?} _ngZone
-     * @param {?} _defaultErrorStateMatcher
-     * @param {?} renderer
-     * @param {?} elementRef
-     * @param {?} _dir
-     * @param {?} _parentForm
-     * @param {?} _parentFormGroup
-     * @param {?} _parentFormField
-     * @param {?} ngControl
-     * @param {?} tabIndex
-     * @param {?} _scrollStrategyFactory
-     */
     function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, renderer, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._viewportRuler = _viewportRuler;
@@ -371,20 +361,21 @@ var MatSelect = (function (_super) {
         }
         _this.tabIndex = parseInt(tabIndex) || 0;
         // Force setter to be called in case id was not specified.
+        // Force setter to be called in case id was not specified.
         _this.id = _this.id;
         return _this;
     }
     Object.defineProperty(MatSelect.prototype, "placeholder", {
-        /**
+        get: /**
          * Placeholder to be shown if no value has been selected.
          * @return {?}
          */
-        get: function () { return this._placeholder; },
-        /**
+        function () { return this._placeholder; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._placeholder = value;
             this.stateChanges.next();
         },
@@ -392,16 +383,16 @@ var MatSelect = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "required", {
-        /**
+        get: /**
          * Whether the component is required.
          * @return {?}
          */
-        get: function () { return this._required; },
-        /**
+        function () { return this._required; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._required = _angular_cdk_coercion.coerceBooleanProperty(value);
             this.stateChanges.next();
         },
@@ -409,16 +400,16 @@ var MatSelect = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "multiple", {
-        /**
+        get: /**
          * Whether the user should be allowed to select multiple options.
          * @return {?}
          */
-        get: function () { return this._multiple; },
-        /**
+        function () { return this._multiple; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             if (this._selectionModel) {
                 throw getMatSelectDynamicMultipleError();
             }
@@ -428,18 +419,18 @@ var MatSelect = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "compareWith", {
-        /**
+        get: /**
          * A function to compare the option values with the selected values. The first argument
          * is a value from an option. The second is a value from the selection. A boolean
          * should be returned.
          * @return {?}
          */
-        get: function () { return this._compareWith; },
-        /**
+        function () { return this._compareWith; },
+        set: /**
          * @param {?} fn
          * @return {?}
          */
-        set: function (fn) {
+        function (fn) {
             if (typeof fn !== 'function') {
                 throw getMatSelectNonFunctionValueError();
             }
@@ -453,16 +444,16 @@ var MatSelect = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "value", {
-        /**
+        get: /**
          * Value of the select control.
          * @return {?}
          */
-        get: function () { return this._value; },
-        /**
+        function () { return this._value; },
+        set: /**
          * @param {?} newValue
          * @return {?}
          */
-        set: function (newValue) {
+        function (newValue) {
             if (newValue !== this._value) {
                 this.writeValue(newValue);
                 this._value = newValue;
@@ -472,32 +463,32 @@ var MatSelect = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "disableRipple", {
-        /**
+        get: /**
          * Whether ripples for all options in the select are disabled.
          * @return {?}
          */
-        get: function () { return this._disableRipple; },
-        /**
+        function () { return this._disableRipple; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._disableRipple = _angular_cdk_coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "id", {
-        /**
+        get: /**
          * Unique id of the element.
          * @return {?}
          */
-        get: function () { return this._id; },
-        /**
+        function () { return this._id; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) {
+        function (value) {
             this._id = value || this._uid;
             this.stateChanges.next();
         },
@@ -505,33 +496,34 @@ var MatSelect = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "optionSelectionChanges", {
-        /**
+        /** Combined stream of all of the child options' change events. */
+        get: /**
          * Combined stream of all of the child options' change events.
          * @return {?}
          */
-        get: function () {
+        function () {
             return rxjs_observable_merge.merge.apply(void 0, this.options.map(function (option) { return option.onSelectionChange; }));
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "_openedStream", {
-        /**
+        get: /**
          * Event emitted when the select has been opened.
          * @return {?}
          */
-        get: function () {
+        function () {
             return this.openedChange.pipe(rxjs_operators_filter.filter(function (o) { return o; }), rxjs_operators_map.map(function () { }));
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "_closedStream", {
-        /**
+        get: /**
          * Event emitted when the select has been closed.
          * @return {?}
          */
-        get: function () {
+        function () {
             return this.openedChange.pipe(rxjs_operators_filter.filter(function (o) { return !o; }), rxjs_operators_map.map(function () { }));
         },
         enumerable: true,
@@ -540,14 +532,20 @@ var MatSelect = (function (_super) {
     /**
      * @return {?}
      */
-    MatSelect.prototype.ngOnInit = function () {
+    MatSelect.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
         this._selectionModel = new _angular_cdk_collections.SelectionModel(this.multiple, undefined, false);
         this.stateChanges.next();
     };
     /**
      * @return {?}
      */
-    MatSelect.prototype.ngAfterContentInit = function () {
+    MatSelect.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
         var _this = this;
         this._initKeyManager();
         this.options.changes.pipe(rxjs_operators_startWith.startWith(null), rxjs_operators_takeUntil.takeUntil(this._destroy)).subscribe(function () {
@@ -558,7 +556,10 @@ var MatSelect = (function (_super) {
     /**
      * @return {?}
      */
-    MatSelect.prototype.ngDoCheck = function () {
+    MatSelect.prototype.ngDoCheck = /**
+     * @return {?}
+     */
+    function () {
         if (this.ngControl) {
             this._updateErrorState();
         }
@@ -567,32 +568,49 @@ var MatSelect = (function (_super) {
      * @param {?} changes
      * @return {?}
      */
-    MatSelect.prototype.ngOnChanges = function (changes) {
+    MatSelect.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
         // Updating the disabled state is handled by `mixinDisabled`, but we need to additionally let
         // the parent form field know to run change detection when the disabled state changes.
-        if (changes.disabled) {
+        if (changes["disabled"]) {
             this.stateChanges.next();
         }
     };
     /**
      * @return {?}
      */
-    MatSelect.prototype.ngOnDestroy = function () {
+    MatSelect.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
         this._destroy.next();
         this._destroy.complete();
     };
+    /** Toggles the overlay panel open or closed. */
     /**
      * Toggles the overlay panel open or closed.
      * @return {?}
      */
-    MatSelect.prototype.toggle = function () {
+    MatSelect.prototype.toggle = /**
+     * Toggles the overlay panel open or closed.
+     * @return {?}
+     */
+    function () {
         this.panelOpen ? this.close() : this.open();
     };
+    /** Opens the overlay panel. */
     /**
      * Opens the overlay panel.
      * @return {?}
      */
-    MatSelect.prototype.open = function () {
+    MatSelect.prototype.open = /**
+     * Opens the overlay panel.
+     * @return {?}
+     */
+    function () {
         var _this = this;
         if (this.disabled || !this.options.length) {
             return;
@@ -613,11 +631,16 @@ var MatSelect = (function (_super) {
             }
         });
     };
+    /** Closes the overlay panel and focuses the host element. */
     /**
      * Closes the overlay panel and focuses the host element.
      * @return {?}
      */
-    MatSelect.prototype.close = function () {
+    MatSelect.prototype.close = /**
+     * Closes the overlay panel and focuses the host element.
+     * @return {?}
+     */
+    function () {
         if (this._panelOpen) {
             this._panelOpen = false;
             this._changeDetectorRef.markForCheck();
@@ -628,10 +651,23 @@ var MatSelect = (function (_super) {
      * Sets the select's value. Part of the ControlValueAccessor interface
      * required to integrate with Angular's core forms API.
      *
+     * @param value New value to be written to the model.
+     */
+    /**
+     * Sets the select's value. Part of the ControlValueAccessor interface
+     * required to integrate with Angular's core forms API.
+     *
      * @param {?} value New value to be written to the model.
      * @return {?}
      */
-    MatSelect.prototype.writeValue = function (value) {
+    MatSelect.prototype.writeValue = /**
+     * Sets the select's value. Part of the ControlValueAccessor interface
+     * required to integrate with Angular's core forms API.
+     *
+     * @param {?} value New value to be written to the model.
+     * @return {?}
+     */
+    function (value) {
         if (this.options) {
             this._setSelectionByValue(value);
         }
@@ -641,12 +677,34 @@ var MatSelect = (function (_super) {
      * changes from user input. Part of the ControlValueAccessor interface
      * required to integrate with Angular's core forms API.
      *
+     * @param fn Callback to be triggered when the value changes.
+     */
+    /**
+     * Saves a callback function to be invoked when the select's value
+     * changes from user input. Part of the ControlValueAccessor interface
+     * required to integrate with Angular's core forms API.
+     *
      * @param {?} fn Callback to be triggered when the value changes.
      * @return {?}
      */
-    MatSelect.prototype.registerOnChange = function (fn) {
+    MatSelect.prototype.registerOnChange = /**
+     * Saves a callback function to be invoked when the select's value
+     * changes from user input. Part of the ControlValueAccessor interface
+     * required to integrate with Angular's core forms API.
+     *
+     * @param {?} fn Callback to be triggered when the value changes.
+     * @return {?}
+     */
+    function (fn) {
         this._onChange = fn;
     };
+    /**
+     * Saves a callback function to be invoked when the select is blurred
+     * by the user. Part of the ControlValueAccessor interface required
+     * to integrate with Angular's core forms API.
+     *
+     * @param fn Callback to be triggered when the component has been touched.
+     */
     /**
      * Saves a callback function to be invoked when the select is blurred
      * by the user. Part of the ControlValueAccessor interface required
@@ -655,9 +713,23 @@ var MatSelect = (function (_super) {
      * @param {?} fn Callback to be triggered when the component has been touched.
      * @return {?}
      */
-    MatSelect.prototype.registerOnTouched = function (fn) {
+    MatSelect.prototype.registerOnTouched = /**
+     * Saves a callback function to be invoked when the select is blurred
+     * by the user. Part of the ControlValueAccessor interface required
+     * to integrate with Angular's core forms API.
+     *
+     * @param {?} fn Callback to be triggered when the component has been touched.
+     * @return {?}
+     */
+    function (fn) {
         this._onTouched = fn;
     };
+    /**
+     * Disables the select. Part of the ControlValueAccessor interface required
+     * to integrate with Angular's core forms API.
+     *
+     * @param isDisabled Sets whether the component is disabled.
+     */
     /**
      * Disables the select. Part of the ControlValueAccessor interface required
      * to integrate with Angular's core forms API.
@@ -665,39 +737,49 @@ var MatSelect = (function (_super) {
      * @param {?} isDisabled Sets whether the component is disabled.
      * @return {?}
      */
-    MatSelect.prototype.setDisabledState = function (isDisabled) {
+    MatSelect.prototype.setDisabledState = /**
+     * Disables the select. Part of the ControlValueAccessor interface required
+     * to integrate with Angular's core forms API.
+     *
+     * @param {?} isDisabled Sets whether the component is disabled.
+     * @return {?}
+     */
+    function (isDisabled) {
         this.disabled = isDisabled;
         this._changeDetectorRef.markForCheck();
         this.stateChanges.next();
     };
     Object.defineProperty(MatSelect.prototype, "panelOpen", {
-        /**
+        /** Whether or not the overlay panel is open. */
+        get: /**
          * Whether or not the overlay panel is open.
          * @return {?}
          */
-        get: function () {
+        function () {
             return this._panelOpen;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "selected", {
-        /**
+        /** The currently selected option. */
+        get: /**
          * The currently selected option.
          * @return {?}
          */
-        get: function () {
+        function () {
             return this.multiple ? this._selectionModel.selected : this._selectionModel.selected[0];
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "triggerValue", {
-        /**
+        /** The value displayed in the trigger. */
+        get: /**
          * The value displayed in the trigger.
          * @return {?}
          */
-        get: function () {
+        function () {
             if (!this._selectionModel || this._selectionModel.isEmpty()) {
                 return '';
             }
@@ -714,19 +796,30 @@ var MatSelect = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    /** Whether the element is in RTL mode. */
     /**
      * Whether the element is in RTL mode.
      * @return {?}
      */
-    MatSelect.prototype._isRtl = function () {
+    MatSelect.prototype._isRtl = /**
+     * Whether the element is in RTL mode.
+     * @return {?}
+     */
+    function () {
         return this._dir ? this._dir.value === 'rtl' : false;
     };
+    /** Handles all keydown events on the select. */
     /**
      * Handles all keydown events on the select.
      * @param {?} event
      * @return {?}
      */
-    MatSelect.prototype._handleKeydown = function (event) {
+    MatSelect.prototype._handleKeydown = /**
+     * Handles all keydown events on the select.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         if (!this.disabled) {
             this.panelOpen ? this._handleOpenKeydown(event) : this._handleClosedKeydown(event);
         }
@@ -736,7 +829,12 @@ var MatSelect = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MatSelect.prototype._handleClosedKeydown = function (event) {
+    MatSelect.prototype._handleClosedKeydown = /**
+     * Handles keyboard events while the select is closed.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         if (event.keyCode === _angular_cdk_keycodes.ENTER || event.keyCode === _angular_cdk_keycodes.SPACE) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
@@ -750,7 +848,12 @@ var MatSelect = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MatSelect.prototype._handleOpenKeydown = function (event) {
+    MatSelect.prototype._handleOpenKeydown = /**
+     * Handles keyboard events when the selected is open.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         var /** @type {?} */ keyCode = event.keyCode;
         if (keyCode === _angular_cdk_keycodes.HOME || keyCode === _angular_cdk_keycodes.END) {
             event.preventDefault();
@@ -768,9 +871,18 @@ var MatSelect = (function (_super) {
     /**
      * When the panel element is finished transforming in (though not fading in), it
      * emits an event and focuses an option if the panel is open.
+     */
+    /**
+     * When the panel element is finished transforming in (though not fading in), it
+     * emits an event and focuses an option if the panel is open.
      * @return {?}
      */
-    MatSelect.prototype._onPanelDone = function () {
+    MatSelect.prototype._onPanelDone = /**
+     * When the panel element is finished transforming in (though not fading in), it
+     * emits an event and focuses an option if the panel is open.
+     * @return {?}
+     */
+    function () {
         if (this.panelOpen) {
             this._scrollTop = 0;
             this.openedChange.emit(true);
@@ -785,16 +897,28 @@ var MatSelect = (function (_super) {
     /**
      * When the panel content is done fading in, the _panelDoneAnimating property is
      * set so the proper class can be added to the panel.
+     */
+    /**
+     * When the panel content is done fading in, the _panelDoneAnimating property is
+     * set so the proper class can be added to the panel.
      * @return {?}
      */
-    MatSelect.prototype._onFadeInDone = function () {
+    MatSelect.prototype._onFadeInDone = /**
+     * When the panel content is done fading in, the _panelDoneAnimating property is
+     * set so the proper class can be added to the panel.
+     * @return {?}
+     */
+    function () {
         this._panelDoneAnimating = this.panelOpen;
         this._changeDetectorRef.markForCheck();
     };
     /**
      * @return {?}
      */
-    MatSelect.prototype._onFocus = function () {
+    MatSelect.prototype._onFocus = /**
+     * @return {?}
+     */
+    function () {
         if (!this.disabled) {
             this.focused = true;
             this.stateChanges.next();
@@ -803,9 +927,18 @@ var MatSelect = (function (_super) {
     /**
      * Calls the touched callback only if the panel is closed. Otherwise, the trigger will
      * "blur" to the panel when it opens, causing a false positive.
+     */
+    /**
+     * Calls the touched callback only if the panel is closed. Otherwise, the trigger will
+     * "blur" to the panel when it opens, causing a false positive.
      * @return {?}
      */
-    MatSelect.prototype._onBlur = function () {
+    MatSelect.prototype._onBlur = /**
+     * Calls the touched callback only if the panel is closed. Otherwise, the trigger will
+     * "blur" to the panel when it opens, causing a false positive.
+     * @return {?}
+     */
+    function () {
         if (!this.disabled && !this.panelOpen) {
             this.focused = false;
             this._onTouched();
@@ -815,9 +948,16 @@ var MatSelect = (function (_super) {
     };
     /**
      * Callback that is invoked when the overlay panel has been attached.
+     */
+    /**
+     * Callback that is invoked when the overlay panel has been attached.
      * @return {?}
      */
-    MatSelect.prototype._onAttached = function () {
+    MatSelect.prototype._onAttached = /**
+     * Callback that is invoked when the overlay panel has been attached.
+     * @return {?}
+     */
+    function () {
         var _this = this;
         this.overlayDir.positionChange.pipe(rxjs_operators_first.first()).subscribe(function () {
             _this._changeDetectorRef.detectChanges();
@@ -825,19 +965,25 @@ var MatSelect = (function (_super) {
             _this.panel.nativeElement.scrollTop = _this._scrollTop;
         });
     };
+    /** Returns the theme to be used on the panel. */
     /**
      * Returns the theme to be used on the panel.
      * @return {?}
      */
-    MatSelect.prototype._getPanelTheme = function () {
+    MatSelect.prototype._getPanelTheme = /**
+     * Returns the theme to be used on the panel.
+     * @return {?}
+     */
+    function () {
         return this._parentFormField ? "mat-" + this._parentFormField.color : '';
     };
     Object.defineProperty(MatSelect.prototype, "empty", {
-        /**
+        /** Whether the select has a value. */
+        get: /**
          * Whether the select has a value.
          * @return {?}
          */
-        get: function () {
+        function () {
             return !this._selectionModel || this._selectionModel.isEmpty();
         },
         enumerable: true,
@@ -846,7 +992,10 @@ var MatSelect = (function (_super) {
     /**
      * @return {?}
      */
-    MatSelect.prototype._initializeSelection = function () {
+    MatSelect.prototype._initializeSelection = /**
+     * @return {?}
+     */
+    function () {
         var _this = this;
         // Defer setting the value in order to avoid the "Expression
         // has changed after it was checked" errors from Angular.
@@ -861,7 +1010,14 @@ var MatSelect = (function (_super) {
      * @param {?=} isUserInput
      * @return {?}
      */
-    MatSelect.prototype._setSelectionByValue = function (value, isUserInput) {
+    MatSelect.prototype._setSelectionByValue = /**
+     * Sets the selected option based on a value. If no option can be
+     * found with the designated value, the select trigger is cleared.
+     * @param {?} value
+     * @param {?=} isUserInput
+     * @return {?}
+     */
+    function (value, isUserInput) {
         var _this = this;
         if (isUserInput === void 0) { isUserInput = false; }
         if (this.multiple && value) {
@@ -889,7 +1045,13 @@ var MatSelect = (function (_super) {
      * @param {?=} isUserInput
      * @return {?} Option that has the corresponding value.
      */
-    MatSelect.prototype._selectValue = function (value, isUserInput) {
+    MatSelect.prototype._selectValue = /**
+     * Finds and selects and option based on its value.
+     * @param {?} value
+     * @param {?=} isUserInput
+     * @return {?} Option that has the corresponding value.
+     */
+    function (value, isUserInput) {
         var _this = this;
         if (isUserInput === void 0) { isUserInput = false; }
         var /** @type {?} */ correspondingOption = this.options.find(function (option) {
@@ -897,7 +1059,7 @@ var MatSelect = (function (_super) {
                 // Treat null as a special reset value.
                 return option.value != null && _this._compareWith(option.value, value);
             }
-            catch (error) {
+            catch (/** @type {?} */ error) {
                 if (_angular_core.isDevMode()) {
                     // Notify developers of errors in their comparator.
                     console.warn(error);
@@ -917,7 +1079,12 @@ var MatSelect = (function (_super) {
      * @param {?=} skip Option that should not be deselected.
      * @return {?}
      */
-    MatSelect.prototype._clearSelection = function (skip) {
+    MatSelect.prototype._clearSelection = /**
+     * Clears the select trigger and deselects every option in the list.
+     * @param {?=} skip Option that should not be deselected.
+     * @return {?}
+     */
+    function (skip) {
         this._selectionModel.clear();
         this.options.forEach(function (option) {
             if (option !== skip) {
@@ -930,7 +1097,11 @@ var MatSelect = (function (_super) {
      * Sets up a key manager to listen to keyboard events on the overlay panel.
      * @return {?}
      */
-    MatSelect.prototype._initKeyManager = function () {
+    MatSelect.prototype._initKeyManager = /**
+     * Sets up a key manager to listen to keyboard events on the overlay panel.
+     * @return {?}
+     */
+    function () {
         var _this = this;
         this._keyManager = new _angular_cdk_a11y.ActiveDescendantKeyManager(this.options).withTypeAhead();
         this._keyManager.tabOut.pipe(rxjs_operators_takeUntil.takeUntil(this._destroy)).subscribe(function () { return _this.close(); });
@@ -940,7 +1111,11 @@ var MatSelect = (function (_super) {
      * Drops current option subscriptions and IDs and resets from scratch.
      * @return {?}
      */
-    MatSelect.prototype._resetOptions = function () {
+    MatSelect.prototype._resetOptions = /**
+     * Drops current option subscriptions and IDs and resets from scratch.
+     * @return {?}
+     */
+    function () {
         var _this = this;
         this.optionSelectionChanges.pipe(rxjs_operators_takeUntil.takeUntil(rxjs_observable_merge.merge(this._destroy, this.options.changes)), rxjs_operators_filter.filter(function (event) { return event.isUserInput; })).subscribe(function (event) {
             _this._onSelect(event.source);
@@ -955,7 +1130,12 @@ var MatSelect = (function (_super) {
      * @param {?} option
      * @return {?}
      */
-    MatSelect.prototype._onSelect = function (option) {
+    MatSelect.prototype._onSelect = /**
+     * Invoked when an option is clicked.
+     * @param {?} option
+     * @return {?}
+     */
+    function (option) {
         var /** @type {?} */ wasSelected = this._selectionModel.isSelected(option);
         // TODO(crisbeto): handle blank/null options inside multi-select.
         if (this.multiple) {
@@ -983,7 +1163,12 @@ var MatSelect = (function (_super) {
      * order that they have in the panel.
      * @return {?}
      */
-    MatSelect.prototype._sortValues = function () {
+    MatSelect.prototype._sortValues = /**
+     * Sorts the model values, ensuring that they keep the same
+     * order that they have in the panel.
+     * @return {?}
+     */
+    function () {
         var _this = this;
         if (this._multiple) {
             this._selectionModel.clear();
@@ -1000,13 +1185,18 @@ var MatSelect = (function (_super) {
      * @param {?=} fallbackValue
      * @return {?}
      */
-    MatSelect.prototype._propagateChanges = function (fallbackValue) {
+    MatSelect.prototype._propagateChanges = /**
+     * Emits change event to set the model value.
+     * @param {?=} fallbackValue
+     * @return {?}
+     */
+    function (fallbackValue) {
         var /** @type {?} */ valueToEmit = null;
         if (this.multiple) {
-            valueToEmit = ((this.selected)).map(function (option) { return option.value; });
+            valueToEmit = (/** @type {?} */ (this.selected)).map(function (option) { return option.value; });
         }
         else {
-            valueToEmit = this.selected ? ((this.selected)).value : fallbackValue;
+            valueToEmit = this.selected ? (/** @type {?} */ (this.selected)).value : fallbackValue;
         }
         this._value = valueToEmit;
         this._onChange(valueToEmit);
@@ -1018,7 +1208,11 @@ var MatSelect = (function (_super) {
      * Records option IDs to pass to the aria-owns property.
      * @return {?}
      */
-    MatSelect.prototype._setOptionIds = function () {
+    MatSelect.prototype._setOptionIds = /**
+     * Records option IDs to pass to the aria-owns property.
+     * @return {?}
+     */
+    function () {
         this._optionIds = this.options.map(function (option) { return option.id; }).join(' ');
     };
     /**
@@ -1026,7 +1220,12 @@ var MatSelect = (function (_super) {
      * the first item instead.
      * @return {?}
      */
-    MatSelect.prototype._highlightCorrectOption = function () {
+    MatSelect.prototype._highlightCorrectOption = /**
+     * Highlights the selected item. If no option is selected, it will highlight
+     * the first item instead.
+     * @return {?}
+     */
+    function () {
         if (this._selectionModel.isEmpty()) {
             this._keyManager.setFirstItemActive();
         }
@@ -1038,7 +1237,11 @@ var MatSelect = (function (_super) {
      * Scrolls the active option into view.
      * @return {?}
      */
-    MatSelect.prototype._scrollActiveOptionIntoView = function () {
+    MatSelect.prototype._scrollActiveOptionIntoView = /**
+     * Scrolls the active option into view.
+     * @return {?}
+     */
+    function () {
         var /** @type {?} */ itemHeight = this._getItemHeight();
         var /** @type {?} */ activeOptionIndex = this._keyManager.activeItemIndex || 0;
         var /** @type {?} */ labelCount = _angular_material_core.MatOption.countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
@@ -1052,11 +1255,16 @@ var MatSelect = (function (_super) {
                 Math.max(0, scrollOffset - SELECT_PANEL_MAX_HEIGHT + itemHeight);
         }
     };
+    /** Focuses the select element. */
     /**
      * Focuses the select element.
      * @return {?}
      */
-    MatSelect.prototype.focus = function () {
+    MatSelect.prototype.focus = /**
+     * Focuses the select element.
+     * @return {?}
+     */
+    function () {
         this._elementRef.nativeElement.focus();
     };
     /**
@@ -1064,7 +1272,12 @@ var MatSelect = (function (_super) {
      * @param {?} option
      * @return {?}
      */
-    MatSelect.prototype._getOptionIndex = function (option) {
+    MatSelect.prototype._getOptionIndex = /**
+     * Gets the index of the provided option in the option list.
+     * @param {?} option
+     * @return {?}
+     */
+    function (option) {
         return this.options.reduce(function (result, current, index) {
             return result === undefined ? (option === current ? index : undefined) : result;
         }, undefined);
@@ -1073,7 +1286,11 @@ var MatSelect = (function (_super) {
      * Calculates the scroll position and x- and y-offsets of the overlay panel.
      * @return {?}
      */
-    MatSelect.prototype._calculateOverlayPosition = function () {
+    MatSelect.prototype._calculateOverlayPosition = /**
+     * Calculates the scroll position and x- and y-offsets of the overlay panel.
+     * @return {?}
+     */
+    function () {
         var /** @type {?} */ itemHeight = this._getItemHeight();
         var /** @type {?} */ items = this._getItemCount();
         var /** @type {?} */ panelHeight = Math.min(items * itemHeight, SELECT_PANEL_MAX_HEIGHT);
@@ -1081,7 +1298,7 @@ var MatSelect = (function (_super) {
         // The farthest the panel can be scrolled before it hits the bottom
         var /** @type {?} */ maxScroll = scrollContainerHeight - panelHeight;
         // If no value is selected we open the popup to the first item.
-        var /** @type {?} */ selectedOptionOffset = this.empty ? 0 : ((this._getOptionIndex(this._selectionModel.selected[0])));
+        var /** @type {?} */ selectedOptionOffset = this.empty ? 0 : /** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0])));
         selectedOptionOffset += _angular_material_core.MatOption.countGroupLabelsBeforeOption(selectedOptionOffset, this.options, this.optionGroups);
         // We must maintain a scroll buffer so the selected option will be scrolled to the
         // center of the overlay panel rather than the top.
@@ -1096,12 +1313,30 @@ var MatSelect = (function (_super) {
      * Attempts to center the selected option in the panel. If the option is
      * too high or too low in the panel to be scrolled to the center, it clamps the
      * scroll position to the min or max scroll positions respectively.
+     */
+    /**
+     * Calculates the scroll position of the select's overlay panel.
+     *
+     * Attempts to center the selected option in the panel. If the option is
+     * too high or too low in the panel to be scrolled to the center, it clamps the
+     * scroll position to the min or max scroll positions respectively.
      * @param {?} selectedIndex
      * @param {?} scrollBuffer
      * @param {?} maxScroll
      * @return {?}
      */
-    MatSelect.prototype._calculateOverlayScroll = function (selectedIndex, scrollBuffer, maxScroll) {
+    MatSelect.prototype._calculateOverlayScroll = /**
+     * Calculates the scroll position of the select's overlay panel.
+     *
+     * Attempts to center the selected option in the panel. If the option is
+     * too high or too low in the panel to be scrolled to the center, it clamps the
+     * scroll position to the min or max scroll positions respectively.
+     * @param {?} selectedIndex
+     * @param {?} scrollBuffer
+     * @param {?} maxScroll
+     * @return {?}
+     */
+    function (selectedIndex, scrollBuffer, maxScroll) {
         var /** @type {?} */ itemHeight = this._getItemHeight();
         var /** @type {?} */ optionOffsetFromScrollTop = itemHeight * selectedIndex;
         var /** @type {?} */ halfOptionHeight = itemHeight / 2;
@@ -1113,11 +1348,12 @@ var MatSelect = (function (_super) {
         return Math.min(Math.max(0, optimalScrollPosition), maxScroll);
     };
     Object.defineProperty(MatSelect.prototype, "_ariaLabel", {
-        /**
+        /** Returns the aria-label of the select component. */
+        get: /**
          * Returns the aria-label of the select component.
          * @return {?}
          */
-        get: function () {
+        function () {
             // If an ariaLabelledby value has been set, the select should not overwrite the
             // `aria-labelledby` value by setting the ariaLabel to the placeholder.
             return this.ariaLabelledby ? null : this.ariaLabel || this.placeholder;
@@ -1125,11 +1361,16 @@ var MatSelect = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    /** Determines the `aria-activedescendant` to be set on the host. */
     /**
      * Determines the `aria-activedescendant` to be set on the host.
      * @return {?}
      */
-    MatSelect.prototype._getAriaActiveDescendant = function () {
+    MatSelect.prototype._getAriaActiveDescendant = /**
+     * Determines the `aria-activedescendant` to be set on the host.
+     * @return {?}
+     */
+    function () {
         if (this.panelOpen && this._keyManager && this._keyManager.activeItem) {
             return this._keyManager.activeItem.id;
         }
@@ -1143,7 +1384,15 @@ var MatSelect = (function (_super) {
      * content width in order to constrain the panel within the viewport.
      * @return {?}
      */
-    MatSelect.prototype._calculateOverlayOffsetX = function () {
+    MatSelect.prototype._calculateOverlayOffsetX = /**
+     * Sets the x-offset of the overlay panel in relation to the trigger's top start corner.
+     * This must be adjusted to align the selected option text over the trigger text when
+     * the panel opens. Will change based on LTR or RTL text direction. Note that the offset
+     * can't be calculated until the panel has been attached, because we need to know the
+     * content width in order to constrain the panel within the viewport.
+     * @return {?}
+     */
+    function () {
         var /** @type {?} */ overlayRect = this.overlayDir.overlayRef.overlayElement.getBoundingClientRect();
         var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
         var /** @type {?} */ isRtl = this._isRtl();
@@ -1187,7 +1436,16 @@ var MatSelect = (function (_super) {
      * @param {?} maxScroll
      * @return {?}
      */
-    MatSelect.prototype._calculateOverlayOffsetY = function (selectedIndex, scrollBuffer, maxScroll) {
+    MatSelect.prototype._calculateOverlayOffsetY = /**
+     * Calculates the y-offset of the select's overlay panel in relation to the
+     * top start corner of the trigger. It has to be adjusted in order for the
+     * selected option to be aligned over the trigger when the panel opens.
+     * @param {?} selectedIndex
+     * @param {?} scrollBuffer
+     * @param {?} maxScroll
+     * @return {?}
+     */
+    function (selectedIndex, scrollBuffer, maxScroll) {
         var /** @type {?} */ itemHeight = this._getItemHeight();
         var /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
         var /** @type {?} */ maxOptionsDisplayed = Math.floor(SELECT_PANEL_MAX_HEIGHT / itemHeight);
@@ -1226,7 +1484,15 @@ var MatSelect = (function (_super) {
      * @param {?} maxScroll
      * @return {?}
      */
-    MatSelect.prototype._checkOverlayWithinViewport = function (maxScroll) {
+    MatSelect.prototype._checkOverlayWithinViewport = /**
+     * Checks that the attempted overlay position will fit within the viewport.
+     * If it will not fit, tries to adjust the scroll position and the associated
+     * y-offset so the panel can open fully on-screen. If it still won't fit,
+     * sets the offset back to 0 to allow the fallback position to take over.
+     * @param {?} maxScroll
+     * @return {?}
+     */
+    function (maxScroll) {
         var /** @type {?} */ itemHeight = this._getItemHeight();
         var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
         var /** @type {?} */ topSpaceAvailable = this._triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
@@ -1250,7 +1516,13 @@ var MatSelect = (function (_super) {
      * @param {?} bottomSpaceAvailable
      * @return {?}
      */
-    MatSelect.prototype._adjustPanelUp = function (panelHeightBottom, bottomSpaceAvailable) {
+    MatSelect.prototype._adjustPanelUp = /**
+     * Adjusts the overlay panel up to fit in the viewport.
+     * @param {?} panelHeightBottom
+     * @param {?} bottomSpaceAvailable
+     * @return {?}
+     */
+    function (panelHeightBottom, bottomSpaceAvailable) {
         // Browsers ignore fractional scroll offsets, so we need to round.
         var /** @type {?} */ distanceBelowViewport = Math.round(panelHeightBottom - bottomSpaceAvailable);
         // Scrolls the panel up by the distance it was extending past the boundary, then
@@ -1274,7 +1546,14 @@ var MatSelect = (function (_super) {
      * @param {?} maxScroll
      * @return {?}
      */
-    MatSelect.prototype._adjustPanelDown = function (panelHeightTop, topSpaceAvailable, maxScroll) {
+    MatSelect.prototype._adjustPanelDown = /**
+     * Adjusts the overlay panel down to fit in the viewport.
+     * @param {?} panelHeightTop
+     * @param {?} topSpaceAvailable
+     * @param {?} maxScroll
+     * @return {?}
+     */
+    function (panelHeightTop, topSpaceAvailable, maxScroll) {
         // Browsers ignore fractional scroll offsets, so we need to round.
         var /** @type {?} */ distanceAboveViewport = Math.round(panelHeightTop - topSpaceAvailable);
         // Scrolls the panel down by the distance it was extending past the boundary, then
@@ -1296,7 +1575,11 @@ var MatSelect = (function (_super) {
      * Sets the transform origin point based on the selected option.
      * @return {?}
      */
-    MatSelect.prototype._getOriginBasedOnOption = function () {
+    MatSelect.prototype._getOriginBasedOnOption = /**
+     * Sets the transform origin point based on the selected option.
+     * @return {?}
+     */
+    function () {
         var /** @type {?} */ itemHeight = this._getItemHeight();
         var /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
         var /** @type {?} */ originY = Math.abs(this._offsetY) - optionHeightAdjustment + itemHeight / 2;
@@ -1307,7 +1590,12 @@ var MatSelect = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MatSelect.prototype._handleClosedArrowKey = function (event) {
+    MatSelect.prototype._handleClosedArrowKey = /**
+     * Handles the user pressing the arrow keys on a closed select.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         if (this._multiple) {
             event.preventDefault();
             this.open();
@@ -1330,50 +1618,72 @@ var MatSelect = (function (_super) {
      * Calculates the amount of items in the select. This includes options and group labels.
      * @return {?}
      */
-    MatSelect.prototype._getItemCount = function () {
+    MatSelect.prototype._getItemCount = /**
+     * Calculates the amount of items in the select. This includes options and group labels.
+     * @return {?}
+     */
+    function () {
         return this.options.length + this.optionGroups.length;
     };
     /**
      * Calculates the height of the select's options.
      * @return {?}
      */
-    MatSelect.prototype._getItemHeight = function () {
+    MatSelect.prototype._getItemHeight = /**
+     * Calculates the height of the select's options.
+     * @return {?}
+     */
+    function () {
         return this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
     };
     /**
      * Updates the select's error state. Only relevant when used with \@angular/forms.
      * @return {?}
      */
-    MatSelect.prototype._updateErrorState = function () {
+    MatSelect.prototype._updateErrorState = /**
+     * Updates the select's error state. Only relevant when used with \@angular/forms.
+     * @return {?}
+     */
+    function () {
         var /** @type {?} */ oldState = this.errorState;
         var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
         var /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-        var /** @type {?} */ control = this.ngControl ? (this.ngControl.control) : null;
+        var /** @type {?} */ control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
         var /** @type {?} */ newState = matcher.isErrorState(control, parent);
         if (newState !== oldState) {
             this.errorState = newState;
             this.stateChanges.next();
         }
     };
+    // Implemented as part of MatFormFieldControl.
     /**
      * @param {?} ids
      * @return {?}
      */
-    MatSelect.prototype.setDescribedByIds = function (ids) {
+    MatSelect.prototype.setDescribedByIds = /**
+     * @param {?} ids
+     * @return {?}
+     */
+    function (ids) {
         this._ariaDescribedby = ids.join(' ');
     };
+    // Implemented as part of MatFormFieldControl.
     /**
      * @return {?}
      */
-    MatSelect.prototype.onContainerClick = function () {
+    MatSelect.prototype.onContainerClick = /**
+     * @return {?}
+     */
+    function () {
         this.focus();
         this.open();
     };
     Object.defineProperty(MatSelect.prototype, "shouldPlaceholderFloat", {
-        /**
+        // Implemented as part of MatFormFieldControl.
+        get: /**
          * @return {?}
          */
-        get: function () {
+        function () {
             return this._panelOpen || !this.empty;
         },
         enumerable: true,
@@ -1419,9 +1729,7 @@ var MatSelect = (function (_super) {
                     ],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSelect.ctorParameters = function () { return [
         { type: _angular_cdk_overlay.ViewportRuler, },
         { type: _angular_core.ChangeDetectorRef, },
@@ -1438,34 +1746,39 @@ var MatSelect = (function (_super) {
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] },] },
     ]; };
     MatSelect.propDecorators = {
-        'trigger': [{ type: _angular_core.ViewChild, args: ['trigger',] },],
-        'panel': [{ type: _angular_core.ViewChild, args: ['panel',] },],
-        'overlayDir': [{ type: _angular_core.ViewChild, args: [_angular_cdk_overlay.CdkConnectedOverlay,] },],
-        'options': [{ type: _angular_core.ContentChildren, args: [_angular_material_core.MatOption, { descendants: true },] },],
-        'optionGroups': [{ type: _angular_core.ContentChildren, args: [_angular_material_core.MatOptgroup,] },],
-        'panelClass': [{ type: _angular_core.Input },],
-        'customTrigger': [{ type: _angular_core.ContentChild, args: [MatSelectTrigger,] },],
-        'placeholder': [{ type: _angular_core.Input },],
-        'required': [{ type: _angular_core.Input },],
-        'multiple': [{ type: _angular_core.Input },],
-        'compareWith': [{ type: _angular_core.Input },],
-        'value': [{ type: _angular_core.Input },],
-        'disableRipple': [{ type: _angular_core.Input },],
-        'ariaLabel': [{ type: _angular_core.Input, args: ['aria-label',] },],
-        'ariaLabelledby': [{ type: _angular_core.Input, args: ['aria-labelledby',] },],
-        'errorStateMatcher': [{ type: _angular_core.Input },],
-        'id': [{ type: _angular_core.Input },],
-        'openedChange': [{ type: _angular_core.Output },],
-        '_openedStream': [{ type: _angular_core.Output, args: ['opened',] },],
-        '_closedStream': [{ type: _angular_core.Output, args: ['closed',] },],
-        'onOpen': [{ type: _angular_core.Output },],
-        'onClose': [{ type: _angular_core.Output },],
-        'selectionChange': [{ type: _angular_core.Output },],
-        'change': [{ type: _angular_core.Output },],
-        'valueChange': [{ type: _angular_core.Output },],
+        "trigger": [{ type: _angular_core.ViewChild, args: ['trigger',] },],
+        "panel": [{ type: _angular_core.ViewChild, args: ['panel',] },],
+        "overlayDir": [{ type: _angular_core.ViewChild, args: [_angular_cdk_overlay.CdkConnectedOverlay,] },],
+        "options": [{ type: _angular_core.ContentChildren, args: [_angular_material_core.MatOption, { descendants: true },] },],
+        "optionGroups": [{ type: _angular_core.ContentChildren, args: [_angular_material_core.MatOptgroup,] },],
+        "panelClass": [{ type: _angular_core.Input },],
+        "customTrigger": [{ type: _angular_core.ContentChild, args: [MatSelectTrigger,] },],
+        "placeholder": [{ type: _angular_core.Input },],
+        "required": [{ type: _angular_core.Input },],
+        "multiple": [{ type: _angular_core.Input },],
+        "compareWith": [{ type: _angular_core.Input },],
+        "value": [{ type: _angular_core.Input },],
+        "disableRipple": [{ type: _angular_core.Input },],
+        "ariaLabel": [{ type: _angular_core.Input, args: ['aria-label',] },],
+        "ariaLabelledby": [{ type: _angular_core.Input, args: ['aria-labelledby',] },],
+        "errorStateMatcher": [{ type: _angular_core.Input },],
+        "id": [{ type: _angular_core.Input },],
+        "openedChange": [{ type: _angular_core.Output },],
+        "_openedStream": [{ type: _angular_core.Output, args: ['opened',] },],
+        "_closedStream": [{ type: _angular_core.Output, args: ['closed',] },],
+        "onOpen": [{ type: _angular_core.Output },],
+        "onClose": [{ type: _angular_core.Output },],
+        "selectionChange": [{ type: _angular_core.Output },],
+        "change": [{ type: _angular_core.Output },],
+        "valueChange": [{ type: _angular_core.Output },],
     };
     return MatSelect;
 }(_MatSelectMixinBase));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatSelectModule = (function () {
     function MatSelectModule() {
@@ -1483,9 +1796,7 @@ var MatSelectModule = (function () {
                     providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER, _angular_material_core.ErrorStateMatcher]
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSelectModule.ctorParameters = function () { return []; };
     return MatSelectModule;
 }());

@@ -14,6 +14,10 @@ import * as tslib_1 from 'tslib';
 import { Platform } from '@angular/cdk/platform';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
  */
 var DEFAULT_ROUND_BUTTON_COLOR = 'accent';
@@ -30,9 +34,7 @@ var MatButtonCssMatStyler = (function () {
                     host: { 'class': 'mat-button' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatButtonCssMatStyler.ctorParameters = function () { return []; };
     return MatButtonCssMatStyler;
 }());
@@ -49,9 +51,7 @@ var MatRaisedButtonCssMatStyler = (function () {
                     host: { 'class': 'mat-raised-button' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatRaisedButtonCssMatStyler.ctorParameters = function () { return []; };
     return MatRaisedButtonCssMatStyler;
 }());
@@ -68,9 +68,7 @@ var MatIconButtonCssMatStyler = (function () {
                     host: { 'class': 'mat-icon-button' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatIconButtonCssMatStyler.ctorParameters = function () { return []; };
     return MatIconButtonCssMatStyler;
 }());
@@ -79,10 +77,6 @@ var MatIconButtonCssMatStyler = (function () {
  * \@docs-private
  */
 var MatFab = (function () {
-    /**
-     * @param {?} button
-     * @param {?} anchor
-     */
     function MatFab(button, anchor) {
         // Set the default color palette for the mat-fab components.
         (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
@@ -93,9 +87,7 @@ var MatFab = (function () {
                     host: { 'class': 'mat-fab' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatFab.ctorParameters = function () { return [
         { type: MatButton, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(function () { return MatButton; }),] },] },
         { type: MatAnchor, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(function () { return MatAnchor; }),] },] },
@@ -108,10 +100,6 @@ var MatFab = (function () {
  * \@docs-private
  */
 var MatMiniFab = (function () {
-    /**
-     * @param {?} button
-     * @param {?} anchor
-     */
     function MatMiniFab(button, anchor) {
         // Set the default color palette for the mat-mini-fab components.
         (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
@@ -122,9 +110,7 @@ var MatMiniFab = (function () {
                     host: { 'class': 'mat-mini-fab' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatMiniFab.ctorParameters = function () { return [
         { type: MatButton, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(function () { return MatButton; }),] },] },
         { type: MatAnchor, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(function () { return MatAnchor; }),] },] },
@@ -135,10 +121,6 @@ var MatMiniFab = (function () {
  * \@docs-private
  */
 var MatButtonBase = (function () {
-    /**
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     */
     function MatButtonBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -151,12 +133,6 @@ var _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonB
  */
 var MatButton = (function (_super) {
     __extends(MatButton, _super);
-    /**
-     * @param {?} renderer
-     * @param {?} elementRef
-     * @param {?} _platform
-     * @param {?} _focusMonitor
-     */
     function MatButton(renderer, elementRef, _platform, _focusMonitor) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._platform = _platform;
@@ -175,34 +151,54 @@ var MatButton = (function (_super) {
     /**
      * @return {?}
      */
-    MatButton.prototype.ngOnDestroy = function () {
+    MatButton.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
         this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
     };
+    /** Focuses the button. */
     /**
      * Focuses the button.
      * @return {?}
      */
-    MatButton.prototype.focus = function () {
+    MatButton.prototype.focus = /**
+     * Focuses the button.
+     * @return {?}
+     */
+    function () {
         this._getHostElement().focus();
     };
     /**
      * @return {?}
      */
-    MatButton.prototype._getHostElement = function () {
+    MatButton.prototype._getHostElement = /**
+     * @return {?}
+     */
+    function () {
         return this._elementRef.nativeElement;
     };
     /**
      * @return {?}
      */
-    MatButton.prototype._isRippleDisabled = function () {
+    MatButton.prototype._isRippleDisabled = /**
+     * @return {?}
+     */
+    function () {
         return this.disableRipple || this.disabled;
     };
+    /** Gets whether the button has one of the given attributes with a 'mat-' prefix. */
     /**
      * Gets whether the button has one of the given attributes with a 'mat-' prefix.
      * @param {...?} unprefixedAttributeNames
      * @return {?}
      */
-    MatButton.prototype._hasAttributeWithPrefix = function () {
+    MatButton.prototype._hasAttributeWithPrefix = /**
+     * Gets whether the button has one of the given attributes with a 'mat-' prefix.
+     * @param {...?} unprefixedAttributeNames
+     * @return {?}
+     */
+    function () {
         var _this = this;
         var unprefixedAttributeNames = [];
         for (var _i = 0; _i < arguments.length; _i++) {
@@ -232,9 +228,7 @@ var MatButton = (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatButton.ctorParameters = function () { return [
         { type: Renderer2, },
         { type: ElementRef, },
@@ -248,12 +242,6 @@ var MatButton = (function (_super) {
  */
 var MatAnchor = (function (_super) {
     __extends(MatAnchor, _super);
-    /**
-     * @param {?} platform
-     * @param {?} focusMonitor
-     * @param {?} elementRef
-     * @param {?} renderer
-     */
     function MatAnchor(platform, focusMonitor, elementRef, renderer) {
         return _super.call(this, renderer, elementRef, platform, focusMonitor) || this;
     }
@@ -261,7 +249,11 @@ var MatAnchor = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MatAnchor.prototype._haltDisabledEvents = function (event) {
+    MatAnchor.prototype._haltDisabledEvents = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         // A disabled button shouldn't apply any actions
         if (this.disabled) {
             event.preventDefault();
@@ -285,9 +277,7 @@ var MatAnchor = (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatAnchor.ctorParameters = function () { return [
         { type: Platform, },
         { type: FocusMonitor, },
@@ -296,6 +286,11 @@ var MatAnchor = (function (_super) {
     ]; };
     return MatAnchor;
 }(MatButton));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatButtonModule = (function () {
     function MatButtonModule() {
@@ -329,13 +324,20 @@ var MatButtonModule = (function () {
                     ],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatButtonModule.ctorParameters = function () { return []; };
     return MatButtonModule;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

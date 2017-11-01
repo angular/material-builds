@@ -37,6 +37,10 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 // Increasing integer for generating unique ids for checkbox components.
 var nextUniqueId = 0;
 /**
@@ -49,11 +53,17 @@ var MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     useExisting: _angular_core.forwardRef(function () { return MatCheckbox; }),
     multi: true
 };
-var TransitionCheckState = {};
-TransitionCheckState.Init = 0;
-TransitionCheckState.Checked = 1;
-TransitionCheckState.Unchecked = 2;
-TransitionCheckState.Indeterminate = 3;
+/** @enum {number} */
+var TransitionCheckState = {
+    /** The initial state of the component before any user interaction. */
+    Init: 0,
+    /** The state representing the component when it's becoming checked. */
+    Checked: 1,
+    /** The state representing the component when it's becoming unchecked. */
+    Unchecked: 2,
+    /** The state representing the component when it's becoming indeterminate. */
+    Indeterminate: 3,
+};
 TransitionCheckState[TransitionCheckState.Init] = "Init";
 TransitionCheckState[TransitionCheckState.Checked] = "Checked";
 TransitionCheckState[TransitionCheckState.Unchecked] = "Unchecked";
@@ -70,10 +80,6 @@ var MatCheckboxChange = (function () {
  * \@docs-private
  */
 var MatCheckboxBase = (function () {
-    /**
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     */
     function MatCheckboxBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -91,13 +97,6 @@ var _MatCheckboxMixinBase = _angular_material_core.mixinTabIndex(_angular_materi
  */
 var MatCheckbox = (function (_super) {
     __extends(MatCheckbox, _super);
-    /**
-     * @param {?} renderer
-     * @param {?} elementRef
-     * @param {?} _changeDetectorRef
-     * @param {?} _focusMonitor
-     * @param {?} tabIndex
-     */
     function MatCheckbox(renderer, elementRef, _changeDetectorRef, _focusMonitor, tabIndex) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -146,44 +145,45 @@ var MatCheckbox = (function (_super) {
         return _this;
     }
     Object.defineProperty(MatCheckbox.prototype, "inputId", {
-        /**
+        /** Returns the unique id for the visual hidden input. */
+        get: /**
          * Returns the unique id for the visual hidden input.
          * @return {?}
          */
-        get: function () { return (this.id || this._uniqueId) + "-input"; },
+        function () { return (this.id || this._uniqueId) + "-input"; },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatCheckbox.prototype, "required", {
-        /**
+        get: /**
          * Whether the checkbox is required.
          * @return {?}
          */
-        get: function () { return this._required; },
-        /**
+        function () { return this._required; },
+        set: /**
          * @param {?} value
          * @return {?}
          */
-        set: function (value) { this._required = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        function (value) { this._required = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatCheckbox.prototype, "align", {
-        /**
+        get: /**
          * Whether or not the checkbox should appear before or after the label.
          * @deprecated
          * @return {?}
          */
-        get: function () {
+        function () {
             // align refers to the checkbox relative to the label, while labelPosition refers to the
             // label relative to the checkbox. As such, they are inverted.
             return this.labelPosition == 'after' ? 'start' : 'end';
         },
-        /**
+        set: /**
          * @param {?} v
          * @return {?}
          */
-        set: function (v) {
+        function (v) {
             this.labelPosition = (v == 'start') ? 'after' : 'before';
         },
         enumerable: true,
@@ -192,7 +192,10 @@ var MatCheckbox = (function (_super) {
     /**
      * @return {?}
      */
-    MatCheckbox.prototype.ngAfterViewInit = function () {
+    MatCheckbox.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
         var _this = this;
         this._focusMonitor
             .monitor(this._inputElement.nativeElement, this._renderer, false)
@@ -201,22 +204,25 @@ var MatCheckbox = (function (_super) {
     /**
      * @return {?}
      */
-    MatCheckbox.prototype.ngOnDestroy = function () {
+    MatCheckbox.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
         this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
     };
     Object.defineProperty(MatCheckbox.prototype, "checked", {
-        /**
+        get: /**
          * Whether the checkbox is checked.
          * @return {?}
          */
-        get: function () {
+        function () {
             return this._checked;
         },
-        /**
+        set: /**
          * @param {?} checked
          * @return {?}
          */
-        set: function (checked) {
+        function (checked) {
             if (checked != this.checked) {
                 this._checked = checked;
                 this._changeDetectorRef.markForCheck();
@@ -226,21 +232,21 @@ var MatCheckbox = (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatCheckbox.prototype, "indeterminate", {
-        /**
+        get: /**
          * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
          * represent a checkbox with three states, e.g. a checkbox that represents a nested list of
          * checkable items. Note that whenever checkbox is manually clicked, indeterminate is immediately
          * set to false.
          * @return {?}
          */
-        get: function () {
+        function () {
             return this._indeterminate;
         },
-        /**
+        set: /**
          * @param {?} indeterminate
          * @return {?}
          */
-        set: function (indeterminate) {
+        function (indeterminate) {
             var /** @type {?} */ changed = indeterminate != this._indeterminate;
             this._indeterminate = indeterminate;
             if (changed) {
@@ -259,14 +265,22 @@ var MatCheckbox = (function (_super) {
     /**
      * @return {?}
      */
-    MatCheckbox.prototype._isRippleDisabled = function () {
+    MatCheckbox.prototype._isRippleDisabled = /**
+     * @return {?}
+     */
+    function () {
         return this.disableRipple || this.disabled;
     };
+    /** Method being called whenever the label text changes. */
     /**
      * Method being called whenever the label text changes.
      * @return {?}
      */
-    MatCheckbox.prototype._onLabelTextChange = function () {
+    MatCheckbox.prototype._onLabelTextChange = /**
+     * Method being called whenever the label text changes.
+     * @return {?}
+     */
+    function () {
         // This method is getting called whenever the label of the checkbox changes.
         // Since the checkbox uses the OnPush strategy we need to notify it about the change
         // that has been recognized by the cdkObserveContent directive.
@@ -274,36 +288,76 @@ var MatCheckbox = (function (_super) {
     };
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param value Value to be set to the model.
+     */
+    /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
      * @param {?} value Value to be set to the model.
      * @return {?}
      */
-    MatCheckbox.prototype.writeValue = function (value) {
+    MatCheckbox.prototype.writeValue = /**
+     * Sets the model value. Implemented as part of ControlValueAccessor.
+     * @param {?} value Value to be set to the model.
+     * @return {?}
+     */
+    function (value) {
         this.checked = !!value;
     };
+    /**
+     * Registers a callback to be triggered when the value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Function to be called on change.
+     */
     /**
      * Registers a callback to be triggered when the value has changed.
      * Implemented as part of ControlValueAccessor.
      * @param {?} fn Function to be called on change.
      * @return {?}
      */
-    MatCheckbox.prototype.registerOnChange = function (fn) {
+    MatCheckbox.prototype.registerOnChange = /**
+     * Registers a callback to be triggered when the value has changed.
+     * Implemented as part of ControlValueAccessor.
+     * @param {?} fn Function to be called on change.
+     * @return {?}
+     */
+    function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
+    /**
+     * Registers a callback to be triggered when the control has been touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param fn Callback to be triggered when the checkbox is touched.
+     */
     /**
      * Registers a callback to be triggered when the control has been touched.
      * Implemented as part of ControlValueAccessor.
      * @param {?} fn Callback to be triggered when the checkbox is touched.
      * @return {?}
      */
-    MatCheckbox.prototype.registerOnTouched = function (fn) {
+    MatCheckbox.prototype.registerOnTouched = /**
+     * Registers a callback to be triggered when the control has been touched.
+     * Implemented as part of ControlValueAccessor.
+     * @param {?} fn Callback to be triggered when the checkbox is touched.
+     * @return {?}
+     */
+    function (fn) {
         this.onTouched = fn;
     };
+    /**
+     * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
+     * @param isDisabled Whether the checkbox should be disabled.
+     */
     /**
      * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
      * @param {?} isDisabled Whether the checkbox should be disabled.
      * @return {?}
      */
-    MatCheckbox.prototype.setDisabledState = function (isDisabled) {
+    MatCheckbox.prototype.setDisabledState = /**
+     * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
+     * @param {?} isDisabled Whether the checkbox should be disabled.
+     * @return {?}
+     */
+    function (isDisabled) {
         this.disabled = isDisabled;
         this._changeDetectorRef.markForCheck();
     };
@@ -311,7 +365,11 @@ var MatCheckbox = (function (_super) {
      * @param {?} newState
      * @return {?}
      */
-    MatCheckbox.prototype._transitionCheckState = function (newState) {
+    MatCheckbox.prototype._transitionCheckState = /**
+     * @param {?} newState
+     * @return {?}
+     */
+    function (newState) {
         var /** @type {?} */ oldState = this._currentCheckState;
         var /** @type {?} */ renderer = this._renderer;
         var /** @type {?} */ elementRef = this._elementRef;
@@ -330,7 +388,10 @@ var MatCheckbox = (function (_super) {
     /**
      * @return {?}
      */
-    MatCheckbox.prototype._emitChangeEvent = function () {
+    MatCheckbox.prototype._emitChangeEvent = /**
+     * @return {?}
+     */
+    function () {
         var /** @type {?} */ event = new MatCheckboxChange();
         event.source = this;
         event.checked = this.checked;
@@ -342,7 +403,12 @@ var MatCheckbox = (function (_super) {
      * @param {?} focusOrigin
      * @return {?}
      */
-    MatCheckbox.prototype._onInputFocusChange = function (focusOrigin) {
+    MatCheckbox.prototype._onInputFocusChange = /**
+     * Function is called whenever the focus changes for the input element.
+     * @param {?} focusOrigin
+     * @return {?}
+     */
+    function (focusOrigin) {
         if (!this._focusRipple && focusOrigin === 'keyboard') {
             this._focusRipple = this._ripple.launch(0, 0, { persistent: true, centered: true });
         }
@@ -351,13 +417,25 @@ var MatCheckbox = (function (_super) {
             this.onTouched();
         }
     };
+    /** Toggles the `checked` state of the checkbox. */
     /**
      * Toggles the `checked` state of the checkbox.
      * @return {?}
      */
-    MatCheckbox.prototype.toggle = function () {
+    MatCheckbox.prototype.toggle = /**
+     * Toggles the `checked` state of the checkbox.
+     * @return {?}
+     */
+    function () {
         this.checked = !this.checked;
     };
+    /**
+     * Event handler for checkbox input element.
+     * Toggles checked state if element is not disabled.
+     * Do not toggle on (change) event since IE doesn't fire change event when
+     *   indeterminate checkbox is clicked.
+     * @param event
+     */
     /**
      * Event handler for checkbox input element.
      * Toggles checked state if element is not disabled.
@@ -366,7 +444,15 @@ var MatCheckbox = (function (_super) {
      * @param {?} event
      * @return {?}
      */
-    MatCheckbox.prototype._onInputClick = function (event) {
+    MatCheckbox.prototype._onInputClick = /**
+     * Event handler for checkbox input element.
+     * Toggles checked state if element is not disabled.
+     * Do not toggle on (change) event since IE doesn't fire change event when
+     *   indeterminate checkbox is clicked.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         var _this = this;
         // We have to stop propagation for click events on the visual hidden input element.
         // By default, when a user clicks on a label element, a generated click event will be
@@ -393,18 +479,27 @@ var MatCheckbox = (function (_super) {
             this._emitChangeEvent();
         }
     };
+    /** Focuses the checkbox. */
     /**
      * Focuses the checkbox.
      * @return {?}
      */
-    MatCheckbox.prototype.focus = function () {
+    MatCheckbox.prototype.focus = /**
+     * Focuses the checkbox.
+     * @return {?}
+     */
+    function () {
         this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
     };
     /**
      * @param {?} event
      * @return {?}
      */
-    MatCheckbox.prototype._onInteractionEvent = function (event) {
+    MatCheckbox.prototype._onInteractionEvent = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
         // We always have to stop propagation on the change event.
         // Otherwise the change event, from the input element, will bubble up and
         // emit its event object to the `change` output.
@@ -415,7 +510,12 @@ var MatCheckbox = (function (_super) {
      * @param {?} newState
      * @return {?}
      */
-    MatCheckbox.prototype._getAnimationClassForCheckStateTransition = function (oldState, newState) {
+    MatCheckbox.prototype._getAnimationClassForCheckStateTransition = /**
+     * @param {?} oldState
+     * @param {?} newState
+     * @return {?}
+     */
+    function (oldState, newState) {
         var /** @type {?} */ animSuffix = '';
         switch (oldState) {
             case TransitionCheckState.Init:
@@ -450,7 +550,11 @@ var MatCheckbox = (function (_super) {
      * Fades out the focus state ripple.
      * @return {?}
      */
-    MatCheckbox.prototype._removeFocusRipple = function () {
+    MatCheckbox.prototype._removeFocusRipple = /**
+     * Fades out the focus state ripple.
+     * @return {?}
+     */
+    function () {
         if (this._focusRipple) {
             this._focusRipple.fadeOut();
             this._focusRipple = null;
@@ -458,7 +562,7 @@ var MatCheckbox = (function (_super) {
     };
     MatCheckbox.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-checkbox',
-                    template: "<label [attr.for]=\"inputId\" class=\"mat-checkbox-layout\" #label><div class=\"mat-checkbox-inner-container\" [class.mat-checkbox-inner-container-no-side-margin]=\"!checkboxLabel.textContent || !checkboxLabel.textContent.trim()\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [attr.value]=\"value\" [disabled]=\"disabled\" [attr.name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div matRipple class=\"mat-checkbox-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\"></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" focusable=\"false\" class=\"mat-checkbox-checkmark\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\" #checkboxLabel (cdkObserveContent)=\"_onLabelTextChange()\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></span></label>",
+                    template: "<label [attr.for]=\"inputId\" class=\"mat-checkbox-layout\" #label><div class=\"mat-checkbox-inner-container\" [class.mat-checkbox-inner-container-no-side-margin]=\"!checkboxLabel.textContent || !checkboxLabel.textContent.trim()\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [attr.value]=\"value\" [disabled]=\"disabled\" [attr.name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div matRipple class=\"mat-checkbox-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\"></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" focusable=\"false\" class=\"mat-checkbox-checkmark\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\" #checkboxLabel (cdkObserveContent)=\"_onLabelTextChange()\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></span></label>",
                     styles: ["@keyframes mat-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes mat-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes mat-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes mat-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes mat-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes mat-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes mat-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes mat-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes mat-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes mat-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.mat-checkbox-checkmark,.mat-checkbox-mixedmark{width:calc(100% - 4px)}.mat-checkbox-background,.mat-checkbox-frame{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:2px;box-sizing:border-box;pointer-events:none}.mat-checkbox{transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);cursor:pointer}.mat-checkbox-layout{cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex;white-space:nowrap}.mat-checkbox-inner-container{display:inline-block;height:20px;line-height:0;margin:auto;margin-right:8px;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:20px;flex-shrink:0}[dir=rtl] .mat-checkbox-inner-container{margin-left:8px;margin-right:auto}.mat-checkbox-inner-container-no-side-margin{margin-left:0;margin-right:0}.mat-checkbox-frame{background-color:transparent;transition:border-color 90ms cubic-bezier(0,0,.2,.1);border-width:2px;border-style:solid}.mat-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-checkbox-checkmark{top:0;left:0;right:0;bottom:0;position:absolute;width:100%}.mat-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.66667px}.mat-checkbox-mixedmark{height:2px;opacity:0;transform:scaleX(0) rotate(0)}.mat-checkbox-label-before .mat-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .mat-checkbox-label-before .mat-checkbox-inner-container{margin-left:auto;margin-right:8px}.mat-checkbox-checked .mat-checkbox-checkmark{opacity:1}.mat-checkbox-checked .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-checked .mat-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-indeterminate .mat-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.mat-checkbox-unchecked .mat-checkbox-background{background-color:transparent}.mat-checkbox-disabled{cursor:default}.mat-checkbox-anim-unchecked-checked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-checked .mat-checkbox-checkmark-path{animation:180ms linear 0s mat-checkbox-unchecked-checked-checkmark-path}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-unchecked-indeterminate-mixedmark}.mat-checkbox-anim-checked-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-checked-unchecked .mat-checkbox-checkmark-path{animation:90ms linear 0s mat-checkbox-checked-unchecked-checkmark-path}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-checkmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-checkmark}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-mixedmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-checkmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-checkmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-mixedmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-mixedmark}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-mixedmark{animation:.3s linear 0s mat-checkbox-indeterminate-unchecked-mixedmark}.mat-checkbox-input{bottom:0;left:50%}.mat-checkbox-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
                     exportAs: 'matCheckbox',
                     host: {
@@ -476,9 +580,7 @@ var MatCheckbox = (function (_super) {
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCheckbox.ctorParameters = function () { return [
         { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
@@ -487,24 +589,28 @@ var MatCheckbox = (function (_super) {
         { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
     ]; };
     MatCheckbox.propDecorators = {
-        'ariaLabel': [{ type: _angular_core.Input, args: ['aria-label',] },],
-        'ariaLabelledby': [{ type: _angular_core.Input, args: ['aria-labelledby',] },],
-        'id': [{ type: _angular_core.Input },],
-        'required': [{ type: _angular_core.Input },],
-        'align': [{ type: _angular_core.Input },],
-        'labelPosition': [{ type: _angular_core.Input },],
-        'name': [{ type: _angular_core.Input },],
-        'change': [{ type: _angular_core.Output },],
-        'indeterminateChange': [{ type: _angular_core.Output },],
-        'value': [{ type: _angular_core.Input },],
-        '_inputElement': [{ type: _angular_core.ViewChild, args: ['input',] },],
-        '_ripple': [{ type: _angular_core.ViewChild, args: [_angular_material_core.MatRipple,] },],
-        'checked': [{ type: _angular_core.Input },],
-        'indeterminate': [{ type: _angular_core.Input },],
+        "ariaLabel": [{ type: _angular_core.Input, args: ['aria-label',] },],
+        "ariaLabelledby": [{ type: _angular_core.Input, args: ['aria-labelledby',] },],
+        "id": [{ type: _angular_core.Input },],
+        "required": [{ type: _angular_core.Input },],
+        "align": [{ type: _angular_core.Input },],
+        "labelPosition": [{ type: _angular_core.Input },],
+        "name": [{ type: _angular_core.Input },],
+        "change": [{ type: _angular_core.Output },],
+        "indeterminateChange": [{ type: _angular_core.Output },],
+        "value": [{ type: _angular_core.Input },],
+        "_inputElement": [{ type: _angular_core.ViewChild, args: ['input',] },],
+        "_ripple": [{ type: _angular_core.ViewChild, args: [_angular_material_core.MatRipple,] },],
+        "checked": [{ type: _angular_core.Input },],
+        "indeterminate": [{ type: _angular_core.Input },],
     };
     return MatCheckbox;
 }(_MatCheckboxMixinBase));
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 var _MatCheckboxRequiredValidator = _angular_forms.CheckboxRequiredValidator;
 var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: _angular_forms.NG_VALIDATORS,
@@ -528,12 +634,15 @@ var MatCheckboxRequiredValidator = (function (_super) {
                     host: { '[attr.required]': 'required ? "" : null' }
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCheckboxRequiredValidator.ctorParameters = function () { return []; };
     return MatCheckboxRequiredValidator;
 }(_MatCheckboxRequiredValidator));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatCheckboxModule = (function () {
     function MatCheckboxModule() {
@@ -545,9 +654,7 @@ var MatCheckboxModule = (function () {
                     declarations: [MatCheckbox, MatCheckboxRequiredValidator],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatCheckboxModule.ctorParameters = function () { return []; };
     return MatCheckboxModule;
 }());

@@ -12,13 +12,13 @@ import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * \@docs-private
  */
 var MatToolbarBase = (function () {
-    /**
-     * @param {?} _renderer
-     * @param {?} _elementRef
-     */
     function MatToolbarBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -36,19 +36,12 @@ var MatToolbarRow = (function () {
                     host: { 'class': 'mat-toolbar-row' },
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatToolbarRow.ctorParameters = function () { return []; };
     return MatToolbarRow;
 }());
 var MatToolbar = (function (_super) {
     __extends(MatToolbar, _super);
-    /**
-     * @param {?} renderer
-     * @param {?} elementRef
-     * @param {?} _platform
-     */
     function MatToolbar(renderer, elementRef, _platform) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._platform = _platform;
@@ -57,7 +50,10 @@ var MatToolbar = (function (_super) {
     /**
      * @return {?}
      */
-    MatToolbar.prototype.ngAfterViewInit = function () {
+    MatToolbar.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
         var _this = this;
         if (!isDevMode() || !this._platform.isBrowser) {
             return;
@@ -69,7 +65,11 @@ var MatToolbar = (function (_super) {
      * Throws an exception when developers are attempting to combine the different toolbar row modes.
      * @return {?}
      */
-    MatToolbar.prototype._checkToolbarMixedModes = function () {
+    MatToolbar.prototype._checkToolbarMixedModes = /**
+     * Throws an exception when developers are attempting to combine the different toolbar row modes.
+     * @return {?}
+     */
+    function () {
         if (!this._toolbarRows.length) {
             return;
         }
@@ -99,16 +99,14 @@ var MatToolbar = (function (_super) {
                     preserveWhitespaces: false,
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatToolbar.ctorParameters = function () { return [
         { type: Renderer2, },
         { type: ElementRef, },
         { type: Platform, },
     ]; };
     MatToolbar.propDecorators = {
-        '_toolbarRows': [{ type: ContentChildren, args: [MatToolbarRow,] },],
+        "_toolbarRows": [{ type: ContentChildren, args: [MatToolbarRow,] },],
     };
     return MatToolbar;
 }(_MatToolbarMixinBase));
@@ -123,6 +121,11 @@ function throwToolbarMixedModesError() {
         'inside of a `<mat-toolbar>` for a single row.');
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 var MatToolbarModule = (function () {
     function MatToolbarModule() {
     }
@@ -133,13 +136,20 @@ var MatToolbarModule = (function () {
                     declarations: [MatToolbar, MatToolbarRow],
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatToolbarModule.ctorParameters = function () { return []; };
     return MatToolbarModule;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

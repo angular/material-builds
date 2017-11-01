@@ -15,6 +15,11 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Directive to automatically resize a textarea to fit its content.
  */
 class MatTextareaAutosize {
@@ -87,7 +92,7 @@ class MatTextareaAutosize {
      * @return {?}
      */
     _setTextareaStyle(property, value) {
-        const /** @type {?} */ textarea = (this._elementRef.nativeElement);
+        const /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
         textarea.style[property] = value;
     }
     /**
@@ -102,9 +107,9 @@ class MatTextareaAutosize {
         if (this._cachedLineHeight) {
             return;
         }
-        let /** @type {?} */ textarea = (this._elementRef.nativeElement);
+        let /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
         // Use a clone element because we have to override some styles.
-        let /** @type {?} */ textareaClone = (textarea.cloneNode(false));
+        let /** @type {?} */ textareaClone = /** @type {?} */ (textarea.cloneNode(false));
         textareaClone.rows = 1;
         // Use `position: absolute` so that this doesn't cause a browser layout and use
         // `visibility: hidden` so that nothing is rendered. Clear any other styles that
@@ -148,7 +153,7 @@ class MatTextareaAutosize {
         if (!this._cachedLineHeight) {
             return;
         }
-        const /** @type {?} */ textarea = (this._elementRef.nativeElement);
+        const /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
         const /** @type {?} */ value = textarea.value;
         // Only resize of the value changed since these calculations can be expensive.
         if (value === this._previousValue) {
@@ -175,18 +180,20 @@ MatTextareaAutosize.decorators = [
                 },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTextareaAutosize.ctorParameters = () => [
     { type: ElementRef, },
     { type: Platform, },
 ];
 MatTextareaAutosize.propDecorators = {
-    'minRows': [{ type: Input, args: ['matAutosizeMinRows',] },],
-    'maxRows': [{ type: Input, args: ['matAutosizeMaxRows',] },],
+    "minRows": [{ type: Input, args: ['matAutosizeMinRows',] },],
+    "maxRows": [{ type: Input, args: ['matAutosizeMaxRows',] },],
 };
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * \@docs-private
  * @param {?} type
@@ -195,6 +202,11 @@ MatTextareaAutosize.propDecorators = {
 function getMatInputUnsupportedTypeError(type) {
     return Error(`Input type "${type}" isn't supported by matInput.`);
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
 const MAT_INPUT_INVALID_TYPES = [
@@ -276,7 +288,7 @@ class MatInput {
         // exists on iOS, we only bother to install the listener on iOS.
         if (_platform.IOS) {
             _renderer.listen(_elementRef.nativeElement, 'keyup', (event) => {
-                let el = event.target;
+                let /** @type {?} */ el = /** @type {?} */ (event.target);
                 if (!el.value && !el.selectionStart && !el.selectionEnd) {
                     // Note: Just setting `0, 0` doesn't fix the issue. Setting `1, 1` fixes it for the first
                     // time that you type text and then hold delete. Toggling to `1, 1` and then back to
@@ -424,7 +436,7 @@ class MatInput {
         const /** @type {?} */ oldState = this.errorState;
         const /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
         const /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-        const /** @type {?} */ control = this.ngControl ? (this.ngControl.control) : null;
+        const /** @type {?} */ control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
         const /** @type {?} */ newState = matcher.isErrorState(control, parent);
         if (newState !== oldState) {
             this.errorState = newState;
@@ -464,7 +476,7 @@ class MatInput {
      */
     _isBadInput() {
         // The `validity` property won't be present on platform-server.
-        let /** @type {?} */ validity = ((this._elementRef.nativeElement)).validity;
+        let /** @type {?} */ validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
         return validity && validity.badInput;
     }
     /**
@@ -526,9 +538,7 @@ MatInput.decorators = [
                 providers: [{ provide: MatFormFieldControl, useExisting: MatInput }],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatInput.ctorParameters = () => [
     { type: ElementRef, },
     { type: Renderer2, },
@@ -539,15 +549,20 @@ MatInput.ctorParameters = () => [
     { type: ErrorStateMatcher, },
 ];
 MatInput.propDecorators = {
-    'disabled': [{ type: Input },],
-    'id': [{ type: Input },],
-    'placeholder': [{ type: Input },],
-    'required': [{ type: Input },],
-    'type': [{ type: Input },],
-    'errorStateMatcher': [{ type: Input },],
-    'value': [{ type: Input },],
-    'readonly': [{ type: Input },],
+    "disabled": [{ type: Input },],
+    "id": [{ type: Input },],
+    "placeholder": [{ type: Input },],
+    "required": [{ type: Input },],
+    "type": [{ type: Input },],
+    "errorStateMatcher": [{ type: Input },],
+    "value": [{ type: Input },],
+    "readonly": [{ type: Input },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatInputModule {
 }
@@ -563,8 +578,6 @@ MatInputModule.decorators = [
                     PlatformModule,
                 ],
                 exports: [
-                    // We re-export the `MatFormFieldModule` since `MatInput` will almost always
-                    // be used together with `MatFormField`.
                     MatFormFieldModule,
                     MatInput,
                     MatTextareaAutosize,
@@ -572,11 +585,18 @@ MatInputModule.decorators = [
                 providers: [ErrorStateMatcher],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatInputModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

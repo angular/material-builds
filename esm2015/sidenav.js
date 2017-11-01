@@ -23,6 +23,12 @@ import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { map } from 'rxjs/operators/map';
 import { Subject } from 'rxjs/Subject';
+import 'rxjs/Observable';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Throws an exception when two MatDrawer are matching the same position.
@@ -84,9 +90,7 @@ MatDrawerContent.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDrawerContent.ctorParameters = () => [
     { type: ChangeDetectorRef, },
     { type: MatDrawerContainer, decorators: [{ type: Inject, args: [forwardRef(() => MatDrawerContainer),] },] },
@@ -156,7 +160,7 @@ class MatDrawer {
         this.openedChange.subscribe((opened) => {
             if (opened) {
                 if (this._doc) {
-                    this._elementFocusedBeforeDrawerWasOpened = this._doc.activeElement;
+                    this._elementFocusedBeforeDrawerWasOpened = /** @type {?} */ (this._doc.activeElement);
                 }
                 if (this._isFocusTrapEnabled && this._focusTrap) {
                     this._focusTrap.focusInitialElementWhenReady();
@@ -403,9 +407,7 @@ MatDrawer.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDrawer.ctorParameters = () => [
     { type: ElementRef, },
     { type: FocusTrapFactory, },
@@ -413,18 +415,18 @@ MatDrawer.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MatDrawer.propDecorators = {
-    'position': [{ type: Input },],
-    'align': [{ type: Input },],
-    'mode': [{ type: Input },],
-    'disableClose': [{ type: Input },],
-    'openedChange': [{ type: Output },],
-    '_openedStream': [{ type: Output, args: ['opened',] },],
-    '_closedStream': [{ type: Output, args: ['closed',] },],
-    'onOpen': [{ type: Output, args: ['open',] },],
-    'onClose': [{ type: Output, args: ['close',] },],
-    'onPositionChanged': [{ type: Output, args: ['positionChanged',] },],
-    'onAlignChanged': [{ type: Output, args: ['align-changed',] },],
-    'opened': [{ type: Input },],
+    "position": [{ type: Input },],
+    "align": [{ type: Input },],
+    "mode": [{ type: Input },],
+    "disableClose": [{ type: Input },],
+    "openedChange": [{ type: Output },],
+    "_openedStream": [{ type: Output, args: ['opened',] },],
+    "_closedStream": [{ type: Output, args: ['closed',] },],
+    "onOpen": [{ type: Output, args: ['open',] },],
+    "onClose": [{ type: Output, args: ['close',] },],
+    "onPositionChanged": [{ type: Output, args: ['positionChanged',] },],
+    "onAlignChanged": [{ type: Output, args: ['align-changed',] },],
+    "opened": [{ type: Input },],
 };
 /**
  * <mat-drawer-container> component.
@@ -624,14 +626,14 @@ class MatDrawerContainer {
         // Close all open drawers where closing is not disabled and the mode is not `side`.
         [this._start, this._end]
             .filter(drawer => drawer && !drawer.disableClose && drawer.mode !== 'side')
-            .forEach(drawer => ((drawer)).close());
+            .forEach(drawer => /** @type {?} */ ((drawer)).close());
     }
     /**
      * @return {?}
      */
     _isShowingBackdrop() {
-        return (this._isDrawerOpen(this._start) && ((this._start)).mode != 'side')
-            || (this._isDrawerOpen(this._end) && ((this._end)).mode != 'side');
+        return (this._isDrawerOpen(this._start) && /** @type {?} */ ((this._start)).mode != 'side')
+            || (this._isDrawerOpen(this._end) && /** @type {?} */ ((this._end)).mode != 'side');
     }
     /**
      * @param {?} drawer
@@ -690,9 +692,7 @@ MatDrawerContainer.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDrawerContainer.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: ElementRef, },
@@ -701,10 +701,15 @@ MatDrawerContainer.ctorParameters = () => [
     { type: ChangeDetectorRef, },
 ];
 MatDrawerContainer.propDecorators = {
-    '_drawers': [{ type: ContentChildren, args: [MatDrawer,] },],
-    '_content': [{ type: ContentChild, args: [MatDrawerContent,] },],
-    'backdropClick': [{ type: Output },],
+    "_drawers": [{ type: ContentChildren, args: [MatDrawer,] },],
+    "_content": [{ type: ContentChild, args: [MatDrawerContent,] },],
+    "backdropClick": [{ type: Output },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatSidenavContent extends MatDrawerContent {
     /**
@@ -728,9 +733,7 @@ MatSidenavContent.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSidenavContent.ctorParameters = () => [
     { type: ChangeDetectorRef, },
     { type: MatSidenavContainer, decorators: [{ type: Inject, args: [forwardRef(() => MatSidenavContainer),] },] },
@@ -814,14 +817,12 @@ MatSidenav.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSidenav.ctorParameters = () => [];
 MatSidenav.propDecorators = {
-    'fixedInViewport': [{ type: Input },],
-    'fixedTopGap': [{ type: Input },],
-    'fixedBottomGap': [{ type: Input },],
+    "fixedInViewport": [{ type: Input },],
+    "fixedTopGap": [{ type: Input },],
+    "fixedBottomGap": [{ type: Input },],
 };
 class MatSidenavContainer extends MatDrawerContainer {
 }
@@ -838,14 +839,17 @@ MatSidenavContainer.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSidenavContainer.ctorParameters = () => [];
 MatSidenavContainer.propDecorators = {
-    '_drawers': [{ type: ContentChildren, args: [MatSidenav,] },],
-    '_content': [{ type: ContentChild, args: [MatSidenavContent,] },],
+    "_drawers": [{ type: ContentChildren, args: [MatSidenav,] },],
+    "_content": [{ type: ContentChild, args: [MatSidenavContent,] },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatSidenavModule {
 }
@@ -877,11 +881,18 @@ MatSidenavModule.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSidenavModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

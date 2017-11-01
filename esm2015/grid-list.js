@@ -10,6 +10,10 @@ import { MatCommonModule, MatLine, MatLineModule, MatLineSetter } from '@angular
 import { Directionality } from '@angular/cdk/bidi';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Converts values into strings. Falsy values become empty strings.
  * \@docs-private
  * @param {?} value
@@ -27,6 +31,11 @@ function coerceToString(value) {
 function coerceToNumber(value) {
     return typeof value === 'string' ? parseInt(value, 10) : value;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatGridTile {
     /**
@@ -83,16 +92,14 @@ MatGridTile.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatGridTile.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
 ];
 MatGridTile.propDecorators = {
-    'rowspan': [{ type: Input },],
-    'colspan': [{ type: Input },],
+    "rowspan": [{ type: Input },],
+    "colspan": [{ type: Input },],
 };
 class MatGridTileText {
     /**
@@ -118,15 +125,13 @@ MatGridTileText.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatGridTileText.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
 ];
 MatGridTileText.propDecorators = {
-    '_lines': [{ type: ContentChildren, args: [MatLine,] },],
+    "_lines": [{ type: ContentChildren, args: [MatLine,] },],
 };
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -140,9 +145,7 @@ MatGridAvatarCssMatStyler.decorators = [
                 host: { 'class': 'mat-grid-avatar' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatGridAvatarCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -156,9 +159,7 @@ MatGridTileHeaderCssMatStyler.decorators = [
                 host: { 'class': 'mat-grid-tile-header' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatGridTileHeaderCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -172,11 +173,13 @@ MatGridTileFooterCssMatStyler.decorators = [
                 host: { 'class': 'mat-grid-tile-footer' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatGridTileFooterCssMatStyler.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Class for determining, from a list of tiles, the (row, col) position of each of those tiles
  * in the grid. This is necessary (rather than just rendering the tiles in normal document flow)
@@ -332,6 +335,10 @@ class TilePosition {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Sets the style properties for an individual tile, given the position calculated by the
  * Tile Coordinator.
  * \@docs-private
@@ -443,32 +450,12 @@ class TileStyler {
         return `${this._rowspan} * ${this.getTileSize(tileHeight, 1)}`;
     }
     /**
-     * Sets the vertical placement of the tile in the list.
-     * This method will be implemented by each type of TileStyler.
-     * \@docs-private
-     * @abstract
-     * @param {?} tile
-     * @param {?} rowIndex
-     * @param {?} percentWidth
-     * @param {?} gutterWidth
-     * @return {?}
-     */
-    setRowStyles(tile, rowIndex, percentWidth, gutterWidth) { }
-    /**
      * Calculates the computed height and returns the correct style property to set.
      * This method can be implemented by each type of TileStyler.
      * \@docs-private
      * @return {?}
      */
     getComputedHeight() { return null; }
-    /**
-     * Called when the tile styler is swapped out with a different one. To be used for cleanup.
-     * \@docs-private
-     * @abstract
-     * @param {?} list Grid list that the styler was attached to.
-     * @return {?}
-     */
-    reset(list) { }
 }
 /**
  * This type of styler is instantiated when the user passes in a fixed row height.
@@ -632,6 +619,11 @@ function normalizeUnits(value) {
     return (value.match(/px|em|rem/)) ? value : value + 'px';
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 // TODO(kara): Conditional (responsive) column count / row size.
 // TODO(kara): Re-layout on window resize / media change (debounced).
 // TODO(kara): gridTileHeader and gridTileFooter.
@@ -774,20 +766,23 @@ MatGridList.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatGridList.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MatGridList.propDecorators = {
-    '_tiles': [{ type: ContentChildren, args: [MatGridTile,] },],
-    'cols': [{ type: Input },],
-    'gutterSize': [{ type: Input },],
-    'rowHeight': [{ type: Input },],
+    "_tiles": [{ type: ContentChildren, args: [MatGridTile,] },],
+    "cols": [{ type: Input },],
+    "gutterSize": [{ type: Input },],
+    "rowHeight": [{ type: Input },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatGridListModule {
 }
@@ -814,14 +809,21 @@ MatGridListModule.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatGridListModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */
 
-export { MatGridTile, MatGridListModule, MatGridList, MatGridAvatarCssMatStyler as ɵb11, MatGridTileFooterCssMatStyler as ɵd11, MatGridTileHeaderCssMatStyler as ɵc11, MatGridTileText as ɵa11 };
+export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler };
 //# sourceMappingURL=grid-list.js.map

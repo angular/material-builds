@@ -21,6 +21,11 @@ import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Subject } from 'rxjs/Subject';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Time in ms to delay before changing the tooltip visibility to hidden
  */
 const TOUCHEND_HIDE_DELAY = 1500;
@@ -402,7 +407,7 @@ class MatTooltip {
             this._tooltipInstance._markForCheck();
             this._ngZone.onMicrotaskEmpty.asObservable().pipe(first()).subscribe(() => {
                 if (this._tooltipInstance) {
-                    ((this._overlayRef)).updatePosition();
+                    /** @type {?} */ ((this._overlayRef)).updatePosition();
                 }
             });
         }
@@ -455,9 +460,7 @@ MatTooltip.decorators = [
                 },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTooltip.ctorParameters = () => [
     { type: Renderer2, },
     { type: Overlay, },
@@ -472,13 +475,13 @@ MatTooltip.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MatTooltip.propDecorators = {
-    'position': [{ type: Input, args: ['matTooltipPosition',] },],
-    'disabled': [{ type: Input, args: ['matTooltipDisabled',] },],
-    '_positionDeprecated': [{ type: Input, args: ['tooltip-position',] },],
-    'showDelay': [{ type: Input, args: ['matTooltipShowDelay',] },],
-    'hideDelay': [{ type: Input, args: ['matTooltipHideDelay',] },],
-    'message': [{ type: Input, args: ['matTooltip',] },],
-    'tooltipClass': [{ type: Input, args: ['matTooltipClass',] },],
+    "position": [{ type: Input, args: ['matTooltipPosition',] },],
+    "disabled": [{ type: Input, args: ['matTooltipDisabled',] },],
+    "_positionDeprecated": [{ type: Input, args: ['tooltip-position',] },],
+    "showDelay": [{ type: Input, args: ['matTooltipShowDelay',] },],
+    "hideDelay": [{ type: Input, args: ['matTooltipHideDelay',] },],
+    "message": [{ type: Input, args: ['matTooltip',] },],
+    "tooltipClass": [{ type: Input, args: ['matTooltipClass',] },],
 };
 /**
  * Internal component that wraps the tooltip's content.
@@ -591,7 +594,7 @@ class TooltipComponent {
      * @return {?}
      */
     _animationDone(event) {
-        const /** @type {?} */ toState = (event.toState);
+        const /** @type {?} */ toState = /** @type {?} */ (event.toState);
         if (toState === 'hidden' && !this.isVisible()) {
             this._onHide.next();
         }
@@ -647,12 +650,15 @@ TooltipComponent.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 TooltipComponent.ctorParameters = () => [
     { type: ChangeDetectorRef, },
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatTooltipModule {
 }
@@ -671,11 +677,18 @@ MatTooltipModule.decorators = [
                 providers: [MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, ARIA_DESCRIBER_PROVIDER],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatTooltipModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

@@ -17,6 +17,11 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
  * the default separation we chose.
  */
@@ -181,7 +186,7 @@ class MatSlider extends _MatSliderMixinBase {
     set step(v) {
         this._step = coerceNumberProperty(v, this._step);
         if (this._step % 1 !== 0) {
-            this._roundLabelTo = ((this._step.toString().split('.').pop())).length;
+            this._roundLabelTo = /** @type {?} */ ((this._step.toString().split('.').pop())).length;
         }
         // Since this could modify the label, we need to notify the change detection.
         this._changeDetectorRef.markForCheck();
@@ -785,9 +790,7 @@ MatSlider.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSlider.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
@@ -796,20 +799,25 @@ MatSlider.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MatSlider.propDecorators = {
-    'invert': [{ type: Input },],
-    'max': [{ type: Input },],
-    'min': [{ type: Input },],
-    'step': [{ type: Input },],
-    'thumbLabel': [{ type: Input },],
-    '_thumbLabelDeprecated': [{ type: Input, args: ['thumb-label',] },],
-    'tickInterval': [{ type: Input },],
-    '_tickIntervalDeprecated': [{ type: Input, args: ['tick-interval',] },],
-    'value': [{ type: Input },],
-    'vertical': [{ type: Input },],
-    'change': [{ type: Output },],
-    'input': [{ type: Output },],
-    '_sliderWrapper': [{ type: ViewChild, args: ['sliderWrapper',] },],
+    "invert": [{ type: Input },],
+    "max": [{ type: Input },],
+    "min": [{ type: Input },],
+    "step": [{ type: Input },],
+    "thumbLabel": [{ type: Input },],
+    "_thumbLabelDeprecated": [{ type: Input, args: ['thumb-label',] },],
+    "tickInterval": [{ type: Input },],
+    "_tickIntervalDeprecated": [{ type: Input, args: ['tick-interval',] },],
+    "value": [{ type: Input },],
+    "vertical": [{ type: Input },],
+    "change": [{ type: Output },],
+    "input": [{ type: Output },],
+    "_sliderWrapper": [{ type: ViewChild, args: ['sliderWrapper',] },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatSliderModule {
 }
@@ -821,11 +829,18 @@ MatSliderModule.decorators = [
                 providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSliderModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

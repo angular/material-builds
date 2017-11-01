@@ -23,6 +23,15 @@ import { first } from 'rxjs/operators/first';
 import { of } from 'rxjs/observable/of';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Possible overrides for a dialog's position.
+ * @record
+ */
+
+/**
  * Configuration for opening a modal dialog with the MatDialog service.
  */
 class MatDialogConfig {
@@ -71,9 +80,13 @@ class MatDialogConfig {
          * ID of the element that describes the dialog.
          */
         this.ariaDescribedBy = null;
-        // TODO(jelbourn): add configuration for lifecycle hooks, ARIA labelling.
     }
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Throws an exception for the case when a ComponentPortal is
@@ -188,7 +201,7 @@ class MatDialogContainer extends BasePortalOutlet {
      */
     _savePreviouslyFocusedElement() {
         if (this._document) {
-            this._elementFocusedBeforeDialogWasOpened = (this._document.activeElement);
+            this._elementFocusedBeforeDialogWasOpened = /** @type {?} */ (this._document.activeElement);
         }
     }
     /**
@@ -259,9 +272,7 @@ MatDialogContainer.decorators = [
                 },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDialogContainer.ctorParameters = () => [
     { type: ElementRef, },
     { type: FocusTrapFactory, },
@@ -269,9 +280,13 @@ MatDialogContainer.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MatDialogContainer.propDecorators = {
-    '_portalOutlet': [{ type: ViewChild, args: [CdkPortalOutlet,] },],
+    "_portalOutlet": [{ type: ViewChild, args: [CdkPortalOutlet,] },],
 };
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 // TODO(jelbourn): resizing
 // Counter for unique dialog ids.
 let uniqueId = 0;
@@ -316,7 +331,7 @@ class MatDialogRef {
             this._overlayRef.dispose();
             this._afterClosed.next(this._result);
             this._afterClosed.complete();
-            this.componentInstance = null;
+            this.componentInstance = /** @type {?} */ ((null));
         });
     }
     /**
@@ -415,9 +430,14 @@ class MatDialogRef {
      * @return {?}
      */
     _getPositionStrategy() {
-        return (this._overlayRef.getConfig().positionStrategy);
+        return /** @type {?} */ (this._overlayRef.getConfig().positionStrategy);
     }
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 const MAT_DIALOG_DATA = new InjectionToken('MatDialogData');
 /**
@@ -666,9 +686,7 @@ class MatDialog {
 MatDialog.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDialog.ctorParameters = () => [
     { type: Overlay, },
     { type: Injector, },
@@ -684,6 +702,11 @@ MatDialog.ctorParameters = () => [
 function _applyConfigDefaults(config) {
     return extendObject(new MatDialogConfig(), config);
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Counter used to generate unique IDs for dialog elements.
@@ -708,7 +731,7 @@ class MatDialogClose {
      * @return {?}
      */
     ngOnChanges(changes) {
-        const /** @type {?} */ proxiedChange = changes._matDialogClose || changes._matDialogCloseResult;
+        const /** @type {?} */ proxiedChange = changes["_matDialogClose"] || changes["_matDialogCloseResult"];
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
@@ -725,16 +748,14 @@ MatDialogClose.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDialogClose.ctorParameters = () => [
     { type: MatDialogRef, },
 ];
 MatDialogClose.propDecorators = {
-    'ariaLabel': [{ type: Input, args: ['aria-label',] },],
-    'dialogResult': [{ type: Input, args: ['mat-dialog-close',] },],
-    '_matDialogClose': [{ type: Input, args: ['matDialogClose',] },],
+    "ariaLabel": [{ type: Input, args: ['aria-label',] },],
+    "dialogResult": [{ type: Input, args: ['mat-dialog-close',] },],
+    "_matDialogClose": [{ type: Input, args: ['matDialogClose',] },],
 };
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
@@ -766,14 +787,12 @@ MatDialogTitle.decorators = [
                 },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDialogTitle.ctorParameters = () => [
     { type: MatDialogContainer, decorators: [{ type: Optional },] },
 ];
 MatDialogTitle.propDecorators = {
-    'id': [{ type: Input },],
+    "id": [{ type: Input },],
 };
 /**
  * Scrollable content container of a dialog.
@@ -786,9 +805,7 @@ MatDialogContent.decorators = [
                 host: { 'class': 'mat-dialog-content' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDialogContent.ctorParameters = () => [];
 /**
  * Container for the bottom action buttons in a dialog.
@@ -802,10 +819,13 @@ MatDialogActions.decorators = [
                 host: { 'class': 'mat-dialog-actions' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDialogActions.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatDialogModule {
 }
@@ -840,11 +860,18 @@ MatDialogModule.decorators = [
                 entryComponents: [MatDialogContainer],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatDialogModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

@@ -20,6 +20,11 @@ import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Returns an exception to be thrown in the case when attempting to
  * load an icon with a name that cannot be found.
  * \@docs-private
@@ -395,7 +400,7 @@ class MatIconRegistry {
         // creating an element from an HTML string.
         const /** @type {?} */ div = document.createElement('DIV');
         div.innerHTML = str;
-        const /** @type {?} */ svg = (div.querySelector('svg'));
+        const /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
         if (!svg) {
             throw Error('<svg> tag not found');
         }
@@ -462,9 +467,7 @@ class MatIconRegistry {
 MatIconRegistry.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatIconRegistry.ctorParameters = () => [
     { type: HttpClient, decorators: [{ type: Optional },] },
     { type: DomSanitizer, },
@@ -498,7 +501,7 @@ const ICON_REGISTRY_PROVIDER = {
  * @return {?}
  */
 function cloneSvg(svg) {
-    return (svg.cloneNode(true));
+    return /** @type {?} */ (svg.cloneNode(true));
 }
 /**
  * Returns the cache key to use for an icon namespace and name.
@@ -509,6 +512,11 @@ function cloneSvg(svg) {
 function iconKey(namespace, name) {
     return namespace + ':' + name;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * \@docs-private
@@ -589,7 +597,7 @@ class MatIcon extends _MatIconMixinBase {
         const /** @type {?} */ parts = iconName.split(':');
         switch (parts.length) {
             case 1: return ['', parts[0]]; // Use default namespace.
-            case 2: return (parts);
+            case 2: return /** @type {?} */ (parts);
             default: throw Error(`Invalid icon name: "${iconName}"`);
         }
     }
@@ -599,7 +607,7 @@ class MatIcon extends _MatIconMixinBase {
      */
     ngOnChanges(changes) {
         // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
-        if (changes.svgIcon) {
+        if (changes["svgIcon"]) {
             if (this.svgIcon) {
                 const [namespace, iconName] = this._splitIconName(this.svgIcon);
                 this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(first()).subscribe(svg => this._setSvgElement(svg), (err) => console.log(`Error retrieving icon: ${err.message}`));
@@ -694,9 +702,7 @@ MatIcon.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatIcon.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
@@ -704,10 +710,15 @@ MatIcon.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Attribute, args: ['aria-hidden',] },] },
 ];
 MatIcon.propDecorators = {
-    'svgIcon': [{ type: Input },],
-    'fontSet': [{ type: Input },],
-    'fontIcon': [{ type: Input },],
+    "svgIcon": [{ type: Input },],
+    "fontSet": [{ type: Input },],
+    "fontIcon": [{ type: Input },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatIconModule {
 }
@@ -719,11 +730,18 @@ MatIconModule.decorators = [
                 providers: [ICON_REGISTRY_PROVIDER],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatIconModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

@@ -11,6 +11,11 @@ import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { DOCUMENT } from '@angular/common';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * \@docs-private
  */
 class MatProgressSpinnerBase {
@@ -81,7 +86,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
         this._fallbackAnimation = platform.EDGE || platform.TRIDENT;
         // On IE and Edge, we can't animate the `stroke-dashoffset`
         // reliably so we fall back to a non-spec animation.
-        const animationClass = `mat-progress-spinner-indeterminate${this._fallbackAnimation ? '-fallback' : ''}-animation`;
+        const /** @type {?} */ animationClass = `mat-progress-spinner-indeterminate${this._fallbackAnimation ? '-fallback' : ''}-animation`;
         _renderer.addClass(_elementRef.nativeElement, animationClass);
     }
     /**
@@ -119,7 +124,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      * @return {?}
      */
     ngOnChanges(changes) {
-        if (changes.strokeWidth || changes.diameter) {
+        if (changes["strokeWidth"] || changes["diameter"]) {
             this._elementSize =
                 this._diameter + Math.max(this.strokeWidth - this._baseStrokeWidth, 0);
         }
@@ -189,8 +194,8 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
             this._renderer.appendChild(this._document.head, styleTag);
             MatProgressSpinner.styleTag = styleTag;
         }
-        if (styleTag.sheet) {
-            ((styleTag.sheet)).insertRule(this._getAnimationText());
+        if (styleTag && styleTag.sheet) {
+            (/** @type {?} */ (styleTag.sheet)).insertRule(this._getAnimationText());
         }
         MatProgressSpinner.diameters.add(this.diameter);
     }
@@ -209,6 +214,11 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
  * Tracks diameters of existing instances to de-dupe generated styles (default d = 100)
  */
 MatProgressSpinner.diameters = new Set([100]);
+/**
+ * Used for storing all of the generated keyframe animations.
+ * \@dynamic
+ */
+MatProgressSpinner.styleTag = null;
 MatProgressSpinner.decorators = [
     { type: Component, args: [{selector: 'mat-progress-spinner',
                 exportAs: 'matProgressSpinner',
@@ -230,9 +240,7 @@ MatProgressSpinner.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatProgressSpinner.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
@@ -240,10 +248,10 @@ MatProgressSpinner.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MatProgressSpinner.propDecorators = {
-    'diameter': [{ type: Input },],
-    'strokeWidth': [{ type: Input },],
-    'mode': [{ type: Input },],
-    'value': [{ type: Input },],
+    "diameter": [{ type: Input },],
+    "strokeWidth": [{ type: Input },],
+    "mode": [{ type: Input },],
+    "value": [{ type: Input },],
 };
 /**
  * <mat-spinner> component.
@@ -280,15 +288,18 @@ MatSpinner.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatSpinner.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: Platform, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatProgressSpinnerModule {
 }
@@ -306,11 +317,18 @@ MatProgressSpinnerModule.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatProgressSpinnerModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

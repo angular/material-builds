@@ -15,6 +15,10 @@ import { AnimationCurves, AnimationDurations } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * \@docs-private
  * @param {?} id
  * @return {?}
@@ -46,6 +50,19 @@ function getSortInvalidDirectionError(direction) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @record
+ */
+
+/**
+ * @record
+ */
+
+/**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
 var MatSort = (function () {
@@ -66,16 +83,16 @@ var MatSort = (function () {
         this.sortChange = new EventEmitter();
     }
     Object.defineProperty(MatSort.prototype, "direction", {
-        /**
+        get: /**
          * @return {?}
          */
-        get: function () { return this._direction; },
-        /**
+        function () { return this._direction; },
+        set: /**
          * The sort direction of the currently active MatSortable.
          * @param {?} direction
          * @return {?}
          */
-        set: function (direction) {
+        function (direction) {
             if (isDevMode() && direction && direction !== 'asc' && direction !== 'desc') {
                 throw getSortInvalidDirectionError(direction);
             }
@@ -85,27 +102,37 @@ var MatSort = (function () {
         configurable: true
     });
     Object.defineProperty(MatSort.prototype, "disableClear", {
-        /**
+        get: /**
          * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
          * May be overriden by the MatSortable's disable clear input.
          * @return {?}
          */
-        get: function () { return this._disableClear; },
-        /**
+        function () { return this._disableClear; },
+        set: /**
          * @param {?} v
          * @return {?}
          */
-        set: function (v) { this._disableClear = coerceBooleanProperty(v); },
+        function (v) { this._disableClear = coerceBooleanProperty(v); },
         enumerable: true,
         configurable: true
     });
     /**
      * Register function to be used by the contained MatSortables. Adds the MatSortable to the
      * collection of MatSortables.
+     */
+    /**
+     * Register function to be used by the contained MatSortables. Adds the MatSortable to the
+     * collection of MatSortables.
      * @param {?} sortable
      * @return {?}
      */
-    MatSort.prototype.register = function (sortable) {
+    MatSort.prototype.register = /**
+     * Register function to be used by the contained MatSortables. Adds the MatSortable to the
+     * collection of MatSortables.
+     * @param {?} sortable
+     * @return {?}
+     */
+    function (sortable) {
         if (!sortable.id) {
             throw getSortHeaderMissingIdError();
         }
@@ -117,18 +144,34 @@ var MatSort = (function () {
     /**
      * Unregister function to be used by the contained MatSortables. Removes the MatSortable from the
      * collection of contained MatSortables.
+     */
+    /**
+     * Unregister function to be used by the contained MatSortables. Removes the MatSortable from the
+     * collection of contained MatSortables.
      * @param {?} sortable
      * @return {?}
      */
-    MatSort.prototype.deregister = function (sortable) {
+    MatSort.prototype.deregister = /**
+     * Unregister function to be used by the contained MatSortables. Removes the MatSortable from the
+     * collection of contained MatSortables.
+     * @param {?} sortable
+     * @return {?}
+     */
+    function (sortable) {
         this.sortables.delete(sortable.id);
     };
+    /** Sets the active sort id and determines the new sort direction. */
     /**
      * Sets the active sort id and determines the new sort direction.
      * @param {?} sortable
      * @return {?}
      */
-    MatSort.prototype.sort = function (sortable) {
+    MatSort.prototype.sort = /**
+     * Sets the active sort id and determines the new sort direction.
+     * @param {?} sortable
+     * @return {?}
+     */
+    function (sortable) {
         if (this.active != sortable.id) {
             this.active = sortable.id;
             this.direction = sortable.start ? sortable.start : this.start;
@@ -138,12 +181,18 @@ var MatSort = (function () {
         }
         this.sortChange.next({ active: this.active, direction: this.direction });
     };
+    /** Returns the next sort direction of the active sortable, checking for potential overrides. */
     /**
      * Returns the next sort direction of the active sortable, checking for potential overrides.
      * @param {?} sortable
      * @return {?}
      */
-    MatSort.prototype.getNextSortDirection = function (sortable) {
+    MatSort.prototype.getNextSortDirection = /**
+     * Returns the next sort direction of the active sortable, checking for potential overrides.
+     * @param {?} sortable
+     * @return {?}
+     */
+    function (sortable) {
         if (!sortable) {
             return '';
         }
@@ -163,16 +212,14 @@ var MatSort = (function () {
                     exportAs: 'matSort'
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSort.ctorParameters = function () { return []; };
     MatSort.propDecorators = {
-        'active': [{ type: Input, args: ['matSortActive',] },],
-        'start': [{ type: Input, args: ['matSortStart',] },],
-        'direction': [{ type: Input, args: ['matSortDirection',] },],
-        'disableClear': [{ type: Input, args: ['matSortDisableClear',] },],
-        'sortChange': [{ type: Output, args: ['matSortChange',] },],
+        "active": [{ type: Input, args: ['matSortActive',] },],
+        "start": [{ type: Input, args: ['matSortStart',] },],
+        "direction": [{ type: Input, args: ['matSortDirection',] },],
+        "disableClear": [{ type: Input, args: ['matSortDisableClear',] },],
+        "sortChange": [{ type: Output, args: ['matSortChange',] },],
     };
     return MatSort;
 }());
@@ -192,6 +239,11 @@ function getSortDirectionCycle(start, disableClear) {
     }
     return sortOrder;
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
@@ -220,12 +272,15 @@ var MatSortHeaderIntl = (function () {
     MatSortHeaderIntl.decorators = [
         { type: Injectable },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSortHeaderIntl.ctorParameters = function () { return []; };
     return MatSortHeaderIntl;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' + AnimationCurves.STANDARD_CURVE;
 /**
@@ -238,12 +293,6 @@ var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' + AnimationCur
  * column definition.
  */
 var MatSortHeader = (function () {
-    /**
-     * @param {?} _intl
-     * @param {?} changeDetectorRef
-     * @param {?} _sort
-     * @param {?} _cdkColumnDef
-     */
     function MatSortHeader(_intl, changeDetectorRef, _sort, _cdkColumnDef) {
         this._intl = _intl;
         this._sort = _sort;
@@ -260,23 +309,26 @@ var MatSortHeader = (function () {
         });
     }
     Object.defineProperty(MatSortHeader.prototype, "disableClear", {
-        /**
+        get: /**
          * Overrides the disable clear value of the containing MatSort for this MatSortable.
          * @return {?}
          */
-        get: function () { return this._disableClear; },
-        /**
+        function () { return this._disableClear; },
+        set: /**
          * @param {?} v
          * @return {?}
          */
-        set: function (v) { this._disableClear = coerceBooleanProperty(v); },
+        function (v) { this._disableClear = coerceBooleanProperty(v); },
         enumerable: true,
         configurable: true
     });
     /**
      * @return {?}
      */
-    MatSortHeader.prototype.ngOnInit = function () {
+    MatSortHeader.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
         if (!this.id && this._cdkColumnDef) {
             this.id = this._cdkColumnDef.name;
         }
@@ -285,15 +337,23 @@ var MatSortHeader = (function () {
     /**
      * @return {?}
      */
-    MatSortHeader.prototype.ngOnDestroy = function () {
+    MatSortHeader.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
         this._sort.deregister(this);
         this._rerenderSubscription.unsubscribe();
     };
+    /** Whether this MatSortHeader is currently sorted in either ascending or descending order. */
     /**
      * Whether this MatSortHeader is currently sorted in either ascending or descending order.
      * @return {?}
      */
-    MatSortHeader.prototype._isSorted = function () {
+    MatSortHeader.prototype._isSorted = /**
+     * Whether this MatSortHeader is currently sorted in either ascending or descending order.
+     * @return {?}
+     */
+    function () {
         return this._sort.active == this.id &&
             (this._sort.direction === 'asc' || this._sort.direction === 'desc');
     };
@@ -347,9 +407,7 @@ var MatSortHeader = (function () {
                     ]
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSortHeader.ctorParameters = function () { return [
         { type: MatSortHeaderIntl, },
         { type: ChangeDetectorRef, },
@@ -357,13 +415,18 @@ var MatSortHeader = (function () {
         { type: CdkColumnDef, decorators: [{ type: Optional },] },
     ]; };
     MatSortHeader.propDecorators = {
-        'id': [{ type: Input, args: ['mat-sort-header',] },],
-        'arrowPosition': [{ type: Input },],
-        'start': [{ type: Input, args: ['start',] },],
-        'disableClear': [{ type: Input },],
+        "id": [{ type: Input, args: ['mat-sort-header',] },],
+        "arrowPosition": [{ type: Input },],
+        "start": [{ type: Input, args: ['start',] },],
+        "disableClear": [{ type: Input },],
     };
     return MatSortHeader;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 var MatSortModule = (function () {
     function MatSortModule() {
@@ -376,13 +439,20 @@ var MatSortModule = (function () {
                     providers: [MatSortHeaderIntl]
                 },] },
     ];
-    /**
-     * @nocollapse
-     */
+    /** @nocollapse */
     MatSortModule.ctorParameters = function () { return []; };
     return MatSortModule;
 }());
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

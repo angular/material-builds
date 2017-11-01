@@ -27,6 +27,11 @@ import { merge } from 'rxjs/observable/merge';
 import { of } from 'rxjs/observable/of';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
  * the component definition.
  */
@@ -149,22 +154,25 @@ MatAutocomplete.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatAutocomplete.ctorParameters = () => [
     { type: ChangeDetectorRef, },
     { type: ElementRef, },
 ];
 MatAutocomplete.propDecorators = {
-    'template': [{ type: ViewChild, args: [TemplateRef,] },],
-    'panel': [{ type: ViewChild, args: ['panel',] },],
-    'options': [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
-    'optionGroups': [{ type: ContentChildren, args: [MatOptgroup,] },],
-    'displayWith': [{ type: Input },],
-    'optionSelected': [{ type: Output },],
-    'classList': [{ type: Input, args: ['class',] },],
+    "template": [{ type: ViewChild, args: [TemplateRef,] },],
+    "panel": [{ type: ViewChild, args: ['panel',] },],
+    "options": [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
+    "optionGroups": [{ type: ContentChildren, args: [MatOptgroup,] },],
+    "displayWith": [{ type: Input },],
+    "optionSelected": [{ type: Output },],
+    "classList": [{ type: Input, args: ['class',] },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * The height of each autocomplete option.
@@ -327,7 +335,7 @@ class MatAutocompleteTrigger {
         }
         return merge(fromEvent(this._document, 'click'), fromEvent(this._document, 'touchend'))
             .pipe(filter((event) => {
-            const /** @type {?} */ clickTarget = (event.target);
+            const /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
             const /** @type {?} */ formField = this._formField ?
                 this._formField._elementRef.nativeElement : null;
             return this._panelOpen &&
@@ -407,7 +415,7 @@ class MatAutocompleteTrigger {
         // event on focus/blur/load if the input has a placeholder. See:
         // https://connect.microsoft.com/IE/feedback/details/885747/
         if (document.activeElement === event.target) {
-            this._onChange(((event.target)).value);
+            this._onChange((/** @type {?} */ (event.target)).value);
             this.openPanel();
         }
     }
@@ -641,9 +649,7 @@ MatAutocompleteTrigger.decorators = [
                 providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatAutocompleteTrigger.ctorParameters = () => [
     { type: ElementRef, },
     { type: Overlay, },
@@ -656,8 +662,13 @@ MatAutocompleteTrigger.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MatAutocompleteTrigger.propDecorators = {
-    'autocomplete': [{ type: Input, args: ['matAutocomplete',] },],
+    "autocomplete": [{ type: Input, args: ['matAutocomplete',] },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatAutocompleteModule {
 }
@@ -669,11 +680,18 @@ MatAutocompleteModule.decorators = [
                 providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatAutocompleteModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

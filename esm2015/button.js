@@ -12,6 +12,11 @@ import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
  */
 const DEFAULT_ROUND_BUTTON_COLOR = 'accent';
@@ -27,9 +32,7 @@ MatButtonCssMatStyler.decorators = [
                 host: { 'class': 'mat-button' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatButtonCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -43,9 +46,7 @@ MatRaisedButtonCssMatStyler.decorators = [
                 host: { 'class': 'mat-raised-button' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatRaisedButtonCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -59,9 +60,7 @@ MatIconButtonCssMatStyler.decorators = [
                 host: { 'class': 'mat-icon-button' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatIconButtonCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -83,9 +82,7 @@ MatFab.decorators = [
                 host: { 'class': 'mat-fab' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatFab.ctorParameters = () => [
     { type: MatButton, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(() => MatButton),] },] },
     { type: MatAnchor, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(() => MatAnchor),] },] },
@@ -111,9 +108,7 @@ MatMiniFab.decorators = [
                 host: { 'class': 'mat-mini-fab' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatMiniFab.ctorParameters = () => [
     { type: MatButton, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(() => MatButton),] },] },
     { type: MatAnchor, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(() => MatAnchor),] },] },
@@ -213,9 +208,7 @@ MatButton.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatButton.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
@@ -264,15 +257,18 @@ MatAnchor.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatAnchor.ctorParameters = () => [
     { type: Platform, },
     { type: FocusMonitor, },
     { type: ElementRef, },
     { type: Renderer2, },
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatButtonModule {
 }
@@ -305,11 +301,18 @@ MatButtonModule.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatButtonModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

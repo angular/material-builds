@@ -10,6 +10,11 @@ import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * \@docs-private
  */
 class MatToolbarBase {
@@ -32,9 +37,7 @@ MatToolbarRow.decorators = [
                 host: { 'class': 'mat-toolbar-row' },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatToolbarRow.ctorParameters = () => [];
 class MatToolbar extends _MatToolbarMixinBase {
     /**
@@ -91,16 +94,14 @@ MatToolbar.decorators = [
                 preserveWhitespaces: false,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatToolbar.ctorParameters = () => [
     { type: Renderer2, },
     { type: ElementRef, },
     { type: Platform, },
 ];
 MatToolbar.propDecorators = {
-    '_toolbarRows': [{ type: ContentChildren, args: [MatToolbarRow,] },],
+    "_toolbarRows": [{ type: ContentChildren, args: [MatToolbarRow,] },],
 };
 /**
  * Throws an exception when attempting to combine the different toolbar row modes.
@@ -113,6 +114,11 @@ function throwToolbarMixedModesError() {
         'inside of a `<mat-toolbar>` for a single row.');
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 class MatToolbarModule {
 }
 MatToolbarModule.decorators = [
@@ -122,11 +128,18 @@ MatToolbarModule.decorators = [
                 declarations: [MatToolbar, MatToolbarRow],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatToolbarModule.ctorParameters = () => [];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */

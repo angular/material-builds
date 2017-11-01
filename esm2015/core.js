@@ -15,6 +15,10 @@ import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * \@docs-private
  */
 class AnimationCurves {
@@ -31,6 +35,11 @@ class AnimationDurations {
 AnimationDurations.COMPLEX = '375ms';
 AnimationDurations.ENTERING = '225ms';
 AnimationDurations.EXITING = '195ms';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
@@ -100,12 +109,20 @@ MatCommonModule.decorators = [
                     }],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatCommonModule.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
 ];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * \@docs-private
+ * @record
+ */
 
 /**
  * Mixin to augment a directive with a `disabled` property.
@@ -133,6 +150,20 @@ function mixinDisabled(base) {
         set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     };
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * \@docs-private
+ * @record
+ */
+
+/**
+ * \@docs-private
+ * @record
+ */
 
 /**
  * Mixin to augment a directive with a `color` property.
@@ -175,6 +206,16 @@ function mixinColor(base, defaultColor) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * \@docs-private
+ * @record
+ */
+
+/**
  * Mixin to augment a directive with a `disableRipple` property.
  * @template T
  * @param {?} base
@@ -201,6 +242,15 @@ function mixinDisableRipple(base) {
         set disableRipple(value) { this._disableRipple = coerceBooleanProperty(value); }
     };
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * \@docs-private
+ * @record
+ */
 
 /**
  * Mixin to augment a directive with a `tabIndex` property.
@@ -234,6 +284,16 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * InjectionToken for datepicker that can be used to override default locale code.
  */
 const MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE');
@@ -254,172 +314,6 @@ class DateAdapter {
      * @return {?}
      */
     get localeChanges() { return this._localeChanges; }
-    /**
-     * Gets the year component of the given date.
-     * @abstract
-     * @param {?} date The date to extract the year from.
-     * @return {?} The year component.
-     */
-    getYear(date) { }
-    /**
-     * Gets the month component of the given date.
-     * @abstract
-     * @param {?} date The date to extract the month from.
-     * @return {?} The month component (0-indexed, 0 = January).
-     */
-    getMonth(date) { }
-    /**
-     * Gets the date of the month component of the given date.
-     * @abstract
-     * @param {?} date The date to extract the date of the month from.
-     * @return {?} The month component (1-indexed, 1 = first of month).
-     */
-    getDate(date) { }
-    /**
-     * Gets the day of the week component of the given date.
-     * @abstract
-     * @param {?} date The date to extract the day of the week from.
-     * @return {?} The month component (0-indexed, 0 = Sunday).
-     */
-    getDayOfWeek(date) { }
-    /**
-     * Gets a list of names for the months.
-     * @abstract
-     * @param {?} style The naming style (e.g. long = 'January', short = 'Jan', narrow = 'J').
-     * @return {?} An ordered list of all month names, starting with January.
-     */
-    getMonthNames(style) { }
-    /**
-     * Gets a list of names for the dates of the month.
-     * @abstract
-     * @return {?} An ordered list of all date of the month names, starting with '1'.
-     */
-    getDateNames() { }
-    /**
-     * Gets a list of names for the days of the week.
-     * @abstract
-     * @param {?} style The naming style (e.g. long = 'Sunday', short = 'Sun', narrow = 'S').
-     * @return {?} An ordered list of all weekday names, starting with Sunday.
-     */
-    getDayOfWeekNames(style) { }
-    /**
-     * Gets the name for the year of the given date.
-     * @abstract
-     * @param {?} date The date to get the year name for.
-     * @return {?} The name of the given year (e.g. '2017').
-     */
-    getYearName(date) { }
-    /**
-     * Gets the first day of the week.
-     * @abstract
-     * @return {?} The first day of the week (0-indexed, 0 = Sunday).
-     */
-    getFirstDayOfWeek() { }
-    /**
-     * Gets the number of days in the month of the given date.
-     * @abstract
-     * @param {?} date The date whose month should be checked.
-     * @return {?} The number of days in the month of the given date.
-     */
-    getNumDaysInMonth(date) { }
-    /**
-     * Clones the given date.
-     * @abstract
-     * @param {?} date The date to clone
-     * @return {?} A new date equal to the given date.
-     */
-    clone(date) { }
-    /**
-     * Creates a date with the given year, month, and date. Does not allow over/under-flow of the
-     * month and date.
-     * @abstract
-     * @param {?} year The full year of the date. (e.g. 89 means the year 89, not the year 1989).
-     * @param {?} month The month of the date (0-indexed, 0 = January). Must be an integer 0 - 11.
-     * @param {?} date The date of month of the date. Must be an integer 1 - length of the given month.
-     * @return {?} The new date, or null if invalid.
-     */
-    createDate(year, month, date) { }
-    /**
-     * Gets today's date.
-     * @abstract
-     * @return {?} Today's date.
-     */
-    today() { }
-    /**
-     * Parses a date from a user-provided value.
-     * @abstract
-     * @param {?} value The value to parse.
-     * @param {?} parseFormat The expected format of the value being parsed
-     *     (type is implementation-dependent).
-     * @return {?} The parsed date.
-     */
-    parse(value, parseFormat) { }
-    /**
-     * Formats a date as a string according to the given format.
-     * @abstract
-     * @param {?} date The value to format.
-     * @param {?} displayFormat The format to use to display the date as a string.
-     * @return {?} The formatted date string.
-     */
-    format(date, displayFormat) { }
-    /**
-     * Adds the given number of years to the date. Years are counted as if flipping 12 pages on the
-     * calendar for each year and then finding the closest date in the new month. For example when
-     * adding 1 year to Feb 29, 2016, the resulting date will be Feb 28, 2017.
-     * @abstract
-     * @param {?} date The date to add years to.
-     * @param {?} years The number of years to add (may be negative).
-     * @return {?} A new date equal to the given one with the specified number of years added.
-     */
-    addCalendarYears(date, years) { }
-    /**
-     * Adds the given number of months to the date. Months are counted as if flipping a page on the
-     * calendar for each month and then finding the closest date in the new month. For example when
-     * adding 1 month to Jan 31, 2017, the resulting date will be Feb 28, 2017.
-     * @abstract
-     * @param {?} date The date to add months to.
-     * @param {?} months The number of months to add (may be negative).
-     * @return {?} A new date equal to the given one with the specified number of months added.
-     */
-    addCalendarMonths(date, months) { }
-    /**
-     * Adds the given number of days to the date. Days are counted as if moving one cell on the
-     * calendar for each day.
-     * @abstract
-     * @param {?} date The date to add days to.
-     * @param {?} days The number of days to add (may be negative).
-     * @return {?} A new date equal to the given one with the specified number of days added.
-     */
-    addCalendarDays(date, days) { }
-    /**
-     * Gets the RFC 3339 compatible string (https://tools.ietf.org/html/rfc3339) for the given date.
-     * This method is used to generate date strings that are compatible with native HTML attributes
-     * such as the `min` or `max` attribute of an `<input>`.
-     * @abstract
-     * @param {?} date The date to get the ISO date string for.
-     * @return {?} The ISO date string date string.
-     */
-    toIso8601(date) { }
-    /**
-     * Checks whether the given object is considered a date instance by this DateAdapter.
-     * @abstract
-     * @param {?} obj The object to check
-     * @return {?} Whether the object is a date instance.
-     */
-    isDateInstance(obj) { }
-    /**
-     * Checks whether the given date is valid.
-     * @abstract
-     * @param {?} date The date to check.
-     * @return {?} Whether the date is valid.
-     */
-    isValid(date) { }
-    /**
-     * Gets date instance that is not valid.
-     * @abstract
-     * @return {?} An invalid date.
-     */
-    invalid() { }
     /**
      * Attempts to deserialize a value to a valid date object. This is different from parsing in that
      * deserialize should only accept non-ambiguous, locale-independent formats (e.g. a ISO 8601
@@ -463,8 +357,8 @@ class DateAdapter {
      * Checks if two dates are equal.
      * @param {?} first The first date to check.
      * @param {?} second The second date to check.
+     * @return {?} Whether the two dates are equal.
      *     Null dates are considered equal to other null dates.
-     * @return {?}
      */
     sameDate(first, second) {
         if (first && second) {
@@ -497,6 +391,10 @@ class DateAdapter {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Extends an object with the *enumerable* and *own* properties of one or more source objects,
  * similar to Object.assign.
  *
@@ -521,6 +419,11 @@ function extendObject(dest, ...sources) {
 }
 
 /**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Whether the browser supports the Intl API.
  */
 const SUPPORTS_INTL_API = typeof Intl != 'undefined';
@@ -535,10 +438,11 @@ const DEFAULT_MONTH_NAMES = {
     'short': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 };
+const ɵ0$1 = i => String(i + 1);
 /**
  * The default date names to use if Intl API is not available.
  */
-const DEFAULT_DATE_NAMES = range(31, i => String(i + 1));
+const DEFAULT_DATE_NAMES = range(31, ɵ0$1);
 /**
  * The default day of the week names to use if Intl API is not available.
  */
@@ -860,15 +764,22 @@ class NativeDateAdapter extends DateAdapter {
 NativeDateAdapter.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 NativeDateAdapter.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_LOCALE,] },] },
 ];
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 const MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
@@ -881,6 +792,11 @@ const MAT_NATIVE_DATE_FORMATS = {
     }
 };
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 class NativeDateModule {
 }
 NativeDateModule.decorators = [
@@ -891,22 +807,24 @@ NativeDateModule.decorators = [
                 ],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 NativeDateModule.ctorParameters = () => [];
+const ɵ0$$1 = MAT_NATIVE_DATE_FORMATS;
 class MatNativeDateModule {
 }
 MatNativeDateModule.decorators = [
     { type: NgModule, args: [{
                 imports: [NativeDateModule],
-                providers: [{ provide: MAT_DATE_FORMATS, useValue: MAT_NATIVE_DATE_FORMATS }],
+                providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$$1 }],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatNativeDateModule.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Error state matcher that matches when a control is invalid and dirty.
@@ -924,9 +842,7 @@ class ShowOnDirtyErrorStateMatcher {
 ShowOnDirtyErrorStateMatcher.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ShowOnDirtyErrorStateMatcher.ctorParameters = () => [];
 /**
  * Provider that defines how form controls behave with regards to displaying error messages.
@@ -944,15 +860,18 @@ class ErrorStateMatcher {
 ErrorStateMatcher.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 ErrorStateMatcher.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class GestureConfig extends HammerGestureConfig {
     constructor() {
         super();
-        this._hammer = typeof window !== 'undefined' ? ((window)).Hammer : null;
+        this._hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
         /* List of new event names to add to the gesture support list */
         this.events = this._hammer ? [
             'longpress',
@@ -995,7 +914,7 @@ class GestureConfig extends HammerGestureConfig {
         pan.recognizeWith(swipe);
         // Add customized gestures to Hammer manager
         mc.add([swipe, press, pan, slide, longpress]);
-        return (mc);
+        return /** @type {?} */ (mc);
     }
     /**
      * Creates a new recognizer, without affecting the default recognizers of HammerJS
@@ -1005,7 +924,7 @@ class GestureConfig extends HammerGestureConfig {
      * @return {?}
      */
     _createRecognizer(base, options, ...inheritances) {
-        let /** @type {?} */ recognizer = new ((base.constructor))(options);
+        let /** @type {?} */ recognizer = new (/** @type {?} */ (base.constructor))(options);
         inheritances.push(base);
         inheritances.forEach(item => recognizer.recognizeWith(item));
         return recognizer;
@@ -1014,10 +933,13 @@ class GestureConfig extends HammerGestureConfig {
 GestureConfig.decorators = [
     { type: Injectable },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 GestureConfig.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Shared directive to count lines inside a text area, such as a list item.
@@ -1032,9 +954,7 @@ MatLine.decorators = [
                 host: { 'class': 'mat-line' }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatLine.ctorParameters = () => [];
 /**
  * Helper that takes a query list of lines and sets the correct class on the host.
@@ -1099,16 +1019,20 @@ MatLineModule.decorators = [
                 declarations: [MatLine],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatLineModule.ctorParameters = () => [];
 
-let RippleState = {};
-RippleState.FADING_IN = 0;
-RippleState.VISIBLE = 1;
-RippleState.FADING_OUT = 2;
-RippleState.HIDDEN = 3;
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/** @enum {number} */
+const RippleState = {
+    FADING_IN: 0,
+    VISIBLE: 1,
+    FADING_OUT: 2,
+    HIDDEN: 3,
+};
 RippleState[RippleState.FADING_IN] = "FADING_IN";
 RippleState[RippleState.VISIBLE] = "VISIBLE";
 RippleState[RippleState.FADING_OUT] = "FADING_OUT";
@@ -1140,6 +1064,10 @@ class RippleRef {
     }
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Fade-in duration for the ripples. Can be modified with the speedFactor option.
  */
@@ -1276,7 +1204,7 @@ class RippleRenderer {
         // Remove all previously register event listeners from the trigger element.
         if (this._triggerElement) {
             this._triggerEvents.forEach((fn, type) => {
-                ((this._triggerElement)).removeEventListener(type, fn);
+                /** @type {?} */ ((this._triggerElement)).removeEventListener(type, fn);
             });
         }
         if (element) {
@@ -1325,6 +1253,7 @@ class RippleRenderer {
     }
 }
 /**
+ * Enforces a style recalculation of a DOM element by computing its styles.
  * @param {?} element
  * @return {?}
  */
@@ -1346,6 +1275,15 @@ function distanceToFurthestCorner(x, y, rect) {
     const /** @type {?} */ distY = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
     return Math.sqrt(distX * distX + distY * distY);
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @record
+ */
 
 /**
  * Injection token that can be used to specify the global ripple options.
@@ -1440,9 +1378,7 @@ MatRipple.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatRipple.ctorParameters = () => [
     { type: ElementRef, },
     { type: NgZone, },
@@ -1450,14 +1386,19 @@ MatRipple.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
 ];
 MatRipple.propDecorators = {
-    'trigger': [{ type: Input, args: ['matRippleTrigger',] },],
-    'centered': [{ type: Input, args: ['matRippleCentered',] },],
-    'disabled': [{ type: Input, args: ['matRippleDisabled',] },],
-    'radius': [{ type: Input, args: ['matRippleRadius',] },],
-    'speedFactor': [{ type: Input, args: ['matRippleSpeedFactor',] },],
-    'color': [{ type: Input, args: ['matRippleColor',] },],
-    'unbounded': [{ type: Input, args: ['matRippleUnbounded',] },],
+    "trigger": [{ type: Input, args: ['matRippleTrigger',] },],
+    "centered": [{ type: Input, args: ['matRippleCentered',] },],
+    "disabled": [{ type: Input, args: ['matRippleDisabled',] },],
+    "radius": [{ type: Input, args: ['matRippleRadius',] },],
+    "speedFactor": [{ type: Input, args: ['matRippleSpeedFactor',] },],
+    "color": [{ type: Input, args: ['matRippleColor',] },],
+    "unbounded": [{ type: Input, args: ['matRippleUnbounded',] },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatRippleModule {
 }
@@ -1468,10 +1409,13 @@ MatRippleModule.decorators = [
                 declarations: [MatRipple],
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatRippleModule.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
@@ -1513,14 +1457,17 @@ MatPseudoCheckbox.decorators = [
                 },
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatPseudoCheckbox.ctorParameters = () => [];
 MatPseudoCheckbox.propDecorators = {
-    'state': [{ type: Input },],
-    'disabled': [{ type: Input },],
+    "state": [{ type: Input },],
+    "disabled": [{ type: Input },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatPseudoCheckboxModule {
 }
@@ -1530,10 +1477,13 @@ MatPseudoCheckboxModule.decorators = [
                 declarations: [MatPseudoCheckbox]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatPseudoCheckboxModule.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * \@docs-private
@@ -1572,13 +1522,16 @@ MatOptgroup.decorators = [
                 }
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatOptgroup.ctorParameters = () => [];
 MatOptgroup.propDecorators = {
-    'label': [{ type: Input },],
+    "label": [{ type: Input },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
@@ -1598,6 +1551,13 @@ class MatOptionSelectionChange {
         this.isUserInput = isUserInput;
     }
 }
+/**
+ * Describes a parent component that manages a list of options.
+ * Contains properties that the options can inherit.
+ * \@docs-private
+ * @record
+ */
+
 /**
  * Injection token used to provide the parent component to options.
  */
@@ -1825,9 +1785,7 @@ MatOption.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatOption.ctorParameters = () => [
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
@@ -1835,10 +1793,15 @@ MatOption.ctorParameters = () => [
     { type: MatOptgroup, decorators: [{ type: Optional },] },
 ];
 MatOption.propDecorators = {
-    'value': [{ type: Input },],
-    'disabled': [{ type: Input },],
-    'onSelectionChange': [{ type: Output },],
+    "value": [{ type: Input },],
+    "disabled": [{ type: Input },],
+    "onSelectionChange": [{ type: Output },],
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 class MatOptionModule {
 }
@@ -1849,16 +1812,26 @@ MatOptionModule.decorators = [
                 declarations: [MatOption, MatOptgroup]
             },] },
 ];
-/**
- * @nocollapse
- */
+/** @nocollapse */
 MatOptionModule.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * InjectionToken that can be used to specify the global placeholder options.
  */
 const MAT_PLACEHOLDER_GLOBAL_OPTIONS = new InjectionToken('mat-placeholder-global-options');
+/**
+ * @record
+ */
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Applies a CSS transform to an element, including browser-prefixed properties.
  * @param {?} element
@@ -1873,6 +1846,15 @@ function applyCssTransform(element, transformValue) {
     element.style.webkitTransform = value;
 }
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
@@ -1890,6 +1872,15 @@ const OCT = 9;
 const NOV = 10;
 const DEC = 11;
 
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Generated bundle index. Do not edit.
  */
