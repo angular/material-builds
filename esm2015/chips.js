@@ -946,13 +946,7 @@ class MatChipList {
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what chip the user interacted with last.
             if (correspondingChip) {
-                const /** @type {?} */ correspondingChipIndex = this.chips.toArray().indexOf(correspondingChip);
-                if (isUserInput) {
-                    this._keyManager.setActiveItem(correspondingChipIndex);
-                }
-                else {
-                    this._keyManager.updateActiveItemIndex(correspondingChipIndex);
-                }
+                this._keyManager.setActiveItem(this.chips.toArray().indexOf(correspondingChip));
             }
         }
     }

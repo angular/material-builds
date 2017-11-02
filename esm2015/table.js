@@ -418,12 +418,11 @@ class MatTableDataSource {
         // If there is a filter string, filter out data that does not contain it.
         // Each data object is converted to a string using the function defined by filterTermAccessor.
         // May be overriden for customization.
-        this.filteredData =
-            !this.filter ? data : data.filter(obj => this.filterPredicate(obj, this.filter));
+        const /** @type {?} */ filteredData = !this.filter ? data : data.filter(obj => this.filterPredicate(obj, this.filter));
         if (this.paginator) {
-            this._updatePaginator(this.filteredData.length);
+            this._updatePaginator(filteredData.length);
         }
-        return this.filteredData;
+        return filteredData;
     }
     /**
      * Returns a sorted copy of the data if MatSort has a sort applied, otherwise just returns the

@@ -1070,7 +1070,7 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _calculateOverlayOffsetX() {
         const /** @type {?} */ overlayRect = this.overlayDir.overlayRef.overlayElement.getBoundingClientRect();
-        const /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
+        const /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
         const /** @type {?} */ isRtl = this._isRtl();
         const /** @type {?} */ paddingWidth = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
             SELECT_PANEL_PADDING_X * 2;
@@ -1089,7 +1089,7 @@ class MatSelect extends _MatSelectMixinBase {
         }
         // Determine how much the select overflows on each side.
         const /** @type {?} */ leftOverflow = 0 - (overlayRect.left + offsetX - (isRtl ? paddingWidth : 0));
-        const /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportSize.width
+        const /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportRect.width
             + (isRtl ? 0 : paddingWidth);
         // If the element overflows on either side, reduce the offset to allow it to fit.
         if (leftOverflow > 0) {
@@ -1153,9 +1153,9 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _checkOverlayWithinViewport(maxScroll) {
         const /** @type {?} */ itemHeight = this._getItemHeight();
-        const /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
+        const /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
         const /** @type {?} */ topSpaceAvailable = this._triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
-        const /** @type {?} */ bottomSpaceAvailable = viewportSize.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
+        const /** @type {?} */ bottomSpaceAvailable = viewportRect.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
         const /** @type {?} */ panelHeightTop = Math.abs(this._offsetY);
         const /** @type {?} */ totalPanelHeight = Math.min(this._getItemCount() * itemHeight, SELECT_PANEL_MAX_HEIGHT);
         const /** @type {?} */ panelHeightBottom = totalPanelHeight - panelHeightTop - this._triggerRect.height;

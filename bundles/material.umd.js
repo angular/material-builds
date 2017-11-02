@@ -4332,12 +4332,6 @@ var MatButtonToggleGroup = (function (_super) {
          */
         _this._onTouched = function () { };
         /**
-         * Event that emits whenever the value of the group changes.
-         * Used to facilitate two-way data binding.
-         * \@docs-private
-         */
-        _this.valueChange = new _angular_core.EventEmitter();
-        /**
          * Event emitted when the group's value changes.
          */
         _this.change = new _angular_core.EventEmitter();
@@ -4395,7 +4389,6 @@ var MatButtonToggleGroup = (function (_super) {
         function (newValue) {
             if (this._value != newValue) {
                 this._value = newValue;
-                this.valueChange.emit(newValue);
                 this._updateSelectedButtonToggleFromValue();
             }
         },
@@ -4585,7 +4578,6 @@ var MatButtonToggleGroup = (function (_super) {
         "name": [{ type: _angular_core.Input },],
         "vertical": [{ type: _angular_core.Input },],
         "value": [{ type: _angular_core.Input },],
-        "valueChange": [{ type: _angular_core.Output },],
         "selected": [{ type: _angular_core.Input },],
         "change": [{ type: _angular_core.Output },],
     };
@@ -7116,13 +7108,7 @@ var MatChipList = (function () {
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what chip the user interacted with last.
             if (correspondingChip) {
-                var /** @type {?} */ correspondingChipIndex = this.chips.toArray().indexOf(correspondingChip);
-                if (isUserInput) {
-                    this._keyManager.setActiveItem(correspondingChipIndex);
-                }
-                else {
-                    this._keyManager.updateActiveItemIndex(correspondingChipIndex);
-                }
+                this._keyManager.setActiveItem(this.chips.toArray().indexOf(correspondingChip));
             }
         }
     };
@@ -17404,7 +17390,7 @@ var MatSelect = (function (_super) {
      */
     function () {
         var /** @type {?} */ overlayRect = this.overlayDir.overlayRef.overlayElement.getBoundingClientRect();
-        var /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
+        var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
         var /** @type {?} */ isRtl = this._isRtl();
         var /** @type {?} */ paddingWidth = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
             SELECT_PANEL_PADDING_X * 2;
@@ -17423,7 +17409,7 @@ var MatSelect = (function (_super) {
         }
         // Determine how much the select overflows on each side.
         var /** @type {?} */ leftOverflow = 0 - (overlayRect.left + offsetX - (isRtl ? paddingWidth : 0));
-        var /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportSize.width
+        var /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportRect.width
             + (isRtl ? 0 : paddingWidth);
         // If the element overflows on either side, reduce the offset to allow it to fit.
         if (leftOverflow > 0) {
@@ -17504,9 +17490,9 @@ var MatSelect = (function (_super) {
      */
     function (maxScroll) {
         var /** @type {?} */ itemHeight = this._getItemHeight();
-        var /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
+        var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
         var /** @type {?} */ topSpaceAvailable = this._triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
-        var /** @type {?} */ bottomSpaceAvailable = viewportSize.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
+        var /** @type {?} */ bottomSpaceAvailable = viewportRect.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
         var /** @type {?} */ panelHeightTop = Math.abs(this._offsetY);
         var /** @type {?} */ totalPanelHeight = Math.min(this._getItemCount() * itemHeight, SELECT_PANEL_MAX_HEIGHT);
         var /** @type {?} */ panelHeightBottom = totalPanelHeight - panelHeightTop - this._triggerRect.height;
@@ -25161,12 +25147,11 @@ var MatTableDataSource = (function () {
         // If there is a filter string, filter out data that does not contain it.
         // Each data object is converted to a string using the function defined by filterTermAccessor.
         // May be overriden for customization.
-        this.filteredData =
-            !this.filter ? data : data.filter(function (obj) { return _this.filterPredicate(obj, _this.filter); });
+        var /** @type {?} */ filteredData = !this.filter ? data : data.filter(function (obj) { return _this.filterPredicate(obj, _this.filter); });
         if (this.paginator) {
-            this._updatePaginator(this.filteredData.length);
+            this._updatePaginator(filteredData.length);
         }
-        return this.filteredData;
+        return filteredData;
     };
     /**
      * Returns a sorted copy of the data if MatSort has a sort applied, otherwise just returns the
@@ -27328,7 +27313,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.12-ee4915c');
+var VERSION = new _angular_core.Version('2.0.0-beta.12-c8df2c1');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27545,10 +27530,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa19 = MatMenuItemBase;
-exports.ɵb19 = _MatMenuItemMixinBase;
-exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;

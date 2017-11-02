@@ -103,12 +103,6 @@ var MatButtonToggleGroup = (function (_super) {
          */
         _this._onTouched = function () { };
         /**
-         * Event that emits whenever the value of the group changes.
-         * Used to facilitate two-way data binding.
-         * \@docs-private
-         */
-        _this.valueChange = new _angular_core.EventEmitter();
-        /**
          * Event emitted when the group's value changes.
          */
         _this.change = new _angular_core.EventEmitter();
@@ -166,7 +160,6 @@ var MatButtonToggleGroup = (function (_super) {
         function (newValue) {
             if (this._value != newValue) {
                 this._value = newValue;
-                this.valueChange.emit(newValue);
                 this._updateSelectedButtonToggleFromValue();
             }
         },
@@ -356,7 +349,6 @@ var MatButtonToggleGroup = (function (_super) {
         "name": [{ type: _angular_core.Input },],
         "vertical": [{ type: _angular_core.Input },],
         "value": [{ type: _angular_core.Input },],
-        "valueChange": [{ type: _angular_core.Output },],
         "selected": [{ type: _angular_core.Input },],
         "change": [{ type: _angular_core.Output },],
     };
