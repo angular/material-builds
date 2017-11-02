@@ -385,8 +385,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _adjustPanelDown(panelHeightTop, topSpaceAvailable, maxScroll);
     /** Sets the transform origin point based on the selected option. */
     private _getOriginBasedOnOption();
-    /** Handles the user pressing the arrow keys on a closed select.  */
-    private _handleClosedArrowKey(event);
     /** Calculates the amount of items in the select. This includes options and group labels. */
     private _getItemCount();
     /** Calculates the height of the select's options. */

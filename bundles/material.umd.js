@@ -4332,6 +4332,12 @@ var MatButtonToggleGroup = (function (_super) {
          */
         _this._onTouched = function () { };
         /**
+         * Event that emits whenever the value of the group changes.
+         * Used to facilitate two-way data binding.
+         * \@docs-private
+         */
+        _this.valueChange = new _angular_core.EventEmitter();
+        /**
          * Event emitted when the group's value changes.
          */
         _this.change = new _angular_core.EventEmitter();
@@ -4389,6 +4395,7 @@ var MatButtonToggleGroup = (function (_super) {
         function (newValue) {
             if (this._value != newValue) {
                 this._value = newValue;
+                this.valueChange.emit(newValue);
                 this._updateSelectedButtonToggleFromValue();
             }
         },
@@ -4578,6 +4585,7 @@ var MatButtonToggleGroup = (function (_super) {
         "name": [{ type: _angular_core.Input },],
         "vertical": [{ type: _angular_core.Input },],
         "value": [{ type: _angular_core.Input },],
+        "valueChange": [{ type: _angular_core.Output },],
         "selected": [{ type: _angular_core.Input },],
         "change": [{ type: _angular_core.Output },],
     };
@@ -7108,7 +7116,13 @@ var MatChipList = (function () {
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what chip the user interacted with last.
             if (correspondingChip) {
-                this._keyManager.setActiveItem(this.chips.toArray().indexOf(correspondingChip));
+                var /** @type {?} */ correspondingChipIndex = this.chips.toArray().indexOf(correspondingChip);
+                if (isUserInput) {
+                    this._keyManager.setActiveItem(correspondingChipIndex);
+                }
+                else {
+                    this._keyManager.updateActiveItemIndex(correspondingChipIndex);
+                }
             }
         }
     };
@@ -16615,9 +16629,9 @@ var MatSelect = (function (_super) {
         // Note: The computed font-size will be a string pixel value (e.g. "16px").
         // `parseInt` ignores the trailing 'px' and converts this to a number.
         this._triggerFontSize = parseInt(getComputedStyle(this.trigger.nativeElement)['font-size']);
+        this._panelOpen = true;
         this._calculateOverlayPosition();
         this._highlightCorrectOption();
-        this._panelOpen = true;
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
         this._ngZone.onStable.asObservable().pipe(rxjs_operators_first.first()).subscribe(function () {
@@ -16831,12 +16845,15 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     function (event) {
-        if (event.keyCode === _angular_cdk_keycodes.ENTER || event.keyCode === _angular_cdk_keycodes.SPACE) {
+        var /** @type {?} */ keyCode = event.keyCode;
+        var /** @type {?} */ isArrowKey = keyCode === _angular_cdk_keycodes.DOWN_ARROW || keyCode === _angular_cdk_keycodes.UP_ARROW;
+        var /** @type {?} */ isOpenKey = keyCode === _angular_cdk_keycodes.ENTER || keyCode === _angular_cdk_keycodes.SPACE;
+        if (isOpenKey || (this.multiple && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
         }
-        else if (event.keyCode === _angular_cdk_keycodes.UP_ARROW || event.keyCode === _angular_cdk_keycodes.DOWN_ARROW) {
-            this._handleClosedArrowKey(event);
+        else if (!this.multiple) {
+            this._keyManager.onKeydown(event);
         }
     };
     /**
@@ -17101,7 +17118,14 @@ var MatSelect = (function (_super) {
         var _this = this;
         this._keyManager = new _angular_cdk_a11y.ActiveDescendantKeyManager(this.options).withTypeAhead();
         this._keyManager.tabOut.pipe(rxjs_operators_takeUntil.takeUntil(this._destroy)).subscribe(function () { return _this.close(); });
-        this._keyManager.change.pipe(rxjs_operators_takeUntil.takeUntil(this._destroy), rxjs_operators_filter.filter(function () { return _this._panelOpen && !!_this.panel; })).subscribe(function () { return _this._scrollActiveOptionIntoView(); });
+        this._keyManager.change.pipe(rxjs_operators_takeUntil.takeUntil(this._destroy)).subscribe(function () {
+            if (_this._panelOpen && _this.panel) {
+                _this._scrollActiveOptionIntoView();
+            }
+            else if (!_this._panelOpen && !_this.multiple && _this._keyManager.activeItem) {
+                _this._keyManager.activeItem._selectViaInteraction();
+            }
+        });
     };
     /**
      * Drops current option subscriptions and IDs and resets from scratch.
@@ -17390,7 +17414,7 @@ var MatSelect = (function (_super) {
      */
     function () {
         var /** @type {?} */ overlayRect = this.overlayDir.overlayRef.overlayElement.getBoundingClientRect();
-        var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
+        var /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
         var /** @type {?} */ isRtl = this._isRtl();
         var /** @type {?} */ paddingWidth = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
             SELECT_PANEL_PADDING_X * 2;
@@ -17409,7 +17433,7 @@ var MatSelect = (function (_super) {
         }
         // Determine how much the select overflows on each side.
         var /** @type {?} */ leftOverflow = 0 - (overlayRect.left + offsetX - (isRtl ? paddingWidth : 0));
-        var /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportRect.width
+        var /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportSize.width
             + (isRtl ? 0 : paddingWidth);
         // If the element overflows on either side, reduce the offset to allow it to fit.
         if (leftOverflow > 0) {
@@ -17490,9 +17514,9 @@ var MatSelect = (function (_super) {
      */
     function (maxScroll) {
         var /** @type {?} */ itemHeight = this._getItemHeight();
-        var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
+        var /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
         var /** @type {?} */ topSpaceAvailable = this._triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
-        var /** @type {?} */ bottomSpaceAvailable = viewportRect.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
+        var /** @type {?} */ bottomSpaceAvailable = viewportSize.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
         var /** @type {?} */ panelHeightTop = Math.abs(this._offsetY);
         var /** @type {?} */ totalPanelHeight = Math.min(this._getItemCount() * itemHeight, SELECT_PANEL_MAX_HEIGHT);
         var /** @type {?} */ panelHeightBottom = totalPanelHeight - panelHeightTop - this._triggerRect.height;
@@ -17580,35 +17604,6 @@ var MatSelect = (function (_super) {
         var /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
         var /** @type {?} */ originY = Math.abs(this._offsetY) - optionHeightAdjustment + itemHeight / 2;
         return "50% " + originY + "px 0px";
-    };
-    /**
-     * Handles the user pressing the arrow keys on a closed select.
-     * @param {?} event
-     * @return {?}
-     */
-    MatSelect.prototype._handleClosedArrowKey = /**
-     * Handles the user pressing the arrow keys on a closed select.
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        if (this._multiple) {
-            event.preventDefault();
-            this.open();
-        }
-        else {
-            var /** @type {?} */ prevActiveItem = this._keyManager.activeItem;
-            // Cycle though the select options even when the select is closed,
-            // matching the behavior of the native select element.
-            // TODO(crisbeto): native selects also cycle through the options with left/right arrows,
-            // however the key manager only supports up/down at the moment.
-            this._keyManager.onKeydown(event);
-            var /** @type {?} */ currentActiveItem = this._keyManager.activeItem;
-            if (currentActiveItem && currentActiveItem !== prevActiveItem) {
-                this._clearSelection();
-                this._setSelectionByValue(currentActiveItem.value, true);
-            }
-        }
     };
     /**
      * Calculates the amount of items in the select. This includes options and group labels.
@@ -18674,6 +18669,23 @@ var MatPaginatorIntl = (function () {
     MatPaginatorIntl.ctorParameters = function () { return []; };
     return MatPaginatorIntl;
 }());
+/**
+ * \@docs-private
+ * @param {?} parentIntl
+ * @return {?}
+ */
+function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl) {
+    return parentIntl || new MatPaginatorIntl();
+}
+/**
+ * \@docs-private
+ */
+var MAT_PAGINATOR_INTL_PROVIDER = {
+    // If there is already an MatPaginatorIntl available, use that. Otherwise, provide a new one.
+    provide: MatPaginatorIntl,
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), MatPaginatorIntl]],
+    useFactory: MAT_PAGINATOR_INTL_PROVIDER_FACTORY
+};
 
 /**
  * @fileoverview added by tsickle
@@ -18981,7 +18993,7 @@ var MatPaginatorModule = (function () {
                     ],
                     exports: [MatPaginator],
                     declarations: [MatPaginator],
-                    providers: [MatPaginatorIntl],
+                    providers: [MAT_PAGINATOR_INTL_PROVIDER],
                 },] },
     ];
     /** @nocollapse */
@@ -19898,7 +19910,7 @@ var MatRadioGroup = (function (_super) {
     ]; };
     MatRadioGroup.propDecorators = {
         "change": [{ type: _angular_core.Output },],
-        "_radios": [{ type: _angular_core.ContentChildren, args: [_angular_core.forwardRef(function () { return MatRadioButton; }),] },],
+        "_radios": [{ type: _angular_core.ContentChildren, args: [_angular_core.forwardRef(function () { return MatRadioButton; }), { descendants: true },] },],
         "name": [{ type: _angular_core.Input },],
         "align": [{ type: _angular_core.Input },],
         "labelPosition": [{ type: _angular_core.Input },],
@@ -25147,11 +25159,12 @@ var MatTableDataSource = (function () {
         // If there is a filter string, filter out data that does not contain it.
         // Each data object is converted to a string using the function defined by filterTermAccessor.
         // May be overriden for customization.
-        var /** @type {?} */ filteredData = !this.filter ? data : data.filter(function (obj) { return _this.filterPredicate(obj, _this.filter); });
+        this.filteredData =
+            !this.filter ? data : data.filter(function (obj) { return _this.filterPredicate(obj, _this.filter); });
         if (this.paginator) {
-            this._updatePaginator(filteredData.length);
+            this._updatePaginator(this.filteredData.length);
         }
-        return filteredData;
+        return this.filteredData;
     };
     /**
      * Returns a sorted copy of the data if MatSort has a sort applied, otherwise just returns the
@@ -25681,7 +25694,7 @@ var MatTabBody = (function () {
     MatTabBody.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-tab-body',
                     template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template cdkPortalOutlet></ng-template></div>",
-                    styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
+                    styles: [".mat-tab-body-content{-webkit-backface-visibility:hidden;backface-visibility:hidden;height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -27313,7 +27326,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.12-c8df2c1');
+var VERSION = new _angular_core.Version('2.0.0-beta.12-55476e2');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27546,6 +27559,8 @@ exports.MatPaginatorModule = MatPaginatorModule;
 exports.PageEvent = PageEvent;
 exports.MatPaginator = MatPaginator;
 exports.MatPaginatorIntl = MatPaginatorIntl;
+exports.MAT_PAGINATOR_INTL_PROVIDER_FACTORY = MAT_PAGINATOR_INTL_PROVIDER_FACTORY;
+exports.MAT_PAGINATOR_INTL_PROVIDER = MAT_PAGINATOR_INTL_PROVIDER;
 exports.MatProgressBarModule = MatProgressBarModule;
 exports.MatProgressBar = MatProgressBar;
 exports.MatProgressSpinnerModule = MatProgressSpinnerModule;

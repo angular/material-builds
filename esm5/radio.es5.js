@@ -443,7 +443,7 @@ var MatRadioGroup = (function (_super) {
     ]; };
     MatRadioGroup.propDecorators = {
         "change": [{ type: Output },],
-        "_radios": [{ type: ContentChildren, args: [forwardRef(function () { return MatRadioButton; }),] },],
+        "_radios": [{ type: ContentChildren, args: [forwardRef(function () { return MatRadioButton; }), { descendants: true },] },],
         "name": [{ type: Input },],
         "align": [{ type: Input },],
         "labelPosition": [{ type: Input },],

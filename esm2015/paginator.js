@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Injectable, Input, NgModule, Output, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Injectable, Input, NgModule, Optional, Output, SkipSelf, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -62,6 +62,23 @@ MatPaginatorIntl.decorators = [
 ];
 /** @nocollapse */
 MatPaginatorIntl.ctorParameters = () => [];
+/**
+ * \@docs-private
+ * @param {?} parentIntl
+ * @return {?}
+ */
+function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl) {
+    return parentIntl || new MatPaginatorIntl();
+}
+/**
+ * \@docs-private
+ */
+const MAT_PAGINATOR_INTL_PROVIDER = {
+    // If there is already an MatPaginatorIntl available, use that. Otherwise, provide a new one.
+    provide: MatPaginatorIntl,
+    deps: [[new Optional(), new SkipSelf(), MatPaginatorIntl]],
+    useFactory: MAT_PAGINATOR_INTL_PROVIDER_FACTORY
+};
 
 /**
  * @fileoverview added by tsickle
@@ -298,7 +315,7 @@ MatPaginatorModule.decorators = [
                 ],
                 exports: [MatPaginator],
                 declarations: [MatPaginator],
-                providers: [MatPaginatorIntl],
+                providers: [MAT_PAGINATOR_INTL_PROVIDER],
             },] },
 ];
 /** @nocollapse */
@@ -317,5 +334,5 @@ MatPaginatorModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatPaginatorModule, PageEvent, MatPaginator, MatPaginatorIntl };
+export { MatPaginatorModule, PageEvent, MatPaginator, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MAT_PAGINATOR_INTL_PROVIDER };
 //# sourceMappingURL=paginator.js.map

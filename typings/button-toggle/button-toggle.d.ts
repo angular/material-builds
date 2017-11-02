@@ -55,6 +55,12 @@ export declare class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase
     vertical: boolean;
     /** Value of the toggle group. */
     value: any;
+    /**
+     * Event that emits whenever the value of the group changes.
+     * Used to facilitate two-way data binding.
+     * @docs-private
+     */
+    valueChange: EventEmitter<any>;
     /** Whether the toggle group is selected. */
     selected: MatButtonToggle | null;
     /** Event emitted when the group's value changes. */

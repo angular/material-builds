@@ -464,7 +464,7 @@ var MatRadioGroup = (function (_super) {
     ]; };
     MatRadioGroup.propDecorators = {
         "change": [{ type: _angular_core.Output },],
-        "_radios": [{ type: _angular_core.ContentChildren, args: [_angular_core.forwardRef(function () { return MatRadioButton; }),] },],
+        "_radios": [{ type: _angular_core.ContentChildren, args: [_angular_core.forwardRef(function () { return MatRadioButton; }), { descendants: true },] },],
         "name": [{ type: _angular_core.Input },],
         "align": [{ type: _angular_core.Input },],
         "labelPosition": [{ type: _angular_core.Input },],

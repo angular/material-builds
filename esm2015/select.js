@@ -555,9 +555,9 @@ class MatSelect extends _MatSelectMixinBase {
         // Note: The computed font-size will be a string pixel value (e.g. "16px").
         // `parseInt` ignores the trailing 'px' and converts this to a number.
         this._triggerFontSize = parseInt(getComputedStyle(this.trigger.nativeElement)['font-size']);
+        this._panelOpen = true;
         this._calculateOverlayPosition();
         this._highlightCorrectOption();
-        this._panelOpen = true;
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
         this._ngZone.onStable.asObservable().pipe(first()).subscribe(() => {
@@ -679,12 +679,15 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _handleClosedKeydown(event) {
-        if (event.keyCode === ENTER || event.keyCode === SPACE) {
+        const /** @type {?} */ keyCode = event.keyCode;
+        const /** @type {?} */ isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
+        const /** @type {?} */ isOpenKey = keyCode === ENTER || keyCode === SPACE;
+        if (isOpenKey || (this.multiple && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
         }
-        else if (event.keyCode === UP_ARROW || event.keyCode === DOWN_ARROW) {
-            this._handleClosedArrowKey(event);
+        else if (!this.multiple) {
+            this._keyManager.onKeydown(event);
         }
     }
     /**
@@ -865,7 +868,14 @@ class MatSelect extends _MatSelectMixinBase {
     _initKeyManager() {
         this._keyManager = new ActiveDescendantKeyManager(this.options).withTypeAhead();
         this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe(() => this.close());
-        this._keyManager.change.pipe(takeUntil(this._destroy), filter(() => this._panelOpen && !!this.panel)).subscribe(() => this._scrollActiveOptionIntoView());
+        this._keyManager.change.pipe(takeUntil(this._destroy)).subscribe(() => {
+            if (this._panelOpen && this.panel) {
+                this._scrollActiveOptionIntoView();
+            }
+            else if (!this._panelOpen && !this.multiple && this._keyManager.activeItem) {
+                this._keyManager.activeItem._selectViaInteraction();
+            }
+        });
     }
     /**
      * Drops current option subscriptions and IDs and resets from scratch.
@@ -1070,7 +1080,7 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _calculateOverlayOffsetX() {
         const /** @type {?} */ overlayRect = this.overlayDir.overlayRef.overlayElement.getBoundingClientRect();
-        const /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
+        const /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
         const /** @type {?} */ isRtl = this._isRtl();
         const /** @type {?} */ paddingWidth = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
             SELECT_PANEL_PADDING_X * 2;
@@ -1089,7 +1099,7 @@ class MatSelect extends _MatSelectMixinBase {
         }
         // Determine how much the select overflows on each side.
         const /** @type {?} */ leftOverflow = 0 - (overlayRect.left + offsetX - (isRtl ? paddingWidth : 0));
-        const /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportRect.width
+        const /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportSize.width
             + (isRtl ? 0 : paddingWidth);
         // If the element overflows on either side, reduce the offset to allow it to fit.
         if (leftOverflow > 0) {
@@ -1153,9 +1163,9 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _checkOverlayWithinViewport(maxScroll) {
         const /** @type {?} */ itemHeight = this._getItemHeight();
-        const /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
+        const /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
         const /** @type {?} */ topSpaceAvailable = this._triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
-        const /** @type {?} */ bottomSpaceAvailable = viewportRect.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
+        const /** @type {?} */ bottomSpaceAvailable = viewportSize.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
         const /** @type {?} */ panelHeightTop = Math.abs(this._offsetY);
         const /** @type {?} */ totalPanelHeight = Math.min(this._getItemCount() * itemHeight, SELECT_PANEL_MAX_HEIGHT);
         const /** @type {?} */ panelHeightBottom = totalPanelHeight - panelHeightTop - this._triggerRect.height;
@@ -1226,30 +1236,6 @@ class MatSelect extends _MatSelectMixinBase {
         const /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
         const /** @type {?} */ originY = Math.abs(this._offsetY) - optionHeightAdjustment + itemHeight / 2;
         return `50% ${originY}px 0px`;
-    }
-    /**
-     * Handles the user pressing the arrow keys on a closed select.
-     * @param {?} event
-     * @return {?}
-     */
-    _handleClosedArrowKey(event) {
-        if (this._multiple) {
-            event.preventDefault();
-            this.open();
-        }
-        else {
-            const /** @type {?} */ prevActiveItem = this._keyManager.activeItem;
-            // Cycle though the select options even when the select is closed,
-            // matching the behavior of the native select element.
-            // TODO(crisbeto): native selects also cycle through the options with left/right arrows,
-            // however the key manager only supports up/down at the moment.
-            this._keyManager.onKeydown(event);
-            const /** @type {?} */ currentActiveItem = this._keyManager.activeItem;
-            if (currentActiveItem && currentActiveItem !== prevActiveItem) {
-                this._clearSelection();
-                this._setSelectionByValue(currentActiveItem.value, true);
-            }
-        }
     }
     /**
      * Calculates the amount of items in the select. This includes options and group labels.

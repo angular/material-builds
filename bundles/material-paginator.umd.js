@@ -62,6 +62,23 @@ var MatPaginatorIntl = (function () {
     MatPaginatorIntl.ctorParameters = function () { return []; };
     return MatPaginatorIntl;
 }());
+/**
+ * \@docs-private
+ * @param {?} parentIntl
+ * @return {?}
+ */
+function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl) {
+    return parentIntl || new MatPaginatorIntl();
+}
+/**
+ * \@docs-private
+ */
+var MAT_PAGINATOR_INTL_PROVIDER = {
+    // If there is already an MatPaginatorIntl available, use that. Otherwise, provide a new one.
+    provide: MatPaginatorIntl,
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), MatPaginatorIntl]],
+    useFactory: MAT_PAGINATOR_INTL_PROVIDER_FACTORY
+};
 
 /**
  * @fileoverview added by tsickle
@@ -369,7 +386,7 @@ var MatPaginatorModule = (function () {
                     ],
                     exports: [MatPaginator],
                     declarations: [MatPaginator],
-                    providers: [MatPaginatorIntl],
+                    providers: [MAT_PAGINATOR_INTL_PROVIDER],
                 },] },
     ];
     /** @nocollapse */
@@ -381,6 +398,8 @@ exports.MatPaginatorModule = MatPaginatorModule;
 exports.PageEvent = PageEvent;
 exports.MatPaginator = MatPaginator;
 exports.MatPaginatorIntl = MatPaginatorIntl;
+exports.MAT_PAGINATOR_INTL_PROVIDER_FACTORY = MAT_PAGINATOR_INTL_PROVIDER_FACTORY;
+exports.MAT_PAGINATOR_INTL_PROVIDER = MAT_PAGINATOR_INTL_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

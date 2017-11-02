@@ -1,3 +1,11 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { Optional } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
@@ -18,3 +26,11 @@ export declare class MatPaginatorIntl {
     /** A label for the range of items within the current page and the length of the whole list. */
     getRangeLabel: (page: number, pageSize: number, length: number) => string;
 }
+/** @docs-private */
+export declare function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl: MatPaginatorIntl): MatPaginatorIntl;
+/** @docs-private */
+export declare const MAT_PAGINATOR_INTL_PROVIDER: {
+    provide: typeof MatPaginatorIntl;
+    deps: Optional[][];
+    useFactory: (parentIntl: MatPaginatorIntl) => MatPaginatorIntl;
+};

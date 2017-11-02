@@ -332,7 +332,7 @@ MatRadioGroup.ctorParameters = () => [
 ];
 MatRadioGroup.propDecorators = {
     "change": [{ type: Output },],
-    "_radios": [{ type: ContentChildren, args: [forwardRef(() => MatRadioButton),] },],
+    "_radios": [{ type: ContentChildren, args: [forwardRef(() => MatRadioButton), { descendants: true },] },],
     "name": [{ type: Input },],
     "align": [{ type: Input },],
     "labelPosition": [{ type: Input },],

@@ -431,7 +431,7 @@ var MatTabBody = (function () {
     MatTabBody.decorators = [
         { type: Component, args: [{selector: 'mat-tab-body',
                     template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template cdkPortalOutlet></ng-template></div>",
-                    styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
+                    styles: [".mat-tab-body-content{-webkit-backface-visibility:hidden;backface-visibility:hidden;height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,

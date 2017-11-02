@@ -75,6 +75,12 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
          */
         this._onTouched = () => { };
         /**
+         * Event that emits whenever the value of the group changes.
+         * Used to facilitate two-way data binding.
+         * \@docs-private
+         */
+        this.valueChange = new EventEmitter();
+        /**
          * Event emitted when the group's value changes.
          */
         this.change = new EventEmitter();
@@ -122,6 +128,7 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
     set value(newValue) {
         if (this._value != newValue) {
             this._value = newValue;
+            this.valueChange.emit(newValue);
             this._updateSelectedButtonToggleFromValue();
         }
     }
@@ -249,6 +256,7 @@ MatButtonToggleGroup.propDecorators = {
     "name": [{ type: Input },],
     "vertical": [{ type: Input },],
     "value": [{ type: Input },],
+    "valueChange": [{ type: Output },],
     "selected": [{ type: Input },],
     "change": [{ type: Output },],
 };
