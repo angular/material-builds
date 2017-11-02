@@ -358,6 +358,11 @@ var MatTableDataSource = (function () {
          */
         this.sortingDataAccessor = function (data, sortHeaderId) {
             var /** @type {?} */ value = data[sortHeaderId];
+            // If the value is a string and only whitespace, return the value.
+            // Otherwise +value will convert it to 0.
+            if (typeof value === 'string' && !value.trim()) {
+                return value;
+            }
             return isNaN(+value) ? value : +value;
         };
         /**
@@ -538,11 +543,12 @@ var MatTableDataSource = (function () {
         // If there is a filter string, filter out data that does not contain it.
         // Each data object is converted to a string using the function defined by filterTermAccessor.
         // May be overriden for customization.
-        var /** @type {?} */ filteredData = !this.filter ? data : data.filter(function (obj) { return _this.filterPredicate(obj, _this.filter); });
+        this.filteredData =
+            !this.filter ? data : data.filter(function (obj) { return _this.filterPredicate(obj, _this.filter); });
         if (this.paginator) {
-            this._updatePaginator(filteredData.length);
+            this._updatePaginator(this.filteredData.length);
         }
-        return filteredData;
+        return this.filteredData;
     };
     /**
      * Returns a sorted copy of the data if MatSort has a sort applied, otherwise just returns the

@@ -1230,5 +1230,5 @@ var MatMenuModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa21, _MatMenuItemMixinBase as ɵb21, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd21, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc21 };
+export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa19, _MatMenuItemMixinBase as ɵb19, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd19, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc19 };
 //# sourceMappingURL=menu.es5.js.map

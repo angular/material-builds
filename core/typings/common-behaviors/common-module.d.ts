@@ -15,11 +15,20 @@ export declare const MATERIAL_SANITY_CHECKS: InjectionToken<boolean>;
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 export declare class MatCommonModule {
+    private _sanityChecksEnabled;
     /** Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype). */
     private _hasDoneGlobalChecks;
+    /** Whether we've already checked for HammerJs availability. */
+    private _hasCheckedHammer;
     /** Reference to the global `document` object. */
     private _document;
-    constructor(sanityChecksEnabled: boolean);
-    private _checkDoctype();
-    private _checkTheme();
+    constructor(_sanityChecksEnabled: boolean);
+    /** Whether any sanity checks are enabled */
+    private _areChecksEnabled();
+    /** Whether the code is running in tests. */
+    private _isTestEnv();
+    private _checkDoctypeIsDefined();
+    private _checkThemeIsPresent();
+    /** Checks whether HammerJS is available. */
+    _checkHammerIsAvailable(): void;
 }

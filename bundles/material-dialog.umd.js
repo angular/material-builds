@@ -141,10 +141,6 @@ var MatDialogContainer = (function (_super) {
          * ID of the element that should be considered as the dialog's label.
          */
         _this._ariaLabelledBy = null;
-        /**
-         * Whether the container is currently mid-animation.
-         */
-        _this._isAnimating = false;
         return _this;
     }
     /**
@@ -202,20 +198,13 @@ var MatDialogContainer = (function (_super) {
      * @return {?}
      */
     function () {
-        var _this = this;
         if (!this._focusTrap) {
             this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
         }
         // If were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
-        this._focusTrap.focusInitialElementWhenReady().then(function (hasMovedFocus) {
-            // If we didn't find any focusable elements inside the dialog, focus the
-            // container so the user can't tab into other elements behind it.
-            if (!hasMovedFocus) {
-                _this._elementRef.nativeElement.focus();
-            }
-        });
+        this._focusTrap.focusInitialElementWhenReady();
     };
     /**
      * Restores focus to the element that was focused before the dialog opened.
@@ -244,8 +233,13 @@ var MatDialogContainer = (function (_super) {
      * @return {?}
      */
     function () {
+        var _this = this;
         if (this._document) {
             this._elementFocusedBeforeDialogWasOpened = /** @type {?} */ (this._document.activeElement);
+            // Move focus onto the dialog immediately in order to prevent the user from accidentally
+            // opening multiple dialogs at the same time. Needs to be async, because the element
+            // may not be focusable immediately.
+            Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
         }
     };
     /** Callback, invoked whenever an animation on the host completes. */
@@ -267,7 +261,6 @@ var MatDialogContainer = (function (_super) {
             this._restoreFocus();
         }
         this._animationStateChanged.emit(event);
-        this._isAnimating = false;
     };
     /** Callback, invoked when an animation on the host starts. */
     /**
@@ -281,7 +274,6 @@ var MatDialogContainer = (function (_super) {
      * @return {?}
      */
     function (event) {
-        this._isAnimating = true;
         this._animationStateChanged.emit(event);
     };
     /** Starts the dialog exit animation. */
@@ -544,18 +536,6 @@ var MatDialogRef = (function () {
         this._overlayRef.updatePosition();
         return this;
     };
-    /** Returns whether the dialog is animating. */
-    /**
-     * Returns whether the dialog is animating.
-     * @return {?}
-     */
-    MatDialogRef.prototype._isAnimating = /**
-     * Returns whether the dialog is animating.
-     * @return {?}
-     */
-    function () {
-        return this._containerInstance._isAnimating;
-    };
     /**
      * Fetches the position strategy object from the overlay ref.
      * @return {?}
@@ -685,11 +665,6 @@ var MatDialog = (function () {
      */
     function (componentOrTemplateRef, config) {
         var _this = this;
-        var /** @type {?} */ inProgressDialog = this.openDialogs.find(function (dialog) { return dialog._isAnimating(); });
-        // If there's a dialog that is in the process of being opened, return it instead.
-        if (inProgressDialog) {
-            return inProgressDialog;
-        }
         config = _applyConfigDefaults(config);
         if (config.id && this.getDialogById(config.id)) {
             throw Error("Dialog with id \"" + config.id + "\" exists already. The dialog id must be unique.");

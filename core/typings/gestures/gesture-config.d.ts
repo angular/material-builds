@@ -1,9 +1,10 @@
 import { HammerGestureConfig } from '@angular/platform-browser';
+import { MatCommonModule } from '../common-behaviors/common-module';
 import { HammerInstance } from './gesture-annotations';
 export declare class GestureConfig extends HammerGestureConfig {
     private _hammer;
     events: string[];
-    constructor();
+    constructor(commonModule?: MatCommonModule);
     /**
      * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
      *

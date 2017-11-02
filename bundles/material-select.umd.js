@@ -1394,7 +1394,7 @@ var MatSelect = (function (_super) {
      */
     function () {
         var /** @type {?} */ overlayRect = this.overlayDir.overlayRef.overlayElement.getBoundingClientRect();
-        var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
+        var /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
         var /** @type {?} */ isRtl = this._isRtl();
         var /** @type {?} */ paddingWidth = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
             SELECT_PANEL_PADDING_X * 2;
@@ -1413,7 +1413,7 @@ var MatSelect = (function (_super) {
         }
         // Determine how much the select overflows on each side.
         var /** @type {?} */ leftOverflow = 0 - (overlayRect.left + offsetX - (isRtl ? paddingWidth : 0));
-        var /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportRect.width
+        var /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportSize.width
             + (isRtl ? 0 : paddingWidth);
         // If the element overflows on either side, reduce the offset to allow it to fit.
         if (leftOverflow > 0) {
@@ -1494,9 +1494,9 @@ var MatSelect = (function (_super) {
      */
     function (maxScroll) {
         var /** @type {?} */ itemHeight = this._getItemHeight();
-        var /** @type {?} */ viewportRect = this._viewportRuler.getViewportRect();
+        var /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
         var /** @type {?} */ topSpaceAvailable = this._triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
-        var /** @type {?} */ bottomSpaceAvailable = viewportRect.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
+        var /** @type {?} */ bottomSpaceAvailable = viewportSize.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
         var /** @type {?} */ panelHeightTop = Math.abs(this._offsetY);
         var /** @type {?} */ totalPanelHeight = Math.min(this._getItemCount() * itemHeight, SELECT_PANEL_MAX_HEIGHT);
         var /** @type {?} */ panelHeightBottom = totalPanelHeight - panelHeightTop - this._triggerRect.height;

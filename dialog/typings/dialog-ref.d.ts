@@ -65,8 +65,6 @@ export declare class MatDialogRef<T> {
      * @param height New height of the dialog.
      */
     updateSize(width?: string, height?: string): this;
-    /** Returns whether the dialog is animating. */
-    _isAnimating(): boolean;
     /** Fetches the position strategy object from the overlay ref. */
     private _getPositionStrategy();
 }

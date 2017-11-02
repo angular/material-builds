@@ -1,3 +1,11 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { Optional } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { SortDirection } from './sort-direction';
 /**
@@ -15,3 +23,11 @@ export declare class MatSortHeaderIntl {
     /** A label to describe the current sort (visible only to screenreaders). */
     sortDescriptionLabel: (id: string, direction: SortDirection) => string;
 }
+/** @docs-private */
+export declare function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl: MatSortHeaderIntl): MatSortHeaderIntl;
+/** @docs-private */
+export declare const MAT_SORT_HEADER_INTL_PROVIDER: {
+    provide: typeof MatSortHeaderIntl;
+    deps: Optional[][];
+    useFactory: (parentIntl: MatSortHeaderIntl) => MatSortHeaderIntl;
+};

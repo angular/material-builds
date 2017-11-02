@@ -302,6 +302,11 @@ class MatTableDataSource {
          */
         this.sortingDataAccessor = (data, sortHeaderId) => {
             const /** @type {?} */ value = data[sortHeaderId];
+            // If the value is a string and only whitespace, return the value.
+            // Otherwise +value will convert it to 0.
+            if (typeof value === 'string' && !value.trim()) {
+                return value;
+            }
             return isNaN(+value) ? value : +value;
         };
         /**
@@ -413,11 +418,12 @@ class MatTableDataSource {
         // If there is a filter string, filter out data that does not contain it.
         // Each data object is converted to a string using the function defined by filterTermAccessor.
         // May be overriden for customization.
-        const /** @type {?} */ filteredData = !this.filter ? data : data.filter(obj => this.filterPredicate(obj, this.filter));
+        this.filteredData =
+            !this.filter ? data : data.filter(obj => this.filterPredicate(obj, this.filter));
         if (this.paginator) {
-            this._updatePaginator(filteredData.length);
+            this._updatePaginator(this.filteredData.length);
         }
-        return filteredData;
+        return this.filteredData;
     }
     /**
      * Returns a sorted copy of the data if MatSort has a sort applied, otherwise just returns the

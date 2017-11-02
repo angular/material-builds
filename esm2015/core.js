@@ -53,27 +53,46 @@ const MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks');
  */
 class MatCommonModule {
     /**
-     * @param {?} sanityChecksEnabled
+     * @param {?} _sanityChecksEnabled
      */
-    constructor(sanityChecksEnabled) {
+    constructor(_sanityChecksEnabled) {
+        this._sanityChecksEnabled = _sanityChecksEnabled;
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
         this._hasDoneGlobalChecks = false;
         /**
+         * Whether we've already checked for HammerJs availability.
+         */
+        this._hasCheckedHammer = false;
+        /**
          * Reference to the global `document` object.
          */
         this._document = typeof document === 'object' && document ? document : null;
-        if (sanityChecksEnabled && !this._hasDoneGlobalChecks && isDevMode()) {
-            this._checkDoctype();
-            this._checkTheme();
+        if (this._areChecksEnabled() && !this._hasDoneGlobalChecks) {
+            this._checkDoctypeIsDefined();
+            this._checkThemeIsPresent();
             this._hasDoneGlobalChecks = true;
         }
     }
     /**
+     * Whether any sanity checks are enabled
      * @return {?}
      */
-    _checkDoctype() {
+    _areChecksEnabled() {
+        return this._sanityChecksEnabled && isDevMode() && !this._isTestEnv();
+    }
+    /**
+     * Whether the code is running in tests.
+     * @return {?}
+     */
+    _isTestEnv() {
+        return window['__karma__'] || window['jasmine'];
+    }
+    /**
+     * @return {?}
+     */
+    _checkDoctypeIsDefined() {
         if (this._document && !this._document.doctype) {
             console.warn('Current document does not have a doctype. This may cause ' +
                 'some Angular Material components not to behave as expected.');
@@ -82,7 +101,7 @@ class MatCommonModule {
     /**
      * @return {?}
      */
-    _checkTheme() {
+    _checkThemeIsPresent() {
         if (this._document && typeof getComputedStyle === 'function') {
             const /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
@@ -98,6 +117,16 @@ class MatCommonModule {
             }
             this._document.body.removeChild(testElement);
         }
+    }
+    /**
+     * Checks whether HammerJS is available.
+     * @return {?}
+     */
+    _checkHammerIsAvailable() {
+        if (this._areChecksEnabled() && !this._hasCheckedHammer && !window['Hammer']) {
+            console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
+        }
+        this._hasCheckedHammer = true;
     }
 }
 MatCommonModule.decorators = [
@@ -869,7 +898,10 @@ ErrorStateMatcher.ctorParameters = () => [];
  */
 
 class GestureConfig extends HammerGestureConfig {
-    constructor() {
+    /**
+     * @param {?=} commonModule
+     */
+    constructor(commonModule) {
         super();
         this._hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
         /* List of new event names to add to the gesture support list */
@@ -881,9 +913,8 @@ class GestureConfig extends HammerGestureConfig {
             'slideright',
             'slideleft'
         ] : [];
-        if (!this._hammer && isDevMode()) {
-            console.warn('Could not find HammerJS. Certain Angular Material ' +
-                'components may not work correctly.');
+        if (commonModule) {
+            commonModule._checkHammerIsAvailable();
         }
     }
     /**
@@ -934,7 +965,9 @@ GestureConfig.decorators = [
     { type: Injectable },
 ];
 /** @nocollapse */
-GestureConfig.ctorParameters = () => [];
+GestureConfig.ctorParameters = () => [
+    { type: MatCommonModule, decorators: [{ type: Optional },] },
+];
 
 /**
  * @fileoverview added by tsickle

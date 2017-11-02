@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, EventEmitter, Injectable, Input, NgModule, Optional, Output, ViewEncapsulation, isDevMode } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, EventEmitter, Injectable, Input, NgModule, Optional, Output, SkipSelf, ViewEncapsulation, isDevMode } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { CdkColumnDef } from '@angular/cdk/table';
@@ -276,6 +276,23 @@ var MatSortHeaderIntl = (function () {
     MatSortHeaderIntl.ctorParameters = function () { return []; };
     return MatSortHeaderIntl;
 }());
+/**
+ * \@docs-private
+ * @param {?} parentIntl
+ * @return {?}
+ */
+function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
+    return parentIntl || new MatSortHeaderIntl();
+}
+/**
+ * \@docs-private
+ */
+var MAT_SORT_HEADER_INTL_PROVIDER = {
+    // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
+    provide: MatSortHeaderIntl,
+    deps: [[new Optional(), new SkipSelf(), MatSortHeaderIntl]],
+    useFactory: MAT_SORT_HEADER_INTL_PROVIDER_FACTORY
+};
 
 /**
  * @fileoverview added by tsickle
@@ -436,7 +453,7 @@ var MatSortModule = (function () {
                     imports: [CommonModule],
                     exports: [MatSort, MatSortHeader],
                     declarations: [MatSort, MatSortHeader],
-                    providers: [MatSortHeaderIntl]
+                    providers: [MAT_SORT_HEADER_INTL_PROVIDER]
                 },] },
     ];
     /** @nocollapse */
@@ -457,5 +474,5 @@ var MatSortModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatSortModule, MatSortHeader, MatSortHeaderIntl, MatSort };
+export { MatSortModule, MatSortHeader, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MAT_SORT_HEADER_INTL_PROVIDER, MatSort };
 //# sourceMappingURL=sort.es5.js.map

@@ -30,6 +30,13 @@ export declare class MatTableDataSource<T> implements DataSource<T> {
      * as filtering, sorting, pagination, or base data changes.
      */
     _renderChangesSubscription: Subscription;
+    /**
+     * The filtered set of data that has been matched by the filter string, or all the data if there
+     * is no filter. Useful for knowing the set of data the table represents.
+     * For example, a 'selectAll()' function would likely want to select the set of filtered data
+     * shown to the user rather than all the data.
+     */
+    filteredData: T[];
     /** Array of data that should be rendered by the table, where each object represents one row. */
     data: T[];
     /**

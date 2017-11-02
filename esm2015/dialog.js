@@ -131,10 +131,6 @@ class MatDialogContainer extends BasePortalOutlet {
          * ID of the element that should be considered as the dialog's label.
          */
         this._ariaLabelledBy = null;
-        /**
-         * Whether the container is currently mid-animation.
-         */
-        this._isAnimating = false;
     }
     /**
      * Attach a ComponentPortal as content to this dialog container.
@@ -173,13 +169,7 @@ class MatDialogContainer extends BasePortalOutlet {
         // If were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
-        this._focusTrap.focusInitialElementWhenReady().then(hasMovedFocus => {
-            // If we didn't find any focusable elements inside the dialog, focus the
-            // container so the user can't tab into other elements behind it.
-            if (!hasMovedFocus) {
-                this._elementRef.nativeElement.focus();
-            }
-        });
+        this._focusTrap.focusInitialElementWhenReady();
     }
     /**
      * Restores focus to the element that was focused before the dialog opened.
@@ -202,6 +192,10 @@ class MatDialogContainer extends BasePortalOutlet {
     _savePreviouslyFocusedElement() {
         if (this._document) {
             this._elementFocusedBeforeDialogWasOpened = /** @type {?} */ (this._document.activeElement);
+            // Move focus onto the dialog immediately in order to prevent the user from accidentally
+            // opening multiple dialogs at the same time. Needs to be async, because the element
+            // may not be focusable immediately.
+            Promise.resolve().then(() => this._elementRef.nativeElement.focus());
         }
     }
     /**
@@ -217,7 +211,6 @@ class MatDialogContainer extends BasePortalOutlet {
             this._restoreFocus();
         }
         this._animationStateChanged.emit(event);
-        this._isAnimating = false;
     }
     /**
      * Callback, invoked when an animation on the host starts.
@@ -225,7 +218,6 @@ class MatDialogContainer extends BasePortalOutlet {
      * @return {?}
      */
     _onAnimationStart(event) {
-        this._isAnimating = true;
         this._animationStateChanged.emit(event);
     }
     /**
@@ -419,13 +411,6 @@ class MatDialogRef {
         return this;
     }
     /**
-     * Returns whether the dialog is animating.
-     * @return {?}
-     */
-    _isAnimating() {
-        return this._containerInstance._isAnimating;
-    }
-    /**
      * Fetches the position strategy object from the overlay ref.
      * @return {?}
      */
@@ -523,11 +508,6 @@ class MatDialog {
      * @return {?} Reference to the newly-opened dialog.
      */
     open(componentOrTemplateRef, config) {
-        const /** @type {?} */ inProgressDialog = this.openDialogs.find(dialog => dialog._isAnimating());
-        // If there's a dialog that is in the process of being opened, return it instead.
-        if (inProgressDialog) {
-            return inProgressDialog;
-        }
         config = _applyConfigDefaults(config);
         if (config.id && this.getDialogById(config.id)) {
             throw Error(`Dialog with id "${config.id}" exists already. The dialog id must be unique.`);

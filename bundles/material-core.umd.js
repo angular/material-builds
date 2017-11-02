@@ -81,25 +81,52 @@ var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
 var MatCommonModule = (function () {
-    function MatCommonModule(sanityChecksEnabled) {
+    function MatCommonModule(_sanityChecksEnabled) {
+        this._sanityChecksEnabled = _sanityChecksEnabled;
         /**
          * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
          */
         this._hasDoneGlobalChecks = false;
         /**
+         * Whether we've already checked for HammerJs availability.
+         */
+        this._hasCheckedHammer = false;
+        /**
          * Reference to the global `document` object.
          */
         this._document = typeof document === 'object' && document ? document : null;
-        if (sanityChecksEnabled && !this._hasDoneGlobalChecks && _angular_core.isDevMode()) {
-            this._checkDoctype();
-            this._checkTheme();
+        if (this._areChecksEnabled() && !this._hasDoneGlobalChecks) {
+            this._checkDoctypeIsDefined();
+            this._checkThemeIsPresent();
             this._hasDoneGlobalChecks = true;
         }
     }
     /**
+     * Whether any sanity checks are enabled
      * @return {?}
      */
-    MatCommonModule.prototype._checkDoctype = /**
+    MatCommonModule.prototype._areChecksEnabled = /**
+     * Whether any sanity checks are enabled
+     * @return {?}
+     */
+    function () {
+        return this._sanityChecksEnabled && _angular_core.isDevMode() && !this._isTestEnv();
+    };
+    /**
+     * Whether the code is running in tests.
+     * @return {?}
+     */
+    MatCommonModule.prototype._isTestEnv = /**
+     * Whether the code is running in tests.
+     * @return {?}
+     */
+    function () {
+        return window['__karma__'] || window['jasmine'];
+    };
+    /**
+     * @return {?}
+     */
+    MatCommonModule.prototype._checkDoctypeIsDefined = /**
      * @return {?}
      */
     function () {
@@ -111,7 +138,7 @@ var MatCommonModule = (function () {
     /**
      * @return {?}
      */
-    MatCommonModule.prototype._checkTheme = /**
+    MatCommonModule.prototype._checkThemeIsPresent = /**
      * @return {?}
      */
     function () {
@@ -130,6 +157,21 @@ var MatCommonModule = (function () {
             }
             this._document.body.removeChild(testElement);
         }
+    };
+    /** Checks whether HammerJS is available. */
+    /**
+     * Checks whether HammerJS is available.
+     * @return {?}
+     */
+    MatCommonModule.prototype._checkHammerIsAvailable = /**
+     * Checks whether HammerJS is available.
+     * @return {?}
+     */
+    function () {
+        if (this._areChecksEnabled() && !this._hasCheckedHammer && !window['Hammer']) {
+            console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
+        }
+        this._hasCheckedHammer = true;
     };
     MatCommonModule.decorators = [
         { type: _angular_core.NgModule, args: [{
@@ -1172,7 +1214,7 @@ var ErrorStateMatcher = (function () {
  */
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
-    function GestureConfig() {
+    function GestureConfig(commonModule) {
         var _this = _super.call(this) || this;
         _this._hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
         /* List of new event names to add to the gesture support list */
@@ -1184,9 +1226,8 @@ var GestureConfig = (function (_super) {
             'slideright',
             'slideleft'
         ] : [];
-        if (!_this._hammer && _angular_core.isDevMode()) {
-            console.warn('Could not find HammerJS. Certain Angular Material ' +
-                'components may not work correctly.');
+        if (commonModule) {
+            commonModule._checkHammerIsAvailable();
         }
         return _this;
     }
@@ -1274,7 +1315,9 @@ var GestureConfig = (function (_super) {
         { type: _angular_core.Injectable },
     ];
     /** @nocollapse */
-    GestureConfig.ctorParameters = function () { return []; };
+    GestureConfig.ctorParameters = function () { return [
+        { type: MatCommonModule, decorators: [{ type: _angular_core.Optional },] },
+    ]; };
     return GestureConfig;
 }(_angular_platformBrowser.HammerGestureConfig));
 

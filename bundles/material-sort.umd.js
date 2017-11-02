@@ -273,6 +273,23 @@ var MatSortHeaderIntl = (function () {
     MatSortHeaderIntl.ctorParameters = function () { return []; };
     return MatSortHeaderIntl;
 }());
+/**
+ * \@docs-private
+ * @param {?} parentIntl
+ * @return {?}
+ */
+function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
+    return parentIntl || new MatSortHeaderIntl();
+}
+/**
+ * \@docs-private
+ */
+var MAT_SORT_HEADER_INTL_PROVIDER = {
+    // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
+    provide: MatSortHeaderIntl,
+    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), MatSortHeaderIntl]],
+    useFactory: MAT_SORT_HEADER_INTL_PROVIDER_FACTORY
+};
 
 /**
  * @fileoverview added by tsickle
@@ -433,7 +450,7 @@ var MatSortModule = (function () {
                     imports: [_angular_common.CommonModule],
                     exports: [MatSort, MatSortHeader],
                     declarations: [MatSort, MatSortHeader],
-                    providers: [MatSortHeaderIntl]
+                    providers: [MAT_SORT_HEADER_INTL_PROVIDER]
                 },] },
     ];
     /** @nocollapse */
@@ -444,6 +461,8 @@ var MatSortModule = (function () {
 exports.MatSortModule = MatSortModule;
 exports.MatSortHeader = MatSortHeader;
 exports.MatSortHeaderIntl = MatSortHeaderIntl;
+exports.MAT_SORT_HEADER_INTL_PROVIDER_FACTORY = MAT_SORT_HEADER_INTL_PROVIDER_FACTORY;
+exports.MAT_SORT_HEADER_INTL_PROVIDER = MAT_SORT_HEADER_INTL_PROVIDER;
 exports.MatSort = MatSort;
 
 Object.defineProperty(exports, '__esModule', { value: true });
