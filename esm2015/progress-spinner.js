@@ -67,6 +67,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._document = _document;
+        this._value = 0;
         this._baseSize = 100;
         this._baseStrokeWidth = 10;
         this._fallbackAnimation = false;

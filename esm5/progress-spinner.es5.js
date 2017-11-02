@@ -38,6 +38,7 @@ var MatProgressSpinner = (function (_super) {
         _this._renderer = _renderer;
         _this._elementRef = _elementRef;
         _this._document = _document;
+        _this._value = 0;
         _this._baseSize = 100;
         _this._baseStrokeWidth = 10;
         _this._fallbackAnimation = false;
