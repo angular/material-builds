@@ -19353,7 +19353,7 @@ var MatProgressSpinner = (function (_super) {
             MatProgressSpinner.styleTag = styleTag;
         }
         if (styleTag && styleTag.sheet) {
-            (/** @type {?} */ (styleTag.sheet)).insertRule(this._getAnimationText());
+            (/** @type {?} */ (styleTag.sheet)).insertRule(this._getAnimationText(), 0);
         }
         MatProgressSpinner.diameters.add(this.diameter);
     };
@@ -27326,7 +27326,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('2.0.0-beta.12-25bc760');
+var VERSION = new _angular_core.Version('2.0.0-beta.12-24f0471');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

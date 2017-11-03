@@ -239,7 +239,7 @@ var MatProgressSpinner = (function (_super) {
             MatProgressSpinner.styleTag = styleTag;
         }
         if (styleTag && styleTag.sheet) {
-            (/** @type {?} */ (styleTag.sheet)).insertRule(this._getAnimationText());
+            (/** @type {?} */ (styleTag.sheet)).insertRule(this._getAnimationText(), 0);
         }
         MatProgressSpinner.diameters.add(this.diameter);
     };
