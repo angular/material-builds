@@ -992,5 +992,5 @@ MatMenuModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa21, _MatMenuItemMixinBase as ɵb21, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd21, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc21 };
+export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa2, _MatMenuItemMixinBase as ɵb2, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd2, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc2 };
 //# sourceMappingURL=menu.js.map
