@@ -70,7 +70,7 @@ export declare class MatTableDataSource<T> implements DataSource<T> {
      * @param data Data object that is being accessed.
      * @param sortHeaderId The name of the column that represents the data.
      */
-    sortingDataAccessor: (data: T, sortHeaderId: string) => string | number;
+    sortingDataAccessor: ((data: T, sortHeaderId: string) => string | number);
     /**
      * Checks if a data object matches the data source's filter string. By default, each data object
      * is converted to a string of its properties and returns true if the filter has
