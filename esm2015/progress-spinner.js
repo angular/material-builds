@@ -9,6 +9,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, Inject, Input, NgModule
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { DOCUMENT } from '@angular/common';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 /**
  * @fileoverview added by tsickle
@@ -77,10 +78,6 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
         this._elementSize = this._baseSize;
         this._diameter = this._baseSize;
         /**
-         * Stroke width of the progress spinner.
-         */
-        this.strokeWidth = 10;
-        /**
          * Mode of the progress circle
          */
         this.mode = 'determinate';
@@ -103,6 +100,20 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      */
     set diameter(size) {
         this._setDiameterAndInitStyles(size);
+    }
+    /**
+     * Stroke width of the progress spinner.
+     * @return {?}
+     */
+    get strokeWidth() {
+        return this._strokeWidth || this.diameter / 10;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set strokeWidth(value) {
+        this._strokeWidth = coerceNumberProperty(value);
     }
     /**
      * Value of the progress circle.

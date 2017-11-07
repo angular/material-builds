@@ -19192,10 +19192,6 @@ var MatProgressSpinner = (function (_super) {
         _this._elementSize = _this._baseSize;
         _this._diameter = _this._baseSize;
         /**
-         * Stroke width of the progress spinner.
-         */
-        _this.strokeWidth = 10;
-        /**
          * Mode of the progress circle
          */
         _this.mode = 'determinate';
@@ -19220,6 +19216,24 @@ var MatProgressSpinner = (function (_super) {
          */
         function (size) {
             this._setDiameterAndInitStyles(size);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatProgressSpinner.prototype, "strokeWidth", {
+        get: /**
+         * Stroke width of the progress spinner.
+         * @return {?}
+         */
+        function () {
+            return this._strokeWidth || this.diameter / 10;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._strokeWidth = _angular_cdk_coercion.coerceNumberProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -27357,7 +27371,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc0-20b47d7');
+var VERSION = new _angular_core.Version('5.0.0-rc0-b997353');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

@@ -11,6 +11,7 @@ import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { DOCUMENT } from '@angular/common';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 /**
  * @fileoverview added by tsickle
@@ -48,10 +49,6 @@ var MatProgressSpinner = (function (_super) {
         _this._elementSize = _this._baseSize;
         _this._diameter = _this._baseSize;
         /**
-         * Stroke width of the progress spinner.
-         */
-        _this.strokeWidth = 10;
-        /**
          * Mode of the progress circle
          */
         _this.mode = 'determinate';
@@ -76,6 +73,24 @@ var MatProgressSpinner = (function (_super) {
          */
         function (size) {
             this._setDiameterAndInitStyles(size);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatProgressSpinner.prototype, "strokeWidth", {
+        get: /**
+         * Stroke width of the progress spinner.
+         * @return {?}
+         */
+        function () {
+            return this._strokeWidth || this.diameter / 10;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._strokeWidth = coerceNumberProperty(value);
         },
         enumerable: true,
         configurable: true

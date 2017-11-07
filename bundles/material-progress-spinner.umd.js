@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/platform'), require('@angular/material/core'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/platform', '@angular/material/core', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['progress-spinner'] = global.ng.material['progress-spinner'] || {}),global.ng.core,global.ng.cdk.platform,global.ng.material.core,global.ng.common));
-}(this, (function (exports,_angular_core,_angular_cdk_platform,_angular_material_core,_angular_common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/platform'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/coercion')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/platform', '@angular/material/core', '@angular/common', '@angular/cdk/coercion'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['progress-spinner'] = global.ng.material['progress-spinner'] || {}),global.ng.core,global.ng.cdk.platform,global.ng.material.core,global.ng.common,global.ng.cdk.coercion));
+}(this, (function (exports,_angular_core,_angular_cdk_platform,_angular_material_core,_angular_common,_angular_cdk_coercion) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -73,10 +73,6 @@ var MatProgressSpinner = (function (_super) {
         _this._elementSize = _this._baseSize;
         _this._diameter = _this._baseSize;
         /**
-         * Stroke width of the progress spinner.
-         */
-        _this.strokeWidth = 10;
-        /**
          * Mode of the progress circle
          */
         _this.mode = 'determinate';
@@ -101,6 +97,24 @@ var MatProgressSpinner = (function (_super) {
          */
         function (size) {
             this._setDiameterAndInitStyles(size);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatProgressSpinner.prototype, "strokeWidth", {
+        get: /**
+         * Stroke width of the progress spinner.
+         * @return {?}
+         */
+        function () {
+            return this._strokeWidth || this.diameter / 10;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._strokeWidth = _angular_cdk_coercion.coerceNumberProperty(value);
         },
         enumerable: true,
         configurable: true
