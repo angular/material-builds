@@ -10893,6 +10893,14 @@ var MatDatepicker = (function () {
          */
         this.selectedChanged = new _angular_core.EventEmitter();
         /**
+         * Emits when the datepicker has been opened.
+         */
+        this.openedStream = new _angular_core.EventEmitter();
+        /**
+         * Emits when the datepicker has been closed.
+         */
+        this.closedStream = new _angular_core.EventEmitter();
+        /**
          * Whether the calendar is open.
          */
         this.opened = false;
@@ -11082,6 +11090,7 @@ var MatDatepicker = (function () {
         }
         this.touchUi ? this._openAsDialog() : this._openAsPopup();
         this.opened = true;
+        this.openedStream.emit();
     };
     /** Close the calendar. */
     /**
@@ -11112,6 +11121,7 @@ var MatDatepicker = (function () {
             this._focusedElementBeforeOpen = null;
         }
         this.opened = false;
+        this.closedStream.emit();
     };
     /**
      * Open the calendar as a dialog.
@@ -11229,6 +11239,8 @@ var MatDatepicker = (function () {
         "disabled": [{ type: _angular_core.Input },],
         "selectedChanged": [{ type: _angular_core.Output },],
         "panelClass": [{ type: _angular_core.Input },],
+        "openedStream": [{ type: _angular_core.Output, args: ['opened',] },],
+        "closedStream": [{ type: _angular_core.Output, args: ['closed',] },],
     };
     return MatDatepicker;
 }());
@@ -27371,7 +27383,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc0-b997353');
+var VERSION = new _angular_core.Version('5.0.0-rc0-998153a');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27712,16 +27724,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe20 = MatTabBase;
+exports.ɵf20 = _MatTabMixinBase;
+exports.ɵa20 = MatTabHeaderBase;
+exports.ɵb20 = _MatTabHeaderMixinBase;
+exports.ɵc20 = MatTabLabelWrapperBase;
+exports.ɵd20 = _MatTabLabelWrapperMixinBase;
+exports.ɵi20 = MatTabLinkBase;
+exports.ɵg20 = MatTabNavBase;
+exports.ɵj20 = _MatTabLinkMixinBase;
+exports.ɵh20 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabHeader = MatTabHeader;

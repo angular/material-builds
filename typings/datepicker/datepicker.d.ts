@@ -70,6 +70,10 @@ export declare class MatDatepicker<D> implements OnDestroy {
     selectedChanged: EventEmitter<D>;
     /** Classes to be passed to the date picker panel. Supports the same syntax as `ngClass`. */
     panelClass: string | string[];
+    /** Emits when the datepicker has been opened. */
+    openedStream: EventEmitter<void>;
+    /** Emits when the datepicker has been closed. */
+    closedStream: EventEmitter<void>;
     /** Whether the calendar is open. */
     opened: boolean;
     /** The id for the datepicker calendar. */

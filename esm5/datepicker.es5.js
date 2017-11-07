@@ -1329,6 +1329,14 @@ var MatDatepicker = (function () {
          */
         this.selectedChanged = new EventEmitter();
         /**
+         * Emits when the datepicker has been opened.
+         */
+        this.openedStream = new EventEmitter();
+        /**
+         * Emits when the datepicker has been closed.
+         */
+        this.closedStream = new EventEmitter();
+        /**
          * Whether the calendar is open.
          */
         this.opened = false;
@@ -1518,6 +1526,7 @@ var MatDatepicker = (function () {
         }
         this.touchUi ? this._openAsDialog() : this._openAsPopup();
         this.opened = true;
+        this.openedStream.emit();
     };
     /** Close the calendar. */
     /**
@@ -1548,6 +1557,7 @@ var MatDatepicker = (function () {
             this._focusedElementBeforeOpen = null;
         }
         this.opened = false;
+        this.closedStream.emit();
     };
     /**
      * Open the calendar as a dialog.
@@ -1665,6 +1675,8 @@ var MatDatepicker = (function () {
         "disabled": [{ type: Input },],
         "selectedChanged": [{ type: Output },],
         "panelClass": [{ type: Input },],
+        "openedStream": [{ type: Output, args: ['opened',] },],
+        "closedStream": [{ type: Output, args: ['closed',] },],
     };
     return MatDatepicker;
 }());
