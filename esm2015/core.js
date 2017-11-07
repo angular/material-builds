@@ -8,10 +8,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, ViewEncapsulation, isDevMode } from '@angular/core';
 import { BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { Subject } from 'rxjs/Subject';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 
 /**
@@ -423,6 +423,13 @@ class DateAdapter {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
+const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Extends an object with the *enumerable* and *own* properties of one or more source objects,
  * similar to Object.assign.
@@ -506,17 +513,13 @@ function range(length, valueFunction) {
 class NativeDateAdapter extends DateAdapter {
     /**
      * @param {?} matDateLocale
+     * @param {?} platform
      */
-    constructor(matDateLocale) {
+    constructor(matDateLocale, platform) {
         super();
-        /**
-         * Whether to use `timeZone: 'utc'` with `Intl.DateTimeFormat` when formatting dates.
-         * Without this `Intl.DateTimeFormat` sometimes chooses the wrong timeZone, which can throw off
-         * the result. (e.g. in the en-US locale `new Date(1800, 7, 14).toLocaleDateString()`
-         * will produce `'8/13/1800'`.
-         */
-        this.useUtcForDisplay = true;
         super.setLocale(matDateLocale);
+        // IE does its own time zone correction, so we disable this on IE.
+        this.useUtcForDisplay = !platform.TRIDENT;
     }
     /**
      * @param {?} date
@@ -796,14 +799,8 @@ NativeDateAdapter.decorators = [
 /** @nocollapse */
 NativeDateAdapter.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_LOCALE,] },] },
+    { type: Platform, },
 ];
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
 
 /**
  * @fileoverview added by tsickle
@@ -830,6 +827,7 @@ class NativeDateModule {
 }
 NativeDateModule.decorators = [
     { type: NgModule, args: [{
+                imports: [PlatformModule],
                 providers: [
                     { provide: DateAdapter, useClass: NativeDateAdapter },
                     MAT_DATE_LOCALE_PROVIDER
