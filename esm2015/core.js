@@ -8,10 +8,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, ViewEncapsulation, isDevMode } from '@angular/core';
 import { BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { Subject } from 'rxjs/Subject';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 
 /**
@@ -513,13 +513,15 @@ function range(length, valueFunction) {
 class NativeDateAdapter extends DateAdapter {
     /**
      * @param {?} matDateLocale
-     * @param {?} platform
      */
-    constructor(matDateLocale, platform) {
+    constructor(matDateLocale) {
         super();
         super.setLocale(matDateLocale);
         // IE does its own time zone correction, so we disable this on IE.
-        this.useUtcForDisplay = !platform.TRIDENT;
+        // TODO(mmalerba): replace with !platform.TRIDENT, logic currently duplicated to avoid breaking
+        // change from injecting the Platform.
+        this.useUtcForDisplay = !(typeof document === 'object' && !!document &&
+            /(msie|trident)/i.test(navigator.userAgent));
     }
     /**
      * @param {?} date
@@ -799,7 +801,6 @@ NativeDateAdapter.decorators = [
 /** @nocollapse */
 NativeDateAdapter.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_LOCALE,] },] },
-    { type: Platform, },
 ];
 
 /**
@@ -827,7 +828,6 @@ class NativeDateModule {
 }
 NativeDateModule.decorators = [
     { type: NgModule, args: [{
-                imports: [PlatformModule],
                 providers: [
                     { provide: DateAdapter, useClass: NativeDateAdapter },
                     MAT_DATE_LOCALE_PROVIDER

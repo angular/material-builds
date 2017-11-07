@@ -10,10 +10,10 @@ import { BidiModule } from '@angular/cdk/bidi';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { Subject } from 'rxjs/Subject';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 
 /**
@@ -657,12 +657,17 @@ function range(length, valueFunction) {
  */
 var NativeDateAdapter = (function (_super) {
     __extends(NativeDateAdapter, _super);
-    function NativeDateAdapter(matDateLocale, platform) {
+    function NativeDateAdapter(matDateLocale) {
         var _this = _super.call(this) || this;
         _super.prototype.setLocale.call(_this, matDateLocale);
         // IE does its own time zone correction, so we disable this on IE.
+        // TODO(mmalerba): replace with !platform.TRIDENT, logic currently duplicated to avoid breaking
+        // change from injecting the Platform.
         // IE does its own time zone correction, so we disable this on IE.
-        _this.useUtcForDisplay = !platform.TRIDENT;
+        // TODO(mmalerba): replace with !platform.TRIDENT, logic currently duplicated to avoid breaking
+        // change from injecting the Platform.
+        _this.useUtcForDisplay = !(typeof document === 'object' && !!document &&
+            /(msie|trident)/i.test(navigator.userAgent));
         return _this;
     }
     /**
@@ -1070,7 +1075,6 @@ var NativeDateAdapter = (function (_super) {
     /** @nocollapse */
     NativeDateAdapter.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_LOCALE,] },] },
-        { type: Platform, },
     ]; };
     return NativeDateAdapter;
 }(DateAdapter));
@@ -1101,7 +1105,6 @@ var NativeDateModule = (function () {
     }
     NativeDateModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [PlatformModule],
                     providers: [
                         { provide: DateAdapter, useClass: NativeDateAdapter },
                         MAT_DATE_LOCALE_PROVIDER

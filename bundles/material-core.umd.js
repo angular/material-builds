@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/keycodes')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/platform', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/keycodes'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = global.ng.material.core || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.platform,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.keycodes));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_platform,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_keycodes) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = global.ng.material.core || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -678,12 +678,17 @@ function range(length, valueFunction) {
  */
 var NativeDateAdapter = (function (_super) {
     __extends(NativeDateAdapter, _super);
-    function NativeDateAdapter(matDateLocale, platform) {
+    function NativeDateAdapter(matDateLocale) {
         var _this = _super.call(this) || this;
         _super.prototype.setLocale.call(_this, matDateLocale);
         // IE does its own time zone correction, so we disable this on IE.
+        // TODO(mmalerba): replace with !platform.TRIDENT, logic currently duplicated to avoid breaking
+        // change from injecting the Platform.
         // IE does its own time zone correction, so we disable this on IE.
-        _this.useUtcForDisplay = !platform.TRIDENT;
+        // TODO(mmalerba): replace with !platform.TRIDENT, logic currently duplicated to avoid breaking
+        // change from injecting the Platform.
+        _this.useUtcForDisplay = !(typeof document === 'object' && !!document &&
+            /(msie|trident)/i.test(navigator.userAgent));
         return _this;
     }
     /**
@@ -1091,7 +1096,6 @@ var NativeDateAdapter = (function (_super) {
     /** @nocollapse */
     NativeDateAdapter.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
-        { type: _angular_cdk_platform.Platform, },
     ]; };
     return NativeDateAdapter;
 }(DateAdapter));
@@ -1122,7 +1126,6 @@ var NativeDateModule = (function () {
     }
     NativeDateModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_cdk_platform.PlatformModule],
                     providers: [
                         { provide: DateAdapter, useClass: NativeDateAdapter },
                         MAT_DATE_LOCALE_PROVIDER
