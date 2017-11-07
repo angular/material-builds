@@ -180,6 +180,7 @@ var MatCalendarBody = (function () {
                     host: {
                         'class': 'mat-calendar-body',
                     },
+                    exportAs: 'matCalendarBody',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -401,6 +402,7 @@ var MatMonthView = (function () {
     MatMonthView.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-month-view',
                     template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
+                    exportAs: 'matMonthVeiw',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -600,6 +602,7 @@ var MatYearView = (function () {
     MatYearView.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-year-view',
                     template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\"></tbody></table>",
+                    exportAs: 'matYearView',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -1162,6 +1165,7 @@ var MatCalendar = (function () {
                     host: {
                         'class': 'mat-calendar',
                     },
+                    exportAs: 'matCalendar',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -1269,6 +1273,7 @@ var MatDatepickerContent = (function () {
                         '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
                         '(keydown)': '_handleKeydown($event)',
                     },
+                    exportAs: 'matDatepickerContent',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -2180,6 +2185,7 @@ var MatDatepickerToggle = (function () {
                     host: {
                         'class': 'mat-datepicker-toggle',
                     },
+                    exportAs: 'matDatepickerToggle',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,

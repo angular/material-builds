@@ -136,12 +136,12 @@ class MatDrawer {
         this.openedChange = new EventEmitter();
         /**
          * Event emitted when the drawer is fully opened.
-         * @deprecated Use `openedChange` instead.
+         * @deprecated Use `opened` instead.
          */
         this.onOpen = this._openedStream;
         /**
          * Event emitted when the drawer is fully closed.
-         * @deprecated Use `openedChange` instead.
+         * @deprecated Use `closed` instead.
          */
         this.onClose = this._closedStream;
         /**
@@ -230,11 +230,25 @@ class MatDrawer {
         return this.openedChange.pipe(filter(o => o), map(() => { }));
     }
     /**
+     * Event emitted when the drawer has started opening.
+     * @return {?}
+     */
+    get openedStart() {
+        return this._animationStarted.pipe(filter(e => e.fromState !== e.toState && e.toState.indexOf('open') === 0), map(() => { }));
+    }
+    /**
      * Event emitted when the drawer has been closed.
      * @return {?}
      */
     get _closedStream() {
         return this.openedChange.pipe(filter(o => !o), map(() => { }));
+    }
+    /**
+     * Event emitted when the drawer has started closing.
+     * @return {?}
+     */
+    get closedStart() {
+        return this._animationStarted.pipe(filter(e => e.fromState !== e.toState && e.toState === 'void'), map(() => { }));
     }
     /**
      * @return {?}
@@ -329,7 +343,9 @@ class MatDrawer {
         // TODO(crisbeto): This promise is here for backwards-compatibility.
         // It should be removed next time we do breaking changes in the drawer.
         return new Promise(resolve => {
-            (isOpen ? this.onOpen : this.onClose).pipe(first()).subscribe(resolve);
+            this.openedChange.pipe(first()).subscribe(open => {
+                resolve(new MatDrawerToggleResult(open ? 'open' : 'close', true));
+            });
         });
     }
     /**
@@ -421,7 +437,9 @@ MatDrawer.propDecorators = {
     "disableClose": [{ type: Input },],
     "openedChange": [{ type: Output },],
     "_openedStream": [{ type: Output, args: ['opened',] },],
+    "openedStart": [{ type: Output },],
     "_closedStream": [{ type: Output, args: ['closed',] },],
+    "closedStart": [{ type: Output },],
     "onOpen": [{ type: Output, args: ['open',] },],
     "onClose": [{ type: Output, args: ['close',] },],
     "onPositionChanged": [{ type: Output, args: ['positionChanged',] },],

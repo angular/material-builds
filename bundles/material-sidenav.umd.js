@@ -141,12 +141,12 @@ var MatDrawer = (function () {
         this.openedChange = new _angular_core.EventEmitter();
         /**
          * Event emitted when the drawer is fully opened.
-         * @deprecated Use `openedChange` instead.
+         * @deprecated Use `opened` instead.
          */
         this.onOpen = this._openedStream;
         /**
          * Event emitted when the drawer is fully closed.
-         * @deprecated Use `openedChange` instead.
+         * @deprecated Use `closed` instead.
          */
         this.onClose = this._closedStream;
         /**
@@ -254,6 +254,17 @@ var MatDrawer = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatDrawer.prototype, "openedStart", {
+        get: /**
+         * Event emitted when the drawer has started opening.
+         * @return {?}
+         */
+        function () {
+            return this._animationStarted.pipe(rxjs_operators_filter.filter(function (e) { return e.fromState !== e.toState && e.toState.indexOf('open') === 0; }), rxjs_operators_map.map(function () { }));
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatDrawer.prototype, "_closedStream", {
         get: /**
          * Event emitted when the drawer has been closed.
@@ -261,6 +272,17 @@ var MatDrawer = (function () {
          */
         function () {
             return this.openedChange.pipe(rxjs_operators_filter.filter(function (o) { return !o; }), rxjs_operators_map.map(function () { }));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDrawer.prototype, "closedStart", {
+        get: /**
+         * Event emitted when the drawer has started closing.
+         * @return {?}
+         */
+        function () {
+            return this._animationStarted.pipe(rxjs_operators_filter.filter(function (e) { return e.fromState !== e.toState && e.toState === 'void'; }), rxjs_operators_map.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -409,7 +431,9 @@ var MatDrawer = (function () {
         // TODO(crisbeto): This promise is here for backwards-compatibility.
         // It should be removed next time we do breaking changes in the drawer.
         return new Promise(function (resolve) {
-            (isOpen ? _this.onOpen : _this.onClose).pipe(rxjs_operators_first.first()).subscribe(resolve);
+            _this.openedChange.pipe(rxjs_operators_first.first()).subscribe(function (open) {
+                resolve(new MatDrawerToggleResult(open ? 'open' : 'close', true));
+            });
         });
     };
     /**
@@ -522,7 +546,9 @@ var MatDrawer = (function () {
         "disableClose": [{ type: _angular_core.Input },],
         "openedChange": [{ type: _angular_core.Output },],
         "_openedStream": [{ type: _angular_core.Output, args: ['opened',] },],
+        "openedStart": [{ type: _angular_core.Output },],
         "_closedStream": [{ type: _angular_core.Output, args: ['closed',] },],
+        "closedStart": [{ type: _angular_core.Output },],
         "onOpen": [{ type: _angular_core.Output, args: ['open',] },],
         "onClose": [{ type: _angular_core.Output, args: ['close',] },],
         "onPositionChanged": [{ type: _angular_core.Output, args: ['positionChanged',] },],

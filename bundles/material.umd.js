@@ -9759,6 +9759,7 @@ var MatCalendarBody = (function () {
                     host: {
                         'class': 'mat-calendar-body',
                     },
+                    exportAs: 'matCalendarBody',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -9980,6 +9981,7 @@ var MatMonthView = (function () {
     MatMonthView.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-month-view',
                     template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
+                    exportAs: 'matMonthVeiw',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -10179,6 +10181,7 @@ var MatYearView = (function () {
     MatYearView.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-year-view',
                     template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\"></tbody></table>",
+                    exportAs: 'matYearView',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -10741,6 +10744,7 @@ var MatCalendar = (function () {
                     host: {
                         'class': 'mat-calendar',
                     },
+                    exportAs: 'matCalendar',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -10848,6 +10852,7 @@ var MatDatepickerContent = (function () {
                         '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
                         '(keydown)': '_handleKeydown($event)',
                     },
+                    exportAs: 'matDatepickerContent',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -11759,6 +11764,7 @@ var MatDatepickerToggle = (function () {
                     host: {
                         'class': 'mat-datepicker-toggle',
                     },
+                    exportAs: 'matDatepickerToggle',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -20466,12 +20472,12 @@ var MatDrawer = (function () {
         this.openedChange = new _angular_core.EventEmitter();
         /**
          * Event emitted when the drawer is fully opened.
-         * @deprecated Use `openedChange` instead.
+         * @deprecated Use `opened` instead.
          */
         this.onOpen = this._openedStream;
         /**
          * Event emitted when the drawer is fully closed.
-         * @deprecated Use `openedChange` instead.
+         * @deprecated Use `closed` instead.
          */
         this.onClose = this._closedStream;
         /**
@@ -20579,6 +20585,17 @@ var MatDrawer = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatDrawer.prototype, "openedStart", {
+        get: /**
+         * Event emitted when the drawer has started opening.
+         * @return {?}
+         */
+        function () {
+            return this._animationStarted.pipe(rxjs_operators_filter.filter(function (e) { return e.fromState !== e.toState && e.toState.indexOf('open') === 0; }), rxjs_operators_map.map(function () { }));
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatDrawer.prototype, "_closedStream", {
         get: /**
          * Event emitted when the drawer has been closed.
@@ -20586,6 +20603,17 @@ var MatDrawer = (function () {
          */
         function () {
             return this.openedChange.pipe(rxjs_operators_filter.filter(function (o) { return !o; }), rxjs_operators_map.map(function () { }));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDrawer.prototype, "closedStart", {
+        get: /**
+         * Event emitted when the drawer has started closing.
+         * @return {?}
+         */
+        function () {
+            return this._animationStarted.pipe(rxjs_operators_filter.filter(function (e) { return e.fromState !== e.toState && e.toState === 'void'; }), rxjs_operators_map.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -20734,7 +20762,9 @@ var MatDrawer = (function () {
         // TODO(crisbeto): This promise is here for backwards-compatibility.
         // It should be removed next time we do breaking changes in the drawer.
         return new Promise(function (resolve) {
-            (isOpen ? _this.onOpen : _this.onClose).pipe(rxjs_operators_first.first()).subscribe(resolve);
+            _this.openedChange.pipe(rxjs_operators_first.first()).subscribe(function (open) {
+                resolve(new MatDrawerToggleResult(open ? 'open' : 'close', true));
+            });
         });
     };
     /**
@@ -20847,7 +20877,9 @@ var MatDrawer = (function () {
         "disableClose": [{ type: _angular_core.Input },],
         "openedChange": [{ type: _angular_core.Output },],
         "_openedStream": [{ type: _angular_core.Output, args: ['opened',] },],
+        "openedStart": [{ type: _angular_core.Output },],
         "_closedStream": [{ type: _angular_core.Output, args: ['closed',] },],
+        "closedStart": [{ type: _angular_core.Output },],
         "onOpen": [{ type: _angular_core.Output, args: ['open',] },],
         "onClose": [{ type: _angular_core.Output, args: ['close',] },],
         "onPositionChanged": [{ type: _angular_core.Output, args: ['positionChanged',] },],
@@ -27325,7 +27357,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc0-9b88aac');
+var VERSION = new _angular_core.Version('5.0.0-rc0-7610c7c');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

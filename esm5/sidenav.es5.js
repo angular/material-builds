@@ -131,12 +131,12 @@ var MatDrawer = (function () {
         this.openedChange = new EventEmitter();
         /**
          * Event emitted when the drawer is fully opened.
-         * @deprecated Use `openedChange` instead.
+         * @deprecated Use `opened` instead.
          */
         this.onOpen = this._openedStream;
         /**
          * Event emitted when the drawer is fully closed.
-         * @deprecated Use `openedChange` instead.
+         * @deprecated Use `closed` instead.
          */
         this.onClose = this._closedStream;
         /**
@@ -244,6 +244,17 @@ var MatDrawer = (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatDrawer.prototype, "openedStart", {
+        get: /**
+         * Event emitted when the drawer has started opening.
+         * @return {?}
+         */
+        function () {
+            return this._animationStarted.pipe(filter(function (e) { return e.fromState !== e.toState && e.toState.indexOf('open') === 0; }), map(function () { }));
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatDrawer.prototype, "_closedStream", {
         get: /**
          * Event emitted when the drawer has been closed.
@@ -251,6 +262,17 @@ var MatDrawer = (function () {
          */
         function () {
             return this.openedChange.pipe(filter(function (o) { return !o; }), map(function () { }));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDrawer.prototype, "closedStart", {
+        get: /**
+         * Event emitted when the drawer has started closing.
+         * @return {?}
+         */
+        function () {
+            return this._animationStarted.pipe(filter(function (e) { return e.fromState !== e.toState && e.toState === 'void'; }), map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -399,7 +421,9 @@ var MatDrawer = (function () {
         // TODO(crisbeto): This promise is here for backwards-compatibility.
         // It should be removed next time we do breaking changes in the drawer.
         return new Promise(function (resolve) {
-            (isOpen ? _this.onOpen : _this.onClose).pipe(first()).subscribe(resolve);
+            _this.openedChange.pipe(first()).subscribe(function (open) {
+                resolve(new MatDrawerToggleResult(open ? 'open' : 'close', true));
+            });
         });
     };
     /**
@@ -512,7 +536,9 @@ var MatDrawer = (function () {
         "disableClose": [{ type: Input },],
         "openedChange": [{ type: Output },],
         "_openedStream": [{ type: Output, args: ['opened',] },],
+        "openedStart": [{ type: Output },],
         "_closedStream": [{ type: Output, args: ['closed',] },],
+        "closedStart": [{ type: Output },],
         "onOpen": [{ type: Output, args: ['open',] },],
         "onClose": [{ type: Output, args: ['close',] },],
         "onPositionChanged": [{ type: Output, args: ['positionChanged',] },],

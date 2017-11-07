@@ -72,16 +72,20 @@ export declare class MatDrawer implements AfterContentInit, OnDestroy {
     openedChange: EventEmitter<boolean>;
     /** Event emitted when the drawer has been opened. */
     readonly _openedStream: Observable<void>;
+    /** Event emitted when the drawer has started opening. */
+    readonly openedStart: Observable<void>;
     /** Event emitted when the drawer has been closed. */
     readonly _closedStream: Observable<void>;
+    /** Event emitted when the drawer has started closing. */
+    readonly closedStart: Observable<void>;
     /**
      * Event emitted when the drawer is fully opened.
-     * @deprecated Use `openedChange` instead.
+     * @deprecated Use `opened` instead.
      */
     onOpen: Observable<void>;
     /**
      * Event emitted when the drawer is fully closed.
-     * @deprecated Use `openedChange` instead.
+     * @deprecated Use `closed` instead.
      */
     onClose: Observable<void>;
     /** Event emitted when the drawer's position changes. */
