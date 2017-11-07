@@ -210,6 +210,7 @@ var MatExpansionPanel = (function (_super) {
                     preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled', 'expanded'],
+                    outputs: ['opened', 'closed'],
                     host: {
                         'class': 'mat-expansion-panel',
                         '[class.mat-expanded]': 'expanded',
