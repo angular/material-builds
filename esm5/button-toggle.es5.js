@@ -7,12 +7,12 @@
  */
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { MatCommonModule, mixinDisabled } from '@angular/material/core';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatCommonModule, mixinDisabled } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
@@ -393,11 +393,10 @@ var MatButtonToggleGroupMultiple = (function (_super) {
  * Single button inside of a toggle group.
  */
 var MatButtonToggle = (function () {
-    function MatButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _renderer, _elementRef, _focusMonitor) {
+    function MatButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _elementRef, _focusMonitor) {
         var _this = this;
         this._changeDetectorRef = _changeDetectorRef;
         this._buttonToggleDispatcher = _buttonToggleDispatcher;
-        this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._focusMonitor = _focusMonitor;
         /**
@@ -545,7 +544,7 @@ var MatButtonToggle = (function () {
         if (this.buttonToggleGroup && this._value == this.buttonToggleGroup.value) {
             this._checked = true;
         }
-        this._focusMonitor.monitor(this._elementRef.nativeElement, this._renderer, true);
+        this._focusMonitor.monitor(this._elementRef.nativeElement, true);
     };
     /** Focuses the button. */
     /**
@@ -687,7 +686,6 @@ var MatButtonToggle = (function () {
         { type: MatButtonToggleGroupMultiple, decorators: [{ type: Optional },] },
         { type: ChangeDetectorRef, },
         { type: UniqueSelectionDispatcher, },
-        { type: Renderer2, },
         { type: ElementRef, },
         { type: FocusMonitor, },
     ]; };

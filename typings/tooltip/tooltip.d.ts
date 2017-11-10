@@ -8,7 +8,7 @@
 import { AnimationEvent } from '@angular/animations';
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
-import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollStrategy, ConnectionPositionPair } from '@angular/cdk/overlay';
+import { ConnectionPositionPair, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, Renderer2, ViewContainerRef } from '@angular/core';

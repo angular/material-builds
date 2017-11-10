@@ -5,11 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanDisable, CanDisableRipple, MatRipple } from '@angular/material/core';
-import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { FocusMonitor } from '@angular/cdk/a11y';
 /**
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.

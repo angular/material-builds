@@ -1,5 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { ChangeDetectorRef, ElementRef, OnDestroy, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, OnDestroy } from '@angular/core';
 import { MatExpansionPanel } from './expansion-panel';
 /**
  * <mat-expansion-panel-header> component.
@@ -14,7 +14,7 @@ export declare class MatExpansionPanelHeader implements OnDestroy {
     private _focusMonitor;
     private _changeDetectorRef;
     private _parentChangeSubscription;
-    constructor(renderer: Renderer2, panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef);
+    constructor(panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef);
     /** Height of the header while the panel is expanded. */
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */

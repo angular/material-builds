@@ -284,7 +284,7 @@ var MatExpansionPanelActionRow = (function () {
  * Please refer to README.md for examples on how to use it.
  */
 var MatExpansionPanelHeader = (function () {
-    function MatExpansionPanelHeader(renderer, panel, _element, _focusMonitor, _changeDetectorRef) {
+    function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef) {
         var _this = this;
         this.panel = panel;
         this._element = _element;
@@ -295,7 +295,7 @@ var MatExpansionPanelHeader = (function () {
         // need to  subscribe and trigger change detection manually.
         this._parentChangeSubscription = rxjs_observable_merge.merge(panel.opened, panel.closed, panel._inputChanges.pipe(rxjs_operators_filter.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
-        _focusMonitor.monitor(_element.nativeElement, renderer, false);
+        _focusMonitor.monitor(_element.nativeElement, false);
     }
     /** Toggles the expanded state of the panel. */
     /**
@@ -435,7 +435,6 @@ var MatExpansionPanelHeader = (function () {
     ];
     /** @nocollapse */
     MatExpansionPanelHeader.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: MatExpansionPanel, decorators: [{ type: _angular_core.Host },] },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },

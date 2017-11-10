@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Host, Input, NgModule, Optional, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Host, Input, NgModule, Optional, ViewEncapsulation, forwardRef } from '@angular/core';
 import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
@@ -242,13 +242,12 @@ MatExpansionPanelActionRow.ctorParameters = () => [];
  */
 class MatExpansionPanelHeader {
     /**
-     * @param {?} renderer
      * @param {?} panel
      * @param {?} _element
      * @param {?} _focusMonitor
      * @param {?} _changeDetectorRef
      */
-    constructor(renderer, panel, _element, _focusMonitor, _changeDetectorRef) {
+    constructor(panel, _element, _focusMonitor, _changeDetectorRef) {
         this.panel = panel;
         this._element = _element;
         this._focusMonitor = _focusMonitor;
@@ -258,7 +257,7 @@ class MatExpansionPanelHeader {
         // need to  subscribe and trigger change detection manually.
         this._parentChangeSubscription = merge(panel.opened, panel.closed, panel._inputChanges.pipe(filter(changes => !!(changes["hideToggle"] || changes["disabled"]))))
             .subscribe(() => this._changeDetectorRef.markForCheck());
-        _focusMonitor.monitor(_element.nativeElement, renderer, false);
+        _focusMonitor.monitor(_element.nativeElement, false);
     }
     /**
      * Toggles the expanded state of the panel.
@@ -371,7 +370,6 @@ MatExpansionPanelHeader.decorators = [
 ];
 /** @nocollapse */
 MatExpansionPanelHeader.ctorParameters = () => [
-    { type: Renderer2, },
     { type: MatExpansionPanel, decorators: [{ type: Host },] },
     { type: ElementRef, },
     { type: FocusMonitor, },

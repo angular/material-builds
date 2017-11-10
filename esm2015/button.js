@@ -149,7 +149,7 @@ class MatButton extends _MatButtonMixinBase {
          * Whether the button is icon button.
          */
         this._isIconButton = this._hasAttributeWithPrefix('icon-button');
-        this._focusMonitor.monitor(this._elementRef.nativeElement, this._renderer, true);
+        this._focusMonitor.monitor(this._elementRef.nativeElement, true);
     }
     /**
      * @return {?}

@@ -96,11 +96,11 @@ var MatStepperIntl = (function () {
  */
 
 var MatStepHeader = (function () {
-    function MatStepHeader(_intl, _focusMonitor, _element, renderer, changeDetectorRef) {
+    function MatStepHeader(_intl, _focusMonitor, _element, changeDetectorRef) {
         this._intl = _intl;
         this._focusMonitor = _focusMonitor;
         this._element = _element;
-        _focusMonitor.monitor(_element.nativeElement, renderer, true);
+        _focusMonitor.monitor(_element.nativeElement, true);
         this._intlSubscription = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
     Object.defineProperty(MatStepHeader.prototype, "index", {
@@ -231,7 +231,6 @@ var MatStepHeader = (function () {
         { type: MatStepperIntl, },
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ChangeDetectorRef, },
     ]; };
     MatStepHeader.propDecorators = {

@@ -421,7 +421,7 @@ class MatSlider extends _MatSliderMixinBase {
      */
     ngOnInit() {
         this._focusMonitor
-            .monitor(this._elementRef.nativeElement, this._renderer, true)
+            .monitor(this._elementRef.nativeElement, true)
             .subscribe((origin) => {
             this._isActive = !!origin && origin !== 'keyboard';
             this._changeDetectorRef.detectChanges();

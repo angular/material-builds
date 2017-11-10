@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { ChangeDetectorRef, OnDestroy, ElementRef, Renderer2 } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, OnDestroy } from '@angular/core';
 import { MatStepLabel } from './step-label';
 import { MatStepperIntl } from './stepper-intl';
 export declare class MatStepHeader implements OnDestroy {
@@ -30,7 +30,7 @@ export declare class MatStepHeader implements OnDestroy {
     /** Whether the given step is optional. */
     optional: any;
     private _optional;
-    constructor(_intl: MatStepperIntl, _focusMonitor: FocusMonitor, _element: ElementRef, renderer: Renderer2, changeDetectorRef: ChangeDetectorRef);
+    constructor(_intl: MatStepperIntl, _focusMonitor: FocusMonitor, _element: ElementRef, changeDetectorRef: ChangeDetectorRef);
     ngOnDestroy(): void;
     /** Returns string label of given step if it is a text label. */
     _stringLabel(): string | null;

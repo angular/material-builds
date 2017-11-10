@@ -5,12 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { MatCommonModule, mixinDisabled } from '@angular/material/core';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatCommonModule, mixinDisabled } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
@@ -312,14 +312,12 @@ class MatButtonToggle {
      * @param {?} toggleGroupMultiple
      * @param {?} _changeDetectorRef
      * @param {?} _buttonToggleDispatcher
-     * @param {?} _renderer
      * @param {?} _elementRef
      * @param {?} _focusMonitor
      */
-    constructor(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _renderer, _elementRef, _focusMonitor) {
+    constructor(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _elementRef, _focusMonitor) {
         this._changeDetectorRef = _changeDetectorRef;
         this._buttonToggleDispatcher = _buttonToggleDispatcher;
-        this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._focusMonitor = _focusMonitor;
         /**
@@ -447,7 +445,7 @@ class MatButtonToggle {
         if (this.buttonToggleGroup && this._value == this.buttonToggleGroup.value) {
             this._checked = true;
         }
-        this._focusMonitor.monitor(this._elementRef.nativeElement, this._renderer, true);
+        this._focusMonitor.monitor(this._elementRef.nativeElement, true);
     }
     /**
      * Focuses the button.
@@ -552,7 +550,6 @@ MatButtonToggle.ctorParameters = () => [
     { type: MatButtonToggleGroupMultiple, decorators: [{ type: Optional },] },
     { type: ChangeDetectorRef, },
     { type: UniqueSelectionDispatcher, },
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: FocusMonitor, },
 ];

@@ -9,7 +9,7 @@ import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { PortalModule } from '@angular/cdk/portal';
 import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, CdkStepperPrevious } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, Inject, Injectable, Input, NgModule, Renderer2, SkipSelf, TemplateRef, ViewChildren, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, Inject, Injectable, Input, NgModule, SkipSelf, TemplateRef, ViewChildren, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -81,14 +81,13 @@ class MatStepHeader {
      * @param {?} _intl
      * @param {?} _focusMonitor
      * @param {?} _element
-     * @param {?} renderer
      * @param {?} changeDetectorRef
      */
-    constructor(_intl, _focusMonitor, _element, renderer, changeDetectorRef) {
+    constructor(_intl, _focusMonitor, _element, changeDetectorRef) {
         this._intl = _intl;
         this._focusMonitor = _focusMonitor;
         this._element = _element;
-        _focusMonitor.monitor(_element.nativeElement, renderer, true);
+        _focusMonitor.monitor(_element.nativeElement, true);
         this._intlSubscription = _intl.changes.subscribe(() => changeDetectorRef.markForCheck());
     }
     /**
@@ -186,7 +185,6 @@ MatStepHeader.ctorParameters = () => [
     { type: MatStepperIntl, },
     { type: FocusMonitor, },
     { type: ElementRef, },
-    { type: Renderer2, },
     { type: ChangeDetectorRef, },
 ];
 MatStepHeader.propDecorators = {

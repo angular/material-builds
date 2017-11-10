@@ -5,11 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
-import { CanColor, CanDisable, CanDisableRipple, HammerInput, HasTabIndex, MatRipple } from '@angular/material/core';
-import { ControlValueAccessor } from '@angular/forms';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { Platform } from '@angular/cdk/platform';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
+import { ControlValueAccessor } from '@angular/forms';
+import { CanColor, CanDisable, CanDisableRipple, HammerInput, HasTabIndex, MatRipple } from '@angular/material/core';
 export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 /** Change event object emitted by a MatSlideToggle. */
 export declare class MatSlideToggleChange {

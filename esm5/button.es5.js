@@ -145,7 +145,7 @@ var MatButton = (function (_super) {
          * Whether the button is icon button.
          */
         _this._isIconButton = _this._hasAttributeWithPrefix('icon-button');
-        _this._focusMonitor.monitor(_this._elementRef.nativeElement, _this._renderer, true);
+        _this._focusMonitor.monitor(_this._elementRef.nativeElement, true);
         return _this;
     }
     /**

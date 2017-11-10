@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/forms'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/collections')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/forms', '@angular/cdk/coercion', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/collections'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['button-toggle'] = global.ng.material['button-toggle'] || {}),global.ng.core,global.ng.forms,global.ng.cdk.coercion,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.collections));
-}(this, (function (exports,_angular_core,_angular_forms,_angular_cdk_coercion,_angular_material_core,_angular_cdk_a11y,_angular_cdk_collections) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/core', '@angular/forms', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['button-toggle'] = global.ng.material['button-toggle'] || {}),global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.core,global.ng.forms,global.ng.material.core));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_coercion,_angular_cdk_collections,_angular_core,_angular_forms,_angular_material_core) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -416,11 +416,10 @@ var MatButtonToggleGroupMultiple = (function (_super) {
  * Single button inside of a toggle group.
  */
 var MatButtonToggle = (function () {
-    function MatButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _renderer, _elementRef, _focusMonitor) {
+    function MatButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _elementRef, _focusMonitor) {
         var _this = this;
         this._changeDetectorRef = _changeDetectorRef;
         this._buttonToggleDispatcher = _buttonToggleDispatcher;
-        this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._focusMonitor = _focusMonitor;
         /**
@@ -568,7 +567,7 @@ var MatButtonToggle = (function () {
         if (this.buttonToggleGroup && this._value == this.buttonToggleGroup.value) {
             this._checked = true;
         }
-        this._focusMonitor.monitor(this._elementRef.nativeElement, this._renderer, true);
+        this._focusMonitor.monitor(this._elementRef.nativeElement, true);
     };
     /** Focuses the button. */
     /**
@@ -710,7 +709,6 @@ var MatButtonToggle = (function () {
         { type: MatButtonToggleGroupMultiple, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },
     ]; };

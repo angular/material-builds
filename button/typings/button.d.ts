@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, OnDestroy, Renderer2 } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
-import { CanColor, CanDisable, CanDisableRipple } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { Platform } from '@angular/cdk/platform';
+import { ElementRef, OnDestroy, Renderer2 } from '@angular/core';
+import { CanColor, CanDisable, CanDisableRipple } from '@angular/material/core';
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * @docs-private

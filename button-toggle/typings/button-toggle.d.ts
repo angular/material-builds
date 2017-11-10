@@ -5,11 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, Renderer2, EventEmitter, OnInit, OnDestroy, QueryList, ChangeDetectorRef } from '@angular/core';
-import { ControlValueAccessor } from '@angular/forms';
-import { CanDisable } from '@angular/material/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
+import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
+import { ControlValueAccessor } from '@angular/forms';
+import { CanDisable } from '@angular/material/core';
 /** Acceptable types for a button toggle. */
 export declare type ToggleType = 'checkbox' | 'radio';
 /** @docs-private */
@@ -105,7 +105,6 @@ export declare class MatButtonToggleGroupMultiple extends _MatButtonToggleGroupM
 export declare class MatButtonToggle implements OnInit, OnDestroy {
     private _changeDetectorRef;
     private _buttonToggleDispatcher;
-    private _renderer;
     private _elementRef;
     private _focusMonitor;
     /**
@@ -148,7 +147,7 @@ export declare class MatButtonToggle implements OnInit, OnDestroy {
     disabled: boolean;
     /** Event emitted when the group value changes. */
     change: EventEmitter<MatButtonToggleChange>;
-    constructor(toggleGroup: MatButtonToggleGroup, toggleGroupMultiple: MatButtonToggleGroupMultiple, _changeDetectorRef: ChangeDetectorRef, _buttonToggleDispatcher: UniqueSelectionDispatcher, _renderer: Renderer2, _elementRef: ElementRef, _focusMonitor: FocusMonitor);
+    constructor(toggleGroup: MatButtonToggleGroup, toggleGroupMultiple: MatButtonToggleGroupMultiple, _changeDetectorRef: ChangeDetectorRef, _buttonToggleDispatcher: UniqueSelectionDispatcher, _elementRef: ElementRef, _focusMonitor: FocusMonitor);
     ngOnInit(): void;
     /** Focuses the button. */
     focus(): void;

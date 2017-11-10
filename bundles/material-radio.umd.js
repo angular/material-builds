@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/collections'), require('@angular/cdk/overlay'), require('@angular/material/core'), require('@angular/forms'), require('@angular/cdk/coercion')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/collections', '@angular/cdk/overlay', '@angular/material/core', '@angular/forms', '@angular/cdk/coercion'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.radio = global.ng.material.radio || {}),global.ng.core,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.collections,global.ng.cdk.overlay,global.ng.material.core,global.ng.forms,global.ng.cdk.coercion));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_a11y,_angular_cdk_collections,_angular_cdk_overlay,_angular_material_core,_angular_forms,_angular_cdk_coercion) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/collections'), require('@angular/cdk/overlay'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/forms')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/collections', '@angular/cdk/overlay', '@angular/material/core', '@angular/cdk/coercion', '@angular/forms'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.radio = global.ng.material.radio || {}),global.ng.core,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.collections,global.ng.cdk.overlay,global.ng.material.core,global.ng.cdk.coercion,global.ng.forms));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_a11y,_angular_cdk_collections,_angular_cdk_overlay,_angular_material_core,_angular_cdk_coercion,_angular_forms) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -737,8 +737,7 @@ var MatRadioButton = (function (_super) {
      */
     function () {
         var _this = this;
-        this._focusMonitor
-            .monitor(this._inputElement.nativeElement, this._renderer, false)
+        this._focusMonitor.monitor(this._inputElement.nativeElement, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**

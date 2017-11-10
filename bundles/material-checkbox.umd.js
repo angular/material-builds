@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/common'), require('@angular/cdk/observers')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/coercion', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/cdk/a11y', '@angular/common', '@angular/cdk/observers'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = global.ng.material.checkbox || {}),global.ng.cdk.coercion,global.ng.core,global.ng.forms,global.ng.material.core,global.ng.cdk.a11y,global.ng.common,global.ng.cdk.observers));
-}(this, (function (exports,_angular_cdk_coercion,_angular_core,_angular_forms,_angular_material_core,_angular_cdk_a11y,_angular_common,_angular_cdk_observers) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/observers')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/common', '@angular/cdk/observers'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = global.ng.material.checkbox || {}),global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.core,global.ng.forms,global.ng.material.core,global.ng.common,global.ng.cdk.observers));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_coercion,_angular_core,_angular_forms,_angular_material_core,_angular_common,_angular_cdk_observers) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -198,7 +198,7 @@ var MatCheckbox = (function (_super) {
     function () {
         var _this = this;
         this._focusMonitor
-            .monitor(this._inputElement.nativeElement, this._renderer, false)
+            .monitor(this._inputElement.nativeElement, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**

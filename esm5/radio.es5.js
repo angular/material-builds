@@ -13,8 +13,8 @@ import { VIEWPORT_RULER_PROVIDER } from '@angular/cdk/overlay';
 import { MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 /**
  * @fileoverview added by tsickle
@@ -716,8 +716,7 @@ var MatRadioButton = (function (_super) {
      */
     function () {
         var _this = this;
-        this._focusMonitor
-            .monitor(this._inputElement.nativeElement, this._renderer, false)
+        this._focusMonitor.monitor(this._inputElement.nativeElement, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**

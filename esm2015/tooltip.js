@@ -115,7 +115,7 @@ class MatTooltip {
             this._leaveListener =
                 renderer.listen(_elementRef.nativeElement, 'mouseleave', () => this.hide());
         }
-        _focusMonitor.monitor(_elementRef.nativeElement, renderer, false).subscribe(origin => {
+        _focusMonitor.monitor(_elementRef.nativeElement, false).subscribe(origin => {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
                 _ngZone.run(() => this.hide(0));

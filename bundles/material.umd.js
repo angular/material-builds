@@ -4083,7 +4083,7 @@ var MatButton = (function (_super) {
          * Whether the button is icon button.
          */
         _this._isIconButton = _this._hasAttributeWithPrefix('icon-button');
-        _this._focusMonitor.monitor(_this._elementRef.nativeElement, _this._renderer, true);
+        _this._focusMonitor.monitor(_this._elementRef.nativeElement, true);
         return _this;
     }
     /**
@@ -4646,11 +4646,10 @@ var MatButtonToggleGroupMultiple = (function (_super) {
  * Single button inside of a toggle group.
  */
 var MatButtonToggle = (function () {
-    function MatButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _renderer, _elementRef, _focusMonitor) {
+    function MatButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _elementRef, _focusMonitor) {
         var _this = this;
         this._changeDetectorRef = _changeDetectorRef;
         this._buttonToggleDispatcher = _buttonToggleDispatcher;
-        this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._focusMonitor = _focusMonitor;
         /**
@@ -4798,7 +4797,7 @@ var MatButtonToggle = (function () {
         if (this.buttonToggleGroup && this._value == this.buttonToggleGroup.value) {
             this._checked = true;
         }
-        this._focusMonitor.monitor(this._elementRef.nativeElement, this._renderer, true);
+        this._focusMonitor.monitor(this._elementRef.nativeElement, true);
     };
     /** Focuses the button. */
     /**
@@ -4940,7 +4939,6 @@ var MatButtonToggle = (function () {
         { type: MatButtonToggleGroupMultiple, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },
     ]; };
@@ -5464,7 +5462,7 @@ var MatCheckbox = (function (_super) {
     function () {
         var _this = this;
         this._focusMonitor
-            .monitor(this._inputElement.nativeElement, this._renderer, false)
+            .monitor(this._inputElement.nativeElement, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -12096,7 +12094,7 @@ var MatExpansionPanelActionRow = (function () {
  * Please refer to README.md for examples on how to use it.
  */
 var MatExpansionPanelHeader = (function () {
-    function MatExpansionPanelHeader(renderer, panel, _element, _focusMonitor, _changeDetectorRef) {
+    function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef) {
         var _this = this;
         this.panel = panel;
         this._element = _element;
@@ -12107,7 +12105,7 @@ var MatExpansionPanelHeader = (function () {
         // need to  subscribe and trigger change detection manually.
         this._parentChangeSubscription = rxjs_observable_merge.merge(panel.opened, panel.closed, panel._inputChanges.pipe(rxjs_operators_filter.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
-        _focusMonitor.monitor(_element.nativeElement, renderer, false);
+        _focusMonitor.monitor(_element.nativeElement, false);
     }
     /** Toggles the expanded state of the panel. */
     /**
@@ -12247,7 +12245,6 @@ var MatExpansionPanelHeader = (function () {
     ];
     /** @nocollapse */
     MatExpansionPanelHeader.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: MatExpansionPanel, decorators: [{ type: _angular_core.Host },] },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },
@@ -17895,7 +17892,7 @@ var MatTooltip = (function () {
             this._leaveListener =
                 renderer.listen(_elementRef.nativeElement, 'mouseleave', function () { return _this.hide(); });
         }
-        _focusMonitor.monitor(_elementRef.nativeElement, renderer, false).subscribe(function (origin) {
+        _focusMonitor.monitor(_elementRef.nativeElement, false).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
                 _ngZone.run(function () { return _this.hide(0); });
@@ -20217,8 +20214,7 @@ var MatRadioButton = (function (_super) {
      */
     function () {
         var _this = this;
-        this._focusMonitor
-            .monitor(this._inputElement.nativeElement, this._renderer, false)
+        this._focusMonitor.monitor(this._inputElement.nativeElement, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -21588,8 +21584,7 @@ var MatSlideToggle = (function (_super) {
     function () {
         var _this = this;
         this._slideRenderer = new SlideToggleRenderer(this._elementRef, this._platform);
-        this._focusMonitor
-            .monitor(this._inputElement.nativeElement, this._renderer, false)
+        this._focusMonitor.monitor(this._inputElement.nativeElement, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -22492,7 +22487,7 @@ var MatSlider = (function (_super) {
     function () {
         var _this = this;
         this._focusMonitor
-            .monitor(this._elementRef.nativeElement, this._renderer, true)
+            .monitor(this._elementRef.nativeElement, true)
             .subscribe(function (origin) {
             _this._isActive = !!origin && origin !== 'keyboard';
             _this._changeDetectorRef.detectChanges();
@@ -24333,11 +24328,11 @@ var MatStepperIntl = (function () {
  */
 
 var MatStepHeader = (function () {
-    function MatStepHeader(_intl, _focusMonitor, _element, renderer, changeDetectorRef) {
+    function MatStepHeader(_intl, _focusMonitor, _element, changeDetectorRef) {
         this._intl = _intl;
         this._focusMonitor = _focusMonitor;
         this._element = _element;
-        _focusMonitor.monitor(_element.nativeElement, renderer, true);
+        _focusMonitor.monitor(_element.nativeElement, true);
         this._intlSubscription = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
     Object.defineProperty(MatStepHeader.prototype, "index", {
@@ -24468,7 +24463,6 @@ var MatStepHeader = (function () {
         { type: MatStepperIntl, },
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ChangeDetectorRef, },
     ]; };
     MatStepHeader.propDecorators = {
@@ -25597,7 +25591,69 @@ var MatTab = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
+/**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+var _MatTabBodyPortalBaseClass = _angular_cdk_portal.CdkPortalOutlet;
+/**
+ * The portal host directive for the contents of the tab.
+ * \@docs-private
+ */
+var MatTabBodyPortal = (function (_super) {
+    __extends(MatTabBodyPortal, _super);
+    function MatTabBodyPortal(_componentFactoryResolver, _viewContainerRef, _host) {
+        var _this = _super.call(this, _componentFactoryResolver, _viewContainerRef) || this;
+        _this._host = _host;
+        return _this;
+    }
+    /** Set initial visibility or set up subscription for changing visibility. */
+    /**
+     * Set initial visibility or set up subscription for changing visibility.
+     * @return {?}
+     */
+    MatTabBodyPortal.prototype.ngOnInit = /**
+     * Set initial visibility or set up subscription for changing visibility.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this._host._isCenterPosition(this._host._position)) {
+            this.attach(this._host._content);
+        }
+        else {
+            this._centeringSub = this._host._beforeCentering.subscribe(function () {
+                _this.attach(_this._host._content);
+                _this._centeringSub.unsubscribe();
+            });
+        }
+    };
+    /** Clean up subscription if necessary. */
+    /**
+     * Clean up subscription if necessary.
+     * @return {?}
+     */
+    MatTabBodyPortal.prototype.ngOnDestroy = /**
+     * Clean up subscription if necessary.
+     * @return {?}
+     */
+    function () {
+        if (this._centeringSub && !this._centeringSub.closed) {
+            this._centeringSub.unsubscribe();
+        }
+    };
+    MatTabBodyPortal.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[matTabBodyHost]'
+                },] },
+    ];
+    /** @nocollapse */
+    MatTabBodyPortal.ctorParameters = function () { return [
+        { type: _angular_core.ComponentFactoryResolver, },
+        { type: _angular_core.ViewContainerRef, },
+        { type: MatTabBody, decorators: [{ type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatTabBody; }),] },] },
+    ]; };
+    return MatTabBodyPortal;
+}(_MatTabBodyPortalBaseClass));
 /**
  * Wrapper for the contents of a tab.
  * \@docs-private
@@ -25610,6 +25666,10 @@ var MatTabBody = (function () {
          * Event emitted when the tab begins to animate towards the center as the active tab.
          */
         this._onCentering = new _angular_core.EventEmitter();
+        /**
+         * Event emitted before the centering of the tab begins.
+         */
+        this._beforeCentering = new _angular_core.EventEmitter();
         /**
          * Event emitted when the tab completes its animation towards the center.
          */
@@ -25675,25 +25735,6 @@ var MatTabBody = (function () {
         }
     };
     /**
-     * After the view has been set, check if the tab content is set to the center and attach the
-     * content if it is not already attached.
-     */
-    /**
-     * After the view has been set, check if the tab content is set to the center and attach the
-     * content if it is not already attached.
-     * @return {?}
-     */
-    MatTabBody.prototype.ngAfterViewChecked = /**
-     * After the view has been set, check if the tab content is set to the center and attach the
-     * content if it is not already attached.
-     * @return {?}
-     */
-    function () {
-        if (this._isCenterPosition(this._position) && !this._portalOutlet.hasAttached()) {
-            this._portalOutlet.attach(this._content);
-        }
-    };
-    /**
      * @param {?} e
      * @return {?}
      */
@@ -25703,6 +25744,7 @@ var MatTabBody = (function () {
      */
     function (e) {
         if (this._isCenterPosition(e.toState)) {
+            this._beforeCentering.emit();
             this._onCentering.emit(this._elementRef.nativeElement.clientHeight);
         }
     };
@@ -25715,10 +25757,6 @@ var MatTabBody = (function () {
      * @return {?}
      */
     function (e) {
-        // If the end state is that the tab is not centered, then detach the content.
-        if (!this._isCenterPosition(e.toState) && !this._isCenterPosition(this._position)) {
-            this._portalOutlet.detach();
-        }
         // If the transition to the center is complete, emit an event.
         if (this._isCenterPosition(e.toState) && this._isCenterPosition(this._position)) {
             this._onCentered.emit();
@@ -25736,6 +25774,7 @@ var MatTabBody = (function () {
     function () {
         return this._dir && this._dir.value === 'rtl' ? 'rtl' : 'ltr';
     };
+    /** Whether the provided position state is considered center, regardless of origin. */
     /**
      * Whether the provided position state is considered center, regardless of origin.
      * @param {?} position
@@ -25753,7 +25792,7 @@ var MatTabBody = (function () {
     };
     MatTabBody.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-tab-body',
-                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template cdkPortalOutlet></ng-template></div>",
+                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template matTabBodyHost></ng-template></div>",
                     styles: [".mat-tab-body-content{-webkit-backface-visibility:hidden;backface-visibility:hidden;height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -25786,8 +25825,8 @@ var MatTabBody = (function () {
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatTabBody.propDecorators = {
-        "_portalOutlet": [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.CdkPortalOutlet,] },],
         "_onCentering": [{ type: _angular_core.Output },],
+        "_beforeCentering": [{ type: _angular_core.Output },],
         "_onCentered": [{ type: _angular_core.Output },],
         "_content": [{ type: _angular_core.Input, args: ['content',] },],
         "position": [{ type: _angular_core.Input, args: ['position',] },],
@@ -27238,6 +27277,7 @@ var MatTabsModule = (function () {
                         MatTabNav,
                         MatTabLink,
                         MatTabBody,
+                        MatTabBodyPortal,
                         MatTabHeader
                     ],
                     providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
@@ -27386,7 +27426,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc0-691bb73');
+var VERSION = new _angular_core.Version('5.0.0-rc0-8dc8dc4');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27603,10 +27643,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa20 = MatMenuItemBase;
-exports.ɵb20 = _MatMenuItemMixinBase;
-exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa19 = MatMenuItemBase;
+exports.ɵb19 = _MatMenuItemMixinBase;
+exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -27727,18 +27767,19 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe10 = MatTabBase;
+exports.ɵf10 = _MatTabMixinBase;
+exports.ɵa10 = MatTabHeaderBase;
+exports.ɵb10 = _MatTabHeaderMixinBase;
+exports.ɵc10 = MatTabLabelWrapperBase;
+exports.ɵd10 = _MatTabLabelWrapperMixinBase;
+exports.ɵi10 = MatTabLinkBase;
+exports.ɵg10 = MatTabNavBase;
+exports.ɵj10 = _MatTabLinkMixinBase;
+exports.ɵh10 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
+exports.MatTabBodyPortal = MatTabBodyPortal;
 exports.MatTabHeader = MatTabHeader;
 exports.MatTabLabelWrapper = MatTabLabelWrapper;
 exports.MatTab = MatTab;

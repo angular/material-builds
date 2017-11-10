@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Host, Input, NgModule, Optional, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Host, Input, NgModule, Optional, ViewEncapsulation, forwardRef } from '@angular/core';
 import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
@@ -268,7 +268,7 @@ var MatExpansionPanelActionRow = (function () {
  * Please refer to README.md for examples on how to use it.
  */
 var MatExpansionPanelHeader = (function () {
-    function MatExpansionPanelHeader(renderer, panel, _element, _focusMonitor, _changeDetectorRef) {
+    function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef) {
         var _this = this;
         this.panel = panel;
         this._element = _element;
@@ -279,7 +279,7 @@ var MatExpansionPanelHeader = (function () {
         // need to  subscribe and trigger change detection manually.
         this._parentChangeSubscription = merge(panel.opened, panel.closed, panel._inputChanges.pipe(filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
-        _focusMonitor.monitor(_element.nativeElement, renderer, false);
+        _focusMonitor.monitor(_element.nativeElement, false);
     }
     /** Toggles the expanded state of the panel. */
     /**
@@ -419,7 +419,6 @@ var MatExpansionPanelHeader = (function () {
     ];
     /** @nocollapse */
     MatExpansionPanelHeader.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: MatExpansionPanel, decorators: [{ type: Host },] },
         { type: ElementRef, },
         { type: FocusMonitor, },

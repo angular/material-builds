@@ -11,8 +11,8 @@ import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { VIEWPORT_RULER_PROVIDER } from '@angular/cdk/overlay';
 import { MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
-import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 /**
  * @fileoverview added by tsickle
@@ -558,8 +558,7 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
      * @return {?}
      */
     ngAfterViewInit() {
-        this._focusMonitor
-            .monitor(this._inputElement.nativeElement, this._renderer, false)
+        this._focusMonitor.monitor(this._inputElement.nativeElement, false)
             .subscribe(focusOrigin => this._onInputFocusChange(focusOrigin));
     }
     /**

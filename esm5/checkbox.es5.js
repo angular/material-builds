@@ -7,11 +7,11 @@
  */
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
+import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Input, NgModule, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CheckboxRequiredValidator, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { CommonModule } from '@angular/common';
 import { ObserversModule } from '@angular/cdk/observers';
 
@@ -176,7 +176,7 @@ var MatCheckbox = (function (_super) {
     function () {
         var _this = this;
         this._focusMonitor
-            .monitor(this._inputElement.nativeElement, this._renderer, false)
+            .monitor(this._inputElement.nativeElement, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**

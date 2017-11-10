@@ -103,7 +103,7 @@ var MatTooltip = (function () {
             this._leaveListener =
                 renderer.listen(_elementRef.nativeElement, 'mouseleave', function () { return _this.hide(); });
         }
-        _focusMonitor.monitor(_elementRef.nativeElement, renderer, false).subscribe(function (origin) {
+        _focusMonitor.monitor(_elementRef.nativeElement, false).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
                 _ngZone.run(function () { return _this.hide(0); });
