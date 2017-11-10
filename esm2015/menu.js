@@ -18,6 +18,7 @@ import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subject } from 'rxjs/Subject';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Directionality } from '@angular/cdk/bidi';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { filter } from 'rxjs/operators/filter';
@@ -273,10 +274,7 @@ class MatMenu {
          * Current state of the panel animation.
          */
         this._panelAnimationState = 'void';
-        /**
-         * Whether the menu should overlap its trigger.
-         */
-        this.overlapTrigger = this._defaultOptions.overlapTrigger;
+        this._overlapTrigger = this._defaultOptions.overlapTrigger;
         /**
          * Event emitted when the menu is closed.
          */
@@ -318,6 +316,20 @@ class MatMenu {
         }
         this._yPosition = value;
         this.setPositionClasses();
+    }
+    /**
+     * Whether the menu should overlap its trigger.
+     * @param {?} value
+     * @return {?}
+     */
+    set overlapTrigger(value) {
+        this._overlapTrigger = coerceBooleanProperty(value);
+    }
+    /**
+     * @return {?}
+     */
+    get overlapTrigger() {
+        return this._overlapTrigger;
     }
     /**
      * This method takes classes set on the host mat-menu element and applies them on the
@@ -992,5 +1004,5 @@ MatMenuModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa19, _MatMenuItemMixinBase as ɵb19, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd19, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc19 };
+export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa21, _MatMenuItemMixinBase as ɵb21, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd21, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc21 };
 //# sourceMappingURL=menu.js.map

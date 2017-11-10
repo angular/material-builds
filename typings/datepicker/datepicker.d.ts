@@ -60,8 +60,9 @@ export declare class MatDatepicker<D> implements OnDestroy {
      * than a popup and elements have more padding to allow for bigger touch targets.
      */
     touchUi: boolean;
+    private _touchUi;
     /** Whether the datepicker pop-up should be disabled. */
-    disabled: any;
+    disabled: boolean;
     private _disabled;
     /**
      * Emits new selected date when selected date changes.

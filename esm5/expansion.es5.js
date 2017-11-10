@@ -128,10 +128,7 @@ var MatExpansionPanel = (function (_super) {
     __extends(MatExpansionPanel, _super);
     function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
         var _this = _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
-        /**
-         * Whether the toggle indicator should be hidden.
-         */
-        _this.hideToggle = false;
+        _this._hideToggle = false;
         /**
          * Stream that emits for changes in `\@Input` properties.
          */
@@ -139,6 +136,24 @@ var MatExpansionPanel = (function (_super) {
         _this.accordion = accordion;
         return _this;
     }
+    Object.defineProperty(MatExpansionPanel.prototype, "hideToggle", {
+        get: /**
+         * Whether the toggle indicator should be hidden.
+         * @return {?}
+         */
+        function () {
+            return this._hideToggle;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._hideToggle = coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /** Whether the expansion indicator should be hidden. */
     /**
      * Whether the expansion indicator should be hidden.

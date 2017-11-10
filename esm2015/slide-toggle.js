@@ -113,7 +113,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @return {?}
      */
     set checked(value) {
-        this._checked = !!value;
+        this._checked = coerceBooleanProperty(value);
         this._changeDetectorRef.markForCheck();
     }
     /**

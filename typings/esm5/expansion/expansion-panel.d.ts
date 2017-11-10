@@ -26,6 +26,7 @@ export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
 export declare class MatExpansionPanel extends _MatExpansionPanelMixinBase implements CanDisable, OnChanges, OnDestroy {
     /** Whether the toggle indicator should be hidden. */
     hideToggle: boolean;
+    private _hideToggle;
     /** Stream that emits for changes in `@Input` properties. */
     _inputChanges: Subject<SimpleChanges>;
     /** Optionally defined accordion the expansion panel belongs to. */

@@ -128,15 +128,26 @@ class MatExpansionPanel extends _MatExpansionPanelMixinBase {
      */
     constructor(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
         super(accordion, _changeDetectorRef, _uniqueSelectionDispatcher);
-        /**
-         * Whether the toggle indicator should be hidden.
-         */
-        this.hideToggle = false;
+        this._hideToggle = false;
         /**
          * Stream that emits for changes in `\@Input` properties.
          */
         this._inputChanges = new Subject();
         this.accordion = accordion;
+    }
+    /**
+     * Whether the toggle indicator should be hidden.
+     * @return {?}
+     */
+    get hideToggle() {
+        return this._hideToggle;
+    }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set hideToggle(value) {
+        this._hideToggle = coerceBooleanProperty(value);
     }
     /**
      * Whether the expansion indicator should be hidden.

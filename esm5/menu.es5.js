@@ -20,6 +20,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { Subject } from 'rxjs/Subject';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Directionality } from '@angular/cdk/bidi';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { filter } from 'rxjs/operators/filter';
@@ -301,10 +302,7 @@ var MatMenu = (function () {
          * Current state of the panel animation.
          */
         this._panelAnimationState = 'void';
-        /**
-         * Whether the menu should overlap its trigger.
-         */
-        this.overlapTrigger = this._defaultOptions.overlapTrigger;
+        this._overlapTrigger = this._defaultOptions.overlapTrigger;
         /**
          * Event emitted when the menu is closed.
          */
@@ -351,6 +349,24 @@ var MatMenu = (function () {
             }
             this._yPosition = value;
             this.setPositionClasses();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatMenu.prototype, "overlapTrigger", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._overlapTrigger;
+        },
+        set: /**
+         * Whether the menu should overlap its trigger.
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._overlapTrigger = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -1230,5 +1246,5 @@ var MatMenuModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa19, _MatMenuItemMixinBase as ɵb19, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd19, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc19 };
+export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa21, _MatMenuItemMixinBase as ɵb21, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd21, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc21 };
 //# sourceMappingURL=menu.es5.js.map

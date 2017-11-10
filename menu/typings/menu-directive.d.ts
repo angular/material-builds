@@ -49,6 +49,7 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel, OnDestro
     items: QueryList<MatMenuItem>;
     /** Whether the menu should overlap its trigger. */
     overlapTrigger: boolean;
+    private _overlapTrigger;
     /**
      * This method takes classes set on the host mat-menu element and applies them on the
      * menu template that displays in the overlay container.  Otherwise, it's difficult

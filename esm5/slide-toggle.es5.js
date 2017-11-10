@@ -113,7 +113,7 @@ var MatSlideToggle = (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._checked = !!value;
+            this._checked = coerceBooleanProperty(value);
             this._changeDetectorRef.markForCheck();
         },
         enumerable: true,

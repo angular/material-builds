@@ -1303,11 +1303,7 @@ var MatDatepicker = (function () {
          * The view that the calendar should start in.
          */
         this.startView = 'month';
-        /**
-         * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
-         * than a popup and elements have more padding to allow for bigger touch targets.
-         */
-        this.touchUi = false;
+        this._touchUi = false;
         /**
          * Emits new selected date when selected date changes.
          * @deprecated Switch to the `dateChange` and `dateInput` binding on the input element.
@@ -1359,6 +1355,25 @@ var MatDatepicker = (function () {
          */
         function (date) {
             this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(date));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDatepicker.prototype, "touchUi", {
+        get: /**
+         * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
+         * than a popup and elements have more padding to allow for bigger touch targets.
+         * @return {?}
+         */
+        function () {
+            return this._touchUi;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._touchUi = _angular_cdk_coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true

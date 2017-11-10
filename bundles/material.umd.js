@@ -10883,11 +10883,7 @@ var MatDatepicker = (function () {
          * The view that the calendar should start in.
          */
         this.startView = 'month';
-        /**
-         * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
-         * than a popup and elements have more padding to allow for bigger touch targets.
-         */
-        this.touchUi = false;
+        this._touchUi = false;
         /**
          * Emits new selected date when selected date changes.
          * @deprecated Switch to the `dateChange` and `dateInput` binding on the input element.
@@ -10939,6 +10935,25 @@ var MatDatepicker = (function () {
          */
         function (date) {
             this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(date));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDatepicker.prototype, "touchUi", {
+        get: /**
+         * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
+         * than a popup and elements have more padding to allow for bigger touch targets.
+         * @return {?}
+         */
+        function () {
+            return this._touchUi;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._touchUi = _angular_cdk_coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -11954,10 +11969,7 @@ var MatExpansionPanel = (function (_super) {
     __extends(MatExpansionPanel, _super);
     function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
         var _this = _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
-        /**
-         * Whether the toggle indicator should be hidden.
-         */
-        _this.hideToggle = false;
+        _this._hideToggle = false;
         /**
          * Stream that emits for changes in `\@Input` properties.
          */
@@ -11965,6 +11977,24 @@ var MatExpansionPanel = (function (_super) {
         _this.accordion = accordion;
         return _this;
     }
+    Object.defineProperty(MatExpansionPanel.prototype, "hideToggle", {
+        get: /**
+         * Whether the toggle indicator should be hidden.
+         * @return {?}
+         */
+        function () {
+            return this._hideToggle;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._hideToggle = _angular_cdk_coercion.coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /** Whether the expansion indicator should be hidden. */
     /**
      * Whether the expansion indicator should be hidden.
@@ -15153,10 +15183,7 @@ var MatMenu = (function () {
          * Current state of the panel animation.
          */
         this._panelAnimationState = 'void';
-        /**
-         * Whether the menu should overlap its trigger.
-         */
-        this.overlapTrigger = this._defaultOptions.overlapTrigger;
+        this._overlapTrigger = this._defaultOptions.overlapTrigger;
         /**
          * Event emitted when the menu is closed.
          */
@@ -15203,6 +15230,24 @@ var MatMenu = (function () {
             }
             this._yPosition = value;
             this.setPositionClasses();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatMenu.prototype, "overlapTrigger", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this._overlapTrigger;
+        },
+        set: /**
+         * Whether the menu should overlap its trigger.
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._overlapTrigger = _angular_cdk_coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -21559,7 +21604,7 @@ var MatSlideToggle = (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._checked = !!value;
+            this._checked = _angular_cdk_coercion.coerceBooleanProperty(value);
             this._changeDetectorRef.markForCheck();
         },
         enumerable: true,
@@ -25952,7 +25997,9 @@ var MatTabGroup = (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._indexToSelect = value; },
+        function (value) {
+            this._indexToSelect = _angular_cdk_coercion.coerceNumberProperty(value, null);
+        },
         enumerable: true,
         configurable: true
     });
@@ -26404,6 +26451,7 @@ var MatTabHeader = (function (_super) {
          * @return {?}
          */
         function (value) {
+            value = _angular_cdk_coercion.coerceNumberProperty(value);
             this._selectedIndexChanged = this._selectedIndex != value;
             this._selectedIndex = value;
             this._focusIndex = value;
@@ -27426,7 +27474,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc0-8dc8dc4');
+var VERSION = new _angular_core.Version('5.0.0-rc0-3ca801a');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27643,10 +27691,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa19 = MatMenuItemBase;
-exports.ɵb19 = _MatMenuItemMixinBase;
-exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -27767,16 +27815,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe10 = MatTabBase;
-exports.ɵf10 = _MatTabMixinBase;
-exports.ɵa10 = MatTabHeaderBase;
-exports.ɵb10 = _MatTabHeaderMixinBase;
-exports.ɵc10 = MatTabLabelWrapperBase;
-exports.ɵd10 = _MatTabLabelWrapperMixinBase;
-exports.ɵi10 = MatTabLinkBase;
-exports.ɵg10 = MatTabNavBase;
-exports.ɵj10 = _MatTabLinkMixinBase;
-exports.ɵh10 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
