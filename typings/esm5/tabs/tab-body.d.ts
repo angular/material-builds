@@ -5,12 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { EventEmitter, OnDestroy, OnInit, ElementRef, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
+import { EventEmitter, OnInit, ElementRef, AfterViewChecked } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Directionality, Direction } from '@angular/cdk/bidi';
-/** Workaround for https://github.com/angular/angular/issues/17849 */
-export declare const _MatTabBodyPortalBaseClass: typeof CdkPortalOutlet;
 /**
  * These position states are used internally as animation states for the tab body. Setting the
  * position state to left, right, or center will transition the tab body from its current
@@ -30,30 +28,16 @@ export declare type MatTabBodyPositionState = 'left' | 'center' | 'right' | 'lef
  */
 export declare type MatTabBodyOriginState = 'left' | 'right';
 /**
- * The portal host directive for the contents of the tab.
- * @docs-private
- */
-export declare class MatTabBodyPortal extends _MatTabBodyPortalBaseClass implements OnInit, OnDestroy {
-    private _host;
-    /** A subscription to events for when the tab body begins centering. */
-    private _centeringSub;
-    constructor(_componentFactoryResolver: ComponentFactoryResolver, _viewContainerRef: ViewContainerRef, _host: MatTabBody);
-    /** Set initial visibility or set up subscription for changing visibility. */
-    ngOnInit(): void;
-    /** Clean up subscription if necessary. */
-    ngOnDestroy(): void;
-}
-/**
  * Wrapper for the contents of a tab.
  * @docs-private
  */
-export declare class MatTabBody implements OnInit {
+export declare class MatTabBody implements OnInit, AfterViewChecked {
     private _elementRef;
     private _dir;
+    /** The portal outlet inside of this container into which the tab body content will be loaded. */
+    _portalOutlet: CdkPortalOutlet;
     /** Event emitted when the tab begins to animate towards the center as the active tab. */
     _onCentering: EventEmitter<number>;
-    /** Event emitted before the centering of the tab begins. */
-    _beforeCentering: EventEmitter<number>;
     /** Event emitted when the tab completes its animation towards the center. */
     _onCentered: EventEmitter<void>;
     /** The tab body content to display. */
@@ -71,10 +55,15 @@ export declare class MatTabBody implements OnInit {
      * special position states that transition the tab from the left or right before centering.
      */
     ngOnInit(): void;
+    /**
+     * After the view has been set, check if the tab content is set to the center and attach the
+     * content if it is not already attached.
+     */
+    ngAfterViewChecked(): void;
     _onTranslateTabStarted(e: AnimationEvent): void;
     _onTranslateTabComplete(e: AnimationEvent): void;
     /** The text direction of the containing app. */
     _getLayoutDirection(): Direction;
     /** Whether the provided position state is considered center, regardless of origin. */
-    _isCenterPosition(position: MatTabBodyPositionState | string): boolean;
+    private _isCenterPosition(position);
 }
