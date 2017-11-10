@@ -25597,7 +25597,69 @@ var MatTab = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
+/**
+ * Workaround for https://github.com/angular/angular/issues/17849
+ */
+var _MatTabBodyPortalBaseClass = _angular_cdk_portal.CdkPortalOutlet;
+/**
+ * The portal host directive for the contents of the tab.
+ * \@docs-private
+ */
+var MatTabBodyPortal = (function (_super) {
+    __extends(MatTabBodyPortal, _super);
+    function MatTabBodyPortal(_componentFactoryResolver, _viewContainerRef, _host) {
+        var _this = _super.call(this, _componentFactoryResolver, _viewContainerRef) || this;
+        _this._host = _host;
+        return _this;
+    }
+    /** Set initial visibility or set up subscription for changing visibility. */
+    /**
+     * Set initial visibility or set up subscription for changing visibility.
+     * @return {?}
+     */
+    MatTabBodyPortal.prototype.ngOnInit = /**
+     * Set initial visibility or set up subscription for changing visibility.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this._host._isCenterPosition(this._host._position)) {
+            this.attach(this._host._content);
+        }
+        else {
+            this._centeringSub = this._host._beforeCentering.subscribe(function () {
+                _this.attach(_this._host._content);
+                _this._centeringSub.unsubscribe();
+            });
+        }
+    };
+    /** Clean up subscription if necessary. */
+    /**
+     * Clean up subscription if necessary.
+     * @return {?}
+     */
+    MatTabBodyPortal.prototype.ngOnDestroy = /**
+     * Clean up subscription if necessary.
+     * @return {?}
+     */
+    function () {
+        if (this._centeringSub && !this._centeringSub.closed) {
+            this._centeringSub.unsubscribe();
+        }
+    };
+    MatTabBodyPortal.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[matTabBodyHost]'
+                },] },
+    ];
+    /** @nocollapse */
+    MatTabBodyPortal.ctorParameters = function () { return [
+        { type: _angular_core.ComponentFactoryResolver, },
+        { type: _angular_core.ViewContainerRef, },
+        { type: MatTabBody, decorators: [{ type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatTabBody; }),] },] },
+    ]; };
+    return MatTabBodyPortal;
+}(_MatTabBodyPortalBaseClass));
 /**
  * Wrapper for the contents of a tab.
  * \@docs-private
@@ -25610,6 +25672,10 @@ var MatTabBody = (function () {
          * Event emitted when the tab begins to animate towards the center as the active tab.
          */
         this._onCentering = new _angular_core.EventEmitter();
+        /**
+         * Event emitted before the centering of the tab begins.
+         */
+        this._beforeCentering = new _angular_core.EventEmitter();
         /**
          * Event emitted when the tab completes its animation towards the center.
          */
@@ -25675,25 +25741,6 @@ var MatTabBody = (function () {
         }
     };
     /**
-     * After the view has been set, check if the tab content is set to the center and attach the
-     * content if it is not already attached.
-     */
-    /**
-     * After the view has been set, check if the tab content is set to the center and attach the
-     * content if it is not already attached.
-     * @return {?}
-     */
-    MatTabBody.prototype.ngAfterViewChecked = /**
-     * After the view has been set, check if the tab content is set to the center and attach the
-     * content if it is not already attached.
-     * @return {?}
-     */
-    function () {
-        if (this._isCenterPosition(this._position) && !this._portalOutlet.hasAttached()) {
-            this._portalOutlet.attach(this._content);
-        }
-    };
-    /**
      * @param {?} e
      * @return {?}
      */
@@ -25703,6 +25750,7 @@ var MatTabBody = (function () {
      */
     function (e) {
         if (this._isCenterPosition(e.toState)) {
+            this._beforeCentering.emit();
             this._onCentering.emit(this._elementRef.nativeElement.clientHeight);
         }
     };
@@ -25715,10 +25763,6 @@ var MatTabBody = (function () {
      * @return {?}
      */
     function (e) {
-        // If the end state is that the tab is not centered, then detach the content.
-        if (!this._isCenterPosition(e.toState) && !this._isCenterPosition(this._position)) {
-            this._portalOutlet.detach();
-        }
         // If the transition to the center is complete, emit an event.
         if (this._isCenterPosition(e.toState) && this._isCenterPosition(this._position)) {
             this._onCentered.emit();
@@ -25736,6 +25780,7 @@ var MatTabBody = (function () {
     function () {
         return this._dir && this._dir.value === 'rtl' ? 'rtl' : 'ltr';
     };
+    /** Whether the provided position state is considered center, regardless of origin. */
     /**
      * Whether the provided position state is considered center, regardless of origin.
      * @param {?} position
@@ -25753,7 +25798,7 @@ var MatTabBody = (function () {
     };
     MatTabBody.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-tab-body',
-                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template cdkPortalOutlet></ng-template></div>",
+                    template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template matTabBodyHost></ng-template></div>",
                     styles: [".mat-tab-body-content{-webkit-backface-visibility:hidden;backface-visibility:hidden;height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -25786,8 +25831,8 @@ var MatTabBody = (function () {
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatTabBody.propDecorators = {
-        "_portalOutlet": [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.CdkPortalOutlet,] },],
         "_onCentering": [{ type: _angular_core.Output },],
+        "_beforeCentering": [{ type: _angular_core.Output },],
         "_onCentered": [{ type: _angular_core.Output },],
         "_content": [{ type: _angular_core.Input, args: ['content',] },],
         "position": [{ type: _angular_core.Input, args: ['position',] },],
@@ -27238,6 +27283,7 @@ var MatTabsModule = (function () {
                         MatTabNav,
                         MatTabLink,
                         MatTabBody,
+                        MatTabBodyPortal,
                         MatTabHeader
                     ],
                     providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
@@ -27386,7 +27432,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc0-a019729');
+var VERSION = new _angular_core.Version('5.0.0-rc0-0e03bf4');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27739,6 +27785,7 @@ exports.ɵj22 = _MatTabLinkMixinBase;
 exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
+exports.MatTabBodyPortal = MatTabBodyPortal;
 exports.MatTabHeader = MatTabHeader;
 exports.MatTabLabelWrapper = MatTabLabelWrapper;
 exports.MatTab = MatTab;
