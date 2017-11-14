@@ -559,20 +559,24 @@ var MatIconRegistry = (function () {
      * @return {?}
      */
     function (iconSet, iconName) {
-        var /** @type {?} */ iconNode = iconSet.querySelector('#' + iconName);
-        if (!iconNode) {
+        var /** @type {?} */ iconSource = iconSet.querySelector('#' + iconName);
+        if (!iconSource) {
             return null;
         }
+        // Clone the element and remove the ID to prevent multiple elements from being added
+        // to the page with the same ID.
+        var /** @type {?} */ iconElement = /** @type {?} */ (iconSource.cloneNode(true));
+        iconElement.id = '';
         // If the icon node is itself an <svg> node, clone and return it directly. If not, set it as
         // the content of a new <svg> node.
-        if (iconNode.tagName.toLowerCase() === 'svg') {
-            return this._setSvgAttributes(/** @type {?} */ (iconNode.cloneNode(true)));
+        if (iconElement.nodeName.toLowerCase() === 'svg') {
+            return this._setSvgAttributes(/** @type {?} */ (iconElement));
         }
         // If the node is a <symbol>, it won't be rendered so we have to convert it into <svg>. Note
         // that the same could be achieved by referring to it via <use href="#id">, however the <use>
         // tag is problematic on Firefox, because it needs to include the current page path.
-        if (iconNode.nodeName.toLowerCase() === 'symbol') {
-            return this._setSvgAttributes(this._toSvgElement(iconNode));
+        if (iconElement.nodeName.toLowerCase() === 'symbol') {
+            return this._setSvgAttributes(this._toSvgElement(iconElement));
         }
         // createElement('SVG') doesn't work as expected; the DOM ends up with
         // the correct nodes, but the SVG content doesn't render. Instead we
@@ -581,7 +585,7 @@ var MatIconRegistry = (function () {
         // http://stackoverflow.com/questions/23003278/svg-innerhtml-in-firefox-can-not-display
         var /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
         // Clone the node so we don't remove it from the parent icon set element.
-        svg.appendChild(iconNode.cloneNode(true));
+        svg.appendChild(iconElement);
         return this._setSvgAttributes(svg);
     };
     /**
@@ -595,8 +599,6 @@ var MatIconRegistry = (function () {
      * @return {?}
      */
     function (str) {
-        // TODO: Is there a better way than innerHTML? Renderer doesn't appear to have a method for
-        // creating an element from an HTML string.
         var /** @type {?} */ div = document.createElement('DIV');
         div.innerHTML = str;
         var /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));

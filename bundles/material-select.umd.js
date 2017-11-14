@@ -612,7 +612,7 @@ var MatSelect = (function (_super) {
      */
     function () {
         var _this = this;
-        if (this.disabled || !this.options.length) {
+        if (this.disabled || !this.options || !this.options.length) {
             return;
         }
         this._triggerRect = this.trigger.nativeElement.getBoundingClientRect();
@@ -780,7 +780,7 @@ var MatSelect = (function (_super) {
          * @return {?}
          */
         function () {
-            if (!this._selectionModel || this._selectionModel.isEmpty()) {
+            if (this.empty) {
                 return '';
             }
             if (this._multiple) {
@@ -1236,11 +1236,13 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     function () {
-        if (this._selectionModel.isEmpty()) {
-            this._keyManager.setFirstItemActive();
-        }
-        else {
-            this._keyManager.setActiveItem(/** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0]))));
+        if (this._keyManager) {
+            if (this.empty) {
+                this._keyManager.setFirstItemActive();
+            }
+            else {
+                this._keyManager.setActiveItem(/** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0]))));
+            }
         }
     };
     /**

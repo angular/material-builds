@@ -1349,7 +1349,7 @@ class MatRipple {
      * @return {?}
      */
     ngOnChanges(changes) {
-        if ((changes['trigger'] || changes['_matRippleTrigger']) && this.trigger) {
+        if (changes['trigger'] && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
         this._updateRippleRenderer();

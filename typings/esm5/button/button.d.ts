@@ -65,8 +65,8 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
     focus(): void;
     _getHostElement(): any;
     _isRippleDisabled(): boolean;
-    /** Gets whether the button has one of the given attributes with a 'mat-' prefix. */
-    _hasAttributeWithPrefix(...unprefixedAttributeNames: string[]): boolean;
+    /** Gets whether the button has one of the given attributes. */
+    _hasHostAttributes(...attributes: string[]): boolean;
 }
 /**
  * Raised Material design button.

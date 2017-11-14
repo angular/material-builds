@@ -92,6 +92,9 @@ class MatSnackBarRef {
      */
     _finishDismiss() {
         this._overlayRef.dispose();
+        if (!this._onAction.closed) {
+            this._onAction.complete();
+        }
         this._afterClosed.next();
         this._afterClosed.complete();
     }

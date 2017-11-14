@@ -316,10 +316,9 @@ var MatTooltip = (function () {
         var _this = this;
         var /** @type {?} */ overlayRef = this._createOverlay();
         var /** @type {?} */ portal = new _angular_cdk_portal.ComponentPortal(TooltipComponent, this._viewContainerRef);
-        this._tooltipInstance = overlayRef.attach(portal).instance; /** @type {?} */
-        ((
-        // Dispose the overlay when finished the shown tooltip.
-        this._tooltipInstance)).afterHidden().subscribe(function () {
+        this._tooltipInstance = overlayRef.attach(portal).instance;
+        // Dispose of the tooltip when the overlay is detached.
+        overlayRef.detachments().subscribe(function () {
             // Check first if the tooltip has already been removed through this components destroy.
             if (_this._tooltipInstance) {
                 _this._disposeTooltip();

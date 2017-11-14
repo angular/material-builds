@@ -25,10 +25,8 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     _elementRef: ElementRef;
     private _document;
     private _value;
-    private readonly _baseSize;
-    private readonly _baseStrokeWidth;
-    private _fallbackAnimation;
     private _strokeWidth;
+    private _fallbackAnimation;
     /** The width and height of the host element. Will grow with stroke width. **/
     _elementSize: number;
     /** Tracks diameters of existing instances to de-dupe generated styles (default d = 100) */
@@ -40,7 +38,7 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     private static styleTag;
     /** The diameter of the progress spinner (will set width and height of svg). */
     diameter: number;
-    _diameter: number;
+    private _diameter;
     /** Stroke width of the progress spinner. */
     strokeWidth: number;
     /** Mode of the progress circle */
@@ -59,8 +57,6 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     readonly _strokeDashOffset: number | null;
     /** Stroke width of the circle in percent. */
     readonly _circleStrokeWidth: number;
-    /** Sets the diameter and adds diameter-specific styles if necessary. */
-    private _setDiameterAndInitStyles(size);
     /** Dynamically generates a style tag containing the correct animation for this diameter. */
     private _attachStyleNode();
     /** Generates animation styles adjusted for the spinner's diameter. */

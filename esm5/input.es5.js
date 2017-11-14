@@ -7,7 +7,7 @@
  */
 import { Platform, PlatformModule, getSupportedInputTypes } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
-import { Directive, ElementRef, Input, NgModule, Optional, Renderer2, Self } from '@angular/core';
+import { Directive, ElementRef, Inject, InjectionToken, Input, NgModule, Optional, Renderer2, Self } from '@angular/core';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -248,6 +248,19 @@ function getMatInputUnsupportedTypeError(type) {
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * This token is used to inject the object whose value should be set into `MatInput`. If none is
+ * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
+ * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
+ * value to them.
+ */
+var MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
 var MAT_INPUT_INVALID_TYPES = [
     'button',
@@ -266,7 +279,7 @@ var nextUniqueId = 0;
  * Directive that allows a native input to work inside a `MatFormField`.
  */
 var MatInput = (function () {
-    function MatInput(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher) {
+    function MatInput(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
         this._platform = _platform;
@@ -281,7 +294,6 @@ var MatInput = (function () {
         this._disabled = false;
         this._required = false;
         this._uid = "mat-input-" + nextUniqueId++;
-        this._previousNativeValue = this.value;
         this._readonly = false;
         /**
          * Whether the input is focused.
@@ -312,6 +324,10 @@ var MatInput = (function () {
             'time',
             'week'
         ].filter(function (t) { return getSupportedInputTypes().has(t); });
+        // If no input value accessor was explicitly specified, use the element as the input value
+        // accessor.
+        this._inputValueAccessor = inputValueAccessor || this._elementRef.nativeElement;
+        this._previousNativeValue = this.value;
         // Force setter to be called in case id was not specified.
         this.id = this.id;
         // On some versions of iOS the caret gets stuck in the wrong place when holding down the delete
@@ -400,14 +416,14 @@ var MatInput = (function () {
          * The input element's value.
          * @return {?}
          */
-        function () { return this._elementRef.nativeElement.value; },
+        function () { return this._inputValueAccessor.value; },
         set: /**
          * @param {?} value
          * @return {?}
          */
         function (value) {
             if (value !== this.value) {
-                this._elementRef.nativeElement.value = value;
+                this._inputValueAccessor.value = value;
                 this.stateChanges.next();
             }
         },
@@ -655,6 +671,7 @@ var MatInput = (function () {
                         '[readonly]': 'readonly',
                         '[attr.aria-describedby]': '_ariaDescribedby || null',
                         '[attr.aria-invalid]': 'errorState',
+                        '[attr.aria-required]': 'required.toString()',
                         '(blur)': '_focusChanged(false)',
                         '(focus)': '_focusChanged(true)',
                         '(input)': '_onInput()',
@@ -671,6 +688,7 @@ var MatInput = (function () {
         { type: NgForm, decorators: [{ type: Optional },] },
         { type: FormGroupDirective, decorators: [{ type: Optional },] },
         { type: ErrorStateMatcher, },
+        { type: undefined, decorators: [{ type: Optional }, { type: Self }, { type: Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] },] },
     ]; };
     MatInput.propDecorators = {
         "disabled": [{ type: Input },],
@@ -730,5 +748,5 @@ var MatInputModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatInputModule, MatTextareaAutosize, MatInput, getMatInputUnsupportedTypeError };
+export { MatInputModule, MatTextareaAutosize, MatInput, getMatInputUnsupportedTypeError, MAT_INPUT_VALUE_ACCESSOR };
 //# sourceMappingURL=input.es5.js.map

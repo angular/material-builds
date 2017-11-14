@@ -164,11 +164,11 @@ var MatButton = (function (_super) {
         /**
          * Whether the button is round.
          */
-        _this._isRoundButton = _this._hasAttributeWithPrefix('fab', 'mini-fab');
+        _this._isRoundButton = _this._hasHostAttributes('mat-fab', 'mat-mini-fab');
         /**
          * Whether the button is icon button.
          */
-        _this._isIconButton = _this._hasAttributeWithPrefix('icon-button');
+        _this._isIconButton = _this._hasHostAttributes('mat-icon-button');
         _this._focusMonitor.monitor(_this._elementRef.nativeElement, true);
         return _this;
     }
@@ -211,22 +211,22 @@ var MatButton = (function (_super) {
     function () {
         return this.disableRipple || this.disabled;
     };
-    /** Gets whether the button has one of the given attributes with a 'mat-' prefix. */
+    /** Gets whether the button has one of the given attributes. */
     /**
-     * Gets whether the button has one of the given attributes with a 'mat-' prefix.
-     * @param {...?} unprefixedAttributeNames
+     * Gets whether the button has one of the given attributes.
+     * @param {...?} attributes
      * @return {?}
      */
-    MatButton.prototype._hasAttributeWithPrefix = /**
-     * Gets whether the button has one of the given attributes with a 'mat-' prefix.
-     * @param {...?} unprefixedAttributeNames
+    MatButton.prototype._hasHostAttributes = /**
+     * Gets whether the button has one of the given attributes.
+     * @param {...?} attributes
      * @return {?}
      */
     function () {
         var _this = this;
-        var unprefixedAttributeNames = [];
+        var attributes = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            unprefixedAttributeNames[_i] = arguments[_i];
+            attributes[_i] = arguments[_i];
         }
         // If not on the browser, say that there are none of the attributes present.
         // Since these only affect how the ripple displays (and ripples only happen on the client),
@@ -234,9 +234,7 @@ var MatButton = (function (_super) {
         if (!this._platform.isBrowser) {
             return false;
         }
-        return unprefixedAttributeNames.some(function (suffix) {
-            return _this._getHostElement().hasAttribute('mat-' + suffix);
-        });
+        return attributes.some(function (attribute) { return _this._getHostElement().hasAttribute(attribute); });
     };
     MatButton.decorators = [
         { type: _angular_core.Component, args: [{selector: "button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab]",

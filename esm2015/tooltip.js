@@ -273,12 +273,11 @@ class MatTooltip {
      * @return {?}
      */
     _createTooltip() {
-        let /** @type {?} */ overlayRef = this._createOverlay();
-        let /** @type {?} */ portal = new ComponentPortal(TooltipComponent, this._viewContainerRef);
-        this._tooltipInstance = overlayRef.attach(portal).instance; /** @type {?} */
-        ((
-        // Dispose the overlay when finished the shown tooltip.
-        this._tooltipInstance)).afterHidden().subscribe(() => {
+        const /** @type {?} */ overlayRef = this._createOverlay();
+        const /** @type {?} */ portal = new ComponentPortal(TooltipComponent, this._viewContainerRef);
+        this._tooltipInstance = overlayRef.attach(portal).instance;
+        // Dispose of the tooltip when the overlay is detached.
+        overlayRef.detachments().subscribe(() => {
             // Check first if the tooltip has already been removed through this components destroy.
             if (this._tooltipInstance) {
                 this._disposeTooltip();

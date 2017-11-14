@@ -23,6 +23,7 @@ import { DOCUMENT } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Subscription';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
+import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 import { merge } from 'rxjs/observable/merge';
 import { of } from 'rxjs/observable/of';
 
@@ -2096,7 +2097,11 @@ var MatDatepickerInput = (function () {
     MatDatepickerInput.decorators = [
         { type: Directive, args: [{
                     selector: 'input[matDatepicker]',
-                    providers: [MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS],
+                    providers: [
+                        MAT_DATEPICKER_VALUE_ACCESSOR,
+                        MAT_DATEPICKER_VALIDATORS,
+                        { provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: MatDatepickerInput },
+                    ],
                     host: {
                         '[attr.aria-haspopup]': 'true',
                         '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',

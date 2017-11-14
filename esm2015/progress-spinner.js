@@ -17,6 +17,16 @@ import { coerceNumberProperty } from '@angular/cdk/coercion';
  */
 
 /**
+ * Base reference size of the spinner.
+ * \@docs-private
+ */
+const BASE_SIZE = 100;
+/**
+ * Base reference stroke width of the spinner.
+ * \@docs-private
+ */
+const BASE_STROKE_WIDTH = 10;
+/**
  * \@docs-private
  */
 class MatProgressSpinnerBase {
@@ -69,14 +79,12 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
         this._elementRef = _elementRef;
         this._document = _document;
         this._value = 0;
-        this._baseSize = 100;
-        this._baseStrokeWidth = 10;
         this._fallbackAnimation = false;
         /**
          * The width and height of the host element. Will grow with stroke width. *
          */
-        this._elementSize = this._baseSize;
-        this._diameter = this._baseSize;
+        this._elementSize = BASE_SIZE;
+        this._diameter = BASE_SIZE;
         /**
          * Mode of the progress circle
          */
@@ -99,7 +107,10 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      * @return {?}
      */
     set diameter(size) {
-        this._setDiameterAndInitStyles(size);
+        this._diameter = coerceNumberProperty(size);
+        if (!this._fallbackAnimation && !MatProgressSpinner.diameters.has(this._diameter)) {
+            this._attachStyleNode();
+        }
     }
     /**
      * Stroke width of the progress spinner.
@@ -128,7 +139,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      */
     set value(newValue) {
         if (newValue != null && this.mode === 'determinate') {
-            this._value = Math.max(0, Math.min(100, newValue));
+            this._value = Math.max(0, Math.min(100, coerceNumberProperty(newValue)));
         }
     }
     /**
@@ -137,8 +148,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      */
     ngOnChanges(changes) {
         if (changes["strokeWidth"] || changes["diameter"]) {
-            this._elementSize =
-                this._diameter + Math.max(this.strokeWidth - this._baseStrokeWidth, 0);
+            this._elementSize = this._diameter + Math.max(this.strokeWidth - BASE_STROKE_WIDTH, 0);
         }
     }
     /**
@@ -146,7 +156,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      * @return {?}
      */
     get _circleRadius() {
-        return (this.diameter - this._baseStrokeWidth) / 2;
+        return (this.diameter - BASE_STROKE_WIDTH) / 2;
     }
     /**
      * The view box of the spinner's svg element.
@@ -185,17 +195,6 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
         return this.strokeWidth / this._elementSize * 100;
     }
     /**
-     * Sets the diameter and adds diameter-specific styles if necessary.
-     * @param {?} size
-     * @return {?}
-     */
-    _setDiameterAndInitStyles(size) {
-        this._diameter = size;
-        if (!MatProgressSpinner.diameters.has(this.diameter) && !this._fallbackAnimation) {
-            this._attachStyleNode();
-        }
-    }
-    /**
      * Dynamically generates a style tag containing the correct animation for this diameter.
      * @return {?}
      */
@@ -225,7 +224,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
 /**
  * Tracks diameters of existing instances to de-dupe generated styles (default d = 100)
  */
-MatProgressSpinner.diameters = new Set([100]);
+MatProgressSpinner.diameters = new Set([BASE_SIZE]);
 /**
  * Used for storing all of the generated keyframe animations.
  * \@dynamic

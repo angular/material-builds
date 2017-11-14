@@ -1763,7 +1763,7 @@ var MatRipple = (function () {
      * @return {?}
      */
     function (changes) {
-        if ((changes['trigger'] || changes['_matRippleTrigger']) && this.trigger) {
+        if (changes['trigger'] && this.trigger) {
             this._rippleRenderer.setTriggerElement(this.trigger);
         }
         this._updateRippleRenderer();
@@ -4078,11 +4078,11 @@ var MatButton = (function (_super) {
         /**
          * Whether the button is round.
          */
-        _this._isRoundButton = _this._hasAttributeWithPrefix('fab', 'mini-fab');
+        _this._isRoundButton = _this._hasHostAttributes('mat-fab', 'mat-mini-fab');
         /**
          * Whether the button is icon button.
          */
-        _this._isIconButton = _this._hasAttributeWithPrefix('icon-button');
+        _this._isIconButton = _this._hasHostAttributes('mat-icon-button');
         _this._focusMonitor.monitor(_this._elementRef.nativeElement, true);
         return _this;
     }
@@ -4125,22 +4125,22 @@ var MatButton = (function (_super) {
     function () {
         return this.disableRipple || this.disabled;
     };
-    /** Gets whether the button has one of the given attributes with a 'mat-' prefix. */
+    /** Gets whether the button has one of the given attributes. */
     /**
-     * Gets whether the button has one of the given attributes with a 'mat-' prefix.
-     * @param {...?} unprefixedAttributeNames
+     * Gets whether the button has one of the given attributes.
+     * @param {...?} attributes
      * @return {?}
      */
-    MatButton.prototype._hasAttributeWithPrefix = /**
-     * Gets whether the button has one of the given attributes with a 'mat-' prefix.
-     * @param {...?} unprefixedAttributeNames
+    MatButton.prototype._hasHostAttributes = /**
+     * Gets whether the button has one of the given attributes.
+     * @param {...?} attributes
      * @return {?}
      */
     function () {
         var _this = this;
-        var unprefixedAttributeNames = [];
+        var attributes = [];
         for (var _i = 0; _i < arguments.length; _i++) {
-            unprefixedAttributeNames[_i] = arguments[_i];
+            attributes[_i] = arguments[_i];
         }
         // If not on the browser, say that there are none of the attributes present.
         // Since these only affect how the ripple displays (and ripples only happen on the client),
@@ -4148,9 +4148,7 @@ var MatButton = (function (_super) {
         if (!this._platform.isBrowser) {
             return false;
         }
-        return unprefixedAttributeNames.some(function (suffix) {
-            return _this._getHostElement().hasAttribute('mat-' + suffix);
-        });
+        return attributes.some(function (attribute) { return _this._getHostElement().hasAttribute(attribute); });
     };
     MatButton.decorators = [
         { type: _angular_core.Component, args: [{selector: "button[mat-button], button[mat-raised-button], button[mat-icon-button],\n             button[mat-fab], button[mat-mini-fab]",
@@ -7389,7 +7387,7 @@ var MatChipList = (function () {
                         '(keydown)': '_keydown($event)'
                     },
                     providers: [{ provide: MatFormFieldControl, useExisting: MatChipList }],
-                    styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:baseline}.mat-chip:not(.mat-basic-chip){transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 3px 8px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 8px 3px 0}.mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-right:8px}[dir=rtl] .mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-left:8px}.mat-chip:not(.mat-basic-chip) .mat-chip-remove.mat-icon{width:1em;height:1em}.mat-chip:not(.mat-basic-chip):focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}.mat-form-field-prefix .mat-chip-list-wrapper{margin-bottom:8px}.mat-chip-remove{margin-right:-4px;margin-left:6px;cursor:pointer}[dir=rtl] .mat-chip-remove{margin-right:6px;margin-left:-4px}input.mat-chip-input{width:150px;margin:3px}"],
+                    styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:baseline}.mat-chip:not(.mat-basic-chip){transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 0 8px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 8px 0 0}.mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-right:8px}[dir=rtl] .mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-left:8px}.mat-chip:not(.mat-basic-chip) .mat-chip-remove.mat-icon{width:1em;height:1em}.mat-chip:not(.mat-basic-chip):focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}.mat-form-field-prefix .mat-chip-list-wrapper{margin-bottom:8px}.mat-chip-remove{margin-right:-4px;margin-left:6px;cursor:pointer}[dir=rtl] .mat-chip-remove{margin-right:6px;margin-left:-4px}input.mat-chip-input{width:150px;margin:3px}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
@@ -9168,20 +9166,24 @@ var MatIconRegistry = (function () {
      * @return {?}
      */
     function (iconSet, iconName) {
-        var /** @type {?} */ iconNode = iconSet.querySelector('#' + iconName);
-        if (!iconNode) {
+        var /** @type {?} */ iconSource = iconSet.querySelector('#' + iconName);
+        if (!iconSource) {
             return null;
         }
+        // Clone the element and remove the ID to prevent multiple elements from being added
+        // to the page with the same ID.
+        var /** @type {?} */ iconElement = /** @type {?} */ (iconSource.cloneNode(true));
+        iconElement.id = '';
         // If the icon node is itself an <svg> node, clone and return it directly. If not, set it as
         // the content of a new <svg> node.
-        if (iconNode.tagName.toLowerCase() === 'svg') {
-            return this._setSvgAttributes(/** @type {?} */ (iconNode.cloneNode(true)));
+        if (iconElement.nodeName.toLowerCase() === 'svg') {
+            return this._setSvgAttributes(/** @type {?} */ (iconElement));
         }
         // If the node is a <symbol>, it won't be rendered so we have to convert it into <svg>. Note
         // that the same could be achieved by referring to it via <use href="#id">, however the <use>
         // tag is problematic on Firefox, because it needs to include the current page path.
-        if (iconNode.nodeName.toLowerCase() === 'symbol') {
-            return this._setSvgAttributes(this._toSvgElement(iconNode));
+        if (iconElement.nodeName.toLowerCase() === 'symbol') {
+            return this._setSvgAttributes(this._toSvgElement(iconElement));
         }
         // createElement('SVG') doesn't work as expected; the DOM ends up with
         // the correct nodes, but the SVG content doesn't render. Instead we
@@ -9190,7 +9192,7 @@ var MatIconRegistry = (function () {
         // http://stackoverflow.com/questions/23003278/svg-innerhtml-in-firefox-can-not-display
         var /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
         // Clone the node so we don't remove it from the parent icon set element.
-        svg.appendChild(iconNode.cloneNode(true));
+        svg.appendChild(iconElement);
         return this._setSvgAttributes(svg);
     };
     /**
@@ -9204,8 +9206,6 @@ var MatIconRegistry = (function () {
      * @return {?}
      */
     function (str) {
-        // TODO: Is there a better way than innerHTML? Renderer doesn't appear to have a method for
-        // creating an element from an HTML string.
         var /** @type {?} */ div = document.createElement('DIV');
         div.innerHTML = str;
         var /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
@@ -9589,6 +9589,727 @@ var MatIconModule = (function () {
     /** @nocollapse */
     MatIconModule.ctorParameters = function () { return []; };
     return MatIconModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * Directive to automatically resize a textarea to fit its content.
+ */
+var MatTextareaAutosize = (function () {
+    function MatTextareaAutosize(_elementRef, _platform) {
+        this._elementRef = _elementRef;
+        this._platform = _platform;
+    }
+    Object.defineProperty(MatTextareaAutosize.prototype, "minRows", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this._minRows; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._minRows = value;
+            this._setMinHeight();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatTextareaAutosize.prototype, "maxRows", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this._maxRows; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._maxRows = value;
+            this._setMaxHeight();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Sets the minimum height of the textarea as determined by minRows. */
+    /**
+     * Sets the minimum height of the textarea as determined by minRows.
+     * @return {?}
+     */
+    MatTextareaAutosize.prototype._setMinHeight = /**
+     * Sets the minimum height of the textarea as determined by minRows.
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ minHeight = this.minRows && this._cachedLineHeight ?
+            this.minRows * this._cachedLineHeight + "px" : null;
+        if (minHeight) {
+            this._setTextareaStyle('minHeight', minHeight);
+        }
+    };
+    /** Sets the maximum height of the textarea as determined by maxRows. */
+    /**
+     * Sets the maximum height of the textarea as determined by maxRows.
+     * @return {?}
+     */
+    MatTextareaAutosize.prototype._setMaxHeight = /**
+     * Sets the maximum height of the textarea as determined by maxRows.
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ maxHeight = this.maxRows && this._cachedLineHeight ?
+            this.maxRows * this._cachedLineHeight + "px" : null;
+        if (maxHeight) {
+            this._setTextareaStyle('maxHeight', maxHeight);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MatTextareaAutosize.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        if (this._platform.isBrowser) {
+            this.resizeToFitContent();
+        }
+    };
+    /**
+     * Sets a style property on the textarea element.
+     * @param {?} property
+     * @param {?} value
+     * @return {?}
+     */
+    MatTextareaAutosize.prototype._setTextareaStyle = /**
+     * Sets a style property on the textarea element.
+     * @param {?} property
+     * @param {?} value
+     * @return {?}
+     */
+    function (property, value) {
+        var /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
+        textarea.style[property] = value;
+    };
+    /**
+     * Cache the height of a single-row textarea if it has not already been cached.
+     *
+     * We need to know how large a single "row" of a textarea is in order to apply minRows and
+     * maxRows. For the initial version, we will assume that the height of a single line in the
+     * textarea does not ever change.
+     * @return {?}
+     */
+    MatTextareaAutosize.prototype._cacheTextareaLineHeight = /**
+     * Cache the height of a single-row textarea if it has not already been cached.
+     *
+     * We need to know how large a single "row" of a textarea is in order to apply minRows and
+     * maxRows. For the initial version, we will assume that the height of a single line in the
+     * textarea does not ever change.
+     * @return {?}
+     */
+    function () {
+        if (this._cachedLineHeight) {
+            return;
+        }
+        var /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
+        // Use a clone element because we have to override some styles.
+        var /** @type {?} */ textareaClone = /** @type {?} */ (textarea.cloneNode(false));
+        textareaClone.rows = 1;
+        // Use `position: absolute` so that this doesn't cause a browser layout and use
+        // `visibility: hidden` so that nothing is rendered. Clear any other styles that
+        // would affect the height.
+        textareaClone.style.position = 'absolute';
+        textareaClone.style.visibility = 'hidden';
+        textareaClone.style.border = 'none';
+        textareaClone.style.padding = '0';
+        textareaClone.style.height = '';
+        textareaClone.style.minHeight = '';
+        textareaClone.style.maxHeight = '';
+        // In Firefox it happens that textarea elements are always bigger than the specified amount
+        // of rows. This is because Firefox tries to add extra space for the horizontal scrollbar.
+        // As a workaround that removes the extra space for the scrollbar, we can just set overflow
+        // to hidden. This ensures that there is no invalid calculation of the line height.
+        // See Firefox bug report: https://bugzilla.mozilla.org/show_bug.cgi?id=33654
+        textareaClone.style.overflow = 'hidden'; /** @type {?} */
+        ((textarea.parentNode)).appendChild(textareaClone);
+        this._cachedLineHeight = textareaClone.clientHeight; /** @type {?} */
+        ((textarea.parentNode)).removeChild(textareaClone);
+        // Min and max heights have to be re-calculated if the cached line height changes
+        this._setMinHeight();
+        this._setMaxHeight();
+    };
+    /**
+     * @return {?}
+     */
+    MatTextareaAutosize.prototype.ngDoCheck = /**
+     * @return {?}
+     */
+    function () {
+        if (this._platform.isBrowser) {
+            this.resizeToFitContent();
+        }
+    };
+    /** Resize the textarea to fit its content. */
+    /**
+     * Resize the textarea to fit its content.
+     * @return {?}
+     */
+    MatTextareaAutosize.prototype.resizeToFitContent = /**
+     * Resize the textarea to fit its content.
+     * @return {?}
+     */
+    function () {
+        this._cacheTextareaLineHeight();
+        // If we haven't determined the line-height yet, we know we're still hidden and there's no point
+        // in checking the height of the textarea.
+        if (!this._cachedLineHeight) {
+            return;
+        }
+        var /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
+        var /** @type {?} */ value = textarea.value;
+        // Only resize of the value changed since these calculations can be expensive.
+        if (value === this._previousValue) {
+            return;
+        }
+        // Reset the textarea height to auto in order to shrink back to its default size.
+        // Also temporarily force overflow:hidden, so scroll bars do not interfere with calculations.
+        textarea.style.height = 'auto';
+        textarea.style.overflow = 'hidden';
+        // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
+        textarea.style.height = textarea.scrollHeight + "px";
+        textarea.style.overflow = '';
+        this._previousValue = value;
+    };
+    MatTextareaAutosize.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: "textarea[mat-autosize], textarea[matTextareaAutosize]",
+                    exportAs: 'matTextareaAutosize',
+                    host: {
+                        // Textarea elements that have the directive applied should have a single row by default.
+                        // Browsers normally show two rows by default and therefore this limits the minRows binding.
+                        'rows': '1',
+                    },
+                },] },
+    ];
+    /** @nocollapse */
+    MatTextareaAutosize.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_cdk_platform.Platform, },
+    ]; };
+    MatTextareaAutosize.propDecorators = {
+        "minRows": [{ type: _angular_core.Input, args: ['matAutosizeMinRows',] },],
+        "maxRows": [{ type: _angular_core.Input, args: ['matAutosizeMaxRows',] },],
+    };
+    return MatTextareaAutosize;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * \@docs-private
+ * @param {?} type
+ * @return {?}
+ */
+function getMatInputUnsupportedTypeError(type) {
+    return Error("Input type \"" + type + "\" isn't supported by matInput.");
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * This token is used to inject the object whose value should be set into `MatInput`. If none is
+ * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
+ * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
+ * value to them.
+ */
+var MAT_INPUT_VALUE_ACCESSOR = new _angular_core.InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+// Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
+var MAT_INPUT_INVALID_TYPES = [
+    'button',
+    'checkbox',
+    'color',
+    'file',
+    'hidden',
+    'image',
+    'radio',
+    'range',
+    'reset',
+    'submit'
+];
+var nextUniqueId$3 = 0;
+/**
+ * Directive that allows a native input to work inside a `MatFormField`.
+ */
+var MatInput = (function () {
+    function MatInput(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
+        this._elementRef = _elementRef;
+        this._renderer = _renderer;
+        this._platform = _platform;
+        this.ngControl = ngControl;
+        this._parentForm = _parentForm;
+        this._parentFormGroup = _parentFormGroup;
+        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
+        /**
+         * Variables used as cache for getters and setters.
+         */
+        this._type = 'text';
+        this._disabled = false;
+        this._required = false;
+        this._uid = "mat-input-" + nextUniqueId$3++;
+        this._readonly = false;
+        /**
+         * Whether the input is focused.
+         */
+        this.focused = false;
+        /**
+         * Whether the input is in an error state.
+         */
+        this.errorState = false;
+        /**
+         * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
+         * needs to run change detection.
+         */
+        this.stateChanges = new rxjs_Subject.Subject();
+        /**
+         * A name for this control that can be used by `mat-form-field`.
+         */
+        this.controlType = 'mat-input';
+        /**
+         * Placeholder attribute of the element.
+         */
+        this.placeholder = '';
+        this._neverEmptyInputTypes = [
+            'date',
+            'datetime',
+            'datetime-local',
+            'month',
+            'time',
+            'week'
+        ].filter(function (t) { return _angular_cdk_platform.getSupportedInputTypes().has(t); });
+        // If no input value accessor was explicitly specified, use the element as the input value
+        // accessor.
+        this._inputValueAccessor = inputValueAccessor || this._elementRef.nativeElement;
+        this._previousNativeValue = this.value;
+        // Force setter to be called in case id was not specified.
+        this.id = this.id;
+        // On some versions of iOS the caret gets stuck in the wrong place when holding down the delete
+        // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
+        // exists on iOS, we only bother to install the listener on iOS.
+        if (_platform.IOS) {
+            _renderer.listen(_elementRef.nativeElement, 'keyup', function (event) {
+                var /** @type {?} */ el = /** @type {?} */ (event.target);
+                if (!el.value && !el.selectionStart && !el.selectionEnd) {
+                    // Note: Just setting `0, 0` doesn't fix the issue. Setting `1, 1` fixes it for the first
+                    // time that you type text and then hold delete. Toggling to `1, 1` and then back to
+                    // `0, 0` seems to completely fix it.
+                    el.setSelectionRange(1, 1);
+                    el.setSelectionRange(0, 0);
+                }
+            });
+        }
+    }
+    Object.defineProperty(MatInput.prototype, "disabled", {
+        get: /**
+         * Whether the element is disabled.
+         * @return {?}
+         */
+        function () { return this.ngControl ? this.ngControl.disabled : this._disabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatInput.prototype, "id", {
+        get: /**
+         * Unique id of the element.
+         * @return {?}
+         */
+        function () { return this._id; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._id = value || this._uid; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatInput.prototype, "required", {
+        get: /**
+         * Whether the element is required.
+         * @return {?}
+         */
+        function () { return this._required; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._required = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatInput.prototype, "type", {
+        get: /**
+         * Input type of the element.
+         * @return {?}
+         */
+        function () { return this._type; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._type = value || 'text';
+            this._validateType();
+            // When using Angular inputs, developers are no longer able to set the properties on the native
+            // input element. To ensure that bindings for `type` work, we need to sync the setter
+            // with the native property. Textarea elements don't support the type property or attribute.
+            if (!this._isTextarea() && _angular_cdk_platform.getSupportedInputTypes().has(this._type)) {
+                this._renderer.setProperty(this._elementRef.nativeElement, 'type', this._type);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatInput.prototype, "value", {
+        get: /**
+         * The input element's value.
+         * @return {?}
+         */
+        function () { return this._inputValueAccessor.value; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (value !== this.value) {
+                this._inputValueAccessor.value = value;
+                this.stateChanges.next();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatInput.prototype, "readonly", {
+        get: /**
+         * Whether the element is readonly.
+         * @return {?}
+         */
+        function () { return this._readonly; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._readonly = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MatInput.prototype.ngOnChanges = /**
+     * @return {?}
+     */
+    function () {
+        this.stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
+    MatInput.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this.stateChanges.complete();
+    };
+    /**
+     * @return {?}
+     */
+    MatInput.prototype.ngDoCheck = /**
+     * @return {?}
+     */
+    function () {
+        if (this.ngControl) {
+            // We need to re-evaluate this on every change detection cycle, because there are some
+            // error triggers that we can't subscribe to (e.g. parent form submissions). This means
+            // that whatever logic is in here has to be super lean or we risk destroying the performance.
+            this._updateErrorState();
+        }
+        else {
+            // When the input isn't used together with `@angular/forms`, we need to check manually for
+            // changes to the native `value` property in order to update the floating label.
+            this._dirtyCheckNativeValue();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MatInput.prototype.focus = /**
+     * @return {?}
+     */
+    function () { this._elementRef.nativeElement.focus(); };
+    /** Callback for the cases where the focused state of the input changes. */
+    /**
+     * Callback for the cases where the focused state of the input changes.
+     * @param {?} isFocused
+     * @return {?}
+     */
+    MatInput.prototype._focusChanged = /**
+     * Callback for the cases where the focused state of the input changes.
+     * @param {?} isFocused
+     * @return {?}
+     */
+    function (isFocused) {
+        if (isFocused !== this.focused && !this.readonly) {
+            this.focused = isFocused;
+            this.stateChanges.next();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MatInput.prototype._onInput = /**
+     * @return {?}
+     */
+    function () {
+        // This is a noop function and is used to let Angular know whenever the value changes.
+        // Angular will run a new change detection each time the `input` event has been dispatched.
+        // It's necessary that Angular recognizes the value change, because when floatingLabel
+        // is set to false and Angular forms aren't used, the placeholder won't recognize the
+        // value changes and will not disappear.
+        // Listening to the input event wouldn't be necessary when the input is using the
+        // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
+    };
+    /** Re-evaluates the error state. This is only relevant with @angular/forms. */
+    /**
+     * Re-evaluates the error state. This is only relevant with \@angular/forms.
+     * @return {?}
+     */
+    MatInput.prototype._updateErrorState = /**
+     * Re-evaluates the error state. This is only relevant with \@angular/forms.
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ oldState = this.errorState;
+        var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
+        var /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
+        var /** @type {?} */ control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
+        var /** @type {?} */ newState = matcher.isErrorState(control, parent);
+        if (newState !== oldState) {
+            this.errorState = newState;
+            this.stateChanges.next();
+        }
+    };
+    /** Does some manual dirty checking on the native input `value` property. */
+    /**
+     * Does some manual dirty checking on the native input `value` property.
+     * @return {?}
+     */
+    MatInput.prototype._dirtyCheckNativeValue = /**
+     * Does some manual dirty checking on the native input `value` property.
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ newValue = this.value;
+        if (this._previousNativeValue !== newValue) {
+            this._previousNativeValue = newValue;
+            this.stateChanges.next();
+        }
+    };
+    /** Make sure the input is a supported type. */
+    /**
+     * Make sure the input is a supported type.
+     * @return {?}
+     */
+    MatInput.prototype._validateType = /**
+     * Make sure the input is a supported type.
+     * @return {?}
+     */
+    function () {
+        if (MAT_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
+            throw getMatInputUnsupportedTypeError(this._type);
+        }
+    };
+    /** Checks whether the input type is one of the types that are never empty. */
+    /**
+     * Checks whether the input type is one of the types that are never empty.
+     * @return {?}
+     */
+    MatInput.prototype._isNeverEmpty = /**
+     * Checks whether the input type is one of the types that are never empty.
+     * @return {?}
+     */
+    function () {
+        return this._neverEmptyInputTypes.indexOf(this._type) > -1;
+    };
+    /** Checks whether the input is invalid based on the native validation. */
+    /**
+     * Checks whether the input is invalid based on the native validation.
+     * @return {?}
+     */
+    MatInput.prototype._isBadInput = /**
+     * Checks whether the input is invalid based on the native validation.
+     * @return {?}
+     */
+    function () {
+        // The `validity` property won't be present on platform-server.
+        var /** @type {?} */ validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
+        return validity && validity.badInput;
+    };
+    /** Determines if the component host is a textarea. If not recognizable it returns false. */
+    /**
+     * Determines if the component host is a textarea. If not recognizable it returns false.
+     * @return {?}
+     */
+    MatInput.prototype._isTextarea = /**
+     * Determines if the component host is a textarea. If not recognizable it returns false.
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
+        // In Universal, we don't have access to `nodeName`, but the same can be achieved with `name`.
+        // Note that this shouldn't be necessary once Angular switches to an API that resembles the
+        // DOM closer.
+        var /** @type {?} */ nodeName = this._platform.isBrowser ? nativeElement.nodeName : nativeElement.name;
+        return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
+    };
+    Object.defineProperty(MatInput.prototype, "empty", {
+        // Implemented as part of MatFormFieldControl.
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return !this._isNeverEmpty() &&
+                (this.value == null || this.value === '') &&
+                // Check if the input contains bad input. If so, we know that it only appears empty because
+                // the value failed to parse. From the user's perspective it is not empty.
+                // TODO(mmalerba): Add e2e test for bad input case.
+                !this._isBadInput();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatInput.prototype, "shouldPlaceholderFloat", {
+        // Implemented as part of MatFormFieldControl.
+        get: /**
+         * @return {?}
+         */
+        function () { return this.focused || !this.empty; },
+        enumerable: true,
+        configurable: true
+    });
+    // Implemented as part of MatFormFieldControl.
+    /**
+     * @param {?} ids
+     * @return {?}
+     */
+    MatInput.prototype.setDescribedByIds = /**
+     * @param {?} ids
+     * @return {?}
+     */
+    function (ids) { this._ariaDescribedby = ids.join(' '); };
+    // Implemented as part of MatFormFieldControl.
+    /**
+     * @return {?}
+     */
+    MatInput.prototype.onContainerClick = /**
+     * @return {?}
+     */
+    function () { this.focus(); };
+    MatInput.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: "input[matInput], textarea[matInput]",
+                    exportAs: 'matInput',
+                    host: {
+                        'class': 'mat-input-element mat-form-field-autofill-control',
+                        // Native input properties that are overwritten by Angular inputs need to be synced with
+                        // the native input element. Otherwise property bindings for those don't work.
+                        '[attr.id]': 'id',
+                        '[placeholder]': 'placeholder',
+                        '[disabled]': 'disabled',
+                        '[required]': 'required',
+                        '[readonly]': 'readonly',
+                        '[attr.aria-describedby]': '_ariaDescribedby || null',
+                        '[attr.aria-invalid]': 'errorState',
+                        '[attr.aria-required]': 'required.toString()',
+                        '(blur)': '_focusChanged(false)',
+                        '(focus)': '_focusChanged(true)',
+                        '(input)': '_onInput()',
+                    },
+                    providers: [{ provide: MatFormFieldControl, useExisting: MatInput }],
+                },] },
+    ];
+    /** @nocollapse */
+    MatInput.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.Renderer2, },
+        { type: _angular_cdk_platform.Platform, },
+        { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
+        { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
+        { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
+        { type: ErrorStateMatcher, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self }, { type: _angular_core.Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] },] },
+    ]; };
+    MatInput.propDecorators = {
+        "disabled": [{ type: _angular_core.Input },],
+        "id": [{ type: _angular_core.Input },],
+        "placeholder": [{ type: _angular_core.Input },],
+        "required": [{ type: _angular_core.Input },],
+        "type": [{ type: _angular_core.Input },],
+        "errorStateMatcher": [{ type: _angular_core.Input },],
+        "value": [{ type: _angular_core.Input },],
+        "readonly": [{ type: _angular_core.Input },],
+    };
+    return MatInput;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+var MatInputModule = (function () {
+    function MatInputModule() {
+    }
+    MatInputModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    declarations: [
+                        MatInput,
+                        MatTextareaAutosize,
+                    ],
+                    imports: [
+                        _angular_common.CommonModule,
+                        MatFormFieldModule,
+                        _angular_cdk_platform.PlatformModule,
+                    ],
+                    exports: [
+                        MatFormFieldModule,
+                        MatInput,
+                        MatTextareaAutosize,
+                    ],
+                    providers: [ErrorStateMatcher],
+                },] },
+    ];
+    /** @nocollapse */
+    MatInputModule.ctorParameters = function () { return []; };
+    return MatInputModule;
 }());
 
 /**
@@ -11661,7 +12382,11 @@ var MatDatepickerInput = (function () {
     MatDatepickerInput.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: 'input[matDatepicker]',
-                    providers: [MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS],
+                    providers: [
+                        MAT_DATEPICKER_VALUE_ACCESSOR,
+                        MAT_DATEPICKER_VALIDATORS,
+                        { provide: MAT_INPUT_VALUE_ACCESSOR, useExisting: MatDatepickerInput },
+                    ],
                     host: {
                         '[attr.aria-haspopup]': 'true',
                         '[attr.aria-owns]': '(_datepicker?.opened && _datepicker.id) || null',
@@ -13426,709 +14151,6 @@ var MatGridListModule = (function () {
     /** @nocollapse */
     MatGridListModule.ctorParameters = function () { return []; };
     return MatGridListModule;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * Directive to automatically resize a textarea to fit its content.
- */
-var MatTextareaAutosize = (function () {
-    function MatTextareaAutosize(_elementRef, _platform) {
-        this._elementRef = _elementRef;
-        this._platform = _platform;
-    }
-    Object.defineProperty(MatTextareaAutosize.prototype, "minRows", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._minRows; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._minRows = value;
-            this._setMinHeight();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatTextareaAutosize.prototype, "maxRows", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._maxRows; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._maxRows = value;
-            this._setMaxHeight();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /** Sets the minimum height of the textarea as determined by minRows. */
-    /**
-     * Sets the minimum height of the textarea as determined by minRows.
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype._setMinHeight = /**
-     * Sets the minimum height of the textarea as determined by minRows.
-     * @return {?}
-     */
-    function () {
-        var /** @type {?} */ minHeight = this.minRows && this._cachedLineHeight ?
-            this.minRows * this._cachedLineHeight + "px" : null;
-        if (minHeight) {
-            this._setTextareaStyle('minHeight', minHeight);
-        }
-    };
-    /** Sets the maximum height of the textarea as determined by maxRows. */
-    /**
-     * Sets the maximum height of the textarea as determined by maxRows.
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype._setMaxHeight = /**
-     * Sets the maximum height of the textarea as determined by maxRows.
-     * @return {?}
-     */
-    function () {
-        var /** @type {?} */ maxHeight = this.maxRows && this._cachedLineHeight ?
-            this.maxRows * this._cachedLineHeight + "px" : null;
-        if (maxHeight) {
-            this._setTextareaStyle('maxHeight', maxHeight);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype.ngAfterViewInit = /**
-     * @return {?}
-     */
-    function () {
-        if (this._platform.isBrowser) {
-            this.resizeToFitContent();
-        }
-    };
-    /**
-     * Sets a style property on the textarea element.
-     * @param {?} property
-     * @param {?} value
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype._setTextareaStyle = /**
-     * Sets a style property on the textarea element.
-     * @param {?} property
-     * @param {?} value
-     * @return {?}
-     */
-    function (property, value) {
-        var /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
-        textarea.style[property] = value;
-    };
-    /**
-     * Cache the height of a single-row textarea if it has not already been cached.
-     *
-     * We need to know how large a single "row" of a textarea is in order to apply minRows and
-     * maxRows. For the initial version, we will assume that the height of a single line in the
-     * textarea does not ever change.
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype._cacheTextareaLineHeight = /**
-     * Cache the height of a single-row textarea if it has not already been cached.
-     *
-     * We need to know how large a single "row" of a textarea is in order to apply minRows and
-     * maxRows. For the initial version, we will assume that the height of a single line in the
-     * textarea does not ever change.
-     * @return {?}
-     */
-    function () {
-        if (this._cachedLineHeight) {
-            return;
-        }
-        var /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
-        // Use a clone element because we have to override some styles.
-        var /** @type {?} */ textareaClone = /** @type {?} */ (textarea.cloneNode(false));
-        textareaClone.rows = 1;
-        // Use `position: absolute` so that this doesn't cause a browser layout and use
-        // `visibility: hidden` so that nothing is rendered. Clear any other styles that
-        // would affect the height.
-        textareaClone.style.position = 'absolute';
-        textareaClone.style.visibility = 'hidden';
-        textareaClone.style.border = 'none';
-        textareaClone.style.padding = '0';
-        textareaClone.style.height = '';
-        textareaClone.style.minHeight = '';
-        textareaClone.style.maxHeight = '';
-        // In Firefox it happens that textarea elements are always bigger than the specified amount
-        // of rows. This is because Firefox tries to add extra space for the horizontal scrollbar.
-        // As a workaround that removes the extra space for the scrollbar, we can just set overflow
-        // to hidden. This ensures that there is no invalid calculation of the line height.
-        // See Firefox bug report: https://bugzilla.mozilla.org/show_bug.cgi?id=33654
-        textareaClone.style.overflow = 'hidden'; /** @type {?} */
-        ((textarea.parentNode)).appendChild(textareaClone);
-        this._cachedLineHeight = textareaClone.clientHeight; /** @type {?} */
-        ((textarea.parentNode)).removeChild(textareaClone);
-        // Min and max heights have to be re-calculated if the cached line height changes
-        this._setMinHeight();
-        this._setMaxHeight();
-    };
-    /**
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype.ngDoCheck = /**
-     * @return {?}
-     */
-    function () {
-        if (this._platform.isBrowser) {
-            this.resizeToFitContent();
-        }
-    };
-    /** Resize the textarea to fit its content. */
-    /**
-     * Resize the textarea to fit its content.
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype.resizeToFitContent = /**
-     * Resize the textarea to fit its content.
-     * @return {?}
-     */
-    function () {
-        this._cacheTextareaLineHeight();
-        // If we haven't determined the line-height yet, we know we're still hidden and there's no point
-        // in checking the height of the textarea.
-        if (!this._cachedLineHeight) {
-            return;
-        }
-        var /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
-        var /** @type {?} */ value = textarea.value;
-        // Only resize of the value changed since these calculations can be expensive.
-        if (value === this._previousValue) {
-            return;
-        }
-        // Reset the textarea height to auto in order to shrink back to its default size.
-        // Also temporarily force overflow:hidden, so scroll bars do not interfere with calculations.
-        textarea.style.height = 'auto';
-        textarea.style.overflow = 'hidden';
-        // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
-        textarea.style.height = textarea.scrollHeight + "px";
-        textarea.style.overflow = '';
-        this._previousValue = value;
-    };
-    MatTextareaAutosize.decorators = [
-        { type: _angular_core.Directive, args: [{
-                    selector: "textarea[mat-autosize], textarea[matTextareaAutosize]",
-                    exportAs: 'matTextareaAutosize',
-                    host: {
-                        // Textarea elements that have the directive applied should have a single row by default.
-                        // Browsers normally show two rows by default and therefore this limits the minRows binding.
-                        'rows': '1',
-                    },
-                },] },
-    ];
-    /** @nocollapse */
-    MatTextareaAutosize.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_cdk_platform.Platform, },
-    ]; };
-    MatTextareaAutosize.propDecorators = {
-        "minRows": [{ type: _angular_core.Input, args: ['matAutosizeMinRows',] },],
-        "maxRows": [{ type: _angular_core.Input, args: ['matAutosizeMaxRows',] },],
-    };
-    return MatTextareaAutosize;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * \@docs-private
- * @param {?} type
- * @return {?}
- */
-function getMatInputUnsupportedTypeError(type) {
-    return Error("Input type \"" + type + "\" isn't supported by matInput.");
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-// Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
-var MAT_INPUT_INVALID_TYPES = [
-    'button',
-    'checkbox',
-    'color',
-    'file',
-    'hidden',
-    'image',
-    'radio',
-    'range',
-    'reset',
-    'submit'
-];
-var nextUniqueId$3 = 0;
-/**
- * Directive that allows a native input to work inside a `MatFormField`.
- */
-var MatInput = (function () {
-    function MatInput(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher) {
-        this._elementRef = _elementRef;
-        this._renderer = _renderer;
-        this._platform = _platform;
-        this.ngControl = ngControl;
-        this._parentForm = _parentForm;
-        this._parentFormGroup = _parentFormGroup;
-        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
-        /**
-         * Variables used as cache for getters and setters.
-         */
-        this._type = 'text';
-        this._disabled = false;
-        this._required = false;
-        this._uid = "mat-input-" + nextUniqueId$3++;
-        this._previousNativeValue = this.value;
-        this._readonly = false;
-        /**
-         * Whether the input is focused.
-         */
-        this.focused = false;
-        /**
-         * Whether the input is in an error state.
-         */
-        this.errorState = false;
-        /**
-         * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
-         * needs to run change detection.
-         */
-        this.stateChanges = new rxjs_Subject.Subject();
-        /**
-         * A name for this control that can be used by `mat-form-field`.
-         */
-        this.controlType = 'mat-input';
-        /**
-         * Placeholder attribute of the element.
-         */
-        this.placeholder = '';
-        this._neverEmptyInputTypes = [
-            'date',
-            'datetime',
-            'datetime-local',
-            'month',
-            'time',
-            'week'
-        ].filter(function (t) { return _angular_cdk_platform.getSupportedInputTypes().has(t); });
-        // Force setter to be called in case id was not specified.
-        this.id = this.id;
-        // On some versions of iOS the caret gets stuck in the wrong place when holding down the delete
-        // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
-        // exists on iOS, we only bother to install the listener on iOS.
-        if (_platform.IOS) {
-            _renderer.listen(_elementRef.nativeElement, 'keyup', function (event) {
-                var /** @type {?} */ el = /** @type {?} */ (event.target);
-                if (!el.value && !el.selectionStart && !el.selectionEnd) {
-                    // Note: Just setting `0, 0` doesn't fix the issue. Setting `1, 1` fixes it for the first
-                    // time that you type text and then hold delete. Toggling to `1, 1` and then back to
-                    // `0, 0` seems to completely fix it.
-                    el.setSelectionRange(1, 1);
-                    el.setSelectionRange(0, 0);
-                }
-            });
-        }
-    }
-    Object.defineProperty(MatInput.prototype, "disabled", {
-        get: /**
-         * Whether the element is disabled.
-         * @return {?}
-         */
-        function () { return this.ngControl ? this.ngControl.disabled : this._disabled; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatInput.prototype, "id", {
-        get: /**
-         * Unique id of the element.
-         * @return {?}
-         */
-        function () { return this._id; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._id = value || this._uid; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatInput.prototype, "required", {
-        get: /**
-         * Whether the element is required.
-         * @return {?}
-         */
-        function () { return this._required; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._required = _angular_cdk_coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatInput.prototype, "type", {
-        get: /**
-         * Input type of the element.
-         * @return {?}
-         */
-        function () { return this._type; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._type = value || 'text';
-            this._validateType();
-            // When using Angular inputs, developers are no longer able to set the properties on the native
-            // input element. To ensure that bindings for `type` work, we need to sync the setter
-            // with the native property. Textarea elements don't support the type property or attribute.
-            if (!this._isTextarea() && _angular_cdk_platform.getSupportedInputTypes().has(this._type)) {
-                this._renderer.setProperty(this._elementRef.nativeElement, 'type', this._type);
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatInput.prototype, "value", {
-        get: /**
-         * The input element's value.
-         * @return {?}
-         */
-        function () { return this._elementRef.nativeElement.value; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            if (value !== this.value) {
-                this._elementRef.nativeElement.value = value;
-                this.stateChanges.next();
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatInput.prototype, "readonly", {
-        get: /**
-         * Whether the element is readonly.
-         * @return {?}
-         */
-        function () { return this._readonly; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._readonly = _angular_cdk_coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * @return {?}
-     */
-    MatInput.prototype.ngOnChanges = /**
-     * @return {?}
-     */
-    function () {
-        this.stateChanges.next();
-    };
-    /**
-     * @return {?}
-     */
-    MatInput.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this.stateChanges.complete();
-    };
-    /**
-     * @return {?}
-     */
-    MatInput.prototype.ngDoCheck = /**
-     * @return {?}
-     */
-    function () {
-        if (this.ngControl) {
-            // We need to re-evaluate this on every change detection cycle, because there are some
-            // error triggers that we can't subscribe to (e.g. parent form submissions). This means
-            // that whatever logic is in here has to be super lean or we risk destroying the performance.
-            this._updateErrorState();
-        }
-        else {
-            // When the input isn't used together with `@angular/forms`, we need to check manually for
-            // changes to the native `value` property in order to update the floating label.
-            this._dirtyCheckNativeValue();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatInput.prototype.focus = /**
-     * @return {?}
-     */
-    function () { this._elementRef.nativeElement.focus(); };
-    /** Callback for the cases where the focused state of the input changes. */
-    /**
-     * Callback for the cases where the focused state of the input changes.
-     * @param {?} isFocused
-     * @return {?}
-     */
-    MatInput.prototype._focusChanged = /**
-     * Callback for the cases where the focused state of the input changes.
-     * @param {?} isFocused
-     * @return {?}
-     */
-    function (isFocused) {
-        if (isFocused !== this.focused && !this.readonly) {
-            this.focused = isFocused;
-            this.stateChanges.next();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatInput.prototype._onInput = /**
-     * @return {?}
-     */
-    function () {
-        // This is a noop function and is used to let Angular know whenever the value changes.
-        // Angular will run a new change detection each time the `input` event has been dispatched.
-        // It's necessary that Angular recognizes the value change, because when floatingLabel
-        // is set to false and Angular forms aren't used, the placeholder won't recognize the
-        // value changes and will not disappear.
-        // Listening to the input event wouldn't be necessary when the input is using the
-        // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
-    };
-    /** Re-evaluates the error state. This is only relevant with @angular/forms. */
-    /**
-     * Re-evaluates the error state. This is only relevant with \@angular/forms.
-     * @return {?}
-     */
-    MatInput.prototype._updateErrorState = /**
-     * Re-evaluates the error state. This is only relevant with \@angular/forms.
-     * @return {?}
-     */
-    function () {
-        var /** @type {?} */ oldState = this.errorState;
-        var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
-        var /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-        var /** @type {?} */ control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
-        var /** @type {?} */ newState = matcher.isErrorState(control, parent);
-        if (newState !== oldState) {
-            this.errorState = newState;
-            this.stateChanges.next();
-        }
-    };
-    /** Does some manual dirty checking on the native input `value` property. */
-    /**
-     * Does some manual dirty checking on the native input `value` property.
-     * @return {?}
-     */
-    MatInput.prototype._dirtyCheckNativeValue = /**
-     * Does some manual dirty checking on the native input `value` property.
-     * @return {?}
-     */
-    function () {
-        var /** @type {?} */ newValue = this.value;
-        if (this._previousNativeValue !== newValue) {
-            this._previousNativeValue = newValue;
-            this.stateChanges.next();
-        }
-    };
-    /** Make sure the input is a supported type. */
-    /**
-     * Make sure the input is a supported type.
-     * @return {?}
-     */
-    MatInput.prototype._validateType = /**
-     * Make sure the input is a supported type.
-     * @return {?}
-     */
-    function () {
-        if (MAT_INPUT_INVALID_TYPES.indexOf(this._type) > -1) {
-            throw getMatInputUnsupportedTypeError(this._type);
-        }
-    };
-    /** Checks whether the input type is one of the types that are never empty. */
-    /**
-     * Checks whether the input type is one of the types that are never empty.
-     * @return {?}
-     */
-    MatInput.prototype._isNeverEmpty = /**
-     * Checks whether the input type is one of the types that are never empty.
-     * @return {?}
-     */
-    function () {
-        return this._neverEmptyInputTypes.indexOf(this._type) > -1;
-    };
-    /** Checks whether the input is invalid based on the native validation. */
-    /**
-     * Checks whether the input is invalid based on the native validation.
-     * @return {?}
-     */
-    MatInput.prototype._isBadInput = /**
-     * Checks whether the input is invalid based on the native validation.
-     * @return {?}
-     */
-    function () {
-        // The `validity` property won't be present on platform-server.
-        var /** @type {?} */ validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
-        return validity && validity.badInput;
-    };
-    /** Determines if the component host is a textarea. If not recognizable it returns false. */
-    /**
-     * Determines if the component host is a textarea. If not recognizable it returns false.
-     * @return {?}
-     */
-    MatInput.prototype._isTextarea = /**
-     * Determines if the component host is a textarea. If not recognizable it returns false.
-     * @return {?}
-     */
-    function () {
-        var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-        // In Universal, we don't have access to `nodeName`, but the same can be achieved with `name`.
-        // Note that this shouldn't be necessary once Angular switches to an API that resembles the
-        // DOM closer.
-        var /** @type {?} */ nodeName = this._platform.isBrowser ? nativeElement.nodeName : nativeElement.name;
-        return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
-    };
-    Object.defineProperty(MatInput.prototype, "empty", {
-        // Implemented as part of MatFormFieldControl.
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return !this._isNeverEmpty() &&
-                (this.value == null || this.value === '') &&
-                // Check if the input contains bad input. If so, we know that it only appears empty because
-                // the value failed to parse. From the user's perspective it is not empty.
-                // TODO(mmalerba): Add e2e test for bad input case.
-                !this._isBadInput();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatInput.prototype, "shouldPlaceholderFloat", {
-        // Implemented as part of MatFormFieldControl.
-        get: /**
-         * @return {?}
-         */
-        function () { return this.focused || !this.empty; },
-        enumerable: true,
-        configurable: true
-    });
-    // Implemented as part of MatFormFieldControl.
-    /**
-     * @param {?} ids
-     * @return {?}
-     */
-    MatInput.prototype.setDescribedByIds = /**
-     * @param {?} ids
-     * @return {?}
-     */
-    function (ids) { this._ariaDescribedby = ids.join(' '); };
-    // Implemented as part of MatFormFieldControl.
-    /**
-     * @return {?}
-     */
-    MatInput.prototype.onContainerClick = /**
-     * @return {?}
-     */
-    function () { this.focus(); };
-    MatInput.decorators = [
-        { type: _angular_core.Directive, args: [{
-                    selector: "input[matInput], textarea[matInput]",
-                    exportAs: 'matInput',
-                    host: {
-                        'class': 'mat-input-element mat-form-field-autofill-control',
-                        // Native input properties that are overwritten by Angular inputs need to be synced with
-                        // the native input element. Otherwise property bindings for those don't work.
-                        '[attr.id]': 'id',
-                        '[placeholder]': 'placeholder',
-                        '[disabled]': 'disabled',
-                        '[required]': 'required',
-                        '[readonly]': 'readonly',
-                        '[attr.aria-describedby]': '_ariaDescribedby || null',
-                        '[attr.aria-invalid]': 'errorState',
-                        '(blur)': '_focusChanged(false)',
-                        '(focus)': '_focusChanged(true)',
-                        '(input)': '_onInput()',
-                    },
-                    providers: [{ provide: MatFormFieldControl, useExisting: MatInput }],
-                },] },
-    ];
-    /** @nocollapse */
-    MatInput.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
-        { type: _angular_cdk_platform.Platform, },
-        { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
-        { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
-        { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
-        { type: ErrorStateMatcher, },
-    ]; };
-    MatInput.propDecorators = {
-        "disabled": [{ type: _angular_core.Input },],
-        "id": [{ type: _angular_core.Input },],
-        "placeholder": [{ type: _angular_core.Input },],
-        "required": [{ type: _angular_core.Input },],
-        "type": [{ type: _angular_core.Input },],
-        "errorStateMatcher": [{ type: _angular_core.Input },],
-        "value": [{ type: _angular_core.Input },],
-        "readonly": [{ type: _angular_core.Input },],
-    };
-    return MatInput;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-var MatInputModule = (function () {
-    function MatInputModule() {
-    }
-    MatInputModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    declarations: [
-                        MatInput,
-                        MatTextareaAutosize,
-                    ],
-                    imports: [
-                        _angular_common.CommonModule,
-                        MatFormFieldModule,
-                        _angular_cdk_platform.PlatformModule,
-                    ],
-                    exports: [
-                        MatFormFieldModule,
-                        MatInput,
-                        MatTextareaAutosize,
-                    ],
-                    providers: [ErrorStateMatcher],
-                },] },
-    ];
-    /** @nocollapse */
-    MatInputModule.ctorParameters = function () { return []; };
-    return MatInputModule;
 }());
 
 /**
@@ -16684,7 +16706,7 @@ var MatSelect = (function (_super) {
      */
     function () {
         var _this = this;
-        if (this.disabled || !this.options.length) {
+        if (this.disabled || !this.options || !this.options.length) {
             return;
         }
         this._triggerRect = this.trigger.nativeElement.getBoundingClientRect();
@@ -16852,7 +16874,7 @@ var MatSelect = (function (_super) {
          * @return {?}
          */
         function () {
-            if (!this._selectionModel || this._selectionModel.isEmpty()) {
+            if (this.empty) {
                 return '';
             }
             if (this._multiple) {
@@ -17308,11 +17330,13 @@ var MatSelect = (function (_super) {
      * @return {?}
      */
     function () {
-        if (this._selectionModel.isEmpty()) {
-            this._keyManager.setFirstItemActive();
-        }
-        else {
-            this._keyManager.setActiveItem(/** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0]))));
+        if (this._keyManager) {
+            if (this.empty) {
+                this._keyManager.setFirstItemActive();
+            }
+            else {
+                this._keyManager.setActiveItem(/** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0]))));
+            }
         }
     };
     /**
@@ -18159,10 +18183,9 @@ var MatTooltip = (function () {
         var _this = this;
         var /** @type {?} */ overlayRef = this._createOverlay();
         var /** @type {?} */ portal = new _angular_cdk_portal.ComponentPortal(TooltipComponent, this._viewContainerRef);
-        this._tooltipInstance = overlayRef.attach(portal).instance; /** @type {?} */
-        ((
-        // Dispose the overlay when finished the shown tooltip.
-        this._tooltipInstance)).afterHidden().subscribe(function () {
+        this._tooltipInstance = overlayRef.attach(portal).instance;
+        // Dispose of the tooltip when the overlay is detached.
+        overlayRef.detachments().subscribe(function () {
             // Check first if the tooltip has already been removed through this components destroy.
             if (_this._tooltipInstance) {
                 _this._disposeTooltip();
@@ -19218,6 +19241,16 @@ var MatProgressBarModule = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Base reference size of the spinner.
+ * \@docs-private
+ */
+var BASE_SIZE = 100;
+/**
+ * Base reference stroke width of the spinner.
+ * \@docs-private
+ */
+var BASE_STROKE_WIDTH = 10;
+/**
  * \@docs-private
  */
 var MatProgressSpinnerBase = (function () {
@@ -19240,14 +19273,12 @@ var MatProgressSpinner = (function (_super) {
         _this._elementRef = _elementRef;
         _this._document = _document;
         _this._value = 0;
-        _this._baseSize = 100;
-        _this._baseStrokeWidth = 10;
         _this._fallbackAnimation = false;
         /**
          * The width and height of the host element. Will grow with stroke width. *
          */
-        _this._elementSize = _this._baseSize;
-        _this._diameter = _this._baseSize;
+        _this._elementSize = BASE_SIZE;
+        _this._diameter = BASE_SIZE;
         /**
          * Mode of the progress circle
          */
@@ -19272,7 +19303,10 @@ var MatProgressSpinner = (function (_super) {
          * @return {?}
          */
         function (size) {
-            this._setDiameterAndInitStyles(size);
+            this._diameter = _angular_cdk_coercion.coerceNumberProperty(size);
+            if (!this._fallbackAnimation && !MatProgressSpinner.diameters.has(this._diameter)) {
+                this._attachStyleNode();
+            }
         },
         enumerable: true,
         configurable: true
@@ -19309,7 +19343,7 @@ var MatProgressSpinner = (function (_super) {
          */
         function (newValue) {
             if (newValue != null && this.mode === 'determinate') {
-                this._value = Math.max(0, Math.min(100, newValue));
+                this._value = Math.max(0, Math.min(100, _angular_cdk_coercion.coerceNumberProperty(newValue)));
             }
         },
         enumerable: true,
@@ -19325,8 +19359,7 @@ var MatProgressSpinner = (function (_super) {
      */
     function (changes) {
         if (changes["strokeWidth"] || changes["diameter"]) {
-            this._elementSize =
-                this._diameter + Math.max(this.strokeWidth - this._baseStrokeWidth, 0);
+            this._elementSize = this._diameter + Math.max(this.strokeWidth - BASE_STROKE_WIDTH, 0);
         }
     };
     Object.defineProperty(MatProgressSpinner.prototype, "_circleRadius", {
@@ -19336,7 +19369,7 @@ var MatProgressSpinner = (function (_super) {
          * @return {?}
          */
         function () {
-            return (this.diameter - this._baseStrokeWidth) / 2;
+            return (this.diameter - BASE_STROKE_WIDTH) / 2;
         },
         enumerable: true,
         configurable: true
@@ -19398,22 +19431,6 @@ var MatProgressSpinner = (function (_super) {
         configurable: true
     });
     /**
-     * Sets the diameter and adds diameter-specific styles if necessary.
-     * @param {?} size
-     * @return {?}
-     */
-    MatProgressSpinner.prototype._setDiameterAndInitStyles = /**
-     * Sets the diameter and adds diameter-specific styles if necessary.
-     * @param {?} size
-     * @return {?}
-     */
-    function (size) {
-        this._diameter = size;
-        if (!MatProgressSpinner.diameters.has(this.diameter) && !this._fallbackAnimation) {
-            this._attachStyleNode();
-        }
-    };
-    /**
      * Dynamically generates a style tag containing the correct animation for this diameter.
      * @return {?}
      */
@@ -19450,7 +19467,7 @@ var MatProgressSpinner = (function (_super) {
     /**
      * Tracks diameters of existing instances to de-dupe generated styles (default d = 100)
      */
-    MatProgressSpinner.diameters = new Set([100]);
+    MatProgressSpinner.diameters = new Set([BASE_SIZE]);
     /**
      * Used for storing all of the generated keyframe animations.
      * \@dynamic
@@ -23179,6 +23196,9 @@ var MatSnackBarRef = (function () {
      */
     function () {
         this._overlayRef.dispose();
+        if (!this._onAction.closed) {
+            this._onAction.complete();
+        }
         this._afterClosed.next();
         this._afterClosed.complete();
     };
@@ -27474,7 +27494,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc0-3ca801a');
+var VERSION = new _angular_core.Version('5.0.0-rc0-33edff5');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27670,6 +27690,7 @@ exports.MatInputModule = MatInputModule;
 exports.MatTextareaAutosize = MatTextareaAutosize;
 exports.MatInput = MatInput;
 exports.getMatInputUnsupportedTypeError = getMatInputUnsupportedTypeError;
+exports.MAT_INPUT_VALUE_ACCESSOR = MAT_INPUT_VALUE_ACCESSOR;
 exports.MatListModule = MatListModule;
 exports.MatListBase = MatListBase;
 exports._MatListMixinBase = _MatListMixinBase;
@@ -27691,10 +27712,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MatMenuItemBase;
-exports.ɵb21 = _MatMenuItemMixinBase;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa15 = MatMenuItemBase;
+exports.ɵb15 = _MatMenuItemMixinBase;
+exports.ɵd15 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc15 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;

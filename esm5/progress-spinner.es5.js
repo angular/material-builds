@@ -18,6 +18,16 @@ import { coerceNumberProperty } from '@angular/cdk/coercion';
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Base reference size of the spinner.
+ * \@docs-private
+ */
+var BASE_SIZE = 100;
+/**
+ * Base reference stroke width of the spinner.
+ * \@docs-private
+ */
+var BASE_STROKE_WIDTH = 10;
+/**
  * \@docs-private
  */
 var MatProgressSpinnerBase = (function () {
@@ -40,14 +50,12 @@ var MatProgressSpinner = (function (_super) {
         _this._elementRef = _elementRef;
         _this._document = _document;
         _this._value = 0;
-        _this._baseSize = 100;
-        _this._baseStrokeWidth = 10;
         _this._fallbackAnimation = false;
         /**
          * The width and height of the host element. Will grow with stroke width. *
          */
-        _this._elementSize = _this._baseSize;
-        _this._diameter = _this._baseSize;
+        _this._elementSize = BASE_SIZE;
+        _this._diameter = BASE_SIZE;
         /**
          * Mode of the progress circle
          */
@@ -72,7 +80,10 @@ var MatProgressSpinner = (function (_super) {
          * @return {?}
          */
         function (size) {
-            this._setDiameterAndInitStyles(size);
+            this._diameter = coerceNumberProperty(size);
+            if (!this._fallbackAnimation && !MatProgressSpinner.diameters.has(this._diameter)) {
+                this._attachStyleNode();
+            }
         },
         enumerable: true,
         configurable: true
@@ -109,7 +120,7 @@ var MatProgressSpinner = (function (_super) {
          */
         function (newValue) {
             if (newValue != null && this.mode === 'determinate') {
-                this._value = Math.max(0, Math.min(100, newValue));
+                this._value = Math.max(0, Math.min(100, coerceNumberProperty(newValue)));
             }
         },
         enumerable: true,
@@ -125,8 +136,7 @@ var MatProgressSpinner = (function (_super) {
      */
     function (changes) {
         if (changes["strokeWidth"] || changes["diameter"]) {
-            this._elementSize =
-                this._diameter + Math.max(this.strokeWidth - this._baseStrokeWidth, 0);
+            this._elementSize = this._diameter + Math.max(this.strokeWidth - BASE_STROKE_WIDTH, 0);
         }
     };
     Object.defineProperty(MatProgressSpinner.prototype, "_circleRadius", {
@@ -136,7 +146,7 @@ var MatProgressSpinner = (function (_super) {
          * @return {?}
          */
         function () {
-            return (this.diameter - this._baseStrokeWidth) / 2;
+            return (this.diameter - BASE_STROKE_WIDTH) / 2;
         },
         enumerable: true,
         configurable: true
@@ -198,22 +208,6 @@ var MatProgressSpinner = (function (_super) {
         configurable: true
     });
     /**
-     * Sets the diameter and adds diameter-specific styles if necessary.
-     * @param {?} size
-     * @return {?}
-     */
-    MatProgressSpinner.prototype._setDiameterAndInitStyles = /**
-     * Sets the diameter and adds diameter-specific styles if necessary.
-     * @param {?} size
-     * @return {?}
-     */
-    function (size) {
-        this._diameter = size;
-        if (!MatProgressSpinner.diameters.has(this.diameter) && !this._fallbackAnimation) {
-            this._attachStyleNode();
-        }
-    };
-    /**
      * Dynamically generates a style tag containing the correct animation for this diameter.
      * @return {?}
      */
@@ -250,7 +244,7 @@ var MatProgressSpinner = (function (_super) {
     /**
      * Tracks diameters of existing instances to de-dupe generated styles (default d = 100)
      */
-    MatProgressSpinner.diameters = new Set([100]);
+    MatProgressSpinner.diameters = new Set([BASE_SIZE]);
     /**
      * Used for storing all of the generated keyframe animations.
      * \@dynamic

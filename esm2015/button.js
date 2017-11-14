@@ -144,11 +144,11 @@ class MatButton extends _MatButtonMixinBase {
         /**
          * Whether the button is round.
          */
-        this._isRoundButton = this._hasAttributeWithPrefix('fab', 'mini-fab');
+        this._isRoundButton = this._hasHostAttributes('mat-fab', 'mat-mini-fab');
         /**
          * Whether the button is icon button.
          */
-        this._isIconButton = this._hasAttributeWithPrefix('icon-button');
+        this._isIconButton = this._hasHostAttributes('mat-icon-button');
         this._focusMonitor.monitor(this._elementRef.nativeElement, true);
     }
     /**
@@ -177,20 +177,18 @@ class MatButton extends _MatButtonMixinBase {
         return this.disableRipple || this.disabled;
     }
     /**
-     * Gets whether the button has one of the given attributes with a 'mat-' prefix.
-     * @param {...?} unprefixedAttributeNames
+     * Gets whether the button has one of the given attributes.
+     * @param {...?} attributes
      * @return {?}
      */
-    _hasAttributeWithPrefix(...unprefixedAttributeNames) {
+    _hasHostAttributes(...attributes) {
         // If not on the browser, say that there are none of the attributes present.
         // Since these only affect how the ripple displays (and ripples only happen on the client),
         // detecting these attributes isn't necessary when not on the browser.
         if (!this._platform.isBrowser) {
             return false;
         }
-        return unprefixedAttributeNames.some(suffix => {
-            return this._getHostElement().hasAttribute('mat-' + suffix);
-        });
+        return attributes.some(attribute => this._getHostElement().hasAttribute(attribute));
     }
 }
 MatButton.decorators = [
