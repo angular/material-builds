@@ -1247,10 +1247,10 @@ exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
 exports.MatMenuTrigger = MatMenuTrigger;
-exports.ɵa18 = MatMenuItemBase;
-exports.ɵb18 = _MatMenuItemMixinBase;
-exports.ɵd18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa20 = MatMenuItemBase;
+exports.ɵb20 = _MatMenuItemMixinBase;
+exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
