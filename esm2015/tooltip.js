@@ -17,6 +17,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { first } from 'rxjs/operators/first';
+import { merge } from 'rxjs/observable/merge';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Subject } from 'rxjs/Subject';
 
@@ -277,7 +278,7 @@ class MatTooltip {
         const /** @type {?} */ portal = new ComponentPortal(TooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(portal).instance;
         // Dispose of the tooltip when the overlay is detached.
-        overlayRef.detachments().subscribe(() => {
+        merge(/** @type {?} */ ((this._tooltipInstance)).afterHidden(), overlayRef.detachments()).subscribe(() => {
             // Check first if the tooltip has already been removed through this components destroy.
             if (this._tooltipInstance) {
                 this._disposeTooltip();
