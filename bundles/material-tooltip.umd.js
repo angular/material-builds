@@ -8,8 +8,8 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/portal'), require('rxjs/operators/first'), require('rxjs/observable/merge'), require('@angular/cdk/scrolling'), require('rxjs/Subject')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/common', '@angular/core', '@angular/material/core', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/portal', 'rxjs/operators/first', 'rxjs/observable/merge', '@angular/cdk/scrolling', 'rxjs/Subject'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = global.ng.material.tooltip || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.common,global.ng.core,global.ng.material.core,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.portal,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.scrolling,global.Rx));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_platform,_angular_common,_angular_core,_angular_material_core,_angular_animations,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_keycodes,_angular_cdk_portal,rxjs_operators_first,rxjs_observable_merge,_angular_cdk_scrolling,rxjs_Subject) { 'use strict';
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = global.ng.material.tooltip || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.common,global.ng.core,global.ng.material.core,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.portal,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_platform,_angular_common,_angular_core,_angular_material_core,_angular_animations,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_keycodes,_angular_cdk_portal,rxjs_operators_first,rxjs_observable_merge) { 'use strict';
 
 /**
  * @fileoverview added by tsickle
@@ -62,7 +62,7 @@ var MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
  *
  * https://material.google.com/components/tooltips.html
  */
-var MatTooltip = (function () {
+var MatTooltip = /** @class */ (function () {
     function MatTooltip(renderer, _overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir) {
         var _this = this;
         this._overlay = _overlay;
@@ -75,17 +75,6 @@ var MatTooltip = (function () {
         this._focusMonitor = _focusMonitor;
         this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
-        this._position = 'below';
-        this._disabled = false;
-        /**
-         * The default delay in ms before showing the tooltip after show is called
-         */
-        this.showDelay = 0;
-        /**
-         * The default delay in ms before hiding the tooltip after hide is called
-         */
-        this.hideDelay = 0;
-        this._message = '';
         // The mouse events shouldn't be bound on iOS devices, because
         // they can prevent the first tap from firing its click event.
         if (!_platform.IOS) {
@@ -530,65 +519,15 @@ var MatTooltip = (function () {
         }
         return { x: x, y: y };
     };
-    MatTooltip.decorators = [
-        { type: _angular_core.Directive, args: [{
-                    selector: '[mat-tooltip], [matTooltip]',
-                    exportAs: 'matTooltip',
-                    host: {
-                        '(longpress)': 'show()',
-                        '(keydown)': '_handleKeydown($event)',
-                        '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
-                    },
-                },] },
-    ];
-    /** @nocollapse */
-    MatTooltip.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
-        { type: _angular_cdk_overlay.Overlay, },
-        { type: _angular_core.ElementRef, },
-        { type: _angular_cdk_scrolling.ScrollDispatcher, },
-        { type: _angular_core.ViewContainerRef, },
-        { type: _angular_core.NgZone, },
-        { type: _angular_cdk_platform.Platform, },
-        { type: _angular_cdk_a11y.AriaDescriber, },
-        { type: _angular_cdk_a11y.FocusMonitor, },
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] },] },
-        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
-    ]; };
-    MatTooltip.propDecorators = {
-        "position": [{ type: _angular_core.Input, args: ['matTooltipPosition',] },],
-        "disabled": [{ type: _angular_core.Input, args: ['matTooltipDisabled',] },],
-        "_positionDeprecated": [{ type: _angular_core.Input, args: ['tooltip-position',] },],
-        "showDelay": [{ type: _angular_core.Input, args: ['matTooltipShowDelay',] },],
-        "hideDelay": [{ type: _angular_core.Input, args: ['matTooltipHideDelay',] },],
-        "message": [{ type: _angular_core.Input, args: ['matTooltip',] },],
-        "tooltipClass": [{ type: _angular_core.Input, args: ['matTooltipClass',] },],
-    };
     return MatTooltip;
 }());
 /**
  * Internal component that wraps the tooltip's content.
  * \@docs-private
  */
-var TooltipComponent = (function () {
+var TooltipComponent = /** @class */ (function () {
     function TooltipComponent(_changeDetectorRef) {
         this._changeDetectorRef = _changeDetectorRef;
-        /**
-         * Property watched by the animation framework to show or hide the tooltip
-         */
-        this._visibility = 'initial';
-        /**
-         * Whether interactions on the page should close the tooltip
-         */
-        this._closeOnInteraction = false;
-        /**
-         * The transform origin used in the animation for showing and hiding the tooltip
-         */
-        this._transformOrigin = 'bottom';
-        /**
-         * Subject for notifying that the tooltip has been hidden from the view
-         */
-        this._onHide = new rxjs_Subject.Subject();
     }
     /**
      * Shows the tooltip with an animation originating from the provided origin
@@ -777,34 +716,6 @@ var TooltipComponent = (function () {
     function () {
         this._changeDetectorRef.markForCheck();
     };
-    TooltipComponent.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-tooltip-component',
-                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
-                    styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}"],
-                    encapsulation: _angular_core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    animations: [
-                        _angular_animations.trigger('state', [
-                            _angular_animations.state('initial, void, hidden', _angular_animations.style({ transform: 'scale(0)' })),
-                            _angular_animations.state('visible', _angular_animations.style({ transform: 'scale(1)' })),
-                            _angular_animations.transition('* => visible', _angular_animations.animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
-                            _angular_animations.transition('* => hidden', _angular_animations.animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
-                        ])
-                    ],
-                    host: {
-                        // Forces the element to have a layout in IE and Edge. This fixes issues where the element
-                        // won't be rendered if the animations are disabled or there is no web animations polyfill.
-                        '[style.zoom]': '_visibility === "visible" ? 1 : null',
-                        '(body:click)': 'this._handleBodyInteraction()',
-                        'aria-hidden': 'true',
-                    }
-                },] },
-    ];
-    /** @nocollapse */
-    TooltipComponent.ctorParameters = function () { return [
-        { type: _angular_core.ChangeDetectorRef, },
-    ]; };
     return TooltipComponent;
 }());
 
@@ -813,26 +724,9 @@ var TooltipComponent = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatTooltipModule = (function () {
+var MatTooltipModule = /** @class */ (function () {
     function MatTooltipModule() {
     }
-    MatTooltipModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [
-                        _angular_common.CommonModule,
-                        _angular_cdk_overlay.OverlayModule,
-                        _angular_material_core.MatCommonModule,
-                        _angular_cdk_platform.PlatformModule,
-                        _angular_cdk_a11y.A11yModule,
-                    ],
-                    exports: [MatTooltip, TooltipComponent, _angular_material_core.MatCommonModule],
-                    declarations: [MatTooltip, TooltipComponent],
-                    entryComponents: [TooltipComponent],
-                    providers: [MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, _angular_cdk_a11y.ARIA_DESCRIBER_PROVIDER],
-                },] },
-    ];
-    /** @nocollapse */
-    MatTooltipModule.ctorParameters = function () { return []; };
     return MatTooltipModule;
 }());
 

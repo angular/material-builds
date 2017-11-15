@@ -5,24 +5,24 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule, FocusMonitor, FocusTrapFactory } from '@angular/cdk/a11y';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Directionality } from '@angular/cdk/bidi';
+import '@angular/cdk/a11y';
+import '@angular/cdk/overlay';
+import '@angular/common';
+import '@angular/core';
+import '@angular/material/core';
+import '@angular/cdk/scrolling';
+import '@angular/animations';
+import '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { DOCUMENT } from '@angular/platform-browser';
+import '@angular/platform-browser';
 import { merge } from 'rxjs/observable/merge';
 import { filter } from 'rxjs/operators/filter';
 import { first } from 'rxjs/operators/first';
 import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { map } from 'rxjs/operators/map';
-import { Subject } from 'rxjs/Subject';
+import 'rxjs/Subject';
 import 'rxjs/Observable';
 
 /**
@@ -60,12 +60,6 @@ class MatDrawerContent {
     constructor(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
         this._container = _container;
-        /**
-         * Margins to be applied to the content. These are used to push / shrink the drawer content when a
-         * drawer is open. We use margin rather than transform even for push mode because transform breaks
-         * fixed position elements inside of the transformed element.
-         */
-        this._margins = { left: 0, right: 0 };
     }
     /**
      * @return {?}
@@ -77,24 +71,6 @@ class MatDrawerContent {
         });
     }
 }
-MatDrawerContent.decorators = [
-    { type: Component, args: [{selector: 'mat-drawer-content',
-                template: '<ng-content></ng-content>',
-                host: {
-                    'class': 'mat-drawer-content',
-                    '[style.marginLeft.px]': '_margins.left',
-                    '[style.marginRight.px]': '_margins.right',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-            },] },
-];
-/** @nocollapse */
-MatDrawerContent.ctorParameters = () => [
-    { type: ChangeDetectorRef, },
-    { type: MatDrawerContainer, decorators: [{ type: Inject, args: [forwardRef(() => MatDrawerContainer),] },] },
-];
 /**
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
@@ -110,53 +86,6 @@ class MatDrawer {
         this._focusTrapFactory = _focusTrapFactory;
         this._focusMonitor = _focusMonitor;
         this._doc = _doc;
-        this._elementFocusedBeforeDrawerWasOpened = null;
-        /**
-         * Whether the drawer is initialized. Used for disabling the initial animation.
-         */
-        this._enableAnimations = false;
-        this._position = 'start';
-        this._mode = 'over';
-        this._disableClose = false;
-        /**
-         * Whether the drawer is opened.
-         */
-        this._opened = false;
-        /**
-         * Emits whenever the drawer has started animating.
-         */
-        this._animationStarted = new EventEmitter();
-        /**
-         * Current state of the sidenav animation.
-         */
-        this._animationState = 'void';
-        /**
-         * Event emitted when the drawer open state is changed.
-         */
-        this.openedChange = new EventEmitter();
-        /**
-         * Event emitted when the drawer is fully opened.
-         * @deprecated Use `opened` instead.
-         */
-        this.onOpen = this._openedStream;
-        /**
-         * Event emitted when the drawer is fully closed.
-         * @deprecated Use `closed` instead.
-         */
-        this.onClose = this._closedStream;
-        /**
-         * Event emitted when the drawer's position changes.
-         */
-        this.onPositionChanged = new EventEmitter();
-        /**
-         * @deprecated
-         */
-        this.onAlignChanged = new EventEmitter();
-        /**
-         * An observable that emits when the drawer mode changes. This is used by the drawer container to
-         * to know when to when the mode changes so it can adapt the margins on the content.
-         */
-        this._modeChanged = new Subject();
         this.openedChange.subscribe((opened) => {
             if (opened) {
                 if (this._doc) {
@@ -387,65 +316,6 @@ class MatDrawer {
         return this._elementRef.nativeElement ? (this._elementRef.nativeElement.offsetWidth || 0) : 0;
     }
 }
-MatDrawer.decorators = [
-    { type: Component, args: [{selector: 'mat-drawer',
-                exportAs: 'matDrawer',
-                template: '<ng-content></ng-content>',
-                animations: [
-                    trigger('transform', [
-                        state('open, open-instant', style({
-                            transform: 'translate3d(0, 0, 0)',
-                            visibility: 'visible',
-                        })),
-                        state('void', style({
-                            visibility: 'hidden',
-                        })),
-                        transition('void => open-instant', animate('0ms')),
-                        transition('void <=> open, open-instant => void', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
-                    ])
-                ],
-                host: {
-                    'class': 'mat-drawer',
-                    '[@transform]': '_animationState',
-                    '(@transform.start)': '_onAnimationStart($event)',
-                    '(@transform.done)': '_onAnimationEnd($event)',
-                    '(keydown)': 'handleKeydown($event)',
-                    // must prevent the browser from aligning text based on value
-                    '[attr.align]': 'null',
-                    '[class.mat-drawer-end]': 'position === "end"',
-                    '[class.mat-drawer-over]': 'mode === "over"',
-                    '[class.mat-drawer-push]': 'mode === "push"',
-                    '[class.mat-drawer-side]': 'mode === "side"',
-                    'tabIndex': '-1',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-            },] },
-];
-/** @nocollapse */
-MatDrawer.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: FocusTrapFactory, },
-    { type: FocusMonitor, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
-];
-MatDrawer.propDecorators = {
-    "position": [{ type: Input },],
-    "align": [{ type: Input },],
-    "mode": [{ type: Input },],
-    "disableClose": [{ type: Input },],
-    "openedChange": [{ type: Output },],
-    "_openedStream": [{ type: Output, args: ['opened',] },],
-    "openedStart": [{ type: Output },],
-    "_closedStream": [{ type: Output, args: ['closed',] },],
-    "closedStart": [{ type: Output },],
-    "onOpen": [{ type: Output, args: ['open',] },],
-    "onClose": [{ type: Output, args: ['close',] },],
-    "onPositionChanged": [{ type: Output, args: ['positionChanged',] },],
-    "onAlignChanged": [{ type: Output, args: ['align-changed',] },],
-    "opened": [{ type: Input },],
-};
 /**
  * <mat-drawer-container> component.
  *
@@ -466,15 +336,6 @@ class MatDrawerContainer {
         this._renderer = _renderer;
         this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
-        /**
-         * Event emitted when the drawer backdrop is clicked.
-         */
-        this.backdropClick = new EventEmitter();
-        /**
-         * Emits when the component is destroyed.
-         */
-        this._destroyed = new Subject();
-        this._contentMargins = new Subject();
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
@@ -697,32 +558,6 @@ class MatDrawerContainer {
         this._contentMargins.next({ left, right });
     }
 }
-MatDrawerContainer.decorators = [
-    { type: Component, args: [{selector: 'mat-drawer-container',
-                exportAs: 'matDrawerContainer',
-                template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-drawer\"></ng-content><ng-content select=\"mat-drawer-content\"></ng-content><mat-drawer-content *ngIf=\"!_content\" cdkScrollable><ng-content></ng-content></mat-drawer-content>",
-                styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{-webkit-backface-visibility:hidden;backface-visibility:hidden;position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
-                host: {
-                    'class': 'mat-drawer-container',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-            },] },
-];
-/** @nocollapse */
-MatDrawerContainer.ctorParameters = () => [
-    { type: Directionality, decorators: [{ type: Optional },] },
-    { type: ElementRef, },
-    { type: Renderer2, },
-    { type: NgZone, },
-    { type: ChangeDetectorRef, },
-];
-MatDrawerContainer.propDecorators = {
-    "_drawers": [{ type: ContentChildren, args: [MatDrawer,] },],
-    "_content": [{ type: ContentChild, args: [MatDrawerContent,] },],
-    "backdropClick": [{ type: Output },],
-};
 
 /**
  * @fileoverview added by tsickle
@@ -738,31 +573,7 @@ class MatSidenavContent extends MatDrawerContent {
         super(changeDetectorRef, container);
     }
 }
-MatSidenavContent.decorators = [
-    { type: Component, args: [{selector: 'mat-sidenav-content',
-                template: '<ng-content></ng-content>',
-                host: {
-                    'class': 'mat-drawer-content mat-sidenav-content',
-                    '[style.marginLeft.px]': '_margins.left',
-                    '[style.marginRight.px]': '_margins.right',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-            },] },
-];
-/** @nocollapse */
-MatSidenavContent.ctorParameters = () => [
-    { type: ChangeDetectorRef, },
-    { type: MatSidenavContainer, decorators: [{ type: Inject, args: [forwardRef(() => MatSidenavContainer),] },] },
-];
 class MatSidenav extends MatDrawer {
-    constructor() {
-        super(...arguments);
-        this._fixedInViewport = false;
-        this._fixedTopGap = 0;
-        this._fixedBottomGap = 0;
-    }
     /**
      * Whether the sidenav is fixed in the viewport.
      * @return {?}
@@ -796,73 +607,8 @@ class MatSidenav extends MatDrawer {
      */
     set fixedBottomGap(value) { this._fixedBottomGap = coerceNumberProperty(value); }
 }
-MatSidenav.decorators = [
-    { type: Component, args: [{selector: 'mat-sidenav',
-                exportAs: 'matSidenav',
-                template: '<ng-content></ng-content>',
-                animations: [
-                    trigger('transform', [
-                        state('open, open-instant', style({
-                            transform: 'translate3d(0, 0, 0)',
-                            visibility: 'visible',
-                        })),
-                        state('void', style({
-                            visibility: 'hidden',
-                        })),
-                        transition('void => open-instant', animate('0ms')),
-                        transition('void <=> open, open-instant => void', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
-                    ])
-                ],
-                host: {
-                    'class': 'mat-drawer mat-sidenav',
-                    'tabIndex': '-1',
-                    '[@transform]': '_animationState',
-                    '(@transform.start)': '_onAnimationStart($event)',
-                    '(@transform.done)': '_onAnimationEnd($event)',
-                    '(keydown)': 'handleKeydown($event)',
-                    // must prevent the browser from aligning text based on value
-                    '[attr.align]': 'null',
-                    '[class.mat-drawer-end]': 'position === "end"',
-                    '[class.mat-drawer-over]': 'mode === "over"',
-                    '[class.mat-drawer-push]': 'mode === "push"',
-                    '[class.mat-drawer-side]': 'mode === "side"',
-                    '[class.mat-sidenav-fixed]': 'fixedInViewport',
-                    '[style.top.px]': 'fixedInViewport ? fixedTopGap : null',
-                    '[style.bottom.px]': 'fixedInViewport ? fixedBottomGap : null',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-            },] },
-];
-/** @nocollapse */
-MatSidenav.ctorParameters = () => [];
-MatSidenav.propDecorators = {
-    "fixedInViewport": [{ type: Input },],
-    "fixedTopGap": [{ type: Input },],
-    "fixedBottomGap": [{ type: Input },],
-};
 class MatSidenavContainer extends MatDrawerContainer {
 }
-MatSidenavContainer.decorators = [
-    { type: Component, args: [{selector: 'mat-sidenav-container',
-                exportAs: 'matSidenavContainer',
-                template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-sidenav\"></ng-content><ng-content select=\"mat-sidenav-content\"></ng-content><mat-sidenav-content *ngIf=\"!_content\" cdkScrollable><ng-content></ng-content></mat-sidenav-content>",
-                styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{-webkit-backface-visibility:hidden;backface-visibility:hidden;position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;min-width:5vw;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-opened:not(.mat-drawer-side),.mat-drawer.mat-drawer-opening:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
-                host: {
-                    'class': 'mat-drawer-container mat-sidenav-container',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-            },] },
-];
-/** @nocollapse */
-MatSidenavContainer.ctorParameters = () => [];
-MatSidenavContainer.propDecorators = {
-    "_drawers": [{ type: ContentChildren, args: [MatSidenav,] },],
-    "_content": [{ type: ContentChild, args: [MatSidenavContent,] },],
-};
 
 /**
  * @fileoverview added by tsickle
@@ -871,36 +617,6 @@ MatSidenavContainer.propDecorators = {
 
 class MatSidenavModule {
 }
-MatSidenavModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                    MatCommonModule,
-                    A11yModule,
-                    OverlayModule,
-                    ScrollDispatchModule,
-                ],
-                exports: [
-                    MatCommonModule,
-                    MatDrawer,
-                    MatDrawerContainer,
-                    MatDrawerContent,
-                    MatSidenav,
-                    MatSidenavContainer,
-                    MatSidenavContent,
-                ],
-                declarations: [
-                    MatDrawer,
-                    MatDrawerContainer,
-                    MatDrawerContent,
-                    MatSidenav,
-                    MatSidenavContainer,
-                    MatSidenavContent,
-                ],
-            },] },
-];
-/** @nocollapse */
-MatSidenavModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

@@ -5,21 +5,21 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule, ARIA_DESCRIBER_PROVIDER, AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
-import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Renderer2, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Directionality } from '@angular/cdk/bidi';
+import '@angular/cdk/a11y';
+import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import '@angular/cdk/platform';
+import '@angular/common';
+import { InjectionToken } from '@angular/core';
+import '@angular/material/core';
+import '@angular/animations';
+import '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { first } from 'rxjs/operators/first';
 import { merge } from 'rxjs/observable/merge';
-import { ScrollDispatcher } from '@angular/cdk/scrolling';
-import { Subject } from 'rxjs/Subject';
+import '@angular/cdk/scrolling';
+import 'rxjs/Subject';
 
 /**
  * @fileoverview added by tsickle
@@ -72,7 +72,7 @@ var MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
  *
  * https://material.google.com/components/tooltips.html
  */
-var MatTooltip = (function () {
+var MatTooltip = /** @class */ (function () {
     function MatTooltip(renderer, _overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir) {
         var _this = this;
         this._overlay = _overlay;
@@ -85,17 +85,6 @@ var MatTooltip = (function () {
         this._focusMonitor = _focusMonitor;
         this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
-        this._position = 'below';
-        this._disabled = false;
-        /**
-         * The default delay in ms before showing the tooltip after show is called
-         */
-        this.showDelay = 0;
-        /**
-         * The default delay in ms before hiding the tooltip after hide is called
-         */
-        this.hideDelay = 0;
-        this._message = '';
         // The mouse events shouldn't be bound on iOS devices, because
         // they can prevent the first tap from firing its click event.
         if (!_platform.IOS) {
@@ -540,65 +529,15 @@ var MatTooltip = (function () {
         }
         return { x: x, y: y };
     };
-    MatTooltip.decorators = [
-        { type: Directive, args: [{
-                    selector: '[mat-tooltip], [matTooltip]',
-                    exportAs: 'matTooltip',
-                    host: {
-                        '(longpress)': 'show()',
-                        '(keydown)': '_handleKeydown($event)',
-                        '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
-                    },
-                },] },
-    ];
-    /** @nocollapse */
-    MatTooltip.ctorParameters = function () { return [
-        { type: Renderer2, },
-        { type: Overlay, },
-        { type: ElementRef, },
-        { type: ScrollDispatcher, },
-        { type: ViewContainerRef, },
-        { type: NgZone, },
-        { type: Platform, },
-        { type: AriaDescriber, },
-        { type: FocusMonitor, },
-        { type: undefined, decorators: [{ type: Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] },] },
-        { type: Directionality, decorators: [{ type: Optional },] },
-    ]; };
-    MatTooltip.propDecorators = {
-        "position": [{ type: Input, args: ['matTooltipPosition',] },],
-        "disabled": [{ type: Input, args: ['matTooltipDisabled',] },],
-        "_positionDeprecated": [{ type: Input, args: ['tooltip-position',] },],
-        "showDelay": [{ type: Input, args: ['matTooltipShowDelay',] },],
-        "hideDelay": [{ type: Input, args: ['matTooltipHideDelay',] },],
-        "message": [{ type: Input, args: ['matTooltip',] },],
-        "tooltipClass": [{ type: Input, args: ['matTooltipClass',] },],
-    };
     return MatTooltip;
 }());
 /**
  * Internal component that wraps the tooltip's content.
  * \@docs-private
  */
-var TooltipComponent = (function () {
+var TooltipComponent = /** @class */ (function () {
     function TooltipComponent(_changeDetectorRef) {
         this._changeDetectorRef = _changeDetectorRef;
-        /**
-         * Property watched by the animation framework to show or hide the tooltip
-         */
-        this._visibility = 'initial';
-        /**
-         * Whether interactions on the page should close the tooltip
-         */
-        this._closeOnInteraction = false;
-        /**
-         * The transform origin used in the animation for showing and hiding the tooltip
-         */
-        this._transformOrigin = 'bottom';
-        /**
-         * Subject for notifying that the tooltip has been hidden from the view
-         */
-        this._onHide = new Subject();
     }
     /**
      * Shows the tooltip with an animation originating from the provided origin
@@ -787,34 +726,6 @@ var TooltipComponent = (function () {
     function () {
         this._changeDetectorRef.markForCheck();
     };
-    TooltipComponent.decorators = [
-        { type: Component, args: [{selector: 'mat-tooltip-component',
-                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
-                    styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}"],
-                    encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                    animations: [
-                        trigger('state', [
-                            state('initial, void, hidden', style({ transform: 'scale(0)' })),
-                            state('visible', style({ transform: 'scale(1)' })),
-                            transition('* => visible', animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
-                            transition('* => hidden', animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
-                        ])
-                    ],
-                    host: {
-                        // Forces the element to have a layout in IE and Edge. This fixes issues where the element
-                        // won't be rendered if the animations are disabled or there is no web animations polyfill.
-                        '[style.zoom]': '_visibility === "visible" ? 1 : null',
-                        '(body:click)': 'this._handleBodyInteraction()',
-                        'aria-hidden': 'true',
-                    }
-                },] },
-    ];
-    /** @nocollapse */
-    TooltipComponent.ctorParameters = function () { return [
-        { type: ChangeDetectorRef, },
-    ]; };
     return TooltipComponent;
 }());
 
@@ -823,26 +734,9 @@ var TooltipComponent = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatTooltipModule = (function () {
+var MatTooltipModule = /** @class */ (function () {
     function MatTooltipModule() {
     }
-    MatTooltipModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [
-                        CommonModule,
-                        OverlayModule,
-                        MatCommonModule,
-                        PlatformModule,
-                        A11yModule,
-                    ],
-                    exports: [MatTooltip, TooltipComponent, MatCommonModule],
-                    declarations: [MatTooltip, TooltipComponent],
-                    entryComponents: [TooltipComponent],
-                    providers: [MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, ARIA_DESCRIBER_PROVIDER],
-                },] },
-    ];
-    /** @nocollapse */
-    MatTooltipModule.ctorParameters = function () { return []; };
     return MatTooltipModule;
 }());
 

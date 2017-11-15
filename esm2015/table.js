@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, Input, NgModule, Renderer2, ViewEncapsulation } from '@angular/core';
-import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTable, CdkTableModule } from '@angular/cdk/table';
-import { CommonModule } from '@angular/common';
-import { MatCommonModule } from '@angular/material/core';
+import '@angular/core';
+import { CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTable } from '@angular/cdk/table';
+import '@angular/common';
+import '@angular/material/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { combineLatest } from 'rxjs/operators/combineLatest';
 import { map } from 'rxjs/operators/map';
@@ -29,21 +29,6 @@ const _MatTable = CdkTable;
  */
 class MatTable extends _MatTable {
 }
-MatTable.decorators = [
-    { type: Component, args: [{selector: 'mat-table',
-                exportAs: 'matTable',
-                template: CDK_TABLE_TEMPLATE,
-                styles: [".mat-table{display:block}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;min-height:48px;padding:0 24px}.mat-cell,.mat-header-cell{flex:1;overflow:hidden;word-wrap:break-word}"],
-                host: {
-                    'class': 'mat-table',
-                },
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/** @nocollapse */
-MatTable.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -64,45 +49,18 @@ const _MatCell = CdkCell;
  */
 class MatCellDef extends _MatCellDef {
 }
-MatCellDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[matCellDef]',
-                providers: [{ provide: CdkCellDef, useExisting: MatCellDef }]
-            },] },
-];
-/** @nocollapse */
-MatCellDef.ctorParameters = () => [];
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
  */
 class MatHeaderCellDef extends _MatHeaderCellDef {
 }
-MatHeaderCellDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[matHeaderCellDef]',
-                providers: [{ provide: CdkHeaderCellDef, useExisting: MatHeaderCellDef }]
-            },] },
-];
-/** @nocollapse */
-MatHeaderCellDef.ctorParameters = () => [];
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
  */
 class MatColumnDef extends _MatColumnDef {
 }
-MatColumnDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[matColumnDef]',
-                providers: [{ provide: CdkColumnDef, useExisting: MatColumnDef }],
-            },] },
-];
-/** @nocollapse */
-MatColumnDef.ctorParameters = () => [];
-MatColumnDef.propDecorators = {
-    "name": [{ type: Input, args: ['matColumnDef',] },],
-};
 /**
  * Header cell template container that adds the right classes and role.
  */
@@ -117,21 +75,6 @@ class MatHeaderCell extends _MatHeaderCell {
         renderer.addClass(elementRef.nativeElement, `mat-column-${columnDef.cssClassFriendlyName}`);
     }
 }
-MatHeaderCell.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-header-cell',
-                host: {
-                    'class': 'mat-header-cell',
-                    'role': 'columnheader',
-                },
-            },] },
-];
-/** @nocollapse */
-MatHeaderCell.ctorParameters = () => [
-    { type: CdkColumnDef, },
-    { type: ElementRef, },
-    { type: Renderer2, },
-];
 /**
  * Cell template container that adds the right classes and role.
  */
@@ -146,21 +89,6 @@ class MatCell extends _MatCell {
         renderer.addClass(elementRef.nativeElement, `mat-column-${columnDef.cssClassFriendlyName}`);
     }
 }
-MatCell.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-cell',
-                host: {
-                    'class': 'mat-cell',
-                    'role': 'gridcell',
-                },
-            },] },
-];
-/** @nocollapse */
-MatCell.ctorParameters = () => [
-    { type: CdkColumnDef, },
-    { type: ElementRef, },
-    { type: Renderer2, },
-];
 
 /**
  * @fileoverview added by tsickle
@@ -180,15 +108,6 @@ const _MatRow = CdkRow;
  */
 class MatHeaderRowDef extends _MatHeaderRowDef {
 }
-MatHeaderRowDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[matHeaderRowDef]',
-                providers: [{ provide: CdkHeaderRowDef, useExisting: MatHeaderRowDef }],
-                inputs: ['columns: matHeaderRowDef'],
-            },] },
-];
-/** @nocollapse */
-MatHeaderRowDef.ctorParameters = () => [];
 /**
  * Data row definition for the mat-table.
  * Captures the header row's template and other row properties such as the columns to display and
@@ -196,55 +115,16 @@ MatHeaderRowDef.ctorParameters = () => [];
  */
 class MatRowDef extends _MatCdkRowDef {
 }
-MatRowDef.decorators = [
-    { type: Directive, args: [{
-                selector: '[matRowDef]',
-                providers: [{ provide: CdkRowDef, useExisting: MatRowDef }],
-                inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
-            },] },
-];
-/** @nocollapse */
-MatRowDef.ctorParameters = () => [];
 /**
  * Header template container that contains the cell outlet. Adds the right class and role.
  */
 class MatHeaderRow extends _MatHeaderRow {
 }
-MatHeaderRow.decorators = [
-    { type: Component, args: [{selector: 'mat-header-row',
-                template: CDK_ROW_TEMPLATE,
-                host: {
-                    'class': 'mat-header-row',
-                    'role': 'row',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                exportAs: 'matHeaderRow',
-                preserveWhitespaces: false,
-            },] },
-];
-/** @nocollapse */
-MatHeaderRow.ctorParameters = () => [];
 /**
  * Data row template container that contains the cell outlet. Adds the right class and role.
  */
 class MatRow extends _MatRow {
 }
-MatRow.decorators = [
-    { type: Component, args: [{selector: 'mat-row',
-                template: CDK_ROW_TEMPLATE,
-                host: {
-                    'class': 'mat-row',
-                    'role': 'row',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                exportAs: 'matRow',
-                preserveWhitespaces: false,
-            },] },
-];
-/** @nocollapse */
-MatRow.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -253,19 +133,6 @@ MatRow.ctorParameters = () => [];
 
 class MatTableModule {
 }
-MatTableModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [CdkTableModule, CommonModule, MatCommonModule],
-                exports: [MatTable, MatCellDef, MatHeaderCellDef, MatColumnDef,
-                    MatHeaderCell, MatCell, MatHeaderRow, MatRow,
-                    MatHeaderRowDef, MatRowDef],
-                declarations: [MatTable, MatCellDef, MatHeaderCellDef, MatColumnDef,
-                    MatHeaderCell, MatCell, MatHeaderRow, MatRow,
-                    MatHeaderRowDef, MatRowDef],
-            },] },
-];
-/** @nocollapse */
-MatTableModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -284,49 +151,6 @@ class MatTableDataSource {
      * @param {?=} initialData
      */
     constructor(initialData = []) {
-        /**
-         * Stream emitting render data to the table (depends on ordered data changes).
-         */
-        this._renderData = new BehaviorSubject([]);
-        /**
-         * Stream that emits when a new filter string is set on the data source.
-         */
-        this._filter = new BehaviorSubject('');
-        /**
-         * Data accessor function that is used for accessing data properties for sorting.
-         * This default function assumes that the sort header IDs (which defaults to the column name)
-         * matches the data's properties (e.g. column Xyz represents data['Xyz']).
-         * May be set to a custom function for different behavior.
-         * @param data Data object that is being accessed.
-         * @param sortHeaderId The name of the column that represents the data.
-         */
-        this.sortingDataAccessor = (data, sortHeaderId) => {
-            const /** @type {?} */ value = data[sortHeaderId];
-            // If the value is a string and only whitespace, return the value.
-            // Otherwise +value will convert it to 0.
-            if (typeof value === 'string' && !value.trim()) {
-                return value;
-            }
-            return isNaN(+value) ? value : +value;
-        };
-        /**
-         * Checks if a data object matches the data source's filter string. By default, each data object
-         * is converted to a string of its properties and returns true if the filter has
-         * at least one occurrence in that string. By default, the filter string has its whitespace
-         * trimmed and the match is case-insensitive. May be overriden for a custom implementation of
-         * filter matching.
-         * @param data Data object used to check against the filter.
-         * @param filter Filter string that has been set on the data source.
-         * @return Whether the filter matches against the data
-         */
-        this.filterPredicate = (data, filter) => {
-            // Transform the data into a lowercase string of all property values.
-            const /** @type {?} */ accumulator = (currentTerm, key) => currentTerm + data[key];
-            const /** @type {?} */ dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
-            // Transform the filter by converting it to lowercase and removing whitespace.
-            const /** @type {?} */ transformedFilter = filter.trim().toLowerCase();
-            return dataStr.indexOf(transformedFilter) != -1;
-        };
         this._data = new BehaviorSubject(initialData);
         this._updateChangeSubscription();
     }

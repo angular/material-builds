@@ -77,10 +77,9 @@ function getMatIconFailedToSanitizeError(url) {
  * Configuration for an icon, including the URL and possibly the cached SVG element.
  * \@docs-private
  */
-var SvgIconConfig = (function () {
+var SvgIconConfig = /** @class */ (function () {
     function SvgIconConfig(url) {
         this.url = url;
-        this.svgElement = null;
     }
     return SvgIconConfig;
 }());
@@ -91,37 +90,10 @@ var SvgIconConfig = (function () {
  * - Registers aliases for CSS classes, for use with icon fonts.
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
-var MatIconRegistry = (function () {
+var MatIconRegistry = /** @class */ (function () {
     function MatIconRegistry(_httpClient, _sanitizer) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
-        /**
-         * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
-         */
-        this._svgIconConfigs = new Map();
-        /**
-         * SvgIconConfig objects and cached SVG elements for icon sets, keyed by namespace.
-         * Multiple icon sets can be registered under the same namespace.
-         */
-        this._iconSetConfigs = new Map();
-        /**
-         * Cache for icons loaded by direct URLs.
-         */
-        this._cachedIconsByUrl = new Map();
-        /**
-         * In-progress icon fetches. Used to coalesce multiple requests to the same URL.
-         */
-        this._inProgressUrlFetches = new Map();
-        /**
-         * Map from font identifiers to their CSS class names. Used for icon fonts.
-         */
-        this._fontCssClassesByAlias = new Map();
-        /**
-         * The CSS class to apply when an <mat-icon> component has no icon name, url, or font specified.
-         * The default 'material-icons' value assumes that the material icon font has been loaded as
-         * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
-         */
-        this._defaultFontSetClass = 'material-icons';
     }
     /**
      * Registers an icon by URL in the default namespace.
@@ -681,14 +653,6 @@ var MatIconRegistry = (function () {
         this._inProgressUrlFetches.set(url, req);
         return req;
     };
-    MatIconRegistry.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    MatIconRegistry.ctorParameters = function () { return [
-        { type: _angular_common_http.HttpClient, decorators: [{ type: _angular_core.Optional },] },
-        { type: _angular_platformBrowser.DomSanitizer, },
-    ]; };
     return MatIconRegistry;
 }());
 /**
@@ -739,7 +703,7 @@ function iconKey(namespace, name) {
 /**
  * \@docs-private
  */
-var MatIconBase = (function () {
+var MatIconBase = /** @class */ (function () {
     function MatIconBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -774,7 +738,7 @@ var _MatIconMixinBase = _angular_material_core.mixinColor(MatIconBase);
  *   Example:
  *     <mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>
  */
-var MatIcon = (function (_super) {
+var MatIcon = /** @class */ (function (_super) {
     __extends(MatIcon, _super);
     function MatIcon(renderer, elementRef, _iconRegistry, ariaHidden) {
         var _this = _super.call(this, renderer, elementRef) || this;
@@ -933,33 +897,6 @@ var MatIcon = (function (_super) {
             this._previousFontIconClass = this.fontIcon;
         }
     };
-    MatIcon.decorators = [
-        { type: _angular_core.Component, args: [{template: '<ng-content></ng-content>',
-                    selector: 'mat-icon',
-                    exportAs: 'matIcon',
-                    styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}"],
-                    inputs: ['color'],
-                    host: {
-                        'role': 'img',
-                        'class': 'mat-icon',
-                    },
-                    encapsulation: _angular_core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                },] },
-    ];
-    /** @nocollapse */
-    MatIcon.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
-        { type: _angular_core.ElementRef, },
-        { type: MatIconRegistry, },
-        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['aria-hidden',] },] },
-    ]; };
-    MatIcon.propDecorators = {
-        "svgIcon": [{ type: _angular_core.Input },],
-        "fontSet": [{ type: _angular_core.Input },],
-        "fontIcon": [{ type: _angular_core.Input },],
-    };
     return MatIcon;
 }(_MatIconMixinBase));
 
@@ -968,19 +905,9 @@ var MatIcon = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatIconModule = (function () {
+var MatIconModule = /** @class */ (function () {
     function MatIconModule() {
     }
-    MatIconModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_material_core.MatCommonModule],
-                    exports: [MatIcon, _angular_material_core.MatCommonModule],
-                    declarations: [MatIcon],
-                    providers: [ICON_REGISTRY_PROVIDER],
-                },] },
-    ];
-    /** @nocollapse */
-    MatIconModule.ctorParameters = function () { return []; };
     return MatIconModule;
 }());
 

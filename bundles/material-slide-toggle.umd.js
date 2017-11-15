@@ -41,8 +41,6 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Increasing integer for generating unique ids for slide-toggle components.
-var nextUniqueId = 0;
 var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: _angular_forms.NG_VALUE_ACCESSOR,
     useExisting: _angular_core.forwardRef(function () { return MatSlideToggle; }),
@@ -51,7 +49,7 @@ var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
 /**
  * Change event object emitted by a MatSlideToggle.
  */
-var MatSlideToggleChange = (function () {
+var MatSlideToggleChange = /** @class */ (function () {
     function MatSlideToggleChange() {
     }
     return MatSlideToggleChange;
@@ -59,7 +57,7 @@ var MatSlideToggleChange = (function () {
 /**
  * \@docs-private
  */
-var MatSlideToggleBase = (function () {
+var MatSlideToggleBase = /** @class */ (function () {
     function MatSlideToggleBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -70,42 +68,13 @@ var _MatSlideToggleMixinBase = _angular_material_core.mixinTabIndex(_angular_mat
 /**
  * Represents a slidable "switch" toggle that can be moved between on and off.
  */
-var MatSlideToggle = (function (_super) {
+var MatSlideToggle = /** @class */ (function (_super) {
     __extends(MatSlideToggle, _super);
     function MatSlideToggle(elementRef, renderer, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
-        _this.onChange = function (_) { };
-        _this.onTouched = function () { };
-        _this._uniqueId = "mat-slide-toggle-" + ++nextUniqueId;
-        _this._required = false;
-        _this._checked = false;
-        /**
-         * Name value will be applied to the input element if present
-         */
-        _this.name = null;
-        /**
-         * A unique id for the slide-toggle input. If none is supplied, it will be auto-generated.
-         */
-        _this.id = _this._uniqueId;
-        /**
-         * Whether the label should appear after or before the slide-toggle. Defaults to 'after'
-         */
-        _this.labelPosition = 'after';
-        /**
-         * Used to set the aria-label attribute on the underlying input element.
-         */
-        _this.ariaLabel = null;
-        /**
-         * Used to set the aria-labelledby attribute on the underlying input element.
-         */
-        _this.ariaLabelledby = null;
-        /**
-         * An event will be dispatched each time the slide-toggle changes its value.
-         */
-        _this.change = new _angular_core.EventEmitter();
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -398,57 +367,13 @@ var MatSlideToggle = (function (_super) {
         // that has been recognized by the cdkObserveContent directive.
         this._changeDetectorRef.markForCheck();
     };
-    MatSlideToggle.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-slide-toggle',
-                    exportAs: 'matSlideToggle',
-                    host: {
-                        'class': 'mat-slide-toggle',
-                        '[id]': 'id',
-                        '[class.mat-checked]': 'checked',
-                        '[class.mat-disabled]': 'disabled',
-                        '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
-                    },
-                    template: "<label class=\"mat-slide-toggle-label\" #label><div class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleCentered]=\"true\" [matRippleDisabled]=\"disableRipple || disabled\"></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
-                    styles: [".mat-slide-toggle{display:inline-block;height:24px;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;cursor:pointer}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:-13px;left:-13px;height:46px;width:46px;border-radius:50%;z-index:1;pointer-events:none}"],
-                    providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
-                    inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
-                    encapsulation: _angular_core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                },] },
-    ];
-    /** @nocollapse */
-    MatSlideToggle.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
-        { type: _angular_cdk_platform.Platform, },
-        { type: _angular_cdk_a11y.FocusMonitor, },
-        { type: _angular_core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
-    ]; };
-    MatSlideToggle.propDecorators = {
-        "name": [{ type: _angular_core.Input },],
-        "id": [{ type: _angular_core.Input },],
-        "labelPosition": [{ type: _angular_core.Input },],
-        "ariaLabel": [{ type: _angular_core.Input, args: ['aria-label',] },],
-        "ariaLabelledby": [{ type: _angular_core.Input, args: ['aria-labelledby',] },],
-        "required": [{ type: _angular_core.Input },],
-        "checked": [{ type: _angular_core.Input },],
-        "change": [{ type: _angular_core.Output },],
-        "_inputElement": [{ type: _angular_core.ViewChild, args: ['input',] },],
-        "_ripple": [{ type: _angular_core.ViewChild, args: [_angular_material_core.MatRipple,] },],
-    };
     return MatSlideToggle;
 }(_MatSlideToggleMixinBase));
 /**
  * Renderer for the Slide Toggle component, which separates DOM modification in its own class
  */
-var SlideToggleRenderer = (function () {
+var SlideToggleRenderer = /** @class */ (function () {
     function SlideToggleRenderer(elementRef, platform) {
-        /**
-         * Whether the thumb is currently being dragged.
-         */
-        this.dragging = false;
         // We only need to interact with these elements when we're on the browser, so only grab
         // the reference in that case.
         if (platform.isBrowser) {
@@ -538,21 +463,9 @@ var SlideToggleRenderer = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSlideToggleModule = (function () {
+var MatSlideToggleModule = /** @class */ (function () {
     function MatSlideToggleModule() {
     }
-    MatSlideToggleModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_material_core.MatRippleModule, _angular_material_core.MatCommonModule, _angular_cdk_platform.PlatformModule, _angular_cdk_observers.ObserversModule, _angular_cdk_a11y.A11yModule],
-                    exports: [MatSlideToggle, _angular_material_core.MatCommonModule],
-                    declarations: [MatSlideToggle],
-                    providers: [
-                        { provide: _angular_platformBrowser.HAMMER_GESTURE_CONFIG, useClass: _angular_material_core.GestureConfig }
-                    ],
-                },] },
-    ];
-    /** @nocollapse */
-    MatSlideToggleModule.ctorParameters = function () { return []; };
     return MatSlideToggleModule;
 }());
 

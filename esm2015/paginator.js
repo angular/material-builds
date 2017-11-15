@@ -5,12 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Injectable, Input, NgModule, Optional, Output, SkipSelf, ViewEncapsulation } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { Subject } from 'rxjs/Subject';
+import '@angular/common';
+import { Optional, SkipSelf } from '@angular/core';
+import '@angular/material/button';
+import '@angular/material/select';
+import '@angular/material/tooltip';
+import 'rxjs/Subject';
 
 /**
  * @fileoverview added by tsickle
@@ -22,46 +22,7 @@ import { Subject } from 'rxjs/Subject';
  * include it in a custom provider
  */
 class MatPaginatorIntl {
-    constructor() {
-        /**
-         * Stream that emits whenever the labels here are changed. Use this to notify
-         * components if the labels have changed after initialization.
-         */
-        this.changes = new Subject();
-        /**
-         * A label for the page size selector.
-         */
-        this.itemsPerPageLabel = 'Items per page:';
-        /**
-         * A label for the button that increments the current page.
-         */
-        this.nextPageLabel = 'Next page';
-        /**
-         * A label for the button that decrements the current page.
-         */
-        this.previousPageLabel = 'Previous page';
-        /**
-         * A label for the range of items within the current page and the length of the whole list.
-         */
-        this.getRangeLabel = (page, pageSize, length) => {
-            if (length == 0 || pageSize == 0) {
-                return `0 of ${length}`;
-            }
-            length = Math.max(length, 0);
-            const /** @type {?} */ startIndex = page * pageSize;
-            // If the start index exceeds the list length, do not try and fix the end index to the end.
-            const /** @type {?} */ endIndex = startIndex < length ?
-                Math.min(startIndex + pageSize, length) :
-                startIndex + pageSize;
-            return `${startIndex + 1} - ${endIndex} of ${length}`;
-        };
-    }
 }
-MatPaginatorIntl.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-MatPaginatorIntl.ctorParameters = () => [];
 /**
  * \@docs-private
  * @param {?} parentIntl
@@ -108,13 +69,6 @@ class MatPaginator {
     constructor(_intl, _changeDetectorRef) {
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
-        this._pageIndex = 0;
-        this._length = 0;
-        this._pageSizeOptions = [];
-        /**
-         * Event emitted when the paginator changes the page size or page index.
-         */
-        this.page = new EventEmitter();
         this._intlChanges = _intl.changes.subscribe(() => this._changeDetectorRef.markForCheck());
     }
     /**
@@ -272,31 +226,6 @@ class MatPaginator {
         });
     }
 }
-MatPaginator.decorators = [
-    { type: Component, args: [{selector: 'mat-paginator',
-                exportAs: 'matPaginator',
-                template: "<div class=\"mat-paginator-container\"><div class=\"mat-paginator-page-size\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\"><mat-select [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-actions\"><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-increment\"></div></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-decrement\"></div></button></div></div>",
-                styles: [".mat-paginator-container{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px;flex-wrap:wrap-reverse}.mat-paginator-page-size{display:flex;align-items:baseline;margin-right:8px}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:6px 4px 0 4px;width:56px}.mat-paginator-range-label{margin:0 32px 0 24px}.mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 0 0 8px}[dir=rtl] .mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 8px 0 0}.mat-paginator-decrement,.mat-paginator-increment{width:8px;height:8px}.mat-paginator-decrement,[dir=rtl] .mat-paginator-increment{transform:rotate(45deg)}.mat-paginator-increment,[dir=rtl] .mat-paginator-decrement{transform:rotate(225deg)}.mat-paginator-decrement{margin-left:12px}[dir=rtl] .mat-paginator-decrement{margin-right:12px}.mat-paginator-increment{margin-left:16px}[dir=rtl] .mat-paginator-increment{margin-right:16px}.mat-paginator-range-actions{display:flex;align-items:center;min-height:48px}"],
-                host: {
-                    'class': 'mat-paginator',
-                },
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-            },] },
-];
-/** @nocollapse */
-MatPaginator.ctorParameters = () => [
-    { type: MatPaginatorIntl, },
-    { type: ChangeDetectorRef, },
-];
-MatPaginator.propDecorators = {
-    "pageIndex": [{ type: Input },],
-    "length": [{ type: Input },],
-    "pageSize": [{ type: Input },],
-    "pageSizeOptions": [{ type: Input },],
-    "page": [{ type: Output },],
-};
 
 /**
  * @fileoverview added by tsickle
@@ -305,21 +234,6 @@ MatPaginator.propDecorators = {
 
 class MatPaginatorModule {
 }
-MatPaginatorModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                    MatButtonModule,
-                    MatSelectModule,
-                    MatTooltipModule,
-                ],
-                exports: [MatPaginator],
-                declarations: [MatPaginator],
-                providers: [MAT_PAGINATOR_INTL_PROVIDER],
-            },] },
-];
-/** @nocollapse */
-MatPaginatorModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

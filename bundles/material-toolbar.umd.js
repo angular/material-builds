@@ -8,8 +8,8 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/platform')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/platform'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = global.ng.material.toolbar || {}),global.ng.core,global.ng.material.core,global.ng.cdk.platform));
-}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_platform) { 'use strict';
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = global.ng.material.toolbar || {}),global.ng.core,global.ng.material.core));
+}(this, (function (exports,_angular_core,_angular_material_core) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -44,7 +44,7 @@ function __extends(d, b) {
 /**
  * \@docs-private
  */
-var MatToolbarBase = (function () {
+var MatToolbarBase = /** @class */ (function () {
     function MatToolbarBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -52,21 +52,12 @@ var MatToolbarBase = (function () {
     return MatToolbarBase;
 }());
 var _MatToolbarMixinBase = _angular_material_core.mixinColor(MatToolbarBase);
-var MatToolbarRow = (function () {
+var MatToolbarRow = /** @class */ (function () {
     function MatToolbarRow() {
     }
-    MatToolbarRow.decorators = [
-        { type: _angular_core.Directive, args: [{
-                    selector: 'mat-toolbar-row',
-                    exportAs: 'matToolbarRow',
-                    host: { 'class': 'mat-toolbar-row' },
-                },] },
-    ];
-    /** @nocollapse */
-    MatToolbarRow.ctorParameters = function () { return []; };
     return MatToolbarRow;
 }());
-var MatToolbar = (function (_super) {
+var MatToolbar = /** @class */ (function (_super) {
     __extends(MatToolbar, _super);
     function MatToolbar(renderer, elementRef, _platform) {
         var _this = _super.call(this, renderer, elementRef) || this;
@@ -109,31 +100,6 @@ var MatToolbar = (function (_super) {
             throwToolbarMixedModesError();
         }
     };
-    MatToolbar.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-toolbar',
-                    exportAs: 'matToolbar',
-                    template: "<ng-content></ng-content><ng-content select=\"mat-toolbar-row\"></ng-content>",
-                    styles: [".mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}.mat-toolbar-multiple-rows{min-height:64px}.mat-toolbar-row,.mat-toolbar-single-row{height:64px}@media (max-width:600px){.mat-toolbar-multiple-rows{min-height:56px}.mat-toolbar-row,.mat-toolbar-single-row{height:56px}}"],
-                    inputs: ['color'],
-                    host: {
-                        'class': 'mat-toolbar',
-                        '[class.mat-toolbar-multiple-rows]': 'this._toolbarRows.length',
-                        '[class.mat-toolbar-single-row]': '!this._toolbarRows.length'
-                    },
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    encapsulation: _angular_core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
-                },] },
-    ];
-    /** @nocollapse */
-    MatToolbar.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
-        { type: _angular_core.ElementRef, },
-        { type: _angular_cdk_platform.Platform, },
-    ]; };
-    MatToolbar.propDecorators = {
-        "_toolbarRows": [{ type: _angular_core.ContentChildren, args: [MatToolbarRow,] },],
-    };
     return MatToolbar;
 }(_MatToolbarMixinBase));
 /**
@@ -152,18 +118,9 @@ function throwToolbarMixedModesError() {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatToolbarModule = (function () {
+var MatToolbarModule = /** @class */ (function () {
     function MatToolbarModule() {
     }
-    MatToolbarModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_material_core.MatCommonModule, _angular_cdk_platform.PlatformModule],
-                    exports: [MatToolbar, MatToolbarRow, _angular_material_core.MatCommonModule],
-                    declarations: [MatToolbar, MatToolbarRow],
-                },] },
-    ];
-    /** @nocollapse */
-    MatToolbarModule.ctorParameters = function () { return []; };
     return MatToolbarModule;
 }());
 

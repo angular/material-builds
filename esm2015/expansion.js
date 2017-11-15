@@ -5,19 +5,19 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Host, Input, NgModule, Optional, ViewEncapsulation, forwardRef } from '@angular/core';
-import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
+import '@angular/common';
+import '@angular/core';
+import '@angular/cdk/collections';
+import { CdkAccordion, CdkAccordionItem } from '@angular/cdk/accordion';
+import '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import '@angular/animations';
 import { mixinDisabled } from '@angular/material/core';
-import { Subject } from 'rxjs/Subject';
+import 'rxjs/Subject';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { filter } from 'rxjs/operators/filter';
 import { merge } from 'rxjs/observable/merge';
-import { Subscription } from 'rxjs/Subscription';
+import 'rxjs/Subscription';
 
 /**
  * @fileoverview added by tsickle
@@ -32,19 +32,6 @@ const _CdkAccordion = CdkAccordion;
  * Directive for a Material Design Accordion.
  */
 class MatAccordion extends _CdkAccordion {
-    constructor() {
-        super(...arguments);
-        this._hideToggle = false;
-        /**
-         * The display mode used for all expansion panels in the accordion. Currently two display
-         * modes exist:
-         *   default - a gutter-like spacing is placed around any expanded panel, placing the expanded
-         *     panel at a different elevation from the reset of the accordion.
-         *  flat - no spacing is placed around expanded panels, showing all panels at the same
-         *     elevation.
-         */
-        this.displayMode = 'default';
-    }
     /**
      * Whether the expansion indicator should be hidden.
      * @return {?}
@@ -56,21 +43,6 @@ class MatAccordion extends _CdkAccordion {
      */
     set hideToggle(show) { this._hideToggle = coerceBooleanProperty(show); }
 }
-MatAccordion.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-accordion',
-                exportAs: 'matAccordion',
-                host: {
-                    class: 'mat-accordion'
-                }
-            },] },
-];
-/** @nocollapse */
-MatAccordion.ctorParameters = () => [];
-MatAccordion.propDecorators = {
-    "hideToggle": [{ type: Input },],
-    "displayMode": [{ type: Input },],
-};
 
 /**
  * @fileoverview added by tsickle
@@ -98,19 +70,6 @@ class MatExpansionPanelBase extends _CdkAccordionItem {
         super(accordion, _changeDetectorRef, _uniqueSelectionDispatcher);
     }
 }
-MatExpansionPanelBase.decorators = [
-    { type: Component, args: [{
-                template: '',encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-            },] },
-];
-/** @nocollapse */
-MatExpansionPanelBase.ctorParameters = () => [
-    { type: MatAccordion, },
-    { type: ChangeDetectorRef, },
-    { type: UniqueSelectionDispatcher, },
-];
 const _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
 /**
  * <mat-expansion-panel> component.
@@ -121,20 +80,6 @@ const _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
  * Please refer to README.md for examples on how to use it.
  */
 class MatExpansionPanel extends _MatExpansionPanelMixinBase {
-    /**
-     * @param {?} accordion
-     * @param {?} _changeDetectorRef
-     * @param {?} _uniqueSelectionDispatcher
-     */
-    constructor(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
-        super(accordion, _changeDetectorRef, _uniqueSelectionDispatcher);
-        this._hideToggle = false;
-        /**
-         * Stream that emits for changes in `\@Input` properties.
-         */
-        this._inputChanges = new Subject();
-        this.accordion = accordion;
-    }
     /**
      * Whether the toggle indicator should be hidden.
      * @return {?}
@@ -148,6 +93,15 @@ class MatExpansionPanel extends _MatExpansionPanelMixinBase {
      */
     set hideToggle(value) {
         this._hideToggle = coerceBooleanProperty(value);
+    }
+    /**
+     * @param {?} accordion
+     * @param {?} _changeDetectorRef
+     * @param {?} _uniqueSelectionDispatcher
+     */
+    constructor(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
+        super(accordion, _changeDetectorRef, _uniqueSelectionDispatcher);
+        this.accordion = accordion;
     }
     /**
      * Whether the expansion indicator should be hidden.
@@ -190,54 +144,8 @@ class MatExpansionPanel extends _MatExpansionPanelMixinBase {
         this._inputChanges.complete();
     }
 }
-MatExpansionPanel.decorators = [
-    { type: Component, args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expanded .mat-expansion-panel-content{overflow:visible}.mat-expansion-panel-content,.mat-expansion-panel-content.ng-animating{overflow:hidden}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion .mat-expansion-panel-spacing:first-child{margin-top:0}.mat-accordion .mat-expansion-panel-spacing:last-child{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
-                selector: 'mat-expansion-panel',
-                exportAs: 'matExpansionPanel',
-                template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div [class.mat-expanded]=\"expanded\" class=\"mat-expansion-panel-content\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content></div><ng-content select=\"mat-action-row\"></ng-content></div>",
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                inputs: ['disabled', 'expanded'],
-                outputs: ['opened', 'closed'],
-                host: {
-                    'class': 'mat-expansion-panel',
-                    '[class.mat-expanded]': 'expanded',
-                    '[class.mat-expansion-panel-spacing]': '_hasSpacing()',
-                },
-                providers: [
-                    { provide: _MatExpansionPanelMixinBase, useExisting: forwardRef(() => MatExpansionPanel) }
-                ],
-                animations: [
-                    trigger('bodyExpansion', [
-                        state('collapsed', style({ height: '0px', visibility: 'hidden' })),
-                        state('expanded', style({ height: '*', visibility: 'visible' })),
-                        transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-                    ]),
-                ],
-            },] },
-];
-/** @nocollapse */
-MatExpansionPanel.ctorParameters = () => [
-    { type: MatAccordion, decorators: [{ type: Optional }, { type: Host },] },
-    { type: ChangeDetectorRef, },
-    { type: UniqueSelectionDispatcher, },
-];
-MatExpansionPanel.propDecorators = {
-    "hideToggle": [{ type: Input },],
-};
 class MatExpansionPanelActionRow {
 }
-MatExpansionPanelActionRow.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-action-row',
-                host: {
-                    class: 'mat-action-row'
-                }
-            },] },
-];
-/** @nocollapse */
-MatExpansionPanelActionRow.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -263,7 +171,6 @@ class MatExpansionPanelHeader {
         this._element = _element;
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
-        this._parentChangeSubscription = Subscription.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to  subscribe and trigger change detection manually.
         this._parentChangeSubscription = merge(panel.opened, panel.closed, panel._inputChanges.pipe(filter(changes => !!(changes["hideToggle"] || changes["disabled"]))))
@@ -332,64 +239,6 @@ class MatExpansionPanelHeader {
         this._focusMonitor.stopMonitoring(this._element.nativeElement);
     }
 }
-MatExpansionPanelHeader.decorators = [
-    { type: Component, args: [{selector: 'mat-expansion-panel-header',
-                styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
-                template: "<span class=\"mat-content\"><ng-content select=\"mat-panel-title\"></ng-content><ng-content select=\"mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\" class=\"mat-expansion-indicator\"></span>",
-                encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
-                changeDetection: ChangeDetectionStrategy.OnPush,
-                host: {
-                    'class': 'mat-expansion-panel-header',
-                    'role': 'button',
-                    '[attr.tabindex]': 'panel.disabled ? -1 : 0',
-                    '[attr.aria-controls]': '_getPanelId()',
-                    '[attr.aria-expanded]': '_isExpanded()',
-                    '[attr.aria-disabled]': 'panel.disabled',
-                    '[class.mat-expanded]': '_isExpanded()',
-                    '(click)': '_toggle()',
-                    '(keyup)': '_keyup($event)',
-                    '[@expansionHeight]': `{
-        value: _getExpandedState(),
-        params: {
-          collapsedHeight: collapsedHeight,
-          expandedHeight: expandedHeight
-        }
-    }`,
-                },
-                animations: [
-                    trigger('indicatorRotate', [
-                        state('collapsed', style({ transform: 'rotate(0deg)' })),
-                        state('expanded', style({ transform: 'rotate(180deg)' })),
-                        transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-                    ]),
-                    trigger('expansionHeight', [
-                        state('collapsed', style({
-                            height: '{{collapsedHeight}}',
-                        }), {
-                            params: { collapsedHeight: '48px' },
-                        }),
-                        state('expanded', style({
-                            height: '{{expandedHeight}}'
-                        }), {
-                            params: { expandedHeight: '64px' }
-                        }),
-                        transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-                    ]),
-                ],
-            },] },
-];
-/** @nocollapse */
-MatExpansionPanelHeader.ctorParameters = () => [
-    { type: MatExpansionPanel, decorators: [{ type: Host },] },
-    { type: ElementRef, },
-    { type: FocusMonitor, },
-    { type: ChangeDetectorRef, },
-];
-MatExpansionPanelHeader.propDecorators = {
-    "expandedHeight": [{ type: Input },],
-    "collapsedHeight": [{ type: Input },],
-};
 /**
  * <mat-panel-description> directive.
  *
@@ -397,16 +246,6 @@ MatExpansionPanelHeader.propDecorators = {
  */
 class MatExpansionPanelDescription {
 }
-MatExpansionPanelDescription.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-panel-description',
-                host: {
-                    class: 'mat-expansion-panel-header-description'
-                }
-            },] },
-];
-/** @nocollapse */
-MatExpansionPanelDescription.ctorParameters = () => [];
 /**
  * <mat-panel-title> directive.
  *
@@ -414,16 +253,6 @@ MatExpansionPanelDescription.ctorParameters = () => [];
  */
 class MatExpansionPanelTitle {
 }
-MatExpansionPanelTitle.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-panel-title',
-                host: {
-                    class: 'mat-expansion-panel-header-title'
-                }
-            },] },
-];
-/** @nocollapse */
-MatExpansionPanelTitle.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -432,31 +261,6 @@ MatExpansionPanelTitle.ctorParameters = () => [];
 
 class MatExpansionModule {
 }
-MatExpansionModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [CommonModule, A11yModule, CdkAccordionModule],
-                exports: [
-                    MatAccordion,
-                    MatExpansionPanel,
-                    MatExpansionPanelActionRow,
-                    MatExpansionPanelHeader,
-                    MatExpansionPanelTitle,
-                    MatExpansionPanelDescription
-                ],
-                declarations: [
-                    MatExpansionPanelBase,
-                    MatAccordion,
-                    MatExpansionPanel,
-                    MatExpansionPanelActionRow,
-                    MatExpansionPanelHeader,
-                    MatExpansionPanelTitle,
-                    MatExpansionPanelDescription
-                ],
-                providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
-            },] },
-];
-/** @nocollapse */
-MatExpansionModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

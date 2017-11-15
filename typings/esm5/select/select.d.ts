@@ -49,7 +49,7 @@ export declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Ove
 /** @docs-private */
 export declare const MAT_SELECT_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
-    deps: typeof Overlay[];
+    deps: (typeof Overlay)[];
     useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
 };
 /** Change event object that is emitted when the select value has changed. */
