@@ -5,27 +5,27 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { InjectionToken, isDevMode } from '@angular/core';
-import '@angular/common';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, Renderer2, Self, ViewChild, ViewEncapsulation, isDevMode } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import '@angular/cdk/bidi';
+import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, END, ENTER, HOME, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
-import { Overlay } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, Overlay, OverlayModule, ViewportRuler } from '@angular/cdk/overlay';
 import { filter } from 'rxjs/operators/filter';
 import { first } from 'rxjs/operators/first';
 import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
-import '@angular/forms';
-import { MatOption, mixinDisabled, mixinTabIndex } from '@angular/material/core';
-import '@angular/material/form-field';
+import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
-import 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
@@ -117,6 +117,7 @@ function getMatSelectNonFunctionValueError() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+var nextUniqueId = 0;
 /**
  * The max height of the select's overlay panel
  */
@@ -170,7 +171,7 @@ var MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
 /**
  * Change event object that is emitted when the select value has changed.
  */
-var MatSelectChange = /** @class */ (function () {
+var MatSelectChange = (function () {
     function MatSelectChange(source, value) {
         this.source = source;
         this.value = value;
@@ -180,7 +181,7 @@ var MatSelectChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var MatSelectBase = /** @class */ (function () {
+var MatSelectBase = (function () {
     function MatSelectBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -191,12 +192,19 @@ var _MatSelectMixinBase = mixinTabIndex(mixinDisabled(MatSelectBase));
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
-var MatSelectTrigger = /** @class */ (function () {
+var MatSelectTrigger = (function () {
     function MatSelectTrigger() {
     }
+    MatSelectTrigger.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-select-trigger'
+                },] },
+    ];
+    /** @nocollapse */
+    MatSelectTrigger.ctorParameters = function () { return []; };
     return MatSelectTrigger;
 }());
-var MatSelect = /** @class */ (function (_super) {
+var MatSelect = (function (_super) {
     __extends(MatSelect, _super);
     function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, renderer, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
         var _this = _super.call(this, renderer, elementRef) || this;
@@ -210,6 +218,135 @@ var MatSelect = /** @class */ (function (_super) {
         _this._parentFormField = _parentFormField;
         _this.ngControl = ngControl;
         _this._scrollStrategyFactory = _scrollStrategyFactory;
+        /**
+         * Whether or not the overlay panel is open.
+         */
+        _this._panelOpen = false;
+        /**
+         * Whether filling out the select is required in the form.
+         */
+        _this._required = false;
+        /**
+         * The scroll position of the overlay panel, calculated to center the selected option.
+         */
+        _this._scrollTop = 0;
+        /**
+         * Whether the component is in multiple selection mode.
+         */
+        _this._multiple = false;
+        /**
+         * Comparison function to specify which option is displayed. Defaults to object equality.
+         */
+        _this._compareWith = function (o1, o2) { return o1 === o2; };
+        /**
+         * Unique id for this input.
+         */
+        _this._uid = "mat-select-" + nextUniqueId++;
+        /**
+         * Emits whenever the component is destroyed.
+         */
+        _this._destroy = new Subject();
+        /**
+         * The cached font-size of the trigger element.
+         */
+        _this._triggerFontSize = 0;
+        /**
+         * View -> model callback called when value changes
+         */
+        _this._onChange = function () { };
+        /**
+         * View -> model callback called when select has been touched
+         */
+        _this._onTouched = function () { };
+        /**
+         * The IDs of child options to be passed to the aria-owns attribute.
+         */
+        _this._optionIds = '';
+        /**
+         * The value of the select panel's transform-origin property.
+         */
+        _this._transformOrigin = 'top';
+        /**
+         * Whether the panel's animation is done.
+         */
+        _this._panelDoneAnimating = false;
+        /**
+         * Strategy that will be used to handle scrolling while the select panel is open.
+         */
+        _this._scrollStrategy = _this._scrollStrategyFactory();
+        /**
+         * The y-offset of the overlay panel in relation to the trigger's top start corner.
+         * This must be adjusted to align the selected option text over the trigger text.
+         * when the panel opens. Will change based on the y-position of the selected option.
+         */
+        _this._offsetY = 0;
+        /**
+         * This position config ensures that the top "start" corner of the overlay
+         * is aligned with with the top "start" of the origin by default (overlapping
+         * the trigger completely). If the panel cannot fit below the trigger, it
+         * will fall back to a position above the trigger.
+         */
+        _this._positions = [
+            {
+                originX: 'start',
+                originY: 'top',
+                overlayX: 'start',
+                overlayY: 'top',
+            },
+            {
+                originX: 'start',
+                originY: 'bottom',
+                overlayX: 'start',
+                overlayY: 'bottom',
+            },
+        ];
+        /**
+         * Stream that emits whenever the state of the select changes such that the wrapping
+         * `MatFormField` needs to run change detection.
+         */
+        _this.stateChanges = new Subject();
+        /**
+         * Whether the select is focused.
+         */
+        _this.focused = false;
+        /**
+         * A name for this control that can be used by `mat-form-field`.
+         */
+        _this.controlType = 'mat-select';
+        _this._disableRipple = false;
+        /**
+         * Aria label of the select. If not specified, the placeholder will be used as label.
+         */
+        _this.ariaLabel = '';
+        /**
+         * Event emitted when the select has been opened.
+         */
+        _this.openedChange = new EventEmitter();
+        /**
+         * Event emitted when the select has been opened.
+         * @deprecated Use `openedChange` instead.
+         */
+        _this.onOpen = _this._openedStream;
+        /**
+         * Event emitted when the select has been closed.
+         * @deprecated Use `openedChange` instead.
+         */
+        _this.onClose = _this._closedStream;
+        /**
+         * Event emitted when the selected value has been changed by the user.
+         */
+        _this.selectionChange = new EventEmitter();
+        /**
+         * Event emitted when the selected value has been changed by the user.
+         * @deprecated Use `selectionChange` instead.
+         */
+        _this.change = _this.selectionChange;
+        /**
+         * Event that emits whenever the raw value of the select changes. This is here primarily
+         * to facilitate the two-way binding for the `value` input.
+         * \@docs-private
+         */
+        _this.valueChange = new EventEmitter();
         if (_this.ngControl) {
             _this.ngControl.valueAccessor = _this;
         }
@@ -1526,6 +1663,89 @@ var MatSelect = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    MatSelect.decorators = [
+        { type: Component, args: [{selector: 'mat-select',
+                    exportAs: 'matSelect',
+                    template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\"><ng-container *ngIf=\"empty\">&nbsp;</ng-container><span class=\"mat-select-value-text\" *ngIf=\"!empty\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{ triggerValue }}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div #panel class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
+                    styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-placeholder{width:calc(100% - 18px)}"],
+                    inputs: ['disabled', 'tabIndex'],
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    host: {
+                        'role': 'listbox',
+                        '[attr.id]': 'id',
+                        '[attr.tabindex]': 'tabIndex',
+                        '[attr.aria-label]': '_ariaLabel',
+                        '[attr.aria-labelledby]': 'ariaLabelledby',
+                        '[attr.aria-required]': 'required.toString()',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.aria-invalid]': 'errorState',
+                        '[attr.aria-owns]': '_optionIds',
+                        '[attr.aria-multiselectable]': 'multiple',
+                        '[attr.aria-describedby]': '_ariaDescribedby || null',
+                        '[attr.aria-activedescendant]': '_getAriaActiveDescendant()',
+                        '[class.mat-select-disabled]': 'disabled',
+                        '[class.mat-select-invalid]': 'errorState',
+                        '[class.mat-select-required]': 'required',
+                        'class': 'mat-select',
+                        '(keydown)': '_handleKeydown($event)',
+                        '(focus)': '_onFocus()',
+                        '(blur)': '_onBlur()',
+                    },
+                    animations: [
+                        transformPanel,
+                        fadeInContent
+                    ],
+                    providers: [
+                        { provide: MatFormFieldControl, useExisting: MatSelect },
+                        { provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatSelect }
+                    ],
+                },] },
+    ];
+    /** @nocollapse */
+    MatSelect.ctorParameters = function () { return [
+        { type: ViewportRuler, },
+        { type: ChangeDetectorRef, },
+        { type: NgZone, },
+        { type: ErrorStateMatcher, },
+        { type: Renderer2, },
+        { type: ElementRef, },
+        { type: Directionality, decorators: [{ type: Optional },] },
+        { type: NgForm, decorators: [{ type: Optional },] },
+        { type: FormGroupDirective, decorators: [{ type: Optional },] },
+        { type: MatFormField, decorators: [{ type: Optional },] },
+        { type: NgControl, decorators: [{ type: Self }, { type: Optional },] },
+        { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] },] },
+    ]; };
+    MatSelect.propDecorators = {
+        "trigger": [{ type: ViewChild, args: ['trigger',] },],
+        "panel": [{ type: ViewChild, args: ['panel',] },],
+        "overlayDir": [{ type: ViewChild, args: [CdkConnectedOverlay,] },],
+        "options": [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
+        "optionGroups": [{ type: ContentChildren, args: [MatOptgroup,] },],
+        "panelClass": [{ type: Input },],
+        "customTrigger": [{ type: ContentChild, args: [MatSelectTrigger,] },],
+        "placeholder": [{ type: Input },],
+        "required": [{ type: Input },],
+        "multiple": [{ type: Input },],
+        "compareWith": [{ type: Input },],
+        "value": [{ type: Input },],
+        "disableRipple": [{ type: Input },],
+        "ariaLabel": [{ type: Input, args: ['aria-label',] },],
+        "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
+        "errorStateMatcher": [{ type: Input },],
+        "id": [{ type: Input },],
+        "openedChange": [{ type: Output },],
+        "_openedStream": [{ type: Output, args: ['opened',] },],
+        "_closedStream": [{ type: Output, args: ['closed',] },],
+        "onOpen": [{ type: Output },],
+        "onClose": [{ type: Output },],
+        "selectionChange": [{ type: Output },],
+        "change": [{ type: Output },],
+        "valueChange": [{ type: Output },],
+    };
     return MatSelect;
 }(_MatSelectMixinBase));
 
@@ -1534,9 +1754,24 @@ var MatSelect = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSelectModule = /** @class */ (function () {
+var MatSelectModule = (function () {
     function MatSelectModule() {
     }
+    MatSelectModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        CommonModule,
+                        OverlayModule,
+                        MatOptionModule,
+                        MatCommonModule,
+                    ],
+                    exports: [MatFormFieldModule, MatSelect, MatSelectTrigger, MatOptionModule, MatCommonModule],
+                    declarations: [MatSelect, MatSelectTrigger],
+                    providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER, ErrorStateMatcher]
+                },] },
+    ];
+    /** @nocollapse */
+    MatSelectModule.ctorParameters = function () { return []; };
     return MatSelectModule;
 }());
 

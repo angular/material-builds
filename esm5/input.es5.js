@@ -5,14 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { getSupportedInputTypes } from '@angular/cdk/platform';
-import '@angular/common';
-import { InjectionToken } from '@angular/core';
-import '@angular/material/form-field';
+import { Platform, PlatformModule, getSupportedInputTypes } from '@angular/cdk/platform';
+import { CommonModule } from '@angular/common';
+import { Directive, ElementRef, Inject, InjectionToken, Input, NgModule, Optional, Renderer2, Self } from '@angular/core';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import '@angular/forms';
-import '@angular/material/core';
-import 'rxjs/Subject';
+import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { Subject } from 'rxjs/Subject';
 
 /**
  * @fileoverview added by tsickle
@@ -22,7 +22,7 @@ import 'rxjs/Subject';
 /**
  * Directive to automatically resize a textarea to fit its content.
  */
-var MatTextareaAutosize = /** @class */ (function () {
+var MatTextareaAutosize = (function () {
     function MatTextareaAutosize(_elementRef, _platform) {
         this._elementRef = _elementRef;
         this._platform = _platform;
@@ -207,6 +207,26 @@ var MatTextareaAutosize = /** @class */ (function () {
         textarea.style.overflow = '';
         this._previousValue = value;
     };
+    MatTextareaAutosize.decorators = [
+        { type: Directive, args: [{
+                    selector: "textarea[mat-autosize], textarea[matTextareaAutosize]",
+                    exportAs: 'matTextareaAutosize',
+                    host: {
+                        // Textarea elements that have the directive applied should have a single row by default.
+                        // Browsers normally show two rows by default and therefore this limits the minRows binding.
+                        'rows': '1',
+                    },
+                },] },
+    ];
+    /** @nocollapse */
+    MatTextareaAutosize.ctorParameters = function () { return [
+        { type: ElementRef, },
+        { type: Platform, },
+    ]; };
+    MatTextareaAutosize.propDecorators = {
+        "minRows": [{ type: Input, args: ['matAutosizeMinRows',] },],
+        "maxRows": [{ type: Input, args: ['matAutosizeMaxRows',] },],
+    };
     return MatTextareaAutosize;
 }());
 
@@ -254,10 +274,11 @@ var MAT_INPUT_INVALID_TYPES = [
     'reset',
     'submit'
 ];
+var nextUniqueId = 0;
 /**
  * Directive that allows a native input to work inside a `MatFormField`.
  */
-var MatInput = /** @class */ (function () {
+var MatInput = (function () {
     function MatInput(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
         this._elementRef = _elementRef;
         this._renderer = _renderer;
@@ -266,6 +287,43 @@ var MatInput = /** @class */ (function () {
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
+        /**
+         * Variables used as cache for getters and setters.
+         */
+        this._type = 'text';
+        this._disabled = false;
+        this._required = false;
+        this._uid = "mat-input-" + nextUniqueId++;
+        this._readonly = false;
+        /**
+         * Whether the input is focused.
+         */
+        this.focused = false;
+        /**
+         * Whether the input is in an error state.
+         */
+        this.errorState = false;
+        /**
+         * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
+         * needs to run change detection.
+         */
+        this.stateChanges = new Subject();
+        /**
+         * A name for this control that can be used by `mat-form-field`.
+         */
+        this.controlType = 'mat-input';
+        /**
+         * Placeholder attribute of the element.
+         */
+        this.placeholder = '';
+        this._neverEmptyInputTypes = [
+            'date',
+            'datetime',
+            'datetime-local',
+            'month',
+            'time',
+            'week'
+        ].filter(function (t) { return getSupportedInputTypes().has(t); });
         // If no input value accessor was explicitly specified, use the element as the input value
         // accessor.
         this._inputValueAccessor = inputValueAccessor || this._elementRef.nativeElement;
@@ -598,6 +656,50 @@ var MatInput = /** @class */ (function () {
      * @return {?}
      */
     function () { this.focus(); };
+    MatInput.decorators = [
+        { type: Directive, args: [{
+                    selector: "input[matInput], textarea[matInput]",
+                    exportAs: 'matInput',
+                    host: {
+                        'class': 'mat-input-element mat-form-field-autofill-control',
+                        // Native input properties that are overwritten by Angular inputs need to be synced with
+                        // the native input element. Otherwise property bindings for those don't work.
+                        '[attr.id]': 'id',
+                        '[placeholder]': 'placeholder',
+                        '[disabled]': 'disabled',
+                        '[required]': 'required',
+                        '[readonly]': 'readonly',
+                        '[attr.aria-describedby]': '_ariaDescribedby || null',
+                        '[attr.aria-invalid]': 'errorState',
+                        '[attr.aria-required]': 'required.toString()',
+                        '(blur)': '_focusChanged(false)',
+                        '(focus)': '_focusChanged(true)',
+                        '(input)': '_onInput()',
+                    },
+                    providers: [{ provide: MatFormFieldControl, useExisting: MatInput }],
+                },] },
+    ];
+    /** @nocollapse */
+    MatInput.ctorParameters = function () { return [
+        { type: ElementRef, },
+        { type: Renderer2, },
+        { type: Platform, },
+        { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
+        { type: NgForm, decorators: [{ type: Optional },] },
+        { type: FormGroupDirective, decorators: [{ type: Optional },] },
+        { type: ErrorStateMatcher, },
+        { type: undefined, decorators: [{ type: Optional }, { type: Self }, { type: Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] },] },
+    ]; };
+    MatInput.propDecorators = {
+        "disabled": [{ type: Input },],
+        "id": [{ type: Input },],
+        "placeholder": [{ type: Input },],
+        "required": [{ type: Input },],
+        "type": [{ type: Input },],
+        "errorStateMatcher": [{ type: Input },],
+        "value": [{ type: Input },],
+        "readonly": [{ type: Input },],
+    };
     return MatInput;
 }());
 
@@ -606,9 +708,30 @@ var MatInput = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatInputModule = /** @class */ (function () {
+var MatInputModule = (function () {
     function MatInputModule() {
     }
+    MatInputModule.decorators = [
+        { type: NgModule, args: [{
+                    declarations: [
+                        MatInput,
+                        MatTextareaAutosize,
+                    ],
+                    imports: [
+                        CommonModule,
+                        MatFormFieldModule,
+                        PlatformModule,
+                    ],
+                    exports: [
+                        MatFormFieldModule,
+                        MatInput,
+                        MatTextareaAutosize,
+                    ],
+                    providers: [ErrorStateMatcher],
+                },] },
+    ];
+    /** @nocollapse */
+    MatInputModule.ctorParameters = function () { return []; };
     return MatInputModule;
 }());
 

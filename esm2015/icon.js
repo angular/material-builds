@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Optional, SecurityContext, SkipSelf } from '@angular/core';
-import { mixinColor } from '@angular/material/core';
+import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Injectable, Input, NgModule, Optional, Renderer2, SecurityContext, SkipSelf, ViewEncapsulation } from '@angular/core';
+import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { first } from 'rxjs/operators/first';
 import { catchError } from 'rxjs/operators/catchError';
 import { tap } from 'rxjs/operators/tap';
@@ -65,6 +65,7 @@ class SvgIconConfig {
      */
     constructor(url) {
         this.url = url;
+        this.svgElement = null;
     }
 }
 /**
@@ -82,6 +83,33 @@ class MatIconRegistry {
     constructor(_httpClient, _sanitizer) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
+        /**
+         * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
+         */
+        this._svgIconConfigs = new Map();
+        /**
+         * SvgIconConfig objects and cached SVG elements for icon sets, keyed by namespace.
+         * Multiple icon sets can be registered under the same namespace.
+         */
+        this._iconSetConfigs = new Map();
+        /**
+         * Cache for icons loaded by direct URLs.
+         */
+        this._cachedIconsByUrl = new Map();
+        /**
+         * In-progress icon fetches. Used to coalesce multiple requests to the same URL.
+         */
+        this._inProgressUrlFetches = new Map();
+        /**
+         * Map from font identifiers to their CSS class names. Used for icon fonts.
+         */
+        this._fontCssClassesByAlias = new Map();
+        /**
+         * The CSS class to apply when an <mat-icon> component has no icon name, url, or font specified.
+         * The default 'material-icons' value assumes that the material icon font has been loaded as
+         * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
+         */
+        this._defaultFontSetClass = 'material-icons';
     }
     /**
      * Registers an icon by URL in the default namespace.
@@ -438,6 +466,14 @@ class MatIconRegistry {
         return req;
     }
 }
+MatIconRegistry.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+MatIconRegistry.ctorParameters = () => [
+    { type: HttpClient, decorators: [{ type: Optional },] },
+    { type: DomSanitizer, },
+];
 /**
  * \@docs-private
  * @param {?} parentRegistry
@@ -653,6 +689,33 @@ class MatIcon extends _MatIconMixinBase {
         }
     }
 }
+MatIcon.decorators = [
+    { type: Component, args: [{template: '<ng-content></ng-content>',
+                selector: 'mat-icon',
+                exportAs: 'matIcon',
+                styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}"],
+                inputs: ['color'],
+                host: {
+                    'role': 'img',
+                    'class': 'mat-icon',
+                },
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/** @nocollapse */
+MatIcon.ctorParameters = () => [
+    { type: Renderer2, },
+    { type: ElementRef, },
+    { type: MatIconRegistry, },
+    { type: undefined, decorators: [{ type: Attribute, args: ['aria-hidden',] },] },
+];
+MatIcon.propDecorators = {
+    "svgIcon": [{ type: Input },],
+    "fontSet": [{ type: Input },],
+    "fontIcon": [{ type: Input },],
+};
 
 /**
  * @fileoverview added by tsickle
@@ -661,6 +724,16 @@ class MatIcon extends _MatIconMixinBase {
 
 class MatIconModule {
 }
+MatIconModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [MatCommonModule],
+                exports: [MatIcon, MatCommonModule],
+                declarations: [MatIcon],
+                providers: [ICON_REGISTRY_PROVIDER],
+            },] },
+];
+/** @nocollapse */
+MatIconModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

@@ -5,13 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { InjectionToken, LOCALE_ID, isDevMode } from '@angular/core';
-import '@angular/cdk/bidi';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, ViewEncapsulation, isDevMode } from '@angular/core';
+import { BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import 'rxjs/Subject';
+import { Subject } from 'rxjs/Subject';
 import { HammerGestureConfig } from '@angular/platform-browser';
-import '@angular/common';
-import '@angular/cdk/platform';
+import { CommonModule } from '@angular/common';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 
 /**
@@ -23,11 +23,18 @@ import { ENTER, SPACE } from '@angular/cdk/keycodes';
  */
 class AnimationCurves {
 }
+AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
+AnimationCurves.DECELERATION_CURVE = 'cubic-bezier(0.0,0.0,0.2,1)';
+AnimationCurves.ACCELERATION_CURVE = 'cubic-bezier(0.4,0.0,1,1)';
+AnimationCurves.SHARP_CURVE = 'cubic-bezier(0.4,0.0,0.6,1)';
 /**
  * \@docs-private
  */
 class AnimationDurations {
 }
+AnimationDurations.COMPLEX = '375ms';
+AnimationDurations.ENTERING = '225ms';
+AnimationDurations.EXITING = '195ms';
 
 /**
  * @fileoverview added by tsickle
@@ -50,6 +57,18 @@ class MatCommonModule {
      */
     constructor(_sanityChecksEnabled) {
         this._sanityChecksEnabled = _sanityChecksEnabled;
+        /**
+         * Whether we've done the global sanity checks (e.g. a theme is loaded, there is a doctype).
+         */
+        this._hasDoneGlobalChecks = false;
+        /**
+         * Whether we've already checked for HammerJs availability.
+         */
+        this._hasCheckedHammer = false;
+        /**
+         * Reference to the global `document` object.
+         */
+        this._document = typeof document === 'object' && document ? document : null;
         if (this._areChecksEnabled() && !this._hasDoneGlobalChecks) {
             this._checkDoctypeIsDefined();
             this._checkThemeIsPresent();
@@ -110,6 +129,19 @@ class MatCommonModule {
         this._hasCheckedHammer = true;
     }
 }
+MatCommonModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [BidiModule],
+                exports: [BidiModule],
+                providers: [{
+                        provide: MATERIAL_SANITY_CHECKS, useValue: true,
+                    }],
+            },] },
+];
+/** @nocollapse */
+MatCommonModule.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
+];
 
 /**
  * @fileoverview added by tsickle
@@ -130,6 +162,13 @@ class MatCommonModule {
 function mixinDisabled(base) {
     return class extends base {
         /**
+         * @param {...?} args
+         */
+        constructor(...args) {
+            super(...args);
+            this._disabled = false;
+        }
+        /**
          * @return {?}
          */
         get disabled() { return this._disabled; }
@@ -138,10 +177,6 @@ function mixinDisabled(base) {
          * @return {?}
          */
         set disabled(value) { this._disabled = coerceBooleanProperty(value); }
-        /**
-         * @param {...?} args
-         */
-        constructor(...args) { super(...args); }
     };
 }
 
@@ -218,6 +253,13 @@ function mixinColor(base, defaultColor) {
 function mixinDisableRipple(base) {
     return class extends base {
         /**
+         * @param {...?} args
+         */
+        constructor(...args) {
+            super(...args);
+            this._disableRipple = false;
+        }
+        /**
          * Whether the ripple effect is disabled or not.
          * @return {?}
          */
@@ -227,10 +269,6 @@ function mixinDisableRipple(base) {
          * @return {?}
          */
         set disableRipple(value) { this._disableRipple = coerceBooleanProperty(value); }
-        /**
-         * @param {...?} args
-         */
-        constructor(...args) { super(...args); }
     };
 }
 
@@ -253,6 +291,13 @@ function mixinDisableRipple(base) {
 function mixinTabIndex(base, defaultTabIndex = 0) {
     return class extends base {
         /**
+         * @param {...?} args
+         */
+        constructor(...args) {
+            super(...args);
+            this._tabIndex = defaultTabIndex;
+        }
+        /**
          * @return {?}
          */
         get tabIndex() { return this.disabled ? -1 : this._tabIndex; }
@@ -263,12 +308,6 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
         set tabIndex(value) {
             // If the specified tabIndex value is null or undefined, fall back to the default value.
             this._tabIndex = value != null ? value : defaultTabIndex;
-        }
-        /**
-         * @param {...?} args
-         */
-        constructor(...args) {
-            super(...args);
         }
     };
 }
@@ -296,6 +335,9 @@ const MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE
  * @abstract
  */
 class DateAdapter {
+    constructor() {
+        this._localeChanges = new Subject();
+    }
     /**
      * A stream that emits when the locale changes.
      * @return {?}
@@ -753,6 +795,13 @@ class NativeDateAdapter extends DateAdapter {
         return str.replace(/[\u200e\u200f]/g, '');
     }
 }
+NativeDateAdapter.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+NativeDateAdapter.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_LOCALE,] },] },
+];
 
 /**
  * @fileoverview added by tsickle
@@ -777,8 +826,27 @@ const MAT_NATIVE_DATE_FORMATS = {
 
 class NativeDateModule {
 }
+NativeDateModule.decorators = [
+    { type: NgModule, args: [{
+                providers: [
+                    { provide: DateAdapter, useClass: NativeDateAdapter },
+                    MAT_DATE_LOCALE_PROVIDER
+                ],
+            },] },
+];
+/** @nocollapse */
+NativeDateModule.ctorParameters = () => [];
+const ɵ0$$1 = MAT_NATIVE_DATE_FORMATS;
 class MatNativeDateModule {
 }
+MatNativeDateModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [NativeDateModule],
+                providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$$1 }],
+            },] },
+];
+/** @nocollapse */
+MatNativeDateModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -798,6 +866,11 @@ class ShowOnDirtyErrorStateMatcher {
         return !!(control && control.invalid && (control.dirty || (form && form.submitted)));
     }
 }
+ShowOnDirtyErrorStateMatcher.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+ShowOnDirtyErrorStateMatcher.ctorParameters = () => [];
 /**
  * Provider that defines how form controls behave with regards to displaying error messages.
  */
@@ -811,6 +884,11 @@ class ErrorStateMatcher {
         return !!(control && control.invalid && (control.touched || (form && form.submitted)));
     }
 }
+ErrorStateMatcher.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+ErrorStateMatcher.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -823,6 +901,16 @@ class GestureConfig extends HammerGestureConfig {
      */
     constructor(commonModule) {
         super();
+        this._hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
+        /* List of new event names to add to the gesture support list */
+        this.events = this._hammer ? [
+            'longpress',
+            'slide',
+            'slidestart',
+            'slideend',
+            'slideright',
+            'slideleft'
+        ] : [];
         if (commonModule) {
             commonModule._checkHammerIsAvailable();
         }
@@ -871,6 +959,13 @@ class GestureConfig extends HammerGestureConfig {
         return recognizer;
     }
 }
+GestureConfig.decorators = [
+    { type: Injectable },
+];
+/** @nocollapse */
+GestureConfig.ctorParameters = () => [
+    { type: MatCommonModule, decorators: [{ type: Optional },] },
+];
 
 /**
  * @fileoverview added by tsickle
@@ -884,6 +979,14 @@ class GestureConfig extends HammerGestureConfig {
  */
 class MatLine {
 }
+MatLine.decorators = [
+    { type: Directive, args: [{
+                selector: '[mat-line], [matLine]',
+                host: { 'class': 'mat-line' }
+            },] },
+];
+/** @nocollapse */
+MatLine.ctorParameters = () => [];
 /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
@@ -940,6 +1043,15 @@ class MatLineSetter {
 }
 class MatLineModule {
 }
+MatLineModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [MatCommonModule],
+                exports: [MatLine, MatCommonModule],
+                declarations: [MatLine],
+            },] },
+];
+/** @nocollapse */
+MatLineModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -969,6 +1081,10 @@ class RippleRef {
         this._renderer = _renderer;
         this.element = element;
         this.config = config;
+        /**
+         * Current state of the ripple reference.
+         */
+        this.state = RippleState.HIDDEN;
     }
     /**
      * Fades out the ripple element.
@@ -1006,6 +1122,26 @@ class RippleRenderer {
      */
     constructor(elementRef, _ngZone, platform) {
         this._ngZone = _ngZone;
+        /**
+         * Whether the mouse is currently down or not.
+         */
+        this._isMousedown = false;
+        /**
+         * Events to be registered on the trigger element.
+         */
+        this._triggerEvents = new Map();
+        /**
+         * Set of currently active ripple references.
+         */
+        this._activeRipples = new Set();
+        /**
+         * Ripple config for all ripples created by events.
+         */
+        this.rippleConfig = {};
+        /**
+         * Whether mouse ripples should be created or not.
+         */
+        this.rippleDisabled = false;
         // Only do anything if we're on the browser.
         if (platform.isBrowser) {
             this._containerElement = elementRef.nativeElement;
@@ -1192,6 +1328,18 @@ class MatRipple {
      * @param {?} globalOptions
      */
     constructor(elementRef, ngZone, platform, globalOptions) {
+        /**
+         * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
+         * will be the distance from the center of the ripple to the furthest corner of the host element's
+         * bounding rectangle.
+         */
+        this.radius = 0;
+        /**
+         * If set, the normal duration of ripple animations is divided by this value. For example,
+         * setting it to 0.5 will cause the animations to take twice as long.
+         * A changed speedFactor will not modify the fade-out duration of the ripples.
+         */
+        this.speedFactor = 1;
         this._rippleRenderer = new RippleRenderer(elementRef, ngZone, platform);
         this._globalOptions = globalOptions ? globalOptions : {};
         this._updateRippleRenderer();
@@ -1251,6 +1399,32 @@ class MatRipple {
         this._rippleRenderer.rippleConfig = this.rippleConfig;
     }
 }
+MatRipple.decorators = [
+    { type: Directive, args: [{
+                selector: '[mat-ripple], [matRipple]',
+                exportAs: 'matRipple',
+                host: {
+                    'class': 'mat-ripple',
+                    '[class.mat-ripple-unbounded]': 'unbounded'
+                }
+            },] },
+];
+/** @nocollapse */
+MatRipple.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: NgZone, },
+    { type: Platform, },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
+];
+MatRipple.propDecorators = {
+    "trigger": [{ type: Input, args: ['matRippleTrigger',] },],
+    "centered": [{ type: Input, args: ['matRippleCentered',] },],
+    "disabled": [{ type: Input, args: ['matRippleDisabled',] },],
+    "radius": [{ type: Input, args: ['matRippleRadius',] },],
+    "speedFactor": [{ type: Input, args: ['matRippleSpeedFactor',] },],
+    "color": [{ type: Input, args: ['matRippleColor',] },],
+    "unbounded": [{ type: Input, args: ['matRippleUnbounded',] },],
+};
 
 /**
  * @fileoverview added by tsickle
@@ -1259,6 +1433,15 @@ class MatRipple {
 
 class MatRippleModule {
 }
+MatRippleModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [MatCommonModule, PlatformModule],
+                exports: [MatRipple, MatCommonModule],
+                declarations: [MatRipple],
+            },] },
+];
+/** @nocollapse */
+MatRippleModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -1279,7 +1462,38 @@ class MatRippleModule {
  * \@docs-private
  */
 class MatPseudoCheckbox {
+    constructor() {
+        /**
+         * Display state of the checkbox.
+         */
+        this.state = 'unchecked';
+        /**
+         * Whether the checkbox is disabled.
+         */
+        this.disabled = false;
+    }
 }
+MatPseudoCheckbox.decorators = [
+    { type: Component, args: [{encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                selector: 'mat-pseudo-checkbox',
+                styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
+                template: '',
+                host: {
+                    'class': 'mat-pseudo-checkbox',
+                    '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
+                    '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
+                    '[class.mat-pseudo-checkbox-disabled]': 'disabled',
+                },
+            },] },
+];
+/** @nocollapse */
+MatPseudoCheckbox.ctorParameters = () => [];
+MatPseudoCheckbox.propDecorators = {
+    "state": [{ type: Input },],
+    "disabled": [{ type: Input },],
+};
 
 /**
  * @fileoverview added by tsickle
@@ -1288,6 +1502,14 @@ class MatPseudoCheckbox {
 
 class MatPseudoCheckboxModule {
 }
+MatPseudoCheckboxModule.decorators = [
+    { type: NgModule, args: [{
+                exports: [MatPseudoCheckbox],
+                declarations: [MatPseudoCheckbox]
+            },] },
+];
+/** @nocollapse */
+MatPseudoCheckboxModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -1300,17 +1522,53 @@ class MatPseudoCheckboxModule {
 class MatOptgroupBase {
 }
 const _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
+// Counter for unique group ids.
+let _uniqueOptgroupIdCounter = 0;
 /**
  * Component that is used to group instances of `mat-option`.
  */
 class MatOptgroup extends _MatOptgroupMixinBase {
+    constructor() {
+        super(...arguments);
+        /**
+         * Unique id for the underlying label.
+         */
+        this._labelId = `mat-optgroup-label-${_uniqueOptgroupIdCounter++}`;
+    }
 }
+MatOptgroup.decorators = [
+    { type: Component, args: [{selector: 'mat-optgroup',
+                exportAs: 'matOptgroup',
+                template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                inputs: ['disabled'],
+                host: {
+                    'class': 'mat-optgroup',
+                    'role': 'group',
+                    '[class.mat-optgroup-disabled]': 'disabled',
+                    '[attr.aria-disabled]': 'disabled.toString()',
+                    '[attr.aria-labelledby]': '_labelId',
+                }
+            },] },
+];
+/** @nocollapse */
+MatOptgroup.ctorParameters = () => [];
+MatOptgroup.propDecorators = {
+    "label": [{ type: Input },],
+};
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Option IDs need to be unique across components, so this counter exists outside of
+ * the component definition.
+ */
+let _uniqueIdCounter = 0;
 /**
  * Event object emitted by MatOption when selected or deselected.
  */
@@ -1350,6 +1608,14 @@ class MatOption {
         this._changeDetectorRef = _changeDetectorRef;
         this._parent = _parent;
         this.group = group;
+        this._selected = false;
+        this._active = false;
+        this._disabled = false;
+        this._id = `mat-option-${_uniqueIdCounter++}`;
+        /**
+         * Event emitted when the option is selected or deselected.
+         */
+        this.onSelectionChange = new EventEmitter();
     }
     /**
      * Whether the wrapping component is in multiple selection mode.
@@ -1527,6 +1793,41 @@ class MatOption {
         return 0;
     }
 }
+MatOption.decorators = [
+    { type: Component, args: [{selector: 'mat-option',
+                exportAs: 'matOption',
+                host: {
+                    'role': 'option',
+                    '[attr.tabindex]': '_getTabIndex()',
+                    '[class.mat-selected]': 'selected',
+                    '[class.mat-option-multiple]': 'multiple',
+                    '[class.mat-active]': 'active',
+                    '[id]': 'id',
+                    '[attr.aria-selected]': 'selected.toString()',
+                    '[attr.aria-disabled]': 'disabled.toString()',
+                    '[class.mat-option-disabled]': 'disabled',
+                    '(click)': '_selectViaInteraction()',
+                    '(keydown)': '_handleKeydown($event)',
+                    'class': 'mat-option',
+                },
+                template: "<span *ngIf=\"multiple\"><mat-pseudo-checkbox class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox></span><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/** @nocollapse */
+MatOption.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: ChangeDetectorRef, },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_OPTION_PARENT_COMPONENT,] },] },
+    { type: MatOptgroup, decorators: [{ type: Optional },] },
+];
+MatOption.propDecorators = {
+    "value": [{ type: Input },],
+    "disabled": [{ type: Input },],
+    "onSelectionChange": [{ type: Output },],
+};
 
 /**
  * @fileoverview added by tsickle
@@ -1535,6 +1836,15 @@ class MatOption {
 
 class MatOptionModule {
 }
+MatOptionModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [MatRippleModule, CommonModule, MatPseudoCheckboxModule],
+                exports: [MatOption, MatOptgroup],
+                declarations: [MatOption, MatOptgroup]
+            },] },
+];
+/** @nocollapse */
+MatOptionModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

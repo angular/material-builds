@@ -5,16 +5,16 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import '@angular/cdk/a11y';
-import '@angular/cdk/bidi';
-import '@angular/common';
-import { forwardRef } from '@angular/core';
-import { mixinColor, mixinDisabled } from '@angular/material/core';
-import '@angular/platform-browser';
+import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
+import { BidiModule, Directionality } from '@angular/cdk/bidi';
+import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { GestureConfig, MatCommonModule, mixinColor, mixinDisabled } from '@angular/material/core';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, END, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import 'rxjs/Subscription';
+import { Subscription } from 'rxjs/Subscription';
 
 /**
  * @fileoverview added by tsickle
@@ -83,6 +83,50 @@ class MatSlider extends _MatSliderMixinBase {
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
+        this._invert = false;
+        this._max = 100;
+        this._min = 0;
+        this._step = 1;
+        this._thumbLabel = false;
+        this._tickInterval = 0;
+        this._value = null;
+        this._vertical = false;
+        /**
+         * Event emitted when the slider value has changed.
+         */
+        this.change = new EventEmitter();
+        /**
+         * Event emitted when the slider thumb moves.
+         */
+        this.input = new EventEmitter();
+        /**
+         * onTouch function registered via registerOnTouch (ControlValueAccessor).
+         */
+        this.onTouched = () => { };
+        this._percent = 0;
+        /**
+         * Whether or not the thumb is sliding.
+         * Used to determine if there should be a transition for the thumb and fill track.
+         */
+        this._isSliding = false;
+        /**
+         * Whether or not the slider is active (clicked or sliding).
+         * Used to shrink and grow the thumb as according to the Material Design spec.
+         */
+        this._isActive = false;
+        /**
+         * The size of a tick interval as a percentage of the size of the track.
+         */
+        this._tickIntervalPercent = 0;
+        /**
+         * The dimensions of the slider.
+         */
+        this._sliderDimensions = null;
+        this._controlValueAccessorChangeFn = () => { };
+        /**
+         * Subscription to the Directionality change EventEmitter.
+         */
+        this._dirChangeSubscription = Subscription.EMPTY;
     }
     /**
      * Whether the slider is inverted.
@@ -706,6 +750,69 @@ class MatSlider extends _MatSliderMixinBase {
         this.disabled = isDisabled;
     }
 }
+MatSlider.decorators = [
+    { type: Component, args: [{selector: 'mat-slider',
+                exportAs: 'matSlider',
+                providers: [MAT_SLIDER_VALUE_ACCESSOR],
+                host: {
+                    '(focus)': '_onFocus()',
+                    '(blur)': '_onBlur()',
+                    '(click)': '_onClick($event)',
+                    '(keydown)': '_onKeydown($event)',
+                    '(keyup)': '_onKeyup()',
+                    '(mouseenter)': '_onMouseenter()',
+                    '(slide)': '_onSlide($event)',
+                    '(slideend)': '_onSlideEnd()',
+                    '(slidestart)': '_onSlideStart($event)',
+                    'class': 'mat-slider',
+                    'role': 'slider',
+                    'tabindex': '0',
+                    '[attr.aria-disabled]': 'disabled',
+                    '[attr.aria-valuemax]': 'max',
+                    '[attr.aria-valuemin]': 'min',
+                    '[attr.aria-valuenow]': 'value',
+                    '[attr.aria-orientation]': 'vertical ? "vertical" : "horizontal"',
+                    '[class.mat-slider-disabled]': 'disabled',
+                    '[class.mat-slider-has-ticks]': 'tickInterval',
+                    '[class.mat-slider-horizontal]': '!vertical',
+                    '[class.mat-slider-axis-inverted]': '_invertAxis',
+                    '[class.mat-slider-sliding]': '_isSliding',
+                    '[class.mat-slider-thumb-label-showing]': 'thumbLabel',
+                    '[class.mat-slider-vertical]': 'vertical',
+                    '[class.mat-slider-min-value]': '_isMinValue',
+                    '[class.mat-slider-hide-last-tick]': 'disabled || _isMinValue && _thumbGap && _invertAxis',
+                },
+                template: "<div class=\"mat-slider-wrapper\" #sliderWrapper><div class=\"mat-slider-track-wrapper\"><div class=\"mat-slider-track-background\" [ngStyle]=\"_trackBackgroundStyles\"></div><div class=\"mat-slider-track-fill\" [ngStyle]=\"_trackFillStyles\"></div></div><div class=\"mat-slider-ticks-container\" [ngStyle]=\"_ticksContainerStyles\"><div class=\"mat-slider-ticks\" [ngStyle]=\"_ticksStyles\"></div></div><div class=\"mat-slider-thumb-container\" [ngStyle]=\"_thumbContainerStyles\"><div class=\"mat-slider-focus-ring\"></div><div class=\"mat-slider-thumb\"></div><div class=\"mat-slider-thumb-label\"><span class=\"mat-slider-thumb-label-text\">{{displayValue}}</span></div></div></div>",
+                styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:0;vertical-align:middle}.mat-slider-wrapper{position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{background-repeat:repeat;background-clip:content-box;box-sizing:border-box;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.cdk-keyboard-focused .mat-slider-focus-ring,.cdk-program-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label{cursor:-webkit-grab;cursor:grab}.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb-label,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label:active,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb:active{cursor:-webkit-grabbing;cursor:grabbing}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid transparent;border-radius:50%;transform:scale(.7);transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),border-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform .4s cubic-bezier(.25,.8,.25,1),border-radius .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label-text{z-index:1;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-sliding .mat-slider-thumb-container,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-track-fill{transition-duration:0s}.mat-slider-has-ticks .mat-slider-wrapper::after{content:'';position:absolute;border-width:0;border-style:solid;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.mat-slider:not(.mat-slider-disabled).cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label-text{opacity:1}.mat-slider:not(.mat-slider-disabled).cdk-mouse-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-touch-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}.mat-slider-horizontal .mat-slider-ticks{height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%}"],
+                inputs: ['disabled', 'color'],
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/** @nocollapse */
+MatSlider.ctorParameters = () => [
+    { type: Renderer2, },
+    { type: ElementRef, },
+    { type: FocusMonitor, },
+    { type: ChangeDetectorRef, },
+    { type: Directionality, decorators: [{ type: Optional },] },
+];
+MatSlider.propDecorators = {
+    "invert": [{ type: Input },],
+    "max": [{ type: Input },],
+    "min": [{ type: Input },],
+    "step": [{ type: Input },],
+    "thumbLabel": [{ type: Input },],
+    "_thumbLabelDeprecated": [{ type: Input, args: ['thumb-label',] },],
+    "tickInterval": [{ type: Input },],
+    "_tickIntervalDeprecated": [{ type: Input, args: ['tick-interval',] },],
+    "value": [{ type: Input },],
+    "vertical": [{ type: Input },],
+    "change": [{ type: Output },],
+    "input": [{ type: Output },],
+    "_sliderWrapper": [{ type: ViewChild, args: ['sliderWrapper',] },],
+};
 
 /**
  * @fileoverview added by tsickle
@@ -714,6 +821,16 @@ class MatSlider extends _MatSliderMixinBase {
 
 class MatSliderModule {
 }
+MatSliderModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [CommonModule, MatCommonModule, BidiModule, A11yModule],
+                exports: [MatSlider, MatCommonModule],
+                declarations: [MatSlider],
+                providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
+            },] },
+];
+/** @nocollapse */
+MatSliderModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

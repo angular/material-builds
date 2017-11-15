@@ -118,7 +118,7 @@ function throwMatMenuInvalidPositionY() {
 /**
  * \@docs-private
  */
-var MatMenuItemBase = /** @class */ (function () {
+var MatMenuItemBase = (function () {
     function MatMenuItemBase() {
     }
     return MatMenuItemBase;
@@ -128,11 +128,23 @@ var _MatMenuItemMixinBase = _angular_material_core.mixinDisabled(MatMenuItemBase
  * This directive is intended to be used inside an mat-menu tag.
  * It exists mostly to set the role attribute.
  */
-var MatMenuItem = /** @class */ (function (_super) {
+var MatMenuItem = (function (_super) {
     __extends(MatMenuItem, _super);
     function MatMenuItem(_elementRef) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
+        /**
+         * Stream that emits when the menu item is hovered.
+         */
+        _this._hovered = new rxjs_Subject.Subject();
+        /**
+         * Whether the menu item is highlighted.
+         */
+        _this._highlighted = false;
+        /**
+         * Whether the menu item acts as a trigger for a sub-menu.
+         */
+        _this._triggersSubmenu = false;
         return _this;
     }
     /** Focuses the menu item. */
@@ -236,6 +248,31 @@ var MatMenuItem = /** @class */ (function (_super) {
         }
         return output.trim();
     };
+    MatMenuItem.decorators = [
+        { type: _angular_core.Component, args: [{selector: '[mat-menu-item]',
+                    exportAs: 'matMenuItem',
+                    inputs: ['disabled'],
+                    host: {
+                        'role': 'menuitem',
+                        'class': 'mat-menu-item',
+                        '[class.mat-menu-item-highlighted]': '_highlighted',
+                        '[class.mat-menu-item-submenu-trigger]': '_triggersSubmenu',
+                        '[attr.tabindex]': '_getTabIndex()',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                        '[attr.disabled]': 'disabled || null',
+                        '(click)': '_checkDisabled($event)',
+                        '(mouseenter)': '_emitHoverEvent()',
+                    },
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" *ngIf=\"!disabled\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div>",
+                },] },
+    ];
+    /** @nocollapse */
+    MatMenuItem.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+    ]; };
     return MatMenuItem;
 }(_MatMenuItemMixinBase));
 
@@ -257,11 +294,35 @@ var MAT_MENU_DEFAULT_OPTIONS = new _angular_core.InjectionToken('mat-menu-defaul
  * \@docs-private
  */
 var MAT_MENU_BASE_ELEVATION = 2;
-var MatMenu = /** @class */ (function () {
+var MatMenu = (function () {
     function MatMenu(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
         this._defaultOptions = _defaultOptions;
+        this._xPosition = this._defaultOptions.xPosition;
+        this._yPosition = this._defaultOptions.yPosition;
+        /**
+         * Subscription to tab events on the menu panel
+         */
+        this._tabSubscription = rxjs_Subscription.Subscription.EMPTY;
+        /**
+         * Config object to be passed into the menu's ngClass
+         */
+        this._classList = {};
+        /**
+         * Current state of the panel animation.
+         */
+        this._panelAnimationState = 'void';
+        this._overlapTrigger = this._defaultOptions.overlapTrigger;
+        /**
+         * Event emitted when the menu is closed.
+         */
+        this.closed = new _angular_core.EventEmitter();
+        /**
+         * Event emitted when the menu is closed.
+         * @deprecated Switch to `closed` instead
+         */
+        this.close = this.closed;
     }
     Object.defineProperty(MatMenu.prototype, "xPosition", {
         get: /**
@@ -557,6 +618,37 @@ var MatMenu = /** @class */ (function () {
             this._panelAnimationState = 'enter';
         }
     };
+    MatMenu.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-menu',
+                    template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
+                    styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.ng-animating{pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item .mat-icon{vertical-align:middle}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:8px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute}"],
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    animations: [
+                        transformMenu,
+                        fadeInItems
+                    ],
+                    exportAs: 'matMenu'
+                },] },
+    ];
+    /** @nocollapse */
+    MatMenu.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.NgZone, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
+    ]; };
+    MatMenu.propDecorators = {
+        "xPosition": [{ type: _angular_core.Input },],
+        "yPosition": [{ type: _angular_core.Input },],
+        "templateRef": [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
+        "items": [{ type: _angular_core.ContentChildren, args: [MatMenuItem,] },],
+        "overlapTrigger": [{ type: _angular_core.Input },],
+        "panelClass": [{ type: _angular_core.Input, args: ['class',] },],
+        "classList": [{ type: _angular_core.Input },],
+        "closed": [{ type: _angular_core.Output },],
+        "close": [{ type: _angular_core.Output },],
+    };
     return MatMenu;
 }());
 
@@ -593,7 +685,7 @@ var MENU_PANEL_TOP_PADDING = 8;
  * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
  */
-var MatMenuTrigger = /** @class */ (function () {
+var MatMenuTrigger = (function () {
     function MatMenuTrigger(_overlay, _element, _viewContainerRef, _scrollStrategy, _parentMenu, _menuItemInstance, _dir) {
         this._overlay = _overlay;
         this._element = _element;
@@ -602,6 +694,30 @@ var MatMenuTrigger = /** @class */ (function () {
         this._parentMenu = _parentMenu;
         this._menuItemInstance = _menuItemInstance;
         this._dir = _dir;
+        this._overlayRef = null;
+        this._menuOpen = false;
+        this._closeSubscription = rxjs_Subscription.Subscription.EMPTY;
+        this._positionSubscription = rxjs_Subscription.Subscription.EMPTY;
+        this._hoverSubscription = rxjs_Subscription.Subscription.EMPTY;
+        this._openedByMouse = false;
+        /**
+         * Event emitted when the associated menu is opened.
+         */
+        this.menuOpened = new _angular_core.EventEmitter();
+        /**
+         * Event emitted when the associated menu is opened.
+         * @deprecated Switch to `menuOpened` instead
+         */
+        this.onMenuOpen = this.menuOpened;
+        /**
+         * Event emitted when the associated menu is closed.
+         */
+        this.menuClosed = new _angular_core.EventEmitter();
+        /**
+         * Event emitted when the associated menu is closed.
+         * @deprecated Switch to `menuClosed` instead
+         */
+        this.onMenuClose = this.menuClosed;
         if (_menuItemInstance) {
             _menuItemInstance._triggersSubmenu = this.triggersSubmenu();
         }
@@ -1053,6 +1169,36 @@ var MatMenuTrigger = /** @class */ (function () {
             this.toggleMenu();
         }
     };
+    MatMenuTrigger.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: "[mat-menu-trigger-for], [matMenuTriggerFor]",
+                    host: {
+                        'aria-haspopup': 'true',
+                        '(mousedown)': '_handleMousedown($event)',
+                        '(keydown)': '_handleKeydown($event)',
+                        '(click)': '_handleClick($event)',
+                    },
+                    exportAs: 'matMenuTrigger'
+                },] },
+    ];
+    /** @nocollapse */
+    MatMenuTrigger.ctorParameters = function () { return [
+        { type: _angular_cdk_overlay.Overlay, },
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.ViewContainerRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_MENU_SCROLL_STRATEGY,] },] },
+        { type: MatMenu, decorators: [{ type: _angular_core.Optional },] },
+        { type: MatMenuItem, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
+        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
+    ]; };
+    MatMenuTrigger.propDecorators = {
+        "_deprecatedMatMenuTriggerFor": [{ type: _angular_core.Input, args: ['mat-menu-trigger-for',] },],
+        "menu": [{ type: _angular_core.Input, args: ['matMenuTriggerFor',] },],
+        "menuOpened": [{ type: _angular_core.Output },],
+        "onMenuOpen": [{ type: _angular_core.Output },],
+        "menuClosed": [{ type: _angular_core.Output },],
+        "onMenuClose": [{ type: _angular_core.Output },],
+    };
     return MatMenuTrigger;
 }());
 
@@ -1061,9 +1207,35 @@ var MatMenuTrigger = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatMenuModule = /** @class */ (function () {
+var ɵ0 = {
+    overlapTrigger: true,
+    xPosition: 'after',
+    yPosition: 'below',
+};
+var MatMenuModule = (function () {
     function MatMenuModule() {
     }
+    MatMenuModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [
+                        _angular_cdk_overlay.OverlayModule,
+                        _angular_common.CommonModule,
+                        _angular_material_core.MatRippleModule,
+                        _angular_material_core.MatCommonModule,
+                    ],
+                    exports: [MatMenu, MatMenuItem, MatMenuTrigger, _angular_material_core.MatCommonModule],
+                    declarations: [MatMenu, MatMenuItem, MatMenuTrigger],
+                    providers: [
+                        MAT_MENU_SCROLL_STRATEGY_PROVIDER,
+                        {
+                            provide: MAT_MENU_DEFAULT_OPTIONS,
+                            useValue: ɵ0,
+                        }
+                    ],
+                },] },
+    ];
+    /** @nocollapse */
+    MatMenuModule.ctorParameters = function () { return []; };
     return MatMenuModule;
 }());
 

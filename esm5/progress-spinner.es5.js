@@ -5,18 +5,23 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import '@angular/core';
-import '@angular/cdk/platform';
-import { mixinColor } from '@angular/material/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Inject, Input, NgModule, Optional, Renderer2, ViewEncapsulation } from '@angular/core';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
-import '@angular/common';
+import { DOCUMENT } from '@angular/common';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * Base reference size of the spinner.
+ * \@docs-private
+ */
+var BASE_SIZE = 100;
 /**
  * Base reference stroke width of the spinner.
  * \@docs-private
@@ -25,7 +30,7 @@ var BASE_STROKE_WIDTH = 10;
 /**
  * \@docs-private
  */
-var MatProgressSpinnerBase = /** @class */ (function () {
+var MatProgressSpinnerBase = (function () {
     function MatProgressSpinnerBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -37,13 +42,24 @@ var INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-strok
 /**
  * <mat-progress-spinner> component.
  */
-var MatProgressSpinner = /** @class */ (function (_super) {
+var MatProgressSpinner = (function (_super) {
     __extends(MatProgressSpinner, _super);
     function MatProgressSpinner(_renderer, _elementRef, platform, _document) {
         var _this = _super.call(this, _renderer, _elementRef) || this;
         _this._renderer = _renderer;
         _this._elementRef = _elementRef;
         _this._document = _document;
+        _this._value = 0;
+        _this._fallbackAnimation = false;
+        /**
+         * The width and height of the host element. Will grow with stroke width. *
+         */
+        _this._elementSize = BASE_SIZE;
+        _this._diameter = BASE_SIZE;
+        /**
+         * Mode of the progress circle
+         */
+        _this.mode = 'determinate';
         _this._fallbackAnimation = platform.EDGE || platform.TRIDENT;
         // On IE and Edge, we can't animate the `stroke-dashoffset`
         // reliably so we fall back to a non-spec animation.
@@ -225,6 +241,49 @@ var MatProgressSpinner = /** @class */ (function (_super) {
             .replace(/END_VALUE/g, "" + 0.2 * this._strokeCircumference)
             .replace(/DIAMETER/g, "" + this.diameter);
     };
+    /**
+     * Tracks diameters of existing instances to de-dupe generated styles (default d = 100)
+     */
+    MatProgressSpinner.diameters = new Set([BASE_SIZE]);
+    /**
+     * Used for storing all of the generated keyframe animations.
+     * \@dynamic
+     */
+    MatProgressSpinner.styleTag = null;
+    MatProgressSpinner.decorators = [
+        { type: Component, args: [{selector: 'mat-progress-spinner',
+                    exportAs: 'matProgressSpinner',
+                    host: {
+                        'role': 'progressbar',
+                        'class': 'mat-progress-spinner',
+                        '[style.width.px]': '_elementSize',
+                        '[style.height.px]': '_elementSize',
+                        '[attr.aria-valuemin]': 'mode === "determinate" ? 0 : null',
+                        '[attr.aria-valuemax]': 'mode === "determinate" ? 100 : null',
+                        '[attr.aria-valuenow]': 'value',
+                        '[attr.mode]': 'mode',
+                    },
+                    inputs: ['color'],
+                    template: "<svg [style.width.px]=\"_elementSize\" [style.height.px]=\"_elementSize\" [attr.viewBox]=\"_viewBox\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><circle cx=\"50%\" cy=\"50%\" [attr.r]=\"_circleRadius\" [style.animation-name]=\"'mat-progress-spinner-stroke-rotate-' + diameter\" [style.stroke-dashoffset.px]=\"_strokeDashOffset\" [style.stroke-dasharray.px]=\"_strokeCircumference\" [style.stroke-width.%]=\"_circleStrokeWidth\"></circle></svg>",
+                    styles: [".mat-progress-spinner{display:block;position:relative}.mat-progress-spinner svg{position:absolute;transform:rotate(-90deg);top:0;left:0;transform-origin:center;overflow:visible}.mat-progress-spinner circle{fill:transparent;transform-origin:center;transition:stroke-dashoffset 225ms linear}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate]{animation:mat-progress-spinner-linear-rotate 2s linear infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate] circle{transition-property:stroke;animation-duration:4s;animation-timing-function:cubic-bezier(.35,0,.25,1);animation-iteration-count:infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate]{animation:mat-progress-spinner-stroke-rotate-fallback 10s cubic-bezier(.87,.03,.33,1) infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate] circle{transition-property:stroke}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-stroke-rotate-100{0%{stroke-dashoffset:268.60617px;transform:rotate(0)}12.5%{stroke-dashoffset:56.54867px;transform:rotate(0)}12.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(72.5deg)}25%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(72.5deg)}25.1%{stroke-dashoffset:268.60617px;transform:rotate(270deg)}37.5%{stroke-dashoffset:56.54867px;transform:rotate(270deg)}37.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(161.5deg)}50%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(161.5deg)}50.01%{stroke-dashoffset:268.60617px;transform:rotate(180deg)}62.5%{stroke-dashoffset:56.54867px;transform:rotate(180deg)}62.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(251.5deg)}75%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(251.5deg)}75.01%{stroke-dashoffset:268.60617px;transform:rotate(90deg)}87.5%{stroke-dashoffset:56.54867px;transform:rotate(90deg)}87.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(341.5deg)}100%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(341.5deg)}}@keyframes mat-progress-spinner-stroke-rotate-fallback{0%{transform:rotate(0)}25%{transform:rotate(1170deg)}50%{transform:rotate(2340deg)}75%{transform:rotate(3510deg)}100%{transform:rotate(4680deg)}}"],
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                },] },
+    ];
+    /** @nocollapse */
+    MatProgressSpinner.ctorParameters = function () { return [
+        { type: Renderer2, },
+        { type: ElementRef, },
+        { type: Platform, },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    ]; };
+    MatProgressSpinner.propDecorators = {
+        "diameter": [{ type: Input },],
+        "strokeWidth": [{ type: Input },],
+        "mode": [{ type: Input },],
+        "value": [{ type: Input },],
+    };
     return MatProgressSpinner;
 }(_MatProgressSpinnerMixinBase));
 /**
@@ -233,13 +292,37 @@ var MatProgressSpinner = /** @class */ (function (_super) {
  * This is a component definition to be used as a convenience reference to create an
  * indeterminate <mat-progress-spinner> instance.
  */
-var MatSpinner = /** @class */ (function (_super) {
+var MatSpinner = (function (_super) {
     __extends(MatSpinner, _super);
     function MatSpinner(renderer, elementRef, platform, document) {
         var _this = _super.call(this, renderer, elementRef, platform, document) || this;
         _this.mode = 'indeterminate';
         return _this;
     }
+    MatSpinner.decorators = [
+        { type: Component, args: [{selector: 'mat-spinner',
+                    host: {
+                        'role': 'progressbar',
+                        'mode': 'indeterminate',
+                        'class': 'mat-spinner mat-progress-spinner',
+                        '[style.width.px]': '_elementSize',
+                        '[style.height.px]': '_elementSize',
+                    },
+                    inputs: ['color'],
+                    template: "<svg [style.width.px]=\"_elementSize\" [style.height.px]=\"_elementSize\" [attr.viewBox]=\"_viewBox\" preserveAspectRatio=\"xMidYMid meet\" focusable=\"false\"><circle cx=\"50%\" cy=\"50%\" [attr.r]=\"_circleRadius\" [style.animation-name]=\"'mat-progress-spinner-stroke-rotate-' + diameter\" [style.stroke-dashoffset.px]=\"_strokeDashOffset\" [style.stroke-dasharray.px]=\"_strokeCircumference\" [style.stroke-width.%]=\"_circleStrokeWidth\"></circle></svg>",
+                    styles: [".mat-progress-spinner{display:block;position:relative}.mat-progress-spinner svg{position:absolute;transform:rotate(-90deg);top:0;left:0;transform-origin:center;overflow:visible}.mat-progress-spinner circle{fill:transparent;transform-origin:center;transition:stroke-dashoffset 225ms linear}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate]{animation:mat-progress-spinner-linear-rotate 2s linear infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate] circle{transition-property:stroke;animation-duration:4s;animation-timing-function:cubic-bezier(.35,0,.25,1);animation-iteration-count:infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate]{animation:mat-progress-spinner-stroke-rotate-fallback 10s cubic-bezier(.87,.03,.33,1) infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate] circle{transition-property:stroke}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-stroke-rotate-100{0%{stroke-dashoffset:268.60617px;transform:rotate(0)}12.5%{stroke-dashoffset:56.54867px;transform:rotate(0)}12.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(72.5deg)}25%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(72.5deg)}25.1%{stroke-dashoffset:268.60617px;transform:rotate(270deg)}37.5%{stroke-dashoffset:56.54867px;transform:rotate(270deg)}37.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(161.5deg)}50%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(161.5deg)}50.01%{stroke-dashoffset:268.60617px;transform:rotate(180deg)}62.5%{stroke-dashoffset:56.54867px;transform:rotate(180deg)}62.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(251.5deg)}75%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(251.5deg)}75.01%{stroke-dashoffset:268.60617px;transform:rotate(90deg)}87.5%{stroke-dashoffset:56.54867px;transform:rotate(90deg)}87.51%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(341.5deg)}100%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(341.5deg)}}@keyframes mat-progress-spinner-stroke-rotate-fallback{0%{transform:rotate(0)}25%{transform:rotate(1170deg)}50%{transform:rotate(2340deg)}75%{transform:rotate(3510deg)}100%{transform:rotate(4680deg)}}"],
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                },] },
+    ];
+    /** @nocollapse */
+    MatSpinner.ctorParameters = function () { return [
+        { type: Renderer2, },
+        { type: ElementRef, },
+        { type: Platform, },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    ]; };
     return MatSpinner;
 }(MatProgressSpinner));
 
@@ -248,9 +331,25 @@ var MatSpinner = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatProgressSpinnerModule = /** @class */ (function () {
+var MatProgressSpinnerModule = (function () {
     function MatProgressSpinnerModule() {
     }
+    MatProgressSpinnerModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatCommonModule, PlatformModule],
+                    exports: [
+                        MatProgressSpinner,
+                        MatSpinner,
+                        MatCommonModule
+                    ],
+                    declarations: [
+                        MatProgressSpinner,
+                        MatSpinner
+                    ],
+                },] },
+    ];
+    /** @nocollapse */
+    MatProgressSpinnerModule.ctorParameters = function () { return []; };
     return MatProgressSpinnerModule;
 }());
 

@@ -5,12 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { InjectionToken, forwardRef } from '@angular/core';
-import { MatOption } from '@angular/material/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Host, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { MatCommonModule, MatOptgroup, MatOption, MatOptionModule } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import '@angular/common';
-import { Overlay, OverlayConfig } from '@angular/cdk/overlay';
-import '@angular/cdk/bidi';
+import { CommonModule } from '@angular/common';
+import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { Directionality } from '@angular/cdk/bidi';
 import { DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { filter } from 'rxjs/operators/filter';
@@ -19,9 +19,9 @@ import { switchMap } from 'rxjs/operators/switchMap';
 import { tap } from 'rxjs/operators/tap';
 import { delay } from 'rxjs/operators/delay';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import '@angular/material/form-field';
-import '@angular/platform-browser';
-import 'rxjs/Subject';
+import { MatFormField } from '@angular/material/form-field';
+import { DOCUMENT } from '@angular/platform-browser';
+import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 import { of } from 'rxjs/observable/of';
@@ -31,6 +31,11 @@ import { of } from 'rxjs/observable/of';
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Autocomplete IDs need to be unique across components, so this counter exists outside of
+ * the component definition.
+ */
+let _uniqueAutocompleteIdCounter = 0;
 /**
  * Event object that is emitted when an autocomplete option is selected
  */
@@ -52,6 +57,24 @@ class MatAutocomplete {
     constructor(_changeDetectorRef, _elementRef) {
         this._changeDetectorRef = _changeDetectorRef;
         this._elementRef = _elementRef;
+        /**
+         * Whether the autocomplete panel should be visible, depending on option length.
+         */
+        this.showPanel = false;
+        this._isOpen = false;
+        /**
+         * Function that maps an option's control value to its display value in the trigger.
+         */
+        this.displayWith = null;
+        /**
+         * Event that is emitted whenever an option from the list is selected.
+         */
+        this.optionSelected = new EventEmitter();
+        this._classList = {};
+        /**
+         * Unique ID to be used by autocomplete trigger's "aria-owns" property.
+         */
+        this.id = `mat-autocomplete-${_uniqueAutocompleteIdCounter++}`;
     }
     /**
      * Whether the autocomplete panel is open.
@@ -118,6 +141,33 @@ class MatAutocomplete {
         this.optionSelected.emit(event);
     }
 }
+MatAutocomplete.decorators = [
+    { type: Component, args: [{selector: 'mat-autocomplete',
+                template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
+                styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                exportAs: 'matAutocomplete',
+                host: {
+                    'class': 'mat-autocomplete'
+                }
+            },] },
+];
+/** @nocollapse */
+MatAutocomplete.ctorParameters = () => [
+    { type: ChangeDetectorRef, },
+    { type: ElementRef, },
+];
+MatAutocomplete.propDecorators = {
+    "template": [{ type: ViewChild, args: [TemplateRef,] },],
+    "panel": [{ type: ViewChild, args: ['panel',] },],
+    "options": [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
+    "optionGroups": [{ type: ContentChildren, args: [MatOptgroup,] },],
+    "displayWith": [{ type: Input },],
+    "optionSelected": [{ type: Output },],
+    "classList": [{ type: Input, args: ['class',] },],
+};
 
 /**
  * @fileoverview added by tsickle
@@ -192,6 +242,23 @@ class MatAutocompleteTrigger {
         this._dir = _dir;
         this._formField = _formField;
         this._document = _document;
+        this._panelOpen = false;
+        /**
+         * Whether or not the placeholder state is being overridden.
+         */
+        this._manuallyFloatingPlaceholder = false;
+        /**
+         * Stream of escape keyboard events.
+         */
+        this._escapeEventStream = new Subject();
+        /**
+         * View -> model callback called when value changes
+         */
+        this._onChange = () => { };
+        /**
+         * View -> model callback called when autocomplete has been touched
+         */
+        this._onTouched = () => { };
     }
     /**
      * @return {?}
@@ -562,6 +629,41 @@ class MatAutocompleteTrigger {
         this.autocomplete._keyManager.setActiveItem(-1);
     }
 }
+MatAutocompleteTrigger.decorators = [
+    { type: Directive, args: [{
+                selector: `input[matAutocomplete], textarea[matAutocomplete]`,
+                host: {
+                    'role': 'combobox',
+                    'autocomplete': 'off',
+                    'aria-autocomplete': 'list',
+                    '[attr.aria-activedescendant]': 'activeOption?.id',
+                    '[attr.aria-expanded]': 'panelOpen.toString()',
+                    '[attr.aria-owns]': 'autocomplete?.id',
+                    // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
+                    // a little earlier. This avoids issues where IE delays the focusing of the input.
+                    '(focusin)': '_handleFocus()',
+                    '(blur)': '_onTouched()',
+                    '(input)': '_handleInput($event)',
+                    '(keydown)': '_handleKeydown($event)',
+                },
+                providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR]
+            },] },
+];
+/** @nocollapse */
+MatAutocompleteTrigger.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Overlay, },
+    { type: ViewContainerRef, },
+    { type: NgZone, },
+    { type: ChangeDetectorRef, },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
+    { type: Directionality, decorators: [{ type: Optional },] },
+    { type: MatFormField, decorators: [{ type: Optional }, { type: Host },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+];
+MatAutocompleteTrigger.propDecorators = {
+    "autocomplete": [{ type: Input, args: ['matAutocomplete',] },],
+};
 
 /**
  * @fileoverview added by tsickle
@@ -570,6 +672,16 @@ class MatAutocompleteTrigger {
 
 class MatAutocompleteModule {
 }
+MatAutocompleteModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [MatOptionModule, OverlayModule, MatCommonModule, CommonModule],
+                exports: [MatAutocomplete, MatOptionModule, MatAutocompleteTrigger, MatCommonModule],
+                declarations: [MatAutocomplete, MatAutocompleteTrigger],
+                providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
+            },] },
+];
+/** @nocollapse */
+MatAutocompleteModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

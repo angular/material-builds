@@ -5,12 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { forwardRef } from '@angular/core';
-import '@angular/common';
-import '@angular/cdk/a11y';
-import '@angular/cdk/collections';
-import '@angular/cdk/overlay';
-import { mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
+import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
+import { VIEWPORT_RULER_PROVIDER } from '@angular/cdk/overlay';
+import { MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -20,6 +20,8 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// Increasing integer for generating unique ids for radio components.
+var nextUniqueId = 0;
 /**
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -33,7 +35,7 @@ var MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 /**
  * Change event object emitted by MatRadio and MatRadioGroup.
  */
-var MatRadioChange = /** @class */ (function () {
+var MatRadioChange = (function () {
     function MatRadioChange() {
     }
     return MatRadioChange;
@@ -41,7 +43,7 @@ var MatRadioChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var MatRadioGroupBase = /** @class */ (function () {
+var MatRadioGroupBase = (function () {
     function MatRadioGroupBase() {
     }
     return MatRadioGroupBase;
@@ -50,11 +52,57 @@ var _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
-var MatRadioGroup = /** @class */ (function (_super) {
+var MatRadioGroup = (function (_super) {
     __extends(MatRadioGroup, _super);
     function MatRadioGroup(_changeDetector) {
         var _this = _super.call(this) || this;
         _this._changeDetector = _changeDetector;
+        /**
+         * Selected value for group. Should equal the value of the selected radio button if there *is*
+         * a corresponding radio button with a matching value. If there is *not* such a corresponding
+         * radio button, this value persists to be applied in case a new radio button is added with a
+         * matching value.
+         */
+        _this._value = null;
+        /**
+         * The HTML name attribute applied to radio buttons in this group.
+         */
+        _this._name = "mat-radio-group-" + nextUniqueId++;
+        /**
+         * The currently selected radio button. Should match value.
+         */
+        _this._selected = null;
+        /**
+         * Whether the `value` has been set to its initial value.
+         */
+        _this._isInitialized = false;
+        /**
+         * Whether the labels should appear after or before the radio-buttons. Defaults to 'after'
+         */
+        _this._labelPosition = 'after';
+        /**
+         * Whether the radio group is disabled.
+         */
+        _this._disabled = false;
+        /**
+         * Whether the radio group is required.
+         */
+        _this._required = false;
+        /**
+         * The method to be called in order to update ngModel
+         */
+        _this._controlValueAccessorChangeFn = function () { };
+        /**
+         * onTouch function registered via registerOnTouch (ControlValueAccessor).
+         * \@docs-private
+         */
+        _this.onTouched = function () { };
+        /**
+         * Event emitted when the group value changes.
+         * Change events are only emitted when the value changes due to user interaction with
+         * a radio button (the same behavior as `<input type-"radio">`).
+         */
+        _this.change = new EventEmitter();
         return _this;
     }
     Object.defineProperty(MatRadioGroup.prototype, "name", {
@@ -377,12 +425,39 @@ var MatRadioGroup = /** @class */ (function (_super) {
         this.disabled = isDisabled;
         this._changeDetector.markForCheck();
     };
+    MatRadioGroup.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-radio-group',
+                    exportAs: 'matRadioGroup',
+                    providers: [MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
+                    host: {
+                        'role': 'radiogroup',
+                        'class': 'mat-radio-group',
+                    },
+                    inputs: ['disabled'],
+                },] },
+    ];
+    /** @nocollapse */
+    MatRadioGroup.ctorParameters = function () { return [
+        { type: ChangeDetectorRef, },
+    ]; };
+    MatRadioGroup.propDecorators = {
+        "change": [{ type: Output },],
+        "_radios": [{ type: ContentChildren, args: [forwardRef(function () { return MatRadioButton; }), { descendants: true },] },],
+        "name": [{ type: Input },],
+        "align": [{ type: Input },],
+        "labelPosition": [{ type: Input },],
+        "value": [{ type: Input },],
+        "selected": [{ type: Input },],
+        "disabled": [{ type: Input },],
+        "required": [{ type: Input },],
+    };
     return MatRadioGroup;
 }(_MatRadioGroupMixinBase));
 /**
  * \@docs-private
  */
-var MatRadioButtonBase = /** @class */ (function () {
+var MatRadioButtonBase = (function () {
     function MatRadioButtonBase(_renderer, _elementRef) {
         this._renderer = _renderer;
         this._elementRef = _elementRef;
@@ -395,13 +470,36 @@ var _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(MatRadioButtonBase)
 /**
  * A radio-button. May be inside of
  */
-var MatRadioButton = /** @class */ (function (_super) {
+var MatRadioButton = (function (_super) {
     __extends(MatRadioButton, _super);
     function MatRadioButton(radioGroup, elementRef, renderer, _changeDetector, _focusMonitor, _radioDispatcher) {
         var _this = _super.call(this, renderer, elementRef) || this;
         _this._changeDetector = _changeDetector;
         _this._focusMonitor = _focusMonitor;
         _this._radioDispatcher = _radioDispatcher;
+        _this._uniqueId = "mat-radio-" + ++nextUniqueId;
+        /**
+         * The unique ID for the radio button.
+         */
+        _this.id = _this._uniqueId;
+        /**
+         * Event emitted when the checked state of this radio button changes.
+         * Change events are only emitted when the value changes due to user interaction with
+         * the radio button (the same behavior as `<input type-"radio">`).
+         */
+        _this.change = new EventEmitter();
+        /**
+         * Whether this radio is checked.
+         */
+        _this._checked = false;
+        /**
+         * Value assigned to this radio.
+         */
+        _this._value = null;
+        /**
+         * Unregister function for _radioDispatcher *
+         */
+        _this._removeUniqueSelectionListener = function () { };
         // Assertions. Ideally these should be stripped out by the compiler.
         // TODO(jelbourn): Assert that there's no name binding AND a parent radio group.
         // Assertions. Ideally these should be stripped out by the compiler.
@@ -728,6 +826,51 @@ var MatRadioButton = /** @class */ (function (_super) {
             }
         }
     };
+    MatRadioButton.decorators = [
+        { type: Component, args: [{selector: 'mat-radio-button',
+                    template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div mat-ripple class=\"mat-radio-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [required]=\"required\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
+                    styles: [".mat-radio-button{display:inline-block}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(.001)}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;right:-15px;bottom:-15px;border-radius:50%;z-index:1;pointer-events:none}"],
+                    inputs: ['color', 'disableRipple'],
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    exportAs: 'matRadioButton',
+                    host: {
+                        'class': 'mat-radio-button',
+                        '[class.mat-radio-checked]': 'checked',
+                        '[class.mat-radio-disabled]': 'disabled',
+                        '[attr.id]': 'id',
+                        // Note: under normal conditions focus shouldn't land on this element, however it may be
+                        // programmatically set, for example inside of a focus trap, in this case we want to forward
+                        // the focus to the native element.
+                        '(focus)': '_inputElement.nativeElement.focus()',
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /** @nocollapse */
+    MatRadioButton.ctorParameters = function () { return [
+        { type: MatRadioGroup, decorators: [{ type: Optional },] },
+        { type: ElementRef, },
+        { type: Renderer2, },
+        { type: ChangeDetectorRef, },
+        { type: FocusMonitor, },
+        { type: UniqueSelectionDispatcher, },
+    ]; };
+    MatRadioButton.propDecorators = {
+        "id": [{ type: Input },],
+        "name": [{ type: Input },],
+        "ariaLabel": [{ type: Input, args: ['aria-label',] },],
+        "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
+        "checked": [{ type: Input },],
+        "value": [{ type: Input },],
+        "align": [{ type: Input },],
+        "labelPosition": [{ type: Input },],
+        "disabled": [{ type: Input },],
+        "required": [{ type: Input },],
+        "change": [{ type: Output },],
+        "_ripple": [{ type: ViewChild, args: [MatRipple,] },],
+        "_inputElement": [{ type: ViewChild, args: ['input',] },],
+    };
     return MatRadioButton;
 }(_MatRadioButtonMixinBase));
 
@@ -736,9 +879,19 @@ var MatRadioButton = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatRadioModule = /** @class */ (function () {
+var MatRadioModule = (function () {
     function MatRadioModule() {
     }
+    MatRadioModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [CommonModule, MatRippleModule, MatCommonModule, A11yModule],
+                    exports: [MatRadioGroup, MatRadioButton, MatCommonModule],
+                    providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER, VIEWPORT_RULER_PROVIDER],
+                    declarations: [MatRadioGroup, MatRadioButton],
+                },] },
+    ];
+    /** @nocollapse */
+    MatRadioModule.ctorParameters = function () { return []; };
     return MatRadioModule;
 }());
 

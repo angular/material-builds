@@ -5,11 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import '@angular/core';
-import { MatLineSetter } from '@angular/material/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Input, NgModule, Optional, Renderer2, ViewEncapsulation } from '@angular/core';
+import { MatCommonModule, MatLine, MatLineModule, MatLineSetter } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
-import '@angular/cdk/bidi';
+import { Directionality } from '@angular/cdk/bidi';
 
 /**
  * @fileoverview added by tsickle
@@ -39,10 +39,12 @@ function coerceToNumber(value) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatGridTile = /** @class */ (function () {
+var MatGridTile = (function () {
     function MatGridTile(_renderer, _element) {
         this._renderer = _renderer;
         this._element = _element;
+        this._rowspan = 1;
+        this._colspan = 1;
     }
     Object.defineProperty(MatGridTile.prototype, "rowspan", {
         get: /**
@@ -93,9 +95,31 @@ var MatGridTile = /** @class */ (function () {
     function (property, value) {
         this._renderer.setStyle(this._element.nativeElement, property, value);
     };
+    MatGridTile.decorators = [
+        { type: Component, args: [{selector: 'mat-grid-tile',
+                    exportAs: 'matGridTile',
+                    host: {
+                        'class': 'mat-grid-tile',
+                    },
+                    template: "<figure class=\"mat-figure\"><ng-content></ng-content></figure>",
+                    styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /** @nocollapse */
+    MatGridTile.ctorParameters = function () { return [
+        { type: Renderer2, },
+        { type: ElementRef, },
+    ]; };
+    MatGridTile.propDecorators = {
+        "rowspan": [{ type: Input },],
+        "colspan": [{ type: Input },],
+    };
     return MatGridTile;
 }());
-var MatGridTileText = /** @class */ (function () {
+var MatGridTileText = (function () {
     function MatGridTileText(_renderer, _element) {
         this._renderer = _renderer;
         this._element = _element;
@@ -109,33 +133,73 @@ var MatGridTileText = /** @class */ (function () {
     function () {
         this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
     };
+    MatGridTileText.decorators = [
+        { type: Component, args: [{selector: 'mat-grid-tile-header, mat-grid-tile-footer',
+                    template: "<ng-content select=\"[mat-grid-avatar], [matGridAvatar]\"></ng-content><div class=\"mat-grid-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div><ng-content></ng-content>",
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                },] },
+    ];
+    /** @nocollapse */
+    MatGridTileText.ctorParameters = function () { return [
+        { type: Renderer2, },
+        { type: ElementRef, },
+    ]; };
+    MatGridTileText.propDecorators = {
+        "_lines": [{ type: ContentChildren, args: [MatLine,] },],
+    };
     return MatGridTileText;
 }());
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatGridAvatarCssMatStyler = /** @class */ (function () {
+var MatGridAvatarCssMatStyler = (function () {
     function MatGridAvatarCssMatStyler() {
     }
+    MatGridAvatarCssMatStyler.decorators = [
+        { type: Directive, args: [{
+                    selector: '[mat-grid-avatar], [matGridAvatar]',
+                    host: { 'class': 'mat-grid-avatar' }
+                },] },
+    ];
+    /** @nocollapse */
+    MatGridAvatarCssMatStyler.ctorParameters = function () { return []; };
     return MatGridAvatarCssMatStyler;
 }());
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatGridTileHeaderCssMatStyler = /** @class */ (function () {
+var MatGridTileHeaderCssMatStyler = (function () {
     function MatGridTileHeaderCssMatStyler() {
     }
+    MatGridTileHeaderCssMatStyler.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-grid-tile-header',
+                    host: { 'class': 'mat-grid-tile-header' }
+                },] },
+    ];
+    /** @nocollapse */
+    MatGridTileHeaderCssMatStyler.ctorParameters = function () { return []; };
     return MatGridTileHeaderCssMatStyler;
 }());
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatGridTileFooterCssMatStyler = /** @class */ (function () {
+var MatGridTileFooterCssMatStyler = (function () {
     function MatGridTileFooterCssMatStyler() {
     }
+    MatGridTileFooterCssMatStyler.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-grid-tile-footer',
+                    host: { 'class': 'mat-grid-tile-footer' }
+                },] },
+    ];
+    /** @nocollapse */
+    MatGridTileFooterCssMatStyler.ctorParameters = function () { return []; };
     return MatGridTileFooterCssMatStyler;
 }());
 
@@ -160,9 +224,17 @@ var MatGridTileFooterCssMatStyler = /** @class */ (function () {
  *
  * \@docs-private
  */
-var TileCoordinator = /** @class */ (function () {
+var TileCoordinator = (function () {
     function TileCoordinator(numColumns, tiles) {
         var _this = this;
+        /**
+         * Index at which the search for the next gap will start.
+         */
+        this.columnIndex = 0;
+        /**
+         * The current row index.
+         */
+        this.rowIndex = 0;
         this.tracker = new Array(numColumns);
         this.tracker.fill(0, 0, this.tracker.length);
         this.positions = tiles.map(function (tile) { return _this._trackTile(tile); });
@@ -313,7 +385,7 @@ var TileCoordinator = /** @class */ (function () {
  * Simple data structure for tile position (row, col).
  * \@docs-private
  */
-var TilePosition = /** @class */ (function () {
+var TilePosition = (function () {
     function TilePosition(row, col) {
         this.row = row;
         this.col = col;
@@ -331,8 +403,10 @@ var TilePosition = /** @class */ (function () {
  * \@docs-private
  * @abstract
  */
-var TileStyler = /** @class */ (function () {
+var TileStyler = (function () {
     function TileStyler() {
+        this._rows = 0;
+        this._rowspan = 0;
     }
     /**
      * Adds grid-list layout info once it is available. Cannot be processed in the constructor
@@ -554,7 +628,7 @@ var TileStyler = /** @class */ (function () {
  * Example <mat-grid-list cols="3" rowHeight="100px">
  * \@docs-private
  */
-var FixedTileStyler = /** @class */ (function (_super) {
+var FixedTileStyler = (function (_super) {
     __extends(FixedTileStyler, _super);
     function FixedTileStyler(fixedRowHeight) {
         var _this = _super.call(this) || this;
@@ -626,7 +700,7 @@ var FixedTileStyler = /** @class */ (function (_super) {
  * for the row height.  Example <mat-grid-list cols="3" rowHeight="3:1">
  * \@docs-private
  */
-var RatioTileStyler = /** @class */ (function (_super) {
+var RatioTileStyler = (function (_super) {
     __extends(RatioTileStyler, _super);
     function RatioTileStyler(value) {
         var _this = _super.call(this) || this;
@@ -706,7 +780,7 @@ var RatioTileStyler = /** @class */ (function (_super) {
  *
  * \@docs-private
  */
-var FitTileStyler = /** @class */ (function (_super) {
+var FitTileStyler = (function (_super) {
     __extends(FitTileStyler, _super);
     function FitTileStyler() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -771,11 +845,15 @@ function normalizeUnits(value) {
 // TODO(kara): Re-layout on window resize / media change (debounced).
 // TODO(kara): gridTileHeader and gridTileFooter.
 var MAT_FIT_MODE = 'fit';
-var MatGridList = /** @class */ (function () {
+var MatGridList = (function () {
     function MatGridList(_renderer, _element, _dir) {
         this._renderer = _renderer;
         this._element = _element;
         this._dir = _dir;
+        /**
+         * The amount of space between tiles. This will be something like '5px' or '2em'.
+         */
+        this._gutter = '1px';
     }
     Object.defineProperty(MatGridList.prototype, "cols", {
         get: /**
@@ -934,6 +1012,31 @@ var MatGridList = /** @class */ (function () {
             this._renderer.setStyle(this._element.nativeElement, style[0], style[1]);
         }
     };
+    MatGridList.decorators = [
+        { type: Component, args: [{selector: 'mat-grid-list',
+                    exportAs: 'matGridList',
+                    template: "<div><ng-content></ng-content></div>",
+                    styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
+                    host: {
+                        'class': 'mat-grid-list',
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                },] },
+    ];
+    /** @nocollapse */
+    MatGridList.ctorParameters = function () { return [
+        { type: Renderer2, },
+        { type: ElementRef, },
+        { type: Directionality, decorators: [{ type: Optional },] },
+    ]; };
+    MatGridList.propDecorators = {
+        "_tiles": [{ type: ContentChildren, args: [MatGridTile,] },],
+        "cols": [{ type: Input },],
+        "gutterSize": [{ type: Input },],
+        "rowHeight": [{ type: Input },],
+    };
     return MatGridList;
 }());
 
@@ -942,9 +1045,34 @@ var MatGridList = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatGridListModule = /** @class */ (function () {
+var MatGridListModule = (function () {
     function MatGridListModule() {
     }
+    MatGridListModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [MatLineModule, MatCommonModule],
+                    exports: [
+                        MatGridList,
+                        MatGridTile,
+                        MatGridTileText,
+                        MatLineModule,
+                        MatCommonModule,
+                        MatGridTileHeaderCssMatStyler,
+                        MatGridTileFooterCssMatStyler,
+                        MatGridAvatarCssMatStyler
+                    ],
+                    declarations: [
+                        MatGridList,
+                        MatGridTile,
+                        MatGridTileText,
+                        MatGridTileHeaderCssMatStyler,
+                        MatGridTileFooterCssMatStyler,
+                        MatGridAvatarCssMatStyler
+                    ],
+                },] },
+    ];
+    /** @nocollapse */
+    MatGridListModule.ctorParameters = function () { return []; };
     return MatGridListModule;
 }());
 

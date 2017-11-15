@@ -5,18 +5,18 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, Self, ViewEncapsulation } from '@angular/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
-import '@angular/cdk/bidi';
+import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { BACKSPACE, DELETE, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
+import { BACKSPACE, DELETE, ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { startWith } from 'rxjs/operators/startWith';
-import '@angular/forms';
-import '@angular/material/form-field';
+import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { MatFormFieldControl } from '@angular/material/form-field';
 import { merge } from 'rxjs/observable/merge';
-import 'rxjs/Subject';
-import 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
 import { mixinColor, mixinDisabled } from '@angular/material/core';
 
 /**
@@ -62,6 +62,14 @@ const _MatChipMixinBase = mixinColor(mixinDisabled(MatChipBase), 'primary');
  */
 class MatBasicChip {
 }
+MatBasicChip.decorators = [
+    { type: Directive, args: [{
+                selector: `mat-basic-chip, [mat-basic-chip]`,
+                host: { 'class': 'mat-basic-chip' },
+            },] },
+];
+/** @nocollapse */
+MatBasicChip.ctorParameters = () => [];
 /**
  * Material design styled Chip component. Used inside the MatChipList component.
  */
@@ -73,6 +81,43 @@ class MatChip extends _MatChipMixinBase {
     constructor(renderer, _elementRef) {
         super(renderer, _elementRef);
         this._elementRef = _elementRef;
+        this._selected = false;
+        this._selectable = true;
+        this._removable = true;
+        /**
+         * Whether the chip has focus.
+         */
+        this._hasFocus = false;
+        /**
+         * Emits when the chip is focused.
+         */
+        this._onFocus = new Subject();
+        /**
+         * Emits when the chip is blured.
+         */
+        this._onBlur = new Subject();
+        /**
+         * Emitted when the chip is selected or deselected.
+         */
+        this.selectionChange = new EventEmitter();
+        /**
+         * Emitted when the chip is destroyed.
+         */
+        this.destroyed = new EventEmitter();
+        /**
+         * Emitted when the chip is destroyed.
+         * @deprecated Use 'destroyed' instead.
+         */
+        this.destroy = this.destroyed;
+        /**
+         * Emitted when a chip is to be removed.
+         */
+        this.removed = new EventEmitter();
+        /**
+         * Emitted when a chip is to be removed.
+         * @deprecated Use `removed` instead.
+         */
+        this.onRemove = this.removed;
     }
     /**
      * Whether the chip is selected.
@@ -270,6 +315,42 @@ class MatChip extends _MatChipMixinBase {
         this._onBlur.next({ chip: this });
     }
 }
+MatChip.decorators = [
+    { type: Directive, args: [{
+                selector: `mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]`,
+                inputs: ['color', 'disabled'],
+                exportAs: 'matChip',
+                host: {
+                    'class': 'mat-chip',
+                    'tabindex': '-1',
+                    'role': 'option',
+                    '[class.mat-chip-selected]': 'selected',
+                    '[attr.disabled]': 'disabled || null',
+                    '[attr.aria-disabled]': 'disabled.toString()',
+                    '[attr.aria-selected]': 'ariaSelected',
+                    '(click)': '_handleClick($event)',
+                    '(keydown)': '_handleKeydown($event)',
+                    '(focus)': '_hasFocus = true',
+                    '(blur)': '_blur()',
+                },
+            },] },
+];
+/** @nocollapse */
+MatChip.ctorParameters = () => [
+    { type: Renderer2, },
+    { type: ElementRef, },
+];
+MatChip.propDecorators = {
+    "selected": [{ type: Input },],
+    "value": [{ type: Input },],
+    "selectable": [{ type: Input },],
+    "removable": [{ type: Input },],
+    "selectionChange": [{ type: Output },],
+    "destroyed": [{ type: Output },],
+    "destroy": [{ type: Output },],
+    "removed": [{ type: Output },],
+    "onRemove": [{ type: Output, args: ['remove',] },],
+};
 /**
  * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon
  * available at https://material.io/icons/#ic_cancel.
@@ -300,12 +381,27 @@ class MatChipRemove {
         }
     }
 }
+MatChipRemove.decorators = [
+    { type: Directive, args: [{
+                selector: '[matChipRemove]',
+                host: {
+                    'class': 'mat-chip-remove',
+                    '(click)': '_handleClick()',
+                }
+            },] },
+];
+/** @nocollapse */
+MatChipRemove.ctorParameters = () => [
+    { type: MatChip, },
+];
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
 
+// Increasing integer for generating unique ids for chip-list components.
+let nextUniqueId = 0;
 /**
  * Change event object that is emitted when the chip list value has changed.
  */
@@ -340,6 +436,79 @@ class MatChipList {
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
         this.ngControl = ngControl;
+        this.controlType = 'mat-chip-list';
+        /**
+         * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
+         * needs to run change detection.
+         */
+        this.stateChanges = new Subject();
+        /**
+         * When a chip is destroyed, we track the index so we can focus the appropriate next chip.
+         */
+        this._lastDestroyedIndex = null;
+        /**
+         * Track which chips we're listening to for focus/destruction.
+         */
+        this._chipSet = new WeakMap();
+        /**
+         * Subscription to tabbing out from the chip list.
+         */
+        this._tabOutSubscription = Subscription.EMPTY;
+        /**
+         * Whether or not the chip is selectable.
+         */
+        this._selectable = true;
+        /**
+         * Whether the component is in multiple selection mode.
+         */
+        this._multiple = false;
+        /**
+         * Uid of the chip list
+         */
+        this._uid = `mat-chip-list-${nextUniqueId++}`;
+        /**
+         * Whether this is required
+         */
+        this._required = false;
+        /**
+         * Whether this is disabled
+         */
+        this._disabled = false;
+        /**
+         * Tab index for the chip list.
+         */
+        this._tabIndex = 0;
+        /**
+         * User defined tab index.
+         * When it is not null, use user defined tab index. Otherwise use _tabIndex
+         */
+        this._userTabIndex = null;
+        /**
+         * Function when touched
+         */
+        this._onTouched = () => { };
+        /**
+         * Function when changed
+         */
+        this._onChange = () => { };
+        /**
+         * Comparison function to specify which option is displayed. Defaults to object equality.
+         */
+        this._compareWith = (o1, o2) => o1 === o2;
+        /**
+         * Orientation of the chip list.
+         */
+        this.ariaOrientation = 'horizontal';
+        /**
+         * Event emitted when the selected chip list value has been changed by the user.
+         */
+        this.change = new EventEmitter();
+        /**
+         * Event that emits whenever the raw value of the chip-list changes. This is here primarily
+         * to facilitate the two-way binding for the `value` input.
+         * \@docs-private
+         */
+        this.valueChange = new EventEmitter();
         if (this.ngControl) {
             this.ngControl.valueAccessor = this;
         }
@@ -971,6 +1140,59 @@ class MatChipList {
         });
     }
 }
+MatChipList.decorators = [
+    { type: Component, args: [{selector: 'mat-chip-list',
+                template: `<div class="mat-chip-list-wrapper"><ng-content></ng-content></div>`,
+                exportAs: 'matChipList',
+                host: {
+                    '[attr.tabindex]': '_tabIndex',
+                    '[attr.aria-describedby]': '_ariaDescribedby || null',
+                    '[attr.aria-required]': 'required.toString()',
+                    '[attr.aria-disabled]': 'disabled.toString()',
+                    '[attr.aria-invalid]': 'errorState',
+                    '[attr.aria-multiselectable]': 'multiple',
+                    '[attr.role]': 'role',
+                    '[class.mat-chip-list-disabled]': 'disabled',
+                    '[class.mat-chip-list-invalid]': 'errorState',
+                    '[class.mat-chip-list-required]': 'required',
+                    '[attr.aria-orientation]': 'ariaOrientation',
+                    'class': 'mat-chip-list',
+                    '(focus)': 'focus()',
+                    '(blur)': '_blur()',
+                    '(keydown)': '_keydown($event)'
+                },
+                providers: [{ provide: MatFormFieldControl, useExisting: MatChipList }],
+                styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:baseline}.mat-chip:not(.mat-basic-chip){transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 0 8px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 8px 0 0}.mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-right:8px}[dir=rtl] .mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-left:8px}.mat-chip:not(.mat-basic-chip) .mat-chip-remove.mat-icon{width:1em;height:1em}.mat-chip:not(.mat-basic-chip):focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}.mat-form-field-prefix .mat-chip-list-wrapper{margin-bottom:8px}.mat-chip-remove{margin-right:-4px;margin-left:6px;cursor:pointer}[dir=rtl] .mat-chip-remove{margin-right:6px;margin-left:-4px}input.mat-chip-input{width:150px;margin:3px}"],
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: ChangeDetectionStrategy.OnPush
+            },] },
+];
+/** @nocollapse */
+MatChipList.ctorParameters = () => [
+    { type: Renderer2, },
+    { type: ElementRef, },
+    { type: ChangeDetectorRef, },
+    { type: Directionality, decorators: [{ type: Optional },] },
+    { type: NgForm, decorators: [{ type: Optional },] },
+    { type: FormGroupDirective, decorators: [{ type: Optional },] },
+    { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
+];
+MatChipList.propDecorators = {
+    "multiple": [{ type: Input },],
+    "compareWith": [{ type: Input },],
+    "value": [{ type: Input },],
+    "id": [{ type: Input },],
+    "required": [{ type: Input },],
+    "placeholder": [{ type: Input },],
+    "disabled": [{ type: Input },],
+    "ariaOrientation": [{ type: Input, args: ['aria-orientation',] },],
+    "selectable": [{ type: Input },],
+    "tabIndex": [{ type: Input },],
+    "change": [{ type: Output },],
+    "valueChange": [{ type: Output },],
+    "chips": [{ type: ContentChildren, args: [MatChip,] },],
+};
 
 /**
  * @fileoverview added by tsickle
@@ -991,6 +1213,19 @@ class MatChipInput {
      */
     constructor(_elementRef) {
         this._elementRef = _elementRef;
+        this.focused = false;
+        this._addOnBlur = false;
+        /**
+         * The list of key codes that will trigger a chipEnd event.
+         *
+         * Defaults to `[ENTER]`.
+         */
+        this.separatorKeyCodes = [ENTER];
+        /**
+         * Emitted when a chip is to be added.
+         */
+        this.chipEnd = new EventEmitter();
+        this.placeholder = '';
         this._inputElement = /** @type {?} */ (this._elementRef.nativeElement);
     }
     /**
@@ -1072,6 +1307,29 @@ class MatChipInput {
      */
     focus() { this._inputElement.focus(); }
 }
+MatChipInput.decorators = [
+    { type: Directive, args: [{
+                selector: 'input[matChipInputFor]',
+                exportAs: 'matChipInput, matChipInputFor',
+                host: {
+                    'class': 'mat-chip-input mat-input-element',
+                    '(keydown)': '_keydown($event)',
+                    '(blur)': '_blur()',
+                    '(focus)': '_focus()',
+                }
+            },] },
+];
+/** @nocollapse */
+MatChipInput.ctorParameters = () => [
+    { type: ElementRef, },
+];
+MatChipInput.propDecorators = {
+    "chipList": [{ type: Input, args: ['matChipInputFor',] },],
+    "addOnBlur": [{ type: Input, args: ['matChipInputAddOnBlur',] },],
+    "separatorKeyCodes": [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] },],
+    "chipEnd": [{ type: Output, args: ['matChipInputTokenEnd',] },],
+    "placeholder": [{ type: Input },],
+};
 
 /**
  * @fileoverview added by tsickle
@@ -1080,6 +1338,15 @@ class MatChipInput {
 
 class MatChipsModule {
 }
+MatChipsModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [],
+                exports: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip],
+                declarations: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip]
+            },] },
+];
+/** @nocollapse */
+MatChipsModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

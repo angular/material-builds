@@ -5,12 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import '@angular/cdk/observers';
-import '@angular/cdk/platform';
-import { forwardRef } from '@angular/core';
-import { applyCssTransform, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
-import '@angular/platform-browser';
-import '@angular/cdk/a11y';
+import { ObserversModule } from '@angular/cdk/observers';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { GestureConfig, MatCommonModule, MatRipple, MatRippleModule, applyCssTransform, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -19,6 +19,8 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
  * @suppress {checkTypes} checked by tsc
  */
 
+// Increasing integer for generating unique ids for slide-toggle components.
+let nextUniqueId = 0;
 const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatSlideToggle),
@@ -60,6 +62,35 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         this._platform = _platform;
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
+        this.onChange = (_) => { };
+        this.onTouched = () => { };
+        this._uniqueId = `mat-slide-toggle-${++nextUniqueId}`;
+        this._required = false;
+        this._checked = false;
+        /**
+         * Name value will be applied to the input element if present
+         */
+        this.name = null;
+        /**
+         * A unique id for the slide-toggle input. If none is supplied, it will be auto-generated.
+         */
+        this.id = this._uniqueId;
+        /**
+         * Whether the label should appear after or before the slide-toggle. Defaults to 'after'
+         */
+        this.labelPosition = 'after';
+        /**
+         * Used to set the aria-label attribute on the underlying input element.
+         */
+        this.ariaLabel = null;
+        /**
+         * Used to set the aria-labelledby attribute on the underlying input element.
+         */
+        this.ariaLabelledby = null;
+        /**
+         * An event will be dispatched each time the slide-toggle changes its value.
+         */
+        this.change = new EventEmitter();
         this.tabIndex = parseInt(tabIndex) || 0;
     }
     /**
@@ -261,6 +292,46 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         this._changeDetectorRef.markForCheck();
     }
 }
+MatSlideToggle.decorators = [
+    { type: Component, args: [{selector: 'mat-slide-toggle',
+                exportAs: 'matSlideToggle',
+                host: {
+                    'class': 'mat-slide-toggle',
+                    '[id]': 'id',
+                    '[class.mat-checked]': 'checked',
+                    '[class.mat-disabled]': 'disabled',
+                    '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
+                },
+                template: "<label class=\"mat-slide-toggle-label\" #label><div class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleCentered]=\"true\" [matRippleDisabled]=\"disableRipple || disabled\"></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
+                styles: [".mat-slide-toggle{display:inline-block;height:24px;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;cursor:pointer}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:-13px;left:-13px;height:46px;width:46px;border-radius:50%;z-index:1;pointer-events:none}"],
+                providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
+                inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/** @nocollapse */
+MatSlideToggle.ctorParameters = () => [
+    { type: ElementRef, },
+    { type: Renderer2, },
+    { type: Platform, },
+    { type: FocusMonitor, },
+    { type: ChangeDetectorRef, },
+    { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
+];
+MatSlideToggle.propDecorators = {
+    "name": [{ type: Input },],
+    "id": [{ type: Input },],
+    "labelPosition": [{ type: Input },],
+    "ariaLabel": [{ type: Input, args: ['aria-label',] },],
+    "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
+    "required": [{ type: Input },],
+    "checked": [{ type: Input },],
+    "change": [{ type: Output },],
+    "_inputElement": [{ type: ViewChild, args: ['input',] },],
+    "_ripple": [{ type: ViewChild, args: [MatRipple,] },],
+};
 /**
  * Renderer for the Slide Toggle component, which separates DOM modification in its own class
  */
@@ -270,6 +341,10 @@ class SlideToggleRenderer {
      * @param {?} platform
      */
     constructor(elementRef, platform) {
+        /**
+         * Whether the thumb is currently being dragged.
+         */
+        this.dragging = false;
         // We only need to interact with these elements when we're on the browser, so only grab
         // the reference in that case.
         if (platform.isBrowser) {
@@ -338,6 +413,18 @@ class SlideToggleRenderer {
 
 class MatSlideToggleModule {
 }
+MatSlideToggleModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [MatRippleModule, MatCommonModule, PlatformModule, ObserversModule, A11yModule],
+                exports: [MatSlideToggle, MatCommonModule],
+                declarations: [MatSlideToggle],
+                providers: [
+                    { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }
+                ],
+            },] },
+];
+/** @nocollapse */
+MatSlideToggleModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

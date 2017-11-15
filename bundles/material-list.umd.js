@@ -44,7 +44,7 @@ function __extends(d, b) {
 /**
  * \@docs-private
  */
-var MatListBase = /** @class */ (function () {
+var MatListBase = (function () {
     function MatListBase() {
     }
     return MatListBase;
@@ -53,7 +53,7 @@ var _MatListMixinBase = _angular_material_core.mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
-var MatListItemBase = /** @class */ (function () {
+var MatListItemBase = (function () {
     function MatListItemBase() {
     }
     return MatListItemBase;
@@ -62,85 +62,159 @@ var _MatListItemMixinBase = _angular_material_core.mixinDisableRipple(MatListIte
 /**
  * Divider between items within a list.
  */
-var MatListDivider = /** @class */ (function () {
+var MatListDivider = (function () {
     function MatListDivider() {
     }
+    MatListDivider.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-divider',
+                    host: {
+                        'role': 'separator',
+                        'aria-orientation': 'horizontal'
+                    }
+                },] },
+    ];
+    /** @nocollapse */
+    MatListDivider.ctorParameters = function () { return []; };
     return MatListDivider;
 }());
 /**
  * A Material Design list component.
  */
-var MatList = /** @class */ (function (_super) {
+var MatList = (function (_super) {
     __extends(MatList, _super);
     function MatList() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    MatList.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-list, mat-nav-list',
+                    exportAs: 'matList, matNavList',
+                    host: { 'role': 'list' },
+                    template: '<ng-content></ng-content>',
+                    styles: [".mat-subheader{display:flex;box-sizing:border-box;padding:16px;align-items:center}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{margin:0}.mat-list,.mat-nav-list,.mat-selection-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{height:48px;line-height:16px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child,.mat-selection-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item,.mat-selection-list .mat-list-item{display:block;height:48px}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content,.mat-selection-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list .mat-list-item .mat-list-item-content-reverse,.mat-nav-list .mat-list-item .mat-list-item-content-reverse,.mat-selection-list .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple,.mat-selection-list .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-item.mat-list-item-avatar,.mat-nav-list .mat-list-item.mat-list-item-avatar,.mat-selection-list .mat-list-item.mat-list-item-avatar{height:56px}.mat-list .mat-list-item.mat-2-line,.mat-nav-list .mat-list-item.mat-2-line,.mat-selection-list .mat-list-item.mat-2-line{height:72px}.mat-list .mat-list-item.mat-3-line,.mat-nav-list .mat-list-item.mat-3-line,.mat-selection-list .mat-list-item.mat-3-line{height:88px}.mat-list .mat-list-item.mat-multi-line,.mat-nav-list .mat-list-item.mat-multi-line,.mat-selection-list .mat-list-item.mat-multi-line{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text,.mat-selection-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*,.mat-selection-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty,.mat-selection-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar,.mat-selection-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon,.mat-selection-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list .mat-list-option,.mat-nav-list .mat-list-option,.mat-selection-list .mat-list-option{display:block;height:48px}.mat-list .mat-list-option .mat-list-item-content,.mat-nav-list .mat-list-option .mat-list-item-content,.mat-selection-list .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list .mat-list-option .mat-list-item-content-reverse,.mat-nav-list .mat-list-option .mat-list-item-content-reverse,.mat-selection-list .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-option .mat-list-item-ripple,.mat-nav-list .mat-list-option .mat-list-item-ripple,.mat-selection-list .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-option.mat-list-item-avatar,.mat-nav-list .mat-list-option.mat-list-item-avatar,.mat-selection-list .mat-list-option.mat-list-item-avatar{height:56px}.mat-list .mat-list-option.mat-2-line,.mat-nav-list .mat-list-option.mat-2-line,.mat-selection-list .mat-list-option.mat-2-line{height:72px}.mat-list .mat-list-option.mat-3-line,.mat-nav-list .mat-list-option.mat-3-line,.mat-selection-list .mat-list-option.mat-3-line{height:88px}.mat-list .mat-list-option.mat-multi-line,.mat-nav-list .mat-list-option.mat-multi-line,.mat-selection-list .mat-list-option.mat-multi-line{height:100%;padding:8px 16px}.mat-list .mat-list-option .mat-list-text,.mat-nav-list .mat-list-option .mat-list-text,.mat-selection-list .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-option .mat-list-text>*,.mat-nav-list .mat-list-option .mat-list-text>*,.mat-selection-list .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-option .mat-list-text:empty,.mat-nav-list .mat-list-option .mat-list-text:empty,.mat-selection-list .mat-list-option .mat-list-text:empty{display:none}.mat-list .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-option .mat-list-avatar,.mat-nav-list .mat-list-option .mat-list-avatar,.mat-selection-list .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-option .mat-list-icon,.mat-nav-list .mat-list-option .mat-list-icon,.mat-selection-list .mat-list-option .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense],.mat-nav-list[dense],.mat-selection-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader,.mat-selection-list[dense] .mat-subheader{height:40px;line-height:8px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child,.mat-selection-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item,.mat-selection-list[dense] .mat-list-item{display:block;height:40px}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content,.mat-selection-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-avatar,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar,.mat-selection-list[dense] .mat-list-item.mat-list-item-avatar{height:48px}.mat-list[dense] .mat-list-item.mat-2-line,.mat-nav-list[dense] .mat-list-item.mat-2-line,.mat-selection-list[dense] .mat-list-item.mat-2-line{height:60px}.mat-list[dense] .mat-list-item.mat-3-line,.mat-nav-list[dense] .mat-list-item.mat-3-line,.mat-selection-list[dense] .mat-list-item.mat-3-line{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line,.mat-nav-list[dense] .mat-list-item.mat-multi-line,.mat-selection-list[dense] .mat-list-item.mat-multi-line{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text,.mat-selection-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*,.mat-selection-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty,.mat-selection-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar,.mat-selection-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon,.mat-selection-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-option,.mat-nav-list[dense] .mat-list-option,.mat-selection-list[dense] .mat-list-option{display:block;height:40px}.mat-list[dense] .mat-list-option .mat-list-item-content,.mat-nav-list[dense] .mat-list-option .mat-list-item-content,.mat-selection-list[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-option .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-option .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-option.mat-list-item-avatar,.mat-nav-list[dense] .mat-list-option.mat-list-item-avatar,.mat-selection-list[dense] .mat-list-option.mat-list-item-avatar{height:48px}.mat-list[dense] .mat-list-option.mat-2-line,.mat-nav-list[dense] .mat-list-option.mat-2-line,.mat-selection-list[dense] .mat-list-option.mat-2-line{height:60px}.mat-list[dense] .mat-list-option.mat-3-line,.mat-nav-list[dense] .mat-list-option.mat-3-line,.mat-selection-list[dense] .mat-list-option.mat-3-line{height:76px}.mat-list[dense] .mat-list-option.mat-multi-line,.mat-nav-list[dense] .mat-list-option.mat-multi-line,.mat-selection-list[dense] .mat-list-option.mat-multi-line{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-option .mat-list-text,.mat-nav-list[dense] .mat-list-option .mat-list-text,.mat-selection-list[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-option .mat-list-text>*,.mat-nav-list[dense] .mat-list-option .mat-list-text>*,.mat-selection-list[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-option .mat-list-text:empty,.mat-nav-list[dense] .mat-list-option .mat-list-text:empty,.mat-selection-list[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-option .mat-list-avatar,.mat-nav-list[dense] .mat-list-option .mat-list-avatar,.mat-selection-list[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-option .mat-list-icon,.mat-nav-list[dense] .mat-list-option .mat-list-icon,.mat-selection-list[dense] .mat-list-option .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0}.mat-list-option:not([disabled]){cursor:pointer}"],
+                    inputs: ['disableRipple'],
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /** @nocollapse */
+    MatList.ctorParameters = function () { return []; };
     return MatList;
 }(_MatListMixinBase));
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatListCssMatStyler = /** @class */ (function () {
+var MatListCssMatStyler = (function () {
     function MatListCssMatStyler() {
     }
+    MatListCssMatStyler.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-list',
+                    host: { 'class': 'mat-list' }
+                },] },
+    ];
+    /** @nocollapse */
+    MatListCssMatStyler.ctorParameters = function () { return []; };
     return MatListCssMatStyler;
 }());
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatNavListCssMatStyler = /** @class */ (function () {
+var MatNavListCssMatStyler = (function () {
     function MatNavListCssMatStyler() {
     }
+    MatNavListCssMatStyler.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-nav-list',
+                    host: { 'class': 'mat-nav-list' }
+                },] },
+    ];
+    /** @nocollapse */
+    MatNavListCssMatStyler.ctorParameters = function () { return []; };
     return MatNavListCssMatStyler;
 }());
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatDividerCssMatStyler = /** @class */ (function () {
+var MatDividerCssMatStyler = (function () {
     function MatDividerCssMatStyler() {
     }
+    MatDividerCssMatStyler.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-divider',
+                    host: { 'class': 'mat-divider' }
+                },] },
+    ];
+    /** @nocollapse */
+    MatDividerCssMatStyler.ctorParameters = function () { return []; };
     return MatDividerCssMatStyler;
 }());
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatListAvatarCssMatStyler = /** @class */ (function () {
+var MatListAvatarCssMatStyler = (function () {
     function MatListAvatarCssMatStyler() {
     }
+    MatListAvatarCssMatStyler.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-list-avatar], [matListAvatar]',
+                    host: { 'class': 'mat-list-avatar' }
+                },] },
+    ];
+    /** @nocollapse */
+    MatListAvatarCssMatStyler.ctorParameters = function () { return []; };
     return MatListAvatarCssMatStyler;
 }());
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatListIconCssMatStyler = /** @class */ (function () {
+var MatListIconCssMatStyler = (function () {
     function MatListIconCssMatStyler() {
     }
+    MatListIconCssMatStyler.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-list-icon], [matListIcon]',
+                    host: { 'class': 'mat-list-icon' }
+                },] },
+    ];
+    /** @nocollapse */
+    MatListIconCssMatStyler.ctorParameters = function () { return []; };
     return MatListIconCssMatStyler;
 }());
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatListSubheaderCssMatStyler = /** @class */ (function () {
+var MatListSubheaderCssMatStyler = (function () {
     function MatListSubheaderCssMatStyler() {
     }
+    MatListSubheaderCssMatStyler.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[mat-subheader], [matSubheader]',
+                    host: { 'class': 'mat-subheader' }
+                },] },
+    ];
+    /** @nocollapse */
+    MatListSubheaderCssMatStyler.ctorParameters = function () { return []; };
     return MatListSubheaderCssMatStyler;
 }());
 /**
  * An item within a Material Design list.
  */
-var MatListItem = /** @class */ (function (_super) {
+var MatListItem = (function (_super) {
     __extends(MatListItem, _super);
     function MatListItem(_renderer, _element, _list, navList) {
         var _this = _super.call(this) || this;
         _this._renderer = _renderer;
         _this._element = _element;
         _this._list = _list;
+        _this._isNavList = false;
         _this._isNavList = !!navList;
         return _this;
     }
@@ -211,6 +285,33 @@ var MatListItem = /** @class */ (function (_super) {
     function () {
         return this._element.nativeElement;
     };
+    MatListItem.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-list-item, a[mat-list-item]',
+                    exportAs: 'matListItem',
+                    host: {
+                        'role': 'listitem',
+                        'class': 'mat-list-item',
+                        '(focus)': '_handleFocus()',
+                        '(blur)': '_handleBlur()',
+                    },
+                    inputs: ['disableRipple'],
+                    template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div><ng-content></ng-content></div>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /** @nocollapse */
+    MatListItem.ctorParameters = function () { return [
+        { type: _angular_core.Renderer2, },
+        { type: _angular_core.ElementRef, },
+        { type: MatList, decorators: [{ type: _angular_core.Optional },] },
+        { type: MatNavListCssMatStyler, decorators: [{ type: _angular_core.Optional },] },
+    ]; };
+    MatListItem.propDecorators = {
+        "_lines": [{ type: _angular_core.ContentChildren, args: [_angular_material_core.MatLine,] },],
+        "_hasAvatar": [{ type: _angular_core.ContentChild, args: [MatListAvatarCssMatStyler,] },],
+    };
     return MatListItem;
 }(_MatListItemMixinBase));
 
@@ -221,7 +322,7 @@ var MatListItem = /** @class */ (function (_super) {
 /**
  * \@docs-private
  */
-var MatSelectionListBase = /** @class */ (function () {
+var MatSelectionListBase = (function () {
     function MatSelectionListBase() {
     }
     return MatSelectionListBase;
@@ -230,7 +331,7 @@ var _MatSelectionListMixinBase = _angular_material_core.mixinTabIndex(_angular_m
 /**
  * \@docs-private
  */
-var MatListOptionBase = /** @class */ (function () {
+var MatListOptionBase = (function () {
     function MatListOptionBase() {
     }
     return MatListOptionBase;
@@ -239,7 +340,7 @@ var _MatListOptionMixinBase = _angular_material_core.mixinDisableRipple(MatListO
 /**
  * Change event object emitted by MatListOption
  */
-var MatListOptionChange = /** @class */ (function () {
+var MatListOptionChange = (function () {
     function MatListOptionChange() {
     }
     return MatListOptionChange;
@@ -249,7 +350,7 @@ var MatListOptionChange = /** @class */ (function () {
  * generate a checkbox and can put current item into the selectionModel of selection-list
  * if the current item is selected.
  */
-var MatListOption = /** @class */ (function (_super) {
+var MatListOption = (function (_super) {
     __extends(MatListOption, _super);
     function MatListOption(_renderer, _element, _changeDetector, selectionList) {
         var _this = _super.call(this) || this;
@@ -257,6 +358,19 @@ var MatListOption = /** @class */ (function (_super) {
         _this._element = _element;
         _this._changeDetector = _changeDetector;
         _this.selectionList = selectionList;
+        _this._disabled = false;
+        /**
+         * Whether the option has focus.
+         */
+        _this._hasFocus = false;
+        /**
+         * Whether the label should appear before or after the checkbox. Defaults to 'after'
+         */
+        _this.checkboxPosition = 'after';
+        /**
+         * Emitted when the option is selected or deselected.
+         */
+        _this.selectionChange = new _angular_core.EventEmitter();
         return _this;
     }
     Object.defineProperty(MatListOption.prototype, "disabled", {
@@ -411,16 +525,57 @@ var MatListOption = /** @class */ (function (_super) {
     function () {
         return this._element.nativeElement;
     };
+    MatListOption.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-list-option',
+                    exportAs: 'matListOption',
+                    inputs: ['disableRipple'],
+                    host: {
+                        'role': 'option',
+                        'class': 'mat-list-item mat-list-option',
+                        '(focus)': '_handleFocus()',
+                        '(blur)': '_hasFocus = false',
+                        '(click)': '_handleClick()',
+                        'tabindex': '-1',
+                        '[class.mat-list-item-disabled]': 'disabled',
+                        '[class.mat-list-item-focus]': '_hasFocus',
+                        '[attr.aria-selected]': 'selected.toString()',
+                        '[attr.aria-disabled]': 'disabled.toString()',
+                    },
+                    template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div mat-ripple class=\"mat-list-item-ripple\" [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><mat-pseudo-checkbox #autocheckbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox><div class=\"mat-list-text\"><ng-content></ng-content></div></div>",
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /** @nocollapse */
+    MatListOption.ctorParameters = function () { return [
+        { type: _angular_core.Renderer2, },
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.ChangeDetectorRef, },
+        { type: MatSelectionList, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatSelectionList; }),] },] },
+    ]; };
+    MatListOption.propDecorators = {
+        "_lines": [{ type: _angular_core.ContentChildren, args: [_angular_material_core.MatLine,] },],
+        "checkboxPosition": [{ type: _angular_core.Input },],
+        "disabled": [{ type: _angular_core.Input },],
+        "value": [{ type: _angular_core.Input },],
+        "selected": [{ type: _angular_core.Input },],
+        "selectionChange": [{ type: _angular_core.Output },],
+    };
     return MatListOption;
 }(_MatListOptionMixinBase));
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-var MatSelectionList = /** @class */ (function (_super) {
+var MatSelectionList = (function (_super) {
     __extends(MatSelectionList, _super);
     function MatSelectionList(_element, tabIndex) {
         var _this = _super.call(this) || this;
         _this._element = _element;
+        /**
+         * The currently selected options.
+         */
+        _this.selectedOptions = new _angular_cdk_collections.SelectionModel(true);
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -581,6 +736,33 @@ var MatSelectionList = /** @class */ (function (_super) {
     function (option) {
         return this.options.toArray().indexOf(option);
     };
+    MatSelectionList.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-selection-list',
+                    exportAs: 'matSelectionList',
+                    inputs: ['disabled', 'disableRipple', 'tabIndex'],
+                    host: {
+                        'role': 'listbox',
+                        '[tabIndex]': 'tabIndex',
+                        'class': 'mat-selection-list',
+                        '(focus)': 'focus()',
+                        '(keydown)': '_keydown($event)',
+                        '[attr.aria-disabled]': 'disabled.toString()'
+                    },
+                    template: '<ng-content></ng-content>',
+                    styles: [".mat-subheader{display:flex;box-sizing:border-box;padding:16px;align-items:center}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{margin:0}.mat-list,.mat-nav-list,.mat-selection-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{height:48px;line-height:16px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child,.mat-selection-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-nav-list .mat-list-item,.mat-selection-list .mat-list-item{display:block;height:48px}.mat-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content,.mat-selection-list .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list .mat-list-item .mat-list-item-content-reverse,.mat-nav-list .mat-list-item .mat-list-item-content-reverse,.mat-selection-list .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple,.mat-selection-list .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-item.mat-list-item-avatar,.mat-nav-list .mat-list-item.mat-list-item-avatar,.mat-selection-list .mat-list-item.mat-list-item-avatar{height:56px}.mat-list .mat-list-item.mat-2-line,.mat-nav-list .mat-list-item.mat-2-line,.mat-selection-list .mat-list-item.mat-2-line{height:72px}.mat-list .mat-list-item.mat-3-line,.mat-nav-list .mat-list-item.mat-3-line,.mat-selection-list .mat-list-item.mat-3-line{height:88px}.mat-list .mat-list-item.mat-multi-line,.mat-nav-list .mat-list-item.mat-multi-line,.mat-selection-list .mat-list-item.mat-multi-line{height:100%;padding:8px 16px}.mat-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text,.mat-selection-list .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*,.mat-selection-list .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty,.mat-selection-list .mat-list-item .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar,.mat-selection-list .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon,.mat-selection-list .mat-list-item .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list .mat-list-option,.mat-nav-list .mat-list-option,.mat-selection-list .mat-list-option{display:block;height:48px}.mat-list .mat-list-option .mat-list-item-content,.mat-nav-list .mat-list-option .mat-list-item-content,.mat-selection-list .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list .mat-list-option .mat-list-item-content-reverse,.mat-nav-list .mat-list-option .mat-list-item-content-reverse,.mat-selection-list .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-option .mat-list-item-ripple,.mat-nav-list .mat-list-option .mat-list-item-ripple,.mat-selection-list .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-option.mat-list-item-avatar,.mat-nav-list .mat-list-option.mat-list-item-avatar,.mat-selection-list .mat-list-option.mat-list-item-avatar{height:56px}.mat-list .mat-list-option.mat-2-line,.mat-nav-list .mat-list-option.mat-2-line,.mat-selection-list .mat-list-option.mat-2-line{height:72px}.mat-list .mat-list-option.mat-3-line,.mat-nav-list .mat-list-option.mat-3-line,.mat-selection-list .mat-list-option.mat-3-line{height:88px}.mat-list .mat-list-option.mat-multi-line,.mat-nav-list .mat-list-option.mat-multi-line,.mat-selection-list .mat-list-option.mat-multi-line{height:100%;padding:8px 16px}.mat-list .mat-list-option .mat-list-text,.mat-nav-list .mat-list-option .mat-list-text,.mat-selection-list .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-option .mat-list-text>*,.mat-nav-list .mat-list-option .mat-list-text>*,.mat-selection-list .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-option .mat-list-text:empty,.mat-nav-list .mat-list-option .mat-list-text:empty,.mat-selection-list .mat-list-option .mat-list-text:empty{display:none}.mat-list .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-option .mat-list-avatar,.mat-nav-list .mat-list-option .mat-list-avatar,.mat-selection-list .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-option .mat-list-icon,.mat-nav-list .mat-list-option .mat-list-icon,.mat-selection-list .mat-list-option .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense],.mat-nav-list[dense],.mat-selection-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader,.mat-selection-list[dense] .mat-subheader{height:40px;line-height:8px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child,.mat-selection-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-item,.mat-selection-list[dense] .mat-list-item{display:block;height:40px}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content,.mat-selection-list[dense] .mat-list-item .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-item .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-avatar,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar,.mat-selection-list[dense] .mat-list-item.mat-list-item-avatar{height:48px}.mat-list[dense] .mat-list-item.mat-2-line,.mat-nav-list[dense] .mat-list-item.mat-2-line,.mat-selection-list[dense] .mat-list-item.mat-2-line{height:60px}.mat-list[dense] .mat-list-item.mat-3-line,.mat-nav-list[dense] .mat-list-item.mat-3-line,.mat-selection-list[dense] .mat-list-item.mat-3-line{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line,.mat-nav-list[dense] .mat-list-item.mat-multi-line,.mat-selection-list[dense] .mat-list-item.mat-multi-line{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text,.mat-selection-list[dense] .mat-list-item .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*,.mat-selection-list[dense] .mat-list-item .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty,.mat-selection-list[dense] .mat-list-item .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-item .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar,.mat-selection-list[dense] .mat-list-item .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon,.mat-selection-list[dense] .mat-list-item .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-option,.mat-nav-list[dense] .mat-list-option,.mat-selection-list[dense] .mat-list-option{display:block;height:40px}.mat-list[dense] .mat-list-option .mat-list-item-content,.mat-nav-list[dense] .mat-list-option .mat-list-item-content,.mat-selection-list[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-option .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-option .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-option.mat-list-item-avatar,.mat-nav-list[dense] .mat-list-option.mat-list-item-avatar,.mat-selection-list[dense] .mat-list-option.mat-list-item-avatar{height:48px}.mat-list[dense] .mat-list-option.mat-2-line,.mat-nav-list[dense] .mat-list-option.mat-2-line,.mat-selection-list[dense] .mat-list-option.mat-2-line{height:60px}.mat-list[dense] .mat-list-option.mat-3-line,.mat-nav-list[dense] .mat-list-option.mat-3-line,.mat-selection-list[dense] .mat-list-option.mat-3-line{height:76px}.mat-list[dense] .mat-list-option.mat-multi-line,.mat-nav-list[dense] .mat-list-option.mat-multi-line,.mat-selection-list[dense] .mat-list-option.mat-multi-line{height:100%;padding:8px 16px}.mat-list[dense] .mat-list-option .mat-list-text,.mat-nav-list[dense] .mat-list-option .mat-list-text,.mat-selection-list[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-option .mat-list-text>*,.mat-nav-list[dense] .mat-list-option .mat-list-text>*,.mat-selection-list[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-option .mat-list-text:empty,.mat-nav-list[dense] .mat-list-option .mat-list-text:empty,.mat-selection-list[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-option .mat-list-avatar,.mat-nav-list[dense] .mat-list-option .mat-list-avatar,.mat-selection-list[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-option .mat-list-icon,.mat-nav-list[dense] .mat-list-option .mat-list-icon,.mat-selection-list[dense] .mat-list-option .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0}.mat-list-option:not([disabled]){cursor:pointer}"],
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
+                },] },
+    ];
+    /** @nocollapse */
+    MatSelectionList.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
+    ]; };
+    MatSelectionList.propDecorators = {
+        "options": [{ type: _angular_core.ContentChildren, args: [MatListOption,] },],
+    };
     return MatSelectionList;
 }(_MatSelectionListMixinBase));
 
@@ -589,9 +771,45 @@ var MatSelectionList = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatListModule = /** @class */ (function () {
+var MatListModule = (function () {
     function MatListModule() {
     }
+    MatListModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [_angular_material_core.MatLineModule, _angular_material_core.MatRippleModule, _angular_material_core.MatCommonModule, _angular_material_core.MatPseudoCheckboxModule, _angular_common.CommonModule],
+                    exports: [
+                        MatList,
+                        MatListItem,
+                        MatListDivider,
+                        MatListAvatarCssMatStyler,
+                        _angular_material_core.MatLineModule,
+                        _angular_material_core.MatCommonModule,
+                        MatListIconCssMatStyler,
+                        MatListCssMatStyler,
+                        MatNavListCssMatStyler,
+                        MatDividerCssMatStyler,
+                        MatListSubheaderCssMatStyler,
+                        _angular_material_core.MatPseudoCheckboxModule,
+                        MatSelectionList,
+                        MatListOption
+                    ],
+                    declarations: [
+                        MatList,
+                        MatListItem,
+                        MatListDivider,
+                        MatListAvatarCssMatStyler,
+                        MatListIconCssMatStyler,
+                        MatListCssMatStyler,
+                        MatNavListCssMatStyler,
+                        MatDividerCssMatStyler,
+                        MatListSubheaderCssMatStyler,
+                        MatSelectionList,
+                        MatListOption
+                    ],
+                },] },
+    ];
+    /** @nocollapse */
+    MatListModule.ctorParameters = function () { return []; };
     return MatListModule;
 }());
 

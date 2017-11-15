@@ -44,10 +44,22 @@ function __extends(d, b) {
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */
-var MatSnackBarRef = /** @class */ (function () {
+var MatSnackBarRef = (function () {
     function MatSnackBarRef(containerInstance, _overlayRef) {
         var _this = this;
         this._overlayRef = _overlayRef;
+        /**
+         * Subject for notifying the user that the snack bar has closed.
+         */
+        this._afterClosed = new rxjs_Subject.Subject();
+        /**
+         * Subject for notifying the user that the snack bar has opened and appeared.
+         */
+        this._afterOpened = new rxjs_Subject.Subject();
+        /**
+         * Subject for notifying the user that the snack bar action was called.
+         */
+        this._onAction = new rxjs_Subject.Subject();
         this.containerInstance = containerInstance;
         // Dismiss snackbar on action.
         this.onAction().subscribe(function () { return _this.dismiss(); });
@@ -177,8 +189,36 @@ var MAT_SNACK_BAR_DATA = new _angular_core.InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
  */
-var MatSnackBarConfig = /** @class */ (function () {
+var MatSnackBarConfig = (function () {
     function MatSnackBarConfig() {
+        /**
+         * The politeness level for the MatAriaLiveAnnouncer announcement.
+         */
+        this.politeness = 'assertive';
+        /**
+         * Message to be announced by the MatAriaLiveAnnouncer
+         */
+        this.announcementMessage = '';
+        /**
+         * The length of time in milliseconds to wait before automatically dismissing the snack bar.
+         */
+        this.duration = 0;
+        /**
+         * Text layout direction for the snack bar.
+         */
+        this.direction = 'ltr';
+        /**
+         * Data being injected into the child component.
+         */
+        this.data = null;
+        /**
+         * The horizontal position to place the snack bar.
+         */
+        this.horizontalPosition = 'center';
+        /**
+         * The vertical position to place the snack bar.
+         */
+        this.verticalPosition = 'bottom';
     }
     return MatSnackBarConfig;
 }());
@@ -192,7 +232,7 @@ var MatSnackBarConfig = /** @class */ (function () {
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
  */
-var SimpleSnackBar = /** @class */ (function () {
+var SimpleSnackBar = (function () {
     function SimpleSnackBar(snackBarRef, data) {
         this.snackBarRef = snackBarRef;
         this.data = data;
@@ -221,6 +261,32 @@ var SimpleSnackBar = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    SimpleSnackBar.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'simple-snack-bar',
+                    template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
+                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px;opacity:1}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    animations: [
+                        _angular_animations.trigger('contentFade', [
+                            _angular_animations.transition(':enter', [
+                                _angular_animations.style({ opacity: '0' }),
+                                _angular_animations.animate(_angular_material_core.AnimationDurations.COMPLEX + " " + _angular_material_core.AnimationCurves.STANDARD_CURVE)
+                            ])
+                        ])
+                    ],
+                    host: {
+                        '[@contentFade]': '',
+                        'class': 'mat-simple-snackbar',
+                    }
+                },] },
+    ];
+    /** @nocollapse */
+    SimpleSnackBar.ctorParameters = function () { return [
+        { type: MatSnackBarRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_SNACK_BAR_DATA,] },] },
+    ]; };
     return SimpleSnackBar;
 }());
 
@@ -234,7 +300,7 @@ var HIDE_ANIMATION = _angular_material_core.AnimationDurations.EXITING + " " + _
  * Internal component that wraps user-provided snack bar content.
  * \@docs-private
  */
-var MatSnackBarContainer = /** @class */ (function (_super) {
+var MatSnackBarContainer = (function (_super) {
     __extends(MatSnackBarContainer, _super);
     function MatSnackBarContainer(_ngZone, _renderer, _elementRef, _changeDetectorRef) {
         var _this = _super.call(this) || this;
@@ -242,6 +308,22 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
         _this._renderer = _renderer;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
+        /**
+         * Whether the component has been destroyed.
+         */
+        _this._destroyed = false;
+        /**
+         * Subject for notifying that the snack bar has exited from view.
+         */
+        _this._onExit = new rxjs_Subject.Subject();
+        /**
+         * Subject for notifying that the snack bar has finished entering the view.
+         */
+        _this._onEnter = new rxjs_Subject.Subject();
+        /**
+         * The state of the snack bar animations.
+         */
+        _this._animationState = 'void';
         return _this;
     }
     /** Attach a component portal as content to this snack bar container. */
@@ -395,6 +477,38 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
         }
         return [];
     };
+    MatSnackBarContainer.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'snack-bar-container',
+                    template: "<ng-template cdkPortalOutlet></ng-template>",
+                    styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:border-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:0;max-width:inherit;width:100%}"],
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    host: {
+                        'role': 'alert',
+                        'class': 'mat-snack-bar-container',
+                        '[@state]': '_animationState',
+                        '(@state.done)': 'onAnimationEnd($event)'
+                    },
+                    animations: [
+                        _angular_animations.trigger('state', [
+                            _angular_animations.state('visible-top, visible-bottom', _angular_animations.style({ transform: 'translateY(0%)' })),
+                            _angular_animations.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', _angular_animations.animate(HIDE_ANIMATION)),
+                            _angular_animations.transition('void => visible-top, void => visible-bottom', _angular_animations.animate(SHOW_ANIMATION)),
+                        ])
+                    ],
+                },] },
+    ];
+    /** @nocollapse */
+    MatSnackBarContainer.ctorParameters = function () { return [
+        { type: _angular_core.NgZone, },
+        { type: _angular_core.Renderer2, },
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.ChangeDetectorRef, },
+    ]; };
+    MatSnackBarContainer.propDecorators = {
+        "_portalOutlet": [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.CdkPortalOutlet,] },],
+    };
     return MatSnackBarContainer;
 }(_angular_cdk_portal.BasePortalOutlet));
 
@@ -406,13 +520,19 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
 /**
  * Service to dispatch Material Design snack bar messages.
  */
-var MatSnackBar = /** @class */ (function () {
+var MatSnackBar = (function () {
     function MatSnackBar(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar) {
         this._overlay = _overlay;
         this._live = _live;
         this._injector = _injector;
         this._breakpointObserver = _breakpointObserver;
         this._parentSnackBar = _parentSnackBar;
+        /**
+         * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
+         * If there is a parent snack-bar service, all operations should delegate to that parent
+         * via `_openedSnackBarRef`.
+         */
+        this._snackBarRefAtThisLevel = null;
     }
     Object.defineProperty(MatSnackBar.prototype, "_openedSnackBarRef", {
         /** Reference to the currently opened snackbar at *any* level. */
@@ -656,6 +776,17 @@ var MatSnackBar = /** @class */ (function () {
         injectionTokens.set(MAT_SNACK_BAR_DATA, config.data);
         return new _angular_cdk_portal.PortalInjector(userInjector || this._injector, injectionTokens);
     };
+    MatSnackBar.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    MatSnackBar.ctorParameters = function () { return [
+        { type: _angular_cdk_overlay.Overlay, },
+        { type: _angular_cdk_a11y.LiveAnnouncer, },
+        { type: _angular_core.Injector, },
+        { type: _angular_cdk_layout.BreakpointObserver, },
+        { type: MatSnackBar, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
+    ]; };
     return MatSnackBar;
 }());
 /**
@@ -672,9 +803,26 @@ function _applyConfigDefaults(config) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSnackBarModule = /** @class */ (function () {
+var MatSnackBarModule = (function () {
     function MatSnackBarModule() {
     }
+    MatSnackBarModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [
+                        _angular_cdk_overlay.OverlayModule,
+                        _angular_cdk_portal.PortalModule,
+                        _angular_common.CommonModule,
+                        _angular_material_core.MatCommonModule,
+                        _angular_cdk_layout.LayoutModule,
+                    ],
+                    exports: [MatSnackBarContainer, _angular_material_core.MatCommonModule],
+                    declarations: [MatSnackBarContainer, SimpleSnackBar],
+                    entryComponents: [MatSnackBarContainer, SimpleSnackBar],
+                    providers: [MatSnackBar, _angular_cdk_a11y.LIVE_ANNOUNCER_PROVIDER]
+                },] },
+    ];
+    /** @nocollapse */
+    MatSnackBarModule.ctorParameters = function () { return []; };
     return MatSnackBarModule;
 }());
 

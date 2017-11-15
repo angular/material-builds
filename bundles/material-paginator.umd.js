@@ -8,8 +8,8 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/select'), require('@angular/material/tooltip'), require('rxjs/Subject')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/select', '@angular/material/tooltip', 'rxjs/Subject'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = global.ng.material.paginator || {}),global.ng.common,global.ng.core));
-}(this, (function (exports,_angular_common,_angular_core) { 'use strict';
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = global.ng.material.paginator || {}),global.ng.common,global.ng.core,global.ng.material.button,global.ng.material.select,global.ng.material.tooltip,global.Rx));
+}(this, (function (exports,_angular_common,_angular_core,_angular_material_button,_angular_material_select,_angular_material_tooltip,rxjs_Subject) { 'use strict';
 
 /**
  * @fileoverview added by tsickle
@@ -20,9 +20,46 @@
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
  * include it in a custom provider
  */
-var MatPaginatorIntl = /** @class */ (function () {
+var MatPaginatorIntl = (function () {
     function MatPaginatorIntl() {
+        /**
+         * Stream that emits whenever the labels here are changed. Use this to notify
+         * components if the labels have changed after initialization.
+         */
+        this.changes = new rxjs_Subject.Subject();
+        /**
+         * A label for the page size selector.
+         */
+        this.itemsPerPageLabel = 'Items per page:';
+        /**
+         * A label for the button that increments the current page.
+         */
+        this.nextPageLabel = 'Next page';
+        /**
+         * A label for the button that decrements the current page.
+         */
+        this.previousPageLabel = 'Previous page';
+        /**
+         * A label for the range of items within the current page and the length of the whole list.
+         */
+        this.getRangeLabel = function (page, pageSize, length) {
+            if (length == 0 || pageSize == 0) {
+                return "0 of " + length;
+            }
+            length = Math.max(length, 0);
+            var /** @type {?} */ startIndex = page * pageSize;
+            // If the start index exceeds the list length, do not try and fix the end index to the end.
+            var /** @type {?} */ endIndex = startIndex < length ?
+                Math.min(startIndex + pageSize, length) :
+                startIndex + pageSize;
+            return startIndex + 1 + " - " + endIndex + " of " + length;
+        };
     }
+    MatPaginatorIntl.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    MatPaginatorIntl.ctorParameters = function () { return []; };
     return MatPaginatorIntl;
 }());
 /**
@@ -56,7 +93,7 @@ var DEFAULT_PAGE_SIZE = 50;
  * Change event object that is emitted when the user selects a
  * different page size or navigates to another page.
  */
-var PageEvent = /** @class */ (function () {
+var PageEvent = (function () {
     function PageEvent() {
     }
     return PageEvent;
@@ -66,11 +103,18 @@ var PageEvent = /** @class */ (function () {
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
  */
-var MatPaginator = /** @class */ (function () {
+var MatPaginator = (function () {
     function MatPaginator(_intl, _changeDetectorRef) {
         var _this = this;
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
+        this._pageIndex = 0;
+        this._length = 0;
+        this._pageSizeOptions = [];
+        /**
+         * Event emitted when the paginator changes the page size or page index.
+         */
+        this.page = new _angular_core.EventEmitter();
         this._intlChanges = _intl.changes.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
     }
     Object.defineProperty(MatPaginator.prototype, "pageIndex", {
@@ -296,6 +340,31 @@ var MatPaginator = /** @class */ (function () {
             length: this.length
         });
     };
+    MatPaginator.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-paginator',
+                    exportAs: 'matPaginator',
+                    template: "<div class=\"mat-paginator-container\"><div class=\"mat-paginator-page-size\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\"><mat-select [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-actions\"><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-increment\"></div></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-decrement\"></div></button></div></div>",
+                    styles: [".mat-paginator-container{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px;flex-wrap:wrap-reverse}.mat-paginator-page-size{display:flex;align-items:baseline;margin-right:8px}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:6px 4px 0 4px;width:56px}.mat-paginator-range-label{margin:0 32px 0 24px}.mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 0 0 8px}[dir=rtl] .mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 8px 0 0}.mat-paginator-decrement,.mat-paginator-increment{width:8px;height:8px}.mat-paginator-decrement,[dir=rtl] .mat-paginator-increment{transform:rotate(45deg)}.mat-paginator-increment,[dir=rtl] .mat-paginator-decrement{transform:rotate(225deg)}.mat-paginator-decrement{margin-left:12px}[dir=rtl] .mat-paginator-decrement{margin-right:12px}.mat-paginator-increment{margin-left:16px}[dir=rtl] .mat-paginator-increment{margin-right:16px}.mat-paginator-range-actions{display:flex;align-items:center;min-height:48px}"],
+                    host: {
+                        'class': 'mat-paginator',
+                    },
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                },] },
+    ];
+    /** @nocollapse */
+    MatPaginator.ctorParameters = function () { return [
+        { type: MatPaginatorIntl, },
+        { type: _angular_core.ChangeDetectorRef, },
+    ]; };
+    MatPaginator.propDecorators = {
+        "pageIndex": [{ type: _angular_core.Input },],
+        "length": [{ type: _angular_core.Input },],
+        "pageSize": [{ type: _angular_core.Input },],
+        "pageSizeOptions": [{ type: _angular_core.Input },],
+        "page": [{ type: _angular_core.Output },],
+    };
     return MatPaginator;
 }());
 
@@ -304,9 +373,24 @@ var MatPaginator = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatPaginatorModule = /** @class */ (function () {
+var MatPaginatorModule = (function () {
     function MatPaginatorModule() {
     }
+    MatPaginatorModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [
+                        _angular_common.CommonModule,
+                        _angular_material_button.MatButtonModule,
+                        _angular_material_select.MatSelectModule,
+                        _angular_material_tooltip.MatTooltipModule,
+                    ],
+                    exports: [MatPaginator],
+                    declarations: [MatPaginator],
+                    providers: [MAT_PAGINATOR_INTL_PROVIDER],
+                },] },
+    ];
+    /** @nocollapse */
+    MatPaginatorModule.ctorParameters = function () { return []; };
     return MatPaginatorModule;
 }());
 

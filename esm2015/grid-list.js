@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import '@angular/core';
-import { MatLineSetter } from '@angular/material/core';
-import '@angular/cdk/bidi';
+import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Input, NgModule, Optional, Renderer2, ViewEncapsulation } from '@angular/core';
+import { MatCommonModule, MatLine, MatLineModule, MatLineSetter } from '@angular/material/core';
+import { Directionality } from '@angular/cdk/bidi';
 
 /**
  * @fileoverview added by tsickle
@@ -45,6 +45,8 @@ class MatGridTile {
     constructor(_renderer, _element) {
         this._renderer = _renderer;
         this._element = _element;
+        this._rowspan = 1;
+        this._colspan = 1;
     }
     /**
      * Amount of rows that the grid tile takes up.
@@ -77,6 +79,28 @@ class MatGridTile {
         this._renderer.setStyle(this._element.nativeElement, property, value);
     }
 }
+MatGridTile.decorators = [
+    { type: Component, args: [{selector: 'mat-grid-tile',
+                exportAs: 'matGridTile',
+                host: {
+                    'class': 'mat-grid-tile',
+                },
+                template: "<figure class=\"mat-figure\"><ng-content></ng-content></figure>",
+                styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
+                changeDetection: ChangeDetectionStrategy.OnPush,
+            },] },
+];
+/** @nocollapse */
+MatGridTile.ctorParameters = () => [
+    { type: Renderer2, },
+    { type: ElementRef, },
+];
+MatGridTile.propDecorators = {
+    "rowspan": [{ type: Input },],
+    "colspan": [{ type: Input },],
+};
 class MatGridTileText {
     /**
      * @param {?} _renderer
@@ -93,24 +117,64 @@ class MatGridTileText {
         this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
     }
 }
+MatGridTileText.decorators = [
+    { type: Component, args: [{selector: 'mat-grid-tile-header, mat-grid-tile-footer',
+                template: "<ng-content select=\"[mat-grid-avatar], [matGridAvatar]\"></ng-content><div class=\"mat-grid-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div><ng-content></ng-content>",
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
+            },] },
+];
+/** @nocollapse */
+MatGridTileText.ctorParameters = () => [
+    { type: Renderer2, },
+    { type: ElementRef, },
+];
+MatGridTileText.propDecorators = {
+    "_lines": [{ type: ContentChildren, args: [MatLine,] },],
+};
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
 class MatGridAvatarCssMatStyler {
 }
+MatGridAvatarCssMatStyler.decorators = [
+    { type: Directive, args: [{
+                selector: '[mat-grid-avatar], [matGridAvatar]',
+                host: { 'class': 'mat-grid-avatar' }
+            },] },
+];
+/** @nocollapse */
+MatGridAvatarCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
 class MatGridTileHeaderCssMatStyler {
 }
+MatGridTileHeaderCssMatStyler.decorators = [
+    { type: Directive, args: [{
+                selector: 'mat-grid-tile-header',
+                host: { 'class': 'mat-grid-tile-header' }
+            },] },
+];
+/** @nocollapse */
+MatGridTileHeaderCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
 class MatGridTileFooterCssMatStyler {
 }
+MatGridTileFooterCssMatStyler.decorators = [
+    { type: Directive, args: [{
+                selector: 'mat-grid-tile-footer',
+                host: { 'class': 'mat-grid-tile-footer' }
+            },] },
+];
+/** @nocollapse */
+MatGridTileFooterCssMatStyler.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -135,6 +199,23 @@ class MatGridTileFooterCssMatStyler {
  */
 class TileCoordinator {
     /**
+     * @param {?} numColumns
+     * @param {?} tiles
+     */
+    constructor(numColumns, tiles) {
+        /**
+         * Index at which the search for the next gap will start.
+         */
+        this.columnIndex = 0;
+        /**
+         * The current row index.
+         */
+        this.rowIndex = 0;
+        this.tracker = new Array(numColumns);
+        this.tracker.fill(0, 0, this.tracker.length);
+        this.positions = tiles.map(tile => this._trackTile(tile));
+    }
+    /**
      * Gets the total number of rows occupied by tiles
      * @return {?}
      */
@@ -149,15 +230,6 @@ class TileCoordinator {
         // if any of the tiles has a rowspan that pushes it beyond the total row count,
         // add the difference to the rowcount
         return lastRowMax > 1 ? this.rowCount + lastRowMax - 1 : this.rowCount;
-    }
-    /**
-     * @param {?} numColumns
-     * @param {?} tiles
-     */
-    constructor(numColumns, tiles) {
-        this.tracker = new Array(numColumns);
-        this.tracker.fill(0, 0, this.tracker.length);
-        this.positions = tiles.map(tile => this._trackTile(tile));
     }
     /**
      * Calculates the row and col position of a tile.
@@ -273,6 +345,10 @@ class TilePosition {
  * @abstract
  */
 class TileStyler {
+    constructor() {
+        this._rows = 0;
+        this._rowspan = 0;
+    }
     /**
      * Adds grid-list layout info once it is available. Cannot be processed in the constructor
      * because these properties haven't been calculated by that point.
@@ -562,6 +638,10 @@ class MatGridList {
         this._renderer = _renderer;
         this._element = _element;
         this._dir = _dir;
+        /**
+         * The amount of space between tiles. This will be something like '5px' or '2em'.
+         */
+        this._gutter = '1px';
     }
     /**
      * Amount of columns in the grid list.
@@ -673,6 +753,31 @@ class MatGridList {
         }
     }
 }
+MatGridList.decorators = [
+    { type: Component, args: [{selector: 'mat-grid-list',
+                exportAs: 'matGridList',
+                template: "<div><ng-content></ng-content></div>",
+                styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
+                host: {
+                    'class': 'mat-grid-list',
+                },
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
+            },] },
+];
+/** @nocollapse */
+MatGridList.ctorParameters = () => [
+    { type: Renderer2, },
+    { type: ElementRef, },
+    { type: Directionality, decorators: [{ type: Optional },] },
+];
+MatGridList.propDecorators = {
+    "_tiles": [{ type: ContentChildren, args: [MatGridTile,] },],
+    "cols": [{ type: Input },],
+    "gutterSize": [{ type: Input },],
+    "rowHeight": [{ type: Input },],
+};
 
 /**
  * @fileoverview added by tsickle
@@ -681,6 +786,31 @@ class MatGridList {
 
 class MatGridListModule {
 }
+MatGridListModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [MatLineModule, MatCommonModule],
+                exports: [
+                    MatGridList,
+                    MatGridTile,
+                    MatGridTileText,
+                    MatLineModule,
+                    MatCommonModule,
+                    MatGridTileHeaderCssMatStyler,
+                    MatGridTileFooterCssMatStyler,
+                    MatGridAvatarCssMatStyler
+                ],
+                declarations: [
+                    MatGridList,
+                    MatGridTile,
+                    MatGridTileText,
+                    MatGridTileHeaderCssMatStyler,
+                    MatGridTileFooterCssMatStyler,
+                    MatGridAvatarCssMatStyler
+                ],
+            },] },
+];
+/** @nocollapse */
+MatGridListModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
