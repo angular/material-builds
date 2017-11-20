@@ -895,12 +895,19 @@ ErrorStateMatcher.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Injection token that can be used to provide options to the Hammerjs instance.
+ * More info at http://hammerjs.github.io/api/.
+ */
+const MAT_HAMMER_OPTIONS = new InjectionToken('MAT_HAMMER_OPTIONS');
 class GestureConfig extends HammerGestureConfig {
     /**
+     * @param {?=} _hammerOptions
      * @param {?=} commonModule
      */
-    constructor(commonModule) {
+    constructor(_hammerOptions, commonModule) {
         super();
+        this._hammerOptions = _hammerOptions;
         this._hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
         /* List of new event names to add to the gesture support list */
         this.events = this._hammer ? [
@@ -929,16 +936,16 @@ class GestureConfig extends HammerGestureConfig {
      * @return {?} Newly-created HammerJS instance.
      */
     buildHammer(element) {
-        const /** @type {?} */ mc = new this._hammer(element);
+        const /** @type {?} */ mc = new this._hammer(element, this._hammerOptions || undefined);
         // Default Hammer Recognizers.
-        let /** @type {?} */ pan = new this._hammer.Pan();
-        let /** @type {?} */ swipe = new this._hammer.Swipe();
-        let /** @type {?} */ press = new this._hammer.Press();
+        const /** @type {?} */ pan = new this._hammer.Pan();
+        const /** @type {?} */ swipe = new this._hammer.Swipe();
+        const /** @type {?} */ press = new this._hammer.Press();
         // Notice that a HammerJS recognizer can only depend on one other recognizer once.
         // Otherwise the previous `recognizeWith` will be dropped.
         // TODO: Confirm threshold numbers with Material Design UX Team
-        let /** @type {?} */ slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
-        let /** @type {?} */ longpress = this._createRecognizer(press, { event: 'longpress', time: 500 });
+        const /** @type {?} */ slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
+        const /** @type {?} */ longpress = this._createRecognizer(press, { event: 'longpress', time: 500 });
         // Overwrite the default `pan` event to use the swipe event.
         pan.recognizeWith(swipe);
         // Add customized gestures to Hammer manager
@@ -964,6 +971,7 @@ GestureConfig.decorators = [
 ];
 /** @nocollapse */
 GestureConfig.ctorParameters = () => [
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_HAMMER_OPTIONS,] },] },
     { type: MatCommonModule, decorators: [{ type: Optional },] },
 ];
 
@@ -1916,5 +1924,5 @@ const DEC = 11;
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, extendObject, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
+export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, extendObject, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
 //# sourceMappingURL=core.js.map

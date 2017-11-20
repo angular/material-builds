@@ -1,10 +1,24 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { InjectionToken } from '@angular/core';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { MatCommonModule } from '../common-behaviors/common-module';
-import { HammerInstance } from './gesture-annotations';
+import { HammerInstance, HammerOptions } from './gesture-annotations';
+/**
+ * Injection token that can be used to provide options to the Hammerjs instance.
+ * More info at http://hammerjs.github.io/api/.
+ */
+export declare const MAT_HAMMER_OPTIONS: InjectionToken<HammerOptions>;
 export declare class GestureConfig extends HammerGestureConfig {
+    private _hammerOptions;
     private _hammer;
     events: string[];
-    constructor(commonModule?: MatCommonModule);
+    constructor(_hammerOptions?: HammerOptions | undefined, commonModule?: MatCommonModule);
     /**
      * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
      *

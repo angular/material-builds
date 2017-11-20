@@ -1213,10 +1213,16 @@ var ErrorStateMatcher = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * Injection token that can be used to provide options to the Hammerjs instance.
+ * More info at http://hammerjs.github.io/api/.
+ */
+var MAT_HAMMER_OPTIONS = new _angular_core.InjectionToken('MAT_HAMMER_OPTIONS');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
-    function GestureConfig(commonModule) {
+    function GestureConfig(_hammerOptions, commonModule) {
         var _this = _super.call(this) || this;
+        _this._hammerOptions = _hammerOptions;
         _this._hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
         /* List of new event names to add to the gesture support list */
         _this.events = _this._hammer ? [
@@ -1272,7 +1278,7 @@ var GestureConfig = (function (_super) {
      * @return {?} Newly-created HammerJS instance.
      */
     function (element) {
-        var /** @type {?} */ mc = new this._hammer(element);
+        var /** @type {?} */ mc = new this._hammer(element, this._hammerOptions || undefined);
         // Default Hammer Recognizers.
         var /** @type {?} */ pan = new this._hammer.Pan();
         var /** @type {?} */ swipe = new this._hammer.Swipe();
@@ -1317,6 +1323,7 @@ var GestureConfig = (function (_super) {
     ];
     /** @nocollapse */
     GestureConfig.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_HAMMER_OPTIONS,] },] },
         { type: MatCommonModule, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     return GestureConfig;
@@ -11579,7 +11586,7 @@ var MatDatepickerContent = (function () {
     MatDatepickerContent.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-content',
                     template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
-                    styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block}.mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
+                    styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
                     host: {
                         'class': 'mat-datepicker-content',
                         '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
@@ -27524,7 +27531,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc0-5600b80');
+var VERSION = new _angular_core.Version('5.0.0-rc0-f2a0206');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27610,6 +27617,7 @@ exports.NativeDateAdapter = NativeDateAdapter;
 exports.MAT_NATIVE_DATE_FORMATS = MAT_NATIVE_DATE_FORMATS;
 exports.ShowOnDirtyErrorStateMatcher = ShowOnDirtyErrorStateMatcher;
 exports.ErrorStateMatcher = ErrorStateMatcher;
+exports.MAT_HAMMER_OPTIONS = MAT_HAMMER_OPTIONS;
 exports.GestureConfig = GestureConfig;
 exports.MatLine = MatLine;
 exports.MatLineSetter = MatLineSetter;
@@ -27742,10 +27750,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa17 = MatMenuItemBase;
-exports.ɵb17 = _MatMenuItemMixinBase;
-exports.ɵd17 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc17 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa7 = MatMenuItemBase;
+exports.ɵb7 = _MatMenuItemMixinBase;
+exports.ɵd7 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc7 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -27866,16 +27874,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe11 = MatTabBase;
-exports.ɵf11 = _MatTabMixinBase;
-exports.ɵa11 = MatTabHeaderBase;
-exports.ɵb11 = _MatTabHeaderMixinBase;
-exports.ɵc11 = MatTabLabelWrapperBase;
-exports.ɵd11 = _MatTabLabelWrapperMixinBase;
-exports.ɵi11 = MatTabLinkBase;
-exports.ɵg11 = MatTabNavBase;
-exports.ɵj11 = _MatTabLinkMixinBase;
-exports.ɵh11 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

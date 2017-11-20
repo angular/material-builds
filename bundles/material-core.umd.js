@@ -1213,10 +1213,16 @@ var ErrorStateMatcher = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * Injection token that can be used to provide options to the Hammerjs instance.
+ * More info at http://hammerjs.github.io/api/.
+ */
+var MAT_HAMMER_OPTIONS = new _angular_core.InjectionToken('MAT_HAMMER_OPTIONS');
 var GestureConfig = (function (_super) {
     __extends(GestureConfig, _super);
-    function GestureConfig(commonModule) {
+    function GestureConfig(_hammerOptions, commonModule) {
         var _this = _super.call(this) || this;
+        _this._hammerOptions = _hammerOptions;
         _this._hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
         /* List of new event names to add to the gesture support list */
         _this.events = _this._hammer ? [
@@ -1272,7 +1278,7 @@ var GestureConfig = (function (_super) {
      * @return {?} Newly-created HammerJS instance.
      */
     function (element) {
-        var /** @type {?} */ mc = new this._hammer(element);
+        var /** @type {?} */ mc = new this._hammer(element, this._hammerOptions || undefined);
         // Default Hammer Recognizers.
         var /** @type {?} */ pan = new this._hammer.Pan();
         var /** @type {?} */ swipe = new this._hammer.Swipe();
@@ -1317,6 +1323,7 @@ var GestureConfig = (function (_super) {
     ];
     /** @nocollapse */
     GestureConfig.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_HAMMER_OPTIONS,] },] },
         { type: MatCommonModule, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     return GestureConfig;
@@ -2499,6 +2506,7 @@ exports.NativeDateAdapter = NativeDateAdapter;
 exports.MAT_NATIVE_DATE_FORMATS = MAT_NATIVE_DATE_FORMATS;
 exports.ShowOnDirtyErrorStateMatcher = ShowOnDirtyErrorStateMatcher;
 exports.ErrorStateMatcher = ErrorStateMatcher;
+exports.MAT_HAMMER_OPTIONS = MAT_HAMMER_OPTIONS;
 exports.GestureConfig = GestureConfig;
 exports.MatLine = MatLine;
 exports.MatLineSetter = MatLineSetter;
