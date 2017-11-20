@@ -7,7 +7,7 @@
  */
 import { A11yModule, FocusMonitor, FocusTrapFactory } from '@angular/cdk/a11y';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
@@ -15,7 +15,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { DOCUMENT } from '@angular/platform-browser';
 import { merge } from 'rxjs/observable/merge';
 import { filter } from 'rxjs/operators/filter';
 import { first } from 'rxjs/operators/first';

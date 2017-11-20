@@ -1587,7 +1587,7 @@ var MatChipInput = (function () {
          */
         function () {
             var /** @type {?} */ value = this._inputElement.value;
-            return value == null || value === '';
+            return (value == null || value === '');
         },
         enumerable: true,
         configurable: true
@@ -1661,6 +1661,16 @@ var MatChipInput = (function () {
     /**
      * @return {?}
      */
+    MatChipInput.prototype._onInput = /**
+     * @return {?}
+     */
+    function () {
+        // Let chip list know whenever the value changes.
+        this._chipList.stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
     MatChipInput.prototype.focus = /**
      * @return {?}
      */
@@ -1674,6 +1684,7 @@ var MatChipInput = (function () {
                         '(keydown)': '_keydown($event)',
                         '(blur)': '_blur()',
                         '(focus)': '_focus()',
+                        '(input)': '_onInput()',
                     }
                 },] },
     ];

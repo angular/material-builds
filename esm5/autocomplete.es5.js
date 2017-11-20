@@ -8,7 +8,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Host, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatCommonModule, MatOptgroup, MatOption, MatOptionModule } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW } from '@angular/cdk/keycodes';
@@ -20,7 +20,6 @@ import { tap } from 'rxjs/operators/tap';
 import { delay } from 'rxjs/operators/delay';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
-import { DOCUMENT } from '@angular/platform-browser';
 import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';

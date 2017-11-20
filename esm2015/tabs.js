@@ -263,15 +263,19 @@ class MatTabBodyPortal extends _MatTabBodyPortalBaseClass {
         if (this._host._isCenterPosition(this._host._position)) {
             this.attach(this._host._content);
         }
-        else {
-            this._centeringSub = this._host._beforeCentering.subscribe(() => {
-                this.attach(this._host._content);
-                this._centeringSub.unsubscribe();
-            });
-        }
+        this._centeringSub = this._host._beforeCentering.subscribe((isCentering) => {
+            if (isCentering) {
+                if (!this.hasAttached()) {
+                    this.attach(this._host._content);
+                }
+            }
+            else {
+                this.detach();
+            }
+        });
     }
     /**
-     * Clean up subscription if necessary.
+     * Clean up centering subscription.
      * @return {?}
      */
     ngOnDestroy() {
@@ -363,8 +367,9 @@ class MatTabBody {
      * @return {?}
      */
     _onTranslateTabStarted(e) {
-        if (this._isCenterPosition(e.toState)) {
-            this._beforeCentering.emit();
+        const /** @type {?} */ isCentering = this._isCenterPosition(e.toState);
+        this._beforeCentering.emit(isCentering);
+        if (isCentering) {
             this._onCentering.emit(this._elementRef.nativeElement.clientHeight);
         }
     }
@@ -1577,5 +1582,5 @@ MatTabsModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe21, _MatTabMixinBase as ɵf21, MatTabHeaderBase as ɵa21, _MatTabHeaderMixinBase as ɵb21, MatTabLabelWrapperBase as ɵc21, _MatTabLabelWrapperMixinBase as ɵd21, MatTabLinkBase as ɵi21, MatTabNavBase as ɵg21, _MatTabLinkMixinBase as ɵj21, _MatTabNavMixinBase as ɵh21 };
+export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe22, _MatTabMixinBase as ɵf22, MatTabHeaderBase as ɵa22, _MatTabHeaderMixinBase as ɵb22, MatTabLabelWrapperBase as ɵc22, _MatTabLabelWrapperMixinBase as ɵd22, MatTabLinkBase as ɵi22, MatTabNavBase as ɵg22, _MatTabLinkMixinBase as ɵj22, _MatTabNavMixinBase as ɵh22 };
 //# sourceMappingURL=tabs.js.map

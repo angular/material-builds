@@ -1254,7 +1254,7 @@ class MatChipInput {
      */
     get empty() {
         let /** @type {?} */ value = this._inputElement.value;
-        return value == null || value === '';
+        return (value == null || value === '');
     }
     /**
      * Utility method to make host definition/tests more clear.
@@ -1305,6 +1305,13 @@ class MatChipInput {
     /**
      * @return {?}
      */
+    _onInput() {
+        // Let chip list know whenever the value changes.
+        this._chipList.stateChanges.next();
+    }
+    /**
+     * @return {?}
+     */
     focus() { this._inputElement.focus(); }
 }
 MatChipInput.decorators = [
@@ -1316,6 +1323,7 @@ MatChipInput.decorators = [
                     '(keydown)': '_keydown($event)',
                     '(blur)': '_blur()',
                     '(focus)': '_focus()',
+                    '(input)': '_onInput()',
                 }
             },] },
 ];

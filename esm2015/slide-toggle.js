@@ -136,7 +136,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
     }
     /**
-     * This function will called if the underlying input changed its value through user interaction.
+     * Method being called whenever the underlying input emits a change event.
      * @param {?} event
      * @return {?}
      */
@@ -145,24 +145,25 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         // Otherwise the change event, from the input element, will bubble up and
         // emit its event object to the component's `change` output.
         event.stopPropagation();
-        // Sync the value from the underlying input element with the slide-toggle component.
+        // Releasing the pointer over the `<label>` element while dragging triggers another
+        // click event on the `<label>` element. This means that the checked state of the underlying
+        // input changed unintentionally and needs to be changed back.
+        if (this._slideRenderer.dragging) {
+            this._inputElement.nativeElement.checked = this.checked;
+            return;
+        }
+        // Sync the value from the underlying input element with the component instance.
         this.checked = this._inputElement.nativeElement.checked;
-        // Emit our custom change event if the native input emitted one.
-        // It is important to only emit it, if the native input triggered one, because we don't want
-        // to trigger a change event, when the `checked` variable changes programmatically.
+        // Emit our custom change event only if the underlying input emitted one. This ensures that
+        // there is no change event, when the checked state changes programmatically.
         this._emitChangeEvent();
     }
     /**
+     * Method being called whenever the slide-toggle has been clicked.
      * @param {?} event
      * @return {?}
      */
     _onInputClick(event) {
-        // In some situations the user will release the mouse on the label element. The label element
-        // redirects the click to the underlying input element and will result in a value change.
-        // Prevent the default behavior if dragging, because the value will be set after drag.
-        if (this._slideRenderer.dragging) {
-            event.preventDefault();
-        }
         // We have to stop propagation for click events on the visual hidden input element.
         // By default, when a user clicks on a label element, a generated click event will be
         // dispatched on the associated input element. Since we are using a label element as our
@@ -271,9 +272,9 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      */
     _onDragEnd() {
         if (this._slideRenderer.dragging) {
-            let /** @type {?} */ _previousChecked = this.checked;
-            this.checked = this._slideRenderer.dragPercentage > 50;
-            if (_previousChecked !== this.checked) {
+            const /** @type {?} */ newCheckedValue = this._slideRenderer.dragPercentage > 50;
+            if (newCheckedValue !== this.checked) {
+                this.checked = newCheckedValue;
                 this._emitChangeEvent();
             }
             // The drag should be stopped outside of the current event handler, because otherwise the

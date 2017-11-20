@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Injector, Input, NgModule, Optional, SkipSelf, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CommonModule, Location } from '@angular/common';
+import { CommonModule, DOCUMENT, Location } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { A11yModule, FocusTrapFactory } from '@angular/cdk/a11y';
@@ -20,7 +20,6 @@ import { Subject } from 'rxjs/Subject';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { DOCUMENT } from '@angular/platform-browser';
 import { first } from 'rxjs/operators/first';
 import { of } from 'rxjs/observable/of';
 

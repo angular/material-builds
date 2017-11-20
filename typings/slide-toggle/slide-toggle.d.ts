@@ -62,10 +62,9 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     constructor(elementRef: ElementRef, renderer: Renderer2, _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
-    /**
-     * This function will called if the underlying input changed its value through user interaction.
-     */
+    /** Method being called whenever the underlying input emits a change event. */
     _onChangeEvent(event: Event): void;
+    /** Method being called whenever the slide-toggle has been clicked. */
     _onInputClick(event: Event): void;
     /** Implemented as part of ControlValueAccessor. */
     writeValue(value: any): void;

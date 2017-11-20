@@ -39,5 +39,6 @@ export declare class MatChipInput {
     _focus(): void;
     /** Checks to see if the (chipEnd) event needs to be emitted. */
     _emitChipEnd(event?: KeyboardEvent): void;
+    _onInput(): void;
     focus(): void;
 }

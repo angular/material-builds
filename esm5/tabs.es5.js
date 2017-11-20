@@ -303,20 +303,24 @@ var MatTabBodyPortal = (function (_super) {
         if (this._host._isCenterPosition(this._host._position)) {
             this.attach(this._host._content);
         }
-        else {
-            this._centeringSub = this._host._beforeCentering.subscribe(function () {
-                _this.attach(_this._host._content);
-                _this._centeringSub.unsubscribe();
-            });
-        }
+        this._centeringSub = this._host._beforeCentering.subscribe(function (isCentering) {
+            if (isCentering) {
+                if (!_this.hasAttached()) {
+                    _this.attach(_this._host._content);
+                }
+            }
+            else {
+                _this.detach();
+            }
+        });
     };
-    /** Clean up subscription if necessary. */
+    /** Clean up centering subscription. */
     /**
-     * Clean up subscription if necessary.
+     * Clean up centering subscription.
      * @return {?}
      */
     MatTabBodyPortal.prototype.ngOnDestroy = /**
-     * Clean up subscription if necessary.
+     * Clean up centering subscription.
      * @return {?}
      */
     function () {
@@ -426,8 +430,9 @@ var MatTabBody = (function () {
      * @return {?}
      */
     function (e) {
-        if (this._isCenterPosition(e.toState)) {
-            this._beforeCentering.emit();
+        var /** @type {?} */ isCentering = this._isCenterPosition(e.toState);
+        this._beforeCentering.emit(isCentering);
+        if (isCentering) {
             this._onCentering.emit(this._elementRef.nativeElement.clientHeight);
         }
     };
@@ -1992,5 +1997,5 @@ var MatTabsModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe21, _MatTabMixinBase as ɵf21, MatTabHeaderBase as ɵa21, _MatTabHeaderMixinBase as ɵb21, MatTabLabelWrapperBase as ɵc21, _MatTabLabelWrapperMixinBase as ɵd21, MatTabLinkBase as ɵi21, MatTabNavBase as ɵg21, _MatTabLinkMixinBase as ɵj21, _MatTabNavMixinBase as ɵh21 };
+export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe22, _MatTabMixinBase as ɵf22, MatTabHeaderBase as ɵa22, _MatTabHeaderMixinBase as ɵb22, MatTabLabelWrapperBase as ɵc22, _MatTabLabelWrapperMixinBase as ɵd22, MatTabLinkBase as ɵi22, MatTabNavBase as ɵg22, _MatTabLinkMixinBase as ɵj22, _MatTabNavMixinBase as ɵh22 };
 //# sourceMappingURL=tabs.es5.js.map
