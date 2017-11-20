@@ -7,17 +7,17 @@
  */
 import { FocusableOption } from '@angular/cdk/a11y';
 import { ElementRef, OnDestroy } from '@angular/core';
-import { CanDisable } from '@angular/material/core';
+import { CanDisable, CanDisableRipple } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 /** @docs-private */
 export declare class MatMenuItemBase {
 }
-export declare const _MatMenuItemMixinBase: (new (...args: any[]) => CanDisable) & typeof MatMenuItemBase;
+export declare const _MatMenuItemMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatMenuItemBase;
 /**
  * This directive is intended to be used inside an mat-menu tag.
  * It exists mostly to set the role attribute.
  */
-export declare class MatMenuItem extends _MatMenuItemMixinBase implements FocusableOption, CanDisable, OnDestroy {
+export declare class MatMenuItem extends _MatMenuItemMixinBase implements FocusableOption, CanDisable, CanDisableRipple, OnDestroy {
     private _elementRef;
     /** Stream that emits when the menu item is hovered. */
     _hovered: Subject<MatMenuItem>;
