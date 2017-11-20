@@ -12791,6 +12791,7 @@ var MatExpansionPanel = (function (_super) {
      * @return {?}
      */
     function () {
+        _super.prototype.ngOnDestroy.call(this);
         this._inputChanges.complete();
     };
     MatExpansionPanel.decorators = [
@@ -24615,6 +24616,17 @@ var MatStepper = (function (_super) {
     function MatStepper() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * @return {?}
+     */
+    MatStepper.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        // Mark the component for change detection whenever the content children query changes
+        this._steps.changes.pipe(rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function () { return _this._stateChanged(); });
+    };
     MatStepper.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: '[matStepper]'
@@ -27511,7 +27523,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc0-d6f287e');
+var VERSION = new _angular_core.Version('5.0.0-rc0-2bc0b41');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27729,10 +27741,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MatMenuItemBase;
-exports.ɵb21 = _MatMenuItemMixinBase;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa18 = MatMenuItemBase;
+exports.ɵb18 = _MatMenuItemMixinBase;
+exports.ɵd18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -27853,16 +27865,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe15 = MatTabBase;
+exports.ɵf15 = _MatTabMixinBase;
+exports.ɵa15 = MatTabHeaderBase;
+exports.ɵb15 = _MatTabHeaderMixinBase;
+exports.ɵc15 = MatTabLabelWrapperBase;
+exports.ɵd15 = _MatTabLabelWrapperMixinBase;
+exports.ɵi15 = MatTabLinkBase;
+exports.ɵg15 = MatTabNavBase;
+exports.ɵj15 = _MatTabLinkMixinBase;
+exports.ɵh15 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

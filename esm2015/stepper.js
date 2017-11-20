@@ -16,6 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { takeUntil } from 'rxjs/operators/takeUntil';
 
 /**
  * @fileoverview added by tsickle
@@ -249,6 +250,13 @@ MatStep.propDecorators = {
     "stepLabel": [{ type: ContentChild, args: [MatStepLabel,] },],
 };
 class MatStepper extends _MatStepper {
+    /**
+     * @return {?}
+     */
+    ngAfterContentInit() {
+        // Mark the component for change detection whenever the content children query changes
+        this._steps.changes.pipe(takeUntil(this._destroyed)).subscribe(() => this._stateChanged());
+    }
 }
 MatStepper.decorators = [
     { type: Directive, args: [{

@@ -1,5 +1,5 @@
 import { CdkStep, CdkStepper } from '@angular/cdk/stepper';
-import { ElementRef, QueryList } from '@angular/core';
+import { AfterContentInit, ElementRef, QueryList } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatStepLabel } from './step-label';
@@ -14,11 +14,12 @@ export declare class MatStep extends _MatStep implements ErrorStateMatcher {
     /** Custom error state matcher that additionally checks for validity of interacted form. */
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean;
 }
-export declare class MatStepper extends _MatStepper {
+export declare class MatStepper extends _MatStepper implements AfterContentInit {
     /** The list of step headers of the steps in the stepper. */
     _stepHeader: QueryList<ElementRef>;
     /** Steps that the stepper holds. */
     _steps: QueryList<MatStep>;
+    ngAfterContentInit(): void;
 }
 export declare class MatHorizontalStepper extends MatStepper {
 }

@@ -230,6 +230,7 @@ var MatExpansionPanel = (function (_super) {
      * @return {?}
      */
     function () {
+        _super.prototype.ngOnDestroy.call(this);
         this._inputChanges.complete();
     };
     MatExpansionPanel.decorators = [

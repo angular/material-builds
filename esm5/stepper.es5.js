@@ -18,6 +18,7 @@ import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { takeUntil } from 'rxjs/operators/takeUntil';
 
 /**
  * @fileoverview added by tsickle
@@ -288,6 +289,17 @@ var MatStepper = (function (_super) {
     function MatStepper() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    /**
+     * @return {?}
+     */
+    MatStepper.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        // Mark the component for change detection whenever the content children query changes
+        this._steps.changes.pipe(takeUntil(this._destroyed)).subscribe(function () { return _this._stateChanged(); });
+    };
     MatStepper.decorators = [
         { type: Directive, args: [{
                     selector: '[matStepper]'

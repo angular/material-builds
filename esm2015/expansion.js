@@ -187,6 +187,7 @@ class MatExpansionPanel extends _MatExpansionPanelMixinBase {
      * @return {?}
      */
     ngOnDestroy() {
+        super.ngOnDestroy();
         this._inputChanges.complete();
     }
 }
