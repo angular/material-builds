@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/cdk/platform'), require('@angular/core'), require('@angular/material/core'), require('@angular/platform-browser'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/forms')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/observers', '@angular/cdk/platform', '@angular/core', '@angular/material/core', '@angular/platform-browser', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/forms'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['slide-toggle'] = global.ng.material['slide-toggle'] || {}),global.ng.cdk.observers,global.ng.cdk.platform,global.ng.core,global.ng.material.core,global.ng.platformBrowser,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.forms));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slideToggle = global.ng.material.slideToggle || {}),global.ng.cdk.observers,global.ng.cdk.platform,global.ng.core,global.ng.material.core,global.ng.platformBrowser,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.forms));
 }(this, (function (exports,_angular_cdk_observers,_angular_cdk_platform,_angular_core,_angular_material_core,_angular_platformBrowser,_angular_cdk_a11y,_angular_cdk_coercion,_angular_forms) { 'use strict';
 
 /*! *****************************************************************************

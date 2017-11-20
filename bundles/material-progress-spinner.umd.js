@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/platform'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/coercion')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/platform', '@angular/material/core', '@angular/common', '@angular/cdk/coercion'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['progress-spinner'] = global.ng.material['progress-spinner'] || {}),global.ng.core,global.ng.cdk.platform,global.ng.material.core,global.ng.common,global.ng.cdk.coercion));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressSpinner = global.ng.material.progressSpinner || {}),global.ng.core,global.ng.cdk.platform,global.ng.material.core,global.ng.common,global.ng.cdk.coercion));
 }(this, (function (exports,_angular_core,_angular_cdk_platform,_angular_material_core,_angular_common,_angular_cdk_coercion) { 'use strict';
 
 /*! *****************************************************************************

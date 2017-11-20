@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['progress-bar'] = global.ng.material['progress-bar'] || {}),global.ng.core,global.ng.common,global.ng.material.core));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressBar = global.ng.material.progressBar || {}),global.ng.core,global.ng.common,global.ng.material.core));
 }(this, (function (exports,_angular_core,_angular_common,_angular_material_core) { 'use strict';
 
 /**

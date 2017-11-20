@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/bidi')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/bidi'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['grid-list'] = global.ng.material['grid-list'] || {}),global.ng.core,global.ng.material.core,global.ng.cdk.bidi));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.gridList = global.ng.material.gridList || {}),global.ng.core,global.ng.material.core,global.ng.cdk.bidi));
 }(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_bidi) { 'use strict';
 
 /*! *****************************************************************************
