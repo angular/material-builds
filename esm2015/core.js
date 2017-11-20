@@ -1147,7 +1147,7 @@ class RippleRenderer {
             y = containerRect.top + containerRect.height / 2;
         }
         const /** @type {?} */ radius = config.radius || distanceToFurthestCorner(x, y, containerRect);
-        const /** @type {?} */ duration = RIPPLE_FADE_IN_DURATION * (1 / (config.speedFactor || 1));
+        const /** @type {?} */ duration = RIPPLE_FADE_IN_DURATION / (config.speedFactor || 1);
         const /** @type {?} */ offsetX = x - containerRect.left;
         const /** @type {?} */ offsetY = y - containerRect.top;
         const /** @type {?} */ ripple = document.createElement('div');

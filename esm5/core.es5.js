@@ -1501,7 +1501,7 @@ var RippleRenderer = (function () {
             y = containerRect.top + containerRect.height / 2;
         }
         var /** @type {?} */ radius = config.radius || distanceToFurthestCorner(x, y, containerRect);
-        var /** @type {?} */ duration = RIPPLE_FADE_IN_DURATION * (1 / (config.speedFactor || 1));
+        var /** @type {?} */ duration = RIPPLE_FADE_IN_DURATION / (config.speedFactor || 1);
         var /** @type {?} */ offsetX = x - containerRect.left;
         var /** @type {?} */ offsetY = y - containerRect.top;
         var /** @type {?} */ ripple = document.createElement('div');

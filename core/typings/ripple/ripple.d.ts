@@ -10,7 +10,16 @@ import { Platform } from '@angular/cdk/platform';
 import { RippleConfig } from './ripple-renderer';
 import { RippleRef } from './ripple-ref';
 export interface RippleGlobalOptions {
+    /**
+     * Whether ripples should be disabled. Ripples can be still launched manually by using
+     * the `launch()` method. Therefore focus indicators will still show up.
+     */
     disabled?: boolean;
+    /**
+     * If set, the default duration of the fade-in animation is divided by this value. For example,
+     * setting it to 0.5 will cause the ripple fade-in animation to take twice as long.
+     * A changed speedFactor will not affect the fade-out duration of the ripples.
+     */
     baseSpeedFactor?: number;
 }
 /** Injection token that can be used to specify the global ripple options. */
