@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/keycodes'), require('rxjs/operators/filter'), require('rxjs/operators/startWith'), require('@angular/cdk/bidi'), require('rxjs/observable/defer'), require('rxjs/Subject'), require('@angular/animations'), require('rxjs/operators/first'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/keycodes', 'rxjs/operators/filter', 'rxjs/operators/startWith', '@angular/cdk/bidi', 'rxjs/observable/defer', 'rxjs/Subject', '@angular/animations', 'rxjs/operators/first', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = global.ng.material.dialog || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.bidi,global.Rx.Observable,global.Rx,global.ng.animations,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_material_core,_angular_cdk_keycodes,rxjs_operators_filter,rxjs_operators_startWith,_angular_cdk_bidi,rxjs_observable_defer,rxjs_Subject,_angular_animations,rxjs_operators_first,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('rxjs/observable/defer'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('rxjs/operators/startWith'), require('rxjs/Subject'), require('@angular/animations'), require('rxjs/operators/first')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/keycodes', 'rxjs/observable/defer', 'rxjs/observable/of', 'rxjs/operators/filter', 'rxjs/operators/startWith', 'rxjs/Subject', '@angular/animations', 'rxjs/operators/first'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = global.ng.material.dialog || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx,global.ng.animations,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_material_core,_angular_cdk_bidi,_angular_cdk_keycodes,rxjs_observable_defer,rxjs_observable_of,rxjs_operators_filter,rxjs_operators_startWith,rxjs_Subject,_angular_animations,rxjs_operators_first) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -36,6 +36,14 @@ function __extends(d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
+
+var __assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+    return t;
+};
 
 /**
  * @fileoverview added by tsickle
@@ -95,6 +103,14 @@ var MatDialogConfig = (function () {
          * ID of the element that describes the dialog.
          */
         this.ariaDescribedBy = null;
+        /**
+         * Aria label to assign to the dialog element
+         */
+        this.ariaLabel = null;
+        /**
+         * Whether the dialog should focus the first focusable element on open.
+         */
+        this.autoFocus = true;
     }
     return MatDialogConfig;
 }());
@@ -204,7 +220,9 @@ var MatDialogContainer = (function (_super) {
         // If were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
-        this._focusTrap.focusInitialElementWhenReady();
+        if (this._config.autoFocus) {
+            this._focusTrap.focusInitialElementWhenReady();
+        }
     };
     /**
      * Restores focus to the element that was focused before the dialog opened.
@@ -316,7 +334,8 @@ var MatDialogContainer = (function (_super) {
                         'class': 'mat-dialog-container',
                         'tabindex': '-1',
                         '[attr.role]': '_config?.role',
-                        '[attr.aria-labelledby]': '_ariaLabelledBy',
+                        '[attr.aria-labelledby]': '_config?.ariaLabel ? null : _ariaLabelledBy',
+                        '[attr.aria-label]': '_config?.ariaLabel',
                         '[attr.aria-describedby]': '_config?.ariaDescribedBy || null',
                         '[@slideDialog]': '_state',
                         '(@slideDialog.start)': '_onAnimationStart($event)',
@@ -554,7 +573,6 @@ var MatDialogRef = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MAT_DIALOG_DATA = new _angular_core.InjectionToken('MatDialogData');
 /**
  * Injection token that determines the scroll handling while the dialog is open.
@@ -894,7 +912,7 @@ var MatDialog = (function () {
  * @return {?} The new configuration object.
  */
 function _applyConfigDefaults(config) {
-    return _angular_material_core.extendObject(new MatDialogConfig(), config);
+    return __assign({}, new MatDialogConfig(), config);
 }
 
 /**

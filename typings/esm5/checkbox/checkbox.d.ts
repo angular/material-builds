@@ -141,6 +141,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
      * @param isDisabled Whether the checkbox should be disabled.
      */
     setDisabledState(isDisabled: boolean): void;
+    _getAriaChecked(): 'true' | 'false' | 'mixed';
     private _transitionCheckState(newState);
     private _emitChangeEvent();
     /** Function is called whenever the focus changes for the input element. */

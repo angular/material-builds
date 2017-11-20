@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/material/core'), require('@angular/animations'), require('rxjs/Subject'), require('rxjs/operators/first'), require('rxjs/operators/takeUntil')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/material/core', '@angular/animations', 'rxjs/Subject', 'rxjs/operators/first', 'rxjs/operators/takeUntil'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['snack-bar'] = global.ng.material['snack-bar'] || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.material.core,global.ng.animations,global.Rx,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_cdk_layout,_angular_material_core,_angular_animations,rxjs_Subject,rxjs_operators_first,rxjs_operators_takeUntil) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/material/core'), require('rxjs/operators/first'), require('rxjs/operators/takeUntil'), require('@angular/animations'), require('rxjs/Subject')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/material/core', 'rxjs/operators/first', 'rxjs/operators/takeUntil', '@angular/animations', 'rxjs/Subject'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material['snack-bar'] = global.ng.material['snack-bar'] || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.material.core,global.Rx.Observable,global.Rx.Observable,global.ng.animations,global.Rx));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_cdk_layout,_angular_material_core,rxjs_operators_first,rxjs_operators_takeUntil,_angular_animations,rxjs_Subject) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -36,6 +36,14 @@ function __extends(d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
+
+var __assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+    return t;
+};
 
 /**
  * @fileoverview added by tsickle
@@ -516,7 +524,6 @@ var MatSnackBarContainer = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -795,7 +802,7 @@ var MatSnackBar = (function () {
  * @return {?} The new configuration object with defaults applied.
  */
 function _applyConfigDefaults(config) {
-    return _angular_material_core.extendObject(new MatSnackBarConfig(), config);
+    return __assign({}, new MatSnackBarConfig(), config);
 }
 
 /**

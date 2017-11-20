@@ -9,8 +9,8 @@ import { ObserversModule } from '@angular/cdk/observers';
 import { CdkPortal, CdkPortalOutlet, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { Subject } from 'rxjs/Subject';
@@ -1818,13 +1818,13 @@ var MatTabLinkBase = (function () {
     }
     return MatTabLinkBase;
 }());
-var _MatTabLinkMixinBase = mixinDisabled(MatTabLinkBase);
+var _MatTabLinkMixinBase = mixinTabIndex(mixinDisabled(MatTabLinkBase));
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
 var MatTabLink = (function (_super) {
     __extends(MatTabLink, _super);
-    function MatTabLink(_tabNavBar, _elementRef, ngZone, platform, globalOptions) {
+    function MatTabLink(_tabNavBar, _elementRef, ngZone, platform, globalOptions, tabIndex) {
         var _this = _super.call(this) || this;
         _this._tabNavBar = _tabNavBar;
         _this._elementRef = _elementRef;
@@ -1841,6 +1841,7 @@ var MatTabLink = (function (_super) {
         // Manually create a ripple instance that uses the tab link element as trigger element.
         // Notice that the lifecycle hooks for the ripple config won't be called anymore.
         _this._tabLinkRipple = new MatRipple(_elementRef, ngZone, platform, globalOptions);
+        _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
     Object.defineProperty(MatTabLink.prototype, "active", {
@@ -1881,18 +1882,6 @@ var MatTabLink = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatTabLink.prototype, "tabIndex", {
-        /** @docs-private */
-        get: /**
-         * \@docs-private
-         * @return {?}
-         */
-        function () {
-            return this.disabled ? null : 0;
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -1908,7 +1897,7 @@ var MatTabLink = (function (_super) {
         { type: Directive, args: [{
                     selector: '[mat-tab-link], [matTabLink]',
                     exportAs: 'matTabLink',
-                    inputs: ['disabled'],
+                    inputs: ['disabled', 'tabIndex'],
                     host: {
                         'class': 'mat-tab-link',
                         '[attr.aria-disabled]': 'disabled.toString()',
@@ -1925,6 +1914,7 @@ var MatTabLink = (function (_super) {
         { type: NgZone, },
         { type: Platform, },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
+        { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
     ]; };
     MatTabLink.propDecorators = {
         "active": [{ type: Input },],

@@ -10,16 +10,16 @@ import { CommonModule, DOCUMENT, Location } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { A11yModule, FocusTrapFactory } from '@angular/cdk/a11y';
-import { MatCommonModule, extendObject } from '@angular/material/core';
+import { MatCommonModule } from '@angular/material/core';
+import { Directionality } from '@angular/cdk/bidi';
 import { ESCAPE } from '@angular/cdk/keycodes';
+import { defer } from 'rxjs/observable/defer';
+import { of } from 'rxjs/observable/of';
 import { filter } from 'rxjs/operators/filter';
 import { startWith } from 'rxjs/operators/startWith';
-import { Directionality } from '@angular/cdk/bidi';
-import { defer } from 'rxjs/observable/defer';
 import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { first } from 'rxjs/operators/first';
-import { of } from 'rxjs/observable/of';
 
 /**
  * @fileoverview added by tsickle
@@ -79,6 +79,14 @@ class MatDialogConfig {
          * ID of the element that describes the dialog.
          */
         this.ariaDescribedBy = null;
+        /**
+         * Aria label to assign to the dialog element
+         */
+        this.ariaLabel = null;
+        /**
+         * Whether the dialog should focus the first focusable element on open.
+         */
+        this.autoFocus = true;
     }
 }
 
@@ -168,7 +176,9 @@ class MatDialogContainer extends BasePortalOutlet {
         // If were to attempt to focus immediately, then the content of the dialog would not yet be
         // ready in instances where change detection has to run first. To deal with this, we simply
         // wait for the microtask queue to be empty.
-        this._focusTrap.focusInitialElementWhenReady();
+        if (this._config.autoFocus) {
+            this._focusTrap.focusInitialElementWhenReady();
+        }
     }
     /**
      * Restores focus to the element that was focused before the dialog opened.
@@ -255,7 +265,8 @@ MatDialogContainer.decorators = [
                     'class': 'mat-dialog-container',
                     'tabindex': '-1',
                     '[attr.role]': '_config?.role',
-                    '[attr.aria-labelledby]': '_ariaLabelledBy',
+                    '[attr.aria-labelledby]': '_config?.ariaLabel ? null : _ariaLabelledBy',
+                    '[attr.aria-label]': '_config?.ariaLabel',
                     '[attr.aria-describedby]': '_config?.ariaDescribedBy || null',
                     '[@slideDialog]': '_state',
                     '(@slideDialog.start)': '_onAnimationStart($event)',
@@ -679,7 +690,7 @@ MatDialog.ctorParameters = () => [
  * @return {?} The new configuration object.
  */
 function _applyConfigDefaults(config) {
-    return extendObject(new MatDialogConfig(), config);
+    return Object.assign({}, new MatDialogConfig(), config);
 }
 
 /**

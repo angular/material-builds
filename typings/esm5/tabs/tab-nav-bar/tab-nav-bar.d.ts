@@ -9,7 +9,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList, Renderer2 } from '@angular/core';
-import { CanColor, CanDisable, CanDisableRipple, RippleGlobalOptions, ThemePalette } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, RippleGlobalOptions, ThemePalette } from '@angular/material/core';
 import { MatInkBar } from '../ink-bar';
 /** @docs-private */
 export declare class MatTabNavBase {
@@ -54,11 +54,11 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
 }
 export declare class MatTabLinkBase {
 }
-export declare const _MatTabLinkMixinBase: (new (...args: any[]) => CanDisable) & typeof MatTabLinkBase;
+export declare const _MatTabLinkMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisable) & typeof MatTabLinkBase;
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
-export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestroy, CanDisable {
+export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestroy, CanDisable, HasTabIndex {
     private _tabNavBar;
     private _elementRef;
     /** Whether the tab link is active or not. */
@@ -71,8 +71,6 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestro
     active: boolean;
     /** Whether ripples should be disabled or not. */
     disableRipple: boolean;
-    /** @docs-private */
-    readonly tabIndex: number | null;
-    constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions);
+    constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions, tabIndex: string);
     ngOnDestroy(): void;
 }

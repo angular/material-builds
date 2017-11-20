@@ -1830,13 +1830,13 @@ var MatTabLinkBase = (function () {
     }
     return MatTabLinkBase;
 }());
-var _MatTabLinkMixinBase = _angular_material_core.mixinDisabled(MatTabLinkBase);
+var _MatTabLinkMixinBase = _angular_material_core.mixinTabIndex(_angular_material_core.mixinDisabled(MatTabLinkBase));
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
 var MatTabLink = (function (_super) {
     __extends(MatTabLink, _super);
-    function MatTabLink(_tabNavBar, _elementRef, ngZone, platform, globalOptions) {
+    function MatTabLink(_tabNavBar, _elementRef, ngZone, platform, globalOptions, tabIndex) {
         var _this = _super.call(this) || this;
         _this._tabNavBar = _tabNavBar;
         _this._elementRef = _elementRef;
@@ -1853,6 +1853,7 @@ var MatTabLink = (function (_super) {
         // Manually create a ripple instance that uses the tab link element as trigger element.
         // Notice that the lifecycle hooks for the ripple config won't be called anymore.
         _this._tabLinkRipple = new _angular_material_core.MatRipple(_elementRef, ngZone, platform, globalOptions);
+        _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
     Object.defineProperty(MatTabLink.prototype, "active", {
@@ -1893,18 +1894,6 @@ var MatTabLink = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatTabLink.prototype, "tabIndex", {
-        /** @docs-private */
-        get: /**
-         * \@docs-private
-         * @return {?}
-         */
-        function () {
-            return this.disabled ? null : 0;
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -1920,7 +1909,7 @@ var MatTabLink = (function (_super) {
         { type: _angular_core.Directive, args: [{
                     selector: '[mat-tab-link], [matTabLink]',
                     exportAs: 'matTabLink',
-                    inputs: ['disabled'],
+                    inputs: ['disabled', 'tabIndex'],
                     host: {
                         'class': 'mat-tab-link',
                         '[attr.aria-disabled]': 'disabled.toString()',
@@ -1937,6 +1926,7 @@ var MatTabLink = (function (_super) {
         { type: _angular_core.NgZone, },
         { type: _angular_cdk_platform.Platform, },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_material_core.MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
+        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
     ]; };
     MatTabLink.propDecorators = {
         "active": [{ type: _angular_core.Input },],

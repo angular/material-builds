@@ -17,5 +17,4 @@ export * from './placeholder/placeholder-options';
 export * from './ripple/index';
 export * from './selection/index';
 export * from './style/index';
-export * from './util/object-extend';
 export * from './testing/month-constants';

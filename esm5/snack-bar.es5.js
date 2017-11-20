@@ -11,13 +11,13 @@ import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, PortalModule } from '@angular/cdk/portal';
 import { LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
-import { AnimationCurves, AnimationDurations, MatCommonModule, extendObject } from '@angular/material/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Subject } from 'rxjs/Subject';
-import { __extends } from 'tslib';
+import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
+import { __assign, __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { first } from 'rxjs/operators/first';
 import { takeUntil } from 'rxjs/operators/takeUntil';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Subject } from 'rxjs/Subject';
 
 /**
  * @fileoverview added by tsickle
@@ -498,7 +498,6 @@ var MatSnackBarContainer = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -777,7 +776,7 @@ var MatSnackBar = (function () {
  * @return {?} The new configuration object with defaults applied.
  */
 function _applyConfigDefaults(config) {
-    return extendObject(new MatSnackBarConfig(), config);
+    return __assign({}, new MatSnackBarConfig(), config);
 }
 
 /**

@@ -37,6 +37,14 @@ function __extends(d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
 
+var __assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+    return t;
+};
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
@@ -593,39 +601,6 @@ var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Extends an object with the *enumerable* and *own* properties of one or more source objects,
- * similar to Object.assign.
- *
- * @param {?} dest The object which will have properties copied to it.
- * @param {...?} sources The source objects from which properties will be copied.
- * @return {?}
- */
-function extendObject(dest) {
-    var sources = [];
-    for (var _i = 1; _i < arguments.length; _i++) {
-        sources[_i - 1] = arguments[_i];
-    }
-    if (dest == null) {
-        throw TypeError('Cannot convert undefined or null to object');
-    }
-    for (var _a = 0, sources_1 = sources; _a < sources_1.length; _a++) {
-        var source = sources_1[_a];
-        if (source != null) {
-            for (var /** @type {?} */ key in source) {
-                if (source.hasOwnProperty(key)) {
-                    dest[key] = source[key];
-                }
-            }
-        }
-    }
-    return dest;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * Whether the browser supports the Intl API.
  */
 var SUPPORTS_INTL_API = typeof Intl != 'undefined';
@@ -902,7 +877,7 @@ var NativeDateAdapter = (function (_super) {
         if (SUPPORTS_INTL_API) {
             if (this.useUtcForDisplay) {
                 date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
-                displayFormat = extendObject({}, displayFormat, { timeZone: 'utc' });
+                displayFormat = __assign({}, displayFormat, { timeZone: 'utc' });
             }
             var /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
             return this._stripDirectionalityCharacters(dtf.format(date));
@@ -2529,7 +2504,6 @@ exports.MatRippleModule = MatRippleModule;
 exports.MatPseudoCheckboxModule = MatPseudoCheckboxModule;
 exports.MatPseudoCheckbox = MatPseudoCheckbox;
 exports.applyCssTransform = applyCssTransform;
-exports.extendObject = extendObject;
 exports.JAN = JAN;
 exports.FEB = FEB;
 exports.MAR = MAR;

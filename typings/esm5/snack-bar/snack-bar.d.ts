@@ -6,13 +6,13 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
 import { Injector } from '@angular/core';
 import { SimpleSnackBar } from './simple-snack-bar';
 import { MatSnackBarConfig } from './snack-bar-config';
 import { MatSnackBarRef } from './snack-bar-ref';
-import { BreakpointObserver } from '@angular/cdk/layout';
 /**
  * Service to dispatch Material Design snack bar messages.
  */
