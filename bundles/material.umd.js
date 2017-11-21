@@ -1711,6 +1711,7 @@ function distanceToFurthestCorner(x, y, rect) {
  */
 
 /**
+ * Configurable options for `matRipple`.
  * @record
  */
 
@@ -2416,6 +2417,7 @@ var MatOptionModule = (function () {
  */
 var MAT_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-placeholder-global-options');
 /**
+ * Configurable options for floating placeholders.
  * @record
  */
 
@@ -5917,6 +5919,7 @@ var MatCheckboxModule = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Represents an event fired on an individual `mat-chip`.
  * @record
  */
 
@@ -7418,6 +7421,7 @@ var MatChipList = (function () {
  */
 
 /**
+ * Represents an input event on a `matChipInput`.
  * @record
  */
 
@@ -23950,10 +23954,12 @@ function getSortInvalidDirectionError(direction) {
  */
 
 /**
+ * Interface for a directive that holds sorting state consumed by `MatSortHeader`.
  * @record
  */
 
 /**
+ * The current sort state.
  * @record
  */
 
@@ -27522,7 +27528,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc0-40d6bcb');
+var VERSION = new _angular_core.Version('5.0.0-rc0-8f3a025');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27740,10 +27746,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MatMenuItemBase;
-exports.ɵb21 = _MatMenuItemMixinBase;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa20 = MatMenuItemBase;
+exports.ɵb20 = _MatMenuItemMixinBase;
+exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;

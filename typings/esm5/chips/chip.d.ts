@@ -9,7 +9,9 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import { ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
 import { CanColor, CanDisable } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
+/** Represents an event fired on an individual `mat-chip`. */
 export interface MatChipEvent {
+    /** The chip the event was fired on. */
     chip: MatChip;
 }
 /** Event object emitted by MatChip when selected or deselected. */

@@ -55,10 +55,12 @@ function getSortInvalidDirectionError(direction) {
  */
 
 /**
+ * Interface for a directive that holds sorting state consumed by `MatSortHeader`.
  * @record
  */
 
 /**
+ * The current sort state.
  * @record
  */
 

@@ -26,6 +26,7 @@ import { mixinColor, mixinDisabled } from '@angular/material/core';
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Represents an event fired on an individual `mat-chip`.
  * @record
  */
 
@@ -1527,6 +1528,7 @@ var MatChipList = (function () {
  */
 
 /**
+ * Represents an input event on a `matChipInput`.
  * @record
  */
 

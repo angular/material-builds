@@ -1711,6 +1711,7 @@ function distanceToFurthestCorner(x, y, rect) {
  */
 
 /**
+ * Configurable options for `matRipple`.
  * @record
  */
 
@@ -2416,6 +2417,7 @@ var MatOptionModule = (function () {
  */
 var MAT_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-placeholder-global-options');
 /**
+ * Configurable options for floating placeholders.
  * @record
  */
 

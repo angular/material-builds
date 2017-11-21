@@ -14,8 +14,11 @@ import { MatMenuPanel } from './menu-panel';
 import { MenuPositionX, MenuPositionY } from './menu-positions';
 /** Default `mat-menu` options that can be overridden. */
 export interface MatMenuDefaultOptions {
+    /** The x-axis position of the menu. */
     xPosition: MenuPositionX;
+    /** The y-axis position of the menu. */
     yPosition: MenuPositionY;
+    /** Whether the menu should overlap the menu trigger. */
     overlapTrigger: boolean;
 }
 /** Injection token to be used to override the default options for `mat-menu`. */
