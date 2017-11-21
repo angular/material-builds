@@ -19,7 +19,7 @@ import { filter } from 'rxjs/operators/filter';
 import { startWith } from 'rxjs/operators/startWith';
 import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 
 /**
  * @fileoverview added by tsickle
@@ -322,13 +322,13 @@ class MatDialogRef {
          */
         this._beforeClose = new Subject();
         // Emit when opening animation completes
-        _containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'enter'), first())
+        _containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'enter'), take(1))
             .subscribe(() => {
             this._afterOpen.next();
             this._afterOpen.complete();
         });
         // Dispose overlay when closing animation is complete
-        _containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'exit'), first())
+        _containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'exit'), take(1))
             .subscribe(() => {
             this._overlayRef.dispose();
             this._afterClosed.next(this._result);
@@ -344,7 +344,7 @@ class MatDialogRef {
     close(dialogResult) {
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
-        this._containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'start'), first())
+        this._containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'start'), take(1))
             .subscribe(() => {
             this._beforeClose.next(dialogResult);
             this._beforeClose.complete();

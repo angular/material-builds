@@ -16,7 +16,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 import { merge } from 'rxjs/observable/merge';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Subject } from 'rxjs/Subject';
@@ -490,7 +490,7 @@ var MatTooltip = (function () {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = this.message;
             this._tooltipInstance._markForCheck();
-            this._ngZone.onMicrotaskEmpty.asObservable().pipe(first()).subscribe(function () {
+            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(function () {
                 if (_this._tooltipInstance) {
                     /** @type {?} */ ((_this._overlayRef)).updatePosition();
                 }

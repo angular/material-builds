@@ -13,7 +13,7 @@ import { FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -447,7 +447,7 @@ var MatMenu = (function () {
         }
         return this._ngZone.onStable
             .asObservable()
-            .pipe(first(), switchMap(function () { return _this._hovered(); }));
+            .pipe(take(1), switchMap(function () { return _this._hovered(); }));
     };
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
     /**

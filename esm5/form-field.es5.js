@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Co
 import { PlatformModule } from '@angular/cdk/platform';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 import { startWith } from 'rxjs/operators/startWith';
 import { MAT_PLACEHOLDER_GLOBAL_OPTIONS } from '@angular/material/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
@@ -420,7 +420,7 @@ var MatFormField = (function () {
         if (this._placeholder && this._canPlaceholderFloat) {
             this._showAlwaysAnimate = true;
             this._floatPlaceholder = 'always';
-            fromEvent(this._placeholder.nativeElement, 'transitionend').pipe(first()).subscribe(function () {
+            fromEvent(this._placeholder.nativeElement, 'transitionend').pipe(take(1)).subscribe(function () {
                 _this._showAlwaysAnimate = false;
             });
             this._changeDetectorRef.markForCheck();

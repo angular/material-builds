@@ -9,7 +9,7 @@ import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Injectable, 
 import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 import { catchError } from 'rxjs/operators/catchError';
 import { tap } from 'rxjs/operators/tap';
 import { finalize } from 'rxjs/operators/finalize';
@@ -824,7 +824,7 @@ var MatIcon = (function (_super) {
         if (changes["svgIcon"]) {
             if (this.svgIcon) {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
-                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(first()).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
+                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(take(1)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
             }
             else {
                 this._clearSvgElement();

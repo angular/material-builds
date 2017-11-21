@@ -17,7 +17,7 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { merge } from 'rxjs/observable/merge';
 import { filter } from 'rxjs/operators/filter';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { map } from 'rxjs/operators/map';
@@ -420,7 +420,7 @@ var MatDrawer = (function () {
         // TODO(crisbeto): This promise is here for backwards-compatibility.
         // It should be removed next time we do breaking changes in the drawer.
         return new Promise(function (resolve) {
-            _this.openedChange.pipe(first()).subscribe(function (open) {
+            _this.openedChange.pipe(take(1)).subscribe(function (open) {
                 resolve(new MatDrawerToggleResult(open ? 'open' : 'close', true));
             });
         });
@@ -703,7 +703,7 @@ var MatDrawerContainer = (function () {
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping positions at the same time.
         drawer.onPositionChanged.pipe(takeUntil(this._drawers.changes)).subscribe(function () {
-            _this._ngZone.onMicrotaskEmpty.asObservable().pipe(first()).subscribe(function () {
+            _this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(function () {
                 _this._validateDrawers();
             });
         });

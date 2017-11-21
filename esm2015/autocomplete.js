@@ -14,7 +14,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW } from '@angular/cdk/keycodes';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { filter } from 'rxjs/operators/filter';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { tap } from 'rxjs/operators/tap';
 import { delay } from 'rxjs/operators/delay';
@@ -486,7 +486,7 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     _subscribeToClosingActions() {
-        const /** @type {?} */ firstStable = this._zone.onStable.asObservable().pipe(first());
+        const /** @type {?} */ firstStable = this._zone.onStable.asObservable().pipe(take(1));
         const /** @type {?} */ optionChanges = this.autocomplete.options.changes.pipe(tap(() => this._positionStrategy.recalculateLastPosition()), 
         // Defer emitting to the stream until the next tick, because changing
         // bindings in here will cause "changed after checked" errors.
@@ -502,7 +502,7 @@ class MatAutocompleteTrigger {
             return this.panelClosingActions;
         }), 
         // when the first closing event occurs...
-        first())
+        take(1))
             .subscribe(event => this._setValueAndClose(event));
     }
     /**

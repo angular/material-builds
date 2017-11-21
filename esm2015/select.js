@@ -14,7 +14,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, END, ENTER, HOME, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay, Overlay, OverlayModule, ViewportRuler } from '@angular/cdk/overlay';
 import { filter } from 'rxjs/operators/filter';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
@@ -557,7 +557,7 @@ class MatSelect extends _MatSelectMixinBase {
         this._highlightCorrectOption();
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
-        this._ngZone.onStable.asObservable().pipe(first()).subscribe(() => {
+        this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
             if (this._triggerFontSize && this.overlayDir.overlayRef &&
                 this.overlayDir.overlayRef.overlayElement) {
                 this.overlayDir.overlayRef.overlayElement.style.fontSize = `${this._triggerFontSize}px`;
@@ -760,7 +760,7 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _onAttached() {
-        this.overlayDir.positionChange.pipe(first()).subscribe(() => {
+        this.overlayDir.positionChange.pipe(take(1)).subscribe(() => {
             this._changeDetectorRef.detectChanges();
             this._calculateOverlayOffsetX();
             this.panel.nativeElement.scrollTop = this._scrollTop;

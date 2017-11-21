@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('rxjs/operators/first'), require('rxjs/operators/catchError'), require('rxjs/operators/tap'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('@angular/platform-browser'), require('rxjs/observable/forkJoin'), require('rxjs/observable/of'), require('rxjs/observable/throw')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', 'rxjs/operators/first', 'rxjs/operators/catchError', 'rxjs/operators/tap', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', '@angular/platform-browser', 'rxjs/observable/forkJoin', 'rxjs/observable/of', 'rxjs/observable/throw'], factory) :
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('rxjs/operators/take'), require('rxjs/operators/catchError'), require('rxjs/operators/tap'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('@angular/platform-browser'), require('rxjs/observable/forkJoin'), require('rxjs/observable/of'), require('rxjs/observable/throw')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', 'rxjs/operators/take', 'rxjs/operators/catchError', 'rxjs/operators/tap', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', '@angular/platform-browser', 'rxjs/observable/forkJoin', 'rxjs/observable/of', 'rxjs/observable/throw'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = global.ng.material.icon || {}),global.ng.core,global.ng.material.core,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.common.http,global.ng.platformBrowser,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_material_core,rxjs_operators_first,rxjs_operators_catchError,rxjs_operators_tap,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,_angular_platformBrowser,rxjs_observable_forkJoin,rxjs_observable_of,rxjs_observable_throw) { 'use strict';
+}(this, (function (exports,_angular_core,_angular_material_core,rxjs_operators_take,rxjs_operators_catchError,rxjs_operators_tap,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,_angular_platformBrowser,rxjs_observable_forkJoin,rxjs_observable_of,rxjs_observable_throw) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -840,7 +840,7 @@ var MatIcon = (function (_super) {
         if (changes["svgIcon"]) {
             if (this.svgIcon) {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
-                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(rxjs_operators_first.first()).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
+                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(rxjs_operators_take.take(1)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
             }
             else {
                 this._clearSvgElement();

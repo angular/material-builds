@@ -14,7 +14,7 @@ import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layo
 import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
 import { __assign, __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subject } from 'rxjs/Subject';
@@ -428,7 +428,7 @@ var MatSnackBarContainer = (function (_super) {
      */
     function () {
         var _this = this;
-        this._ngZone.onMicrotaskEmpty.asObservable().pipe(first()).subscribe(function () {
+        this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(function () {
             _this._onExit.next();
             _this._onExit.complete();
         });
@@ -681,7 +681,7 @@ var MatSnackBar = (function () {
         // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
         // appropriate. This class is applied to the overlay element because the overlay must expand to
         // fill the width of the screen for full width snackbars.
-        this._breakpointObserver.observe(Breakpoints.Handset).pipe(takeUntil(overlayRef.detachments().pipe(first()))).subscribe(function (state$$1) {
+        this._breakpointObserver.observe(Breakpoints.Handset).pipe(takeUntil(overlayRef.detachments().pipe(take(1)))).subscribe(function (state$$1) {
             if (state$$1.matches) {
                 overlayRef.overlayElement.classList.add('mat-snack-bar-handset');
             }

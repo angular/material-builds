@@ -14,7 +14,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { DOWN_ARROW, END, ENTER, ESCAPE, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 import { Subject } from 'rxjs/Subject';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -996,7 +996,7 @@ var MatCalendar = (function () {
     function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
-            _this._ngZone.onStable.asObservable().pipe(first()).subscribe(function () {
+            _this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(function () {
                 _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
             });
         });
@@ -1612,7 +1612,7 @@ var MatDatepicker = (function () {
             var /** @type {?} */ componentRef = this._popupRef.attach(this._calendarPortal);
             componentRef.instance.datepicker = this;
             // Update the position once the calendar has rendered.
-            this._ngZone.onStable.asObservable().pipe(first()).subscribe(function () {
+            this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(function () {
                 _this._popupRef.updatePosition();
             });
         }

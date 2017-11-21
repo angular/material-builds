@@ -21,7 +21,7 @@ import { filter } from 'rxjs/operators/filter';
 import { startWith } from 'rxjs/operators/startWith';
 import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 
 /**
  * @fileoverview added by tsickle
@@ -368,13 +368,13 @@ var MatDialogRef = (function () {
          */
         this._beforeClose = new Subject();
         // Emit when opening animation completes
-        _containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), first())
+        _containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), take(1))
             .subscribe(function () {
             _this._afterOpen.next();
             _this._afterOpen.complete();
         });
         // Dispose overlay when closing animation is complete
-        _containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), first())
+        _containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), take(1))
             .subscribe(function () {
             _this._overlayRef.dispose();
             _this._afterClosed.next(_this._result);
@@ -400,7 +400,7 @@ var MatDialogRef = (function () {
         var _this = this;
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
-        this._containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'start'; }), first())
+        this._containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'start'; }), take(1))
             .subscribe(function () {
             _this._beforeClose.next(dialogResult);
             _this._beforeClose.complete();

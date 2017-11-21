@@ -12,7 +12,7 @@ import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, Por
 import { LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
 import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subject } from 'rxjs/Subject';
@@ -343,7 +343,7 @@ class MatSnackBarContainer extends BasePortalOutlet {
      * @return {?}
      */
     _completeExit() {
-        this._ngZone.onMicrotaskEmpty.asObservable().pipe(first()).subscribe(() => {
+        this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(() => {
             this._onExit.next();
             this._onExit.complete();
         });
@@ -542,7 +542,7 @@ class MatSnackBar {
         // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
         // appropriate. This class is applied to the overlay element because the overlay must expand to
         // fill the width of the screen for full width snackbars.
-        this._breakpointObserver.observe(Breakpoints.Handset).pipe(takeUntil(overlayRef.detachments().pipe(first()))).subscribe(state$$1 => {
+        this._breakpointObserver.observe(Breakpoints.Handset).pipe(takeUntil(overlayRef.detachments().pipe(take(1)))).subscribe(state$$1 => {
             if (state$$1.matches) {
                 overlayRef.overlayElement.classList.add('mat-snack-bar-handset');
             }

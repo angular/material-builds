@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('rxjs/observable/defer'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('rxjs/operators/startWith'), require('rxjs/Subject'), require('@angular/animations'), require('rxjs/operators/first')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/keycodes', 'rxjs/observable/defer', 'rxjs/observable/of', 'rxjs/operators/filter', 'rxjs/operators/startWith', 'rxjs/Subject', '@angular/animations', 'rxjs/operators/first'], factory) :
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('rxjs/observable/defer'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('rxjs/operators/startWith'), require('rxjs/Subject'), require('@angular/animations'), require('rxjs/operators/take')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/keycodes', 'rxjs/observable/defer', 'rxjs/observable/of', 'rxjs/operators/filter', 'rxjs/operators/startWith', 'rxjs/Subject', '@angular/animations', 'rxjs/operators/take'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = global.ng.material.dialog || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx,global.ng.animations,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_material_core,_angular_cdk_bidi,_angular_cdk_keycodes,rxjs_observable_defer,rxjs_observable_of,rxjs_operators_filter,rxjs_operators_startWith,rxjs_Subject,_angular_animations,rxjs_operators_first) { 'use strict';
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_material_core,_angular_cdk_bidi,_angular_cdk_keycodes,rxjs_observable_defer,rxjs_observable_of,rxjs_operators_filter,rxjs_operators_startWith,rxjs_Subject,_angular_animations,rxjs_operators_take) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -390,13 +390,13 @@ var MatDialogRef = (function () {
          */
         this._beforeClose = new rxjs_Subject.Subject();
         // Emit when opening animation completes
-        _containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), rxjs_operators_first.first())
+        _containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), rxjs_operators_take.take(1))
             .subscribe(function () {
             _this._afterOpen.next();
             _this._afterOpen.complete();
         });
         // Dispose overlay when closing animation is complete
-        _containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), rxjs_operators_first.first())
+        _containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), rxjs_operators_take.take(1))
             .subscribe(function () {
             _this._overlayRef.dispose();
             _this._afterClosed.next(_this._result);
@@ -422,7 +422,7 @@ var MatDialogRef = (function () {
         var _this = this;
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
-        this._containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'start'; }), rxjs_operators_first.first())
+        this._containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'start'; }), rxjs_operators_take.take(1))
             .subscribe(function () {
             _this._beforeClose.next(dialogResult);
             _this._beforeClose.complete();

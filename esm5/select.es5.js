@@ -16,7 +16,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, END, ENTER, HOME, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay, Overlay, OverlayModule, ViewportRuler } from '@angular/cdk/overlay';
 import { filter } from 'rxjs/operators/filter';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
@@ -614,7 +614,7 @@ var MatSelect = (function (_super) {
         this._highlightCorrectOption();
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
-        this._ngZone.onStable.asObservable().pipe(first()).subscribe(function () {
+        this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(function () {
             if (_this._triggerFontSize && _this.overlayDir.overlayRef &&
                 _this.overlayDir.overlayRef.overlayElement) {
                 _this.overlayDir.overlayRef.overlayElement.style.fontSize = _this._triggerFontSize + "px";
@@ -952,7 +952,7 @@ var MatSelect = (function (_super) {
      */
     function () {
         var _this = this;
-        this.overlayDir.positionChange.pipe(first()).subscribe(function () {
+        this.overlayDir.positionChange.pipe(take(1)).subscribe(function () {
             _this._changeDetectorRef.detectChanges();
             _this._calculateOverlayOffsetX();
             _this.panel.nativeElement.scrollTop = _this._scrollTop;

@@ -7,7 +7,7 @@
  */
 import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Injectable, Input, NgModule, Optional, SecurityContext, SkipSelf, ViewEncapsulation } from '@angular/core';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
-import { first } from 'rxjs/operators/first';
+import { take } from 'rxjs/operators/take';
 import { catchError } from 'rxjs/operators/catchError';
 import { tap } from 'rxjs/operators/tap';
 import { finalize } from 'rxjs/operators/finalize';
@@ -609,7 +609,7 @@ class MatIcon extends _MatIconMixinBase {
         if (changes["svgIcon"]) {
             if (this.svgIcon) {
                 const [namespace, iconName] = this._splitIconName(this.svgIcon);
-                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(first()).subscribe(svg => this._setSvgElement(svg), (err) => console.log(`Error retrieving icon: ${err.message}`));
+                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(take(1)).subscribe(svg => this._setSvgElement(svg), (err) => console.log(`Error retrieving icon: ${err.message}`));
             }
             else {
                 this._clearSvgElement();
