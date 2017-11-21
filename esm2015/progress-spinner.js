@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ElementRef, Inject, Input, NgModule, Optional, Renderer2, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Inject, Input, NgModule, Optional, ViewEncapsulation } from '@angular/core';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { DOCUMENT } from '@angular/common';
@@ -31,11 +31,9 @@ const BASE_STROKE_WIDTH = 10;
  */
 class MatProgressSpinnerBase {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      */
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
 }
@@ -68,14 +66,12 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
  */
 class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      * @param {?} platform
      * @param {?} _document
      */
-    constructor(_renderer, _elementRef, platform, _document) {
-        super(_renderer, _elementRef);
-        this._renderer = _renderer;
+    constructor(_elementRef, platform, _document) {
+        super(_elementRef);
         this._elementRef = _elementRef;
         this._document = _document;
         this._value = 0;
@@ -93,7 +89,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
         // On IE and Edge, we can't animate the `stroke-dashoffset`
         // reliably so we fall back to a non-spec animation.
         const /** @type {?} */ animationClass = `mat-progress-spinner-indeterminate${this._fallbackAnimation ? '-fallback' : ''}-animation`;
-        _renderer.addClass(_elementRef.nativeElement, animationClass);
+        _elementRef.nativeElement.classList.add(animationClass);
     }
     /**
      * The diameter of the progress spinner (will set width and height of svg).
@@ -201,8 +197,8 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
     _attachStyleNode() {
         let /** @type {?} */ styleTag = MatProgressSpinner.styleTag;
         if (!styleTag) {
-            styleTag = this._renderer.createElement('style');
-            this._renderer.appendChild(this._document.head, styleTag);
+            styleTag = this._document.createElement('style');
+            this._document.head.appendChild(styleTag);
             MatProgressSpinner.styleTag = styleTag;
         }
         if (styleTag && styleTag.sheet) {
@@ -253,7 +249,6 @@ MatProgressSpinner.decorators = [
 ];
 /** @nocollapse */
 MatProgressSpinner.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: Platform, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
@@ -272,13 +267,12 @@ MatProgressSpinner.propDecorators = {
  */
 class MatSpinner extends MatProgressSpinner {
     /**
-     * @param {?} renderer
      * @param {?} elementRef
      * @param {?} platform
      * @param {?} document
      */
-    constructor(renderer, elementRef, platform, document) {
-        super(renderer, elementRef, platform, document);
+    constructor(elementRef, platform, document) {
+        super(elementRef, platform, document);
         this.mode = 'indeterminate';
     }
 }
@@ -301,7 +295,6 @@ MatSpinner.decorators = [
 ];
 /** @nocollapse */
 MatSpinner.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: Platform, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },

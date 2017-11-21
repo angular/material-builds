@@ -197,9 +197,8 @@ var nextUniqueId$1 = 0;
  * Container for form controls that applies Material Design styling and behavior.
  */
 var MatFormField = (function () {
-    function MatFormField(_elementRef, _renderer, _changeDetectorRef, placeholderOptions) {
+    function MatFormField(_elementRef, _changeDetectorRef, placeholderOptions) {
         this._elementRef = _elementRef;
-        this._renderer = _renderer;
         this._changeDetectorRef = _changeDetectorRef;
         /**
          * Color of the form field underline, based on the theme.
@@ -317,7 +316,8 @@ var MatFormField = (function () {
         var _this = this;
         this._validateControlChild();
         if (this._control.controlType) {
-            this._renderer.addClass(this._elementRef.nativeElement, "mat-form-field-type-" + this._control.controlType);
+            this._elementRef.nativeElement.classList
+                .add("mat-form-field-type-" + this._control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
         this._control.stateChanges.pipe(rxjs_operators_startWith.startWith(/** @type {?} */ ((null)))).subscribe(function () {
@@ -574,7 +574,6 @@ var MatFormField = (function () {
     /** @nocollapse */
     MatFormField.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_material_core.MAT_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
     ]; };

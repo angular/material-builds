@@ -66,8 +66,7 @@ function coerceToNumber(value) {
  */
 
 var MatGridTile = (function () {
-    function MatGridTile(_renderer, _element) {
-        this._renderer = _renderer;
+    function MatGridTile(_element) {
         this._element = _element;
         this._rowspan = 1;
         this._colspan = 1;
@@ -119,7 +118,7 @@ var MatGridTile = (function () {
      * @return {?}
      */
     function (property, value) {
-        this._renderer.setStyle(this._element.nativeElement, property, value);
+        this._element.nativeElement.style[property] = value;
     };
     MatGridTile.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-grid-tile',
@@ -136,7 +135,6 @@ var MatGridTile = (function () {
     ];
     /** @nocollapse */
     MatGridTile.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
     ]; };
     MatGridTile.propDecorators = {
@@ -146,8 +144,7 @@ var MatGridTile = (function () {
     return MatGridTile;
 }());
 var MatGridTileText = (function () {
-    function MatGridTileText(_renderer, _element) {
-        this._renderer = _renderer;
+    function MatGridTileText(_element) {
         this._element = _element;
     }
     /**
@@ -157,7 +154,7 @@ var MatGridTileText = (function () {
      * @return {?}
      */
     function () {
-        this._lineSetter = new _angular_material_core.MatLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new _angular_material_core.MatLineSetter(this._lines, this._element);
     };
     MatGridTileText.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-grid-tile-header, mat-grid-tile-footer',
@@ -169,7 +166,6 @@ var MatGridTileText = (function () {
     ];
     /** @nocollapse */
     MatGridTileText.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
     ]; };
     MatGridTileText.propDecorators = {
@@ -872,8 +868,7 @@ function normalizeUnits(value) {
 // TODO(kara): gridTileHeader and gridTileFooter.
 var MAT_FIT_MODE = 'fit';
 var MatGridList = (function () {
-    function MatGridList(_renderer, _element, _dir) {
-        this._renderer = _renderer;
+    function MatGridList(_element, _dir) {
         this._element = _element;
         this._dir = _dir;
         /**
@@ -1035,7 +1030,7 @@ var MatGridList = (function () {
      */
     function (style) {
         if (style) {
-            this._renderer.setStyle(this._element.nativeElement, style[0], style[1]);
+            this._element.nativeElement.style[style[0]] = style[1];
         }
     };
     MatGridList.decorators = [
@@ -1053,7 +1048,6 @@ var MatGridList = (function () {
     ];
     /** @nocollapse */
     MatGridList.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };

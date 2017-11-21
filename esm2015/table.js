@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, Input, NgModule, Renderer2, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ElementRef, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTable, CdkTableModule } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
@@ -110,11 +110,10 @@ class MatHeaderCell extends _MatHeaderCell {
     /**
      * @param {?} columnDef
      * @param {?} elementRef
-     * @param {?} renderer
      */
-    constructor(columnDef, elementRef, renderer) {
-        super(columnDef, elementRef, renderer);
-        renderer.addClass(elementRef.nativeElement, `mat-column-${columnDef.cssClassFriendlyName}`);
+    constructor(columnDef, elementRef) {
+        super(columnDef, elementRef);
+        elementRef.nativeElement.classList.add(`mat-column-${columnDef.cssClassFriendlyName}`);
     }
 }
 MatHeaderCell.decorators = [
@@ -130,7 +129,6 @@ MatHeaderCell.decorators = [
 MatHeaderCell.ctorParameters = () => [
     { type: CdkColumnDef, },
     { type: ElementRef, },
-    { type: Renderer2, },
 ];
 /**
  * Cell template container that adds the right classes and role.
@@ -139,11 +137,10 @@ class MatCell extends _MatCell {
     /**
      * @param {?} columnDef
      * @param {?} elementRef
-     * @param {?} renderer
      */
-    constructor(columnDef, elementRef, renderer) {
-        super(columnDef, elementRef, renderer);
-        renderer.addClass(elementRef.nativeElement, `mat-column-${columnDef.cssClassFriendlyName}`);
+    constructor(columnDef, elementRef) {
+        super(columnDef, elementRef);
+        elementRef.nativeElement.classList.add(`mat-column-${columnDef.cssClassFriendlyName}`);
     }
 }
 MatCell.decorators = [
@@ -159,7 +156,6 @@ MatCell.decorators = [
 MatCell.ctorParameters = () => [
     { type: CdkColumnDef, },
     { type: ElementRef, },
-    { type: Renderer2, },
 ];
 
 /**

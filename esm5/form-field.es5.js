@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, Inject, Input, NgModule, Optional, Renderer2, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, Inject, Input, NgModule, Optional, ViewChild, ViewEncapsulation } from '@angular/core';
 import { PlatformModule } from '@angular/cdk/platform';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -201,9 +201,8 @@ var nextUniqueId$1 = 0;
  * Container for form controls that applies Material Design styling and behavior.
  */
 var MatFormField = (function () {
-    function MatFormField(_elementRef, _renderer, _changeDetectorRef, placeholderOptions) {
+    function MatFormField(_elementRef, _changeDetectorRef, placeholderOptions) {
         this._elementRef = _elementRef;
-        this._renderer = _renderer;
         this._changeDetectorRef = _changeDetectorRef;
         /**
          * Color of the form field underline, based on the theme.
@@ -321,7 +320,8 @@ var MatFormField = (function () {
         var _this = this;
         this._validateControlChild();
         if (this._control.controlType) {
-            this._renderer.addClass(this._elementRef.nativeElement, "mat-form-field-type-" + this._control.controlType);
+            this._elementRef.nativeElement.classList
+                .add("mat-form-field-type-" + this._control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
         this._control.stateChanges.pipe(startWith(/** @type {?} */ ((null)))).subscribe(function () {
@@ -578,7 +578,6 @@ var MatFormField = (function () {
     /** @nocollapse */
     MatFormField.ctorParameters = function () { return [
         { type: ElementRef, },
-        { type: Renderer2, },
         { type: ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
     ]; };

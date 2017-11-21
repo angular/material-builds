@@ -1,4 +1,4 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, QueryList, Renderer2 } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, QueryList } from '@angular/core';
 import { FloatPlaceholderType, PlaceholderOptions } from '@angular/material/core';
 import { MatError } from './error';
 import { MatFormFieldControl } from './form-field-control';
@@ -9,7 +9,6 @@ import { MatSuffix } from './suffix';
 /** Container for form controls that applies Material Design styling and behavior. */
 export declare class MatFormField implements AfterViewInit, AfterContentInit, AfterContentChecked {
     _elementRef: ElementRef;
-    private _renderer;
     private _changeDetectorRef;
     private _placeholderOptions;
     /** Color of the form field underline, based on the theme. */
@@ -44,7 +43,7 @@ export declare class MatFormField implements AfterViewInit, AfterContentInit, Af
     _hintChildren: QueryList<MatHint>;
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _changeDetectorRef: ChangeDetectorRef, placeholderOptions: PlaceholderOptions);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, placeholderOptions: PlaceholderOptions);
     ngAfterContentInit(): void;
     ngAfterContentChecked(): void;
     ngAfterViewInit(): void;

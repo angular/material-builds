@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, Renderer2, SkipSelf, ViewChild, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, SkipSelf, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, PortalModule } from '@angular/cdk/portal';
@@ -237,14 +237,12 @@ const HIDE_ANIMATION = `${AnimationDurations.EXITING} ${AnimationCurves.ACCELERA
 class MatSnackBarContainer extends BasePortalOutlet {
     /**
      * @param {?} _ngZone
-     * @param {?} _renderer
      * @param {?} _elementRef
      * @param {?} _changeDetectorRef
      */
-    constructor(_ngZone, _renderer, _elementRef, _changeDetectorRef) {
+    constructor(_ngZone, _elementRef, _changeDetectorRef) {
         super();
         this._ngZone = _ngZone;
-        this._renderer = _renderer;
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -274,22 +272,15 @@ class MatSnackBarContainer extends BasePortalOutlet {
         if (this._portalOutlet.hasAttached()) {
             throw Error('Attempting to attach snack bar content after content is already attached');
         }
+        const /** @type {?} */ element = this._elementRef.nativeElement;
         if (this.snackBarConfig.panelClass || this.snackBarConfig.extraClasses) {
-            const /** @type {?} */ classes = [
-                ...this._getCssClasses(this.snackBarConfig.panelClass),
-                ...this._getCssClasses(this.snackBarConfig.extraClasses)
-            ];
-            // Not the most efficient way of adding classes, but the renderer doesn't allow us
-            // to pass in an array or a space-separated list.
-            for (let /** @type {?} */ cssClass of classes) {
-                this._renderer.addClass(this._elementRef.nativeElement, cssClass);
-            }
+            element.classList.add(...this._getCssClasses(this.snackBarConfig.panelClass), ...this._getCssClasses(this.snackBarConfig.extraClasses));
         }
         if (this.snackBarConfig.horizontalPosition === 'center') {
-            this._renderer.addClass(this._elementRef.nativeElement, 'mat-snack-bar-center');
+            element.classList.add('mat-snack-bar-center');
         }
         if (this.snackBarConfig.verticalPosition === 'top') {
-            this._renderer.addClass(this._elementRef.nativeElement, 'mat-snack-bar-top');
+            element.classList.add('mat-snack-bar-top');
         }
         return this._portalOutlet.attachComponentPortal(portal);
     }
@@ -399,7 +390,6 @@ MatSnackBarContainer.decorators = [
 /** @nocollapse */
 MatSnackBarContainer.ctorParameters = () => [
     { type: NgZone, },
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
 ];

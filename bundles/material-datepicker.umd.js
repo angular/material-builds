@@ -1713,10 +1713,9 @@ var MatDatepickerInputEvent = (function () {
  * Directive used to connect an input to a MatDatepicker.
  */
 var MatDatepickerInput = (function () {
-    function MatDatepickerInput(_elementRef, _renderer, _dateAdapter, _dateFormats, _formField) {
+    function MatDatepickerInput(_elementRef, _dateAdapter, _dateFormats, _formField) {
         var _this = this;
         this._elementRef = _elementRef;
-        this._renderer = _renderer;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
         this._formField = _formField;
@@ -1849,7 +1848,8 @@ var MatDatepickerInput = (function () {
             value = this._getValidDateOrNull(value);
             var /** @type {?} */ oldDate = this.value;
             this._value = value;
-            this._renderer.setProperty(this._elementRef.nativeElement, 'value', value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '');
+            this._elementRef.nativeElement.value =
+                value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '';
             if (!this._dateAdapter.sameDate(oldDate, value)) {
                 this._valueChange.emit(value);
             }
@@ -2103,7 +2103,6 @@ var MatDatepickerInput = (function () {
     /** @nocollapse */
     MatDatepickerInput.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_material_core.DateAdapter, decorators: [{ type: _angular_core.Optional },] },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_material_core.MAT_DATE_FORMATS,] },] },
         { type: _angular_material_formField.MatFormField, decorators: [{ type: _angular_core.Optional },] },

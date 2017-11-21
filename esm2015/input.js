@@ -7,7 +7,7 @@
  */
 import { Platform, PlatformModule, getSupportedInputTypes } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
-import { Directive, ElementRef, Inject, InjectionToken, Input, NgModule, Optional, Renderer2, Self } from '@angular/core';
+import { Directive, ElementRef, Inject, InjectionToken, Input, NgModule, Optional, Self } from '@angular/core';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -247,7 +247,6 @@ let nextUniqueId = 0;
 class MatInput {
     /**
      * @param {?} _elementRef
-     * @param {?} _renderer
      * @param {?} _platform
      * @param {?} ngControl
      * @param {?} _parentForm
@@ -255,9 +254,8 @@ class MatInput {
      * @param {?} _defaultErrorStateMatcher
      * @param {?} inputValueAccessor
      */
-    constructor(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
+    constructor(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
         this._elementRef = _elementRef;
-        this._renderer = _renderer;
         this._platform = _platform;
         this.ngControl = ngControl;
         this._parentForm = _parentForm;
@@ -310,7 +308,7 @@ class MatInput {
         // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
         // exists on iOS, we only bother to install the listener on iOS.
         if (_platform.IOS) {
-            _renderer.listen(_elementRef.nativeElement, 'keyup', (event) => {
+            _elementRef.nativeElement.addEventListener('keyup', (event) => {
                 let /** @type {?} */ el = /** @type {?} */ (event.target);
                 if (!el.value && !el.selectionStart && !el.selectionEnd) {
                     // Note: Just setting `0, 0` doesn't fix the issue. Setting `1, 1` fixes it for the first
@@ -368,7 +366,7 @@ class MatInput {
         // input element. To ensure that bindings for `type` work, we need to sync the setter
         // with the native property. Textarea elements don't support the type property or attribute.
         if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
-            this._renderer.setProperty(this._elementRef.nativeElement, 'type', this._type);
+            this._elementRef.nativeElement.type = this._type;
         }
     }
     /**
@@ -565,7 +563,6 @@ MatInput.decorators = [
 /** @nocollapse */
 MatInput.ctorParameters = () => [
     { type: ElementRef, },
-    { type: Renderer2, },
     { type: Platform, },
     { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
     { type: NgForm, decorators: [{ type: Optional },] },

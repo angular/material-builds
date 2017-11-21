@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Renderer2, ElementRef, QueryList } from '@angular/core';
+import { ElementRef, QueryList } from '@angular/core';
 /**
  * Shared directive to count lines inside a text area, such as a list item.
  * Line elements can be extracted with a @ContentChildren(MatLine) query, then
@@ -19,9 +19,8 @@ export declare class MatLine {
  */
 export declare class MatLineSetter {
     private _lines;
-    private _renderer;
     private _element;
-    constructor(_lines: QueryList<MatLine>, _renderer: Renderer2, _element: ElementRef);
+    constructor(_lines: QueryList<MatLine>, _element: ElementRef);
     private _setLineClass(count);
     private _resetClasses();
     private _setClass(className, isAdd);

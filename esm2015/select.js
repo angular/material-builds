@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, Renderer2, Self, ViewChild, ViewEncapsulation, isDevMode } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, Self, ViewChild, ViewEncapsulation, isDevMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
@@ -185,11 +185,9 @@ class MatSelectChange {
  */
 class MatSelectBase {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      */
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
 }
@@ -212,7 +210,6 @@ class MatSelect extends _MatSelectMixinBase {
      * @param {?} _changeDetectorRef
      * @param {?} _ngZone
      * @param {?} _defaultErrorStateMatcher
-     * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _dir
      * @param {?} _parentForm
@@ -222,8 +219,8 @@ class MatSelect extends _MatSelectMixinBase {
      * @param {?} tabIndex
      * @param {?} _scrollStrategyFactory
      */
-    constructor(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, renderer, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
-        super(renderer, elementRef);
+    constructor(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
+        super(elementRef);
         this._viewportRuler = _viewportRuler;
         this._changeDetectorRef = _changeDetectorRef;
         this._ngZone = _ngZone;
@@ -1335,7 +1332,6 @@ MatSelect.ctorParameters = () => [
     { type: ChangeDetectorRef, },
     { type: NgZone, },
     { type: ErrorStateMatcher, },
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: NgForm, decorators: [{ type: Optional },] },

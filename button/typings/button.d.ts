@@ -7,7 +7,7 @@
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { ElementRef, OnDestroy, Renderer2 } from '@angular/core';
+import { ElementRef, OnDestroy } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple } from '@angular/material/core';
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
@@ -44,9 +44,8 @@ export declare class MatMiniFab {
 }
 /** @docs-private */
 export declare class MatButtonBase {
-    _renderer: Renderer2;
     _elementRef: ElementRef;
-    constructor(_renderer: Renderer2, _elementRef: ElementRef);
+    constructor(_elementRef: ElementRef);
 }
 export declare const _MatButtonMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & (new (...args: any[]) => CanDisableRipple) & typeof MatButtonBase;
 /**
@@ -59,7 +58,7 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
     _isRoundButton: boolean;
     /** Whether the button is icon button. */
     _isIconButton: boolean;
-    constructor(renderer: Renderer2, elementRef: ElementRef, _platform: Platform, _focusMonitor: FocusMonitor);
+    constructor(elementRef: ElementRef, _platform: Platform, _focusMonitor: FocusMonitor);
     ngOnDestroy(): void;
     /** Focuses the button. */
     focus(): void;
@@ -72,6 +71,6 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
  * Raised Material design button.
  */
 export declare class MatAnchor extends MatButton {
-    constructor(platform: Platform, focusMonitor: FocusMonitor, elementRef: ElementRef, renderer: Renderer2);
+    constructor(platform: Platform, focusMonitor: FocusMonitor, elementRef: ElementRef);
     _haltDisabledEvents(event: Event): void;
 }

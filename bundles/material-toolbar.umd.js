@@ -45,8 +45,7 @@ function __extends(d, b) {
  * \@docs-private
  */
 var MatToolbarBase = (function () {
-    function MatToolbarBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatToolbarBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatToolbarBase;
@@ -68,8 +67,8 @@ var MatToolbarRow = (function () {
 }());
 var MatToolbar = (function (_super) {
     __extends(MatToolbar, _super);
-    function MatToolbar(renderer, elementRef, _platform) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatToolbar(elementRef, _platform) {
+        var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
         return _this;
     }
@@ -127,7 +126,6 @@ var MatToolbar = (function (_super) {
     ];
     /** @nocollapse */
     MatToolbar.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_platform.Platform, },
     ]; };

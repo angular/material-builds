@@ -8,7 +8,7 @@
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { BidiModule, Directionality } from '@angular/cdk/bidi';
 import { CommonModule } from '@angular/common';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { GestureConfig, MatCommonModule, mixinColor, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { __extends } from 'tslib';
@@ -60,8 +60,7 @@ var MatSliderChange = (function () {
  * \@docs-private
  */
 var MatSliderBase = (function () {
-    function MatSliderBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatSliderBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatSliderBase;
@@ -73,8 +72,8 @@ var _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisabled(MatSliderBase),
  */
 var MatSlider = (function (_super) {
     __extends(MatSlider, _super);
-    function MatSlider(renderer, elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex) {
+        var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
@@ -1029,7 +1028,6 @@ var MatSlider = (function (_super) {
     ];
     /** @nocollapse */
     MatSlider.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: ElementRef, },
         { type: FocusMonitor, },
         { type: ChangeDetectorRef, },

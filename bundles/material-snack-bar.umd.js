@@ -310,10 +310,9 @@ var HIDE_ANIMATION = _angular_material_core.AnimationDurations.EXITING + " " + _
  */
 var MatSnackBarContainer = (function (_super) {
     __extends(MatSnackBarContainer, _super);
-    function MatSnackBarContainer(_ngZone, _renderer, _elementRef, _changeDetectorRef) {
+    function MatSnackBarContainer(_ngZone, _elementRef, _changeDetectorRef) {
         var _this = _super.call(this) || this;
         _this._ngZone = _ngZone;
-        _this._renderer = _renderer;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -351,22 +350,18 @@ var MatSnackBarContainer = (function (_super) {
         if (this._portalOutlet.hasAttached()) {
             throw Error('Attempting to attach snack bar content after content is already attached');
         }
+        var /** @type {?} */ element = this._elementRef.nativeElement;
         if (this.snackBarConfig.panelClass || this.snackBarConfig.extraClasses) {
-            var /** @type {?} */ classes = this._getCssClasses(this.snackBarConfig.panelClass).concat(this._getCssClasses(this.snackBarConfig.extraClasses));
-            // Not the most efficient way of adding classes, but the renderer doesn't allow us
-            // to pass in an array or a space-separated list.
-            for (var _i = 0, classes_1 = classes; _i < classes_1.length; _i++) {
-                var cssClass = classes_1[_i];
-                this._renderer.addClass(this._elementRef.nativeElement, cssClass);
-            }
+            (_a = element.classList).add.apply(_a, this._getCssClasses(this.snackBarConfig.panelClass).concat(this._getCssClasses(this.snackBarConfig.extraClasses)));
         }
         if (this.snackBarConfig.horizontalPosition === 'center') {
-            this._renderer.addClass(this._elementRef.nativeElement, 'mat-snack-bar-center');
+            element.classList.add('mat-snack-bar-center');
         }
         if (this.snackBarConfig.verticalPosition === 'top') {
-            this._renderer.addClass(this._elementRef.nativeElement, 'mat-snack-bar-top');
+            element.classList.add('mat-snack-bar-top');
         }
         return this._portalOutlet.attachComponentPortal(portal);
+        var _a;
     };
     /** Attach a template portal as content to this snack bar container. */
     /**
@@ -510,7 +505,6 @@ var MatSnackBarContainer = (function (_super) {
     /** @nocollapse */
     MatSnackBarContainer.ctorParameters = function () { return [
         { type: _angular_core.NgZone, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_core.ChangeDetectorRef, },
     ]; };

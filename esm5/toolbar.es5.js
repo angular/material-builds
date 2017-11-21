@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, NgModule, Renderer2, ViewEncapsulation, isDevMode } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, NgModule, ViewEncapsulation, isDevMode } from '@angular/core';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { __extends } from 'tslib';
@@ -19,8 +19,7 @@ import * as tslib_1 from 'tslib';
  * \@docs-private
  */
 var MatToolbarBase = (function () {
-    function MatToolbarBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatToolbarBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatToolbarBase;
@@ -42,8 +41,8 @@ var MatToolbarRow = (function () {
 }());
 var MatToolbar = (function (_super) {
     __extends(MatToolbar, _super);
-    function MatToolbar(renderer, elementRef, _platform) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatToolbar(elementRef, _platform) {
+        var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
         return _this;
     }
@@ -101,7 +100,6 @@ var MatToolbar = (function (_super) {
     ];
     /** @nocollapse */
     MatToolbar.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: ElementRef, },
         { type: Platform, },
     ]; };

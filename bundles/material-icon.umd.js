@@ -740,8 +740,7 @@ function iconKey(namespace, name) {
  * \@docs-private
  */
 var MatIconBase = (function () {
-    function MatIconBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatIconBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatIconBase;
@@ -776,13 +775,13 @@ var _MatIconMixinBase = _angular_material_core.mixinColor(MatIconBase);
  */
 var MatIcon = (function (_super) {
     __extends(MatIcon, _super);
-    function MatIcon(renderer, elementRef, _iconRegistry, ariaHidden) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatIcon(elementRef, _iconRegistry, ariaHidden) {
+        var _this = _super.call(this, elementRef) || this;
         _this._iconRegistry = _iconRegistry;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
         if (!ariaHidden) {
-            renderer.setAttribute(elementRef.nativeElement, 'aria-hidden', 'true');
+            elementRef.nativeElement.setAttribute('aria-hidden', 'true');
         }
         return _this;
     }
@@ -883,7 +882,7 @@ var MatIcon = (function (_super) {
      */
     function (svg) {
         this._clearSvgElement();
-        this._renderer.appendChild(this._elementRef.nativeElement, svg);
+        this._elementRef.nativeElement.appendChild(svg);
     };
     /**
      * @return {?}
@@ -897,7 +896,7 @@ var MatIcon = (function (_super) {
         // Remove existing child nodes and add the new SVG element. Note that we can't
         // use innerHTML, because IE will throw if the element has a data binding.
         for (var /** @type {?} */ i = 0; i < childCount; i++) {
-            this._renderer.removeChild(layoutElement, layoutElement.childNodes[i]);
+            layoutElement.removeChild(layoutElement.childNodes[i]);
         }
     };
     /**
@@ -916,19 +915,19 @@ var MatIcon = (function (_super) {
             this._iconRegistry.getDefaultFontSetClass();
         if (fontSetClass != this._previousFontSetClass) {
             if (this._previousFontSetClass) {
-                this._renderer.removeClass(elem, this._previousFontSetClass);
+                elem.classList.remove(this._previousFontSetClass);
             }
             if (fontSetClass) {
-                this._renderer.addClass(elem, fontSetClass);
+                elem.classList.add(fontSetClass);
             }
             this._previousFontSetClass = fontSetClass;
         }
         if (this.fontIcon != this._previousFontIconClass) {
             if (this._previousFontIconClass) {
-                this._renderer.removeClass(elem, this._previousFontIconClass);
+                elem.classList.remove(this._previousFontIconClass);
             }
             if (this.fontIcon) {
-                this._renderer.addClass(elem, this.fontIcon);
+                elem.classList.add(this.fontIcon);
             }
             this._previousFontIconClass = this.fontIcon;
         }
@@ -950,7 +949,6 @@ var MatIcon = (function (_super) {
     ];
     /** @nocollapse */
     MatIcon.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: MatIconRegistry, },
         { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['aria-hidden',] },] },

@@ -8,7 +8,7 @@
 import { AnimationEvent } from '@angular/animations';
 import { FocusTrapFactory, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, QueryList, Renderer2 } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, QueryList } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 /** Throws an exception when two MatDrawer are matching the same position. */
@@ -144,7 +144,6 @@ export declare class MatDrawer implements AfterContentInit, OnDestroy {
 export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
     private _dir;
     private _element;
-    private _renderer;
     private _ngZone;
     private _changeDetectorRef;
     _drawers: QueryList<MatDrawer>;
@@ -172,7 +171,7 @@ export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
         left: number;
         right: number;
     }>;
-    constructor(_dir: Directionality, _element: ElementRef, _renderer: Renderer2, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef);
+    constructor(_dir: Directionality, _element: ElementRef, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Calls `open` of both start and end drawers */

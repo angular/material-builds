@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, NgModule, Renderer2, ViewEncapsulation, isDevMode } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, NgModule, ViewEncapsulation, isDevMode } from '@angular/core';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 
@@ -19,11 +19,9 @@ import { Platform, PlatformModule } from '@angular/cdk/platform';
  */
 class MatToolbarBase {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      */
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
 }
@@ -41,12 +39,11 @@ MatToolbarRow.decorators = [
 MatToolbarRow.ctorParameters = () => [];
 class MatToolbar extends _MatToolbarMixinBase {
     /**
-     * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _platform
      */
-    constructor(renderer, elementRef, _platform) {
-        super(renderer, elementRef);
+    constructor(elementRef, _platform) {
+        super(elementRef);
         this._platform = _platform;
     }
     /**
@@ -96,7 +93,6 @@ MatToolbar.decorators = [
 ];
 /** @nocollapse */
 MatToolbar.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: Platform, },
 ];

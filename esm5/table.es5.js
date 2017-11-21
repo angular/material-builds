@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, Input, NgModule, Renderer2, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ElementRef, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTable, CdkTableModule } from '@angular/cdk/table';
@@ -128,9 +128,9 @@ var MatColumnDef = (function (_super) {
  */
 var MatHeaderCell = (function (_super) {
     __extends(MatHeaderCell, _super);
-    function MatHeaderCell(columnDef, elementRef, renderer) {
-        var _this = _super.call(this, columnDef, elementRef, renderer) || this;
-        renderer.addClass(elementRef.nativeElement, "mat-column-" + columnDef.cssClassFriendlyName);
+    function MatHeaderCell(columnDef, elementRef) {
+        var _this = _super.call(this, columnDef, elementRef) || this;
+        elementRef.nativeElement.classList.add("mat-column-" + columnDef.cssClassFriendlyName);
         return _this;
     }
     MatHeaderCell.decorators = [
@@ -146,7 +146,6 @@ var MatHeaderCell = (function (_super) {
     MatHeaderCell.ctorParameters = function () { return [
         { type: CdkColumnDef, },
         { type: ElementRef, },
-        { type: Renderer2, },
     ]; };
     return MatHeaderCell;
 }(_MatHeaderCell));
@@ -155,9 +154,9 @@ var MatHeaderCell = (function (_super) {
  */
 var MatCell = (function (_super) {
     __extends(MatCell, _super);
-    function MatCell(columnDef, elementRef, renderer) {
-        var _this = _super.call(this, columnDef, elementRef, renderer) || this;
-        renderer.addClass(elementRef.nativeElement, "mat-column-" + columnDef.cssClassFriendlyName);
+    function MatCell(columnDef, elementRef) {
+        var _this = _super.call(this, columnDef, elementRef) || this;
+        elementRef.nativeElement.classList.add("mat-column-" + columnDef.cssClassFriendlyName);
         return _this;
     }
     MatCell.decorators = [
@@ -173,7 +172,6 @@ var MatCell = (function (_super) {
     MatCell.ctorParameters = function () { return [
         { type: CdkColumnDef, },
         { type: ElementRef, },
-        { type: Renderer2, },
     ]; };
     return MatCell;
 }(_MatCell));

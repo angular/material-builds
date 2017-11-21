@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Direction, Directionality } from '@angular/cdk/bidi';
-import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2 } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
 import { CanDisableRipple } from '@angular/material/core';
 import { MatInkBar } from './ink-bar';
 import { MatTabLabelWrapper } from './tab-label-wrapper';
@@ -30,7 +30,6 @@ export declare const _MatTabHeaderMixinBase: (new (...args: any[]) => CanDisable
  */
 export declare class MatTabHeader extends _MatTabHeaderMixinBase implements AfterContentChecked, AfterContentInit, OnDestroy, CanDisableRipple {
     private _elementRef;
-    private _renderer;
     private _changeDetectorRef;
     private _viewportRuler;
     private _dir;
@@ -66,7 +65,7 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     selectFocusedIndex: EventEmitter<{}>;
     /** Event emitted when a label is focused. */
     indexFocused: EventEmitter<{}>;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality);
     ngAfterContentChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;
     /**

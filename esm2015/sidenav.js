@@ -8,7 +8,7 @@
 import { A11yModule, FocusMonitor, FocusTrapFactory } from '@angular/cdk/a11y';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -455,14 +455,12 @@ class MatDrawerContainer {
     /**
      * @param {?} _dir
      * @param {?} _element
-     * @param {?} _renderer
      * @param {?} _ngZone
      * @param {?} _changeDetectorRef
      */
-    constructor(_dir, _element, _renderer, _ngZone, _changeDetectorRef) {
+    constructor(_dir, _element, _ngZone, _changeDetectorRef) {
         this._dir = _dir;
         this._element = _element;
-        this._renderer = _renderer;
         this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -543,7 +541,7 @@ class MatDrawerContainer {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
             if (event.toState !== 'open-instant') {
-                this._renderer.addClass(this._element.nativeElement, 'mat-drawer-transition');
+                this._element.nativeElement.classList.add('mat-drawer-transition');
             }
             this._updateContentMargins();
             this._changeDetectorRef.markForCheck();
@@ -591,10 +589,10 @@ class MatDrawerContainer {
      */
     _setContainerClass(isAdd) {
         if (isAdd) {
-            this._renderer.addClass(this._element.nativeElement, 'mat-drawer-opened');
+            this._element.nativeElement.classList.add('mat-drawer-opened');
         }
         else {
-            this._renderer.removeClass(this._element.nativeElement, 'mat-drawer-opened');
+            this._element.nativeElement.classList.remove('mat-drawer-opened');
         }
     }
     /**
@@ -713,7 +711,6 @@ MatDrawerContainer.decorators = [
 MatDrawerContainer.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: ElementRef, },
-    { type: Renderer2, },
     { type: NgZone, },
     { type: ChangeDetectorRef, },
 ];

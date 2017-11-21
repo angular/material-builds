@@ -11,7 +11,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { ConnectionPositionPair, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
-import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, Renderer2, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 /** Time in ms to delay before changing the tooltip visibility to hidden */
@@ -71,9 +71,8 @@ export declare class MatTooltip implements OnDestroy {
     tooltipClass: string | string[] | Set<string> | {
         [key: string]: any;
     };
-    private _enterListener;
-    private _leaveListener;
-    constructor(renderer: Renderer2, _overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, _scrollStrategy: any, _dir: Directionality);
+    private _manualListeners;
+    constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, _scrollStrategy: any, _dir: Directionality);
     /**
      * Dispose the tooltip when destroyed.
      */

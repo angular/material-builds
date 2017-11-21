@@ -9,7 +9,7 @@ import { A11yModule, ARIA_DESCRIBER_PROVIDER, AriaDescriber, FocusMonitor } from
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Renderer2, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgModule, NgZone, Optional, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
@@ -74,7 +74,6 @@ const MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
  */
 class MatTooltip {
     /**
-     * @param {?} renderer
      * @param {?} _overlay
      * @param {?} _elementRef
      * @param {?} _scrollDispatcher
@@ -86,7 +85,7 @@ class MatTooltip {
      * @param {?} _scrollStrategy
      * @param {?} _dir
      */
-    constructor(renderer, _overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir) {
+    constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir) {
         this._overlay = _overlay;
         this._elementRef = _elementRef;
         this._scrollDispatcher = _scrollDispatcher;
@@ -108,13 +107,14 @@ class MatTooltip {
          */
         this.hideDelay = 0;
         this._message = '';
+        this._manualListeners = new Map();
         // The mouse events shouldn't be bound on iOS devices, because
         // they can prevent the first tap from firing its click event.
         if (!_platform.IOS) {
-            this._enterListener =
-                renderer.listen(_elementRef.nativeElement, 'mouseenter', () => this.show());
-            this._leaveListener =
-                renderer.listen(_elementRef.nativeElement, 'mouseleave', () => this.hide());
+            this._manualListeners.set('mouseenter', () => this.show());
+            this._manualListeners.set('mouseleave', () => this.hide());
+            this._manualListeners
+                .forEach((listener, event) => _elementRef.nativeElement.addEventListener(event, listener));
         }
         _focusMonitor.monitor(_elementRef.nativeElement, false).subscribe(origin => {
             // Note that the focus monitor runs outside the Angular zone.
@@ -212,8 +212,10 @@ class MatTooltip {
         }
         // Clean up the event listeners set in the constructor
         if (!this._platform.IOS) {
-            this._enterListener();
-            this._leaveListener();
+            this._manualListeners.forEach((listener, event) => {
+                this._elementRef.nativeElement.removeEventListener(event, listener);
+            });
+            this._manualListeners.clear();
         }
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
         this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
@@ -462,7 +464,6 @@ MatTooltip.decorators = [
 ];
 /** @nocollapse */
 MatTooltip.ctorParameters = () => [
-    { type: Renderer2, },
     { type: Overlay, },
     { type: ElementRef, },
     { type: ScrollDispatcher, },

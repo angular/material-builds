@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule } from '@angular/common';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, Optional, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, Optional, Output, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatCommonModule, MatLine, MatLineModule, MatLineSetter, MatPseudoCheckboxModule, MatRippleModule, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
@@ -187,9 +187,8 @@ var MatListSubheaderCssMatStyler = (function () {
  */
 var MatListItem = (function (_super) {
     __extends(MatListItem, _super);
-    function MatListItem(_renderer, _element, _list, navList) {
+    function MatListItem(_element, _list, navList) {
         var _this = _super.call(this) || this;
-        _this._renderer = _renderer;
         _this._element = _element;
         _this._list = _list;
         _this._isNavList = false;
@@ -203,10 +202,10 @@ var MatListItem = (function (_super) {
          */
         function (avatar) {
             if (avatar != null) {
-                this._renderer.addClass(this._element.nativeElement, 'mat-list-item-avatar');
+                this._element.nativeElement.classList.add('mat-list-item-avatar');
             }
             else {
-                this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-avatar');
+                this._element.nativeElement.classList.remove('mat-list-item-avatar');
             }
         },
         enumerable: true,
@@ -219,7 +218,7 @@ var MatListItem = (function (_super) {
      * @return {?}
      */
     function () {
-        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new MatLineSetter(this._lines, this._element);
     };
     /** Whether this list item should show a ripple effect when clicked.  */
     /**
@@ -240,7 +239,7 @@ var MatListItem = (function (_super) {
      * @return {?}
      */
     function () {
-        this._renderer.addClass(this._element.nativeElement, 'mat-list-item-focus');
+        this._element.nativeElement.classList.add('mat-list-item-focus');
     };
     /**
      * @return {?}
@@ -249,7 +248,7 @@ var MatListItem = (function (_super) {
      * @return {?}
      */
     function () {
-        this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-focus');
+        this._element.nativeElement.classList.remove('mat-list-item-focus');
     };
     /** Retrieves the DOM element of the component host. */
     /**
@@ -281,7 +280,6 @@ var MatListItem = (function (_super) {
     ];
     /** @nocollapse */
     MatListItem.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: ElementRef, },
         { type: MatList, decorators: [{ type: Optional },] },
         { type: MatNavListCssMatStyler, decorators: [{ type: Optional },] },
@@ -330,9 +328,8 @@ var MatListOptionChange = (function () {
  */
 var MatListOption = (function (_super) {
     __extends(MatListOption, _super);
-    function MatListOption(_renderer, _element, _changeDetector, selectionList) {
+    function MatListOption(_element, _changeDetector, selectionList) {
         var _this = _super.call(this) || this;
-        _this._renderer = _renderer;
         _this._element = _element;
         _this._changeDetector = _changeDetector;
         _this.selectionList = selectionList;
@@ -406,7 +403,7 @@ var MatListOption = (function (_super) {
      * @return {?}
      */
     function () {
-        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new MatLineSetter(this._lines, this._element);
     };
     /**
      * @return {?}
@@ -527,7 +524,6 @@ var MatListOption = (function (_super) {
     ];
     /** @nocollapse */
     MatListOption.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: ElementRef, },
         { type: ChangeDetectorRef, },
         { type: MatSelectionList, decorators: [{ type: Optional }, { type: Inject, args: [forwardRef(function () { return MatSelectionList; }),] },] },

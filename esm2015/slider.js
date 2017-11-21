@@ -8,7 +8,7 @@
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { BidiModule, Directionality } from '@angular/cdk/bidi';
 import { CommonModule } from '@angular/common';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { GestureConfig, MatCommonModule, mixinColor, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
@@ -57,11 +57,9 @@ class MatSliderChange {
  */
 class MatSliderBase {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      */
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
 }
@@ -72,15 +70,14 @@ const _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisabled(MatSliderBase
  */
 class MatSlider extends _MatSliderMixinBase {
     /**
-     * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _focusMonitor
      * @param {?} _changeDetectorRef
      * @param {?} _dir
      * @param {?} tabIndex
      */
-    constructor(renderer, elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex) {
-        super(renderer, elementRef);
+    constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex) {
+        super(elementRef);
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
@@ -794,7 +791,6 @@ MatSlider.decorators = [
 ];
 /** @nocollapse */
 MatSlider.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: FocusMonitor, },
     { type: ChangeDetectorRef, },

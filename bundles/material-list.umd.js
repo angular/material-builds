@@ -209,9 +209,8 @@ var MatListSubheaderCssMatStyler = (function () {
  */
 var MatListItem = (function (_super) {
     __extends(MatListItem, _super);
-    function MatListItem(_renderer, _element, _list, navList) {
+    function MatListItem(_element, _list, navList) {
         var _this = _super.call(this) || this;
-        _this._renderer = _renderer;
         _this._element = _element;
         _this._list = _list;
         _this._isNavList = false;
@@ -225,10 +224,10 @@ var MatListItem = (function (_super) {
          */
         function (avatar) {
             if (avatar != null) {
-                this._renderer.addClass(this._element.nativeElement, 'mat-list-item-avatar');
+                this._element.nativeElement.classList.add('mat-list-item-avatar');
             }
             else {
-                this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-avatar');
+                this._element.nativeElement.classList.remove('mat-list-item-avatar');
             }
         },
         enumerable: true,
@@ -241,7 +240,7 @@ var MatListItem = (function (_super) {
      * @return {?}
      */
     function () {
-        this._lineSetter = new _angular_material_core.MatLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new _angular_material_core.MatLineSetter(this._lines, this._element);
     };
     /** Whether this list item should show a ripple effect when clicked.  */
     /**
@@ -262,7 +261,7 @@ var MatListItem = (function (_super) {
      * @return {?}
      */
     function () {
-        this._renderer.addClass(this._element.nativeElement, 'mat-list-item-focus');
+        this._element.nativeElement.classList.add('mat-list-item-focus');
     };
     /**
      * @return {?}
@@ -271,7 +270,7 @@ var MatListItem = (function (_super) {
      * @return {?}
      */
     function () {
-        this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-focus');
+        this._element.nativeElement.classList.remove('mat-list-item-focus');
     };
     /** Retrieves the DOM element of the component host. */
     /**
@@ -303,7 +302,6 @@ var MatListItem = (function (_super) {
     ];
     /** @nocollapse */
     MatListItem.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: MatList, decorators: [{ type: _angular_core.Optional },] },
         { type: MatNavListCssMatStyler, decorators: [{ type: _angular_core.Optional },] },
@@ -352,9 +350,8 @@ var MatListOptionChange = (function () {
  */
 var MatListOption = (function (_super) {
     __extends(MatListOption, _super);
-    function MatListOption(_renderer, _element, _changeDetector, selectionList) {
+    function MatListOption(_element, _changeDetector, selectionList) {
         var _this = _super.call(this) || this;
-        _this._renderer = _renderer;
         _this._element = _element;
         _this._changeDetector = _changeDetector;
         _this.selectionList = selectionList;
@@ -428,7 +425,7 @@ var MatListOption = (function (_super) {
      * @return {?}
      */
     function () {
-        this._lineSetter = new _angular_material_core.MatLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new _angular_material_core.MatLineSetter(this._lines, this._element);
     };
     /**
      * @return {?}
@@ -549,7 +546,6 @@ var MatListOption = (function (_super) {
     ];
     /** @nocollapse */
     MatListOption.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_core.ChangeDetectorRef, },
         { type: MatSelectionList, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatSelectionList; }),] },] },

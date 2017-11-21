@@ -479,8 +479,7 @@ var MatRadioGroup = (function (_super) {
  * \@docs-private
  */
 var MatRadioButtonBase = (function () {
-    function MatRadioButtonBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatRadioButtonBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatRadioButtonBase;
@@ -493,8 +492,8 @@ var _MatRadioButtonMixinBase = _angular_material_core.mixinColor(_angular_materi
  */
 var MatRadioButton = (function (_super) {
     __extends(MatRadioButton, _super);
-    function MatRadioButton(radioGroup, elementRef, renderer, _changeDetector, _focusMonitor, _radioDispatcher) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatRadioButton(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher) {
+        var _this = _super.call(this, elementRef) || this;
         _this._changeDetector = _changeDetector;
         _this._focusMonitor = _focusMonitor;
         _this._radioDispatcher = _radioDispatcher;
@@ -737,7 +736,8 @@ var MatRadioButton = (function (_super) {
      */
     function () {
         var _this = this;
-        this._focusMonitor.monitor(this._inputElement.nativeElement, false)
+        this._focusMonitor
+            .monitor(this._inputElement.nativeElement, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -872,7 +872,6 @@ var MatRadioButton = (function (_super) {
     MatRadioButton.ctorParameters = function () { return [
         { type: MatRadioGroup, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: _angular_cdk_collections.UniqueSelectionDispatcher, },

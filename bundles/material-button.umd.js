@@ -145,8 +145,7 @@ var MatMiniFab = (function () {
  * \@docs-private
  */
 var MatButtonBase = (function () {
-    function MatButtonBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatButtonBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatButtonBase;
@@ -157,8 +156,8 @@ var _MatButtonMixinBase = _angular_material_core.mixinColor(_angular_material_co
  */
 var MatButton = (function (_super) {
     __extends(MatButton, _super);
-    function MatButton(renderer, elementRef, _platform, _focusMonitor) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatButton(elementRef, _platform, _focusMonitor) {
+        var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
         /**
@@ -252,7 +251,6 @@ var MatButton = (function (_super) {
     ];
     /** @nocollapse */
     MatButton.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_platform.Platform, },
         { type: _angular_cdk_a11y.FocusMonitor, },
@@ -264,8 +262,8 @@ var MatButton = (function (_super) {
  */
 var MatAnchor = (function (_super) {
     __extends(MatAnchor, _super);
-    function MatAnchor(platform, focusMonitor, elementRef, renderer) {
-        return _super.call(this, renderer, elementRef, platform, focusMonitor) || this;
+    function MatAnchor(platform, focusMonitor, elementRef) {
+        return _super.call(this, elementRef, platform, focusMonitor) || this;
     }
     /**
      * @param {?} event
@@ -304,7 +302,6 @@ var MatAnchor = (function (_super) {
         { type: _angular_cdk_platform.Platform, },
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
     ]; };
     return MatAnchor;
 }(MatButton));

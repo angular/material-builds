@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
@@ -458,8 +458,7 @@ var MatRadioGroup = (function (_super) {
  * \@docs-private
  */
 var MatRadioButtonBase = (function () {
-    function MatRadioButtonBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatRadioButtonBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatRadioButtonBase;
@@ -472,8 +471,8 @@ var _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(MatRadioButtonBase)
  */
 var MatRadioButton = (function (_super) {
     __extends(MatRadioButton, _super);
-    function MatRadioButton(radioGroup, elementRef, renderer, _changeDetector, _focusMonitor, _radioDispatcher) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatRadioButton(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher) {
+        var _this = _super.call(this, elementRef) || this;
         _this._changeDetector = _changeDetector;
         _this._focusMonitor = _focusMonitor;
         _this._radioDispatcher = _radioDispatcher;
@@ -716,7 +715,8 @@ var MatRadioButton = (function (_super) {
      */
     function () {
         var _this = this;
-        this._focusMonitor.monitor(this._inputElement.nativeElement, false)
+        this._focusMonitor
+            .monitor(this._inputElement.nativeElement, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -851,7 +851,6 @@ var MatRadioButton = (function (_super) {
     MatRadioButton.ctorParameters = function () { return [
         { type: MatRadioGroup, decorators: [{ type: Optional },] },
         { type: ElementRef, },
-        { type: Renderer2, },
         { type: ChangeDetectorRef, },
         { type: FocusMonitor, },
         { type: UniqueSelectionDispatcher, },

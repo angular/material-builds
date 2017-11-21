@@ -1,4 +1,4 @@
-import { AfterContentInit, ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, ValidationErrors, Validator } from '@angular/forms';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
@@ -20,7 +20,6 @@ export declare class MatDatepickerInputEvent<D> {
 /** Directive used to connect an input to a MatDatepicker. */
 export declare class MatDatepickerInput<D> implements AfterContentInit, ControlValueAccessor, OnDestroy, Validator {
     private _elementRef;
-    private _renderer;
     private _dateAdapter;
     private _dateFormats;
     private _formField;
@@ -67,7 +66,7 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     private _validator;
     /** Whether the last value set on the input was valid. */
     private _lastValueValid;
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, _formField: MatFormField);
+    constructor(_elementRef: ElementRef, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, _formField: MatFormField);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     registerOnValidatorChange(fn: () => void): void;

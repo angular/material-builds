@@ -55,8 +55,7 @@ var BASE_STROKE_WIDTH = 10;
  * \@docs-private
  */
 var MatProgressSpinnerBase = (function () {
-    function MatProgressSpinnerBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatProgressSpinnerBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatProgressSpinnerBase;
@@ -68,9 +67,8 @@ var INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-strok
  */
 var MatProgressSpinner = (function (_super) {
     __extends(MatProgressSpinner, _super);
-    function MatProgressSpinner(_renderer, _elementRef, platform, _document) {
-        var _this = _super.call(this, _renderer, _elementRef) || this;
-        _this._renderer = _renderer;
+    function MatProgressSpinner(_elementRef, platform, _document) {
+        var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._document = _document;
         _this._value = 0;
@@ -88,7 +86,7 @@ var MatProgressSpinner = (function (_super) {
         // On IE and Edge, we can't animate the `stroke-dashoffset`
         // reliably so we fall back to a non-spec animation.
         var /** @type {?} */ animationClass = "mat-progress-spinner-indeterminate" + (_this._fallbackAnimation ? '-fallback' : '') + "-animation";
-        _renderer.addClass(_elementRef.nativeElement, animationClass);
+        _elementRef.nativeElement.classList.add(animationClass);
         return _this;
     }
     Object.defineProperty(MatProgressSpinner.prototype, "diameter", {
@@ -242,8 +240,8 @@ var MatProgressSpinner = (function (_super) {
     function () {
         var /** @type {?} */ styleTag = MatProgressSpinner.styleTag;
         if (!styleTag) {
-            styleTag = this._renderer.createElement('style');
-            this._renderer.appendChild(this._document.head, styleTag);
+            styleTag = this._document.createElement('style');
+            this._document.head.appendChild(styleTag);
             MatProgressSpinner.styleTag = styleTag;
         }
         if (styleTag && styleTag.sheet) {
@@ -297,7 +295,6 @@ var MatProgressSpinner = (function (_super) {
     ];
     /** @nocollapse */
     MatProgressSpinner.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_platform.Platform, },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
@@ -318,8 +315,8 @@ var MatProgressSpinner = (function (_super) {
  */
 var MatSpinner = (function (_super) {
     __extends(MatSpinner, _super);
-    function MatSpinner(renderer, elementRef, platform, document) {
-        var _this = _super.call(this, renderer, elementRef, platform, document) || this;
+    function MatSpinner(elementRef, platform, document) {
+        var _this = _super.call(this, elementRef, platform, document) || this;
         _this.mode = 'indeterminate';
         return _this;
     }
@@ -342,7 +339,6 @@ var MatSpinner = (function (_super) {
     ];
     /** @nocollapse */
     MatSpinner.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_platform.Platform, },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },

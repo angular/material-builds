@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Input, NgModule, Optional, Renderer2, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Input, NgModule, Optional, ViewEncapsulation } from '@angular/core';
 import { MatCommonModule, MatLine, MatLineModule, MatLineSetter } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
@@ -40,8 +40,7 @@ function coerceToNumber(value) {
  */
 
 var MatGridTile = (function () {
-    function MatGridTile(_renderer, _element) {
-        this._renderer = _renderer;
+    function MatGridTile(_element) {
         this._element = _element;
         this._rowspan = 1;
         this._colspan = 1;
@@ -93,7 +92,7 @@ var MatGridTile = (function () {
      * @return {?}
      */
     function (property, value) {
-        this._renderer.setStyle(this._element.nativeElement, property, value);
+        this._element.nativeElement.style[property] = value;
     };
     MatGridTile.decorators = [
         { type: Component, args: [{selector: 'mat-grid-tile',
@@ -110,7 +109,6 @@ var MatGridTile = (function () {
     ];
     /** @nocollapse */
     MatGridTile.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: ElementRef, },
     ]; };
     MatGridTile.propDecorators = {
@@ -120,8 +118,7 @@ var MatGridTile = (function () {
     return MatGridTile;
 }());
 var MatGridTileText = (function () {
-    function MatGridTileText(_renderer, _element) {
-        this._renderer = _renderer;
+    function MatGridTileText(_element) {
         this._element = _element;
     }
     /**
@@ -131,7 +128,7 @@ var MatGridTileText = (function () {
      * @return {?}
      */
     function () {
-        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new MatLineSetter(this._lines, this._element);
     };
     MatGridTileText.decorators = [
         { type: Component, args: [{selector: 'mat-grid-tile-header, mat-grid-tile-footer',
@@ -143,7 +140,6 @@ var MatGridTileText = (function () {
     ];
     /** @nocollapse */
     MatGridTileText.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: ElementRef, },
     ]; };
     MatGridTileText.propDecorators = {
@@ -846,8 +842,7 @@ function normalizeUnits(value) {
 // TODO(kara): gridTileHeader and gridTileFooter.
 var MAT_FIT_MODE = 'fit';
 var MatGridList = (function () {
-    function MatGridList(_renderer, _element, _dir) {
-        this._renderer = _renderer;
+    function MatGridList(_element, _dir) {
         this._element = _element;
         this._dir = _dir;
         /**
@@ -1009,7 +1004,7 @@ var MatGridList = (function () {
      */
     function (style) {
         if (style) {
-            this._renderer.setStyle(this._element.nativeElement, style[0], style[1]);
+            this._element.nativeElement.style[style[0]] = style[1];
         }
     };
     MatGridList.decorators = [
@@ -1027,7 +1022,6 @@ var MatGridList = (function () {
     ];
     /** @nocollapse */
     MatGridList.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: ElementRef, },
         { type: Directionality, decorators: [{ type: Optional },] },
     ]; };

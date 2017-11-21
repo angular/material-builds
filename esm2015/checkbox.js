@@ -7,7 +7,7 @@
  */
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Input, NgModule, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CheckboxRequiredValidator, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
@@ -55,11 +55,9 @@ class MatCheckboxChange {
  */
 class MatCheckboxBase {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      */
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
 }
@@ -74,14 +72,13 @@ const _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinD
  */
 class MatCheckbox extends _MatCheckboxMixinBase {
     /**
-     * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _changeDetectorRef
      * @param {?} _focusMonitor
      * @param {?} tabIndex
      */
-    constructor(renderer, elementRef, _changeDetectorRef, _focusMonitor, tabIndex) {
-        super(renderer, elementRef);
+    constructor(elementRef, _changeDetectorRef, _focusMonitor, tabIndex) {
+        super(elementRef);
         this._changeDetectorRef = _changeDetectorRef;
         this._focusMonitor = _focusMonitor;
         /**
@@ -279,18 +276,17 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      */
     _transitionCheckState(newState) {
         let /** @type {?} */ oldState = this._currentCheckState;
-        let /** @type {?} */ renderer = this._renderer;
-        let /** @type {?} */ elementRef = this._elementRef;
+        let /** @type {?} */ element = this._elementRef.nativeElement;
         if (oldState === newState) {
             return;
         }
         if (this._currentAnimationClass.length > 0) {
-            renderer.removeClass(elementRef.nativeElement, this._currentAnimationClass);
+            element.classList.remove(this._currentAnimationClass);
         }
         this._currentAnimationClass = this._getAnimationClassForCheckStateTransition(oldState, newState);
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
-            renderer.addClass(elementRef.nativeElement, this._currentAnimationClass);
+            element.classList.add(this._currentAnimationClass);
         }
     }
     /**
@@ -444,7 +440,6 @@ MatCheckbox.decorators = [
 ];
 /** @nocollapse */
 MatCheckbox.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
     { type: FocusMonitor, },

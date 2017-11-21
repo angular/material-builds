@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, Renderer2 } from '@angular/core';
+import { ElementRef } from '@angular/core';
 import { CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef } from '@angular/cdk/table';
 /** Workaround for https://github.com/angular/angular/issues/17849 */
 export declare const _MatCellDef: typeof CdkCellDef;
@@ -35,9 +35,9 @@ export declare class MatColumnDef extends _MatColumnDef {
 }
 /** Header cell template container that adds the right classes and role. */
 export declare class MatHeaderCell extends _MatHeaderCell {
-    constructor(columnDef: CdkColumnDef, elementRef: ElementRef, renderer: Renderer2);
+    constructor(columnDef: CdkColumnDef, elementRef: ElementRef);
 }
 /** Cell template container that adds the right classes and role. */
 export declare class MatCell extends _MatCell {
-    constructor(columnDef: CdkColumnDef, elementRef: ElementRef, renderer: Renderer2);
+    constructor(columnDef: CdkColumnDef, elementRef: ElementRef);
 }

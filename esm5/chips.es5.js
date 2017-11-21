@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, Self, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Self, ViewEncapsulation } from '@angular/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -46,8 +46,7 @@ var MatChipSelectionChange = (function () {
  * \@docs-private
  */
 var MatChipBase = (function () {
-    function MatChipBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatChipBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatChipBase;
@@ -75,8 +74,8 @@ var MatBasicChip = (function () {
  */
 var MatChip = (function (_super) {
     __extends(MatChip, _super);
-    function MatChip(renderer, _elementRef) {
-        var _this = _super.call(this, renderer, _elementRef) || this;
+    function MatChip(_elementRef) {
+        var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._selected = false;
         _this._selectable = true;
@@ -412,7 +411,6 @@ var MatChip = (function (_super) {
     ];
     /** @nocollapse */
     MatChip.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: ElementRef, },
     ]; };
     MatChip.propDecorators = {
@@ -496,8 +494,7 @@ var MatChipListChange = (function () {
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
 var MatChipList = (function () {
-    function MatChipList(_renderer, _elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
-        this._renderer = _renderer;
+    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
@@ -978,7 +975,7 @@ var MatChipList = (function () {
      */
     function (disabled) {
         this.disabled = disabled;
-        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', disabled);
+        this._elementRef.nativeElement.disabled = disabled;
         this.stateChanges.next();
     };
     /**
@@ -1496,7 +1493,6 @@ var MatChipList = (function () {
     ];
     /** @nocollapse */
     MatChipList.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: ElementRef, },
         { type: ChangeDetectorRef, },
         { type: Directionality, decorators: [{ type: Optional },] },

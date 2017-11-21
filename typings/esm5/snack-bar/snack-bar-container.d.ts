@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ComponentRef, EmbeddedViewRef, NgZone, OnDestroy, Renderer2, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { ComponentRef, EmbeddedViewRef, NgZone, OnDestroy, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Observable } from 'rxjs/Observable';
@@ -19,7 +19,6 @@ export declare const HIDE_ANIMATION: string;
  */
 export declare class MatSnackBarContainer extends BasePortalOutlet implements OnDestroy {
     private _ngZone;
-    private _renderer;
     private _elementRef;
     private _changeDetectorRef;
     /** Whether the component has been destroyed. */
@@ -34,7 +33,7 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     _animationState: string;
     /** The snack bar configuration. */
     snackBarConfig: MatSnackBarConfig;
-    constructor(_ngZone: NgZone, _renderer: Renderer2, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);
+    constructor(_ngZone: NgZone, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);
     /** Attach a component portal as content to this snack bar container. */
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
     /** Attach a template portal as content to this snack bar container. */

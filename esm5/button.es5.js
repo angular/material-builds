@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, NgModule, Optional, Renderer2, Self, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, NgModule, Optional, Self, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
@@ -121,8 +121,7 @@ var MatMiniFab = (function () {
  * \@docs-private
  */
 var MatButtonBase = (function () {
-    function MatButtonBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatButtonBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatButtonBase;
@@ -133,8 +132,8 @@ var _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonB
  */
 var MatButton = (function (_super) {
     __extends(MatButton, _super);
-    function MatButton(renderer, elementRef, _platform, _focusMonitor) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatButton(elementRef, _platform, _focusMonitor) {
+        var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
         /**
@@ -228,7 +227,6 @@ var MatButton = (function (_super) {
     ];
     /** @nocollapse */
     MatButton.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: ElementRef, },
         { type: Platform, },
         { type: FocusMonitor, },
@@ -240,8 +238,8 @@ var MatButton = (function (_super) {
  */
 var MatAnchor = (function (_super) {
     __extends(MatAnchor, _super);
-    function MatAnchor(platform, focusMonitor, elementRef, renderer) {
-        return _super.call(this, renderer, elementRef, platform, focusMonitor) || this;
+    function MatAnchor(platform, focusMonitor, elementRef) {
+        return _super.call(this, elementRef, platform, focusMonitor) || this;
     }
     /**
      * @param {?} event
@@ -280,7 +278,6 @@ var MatAnchor = (function (_super) {
         { type: Platform, },
         { type: FocusMonitor, },
         { type: ElementRef, },
-        { type: Renderer2, },
     ]; };
     return MatAnchor;
 }(MatButton));

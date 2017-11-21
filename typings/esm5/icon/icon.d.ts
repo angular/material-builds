@@ -1,11 +1,10 @@
-import { ElementRef, OnChanges, OnInit, Renderer2, SimpleChanges } from '@angular/core';
+import { ElementRef, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CanColor } from '@angular/material/core';
 import { MatIconRegistry } from './icon-registry';
 /** @docs-private */
 export declare class MatIconBase {
-    _renderer: Renderer2;
     _elementRef: ElementRef;
-    constructor(_renderer: Renderer2, _elementRef: ElementRef);
+    constructor(_elementRef: ElementRef);
 }
 export declare const _MatIconMixinBase: (new (...args: any[]) => CanColor) & typeof MatIconBase;
 /**
@@ -45,7 +44,7 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     fontIcon: string;
     private _previousFontSetClass;
     private _previousFontIconClass;
-    constructor(renderer: Renderer2, elementRef: ElementRef, _iconRegistry: MatIconRegistry, ariaHidden: string);
+    constructor(elementRef: ElementRef, _iconRegistry: MatIconRegistry, ariaHidden: string);
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
      * Returns a 2-element array of [(icon set), (icon name)].

@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, Renderer2, Self, ViewChild, ViewEncapsulation, isDevMode } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, Self, ViewChild, ViewEncapsulation, isDevMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
@@ -182,8 +182,7 @@ var MatSelectChange = (function () {
  * \@docs-private
  */
 var MatSelectBase = (function () {
-    function MatSelectBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatSelectBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatSelectBase;
@@ -206,8 +205,8 @@ var MatSelectTrigger = (function () {
 }());
 var MatSelect = (function (_super) {
     __extends(MatSelect, _super);
-    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, renderer, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
+        var _this = _super.call(this, elementRef) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._ngZone = _ngZone;
@@ -1709,7 +1708,6 @@ var MatSelect = (function (_super) {
         { type: ChangeDetectorRef, },
         { type: NgZone, },
         { type: ErrorStateMatcher, },
-        { type: Renderer2, },
         { type: ElementRef, },
         { type: Directionality, decorators: [{ type: Optional },] },
         { type: NgForm, decorators: [{ type: Optional },] },

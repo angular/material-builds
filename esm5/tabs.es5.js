@@ -9,7 +9,7 @@ import { ObserversModule } from '@angular/cdk/observers';
 import { CdkPortal, CdkPortalOutlet, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
@@ -35,8 +35,7 @@ import { takeUntil } from 'rxjs/operators/takeUntil';
  * \@docs-private
  */
 var MatInkBar = (function () {
-    function MatInkBar(_renderer, _elementRef, _ngZone) {
-        this._renderer = _renderer;
+    function MatInkBar(_elementRef, _ngZone) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
     }
@@ -79,7 +78,7 @@ var MatInkBar = (function () {
      * @return {?}
      */
     function () {
-        this._renderer.setStyle(this._elementRef.nativeElement, 'visibility', 'visible');
+        this._elementRef.nativeElement.style.visibility = 'visible';
     };
     /** Hides the ink bar. */
     /**
@@ -91,7 +90,7 @@ var MatInkBar = (function () {
      * @return {?}
      */
     function () {
-        this._renderer.setStyle(this._elementRef.nativeElement, 'visibility', 'hidden');
+        this._elementRef.nativeElement.style.visibility = 'hidden';
     };
     /**
      * Sets the proper styles to the ink bar element.
@@ -104,10 +103,9 @@ var MatInkBar = (function () {
      * @return {?}
      */
     function (element) {
-        var /** @type {?} */ left = element ? (element.offsetLeft || 0) + 'px' : '0';
-        var /** @type {?} */ width = element ? (element.offsetWidth || 0) + 'px' : '0';
-        this._renderer.setStyle(this._elementRef.nativeElement, 'left', left);
-        this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);
+        var /** @type {?} */ inkBar = this._elementRef.nativeElement;
+        inkBar.style.left = element ? (element.offsetLeft || 0) + 'px' : '0';
+        inkBar.style.top = element ? (element.offsetWidth || 0) + 'px' : '0';
     };
     MatInkBar.decorators = [
         { type: Directive, args: [{
@@ -119,7 +117,6 @@ var MatInkBar = (function () {
     ];
     /** @nocollapse */
     MatInkBar.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: ElementRef, },
         { type: NgZone, },
     ]; };
@@ -543,8 +540,7 @@ var MatTabChangeEvent = (function () {
  * \@docs-private
  */
 var MatTabGroupBase = (function () {
-    function MatTabGroupBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatTabGroupBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatTabGroupBase;
@@ -557,8 +553,8 @@ var _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupBase), 'pri
  */
 var MatTabGroup = (function (_super) {
     __extends(MatTabGroup, _super);
-    function MatTabGroup(_renderer, elementRef, _changeDetectorRef) {
-        var _this = _super.call(this, _renderer, elementRef) || this;
+    function MatTabGroup(elementRef, _changeDetectorRef) {
+        var _this = _super.call(this, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         /**
          * The tab index that should be selected after the content has been checked.
@@ -658,9 +654,9 @@ var MatTabGroup = (function (_super) {
          */
         function (value) {
             var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-            this._renderer.removeClass(nativeElement, "mat-background-" + this.backgroundColor);
+            nativeElement.classList.remove("mat-background-" + this.backgroundColor);
             if (value) {
-                this._renderer.addClass(nativeElement, "mat-background-" + value);
+                nativeElement.classList.add("mat-background-" + value);
             }
             this._backgroundColor = value;
         },
@@ -843,11 +839,12 @@ var MatTabGroup = (function (_super) {
         if (!this._dynamicHeight || !this._tabBodyWrapperHeight) {
             return;
         }
-        this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', this._tabBodyWrapperHeight + 'px');
+        var /** @type {?} */ wrapper = this._tabBodyWrapper.nativeElement;
+        wrapper.style.height = this._tabBodyWrapperHeight + 'px';
         // This conditional forces the browser to paint the height so that
         // the animation to the new height can have an origin.
         if (this._tabBodyWrapper.nativeElement.offsetHeight) {
-            this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', tabHeight + 'px');
+            wrapper.style.height = tabHeight + 'px';
         }
     };
     /** Removes the height of the tab body wrapper. */
@@ -861,7 +858,7 @@ var MatTabGroup = (function (_super) {
      */
     function () {
         this._tabBodyWrapperHeight = this._tabBodyWrapper.nativeElement.clientHeight;
-        this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', '');
+        this._tabBodyWrapper.nativeElement.style.height = '';
     };
     /** Handle click events, setting new selected index if appropriate. */
     /**
@@ -920,7 +917,6 @@ var MatTabGroup = (function (_super) {
     ];
     /** @nocollapse */
     MatTabGroup.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: ElementRef, },
         { type: ChangeDetectorRef, },
     ]; };
@@ -1037,10 +1033,9 @@ var _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
  */
 var MatTabHeader = (function (_super) {
     __extends(MatTabHeader, _super);
-    function MatTabHeader(_elementRef, _renderer, _changeDetectorRef, _viewportRuler, _dir) {
+    function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
-        _this._renderer = _renderer;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._viewportRuler = _viewportRuler;
         _this._dir = _dir;
@@ -1373,7 +1368,7 @@ var MatTabHeader = (function (_super) {
     function () {
         var /** @type {?} */ scrollDistance = this.scrollDistance;
         var /** @type {?} */ translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
-        this._renderer.setStyle(this._tabList.nativeElement, 'transform', "translate3d(" + translateX + "px, 0, 0)");
+        this._tabList.nativeElement.style.transform = "translate3d(" + translateX + "px, 0, 0)";
     };
     Object.defineProperty(MatTabHeader.prototype, "scrollDistance", {
         get: /**
@@ -1609,7 +1604,6 @@ var MatTabHeader = (function (_super) {
     /** @nocollapse */
     MatTabHeader.ctorParameters = function () { return [
         { type: ElementRef, },
-        { type: Renderer2, },
         { type: ChangeDetectorRef, },
         { type: ViewportRuler, },
         { type: Directionality, decorators: [{ type: Optional },] },
@@ -1634,8 +1628,7 @@ var MatTabHeader = (function (_super) {
  * \@docs-private
  */
 var MatTabNavBase = (function () {
-    function MatTabNavBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatTabNavBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatTabNavBase;
@@ -1647,8 +1640,8 @@ var _MatTabNavMixinBase = mixinDisableRipple(mixinColor(MatTabNavBase, 'primary'
  */
 var MatTabNav = (function (_super) {
     __extends(MatTabNav, _super);
-    function MatTabNav(renderer, elementRef, _dir, _ngZone, _changeDetectorRef, _viewportRuler) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatTabNav(elementRef, _dir, _ngZone, _changeDetectorRef, _viewportRuler) {
+        var _this = _super.call(this, elementRef) || this;
         _this._dir = _dir;
         _this._ngZone = _ngZone;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -1672,9 +1665,9 @@ var MatTabNav = (function (_super) {
          */
         function (value) {
             var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-            this._renderer.removeClass(nativeElement, "mat-background-" + this.backgroundColor);
+            nativeElement.classList.remove("mat-background-" + this.backgroundColor);
             if (value) {
-                this._renderer.addClass(nativeElement, "mat-background-" + value);
+                nativeElement.classList.add("mat-background-" + value);
             }
             this._backgroundColor = value;
         },
@@ -1799,7 +1792,6 @@ var MatTabNav = (function (_super) {
     ];
     /** @nocollapse */
     MatTabNav.ctorParameters = function () { return [
-        { type: Renderer2, },
         { type: ElementRef, },
         { type: Directionality, decorators: [{ type: Optional },] },
         { type: NgZone, },

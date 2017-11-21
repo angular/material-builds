@@ -289,10 +289,10 @@ function mixinColor(base, defaultColor) {
                 var /** @type {?} */ colorPalette = value || defaultColor;
                 if (colorPalette !== this._color) {
                     if (this._color) {
-                        this._renderer.removeClass(this._elementRef.nativeElement, "mat-" + this._color);
+                        this._elementRef.nativeElement.classList.remove("mat-" + this._color);
                     }
                     if (colorPalette) {
-                        this._renderer.addClass(this._elementRef.nativeElement, "mat-" + colorPalette);
+                        this._elementRef.nativeElement.classList.add("mat-" + colorPalette);
                     }
                     this._color = colorPalette;
                 }
@@ -1332,10 +1332,9 @@ var MatLine = (function () {
  * \@docs-private
  */
 var MatLineSetter = (function () {
-    function MatLineSetter(_lines, _renderer, _element) {
+    function MatLineSetter(_lines, _element) {
         var _this = this;
         this._lines = _lines;
-        this._renderer = _renderer;
         this._element = _element;
         this._setLineClass(this._lines.length);
         this._lines.changes.subscribe(function () {
@@ -1382,10 +1381,10 @@ var MatLineSetter = (function () {
      */
     function (className, isAdd) {
         if (isAdd) {
-            this._renderer.addClass(this._element.nativeElement, className);
+            this._element.nativeElement.classList.add(className);
         }
         else {
-            this._renderer.removeClass(this._element.nativeElement, className);
+            this._element.nativeElement.classList.remove(className);
         }
     };
     return MatLineSetter;
@@ -2651,9 +2650,8 @@ var nextUniqueId$1 = 0;
  * Container for form controls that applies Material Design styling and behavior.
  */
 var MatFormField = (function () {
-    function MatFormField(_elementRef, _renderer, _changeDetectorRef, placeholderOptions) {
+    function MatFormField(_elementRef, _changeDetectorRef, placeholderOptions) {
         this._elementRef = _elementRef;
-        this._renderer = _renderer;
         this._changeDetectorRef = _changeDetectorRef;
         /**
          * Color of the form field underline, based on the theme.
@@ -2771,7 +2769,8 @@ var MatFormField = (function () {
         var _this = this;
         this._validateControlChild();
         if (this._control.controlType) {
-            this._renderer.addClass(this._elementRef.nativeElement, "mat-form-field-type-" + this._control.controlType);
+            this._elementRef.nativeElement.classList
+                .add("mat-form-field-type-" + this._control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
         this._control.stateChanges.pipe(rxjs_operators_startWith.startWith(/** @type {?} */ ((null)))).subscribe(function () {
@@ -3028,7 +3027,6 @@ var MatFormField = (function () {
     /** @nocollapse */
     MatFormField.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_PLACEHOLDER_GLOBAL_OPTIONS,] },] },
     ]; };
@@ -4043,8 +4041,7 @@ var MatMiniFab = (function () {
  * \@docs-private
  */
 var MatButtonBase = (function () {
-    function MatButtonBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatButtonBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatButtonBase;
@@ -4055,8 +4052,8 @@ var _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonB
  */
 var MatButton = (function (_super) {
     __extends(MatButton, _super);
-    function MatButton(renderer, elementRef, _platform, _focusMonitor) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatButton(elementRef, _platform, _focusMonitor) {
+        var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
         /**
@@ -4150,7 +4147,6 @@ var MatButton = (function (_super) {
     ];
     /** @nocollapse */
     MatButton.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_platform.Platform, },
         { type: _angular_cdk_a11y.FocusMonitor, },
@@ -4162,8 +4158,8 @@ var MatButton = (function (_super) {
  */
 var MatAnchor = (function (_super) {
     __extends(MatAnchor, _super);
-    function MatAnchor(platform, focusMonitor, elementRef, renderer) {
-        return _super.call(this, renderer, elementRef, platform, focusMonitor) || this;
+    function MatAnchor(platform, focusMonitor, elementRef) {
+        return _super.call(this, elementRef, platform, focusMonitor) || this;
     }
     /**
      * @param {?} event
@@ -4202,7 +4198,6 @@ var MatAnchor = (function (_super) {
         { type: _angular_cdk_platform.Platform, },
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
     ]; };
     return MatAnchor;
 }(MatButton));
@@ -5326,8 +5321,7 @@ var MatCheckboxChange = (function () {
  * \@docs-private
  */
 var MatCheckboxBase = (function () {
-    function MatCheckboxBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatCheckboxBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatCheckboxBase;
@@ -5343,8 +5337,8 @@ var _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDis
  */
 var MatCheckbox = (function (_super) {
     __extends(MatCheckbox, _super);
-    function MatCheckbox(renderer, elementRef, _changeDetectorRef, _focusMonitor, tabIndex) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, tabIndex) {
+        var _this = _super.call(this, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusMonitor = _focusMonitor;
         /**
@@ -5626,18 +5620,17 @@ var MatCheckbox = (function (_super) {
      */
     function (newState) {
         var /** @type {?} */ oldState = this._currentCheckState;
-        var /** @type {?} */ renderer = this._renderer;
-        var /** @type {?} */ elementRef = this._elementRef;
+        var /** @type {?} */ element = this._elementRef.nativeElement;
         if (oldState === newState) {
             return;
         }
         if (this._currentAnimationClass.length > 0) {
-            renderer.removeClass(elementRef.nativeElement, this._currentAnimationClass);
+            element.classList.remove(this._currentAnimationClass);
         }
         this._currentAnimationClass = this._getAnimationClassForCheckStateTransition(oldState, newState);
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
-            renderer.addClass(elementRef.nativeElement, this._currentAnimationClass);
+            element.classList.add(this._currentAnimationClass);
         }
     };
     /**
@@ -5837,7 +5830,6 @@ var MatCheckbox = (function (_super) {
     ];
     /** @nocollapse */
     MatCheckbox.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },
@@ -5939,8 +5931,7 @@ var MatChipSelectionChange = (function () {
  * \@docs-private
  */
 var MatChipBase = (function () {
-    function MatChipBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatChipBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatChipBase;
@@ -5968,8 +5959,8 @@ var MatBasicChip = (function () {
  */
 var MatChip = (function (_super) {
     __extends(MatChip, _super);
-    function MatChip(renderer, _elementRef) {
-        var _this = _super.call(this, renderer, _elementRef) || this;
+    function MatChip(_elementRef) {
+        var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._selected = false;
         _this._selectable = true;
@@ -6305,7 +6296,6 @@ var MatChip = (function (_super) {
     ];
     /** @nocollapse */
     MatChip.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
     ]; };
     MatChip.propDecorators = {
@@ -6389,8 +6379,7 @@ var MatChipListChange = (function () {
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
 var MatChipList = (function () {
-    function MatChipList(_renderer, _elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
-        this._renderer = _renderer;
+    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
@@ -6871,7 +6860,7 @@ var MatChipList = (function () {
      */
     function (disabled) {
         this.disabled = disabled;
-        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', disabled);
+        this._elementRef.nativeElement.disabled = disabled;
         this.stateChanges.next();
     };
     /**
@@ -7389,7 +7378,6 @@ var MatChipList = (function () {
     ];
     /** @nocollapse */
     MatChipList.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
@@ -9363,8 +9351,7 @@ function iconKey(namespace, name) {
  * \@docs-private
  */
 var MatIconBase = (function () {
-    function MatIconBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatIconBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatIconBase;
@@ -9399,13 +9386,13 @@ var _MatIconMixinBase = mixinColor(MatIconBase);
  */
 var MatIcon = (function (_super) {
     __extends(MatIcon, _super);
-    function MatIcon(renderer, elementRef, _iconRegistry, ariaHidden) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatIcon(elementRef, _iconRegistry, ariaHidden) {
+        var _this = _super.call(this, elementRef) || this;
         _this._iconRegistry = _iconRegistry;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
         if (!ariaHidden) {
-            renderer.setAttribute(elementRef.nativeElement, 'aria-hidden', 'true');
+            elementRef.nativeElement.setAttribute('aria-hidden', 'true');
         }
         return _this;
     }
@@ -9506,7 +9493,7 @@ var MatIcon = (function (_super) {
      */
     function (svg) {
         this._clearSvgElement();
-        this._renderer.appendChild(this._elementRef.nativeElement, svg);
+        this._elementRef.nativeElement.appendChild(svg);
     };
     /**
      * @return {?}
@@ -9520,7 +9507,7 @@ var MatIcon = (function (_super) {
         // Remove existing child nodes and add the new SVG element. Note that we can't
         // use innerHTML, because IE will throw if the element has a data binding.
         for (var /** @type {?} */ i = 0; i < childCount; i++) {
-            this._renderer.removeChild(layoutElement, layoutElement.childNodes[i]);
+            layoutElement.removeChild(layoutElement.childNodes[i]);
         }
     };
     /**
@@ -9539,19 +9526,19 @@ var MatIcon = (function (_super) {
             this._iconRegistry.getDefaultFontSetClass();
         if (fontSetClass != this._previousFontSetClass) {
             if (this._previousFontSetClass) {
-                this._renderer.removeClass(elem, this._previousFontSetClass);
+                elem.classList.remove(this._previousFontSetClass);
             }
             if (fontSetClass) {
-                this._renderer.addClass(elem, fontSetClass);
+                elem.classList.add(fontSetClass);
             }
             this._previousFontSetClass = fontSetClass;
         }
         if (this.fontIcon != this._previousFontIconClass) {
             if (this._previousFontIconClass) {
-                this._renderer.removeClass(elem, this._previousFontIconClass);
+                elem.classList.remove(this._previousFontIconClass);
             }
             if (this.fontIcon) {
-                this._renderer.addClass(elem, this.fontIcon);
+                elem.classList.add(this.fontIcon);
             }
             this._previousFontIconClass = this.fontIcon;
         }
@@ -9573,7 +9560,6 @@ var MatIcon = (function (_super) {
     ];
     /** @nocollapse */
     MatIcon.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: MatIconRegistry, },
         { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['aria-hidden',] },] },
@@ -9878,9 +9864,8 @@ var nextUniqueId$3 = 0;
  * Directive that allows a native input to work inside a `MatFormField`.
  */
 var MatInput = (function () {
-    function MatInput(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
+    function MatInput(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
         this._elementRef = _elementRef;
-        this._renderer = _renderer;
         this._platform = _platform;
         this.ngControl = ngControl;
         this._parentForm = _parentForm;
@@ -9933,7 +9918,7 @@ var MatInput = (function () {
         // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
         // exists on iOS, we only bother to install the listener on iOS.
         if (_platform.IOS) {
-            _renderer.listen(_elementRef.nativeElement, 'keyup', function (event) {
+            _elementRef.nativeElement.addEventListener('keyup', function (event) {
                 var /** @type {?} */ el = /** @type {?} */ (event.target);
                 if (!el.value && !el.selectionStart && !el.selectionEnd) {
                     // Note: Just setting `0, 0` doesn't fix the issue. Setting `1, 1` fixes it for the first
@@ -10004,7 +9989,7 @@ var MatInput = (function () {
             // input element. To ensure that bindings for `type` work, we need to sync the setter
             // with the native property. Textarea elements don't support the type property or attribute.
             if (!this._isTextarea() && _angular_cdk_platform.getSupportedInputTypes().has(this._type)) {
-                this._renderer.setProperty(this._elementRef.nativeElement, 'type', this._type);
+                this._elementRef.nativeElement.type = this._type;
             }
         },
         enumerable: true,
@@ -10281,7 +10266,6 @@ var MatInput = (function () {
     /** @nocollapse */
     MatInput.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_cdk_platform.Platform, },
         { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
         { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
@@ -12036,10 +12020,9 @@ var MatDatepickerInputEvent = (function () {
  * Directive used to connect an input to a MatDatepicker.
  */
 var MatDatepickerInput = (function () {
-    function MatDatepickerInput(_elementRef, _renderer, _dateAdapter, _dateFormats, _formField) {
+    function MatDatepickerInput(_elementRef, _dateAdapter, _dateFormats, _formField) {
         var _this = this;
         this._elementRef = _elementRef;
-        this._renderer = _renderer;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
         this._formField = _formField;
@@ -12172,7 +12155,8 @@ var MatDatepickerInput = (function () {
             value = this._getValidDateOrNull(value);
             var /** @type {?} */ oldDate = this.value;
             this._value = value;
-            this._renderer.setProperty(this._elementRef.nativeElement, 'value', value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '');
+            this._elementRef.nativeElement.value =
+                value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '';
             if (!this._dateAdapter.sameDate(oldDate, value)) {
                 this._valueChange.emit(value);
             }
@@ -12426,7 +12410,6 @@ var MatDatepickerInput = (function () {
     /** @nocollapse */
     MatDatepickerInput.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
         { type: MatFormField, decorators: [{ type: _angular_core.Optional },] },
@@ -13140,8 +13123,7 @@ function coerceToNumber(value) {
  */
 
 var MatGridTile = (function () {
-    function MatGridTile(_renderer, _element) {
-        this._renderer = _renderer;
+    function MatGridTile(_element) {
         this._element = _element;
         this._rowspan = 1;
         this._colspan = 1;
@@ -13193,7 +13175,7 @@ var MatGridTile = (function () {
      * @return {?}
      */
     function (property, value) {
-        this._renderer.setStyle(this._element.nativeElement, property, value);
+        this._element.nativeElement.style[property] = value;
     };
     MatGridTile.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-grid-tile',
@@ -13210,7 +13192,6 @@ var MatGridTile = (function () {
     ];
     /** @nocollapse */
     MatGridTile.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
     ]; };
     MatGridTile.propDecorators = {
@@ -13220,8 +13201,7 @@ var MatGridTile = (function () {
     return MatGridTile;
 }());
 var MatGridTileText = (function () {
-    function MatGridTileText(_renderer, _element) {
-        this._renderer = _renderer;
+    function MatGridTileText(_element) {
         this._element = _element;
     }
     /**
@@ -13231,7 +13211,7 @@ var MatGridTileText = (function () {
      * @return {?}
      */
     function () {
-        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new MatLineSetter(this._lines, this._element);
     };
     MatGridTileText.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-grid-tile-header, mat-grid-tile-footer',
@@ -13243,7 +13223,6 @@ var MatGridTileText = (function () {
     ];
     /** @nocollapse */
     MatGridTileText.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
     ]; };
     MatGridTileText.propDecorators = {
@@ -13946,8 +13925,7 @@ function normalizeUnits(value) {
 // TODO(kara): gridTileHeader and gridTileFooter.
 var MAT_FIT_MODE = 'fit';
 var MatGridList = (function () {
-    function MatGridList(_renderer, _element, _dir) {
-        this._renderer = _renderer;
+    function MatGridList(_element, _dir) {
         this._element = _element;
         this._dir = _dir;
         /**
@@ -14109,7 +14087,7 @@ var MatGridList = (function () {
      */
     function (style$$1) {
         if (style$$1) {
-            this._renderer.setStyle(this._element.nativeElement, style$$1[0], style$$1[1]);
+            this._element.nativeElement.style[style$$1[0]] = style$$1[1];
         }
     };
     MatGridList.decorators = [
@@ -14127,7 +14105,6 @@ var MatGridList = (function () {
     ];
     /** @nocollapse */
     MatGridList.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };
@@ -14348,9 +14325,8 @@ var MatListSubheaderCssMatStyler = (function () {
  */
 var MatListItem = (function (_super) {
     __extends(MatListItem, _super);
-    function MatListItem(_renderer, _element, _list, navList) {
+    function MatListItem(_element, _list, navList) {
         var _this = _super.call(this) || this;
-        _this._renderer = _renderer;
         _this._element = _element;
         _this._list = _list;
         _this._isNavList = false;
@@ -14364,10 +14340,10 @@ var MatListItem = (function (_super) {
          */
         function (avatar) {
             if (avatar != null) {
-                this._renderer.addClass(this._element.nativeElement, 'mat-list-item-avatar');
+                this._element.nativeElement.classList.add('mat-list-item-avatar');
             }
             else {
-                this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-avatar');
+                this._element.nativeElement.classList.remove('mat-list-item-avatar');
             }
         },
         enumerable: true,
@@ -14380,7 +14356,7 @@ var MatListItem = (function (_super) {
      * @return {?}
      */
     function () {
-        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new MatLineSetter(this._lines, this._element);
     };
     /** Whether this list item should show a ripple effect when clicked.  */
     /**
@@ -14401,7 +14377,7 @@ var MatListItem = (function (_super) {
      * @return {?}
      */
     function () {
-        this._renderer.addClass(this._element.nativeElement, 'mat-list-item-focus');
+        this._element.nativeElement.classList.add('mat-list-item-focus');
     };
     /**
      * @return {?}
@@ -14410,7 +14386,7 @@ var MatListItem = (function (_super) {
      * @return {?}
      */
     function () {
-        this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-focus');
+        this._element.nativeElement.classList.remove('mat-list-item-focus');
     };
     /** Retrieves the DOM element of the component host. */
     /**
@@ -14442,7 +14418,6 @@ var MatListItem = (function (_super) {
     ];
     /** @nocollapse */
     MatListItem.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: MatList, decorators: [{ type: _angular_core.Optional },] },
         { type: MatNavListCssMatStyler, decorators: [{ type: _angular_core.Optional },] },
@@ -14491,9 +14466,8 @@ var MatListOptionChange = (function () {
  */
 var MatListOption = (function (_super) {
     __extends(MatListOption, _super);
-    function MatListOption(_renderer, _element, _changeDetector, selectionList) {
+    function MatListOption(_element, _changeDetector, selectionList) {
         var _this = _super.call(this) || this;
-        _this._renderer = _renderer;
         _this._element = _element;
         _this._changeDetector = _changeDetector;
         _this.selectionList = selectionList;
@@ -14567,7 +14541,7 @@ var MatListOption = (function (_super) {
      * @return {?}
      */
     function () {
-        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new MatLineSetter(this._lines, this._element);
     };
     /**
      * @return {?}
@@ -14688,7 +14662,6 @@ var MatListOption = (function (_super) {
     ];
     /** @nocollapse */
     MatListOption.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_core.ChangeDetectorRef, },
         { type: MatSelectionList, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatSelectionList; }),] },] },
@@ -16309,8 +16282,7 @@ var MatSelectChange = (function () {
  * \@docs-private
  */
 var MatSelectBase = (function () {
-    function MatSelectBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatSelectBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatSelectBase;
@@ -16333,8 +16305,8 @@ var MatSelectTrigger = (function () {
 }());
 var MatSelect = (function (_super) {
     __extends(MatSelect, _super);
-    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, renderer, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
+        var _this = _super.call(this, elementRef) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._ngZone = _ngZone;
@@ -17836,7 +17808,6 @@ var MatSelect = (function (_super) {
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_core.NgZone, },
         { type: ErrorStateMatcher, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
@@ -17954,7 +17925,7 @@ var MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
  * https://material.google.com/components/tooltips.html
  */
 var MatTooltip = (function () {
-    function MatTooltip(renderer, _overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir) {
+    function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir) {
         var _this = this;
         this._overlay = _overlay;
         this._elementRef = _elementRef;
@@ -17977,13 +17948,14 @@ var MatTooltip = (function () {
          */
         this.hideDelay = 0;
         this._message = '';
+        this._manualListeners = new Map();
         // The mouse events shouldn't be bound on iOS devices, because
         // they can prevent the first tap from firing its click event.
         if (!_platform.IOS) {
-            this._enterListener =
-                renderer.listen(_elementRef.nativeElement, 'mouseenter', function () { return _this.show(); });
-            this._leaveListener =
-                renderer.listen(_elementRef.nativeElement, 'mouseleave', function () { return _this.hide(); });
+            this._manualListeners.set('mouseenter', function () { return _this.show(); });
+            this._manualListeners.set('mouseleave', function () { return _this.hide(); });
+            this._manualListeners
+                .forEach(function (listener, event) { return _elementRef.nativeElement.addEventListener(event, listener); });
         }
         _focusMonitor.monitor(_elementRef.nativeElement, false).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
@@ -18103,13 +18075,16 @@ var MatTooltip = (function () {
      * @return {?}
      */
     function () {
+        var _this = this;
         if (this._tooltipInstance) {
             this._disposeTooltip();
         }
         // Clean up the event listeners set in the constructor
         if (!this._platform.IOS) {
-            this._enterListener();
-            this._leaveListener();
+            this._manualListeners.forEach(function (listener, event) {
+                _this._elementRef.nativeElement.removeEventListener(event, listener);
+            });
+            this._manualListeners.clear();
         }
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
         this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
@@ -18434,7 +18409,6 @@ var MatTooltip = (function () {
     ];
     /** @nocollapse */
     MatTooltip.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_cdk_overlay.Overlay, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_scrolling.ScrollDispatcher, },
@@ -19278,8 +19252,7 @@ var BASE_STROKE_WIDTH = 10;
  * \@docs-private
  */
 var MatProgressSpinnerBase = (function () {
-    function MatProgressSpinnerBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatProgressSpinnerBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatProgressSpinnerBase;
@@ -19291,9 +19264,8 @@ var INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-strok
  */
 var MatProgressSpinner = (function (_super) {
     __extends(MatProgressSpinner, _super);
-    function MatProgressSpinner(_renderer, _elementRef, platform, _document) {
-        var _this = _super.call(this, _renderer, _elementRef) || this;
-        _this._renderer = _renderer;
+    function MatProgressSpinner(_elementRef, platform, _document) {
+        var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._document = _document;
         _this._value = 0;
@@ -19311,7 +19283,7 @@ var MatProgressSpinner = (function (_super) {
         // On IE and Edge, we can't animate the `stroke-dashoffset`
         // reliably so we fall back to a non-spec animation.
         var /** @type {?} */ animationClass = "mat-progress-spinner-indeterminate" + (_this._fallbackAnimation ? '-fallback' : '') + "-animation";
-        _renderer.addClass(_elementRef.nativeElement, animationClass);
+        _elementRef.nativeElement.classList.add(animationClass);
         return _this;
     }
     Object.defineProperty(MatProgressSpinner.prototype, "diameter", {
@@ -19465,8 +19437,8 @@ var MatProgressSpinner = (function (_super) {
     function () {
         var /** @type {?} */ styleTag = MatProgressSpinner.styleTag;
         if (!styleTag) {
-            styleTag = this._renderer.createElement('style');
-            this._renderer.appendChild(this._document.head, styleTag);
+            styleTag = this._document.createElement('style');
+            this._document.head.appendChild(styleTag);
             MatProgressSpinner.styleTag = styleTag;
         }
         if (styleTag && styleTag.sheet) {
@@ -19520,7 +19492,6 @@ var MatProgressSpinner = (function (_super) {
     ];
     /** @nocollapse */
     MatProgressSpinner.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_platform.Platform, },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
@@ -19541,8 +19512,8 @@ var MatProgressSpinner = (function (_super) {
  */
 var MatSpinner = (function (_super) {
     __extends(MatSpinner, _super);
-    function MatSpinner(renderer, elementRef, platform, document) {
-        var _this = _super.call(this, renderer, elementRef, platform, document) || this;
+    function MatSpinner(elementRef, platform, document) {
+        var _this = _super.call(this, elementRef, platform, document) || this;
         _this.mode = 'indeterminate';
         return _this;
     }
@@ -19565,7 +19536,6 @@ var MatSpinner = (function (_super) {
     ];
     /** @nocollapse */
     MatSpinner.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_platform.Platform, },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
@@ -20042,8 +20012,7 @@ var MatRadioGroup = (function (_super) {
  * \@docs-private
  */
 var MatRadioButtonBase = (function () {
-    function MatRadioButtonBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatRadioButtonBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatRadioButtonBase;
@@ -20056,8 +20025,8 @@ var _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(MatRadioButtonBase)
  */
 var MatRadioButton = (function (_super) {
     __extends(MatRadioButton, _super);
-    function MatRadioButton(radioGroup, elementRef, renderer, _changeDetector, _focusMonitor, _radioDispatcher) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatRadioButton(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher) {
+        var _this = _super.call(this, elementRef) || this;
         _this._changeDetector = _changeDetector;
         _this._focusMonitor = _focusMonitor;
         _this._radioDispatcher = _radioDispatcher;
@@ -20300,7 +20269,8 @@ var MatRadioButton = (function (_super) {
      */
     function () {
         var _this = this;
-        this._focusMonitor.monitor(this._inputElement.nativeElement, false)
+        this._focusMonitor
+            .monitor(this._inputElement.nativeElement, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -20435,7 +20405,6 @@ var MatRadioButton = (function (_super) {
     MatRadioButton.ctorParameters = function () { return [
         { type: MatRadioGroup, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
@@ -21006,11 +20975,10 @@ var MatDrawer = (function () {
  * and coordinates the backdrop and content styling.
  */
 var MatDrawerContainer = (function () {
-    function MatDrawerContainer(_dir, _element, _renderer, _ngZone, _changeDetectorRef) {
+    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef) {
         var _this = this;
         this._dir = _dir;
         this._element = _element;
-        this._renderer = _renderer;
         this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -21126,7 +21094,7 @@ var MatDrawerContainer = (function () {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
             if (event.toState !== 'open-instant') {
-                _this._renderer.addClass(_this._element.nativeElement, 'mat-drawer-transition');
+                _this._element.nativeElement.classList.add('mat-drawer-transition');
             }
             _this._updateContentMargins();
             _this._changeDetectorRef.markForCheck();
@@ -21194,10 +21162,10 @@ var MatDrawerContainer = (function () {
      */
     function (isAdd) {
         if (isAdd) {
-            this._renderer.addClass(this._element.nativeElement, 'mat-drawer-opened');
+            this._element.nativeElement.classList.add('mat-drawer-opened');
         }
         else {
-            this._renderer.removeClass(this._element.nativeElement, 'mat-drawer-opened');
+            this._element.nativeElement.classList.remove('mat-drawer-opened');
         }
     };
     /**
@@ -21338,7 +21306,6 @@ var MatDrawerContainer = (function () {
     MatDrawerContainer.ctorParameters = function () { return [
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.NgZone, },
         { type: _angular_core.ChangeDetectorRef, },
     ]; };
@@ -21571,8 +21538,7 @@ var MatSlideToggleChange = (function () {
  * \@docs-private
  */
 var MatSlideToggleBase = (function () {
-    function MatSlideToggleBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatSlideToggleBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatSlideToggleBase;
@@ -21583,8 +21549,8 @@ var _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixin
  */
 var MatSlideToggle = (function (_super) {
     __extends(MatSlideToggle, _super);
-    function MatSlideToggle(elementRef, renderer, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatSlideToggle(elementRef, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
+        var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -21670,7 +21636,8 @@ var MatSlideToggle = (function (_super) {
     function () {
         var _this = this;
         this._slideRenderer = new SlideToggleRenderer(this._elementRef, this._platform);
-        this._focusMonitor.monitor(this._inputElement.nativeElement, false)
+        this._focusMonitor
+            .monitor(this._inputElement.nativeElement, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -21932,7 +21899,6 @@ var MatSlideToggle = (function (_super) {
     /** @nocollapse */
     MatSlideToggle.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_cdk_platform.Platform, },
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: _angular_core.ChangeDetectorRef, },
@@ -22110,8 +22076,7 @@ var MatSliderChange = (function () {
  * \@docs-private
  */
 var MatSliderBase = (function () {
-    function MatSliderBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatSliderBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatSliderBase;
@@ -22123,8 +22088,8 @@ var _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisabled(MatSliderBase),
  */
 var MatSlider = (function (_super) {
     __extends(MatSlider, _super);
-    function MatSlider(renderer, elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex) {
+        var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
@@ -23079,7 +23044,6 @@ var MatSlider = (function (_super) {
     ];
     /** @nocollapse */
     MatSlider.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: _angular_core.ChangeDetectorRef, },
@@ -23390,10 +23354,9 @@ var HIDE_ANIMATION = AnimationDurations.EXITING + " " + AnimationCurves.ACCELERA
  */
 var MatSnackBarContainer = (function (_super) {
     __extends(MatSnackBarContainer, _super);
-    function MatSnackBarContainer(_ngZone, _renderer, _elementRef, _changeDetectorRef) {
+    function MatSnackBarContainer(_ngZone, _elementRef, _changeDetectorRef) {
         var _this = _super.call(this) || this;
         _this._ngZone = _ngZone;
-        _this._renderer = _renderer;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -23431,22 +23394,18 @@ var MatSnackBarContainer = (function (_super) {
         if (this._portalOutlet.hasAttached()) {
             throw Error('Attempting to attach snack bar content after content is already attached');
         }
+        var /** @type {?} */ element = this._elementRef.nativeElement;
         if (this.snackBarConfig.panelClass || this.snackBarConfig.extraClasses) {
-            var /** @type {?} */ classes = this._getCssClasses(this.snackBarConfig.panelClass).concat(this._getCssClasses(this.snackBarConfig.extraClasses));
-            // Not the most efficient way of adding classes, but the renderer doesn't allow us
-            // to pass in an array or a space-separated list.
-            for (var _i = 0, classes_1 = classes; _i < classes_1.length; _i++) {
-                var cssClass = classes_1[_i];
-                this._renderer.addClass(this._elementRef.nativeElement, cssClass);
-            }
+            (_a = element.classList).add.apply(_a, this._getCssClasses(this.snackBarConfig.panelClass).concat(this._getCssClasses(this.snackBarConfig.extraClasses)));
         }
         if (this.snackBarConfig.horizontalPosition === 'center') {
-            this._renderer.addClass(this._elementRef.nativeElement, 'mat-snack-bar-center');
+            element.classList.add('mat-snack-bar-center');
         }
         if (this.snackBarConfig.verticalPosition === 'top') {
-            this._renderer.addClass(this._elementRef.nativeElement, 'mat-snack-bar-top');
+            element.classList.add('mat-snack-bar-top');
         }
         return this._portalOutlet.attachComponentPortal(portal);
+        var _a;
     };
     /** Attach a template portal as content to this snack bar container. */
     /**
@@ -23590,7 +23549,6 @@ var MatSnackBarContainer = (function (_super) {
     /** @nocollapse */
     MatSnackBarContainer.ctorParameters = function () { return [
         { type: _angular_core.NgZone, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_core.ChangeDetectorRef, },
     ]; };
@@ -24922,9 +24880,9 @@ var MatColumnDef = (function (_super) {
  */
 var MatHeaderCell = (function (_super) {
     __extends(MatHeaderCell, _super);
-    function MatHeaderCell(columnDef, elementRef, renderer) {
-        var _this = _super.call(this, columnDef, elementRef, renderer) || this;
-        renderer.addClass(elementRef.nativeElement, "mat-column-" + columnDef.cssClassFriendlyName);
+    function MatHeaderCell(columnDef, elementRef) {
+        var _this = _super.call(this, columnDef, elementRef) || this;
+        elementRef.nativeElement.classList.add("mat-column-" + columnDef.cssClassFriendlyName);
         return _this;
     }
     MatHeaderCell.decorators = [
@@ -24940,7 +24898,6 @@ var MatHeaderCell = (function (_super) {
     MatHeaderCell.ctorParameters = function () { return [
         { type: _angular_cdk_table.CdkColumnDef, },
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
     ]; };
     return MatHeaderCell;
 }(_MatHeaderCell));
@@ -24949,9 +24906,9 @@ var MatHeaderCell = (function (_super) {
  */
 var MatCell = (function (_super) {
     __extends(MatCell, _super);
-    function MatCell(columnDef, elementRef, renderer) {
-        var _this = _super.call(this, columnDef, elementRef, renderer) || this;
-        renderer.addClass(elementRef.nativeElement, "mat-column-" + columnDef.cssClassFriendlyName);
+    function MatCell(columnDef, elementRef) {
+        var _this = _super.call(this, columnDef, elementRef) || this;
+        elementRef.nativeElement.classList.add("mat-column-" + columnDef.cssClassFriendlyName);
         return _this;
     }
     MatCell.decorators = [
@@ -24967,7 +24924,6 @@ var MatCell = (function (_super) {
     MatCell.ctorParameters = function () { return [
         { type: _angular_cdk_table.CdkColumnDef, },
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
     ]; };
     return MatCell;
 }(_MatCell));
@@ -25456,8 +25412,7 @@ var MatTableDataSource = (function () {
  * \@docs-private
  */
 var MatInkBar = (function () {
-    function MatInkBar(_renderer, _elementRef, _ngZone) {
-        this._renderer = _renderer;
+    function MatInkBar(_elementRef, _ngZone) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
     }
@@ -25500,7 +25455,7 @@ var MatInkBar = (function () {
      * @return {?}
      */
     function () {
-        this._renderer.setStyle(this._elementRef.nativeElement, 'visibility', 'visible');
+        this._elementRef.nativeElement.style.visibility = 'visible';
     };
     /** Hides the ink bar. */
     /**
@@ -25512,7 +25467,7 @@ var MatInkBar = (function () {
      * @return {?}
      */
     function () {
-        this._renderer.setStyle(this._elementRef.nativeElement, 'visibility', 'hidden');
+        this._elementRef.nativeElement.style.visibility = 'hidden';
     };
     /**
      * Sets the proper styles to the ink bar element.
@@ -25525,10 +25480,9 @@ var MatInkBar = (function () {
      * @return {?}
      */
     function (element) {
-        var /** @type {?} */ left = element ? (element.offsetLeft || 0) + 'px' : '0';
-        var /** @type {?} */ width = element ? (element.offsetWidth || 0) + 'px' : '0';
-        this._renderer.setStyle(this._elementRef.nativeElement, 'left', left);
-        this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);
+        var /** @type {?} */ inkBar = this._elementRef.nativeElement;
+        inkBar.style.left = element ? (element.offsetLeft || 0) + 'px' : '0';
+        inkBar.style.top = element ? (element.offsetWidth || 0) + 'px' : '0';
     };
     MatInkBar.decorators = [
         { type: _angular_core.Directive, args: [{
@@ -25540,7 +25494,6 @@ var MatInkBar = (function () {
     ];
     /** @nocollapse */
     MatInkBar.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_core.NgZone, },
     ]; };
@@ -25964,8 +25917,7 @@ var MatTabChangeEvent = (function () {
  * \@docs-private
  */
 var MatTabGroupBase = (function () {
-    function MatTabGroupBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatTabGroupBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatTabGroupBase;
@@ -25978,8 +25930,8 @@ var _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupBase), 'pri
  */
 var MatTabGroup = (function (_super) {
     __extends(MatTabGroup, _super);
-    function MatTabGroup(_renderer, elementRef, _changeDetectorRef) {
-        var _this = _super.call(this, _renderer, elementRef) || this;
+    function MatTabGroup(elementRef, _changeDetectorRef) {
+        var _this = _super.call(this, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         /**
          * The tab index that should be selected after the content has been checked.
@@ -26079,9 +26031,9 @@ var MatTabGroup = (function (_super) {
          */
         function (value) {
             var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-            this._renderer.removeClass(nativeElement, "mat-background-" + this.backgroundColor);
+            nativeElement.classList.remove("mat-background-" + this.backgroundColor);
             if (value) {
-                this._renderer.addClass(nativeElement, "mat-background-" + value);
+                nativeElement.classList.add("mat-background-" + value);
             }
             this._backgroundColor = value;
         },
@@ -26264,11 +26216,12 @@ var MatTabGroup = (function (_super) {
         if (!this._dynamicHeight || !this._tabBodyWrapperHeight) {
             return;
         }
-        this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', this._tabBodyWrapperHeight + 'px');
+        var /** @type {?} */ wrapper = this._tabBodyWrapper.nativeElement;
+        wrapper.style.height = this._tabBodyWrapperHeight + 'px';
         // This conditional forces the browser to paint the height so that
         // the animation to the new height can have an origin.
         if (this._tabBodyWrapper.nativeElement.offsetHeight) {
-            this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', tabHeight + 'px');
+            wrapper.style.height = tabHeight + 'px';
         }
     };
     /** Removes the height of the tab body wrapper. */
@@ -26282,7 +26235,7 @@ var MatTabGroup = (function (_super) {
      */
     function () {
         this._tabBodyWrapperHeight = this._tabBodyWrapper.nativeElement.clientHeight;
-        this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', '');
+        this._tabBodyWrapper.nativeElement.style.height = '';
     };
     /** Handle click events, setting new selected index if appropriate. */
     /**
@@ -26341,7 +26294,6 @@ var MatTabGroup = (function (_super) {
     ];
     /** @nocollapse */
     MatTabGroup.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_core.ChangeDetectorRef, },
     ]; };
@@ -26458,10 +26410,9 @@ var _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
  */
 var MatTabHeader = (function (_super) {
     __extends(MatTabHeader, _super);
-    function MatTabHeader(_elementRef, _renderer, _changeDetectorRef, _viewportRuler, _dir) {
+    function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
-        _this._renderer = _renderer;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._viewportRuler = _viewportRuler;
         _this._dir = _dir;
@@ -26794,7 +26745,7 @@ var MatTabHeader = (function (_super) {
     function () {
         var /** @type {?} */ scrollDistance = this.scrollDistance;
         var /** @type {?} */ translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
-        this._renderer.setStyle(this._tabList.nativeElement, 'transform', "translate3d(" + translateX + "px, 0, 0)");
+        this._tabList.nativeElement.style.transform = "translate3d(" + translateX + "px, 0, 0)";
     };
     Object.defineProperty(MatTabHeader.prototype, "scrollDistance", {
         get: /**
@@ -27030,7 +26981,6 @@ var MatTabHeader = (function (_super) {
     /** @nocollapse */
     MatTabHeader.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_cdk_scrolling.ViewportRuler, },
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
@@ -27055,8 +27005,7 @@ var MatTabHeader = (function (_super) {
  * \@docs-private
  */
 var MatTabNavBase = (function () {
-    function MatTabNavBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatTabNavBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatTabNavBase;
@@ -27068,8 +27017,8 @@ var _MatTabNavMixinBase = mixinDisableRipple(mixinColor(MatTabNavBase, 'primary'
  */
 var MatTabNav = (function (_super) {
     __extends(MatTabNav, _super);
-    function MatTabNav(renderer, elementRef, _dir, _ngZone, _changeDetectorRef, _viewportRuler) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatTabNav(elementRef, _dir, _ngZone, _changeDetectorRef, _viewportRuler) {
+        var _this = _super.call(this, elementRef) || this;
         _this._dir = _dir;
         _this._ngZone = _ngZone;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -27093,9 +27042,9 @@ var MatTabNav = (function (_super) {
          */
         function (value) {
             var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-            this._renderer.removeClass(nativeElement, "mat-background-" + this.backgroundColor);
+            nativeElement.classList.remove("mat-background-" + this.backgroundColor);
             if (value) {
-                this._renderer.addClass(nativeElement, "mat-background-" + value);
+                nativeElement.classList.add("mat-background-" + value);
             }
             this._backgroundColor = value;
         },
@@ -27220,7 +27169,6 @@ var MatTabNav = (function (_super) {
     ];
     /** @nocollapse */
     MatTabNav.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_core.NgZone, },
@@ -27398,8 +27346,7 @@ var MatTabsModule = (function () {
  * \@docs-private
  */
 var MatToolbarBase = (function () {
-    function MatToolbarBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatToolbarBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatToolbarBase;
@@ -27421,8 +27368,8 @@ var MatToolbarRow = (function () {
 }());
 var MatToolbar = (function (_super) {
     __extends(MatToolbar, _super);
-    function MatToolbar(renderer, elementRef, _platform) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatToolbar(elementRef, _platform) {
+        var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
         return _this;
     }
@@ -27480,7 +27427,6 @@ var MatToolbar = (function (_super) {
     ];
     /** @nocollapse */
     MatToolbar.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_platform.Platform, },
     ]; };
@@ -27528,7 +27474,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.1-6a9fbfe');
+var VERSION = new _angular_core.Version('5.0.0-rc.1-2cf3860');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

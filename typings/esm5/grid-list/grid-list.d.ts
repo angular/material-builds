@@ -5,11 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentChecked, OnInit, QueryList, Renderer2, ElementRef } from '@angular/core';
+import { AfterContentChecked, OnInit, QueryList, ElementRef } from '@angular/core';
 import { MatGridTile } from './grid-tile';
 import { Directionality } from '@angular/cdk/bidi';
 export declare class MatGridList implements OnInit, AfterContentChecked {
-    private _renderer;
     private _element;
     private _dir;
     /** Number of columns being rendered. */
@@ -27,7 +26,7 @@ export declare class MatGridList implements OnInit, AfterContentChecked {
     private _tileStyler;
     /** Query list of tiles that are being rendered. */
     _tiles: QueryList<MatGridTile>;
-    constructor(_renderer: Renderer2, _element: ElementRef, _dir: Directionality);
+    constructor(_element: ElementRef, _dir: Directionality);
     /** Amount of columns in the grid list. */
     cols: any;
     /** Size of the grid list's gutter in pixels. */

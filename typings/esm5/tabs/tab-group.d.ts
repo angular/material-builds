@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList, Renderer2 } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
 import { MatTab } from './tab';
 import { MatTabHeader } from './tab-header';
 import { CanColor, CanDisableRipple, ThemePalette } from '@angular/material/core';
@@ -18,9 +18,8 @@ export declare class MatTabChangeEvent {
 export declare type MatTabHeaderPosition = 'above' | 'below';
 /** @docs-private */
 export declare class MatTabGroupBase {
-    _renderer: Renderer2;
     _elementRef: ElementRef;
-    constructor(_renderer: Renderer2, _elementRef: ElementRef);
+    constructor(_elementRef: ElementRef);
 }
 export declare const _MatTabGroupMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & typeof MatTabGroupBase;
 /**
@@ -65,7 +64,7 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
      */
     selectChange: EventEmitter<MatTabChangeEvent>;
     private _groupId;
-    constructor(_renderer: Renderer2, elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);
+    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);
     /**
      * After the content is checked, this component knows what tabs have been defined
      * and what the selected index should be. This is where we can know exactly what position

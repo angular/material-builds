@@ -9,7 +9,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, Overlay, RepositionScrollStrategy, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
-import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnChanges, OnDestroy, OnInit, QueryList, Renderer2, SimpleChanges } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanDisable, ErrorStateMatcher, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
@@ -60,9 +60,8 @@ export declare class MatSelectChange {
 }
 /** @docs-private */
 export declare class MatSelectBase {
-    _renderer: Renderer2;
     _elementRef: ElementRef;
-    constructor(_renderer: Renderer2, _elementRef: ElementRef);
+    constructor(_elementRef: ElementRef);
 }
 export declare const _MatSelectMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisable) & typeof MatSelectBase;
 /**
@@ -220,7 +219,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * @docs-private
      */
     valueChange: EventEmitter<any>;
-    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, renderer: Renderer2, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, _scrollStrategyFactory: any);
+    constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, _scrollStrategyFactory: any);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngDoCheck(): void;

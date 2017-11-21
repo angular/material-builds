@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Injectable, Input, NgModule, Optional, Renderer2, SecurityContext, SkipSelf, ViewEncapsulation } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Injectable, Input, NgModule, Optional, SecurityContext, SkipSelf, ViewEncapsulation } from '@angular/core';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { first } from 'rxjs/operators/first';
 import { catchError } from 'rxjs/operators/catchError';
@@ -525,11 +525,9 @@ function iconKey(namespace, name) {
  */
 class MatIconBase {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      */
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
 }
@@ -563,18 +561,17 @@ const _MatIconMixinBase = mixinColor(MatIconBase);
  */
 class MatIcon extends _MatIconMixinBase {
     /**
-     * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _iconRegistry
      * @param {?} ariaHidden
      */
-    constructor(renderer, elementRef, _iconRegistry, ariaHidden) {
-        super(renderer, elementRef);
+    constructor(elementRef, _iconRegistry, ariaHidden) {
+        super(elementRef);
         this._iconRegistry = _iconRegistry;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
         if (!ariaHidden) {
-            renderer.setAttribute(elementRef.nativeElement, 'aria-hidden', 'true');
+            elementRef.nativeElement.setAttribute('aria-hidden', 'true');
         }
     }
     /**
@@ -644,7 +641,7 @@ class MatIcon extends _MatIconMixinBase {
      */
     _setSvgElement(svg) {
         this._clearSvgElement();
-        this._renderer.appendChild(this._elementRef.nativeElement, svg);
+        this._elementRef.nativeElement.appendChild(svg);
     }
     /**
      * @return {?}
@@ -655,7 +652,7 @@ class MatIcon extends _MatIconMixinBase {
         // Remove existing child nodes and add the new SVG element. Note that we can't
         // use innerHTML, because IE will throw if the element has a data binding.
         for (let /** @type {?} */ i = 0; i < childCount; i++) {
-            this._renderer.removeChild(layoutElement, layoutElement.childNodes[i]);
+            layoutElement.removeChild(layoutElement.childNodes[i]);
         }
     }
     /**
@@ -671,19 +668,19 @@ class MatIcon extends _MatIconMixinBase {
             this._iconRegistry.getDefaultFontSetClass();
         if (fontSetClass != this._previousFontSetClass) {
             if (this._previousFontSetClass) {
-                this._renderer.removeClass(elem, this._previousFontSetClass);
+                elem.classList.remove(this._previousFontSetClass);
             }
             if (fontSetClass) {
-                this._renderer.addClass(elem, fontSetClass);
+                elem.classList.add(fontSetClass);
             }
             this._previousFontSetClass = fontSetClass;
         }
         if (this.fontIcon != this._previousFontIconClass) {
             if (this._previousFontIconClass) {
-                this._renderer.removeClass(elem, this._previousFontIconClass);
+                elem.classList.remove(this._previousFontIconClass);
             }
             if (this.fontIcon) {
-                this._renderer.addClass(elem, this.fontIcon);
+                elem.classList.add(this.fontIcon);
             }
             this._previousFontIconClass = this.fontIcon;
         }
@@ -706,7 +703,6 @@ MatIcon.decorators = [
 ];
 /** @nocollapse */
 MatIcon.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: MatIconRegistry, },
     { type: undefined, decorators: [{ type: Attribute, args: ['aria-hidden',] },] },

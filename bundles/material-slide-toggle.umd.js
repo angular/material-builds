@@ -60,8 +60,7 @@ var MatSlideToggleChange = (function () {
  * \@docs-private
  */
 var MatSlideToggleBase = (function () {
-    function MatSlideToggleBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatSlideToggleBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatSlideToggleBase;
@@ -72,8 +71,8 @@ var _MatSlideToggleMixinBase = _angular_material_core.mixinTabIndex(_angular_mat
  */
 var MatSlideToggle = (function (_super) {
     __extends(MatSlideToggle, _super);
-    function MatSlideToggle(elementRef, renderer, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatSlideToggle(elementRef, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
+        var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -159,7 +158,8 @@ var MatSlideToggle = (function (_super) {
     function () {
         var _this = this;
         this._slideRenderer = new SlideToggleRenderer(this._elementRef, this._platform);
-        this._focusMonitor.monitor(this._inputElement.nativeElement, false)
+        this._focusMonitor
+            .monitor(this._inputElement.nativeElement, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -421,7 +421,6 @@ var MatSlideToggle = (function (_super) {
     /** @nocollapse */
     MatSlideToggle.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_cdk_platform.Platform, },
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: _angular_core.ChangeDetectorRef, },

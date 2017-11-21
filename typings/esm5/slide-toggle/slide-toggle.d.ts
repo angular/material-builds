@@ -7,7 +7,7 @@
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanDisable, CanDisableRipple, HammerInput, HasTabIndex, MatRipple } from '@angular/material/core';
 export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
@@ -18,9 +18,8 @@ export declare class MatSlideToggleChange {
 }
 /** @docs-private */
 export declare class MatSlideToggleBase {
-    _renderer: Renderer2;
     _elementRef: ElementRef;
-    constructor(_renderer: Renderer2, _elementRef: ElementRef);
+    constructor(_elementRef: ElementRef);
 }
 export declare const _MatSlideToggleMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatSlideToggleBase;
 /** Represents a slidable "switch" toggle that can be moved between on and off. */
@@ -59,7 +58,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     _inputElement: ElementRef;
     /** Reference to the ripple directive on the thumb container. */
     _ripple: MatRipple;
-    constructor(elementRef: ElementRef, renderer: Renderer2, _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string);
+    constructor(elementRef: ElementRef, _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Method being called whenever the underlying input emits a change event. */

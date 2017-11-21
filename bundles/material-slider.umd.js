@@ -79,8 +79,7 @@ var MatSliderChange = (function () {
  * \@docs-private
  */
 var MatSliderBase = (function () {
-    function MatSliderBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatSliderBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatSliderBase;
@@ -92,8 +91,8 @@ var _MatSliderMixinBase = _angular_material_core.mixinTabIndex(_angular_material
  */
 var MatSlider = (function (_super) {
     __extends(MatSlider, _super);
-    function MatSlider(renderer, elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex) {
+        var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
@@ -1048,7 +1047,6 @@ var MatSlider = (function (_super) {
     ];
     /** @nocollapse */
     MatSlider.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: _angular_core.ChangeDetectorRef, },

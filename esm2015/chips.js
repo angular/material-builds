@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Renderer2, Self, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Self, ViewEncapsulation } from '@angular/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -48,11 +48,9 @@ class MatChipSelectionChange {
  */
 class MatChipBase {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      */
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
 }
@@ -76,11 +74,10 @@ MatBasicChip.ctorParameters = () => [];
  */
 class MatChip extends _MatChipMixinBase {
     /**
-     * @param {?} renderer
      * @param {?} _elementRef
      */
-    constructor(renderer, _elementRef) {
-        super(renderer, _elementRef);
+    constructor(_elementRef) {
+        super(_elementRef);
         this._elementRef = _elementRef;
         this._selected = false;
         this._selectable = true;
@@ -338,7 +335,6 @@ MatChip.decorators = [
 ];
 /** @nocollapse */
 MatChip.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
 ];
 MatChip.propDecorators = {
@@ -421,7 +417,6 @@ class MatChipListChange {
  */
 class MatChipList {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      * @param {?} _changeDetectorRef
      * @param {?} _dir
@@ -429,8 +424,7 @@ class MatChipList {
      * @param {?} _parentFormGroup
      * @param {?} ngControl
      */
-    constructor(_renderer, _elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
-        this._renderer = _renderer;
+    constructor(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
@@ -783,7 +777,7 @@ class MatChipList {
      */
     setDisabledState(disabled) {
         this.disabled = disabled;
-        this._renderer.setProperty(this._elementRef.nativeElement, 'disabled', disabled);
+        this._elementRef.nativeElement.disabled = disabled;
         this.stateChanges.next();
     }
     /**
@@ -1171,7 +1165,6 @@ MatChipList.decorators = [
 ];
 /** @nocollapse */
 MatChipList.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
     { type: Directionality, decorators: [{ type: Optional },] },

@@ -7,7 +7,7 @@
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
+import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanDisable, CanDisableRipple, MatRipple } from '@angular/material/core';
 /**
@@ -126,9 +126,8 @@ export declare class MatRadioGroup extends _MatRadioGroupMixinBase implements Af
 }
 /** @docs-private */
 export declare class MatRadioButtonBase {
-    _renderer: Renderer2;
     _elementRef: ElementRef;
-    constructor(_renderer: Renderer2, _elementRef: ElementRef);
+    constructor(_elementRef: ElementRef);
 }
 export declare const _MatRadioButtonMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & typeof MatRadioButtonBase;
 /**
@@ -189,7 +188,7 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     private _removeUniqueSelectionListener;
     /** The native `<input type=radio>` element */
     _inputElement: ElementRef;
-    constructor(radioGroup: MatRadioGroup, elementRef: ElementRef, renderer: Renderer2, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher);
+    constructor(radioGroup: MatRadioGroup, elementRef: ElementRef, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher);
     /** Focuses the radio button. */
     focus(): void;
     /**

@@ -8,7 +8,7 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs/Observable';
@@ -25,7 +25,6 @@ export declare class MatChipListChange {
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
 export declare class MatChipList implements MatFormFieldControl<any>, ControlValueAccessor, AfterContentInit, OnInit, OnDestroy {
-    protected _renderer: Renderer2;
     protected _elementRef: ElementRef;
     private _changeDetectorRef;
     private _dir;
@@ -143,7 +142,7 @@ export declare class MatChipList implements MatFormFieldControl<any>, ControlVal
     valueChange: EventEmitter<any>;
     /** The chip components contained within this chip list. */
     chips: QueryList<MatChip>;
-    constructor(_renderer: Renderer2, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl);
     ngAfterContentInit(): void;
     ngOnInit(): void;
     ngOnDestroy(): void;

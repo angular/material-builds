@@ -215,10 +215,10 @@ function mixinColor(base, defaultColor) {
             const /** @type {?} */ colorPalette = value || defaultColor;
             if (colorPalette !== this._color) {
                 if (this._color) {
-                    this._renderer.removeClass(this._elementRef.nativeElement, `mat-${this._color}`);
+                    this._elementRef.nativeElement.classList.remove(`mat-${this._color}`);
                 }
                 if (colorPalette) {
-                    this._renderer.addClass(this._elementRef.nativeElement, `mat-${colorPalette}`);
+                    this._elementRef.nativeElement.classList.add(`mat-${colorPalette}`);
                 }
                 this._color = colorPalette;
             }
@@ -974,12 +974,10 @@ MatLine.ctorParameters = () => [];
 class MatLineSetter {
     /**
      * @param {?} _lines
-     * @param {?} _renderer
      * @param {?} _element
      */
-    constructor(_lines, _renderer, _element) {
+    constructor(_lines, _element) {
         this._lines = _lines;
-        this._renderer = _renderer;
         this._element = _element;
         this._setLineClass(this._lines.length);
         this._lines.changes.subscribe(() => {
@@ -1014,10 +1012,10 @@ class MatLineSetter {
      */
     _setClass(className, isAdd) {
         if (isAdd) {
-            this._renderer.addClass(this._element.nativeElement, className);
+            this._element.nativeElement.classList.add(className);
         }
         else {
-            this._renderer.removeClass(this._element.nativeElement, className);
+            this._element.nativeElement.classList.remove(className);
         }
     }
 }

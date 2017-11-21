@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule } from '@angular/common';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, Optional, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, Optional, Output, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatCommonModule, MatLine, MatLineModule, MatLineSetter, MatPseudoCheckboxModule, MatRippleModule, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -154,14 +154,12 @@ MatListSubheaderCssMatStyler.ctorParameters = () => [];
  */
 class MatListItem extends _MatListItemMixinBase {
     /**
-     * @param {?} _renderer
      * @param {?} _element
      * @param {?} _list
      * @param {?} navList
      */
-    constructor(_renderer, _element, _list, navList) {
+    constructor(_element, _list, navList) {
         super();
-        this._renderer = _renderer;
         this._element = _element;
         this._list = _list;
         this._isNavList = false;
@@ -173,17 +171,17 @@ class MatListItem extends _MatListItemMixinBase {
      */
     set _hasAvatar(avatar) {
         if (avatar != null) {
-            this._renderer.addClass(this._element.nativeElement, 'mat-list-item-avatar');
+            this._element.nativeElement.classList.add('mat-list-item-avatar');
         }
         else {
-            this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-avatar');
+            this._element.nativeElement.classList.remove('mat-list-item-avatar');
         }
     }
     /**
      * @return {?}
      */
     ngAfterContentInit() {
-        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new MatLineSetter(this._lines, this._element);
     }
     /**
      * Whether this list item should show a ripple effect when clicked.
@@ -196,13 +194,13 @@ class MatListItem extends _MatListItemMixinBase {
      * @return {?}
      */
     _handleFocus() {
-        this._renderer.addClass(this._element.nativeElement, 'mat-list-item-focus');
+        this._element.nativeElement.classList.add('mat-list-item-focus');
     }
     /**
      * @return {?}
      */
     _handleBlur() {
-        this._renderer.removeClass(this._element.nativeElement, 'mat-list-item-focus');
+        this._element.nativeElement.classList.remove('mat-list-item-focus');
     }
     /**
      * Retrieves the DOM element of the component host.
@@ -230,7 +228,6 @@ MatListItem.decorators = [
 ];
 /** @nocollapse */
 MatListItem.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: MatList, decorators: [{ type: Optional },] },
     { type: MatNavListCssMatStyler, decorators: [{ type: Optional },] },
@@ -269,14 +266,12 @@ class MatListOptionChange {
  */
 class MatListOption extends _MatListOptionMixinBase {
     /**
-     * @param {?} _renderer
      * @param {?} _element
      * @param {?} _changeDetector
      * @param {?} selectionList
      */
-    constructor(_renderer, _element, _changeDetector, selectionList) {
+    constructor(_element, _changeDetector, selectionList) {
         super();
-        this._renderer = _renderer;
         this._element = _element;
         this._changeDetector = _changeDetector;
         this.selectionList = selectionList;
@@ -335,7 +330,7 @@ class MatListOption extends _MatListOptionMixinBase {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new MatLineSetter(this._lines, this._element);
     }
     /**
      * @return {?}
@@ -422,7 +417,6 @@ MatListOption.decorators = [
 ];
 /** @nocollapse */
 MatListOption.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
     { type: MatSelectionList, decorators: [{ type: Optional }, { type: Inject, args: [forwardRef(() => MatSelectionList),] },] },

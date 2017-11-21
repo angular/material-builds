@@ -80,8 +80,7 @@ var MatCheckboxChange = (function () {
  * \@docs-private
  */
 var MatCheckboxBase = (function () {
-    function MatCheckboxBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatCheckboxBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatCheckboxBase;
@@ -97,8 +96,8 @@ var _MatCheckboxMixinBase = _angular_material_core.mixinTabIndex(_angular_materi
  */
 var MatCheckbox = (function (_super) {
     __extends(MatCheckbox, _super);
-    function MatCheckbox(renderer, elementRef, _changeDetectorRef, _focusMonitor, tabIndex) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, tabIndex) {
+        var _this = _super.call(this, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusMonitor = _focusMonitor;
         /**
@@ -380,18 +379,17 @@ var MatCheckbox = (function (_super) {
      */
     function (newState) {
         var /** @type {?} */ oldState = this._currentCheckState;
-        var /** @type {?} */ renderer = this._renderer;
-        var /** @type {?} */ elementRef = this._elementRef;
+        var /** @type {?} */ element = this._elementRef.nativeElement;
         if (oldState === newState) {
             return;
         }
         if (this._currentAnimationClass.length > 0) {
-            renderer.removeClass(elementRef.nativeElement, this._currentAnimationClass);
+            element.classList.remove(this._currentAnimationClass);
         }
         this._currentAnimationClass = this._getAnimationClassForCheckStateTransition(oldState, newState);
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
-            renderer.addClass(elementRef.nativeElement, this._currentAnimationClass);
+            element.classList.add(this._currentAnimationClass);
         }
     };
     /**
@@ -591,7 +589,6 @@ var MatCheckbox = (function (_super) {
     ];
     /** @nocollapse */
     MatCheckbox.ctorParameters = function () { return [
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },

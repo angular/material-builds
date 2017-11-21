@@ -9,7 +9,7 @@ import { ObserversModule } from '@angular/cdk/observers';
 import { CdkPortal, CdkPortalOutlet, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Renderer2, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -34,12 +34,10 @@ import { takeUntil } from 'rxjs/operators/takeUntil';
  */
 class MatInkBar {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      * @param {?} _ngZone
      */
-    constructor(_renderer, _elementRef, _ngZone) {
-        this._renderer = _renderer;
+    constructor(_elementRef, _ngZone) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
     }
@@ -65,14 +63,14 @@ class MatInkBar {
      * @return {?}
      */
     show() {
-        this._renderer.setStyle(this._elementRef.nativeElement, 'visibility', 'visible');
+        this._elementRef.nativeElement.style.visibility = 'visible';
     }
     /**
      * Hides the ink bar.
      * @return {?}
      */
     hide() {
-        this._renderer.setStyle(this._elementRef.nativeElement, 'visibility', 'hidden');
+        this._elementRef.nativeElement.style.visibility = 'hidden';
     }
     /**
      * Sets the proper styles to the ink bar element.
@@ -80,10 +78,9 @@ class MatInkBar {
      * @return {?}
      */
     _setStyles(element) {
-        const /** @type {?} */ left = element ? (element.offsetLeft || 0) + 'px' : '0';
-        const /** @type {?} */ width = element ? (element.offsetWidth || 0) + 'px' : '0';
-        this._renderer.setStyle(this._elementRef.nativeElement, 'left', left);
-        this._renderer.setStyle(this._elementRef.nativeElement, 'width', width);
+        const /** @type {?} */ inkBar = this._elementRef.nativeElement;
+        inkBar.style.left = element ? (element.offsetLeft || 0) + 'px' : '0';
+        inkBar.style.top = element ? (element.offsetWidth || 0) + 'px' : '0';
     }
 }
 MatInkBar.decorators = [
@@ -96,7 +93,6 @@ MatInkBar.decorators = [
 ];
 /** @nocollapse */
 MatInkBar.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: NgZone, },
 ];
@@ -463,11 +459,9 @@ class MatTabChangeEvent {
  */
 class MatTabGroupBase {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      */
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
 }
@@ -479,12 +473,11 @@ const _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupBase), 'p
  */
 class MatTabGroup extends _MatTabGroupMixinBase {
     /**
-     * @param {?} _renderer
      * @param {?} elementRef
      * @param {?} _changeDetectorRef
      */
-    constructor(_renderer, elementRef, _changeDetectorRef) {
-        super(_renderer, elementRef);
+    constructor(elementRef, _changeDetectorRef) {
+        super(elementRef);
         this._changeDetectorRef = _changeDetectorRef;
         /**
          * The tab index that should be selected after the content has been checked.
@@ -569,10 +562,10 @@ class MatTabGroup extends _MatTabGroupMixinBase {
      * @return {?}
      */
     set backgroundColor(value) {
-        let /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-        this._renderer.removeClass(nativeElement, `mat-background-${this.backgroundColor}`);
+        const /** @type {?} */ nativeElement = this._elementRef.nativeElement;
+        nativeElement.classList.remove(`mat-background-${this.backgroundColor}`);
         if (value) {
-            this._renderer.addClass(nativeElement, `mat-background-${value}`);
+            nativeElement.classList.add(`mat-background-${value}`);
         }
         this._backgroundColor = value;
     }
@@ -693,11 +686,12 @@ class MatTabGroup extends _MatTabGroupMixinBase {
         if (!this._dynamicHeight || !this._tabBodyWrapperHeight) {
             return;
         }
-        this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', this._tabBodyWrapperHeight + 'px');
+        const /** @type {?} */ wrapper = this._tabBodyWrapper.nativeElement;
+        wrapper.style.height = this._tabBodyWrapperHeight + 'px';
         // This conditional forces the browser to paint the height so that
         // the animation to the new height can have an origin.
         if (this._tabBodyWrapper.nativeElement.offsetHeight) {
-            this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', tabHeight + 'px');
+            wrapper.style.height = tabHeight + 'px';
         }
     }
     /**
@@ -706,7 +700,7 @@ class MatTabGroup extends _MatTabGroupMixinBase {
      */
     _removeTabBodyWrapperHeight() {
         this._tabBodyWrapperHeight = this._tabBodyWrapper.nativeElement.clientHeight;
-        this._renderer.setStyle(this._tabBodyWrapper.nativeElement, 'height', '');
+        this._tabBodyWrapper.nativeElement.style.height = '';
     }
     /**
      * Handle click events, setting new selected index if appropriate.
@@ -751,7 +745,6 @@ MatTabGroup.decorators = [
 ];
 /** @nocollapse */
 MatTabGroup.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
 ];
@@ -852,15 +845,13 @@ const _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
 class MatTabHeader extends _MatTabHeaderMixinBase {
     /**
      * @param {?} _elementRef
-     * @param {?} _renderer
      * @param {?} _changeDetectorRef
      * @param {?} _viewportRuler
      * @param {?} _dir
      */
-    constructor(_elementRef, _renderer, _changeDetectorRef, _viewportRuler, _dir) {
+    constructor(_elementRef, _changeDetectorRef, _viewportRuler, _dir) {
         super();
         this._elementRef = _elementRef;
-        this._renderer = _renderer;
         this._changeDetectorRef = _changeDetectorRef;
         this._viewportRuler = _viewportRuler;
         this._dir = _dir;
@@ -1100,7 +1091,7 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
     _updateTabScrollPosition() {
         const /** @type {?} */ scrollDistance = this.scrollDistance;
         const /** @type {?} */ translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
-        this._renderer.setStyle(this._tabList.nativeElement, 'transform', `translate3d(${translateX}px, 0, 0)`);
+        this._tabList.nativeElement.style.transform = `translate3d(${translateX}px, 0, 0)`;
     }
     /**
      * Sets the distance in pixels that the tab header should be transformed in the X-axis.
@@ -1245,7 +1236,6 @@ MatTabHeader.decorators = [
 /** @nocollapse */
 MatTabHeader.ctorParameters = () => [
     { type: ElementRef, },
-    { type: Renderer2, },
     { type: ChangeDetectorRef, },
     { type: ViewportRuler, },
     { type: Directionality, decorators: [{ type: Optional },] },
@@ -1270,11 +1260,9 @@ MatTabHeader.propDecorators = {
  */
 class MatTabNavBase {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      */
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
 }
@@ -1285,15 +1273,14 @@ const _MatTabNavMixinBase = mixinDisableRipple(mixinColor(MatTabNavBase, 'primar
  */
 class MatTabNav extends _MatTabNavMixinBase {
     /**
-     * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _dir
      * @param {?} _ngZone
      * @param {?} _changeDetectorRef
      * @param {?} _viewportRuler
      */
-    constructor(renderer, elementRef, _dir, _ngZone, _changeDetectorRef, _viewportRuler) {
-        super(renderer, elementRef);
+    constructor(elementRef, _dir, _ngZone, _changeDetectorRef, _viewportRuler) {
+        super(elementRef);
         this._dir = _dir;
         this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
@@ -1314,10 +1301,10 @@ class MatTabNav extends _MatTabNavMixinBase {
      * @return {?}
      */
     set backgroundColor(value) {
-        let /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-        this._renderer.removeClass(nativeElement, `mat-background-${this.backgroundColor}`);
+        const /** @type {?} */ nativeElement = this._elementRef.nativeElement;
+        nativeElement.classList.remove(`mat-background-${this.backgroundColor}`);
         if (value) {
-            this._renderer.addClass(nativeElement, `mat-background-${value}`);
+            nativeElement.classList.add(`mat-background-${value}`);
         }
         this._backgroundColor = value;
     }
@@ -1407,7 +1394,6 @@ MatTabNav.decorators = [
 ];
 /** @nocollapse */
 MatTabNav.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: NgZone, },

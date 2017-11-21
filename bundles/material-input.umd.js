@@ -282,9 +282,8 @@ var nextUniqueId = 0;
  * Directive that allows a native input to work inside a `MatFormField`.
  */
 var MatInput = (function () {
-    function MatInput(_elementRef, _renderer, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
+    function MatInput(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
         this._elementRef = _elementRef;
-        this._renderer = _renderer;
         this._platform = _platform;
         this.ngControl = ngControl;
         this._parentForm = _parentForm;
@@ -337,7 +336,7 @@ var MatInput = (function () {
         // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
         // exists on iOS, we only bother to install the listener on iOS.
         if (_platform.IOS) {
-            _renderer.listen(_elementRef.nativeElement, 'keyup', function (event) {
+            _elementRef.nativeElement.addEventListener('keyup', function (event) {
                 var /** @type {?} */ el = /** @type {?} */ (event.target);
                 if (!el.value && !el.selectionStart && !el.selectionEnd) {
                     // Note: Just setting `0, 0` doesn't fix the issue. Setting `1, 1` fixes it for the first
@@ -408,7 +407,7 @@ var MatInput = (function () {
             // input element. To ensure that bindings for `type` work, we need to sync the setter
             // with the native property. Textarea elements don't support the type property or attribute.
             if (!this._isTextarea() && _angular_cdk_platform.getSupportedInputTypes().has(this._type)) {
-                this._renderer.setProperty(this._elementRef.nativeElement, 'type', this._type);
+                this._elementRef.nativeElement.type = this._type;
             }
         },
         enumerable: true,
@@ -685,7 +684,6 @@ var MatInput = (function () {
     /** @nocollapse */
     MatInput.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_cdk_platform.Platform, },
         { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
         { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },

@@ -5,14 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Renderer2, ElementRef, QueryList, AfterContentInit } from '@angular/core';
+import { ElementRef, QueryList, AfterContentInit } from '@angular/core';
 import { MatLine, MatLineSetter } from '@angular/material/core';
 export declare class MatGridTile {
-    private _renderer;
     private _element;
     _rowspan: number;
     _colspan: number;
-    constructor(_renderer: Renderer2, _element: ElementRef);
+    constructor(_element: ElementRef);
     /** Amount of rows that the grid tile takes up. */
     rowspan: number;
     /** Amount of columns that the grid tile takes up. */
@@ -24,7 +23,6 @@ export declare class MatGridTile {
     _setStyle(property: string, value: any): void;
 }
 export declare class MatGridTileText implements AfterContentInit {
-    private _renderer;
     private _element;
     /**
      *  Helper that watches the number of lines in a text area and sets
@@ -32,7 +30,7 @@ export declare class MatGridTileText implements AfterContentInit {
      */
     _lineSetter: MatLineSetter;
     _lines: QueryList<MatLine>;
-    constructor(_renderer: Renderer2, _element: ElementRef);
+    constructor(_element: ElementRef);
     ngAfterContentInit(): void;
 }
 /**

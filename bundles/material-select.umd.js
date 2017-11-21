@@ -191,8 +191,7 @@ var MatSelectChange = (function () {
  * \@docs-private
  */
 var MatSelectBase = (function () {
-    function MatSelectBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatSelectBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatSelectBase;
@@ -215,8 +214,8 @@ var MatSelectTrigger = (function () {
 }());
 var MatSelect = (function (_super) {
     __extends(MatSelect, _super);
-    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, renderer, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
+        var _this = _super.call(this, elementRef) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._ngZone = _ngZone;
@@ -1718,7 +1717,6 @@ var MatSelect = (function (_super) {
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_core.NgZone, },
         { type: _angular_material_core.ErrorStateMatcher, },
-        { type: _angular_core.Renderer2, },
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },

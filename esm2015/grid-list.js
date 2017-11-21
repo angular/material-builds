@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Input, NgModule, Optional, Renderer2, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Input, NgModule, Optional, ViewEncapsulation } from '@angular/core';
 import { MatCommonModule, MatLine, MatLineModule, MatLineSetter } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 
@@ -39,11 +39,9 @@ function coerceToNumber(value) {
 
 class MatGridTile {
     /**
-     * @param {?} _renderer
      * @param {?} _element
      */
-    constructor(_renderer, _element) {
-        this._renderer = _renderer;
+    constructor(_element) {
         this._element = _element;
         this._rowspan = 1;
         this._colspan = 1;
@@ -76,7 +74,7 @@ class MatGridTile {
      * @return {?}
      */
     _setStyle(property, value) {
-        this._renderer.setStyle(this._element.nativeElement, property, value);
+        this._element.nativeElement.style[property] = value;
     }
 }
 MatGridTile.decorators = [
@@ -94,7 +92,6 @@ MatGridTile.decorators = [
 ];
 /** @nocollapse */
 MatGridTile.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
 ];
 MatGridTile.propDecorators = {
@@ -103,18 +100,16 @@ MatGridTile.propDecorators = {
 };
 class MatGridTileText {
     /**
-     * @param {?} _renderer
      * @param {?} _element
      */
-    constructor(_renderer, _element) {
-        this._renderer = _renderer;
+    constructor(_element) {
         this._element = _element;
     }
     /**
      * @return {?}
      */
     ngAfterContentInit() {
-        this._lineSetter = new MatLineSetter(this._lines, this._renderer, this._element);
+        this._lineSetter = new MatLineSetter(this._lines, this._element);
     }
 }
 MatGridTileText.decorators = [
@@ -127,7 +122,6 @@ MatGridTileText.decorators = [
 ];
 /** @nocollapse */
 MatGridTileText.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
 ];
 MatGridTileText.propDecorators = {
@@ -630,12 +624,10 @@ function normalizeUnits(value) {
 const MAT_FIT_MODE = 'fit';
 class MatGridList {
     /**
-     * @param {?} _renderer
      * @param {?} _element
      * @param {?} _dir
      */
-    constructor(_renderer, _element, _dir) {
-        this._renderer = _renderer;
+    constructor(_element, _dir) {
         this._element = _element;
         this._dir = _dir;
         /**
@@ -749,7 +741,7 @@ class MatGridList {
      */
     _setListStyle(style) {
         if (style) {
-            this._renderer.setStyle(this._element.nativeElement, style[0], style[1]);
+            this._element.nativeElement.style[style[0]] = style[1];
         }
     }
 }
@@ -768,7 +760,6 @@ MatGridList.decorators = [
 ];
 /** @nocollapse */
 MatGridList.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
 ];

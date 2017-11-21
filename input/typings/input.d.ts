@@ -1,5 +1,5 @@
 import { Platform } from '@angular/cdk/platform';
-import { DoCheck, ElementRef, OnChanges, OnDestroy, Renderer2 } from '@angular/core';
+import { DoCheck, ElementRef, OnChanges, OnDestroy } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
@@ -7,7 +7,6 @@ import { Subject } from 'rxjs/Subject';
 /** Directive that allows a native input to work inside a `MatFormField`. */
 export declare class MatInput implements MatFormFieldControl<any>, OnChanges, OnDestroy, DoCheck {
     protected _elementRef: ElementRef;
-    protected _renderer: Renderer2;
     protected _platform: Platform;
     ngControl: NgControl;
     protected _parentForm: NgForm;
@@ -52,7 +51,7 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     /** Whether the element is readonly. */
     readonly: any;
     protected _neverEmptyInputTypes: string[];
-    constructor(_elementRef: ElementRef, _renderer: Renderer2, _platform: Platform, ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any);
+    constructor(_elementRef: ElementRef, _platform: Platform, ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any);
     ngOnChanges(): void;
     ngOnDestroy(): void;
     ngDoCheck(): void;

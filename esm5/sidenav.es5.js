@@ -8,7 +8,7 @@
 import { A11yModule, FocusMonitor, FocusTrapFactory } from '@angular/cdk/a11y';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Renderer2, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -553,11 +553,10 @@ var MatDrawer = (function () {
  * and coordinates the backdrop and content styling.
  */
 var MatDrawerContainer = (function () {
-    function MatDrawerContainer(_dir, _element, _renderer, _ngZone, _changeDetectorRef) {
+    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef) {
         var _this = this;
         this._dir = _dir;
         this._element = _element;
-        this._renderer = _renderer;
         this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -673,7 +672,7 @@ var MatDrawerContainer = (function () {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
             if (event.toState !== 'open-instant') {
-                _this._renderer.addClass(_this._element.nativeElement, 'mat-drawer-transition');
+                _this._element.nativeElement.classList.add('mat-drawer-transition');
             }
             _this._updateContentMargins();
             _this._changeDetectorRef.markForCheck();
@@ -741,10 +740,10 @@ var MatDrawerContainer = (function () {
      */
     function (isAdd) {
         if (isAdd) {
-            this._renderer.addClass(this._element.nativeElement, 'mat-drawer-opened');
+            this._element.nativeElement.classList.add('mat-drawer-opened');
         }
         else {
-            this._renderer.removeClass(this._element.nativeElement, 'mat-drawer-opened');
+            this._element.nativeElement.classList.remove('mat-drawer-opened');
         }
     };
     /**
@@ -885,7 +884,6 @@ var MatDrawerContainer = (function () {
     MatDrawerContainer.ctorParameters = function () { return [
         { type: Directionality, decorators: [{ type: Optional },] },
         { type: ElementRef, },
-        { type: Renderer2, },
         { type: NgZone, },
         { type: ChangeDetectorRef, },
     ]; };

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusableOption } from '@angular/cdk/a11y';
-import { ElementRef, EventEmitter, OnDestroy, Renderer2 } from '@angular/core';
+import { ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { CanColor, CanDisable } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 /** Represents an event fired on an individual `mat-chip`. */
@@ -23,9 +23,8 @@ export declare class MatChipSelectionChange {
 }
 /** @docs-private */
 export declare class MatChipBase {
-    _renderer: Renderer2;
     _elementRef: ElementRef;
-    constructor(_renderer: Renderer2, _elementRef: ElementRef);
+    constructor(_elementRef: ElementRef);
 }
 export declare const _MatChipMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MatChipBase;
 /**
@@ -79,7 +78,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
      */
     onRemove: EventEmitter<MatChipEvent>;
     readonly ariaSelected: string | null;
-    constructor(renderer: Renderer2, _elementRef: ElementRef);
+    constructor(_elementRef: ElementRef);
     ngOnDestroy(): void;
     /** Selects the chip. */
     select(): void;

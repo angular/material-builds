@@ -7,7 +7,7 @@
  */
 import { ObserversModule } from '@angular/cdk/observers';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, Renderer2, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { GestureConfig, MatCommonModule, MatRipple, MatRippleModule, applyCssTransform, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
@@ -39,8 +39,7 @@ var MatSlideToggleChange = (function () {
  * \@docs-private
  */
 var MatSlideToggleBase = (function () {
-    function MatSlideToggleBase(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    function MatSlideToggleBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatSlideToggleBase;
@@ -51,8 +50,8 @@ var _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixin
  */
 var MatSlideToggle = (function (_super) {
     __extends(MatSlideToggle, _super);
-    function MatSlideToggle(elementRef, renderer, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
-        var _this = _super.call(this, renderer, elementRef) || this;
+    function MatSlideToggle(elementRef, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
+        var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -138,7 +137,8 @@ var MatSlideToggle = (function (_super) {
     function () {
         var _this = this;
         this._slideRenderer = new SlideToggleRenderer(this._elementRef, this._platform);
-        this._focusMonitor.monitor(this._inputElement.nativeElement, false)
+        this._focusMonitor
+            .monitor(this._inputElement.nativeElement, false)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -400,7 +400,6 @@ var MatSlideToggle = (function (_super) {
     /** @nocollapse */
     MatSlideToggle.ctorParameters = function () { return [
         { type: ElementRef, },
-        { type: Renderer2, },
         { type: Platform, },
         { type: FocusMonitor, },
         { type: ChangeDetectorRef, },

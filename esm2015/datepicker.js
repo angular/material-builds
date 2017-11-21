@@ -8,7 +8,7 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, NgModule, NgZone, Optional, Output, Renderer2, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, NgModule, NgZone, Optional, Output, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -1423,14 +1423,12 @@ class MatDatepickerInputEvent {
 class MatDatepickerInput {
     /**
      * @param {?} _elementRef
-     * @param {?} _renderer
      * @param {?} _dateAdapter
      * @param {?} _dateFormats
      * @param {?} _formField
      */
-    constructor(_elementRef, _renderer, _dateAdapter, _dateFormats, _formField) {
+    constructor(_elementRef, _dateAdapter, _dateFormats, _formField) {
         this._elementRef = _elementRef;
-        this._renderer = _renderer;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
         this._formField = _formField;
@@ -1550,7 +1548,8 @@ class MatDatepickerInput {
         value = this._getValidDateOrNull(value);
         let /** @type {?} */ oldDate = this.value;
         this._value = value;
-        this._renderer.setProperty(this._elementRef.nativeElement, 'value', value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '');
+        this._elementRef.nativeElement.value =
+            value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '';
         if (!this._dateAdapter.sameDate(oldDate, value)) {
             this._valueChange.emit(value);
         }
@@ -1732,7 +1731,6 @@ MatDatepickerInput.decorators = [
 /** @nocollapse */
 MatDatepickerInput.ctorParameters = () => [
     { type: ElementRef, },
-    { type: Renderer2, },
     { type: DateAdapter, decorators: [{ type: Optional },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] },] },
     { type: MatFormField, decorators: [{ type: Optional },] },

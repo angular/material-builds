@@ -7,7 +7,7 @@
  */
 import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList, Renderer2 } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { CanDisable, CanDisableRipple, HasTabIndex, MatLine } from '@angular/material/core';
 /** @docs-private */
 export declare class MatSelectionListBase {
@@ -30,7 +30,6 @@ export declare class MatListOptionChange {
  * if the current item is selected.
  */
 export declare class MatListOption extends _MatListOptionMixinBase implements AfterContentInit, OnInit, OnDestroy, FocusableOption, CanDisableRipple {
-    private _renderer;
     private _element;
     private _changeDetector;
     selectionList: MatSelectionList;
@@ -49,7 +48,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     selected: boolean;
     /** Emitted when the option is selected or deselected. */
     selectionChange: EventEmitter<MatListOptionChange>;
-    constructor(_renderer: Renderer2, _element: ElementRef, _changeDetector: ChangeDetectorRef, selectionList: MatSelectionList);
+    constructor(_element: ElementRef, _changeDetector: ChangeDetectorRef, selectionList: MatSelectionList);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

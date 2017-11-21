@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, NgModule, Optional, Renderer2, Self, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, NgModule, Optional, Self, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
@@ -118,11 +118,9 @@ MatMiniFab.ctorParameters = () => [
  */
 class MatButtonBase {
     /**
-     * @param {?} _renderer
      * @param {?} _elementRef
      */
-    constructor(_renderer, _elementRef) {
-        this._renderer = _renderer;
+    constructor(_elementRef) {
         this._elementRef = _elementRef;
     }
 }
@@ -132,13 +130,12 @@ const _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButto
  */
 class MatButton extends _MatButtonMixinBase {
     /**
-     * @param {?} renderer
      * @param {?} elementRef
      * @param {?} _platform
      * @param {?} _focusMonitor
      */
-    constructor(renderer, elementRef, _platform, _focusMonitor) {
-        super(renderer, elementRef);
+    constructor(elementRef, _platform, _focusMonitor) {
+        super(elementRef);
         this._platform = _platform;
         this._focusMonitor = _focusMonitor;
         /**
@@ -208,7 +205,6 @@ MatButton.decorators = [
 ];
 /** @nocollapse */
 MatButton.ctorParameters = () => [
-    { type: Renderer2, },
     { type: ElementRef, },
     { type: Platform, },
     { type: FocusMonitor, },
@@ -221,10 +217,9 @@ class MatAnchor extends MatButton {
      * @param {?} platform
      * @param {?} focusMonitor
      * @param {?} elementRef
-     * @param {?} renderer
      */
-    constructor(platform, focusMonitor, elementRef, renderer) {
-        super(renderer, elementRef, platform, focusMonitor);
+    constructor(platform, focusMonitor, elementRef) {
+        super(elementRef, platform, focusMonitor);
     }
     /**
      * @param {?} event
@@ -260,7 +255,6 @@ MatAnchor.ctorParameters = () => [
     { type: Platform, },
     { type: FocusMonitor, },
     { type: ElementRef, },
-    { type: Renderer2, },
 ];
 
 /**
