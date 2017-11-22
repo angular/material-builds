@@ -80,7 +80,7 @@ class MatInkBar {
     _setStyles(element) {
         const /** @type {?} */ inkBar = this._elementRef.nativeElement;
         inkBar.style.left = element ? (element.offsetLeft || 0) + 'px' : '0';
-        inkBar.style.top = element ? (element.offsetWidth || 0) + 'px' : '0';
+        inkBar.style.width = element ? (element.offsetWidth || 0) + 'px' : '0';
     }
 }
 MatInkBar.decorators = [

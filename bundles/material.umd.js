@@ -25482,7 +25482,7 @@ var MatInkBar = (function () {
     function (element) {
         var /** @type {?} */ inkBar = this._elementRef.nativeElement;
         inkBar.style.left = element ? (element.offsetLeft || 0) + 'px' : '0';
-        inkBar.style.top = element ? (element.offsetWidth || 0) + 'px' : '0';
+        inkBar.style.width = element ? (element.offsetWidth || 0) + 'px' : '0';
     };
     MatInkBar.decorators = [
         { type: _angular_core.Directive, args: [{
@@ -27474,7 +27474,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.1-4dd8a31');
+var VERSION = new _angular_core.Version('5.0.0-rc.1-6e865b7');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
