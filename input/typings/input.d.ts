@@ -1,17 +1,23 @@
 import { Platform } from '@angular/cdk/platform';
 import { DoCheck, ElementRef, OnChanges, OnDestroy } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { ErrorStateMatcher, CanUpdateErrorState } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs/Subject';
+/** @docs-private */
+export declare class MatInputBase {
+    _defaultErrorStateMatcher: ErrorStateMatcher;
+    _parentForm: NgForm;
+    _parentFormGroup: FormGroupDirective;
+    ngControl: NgControl;
+    constructor(_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl);
+}
+export declare const _MatInputMixinBase: (new (...args: any[]) => CanUpdateErrorState) & typeof MatInputBase;
 /** Directive that allows a native input to work inside a `MatFormField`. */
-export declare class MatInput implements MatFormFieldControl<any>, OnChanges, OnDestroy, DoCheck {
+export declare class MatInput extends _MatInputMixinBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, DoCheck, CanUpdateErrorState {
     protected _elementRef: ElementRef;
     protected _platform: Platform;
     ngControl: NgControl;
-    protected _parentForm: NgForm;
-    protected _parentFormGroup: FormGroupDirective;
-    private _defaultErrorStateMatcher;
     /** Variables used as cache for getters and setters. */
     protected _type: string;
     protected _disabled: boolean;
@@ -23,8 +29,6 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     private _inputValueAccessor;
     /** Whether the input is focused. */
     focused: boolean;
-    /** Whether the input is in an error state. */
-    errorState: boolean;
     /** The aria-describedby attribute on the input for improved a11y. */
     _ariaDescribedby: string;
     /** Whether the component is being rendered on the server. */
@@ -61,8 +65,6 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     /** Callback for the cases where the focused state of the input changes. */
     _focusChanged(isFocused: boolean): void;
     _onInput(): void;
-    /** Re-evaluates the error state. This is only relevant with @angular/forms. */
-    protected _updateErrorState(): void;
     /** Does some manual dirty checking on the native input `value` property. */
     protected _dirtyCheckNativeValue(): void;
     /** Make sure the input is a supported type. */

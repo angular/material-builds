@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('rxjs/operators/startWith'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/Subject'), require('rxjs/Subscription'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', 'rxjs/operators/startWith', '@angular/forms', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/Subject', 'rxjs/Subscription', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = global.ng.material.chips || {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.Rx.operators,global.ng.forms,global.ng.material.formField,global.Rx.Observable,global.Rx,global.Rx,global.ng.material.core));
-}(this, (function (exports,_angular_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,rxjs_operators_startWith,_angular_forms,_angular_material_formField,rxjs_observable_merge,rxjs_Subject,rxjs_Subscription,_angular_material_core) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('rxjs/operators/startWith'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('rxjs/Subject')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', 'rxjs/operators/startWith', '@angular/forms', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/Subscription', 'rxjs/Subject'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = global.ng.material.chips || {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.Rx.operators,global.ng.forms,global.ng.material.formField,global.Rx.Observable,global.Rx,global.Rx));
+}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,rxjs_operators_startWith,_angular_forms,_angular_material_formField,rxjs_observable_merge,rxjs_Subscription,rxjs_Subject) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -493,7 +493,19 @@ var MatChipRemove = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
+/**
+ * \@docs-private
+ */
+var MatChipListBase = (function () {
+    function MatChipListBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
+        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
+        this._parentForm = _parentForm;
+        this._parentFormGroup = _parentFormGroup;
+        this.ngControl = ngControl;
+    }
+    return MatChipListBase;
+}());
+var _MatChipListMixinBase = _angular_material_core.mixinErrorState(MatChipListBase);
 // Increasing integer for generating unique ids for chip-list components.
 var nextUniqueId = 0;
 /**
@@ -509,90 +521,86 @@ var MatChipListChange = (function () {
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
-var MatChipList = (function () {
-    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
-        this._elementRef = _elementRef;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._dir = _dir;
-        this._parentForm = _parentForm;
-        this._parentFormGroup = _parentFormGroup;
-        this.ngControl = ngControl;
-        this.controlType = 'mat-chip-list';
-        /**
-         * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
-         * needs to run change detection.
-         */
-        this.stateChanges = new rxjs_Subject.Subject();
+var MatChipList = (function (_super) {
+    __extends(MatChipList, _super);
+    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, ngControl) {
+        var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
+        _this._elementRef = _elementRef;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._dir = _dir;
+        _this.ngControl = ngControl;
+        _this.controlType = 'mat-chip-list';
         /**
          * When a chip is destroyed, we track the index so we can focus the appropriate next chip.
          */
-        this._lastDestroyedIndex = null;
+        _this._lastDestroyedIndex = null;
         /**
          * Track which chips we're listening to for focus/destruction.
          */
-        this._chipSet = new WeakMap();
+        _this._chipSet = new WeakMap();
         /**
          * Subscription to tabbing out from the chip list.
          */
-        this._tabOutSubscription = rxjs_Subscription.Subscription.EMPTY;
+        _this._tabOutSubscription = rxjs_Subscription.Subscription.EMPTY;
         /**
          * Whether or not the chip is selectable.
          */
-        this._selectable = true;
+        _this._selectable = true;
         /**
          * Whether the component is in multiple selection mode.
          */
-        this._multiple = false;
+        _this._multiple = false;
         /**
          * Uid of the chip list
          */
-        this._uid = "mat-chip-list-" + nextUniqueId++;
+        _this._uid = "mat-chip-list-" + nextUniqueId++;
         /**
          * Whether this is required
          */
-        this._required = false;
+        _this._required = false;
         /**
          * Whether this is disabled
          */
-        this._disabled = false;
+        _this._disabled = false;
         /**
          * Tab index for the chip list.
          */
-        this._tabIndex = 0;
+        _this._tabIndex = 0;
         /**
          * User defined tab index.
          * When it is not null, use user defined tab index. Otherwise use _tabIndex
          */
-        this._userTabIndex = null;
+        _this._userTabIndex = null;
         /**
          * Function when touched
          */
-        this._onTouched = function () { };
+        _this._onTouched = function () { };
         /**
          * Function when changed
          */
-        this._onChange = function () { };
+        _this._onChange = function () { };
         /**
          * Comparison function to specify which option is displayed. Defaults to object equality.
          */
-        this._compareWith = function (o1, o2) { return o1 === o2; };
+        _this._compareWith = function (o1, o2) { return o1 === o2; };
         /**
          * Orientation of the chip list.
          */
-        this.ariaOrientation = 'horizontal';
+        _this.ariaOrientation = 'horizontal';
         /**
          * Event emitted when the selected chip list value has been changed by the user.
          */
-        this.change = new _angular_core.EventEmitter();
+        _this.change = new _angular_core.EventEmitter();
         /**
          * Event that emits whenever the raw value of the chip-list changes. This is here primarily
          * to facilitate the two-way binding for the `value` input.
          * \@docs-private
          */
-        this.valueChange = new _angular_core.EventEmitter();
-        if (this.ngControl) {
-            this.ngControl.valueAccessor = this;
+        _this.valueChange = new _angular_core.EventEmitter();
+        if (_this.ngControl) {
+            _this.ngControl.valueAccessor = _this;
         }
+        return _this;
     }
     Object.defineProperty(MatChipList.prototype, "selected", {
         /** The array of selected chips inside chip list. */
@@ -775,22 +783,6 @@ var MatChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatChipList.prototype, "errorState", {
-        /** Whether the chip list is in an error state. */
-        get: /**
-         * Whether the chip list is in an error state.
-         * @return {?}
-         */
-        function () {
-            var /** @type {?} */ isInvalid = this.ngControl && this.ngControl.invalid;
-            var /** @type {?} */ isTouched = this.ngControl && this.ngControl.touched;
-            var /** @type {?} */ isSubmitted = (this._parentFormGroup && this._parentFormGroup.submitted) ||
-                (this._parentForm && this._parentForm.submitted);
-            return !!(isInvalid && (isTouched || isSubmitted));
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MatChipList.prototype, "selectable", {
         get: /**
          * Whether or not this chip is selectable. When a chip is not selectable,
@@ -904,6 +896,20 @@ var MatChipList = (function () {
     function () {
         this._selectionModel = new _angular_cdk_collections.SelectionModel(this.multiple, undefined, false);
         this.stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
+    MatChipList.prototype.ngDoCheck = /**
+     * @return {?}
+     */
+    function () {
+        if (this.ngControl) {
+            // We need to re-evaluate this on every change detection cycle, because there are some
+            // error triggers that we can't subscribe to (e.g. parent form submissions). This means
+            // that whatever logic is in here has to be super lean or we risk destroying the performance.
+            this.updateErrorState();
+        }
     };
     /**
      * @return {?}
@@ -1514,9 +1520,11 @@ var MatChipList = (function () {
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
+        { type: _angular_material_core.ErrorStateMatcher, },
         { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
     ]; };
     MatChipList.propDecorators = {
+        "errorStateMatcher": [{ type: _angular_core.Input },],
         "multiple": [{ type: _angular_core.Input },],
         "compareWith": [{ type: _angular_core.Input },],
         "value": [{ type: _angular_core.Input },],
@@ -1532,7 +1540,7 @@ var MatChipList = (function () {
         "chips": [{ type: _angular_core.ContentChildren, args: [MatChip,] },],
     };
     return MatChipList;
-}());
+}(_MatChipListMixinBase));
 
 /**
  * @fileoverview added by tsickle
@@ -1728,7 +1736,8 @@ var MatChipsModule = (function () {
         { type: _angular_core.NgModule, args: [{
                     imports: [],
                     exports: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip],
-                    declarations: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip]
+                    declarations: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip],
+                    providers: [_angular_material_core.ErrorStateMatcher]
                 },] },
     ];
     /** @nocollapse */
@@ -1737,6 +1746,8 @@ var MatChipsModule = (function () {
 }());
 
 exports.MatChipsModule = MatChipsModule;
+exports.MatChipListBase = MatChipListBase;
+exports._MatChipListMixinBase = _MatChipListMixinBase;
 exports.MatChipListChange = MatChipListChange;
 exports.MatChipList = MatChipList;
 exports.MatChipSelectionChange = MatChipSelectionChange;

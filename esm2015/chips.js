@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Self, ViewEncapsulation } from '@angular/core';
+import { ErrorStateMatcher, mixinColor, mixinDisabled, mixinErrorState } from '@angular/material/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -15,9 +16,8 @@ import { startWith } from 'rxjs/operators/startWith';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { merge } from 'rxjs/observable/merge';
-import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { mixinColor, mixinDisabled } from '@angular/material/core';
+import { Subject } from 'rxjs/Subject';
 
 /**
  * @fileoverview added by tsickle
@@ -397,6 +397,24 @@ MatChipRemove.ctorParameters = () => [
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * \@docs-private
+ */
+class MatChipListBase {
+    /**
+     * @param {?} _defaultErrorStateMatcher
+     * @param {?} _parentForm
+     * @param {?} _parentFormGroup
+     * @param {?} ngControl
+     */
+    constructor(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
+        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
+        this._parentForm = _parentForm;
+        this._parentFormGroup = _parentFormGroup;
+        this.ngControl = ngControl;
+    }
+}
+const _MatChipListMixinBase = mixinErrorState(MatChipListBase);
 // Increasing integer for generating unique ids for chip-list components.
 let nextUniqueId = 0;
 /**
@@ -415,28 +433,23 @@ class MatChipListChange {
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
-class MatChipList {
+class MatChipList extends _MatChipListMixinBase {
     /**
      * @param {?} _elementRef
      * @param {?} _changeDetectorRef
      * @param {?} _dir
      * @param {?} _parentForm
      * @param {?} _parentFormGroup
+     * @param {?} _defaultErrorStateMatcher
      * @param {?} ngControl
      */
-    constructor(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
+    constructor(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, ngControl) {
+        super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
-        this._parentForm = _parentForm;
-        this._parentFormGroup = _parentFormGroup;
         this.ngControl = ngControl;
         this.controlType = 'mat-chip-list';
-        /**
-         * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
-         * needs to run change detection.
-         */
-        this.stateChanges = new Subject();
         /**
          * When a chip is destroyed, we track the index so we can focus the appropriate next chip.
          */
@@ -639,17 +652,6 @@ class MatChipList {
      */
     set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     /**
-     * Whether the chip list is in an error state.
-     * @return {?}
-     */
-    get errorState() {
-        const /** @type {?} */ isInvalid = this.ngControl && this.ngControl.invalid;
-        const /** @type {?} */ isTouched = this.ngControl && this.ngControl.touched;
-        const /** @type {?} */ isSubmitted = (this._parentFormGroup && this._parentFormGroup.submitted) ||
-            (this._parentForm && this._parentForm.submitted);
-        return !!(isInvalid && (isTouched || isSubmitted));
-    }
-    /**
      * Whether or not this chip is selectable. When a chip is not selectable,
      * its selected state is always ignored.
      * @return {?}
@@ -724,6 +726,17 @@ class MatChipList {
     ngOnInit() {
         this._selectionModel = new SelectionModel(this.multiple, undefined, false);
         this.stateChanges.next();
+    }
+    /**
+     * @return {?}
+     */
+    ngDoCheck() {
+        if (this.ngControl) {
+            // We need to re-evaluate this on every change detection cycle, because there are some
+            // error triggers that we can't subscribe to (e.g. parent form submissions). This means
+            // that whatever logic is in here has to be super lean or we risk destroying the performance.
+            this.updateErrorState();
+        }
     }
     /**
      * @return {?}
@@ -1170,9 +1183,11 @@ MatChipList.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: NgForm, decorators: [{ type: Optional },] },
     { type: FormGroupDirective, decorators: [{ type: Optional },] },
+    { type: ErrorStateMatcher, },
     { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
 ];
 MatChipList.propDecorators = {
+    "errorStateMatcher": [{ type: Input },],
     "multiple": [{ type: Input },],
     "compareWith": [{ type: Input },],
     "value": [{ type: Input },],
@@ -1345,7 +1360,8 @@ MatChipsModule.decorators = [
     { type: NgModule, args: [{
                 imports: [],
                 exports: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip],
-                declarations: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip]
+                declarations: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip],
+                providers: [ErrorStateMatcher]
             },] },
 ];
 /** @nocollapse */
@@ -1364,5 +1380,5 @@ MatChipsModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatChipsModule, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipBase, _MatChipMixinBase, MatBasicChip, MatChip, MatChipRemove, MatChipInput };
+export { MatChipsModule, MatChipListBase, _MatChipListMixinBase, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipBase, _MatChipMixinBase, MatBasicChip, MatChip, MatChipRemove, MatChipInput };
 //# sourceMappingURL=chips.js.map

@@ -316,6 +316,61 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * \@docs-private
+ * @record
+ */
+
+/**
+ * \@docs-private
+ * @record
+ */
+
+/**
+ * Mixin to augment a directive with updateErrorState method.
+ * For component with `errorState` and need to update `errorState`.
+ * @template T
+ * @param {?} base
+ * @return {?}
+ */
+function mixinErrorState(base) {
+    return class extends base {
+        /**
+         * @param {...?} args
+         */
+        constructor(...args) {
+            super(...args);
+            /**
+             * Whether the component is in an error state.
+             */
+            this.errorState = false;
+            /**
+             * Stream that emits whenever the state of the input changes such that the wrapping
+             * `MatFormField needs to run change detection.
+             */
+            this.stateChanges = new Subject();
+        }
+        /**
+         * @return {?}
+         */
+        updateErrorState() {
+            const /** @type {?} */ oldState = this.errorState;
+            const /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
+            const /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
+            const /** @type {?} */ control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
+            const /** @type {?} */ newState = matcher.isErrorState(control, parent);
+            if (newState !== oldState) {
+                this.errorState = newState;
+                this.stateChanges.next();
+            }
+        }
+    };
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 
 /**
  * @fileoverview added by tsickle
@@ -1896,5 +1951,5 @@ const DEC = 11;
  * Generated bundle index. Do not edit.
  */
 
-export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
+export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_PLACEHOLDER_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
 //# sourceMappingURL=core.js.map

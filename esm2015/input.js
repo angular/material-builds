@@ -11,7 +11,7 @@ import { Directive, ElementRef, Inject, InjectionToken, Input, NgModule, Optiona
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 
 /**
@@ -242,9 +242,27 @@ const MAT_INPUT_INVALID_TYPES = [
 ];
 let nextUniqueId = 0;
 /**
+ * \@docs-private
+ */
+class MatInputBase {
+    /**
+     * @param {?} _defaultErrorStateMatcher
+     * @param {?} _parentForm
+     * @param {?} _parentFormGroup
+     * @param {?} ngControl
+     */
+    constructor(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
+        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
+        this._parentForm = _parentForm;
+        this._parentFormGroup = _parentFormGroup;
+        this.ngControl = ngControl;
+    }
+}
+const _MatInputMixinBase = mixinErrorState(MatInputBase);
+/**
  * Directive that allows a native input to work inside a `MatFormField`.
  */
-class MatInput {
+class MatInput extends _MatInputMixinBase {
     /**
      * @param {?} _elementRef
      * @param {?} _platform
@@ -255,12 +273,10 @@ class MatInput {
      * @param {?} inputValueAccessor
      */
     constructor(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
+        super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._elementRef = _elementRef;
         this._platform = _platform;
         this.ngControl = ngControl;
-        this._parentForm = _parentForm;
-        this._parentFormGroup = _parentFormGroup;
-        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         /**
          * Variables used as cache for getters and setters.
          */
@@ -273,10 +289,6 @@ class MatInput {
          * Whether the input is focused.
          */
         this.focused = false;
-        /**
-         * Whether the input is in an error state.
-         */
-        this.errorState = false;
         /**
          * Whether the component is being rendered on the server.
          */
@@ -419,7 +431,7 @@ class MatInput {
             // We need to re-evaluate this on every change detection cycle, because there are some
             // error triggers that we can't subscribe to (e.g. parent form submissions). This means
             // that whatever logic is in here has to be super lean or we risk destroying the performance.
-            this._updateErrorState();
+            this.updateErrorState();
         }
         else {
             // When the input isn't used together with `@angular/forms`, we need to check manually for
@@ -453,21 +465,6 @@ class MatInput {
         // value changes and will not disappear.
         // Listening to the input event wouldn't be necessary when the input is using the
         // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
-    }
-    /**
-     * Re-evaluates the error state. This is only relevant with \@angular/forms.
-     * @return {?}
-     */
-    _updateErrorState() {
-        const /** @type {?} */ oldState = this.errorState;
-        const /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
-        const /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-        const /** @type {?} */ control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
-        const /** @type {?} */ newState = matcher.isErrorState(control, parent);
-        if (newState !== oldState) {
-            this.errorState = newState;
-            this.stateChanges.next();
-        }
     }
     /**
      * Does some manual dirty checking on the native input `value` property.
@@ -629,5 +626,5 @@ MatInputModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatInputModule, MatTextareaAutosize, MatInput, getMatInputUnsupportedTypeError, MAT_INPUT_VALUE_ACCESSOR };
+export { MatInputModule, MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MAT_INPUT_VALUE_ACCESSOR };
 //# sourceMappingURL=input.js.map

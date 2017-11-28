@@ -11,10 +11,9 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, Overlay, RepositionScrollStrategy, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanDisable, ErrorStateMatcher, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange } from '@angular/material/core';
+import { CanDisable, ErrorStateMatcher, CanUpdateErrorState, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the alignment of the selected option over
@@ -61,22 +60,23 @@ export declare class MatSelectChange {
 /** @docs-private */
 export declare class MatSelectBase {
     _elementRef: ElementRef;
-    constructor(_elementRef: ElementRef);
+    _defaultErrorStateMatcher: ErrorStateMatcher;
+    _parentForm: NgForm;
+    _parentFormGroup: FormGroupDirective;
+    ngControl: NgControl;
+    constructor(_elementRef: ElementRef, _defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl);
 }
-export declare const _MatSelectMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisable) & typeof MatSelectBase;
+export declare const _MatSelectMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisable) & (new (...args: any[]) => CanUpdateErrorState) & typeof MatSelectBase;
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
 export declare class MatSelectTrigger {
 }
-export declare class MatSelect extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any> {
+export declare class MatSelect extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any>, CanUpdateErrorState {
     private _viewportRuler;
     private _changeDetectorRef;
     private _ngZone;
-    private _defaultErrorStateMatcher;
     private _dir;
-    private _parentForm;
-    private _parentFormGroup;
     private _parentFormField;
     ngControl: NgControl;
     private _scrollStrategyFactory;
@@ -136,11 +136,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
         overlayX: string;
         overlayY: string;
     }[];
-    /**
-     * Stream that emits whenever the state of the select changes such that the wrapping
-     * `MatFormField` needs to run change detection.
-     */
-    stateChanges: Subject<void>;
     /** Whether the select is focused. */
     focused: boolean;
     /** A name for this control that can be used by `mat-form-field`. */
@@ -299,8 +294,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     _getPanelTheme(): string;
     /** Whether the select has a value. */
     readonly empty: boolean;
-    /** Whether the select is in an error state. */
-    errorState: boolean;
     private _initializeSelection();
     /**
      * Sets the selected option based on a value. If no option can be
@@ -388,8 +381,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _getItemCount();
     /** Calculates the height of the select's options. */
     private _getItemHeight();
-    /** Updates the select's error state. Only relevant when used with @angular/forms. */
-    private _updateErrorState();
     setDescribedByIds(ids: string[]): void;
     onContainerClick(): void;
     readonly shouldPlaceholderFloat: boolean;

@@ -9,9 +9,11 @@ import { Platform, PlatformModule, getSupportedInputTypes } from '@angular/cdk/p
 import { CommonModule } from '@angular/common';
 import { Directive, ElementRef, Inject, InjectionToken, Input, NgModule, Optional, Self } from '@angular/core';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { __extends } from 'tslib';
+import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 
 /**
@@ -266,7 +268,6 @@ var MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
 var MAT_INPUT_INVALID_TYPES = [
     'button',
@@ -282,50 +283,58 @@ var MAT_INPUT_INVALID_TYPES = [
 ];
 var nextUniqueId = 0;
 /**
- * Directive that allows a native input to work inside a `MatFormField`.
+ * \@docs-private
  */
-var MatInput = (function () {
-    function MatInput(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
-        this._elementRef = _elementRef;
-        this._platform = _platform;
-        this.ngControl = ngControl;
+var MatInputBase = (function () {
+    function MatInputBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
+        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._parentForm = _parentForm;
         this._parentFormGroup = _parentFormGroup;
-        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
+        this.ngControl = ngControl;
+    }
+    return MatInputBase;
+}());
+var _MatInputMixinBase = mixinErrorState(MatInputBase);
+/**
+ * Directive that allows a native input to work inside a `MatFormField`.
+ */
+var MatInput = (function (_super) {
+    __extends(MatInput, _super);
+    function MatInput(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
+        var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
+        _this._elementRef = _elementRef;
+        _this._platform = _platform;
+        _this.ngControl = ngControl;
         /**
          * Variables used as cache for getters and setters.
          */
-        this._type = 'text';
-        this._disabled = false;
-        this._required = false;
-        this._uid = "mat-input-" + nextUniqueId++;
-        this._readonly = false;
+        _this._type = 'text';
+        _this._disabled = false;
+        _this._required = false;
+        _this._uid = "mat-input-" + nextUniqueId++;
+        _this._readonly = false;
         /**
          * Whether the input is focused.
          */
-        this.focused = false;
-        /**
-         * Whether the input is in an error state.
-         */
-        this.errorState = false;
+        _this.focused = false;
         /**
          * Whether the component is being rendered on the server.
          */
-        this._isServer = false;
+        _this._isServer = false;
         /**
          * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
          * needs to run change detection.
          */
-        this.stateChanges = new Subject();
+        _this.stateChanges = new Subject();
         /**
          * A name for this control that can be used by `mat-form-field`.
          */
-        this.controlType = 'mat-input';
+        _this.controlType = 'mat-input';
         /**
          * Placeholder attribute of the element.
          */
-        this.placeholder = '';
-        this._neverEmptyInputTypes = [
+        _this.placeholder = '';
+        _this._neverEmptyInputTypes = [
             'date',
             'datetime',
             'datetime-local',
@@ -335,10 +344,13 @@ var MatInput = (function () {
         ].filter(function (t) { return getSupportedInputTypes().has(t); });
         // If no input value accessor was explicitly specified, use the element as the input value
         // accessor.
-        this._inputValueAccessor = inputValueAccessor || this._elementRef.nativeElement;
-        this._previousNativeValue = this.value;
+        // If no input value accessor was explicitly specified, use the element as the input value
+        // accessor.
+        _this._inputValueAccessor = inputValueAccessor || _this._elementRef.nativeElement;
+        _this._previousNativeValue = _this.value;
         // Force setter to be called in case id was not specified.
-        this.id = this.id;
+        // Force setter to be called in case id was not specified.
+        _this.id = _this.id;
         // On some versions of iOS the caret gets stuck in the wrong place when holding down the delete
         // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
         // exists on iOS, we only bother to install the listener on iOS.
@@ -354,7 +366,8 @@ var MatInput = (function () {
                 }
             });
         }
-        this._isServer = !this._platform.isBrowser;
+        _this._isServer = !_this._platform.isBrowser;
+        return _this;
     }
     Object.defineProperty(MatInput.prototype, "disabled", {
         get: /**
@@ -483,7 +496,7 @@ var MatInput = (function () {
             // We need to re-evaluate this on every change detection cycle, because there are some
             // error triggers that we can't subscribe to (e.g. parent form submissions). This means
             // that whatever logic is in here has to be super lean or we risk destroying the performance.
-            this._updateErrorState();
+            this.updateErrorState();
         }
         else {
             // When the input isn't used together with `@angular/forms`, we need to check manually for
@@ -529,26 +542,6 @@ var MatInput = (function () {
         // value changes and will not disappear.
         // Listening to the input event wouldn't be necessary when the input is using the
         // FormsModule or ReactiveFormsModule, because Angular forms also listens to input events.
-    };
-    /** Re-evaluates the error state. This is only relevant with @angular/forms. */
-    /**
-     * Re-evaluates the error state. This is only relevant with \@angular/forms.
-     * @return {?}
-     */
-    MatInput.prototype._updateErrorState = /**
-     * Re-evaluates the error state. This is only relevant with \@angular/forms.
-     * @return {?}
-     */
-    function () {
-        var /** @type {?} */ oldState = this.errorState;
-        var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
-        var /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-        var /** @type {?} */ control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
-        var /** @type {?} */ newState = matcher.isErrorState(control, parent);
-        if (newState !== oldState) {
-            this.errorState = newState;
-            this.stateChanges.next();
-        }
     };
     /** Does some manual dirty checking on the native input `value` property. */
     /**
@@ -711,7 +704,7 @@ var MatInput = (function () {
         "readonly": [{ type: Input },],
     };
     return MatInput;
-}());
+}(_MatInputMixinBase));
 
 /**
  * @fileoverview added by tsickle
@@ -758,5 +751,5 @@ var MatInputModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatInputModule, MatTextareaAutosize, MatInput, getMatInputUnsupportedTypeError, MAT_INPUT_VALUE_ACCESSOR };
+export { MatInputModule, MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MAT_INPUT_VALUE_ACCESSOR };
 //# sourceMappingURL=input.es5.js.map

@@ -8,13 +8,22 @@
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
+import { ErrorStateMatcher, CanUpdateErrorState } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
 import { MatChip, MatChipEvent, MatChipSelectionChange } from './chip';
 import { MatChipInput } from './chip-input';
+/** @docs-private */
+export declare class MatChipListBase {
+    _defaultErrorStateMatcher: ErrorStateMatcher;
+    _parentForm: NgForm;
+    _parentFormGroup: FormGroupDirective;
+    ngControl: NgControl;
+    constructor(_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl);
+}
+export declare const _MatChipListMixinBase: (new (...args: any[]) => CanUpdateErrorState) & typeof MatChipListBase;
 /** Change event object that is emitted when the chip list value has changed. */
 export declare class MatChipListChange {
     source: MatChipList;
@@ -24,19 +33,12 @@ export declare class MatChipListChange {
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
-export declare class MatChipList implements MatFormFieldControl<any>, ControlValueAccessor, AfterContentInit, OnInit, OnDestroy {
+export declare class MatChipList extends _MatChipListMixinBase implements MatFormFieldControl<any>, ControlValueAccessor, AfterContentInit, DoCheck, OnInit, OnDestroy, CanUpdateErrorState {
     protected _elementRef: ElementRef;
     private _changeDetectorRef;
     private _dir;
-    private _parentForm;
-    private _parentFormGroup;
     ngControl: NgControl;
     readonly controlType: string;
-    /**
-     * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
-     * needs to run change detection.
-     */
-    stateChanges: Subject<void>;
     /** When a chip is destroyed, we track the index so we can focus the appropriate next chip. */
     protected _lastDestroyedIndex: number | null;
     /** Track which chips we're listening to for focus/destruction. */
@@ -91,6 +93,8 @@ export declare class MatChipList implements MatFormFieldControl<any>, ControlVal
     /** The array of selected chips inside chip list. */
     readonly selected: MatChip[] | MatChip;
     readonly role: string | null;
+    /** An object used to control when error messages are shown. */
+    errorStateMatcher: ErrorStateMatcher;
     /** Whether the user should be allowed to select multiple chips. */
     multiple: boolean;
     /**
@@ -114,8 +118,6 @@ export declare class MatChipList implements MatFormFieldControl<any>, ControlVal
     readonly shouldPlaceholderFloat: boolean;
     /** Whether this chip-list is disabled. */
     disabled: any;
-    /** Whether the chip list is in an error state. */
-    readonly errorState: boolean;
     /** Orientation of the chip list. */
     ariaOrientation: 'horizontal' | 'vertical';
     /**
@@ -142,9 +144,10 @@ export declare class MatChipList implements MatFormFieldControl<any>, ControlVal
     valueChange: EventEmitter<any>;
     /** The chip components contained within this chip list. */
     chips: QueryList<MatChip>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, ngControl: NgControl);
     ngAfterContentInit(): void;
     ngOnInit(): void;
+    ngDoCheck(): void;
     ngOnDestroy(): void;
     /** Associates an HTML input element with this chip list. */
     registerInput(inputElement: MatChipInput): void;

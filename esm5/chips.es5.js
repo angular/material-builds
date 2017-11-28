@@ -6,6 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, Self, ViewEncapsulation } from '@angular/core';
+import { ErrorStateMatcher, mixinColor, mixinDisabled, mixinErrorState } from '@angular/material/core';
+import { __extends } from 'tslib';
+import * as tslib_1 from 'tslib';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -15,11 +18,8 @@ import { startWith } from 'rxjs/operators/startWith';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { merge } from 'rxjs/observable/merge';
-import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
-import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
-import { mixinColor, mixinDisabled } from '@angular/material/core';
+import { Subject } from 'rxjs/Subject';
 
 /**
  * @fileoverview added by tsickle
@@ -477,7 +477,19 @@ var MatChipRemove = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
+/**
+ * \@docs-private
+ */
+var MatChipListBase = (function () {
+    function MatChipListBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
+        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
+        this._parentForm = _parentForm;
+        this._parentFormGroup = _parentFormGroup;
+        this.ngControl = ngControl;
+    }
+    return MatChipListBase;
+}());
+var _MatChipListMixinBase = mixinErrorState(MatChipListBase);
 // Increasing integer for generating unique ids for chip-list components.
 var nextUniqueId = 0;
 /**
@@ -493,90 +505,86 @@ var MatChipListChange = (function () {
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
-var MatChipList = (function () {
-    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, ngControl) {
-        this._elementRef = _elementRef;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._dir = _dir;
-        this._parentForm = _parentForm;
-        this._parentFormGroup = _parentFormGroup;
-        this.ngControl = ngControl;
-        this.controlType = 'mat-chip-list';
-        /**
-         * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
-         * needs to run change detection.
-         */
-        this.stateChanges = new Subject();
+var MatChipList = (function (_super) {
+    __extends(MatChipList, _super);
+    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, ngControl) {
+        var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
+        _this._elementRef = _elementRef;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._dir = _dir;
+        _this.ngControl = ngControl;
+        _this.controlType = 'mat-chip-list';
         /**
          * When a chip is destroyed, we track the index so we can focus the appropriate next chip.
          */
-        this._lastDestroyedIndex = null;
+        _this._lastDestroyedIndex = null;
         /**
          * Track which chips we're listening to for focus/destruction.
          */
-        this._chipSet = new WeakMap();
+        _this._chipSet = new WeakMap();
         /**
          * Subscription to tabbing out from the chip list.
          */
-        this._tabOutSubscription = Subscription.EMPTY;
+        _this._tabOutSubscription = Subscription.EMPTY;
         /**
          * Whether or not the chip is selectable.
          */
-        this._selectable = true;
+        _this._selectable = true;
         /**
          * Whether the component is in multiple selection mode.
          */
-        this._multiple = false;
+        _this._multiple = false;
         /**
          * Uid of the chip list
          */
-        this._uid = "mat-chip-list-" + nextUniqueId++;
+        _this._uid = "mat-chip-list-" + nextUniqueId++;
         /**
          * Whether this is required
          */
-        this._required = false;
+        _this._required = false;
         /**
          * Whether this is disabled
          */
-        this._disabled = false;
+        _this._disabled = false;
         /**
          * Tab index for the chip list.
          */
-        this._tabIndex = 0;
+        _this._tabIndex = 0;
         /**
          * User defined tab index.
          * When it is not null, use user defined tab index. Otherwise use _tabIndex
          */
-        this._userTabIndex = null;
+        _this._userTabIndex = null;
         /**
          * Function when touched
          */
-        this._onTouched = function () { };
+        _this._onTouched = function () { };
         /**
          * Function when changed
          */
-        this._onChange = function () { };
+        _this._onChange = function () { };
         /**
          * Comparison function to specify which option is displayed. Defaults to object equality.
          */
-        this._compareWith = function (o1, o2) { return o1 === o2; };
+        _this._compareWith = function (o1, o2) { return o1 === o2; };
         /**
          * Orientation of the chip list.
          */
-        this.ariaOrientation = 'horizontal';
+        _this.ariaOrientation = 'horizontal';
         /**
          * Event emitted when the selected chip list value has been changed by the user.
          */
-        this.change = new EventEmitter();
+        _this.change = new EventEmitter();
         /**
          * Event that emits whenever the raw value of the chip-list changes. This is here primarily
          * to facilitate the two-way binding for the `value` input.
          * \@docs-private
          */
-        this.valueChange = new EventEmitter();
-        if (this.ngControl) {
-            this.ngControl.valueAccessor = this;
+        _this.valueChange = new EventEmitter();
+        if (_this.ngControl) {
+            _this.ngControl.valueAccessor = _this;
         }
+        return _this;
     }
     Object.defineProperty(MatChipList.prototype, "selected", {
         /** The array of selected chips inside chip list. */
@@ -759,22 +767,6 @@ var MatChipList = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatChipList.prototype, "errorState", {
-        /** Whether the chip list is in an error state. */
-        get: /**
-         * Whether the chip list is in an error state.
-         * @return {?}
-         */
-        function () {
-            var /** @type {?} */ isInvalid = this.ngControl && this.ngControl.invalid;
-            var /** @type {?} */ isTouched = this.ngControl && this.ngControl.touched;
-            var /** @type {?} */ isSubmitted = (this._parentFormGroup && this._parentFormGroup.submitted) ||
-                (this._parentForm && this._parentForm.submitted);
-            return !!(isInvalid && (isTouched || isSubmitted));
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MatChipList.prototype, "selectable", {
         get: /**
          * Whether or not this chip is selectable. When a chip is not selectable,
@@ -888,6 +880,20 @@ var MatChipList = (function () {
     function () {
         this._selectionModel = new SelectionModel(this.multiple, undefined, false);
         this.stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
+    MatChipList.prototype.ngDoCheck = /**
+     * @return {?}
+     */
+    function () {
+        if (this.ngControl) {
+            // We need to re-evaluate this on every change detection cycle, because there are some
+            // error triggers that we can't subscribe to (e.g. parent form submissions). This means
+            // that whatever logic is in here has to be super lean or we risk destroying the performance.
+            this.updateErrorState();
+        }
     };
     /**
      * @return {?}
@@ -1498,9 +1504,11 @@ var MatChipList = (function () {
         { type: Directionality, decorators: [{ type: Optional },] },
         { type: NgForm, decorators: [{ type: Optional },] },
         { type: FormGroupDirective, decorators: [{ type: Optional },] },
+        { type: ErrorStateMatcher, },
         { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
     ]; };
     MatChipList.propDecorators = {
+        "errorStateMatcher": [{ type: Input },],
         "multiple": [{ type: Input },],
         "compareWith": [{ type: Input },],
         "value": [{ type: Input },],
@@ -1516,7 +1524,7 @@ var MatChipList = (function () {
         "chips": [{ type: ContentChildren, args: [MatChip,] },],
     };
     return MatChipList;
-}());
+}(_MatChipListMixinBase));
 
 /**
  * @fileoverview added by tsickle
@@ -1712,7 +1720,8 @@ var MatChipsModule = (function () {
         { type: NgModule, args: [{
                     imports: [],
                     exports: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip],
-                    declarations: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip]
+                    declarations: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip],
+                    providers: [ErrorStateMatcher]
                 },] },
     ];
     /** @nocollapse */
@@ -1733,5 +1742,5 @@ var MatChipsModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatChipsModule, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipBase, _MatChipMixinBase, MatBasicChip, MatChip, MatChipRemove, MatChipInput };
+export { MatChipsModule, MatChipListBase, _MatChipListMixinBase, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipBase, _MatChipMixinBase, MatBasicChip, MatChip, MatChipRemove, MatChipInput };
 //# sourceMappingURL=chips.es5.js.map

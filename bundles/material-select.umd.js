@@ -191,12 +191,16 @@ var MatSelectChange = (function () {
  * \@docs-private
  */
 var MatSelectBase = (function () {
-    function MatSelectBase(_elementRef) {
+    function MatSelectBase(_elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
         this._elementRef = _elementRef;
+        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
+        this._parentForm = _parentForm;
+        this._parentFormGroup = _parentFormGroup;
+        this.ngControl = ngControl;
     }
     return MatSelectBase;
 }());
-var _MatSelectMixinBase = _angular_material_core.mixinTabIndex(_angular_material_core.mixinDisabled(MatSelectBase));
+var _MatSelectMixinBase = _angular_material_core.mixinTabIndex(_angular_material_core.mixinDisabled(_angular_material_core.mixinErrorState(MatSelectBase)));
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
@@ -215,14 +219,11 @@ var MatSelectTrigger = (function () {
 var MatSelect = (function (_super) {
     __extends(MatSelect, _super);
     function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
-        var _this = _super.call(this, elementRef) || this;
+        var _this = _super.call(this, elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._viewportRuler = _viewportRuler;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._ngZone = _ngZone;
-        _this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         _this._dir = _dir;
-        _this._parentForm = _parentForm;
-        _this._parentFormGroup = _parentFormGroup;
         _this._parentFormField = _parentFormField;
         _this.ngControl = ngControl;
         _this._scrollStrategyFactory = _scrollStrategyFactory;
@@ -308,11 +309,6 @@ var MatSelect = (function (_super) {
                 overlayY: 'bottom',
             },
         ];
-        /**
-         * Stream that emits whenever the state of the select changes such that the wrapping
-         * `MatFormField` needs to run change detection.
-         */
-        _this.stateChanges = new rxjs_Subject.Subject();
         /**
          * Whether the select is focused.
          */
@@ -560,7 +556,7 @@ var MatSelect = (function (_super) {
      */
     function () {
         if (this.ngControl) {
-            this._updateErrorState();
+            this.updateErrorState();
         }
     };
     /**
@@ -1617,25 +1613,6 @@ var MatSelect = (function (_super) {
      */
     function () {
         return this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
-    };
-    /**
-     * Updates the select's error state. Only relevant when used with \@angular/forms.
-     * @return {?}
-     */
-    MatSelect.prototype._updateErrorState = /**
-     * Updates the select's error state. Only relevant when used with \@angular/forms.
-     * @return {?}
-     */
-    function () {
-        var /** @type {?} */ oldState = this.errorState;
-        var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
-        var /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-        var /** @type {?} */ control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
-        var /** @type {?} */ newState = matcher.isErrorState(control, parent);
-        if (newState !== oldState) {
-            this.errorState = newState;
-            this.stateChanges.next();
-        }
     };
     // Implemented as part of MatFormFieldControl.
     /**

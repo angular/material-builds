@@ -19,7 +19,7 @@ import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinErrorState, mixinTabIndex } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
@@ -186,12 +186,20 @@ class MatSelectChange {
 class MatSelectBase {
     /**
      * @param {?} _elementRef
+     * @param {?} _defaultErrorStateMatcher
+     * @param {?} _parentForm
+     * @param {?} _parentFormGroup
+     * @param {?} ngControl
      */
-    constructor(_elementRef) {
+    constructor(_elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
         this._elementRef = _elementRef;
+        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
+        this._parentForm = _parentForm;
+        this._parentFormGroup = _parentFormGroup;
+        this.ngControl = ngControl;
     }
 }
-const _MatSelectMixinBase = mixinTabIndex(mixinDisabled(MatSelectBase));
+const _MatSelectMixinBase = mixinTabIndex(mixinDisabled(mixinErrorState(MatSelectBase)));
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
@@ -220,14 +228,11 @@ class MatSelect extends _MatSelectMixinBase {
      * @param {?} _scrollStrategyFactory
      */
     constructor(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
-        super(elementRef);
+        super(elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._viewportRuler = _viewportRuler;
         this._changeDetectorRef = _changeDetectorRef;
         this._ngZone = _ngZone;
-        this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._dir = _dir;
-        this._parentForm = _parentForm;
-        this._parentFormGroup = _parentFormGroup;
         this._parentFormField = _parentFormField;
         this.ngControl = ngControl;
         this._scrollStrategyFactory = _scrollStrategyFactory;
@@ -313,11 +318,6 @@ class MatSelect extends _MatSelectMixinBase {
                 overlayY: 'bottom',
             },
         ];
-        /**
-         * Stream that emits whenever the state of the select changes such that the wrapping
-         * `MatFormField` needs to run change detection.
-         */
-        this.stateChanges = new Subject();
         /**
          * Whether the select is focused.
          */
@@ -512,7 +512,7 @@ class MatSelect extends _MatSelectMixinBase {
      */
     ngDoCheck() {
         if (this.ngControl) {
-            this._updateErrorState();
+            this.updateErrorState();
         }
     }
     /**
@@ -1249,21 +1249,6 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _getItemHeight() {
         return this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
-    }
-    /**
-     * Updates the select's error state. Only relevant when used with \@angular/forms.
-     * @return {?}
-     */
-    _updateErrorState() {
-        const /** @type {?} */ oldState = this.errorState;
-        const /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
-        const /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-        const /** @type {?} */ control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
-        const /** @type {?} */ newState = matcher.isErrorState(control, parent);
-        if (newState !== oldState) {
-            this.errorState = newState;
-            this.stateChanges.next();
-        }
     }
     /**
      * @param {?} ids
