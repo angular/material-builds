@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/overlay'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs/operators/startWith'), require('rxjs/operators/switchMap'), require('rxjs/operators/take'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/animations'), require('rxjs/Subject'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/observable/of')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/material/core', '@angular/cdk/overlay', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs/operators/startWith', 'rxjs/operators/switchMap', 'rxjs/operators/take', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/animations', 'rxjs/Subject', '@angular/cdk/coercion', '@angular/cdk/bidi', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = global.ng.material.menu || {}),global.ng.core,global.ng.common,global.ng.material.core,global.ng.cdk.overlay,global.ng.cdk.a11y,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx,global.ng.animations,global.Rx,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.portal,global.Rx.Observable,global.Rx.Observable));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = global.ng.material.menu || {}),global.ng.core,global.ng.common,global.ng.material.core,global.ng.cdk.overlay,global.ng.cdk.a11y,global.ng.cdk.keycodes,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.Rx,global.ng.animations,global.Rx,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.portal,global.Rx.operators,global.Rx.Observable));
 }(this, (function (exports,_angular_core,_angular_common,_angular_material_core,_angular_cdk_overlay,_angular_cdk_a11y,_angular_cdk_keycodes,rxjs_operators_startWith,rxjs_operators_switchMap,rxjs_operators_take,rxjs_observable_merge,rxjs_Subscription,_angular_animations,rxjs_Subject,_angular_cdk_coercion,_angular_cdk_bidi,_angular_cdk_portal,rxjs_operators_filter,rxjs_observable_of) { 'use strict';
 
 /*! *****************************************************************************
@@ -1248,10 +1248,10 @@ exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
 exports.MatMenuTrigger = MatMenuTrigger;
-exports.ɵa19 = MatMenuItemBase;
-exports.ɵb19 = _MatMenuItemMixinBase;
-exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa15 = MatMenuItemBase;
+exports.ɵb15 = _MatMenuItemMixinBase;
+exports.ɵd15 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc15 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
