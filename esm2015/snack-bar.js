@@ -274,7 +274,8 @@ class MatSnackBarContainer extends BasePortalOutlet {
         }
         const /** @type {?} */ element = this._elementRef.nativeElement;
         if (this.snackBarConfig.panelClass || this.snackBarConfig.extraClasses) {
-            element.classList.add(...this._getCssClasses(this.snackBarConfig.panelClass), ...this._getCssClasses(this.snackBarConfig.extraClasses));
+            this._setCssClasses(this.snackBarConfig.panelClass);
+            this._setCssClasses(this.snackBarConfig.extraClasses);
         }
         if (this.snackBarConfig.horizontalPosition === 'center') {
             element.classList.add('mat-snack-bar-center');
@@ -349,20 +350,22 @@ class MatSnackBarContainer extends BasePortalOutlet {
         });
     }
     /**
-     * Convert the class list to a array of classes it can apply to the dom
+     * Applies the user-specified list of CSS classes to the element.
      * @param {?} classList
      * @return {?}
      */
-    _getCssClasses(classList) {
-        if (classList) {
-            if (Array.isArray(classList)) {
-                return classList;
-            }
-            else {
-                return [classList];
-            }
+    _setCssClasses(classList) {
+        if (!classList) {
+            return;
         }
-        return [];
+        const /** @type {?} */ element = this._elementRef.nativeElement;
+        if (Array.isArray(classList)) {
+            // Note that we can't use a spread here, because IE doesn't support multiple arguments.
+            classList.forEach(cssClass => element.classList.add(cssClass));
+        }
+        else {
+            element.classList.add(classList);
+        }
     }
 }
 MatSnackBarContainer.decorators = [

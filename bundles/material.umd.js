@@ -23396,7 +23396,8 @@ var MatSnackBarContainer = (function (_super) {
         }
         var /** @type {?} */ element = this._elementRef.nativeElement;
         if (this.snackBarConfig.panelClass || this.snackBarConfig.extraClasses) {
-            (_a = element.classList).add.apply(_a, this._getCssClasses(this.snackBarConfig.panelClass).concat(this._getCssClasses(this.snackBarConfig.extraClasses)));
+            this._setCssClasses(this.snackBarConfig.panelClass);
+            this._setCssClasses(this.snackBarConfig.extraClasses);
         }
         if (this.snackBarConfig.horizontalPosition === 'center') {
             element.classList.add('mat-snack-bar-center');
@@ -23405,7 +23406,6 @@ var MatSnackBarContainer = (function (_super) {
             element.classList.add('mat-snack-bar-top');
         }
         return this._portalOutlet.attachComponentPortal(portal);
-        var _a;
     };
     /** Attach a template portal as content to this snack bar container. */
     /**
@@ -23504,25 +23504,27 @@ var MatSnackBarContainer = (function (_super) {
         });
     };
     /**
-     * Convert the class list to a array of classes it can apply to the dom
+     * Applies the user-specified list of CSS classes to the element.
      * @param {?} classList
      * @return {?}
      */
-    MatSnackBarContainer.prototype._getCssClasses = /**
-     * Convert the class list to a array of classes it can apply to the dom
+    MatSnackBarContainer.prototype._setCssClasses = /**
+     * Applies the user-specified list of CSS classes to the element.
      * @param {?} classList
      * @return {?}
      */
     function (classList) {
-        if (classList) {
-            if (Array.isArray(classList)) {
-                return classList;
-            }
-            else {
-                return [classList];
-            }
+        if (!classList) {
+            return;
         }
-        return [];
+        var /** @type {?} */ element = this._elementRef.nativeElement;
+        if (Array.isArray(classList)) {
+            // Note that we can't use a spread here, because IE doesn't support multiple arguments.
+            classList.forEach(function (cssClass) { return element.classList.add(cssClass); });
+        }
+        else {
+            element.classList.add(classList);
+        }
     };
     MatSnackBarContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'snack-bar-container',
@@ -27474,7 +27476,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-741378a');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-a6d0847');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27692,10 +27694,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa20 = MatMenuItemBase;
-exports.ɵb20 = _MatMenuItemMixinBase;
-exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -27816,16 +27818,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe8 = MatTabBase;
+exports.ɵf8 = _MatTabMixinBase;
+exports.ɵa8 = MatTabHeaderBase;
+exports.ɵb8 = _MatTabHeaderMixinBase;
+exports.ɵc8 = MatTabLabelWrapperBase;
+exports.ɵd8 = _MatTabLabelWrapperMixinBase;
+exports.ɵi8 = MatTabLinkBase;
+exports.ɵg8 = MatTabNavBase;
+exports.ɵj8 = _MatTabLinkMixinBase;
+exports.ɵh8 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

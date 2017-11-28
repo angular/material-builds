@@ -352,7 +352,8 @@ var MatSnackBarContainer = (function (_super) {
         }
         var /** @type {?} */ element = this._elementRef.nativeElement;
         if (this.snackBarConfig.panelClass || this.snackBarConfig.extraClasses) {
-            (_a = element.classList).add.apply(_a, this._getCssClasses(this.snackBarConfig.panelClass).concat(this._getCssClasses(this.snackBarConfig.extraClasses)));
+            this._setCssClasses(this.snackBarConfig.panelClass);
+            this._setCssClasses(this.snackBarConfig.extraClasses);
         }
         if (this.snackBarConfig.horizontalPosition === 'center') {
             element.classList.add('mat-snack-bar-center');
@@ -361,7 +362,6 @@ var MatSnackBarContainer = (function (_super) {
             element.classList.add('mat-snack-bar-top');
         }
         return this._portalOutlet.attachComponentPortal(portal);
-        var _a;
     };
     /** Attach a template portal as content to this snack bar container. */
     /**
@@ -460,25 +460,27 @@ var MatSnackBarContainer = (function (_super) {
         });
     };
     /**
-     * Convert the class list to a array of classes it can apply to the dom
+     * Applies the user-specified list of CSS classes to the element.
      * @param {?} classList
      * @return {?}
      */
-    MatSnackBarContainer.prototype._getCssClasses = /**
-     * Convert the class list to a array of classes it can apply to the dom
+    MatSnackBarContainer.prototype._setCssClasses = /**
+     * Applies the user-specified list of CSS classes to the element.
      * @param {?} classList
      * @return {?}
      */
     function (classList) {
-        if (classList) {
-            if (Array.isArray(classList)) {
-                return classList;
-            }
-            else {
-                return [classList];
-            }
+        if (!classList) {
+            return;
         }
-        return [];
+        var /** @type {?} */ element = this._elementRef.nativeElement;
+        if (Array.isArray(classList)) {
+            // Note that we can't use a spread here, because IE doesn't support multiple arguments.
+            classList.forEach(function (cssClass) { return element.classList.add(cssClass); });
+        }
+        else {
+            element.classList.add(classList);
+        }
     };
     MatSnackBarContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'snack-bar-container',
