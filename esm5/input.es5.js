@@ -309,6 +309,10 @@ var MatInput = (function () {
          */
         this.errorState = false;
         /**
+         * Whether the component is being rendered on the server.
+         */
+        this._isServer = false;
+        /**
          * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
          * needs to run change detection.
          */
@@ -350,6 +354,7 @@ var MatInput = (function () {
                 }
             });
         }
+        this._isServer = !this._platform.isBrowser;
     }
     Object.defineProperty(MatInput.prototype, "disabled", {
         get: /**
@@ -667,6 +672,7 @@ var MatInput = (function () {
                     exportAs: 'matInput',
                     host: {
                         'class': 'mat-input-element mat-form-field-autofill-control',
+                        '[class.mat-input-server]': '_isServer',
                         // Native input properties that are overwritten by Angular inputs need to be synced with
                         // the native input element. Otherwise property bindings for those don't work.
                         '[attr.id]': 'id',

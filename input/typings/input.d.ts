@@ -27,6 +27,8 @@ export declare class MatInput implements MatFormFieldControl<any>, OnChanges, On
     errorState: boolean;
     /** The aria-describedby attribute on the input for improved a11y. */
     _ariaDescribedby: string;
+    /** Whether the component is being rendered on the server. */
+    _isServer: boolean;
     /**
      * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
      * needs to run change detection.
