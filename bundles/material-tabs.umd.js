@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('rxjs/Subject'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subscription'), require('rxjs/observable/merge'), require('@angular/cdk/keycodes'), require('rxjs/operators/startWith'), require('rxjs/observable/of'), require('@angular/cdk/platform'), require('rxjs/operators/takeUntil')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/observers', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/common', '@angular/core', '@angular/material/core', 'rxjs/Subject', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subscription', 'rxjs/observable/merge', '@angular/cdk/keycodes', 'rxjs/operators/startWith', 'rxjs/observable/of', '@angular/cdk/platform', 'rxjs/operators/takeUntil'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = global.ng.material.tabs || {}),global.ng.cdk.observers,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.common,global.ng.core,global.ng.material.core,global.Rx,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx.Observable,global.ng.cdk.keycodes,global.Rx.operators,global.Rx.Observable,global.ng.cdk.platform,global.Rx.operators));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = global.ng.material.tabs || {}),global.ng.cdk.observers,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.common,global.ng.core,global.ng.material.core,global.Rx,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx.Observable,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.platform,global.Rx.Observable));
 }(this, (function (exports,_angular_cdk_observers,_angular_cdk_portal,_angular_cdk_scrolling,_angular_common,_angular_core,_angular_material_core,rxjs_Subject,_angular_animations,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subscription,rxjs_observable_merge,_angular_cdk_keycodes,rxjs_operators_startWith,rxjs_observable_of,_angular_cdk_platform,rxjs_operators_takeUntil) { 'use strict';
 
 /*! *****************************************************************************
@@ -1987,16 +1987,16 @@ exports.MatTabChangeEvent = MatTabChangeEvent;
 exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe21 = MatTabBase;
+exports.ɵf21 = _MatTabMixinBase;
+exports.ɵa21 = MatTabHeaderBase;
+exports.ɵb21 = _MatTabHeaderMixinBase;
+exports.ɵc21 = MatTabLabelWrapperBase;
+exports.ɵd21 = _MatTabLabelWrapperMixinBase;
+exports.ɵi21 = MatTabLinkBase;
+exports.ɵg21 = MatTabNavBase;
+exports.ɵj21 = _MatTabLinkMixinBase;
+exports.ɵh21 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

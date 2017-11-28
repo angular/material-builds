@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/platform'), require('@angular/animations'), require('@angular/cdk/coercion'), require('rxjs/operators/take'), require('rxjs/operators/startWith'), require('@angular/material/core'), require('rxjs/observable/fromEvent')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/platform', '@angular/animations', '@angular/cdk/coercion', 'rxjs/operators/take', 'rxjs/operators/startWith', '@angular/material/core', 'rxjs/observable/fromEvent'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = global.ng.material.formField || {}),global.ng.common,global.ng.core,global.ng.cdk.platform,global.ng.animations,global.ng.cdk.coercion,global.Rx.operators,global.Rx.operators,global.ng.material.core,global.Rx.Observable));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = global.ng.material.formField || {}),global.ng.common,global.ng.core,global.ng.cdk.platform,global.ng.animations,global.ng.cdk.coercion,global.Rx.Observable,global.Rx.Observable,global.ng.material.core,global.Rx.Observable));
 }(this, (function (exports,_angular_common,_angular_core,_angular_cdk_platform,_angular_animations,_angular_cdk_coercion,rxjs_operators_take,rxjs_operators_startWith,_angular_material_core,rxjs_observable_fromEvent) { 'use strict';
 
 /**

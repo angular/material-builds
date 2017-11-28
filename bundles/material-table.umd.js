@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/table'), require('@angular/common'), require('@angular/material/core'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/operators/map'), require('rxjs/operators/startWith'), require('rxjs/observable/empty')) :
 	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/table', '@angular/common', '@angular/material/core', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/operators/map', 'rxjs/operators/startWith', 'rxjs/observable/empty'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = global.ng.material.table || {}),global.ng.core,global.ng.cdk.table,global.ng.common,global.ng.material.core,global.Rx,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = global.ng.material.table || {}),global.ng.core,global.ng.cdk.table,global.ng.common,global.ng.material.core,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
 }(this, (function (exports,_angular_core,_angular_cdk_table,_angular_common,_angular_material_core,rxjs_BehaviorSubject,rxjs_operators_combineLatest,rxjs_operators_map,rxjs_operators_startWith,rxjs_observable_empty) { 'use strict';
 
 /*! *****************************************************************************

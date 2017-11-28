@@ -747,7 +747,8 @@ var MatAutocompleteTrigger = (function () {
         }
         else {
             /** Update the panel width, in case the host width has changed */
-            this._overlayRef.updateSize({ width: this._getHostWidth() });
+            this._overlayRef.getConfig().width = this._getHostWidth();
+            this._overlayRef.updateSize();
         }
         if (this._overlayRef && !this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
