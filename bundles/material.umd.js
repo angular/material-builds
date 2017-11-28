@@ -18082,8 +18082,13 @@ var MatTooltip = (function () {
             this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this._message);
             // If the message is not a string (e.g. number), convert it to a string and trim it.
             this._message = value != null ? ("" + value).trim() : '';
-            this._updateTooltipMessage();
-            this._ariaDescriber.describe(this._elementRef.nativeElement, this.message);
+            if (!this._message && this._isTooltipVisible()) {
+                this.hide(0);
+            }
+            else {
+                this._updateTooltipMessage();
+                this._ariaDescriber.describe(this._elementRef.nativeElement, this.message);
+            }
         },
         enumerable: true,
         configurable: true
@@ -27520,7 +27525,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-d2c11ca');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-d66284d');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
