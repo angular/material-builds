@@ -56,8 +56,8 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _panelOpen;
     /** Strategy that is used to position the panel. */
     private _positionStrategy;
-    /** Whether or not the placeholder state is being overridden. */
-    private _manuallyFloatingPlaceholder;
+    /** Whether or not the label state is being overridden. */
+    private _manuallyFloatingLabel;
     /** The subscription for closing actions (some are bound to document). */
     private _closingActionsSubscription;
     /** Stream of escape keyboard events. */
@@ -112,14 +112,14 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     _handleInput(event: KeyboardEvent): void;
     _handleFocus(): void;
     /**
-     * In "auto" mode, the placeholder will animate down as soon as focus is lost.
+     * In "auto" mode, the label will animate down as soon as focus is lost.
      * This causes the value to jump when selecting an option with the mouse.
-     * This method manually floats the placeholder until the panel can be closed.
-     * @param shouldAnimate Whether the placeholder should be animated when it is floated.
+     * This method manually floats the label until the panel can be closed.
+     * @param shouldAnimate Whether the label should be animated when it is floated.
      */
-    private _floatPlaceholder(shouldAnimate?);
-    /** If the placeholder has been manually elevated, return it to its normal state. */
-    private _resetPlaceholder();
+    private _floatLabel(shouldAnimate?);
+    /** If the label has been manually elevated, return it to its normal state. */
+    private _resetLabel();
     /**
      * Given that we are not actually focusing active options, we must manually adjust scroll
      * to reveal options below the fold. First, we find the offset of the option from the top

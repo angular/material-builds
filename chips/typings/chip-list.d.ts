@@ -115,7 +115,7 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     readonly focused: boolean;
     /** Whether this chip-list contains no chips and no matChipInput. */
     readonly empty: boolean;
-    readonly shouldPlaceholderFloat: boolean;
+    readonly shouldLabelFloat: boolean;
     /** Whether this chip-list is disabled. */
     disabled: any;
     /** Orientation of the chip list. */

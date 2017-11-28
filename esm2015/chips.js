@@ -638,7 +638,7 @@ class MatChipList extends _MatChipListMixinBase {
     /**
      * @return {?}
      */
-    get shouldPlaceholderFloat() {
+    get shouldLabelFloat() {
         return !this.empty || this.focused;
     }
     /**

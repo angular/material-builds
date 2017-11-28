@@ -632,7 +632,7 @@ var MatInput = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatInput.prototype, "shouldPlaceholderFloat", {
+    Object.defineProperty(MatInput.prototype, "shouldLabelFloat", {
         // Implemented as part of MatFormFieldControl.
         get: /**
          * @return {?}

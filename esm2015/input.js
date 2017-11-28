@@ -528,7 +528,7 @@ class MatInput extends _MatInputMixinBase {
     /**
      * @return {?}
      */
-    get shouldPlaceholderFloat() { return this.focused || !this.empty; }
+    get shouldLabelFloat() { return this.focused || !this.empty; }
     /**
      * @param {?} ids
      * @return {?}

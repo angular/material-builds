@@ -1,3 +1,3 @@
-/** The floating placeholder for an `MatFormField`. */
+/** The placeholder text for an `MatFormField`. */
 export declare class MatPlaceholder {
 }

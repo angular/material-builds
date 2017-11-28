@@ -759,7 +759,7 @@ var MatChipList = (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatChipList.prototype, "shouldPlaceholderFloat", {
+    Object.defineProperty(MatChipList.prototype, "shouldLabelFloat", {
         get: /**
          * @return {?}
          */

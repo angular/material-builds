@@ -2456,6 +2456,8 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 
 
+
+
 // Renders a gradient for showing the dashed line when the input is disabled.
 // Unlike using a border, a gradient allows us to adjust the spacing of the dotted line
 // to match the Material Design spec.
@@ -2464,6 +2466,16 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   background-size: 4px 1px;
   background-repeat: repeat-x;
 }
+
+// Figures out the color of the placeholder for a form control.
+// Used primarily to prevent the various form controls from
+// becoming out of sync since these colors aren't in a pallette.
+@function _mat-control-placeholder-color($theme) {
+  $foreground: map-get($theme, foreground);
+  $is-dark-theme: map-get($theme, is-dark);
+  @return mat-color($foreground, secondary-text, if($is-dark-theme, 0.5, 0.42));
+}
+
 
 
 
@@ -2474,6 +2486,12 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
   .mat-input-element:disabled {
     color: mat-color($foreground, secondary-text, if($is-dark-theme, 0.7, 0.42));
+  }
+
+  .mat-input-element {
+    @include input-placeholder {
+      color: _mat-control-placeholder-color($theme);
+    }
   }
 }
 
@@ -2911,6 +2929,10 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
   .mat-select.mat-select-disabled .mat-select-arrow {
     color: mat-color($warn);
+  }
+
+  .mat-select-placeholder {
+    color: _mat-control-placeholder-color($theme);
   }
 }
 
@@ -3532,10 +3554,10 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   $foreground: map-get($theme, foreground);
   $is-dark-theme: map-get($theme, is-dark);
 
-  // Placeholder colors. Required is used for the `*` star shown in the placeholder.
-  $placeholder-color: mat-color($foreground, secondary-text);
-  $focused-placeholder-color: mat-color($primary);
-  $required-placeholder-color: mat-color($accent);
+  // Label colors. Required is used for the `*` star shown in the label.
+  $label-color: mat-color($foreground, secondary-text);
+  $focused-label-color: mat-color($primary);
+  $required-label-color: mat-color($accent);
 
   // Underline colors.
   $underline-color: mat-color($foreground, divider, if($is-dark-theme, 0.7, 0.42));
@@ -3543,16 +3565,16 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   $underline-color-warn: mat-color($warn);
   $underline-focused-color: mat-color($primary);
 
-  .mat-form-field-placeholder {
-    color: $placeholder-color;
+  .mat-form-field-label {
+    color: $label-color;
   }
 
   .mat-hint {
     color: mat-color($foreground, secondary-text);
   }
 
-  .mat-focused .mat-form-field-placeholder {
-    color: $focused-placeholder-color;
+  .mat-focused .mat-form-field-label {
+    color: $focused-label-color;
 
     &.mat-accent {
       color: $underline-color-accent;
@@ -3564,7 +3586,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   }
 
   .mat-focused .mat-form-field-required-marker {
-    color: $required-placeholder-color;
+    color: $required-label-color;
   }
 
   .mat-form-field-underline {
@@ -3591,7 +3613,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   // achieved with the ng-* classes, we use this approach in order to ensure that the same
   // logic is used to style the error state and to show the error messages.
   .mat-form-field-invalid {
-    .mat-form-field-placeholder {
+    .mat-form-field-label {
       color: $underline-color-warn;
 
       &.mat-accent,
@@ -3610,14 +3632,14 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   }
 }
 
-// Used to make instances of the _mat-form-field-placeholder-floating mixin negligibly different,
+// Used to make instances of the _mat-form-field-label-floating mixin negligibly different,
 // and prevent Google's CSS Optimizer from collapsing the declarations. This is needed because some
 // of the selectors contain pseudo-classes not recognized in all browsers. If a browser encounters
 // an unknown pseudo-class it will discard the entire rule set.
 $dedupe: 0;
 
-// Applies a floating placeholder above the form field control itself.
-@mixin _mat-form-field-placeholder-floating($font-scale, $infix-padding, $infix-margin-top) {
+// Applies a floating label above the form field control itself.
+@mixin _mat-form-field-label-floating($font-scale, $infix-padding, $infix-margin-top) {
   // We use perspective to fix the text blurriness as described here:
   // http://www.useragentman.com/blog/2014/05/04/fixing-typography-inside-of-2-d-css-transforms/
   // This results in a small jitter after the label floats on Firefox, which the
@@ -3703,33 +3725,33 @@ $dedupe: 0;
   }
 
   .mat-form-field-can-float {
-    &.mat-form-field-should-float .mat-form-field-placeholder,
-    .mat-input-server:focus + .mat-form-field-placeholder-wrapper .mat-form-field-placeholder {
-      @include _mat-form-field-placeholder-floating(
+    &.mat-form-field-should-float .mat-form-field-label,
+    .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
+      @include _mat-form-field-label-floating(
               $subscript-font-scale, $infix-padding, $infix-margin-top);
     }
 
-    .mat-form-field-autofill-control:-webkit-autofill + .mat-form-field-placeholder-wrapper
-        .mat-form-field-placeholder {
-      @include _mat-form-field-placeholder-floating(
+    .mat-form-field-autofill-control:-webkit-autofill + .mat-form-field-label-wrapper
+        .mat-form-field-label {
+      @include _mat-form-field-label-floating(
               $subscript-font-scale, $infix-padding, $infix-margin-top);
     }
 
-    // Server-side rendered matInput with a placeholder attribute but placeholder not shown
+    // Server-side rendered matInput with a label attribute but label not shown
     // (used as a pure CSS stand-in for mat-form-field-should-float).
-    .mat-input-server[placeholder]:not(:placeholder-shown) + .mat-form-field-placeholder-wrapper
-        .mat-form-field-placeholder {
-      @include _mat-form-field-placeholder-floating(
+    .mat-input-server[label]:not(:label-shown) + .mat-form-field-label-wrapper
+        .mat-form-field-label {
+      @include _mat-form-field-label-floating(
               $subscript-font-scale, $infix-padding, $infix-margin-top);
     }
   }
 
-  .mat-form-field-placeholder-wrapper {
+  .mat-form-field-label-wrapper {
     top: -$infix-margin-top;
     padding-top: $infix-margin-top;
   }
 
-  .mat-form-field-placeholder {
+  .mat-form-field-label {
     top: $infix-margin-top + $infix-padding;
   }
 

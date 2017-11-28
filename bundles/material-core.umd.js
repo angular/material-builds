@@ -2503,11 +2503,11 @@ var MatOptionModule = (function () {
  */
 
 /**
- * InjectionToken that can be used to specify the global placeholder options.
+ * InjectionToken that can be used to specify the global label options.
  */
-var MAT_PLACEHOLDER_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-placeholder-global-options');
+var MAT_LABEL_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-label-global-options');
 /**
- * Configurable options for floating placeholders.
+ * Configurable options for floating labels.
  * @record
  */
 
@@ -2555,6 +2555,7 @@ var OCT = 9;
 var NOV = 10;
 var DEC = 11;
 
+exports.MAT_PLACEHOLDER_GLOBAL_OPTIONS = MAT_LABEL_GLOBAL_OPTIONS;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MatCommonModule = MatCommonModule;
@@ -2586,7 +2587,7 @@ exports.MatOption = MatOption;
 exports.MatOptgroupBase = MatOptgroupBase;
 exports._MatOptgroupMixinBase = _MatOptgroupMixinBase;
 exports.MatOptgroup = MatOptgroup;
-exports.MAT_PLACEHOLDER_GLOBAL_OPTIONS = MAT_PLACEHOLDER_GLOBAL_OPTIONS;
+exports.MAT_LABEL_GLOBAL_OPTIONS = MAT_LABEL_GLOBAL_OPTIONS;
 exports.MatRipple = MatRipple;
 exports.MAT_RIPPLE_GLOBAL_OPTIONS = MAT_RIPPLE_GLOBAL_OPTIONS;
 exports.RippleRef = RippleRef;

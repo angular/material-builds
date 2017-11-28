@@ -383,5 +383,5 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _getItemHeight();
     setDescribedByIds(ids: string[]): void;
     onContainerClick(): void;
-    readonly shouldPlaceholderFloat: boolean;
+    readonly shouldLabelFloat: boolean;
 }

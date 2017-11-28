@@ -76,7 +76,7 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     /** Determines if the component host is a textarea. If not recognizable it returns false. */
     protected _isTextarea(): boolean;
     readonly empty: boolean;
-    readonly shouldPlaceholderFloat: boolean;
+    readonly shouldLabelFloat: boolean;
     setDescribedByIds(ids: string[]): void;
     onContainerClick(): void;
 }
