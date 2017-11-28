@@ -1522,6 +1522,11 @@ var RIPPLE_FADE_IN_DURATION = 450;
  */
 var RIPPLE_FADE_OUT_DURATION = 400;
 /**
+ * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
+ * events to avoid synthetic mouse events.
+ */
+var IGNORE_MOUSE_EVENTS_TIMEOUT = 800;
+/**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
  * event handlers to be installed on the element that triggers ripple animations.
@@ -1532,9 +1537,9 @@ var RippleRenderer = (function () {
     function RippleRenderer(elementRef, _ngZone, platform) {
         this._ngZone = _ngZone;
         /**
-         * Whether the mouse is currently down or not.
+         * Whether the pointer is currently down or not.
          */
-        this._isMousedown = false;
+        this._isPointerDown = false;
         /**
          * Events to be registered on the trigger element.
          */
@@ -1556,8 +1561,10 @@ var RippleRenderer = (function () {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
             this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-            this._triggerEvents.set('mouseup', this.onMouseup.bind(this));
-            this._triggerEvents.set('mouseleave', this.onMouseup.bind(this));
+            this._triggerEvents.set('mouseup', this.onPointerUp.bind(this));
+            this._triggerEvents.set('mouseleave', this.onPointerUp.bind(this));
+            this._triggerEvents.set('touchstart', this.onTouchStart.bind(this));
+            this._triggerEvents.set('touchend', this.onPointerUp.bind(this));
             // By default use the host element as trigger element.
             this.setTriggerElement(this._containerElement);
         }
@@ -1617,7 +1624,7 @@ var RippleRenderer = (function () {
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
             rippleRef.state = RippleState.VISIBLE;
-            if (!config.persistent && !_this._isMousedown) {
+            if (!config.persistent && !_this._isPointerDown) {
                 rippleRef.fadeOut();
             }
         }, duration);
@@ -1689,34 +1696,56 @@ var RippleRenderer = (function () {
         this._triggerElement = element;
     };
     /**
-     * Function being called whenever the trigger is being pressed.
+     * Function being called whenever the trigger is being pressed using mouse.
      * @param {?} event
      * @return {?}
      */
     RippleRenderer.prototype.onMousedown = /**
-     * Function being called whenever the trigger is being pressed.
+     * Function being called whenever the trigger is being pressed using mouse.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        var /** @type {?} */ isSyntheticEvent = this._lastTouchStartEvent &&
+            Date.now() < this._lastTouchStartEvent + IGNORE_MOUSE_EVENTS_TIMEOUT;
+        if (!this.rippleDisabled && !isSyntheticEvent) {
+            this._isPointerDown = true;
+            this.fadeInRipple(event.clientX, event.clientY, this.rippleConfig);
+        }
+    };
+    /**
+     * Function being called whenever the trigger is being pressed using touch.
+     * @param {?} event
+     * @return {?}
+     */
+    RippleRenderer.prototype.onTouchStart = /**
+     * Function being called whenever the trigger is being pressed using touch.
      * @param {?} event
      * @return {?}
      */
     function (event) {
         if (!this.rippleDisabled) {
-            this._isMousedown = true;
-            this.fadeInRipple(event.clientX, event.clientY, this.rippleConfig);
+            // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
+            // events will launch a second ripple if we don't ignore mouse events for a specific
+            // time after a touchstart event.
+            this._lastTouchStartEvent = Date.now();
+            this._isPointerDown = true;
+            this.fadeInRipple(event.touches[0].clientX, event.touches[0].clientY, this.rippleConfig);
         }
     };
     /**
      * Function being called whenever the trigger is being released.
      * @return {?}
      */
-    RippleRenderer.prototype.onMouseup = /**
+    RippleRenderer.prototype.onPointerUp = /**
      * Function being called whenever the trigger is being released.
      * @return {?}
      */
     function () {
-        if (!this._isMousedown) {
+        if (!this._isPointerDown) {
             return;
         }
-        this._isMousedown = false;
+        this._isPointerDown = false;
         // Fade-out all ripples that are completely visible and not persistent.
         this._activeRipples.forEach(function (ripple) {
             if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
@@ -27525,7 +27554,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-345a1a3');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-65cd1a1');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27872,16 +27901,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe16 = MatTabBase;
-exports.ɵf16 = _MatTabMixinBase;
-exports.ɵa16 = MatTabHeaderBase;
-exports.ɵb16 = _MatTabHeaderMixinBase;
-exports.ɵc16 = MatTabLabelWrapperBase;
-exports.ɵd16 = _MatTabLabelWrapperMixinBase;
-exports.ɵi16 = MatTabLinkBase;
-exports.ɵg16 = MatTabNavBase;
-exports.ɵj16 = _MatTabLinkMixinBase;
-exports.ɵh16 = _MatTabNavMixinBase;
+exports.ɵe21 = MatTabBase;
+exports.ɵf21 = _MatTabMixinBase;
+exports.ɵa21 = MatTabHeaderBase;
+exports.ɵb21 = _MatTabHeaderMixinBase;
+exports.ɵc21 = MatTabLabelWrapperBase;
+exports.ɵd21 = _MatTabLabelWrapperMixinBase;
+exports.ɵi21 = MatTabLinkBase;
+exports.ɵg21 = MatTabNavBase;
+exports.ɵj21 = _MatTabLinkMixinBase;
+exports.ɵh21 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
