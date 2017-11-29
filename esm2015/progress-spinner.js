@@ -134,9 +134,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      * @return {?}
      */
     set value(newValue) {
-        if (newValue != null && this.mode === 'determinate') {
-            this._value = Math.max(0, Math.min(100, coerceNumberProperty(newValue)));
-        }
+        this._value = Math.max(0, Math.min(100, coerceNumberProperty(newValue)));
     }
     /**
      * @param {?} changes

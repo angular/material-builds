@@ -141,9 +141,7 @@ var MatProgressSpinner = (function (_super) {
          * @return {?}
          */
         function (newValue) {
-            if (newValue != null && this.mode === 'determinate') {
-                this._value = Math.max(0, Math.min(100, _angular_cdk_coercion.coerceNumberProperty(newValue)));
-            }
+            this._value = Math.max(0, Math.min(100, _angular_cdk_coercion.coerceNumberProperty(newValue)));
         },
         enumerable: true,
         configurable: true
