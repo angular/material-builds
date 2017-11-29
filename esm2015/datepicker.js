@@ -1105,10 +1105,7 @@ class MatDatepicker {
          * Emits when the datepicker has been closed.
          */
         this.closedStream = new EventEmitter();
-        /**
-         * Whether the calendar is open.
-         */
-        this.opened = false;
+        this._opened = false;
         /**
          * The id for the datepicker calendar.
          */
@@ -1177,6 +1174,16 @@ class MatDatepicker {
             this._disabledChange.next(newValue);
         }
     }
+    /**
+     * Whether the calendar is open.
+     * @return {?}
+     */
+    get opened() { return this._opened; }
+    /**
+     * @param {?} shouldOpen
+     * @return {?}
+     */
+    set opened(shouldOpen) { shouldOpen ? this.open() : this.close(); }
     /**
      * The currently selected date.
      * @return {?}
@@ -1248,7 +1255,7 @@ class MatDatepicker {
      * @return {?}
      */
     open() {
-        if (this.opened || this.disabled) {
+        if (this._opened || this.disabled) {
             return;
         }
         if (!this._datepickerInput) {
@@ -1258,7 +1265,7 @@ class MatDatepicker {
             this._focusedElementBeforeOpen = this._document.activeElement;
         }
         this.touchUi ? this._openAsDialog() : this._openAsPopup();
-        this.opened = true;
+        this._opened = true;
         this.openedStream.emit();
     }
     /**
@@ -1266,7 +1273,7 @@ class MatDatepicker {
      * @return {?}
      */
     close() {
-        if (!this.opened) {
+        if (!this._opened) {
             return;
         }
         if (this._popupRef && this._popupRef.hasAttached()) {
@@ -1284,7 +1291,7 @@ class MatDatepicker {
             this._focusedElementBeforeOpen.focus();
             this._focusedElementBeforeOpen = null;
         }
-        this.opened = false;
+        this._opened = false;
         this.closedStream.emit();
     }
     /**
@@ -1384,6 +1391,7 @@ MatDatepicker.propDecorators = {
     "panelClass": [{ type: Input },],
     "openedStream": [{ type: Output, args: ['opened',] },],
     "closedStream": [{ type: Output, args: ['closed',] },],
+    "opened": [{ type: Input },],
 };
 
 /**

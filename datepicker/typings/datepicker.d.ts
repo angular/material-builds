@@ -77,6 +77,7 @@ export declare class MatDatepicker<D> implements OnDestroy {
     closedStream: EventEmitter<void>;
     /** Whether the calendar is open. */
     opened: boolean;
+    private _opened;
     /** The id for the datepicker calendar. */
     id: string;
     /** The currently selected date. */

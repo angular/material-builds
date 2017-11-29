@@ -1332,10 +1332,7 @@ var MatDatepicker = (function () {
          * Emits when the datepicker has been closed.
          */
         this.closedStream = new EventEmitter();
-        /**
-         * Whether the calendar is open.
-         */
-        this.opened = false;
+        this._opened = false;
         /**
          * The id for the datepicker calendar.
          */
@@ -1413,6 +1410,20 @@ var MatDatepicker = (function () {
                 this._disabledChange.next(newValue);
             }
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDatepicker.prototype, "opened", {
+        get: /**
+         * Whether the calendar is open.
+         * @return {?}
+         */
+        function () { return this._opened; },
+        set: /**
+         * @param {?} shouldOpen
+         * @return {?}
+         */
+        function (shouldOpen) { shouldOpen ? this.open() : this.close(); },
         enumerable: true,
         configurable: true
     });
@@ -1530,7 +1541,7 @@ var MatDatepicker = (function () {
      * @return {?}
      */
     function () {
-        if (this.opened || this.disabled) {
+        if (this._opened || this.disabled) {
             return;
         }
         if (!this._datepickerInput) {
@@ -1540,7 +1551,7 @@ var MatDatepicker = (function () {
             this._focusedElementBeforeOpen = this._document.activeElement;
         }
         this.touchUi ? this._openAsDialog() : this._openAsPopup();
-        this.opened = true;
+        this._opened = true;
         this.openedStream.emit();
     };
     /** Close the calendar. */
@@ -1553,7 +1564,7 @@ var MatDatepicker = (function () {
      * @return {?}
      */
     function () {
-        if (!this.opened) {
+        if (!this._opened) {
             return;
         }
         if (this._popupRef && this._popupRef.hasAttached()) {
@@ -1571,7 +1582,7 @@ var MatDatepicker = (function () {
             this._focusedElementBeforeOpen.focus();
             this._focusedElementBeforeOpen = null;
         }
-        this.opened = false;
+        this._opened = false;
         this.closedStream.emit();
     };
     /**
@@ -1692,6 +1703,7 @@ var MatDatepicker = (function () {
         "panelClass": [{ type: Input },],
         "openedStream": [{ type: Output, args: ['opened',] },],
         "closedStream": [{ type: Output, args: ['closed',] },],
+        "opened": [{ type: Input },],
     };
     return MatDatepicker;
 }());

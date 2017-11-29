@@ -11794,10 +11794,7 @@ var MatDatepicker = (function () {
          * Emits when the datepicker has been closed.
          */
         this.closedStream = new _angular_core.EventEmitter();
-        /**
-         * Whether the calendar is open.
-         */
-        this.opened = false;
+        this._opened = false;
         /**
          * The id for the datepicker calendar.
          */
@@ -11875,6 +11872,20 @@ var MatDatepicker = (function () {
                 this._disabledChange.next(newValue);
             }
         },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDatepicker.prototype, "opened", {
+        get: /**
+         * Whether the calendar is open.
+         * @return {?}
+         */
+        function () { return this._opened; },
+        set: /**
+         * @param {?} shouldOpen
+         * @return {?}
+         */
+        function (shouldOpen) { shouldOpen ? this.open() : this.close(); },
         enumerable: true,
         configurable: true
     });
@@ -11992,7 +12003,7 @@ var MatDatepicker = (function () {
      * @return {?}
      */
     function () {
-        if (this.opened || this.disabled) {
+        if (this._opened || this.disabled) {
             return;
         }
         if (!this._datepickerInput) {
@@ -12002,7 +12013,7 @@ var MatDatepicker = (function () {
             this._focusedElementBeforeOpen = this._document.activeElement;
         }
         this.touchUi ? this._openAsDialog() : this._openAsPopup();
-        this.opened = true;
+        this._opened = true;
         this.openedStream.emit();
     };
     /** Close the calendar. */
@@ -12015,7 +12026,7 @@ var MatDatepicker = (function () {
      * @return {?}
      */
     function () {
-        if (!this.opened) {
+        if (!this._opened) {
             return;
         }
         if (this._popupRef && this._popupRef.hasAttached()) {
@@ -12033,7 +12044,7 @@ var MatDatepicker = (function () {
             this._focusedElementBeforeOpen.focus();
             this._focusedElementBeforeOpen = null;
         }
-        this.opened = false;
+        this._opened = false;
         this.closedStream.emit();
     };
     /**
@@ -12154,6 +12165,7 @@ var MatDatepicker = (function () {
         "panelClass": [{ type: _angular_core.Input },],
         "openedStream": [{ type: _angular_core.Output, args: ['opened',] },],
         "closedStream": [{ type: _angular_core.Output, args: ['closed',] },],
+        "opened": [{ type: _angular_core.Input },],
     };
     return MatDatepicker;
 }());
@@ -27637,7 +27649,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-9e35bf0');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-2b9bc57');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27862,10 +27874,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa7 = MatMenuItemBase;
-exports.ɵb7 = _MatMenuItemMixinBase;
-exports.ɵd7 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc7 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
