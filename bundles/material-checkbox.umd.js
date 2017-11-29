@@ -469,7 +469,6 @@ var MatCheckbox = (function (_super) {
         // This will lead to multiple click events.
         // Preventing bubbling for the second event will solve that issue.
         event.stopPropagation();
-        this._removeFocusRipple();
         if (!this.disabled) {
             // When user manually click on the checkbox, `indeterminate` is set to false.
             if (this._indeterminate) {
