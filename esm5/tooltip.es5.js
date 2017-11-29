@@ -97,6 +97,7 @@ var MatTooltip = (function () {
         this.hideDelay = 0;
         this._message = '';
         this._manualListeners = new Map();
+        var /** @type {?} */ element = _elementRef.nativeElement;
         // The mouse events shouldn't be bound on iOS devices, because
         // they can prevent the first tap from firing its click event.
         if (!_platform.IOS) {
@@ -105,7 +106,15 @@ var MatTooltip = (function () {
             this._manualListeners
                 .forEach(function (listener, event) { return _elementRef.nativeElement.addEventListener(event, listener); });
         }
-        _focusMonitor.monitor(_elementRef.nativeElement, false).subscribe(function (origin) {
+        else if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
+            // When we bind a gesture event on an element (in this case `longpress`), HammerJS
+            // will add some inline styles by default, including `user-select: none`. This is
+            // problematic on iOS, because it will prevent users from typing in inputs. If
+            // we're on iOS and the tooltip is attached on an input or textarea, we clear
+            // the `user-select` to avoid these issues.
+            element.style.webkitUserSelect = element.style.userSelect = '';
+        }
+        _focusMonitor.monitor(element, false).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
                 _ngZone.run(function () { return _this.hide(0); });
