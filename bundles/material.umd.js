@@ -6027,7 +6027,6 @@ var MatCheckbox = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var _MatCheckboxRequiredValidator = _angular_forms.CheckboxRequiredValidator;
 var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: _angular_forms.NG_VALIDATORS,
     useExisting: _angular_core.forwardRef(function () { return MatCheckboxRequiredValidator; }),
@@ -6053,7 +6052,7 @@ var MatCheckboxRequiredValidator = (function (_super) {
     /** @nocollapse */
     MatCheckboxRequiredValidator.ctorParameters = function () { return []; };
     return MatCheckboxRequiredValidator;
-}(_MatCheckboxRequiredValidator));
+}(_angular_forms.CheckboxRequiredValidator));
 
 /**
  * @fileoverview added by tsickle
@@ -12802,10 +12801,6 @@ var MatDatepickerModule = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _CdkAccordion = _angular_cdk_accordion.CdkAccordion;
-/**
  * Directive for a Material Design Accordion.
  */
 var MatAccordion = (function (_super) {
@@ -12854,16 +12849,12 @@ var MatAccordion = (function (_super) {
         "displayMode": [{ type: _angular_core.Input },],
     };
     return MatAccordion;
-}(_CdkAccordion));
+}(_angular_cdk_accordion.CdkAccordion));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _CdkAccordionItem = _angular_cdk_accordion.CdkAccordionItem;
 /**
  * Time and timing curve for expansion panel animations.
  */
@@ -12890,7 +12881,7 @@ var MatExpansionPanelBase = (function (_super) {
         { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
     ]; };
     return MatExpansionPanelBase;
-}(_CdkAccordionItem));
+}(_angular_cdk_accordion.CdkAccordionItem));
 var _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
 /**
  * <mat-expansion-panel> component.
@@ -15519,7 +15510,6 @@ var MatMenu = (function () {
      */
     function () {
         this._tabSubscription.unsubscribe();
-        this.closed.emit();
         this.closed.complete();
     };
     /** Stream that emits whenever the hovered menu item changes. */
@@ -15920,9 +15910,7 @@ var MatMenuTrigger = (function () {
         var _this = this;
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(function () {
-                _this.menu.close.emit();
-            });
+            this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
             this._initMenu();
             if (this.menu instanceof MatMenu) {
                 this.menu._startAnimation();
@@ -15964,8 +15952,8 @@ var MatMenuTrigger = (function () {
     function () {
         if (this._overlayRef && this.menuOpen) {
             this._resetMenu();
-            this._overlayRef.detach();
             this._closeSubscription.unsubscribe();
+            this._overlayRef.detach();
             if (this.menu instanceof MatMenu) {
                 this.menu._resetAnimation();
             }
@@ -16185,9 +16173,10 @@ var MatMenuTrigger = (function () {
     function () {
         var _this = this;
         var /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
+        var /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
         var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of();
         var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(rxjs_operators_filter.filter(function (active) { return active !== _this._menuItemInstance; }), rxjs_operators_filter.filter(function () { return _this._menuOpen; })) : rxjs_observable_of.of();
-        return rxjs_observable_merge.merge(backdrop, parentClose, hover);
+        return rxjs_observable_merge.merge(backdrop, parentClose, hover, detachments);
     };
     /** Handles mouse presses on the trigger. */
     /**
@@ -24515,10 +24504,6 @@ var MatSortModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatStepLabel = _angular_cdk_stepper.CdkStepLabel;
 var MatStepLabel = (function (_super) {
     __extends(MatStepLabel, _super);
     function MatStepLabel(template) {
@@ -24534,7 +24519,7 @@ var MatStepLabel = (function (_super) {
         { type: _angular_core.TemplateRef, },
     ]; };
     return MatStepLabel;
-}(_MatStepLabel));
+}(_angular_cdk_stepper.CdkStepLabel));
 
 /**
  * @fileoverview added by tsickle
@@ -24722,11 +24707,6 @@ var MatStepHeader = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatStep = _angular_cdk_stepper.CdkStep;
-var _MatStepper = _angular_cdk_stepper.CdkStepper;
 var MatStep = (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper, _errorStateMatcher) {
@@ -24774,7 +24754,7 @@ var MatStep = (function (_super) {
         "stepLabel": [{ type: _angular_core.ContentChild, args: [MatStepLabel,] },],
     };
     return MatStep;
-}(_MatStep));
+}(_angular_cdk_stepper.CdkStep));
 var MatStepper = (function (_super) {
     __extends(MatStepper, _super);
     function MatStepper() {
@@ -24803,7 +24783,7 @@ var MatStepper = (function (_super) {
         "_steps": [{ type: _angular_core.ContentChildren, args: [MatStep,] },],
     };
     return MatStepper;
-}(_MatStepper));
+}(_angular_cdk_stepper.CdkStepper));
 var MatHorizontalStepper = (function (_super) {
     __extends(MatHorizontalStepper, _super);
     function MatHorizontalStepper() {
@@ -24878,11 +24858,6 @@ var MatVerticalStepper = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatStepperNext = _angular_cdk_stepper.CdkStepperNext;
-var _MatStepperPrevious = _angular_cdk_stepper.CdkStepperPrevious;
-/**
  * Button that moves to the next step in a stepper workflow.
  */
 var MatStepperNext = (function (_super) {
@@ -24900,7 +24875,7 @@ var MatStepperNext = (function (_super) {
     /** @nocollapse */
     MatStepperNext.ctorParameters = function () { return []; };
     return MatStepperNext;
-}(_MatStepperNext));
+}(_angular_cdk_stepper.CdkStepperNext));
 /**
  * Button that moves to the previous step in a stepper workflow.
  */
@@ -24919,7 +24894,7 @@ var MatStepperPrevious = (function (_super) {
     /** @nocollapse */
     MatStepperPrevious.ctorParameters = function () { return []; };
     return MatStepperPrevious;
-}(_MatStepperPrevious));
+}(_angular_cdk_stepper.CdkStepperPrevious));
 
 /**
  * @fileoverview added by tsickle
@@ -24967,10 +24942,6 @@ var MatStepperModule = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatTable = _angular_cdk_table.CdkTable;
-/**
  * Wrapper for the CdkTable with Material design styles.
  */
 var MatTable = (function (_super) {
@@ -24994,20 +24965,12 @@ var MatTable = (function (_super) {
     /** @nocollapse */
     MatTable.ctorParameters = function () { return []; };
     return MatTable;
-}(_MatTable));
+}(_angular_cdk_table.CdkTable));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatCellDef = _angular_cdk_table.CdkCellDef;
-var _MatHeaderCellDef = _angular_cdk_table.CdkHeaderCellDef;
-var _MatColumnDef = _angular_cdk_table.CdkColumnDef;
-var _MatHeaderCell = _angular_cdk_table.CdkHeaderCell;
-var _MatCell = _angular_cdk_table.CdkCell;
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -25026,7 +24989,7 @@ var MatCellDef = (function (_super) {
     /** @nocollapse */
     MatCellDef.ctorParameters = function () { return []; };
     return MatCellDef;
-}(_MatCellDef));
+}(_angular_cdk_table.CdkCellDef));
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
@@ -25045,7 +25008,7 @@ var MatHeaderCellDef = (function (_super) {
     /** @nocollapse */
     MatHeaderCellDef.ctorParameters = function () { return []; };
     return MatHeaderCellDef;
-}(_MatHeaderCellDef));
+}(_angular_cdk_table.CdkHeaderCellDef));
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -25067,7 +25030,7 @@ var MatColumnDef = (function (_super) {
         "name": [{ type: _angular_core.Input, args: ['matColumnDef',] },],
     };
     return MatColumnDef;
-}(_MatColumnDef));
+}(_angular_cdk_table.CdkColumnDef));
 /**
  * Header cell template container that adds the right classes and role.
  */
@@ -25093,7 +25056,7 @@ var MatHeaderCell = (function (_super) {
         { type: _angular_core.ElementRef, },
     ]; };
     return MatHeaderCell;
-}(_MatHeaderCell));
+}(_angular_cdk_table.CdkHeaderCell));
 /**
  * Cell template container that adds the right classes and role.
  */
@@ -25119,19 +25082,12 @@ var MatCell = (function (_super) {
         { type: _angular_core.ElementRef, },
     ]; };
     return MatCell;
-}(_MatCell));
+}(_angular_cdk_table.CdkCell));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatHeaderRowDef = _angular_cdk_table.CdkHeaderRowDef;
-var _MatCdkRowDef = _angular_cdk_table.CdkRowDef;
-var _MatHeaderRow = _angular_cdk_table.CdkHeaderRow;
-var _MatRow = _angular_cdk_table.CdkRow;
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
@@ -25151,7 +25107,7 @@ var MatHeaderRowDef = (function (_super) {
     /** @nocollapse */
     MatHeaderRowDef.ctorParameters = function () { return []; };
     return MatHeaderRowDef;
-}(_MatHeaderRowDef));
+}(_angular_cdk_table.CdkHeaderRowDef));
 /**
  * Data row definition for the mat-table.
  * Captures the header row's template and other row properties such as the columns to display and
@@ -25172,7 +25128,7 @@ var MatRowDef = (function (_super) {
     /** @nocollapse */
     MatRowDef.ctorParameters = function () { return []; };
     return MatRowDef;
-}(_MatCdkRowDef));
+}(_angular_cdk_table.CdkRowDef));
 /**
  * Header template container that contains the cell outlet. Adds the right class and role.
  */
@@ -25197,7 +25153,7 @@ var MatHeaderRow = (function (_super) {
     /** @nocollapse */
     MatHeaderRow.ctorParameters = function () { return []; };
     return MatHeaderRow;
-}(_MatHeaderRow));
+}(_angular_cdk_table.CdkHeaderRow));
 /**
  * Data row template container that contains the cell outlet. Adds the right class and role.
  */
@@ -25222,7 +25178,7 @@ var MatRow = (function (_super) {
     /** @nocollapse */
     MatRow.ctorParameters = function () { return []; };
     return MatRow;
-}(_MatRow));
+}(_angular_cdk_table.CdkRow));
 
 /**
  * @fileoverview added by tsickle
@@ -25698,10 +25654,6 @@ var MatInkBar = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatTabLabelBaseClass = _angular_cdk_portal.CdkPortal;
-/**
  * Used to flag tab labels for use with the portal directive
  */
 var MatTabLabel = (function (_super) {
@@ -25720,7 +25672,7 @@ var MatTabLabel = (function (_super) {
         { type: _angular_core.ViewContainerRef, },
     ]; };
     return MatTabLabel;
-}(_MatTabLabelBaseClass));
+}(_angular_cdk_portal.CdkPortal));
 
 /**
  * @fileoverview added by tsickle
@@ -25842,10 +25794,6 @@ var MatTab = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatTabBodyPortalBaseClass = _angular_cdk_portal.CdkPortalOutlet;
-/**
  * The portal host directive for the contents of the tab.
  * \@docs-private
  */
@@ -25907,7 +25855,7 @@ var MatTabBodyPortal = (function (_super) {
         { type: MatTabBody, decorators: [{ type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatTabBody; }),] },] },
     ]; };
     return MatTabBodyPortal;
-}(_MatTabBodyPortalBaseClass));
+}(_angular_cdk_portal.CdkPortalOutlet));
 /**
  * Wrapper for the contents of a tab.
  * \@docs-private
@@ -27667,7 +27615,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-9582b8b');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-7e5f2da');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27721,7 +27669,6 @@ exports.MatCheckboxBase = MatCheckboxBase;
 exports._MatCheckboxMixinBase = _MatCheckboxMixinBase;
 exports.MatCheckbox = MatCheckbox;
 exports.MatCheckboxModule = MatCheckboxModule;
-exports._MatCheckboxRequiredValidator = _MatCheckboxRequiredValidator;
 exports.MAT_CHECKBOX_REQUIRED_VALIDATOR = MAT_CHECKBOX_REQUIRED_VALIDATOR;
 exports.MatCheckboxRequiredValidator = MatCheckboxRequiredValidator;
 exports.MatChipsModule = MatChipsModule;
@@ -27824,9 +27771,7 @@ exports.MatDialogActions = MatDialogActions;
 exports.MatDialogConfig = MatDialogConfig;
 exports.MatDialogRef = MatDialogRef;
 exports.MatExpansionModule = MatExpansionModule;
-exports._CdkAccordion = _CdkAccordion;
 exports.MatAccordion = MatAccordion;
-exports._CdkAccordionItem = _CdkAccordionItem;
 exports.EXPANSION_PANEL_ANIMATION_TIMING = EXPANSION_PANEL_ANIMATION_TIMING;
 exports.MatExpansionPanelBase = MatExpansionPanelBase;
 exports._MatExpansionPanelMixinBase = _MatExpansionPanelMixinBase;
@@ -27979,37 +27924,22 @@ exports.MAT_SORT_HEADER_INTL_PROVIDER_FACTORY = MAT_SORT_HEADER_INTL_PROVIDER_FA
 exports.MAT_SORT_HEADER_INTL_PROVIDER = MAT_SORT_HEADER_INTL_PROVIDER;
 exports.MatSort = MatSort;
 exports.MatStepperModule = MatStepperModule;
-exports._MatStepLabel = _MatStepLabel;
 exports.MatStepLabel = MatStepLabel;
-exports._MatStep = _MatStep;
-exports._MatStepper = _MatStepper;
 exports.MatStep = MatStep;
 exports.MatStepper = MatStepper;
 exports.MatHorizontalStepper = MatHorizontalStepper;
 exports.MatVerticalStepper = MatVerticalStepper;
-exports._MatStepperNext = _MatStepperNext;
-exports._MatStepperPrevious = _MatStepperPrevious;
 exports.MatStepperNext = MatStepperNext;
 exports.MatStepperPrevious = MatStepperPrevious;
 exports.MatStepHeader = MatStepHeader;
 exports.MatStepperIntl = MatStepperIntl;
 exports.MatTableModule = MatTableModule;
-exports._MatCellDef = _MatCellDef;
-exports._MatHeaderCellDef = _MatHeaderCellDef;
-exports._MatColumnDef = _MatColumnDef;
-exports._MatHeaderCell = _MatHeaderCell;
-exports._MatCell = _MatCell;
 exports.MatCellDef = MatCellDef;
 exports.MatHeaderCellDef = MatHeaderCellDef;
 exports.MatColumnDef = MatColumnDef;
 exports.MatHeaderCell = MatHeaderCell;
 exports.MatCell = MatCell;
-exports._MatTable = _MatTable;
 exports.MatTable = MatTable;
-exports._MatHeaderRowDef = _MatHeaderRowDef;
-exports._MatCdkRowDef = _MatCdkRowDef;
-exports._MatHeaderRow = _MatHeaderRow;
-exports._MatRow = _MatRow;
 exports.MatHeaderRowDef = MatHeaderRowDef;
 exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;

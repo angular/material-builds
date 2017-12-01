@@ -23,11 +23,7 @@ import { takeUntil } from 'rxjs/operators/takeUntil';
  * @suppress {checkTypes} checked by tsc
  */
 
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-const _MatStepLabel = CdkStepLabel;
-class MatStepLabel extends _MatStepLabel {
+class MatStepLabel extends CdkStepLabel {
     /**
      * @param {?} template
      */
@@ -202,12 +198,7 @@ MatStepHeader.propDecorators = {
  * @suppress {checkTypes} checked by tsc
  */
 
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-const _MatStep = CdkStep;
-const _MatStepper = CdkStepper;
-class MatStep extends _MatStep {
+class MatStep extends CdkStep {
     /**
      * @param {?} stepper
      * @param {?} _errorStateMatcher
@@ -249,7 +240,7 @@ MatStep.ctorParameters = () => [
 MatStep.propDecorators = {
     "stepLabel": [{ type: ContentChild, args: [MatStepLabel,] },],
 };
-class MatStepper extends _MatStepper {
+class MatStepper extends CdkStepper {
     /**
      * @return {?}
      */
@@ -334,14 +325,9 @@ MatVerticalStepper.ctorParameters = () => [];
  */
 
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-const _MatStepperNext = CdkStepperNext;
-const _MatStepperPrevious = CdkStepperPrevious;
-/**
  * Button that moves to the next step in a stepper workflow.
  */
-class MatStepperNext extends _MatStepperNext {
+class MatStepperNext extends CdkStepperNext {
 }
 MatStepperNext.decorators = [
     { type: Directive, args: [{
@@ -355,7 +341,7 @@ MatStepperNext.ctorParameters = () => [];
 /**
  * Button that moves to the previous step in a stepper workflow.
  */
-class MatStepperPrevious extends _MatStepperPrevious {
+class MatStepperPrevious extends CdkStepperPrevious {
 }
 MatStepperPrevious.decorators = [
     { type: Directive, args: [{
@@ -418,5 +404,5 @@ MatStepperModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatStepperModule, _MatStepLabel, MatStepLabel, _MatStep, _MatStepper, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, _MatStepperNext, _MatStepperPrevious, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl };
+export { MatStepperModule, MatStepLabel, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl };
 //# sourceMappingURL=stepper.js.map

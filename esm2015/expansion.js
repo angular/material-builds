@@ -25,13 +25,9 @@ import { Subscription } from 'rxjs/Subscription';
  */
 
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-const _CdkAccordion = CdkAccordion;
-/**
  * Directive for a Material Design Accordion.
  */
-class MatAccordion extends _CdkAccordion {
+class MatAccordion extends CdkAccordion {
     constructor() {
         super(...arguments);
         this._hideToggle = false;
@@ -78,17 +74,13 @@ MatAccordion.propDecorators = {
  */
 
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-const _CdkAccordionItem = CdkAccordionItem;
-/**
  * Time and timing curve for expansion panel animations.
  */
 const EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 /**
  * \@docs-private
  */
-class MatExpansionPanelBase extends _CdkAccordionItem {
+class MatExpansionPanelBase extends CdkAccordionItem {
     /**
      * @param {?} accordion
      * @param {?} _changeDetectorRef
@@ -472,5 +464,5 @@ MatExpansionModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatExpansionModule, _CdkAccordion, MatAccordion, _CdkAccordionItem, EXPANSION_PANEL_ANIMATION_TIMING, MatExpansionPanelBase, _MatExpansionPanelMixinBase, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle };
+export { MatExpansionModule, MatAccordion, EXPANSION_PANEL_ANIMATION_TIMING, MatExpansionPanelBase, _MatExpansionPanelMixinBase, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle };
 //# sourceMappingURL=expansion.js.map

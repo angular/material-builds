@@ -42,10 +42,6 @@ function __extends(d, b) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatTable = _angular_cdk_table.CdkTable;
-/**
  * Wrapper for the CdkTable with Material design styles.
  */
 var MatTable = (function (_super) {
@@ -69,20 +65,12 @@ var MatTable = (function (_super) {
     /** @nocollapse */
     MatTable.ctorParameters = function () { return []; };
     return MatTable;
-}(_MatTable));
+}(_angular_cdk_table.CdkTable));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatCellDef = _angular_cdk_table.CdkCellDef;
-var _MatHeaderCellDef = _angular_cdk_table.CdkHeaderCellDef;
-var _MatColumnDef = _angular_cdk_table.CdkColumnDef;
-var _MatHeaderCell = _angular_cdk_table.CdkHeaderCell;
-var _MatCell = _angular_cdk_table.CdkCell;
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -101,7 +89,7 @@ var MatCellDef = (function (_super) {
     /** @nocollapse */
     MatCellDef.ctorParameters = function () { return []; };
     return MatCellDef;
-}(_MatCellDef));
+}(_angular_cdk_table.CdkCellDef));
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
@@ -120,7 +108,7 @@ var MatHeaderCellDef = (function (_super) {
     /** @nocollapse */
     MatHeaderCellDef.ctorParameters = function () { return []; };
     return MatHeaderCellDef;
-}(_MatHeaderCellDef));
+}(_angular_cdk_table.CdkHeaderCellDef));
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -142,7 +130,7 @@ var MatColumnDef = (function (_super) {
         "name": [{ type: _angular_core.Input, args: ['matColumnDef',] },],
     };
     return MatColumnDef;
-}(_MatColumnDef));
+}(_angular_cdk_table.CdkColumnDef));
 /**
  * Header cell template container that adds the right classes and role.
  */
@@ -168,7 +156,7 @@ var MatHeaderCell = (function (_super) {
         { type: _angular_core.ElementRef, },
     ]; };
     return MatHeaderCell;
-}(_MatHeaderCell));
+}(_angular_cdk_table.CdkHeaderCell));
 /**
  * Cell template container that adds the right classes and role.
  */
@@ -194,19 +182,12 @@ var MatCell = (function (_super) {
         { type: _angular_core.ElementRef, },
     ]; };
     return MatCell;
-}(_MatCell));
+}(_angular_cdk_table.CdkCell));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatHeaderRowDef = _angular_cdk_table.CdkHeaderRowDef;
-var _MatCdkRowDef = _angular_cdk_table.CdkRowDef;
-var _MatHeaderRow = _angular_cdk_table.CdkHeaderRow;
-var _MatRow = _angular_cdk_table.CdkRow;
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
@@ -226,7 +207,7 @@ var MatHeaderRowDef = (function (_super) {
     /** @nocollapse */
     MatHeaderRowDef.ctorParameters = function () { return []; };
     return MatHeaderRowDef;
-}(_MatHeaderRowDef));
+}(_angular_cdk_table.CdkHeaderRowDef));
 /**
  * Data row definition for the mat-table.
  * Captures the header row's template and other row properties such as the columns to display and
@@ -247,7 +228,7 @@ var MatRowDef = (function (_super) {
     /** @nocollapse */
     MatRowDef.ctorParameters = function () { return []; };
     return MatRowDef;
-}(_MatCdkRowDef));
+}(_angular_cdk_table.CdkRowDef));
 /**
  * Header template container that contains the cell outlet. Adds the right class and role.
  */
@@ -272,7 +253,7 @@ var MatHeaderRow = (function (_super) {
     /** @nocollapse */
     MatHeaderRow.ctorParameters = function () { return []; };
     return MatHeaderRow;
-}(_MatHeaderRow));
+}(_angular_cdk_table.CdkHeaderRow));
 /**
  * Data row template container that contains the cell outlet. Adds the right class and role.
  */
@@ -297,7 +278,7 @@ var MatRow = (function (_super) {
     /** @nocollapse */
     MatRow.ctorParameters = function () { return []; };
     return MatRow;
-}(_MatRow));
+}(_angular_cdk_table.CdkRow));
 
 /**
  * @fileoverview added by tsickle
@@ -671,22 +652,12 @@ var MatTableDataSource = (function () {
 }());
 
 exports.MatTableModule = MatTableModule;
-exports._MatCellDef = _MatCellDef;
-exports._MatHeaderCellDef = _MatHeaderCellDef;
-exports._MatColumnDef = _MatColumnDef;
-exports._MatHeaderCell = _MatHeaderCell;
-exports._MatCell = _MatCell;
 exports.MatCellDef = MatCellDef;
 exports.MatHeaderCellDef = MatHeaderCellDef;
 exports.MatColumnDef = MatColumnDef;
 exports.MatHeaderCell = MatHeaderCell;
 exports.MatCell = MatCell;
-exports._MatTable = _MatTable;
 exports.MatTable = MatTable;
-exports._MatHeaderRowDef = _MatHeaderRowDef;
-exports._MatCdkRowDef = _MatCdkRowDef;
-exports._MatHeaderRow = _MatHeaderRow;
-exports._MatRow = _MatRow;
 exports.MatHeaderRowDef = MatHeaderRowDef;
 exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;

@@ -41,10 +41,6 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatStepLabel = _angular_cdk_stepper.CdkStepLabel;
 var MatStepLabel = (function (_super) {
     __extends(MatStepLabel, _super);
     function MatStepLabel(template) {
@@ -60,7 +56,7 @@ var MatStepLabel = (function (_super) {
         { type: _angular_core.TemplateRef, },
     ]; };
     return MatStepLabel;
-}(_MatStepLabel));
+}(_angular_cdk_stepper.CdkStepLabel));
 
 /**
  * @fileoverview added by tsickle
@@ -248,11 +244,6 @@ var MatStepHeader = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatStep = _angular_cdk_stepper.CdkStep;
-var _MatStepper = _angular_cdk_stepper.CdkStepper;
 var MatStep = (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper, _errorStateMatcher) {
@@ -300,7 +291,7 @@ var MatStep = (function (_super) {
         "stepLabel": [{ type: _angular_core.ContentChild, args: [MatStepLabel,] },],
     };
     return MatStep;
-}(_MatStep));
+}(_angular_cdk_stepper.CdkStep));
 var MatStepper = (function (_super) {
     __extends(MatStepper, _super);
     function MatStepper() {
@@ -329,7 +320,7 @@ var MatStepper = (function (_super) {
         "_steps": [{ type: _angular_core.ContentChildren, args: [MatStep,] },],
     };
     return MatStepper;
-}(_MatStepper));
+}(_angular_cdk_stepper.CdkStepper));
 var MatHorizontalStepper = (function (_super) {
     __extends(MatHorizontalStepper, _super);
     function MatHorizontalStepper() {
@@ -404,11 +395,6 @@ var MatVerticalStepper = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatStepperNext = _angular_cdk_stepper.CdkStepperNext;
-var _MatStepperPrevious = _angular_cdk_stepper.CdkStepperPrevious;
-/**
  * Button that moves to the next step in a stepper workflow.
  */
 var MatStepperNext = (function (_super) {
@@ -426,7 +412,7 @@ var MatStepperNext = (function (_super) {
     /** @nocollapse */
     MatStepperNext.ctorParameters = function () { return []; };
     return MatStepperNext;
-}(_MatStepperNext));
+}(_angular_cdk_stepper.CdkStepperNext));
 /**
  * Button that moves to the previous step in a stepper workflow.
  */
@@ -445,7 +431,7 @@ var MatStepperPrevious = (function (_super) {
     /** @nocollapse */
     MatStepperPrevious.ctorParameters = function () { return []; };
     return MatStepperPrevious;
-}(_MatStepperPrevious));
+}(_angular_cdk_stepper.CdkStepperPrevious));
 
 /**
  * @fileoverview added by tsickle
@@ -489,16 +475,11 @@ var MatStepperModule = (function () {
 }());
 
 exports.MatStepperModule = MatStepperModule;
-exports._MatStepLabel = _MatStepLabel;
 exports.MatStepLabel = MatStepLabel;
-exports._MatStep = _MatStep;
-exports._MatStepper = _MatStepper;
 exports.MatStep = MatStep;
 exports.MatStepper = MatStepper;
 exports.MatHorizontalStepper = MatHorizontalStepper;
 exports.MatVerticalStepper = MatVerticalStepper;
-exports._MatStepperNext = _MatStepperNext;
-exports._MatStepperPrevious = _MatStepperPrevious;
 exports.MatStepperNext = MatStepperNext;
 exports.MatStepperPrevious = MatStepperPrevious;
 exports.MatStepHeader = MatStepHeader;

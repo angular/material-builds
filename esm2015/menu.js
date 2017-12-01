@@ -373,7 +373,6 @@ class MatMenu {
      */
     ngOnDestroy() {
         this._tabSubscription.unsubscribe();
-        this.closed.emit();
         this.closed.complete();
     }
     /**
@@ -677,9 +676,7 @@ class MatMenuTrigger {
     openMenu() {
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(() => {
-                this.menu.close.emit();
-            });
+            this._closeSubscription = this._menuClosingActions().subscribe(() => this.closeMenu());
             this._initMenu();
             if (this.menu instanceof MatMenu) {
                 this.menu._startAnimation();
@@ -707,8 +704,8 @@ class MatMenuTrigger {
     _destroyMenu() {
         if (this._overlayRef && this.menuOpen) {
             this._resetMenu();
-            this._overlayRef.detach();
             this._closeSubscription.unsubscribe();
+            this._overlayRef.detach();
             if (this.menu instanceof MatMenu) {
                 this.menu._resetAnimation();
             }
@@ -874,9 +871,10 @@ class MatMenuTrigger {
      */
     _menuClosingActions() {
         const /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
+        const /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
         const /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of();
         const /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter(active => active !== this._menuItemInstance), filter(() => this._menuOpen)) : of();
-        return merge(backdrop, parentClose, hover);
+        return merge(backdrop, parentClose, hover, detachments);
     }
     /**
      * Handles mouse presses on the trigger.

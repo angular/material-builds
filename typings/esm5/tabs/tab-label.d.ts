@@ -7,9 +7,7 @@
  */
 import { TemplateRef, ViewContainerRef } from '@angular/core';
 import { CdkPortal } from '@angular/cdk/portal';
-/** Workaround for https://github.com/angular/angular/issues/17849 */
-export declare const _MatTabLabelBaseClass: typeof CdkPortal;
 /** Used to flag tab labels for use with the portal directive */
-export declare class MatTabLabel extends _MatTabLabelBaseClass {
+export declare class MatTabLabel extends CdkPortal {
     constructor(templateRef: TemplateRef<any>, viewContainerRef: ViewContainerRef);
 }

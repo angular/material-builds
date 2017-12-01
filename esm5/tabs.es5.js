@@ -128,10 +128,6 @@ var MatInkBar = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatTabLabelBaseClass = CdkPortal;
-/**
  * Used to flag tab labels for use with the portal directive
  */
 var MatTabLabel = (function (_super) {
@@ -150,7 +146,7 @@ var MatTabLabel = (function (_super) {
         { type: ViewContainerRef, },
     ]; };
     return MatTabLabel;
-}(_MatTabLabelBaseClass));
+}(CdkPortal));
 
 /**
  * @fileoverview added by tsickle
@@ -272,10 +268,6 @@ var MatTab = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _MatTabBodyPortalBaseClass = CdkPortalOutlet;
-/**
  * The portal host directive for the contents of the tab.
  * \@docs-private
  */
@@ -337,7 +329,7 @@ var MatTabBodyPortal = (function (_super) {
         { type: MatTabBody, decorators: [{ type: Inject, args: [forwardRef(function () { return MatTabBody; }),] },] },
     ]; };
     return MatTabBodyPortal;
-}(_MatTabBodyPortalBaseClass));
+}(CdkPortalOutlet));
 /**
  * Wrapper for the contents of a tab.
  * \@docs-private

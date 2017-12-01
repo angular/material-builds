@@ -21,13 +21,9 @@ import { empty } from 'rxjs/observable/empty';
  */
 
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-const _MatTable = CdkTable;
-/**
  * Wrapper for the CdkTable with Material design styles.
  */
-class MatTable extends _MatTable {
+class MatTable extends CdkTable {
 }
 MatTable.decorators = [
     { type: Component, args: [{selector: 'mat-table',
@@ -51,18 +47,10 @@ MatTable.ctorParameters = () => [];
  */
 
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-const _MatCellDef = CdkCellDef;
-const _MatHeaderCellDef = CdkHeaderCellDef;
-const _MatColumnDef = CdkColumnDef;
-const _MatHeaderCell = CdkHeaderCell;
-const _MatCell = CdkCell;
-/**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
  */
-class MatCellDef extends _MatCellDef {
+class MatCellDef extends CdkCellDef {
 }
 MatCellDef.decorators = [
     { type: Directive, args: [{
@@ -76,7 +64,7 @@ MatCellDef.ctorParameters = () => [];
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
  */
-class MatHeaderCellDef extends _MatHeaderCellDef {
+class MatHeaderCellDef extends CdkHeaderCellDef {
 }
 MatHeaderCellDef.decorators = [
     { type: Directive, args: [{
@@ -90,7 +78,7 @@ MatHeaderCellDef.ctorParameters = () => [];
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
  */
-class MatColumnDef extends _MatColumnDef {
+class MatColumnDef extends CdkColumnDef {
 }
 MatColumnDef.decorators = [
     { type: Directive, args: [{
@@ -106,7 +94,7 @@ MatColumnDef.propDecorators = {
 /**
  * Header cell template container that adds the right classes and role.
  */
-class MatHeaderCell extends _MatHeaderCell {
+class MatHeaderCell extends CdkHeaderCell {
     /**
      * @param {?} columnDef
      * @param {?} elementRef
@@ -133,7 +121,7 @@ MatHeaderCell.ctorParameters = () => [
 /**
  * Cell template container that adds the right classes and role.
  */
-class MatCell extends _MatCell {
+class MatCell extends CdkCell {
     /**
      * @param {?} columnDef
      * @param {?} elementRef
@@ -164,17 +152,10 @@ MatCell.ctorParameters = () => [
  */
 
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-const _MatHeaderRowDef = CdkHeaderRowDef;
-const _MatCdkRowDef = CdkRowDef;
-const _MatHeaderRow = CdkHeaderRow;
-const _MatRow = CdkRow;
-/**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
  */
-class MatHeaderRowDef extends _MatHeaderRowDef {
+class MatHeaderRowDef extends CdkHeaderRowDef {
 }
 MatHeaderRowDef.decorators = [
     { type: Directive, args: [{
@@ -190,7 +171,7 @@ MatHeaderRowDef.ctorParameters = () => [];
  * Captures the header row's template and other row properties such as the columns to display and
  * a when predicate that describes when this row should be used.
  */
-class MatRowDef extends _MatCdkRowDef {
+class MatRowDef extends CdkRowDef {
 }
 MatRowDef.decorators = [
     { type: Directive, args: [{
@@ -204,7 +185,7 @@ MatRowDef.ctorParameters = () => [];
 /**
  * Header template container that contains the cell outlet. Adds the right class and role.
  */
-class MatHeaderRow extends _MatHeaderRow {
+class MatHeaderRow extends CdkHeaderRow {
 }
 MatHeaderRow.decorators = [
     { type: Component, args: [{selector: 'mat-header-row',
@@ -224,7 +205,7 @@ MatHeaderRow.ctorParameters = () => [];
 /**
  * Data row template container that contains the cell outlet. Adds the right class and role.
  */
-class MatRow extends _MatRow {
+class MatRow extends CdkRow {
 }
 MatRow.decorators = [
     { type: Component, args: [{selector: 'mat-row',
@@ -501,5 +482,5 @@ class MatTableDataSource {
  * Generated bundle index. Do not edit.
  */
 
-export { MatTableModule, _MatCellDef, _MatHeaderCellDef, _MatColumnDef, _MatHeaderCell, _MatCell, MatCellDef, MatHeaderCellDef, MatColumnDef, MatHeaderCell, MatCell, _MatTable, MatTable, _MatHeaderRowDef, _MatCdkRowDef, _MatHeaderRow, _MatRow, MatHeaderRowDef, MatRowDef, MatHeaderRow, MatRow, MatTableDataSource };
+export { MatTableModule, MatCellDef, MatHeaderCellDef, MatColumnDef, MatHeaderCell, MatCell, MatTable, MatHeaderRowDef, MatRowDef, MatHeaderRow, MatRow, MatTableDataSource };
 //# sourceMappingURL=table.js.map

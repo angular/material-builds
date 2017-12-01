@@ -470,7 +470,6 @@ MatCheckbox.propDecorators = {
  * @suppress {checkTypes} checked by tsc
  */
 
-const _MatCheckboxRequiredValidator = CheckboxRequiredValidator;
 const MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => MatCheckboxRequiredValidator),
@@ -481,7 +480,7 @@ const MAT_CHECKBOX_REQUIRED_VALIDATOR = {
  * Current CheckboxRequiredValidator only work with `input type=checkbox` and does not
  * work with `mat-checkbox`.
  */
-class MatCheckboxRequiredValidator extends _MatCheckboxRequiredValidator {
+class MatCheckboxRequiredValidator extends CheckboxRequiredValidator {
 }
 MatCheckboxRequiredValidator.decorators = [
     { type: Directive, args: [{
@@ -524,5 +523,5 @@ MatCheckboxModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MatCheckboxModule, _MatCheckboxRequiredValidator, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };
+export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };
 //# sourceMappingURL=checkbox.js.map

@@ -4,12 +4,10 @@ import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { CanDisable } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { MatAccordion } from './accordion';
-/** Workaround for https://github.com/angular/angular/issues/17849 */
-export declare const _CdkAccordionItem: typeof CdkAccordionItem;
 /** Time and timing curve for expansion panel animations. */
 export declare const EXPANSION_PANEL_ANIMATION_TIMING = "225ms cubic-bezier(0.4,0.0,0.2,1)";
 /** @docs-private */
-export declare class MatExpansionPanelBase extends _CdkAccordionItem {
+export declare class MatExpansionPanelBase extends CdkAccordionItem {
     constructor(accordion: MatAccordion, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher);
 }
 export declare const _MatExpansionPanelMixinBase: (new (...args: any[]) => CanDisable) & typeof MatExpansionPanelBase;

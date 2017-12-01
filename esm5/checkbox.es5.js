@@ -598,7 +598,6 @@ var MatCheckbox = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var _MatCheckboxRequiredValidator = CheckboxRequiredValidator;
 var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(function () { return MatCheckboxRequiredValidator; }),
@@ -624,7 +623,7 @@ var MatCheckboxRequiredValidator = (function (_super) {
     /** @nocollapse */
     MatCheckboxRequiredValidator.ctorParameters = function () { return []; };
     return MatCheckboxRequiredValidator;
-}(_MatCheckboxRequiredValidator));
+}(CheckboxRequiredValidator));
 
 /**
  * @fileoverview added by tsickle
@@ -659,5 +658,5 @@ var MatCheckboxModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MatCheckboxModule, _MatCheckboxRequiredValidator, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };
+export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };
 //# sourceMappingURL=checkbox.es5.js.map

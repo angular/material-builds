@@ -42,10 +42,6 @@ function __extends(d, b) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _CdkAccordion = _angular_cdk_accordion.CdkAccordion;
-/**
  * Directive for a Material Design Accordion.
  */
 var MatAccordion = (function (_super) {
@@ -94,16 +90,12 @@ var MatAccordion = (function (_super) {
         "displayMode": [{ type: _angular_core.Input },],
     };
     return MatAccordion;
-}(_CdkAccordion));
+}(_angular_cdk_accordion.CdkAccordion));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _CdkAccordionItem = _angular_cdk_accordion.CdkAccordionItem;
 /**
  * Time and timing curve for expansion panel animations.
  */
@@ -130,7 +122,7 @@ var MatExpansionPanelBase = (function (_super) {
         { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
     ]; };
     return MatExpansionPanelBase;
-}(_CdkAccordionItem));
+}(_angular_cdk_accordion.CdkAccordionItem));
 var _MatExpansionPanelMixinBase = _angular_material_core.mixinDisabled(MatExpansionPanelBase);
 /**
  * <mat-expansion-panel> component.
@@ -540,9 +532,7 @@ var MatExpansionModule = (function () {
 }());
 
 exports.MatExpansionModule = MatExpansionModule;
-exports._CdkAccordion = _CdkAccordion;
 exports.MatAccordion = MatAccordion;
-exports._CdkAccordionItem = _CdkAccordionItem;
 exports.EXPANSION_PANEL_ANIMATION_TIMING = EXPANSION_PANEL_ANIMATION_TIMING;
 exports.MatExpansionPanelBase = MatExpansionPanelBase;
 exports._MatExpansionPanelMixinBase = _MatExpansionPanelMixinBase;

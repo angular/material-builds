@@ -26,10 +26,6 @@ import { Subscription } from 'rxjs/Subscription';
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _CdkAccordion = CdkAccordion;
-/**
  * Directive for a Material Design Accordion.
  */
 var MatAccordion = (function (_super) {
@@ -78,16 +74,12 @@ var MatAccordion = (function (_super) {
         "displayMode": [{ type: Input },],
     };
     return MatAccordion;
-}(_CdkAccordion));
+}(CdkAccordion));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var _CdkAccordionItem = CdkAccordionItem;
 /**
  * Time and timing curve for expansion panel animations.
  */
@@ -114,7 +106,7 @@ var MatExpansionPanelBase = (function (_super) {
         { type: UniqueSelectionDispatcher, },
     ]; };
     return MatExpansionPanelBase;
-}(_CdkAccordionItem));
+}(CdkAccordionItem));
 var _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
 /**
  * <mat-expansion-panel> component.
@@ -536,5 +528,5 @@ var MatExpansionModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatExpansionModule, _CdkAccordion, MatAccordion, _CdkAccordionItem, EXPANSION_PANEL_ANIMATION_TIMING, MatExpansionPanelBase, _MatExpansionPanelMixinBase, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle };
+export { MatExpansionModule, MatAccordion, EXPANSION_PANEL_ANIMATION_TIMING, MatExpansionPanelBase, _MatExpansionPanelMixinBase, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle };
 //# sourceMappingURL=expansion.es5.js.map

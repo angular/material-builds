@@ -103,13 +103,9 @@ MatInkBar.ctorParameters = () => [
  */
 
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-const _MatTabLabelBaseClass = CdkPortal;
-/**
  * Used to flag tab labels for use with the portal directive
  */
-class MatTabLabel extends _MatTabLabelBaseClass {
+class MatTabLabel extends CdkPortal {
     /**
      * @param {?} templateRef
      * @param {?} viewContainerRef
@@ -234,14 +230,10 @@ MatTab.propDecorators = {
  */
 
 /**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-const _MatTabBodyPortalBaseClass = CdkPortalOutlet;
-/**
  * The portal host directive for the contents of the tab.
  * \@docs-private
  */
-class MatTabBodyPortal extends _MatTabBodyPortalBaseClass {
+class MatTabBodyPortal extends CdkPortalOutlet {
     /**
      * @param {?} _componentFactoryResolver
      * @param {?} _viewContainerRef

@@ -7,8 +7,6 @@
  */
 import { TemplateRef } from '@angular/core';
 import { CdkStepLabel } from '@angular/cdk/stepper';
-/** Workaround for https://github.com/angular/angular/issues/17849 */
-export declare const _MatStepLabel: typeof CdkStepLabel;
-export declare class MatStepLabel extends _MatStepLabel {
+export declare class MatStepLabel extends CdkStepLabel {
     constructor(template: TemplateRef<any>);
 }

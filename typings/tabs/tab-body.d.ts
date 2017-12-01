@@ -9,8 +9,6 @@ import { EventEmitter, OnDestroy, OnInit, ElementRef, ComponentFactoryResolver, 
 import { AnimationEvent } from '@angular/animations';
 import { TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
 import { Directionality, Direction } from '@angular/cdk/bidi';
-/** Workaround for https://github.com/angular/angular/issues/17849 */
-export declare const _MatTabBodyPortalBaseClass: typeof CdkPortalOutlet;
 /**
  * These position states are used internally as animation states for the tab body. Setting the
  * position state to left, right, or center will transition the tab body from its current
@@ -33,7 +31,7 @@ export declare type MatTabBodyOriginState = 'left' | 'right';
  * The portal host directive for the contents of the tab.
  * @docs-private
  */
-export declare class MatTabBodyPortal extends _MatTabBodyPortalBaseClass implements OnInit, OnDestroy {
+export declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit, OnDestroy {
     private _host;
     /** A subscription to events for when the tab body begins centering. */
     private _centeringSub;

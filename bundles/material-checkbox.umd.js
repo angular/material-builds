@@ -628,7 +628,6 @@ var MatCheckbox = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var _MatCheckboxRequiredValidator = _angular_forms.CheckboxRequiredValidator;
 var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: _angular_forms.NG_VALIDATORS,
     useExisting: _angular_core.forwardRef(function () { return MatCheckboxRequiredValidator; }),
@@ -654,7 +653,7 @@ var MatCheckboxRequiredValidator = (function (_super) {
     /** @nocollapse */
     MatCheckboxRequiredValidator.ctorParameters = function () { return []; };
     return MatCheckboxRequiredValidator;
-}(_MatCheckboxRequiredValidator));
+}(_angular_forms.CheckboxRequiredValidator));
 
 /**
  * @fileoverview added by tsickle
@@ -683,7 +682,6 @@ exports.MatCheckboxBase = MatCheckboxBase;
 exports._MatCheckboxMixinBase = _MatCheckboxMixinBase;
 exports.MatCheckbox = MatCheckbox;
 exports.MatCheckboxModule = MatCheckboxModule;
-exports._MatCheckboxRequiredValidator = _MatCheckboxRequiredValidator;
 exports.MAT_CHECKBOX_REQUIRED_VALIDATOR = MAT_CHECKBOX_REQUIRED_VALIDATOR;
 exports.MatCheckboxRequiredValidator = MatCheckboxRequiredValidator;
 
