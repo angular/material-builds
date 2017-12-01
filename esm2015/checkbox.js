@@ -358,7 +358,6 @@ class MatCheckbox extends _MatCheckboxMixinBase {
             // When user manually click on the checkbox, `indeterminate` is set to false.
             if (this.indeterminate && this._clickAction !== 'check') {
                 Promise.resolve().then(() => {
-                    console.log(`reset indeterminate`);
                     this._indeterminate = false;
                     this.indeterminateChange.emit(this._indeterminate);
                 });

@@ -5896,7 +5896,6 @@ var MatCheckbox = (function (_super) {
             // When user manually click on the checkbox, `indeterminate` is set to false.
             if (this.indeterminate && this._clickAction !== 'check') {
                 Promise.resolve().then(function () {
-                    console.log("reset indeterminate");
                     _this._indeterminate = false;
                     _this.indeterminateChange.emit(_this._indeterminate);
                 });
@@ -27711,7 +27710,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-537b8b5');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-e96cd37');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27933,10 +27932,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa13 = MatMenuItemBase;
-exports.ɵb13 = _MatMenuItemMixinBase;
-exports.ɵd13 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc13 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa20 = MatMenuItemBase;
+exports.ɵb20 = _MatMenuItemMixinBase;
+exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -28046,16 +28045,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe7 = MatTabBase;
-exports.ɵf7 = _MatTabMixinBase;
-exports.ɵa7 = MatTabHeaderBase;
-exports.ɵb7 = _MatTabHeaderMixinBase;
-exports.ɵc7 = MatTabLabelWrapperBase;
-exports.ɵd7 = _MatTabLabelWrapperMixinBase;
-exports.ɵi7 = MatTabLinkBase;
-exports.ɵg7 = MatTabNavBase;
-exports.ɵj7 = _MatTabLinkMixinBase;
-exports.ɵh7 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

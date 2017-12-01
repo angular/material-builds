@@ -497,7 +497,6 @@ var MatCheckbox = (function (_super) {
             // When user manually click on the checkbox, `indeterminate` is set to false.
             if (this.indeterminate && this._clickAction !== 'check') {
                 Promise.resolve().then(function () {
-                    console.log("reset indeterminate");
                     _this._indeterminate = false;
                     _this.indeterminateChange.emit(_this._indeterminate);
                 });
