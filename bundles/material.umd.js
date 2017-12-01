@@ -10385,12 +10385,7 @@ var MatInput = (function (_super) {
          * @return {?}
          */
         function () {
-            return !this._isNeverEmpty() &&
-                (this.value == null || this.value === '') &&
-                // Check if the input contains bad input. If so, we know that it only appears empty because
-                // the value failed to parse. From the user's perspective it is not empty.
-                // TODO(mmalerba): Add e2e test for bad input case.
-                !this._isBadInput();
+            return !this._isNeverEmpty() && !this._elementRef.nativeElement.value && !this._isBadInput();
         },
         enumerable: true,
         configurable: true
@@ -27624,7 +27619,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-61dada8');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-f0789eb');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27845,10 +27840,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MatMenuItemBase;
-exports.ɵb21 = _MatMenuItemMixinBase;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa16 = MatMenuItemBase;
+exports.ɵb16 = _MatMenuItemMixinBase;
+exports.ɵd16 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc16 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -27954,16 +27949,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe10 = MatTabBase;
+exports.ɵf10 = _MatTabMixinBase;
+exports.ɵa10 = MatTabHeaderBase;
+exports.ɵb10 = _MatTabHeaderMixinBase;
+exports.ɵc10 = MatTabLabelWrapperBase;
+exports.ɵd10 = _MatTabLabelWrapperMixinBase;
+exports.ɵi10 = MatTabLinkBase;
+exports.ɵg10 = MatTabNavBase;
+exports.ɵj10 = _MatTabLinkMixinBase;
+exports.ɵh10 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

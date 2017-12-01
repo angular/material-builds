@@ -526,12 +526,7 @@ class MatInput extends _MatInputMixinBase {
      * @return {?}
      */
     get empty() {
-        return !this._isNeverEmpty() &&
-            (this.value == null || this.value === '') &&
-            // Check if the input contains bad input. If so, we know that it only appears empty because
-            // the value failed to parse. From the user's perspective it is not empty.
-            // TODO(mmalerba): Add e2e test for bad input case.
-            !this._isBadInput();
+        return !this._isNeverEmpty() && !this._elementRef.nativeElement.value && !this._isBadInput();
     }
     /**
      * @return {?}
