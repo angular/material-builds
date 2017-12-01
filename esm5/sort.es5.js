@@ -6,12 +6,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, EventEmitter, Injectable, Input, NgModule, Optional, Output, SkipSelf, ViewEncapsulation, isDevMode } from '@angular/core';
+import { __extends } from 'tslib';
+import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { CdkColumnDef } from '@angular/cdk/table';
 import { merge } from 'rxjs/observable/merge';
+import { AnimationCurves, AnimationDurations, mixinDisabled } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
-import { AnimationCurves, AnimationDurations } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -53,7 +55,6 @@ function getSortInvalidDirectionError(direction) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Interface for a directive that holds sorting state consumed by `MatSortHeader`.
  * @record
@@ -65,24 +66,40 @@ function getSortInvalidDirectionError(direction) {
  */
 
 /**
+ * \@docs-private
+ */
+var MatSortBase = (function () {
+    function MatSortBase() {
+    }
+    return MatSortBase;
+}());
+var _MatSortMixinBase = mixinDisabled(MatSortBase);
+/**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
-var MatSort = (function () {
+var MatSort = (function (_super) {
+    __extends(MatSort, _super);
     function MatSort() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         /**
          * Collection of all registered sortables that this directive manages.
          */
-        this.sortables = new Map();
+        _this.sortables = new Map();
+        /**
+         * Used to notify any child components listening to state changes.
+         */
+        _this._stateChanges = new Subject();
         /**
          * The direction to set when an MatSortable is initially sorted.
          * May be overriden by the MatSortable's sort start.
          */
-        this.start = 'asc';
-        this._direction = '';
+        _this.start = 'asc';
+        _this._direction = '';
         /**
          * Event emitted when the user changes either the active sort or sort direction.
          */
-        this.sortChange = new EventEmitter();
+        _this.sortChange = new EventEmitter();
+        return _this;
     }
     Object.defineProperty(MatSort.prototype, "direction", {
         get: /**
@@ -208,10 +225,29 @@ var MatSort = (function () {
         }
         return sortDirectionCycle[nextDirectionIndex];
     };
+    /**
+     * @return {?}
+     */
+    MatSort.prototype.ngOnChanges = /**
+     * @return {?}
+     */
+    function () {
+        this._stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
+    MatSort.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._stateChanges.complete();
+    };
     MatSort.decorators = [
         { type: Directive, args: [{
                     selector: '[matSort]',
-                    exportAs: 'matSort'
+                    exportAs: 'matSort',
+                    inputs: ['disabled: matSortDisabled']
                 },] },
     ];
     /** @nocollapse */
@@ -224,7 +260,7 @@ var MatSort = (function () {
         "sortChange": [{ type: Output, args: ['matSortChange',] },],
     };
     return MatSort;
-}());
+}(_MatSortMixinBase));
 /**
  * Returns the sort direction cycle to use given the provided parameters of order and clear.
  * @param {?} start
@@ -300,8 +336,16 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' + AnimationCurves.STANDARD_CURVE;
+/**
+ * \@docs-private
+ */
+var MatSortHeaderBase = (function () {
+    function MatSortHeaderBase() {
+    }
+    return MatSortHeaderBase;
+}());
+var _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -311,21 +355,23 @@ var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' + AnimationCur
  * If used on header cells in a CdkTable, it will automatically default its id from its containing
  * column definition.
  */
-var MatSortHeader = (function () {
+var MatSortHeader = (function (_super) {
+    __extends(MatSortHeader, _super);
     function MatSortHeader(_intl, changeDetectorRef, _sort, _cdkColumnDef) {
-        this._intl = _intl;
-        this._sort = _sort;
-        this._cdkColumnDef = _cdkColumnDef;
+        var _this = _super.call(this) || this;
+        _this._intl = _intl;
+        _this._sort = _sort;
+        _this._cdkColumnDef = _cdkColumnDef;
         /**
          * Sets the position of the arrow that displays when sorted.
          */
-        this.arrowPosition = 'after';
+        _this.arrowPosition = 'after';
         if (!_sort) {
             throw getSortHeaderNotContainedWithinSortError();
         }
-        this._rerenderSubscription = merge(_sort.sortChange, _intl.changes).subscribe(function () {
-            changeDetectorRef.markForCheck();
-        });
+        _this._rerenderSubscription = merge(_sort.sortChange, _sort._stateChanges, _intl.changes)
+            .subscribe(function () { return changeDetectorRef.markForCheck(); });
+        return _this;
     }
     Object.defineProperty(MatSortHeader.prototype, "disableClear", {
         get: /**
@@ -363,6 +409,20 @@ var MatSortHeader = (function () {
         this._sort.deregister(this);
         this._rerenderSubscription.unsubscribe();
     };
+    /** Handles click events on the header. */
+    /**
+     * Handles click events on the header.
+     * @return {?}
+     */
+    MatSortHeader.prototype._handleClick = /**
+     * Handles click events on the header.
+     * @return {?}
+     */
+    function () {
+        if (!this._isDisabled()) {
+            this._sort.sort(this);
+        }
+    };
     /** Whether this MatSortHeader is currently sorted in either ascending or descending order. */
     /**
      * Whether this MatSortHeader is currently sorted in either ascending or descending order.
@@ -376,18 +436,29 @@ var MatSortHeader = (function () {
         return this._sort.active == this.id &&
             (this._sort.direction === 'asc' || this._sort.direction === 'desc');
     };
+    /**
+     * @return {?}
+     */
+    MatSortHeader.prototype._isDisabled = /**
+     * @return {?}
+     */
+    function () {
+        return this._sort.disabled || this.disabled;
+    };
     MatSortHeader.decorators = [
         { type: Component, args: [{selector: '[mat-sort-header]',
                     exportAs: 'matSortHeader',
-                    template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\"><ng-content></ng-content></button><div *ngIf=\"_isSorted()\" class=\"mat-sort-header-arrow\" [@indicatorToggle]=\"_sort.direction\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_sort.direction\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">&nbsp;{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
-                    styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:pointer;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;margin:0 0 0 6px;position:relative;display:flex}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0;transition:225ms cubic-bezier(.4,0,.2,1)}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;transition:225ms cubic-bezier(.4,0,.2,1);position:absolute;top:0}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
+                    template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\" [attr.disabled]=\"_isDisabled() || null\"><ng-content></ng-content></button><div *ngIf=\"_isSorted()\" class=\"mat-sort-header-arrow\" [@indicatorToggle]=\"_sort.direction\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_sort.direction\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">&nbsp;{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
+                    styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:inherit;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;margin:0 0 0 6px;position:relative;display:flex}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0;transition:225ms cubic-bezier(.4,0,.2,1)}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;transition:225ms cubic-bezier(.4,0,.2,1);position:absolute;top:0}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
                     host: {
-                        '(click)': '_sort.sort(this)',
+                        '(click)': '_handleClick()',
                         '[class.mat-sort-header-sorted]': '_isSorted()',
+                        '[class.mat-sort-header-disabled]': '_isDisabled()',
                     },
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
+                    inputs: ['disabled'],
                     animations: [
                         trigger('indicator', [
                             state('asc', style({ transform: 'translateY(0px)' })),
@@ -440,7 +511,7 @@ var MatSortHeader = (function () {
         "disableClear": [{ type: Input },],
     };
     return MatSortHeader;
-}());
+}(_MatSortHeaderMixinBase));
 
 /**
  * @fileoverview added by tsickle
@@ -476,5 +547,5 @@ var MatSortModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatSortModule, MatSortHeader, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MAT_SORT_HEADER_INTL_PROVIDER, MatSort };
+export { MatSortModule, MatSortHeaderBase, _MatSortHeaderMixinBase, MatSortHeader, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MAT_SORT_HEADER_INTL_PROVIDER, MatSortBase, _MatSortMixinBase, MatSort };
 //# sourceMappingURL=sort.es5.js.map

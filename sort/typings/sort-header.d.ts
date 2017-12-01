@@ -9,6 +9,11 @@ import { ChangeDetectorRef } from '@angular/core';
 import { CdkColumnDef } from '@angular/cdk/table';
 import { MatSort, MatSortable } from './sort';
 import { MatSortHeaderIntl } from './sort-header-intl';
+import { CanDisable } from '@angular/material/core';
+/** @docs-private */
+export declare class MatSortHeaderBase {
+}
+export declare const _MatSortHeaderMixinBase: (new (...args: any[]) => CanDisable) & typeof MatSortHeaderBase;
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -18,7 +23,7 @@ import { MatSortHeaderIntl } from './sort-header-intl';
  * If used on header cells in a CdkTable, it will automatically default its id from its containing
  * column definition.
  */
-export declare class MatSortHeader implements MatSortable {
+export declare class MatSortHeader extends _MatSortHeaderMixinBase implements MatSortable, CanDisable {
     _intl: MatSortHeaderIntl;
     _sort: MatSort;
     _cdkColumnDef: CdkColumnDef;
@@ -38,6 +43,9 @@ export declare class MatSortHeader implements MatSortable {
     constructor(_intl: MatSortHeaderIntl, changeDetectorRef: ChangeDetectorRef, _sort: MatSort, _cdkColumnDef: CdkColumnDef);
     ngOnInit(): void;
     ngOnDestroy(): void;
+    /** Handles click events on the header. */
+    _handleClick(): void;
     /** Whether this MatSortHeader is currently sorted in either ascending or descending order. */
     _isSorted(): boolean;
+    _isDisabled(): boolean;
 }

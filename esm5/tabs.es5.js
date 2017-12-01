@@ -20,7 +20,6 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
 import { ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
-import { startWith } from 'rxjs/operators/startWith';
 import { of } from 'rxjs/observable/of';
 import { Platform } from '@angular/cdk/platform';
 import { takeUntil } from 'rxjs/operators/takeUntil';
@@ -1157,10 +1156,14 @@ var MatTabHeader = (function (_super) {
         var _this = this;
         var /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
         var /** @type {?} */ resize = this._viewportRuler.change(150);
-        this._realignInkBar = merge(dirChange, resize).pipe(startWith(null)).subscribe(function () {
+        var /** @type {?} */ realign = function () {
             _this._updatePagination();
             _this._alignInkBarToSelectedTab();
-        });
+        };
+        // Defer the first call in order to allow for slower browsers to lay out the elements.
+        // This helps in cases where the user lands directly on a page with paginated tabs.
+        typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
+        this._realignInkBar = merge(dirChange, resize).subscribe(realign);
     };
     /**
      * @return {?}
@@ -1971,5 +1974,5 @@ var MatTabsModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe10, _MatTabMixinBase as ɵf10, MatTabHeaderBase as ɵa10, _MatTabHeaderMixinBase as ɵb10, MatTabLabelWrapperBase as ɵc10, _MatTabLabelWrapperMixinBase as ɵd10, MatTabLinkBase as ɵi10, MatTabNavBase as ɵg10, _MatTabLinkMixinBase as ɵj10, _MatTabNavMixinBase as ɵh10 };
+export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe22, _MatTabMixinBase as ɵf22, MatTabHeaderBase as ɵa22, _MatTabHeaderMixinBase as ɵb22, MatTabLabelWrapperBase as ɵc22, _MatTabLabelWrapperMixinBase as ɵd22, MatTabLinkBase as ɵi22, MatTabNavBase as ɵg22, _MatTabLinkMixinBase as ɵj22, _MatTabNavMixinBase as ɵh22 };
 //# sourceMappingURL=tabs.es5.js.map

@@ -5,8 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { EventEmitter } from '@angular/core';
+import { EventEmitter, OnChanges, OnDestroy } from '@angular/core';
+import { CanDisable } from '@angular/material/core';
 import { SortDirection } from './sort-direction';
+import { Subject } from 'rxjs/Subject';
 /** Interface for a directive that holds sorting state consumed by `MatSortHeader`. */
 export interface MatSortable {
     /** The id of the column being sorted. */
@@ -23,10 +25,16 @@ export interface Sort {
     /** The sort direction. */
     direction: SortDirection;
 }
+/** @docs-private */
+export declare class MatSortBase {
+}
+export declare const _MatSortMixinBase: (new (...args: any[]) => CanDisable) & typeof MatSortBase;
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
-export declare class MatSort {
+export declare class MatSort extends _MatSortMixinBase implements CanDisable, OnChanges, OnDestroy {
     /** Collection of all registered sortables that this directive manages. */
     sortables: Map<string, MatSortable>;
+    /** Used to notify any child components listening to state changes. */
+    _stateChanges: Subject<void>;
     /** The id of the most recently sorted MatSortable. */
     active: string;
     /**
@@ -59,4 +67,6 @@ export declare class MatSort {
     sort(sortable: MatSortable): void;
     /** Returns the next sort direction of the active sortable, checking for potential overrides. */
     getNextSortDirection(sortable: MatSortable): SortDirection;
+    ngOnChanges(): void;
+    ngOnDestroy(): void;
 }
