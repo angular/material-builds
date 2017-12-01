@@ -279,6 +279,7 @@ MatHorizontalStepper.decorators = [
                 inputs: ['selectedIndex'],
                 host: {
                     'class': 'mat-stepper-horizontal',
+                    'aria-orientation': 'horizontal',
                     'role': 'tablist',
                 },
                 animations: [
@@ -307,6 +308,7 @@ MatVerticalStepper.decorators = [
                 inputs: ['selectedIndex'],
                 host: {
                     'class': 'mat-stepper-vertical',
+                    'aria-orientation': 'vertical',
                     'role': 'tablist',
                 },
                 animations: [

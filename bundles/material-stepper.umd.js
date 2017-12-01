@@ -343,6 +343,7 @@ var MatHorizontalStepper = (function (_super) {
                     inputs: ['selectedIndex'],
                     host: {
                         'class': 'mat-stepper-horizontal',
+                        'aria-orientation': 'horizontal',
                         'role': 'tablist',
                     },
                     animations: [
@@ -376,6 +377,7 @@ var MatVerticalStepper = (function (_super) {
                     inputs: ['selectedIndex'],
                     host: {
                         'class': 'mat-stepper-vertical',
+                        'aria-orientation': 'vertical',
                         'role': 'tablist',
                     },
                     animations: [

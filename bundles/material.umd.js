@@ -24817,6 +24817,7 @@ var MatHorizontalStepper = (function (_super) {
                     inputs: ['selectedIndex'],
                     host: {
                         'class': 'mat-stepper-horizontal',
+                        'aria-orientation': 'horizontal',
                         'role': 'tablist',
                     },
                     animations: [
@@ -24850,6 +24851,7 @@ var MatVerticalStepper = (function (_super) {
                     inputs: ['selectedIndex'],
                     host: {
                         'class': 'mat-stepper-vertical',
+                        'aria-orientation': 'vertical',
                         'role': 'tablist',
                     },
                     animations: [
@@ -27665,7 +27667,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-74c1d01');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-9582b8b');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
