@@ -379,7 +379,15 @@ var MatInput = (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._disabled = coerceBooleanProperty(value); },
+        function (value) {
+            this._disabled = coerceBooleanProperty(value);
+            // Browsers may not fire the blur event if the input is disabled too quickly.
+            // Reset from here to ensure that the element doesn't become stuck.
+            if (this.focused) {
+                this.focused = false;
+                this.stateChanges.next();
+            }
+        },
         enumerable: true,
         configurable: true
     });

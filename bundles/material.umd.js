@@ -6960,6 +6960,7 @@ var MatChipList = (function (_super) {
             this._changeSubscription.unsubscribe();
         }
         this._dropSubscriptions();
+        this.stateChanges.complete();
     };
     /** Associates an HTML input element with this chip list. */
     /**
@@ -10133,7 +10134,15 @@ var MatInput = (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        function (value) {
+            this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value);
+            // Browsers may not fire the blur event if the input is disabled too quickly.
+            // Reset from here to ensure that the element doesn't become stuck.
+            if (this.focused) {
+                this.focused = false;
+                this.stateChanges.next();
+            }
+        },
         enumerable: true,
         configurable: true
     });
@@ -27615,7 +27624,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-7e5f2da');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-61dada8');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

@@ -346,7 +346,15 @@ class MatInput extends _MatInputMixinBase {
      * @param {?} value
      * @return {?}
      */
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
+    set disabled(value) {
+        this._disabled = coerceBooleanProperty(value);
+        // Browsers may not fire the blur event if the input is disabled too quickly.
+        // Reset from here to ensure that the element doesn't become stuck.
+        if (this.focused) {
+            this.focused = false;
+            this.stateChanges.next();
+        }
+    }
     /**
      * Unique id of the element.
      * @return {?}

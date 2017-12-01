@@ -907,6 +907,7 @@ var MatChipList = (function (_super) {
             this._changeSubscription.unsubscribe();
         }
         this._dropSubscriptions();
+        this.stateChanges.complete();
     };
     /** Associates an HTML input element with this chip list. */
     /**
