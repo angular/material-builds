@@ -412,14 +412,13 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
      * Whether this radio button is checked.
      * @return {?}
      */
-    get checked() {
-        return this._checked;
-    }
+    get checked() { return this._checked; }
     /**
-     * @param {?} newCheckedState
+     * @param {?} value
      * @return {?}
      */
-    set checked(newCheckedState) {
+    set checked(value) {
+        const /** @type {?} */ newCheckedState = coerceBooleanProperty(value);
         if (this._checked != newCheckedState) {
             this._checked = newCheckedState;
             if (newCheckedState && this.radioGroup && this.radioGroup.value != this.value) {

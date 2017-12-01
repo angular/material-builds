@@ -20249,14 +20249,13 @@ var MatRadioButton = (function (_super) {
          * Whether this radio button is checked.
          * @return {?}
          */
-        function () {
-            return this._checked;
-        },
+        function () { return this._checked; },
         set: /**
-         * @param {?} newCheckedState
+         * @param {?} value
          * @return {?}
          */
-        function (newCheckedState) {
+        function (value) {
+            var /** @type {?} */ newCheckedState = _angular_cdk_coercion.coerceBooleanProperty(value);
             if (this._checked != newCheckedState) {
                 this._checked = newCheckedState;
                 if (newCheckedState && this.radioGroup && this.radioGroup.value != this.value) {
@@ -27692,7 +27691,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-d0cb077');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-f41fa8c');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

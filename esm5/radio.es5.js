@@ -521,14 +521,13 @@ var MatRadioButton = (function (_super) {
          * Whether this radio button is checked.
          * @return {?}
          */
-        function () {
-            return this._checked;
-        },
+        function () { return this._checked; },
         set: /**
-         * @param {?} newCheckedState
+         * @param {?} value
          * @return {?}
          */
-        function (newCheckedState) {
+        function (value) {
+            var /** @type {?} */ newCheckedState = coerceBooleanProperty(value);
             if (this._checked != newCheckedState) {
                 this._checked = newCheckedState;
                 if (newCheckedState && this.radioGroup && this.radioGroup.value != this.value) {
