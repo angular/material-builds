@@ -1392,6 +1392,11 @@ $mat-menu-icon-margin: 16px !default;
     position: relative;
     cursor: pointer;
     outline: none;
+    display: flex;
+    flex-direction: row;
+    max-width: 100%;
+    box-sizing: border-box;
+    align-items: center;
 
     &[aria-disabled='true'] {
       @include user-select(none);
@@ -1414,6 +1419,9 @@ $mat-menu-icon-margin: 16px !default;
   // </mat-option>
   .mat-option-text {
     display: inline-block;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .mat-option-ripple {
