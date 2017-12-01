@@ -9,11 +9,21 @@ import { __assign, __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { CheckboxRequiredValidator, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { ObserversModule } from '@angular/cdk/observers';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * Injection token that can be used to specify the checkbox click behavior.
+ */
+var MAT_CHECKBOX_CLICK_ACTION = new InjectionToken('mat-checkbox-click-action');
 
 /**
  * @fileoverview added by tsickle
@@ -74,10 +84,11 @@ var _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDis
  */
 var MatCheckbox = (function (_super) {
     __extends(MatCheckbox, _super);
-    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, tabIndex) {
+    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, tabIndex, _clickAction) {
         var _this = _super.call(this, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusMonitor = _focusMonitor;
+        _this._clickAction = _clickAction;
         /**
          * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
          * take precedence so this may be omitted.
@@ -451,10 +462,12 @@ var MatCheckbox = (function (_super) {
         // This will lead to multiple click events.
         // Preventing bubbling for the second event will solve that issue.
         event.stopPropagation();
-        if (!this.disabled) {
+        // If resetIndeterminate is false, and the current state is indeterminate, do nothing on click
+        if (!this.disabled && this._clickAction !== 'noop') {
             // When user manually click on the checkbox, `indeterminate` is set to false.
-            if (this._indeterminate) {
+            if (this.indeterminate && this._clickAction !== 'check') {
                 Promise.resolve().then(function () {
+                    console.log("reset indeterminate");
                     _this._indeterminate = false;
                     _this.indeterminateChange.emit(_this._indeterminate);
                 });
@@ -465,6 +478,12 @@ var MatCheckbox = (function (_super) {
             // It is important to only emit it, if the native input triggered one, because
             // we don't want to trigger a change event, when the `checked` variable changes for example.
             this._emitChangeEvent();
+        }
+        else if (!this.disabled && this._clickAction === 'noop') {
+            // Reset native input when clicked with noop. The native checkbox becomes checked after
+            // click, reset it to be align with `checked` value of `mat-checkbox`.
+            this._inputElement.nativeElement.checked = this.checked;
+            this._inputElement.nativeElement.indeterminate = this.indeterminate;
         }
     };
     /** Focuses the checkbox. */
@@ -574,6 +593,7 @@ var MatCheckbox = (function (_super) {
         { type: ChangeDetectorRef, },
         { type: FocusMonitor, },
         { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_CHECKBOX_CLICK_ACTION,] },] },
     ]; };
     MatCheckbox.propDecorators = {
         "ariaLabel": [{ type: Input, args: ['aria-label',] },],
@@ -658,5 +678,5 @@ var MatCheckboxModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };
+export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MAT_CHECKBOX_CLICK_ACTION, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };
 //# sourceMappingURL=checkbox.es5.js.map

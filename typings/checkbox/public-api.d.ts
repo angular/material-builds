@@ -6,5 +6,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 export * from './checkbox';
+export * from './checkbox-config';
 export * from './checkbox-module';
 export * from './checkbox-required-validator';

@@ -5448,6 +5448,16 @@ var MatCardModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
+/**
+ * Injection token that can be used to specify the checkbox click behavior.
+ */
+var MAT_CHECKBOX_CLICK_ACTION = new _angular_core.InjectionToken('mat-checkbox-click-action');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 // Increasing integer for generating unique ids for checkbox components.
 var nextUniqueId$1$1 = 0;
 /**
@@ -5503,10 +5513,11 @@ var _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDis
  */
 var MatCheckbox = (function (_super) {
     __extends(MatCheckbox, _super);
-    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, tabIndex) {
+    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, tabIndex, _clickAction) {
         var _this = _super.call(this, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusMonitor = _focusMonitor;
+        _this._clickAction = _clickAction;
         /**
          * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
          * take precedence so this may be omitted.
@@ -5880,10 +5891,12 @@ var MatCheckbox = (function (_super) {
         // This will lead to multiple click events.
         // Preventing bubbling for the second event will solve that issue.
         event.stopPropagation();
-        if (!this.disabled) {
+        // If resetIndeterminate is false, and the current state is indeterminate, do nothing on click
+        if (!this.disabled && this._clickAction !== 'noop') {
             // When user manually click on the checkbox, `indeterminate` is set to false.
-            if (this._indeterminate) {
+            if (this.indeterminate && this._clickAction !== 'check') {
                 Promise.resolve().then(function () {
+                    console.log("reset indeterminate");
                     _this._indeterminate = false;
                     _this.indeterminateChange.emit(_this._indeterminate);
                 });
@@ -5894,6 +5907,12 @@ var MatCheckbox = (function (_super) {
             // It is important to only emit it, if the native input triggered one, because
             // we don't want to trigger a change event, when the `checked` variable changes for example.
             this._emitChangeEvent();
+        }
+        else if (!this.disabled && this._clickAction === 'noop') {
+            // Reset native input when clicked with noop. The native checkbox becomes checked after
+            // click, reset it to be align with `checked` value of `mat-checkbox`.
+            this._inputElement.nativeElement.checked = this.checked;
+            this._inputElement.nativeElement.indeterminate = this.indeterminate;
         }
     };
     /** Focuses the checkbox. */
@@ -6003,6 +6022,7 @@ var MatCheckbox = (function (_super) {
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_CHECKBOX_CLICK_ACTION,] },] },
     ]; };
     MatCheckbox.propDecorators = {
         "ariaLabel": [{ type: _angular_core.Input, args: ['aria-label',] },],
@@ -27691,7 +27711,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-f41fa8c');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-537b8b5');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27744,6 +27764,7 @@ exports.MatCheckboxChange = MatCheckboxChange;
 exports.MatCheckboxBase = MatCheckboxBase;
 exports._MatCheckboxMixinBase = _MatCheckboxMixinBase;
 exports.MatCheckbox = MatCheckbox;
+exports.MAT_CHECKBOX_CLICK_ACTION = MAT_CHECKBOX_CLICK_ACTION;
 exports.MatCheckboxModule = MatCheckboxModule;
 exports.MAT_CHECKBOX_REQUIRED_VALIDATOR = MAT_CHECKBOX_REQUIRED_VALIDATOR;
 exports.MatCheckboxRequiredValidator = MatCheckboxRequiredValidator;
@@ -27912,10 +27933,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MatMenuItemBase;
-exports.ɵb21 = _MatMenuItemMixinBase;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa13 = MatMenuItemBase;
+exports.ɵb13 = _MatMenuItemMixinBase;
+exports.ɵd13 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc13 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -28025,16 +28046,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe7 = MatTabBase;
+exports.ɵf7 = _MatTabMixinBase;
+exports.ɵa7 = MatTabHeaderBase;
+exports.ɵb7 = _MatTabHeaderMixinBase;
+exports.ɵc7 = MatTabLabelWrapperBase;
+exports.ɵd7 = _MatTabLabelWrapperMixinBase;
+exports.ɵi7 = MatTabLinkBase;
+exports.ɵg7 = MatTabNavBase;
+exports.ɵj7 = _MatTabLinkMixinBase;
+exports.ɵh7 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

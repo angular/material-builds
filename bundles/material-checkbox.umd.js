@@ -49,6 +49,16 @@ var __assign = Object.assign || function __assign(t) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
+/**
+ * Injection token that can be used to specify the checkbox click behavior.
+ */
+var MAT_CHECKBOX_CLICK_ACTION = new _angular_core.InjectionToken('mat-checkbox-click-action');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 // Increasing integer for generating unique ids for checkbox components.
 var nextUniqueId = 0;
 /**
@@ -104,10 +114,11 @@ var _MatCheckboxMixinBase = _angular_material_core.mixinTabIndex(_angular_materi
  */
 var MatCheckbox = (function (_super) {
     __extends(MatCheckbox, _super);
-    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, tabIndex) {
+    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, tabIndex, _clickAction) {
         var _this = _super.call(this, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusMonitor = _focusMonitor;
+        _this._clickAction = _clickAction;
         /**
          * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
          * take precedence so this may be omitted.
@@ -481,10 +492,12 @@ var MatCheckbox = (function (_super) {
         // This will lead to multiple click events.
         // Preventing bubbling for the second event will solve that issue.
         event.stopPropagation();
-        if (!this.disabled) {
+        // If resetIndeterminate is false, and the current state is indeterminate, do nothing on click
+        if (!this.disabled && this._clickAction !== 'noop') {
             // When user manually click on the checkbox, `indeterminate` is set to false.
-            if (this._indeterminate) {
+            if (this.indeterminate && this._clickAction !== 'check') {
                 Promise.resolve().then(function () {
+                    console.log("reset indeterminate");
                     _this._indeterminate = false;
                     _this.indeterminateChange.emit(_this._indeterminate);
                 });
@@ -495,6 +508,12 @@ var MatCheckbox = (function (_super) {
             // It is important to only emit it, if the native input triggered one, because
             // we don't want to trigger a change event, when the `checked` variable changes for example.
             this._emitChangeEvent();
+        }
+        else if (!this.disabled && this._clickAction === 'noop') {
+            // Reset native input when clicked with noop. The native checkbox becomes checked after
+            // click, reset it to be align with `checked` value of `mat-checkbox`.
+            this._inputElement.nativeElement.checked = this.checked;
+            this._inputElement.nativeElement.indeterminate = this.indeterminate;
         }
     };
     /** Focuses the checkbox. */
@@ -604,6 +623,7 @@ var MatCheckbox = (function (_super) {
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_CHECKBOX_CLICK_ACTION,] },] },
     ]; };
     MatCheckbox.propDecorators = {
         "ariaLabel": [{ type: _angular_core.Input, args: ['aria-label',] },],
@@ -681,6 +701,7 @@ exports.MatCheckboxChange = MatCheckboxChange;
 exports.MatCheckboxBase = MatCheckboxBase;
 exports._MatCheckboxMixinBase = _MatCheckboxMixinBase;
 exports.MatCheckbox = MatCheckbox;
+exports.MAT_CHECKBOX_CLICK_ACTION = MAT_CHECKBOX_CLICK_ACTION;
 exports.MatCheckboxModule = MatCheckboxModule;
 exports.MAT_CHECKBOX_REQUIRED_VALIDATOR = MAT_CHECKBOX_REQUIRED_VALIDATOR;
 exports.MatCheckboxRequiredValidator = MatCheckboxRequiredValidator;
