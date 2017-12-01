@@ -76,6 +76,11 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
      * @return The element to connect the popup to.
      */
     getPopupConnectionElementRef(): ElementRef;
+    /**
+     * Determines the offset to be used when the calendar goes into a fallback position.
+     * Primarily used to prevent the calendar from overlapping the input.
+     */
+    _getPopupFallbackOffset(): number;
     writeValue(value: D): void;
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: () => void): void;

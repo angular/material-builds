@@ -1348,11 +1348,12 @@ class MatDatepicker {
      * @return {?}
      */
     _createPopupPositionStrategy() {
+        const /** @type {?} */ fallbackOffset = this._datepickerInput._getPopupFallbackOffset();
         return this._overlay.position()
             .connectedTo(this._datepickerInput.getPopupConnectionElementRef(), { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
-            .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' })
+            .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' }, undefined, fallbackOffset)
             .withFallbackPosition({ originX: 'end', originY: 'bottom' }, { overlayX: 'end', overlayY: 'top' })
-            .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' });
+            .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' }, undefined, fallbackOffset);
     }
     /**
      * @param {?} obj The object to check.
@@ -1648,6 +1649,14 @@ class MatDatepickerInput {
      */
     getPopupConnectionElementRef() {
         return this._formField ? this._formField.underlineRef : this._elementRef;
+    }
+    /**
+     * Determines the offset to be used when the calendar goes into a fallback position.
+     * Primarily used to prevent the calendar from overlapping the input.
+     * @return {?}
+     */
+    _getPopupFallbackOffset() {
+        return this._formField ? -this._formField._inputContainerRef.nativeElement.clientHeight : 0;
     }
     /**
      * @param {?} value
