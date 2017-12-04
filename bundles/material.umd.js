@@ -14613,7 +14613,6 @@ var MatListItem = (function (_super) {
         { type: _angular_core.Component, args: [{selector: 'mat-list-item, a[mat-list-item]',
                     exportAs: 'matListItem',
                     host: {
-                        'role': 'listitem',
                         'class': 'mat-list-item',
                         '(focus)': '_handleFocus()',
                         '(blur)': '_handleBlur()',
@@ -27710,7 +27709,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-5210b3e');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-8f7c7cf');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

@@ -256,7 +256,6 @@ var MatListItem = (function (_super) {
         { type: Component, args: [{selector: 'mat-list-item, a[mat-list-item]',
                     exportAs: 'matListItem',
                     host: {
-                        'role': 'listitem',
                         'class': 'mat-list-item',
                         '(focus)': '_handleFocus()',
                         '(blur)': '_handleBlur()',
