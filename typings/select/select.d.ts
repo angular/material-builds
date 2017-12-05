@@ -53,9 +53,15 @@ export declare const MAT_SELECT_SCROLL_STRATEGY_PROVIDER: {
 };
 /** Change event object that is emitted when the select value has changed. */
 export declare class MatSelectChange {
+    /** Reference to the select that emitted the change event. */
     source: MatSelect;
+    /** Current value of the select that emitted the event. */
     value: any;
-    constructor(source: MatSelect, value: any);
+    constructor(
+        /** Reference to the select that emitted the change event. */
+        source: MatSelect, 
+        /** Current value of the select that emitted the event. */
+        value: any);
 }
 /** @docs-private */
 export declare class MatSelectBase {

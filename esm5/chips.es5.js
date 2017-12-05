@@ -1556,6 +1556,9 @@ var MatChipInput = (function () {
          * Emitted when a chip is to be added.
          */
         this.chipEnd = new EventEmitter();
+        /**
+         * The input's placeholder text.
+         */
         this.placeholder = '';
         this._inputElement = /** @type {?} */ (this._elementRef.nativeElement);
     }
@@ -1589,7 +1592,9 @@ var MatChipInput = (function () {
         configurable: true
     });
     Object.defineProperty(MatChipInput.prototype, "empty", {
+        /** Whether the input is empty. */
         get: /**
+         * Whether the input is empty.
          * @return {?}
          */
         function () {

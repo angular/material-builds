@@ -18,9 +18,15 @@ export declare function throwMatDuplicatedDrawerError(position: string): void;
  * @deprecated
  */
 export declare class MatDrawerToggleResult {
+    /** Whether the drawer is opened or closed. */
     type: 'open' | 'close';
+    /** Whether the drawer animation is finished. */
     animationFinished: boolean;
-    constructor(type: 'open' | 'close', animationFinished: boolean);
+    constructor(
+        /** Whether the drawer is opened or closed. */
+        type: 'open' | 'close', 
+        /** Whether the drawer animation is finished. */
+        animationFinished: boolean);
 }
 /** Configures whether drawers should use auto sizing by default. */
 export declare const MAT_DRAWER_DEFAULT_AUTOSIZE: InjectionToken<boolean>;

@@ -16,10 +16,19 @@ export interface MatChipEvent {
 }
 /** Event object emitted by MatChip when selected or deselected. */
 export declare class MatChipSelectionChange {
+    /** Reference to the chip that emitted the event. */
     source: MatChip;
+    /** Whether the chip that emitted the event is selected. */
     selected: boolean;
+    /** Whether the selection change was a result of a user interaction. */
     isUserInput: boolean;
-    constructor(source: MatChip, selected: boolean, isUserInput?: boolean);
+    constructor(
+        /** Reference to the chip that emitted the event. */
+        source: MatChip, 
+        /** Whether the chip that emitted the event is selected. */
+        selected: boolean, 
+        /** Whether the selection change was a result of a user interaction. */
+        isUserInput?: boolean);
 }
 /** @docs-private */
 export declare class MatChipBase {

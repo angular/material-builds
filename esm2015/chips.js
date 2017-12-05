@@ -1236,6 +1236,9 @@ class MatChipInput {
          * Emitted when a chip is to be added.
          */
         this.chipEnd = new EventEmitter();
+        /**
+         * The input's placeholder text.
+         */
         this.placeholder = '';
         this._inputElement = /** @type {?} */ (this._elementRef.nativeElement);
     }
@@ -1261,6 +1264,7 @@ class MatChipInput {
      */
     set addOnBlur(value) { this._addOnBlur = coerceBooleanProperty(value); }
     /**
+     * Whether the input is empty.
      * @return {?}
      */
     get empty() {

@@ -7628,6 +7628,9 @@ var MatChipInput = (function () {
          * Emitted when a chip is to be added.
          */
         this.chipEnd = new _angular_core.EventEmitter();
+        /**
+         * The input's placeholder text.
+         */
         this.placeholder = '';
         this._inputElement = /** @type {?} */ (this._elementRef.nativeElement);
     }
@@ -7661,7 +7664,9 @@ var MatChipInput = (function () {
         configurable: true
     });
     Object.defineProperty(MatChipInput.prototype, "empty", {
+        /** Whether the input is empty. */
         get: /**
+         * Whether the input is empty.
          * @return {?}
          */
         function () {
@@ -9805,6 +9810,7 @@ var MatTextareaAutosize = (function () {
     }
     Object.defineProperty(MatTextareaAutosize.prototype, "minRows", {
         get: /**
+         * Minimum amount of rows in the textarea.
          * @return {?}
          */
         function () { return this._minRows; },
@@ -9821,6 +9827,7 @@ var MatTextareaAutosize = (function () {
     });
     Object.defineProperty(MatTextareaAutosize.prototype, "maxRows", {
         get: /**
+         * Maximum amount of rows in the textarea.
          * @return {?}
          */
         function () { return this._maxRows; },
@@ -12332,6 +12339,7 @@ var MatDatepickerInput = (function () {
     };
     Object.defineProperty(MatDatepickerInput.prototype, "matDatepickerFilter", {
         set: /**
+         * Function that can be used to filter out dates within the datepicker.
          * @param {?} filter
          * @return {?}
          */
@@ -25876,10 +25884,14 @@ var MatTab = (function (_super) {
         return _this;
     }
     Object.defineProperty(MatTab.prototype, "content", {
+        /** @docs-private */
         get: /**
+         * \@docs-private
          * @return {?}
          */
-        function () { return this._contentPortal; },
+        function () {
+            return this._contentPortal;
+        },
         enumerable: true,
         configurable: true
     });
@@ -27770,7 +27782,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-0b2757c');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-5690c87');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27992,10 +28004,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -28106,16 +28118,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe21 = MatTabBase;
-exports.ɵf21 = _MatTabMixinBase;
-exports.ɵa21 = MatTabHeaderBase;
-exports.ɵb21 = _MatTabHeaderMixinBase;
-exports.ɵc21 = MatTabLabelWrapperBase;
-exports.ɵd21 = _MatTabLabelWrapperMixinBase;
-exports.ɵi21 = MatTabLinkBase;
-exports.ɵg21 = MatTabNavBase;
-exports.ɵj21 = _MatTabLinkMixinBase;
-exports.ɵh21 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

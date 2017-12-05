@@ -30,7 +30,9 @@ export declare class MatChipInput {
     separatorKeyCodes: number[];
     /** Emitted when a chip is to be added. */
     chipEnd: EventEmitter<MatChipInputEvent>;
+    /** The input's placeholder text. */
     placeholder: string;
+    /** Whether the input is empty. */
     readonly empty: boolean;
     /** The native input element to which this directive is attached. */
     protected _inputElement: HTMLInputElement;

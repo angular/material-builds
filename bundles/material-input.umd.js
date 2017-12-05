@@ -52,6 +52,7 @@ var MatTextareaAutosize = (function () {
     }
     Object.defineProperty(MatTextareaAutosize.prototype, "minRows", {
         get: /**
+         * Minimum amount of rows in the textarea.
          * @return {?}
          */
         function () { return this._minRows; },
@@ -68,6 +69,7 @@ var MatTextareaAutosize = (function () {
     });
     Object.defineProperty(MatTextareaAutosize.prototype, "maxRows", {
         get: /**
+         * Maximum amount of rows in the textarea.
          * @return {?}
          */
         function () { return this._maxRows; },

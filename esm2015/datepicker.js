@@ -1528,6 +1528,7 @@ class MatDatepickerInput {
         }
     }
     /**
+     * Function that can be used to filter out dates within the datepicker.
      * @param {?} filter
      * @return {?}
      */

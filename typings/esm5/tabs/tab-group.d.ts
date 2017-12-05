@@ -11,7 +11,9 @@ import { MatTabHeader } from './tab-header';
 import { CanColor, CanDisableRipple, ThemePalette } from '@angular/material/core';
 /** A simple change event emitted on focus or selection changes. */
 export declare class MatTabChangeEvent {
+    /** Index of the currently-selected tab. */
     index: number;
+    /** Reference to the currently-selected tab. */
     tab: MatTab;
 }
 /** Possible positions for the tab header. */

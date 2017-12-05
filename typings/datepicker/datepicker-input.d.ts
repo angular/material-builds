@@ -11,11 +11,17 @@ export declare const MAT_DATEPICKER_VALIDATORS: any;
  * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
  */
 export declare class MatDatepickerInputEvent<D> {
+    /** Reference to the datepicker input component that emitted the event. */
     target: MatDatepickerInput<D>;
+    /** Reference to the native input element associated with the datepicker input. */
     targetElement: HTMLElement;
     /** The new value for the target datepicker input. */
     value: D | null;
-    constructor(target: MatDatepickerInput<D>, targetElement: HTMLElement);
+    constructor(
+        /** Reference to the datepicker input component that emitted the event. */
+        target: MatDatepickerInput<D>, 
+        /** Reference to the native input element associated with the datepicker input. */
+        targetElement: HTMLElement);
 }
 /** Directive used to connect an input to a MatDatepicker. */
 export declare class MatDatepickerInput<D> implements AfterContentInit, ControlValueAccessor, OnDestroy, Validator {
@@ -27,6 +33,7 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     matDatepicker: MatDatepicker<D>;
     _datepicker: MatDatepicker<D>;
     private registerDatepicker(value);
+    /** Function that can be used to filter out dates within the datepicker. */
     matDatepickerFilter: (date: D | null) => boolean;
     _dateFilter: (date: D | null) => boolean;
     /** The value of the input. */

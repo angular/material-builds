@@ -10,9 +10,15 @@ import { MatOption, MatOptgroup } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 /** Event object that is emitted when an autocomplete option is selected */
 export declare class MatAutocompleteSelectedEvent {
+    /** Reference to the autocomplete panel that emitted the event. */
     source: MatAutocomplete;
+    /** Option that was selected. */
     option: MatOption;
-    constructor(source: MatAutocomplete, option: MatOption);
+    constructor(
+        /** Reference to the autocomplete panel that emitted the event. */
+        source: MatAutocomplete, 
+        /** Option that was selected. */
+        option: MatOption);
 }
 export declare class MatAutocomplete implements AfterContentInit {
     private _changeDetectorRef;

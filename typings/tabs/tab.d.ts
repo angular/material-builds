@@ -24,6 +24,7 @@ export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisab
     textLabel: string;
     /** The portal that will be the hosted content of the tab */
     private _contentPortal;
+    /** @docs-private */
     readonly content: TemplatePortal<any> | null;
     /** Emits whenever the label changes. */
     _labelChange: Subject<void>;

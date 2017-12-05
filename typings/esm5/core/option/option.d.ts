@@ -2,9 +2,15 @@ import { ChangeDetectorRef, ElementRef, EventEmitter, QueryList, InjectionToken 
 import { MatOptgroup } from './optgroup';
 /** Event object emitted by MatOption when selected or deselected. */
 export declare class MatOptionSelectionChange {
+    /** Reference to the option that emitted the event. */
     source: MatOption;
+    /** Whether the change in the option's value was a result of a user action. */
     isUserInput: boolean;
-    constructor(source: MatOption, isUserInput?: boolean);
+    constructor(
+        /** Reference to the option that emitted the event. */
+        source: MatOption, 
+        /** Whether the change in the option's value was a result of a user action. */
+        isUserInput?: boolean);
 }
 /**
  * Describes a parent component that manages a list of options.

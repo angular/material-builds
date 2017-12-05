@@ -17,7 +17,9 @@ export declare class MatTextareaAutosize implements AfterViewInit, DoCheck {
     private _previousValue;
     private _minRows;
     private _maxRows;
+    /** Minimum amount of rows in the textarea. */
     minRows: number;
+    /** Maximum amount of rows in the textarea. */
     maxRows: number;
     /** Cached height of a textarea with a single row. */
     private _cachedLineHeight;

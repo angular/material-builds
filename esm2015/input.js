@@ -32,6 +32,7 @@ class MatTextareaAutosize {
         this._platform = _platform;
     }
     /**
+     * Minimum amount of rows in the textarea.
      * @return {?}
      */
     get minRows() { return this._minRows; }
@@ -44,6 +45,7 @@ class MatTextareaAutosize {
         this._setMinHeight();
     }
     /**
+     * Maximum amount of rows in the textarea.
      * @return {?}
      */
     get maxRows() { return this._maxRows; }

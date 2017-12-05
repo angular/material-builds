@@ -26,9 +26,15 @@ export declare class MatChipListBase {
 export declare const _MatChipListMixinBase: (new (...args: any[]) => CanUpdateErrorState) & typeof MatChipListBase;
 /** Change event object that is emitted when the chip list value has changed. */
 export declare class MatChipListChange {
+    /** Chip list that emitted the event. */
     source: MatChipList;
+    /** Value of the chip list when the event was emitted. */
     value: any;
-    constructor(source: MatChipList, value: any);
+    constructor(
+        /** Chip list that emitted the event. */
+        source: MatChipList, 
+        /** Value of the chip list when the event was emitted. */
+        value: any);
 }
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).

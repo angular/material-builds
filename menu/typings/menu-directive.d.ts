@@ -47,6 +47,7 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel, OnDestro
     xPosition: MenuPositionX;
     /** Position of the menu in the Y axis. */
     yPosition: MenuPositionY;
+    /** @docs-private */
     templateRef: TemplateRef<any>;
     /** List of the items inside of a menu. */
     items: QueryList<MatMenuItem>;
