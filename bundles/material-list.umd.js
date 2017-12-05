@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.list = global.ng.material.list || {}),global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes));
-}(this, (function (exports,_angular_common,_angular_core,_angular_material_core,_angular_cdk_a11y,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/forms')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/forms'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.list = global.ng.material.list || {}),global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.forms));
+}(this, (function (exports,_angular_common,_angular_core,_angular_material_core,_angular_cdk_a11y,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,_angular_forms) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -324,12 +324,33 @@ var MatListOptionBase = (function () {
 }());
 var _MatListOptionMixinBase = _angular_material_core.mixinDisableRipple(MatListOptionBase);
 /**
- * Change event object emitted by MatListOption
+ * \@docs-private
+ */
+var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
+    provide: _angular_forms.NG_VALUE_ACCESSOR,
+    useExisting: _angular_core.forwardRef(function () { return MatSelectionList; }),
+    multi: true
+};
+/**
+ * Change event object emitted by MatListOption whenever the selected state changes.
+ * @deprecated Use the `MatSelectionListChange` event on the selection list instead.
  */
 var MatListOptionChange = (function () {
-    function MatListOptionChange() {
+    function MatListOptionChange(source, selected) {
+        this.source = source;
+        this.selected = selected;
     }
     return MatListOptionChange;
+}());
+/**
+ * Change event that is being fired whenever the selected state of an option changes.
+ */
+var MatSelectionListChange = (function () {
+    function MatSelectionListChange(source, option) {
+        this.source = source;
+        this.option = option;
+    }
+    return MatSelectionListChange;
 }());
 /**
  * Component for list-options of selection-list. Each list-option can automatically
@@ -343,6 +364,7 @@ var MatListOption = (function (_super) {
         _this._element = _element;
         _this._changeDetector = _changeDetector;
         _this.selectionList = selectionList;
+        _this._selected = false;
         _this._disabled = false;
         /**
          * Whether the option has focus.
@@ -353,7 +375,8 @@ var MatListOption = (function (_super) {
          */
         _this.checkboxPosition = 'after';
         /**
-         * Emitted when the option is selected or deselected.
+         * Emits a change event whenever the selected state of an option changes.
+         * @deprecated Use the `selectionChange` event on the `<mat-selection-list>` instead.
          */
         _this.selectionChange = new _angular_core.EventEmitter();
         return _this;
@@ -363,14 +386,18 @@ var MatListOption = (function (_super) {
          * Whether the option is disabled.
          * @return {?}
          */
-        function () {
-            return (this.selectionList && this.selectionList.disabled) || this._disabled;
-        },
+        function () { return (this.selectionList && this.selectionList.disabled) || this._disabled; },
         set: /**
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        function (value) {
+            var /** @type {?} */ newValue = _angular_cdk_coercion.coerceBooleanProperty(value);
+            if (newValue !== this._disabled) {
+                this._disabled = newValue;
+                this._changeDetector.markForCheck();
+            }
+        },
         enumerable: true,
         configurable: true
     });
@@ -386,10 +413,9 @@ var MatListOption = (function (_super) {
          */
         function (value) {
             var /** @type {?} */ isSelected = _angular_cdk_coercion.coerceBooleanProperty(value);
-            if (isSelected !== this.selected) {
-                this.selectionList.selectedOptions.toggle(this);
-                this._changeDetector.markForCheck();
-                this.selectionChange.emit(this._createChangeEvent());
+            if (isSelected !== this._selected) {
+                this._setSelected(isSelected);
+                this.selectionList._reportValueChange();
             }
         },
         enumerable: true,
@@ -402,8 +428,14 @@ var MatListOption = (function (_super) {
      * @return {?}
      */
     function () {
+        var _this = this;
         if (this.selected) {
-            this.selectionList.selectedOptions.select(this);
+            // List options that are selected at initialization can't be reported properly to the form
+            // control. This is because it takes some time until the selection-list knows about all
+            // available options. Also it can happen that the ControlValueAccessor has an initial value
+            // that should be used instead. Deferring the value change report to the next tick ensures
+            // that the form control value is not being overwritten.
+            Promise.resolve(function () { return _this.selected && _this.selectionList._reportValueChange(); });
         }
     };
     /**
@@ -469,6 +501,10 @@ var MatListOption = (function (_super) {
     function () {
         if (!this.disabled) {
             this.toggle();
+            // Emit a change event if the selected state of the option changed through user interaction.
+            this.selectionList._emitChangeEvent(this);
+            // TODO: the `selectionChange` event on the option is deprecated. Remove that in the future.
+            this._emitDeprecatedChangeEvent();
         }
     };
     /**
@@ -482,21 +518,14 @@ var MatListOption = (function (_super) {
         this.selectionList._setFocusedOption(this);
     };
     /**
-     * Creates a selection event object from the specified option.
-     * @param {?=} option
      * @return {?}
      */
-    MatListOption.prototype._createChangeEvent = /**
-     * Creates a selection event object from the specified option.
-     * @param {?=} option
+    MatListOption.prototype._handleBlur = /**
      * @return {?}
      */
-    function (option) {
-        if (option === void 0) { option = this; }
-        var /** @type {?} */ event = new MatListOptionChange();
-        event.source = option;
-        event.selected = option.selected;
-        return event;
+    function () {
+        this._hasFocus = false;
+        this.selectionList.onTouched();
     };
     /** Retrieves the DOM element of the component host. */
     /**
@@ -510,6 +539,43 @@ var MatListOption = (function (_super) {
     function () {
         return this._element.nativeElement;
     };
+    /** Sets the selected state of the option. */
+    /**
+     * Sets the selected state of the option.
+     * @param {?} selected
+     * @return {?}
+     */
+    MatListOption.prototype._setSelected = /**
+     * Sets the selected state of the option.
+     * @param {?} selected
+     * @return {?}
+     */
+    function (selected) {
+        if (selected === this._selected) {
+            return;
+        }
+        this._selected = selected;
+        if (selected) {
+            this.selectionList.selectedOptions.select(this);
+        }
+        else {
+            this.selectionList.selectedOptions.deselect(this);
+        }
+        this._changeDetector.markForCheck();
+    };
+    /** Emits a selectionChange event for this option. */
+    /**
+     * Emits a selectionChange event for this option.
+     * @return {?}
+     */
+    MatListOption.prototype._emitDeprecatedChangeEvent = /**
+     * Emits a selectionChange event for this option.
+     * @return {?}
+     */
+    function () {
+        // TODO: the `selectionChange` event on the option is deprecated. Remove that in the future.
+        this.selectionChange.emit(new MatListOptionChange(this, this.selected));
+    };
     MatListOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-list-option',
                     exportAs: 'matListOption',
@@ -518,7 +584,7 @@ var MatListOption = (function (_super) {
                         'role': 'option',
                         'class': 'mat-list-item mat-list-option',
                         '(focus)': '_handleFocus()',
-                        '(blur)': '_hasFocus = false',
+                        '(blur)': '_handleBlur()',
                         '(click)': '_handleClick()',
                         'tabindex': '-1',
                         '[class.mat-list-item-disabled]': 'disabled',
@@ -541,8 +607,8 @@ var MatListOption = (function (_super) {
     MatListOption.propDecorators = {
         "_lines": [{ type: _angular_core.ContentChildren, args: [_angular_material_core.MatLine,] },],
         "checkboxPosition": [{ type: _angular_core.Input },],
-        "disabled": [{ type: _angular_core.Input },],
         "value": [{ type: _angular_core.Input },],
+        "disabled": [{ type: _angular_core.Input },],
         "selected": [{ type: _angular_core.Input },],
         "selectionChange": [{ type: _angular_core.Output },],
     };
@@ -557,9 +623,21 @@ var MatSelectionList = (function (_super) {
         var _this = _super.call(this) || this;
         _this._element = _element;
         /**
+         * Emits a change event whenever the selected state of an option changes.
+         */
+        _this.selectionChange = new _angular_core.EventEmitter();
+        /**
          * The currently selected options.
          */
         _this.selectedOptions = new _angular_cdk_collections.SelectionModel(true);
+        /**
+         * View to model callback that should be called whenever the selected options change.
+         */
+        _this._onChange = function (_) { };
+        /**
+         * View to model callback that should be called if the list or its options lost focus.
+         */
+        _this.onTouched = function () { };
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -594,11 +672,8 @@ var MatSelectionList = (function (_super) {
      * @return {?}
      */
     function () {
-        this.options.forEach(function (option) {
-            if (!option.selected) {
-                option.toggle();
-            }
-        });
+        this.options.forEach(function (option) { return option._setSelected(true); });
+        this._reportValueChange();
     };
     /** Deselects all of the options. */
     /**
@@ -610,11 +685,8 @@ var MatSelectionList = (function (_super) {
      * @return {?}
      */
     function () {
-        this.options.forEach(function (option) {
-            if (option.selected) {
-                option.toggle();
-            }
-        });
+        this.options.forEach(function (option) { return option._setSelected(false); });
+        this._reportValueChange();
     };
     /** Sets the focused option of the selection-list. */
     /**
@@ -675,6 +747,136 @@ var MatSelectionList = (function (_super) {
                 this._keyManager.onKeydown(event);
         }
     };
+    /** Reports a value change to the ControlValueAccessor */
+    /**
+     * Reports a value change to the ControlValueAccessor
+     * @return {?}
+     */
+    MatSelectionList.prototype._reportValueChange = /**
+     * Reports a value change to the ControlValueAccessor
+     * @return {?}
+     */
+    function () {
+        if (this.options) {
+            this._onChange(this._getSelectedOptionValues());
+        }
+    };
+    /** Emits a change event if the selected state of an option changed. */
+    /**
+     * Emits a change event if the selected state of an option changed.
+     * @param {?} option
+     * @return {?}
+     */
+    MatSelectionList.prototype._emitChangeEvent = /**
+     * Emits a change event if the selected state of an option changed.
+     * @param {?} option
+     * @return {?}
+     */
+    function (option) {
+        this.selectionChange.emit(new MatSelectionListChange(this, option));
+    };
+    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Implemented as part of ControlValueAccessor.
+     * @param {?} values
+     * @return {?}
+     */
+    MatSelectionList.prototype.writeValue = /**
+     * Implemented as part of ControlValueAccessor.
+     * @param {?} values
+     * @return {?}
+     */
+    function (values) {
+        if (this.options) {
+            this._setOptionsFromValues(values || []);
+        }
+    };
+    /** Implemented as a part of ControlValueAccessor. */
+    /**
+     * Implemented as a part of ControlValueAccessor.
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    MatSelectionList.prototype.setDisabledState = /**
+     * Implemented as a part of ControlValueAccessor.
+     * @param {?} isDisabled
+     * @return {?}
+     */
+    function (isDisabled) {
+        if (this.options) {
+            this.options.forEach(function (option) { return option.disabled = isDisabled; });
+        }
+    };
+    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Implemented as part of ControlValueAccessor.
+     * @param {?} fn
+     * @return {?}
+     */
+    MatSelectionList.prototype.registerOnChange = /**
+     * Implemented as part of ControlValueAccessor.
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
+        this._onChange = fn;
+    };
+    /** Implemented as part of ControlValueAccessor. */
+    /**
+     * Implemented as part of ControlValueAccessor.
+     * @param {?} fn
+     * @return {?}
+     */
+    MatSelectionList.prototype.registerOnTouched = /**
+     * Implemented as part of ControlValueAccessor.
+     * @param {?} fn
+     * @return {?}
+     */
+    function (fn) {
+        this.onTouched = fn;
+    };
+    /**
+     * Returns the option with the specified value.
+     * @param {?} value
+     * @return {?}
+     */
+    MatSelectionList.prototype._getOptionByValue = /**
+     * Returns the option with the specified value.
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        return this.options.find(function (option) { return option.value === value; });
+    };
+    /**
+     * Sets the selected options based on the specified values.
+     * @param {?} values
+     * @return {?}
+     */
+    MatSelectionList.prototype._setOptionsFromValues = /**
+     * Sets the selected options based on the specified values.
+     * @param {?} values
+     * @return {?}
+     */
+    function (values) {
+        var _this = this;
+        this.options.forEach(function (option) { return option._setSelected(false); });
+        values
+            .map(function (value) { return _this._getOptionByValue(value); })
+            .filter(Boolean)
+            .forEach(function (option) { return /** @type {?} */ ((option))._setSelected(true); });
+    };
+    /**
+     * Returns the values of the selected options.
+     * @return {?}
+     */
+    MatSelectionList.prototype._getSelectedOptionValues = /**
+     * Returns the values of the selected options.
+     * @return {?}
+     */
+    function () {
+        return this.options.filter(function (option) { return option.selected; }).map(function (option) { return option.value; });
+    };
     /**
      * Toggles the selected state of the currently focused option.
      * @return {?}
@@ -689,18 +891,21 @@ var MatSelectionList = (function (_super) {
             var /** @type {?} */ focusedOption = this.options.toArray()[focusedIndex];
             if (focusedOption) {
                 focusedOption.toggle();
+                // Emit a change event because the focused option changed its state through user
+                // interaction.
+                this._emitChangeEvent(focusedOption);
+                // TODO: the `selectionChange` event on the option is deprecated. Remove that in the future.
+                focusedOption._emitDeprecatedChangeEvent();
             }
         }
     };
     /**
      * Utility to ensure all indexes are valid.
-     *
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of options.
      */
     MatSelectionList.prototype._isValidIndex = /**
      * Utility to ensure all indexes are valid.
-     *
      * @param {?} index The index to be checked.
      * @return {?} True if the index is valid for our list of options.
      */
@@ -729,12 +934,14 @@ var MatSelectionList = (function (_super) {
                         '[tabIndex]': 'tabIndex',
                         'class': 'mat-selection-list',
                         '(focus)': 'focus()',
+                        '(blur)': 'onTouched()',
                         '(keydown)': '_keydown($event)',
                         '[attr.aria-disabled]': 'disabled.toString()'
                     },
                     template: '<ng-content></ng-content>',
                     styles: [".mat-subheader{display:flex;box-sizing:border-box;padding:16px;align-items:center}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{margin:0}.mat-list,.mat-nav-list,.mat-selection-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{height:48px;line-height:16px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child,.mat-selection-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-list .mat-list-option,.mat-nav-list .mat-list-item,.mat-nav-list .mat-list-option,.mat-selection-list .mat-list-item,.mat-selection-list .mat-list-option{display:block;height:48px}.mat-list .mat-list-item .mat-list-item-content,.mat-list .mat-list-option .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-option .mat-list-item-content,.mat-selection-list .mat-list-item .mat-list-item-content,.mat-selection-list .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list .mat-list-item .mat-list-item-content-reverse,.mat-list .mat-list-option .mat-list-item-content-reverse,.mat-nav-list .mat-list-item .mat-list-item-content-reverse,.mat-nav-list .mat-list-option .mat-list-item-content-reverse,.mat-selection-list .mat-list-item .mat-list-item-content-reverse,.mat-selection-list .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-item .mat-list-item-ripple,.mat-list .mat-list-option .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-option .mat-list-item-ripple,.mat-selection-list .mat-list-item .mat-list-item-ripple,.mat-selection-list .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-item.mat-list-item-avatar,.mat-list .mat-list-option.mat-list-item-avatar,.mat-nav-list .mat-list-item.mat-list-item-avatar,.mat-nav-list .mat-list-option.mat-list-item-avatar,.mat-selection-list .mat-list-item.mat-list-item-avatar,.mat-selection-list .mat-list-option.mat-list-item-avatar{height:56px}.mat-list .mat-list-item.mat-2-line,.mat-list .mat-list-option.mat-2-line,.mat-nav-list .mat-list-item.mat-2-line,.mat-nav-list .mat-list-option.mat-2-line,.mat-selection-list .mat-list-item.mat-2-line,.mat-selection-list .mat-list-option.mat-2-line{height:72px}.mat-list .mat-list-item.mat-3-line,.mat-list .mat-list-option.mat-3-line,.mat-nav-list .mat-list-item.mat-3-line,.mat-nav-list .mat-list-option.mat-3-line,.mat-selection-list .mat-list-item.mat-3-line,.mat-selection-list .mat-list-option.mat-3-line{height:88px}.mat-list .mat-list-item.mat-multi-line,.mat-list .mat-list-option.mat-multi-line,.mat-nav-list .mat-list-item.mat-multi-line,.mat-nav-list .mat-list-option.mat-multi-line,.mat-selection-list .mat-list-item.mat-multi-line,.mat-selection-list .mat-list-option.mat-multi-line{height:auto}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list .mat-list-item .mat-list-text,.mat-list .mat-list-option .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-option .mat-list-text,.mat-selection-list .mat-list-item .mat-list-text,.mat-selection-list .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list .mat-list-item .mat-list-text>*,.mat-list .mat-list-option .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-option .mat-list-text>*,.mat-selection-list .mat-list-item .mat-list-text>*,.mat-selection-list .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-list .mat-list-option .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-option .mat-list-text:empty,.mat-selection-list .mat-list-item .mat-list-text:empty,.mat-selection-list .mat-list-option .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-text:nth-child(2),.mat-list .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list .mat-list-item .mat-list-avatar,.mat-list .mat-list-option .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-option .mat-list-avatar,.mat-selection-list .mat-list-item .mat-list-avatar,.mat-selection-list .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-icon,.mat-list .mat-list-option .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-option .mat-list-icon,.mat-selection-list .mat-list-item .mat-list-icon,.mat-selection-list .mat-list-option .mat-list-icon{width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense],.mat-nav-list[dense],.mat-selection-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader,.mat-selection-list[dense] .mat-subheader{height:40px;line-height:8px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child,.mat-selection-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-list[dense] .mat-list-option,.mat-nav-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-option,.mat-selection-list[dense] .mat-list-item,.mat-selection-list[dense] .mat-list-option{display:block;height:40px}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-list[dense] .mat-list-option .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-option .mat-list-item-content,.mat-selection-list[dense] .mat-list-item .mat-list-item-content,.mat-selection-list[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-list[dense] .mat-list-option .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-option .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-item .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-avatar,.mat-list[dense] .mat-list-option.mat-list-item-avatar,.mat-nav-list[dense] .mat-list-item.mat-list-item-avatar,.mat-nav-list[dense] .mat-list-option.mat-list-item-avatar,.mat-selection-list[dense] .mat-list-item.mat-list-item-avatar,.mat-selection-list[dense] .mat-list-option.mat-list-item-avatar{height:48px}.mat-list[dense] .mat-list-item.mat-2-line,.mat-list[dense] .mat-list-option.mat-2-line,.mat-nav-list[dense] .mat-list-item.mat-2-line,.mat-nav-list[dense] .mat-list-option.mat-2-line,.mat-selection-list[dense] .mat-list-item.mat-2-line,.mat-selection-list[dense] .mat-list-option.mat-2-line{height:60px}.mat-list[dense] .mat-list-item.mat-3-line,.mat-list[dense] .mat-list-option.mat-3-line,.mat-nav-list[dense] .mat-list-item.mat-3-line,.mat-nav-list[dense] .mat-list-option.mat-3-line,.mat-selection-list[dense] .mat-list-item.mat-3-line,.mat-selection-list[dense] .mat-list-option.mat-3-line{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line,.mat-list[dense] .mat-list-option.mat-multi-line,.mat-nav-list[dense] .mat-list-item.mat-multi-line,.mat-nav-list[dense] .mat-list-option.mat-multi-line,.mat-selection-list[dense] .mat-list-item.mat-multi-line,.mat-selection-list[dense] .mat-list-option.mat-multi-line{height:auto}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-list[dense] .mat-list-option .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-option .mat-list-text,.mat-selection-list[dense] .mat-list-item .mat-list-text,.mat-selection-list[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0 16px}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-list[dense] .mat-list-option .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-option .mat-list-text>*,.mat-selection-list[dense] .mat-list-item .mat-list-text>*,.mat-selection-list[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-list[dense] .mat-list-option .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-option .mat-list-text:empty,.mat-selection-list[dense] .mat-list-item .mat-list-text:empty,.mat-selection-list[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-nav-list[dense] .mat-list-option .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-item .mat-list-text:nth-child(2),.mat-selection-list[dense] .mat-list-option .mat-list-text:nth-child(2){padding:0}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-list[dense] .mat-list-option .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-option .mat-list-avatar,.mat-selection-list[dense] .mat-list-item .mat-list-avatar,.mat-selection-list[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-list[dense] .mat-list-option .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-option .mat-list-icon,.mat-selection-list[dense] .mat-list-item .mat-list-icon,.mat-selection-list[dense] .mat-list-option .mat-list-icon{width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-divider{display:block;border-top-style:solid;border-top-width:1px;margin:0}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item-content{cursor:pointer}.mat-nav-list .mat-list-item-content.mat-list-item-focus,.mat-nav-list .mat-list-item-content:hover{outline:0}.mat-list-option:not([disabled]){cursor:pointer}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
+                    providers: [MAT_SELECTION_LIST_VALUE_ACCESSOR],
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
                 },] },
@@ -746,6 +953,7 @@ var MatSelectionList = (function (_super) {
     ]; };
     MatSelectionList.propDecorators = {
         "options": [{ type: _angular_core.ContentChildren, args: [MatListOption,] },],
+        "selectionChange": [{ type: _angular_core.Output },],
     };
     return MatSelectionList;
 }(_MatSelectionListMixinBase));
@@ -812,7 +1020,9 @@ exports.MatSelectionListBase = MatSelectionListBase;
 exports._MatSelectionListMixinBase = _MatSelectionListMixinBase;
 exports.MatListOptionBase = MatListOptionBase;
 exports._MatListOptionMixinBase = _MatListOptionMixinBase;
+exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatListOptionChange = MatListOptionChange;
+exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
 
