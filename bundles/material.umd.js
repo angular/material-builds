@@ -11552,6 +11552,7 @@ var MatCalendar = (function () {
             case _angular_cdk_keycodes.ENTER:
                 if (this._dateFilterForViews(this._activeDate)) {
                     this._dateSelected(this._activeDate);
+                    this._userSelected();
                     // Prevent unexpected default actions such as form submission.
                     event.preventDefault();
                 }
@@ -11626,11 +11627,8 @@ var MatCalendar = (function () {
      * @return {?}
      */
     function (date) {
-        // Determine how many months to jump forward given that there are 2 empty slots at the beginning
-        // of each year.
-        var /** @type {?} */ increment = this._dateAdapter.getMonth(date) <= 4 ? -5 :
-            (this._dateAdapter.getMonth(date) >= 7 ? -7 : -12);
-        return this._dateAdapter.addCalendarMonths(date, increment);
+        // Decrement by 4 since there are 4 months per row.
+        return this._dateAdapter.addCalendarMonths(date, -4);
     };
     /**
      * Determine the date for the month that comes after the given month in the same column in the
@@ -11645,11 +11643,8 @@ var MatCalendar = (function () {
      * @return {?}
      */
     function (date) {
-        // Determine how many months to jump forward given that there are 2 empty slots at the beginning
-        // of each year.
-        var /** @type {?} */ increment = this._dateAdapter.getMonth(date) <= 4 ? 7 :
-            (this._dateAdapter.getMonth(date) >= 7 ? 5 : 12);
-        return this._dateAdapter.addCalendarMonths(date, increment);
+        // Increment by 4 since there are 4 months per row.
+        return this._dateAdapter.addCalendarMonths(date, 4);
     };
     /**
      * @param {?} obj The object to check.
@@ -27775,7 +27770,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-e7b412a');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-0b2757c');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27997,10 +27992,10 @@ exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MatListOptionChange = MatListOptionChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MatMenuItemBase;
-exports.ɵb21 = _MatMenuItemMixinBase;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -28111,16 +28106,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe21 = MatTabBase;
+exports.ɵf21 = _MatTabMixinBase;
+exports.ɵa21 = MatTabHeaderBase;
+exports.ɵb21 = _MatTabHeaderMixinBase;
+exports.ɵc21 = MatTabLabelWrapperBase;
+exports.ɵd21 = _MatTabLabelWrapperMixinBase;
+exports.ɵi21 = MatTabLinkBase;
+exports.ɵg21 = MatTabNavBase;
+exports.ɵj21 = _MatTabLinkMixinBase;
+exports.ɵh21 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

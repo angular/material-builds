@@ -863,6 +863,7 @@ class MatCalendar {
             case ENTER:
                 if (this._dateFilterForViews(this._activeDate)) {
                     this._dateSelected(this._activeDate);
+                    this._userSelected();
                     // Prevent unexpected default actions such as form submission.
                     event.preventDefault();
                 }
@@ -926,11 +927,8 @@ class MatCalendar {
      * @return {?}
      */
     _prevMonthInSameCol(date) {
-        // Determine how many months to jump forward given that there are 2 empty slots at the beginning
-        // of each year.
-        let /** @type {?} */ increment = this._dateAdapter.getMonth(date) <= 4 ? -5 :
-            (this._dateAdapter.getMonth(date) >= 7 ? -7 : -12);
-        return this._dateAdapter.addCalendarMonths(date, increment);
+        // Decrement by 4 since there are 4 months per row.
+        return this._dateAdapter.addCalendarMonths(date, -4);
     }
     /**
      * Determine the date for the month that comes after the given month in the same column in the
@@ -939,11 +937,8 @@ class MatCalendar {
      * @return {?}
      */
     _nextMonthInSameCol(date) {
-        // Determine how many months to jump forward given that there are 2 empty slots at the beginning
-        // of each year.
-        let /** @type {?} */ increment = this._dateAdapter.getMonth(date) <= 4 ? 7 :
-            (this._dateAdapter.getMonth(date) >= 7 ? 5 : 12);
-        return this._dateAdapter.addCalendarMonths(date, increment);
+        // Increment by 4 since there are 4 months per row.
+        return this._dateAdapter.addCalendarMonths(date, 4);
     }
     /**
      * @param {?} obj The object to check.
