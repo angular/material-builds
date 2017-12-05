@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/scrolling'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('rxjs/operators/debounceTime'), require('rxjs/operators/map'), require('rxjs/Subject'), require('rxjs/Observable')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/scrolling', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', 'rxjs/operators/debounceTime', 'rxjs/operators/map', 'rxjs/Subject', 'rxjs/Observable'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = global.ng.material.sidenav || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.scrolling,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_core,_angular_cdk_scrolling,_angular_animations,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_keycodes,rxjs_observable_merge,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_startWith,rxjs_operators_takeUntil,rxjs_operators_debounceTime,rxjs_operators_map,rxjs_Subject) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('rxjs/operators/debounceTime'), require('rxjs/operators/map'), require('rxjs/Subject'), require('rxjs/Observable')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', 'rxjs/operators/debounceTime', 'rxjs/operators/map', 'rxjs/Subject', 'rxjs/Observable'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = global.ng.material.sidenav || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_core,_angular_cdk_scrolling,_angular_cdk_platform,_angular_animations,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_keycodes,rxjs_observable_merge,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_startWith,rxjs_operators_takeUntil,rxjs_operators_debounceTime,rxjs_operators_map,rxjs_Subject) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -113,11 +113,12 @@ var MatDrawerContent = (function () {
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
 var MatDrawer = (function () {
-    function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _doc) {
+    function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _doc) {
         var _this = this;
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
         this._focusMonitor = _focusMonitor;
+        this._platform = _platform;
         this._doc = _doc;
         this._elementFocusedBeforeDrawerWasOpened = null;
         /**
@@ -334,7 +335,21 @@ var MatDrawer = (function () {
     function () {
         this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
         this._focusTrap.enabled = this._isFocusTrapEnabled;
-        this._enableAnimations = true;
+    };
+    /**
+     * @return {?}
+     */
+    MatDrawer.prototype.ngAfterContentChecked = /**
+     * @return {?}
+     */
+    function () {
+        // Enable the animations after the lifecycle hooks have run, in order to avoid animating
+        // drawers that are open by default. When we're on the server, we shouldn't enable the
+        // animations, because we don't want the drawer to animate the first time the user sees
+        // the page.
+        if (this._platform.isBrowser) {
+            this._enableAnimations = true;
+        }
     };
     /**
      * @return {?}
@@ -541,6 +556,7 @@ var MatDrawer = (function () {
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_a11y.FocusTrapFactory, },
         { type: _angular_cdk_a11y.FocusMonitor, },
+        { type: _angular_cdk_platform.Platform, },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
     ]; };
     MatDrawer.propDecorators = {
@@ -1142,6 +1158,7 @@ var MatSidenavModule = (function () {
                         _angular_cdk_a11y.A11yModule,
                         _angular_cdk_overlay.OverlayModule,
                         _angular_cdk_scrolling.ScrollDispatchModule,
+                        _angular_cdk_platform.PlatformModule,
                     ],
                     exports: [
                         _angular_material_core.MatCommonModule,

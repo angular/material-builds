@@ -8,7 +8,8 @@
 import { AnimationEvent } from '@angular/animations';
 import { FocusTrapFactory, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, QueryList, InjectionToken } from '@angular/core';
+import { Platform } from '@angular/cdk/platform';
+import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, QueryList, InjectionToken } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 /** Throws an exception when two MatDrawer are matching the same position. */
@@ -48,10 +49,11 @@ export declare class MatDrawerContent implements AfterContentInit {
 /**
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
-export declare class MatDrawer implements AfterContentInit, OnDestroy {
+export declare class MatDrawer implements AfterContentInit, AfterContentChecked, OnDestroy {
     private _elementRef;
     private _focusTrapFactory;
     private _focusMonitor;
+    private _platform;
     private _doc;
     private _focusTrap;
     private _elementFocusedBeforeDrawerWasOpened;
@@ -106,13 +108,14 @@ export declare class MatDrawer implements AfterContentInit, OnDestroy {
      */
     _modeChanged: Subject<{}>;
     readonly _isFocusTrapEnabled: boolean;
-    constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _doc: any);
+    constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _doc: any);
     /**
      * If focus is currently inside the drawer, restores it to where it was before the drawer
      * opened.
      */
     private _restoreFocus();
     ngAfterContentInit(): void;
+    ngAfterContentChecked(): void;
     ngOnDestroy(): void;
     /**
      * Whether the drawer is opened. We overload this because we trigger an event when it

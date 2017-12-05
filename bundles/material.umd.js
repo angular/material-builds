@@ -20930,11 +20930,12 @@ var MatDrawerContent = (function () {
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
 var MatDrawer = (function () {
-    function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _doc) {
+    function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _doc) {
         var _this = this;
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
         this._focusMonitor = _focusMonitor;
+        this._platform = _platform;
         this._doc = _doc;
         this._elementFocusedBeforeDrawerWasOpened = null;
         /**
@@ -21151,7 +21152,21 @@ var MatDrawer = (function () {
     function () {
         this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
         this._focusTrap.enabled = this._isFocusTrapEnabled;
-        this._enableAnimations = true;
+    };
+    /**
+     * @return {?}
+     */
+    MatDrawer.prototype.ngAfterContentChecked = /**
+     * @return {?}
+     */
+    function () {
+        // Enable the animations after the lifecycle hooks have run, in order to avoid animating
+        // drawers that are open by default. When we're on the server, we shouldn't enable the
+        // animations, because we don't want the drawer to animate the first time the user sees
+        // the page.
+        if (this._platform.isBrowser) {
+            this._enableAnimations = true;
+        }
     };
     /**
      * @return {?}
@@ -21358,6 +21373,7 @@ var MatDrawer = (function () {
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_a11y.FocusTrapFactory, },
         { type: _angular_cdk_a11y.FocusMonitor, },
+        { type: _angular_cdk_platform.Platform, },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
     ]; };
     MatDrawer.propDecorators = {
@@ -21959,6 +21975,7 @@ var MatSidenavModule = (function () {
                         _angular_cdk_a11y.A11yModule,
                         _angular_cdk_overlay.OverlayModule,
                         _angular_cdk_scrolling.ScrollDispatchModule,
+                        _angular_cdk_platform.PlatformModule,
                     ],
                     exports: [
                         MatCommonModule,
@@ -27990,7 +28007,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.3-3fbb28a');
+var VERSION = new _angular_core.Version('5.0.0-rc.3-2b1f84e');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -28214,10 +28231,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa19 = MatMenuItemBase;
-exports.ɵb19 = _MatMenuItemMixinBase;
-exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa12 = MatMenuItemBase;
+exports.ɵb12 = _MatMenuItemMixinBase;
+exports.ɵd12 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc12 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -28328,16 +28345,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe14 = MatTabBase;
-exports.ɵf14 = _MatTabMixinBase;
-exports.ɵa14 = MatTabHeaderBase;
-exports.ɵb14 = _MatTabHeaderMixinBase;
-exports.ɵc14 = MatTabLabelWrapperBase;
-exports.ɵd14 = _MatTabLabelWrapperMixinBase;
-exports.ɵi14 = MatTabLinkBase;
-exports.ɵg14 = MatTabNavBase;
-exports.ɵj14 = _MatTabLinkMixinBase;
-exports.ɵh14 = _MatTabNavMixinBase;
+exports.ɵe17 = MatTabBase;
+exports.ɵf17 = _MatTabMixinBase;
+exports.ɵa17 = MatTabHeaderBase;
+exports.ɵb17 = _MatTabHeaderMixinBase;
+exports.ɵc17 = MatTabLabelWrapperBase;
+exports.ɵd17 = _MatTabLabelWrapperMixinBase;
+exports.ɵi17 = MatTabLinkBase;
+exports.ɵg17 = MatTabNavBase;
+exports.ɵj17 = _MatTabLinkMixinBase;
+exports.ɵh17 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

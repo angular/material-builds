@@ -11,6 +11,7 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
@@ -107,12 +108,14 @@ class MatDrawer {
      * @param {?} _elementRef
      * @param {?} _focusTrapFactory
      * @param {?} _focusMonitor
+     * @param {?} _platform
      * @param {?} _doc
      */
-    constructor(_elementRef, _focusTrapFactory, _focusMonitor, _doc) {
+    constructor(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _doc) {
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
         this._focusMonitor = _focusMonitor;
+        this._platform = _platform;
         this._doc = _doc;
         this._elementFocusedBeforeDrawerWasOpened = null;
         /**
@@ -285,7 +288,18 @@ class MatDrawer {
     ngAfterContentInit() {
         this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
         this._focusTrap.enabled = this._isFocusTrapEnabled;
-        this._enableAnimations = true;
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterContentChecked() {
+        // Enable the animations after the lifecycle hooks have run, in order to avoid animating
+        // drawers that are open by default. When we're on the server, we shouldn't enable the
+        // animations, because we don't want the drawer to animate the first time the user sees
+        // the page.
+        if (this._platform.isBrowser) {
+            this._enableAnimations = true;
+        }
     }
     /**
      * @return {?}
@@ -432,6 +446,7 @@ MatDrawer.ctorParameters = () => [
     { type: ElementRef, },
     { type: FocusTrapFactory, },
     { type: FocusMonitor, },
+    { type: Platform, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MatDrawer.propDecorators = {
@@ -926,6 +941,7 @@ MatSidenavModule.decorators = [
                     A11yModule,
                     OverlayModule,
                     ScrollDispatchModule,
+                    PlatformModule,
                 ],
                 exports: [
                     MatCommonModule,
