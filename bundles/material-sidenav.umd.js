@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/scrolling'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('rxjs/operators/map'), require('rxjs/Subject'), require('rxjs/Observable')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/scrolling', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', 'rxjs/operators/map', 'rxjs/Subject', 'rxjs/Observable'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = global.ng.material.sidenav || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.scrolling,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_core,_angular_cdk_scrolling,_angular_animations,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_keycodes,rxjs_observable_merge,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_startWith,rxjs_operators_takeUntil,rxjs_operators_map,rxjs_Subject) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/scrolling'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('rxjs/operators/debounceTime'), require('rxjs/operators/map'), require('rxjs/Subject'), require('rxjs/Observable')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/scrolling', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', 'rxjs/operators/debounceTime', 'rxjs/operators/map', 'rxjs/Subject', 'rxjs/Observable'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = global.ng.material.sidenav || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.scrolling,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_core,_angular_cdk_scrolling,_angular_animations,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_keycodes,rxjs_observable_merge,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_startWith,rxjs_operators_takeUntil,rxjs_operators_debounceTime,rxjs_operators_map,rxjs_Subject) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -61,6 +61,10 @@ var MatDrawerToggleResult = (function () {
     }
     return MatDrawerToggleResult;
 }());
+/**
+ * Configures whether drawers should use auto sizing by default.
+ */
+var MAT_DRAWER_DEFAULT_AUTOSIZE = new _angular_core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
 var MatDrawerContent = (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
@@ -70,7 +74,7 @@ var MatDrawerContent = (function () {
          * drawer is open. We use margin rather than transform even for push mode because transform breaks
          * fixed position elements inside of the transformed element.
          */
-        this._margins = { left: 0, right: 0 };
+        this._margins = { left: null, right: null };
     }
     /**
      * @return {?}
@@ -564,7 +568,8 @@ var MatDrawer = (function () {
  * and coordinates the backdrop and content styling.
  */
 var MatDrawerContainer = (function () {
-    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef) {
+    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize) {
+        if (defaultAutosize === void 0) { defaultAutosize = false; }
         var _this = this;
         this._dir = _dir;
         this._element = _element;
@@ -578,12 +583,17 @@ var MatDrawerContainer = (function () {
          * Emits when the component is destroyed.
          */
         this._destroyed = new rxjs_Subject.Subject();
+        /**
+         * Emits on every ngDoCheck. Used for debouncing reflows.
+         */
+        this._doCheckSubject = new rxjs_Subject.Subject();
         this._contentMargins = new rxjs_Subject.Subject();
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
             _dir.change.pipe(rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function () { return _this._validateDrawers(); });
         }
+        this._autosize = defaultAutosize;
     }
     Object.defineProperty(MatDrawerContainer.prototype, "start", {
         /** The drawer child with the `start` position. */
@@ -602,6 +612,25 @@ var MatDrawerContainer = (function () {
          * @return {?}
          */
         function () { return this._end; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDrawerContainer.prototype, "autosize", {
+        get: /**
+         * Whether to automatically resize the container whenever
+         * the size of any of its drawers changes.
+         *
+         * **Use at your own risk!** Enabling this option can cause layout thrashing by measuring
+         * the drawers on every change detection cycle. Can be configured globally via the
+         * `MAT_DRAWER_DEFAULT_AUTOSIZE` token.
+         * @return {?}
+         */
+        function () { return this._autosize; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._autosize = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -627,6 +656,9 @@ var MatDrawerContainer = (function () {
             }
             _this._changeDetectorRef.markForCheck();
         });
+        this._doCheckSubject.pipe(rxjs_operators_debounceTime.debounceTime(10), // Arbitrary debounce time, less than a frame at 60fps
+        // Arbitrary debounce time, less than a frame at 60fps
+        rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function () { return _this._updateContentMargins(); });
     };
     /**
      * @return {?}
@@ -635,6 +667,7 @@ var MatDrawerContainer = (function () {
      * @return {?}
      */
     function () {
+        this._doCheckSubject.complete();
         this._destroyed.next();
         this._destroyed.complete();
     };
@@ -661,6 +694,20 @@ var MatDrawerContainer = (function () {
      */
     function () {
         this._drawers.forEach(function (drawer) { return drawer.close(); });
+    };
+    /**
+     * @return {?}
+     */
+    MatDrawerContainer.prototype.ngDoCheck = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        // If users opted into autosizing, do a check every change detection cycle.
+        if (this._autosize && this._isPushed()) {
+            // Run outside the NgZone, otherwise the debouncer will throw us into an infinite loop.
+            this._ngZone.runOutsideAngular(function () { return _this._doCheckSubject.next(); });
+        }
     };
     /**
      * Subscribes to drawer events in order to set a class on the main container element when the
@@ -795,6 +842,18 @@ var MatDrawerContainer = (function () {
         }
     };
     /**
+     * Whether the container is being pushed to the side by one of the drawers.
+     * @return {?}
+     */
+    MatDrawerContainer.prototype._isPushed = /**
+     * Whether the container is being pushed to the side by one of the drawers.
+     * @return {?}
+     */
+    function () {
+        return (this._isDrawerOpen(this._start) && /** @type {?} */ ((this._start)).mode != 'over') ||
+            (this._isDrawerOpen(this._end) && /** @type {?} */ ((this._end)).mode != 'over');
+    };
+    /**
      * @return {?}
      */
     MatDrawerContainer.prototype._onBackdropClicked = /**
@@ -848,6 +907,7 @@ var MatDrawerContainer = (function () {
      * @return {?}
      */
     function () {
+        var _this = this;
         // 1. For drawers in `over` mode, they don't affect the content.
         // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
         //    left margin (for left drawer) or right margin (for right the drawer).
@@ -876,7 +936,8 @@ var MatDrawerContainer = (function () {
                 left -= width;
             }
         }
-        this._contentMargins.next({ left: left, right: right });
+        // Pull back into the NgZone since in some cases we could be outside.
+        this._ngZone.run(function () { return _this._contentMargins.next({ left: left, right: right }); });
     };
     MatDrawerContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-drawer-container',
@@ -897,10 +958,12 @@ var MatDrawerContainer = (function () {
         { type: _angular_core.ElementRef, },
         { type: _angular_core.NgZone, },
         { type: _angular_core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] },] },
     ]; };
     MatDrawerContainer.propDecorators = {
         "_drawers": [{ type: _angular_core.ContentChildren, args: [MatDrawer,] },],
         "_content": [{ type: _angular_core.ContentChild, args: [MatDrawerContent,] },],
+        "autosize": [{ type: _angular_core.Input },],
         "backdropClick": [{ type: _angular_core.Output },],
     };
     return MatDrawerContainer;
@@ -1097,6 +1160,9 @@ var MatSidenavModule = (function () {
                         MatSidenavContainer,
                         MatSidenavContent,
                     ],
+                    providers: [
+                        { provide: MAT_DRAWER_DEFAULT_AUTOSIZE, useValue: false }
+                    ]
                 },] },
     ];
     /** @nocollapse */
@@ -1107,6 +1173,7 @@ var MatSidenavModule = (function () {
 exports.MatSidenavModule = MatSidenavModule;
 exports.throwMatDuplicatedDrawerError = throwMatDuplicatedDrawerError;
 exports.MatDrawerToggleResult = MatDrawerToggleResult;
+exports.MAT_DRAWER_DEFAULT_AUTOSIZE = MAT_DRAWER_DEFAULT_AUTOSIZE;
 exports.MatDrawerContent = MatDrawerContent;
 exports.MatDrawer = MatDrawer;
 exports.MatDrawerContainer = MatDrawerContainer;

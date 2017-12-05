@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('@angular/animations'), require('rxjs/operators/startWith'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('@angular/cdk/accordion'), require('rxjs/operators/takeUntil'), require('rxjs/Observable'), require('@angular/cdk/scrolling'), require('@angular/cdk/layout'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', '@angular/animations', 'rxjs/operators/startWith', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', '@angular/cdk/accordion', 'rxjs/operators/takeUntil', 'rxjs/Observable', '@angular/cdk/scrolling', '@angular/cdk/layout', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.ng.animations,global.Rx.operators,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.accordion,global.Rx.operators,global.Rx,global.ng.cdk.scrolling,global.ng.cdk.layout,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,_angular_animations,rxjs_operators_startWith,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,_angular_cdk_accordion,rxjs_operators_takeUntil,rxjs_Observable,_angular_cdk_scrolling,_angular_cdk_layout,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest,rxjs_observable_empty) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('@angular/animations'), require('rxjs/operators/startWith'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('@angular/cdk/accordion'), require('rxjs/operators/takeUntil'), require('rxjs/Observable'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/layout'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', '@angular/animations', 'rxjs/operators/startWith', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', '@angular/cdk/accordion', 'rxjs/operators/takeUntil', 'rxjs/Observable', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/layout', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.ng.animations,global.Rx.operators,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.accordion,global.Rx.operators,global.Rx,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.layout,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,_angular_animations,rxjs_operators_startWith,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,_angular_cdk_accordion,rxjs_operators_takeUntil,rxjs_Observable,_angular_cdk_scrolling,rxjs_operators_debounceTime,_angular_cdk_layout,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest,rxjs_observable_empty) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -20667,6 +20667,10 @@ var MatDrawerToggleResult = (function () {
     }
     return MatDrawerToggleResult;
 }());
+/**
+ * Configures whether drawers should use auto sizing by default.
+ */
+var MAT_DRAWER_DEFAULT_AUTOSIZE = new _angular_core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
 var MatDrawerContent = (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
@@ -20676,7 +20680,7 @@ var MatDrawerContent = (function () {
          * drawer is open. We use margin rather than transform even for push mode because transform breaks
          * fixed position elements inside of the transformed element.
          */
-        this._margins = { left: 0, right: 0 };
+        this._margins = { left: null, right: null };
     }
     /**
      * @return {?}
@@ -21170,7 +21174,8 @@ var MatDrawer = (function () {
  * and coordinates the backdrop and content styling.
  */
 var MatDrawerContainer = (function () {
-    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef) {
+    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize) {
+        if (defaultAutosize === void 0) { defaultAutosize = false; }
         var _this = this;
         this._dir = _dir;
         this._element = _element;
@@ -21184,12 +21189,17 @@ var MatDrawerContainer = (function () {
          * Emits when the component is destroyed.
          */
         this._destroyed = new rxjs_Subject.Subject();
+        /**
+         * Emits on every ngDoCheck. Used for debouncing reflows.
+         */
+        this._doCheckSubject = new rxjs_Subject.Subject();
         this._contentMargins = new rxjs_Subject.Subject();
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
             _dir.change.pipe(rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function () { return _this._validateDrawers(); });
         }
+        this._autosize = defaultAutosize;
     }
     Object.defineProperty(MatDrawerContainer.prototype, "start", {
         /** The drawer child with the `start` position. */
@@ -21208,6 +21218,25 @@ var MatDrawerContainer = (function () {
          * @return {?}
          */
         function () { return this._end; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDrawerContainer.prototype, "autosize", {
+        get: /**
+         * Whether to automatically resize the container whenever
+         * the size of any of its drawers changes.
+         *
+         * **Use at your own risk!** Enabling this option can cause layout thrashing by measuring
+         * the drawers on every change detection cycle. Can be configured globally via the
+         * `MAT_DRAWER_DEFAULT_AUTOSIZE` token.
+         * @return {?}
+         */
+        function () { return this._autosize; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._autosize = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -21233,6 +21262,9 @@ var MatDrawerContainer = (function () {
             }
             _this._changeDetectorRef.markForCheck();
         });
+        this._doCheckSubject.pipe(rxjs_operators_debounceTime.debounceTime(10), // Arbitrary debounce time, less than a frame at 60fps
+        // Arbitrary debounce time, less than a frame at 60fps
+        rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function () { return _this._updateContentMargins(); });
     };
     /**
      * @return {?}
@@ -21241,6 +21273,7 @@ var MatDrawerContainer = (function () {
      * @return {?}
      */
     function () {
+        this._doCheckSubject.complete();
         this._destroyed.next();
         this._destroyed.complete();
     };
@@ -21267,6 +21300,20 @@ var MatDrawerContainer = (function () {
      */
     function () {
         this._drawers.forEach(function (drawer) { return drawer.close(); });
+    };
+    /**
+     * @return {?}
+     */
+    MatDrawerContainer.prototype.ngDoCheck = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        // If users opted into autosizing, do a check every change detection cycle.
+        if (this._autosize && this._isPushed()) {
+            // Run outside the NgZone, otherwise the debouncer will throw us into an infinite loop.
+            this._ngZone.runOutsideAngular(function () { return _this._doCheckSubject.next(); });
+        }
     };
     /**
      * Subscribes to drawer events in order to set a class on the main container element when the
@@ -21401,6 +21448,18 @@ var MatDrawerContainer = (function () {
         }
     };
     /**
+     * Whether the container is being pushed to the side by one of the drawers.
+     * @return {?}
+     */
+    MatDrawerContainer.prototype._isPushed = /**
+     * Whether the container is being pushed to the side by one of the drawers.
+     * @return {?}
+     */
+    function () {
+        return (this._isDrawerOpen(this._start) && /** @type {?} */ ((this._start)).mode != 'over') ||
+            (this._isDrawerOpen(this._end) && /** @type {?} */ ((this._end)).mode != 'over');
+    };
+    /**
      * @return {?}
      */
     MatDrawerContainer.prototype._onBackdropClicked = /**
@@ -21454,6 +21513,7 @@ var MatDrawerContainer = (function () {
      * @return {?}
      */
     function () {
+        var _this = this;
         // 1. For drawers in `over` mode, they don't affect the content.
         // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
         //    left margin (for left drawer) or right margin (for right the drawer).
@@ -21482,7 +21542,8 @@ var MatDrawerContainer = (function () {
                 left -= width;
             }
         }
-        this._contentMargins.next({ left: left, right: right });
+        // Pull back into the NgZone since in some cases we could be outside.
+        this._ngZone.run(function () { return _this._contentMargins.next({ left: left, right: right }); });
     };
     MatDrawerContainer.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-drawer-container',
@@ -21503,10 +21564,12 @@ var MatDrawerContainer = (function () {
         { type: _angular_core.ElementRef, },
         { type: _angular_core.NgZone, },
         { type: _angular_core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] },] },
     ]; };
     MatDrawerContainer.propDecorators = {
         "_drawers": [{ type: _angular_core.ContentChildren, args: [MatDrawer,] },],
         "_content": [{ type: _angular_core.ContentChild, args: [MatDrawerContent,] },],
+        "autosize": [{ type: _angular_core.Input },],
         "backdropClick": [{ type: _angular_core.Output },],
     };
     return MatDrawerContainer;
@@ -21703,6 +21766,9 @@ var MatSidenavModule = (function () {
                         MatSidenavContainer,
                         MatSidenavContent,
                     ],
+                    providers: [
+                        { provide: MAT_DRAWER_DEFAULT_AUTOSIZE, useValue: false }
+                    ]
                 },] },
     ];
     /** @nocollapse */
@@ -27709,7 +27775,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.2-8f7c7cf');
+var VERSION = new _angular_core.Version('5.0.0-rc.2-e7b412a');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -27985,6 +28051,7 @@ exports.fadeInContent = fadeInContent;
 exports.MatSidenavModule = MatSidenavModule;
 exports.throwMatDuplicatedDrawerError = throwMatDuplicatedDrawerError;
 exports.MatDrawerToggleResult = MatDrawerToggleResult;
+exports.MAT_DRAWER_DEFAULT_AUTOSIZE = MAT_DRAWER_DEFAULT_AUTOSIZE;
 exports.MatDrawerContent = MatDrawerContent;
 exports.MatDrawer = MatDrawer;
 exports.MatDrawerContainer = MatDrawerContainer;

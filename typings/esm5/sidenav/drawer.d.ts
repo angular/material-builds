@@ -8,7 +8,7 @@
 import { AnimationEvent } from '@angular/animations';
 import { FocusTrapFactory, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, QueryList } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, QueryList, InjectionToken } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 /** Throws an exception when two MatDrawer are matching the same position. */
@@ -22,6 +22,8 @@ export declare class MatDrawerToggleResult {
     animationFinished: boolean;
     constructor(type: 'open' | 'close', animationFinished: boolean);
 }
+/** Configures whether drawers should use auto sizing by default. */
+export declare const MAT_DRAWER_DEFAULT_AUTOSIZE: InjectionToken<boolean>;
 export declare class MatDrawerContent implements AfterContentInit {
     private _changeDetectorRef;
     private _container;
@@ -31,8 +33,8 @@ export declare class MatDrawerContent implements AfterContentInit {
      * fixed position elements inside of the transformed element.
      */
     _margins: {
-        left: number;
-        right: number;
+        left: number | null;
+        right: number | null;
     };
     constructor(_changeDetectorRef: ChangeDetectorRef, _container: MatDrawerContainer);
     ngAfterContentInit(): void;
@@ -152,6 +154,16 @@ export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
     readonly start: MatDrawer | null;
     /** The drawer child with the `end` position. */
     readonly end: MatDrawer | null;
+    /**
+     * Whether to automatically resize the container whenever
+     * the size of any of its drawers changes.
+     *
+     * **Use at your own risk!** Enabling this option can cause layout thrashing by measuring
+     * the drawers on every change detection cycle. Can be configured globally via the
+     * `MAT_DRAWER_DEFAULT_AUTOSIZE` token.
+     */
+    autosize: boolean;
+    private _autosize;
     /** Event emitted when the drawer backdrop is clicked. */
     backdropClick: EventEmitter<void>;
     /** The drawer at the start/end position, independent of direction. */
@@ -167,17 +179,20 @@ export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
     private _right;
     /** Emits when the component is destroyed. */
     private _destroyed;
+    /** Emits on every ngDoCheck. Used for debouncing reflows. */
+    private _doCheckSubject;
     _contentMargins: Subject<{
-        left: number;
-        right: number;
+        left: number | null;
+        right: number | null;
     }>;
-    constructor(_dir: Directionality, _element: ElementRef, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef);
+    constructor(_dir: Directionality, _element: ElementRef, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, defaultAutosize?: boolean);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Calls `open` of both start and end drawers */
     open(): void;
     /** Calls `close` of both start and end drawers */
     close(): void;
+    ngDoCheck(): void;
     /**
      * Subscribes to drawer events in order to set a class on the main container element when the
      * drawer is open and the backdrop is visible. This ensures any overflow on the container element
@@ -195,6 +210,8 @@ export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
     private _setContainerClass(isAdd);
     /** Validate the state of the drawer children components. */
     private _validateDrawers();
+    /** Whether the container is being pushed to the side by one of the drawers. */
+    private _isPushed();
     _onBackdropClicked(): void;
     _closeModalDrawer(): void;
     _isShowingBackdrop(): boolean;

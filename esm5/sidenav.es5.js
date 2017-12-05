@@ -8,9 +8,11 @@
 import { A11yModule, FocusMonitor, FocusTrapFactory } from '@angular/cdk/a11y';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { __extends } from 'tslib';
+import * as tslib_1 from 'tslib';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
@@ -20,11 +22,10 @@ import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
 import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
+import { debounceTime } from 'rxjs/operators/debounceTime';
 import { map } from 'rxjs/operators/map';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/Observable';
-import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
 
 /**
  * @fileoverview added by tsickle
@@ -50,6 +51,10 @@ var MatDrawerToggleResult = (function () {
     }
     return MatDrawerToggleResult;
 }());
+/**
+ * Configures whether drawers should use auto sizing by default.
+ */
+var MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
 var MatDrawerContent = (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
@@ -59,7 +64,7 @@ var MatDrawerContent = (function () {
          * drawer is open. We use margin rather than transform even for push mode because transform breaks
          * fixed position elements inside of the transformed element.
          */
-        this._margins = { left: 0, right: 0 };
+        this._margins = { left: null, right: null };
     }
     /**
      * @return {?}
@@ -553,7 +558,8 @@ var MatDrawer = (function () {
  * and coordinates the backdrop and content styling.
  */
 var MatDrawerContainer = (function () {
-    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef) {
+    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize) {
+        if (defaultAutosize === void 0) { defaultAutosize = false; }
         var _this = this;
         this._dir = _dir;
         this._element = _element;
@@ -567,12 +573,17 @@ var MatDrawerContainer = (function () {
          * Emits when the component is destroyed.
          */
         this._destroyed = new Subject();
+        /**
+         * Emits on every ngDoCheck. Used for debouncing reflows.
+         */
+        this._doCheckSubject = new Subject();
         this._contentMargins = new Subject();
         // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
         // properties to point to the proper start/end.
         if (_dir != null) {
             _dir.change.pipe(takeUntil(this._destroyed)).subscribe(function () { return _this._validateDrawers(); });
         }
+        this._autosize = defaultAutosize;
     }
     Object.defineProperty(MatDrawerContainer.prototype, "start", {
         /** The drawer child with the `start` position. */
@@ -591,6 +602,25 @@ var MatDrawerContainer = (function () {
          * @return {?}
          */
         function () { return this._end; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDrawerContainer.prototype, "autosize", {
+        get: /**
+         * Whether to automatically resize the container whenever
+         * the size of any of its drawers changes.
+         *
+         * **Use at your own risk!** Enabling this option can cause layout thrashing by measuring
+         * the drawers on every change detection cycle. Can be configured globally via the
+         * `MAT_DRAWER_DEFAULT_AUTOSIZE` token.
+         * @return {?}
+         */
+        function () { return this._autosize; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._autosize = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -616,6 +646,9 @@ var MatDrawerContainer = (function () {
             }
             _this._changeDetectorRef.markForCheck();
         });
+        this._doCheckSubject.pipe(debounceTime(10), // Arbitrary debounce time, less than a frame at 60fps
+        // Arbitrary debounce time, less than a frame at 60fps
+        takeUntil(this._destroyed)).subscribe(function () { return _this._updateContentMargins(); });
     };
     /**
      * @return {?}
@@ -624,6 +657,7 @@ var MatDrawerContainer = (function () {
      * @return {?}
      */
     function () {
+        this._doCheckSubject.complete();
         this._destroyed.next();
         this._destroyed.complete();
     };
@@ -650,6 +684,20 @@ var MatDrawerContainer = (function () {
      */
     function () {
         this._drawers.forEach(function (drawer) { return drawer.close(); });
+    };
+    /**
+     * @return {?}
+     */
+    MatDrawerContainer.prototype.ngDoCheck = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        // If users opted into autosizing, do a check every change detection cycle.
+        if (this._autosize && this._isPushed()) {
+            // Run outside the NgZone, otherwise the debouncer will throw us into an infinite loop.
+            this._ngZone.runOutsideAngular(function () { return _this._doCheckSubject.next(); });
+        }
     };
     /**
      * Subscribes to drawer events in order to set a class on the main container element when the
@@ -784,6 +832,18 @@ var MatDrawerContainer = (function () {
         }
     };
     /**
+     * Whether the container is being pushed to the side by one of the drawers.
+     * @return {?}
+     */
+    MatDrawerContainer.prototype._isPushed = /**
+     * Whether the container is being pushed to the side by one of the drawers.
+     * @return {?}
+     */
+    function () {
+        return (this._isDrawerOpen(this._start) && /** @type {?} */ ((this._start)).mode != 'over') ||
+            (this._isDrawerOpen(this._end) && /** @type {?} */ ((this._end)).mode != 'over');
+    };
+    /**
      * @return {?}
      */
     MatDrawerContainer.prototype._onBackdropClicked = /**
@@ -837,6 +897,7 @@ var MatDrawerContainer = (function () {
      * @return {?}
      */
     function () {
+        var _this = this;
         // 1. For drawers in `over` mode, they don't affect the content.
         // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
         //    left margin (for left drawer) or right margin (for right the drawer).
@@ -865,7 +926,8 @@ var MatDrawerContainer = (function () {
                 left -= width;
             }
         }
-        this._contentMargins.next({ left: left, right: right });
+        // Pull back into the NgZone since in some cases we could be outside.
+        this._ngZone.run(function () { return _this._contentMargins.next({ left: left, right: right }); });
     };
     MatDrawerContainer.decorators = [
         { type: Component, args: [{selector: 'mat-drawer-container',
@@ -886,10 +948,12 @@ var MatDrawerContainer = (function () {
         { type: ElementRef, },
         { type: NgZone, },
         { type: ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] },] },
     ]; };
     MatDrawerContainer.propDecorators = {
         "_drawers": [{ type: ContentChildren, args: [MatDrawer,] },],
         "_content": [{ type: ContentChild, args: [MatDrawerContent,] },],
+        "autosize": [{ type: Input },],
         "backdropClick": [{ type: Output },],
     };
     return MatDrawerContainer;
@@ -1086,6 +1150,9 @@ var MatSidenavModule = (function () {
                         MatSidenavContainer,
                         MatSidenavContent,
                     ],
+                    providers: [
+                        { provide: MAT_DRAWER_DEFAULT_AUTOSIZE, useValue: false }
+                    ]
                 },] },
     ];
     /** @nocollapse */
@@ -1106,5 +1173,5 @@ var MatSidenavModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatSidenavModule, throwMatDuplicatedDrawerError, MatDrawerToggleResult, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer };
+export { MatSidenavModule, throwMatDuplicatedDrawerError, MatDrawerToggleResult, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer };
 //# sourceMappingURL=sidenav.es5.js.map
