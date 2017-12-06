@@ -35,6 +35,8 @@ export declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit,
     private _host;
     /** A subscription to events for when the tab body begins centering. */
     private _centeringSub;
+    /** A subscription to events for when the tab body finishes leaving from center position. */
+    private _leavingSub;
     constructor(_componentFactoryResolver: ComponentFactoryResolver, _viewContainerRef: ViewContainerRef, _host: MatTabBody);
     /** Set initial visibility or set up subscription for changing visibility. */
     ngOnInit(): void;
@@ -52,6 +54,8 @@ export declare class MatTabBody implements OnInit {
     _onCentering: EventEmitter<number>;
     /** Event emitted before the centering of the tab begins. */
     _beforeCentering: EventEmitter<boolean>;
+    /** Event emitted before the centering of the tab begins. */
+    _afterLeavingCenter: EventEmitter<boolean>;
     /** Event emitted when the tab completes its animation towards the center. */
     _onCentered: EventEmitter<void>;
     /** The tab body content to display. */

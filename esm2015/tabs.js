@@ -259,9 +259,9 @@ class MatTabBodyPortal extends CdkPortalOutlet {
                     this.attach(this._host._content);
                 }
             }
-            else {
-                this.detach();
-            }
+        });
+        this._leavingSub = this._host._afterLeavingCenter.subscribe(() => {
+            this.detach();
         });
     }
     /**
@@ -271,6 +271,9 @@ class MatTabBodyPortal extends CdkPortalOutlet {
     ngOnDestroy() {
         if (this._centeringSub && !this._centeringSub.closed) {
             this._centeringSub.unsubscribe();
+        }
+        if (this._leavingSub && !this._leavingSub.closed) {
+            this._leavingSub.unsubscribe();
         }
     }
 }
@@ -305,6 +308,10 @@ class MatTabBody {
          * Event emitted before the centering of the tab begins.
          */
         this._beforeCentering = new EventEmitter();
+        /**
+         * Event emitted before the centering of the tab begins.
+         */
+        this._afterLeavingCenter = new EventEmitter();
         /**
          * Event emitted when the tab completes its animation towards the center.
          */
@@ -372,6 +379,9 @@ class MatTabBody {
         if (this._isCenterPosition(e.toState) && this._isCenterPosition(this._position)) {
             this._onCentered.emit();
         }
+        if (this._isCenterPosition(e.fromState) && !this._isCenterPosition(this._position)) {
+            this._afterLeavingCenter.emit();
+        }
     }
     /**
      * The text direction of the containing app.
@@ -428,6 +438,7 @@ MatTabBody.ctorParameters = () => [
 MatTabBody.propDecorators = {
     "_onCentering": [{ type: Output },],
     "_beforeCentering": [{ type: Output },],
+    "_afterLeavingCenter": [{ type: Output },],
     "_onCentered": [{ type: Output },],
     "_content": [{ type: Input, args: ['content',] },],
     "position": [{ type: Input, args: ['position',] },],
@@ -1562,5 +1573,5 @@ MatTabsModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe21, _MatTabMixinBase as ɵf21, MatTabHeaderBase as ɵa21, _MatTabHeaderMixinBase as ɵb21, MatTabLabelWrapperBase as ɵc21, _MatTabLabelWrapperMixinBase as ɵd21, MatTabLinkBase as ɵi21, MatTabNavBase as ɵg21, _MatTabLinkMixinBase as ɵj21, _MatTabNavMixinBase as ɵh21 };
+export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe22, _MatTabMixinBase as ɵf22, MatTabHeaderBase as ɵa22, _MatTabHeaderMixinBase as ɵb22, MatTabLabelWrapperBase as ɵc22, _MatTabLabelWrapperMixinBase as ɵd22, MatTabLinkBase as ɵi22, MatTabNavBase as ɵg22, _MatTabLinkMixinBase as ɵj22, _MatTabNavMixinBase as ɵh22 };
 //# sourceMappingURL=tabs.js.map

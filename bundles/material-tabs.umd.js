@@ -314,9 +314,9 @@ var MatTabBodyPortal = (function (_super) {
                     _this.attach(_this._host._content);
                 }
             }
-            else {
-                _this.detach();
-            }
+        });
+        this._leavingSub = this._host._afterLeavingCenter.subscribe(function () {
+            _this.detach();
         });
     };
     /** Clean up centering subscription. */
@@ -331,6 +331,9 @@ var MatTabBodyPortal = (function (_super) {
     function () {
         if (this._centeringSub && !this._centeringSub.closed) {
             this._centeringSub.unsubscribe();
+        }
+        if (this._leavingSub && !this._leavingSub.closed) {
+            this._leavingSub.unsubscribe();
         }
     };
     MatTabBodyPortal.decorators = [
@@ -362,6 +365,10 @@ var MatTabBody = (function () {
          * Event emitted before the centering of the tab begins.
          */
         this._beforeCentering = new _angular_core.EventEmitter();
+        /**
+         * Event emitted before the centering of the tab begins.
+         */
+        this._afterLeavingCenter = new _angular_core.EventEmitter();
         /**
          * Event emitted when the tab completes its animation towards the center.
          */
@@ -454,6 +461,9 @@ var MatTabBody = (function () {
         if (this._isCenterPosition(e.toState) && this._isCenterPosition(this._position)) {
             this._onCentered.emit();
         }
+        if (this._isCenterPosition(e.fromState) && !this._isCenterPosition(this._position)) {
+            this._afterLeavingCenter.emit();
+        }
     };
     /** The text direction of the containing app. */
     /**
@@ -520,6 +530,7 @@ var MatTabBody = (function () {
     MatTabBody.propDecorators = {
         "_onCentering": [{ type: _angular_core.Output },],
         "_beforeCentering": [{ type: _angular_core.Output },],
+        "_afterLeavingCenter": [{ type: _angular_core.Output },],
         "_onCentered": [{ type: _angular_core.Output },],
         "_content": [{ type: _angular_core.Input, args: ['content',] },],
         "position": [{ type: _angular_core.Input, args: ['position',] },],
@@ -1987,16 +1998,16 @@ exports.MatTabChangeEvent = MatTabChangeEvent;
 exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
-exports.ɵe21 = MatTabBase;
-exports.ɵf21 = _MatTabMixinBase;
-exports.ɵa21 = MatTabHeaderBase;
-exports.ɵb21 = _MatTabHeaderMixinBase;
-exports.ɵc21 = MatTabLabelWrapperBase;
-exports.ɵd21 = _MatTabLabelWrapperMixinBase;
-exports.ɵi21 = MatTabLinkBase;
-exports.ɵg21 = MatTabNavBase;
-exports.ɵj21 = _MatTabLinkMixinBase;
-exports.ɵh21 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
