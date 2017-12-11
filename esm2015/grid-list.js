@@ -13,6 +13,7 @@ import { Directionality } from '@angular/cdk/bidi';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Converts values into strings. Falsy values become empty strings.
  * \@docs-private
@@ -174,6 +175,7 @@ MatGridTileFooterCssMatStyler.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Class for determining, from a list of tiles, the (row, col) position of each of those tiles
  * in the grid. This is necessary (rather than just rendering the tiles in normal document flow)
@@ -332,6 +334,7 @@ class TilePosition {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Sets the style properties for an individual tile, given the position calculated by the
  * Tile Coordinator.

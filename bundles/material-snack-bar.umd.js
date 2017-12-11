@@ -49,10 +49,11 @@ var __assign = Object.assign || function __assign(t) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */
-var MatSnackBarRef = (function () {
+var MatSnackBarRef = /** @class */ (function () {
     function MatSnackBarRef(containerInstance, _overlayRef) {
         var _this = this;
         this._overlayRef = _overlayRef;
@@ -197,7 +198,7 @@ var MAT_SNACK_BAR_DATA = new _angular_core.InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
  */
-var MatSnackBarConfig = (function () {
+var MatSnackBarConfig = /** @class */ (function () {
     function MatSnackBarConfig() {
         /**
          * The politeness level for the MatAriaLiveAnnouncer announcement.
@@ -240,7 +241,7 @@ var MatSnackBarConfig = (function () {
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
  */
-var SimpleSnackBar = (function () {
+var SimpleSnackBar = /** @class */ (function () {
     function SimpleSnackBar(snackBarRef, data) {
         this.snackBarRef = snackBarRef;
         this.data = data;
@@ -302,13 +303,14 @@ var SimpleSnackBar = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 var SHOW_ANIMATION = _angular_material_core.AnimationDurations.ENTERING + " " + _angular_material_core.AnimationCurves.DECELERATION_CURVE;
 var HIDE_ANIMATION = _angular_material_core.AnimationDurations.EXITING + " " + _angular_material_core.AnimationCurves.ACCELERATION_CURVE;
 /**
  * Internal component that wraps user-provided snack bar content.
  * \@docs-private
  */
-var MatSnackBarContainer = (function (_super) {
+var MatSnackBarContainer = /** @class */ (function (_super) {
     __extends(MatSnackBarContainer, _super);
     function MatSnackBarContainer(_ngZone, _elementRef, _changeDetectorRef) {
         var _this = _super.call(this) || this;
@@ -520,10 +522,11 @@ var MatSnackBarContainer = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Service to dispatch Material Design snack bar messages.
  */
-var MatSnackBar = (function () {
+var MatSnackBar = /** @class */ (function () {
     function MatSnackBar(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar) {
         this._overlay = _overlay;
         this._live = _live;
@@ -806,7 +809,7 @@ function _applyConfigDefaults(config) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSnackBarModule = (function () {
+var MatSnackBarModule = /** @class */ (function () {
     function MatSnackBarModule() {
     }
     MatSnackBarModule.decorators = [

@@ -5,16 +5,18 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, AfterViewInit, DoCheck } from '@angular/core';
+import { ElementRef, AfterViewInit, DoCheck, OnDestroy, NgZone } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 /**
  * Directive to automatically resize a textarea to fit its content.
  */
-export declare class MatTextareaAutosize implements AfterViewInit, DoCheck {
+export declare class MatTextareaAutosize implements AfterViewInit, DoCheck, OnDestroy {
     private _elementRef;
     private _platform;
+    private _ngZone;
     /** Keep track of the previous textarea value to avoid resizing when the value hasn't changed. */
     private _previousValue;
+    private _destroyed;
     private _minRows;
     private _maxRows;
     /** Minimum amount of rows in the textarea. */
@@ -23,12 +25,13 @@ export declare class MatTextareaAutosize implements AfterViewInit, DoCheck {
     maxRows: number;
     /** Cached height of a textarea with a single row. */
     private _cachedLineHeight;
-    constructor(_elementRef: ElementRef, _platform: Platform);
+    constructor(_elementRef: ElementRef, _platform: Platform, _ngZone?: NgZone | undefined);
     /** Sets the minimum height of the textarea as determined by minRows. */
     _setMinHeight(): void;
     /** Sets the maximum height of the textarea as determined by maxRows. */
     _setMaxHeight(): void;
     ngAfterViewInit(): void;
+    ngOnDestroy(): void;
     /** Sets a style property on the textarea element. */
     private _setTextareaStyle(property, value);
     /**
@@ -40,6 +43,10 @@ export declare class MatTextareaAutosize implements AfterViewInit, DoCheck {
      */
     private _cacheTextareaLineHeight();
     ngDoCheck(): void;
-    /** Resize the textarea to fit its content. */
-    resizeToFitContent(): void;
+    /**
+     * Resize the textarea to fit its content.
+     * @param force Whether to force a height recalculation. By default the height will be
+     *    recalculated only if the value changed since the last call.
+     */
+    resizeToFitContent(force?: boolean): void;
 }

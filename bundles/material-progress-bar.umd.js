@@ -19,7 +19,7 @@
 /**
  * <mat-progress-bar> component.
  */
-var MatProgressBar = (function () {
+var MatProgressBar = /** @class */ (function () {
     function MatProgressBar() {
         /**
          * Color of the progress bar.
@@ -146,7 +146,7 @@ function clamp(v, min, max) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatProgressBarModule = (function () {
+var MatProgressBarModule = /** @class */ (function () {
     function MatProgressBarModule() {
     }
     MatProgressBarModule.decorators = [

@@ -41,17 +41,18 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatToolbarBase = (function () {
+var MatToolbarBase = /** @class */ (function () {
     function MatToolbarBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatToolbarBase;
 }());
 var _MatToolbarMixinBase = _angular_material_core.mixinColor(MatToolbarBase);
-var MatToolbarRow = (function () {
+var MatToolbarRow = /** @class */ (function () {
     function MatToolbarRow() {
     }
     MatToolbarRow.decorators = [
@@ -65,7 +66,7 @@ var MatToolbarRow = (function () {
     MatToolbarRow.ctorParameters = function () { return []; };
     return MatToolbarRow;
 }());
-var MatToolbar = (function (_super) {
+var MatToolbar = /** @class */ (function (_super) {
     __extends(MatToolbar, _super);
     function MatToolbar(elementRef, _platform) {
         var _this = _super.call(this, elementRef) || this;
@@ -150,7 +151,7 @@ function throwToolbarMixedModesError() {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatToolbarModule = (function () {
+var MatToolbarModule = /** @class */ (function () {
     function MatToolbarModule() {
     }
     MatToolbarModule.decorators = [

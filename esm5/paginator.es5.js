@@ -21,7 +21,7 @@ import { Subject } from 'rxjs/Subject';
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
  * include it in a custom provider
  */
-var MatPaginatorIntl = (function () {
+var MatPaginatorIntl = /** @class */ (function () {
     function MatPaginatorIntl() {
         /**
          * Stream that emits whenever the labels here are changed. Use this to notify
@@ -94,7 +94,7 @@ var DEFAULT_PAGE_SIZE = 50;
  * Change event object that is emitted when the user selects a
  * different page size or navigates to another page.
  */
-var PageEvent = (function () {
+var PageEvent = /** @class */ (function () {
     function PageEvent() {
     }
     return PageEvent;
@@ -104,7 +104,7 @@ var PageEvent = (function () {
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
  */
-var MatPaginator = (function () {
+var MatPaginator = /** @class */ (function () {
     function MatPaginator(_intl, _changeDetectorRef) {
         var _this = this;
         this._intl = _intl;
@@ -374,7 +374,7 @@ var MatPaginator = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatPaginatorModule = (function () {
+var MatPaginatorModule = /** @class */ (function () {
     function MatPaginatorModule() {
     }
     MatPaginatorModule.decorators = [

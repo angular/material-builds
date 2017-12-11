@@ -41,10 +41,11 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Wrapper for the CdkTable with Material design styles.
  */
-var MatTable = (function (_super) {
+var MatTable = /** @class */ (function (_super) {
     __extends(MatTable, _super);
     function MatTable() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -71,11 +72,12 @@ var MatTable = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
  */
-var MatCellDef = (function (_super) {
+var MatCellDef = /** @class */ (function (_super) {
     __extends(MatCellDef, _super);
     function MatCellDef() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -94,7 +96,7 @@ var MatCellDef = (function (_super) {
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
  */
-var MatHeaderCellDef = (function (_super) {
+var MatHeaderCellDef = /** @class */ (function (_super) {
     __extends(MatHeaderCellDef, _super);
     function MatHeaderCellDef() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -113,7 +115,7 @@ var MatHeaderCellDef = (function (_super) {
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
  */
-var MatColumnDef = (function (_super) {
+var MatColumnDef = /** @class */ (function (_super) {
     __extends(MatColumnDef, _super);
     function MatColumnDef() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -134,7 +136,7 @@ var MatColumnDef = (function (_super) {
 /**
  * Header cell template container that adds the right classes and role.
  */
-var MatHeaderCell = (function (_super) {
+var MatHeaderCell = /** @class */ (function (_super) {
     __extends(MatHeaderCell, _super);
     function MatHeaderCell(columnDef, elementRef) {
         var _this = _super.call(this, columnDef, elementRef) || this;
@@ -160,7 +162,7 @@ var MatHeaderCell = (function (_super) {
 /**
  * Cell template container that adds the right classes and role.
  */
-var MatCell = (function (_super) {
+var MatCell = /** @class */ (function (_super) {
     __extends(MatCell, _super);
     function MatCell(columnDef, elementRef) {
         var _this = _super.call(this, columnDef, elementRef) || this;
@@ -188,11 +190,12 @@ var MatCell = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
  */
-var MatHeaderRowDef = (function (_super) {
+var MatHeaderRowDef = /** @class */ (function (_super) {
     __extends(MatHeaderRowDef, _super);
     function MatHeaderRowDef() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -213,7 +216,7 @@ var MatHeaderRowDef = (function (_super) {
  * Captures the header row's template and other row properties such as the columns to display and
  * a when predicate that describes when this row should be used.
  */
-var MatRowDef = (function (_super) {
+var MatRowDef = /** @class */ (function (_super) {
     __extends(MatRowDef, _super);
     function MatRowDef() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -232,7 +235,7 @@ var MatRowDef = (function (_super) {
 /**
  * Header template container that contains the cell outlet. Adds the right class and role.
  */
-var MatHeaderRow = (function (_super) {
+var MatHeaderRow = /** @class */ (function (_super) {
     __extends(MatHeaderRow, _super);
     function MatHeaderRow() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -257,7 +260,7 @@ var MatHeaderRow = (function (_super) {
 /**
  * Data row template container that contains the cell outlet. Adds the right class and role.
  */
-var MatRow = (function (_super) {
+var MatRow = /** @class */ (function (_super) {
     __extends(MatRow, _super);
     function MatRow() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -285,7 +288,7 @@ var MatRow = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatTableModule = (function () {
+var MatTableModule = /** @class */ (function () {
     function MatTableModule() {
     }
     MatTableModule.decorators = [
@@ -308,6 +311,7 @@ var MatTableModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
  * sorting (using MatSort), and pagination (using MatPaginator).
@@ -316,7 +320,7 @@ var MatTableModule = (function () {
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
  * which defines how row data is converted to a string for filter matching.
  */
-var MatTableDataSource = (function () {
+var MatTableDataSource = /** @class */ (function () {
     function MatTableDataSource(initialData) {
         if (initialData === void 0) { initialData = []; }
         /**

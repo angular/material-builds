@@ -23,6 +23,7 @@ import { Subject } from 'rxjs/Subject';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Represents an event fired on an individual `mat-chip`.
  * @record

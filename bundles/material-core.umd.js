@@ -49,10 +49,11 @@ var __assign = Object.assign || function __assign(t) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var AnimationCurves = (function () {
+var AnimationCurves = /** @class */ (function () {
     function AnimationCurves() {
     }
     AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
@@ -64,7 +65,7 @@ var AnimationCurves = (function () {
 /**
  * \@docs-private
  */
-var AnimationDurations = (function () {
+var AnimationDurations = /** @class */ (function () {
     function AnimationDurations() {
     }
     AnimationDurations.COMPLEX = '375ms';
@@ -88,7 +89,7 @@ var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks
  *
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
-var MatCommonModule = (function () {
+var MatCommonModule = /** @class */ (function () {
     function MatCommonModule(_sanityChecksEnabled) {
         this._sanityChecksEnabled = _sanityChecksEnabled;
         /**
@@ -103,6 +104,10 @@ var MatCommonModule = (function () {
          * Reference to the global `document` object.
          */
         this._document = typeof document === 'object' && document ? document : null;
+        /**
+         * Reference to the global 'window' object.
+         */
+        this._window = typeof window === 'object' && window ? window : null;
         if (this._areChecksEnabled() && !this._hasDoneGlobalChecks) {
             this._checkDoctypeIsDefined();
             this._checkThemeIsPresent();
@@ -129,7 +134,7 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     function () {
-        return window['__karma__'] || window['jasmine'];
+        return this._window && (this._window['__karma__'] || this._window['jasmine']);
     };
     /**
      * @return {?}
@@ -176,7 +181,10 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     function () {
-        if (this._areChecksEnabled() && !this._hasCheckedHammer && !window['Hammer']) {
+        if (this._hasCheckedHammer || !this._window) {
+            return;
+        }
+        if (this._areChecksEnabled() && !this._window['Hammer']) {
             console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
         }
         this._hasCheckedHammer = true;
@@ -201,6 +209,7 @@ var MatCommonModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @record
@@ -213,7 +222,7 @@ var MatCommonModule = (function () {
  * @return {?}
  */
 function mixinDisabled(base) {
-    return (function (_super) {
+    return /** @class */ (function (_super) {
         __extends(class_1, _super);
         function class_1() {
             var args = [];
@@ -245,6 +254,7 @@ function mixinDisabled(base) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @record
@@ -263,7 +273,7 @@ function mixinDisabled(base) {
  * @return {?}
  */
 function mixinColor(base, defaultColor) {
-    return (function (_super) {
+    return /** @class */ (function (_super) {
         __extends(class_1, _super);
         function class_1() {
             var args = [];
@@ -308,6 +318,7 @@ function mixinColor(base, defaultColor) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @record
@@ -320,7 +331,7 @@ function mixinColor(base, defaultColor) {
  * @return {?}
  */
 function mixinDisableRipple(base) {
-    return (function (_super) {
+    return /** @class */ (function (_super) {
         __extends(class_1, _super);
         function class_1() {
             var args = [];
@@ -354,6 +365,7 @@ function mixinDisableRipple(base) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @record
@@ -368,7 +380,7 @@ function mixinDisableRipple(base) {
  */
 function mixinTabIndex(base, defaultTabIndex) {
     if (defaultTabIndex === void 0) { defaultTabIndex = 0; }
-    return (function (_super) {
+    return /** @class */ (function (_super) {
         __extends(class_1, _super);
         function class_1() {
             var args = [];
@@ -403,6 +415,7 @@ function mixinTabIndex(base, defaultTabIndex) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @record
@@ -421,7 +434,7 @@ function mixinTabIndex(base, defaultTabIndex) {
  * @return {?}
  */
 function mixinErrorState(base) {
-    return (function (_super) {
+    return /** @class */ (function (_super) {
         __extends(class_1, _super);
         function class_1() {
             var args = [];
@@ -483,7 +496,7 @@ var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: _angular
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
  */
-var DateAdapter = (function () {
+var DateAdapter = /** @class */ (function () {
     function DateAdapter() {
         this._localeChanges = new rxjs_Subject.Subject();
     }
@@ -662,6 +675,7 @@ var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Whether the browser supports the Intl API.
  */
@@ -713,7 +727,7 @@ function range(length, valueFunction) {
 /**
  * Adapts the native JS Date for use with cdk-based components that work with dates.
  */
-var NativeDateAdapter = (function (_super) {
+var NativeDateAdapter = /** @class */ (function (_super) {
     __extends(NativeDateAdapter, _super);
     function NativeDateAdapter(matDateLocale) {
         var _this = _super.call(this) || this;
@@ -1141,6 +1155,7 @@ var NativeDateAdapter = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 var MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
@@ -1158,7 +1173,7 @@ var MAT_NATIVE_DATE_FORMATS = {
  * @suppress {checkTypes} checked by tsc
  */
 
-var NativeDateModule = (function () {
+var NativeDateModule = /** @class */ (function () {
     function NativeDateModule() {
     }
     NativeDateModule.decorators = [
@@ -1174,7 +1189,7 @@ var NativeDateModule = (function () {
     return NativeDateModule;
 }());
 var ɵ0$$1 = MAT_NATIVE_DATE_FORMATS;
-var MatNativeDateModule = (function () {
+var MatNativeDateModule = /** @class */ (function () {
     function MatNativeDateModule() {
     }
     MatNativeDateModule.decorators = [
@@ -1196,7 +1211,7 @@ var MatNativeDateModule = (function () {
 /**
  * Error state matcher that matches when a control is invalid and dirty.
  */
-var ShowOnDirtyErrorStateMatcher = (function () {
+var ShowOnDirtyErrorStateMatcher = /** @class */ (function () {
     function ShowOnDirtyErrorStateMatcher() {
     }
     /**
@@ -1222,7 +1237,7 @@ var ShowOnDirtyErrorStateMatcher = (function () {
 /**
  * Provider that defines how form controls behave with regards to displaying error messages.
  */
-var ErrorStateMatcher = (function () {
+var ErrorStateMatcher = /** @class */ (function () {
     function ErrorStateMatcher() {
     }
     /**
@@ -1250,12 +1265,13 @@ var ErrorStateMatcher = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Injection token that can be used to provide options to the Hammerjs instance.
  * More info at http://hammerjs.github.io/api/.
  */
 var MAT_HAMMER_OPTIONS = new _angular_core.InjectionToken('MAT_HAMMER_OPTIONS');
-var GestureConfig = (function (_super) {
+var GestureConfig = /** @class */ (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig(_hammerOptions, commonModule) {
         var _this = _super.call(this) || this;
@@ -1376,7 +1392,7 @@ var GestureConfig = (function (_super) {
  * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
  * counted by checking the query list's length.
  */
-var MatLine = (function () {
+var MatLine = /** @class */ (function () {
     function MatLine() {
     }
     MatLine.decorators = [
@@ -1393,7 +1409,7 @@ var MatLine = (function () {
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  */
-var MatLineSetter = (function () {
+var MatLineSetter = /** @class */ (function () {
     function MatLineSetter(_lines, _element) {
         var _this = this;
         this._lines = _lines;
@@ -1451,7 +1467,7 @@ var MatLineSetter = (function () {
     };
     return MatLineSetter;
 }());
-var MatLineModule = (function () {
+var MatLineModule = /** @class */ (function () {
     function MatLineModule() {
     }
     MatLineModule.decorators = [
@@ -1470,6 +1486,7 @@ var MatLineModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /** @enum {number} */
 var RippleState = {
     FADING_IN: 0,
@@ -1484,7 +1501,7 @@ RippleState[RippleState.HIDDEN] = "HIDDEN";
 /**
  * Reference to a previously launched ripple element.
  */
-var RippleRef = (function () {
+var RippleRef = /** @class */ (function () {
     function RippleRef(_renderer, element, config) {
         this._renderer = _renderer;
         this.element = element;
@@ -1513,6 +1530,7 @@ var RippleRef = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Fade-in duration for the ripples. Can be modified with the speedFactor option.
  */
@@ -1533,7 +1551,7 @@ var IGNORE_MOUSE_EVENTS_TIMEOUT = 800;
  * This will eventually become a custom renderer once Angular support exists.
  * \@docs-private
  */
-var RippleRenderer = (function () {
+var RippleRenderer = /** @class */ (function () {
     function RippleRenderer(elementRef, _ngZone, platform) {
         this._ngZone = _ngZone;
         /**
@@ -1809,7 +1827,7 @@ function distanceToFurthestCorner(x, y, rect) {
  * Injection token that can be used to specify the global ripple options.
  */
 var MAT_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-ripple-global-options');
-var MatRipple = (function () {
+var MatRipple = /** @class */ (function () {
     function MatRipple(elementRef, ngZone, platform, globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
@@ -1946,7 +1964,7 @@ var MatRipple = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatRippleModule = (function () {
+var MatRippleModule = /** @class */ (function () {
     function MatRippleModule() {
     }
     MatRippleModule.decorators = [
@@ -1979,7 +1997,7 @@ var MatRippleModule = (function () {
  * more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
-var MatPseudoCheckbox = (function () {
+var MatPseudoCheckbox = /** @class */ (function () {
     function MatPseudoCheckbox() {
         /**
          * Display state of the checkbox.
@@ -2019,7 +2037,7 @@ var MatPseudoCheckbox = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatPseudoCheckboxModule = (function () {
+var MatPseudoCheckboxModule = /** @class */ (function () {
     function MatPseudoCheckboxModule() {
     }
     MatPseudoCheckboxModule.decorators = [
@@ -2037,10 +2055,11 @@ var MatPseudoCheckboxModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatOptgroupBase = (function () {
+var MatOptgroupBase = /** @class */ (function () {
     function MatOptgroupBase() {
     }
     return MatOptgroupBase;
@@ -2051,7 +2070,7 @@ var _uniqueOptgroupIdCounter = 0;
 /**
  * Component that is used to group instances of `mat-option`.
  */
-var MatOptgroup = (function (_super) {
+var MatOptgroup = /** @class */ (function (_super) {
     __extends(MatOptgroup, _super);
     function MatOptgroup() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -2099,7 +2118,7 @@ var _uniqueIdCounter = 0;
 /**
  * Event object emitted by MatOption when selected or deselected.
  */
-var MatOptionSelectionChange = (function () {
+var MatOptionSelectionChange = /** @class */ (function () {
     function MatOptionSelectionChange(source, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
@@ -2121,7 +2140,7 @@ var MAT_OPTION_PARENT_COMPONENT = new _angular_core.InjectionToken('MAT_OPTION_P
 /**
  * Single option inside of a `<mat-select>` element.
  */
-var MatOption = (function () {
+var MatOption = /** @class */ (function () {
     function MatOption(_element, _changeDetectorRef, _parent, group) {
         this._element = _element;
         this._changeDetectorRef = _changeDetectorRef;
@@ -2482,7 +2501,7 @@ var MatOption = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatOptionModule = (function () {
+var MatOptionModule = /** @class */ (function () {
     function MatOptionModule() {
     }
     MatOptionModule.decorators = [
@@ -2515,6 +2534,7 @@ var MAT_LABEL_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-label-globa
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Applies a CSS transform to an element, including browser-prefixed properties.
  * @param {?} element
@@ -2538,6 +2558,7 @@ function applyCssTransform(element, transformValue) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.

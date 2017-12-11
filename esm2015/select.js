@@ -19,7 +19,7 @@ import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisabled, mixinErrorState, mixinTabIndex } from '@angular/material/core';
+import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinTabIndex } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
@@ -82,6 +82,7 @@ const fadeInContent = trigger('fadeInContent', [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Returns an exception to be thrown when attempting to change a select's `multiple` option
  * after initialization.
@@ -199,7 +200,7 @@ class MatSelectBase {
         this.ngControl = ngControl;
     }
 }
-const _MatSelectMixinBase = mixinTabIndex(mixinDisabled(mixinErrorState(MatSelectBase)));
+const _MatSelectMixinBase = mixinDisableRipple(mixinTabIndex(mixinDisabled(mixinErrorState(MatSelectBase))));
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
@@ -326,7 +327,6 @@ class MatSelect extends _MatSelectMixinBase {
          * A name for this control that can be used by `mat-form-field`.
          */
         this.controlType = 'mat-select';
-        this._disableRipple = false;
         /**
          * Aria label of the select. If not specified, the placeholder will be used as label.
          */
@@ -443,18 +443,6 @@ class MatSelect extends _MatSelectMixinBase {
             this.writeValue(newValue);
             this._value = newValue;
         }
-    }
-    /**
-     * Whether ripples for all options in the select are disabled.
-     * @return {?}
-     */
-    get disableRipple() { return this._disableRipple; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disableRipple(value) {
-        this._disableRipple = coerceBooleanProperty(value);
     }
     /**
      * Unique id of the element.
@@ -1276,7 +1264,7 @@ MatSelect.decorators = [
                 exportAs: 'matSelect',
                 template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\" [ngSwitch]=\"empty\"><span class=\"mat-select-placeholder\" *ngSwitchCase=\"true\">{{placeholder || '\u00A0'}}</span> <span class=\"mat-select-value-text\" *ngSwitchCase=\"false\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{triggerValue}}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div #panel class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
                 styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-label{width:calc(100% - 18px)}.mat-select-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-form-field-hide-placeholder .mat-select-placeholder{color:transparent;transition:none}"],
-                inputs: ['disabled', 'tabIndex'],
+                inputs: ['disabled', 'disableRipple', 'tabIndex'],
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -1339,7 +1327,6 @@ MatSelect.propDecorators = {
     "multiple": [{ type: Input },],
     "compareWith": [{ type: Input },],
     "value": [{ type: Input },],
-    "disableRipple": [{ type: Input },],
     "ariaLabel": [{ type: Input, args: ['aria-label',] },],
     "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
     "errorStateMatcher": [{ type: Input },],

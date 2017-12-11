@@ -25,6 +25,7 @@ import { Subject } from 'rxjs/Subject';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Represents an event fired on an individual `mat-chip`.
  * @record
@@ -33,7 +34,7 @@ import { Subject } from 'rxjs/Subject';
 /**
  * Event object emitted by MatChip when selected or deselected.
  */
-var MatChipSelectionChange = (function () {
+var MatChipSelectionChange = /** @class */ (function () {
     function MatChipSelectionChange(source, selected, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
@@ -45,7 +46,7 @@ var MatChipSelectionChange = (function () {
 /**
  * \@docs-private
  */
-var MatChipBase = (function () {
+var MatChipBase = /** @class */ (function () {
     function MatChipBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -56,7 +57,7 @@ var _MatChipMixinBase = mixinColor(mixinDisabled(MatChipBase), 'primary');
  * Dummy directive to add CSS class to basic chips.
  * \@docs-private
  */
-var MatBasicChip = (function () {
+var MatBasicChip = /** @class */ (function () {
     function MatBasicChip() {
     }
     MatBasicChip.decorators = [
@@ -72,7 +73,7 @@ var MatBasicChip = (function () {
 /**
  * Material design styled Chip component. Used inside the MatChipList component.
  */
-var MatChip = (function (_super) {
+var MatChip = /** @class */ (function (_super) {
     __extends(MatChip, _super);
     function MatChip(_elementRef) {
         var _this = _super.call(this, _elementRef) || this;
@@ -439,7 +440,7 @@ var MatChip = (function (_super) {
  * You *may* use a custom icon, but you may need to override the `mat-chip-remove` positioning
  * styles to properly center the icon within the chip.
  */
-var MatChipRemove = (function () {
+var MatChipRemove = /** @class */ (function () {
     function MatChipRemove(_parentChip) {
         this._parentChip = _parentChip;
     }
@@ -477,10 +478,11 @@ var MatChipRemove = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatChipListBase = (function () {
+var MatChipListBase = /** @class */ (function () {
     function MatChipListBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._parentForm = _parentForm;
@@ -495,7 +497,7 @@ var nextUniqueId = 0;
 /**
  * Change event object that is emitted when the chip list value has changed.
  */
-var MatChipListChange = (function () {
+var MatChipListChange = /** @class */ (function () {
     function MatChipListChange(source, value) {
         this.source = source;
         this.value = value;
@@ -505,7 +507,7 @@ var MatChipListChange = (function () {
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
-var MatChipList = (function (_super) {
+var MatChipList = /** @class */ (function (_super) {
     __extends(MatChipList, _super);
     function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, ngControl) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
@@ -1541,7 +1543,7 @@ var MatChipList = (function (_super) {
  * Directive that adds chip-specific behaviors to an input element inside <mat-form-field>.
  * May be placed inside or outside of an <mat-chip-list>.
  */
-var MatChipInput = (function () {
+var MatChipInput = /** @class */ (function () {
     function MatChipInput(_elementRef) {
         this._elementRef = _elementRef;
         this.focused = false;
@@ -1719,7 +1721,7 @@ var MatChipInput = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatChipsModule = (function () {
+var MatChipsModule = /** @class */ (function () {
     function MatChipsModule() {
     }
     MatChipsModule.decorators = [

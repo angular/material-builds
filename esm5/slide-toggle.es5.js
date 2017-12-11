@@ -20,6 +20,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 // Increasing integer for generating unique ids for slide-toggle components.
 var nextUniqueId = 0;
 var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
@@ -30,7 +31,7 @@ var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
 /**
  * Change event object emitted by a MatSlideToggle.
  */
-var MatSlideToggleChange = (function () {
+var MatSlideToggleChange = /** @class */ (function () {
     function MatSlideToggleChange() {
     }
     return MatSlideToggleChange;
@@ -38,7 +39,7 @@ var MatSlideToggleChange = (function () {
 /**
  * \@docs-private
  */
-var MatSlideToggleBase = (function () {
+var MatSlideToggleBase = /** @class */ (function () {
     function MatSlideToggleBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -48,7 +49,7 @@ var _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixin
 /**
  * Represents a slidable "switch" toggle that can be moved between on and off.
  */
-var MatSlideToggle = (function (_super) {
+var MatSlideToggle = /** @class */ (function (_super) {
     __extends(MatSlideToggle, _super);
     function MatSlideToggle(elementRef, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
         var _this = _super.call(this, elementRef) || this;
@@ -426,7 +427,7 @@ var MatSlideToggle = (function (_super) {
 /**
  * Renderer for the Slide Toggle component, which separates DOM modification in its own class
  */
-var SlideToggleRenderer = (function () {
+var SlideToggleRenderer = /** @class */ (function () {
     function SlideToggleRenderer(elementRef, platform) {
         /**
          * Whether the thumb is currently being dragged.
@@ -521,7 +522,7 @@ var SlideToggleRenderer = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSlideToggleModule = (function () {
+var MatSlideToggleModule = /** @class */ (function () {
     function MatSlideToggleModule() {
     }
     MatSlideToggleModule.decorators = [

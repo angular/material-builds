@@ -41,6 +41,7 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
  */
@@ -49,7 +50,7 @@ var DEFAULT_ROUND_BUTTON_COLOR = 'accent';
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatButtonCssMatStyler = (function () {
+var MatButtonCssMatStyler = /** @class */ (function () {
     function MatButtonCssMatStyler() {
     }
     MatButtonCssMatStyler.decorators = [
@@ -66,7 +67,7 @@ var MatButtonCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatRaisedButtonCssMatStyler = (function () {
+var MatRaisedButtonCssMatStyler = /** @class */ (function () {
     function MatRaisedButtonCssMatStyler() {
     }
     MatRaisedButtonCssMatStyler.decorators = [
@@ -83,7 +84,7 @@ var MatRaisedButtonCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatIconButtonCssMatStyler = (function () {
+var MatIconButtonCssMatStyler = /** @class */ (function () {
     function MatIconButtonCssMatStyler() {
     }
     MatIconButtonCssMatStyler.decorators = [
@@ -100,7 +101,7 @@ var MatIconButtonCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatFab = (function () {
+var MatFab = /** @class */ (function () {
     function MatFab(button, anchor) {
         // Set the default color palette for the mat-fab components.
         (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
@@ -123,7 +124,7 @@ var MatFab = (function () {
  * to all mini-fab buttons and also is responsible for setting the default color palette.
  * \@docs-private
  */
-var MatMiniFab = (function () {
+var MatMiniFab = /** @class */ (function () {
     function MatMiniFab(button, anchor) {
         // Set the default color palette for the mat-mini-fab components.
         (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
@@ -144,7 +145,7 @@ var MatMiniFab = (function () {
 /**
  * \@docs-private
  */
-var MatButtonBase = (function () {
+var MatButtonBase = /** @class */ (function () {
     function MatButtonBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -154,7 +155,7 @@ var _MatButtonMixinBase = _angular_material_core.mixinColor(_angular_material_co
 /**
  * Material design button.
  */
-var MatButton = (function (_super) {
+var MatButton = /** @class */ (function (_super) {
     __extends(MatButton, _super);
     function MatButton(elementRef, _platform, _focusMonitor) {
         var _this = _super.call(this, elementRef) || this;
@@ -260,7 +261,7 @@ var MatButton = (function (_super) {
 /**
  * Raised Material design button.
  */
-var MatAnchor = (function (_super) {
+var MatAnchor = /** @class */ (function (_super) {
     __extends(MatAnchor, _super);
     function MatAnchor(platform, focusMonitor, elementRef) {
         return _super.call(this, elementRef, platform, focusMonitor) || this;
@@ -311,7 +312,7 @@ var MatAnchor = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatButtonModule = (function () {
+var MatButtonModule = /** @class */ (function () {
     function MatButtonModule() {
     }
     MatButtonModule.decorators = [

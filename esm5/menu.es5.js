@@ -73,6 +73,7 @@ var fadeInItems = trigger('fadeInItems', [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Throws an exception for the case when menu trigger doesn't have a valid mat-menu instance
  * \@docs-private
@@ -104,10 +105,11 @@ function throwMatMenuInvalidPositionY() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatMenuItemBase = (function () {
+var MatMenuItemBase = /** @class */ (function () {
     function MatMenuItemBase() {
     }
     return MatMenuItemBase;
@@ -117,7 +119,7 @@ var _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase));
  * This directive is intended to be used inside an mat-menu tag.
  * It exists mostly to set the role attribute.
  */
-var MatMenuItem = (function (_super) {
+var MatMenuItem = /** @class */ (function (_super) {
     __extends(MatMenuItem, _super);
     function MatMenuItem(_elementRef) {
         var _this = _super.call(this) || this;
@@ -269,6 +271,7 @@ var MatMenuItem = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Default `mat-menu` options that can be overridden.
  * @record
@@ -283,7 +286,7 @@ var MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options');
  * \@docs-private
  */
 var MAT_MENU_BASE_ELEVATION = 2;
-var MatMenu = (function () {
+var MatMenu = /** @class */ (function () {
     function MatMenu(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
@@ -428,6 +431,7 @@ var MatMenu = (function () {
      */
     function () {
         this._tabSubscription.unsubscribe();
+        this.closed.emit();
         this.closed.complete();
     };
     /** Stream that emits whenever the hovered menu item changes. */
@@ -673,7 +677,7 @@ var MENU_PANEL_TOP_PADDING = 8;
  * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
  */
-var MatMenuTrigger = (function () {
+var MatMenuTrigger = /** @class */ (function () {
     function MatMenuTrigger(_overlay, _element, _viewContainerRef, _scrollStrategy, _parentMenu, _menuItemInstance, _dir) {
         this._overlay = _overlay;
         this._element = _element;
@@ -828,7 +832,9 @@ var MatMenuTrigger = (function () {
         var _this = this;
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
+            this._closeSubscription = this._menuClosingActions().subscribe(function () {
+                _this.menu.close.emit();
+            });
             this._initMenu();
             if (this.menu instanceof MatMenu) {
                 this.menu._startAnimation();
@@ -870,8 +876,8 @@ var MatMenuTrigger = (function () {
     function () {
         if (this._overlayRef && this.menuOpen) {
             this._resetMenu();
-            this._closeSubscription.unsubscribe();
             this._overlayRef.detach();
+            this._closeSubscription.unsubscribe();
             if (this.menu instanceof MatMenu) {
                 this.menu._resetAnimation();
             }
@@ -1091,10 +1097,9 @@ var MatMenuTrigger = (function () {
     function () {
         var _this = this;
         var /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
-        var /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
         var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of();
         var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter(function (active) { return active !== _this._menuItemInstance; }), filter(function () { return _this._menuOpen; })) : of();
-        return merge(backdrop, parentClose, hover, detachments);
+        return merge(backdrop, parentClose, hover);
     };
     /** Handles mouse presses on the trigger. */
     /**
@@ -1200,7 +1205,7 @@ var ɵ0 = {
     xPosition: 'after',
     yPosition: 'below',
 };
-var MatMenuModule = (function () {
+var MatMenuModule = /** @class */ (function () {
     function MatMenuModule() {
     }
     MatMenuModule.decorators = [
@@ -1245,5 +1250,5 @@ var MatMenuModule = (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa21, _MatMenuItemMixinBase as ɵb21, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd21, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc21 };
+export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa16, _MatMenuItemMixinBase as ɵb16, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd16, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc16 };
 //# sourceMappingURL=menu.es5.js.map

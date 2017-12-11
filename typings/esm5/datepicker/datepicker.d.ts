@@ -20,7 +20,7 @@ export declare function MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay:
 /** @docs-private */
 export declare const MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
-    deps: typeof Overlay[];
+    deps: (typeof Overlay)[];
     useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
 };
 /**

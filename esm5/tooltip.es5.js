@@ -72,7 +72,7 @@ var MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
  *
  * https://material.google.com/components/tooltips.html
  */
-var MatTooltip = (function () {
+var MatTooltip = /** @class */ (function () {
     function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir) {
         var _this = this;
         this._overlay = _overlay;
@@ -380,7 +380,7 @@ var MatTooltip = (function () {
                     // a parent scrollable then close the tooltip.
                     // After position changes occur and the overlay is clipped by
                     // a parent scrollable then close the tooltip.
-                    _this.hide(0);
+                    _this._ngZone.run(function () { return _this.hide(0); });
                 }
                 else {
                     // Otherwise recalculate the origin based on the new position.
@@ -597,7 +597,7 @@ var MatTooltip = (function () {
  * Internal component that wraps the tooltip's content.
  * \@docs-private
  */
-var TooltipComponent = (function () {
+var TooltipComponent = /** @class */ (function () {
     function TooltipComponent(_changeDetectorRef) {
         this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -840,7 +840,7 @@ var TooltipComponent = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatTooltipModule = (function () {
+var MatTooltipModule = /** @class */ (function () {
     function MatTooltipModule() {
     }
     MatTooltipModule.decorators = [

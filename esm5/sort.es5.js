@@ -20,6 +20,7 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @param {?} id
@@ -55,6 +56,7 @@ function getSortInvalidDirectionError(direction) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Interface for a directive that holds sorting state consumed by `MatSortHeader`.
  * @record
@@ -68,7 +70,7 @@ function getSortInvalidDirectionError(direction) {
 /**
  * \@docs-private
  */
-var MatSortBase = (function () {
+var MatSortBase = /** @class */ (function () {
     function MatSortBase() {
     }
     return MatSortBase;
@@ -77,7 +79,7 @@ var _MatSortMixinBase = mixinDisabled(MatSortBase);
 /**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
-var MatSort = (function (_super) {
+var MatSort = /** @class */ (function (_super) {
     __extends(MatSort, _super);
     function MatSort() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -287,7 +289,7 @@ function getSortDirectionCycle(start, disableClear) {
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
  * include it in a custom provider.
  */
-var MatSortHeaderIntl = (function () {
+var MatSortHeaderIntl = /** @class */ (function () {
     function MatSortHeaderIntl() {
         /**
          * Stream that emits whenever the labels here are changed. Use this to notify
@@ -336,11 +338,12 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' + AnimationCurves.STANDARD_CURVE;
 /**
  * \@docs-private
  */
-var MatSortHeaderBase = (function () {
+var MatSortHeaderBase = /** @class */ (function () {
     function MatSortHeaderBase() {
     }
     return MatSortHeaderBase;
@@ -355,7 +358,7 @@ var _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
  * If used on header cells in a CdkTable, it will automatically default its id from its containing
  * column definition.
  */
-var MatSortHeader = (function (_super) {
+var MatSortHeader = /** @class */ (function (_super) {
     __extends(MatSortHeader, _super);
     function MatSortHeader(_intl, changeDetectorRef, _sort, _cdkColumnDef) {
         var _this = _super.call(this) || this;
@@ -518,7 +521,7 @@ var MatSortHeader = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSortModule = (function () {
+var MatSortModule = /** @class */ (function () {
     function MatSortModule() {
     }
     MatSortModule.decorators = [

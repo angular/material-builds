@@ -41,6 +41,7 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Converts values into strings. Falsy values become empty strings.
  * \@docs-private
@@ -65,7 +66,7 @@ function coerceToNumber(value) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatGridTile = (function () {
+var MatGridTile = /** @class */ (function () {
     function MatGridTile(_element) {
         this._element = _element;
         this._rowspan = 1;
@@ -143,7 +144,7 @@ var MatGridTile = (function () {
     };
     return MatGridTile;
 }());
-var MatGridTileText = (function () {
+var MatGridTileText = /** @class */ (function () {
     function MatGridTileText(_element) {
         this._element = _element;
     }
@@ -177,7 +178,7 @@ var MatGridTileText = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatGridAvatarCssMatStyler = (function () {
+var MatGridAvatarCssMatStyler = /** @class */ (function () {
     function MatGridAvatarCssMatStyler() {
     }
     MatGridAvatarCssMatStyler.decorators = [
@@ -194,7 +195,7 @@ var MatGridAvatarCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatGridTileHeaderCssMatStyler = (function () {
+var MatGridTileHeaderCssMatStyler = /** @class */ (function () {
     function MatGridTileHeaderCssMatStyler() {
     }
     MatGridTileHeaderCssMatStyler.decorators = [
@@ -211,7 +212,7 @@ var MatGridTileHeaderCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatGridTileFooterCssMatStyler = (function () {
+var MatGridTileFooterCssMatStyler = /** @class */ (function () {
     function MatGridTileFooterCssMatStyler() {
     }
     MatGridTileFooterCssMatStyler.decorators = [
@@ -229,6 +230,7 @@ var MatGridTileFooterCssMatStyler = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Class for determining, from a list of tiles, the (row, col) position of each of those tiles
  * in the grid. This is necessary (rather than just rendering the tiles in normal document flow)
@@ -246,7 +248,7 @@ var MatGridTileFooterCssMatStyler = (function () {
  *
  * \@docs-private
  */
-var TileCoordinator = (function () {
+var TileCoordinator = /** @class */ (function () {
     function TileCoordinator(numColumns, tiles) {
         var _this = this;
         /**
@@ -407,7 +409,7 @@ var TileCoordinator = (function () {
  * Simple data structure for tile position (row, col).
  * \@docs-private
  */
-var TilePosition = (function () {
+var TilePosition = /** @class */ (function () {
     function TilePosition(row, col) {
         this.row = row;
         this.col = col;
@@ -419,13 +421,14 @@ var TilePosition = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Sets the style properties for an individual tile, given the position calculated by the
  * Tile Coordinator.
  * \@docs-private
  * @abstract
  */
-var TileStyler = (function () {
+var TileStyler = /** @class */ (function () {
     function TileStyler() {
         this._rows = 0;
         this._rowspan = 0;
@@ -650,7 +653,7 @@ var TileStyler = (function () {
  * Example <mat-grid-list cols="3" rowHeight="100px">
  * \@docs-private
  */
-var FixedTileStyler = (function (_super) {
+var FixedTileStyler = /** @class */ (function (_super) {
     __extends(FixedTileStyler, _super);
     function FixedTileStyler(fixedRowHeight) {
         var _this = _super.call(this) || this;
@@ -722,7 +725,7 @@ var FixedTileStyler = (function (_super) {
  * for the row height.  Example <mat-grid-list cols="3" rowHeight="3:1">
  * \@docs-private
  */
-var RatioTileStyler = (function (_super) {
+var RatioTileStyler = /** @class */ (function (_super) {
     __extends(RatioTileStyler, _super);
     function RatioTileStyler(value) {
         var _this = _super.call(this) || this;
@@ -802,7 +805,7 @@ var RatioTileStyler = (function (_super) {
  *
  * \@docs-private
  */
-var FitTileStyler = (function (_super) {
+var FitTileStyler = /** @class */ (function (_super) {
     __extends(FitTileStyler, _super);
     function FitTileStyler() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -867,7 +870,7 @@ function normalizeUnits(value) {
 // TODO(kara): Re-layout on window resize / media change (debounced).
 // TODO(kara): gridTileHeader and gridTileFooter.
 var MAT_FIT_MODE = 'fit';
-var MatGridList = (function () {
+var MatGridList = /** @class */ (function () {
     function MatGridList(_element, _dir) {
         this._element = _element;
         this._dir = _dir;
@@ -1065,7 +1068,7 @@ var MatGridList = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatGridListModule = (function () {
+var MatGridListModule = /** @class */ (function () {
     function MatGridListModule() {
     }
     MatGridListModule.decorators = [

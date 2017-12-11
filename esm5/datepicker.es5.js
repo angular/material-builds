@@ -30,6 +30,7 @@ import { of } from 'rxjs/observable/of';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @param {?} provider
@@ -49,7 +50,7 @@ function createMissingDateImplError(provider) {
 /**
  * Datepicker data that requires internationalization.
  */
-var MatDatepickerIntl = (function () {
+var MatDatepickerIntl = /** @class */ (function () {
     function MatDatepickerIntl() {
         /**
          * Stream that emits whenever the labels here are changed. Use this to notify
@@ -106,7 +107,7 @@ var MatDatepickerIntl = (function () {
  * An internal class that represents the data corresponding to a single calendar cell.
  * \@docs-private
  */
-var MatCalendarCell = (function () {
+var MatCalendarCell = /** @class */ (function () {
     function MatCalendarCell(value, displayValue, ariaLabel, enabled) {
         this.value = value;
         this.displayValue = displayValue;
@@ -119,7 +120,7 @@ var MatCalendarCell = (function () {
  * An internal component used to display calendar data in a table.
  * \@docs-private
  */
-var MatCalendarBody = (function () {
+var MatCalendarBody = /** @class */ (function () {
     function MatCalendarBody() {
         /**
          * The number of columns in the table.
@@ -228,7 +229,7 @@ var DAYS_PER_WEEK = 7;
  * An internal component used to display a single month in the datepicker.
  * \@docs-private
  */
-var MatMonthView = (function () {
+var MatMonthView = /** @class */ (function () {
     function MatMonthView(_dateAdapter, _dateFormats, _changeDetectorRef) {
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
@@ -448,7 +449,7 @@ var MatMonthView = (function () {
  * An internal component used to display a single year in the datepicker.
  * \@docs-private
  */
-var MatYearView = (function () {
+var MatYearView = /** @class */ (function () {
     function MatYearView(_dateAdapter, _dateFormats, _changeDetectorRef) {
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
@@ -647,7 +648,7 @@ var MatYearView = (function () {
  * A calendar that is used as part of the datepicker.
  * \@docs-private
  */
-var MatCalendar = (function () {
+var MatCalendar = /** @class */ (function () {
     function MatCalendar(_elementRef, _intl, _ngZone, _dateAdapter, _dateFormats, changeDetectorRef) {
         var _this = this;
         this._elementRef = _elementRef;
@@ -1241,7 +1242,7 @@ var MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = {
  * future. (e.g. confirmation buttons).
  * \@docs-private
  */
-var MatDatepickerContent = (function () {
+var MatDatepickerContent = /** @class */ (function () {
     function MatDatepickerContent() {
     }
     /**
@@ -1299,7 +1300,7 @@ var MatDatepickerContent = (function () {
 /**
  * Component responsible for managing the datepicker popup/dialog.
  */
-var MatDatepicker = (function () {
+var MatDatepicker = /** @class */ (function () {
     function MatDatepicker(_dialog, _overlay, _ngZone, _viewContainerRef, _scrollStrategy, _dateAdapter, _dir, _document) {
         this._dialog = _dialog;
         this._overlay = _overlay;
@@ -1724,7 +1725,7 @@ var MAT_DATEPICKER_VALIDATORS = {
  * input or change event because the event may have been triggered by the user clicking on the
  * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
  */
-var MatDatepickerInputEvent = (function () {
+var MatDatepickerInputEvent = /** @class */ (function () {
     function MatDatepickerInputEvent(target, targetElement) {
         this.target = target;
         this.targetElement = targetElement;
@@ -1735,7 +1736,7 @@ var MatDatepickerInputEvent = (function () {
 /**
  * Directive used to connect an input to a MatDatepicker.
  */
-var MatDatepickerInput = (function () {
+var MatDatepickerInput = /** @class */ (function () {
     function MatDatepickerInput(_elementRef, _dateAdapter, _dateFormats, _formField) {
         var _this = this;
         this._elementRef = _elementRef;
@@ -2166,7 +2167,7 @@ var MatDatepickerInput = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatDatepickerToggle = (function () {
+var MatDatepickerToggle = /** @class */ (function () {
     function MatDatepickerToggle(_intl, _changeDetectorRef) {
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
@@ -2252,7 +2253,7 @@ var MatDatepickerToggle = (function () {
     };
     MatDatepickerToggle.decorators = [
         { type: Component, args: [{selector: 'mat-datepicker-toggle',
-                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
+                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5.0.1-2fb4d61.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
                     host: {
                         'class': 'mat-datepicker-toggle',
                     },
@@ -2279,7 +2280,7 @@ var MatDatepickerToggle = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatDatepickerModule = (function () {
+var MatDatepickerModule = /** @class */ (function () {
     function MatDatepickerModule() {
     }
     MatDatepickerModule.decorators = [

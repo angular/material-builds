@@ -11,7 +11,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, Overlay, RepositionScrollStrategy, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanDisable, ErrorStateMatcher, CanUpdateErrorState, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange } from '@angular/material/core';
+import { CanDisable, ErrorStateMatcher, CanUpdateErrorState, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange, CanDisableRipple } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs/Observable';
 /**
@@ -48,7 +48,7 @@ export declare function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Ove
 /** @docs-private */
 export declare const MAT_SELECT_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
-    deps: typeof Overlay[];
+    deps: (typeof Overlay)[];
     useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
 };
 /** Change event object that is emitted when the select value has changed. */
@@ -72,13 +72,13 @@ export declare class MatSelectBase {
     ngControl: NgControl;
     constructor(_elementRef: ElementRef, _defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl);
 }
-export declare const _MatSelectMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisable) & (new (...args: any[]) => CanUpdateErrorState) & typeof MatSelectBase;
+export declare const _MatSelectMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisable) & (new (...args: any[]) => CanUpdateErrorState) & typeof MatSelectBase;
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
 export declare class MatSelectTrigger {
 }
-export declare class MatSelect extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any>, CanUpdateErrorState {
+export declare class MatSelect extends _MatSelectMixinBase implements AfterContentInit, OnChanges, OnDestroy, OnInit, DoCheck, ControlValueAccessor, CanDisable, HasTabIndex, MatFormFieldControl<any>, CanUpdateErrorState, CanDisableRipple {
     private _viewportRuler;
     private _changeDetectorRef;
     private _ngZone;
@@ -177,9 +177,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Value of the select control. */
     value: any;
     private _value;
-    /** Whether ripples for all options in the select are disabled. */
-    disableRipple: boolean;
-    private _disableRipple;
     /** Aria label of the select. If not specified, the placeholder will be used as label. */
     ariaLabel: string;
     /** Input that can be used to specify the `aria-labelledby` attribute. */

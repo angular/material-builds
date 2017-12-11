@@ -248,6 +248,7 @@ MatTableModule.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
  * sorting (using MatSort), and pagination (using MatPaginator).

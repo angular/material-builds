@@ -54,7 +54,7 @@ function throwMatDuplicatedDrawerError(position) {
  * Drawer toggle promise result.
  * @deprecated
  */
-var MatDrawerToggleResult = (function () {
+var MatDrawerToggleResult = /** @class */ (function () {
     function MatDrawerToggleResult(type, animationFinished) {
         this.type = type;
         this.animationFinished = animationFinished;
@@ -65,7 +65,7 @@ var MatDrawerToggleResult = (function () {
  * Configures whether drawers should use auto sizing by default.
  */
 var MAT_DRAWER_DEFAULT_AUTOSIZE = new _angular_core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
-var MatDrawerContent = (function () {
+var MatDrawerContent = /** @class */ (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
         this._container = _container;
@@ -112,7 +112,7 @@ var MatDrawerContent = (function () {
 /**
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
-var MatDrawer = (function () {
+var MatDrawer = /** @class */ (function () {
     function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _doc) {
         var _this = this;
         this._elementRef = _elementRef;
@@ -583,7 +583,7 @@ var MatDrawer = (function () {
  * This is the parent component to one or two <mat-drawer>s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
-var MatDrawerContainer = (function () {
+var MatDrawerContainer = /** @class */ (function () {
     function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize) {
         if (defaultAutosize === void 0) { defaultAutosize = false; }
         var _this = this;
@@ -889,7 +889,7 @@ var MatDrawerContainer = (function () {
         // Close all open drawers where closing is not disabled and the mode is not `side`.
         [this._start, this._end]
             .filter(function (drawer) { return drawer && !drawer.disableClose && drawer.mode !== 'side'; })
-            .forEach(function (drawer) { return /** @type {?} */ ((drawer)).close(); });
+            .forEach(function (drawer) { return ((drawer)).close(); });
     };
     /**
      * @return {?}
@@ -989,7 +989,8 @@ var MatDrawerContainer = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var MatSidenavContent = (function (_super) {
+
+var MatSidenavContent = /** @class */ (function (_super) {
     __extends(MatSidenavContent, _super);
     function MatSidenavContent(changeDetectorRef, container) {
         return _super.call(this, changeDetectorRef, container) || this;
@@ -1014,7 +1015,7 @@ var MatSidenavContent = (function (_super) {
     ]; };
     return MatSidenavContent;
 }(MatDrawerContent));
-var MatSidenav = (function (_super) {
+var MatSidenav = /** @class */ (function (_super) {
     __extends(MatSidenav, _super);
     function MatSidenav() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -1115,7 +1116,7 @@ var MatSidenav = (function (_super) {
     };
     return MatSidenav;
 }(MatDrawer));
-var MatSidenavContainer = (function (_super) {
+var MatSidenavContainer = /** @class */ (function (_super) {
     __extends(MatSidenavContainer, _super);
     function MatSidenavContainer() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -1147,7 +1148,7 @@ var MatSidenavContainer = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSidenavModule = (function () {
+var MatSidenavModule = /** @class */ (function () {
     function MatSidenavModule() {
     }
     MatSidenavModule.decorators = [

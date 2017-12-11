@@ -18,6 +18,7 @@ import { ENTER, SPACE } from '@angular/cdk/keycodes';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
@@ -69,6 +70,10 @@ class MatCommonModule {
          * Reference to the global `document` object.
          */
         this._document = typeof document === 'object' && document ? document : null;
+        /**
+         * Reference to the global 'window' object.
+         */
+        this._window = typeof window === 'object' && window ? window : null;
         if (this._areChecksEnabled() && !this._hasDoneGlobalChecks) {
             this._checkDoctypeIsDefined();
             this._checkThemeIsPresent();
@@ -87,7 +92,7 @@ class MatCommonModule {
      * @return {?}
      */
     _isTestEnv() {
-        return window['__karma__'] || window['jasmine'];
+        return this._window && (this._window['__karma__'] || this._window['jasmine']);
     }
     /**
      * @return {?}
@@ -123,7 +128,10 @@ class MatCommonModule {
      * @return {?}
      */
     _checkHammerIsAvailable() {
-        if (this._areChecksEnabled() && !this._hasCheckedHammer && !window['Hammer']) {
+        if (this._hasCheckedHammer || !this._window) {
+            return;
+        }
+        if (this._areChecksEnabled() && !this._window['Hammer']) {
             console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
         }
         this._hasCheckedHammer = true;
@@ -184,6 +192,7 @@ function mixinDisabled(base) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @record
@@ -276,6 +285,7 @@ function mixinDisableRipple(base) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @record
@@ -316,6 +326,7 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @record
@@ -834,6 +845,7 @@ NativeDateAdapter.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 const MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
@@ -1090,6 +1102,7 @@ MatLineModule.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /** @enum {number} */
 const RippleState = {
     FADING_IN: 0,
@@ -1132,6 +1145,7 @@ class RippleRef {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Fade-in duration for the ripples. Can be modified with the speedFactor option.
  */
@@ -1922,6 +1936,7 @@ const MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Applies a CSS transform to an element, including browser-prefixed properties.
  * @param {?} element
@@ -1945,6 +1960,7 @@ function applyCssTransform(element, transformValue) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('@angular/animations'), require('rxjs/operators/startWith'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('@angular/cdk/accordion'), require('rxjs/operators/takeUntil'), require('rxjs/Observable'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/layout'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', '@angular/animations', 'rxjs/operators/startWith', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', '@angular/cdk/accordion', 'rxjs/operators/takeUntil', 'rxjs/Observable', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/layout', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.ng.animations,global.Rx.operators,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.accordion,global.Rx.operators,global.Rx,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.layout,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,_angular_animations,rxjs_operators_startWith,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,_angular_cdk_accordion,rxjs_operators_takeUntil,rxjs_Observable,_angular_cdk_scrolling,rxjs_operators_debounceTime,_angular_cdk_layout,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest,rxjs_observable_empty) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('@angular/animations'), require('rxjs/operators/startWith'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/Observable'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/layout'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', '@angular/animations', 'rxjs/operators/startWith', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/Observable', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/layout', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.ng.animations,global.Rx.operators,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.accordion,global.Rx,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.layout,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,_angular_animations,rxjs_operators_startWith,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operators_auditTime,rxjs_operators_takeUntil,_angular_cdk_accordion,rxjs_Observable,_angular_cdk_scrolling,rxjs_operators_debounceTime,_angular_cdk_layout,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest,rxjs_observable_empty) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -49,10 +49,11 @@ var __assign = Object.assign || function __assign(t) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var AnimationCurves = (function () {
+var AnimationCurves = /** @class */ (function () {
     function AnimationCurves() {
     }
     AnimationCurves.STANDARD_CURVE = 'cubic-bezier(0.4,0.0,0.2,1)';
@@ -64,7 +65,7 @@ var AnimationCurves = (function () {
 /**
  * \@docs-private
  */
-var AnimationDurations = (function () {
+var AnimationDurations = /** @class */ (function () {
     function AnimationDurations() {
     }
     AnimationDurations.COMPLEX = '375ms';
@@ -88,7 +89,7 @@ var MATERIAL_SANITY_CHECKS = new _angular_core.InjectionToken('mat-sanity-checks
  *
  * This module should be imported to each top-level component module (e.g., MatTabsModule).
  */
-var MatCommonModule = (function () {
+var MatCommonModule = /** @class */ (function () {
     function MatCommonModule(_sanityChecksEnabled) {
         this._sanityChecksEnabled = _sanityChecksEnabled;
         /**
@@ -103,6 +104,10 @@ var MatCommonModule = (function () {
          * Reference to the global `document` object.
          */
         this._document = typeof document === 'object' && document ? document : null;
+        /**
+         * Reference to the global 'window' object.
+         */
+        this._window = typeof window === 'object' && window ? window : null;
         if (this._areChecksEnabled() && !this._hasDoneGlobalChecks) {
             this._checkDoctypeIsDefined();
             this._checkThemeIsPresent();
@@ -129,7 +134,7 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     function () {
-        return window['__karma__'] || window['jasmine'];
+        return this._window && (this._window['__karma__'] || this._window['jasmine']);
     };
     /**
      * @return {?}
@@ -176,7 +181,10 @@ var MatCommonModule = (function () {
      * @return {?}
      */
     function () {
-        if (this._areChecksEnabled() && !this._hasCheckedHammer && !window['Hammer']) {
+        if (this._hasCheckedHammer || !this._window) {
+            return;
+        }
+        if (this._areChecksEnabled() && !this._window['Hammer']) {
             console.warn('Could not find HammerJS. Certain Angular Material components may not work correctly.');
         }
         this._hasCheckedHammer = true;
@@ -201,6 +209,7 @@ var MatCommonModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @record
@@ -213,7 +222,7 @@ var MatCommonModule = (function () {
  * @return {?}
  */
 function mixinDisabled(base) {
-    return (function (_super) {
+    return /** @class */ (function (_super) {
         __extends(class_1, _super);
         function class_1() {
             var args = [];
@@ -245,6 +254,7 @@ function mixinDisabled(base) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @record
@@ -263,7 +273,7 @@ function mixinDisabled(base) {
  * @return {?}
  */
 function mixinColor(base, defaultColor) {
-    return (function (_super) {
+    return /** @class */ (function (_super) {
         __extends(class_1, _super);
         function class_1() {
             var args = [];
@@ -308,6 +318,7 @@ function mixinColor(base, defaultColor) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @record
@@ -320,7 +331,7 @@ function mixinColor(base, defaultColor) {
  * @return {?}
  */
 function mixinDisableRipple(base) {
-    return (function (_super) {
+    return /** @class */ (function (_super) {
         __extends(class_1, _super);
         function class_1() {
             var args = [];
@@ -354,6 +365,7 @@ function mixinDisableRipple(base) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @record
@@ -368,7 +380,7 @@ function mixinDisableRipple(base) {
  */
 function mixinTabIndex(base, defaultTabIndex) {
     if (defaultTabIndex === void 0) { defaultTabIndex = 0; }
-    return (function (_super) {
+    return /** @class */ (function (_super) {
         __extends(class_1, _super);
         function class_1() {
             var args = [];
@@ -403,6 +415,7 @@ function mixinTabIndex(base, defaultTabIndex) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @record
@@ -421,7 +434,7 @@ function mixinTabIndex(base, defaultTabIndex) {
  * @return {?}
  */
 function mixinErrorState(base) {
-    return (function (_super) {
+    return /** @class */ (function (_super) {
         __extends(class_1, _super);
         function class_1() {
             var args = [];
@@ -483,7 +496,7 @@ var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: _angular
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
  */
-var DateAdapter = (function () {
+var DateAdapter = /** @class */ (function () {
     function DateAdapter() {
         this._localeChanges = new rxjs_Subject.Subject();
     }
@@ -662,6 +675,7 @@ var MAT_DATE_FORMATS = new _angular_core.InjectionToken('mat-date-formats');
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Whether the browser supports the Intl API.
  */
@@ -713,7 +727,7 @@ function range(length, valueFunction) {
 /**
  * Adapts the native JS Date for use with cdk-based components that work with dates.
  */
-var NativeDateAdapter = (function (_super) {
+var NativeDateAdapter = /** @class */ (function (_super) {
     __extends(NativeDateAdapter, _super);
     function NativeDateAdapter(matDateLocale) {
         var _this = _super.call(this) || this;
@@ -1141,6 +1155,7 @@ var NativeDateAdapter = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 var MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
@@ -1158,7 +1173,7 @@ var MAT_NATIVE_DATE_FORMATS = {
  * @suppress {checkTypes} checked by tsc
  */
 
-var NativeDateModule = (function () {
+var NativeDateModule = /** @class */ (function () {
     function NativeDateModule() {
     }
     NativeDateModule.decorators = [
@@ -1174,7 +1189,7 @@ var NativeDateModule = (function () {
     return NativeDateModule;
 }());
 var ɵ0$$1 = MAT_NATIVE_DATE_FORMATS;
-var MatNativeDateModule = (function () {
+var MatNativeDateModule = /** @class */ (function () {
     function MatNativeDateModule() {
     }
     MatNativeDateModule.decorators = [
@@ -1196,7 +1211,7 @@ var MatNativeDateModule = (function () {
 /**
  * Error state matcher that matches when a control is invalid and dirty.
  */
-var ShowOnDirtyErrorStateMatcher = (function () {
+var ShowOnDirtyErrorStateMatcher = /** @class */ (function () {
     function ShowOnDirtyErrorStateMatcher() {
     }
     /**
@@ -1222,7 +1237,7 @@ var ShowOnDirtyErrorStateMatcher = (function () {
 /**
  * Provider that defines how form controls behave with regards to displaying error messages.
  */
-var ErrorStateMatcher = (function () {
+var ErrorStateMatcher = /** @class */ (function () {
     function ErrorStateMatcher() {
     }
     /**
@@ -1250,12 +1265,13 @@ var ErrorStateMatcher = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Injection token that can be used to provide options to the Hammerjs instance.
  * More info at http://hammerjs.github.io/api/.
  */
 var MAT_HAMMER_OPTIONS = new _angular_core.InjectionToken('MAT_HAMMER_OPTIONS');
-var GestureConfig = (function (_super) {
+var GestureConfig = /** @class */ (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig(_hammerOptions, commonModule) {
         var _this = _super.call(this) || this;
@@ -1376,7 +1392,7 @@ var GestureConfig = (function (_super) {
  * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
  * counted by checking the query list's length.
  */
-var MatLine = (function () {
+var MatLine = /** @class */ (function () {
     function MatLine() {
     }
     MatLine.decorators = [
@@ -1393,7 +1409,7 @@ var MatLine = (function () {
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
  */
-var MatLineSetter = (function () {
+var MatLineSetter = /** @class */ (function () {
     function MatLineSetter(_lines, _element) {
         var _this = this;
         this._lines = _lines;
@@ -1451,7 +1467,7 @@ var MatLineSetter = (function () {
     };
     return MatLineSetter;
 }());
-var MatLineModule = (function () {
+var MatLineModule = /** @class */ (function () {
     function MatLineModule() {
     }
     MatLineModule.decorators = [
@@ -1470,6 +1486,7 @@ var MatLineModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /** @enum {number} */
 var RippleState = {
     FADING_IN: 0,
@@ -1484,7 +1501,7 @@ RippleState[RippleState.HIDDEN] = "HIDDEN";
 /**
  * Reference to a previously launched ripple element.
  */
-var RippleRef = (function () {
+var RippleRef = /** @class */ (function () {
     function RippleRef(_renderer, element, config) {
         this._renderer = _renderer;
         this.element = element;
@@ -1513,6 +1530,7 @@ var RippleRef = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Fade-in duration for the ripples. Can be modified with the speedFactor option.
  */
@@ -1533,7 +1551,7 @@ var IGNORE_MOUSE_EVENTS_TIMEOUT = 800;
  * This will eventually become a custom renderer once Angular support exists.
  * \@docs-private
  */
-var RippleRenderer = (function () {
+var RippleRenderer = /** @class */ (function () {
     function RippleRenderer(elementRef, _ngZone, platform) {
         this._ngZone = _ngZone;
         /**
@@ -1809,7 +1827,7 @@ function distanceToFurthestCorner(x, y, rect) {
  * Injection token that can be used to specify the global ripple options.
  */
 var MAT_RIPPLE_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-ripple-global-options');
-var MatRipple = (function () {
+var MatRipple = /** @class */ (function () {
     function MatRipple(elementRef, ngZone, platform, globalOptions) {
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
@@ -1946,7 +1964,7 @@ var MatRipple = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatRippleModule = (function () {
+var MatRippleModule = /** @class */ (function () {
     function MatRippleModule() {
     }
     MatRippleModule.decorators = [
@@ -1979,7 +1997,7 @@ var MatRippleModule = (function () {
  * more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
-var MatPseudoCheckbox = (function () {
+var MatPseudoCheckbox = /** @class */ (function () {
     function MatPseudoCheckbox() {
         /**
          * Display state of the checkbox.
@@ -2019,7 +2037,7 @@ var MatPseudoCheckbox = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatPseudoCheckboxModule = (function () {
+var MatPseudoCheckboxModule = /** @class */ (function () {
     function MatPseudoCheckboxModule() {
     }
     MatPseudoCheckboxModule.decorators = [
@@ -2037,10 +2055,11 @@ var MatPseudoCheckboxModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatOptgroupBase = (function () {
+var MatOptgroupBase = /** @class */ (function () {
     function MatOptgroupBase() {
     }
     return MatOptgroupBase;
@@ -2051,7 +2070,7 @@ var _uniqueOptgroupIdCounter = 0;
 /**
  * Component that is used to group instances of `mat-option`.
  */
-var MatOptgroup = (function (_super) {
+var MatOptgroup = /** @class */ (function (_super) {
     __extends(MatOptgroup, _super);
     function MatOptgroup() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -2099,7 +2118,7 @@ var _uniqueIdCounter = 0;
 /**
  * Event object emitted by MatOption when selected or deselected.
  */
-var MatOptionSelectionChange = (function () {
+var MatOptionSelectionChange = /** @class */ (function () {
     function MatOptionSelectionChange(source, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
@@ -2121,7 +2140,7 @@ var MAT_OPTION_PARENT_COMPONENT = new _angular_core.InjectionToken('MAT_OPTION_P
 /**
  * Single option inside of a `<mat-select>` element.
  */
-var MatOption = (function () {
+var MatOption = /** @class */ (function () {
     function MatOption(_element, _changeDetectorRef, _parent, group) {
         this._element = _element;
         this._changeDetectorRef = _changeDetectorRef;
@@ -2482,7 +2501,7 @@ var MatOption = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatOptionModule = (function () {
+var MatOptionModule = /** @class */ (function () {
     function MatOptionModule() {
     }
     MatOptionModule.decorators = [
@@ -2515,6 +2534,7 @@ var MAT_LABEL_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-label-globa
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Applies a CSS transform to an element, including browser-prefixed properties.
  * @param {?} element
@@ -2538,6 +2558,7 @@ function applyCssTransform(element, transformValue) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
@@ -2564,7 +2585,7 @@ var nextUniqueId = 0;
 /**
  * Single error message to be shown underneath the form field.
  */
-var MatError = (function () {
+var MatError = /** @class */ (function () {
     function MatError() {
         this.id = "mat-error-" + nextUniqueId++;
     }
@@ -2590,11 +2611,12 @@ var MatError = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
  */
-var MatFormFieldControl = (function () {
+var MatFormFieldControl = /** @class */ (function () {
     function MatFormFieldControl() {
     }
     return MatFormFieldControl;
@@ -2604,6 +2626,7 @@ var MatFormFieldControl = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @return {?}
@@ -2636,7 +2659,7 @@ var nextUniqueId$2 = 0;
 /**
  * Hint text to be shown underneath the form field control.
  */
-var MatHint = (function () {
+var MatHint = /** @class */ (function () {
     function MatHint() {
         /**
          * Whether to align the hint label at the start or end of the line.
@@ -2676,7 +2699,7 @@ var MatHint = (function () {
 /**
  * The placeholder text for an `MatFormField`.
  */
-var MatPlaceholder = (function () {
+var MatPlaceholder = /** @class */ (function () {
     function MatPlaceholder() {
     }
     MatPlaceholder.decorators = [
@@ -2697,7 +2720,7 @@ var MatPlaceholder = (function () {
 /**
  * The floating label for a `mat-form-field`.
  */
-var MatLabel = (function () {
+var MatLabel = /** @class */ (function () {
     function MatLabel() {
     }
     MatLabel.decorators = [
@@ -2718,7 +2741,7 @@ var MatLabel = (function () {
 /**
  * Prefix to be placed the the front of the form field.
  */
-var MatPrefix = (function () {
+var MatPrefix = /** @class */ (function () {
     function MatPrefix() {
     }
     MatPrefix.decorators = [
@@ -2739,7 +2762,7 @@ var MatPrefix = (function () {
 /**
  * Suffix to be placed at the end of the form field.
  */
-var MatSuffix = (function () {
+var MatSuffix = /** @class */ (function () {
     function MatSuffix() {
     }
     MatSuffix.decorators = [
@@ -2761,7 +2784,7 @@ var nextUniqueId$1 = 0;
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
-var MatFormField = (function () {
+var MatFormField = /** @class */ (function () {
     function MatFormField(_elementRef, _changeDetectorRef, labelOptions) {
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
@@ -3150,7 +3173,7 @@ var MatFormField = (function () {
                     // MatInput is a directive and can't have styles, so we need to include its styles here.
                     // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
                     // aren't using MatInput.
-                    styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0;width:180px}.mat-form-field-label-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-label{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-label{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-empty.mat-form-field-label{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:block;transition:none}.mat-input-server:focus+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder,.mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder,.mat-form-field-can-float .mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:block}.mat-form-field-label:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;top:0;left:0;width:100%;height:2px;transform-origin:50%;transform:scaleX(.5);visibility:hidden;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-invalid:not(.mat-focused) .mat-form-field-underline .mat-form-field-ripple{height:1px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;transform:scaleX(1);transition:transform 150ms linear,background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-label-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::-ms-clear,.mat-input-element::-ms-reveal{display:none}.mat-input-element[type=date]::after,.mat-input-element[type=datetime-local]::after,.mat-input-element[type=datetime]::after,.mat-input-element[type=month]::after,.mat-input-element[type=time]::after,.mat-input-element[type=week]::after{content:' ';white-space:pre;width:1px}.mat-input-element::placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-moz-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-webkit-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element:-ms-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-form-field-hide-placeholder .mat-input-element::placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-moz-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-webkit-input-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element:-ms-input-placeholder{color:transparent!important;transition:none}textarea.mat-input-element{resize:vertical;overflow:auto}"],
+                    styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0;width:180px}.mat-form-field-label-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-label{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-label{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-empty.mat-form-field-label{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:block;transition:none}.mat-input-server:focus+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder,.mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder,.mat-form-field-can-float .mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:block}.mat-form-field-label:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;top:0;left:0;width:100%;height:2px;transform-origin:50%;transform:scaleX(.5);visibility:hidden;opacity:0;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-invalid:not(.mat-focused) .mat-form-field-underline .mat-form-field-ripple{height:1px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;opacity:1;transform:scaleX(1);transition:transform .3s cubic-bezier(.25,.8,.25,1),opacity .1s cubic-bezier(.25,.8,.25,1),background-color .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-label-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::-ms-clear,.mat-input-element::-ms-reveal{display:none}.mat-input-element[type=date]::after,.mat-input-element[type=datetime-local]::after,.mat-input-element[type=datetime]::after,.mat-input-element[type=month]::after,.mat-input-element[type=time]::after,.mat-input-element[type=week]::after{content:' ';white-space:pre;width:1px}.mat-input-element::placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-moz-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-webkit-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element:-ms-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-form-field-hide-placeholder .mat-input-element::placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-moz-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-webkit-input-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element:-ms-input-placeholder{color:transparent!important;transition:none}textarea.mat-input-element{resize:vertical;overflow:auto}textarea.mat-autosize{resize:none}"],
                     animations: [
                         // TODO(mmalerba): Use angular animations for label animation as well.
                         _angular_animations.trigger('transitionMessages', [
@@ -3219,7 +3242,7 @@ var MatFormField = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatFormFieldModule = (function () {
+var MatFormFieldModule = /** @class */ (function () {
     function MatFormFieldModule() {
     }
     MatFormFieldModule.decorators = [
@@ -3266,14 +3289,14 @@ var _uniqueAutocompleteIdCounter = 0;
 /**
  * Event object that is emitted when an autocomplete option is selected
  */
-var MatAutocompleteSelectedEvent = (function () {
+var MatAutocompleteSelectedEvent = /** @class */ (function () {
     function MatAutocompleteSelectedEvent(source, option) {
         this.source = source;
         this.option = option;
     }
     return MatAutocompleteSelectedEvent;
 }());
-var MatAutocomplete = (function () {
+var MatAutocomplete = /** @class */ (function () {
     function MatAutocomplete(_changeDetectorRef, _elementRef) {
         this._changeDetectorRef = _changeDetectorRef;
         this._elementRef = _elementRef;
@@ -3480,7 +3503,7 @@ function getMatAutocompleteMissingPanelError() {
         'Make sure that the id passed to the `matAutocomplete` is correct and that ' +
         'you\'re attempting to open it after the ngAfterContentInit hook.');
 }
-var MatAutocompleteTrigger = (function () {
+var MatAutocompleteTrigger = /** @class */ (function () {
     function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _scrollStrategy, _dir, _formField, _document) {
         this._element = _element;
         this._overlay = _overlay;
@@ -4083,7 +4106,7 @@ var MatAutocompleteTrigger = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatAutocompleteModule = (function () {
+var MatAutocompleteModule = /** @class */ (function () {
     function MatAutocompleteModule() {
     }
     MatAutocompleteModule.decorators = [
@@ -4103,6 +4126,7 @@ var MatAutocompleteModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
  */
@@ -4111,7 +4135,7 @@ var DEFAULT_ROUND_BUTTON_COLOR = 'accent';
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatButtonCssMatStyler = (function () {
+var MatButtonCssMatStyler = /** @class */ (function () {
     function MatButtonCssMatStyler() {
     }
     MatButtonCssMatStyler.decorators = [
@@ -4128,7 +4152,7 @@ var MatButtonCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatRaisedButtonCssMatStyler = (function () {
+var MatRaisedButtonCssMatStyler = /** @class */ (function () {
     function MatRaisedButtonCssMatStyler() {
     }
     MatRaisedButtonCssMatStyler.decorators = [
@@ -4145,7 +4169,7 @@ var MatRaisedButtonCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatIconButtonCssMatStyler = (function () {
+var MatIconButtonCssMatStyler = /** @class */ (function () {
     function MatIconButtonCssMatStyler() {
     }
     MatIconButtonCssMatStyler.decorators = [
@@ -4162,7 +4186,7 @@ var MatIconButtonCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatFab = (function () {
+var MatFab = /** @class */ (function () {
     function MatFab(button, anchor) {
         // Set the default color palette for the mat-fab components.
         (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
@@ -4185,7 +4209,7 @@ var MatFab = (function () {
  * to all mini-fab buttons and also is responsible for setting the default color palette.
  * \@docs-private
  */
-var MatMiniFab = (function () {
+var MatMiniFab = /** @class */ (function () {
     function MatMiniFab(button, anchor) {
         // Set the default color palette for the mat-mini-fab components.
         (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
@@ -4206,7 +4230,7 @@ var MatMiniFab = (function () {
 /**
  * \@docs-private
  */
-var MatButtonBase = (function () {
+var MatButtonBase = /** @class */ (function () {
     function MatButtonBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -4216,7 +4240,7 @@ var _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonB
 /**
  * Material design button.
  */
-var MatButton = (function (_super) {
+var MatButton = /** @class */ (function (_super) {
     __extends(MatButton, _super);
     function MatButton(elementRef, _platform, _focusMonitor) {
         var _this = _super.call(this, elementRef) || this;
@@ -4322,7 +4346,7 @@ var MatButton = (function (_super) {
 /**
  * Raised Material design button.
  */
-var MatAnchor = (function (_super) {
+var MatAnchor = /** @class */ (function (_super) {
     __extends(MatAnchor, _super);
     function MatAnchor(platform, focusMonitor, elementRef) {
         return _super.call(this, elementRef, platform, focusMonitor) || this;
@@ -4373,7 +4397,7 @@ var MatAnchor = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatButtonModule = (function () {
+var MatButtonModule = /** @class */ (function () {
     function MatButtonModule() {
     }
     MatButtonModule.decorators = [
@@ -4414,10 +4438,11 @@ var MatButtonModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatButtonToggleGroupBase = (function () {
+var MatButtonToggleGroupBase = /** @class */ (function () {
     function MatButtonToggleGroupBase() {
     }
     return MatButtonToggleGroupBase;
@@ -4437,7 +4462,7 @@ var _uniqueIdCounter$1 = 0;
 /**
  * Change event object emitted by MatButtonToggle.
  */
-var MatButtonToggleChange = (function () {
+var MatButtonToggleChange = /** @class */ (function () {
     function MatButtonToggleChange() {
     }
     return MatButtonToggleChange;
@@ -4445,7 +4470,7 @@ var MatButtonToggleChange = (function () {
 /**
  * Exclusive selection button toggle group that behaves like a radio-button group.
  */
-var MatButtonToggleGroup = (function (_super) {
+var MatButtonToggleGroup = /** @class */ (function (_super) {
     __extends(MatButtonToggleGroup, _super);
     function MatButtonToggleGroup(_changeDetector) {
         var _this = _super.call(this) || this;
@@ -4738,7 +4763,7 @@ var MatButtonToggleGroup = (function (_super) {
 /**
  * Multiple selection button-toggle group. `ngModel` is not supported in this mode.
  */
-var MatButtonToggleGroupMultiple = (function (_super) {
+var MatButtonToggleGroupMultiple = /** @class */ (function (_super) {
     __extends(MatButtonToggleGroupMultiple, _super);
     function MatButtonToggleGroupMultiple() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -4788,7 +4813,7 @@ var MatButtonToggleGroupMultiple = (function (_super) {
 /**
  * Single button inside of a toggle group.
  */
-var MatButtonToggle = (function () {
+var MatButtonToggle = /** @class */ (function () {
     function MatButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _elementRef, _focusMonitor) {
         var _this = this;
         this._changeDetectorRef = _changeDetectorRef;
@@ -5104,7 +5129,7 @@ var MatButtonToggle = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatButtonToggleModule = (function () {
+var MatButtonToggleModule = /** @class */ (function () {
     function MatButtonToggleModule() {
     }
     MatButtonToggleModule.decorators = [
@@ -5134,7 +5159,7 @@ var MatButtonToggleModule = (function () {
  * Content of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MatCardContent = (function () {
+var MatCardContent = /** @class */ (function () {
     function MatCardContent() {
     }
     MatCardContent.decorators = [
@@ -5151,7 +5176,7 @@ var MatCardContent = (function () {
  * Title of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MatCardTitle = (function () {
+var MatCardTitle = /** @class */ (function () {
     function MatCardTitle() {
     }
     MatCardTitle.decorators = [
@@ -5170,7 +5195,7 @@ var MatCardTitle = (function () {
  * Sub-title of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MatCardSubtitle = (function () {
+var MatCardSubtitle = /** @class */ (function () {
     function MatCardSubtitle() {
     }
     MatCardSubtitle.decorators = [
@@ -5189,7 +5214,7 @@ var MatCardSubtitle = (function () {
  * Action section of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MatCardActions = (function () {
+var MatCardActions = /** @class */ (function () {
     function MatCardActions() {
         /**
          * Position of the actions inside the card.
@@ -5217,7 +5242,7 @@ var MatCardActions = (function () {
  * Footer of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MatCardFooter = (function () {
+var MatCardFooter = /** @class */ (function () {
     function MatCardFooter() {
     }
     MatCardFooter.decorators = [
@@ -5234,7 +5259,7 @@ var MatCardFooter = (function () {
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MatCardImage = (function () {
+var MatCardImage = /** @class */ (function () {
     function MatCardImage() {
     }
     MatCardImage.decorators = [
@@ -5251,7 +5276,7 @@ var MatCardImage = (function () {
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MatCardSmImage = (function () {
+var MatCardSmImage = /** @class */ (function () {
     function MatCardSmImage() {
     }
     MatCardSmImage.decorators = [
@@ -5268,7 +5293,7 @@ var MatCardSmImage = (function () {
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MatCardMdImage = (function () {
+var MatCardMdImage = /** @class */ (function () {
     function MatCardMdImage() {
     }
     MatCardMdImage.decorators = [
@@ -5285,7 +5310,7 @@ var MatCardMdImage = (function () {
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MatCardLgImage = (function () {
+var MatCardLgImage = /** @class */ (function () {
     function MatCardLgImage() {
     }
     MatCardLgImage.decorators = [
@@ -5302,7 +5327,7 @@ var MatCardLgImage = (function () {
  * Large image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MatCardXlImage = (function () {
+var MatCardXlImage = /** @class */ (function () {
     function MatCardXlImage() {
     }
     MatCardXlImage.decorators = [
@@ -5319,7 +5344,7 @@ var MatCardXlImage = (function () {
  * Avatar image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MatCardAvatar = (function () {
+var MatCardAvatar = /** @class */ (function () {
     function MatCardAvatar() {
     }
     MatCardAvatar.decorators = [
@@ -5343,7 +5368,7 @@ var MatCardAvatar = (function () {
  * - mat-card-actions
  * - mat-card-footer
  */
-var MatCard = (function () {
+var MatCard = /** @class */ (function () {
     function MatCard() {
     }
     MatCard.decorators = [
@@ -5366,7 +5391,7 @@ var MatCard = (function () {
  * preset header section (i.e. a title, subtitle, and avatar layout).
  * \@docs-private
  */
-var MatCardHeader = (function () {
+var MatCardHeader = /** @class */ (function () {
     function MatCardHeader() {
     }
     MatCardHeader.decorators = [
@@ -5387,7 +5412,7 @@ var MatCardHeader = (function () {
  * layout that groups an image with a title section.
  * \@docs-private
  */
-var MatCardTitleGroup = (function () {
+var MatCardTitleGroup = /** @class */ (function () {
     function MatCardTitleGroup() {
     }
     MatCardTitleGroup.decorators = [
@@ -5409,7 +5434,7 @@ var MatCardTitleGroup = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatCardModule = (function () {
+var MatCardModule = /** @class */ (function () {
     function MatCardModule() {
     }
     MatCardModule.decorators = [
@@ -5458,6 +5483,7 @@ var MAT_CHECKBOX_CLICK_ACTION = new _angular_core.InjectionToken('mat-checkbox-c
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 // Increasing integer for generating unique ids for checkbox components.
 var nextUniqueId$1$1 = 0;
 /**
@@ -5488,7 +5514,7 @@ TransitionCheckState[TransitionCheckState.Indeterminate] = "Indeterminate";
 /**
  * Change event object emitted by MatCheckbox.
  */
-var MatCheckboxChange = (function () {
+var MatCheckboxChange = /** @class */ (function () {
     function MatCheckboxChange() {
     }
     return MatCheckboxChange;
@@ -5496,7 +5522,7 @@ var MatCheckboxChange = (function () {
 /**
  * \@docs-private
  */
-var MatCheckboxBase = (function () {
+var MatCheckboxBase = /** @class */ (function () {
     function MatCheckboxBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -5511,7 +5537,7 @@ var _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDis
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://www.google.com/design/spec/components/selection-controls.html
  */
-var MatCheckbox = (function (_super) {
+var MatCheckbox = /** @class */ (function (_super) {
     __extends(MatCheckbox, _super);
     function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, tabIndex, _clickAction) {
         var _this = _super.call(this, elementRef) || this;
@@ -6046,6 +6072,7 @@ var MatCheckbox = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: _angular_forms.NG_VALIDATORS,
     useExisting: _angular_core.forwardRef(function () { return MatCheckboxRequiredValidator; }),
@@ -6056,7 +6083,7 @@ var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
  * Current CheckboxRequiredValidator only work with `input type=checkbox` and does not
  * work with `mat-checkbox`.
  */
-var MatCheckboxRequiredValidator = (function (_super) {
+var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
     __extends(MatCheckboxRequiredValidator, _super);
     function MatCheckboxRequiredValidator() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -6078,7 +6105,7 @@ var MatCheckboxRequiredValidator = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatCheckboxModule = (function () {
+var MatCheckboxModule = /** @class */ (function () {
     function MatCheckboxModule() {
     }
     MatCheckboxModule.decorators = [
@@ -6097,6 +6124,7 @@ var MatCheckboxModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Represents an event fired on an individual `mat-chip`.
  * @record
@@ -6105,7 +6133,7 @@ var MatCheckboxModule = (function () {
 /**
  * Event object emitted by MatChip when selected or deselected.
  */
-var MatChipSelectionChange = (function () {
+var MatChipSelectionChange = /** @class */ (function () {
     function MatChipSelectionChange(source, selected, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
@@ -6117,7 +6145,7 @@ var MatChipSelectionChange = (function () {
 /**
  * \@docs-private
  */
-var MatChipBase = (function () {
+var MatChipBase = /** @class */ (function () {
     function MatChipBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -6128,7 +6156,7 @@ var _MatChipMixinBase = mixinColor(mixinDisabled(MatChipBase), 'primary');
  * Dummy directive to add CSS class to basic chips.
  * \@docs-private
  */
-var MatBasicChip = (function () {
+var MatBasicChip = /** @class */ (function () {
     function MatBasicChip() {
     }
     MatBasicChip.decorators = [
@@ -6144,7 +6172,7 @@ var MatBasicChip = (function () {
 /**
  * Material design styled Chip component. Used inside the MatChipList component.
  */
-var MatChip = (function (_super) {
+var MatChip = /** @class */ (function (_super) {
     __extends(MatChip, _super);
     function MatChip(_elementRef) {
         var _this = _super.call(this, _elementRef) || this;
@@ -6511,7 +6539,7 @@ var MatChip = (function (_super) {
  * You *may* use a custom icon, but you may need to override the `mat-chip-remove` positioning
  * styles to properly center the icon within the chip.
  */
-var MatChipRemove = (function () {
+var MatChipRemove = /** @class */ (function () {
     function MatChipRemove(_parentChip) {
         this._parentChip = _parentChip;
     }
@@ -6549,10 +6577,11 @@ var MatChipRemove = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatChipListBase = (function () {
+var MatChipListBase = /** @class */ (function () {
     function MatChipListBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._parentForm = _parentForm;
@@ -6567,7 +6596,7 @@ var nextUniqueId$2$1 = 0;
 /**
  * Change event object that is emitted when the chip list value has changed.
  */
-var MatChipListChange = (function () {
+var MatChipListChange = /** @class */ (function () {
     function MatChipListChange(source, value) {
         this.source = source;
         this.value = value;
@@ -6577,7 +6606,7 @@ var MatChipListChange = (function () {
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
-var MatChipList = (function (_super) {
+var MatChipList = /** @class */ (function (_super) {
     __extends(MatChipList, _super);
     function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, ngControl) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
@@ -7613,7 +7642,7 @@ var MatChipList = (function (_super) {
  * Directive that adds chip-specific behaviors to an input element inside <mat-form-field>.
  * May be placed inside or outside of an <mat-chip-list>.
  */
-var MatChipInput = (function () {
+var MatChipInput = /** @class */ (function () {
     function MatChipInput(_elementRef) {
         this._elementRef = _elementRef;
         this.focused = false;
@@ -7791,7 +7820,7 @@ var MatChipInput = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatChipsModule = (function () {
+var MatChipsModule = /** @class */ (function () {
     function MatChipsModule() {
     }
     MatChipsModule.decorators = [
@@ -7811,6 +7840,7 @@ var MatChipsModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Possible overrides for a dialog's position.
  * @record
@@ -7819,7 +7849,7 @@ var MatChipsModule = (function () {
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
  */
-var MatDialogConfig = (function () {
+var MatDialogConfig = /** @class */ (function () {
     function MatDialogConfig() {
         /**
          * The ARIA role of the dialog element.
@@ -7881,6 +7911,7 @@ var MatDialogConfig = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Throws an exception for the case when a ComponentPortal is
  * attached to a DomPortalOutlet without an origin.
@@ -7895,7 +7926,7 @@ function throwMatDialogContentAlreadyAttachedError() {
  * Animation is based on https://material.io/guidelines/motion/choreography.html.
  * \@docs-private
  */
-var MatDialogContainer = (function (_super) {
+var MatDialogContainer = /** @class */ (function (_super) {
     __extends(MatDialogContainer, _super);
     function MatDialogContainer(_elementRef, _focusTrapFactory, _changeDetectorRef, _document) {
         var _this = _super.call(this) || this;
@@ -8122,13 +8153,14 @@ var MatDialogContainer = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 // TODO(jelbourn): resizing
 // Counter for unique dialog ids.
 var uniqueId = 0;
 /**
  * Reference to a dialog opened via the MatDialog service.
  */
-var MatDialogRef = (function () {
+var MatDialogRef = /** @class */ (function () {
     function MatDialogRef(_overlayRef, _containerInstance, id) {
         if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
         var _this = this;
@@ -8335,6 +8367,7 @@ var MatDialogRef = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 var MAT_DIALOG_DATA = new _angular_core.InjectionToken('MatDialogData');
 /**
  * Injection token that determines the scroll handling while the dialog is open.
@@ -8359,7 +8392,7 @@ var MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
 /**
  * Service to open Material Design modal dialogs.
  */
-var MatDialog = (function () {
+var MatDialog = /** @class */ (function () {
     function MatDialog(_overlay, _injector, location, _scrollStrategy, _parentDialog) {
         var _this = this;
         this._overlay = _overlay;
@@ -8689,7 +8722,7 @@ var dialogElementUid = 0;
 /**
  * Button that will close the current dialog.
  */
-var MatDialogClose = (function () {
+var MatDialogClose = /** @class */ (function () {
     function MatDialogClose(dialogRef) {
         this.dialogRef = dialogRef;
         /**
@@ -8736,7 +8769,7 @@ var MatDialogClose = (function () {
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
-var MatDialogTitle = (function () {
+var MatDialogTitle = /** @class */ (function () {
     function MatDialogTitle(_container) {
         this._container = _container;
         this.id = "mat-dialog-title-" + dialogElementUid++;
@@ -8775,7 +8808,7 @@ var MatDialogTitle = (function () {
 /**
  * Scrollable content container of a dialog.
  */
-var MatDialogContent = (function () {
+var MatDialogContent = /** @class */ (function () {
     function MatDialogContent() {
     }
     MatDialogContent.decorators = [
@@ -8792,7 +8825,7 @@ var MatDialogContent = (function () {
  * Container for the bottom action buttons in a dialog.
  * Stays fixed to the bottom when scrolling.
  */
-var MatDialogActions = (function () {
+var MatDialogActions = /** @class */ (function () {
     function MatDialogActions() {
     }
     MatDialogActions.decorators = [
@@ -8811,7 +8844,7 @@ var MatDialogActions = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatDialogModule = (function () {
+var MatDialogModule = /** @class */ (function () {
     function MatDialogModule() {
     }
     MatDialogModule.decorators = [
@@ -8890,7 +8923,7 @@ function getMatIconFailedToSanitizeError(url) {
  * Configuration for an icon, including the URL and possibly the cached SVG element.
  * \@docs-private
  */
-var SvgIconConfig = (function () {
+var SvgIconConfig = /** @class */ (function () {
     function SvgIconConfig(url) {
         this.url = url;
         this.svgElement = null;
@@ -8904,7 +8937,7 @@ var SvgIconConfig = (function () {
  * - Registers aliases for CSS classes, for use with icon fonts.
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
-var MatIconRegistry = (function () {
+var MatIconRegistry = /** @class */ (function () {
     function MatIconRegistry(_httpClient, _sanitizer) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
@@ -9549,10 +9582,11 @@ function iconKey(namespace, name) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatIconBase = (function () {
+var MatIconBase = /** @class */ (function () {
     function MatIconBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -9586,7 +9620,7 @@ var _MatIconMixinBase = mixinColor(MatIconBase);
  *   Example:
  *     <mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>
  */
-var MatIcon = (function (_super) {
+var MatIcon = /** @class */ (function (_super) {
     __extends(MatIcon, _super);
     function MatIcon(elementRef, _iconRegistry, ariaHidden) {
         var _this = _super.call(this, elementRef) || this;
@@ -9779,7 +9813,7 @@ var MatIcon = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatIconModule = (function () {
+var MatIconModule = /** @class */ (function () {
     function MatIconModule() {
     }
     MatIconModule.decorators = [
@@ -9803,10 +9837,12 @@ var MatIconModule = (function () {
 /**
  * Directive to automatically resize a textarea to fit its content.
  */
-var MatTextareaAutosize = (function () {
-    function MatTextareaAutosize(_elementRef, _platform) {
+var MatTextareaAutosize = /** @class */ (function () {
+    function MatTextareaAutosize(_elementRef, _platform, _ngZone) {
         this._elementRef = _elementRef;
         this._platform = _platform;
+        this._ngZone = _ngZone;
+        this._destroyed = new rxjs_Subject.Subject();
     }
     Object.defineProperty(MatTextareaAutosize.prototype, "minRows", {
         get: /**
@@ -9842,6 +9878,7 @@ var MatTextareaAutosize = (function () {
         enumerable: true,
         configurable: true
     });
+    // TODO(crisbeto): make the `_ngZone` a required param in the next major version.
     /** Sets the minimum height of the textarea as determined by minRows. */
     /**
      * Sets the minimum height of the textarea as determined by minRows.
@@ -9881,9 +9918,27 @@ var MatTextareaAutosize = (function () {
      * @return {?}
      */
     function () {
+        var _this = this;
         if (this._platform.isBrowser) {
             this.resizeToFitContent();
+            if (this._ngZone) {
+                this._ngZone.runOutsideAngular(function () {
+                    rxjs_observable_fromEvent.fromEvent(window, 'resize')
+                        .pipe(rxjs_operators_auditTime.auditTime(16), rxjs_operators_takeUntil.takeUntil(_this._destroyed))
+                        .subscribe(function () { return _this.resizeToFitContent(true); });
+                });
+            }
         }
+    };
+    /**
+     * @return {?}
+     */
+    MatTextareaAutosize.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._destroyed.next();
+        this._destroyed.complete();
     };
     /**
      * Sets a style property on the textarea element.
@@ -9959,16 +10014,25 @@ var MatTextareaAutosize = (function () {
             this.resizeToFitContent();
         }
     };
-    /** Resize the textarea to fit its content. */
     /**
      * Resize the textarea to fit its content.
+     * @param force Whether to force a height recalculation. By default the height will be
+     *    recalculated only if the value changed since the last call.
+     */
+    /**
+     * Resize the textarea to fit its content.
+     * @param {?=} force Whether to force a height recalculation. By default the height will be
+     *    recalculated only if the value changed since the last call.
      * @return {?}
      */
     MatTextareaAutosize.prototype.resizeToFitContent = /**
      * Resize the textarea to fit its content.
+     * @param {?=} force Whether to force a height recalculation. By default the height will be
+     *    recalculated only if the value changed since the last call.
      * @return {?}
      */
-    function () {
+    function (force) {
+        if (force === void 0) { force = false; }
         this._cacheTextareaLineHeight();
         // If we haven't determined the line-height yet, we know we're still hidden and there's no point
         // in checking the height of the textarea.
@@ -9978,7 +10042,7 @@ var MatTextareaAutosize = (function () {
         var /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
         var /** @type {?} */ value = textarea.value;
         // Only resize of the value changed since these calculations can be expensive.
-        if (value === this._previousValue) {
+        if (value === this._previousValue && !force) {
             return;
         }
         var /** @type {?} */ placeholderText = textarea.placeholder;
@@ -10001,6 +10065,7 @@ var MatTextareaAutosize = (function () {
                     selector: "textarea[mat-autosize], textarea[matTextareaAutosize]",
                     exportAs: 'matTextareaAutosize',
                     host: {
+                        'class': 'mat-autosize',
                         // Textarea elements that have the directive applied should have a single row by default.
                         // Browsers normally show two rows by default and therefore this limits the minRows binding.
                         'rows': '1',
@@ -10011,6 +10076,7 @@ var MatTextareaAutosize = (function () {
     MatTextareaAutosize.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_platform.Platform, },
+        { type: _angular_core.NgZone, },
     ]; };
     MatTextareaAutosize.propDecorators = {
         "minRows": [{ type: _angular_core.Input, args: ['matAutosizeMinRows',] },],
@@ -10023,6 +10089,7 @@ var MatTextareaAutosize = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @param {?} type
@@ -10049,6 +10116,7 @@ var MAT_INPUT_VALUE_ACCESSOR = new _angular_core.InjectionToken('MAT_INPUT_VALUE
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
 var MAT_INPUT_INVALID_TYPES = [
     'button',
@@ -10066,7 +10134,7 @@ var nextUniqueId$3 = 0;
 /**
  * \@docs-private
  */
-var MatInputBase = (function () {
+var MatInputBase = /** @class */ (function () {
     function MatInputBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._parentForm = _parentForm;
@@ -10079,7 +10147,7 @@ var _MatInputMixinBase = mixinErrorState(MatInputBase);
 /**
  * Directive that allows a native input to work inside a `MatFormField`.
  */
-var MatInput = (function (_super) {
+var MatInput = /** @class */ (function (_super) {
     __extends(MatInput, _super);
     function MatInput(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
@@ -10495,7 +10563,7 @@ var MatInput = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatInputModule = (function () {
+var MatInputModule = /** @class */ (function () {
     function MatInputModule() {
     }
     MatInputModule.decorators = [
@@ -10526,6 +10594,7 @@ var MatInputModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @param {?} provider
@@ -10545,7 +10614,7 @@ function createMissingDateImplError(provider) {
 /**
  * Datepicker data that requires internationalization.
  */
-var MatDatepickerIntl = (function () {
+var MatDatepickerIntl = /** @class */ (function () {
     function MatDatepickerIntl() {
         /**
          * Stream that emits whenever the labels here are changed. Use this to notify
@@ -10602,7 +10671,7 @@ var MatDatepickerIntl = (function () {
  * An internal class that represents the data corresponding to a single calendar cell.
  * \@docs-private
  */
-var MatCalendarCell = (function () {
+var MatCalendarCell = /** @class */ (function () {
     function MatCalendarCell(value, displayValue, ariaLabel, enabled) {
         this.value = value;
         this.displayValue = displayValue;
@@ -10615,7 +10684,7 @@ var MatCalendarCell = (function () {
  * An internal component used to display calendar data in a table.
  * \@docs-private
  */
-var MatCalendarBody = (function () {
+var MatCalendarBody = /** @class */ (function () {
     function MatCalendarBody() {
         /**
          * The number of columns in the table.
@@ -10724,7 +10793,7 @@ var DAYS_PER_WEEK = 7;
  * An internal component used to display a single month in the datepicker.
  * \@docs-private
  */
-var MatMonthView = (function () {
+var MatMonthView = /** @class */ (function () {
     function MatMonthView(_dateAdapter, _dateFormats, _changeDetectorRef) {
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
@@ -10944,7 +11013,7 @@ var MatMonthView = (function () {
  * An internal component used to display a single year in the datepicker.
  * \@docs-private
  */
-var MatYearView = (function () {
+var MatYearView = /** @class */ (function () {
     function MatYearView(_dateAdapter, _dateFormats, _changeDetectorRef) {
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
@@ -11143,7 +11212,7 @@ var MatYearView = (function () {
  * A calendar that is used as part of the datepicker.
  * \@docs-private
  */
-var MatCalendar = (function () {
+var MatCalendar = /** @class */ (function () {
     function MatCalendar(_elementRef, _intl, _ngZone, _dateAdapter, _dateFormats, changeDetectorRef) {
         var _this = this;
         this._elementRef = _elementRef;
@@ -11737,7 +11806,7 @@ var MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = {
  * future. (e.g. confirmation buttons).
  * \@docs-private
  */
-var MatDatepickerContent = (function () {
+var MatDatepickerContent = /** @class */ (function () {
     function MatDatepickerContent() {
     }
     /**
@@ -11795,7 +11864,7 @@ var MatDatepickerContent = (function () {
 /**
  * Component responsible for managing the datepicker popup/dialog.
  */
-var MatDatepicker = (function () {
+var MatDatepicker = /** @class */ (function () {
     function MatDatepicker(_dialog, _overlay, _ngZone, _viewContainerRef, _scrollStrategy, _dateAdapter, _dir, _document) {
         this._dialog = _dialog;
         this._overlay = _overlay;
@@ -12220,7 +12289,7 @@ var MAT_DATEPICKER_VALIDATORS = {
  * input or change event because the event may have been triggered by the user clicking on the
  * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
  */
-var MatDatepickerInputEvent = (function () {
+var MatDatepickerInputEvent = /** @class */ (function () {
     function MatDatepickerInputEvent(target, targetElement) {
         this.target = target;
         this.targetElement = targetElement;
@@ -12231,7 +12300,7 @@ var MatDatepickerInputEvent = (function () {
 /**
  * Directive used to connect an input to a MatDatepicker.
  */
-var MatDatepickerInput = (function () {
+var MatDatepickerInput = /** @class */ (function () {
     function MatDatepickerInput(_elementRef, _dateAdapter, _dateFormats, _formField) {
         var _this = this;
         this._elementRef = _elementRef;
@@ -12662,7 +12731,7 @@ var MatDatepickerInput = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatDatepickerToggle = (function () {
+var MatDatepickerToggle = /** @class */ (function () {
     function MatDatepickerToggle(_intl, _changeDetectorRef) {
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
@@ -12748,7 +12817,7 @@ var MatDatepickerToggle = (function () {
     };
     MatDatepickerToggle.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-toggle',
-                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
+                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5.0.1-2fb4d61.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
                     host: {
                         'class': 'mat-datepicker-toggle',
                     },
@@ -12775,7 +12844,7 @@ var MatDatepickerToggle = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatDatepickerModule = (function () {
+var MatDatepickerModule = /** @class */ (function () {
     function MatDatepickerModule() {
     }
     MatDatepickerModule.decorators = [
@@ -12826,10 +12895,11 @@ var MatDatepickerModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Directive for a Material Design Accordion.
  */
-var MatAccordion = (function (_super) {
+var MatAccordion = /** @class */ (function (_super) {
     __extends(MatAccordion, _super);
     function MatAccordion() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -12881,6 +12951,7 @@ var MatAccordion = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Time and timing curve for expansion panel animations.
  */
@@ -12888,7 +12959,7 @@ var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 /**
  * \@docs-private
  */
-var MatExpansionPanelBase = (function (_super) {
+var MatExpansionPanelBase = /** @class */ (function (_super) {
     __extends(MatExpansionPanelBase, _super);
     function MatExpansionPanelBase(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
         return _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
@@ -12917,7 +12988,7 @@ var _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
  *
  * Please refer to README.md for examples on how to use it.
  */
-var MatExpansionPanel = (function (_super) {
+var MatExpansionPanel = /** @class */ (function (_super) {
     __extends(MatExpansionPanel, _super);
     function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
         var _this = _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
@@ -13048,7 +13119,7 @@ var MatExpansionPanel = (function (_super) {
     };
     return MatExpansionPanel;
 }(_MatExpansionPanelMixinBase));
-var MatExpansionPanelActionRow = (function () {
+var MatExpansionPanelActionRow = /** @class */ (function () {
     function MatExpansionPanelActionRow() {
     }
     MatExpansionPanelActionRow.decorators = [
@@ -13076,7 +13147,7 @@ var MatExpansionPanelActionRow = (function () {
  *
  * Please refer to README.md for examples on how to use it.
  */
-var MatExpansionPanelHeader = (function () {
+var MatExpansionPanelHeader = /** @class */ (function () {
     function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef) {
         var _this = this;
         this.panel = panel;
@@ -13244,7 +13315,7 @@ var MatExpansionPanelHeader = (function () {
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
-var MatExpansionPanelDescription = (function () {
+var MatExpansionPanelDescription = /** @class */ (function () {
     function MatExpansionPanelDescription() {
     }
     MatExpansionPanelDescription.decorators = [
@@ -13264,7 +13335,7 @@ var MatExpansionPanelDescription = (function () {
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
-var MatExpansionPanelTitle = (function () {
+var MatExpansionPanelTitle = /** @class */ (function () {
     function MatExpansionPanelTitle() {
     }
     MatExpansionPanelTitle.decorators = [
@@ -13285,7 +13356,7 @@ var MatExpansionPanelTitle = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatExpansionModule = (function () {
+var MatExpansionModule = /** @class */ (function () {
     function MatExpansionModule() {
     }
     MatExpansionModule.decorators = [
@@ -13320,6 +13391,7 @@ var MatExpansionModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Converts values into strings. Falsy values become empty strings.
  * \@docs-private
@@ -13344,7 +13416,7 @@ function coerceToNumber(value) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatGridTile = (function () {
+var MatGridTile = /** @class */ (function () {
     function MatGridTile(_element) {
         this._element = _element;
         this._rowspan = 1;
@@ -13422,7 +13494,7 @@ var MatGridTile = (function () {
     };
     return MatGridTile;
 }());
-var MatGridTileText = (function () {
+var MatGridTileText = /** @class */ (function () {
     function MatGridTileText(_element) {
         this._element = _element;
     }
@@ -13456,7 +13528,7 @@ var MatGridTileText = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatGridAvatarCssMatStyler = (function () {
+var MatGridAvatarCssMatStyler = /** @class */ (function () {
     function MatGridAvatarCssMatStyler() {
     }
     MatGridAvatarCssMatStyler.decorators = [
@@ -13473,7 +13545,7 @@ var MatGridAvatarCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatGridTileHeaderCssMatStyler = (function () {
+var MatGridTileHeaderCssMatStyler = /** @class */ (function () {
     function MatGridTileHeaderCssMatStyler() {
     }
     MatGridTileHeaderCssMatStyler.decorators = [
@@ -13490,7 +13562,7 @@ var MatGridTileHeaderCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatGridTileFooterCssMatStyler = (function () {
+var MatGridTileFooterCssMatStyler = /** @class */ (function () {
     function MatGridTileFooterCssMatStyler() {
     }
     MatGridTileFooterCssMatStyler.decorators = [
@@ -13508,6 +13580,7 @@ var MatGridTileFooterCssMatStyler = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Class for determining, from a list of tiles, the (row, col) position of each of those tiles
  * in the grid. This is necessary (rather than just rendering the tiles in normal document flow)
@@ -13525,7 +13598,7 @@ var MatGridTileFooterCssMatStyler = (function () {
  *
  * \@docs-private
  */
-var TileCoordinator = (function () {
+var TileCoordinator = /** @class */ (function () {
     function TileCoordinator(numColumns, tiles) {
         var _this = this;
         /**
@@ -13686,7 +13759,7 @@ var TileCoordinator = (function () {
  * Simple data structure for tile position (row, col).
  * \@docs-private
  */
-var TilePosition = (function () {
+var TilePosition = /** @class */ (function () {
     function TilePosition(row, col) {
         this.row = row;
         this.col = col;
@@ -13698,13 +13771,14 @@ var TilePosition = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Sets the style properties for an individual tile, given the position calculated by the
  * Tile Coordinator.
  * \@docs-private
  * @abstract
  */
-var TileStyler = (function () {
+var TileStyler = /** @class */ (function () {
     function TileStyler() {
         this._rows = 0;
         this._rowspan = 0;
@@ -13929,7 +14003,7 @@ var TileStyler = (function () {
  * Example <mat-grid-list cols="3" rowHeight="100px">
  * \@docs-private
  */
-var FixedTileStyler = (function (_super) {
+var FixedTileStyler = /** @class */ (function (_super) {
     __extends(FixedTileStyler, _super);
     function FixedTileStyler(fixedRowHeight) {
         var _this = _super.call(this) || this;
@@ -14001,7 +14075,7 @@ var FixedTileStyler = (function (_super) {
  * for the row height.  Example <mat-grid-list cols="3" rowHeight="3:1">
  * \@docs-private
  */
-var RatioTileStyler = (function (_super) {
+var RatioTileStyler = /** @class */ (function (_super) {
     __extends(RatioTileStyler, _super);
     function RatioTileStyler(value) {
         var _this = _super.call(this) || this;
@@ -14081,7 +14155,7 @@ var RatioTileStyler = (function (_super) {
  *
  * \@docs-private
  */
-var FitTileStyler = (function (_super) {
+var FitTileStyler = /** @class */ (function (_super) {
     __extends(FitTileStyler, _super);
     function FitTileStyler() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -14146,7 +14220,7 @@ function normalizeUnits(value) {
 // TODO(kara): Re-layout on window resize / media change (debounced).
 // TODO(kara): gridTileHeader and gridTileFooter.
 var MAT_FIT_MODE = 'fit';
-var MatGridList = (function () {
+var MatGridList = /** @class */ (function () {
     function MatGridList(_element, _dir) {
         this._element = _element;
         this._dir = _dir;
@@ -14344,7 +14418,7 @@ var MatGridList = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatGridListModule = (function () {
+var MatGridListModule = /** @class */ (function () {
     function MatGridListModule() {
     }
     MatGridListModule.decorators = [
@@ -14379,10 +14453,11 @@ var MatGridListModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatListBase = (function () {
+var MatListBase = /** @class */ (function () {
     function MatListBase() {
     }
     return MatListBase;
@@ -14391,7 +14466,7 @@ var _MatListMixinBase = mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
-var MatListItemBase = (function () {
+var MatListItemBase = /** @class */ (function () {
     function MatListItemBase() {
     }
     return MatListItemBase;
@@ -14400,7 +14475,7 @@ var _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
 /**
  * Divider between items within a list.
  */
-var MatListDivider = (function () {
+var MatListDivider = /** @class */ (function () {
     function MatListDivider() {
     }
     MatListDivider.decorators = [
@@ -14419,7 +14494,7 @@ var MatListDivider = (function () {
 /**
  * A Material Design list component.
  */
-var MatNavList = (function (_super) {
+var MatNavList = /** @class */ (function (_super) {
     __extends(MatNavList, _super);
     function MatNavList() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -14443,7 +14518,7 @@ var MatNavList = (function (_super) {
     MatNavList.ctorParameters = function () { return []; };
     return MatNavList;
 }(_MatListMixinBase));
-var MatList = (function (_super) {
+var MatList = /** @class */ (function (_super) {
     __extends(MatList, _super);
     function MatList() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -14468,7 +14543,7 @@ var MatList = (function (_super) {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatDividerCssMatStyler = (function () {
+var MatDividerCssMatStyler = /** @class */ (function () {
     function MatDividerCssMatStyler() {
     }
     MatDividerCssMatStyler.decorators = [
@@ -14485,7 +14560,7 @@ var MatDividerCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatListAvatarCssMatStyler = (function () {
+var MatListAvatarCssMatStyler = /** @class */ (function () {
     function MatListAvatarCssMatStyler() {
     }
     MatListAvatarCssMatStyler.decorators = [
@@ -14502,7 +14577,7 @@ var MatListAvatarCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatListIconCssMatStyler = (function () {
+var MatListIconCssMatStyler = /** @class */ (function () {
     function MatListIconCssMatStyler() {
     }
     MatListIconCssMatStyler.decorators = [
@@ -14519,7 +14594,7 @@ var MatListIconCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatListSubheaderCssMatStyler = (function () {
+var MatListSubheaderCssMatStyler = /** @class */ (function () {
     function MatListSubheaderCssMatStyler() {
     }
     MatListSubheaderCssMatStyler.decorators = [
@@ -14535,7 +14610,7 @@ var MatListSubheaderCssMatStyler = (function () {
 /**
  * An item within a Material Design list.
  */
-var MatListItem = (function (_super) {
+var MatListItem = /** @class */ (function (_super) {
     __extends(MatListItem, _super);
     function MatListItem(_element, _navList) {
         var _this = _super.call(this) || this;
@@ -14643,10 +14718,11 @@ var MatListItem = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatSelectionListBase = (function () {
+var MatSelectionListBase = /** @class */ (function () {
     function MatSelectionListBase() {
     }
     return MatSelectionListBase;
@@ -14655,7 +14731,7 @@ var _MatSelectionListMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(
 /**
  * \@docs-private
  */
-var MatListOptionBase = (function () {
+var MatListOptionBase = /** @class */ (function () {
     function MatListOptionBase() {
     }
     return MatListOptionBase;
@@ -14673,7 +14749,7 @@ var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
  * Change event object emitted by MatListOption whenever the selected state changes.
  * @deprecated Use the `MatSelectionListChange` event on the selection list instead.
  */
-var MatListOptionChange = (function () {
+var MatListOptionChange = /** @class */ (function () {
     function MatListOptionChange(source, selected) {
         this.source = source;
         this.selected = selected;
@@ -14683,7 +14759,7 @@ var MatListOptionChange = (function () {
 /**
  * Change event that is being fired whenever the selected state of an option changes.
  */
-var MatSelectionListChange = (function () {
+var MatSelectionListChange = /** @class */ (function () {
     function MatSelectionListChange(source, option) {
         this.source = source;
         this.option = option;
@@ -14695,7 +14771,7 @@ var MatSelectionListChange = (function () {
  * generate a checkbox and can put current item into the selectionModel of selection-list
  * if the current item is selected.
  */
-var MatListOption = (function (_super) {
+var MatListOption = /** @class */ (function (_super) {
     __extends(MatListOption, _super);
     function MatListOption(_element, _changeDetector, selectionList) {
         var _this = _super.call(this) || this;
@@ -14955,7 +15031,7 @@ var MatListOption = (function (_super) {
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-var MatSelectionList = (function (_super) {
+var MatSelectionList = /** @class */ (function (_super) {
     __extends(MatSelectionList, _super);
     function MatSelectionList(_element, tabIndex) {
         var _this = _super.call(this) || this;
@@ -15202,7 +15278,7 @@ var MatSelectionList = (function (_super) {
         values
             .map(function (value) { return _this._getOptionByValue(value); })
             .filter(Boolean)
-            .forEach(function (option) { return /** @type {?} */ ((option))._setSelected(true); });
+            .forEach(function (option) { return ((option))._setSelected(true); });
     };
     /**
      * Returns the values of the selected options.
@@ -15301,7 +15377,7 @@ var MatSelectionList = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatListModule = (function () {
+var MatListModule = /** @class */ (function () {
     function MatListModule() {
     }
     MatListModule.decorators = [
@@ -15388,6 +15464,7 @@ var fadeInItems = _angular_animations.trigger('fadeInItems', [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Throws an exception for the case when menu trigger doesn't have a valid mat-menu instance
  * \@docs-private
@@ -15419,10 +15496,11 @@ function throwMatMenuInvalidPositionY() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatMenuItemBase = (function () {
+var MatMenuItemBase = /** @class */ (function () {
     function MatMenuItemBase() {
     }
     return MatMenuItemBase;
@@ -15432,7 +15510,7 @@ var _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase));
  * This directive is intended to be used inside an mat-menu tag.
  * It exists mostly to set the role attribute.
  */
-var MatMenuItem = (function (_super) {
+var MatMenuItem = /** @class */ (function (_super) {
     __extends(MatMenuItem, _super);
     function MatMenuItem(_elementRef) {
         var _this = _super.call(this) || this;
@@ -15584,6 +15662,7 @@ var MatMenuItem = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Default `mat-menu` options that can be overridden.
  * @record
@@ -15598,7 +15677,7 @@ var MAT_MENU_DEFAULT_OPTIONS = new _angular_core.InjectionToken('mat-menu-defaul
  * \@docs-private
  */
 var MAT_MENU_BASE_ELEVATION = 2;
-var MatMenu = (function () {
+var MatMenu = /** @class */ (function () {
     function MatMenu(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
@@ -15743,6 +15822,7 @@ var MatMenu = (function () {
      */
     function () {
         this._tabSubscription.unsubscribe();
+        this.closed.emit();
         this.closed.complete();
     };
     /** Stream that emits whenever the hovered menu item changes. */
@@ -15988,7 +16068,7 @@ var MENU_PANEL_TOP_PADDING = 8;
  * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
  */
-var MatMenuTrigger = (function () {
+var MatMenuTrigger = /** @class */ (function () {
     function MatMenuTrigger(_overlay, _element, _viewContainerRef, _scrollStrategy, _parentMenu, _menuItemInstance, _dir) {
         this._overlay = _overlay;
         this._element = _element;
@@ -16143,7 +16223,9 @@ var MatMenuTrigger = (function () {
         var _this = this;
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
+            this._closeSubscription = this._menuClosingActions().subscribe(function () {
+                _this.menu.close.emit();
+            });
             this._initMenu();
             if (this.menu instanceof MatMenu) {
                 this.menu._startAnimation();
@@ -16185,8 +16267,8 @@ var MatMenuTrigger = (function () {
     function () {
         if (this._overlayRef && this.menuOpen) {
             this._resetMenu();
-            this._closeSubscription.unsubscribe();
             this._overlayRef.detach();
+            this._closeSubscription.unsubscribe();
             if (this.menu instanceof MatMenu) {
                 this.menu._resetAnimation();
             }
@@ -16406,10 +16488,9 @@ var MatMenuTrigger = (function () {
     function () {
         var _this = this;
         var /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
-        var /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
         var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of();
         var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(rxjs_operators_filter.filter(function (active) { return active !== _this._menuItemInstance; }), rxjs_operators_filter.filter(function () { return _this._menuOpen; })) : rxjs_observable_of.of();
-        return rxjs_observable_merge.merge(backdrop, parentClose, hover, detachments);
+        return rxjs_observable_merge.merge(backdrop, parentClose, hover);
     };
     /** Handles mouse presses on the trigger. */
     /**
@@ -16515,7 +16596,7 @@ var ɵ0 = {
     xPosition: 'after',
     yPosition: 'below',
 };
-var MatMenuModule = (function () {
+var MatMenuModule = /** @class */ (function () {
     function MatMenuModule() {
     }
     MatMenuModule.decorators = [
@@ -16598,6 +16679,7 @@ var fadeInContent = _angular_animations.trigger('fadeInContent', [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Returns an exception to be thrown when attempting to change a select's `multiple` option
  * after initialization.
@@ -16685,7 +16767,7 @@ var MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
 /**
  * Change event object that is emitted when the select value has changed.
  */
-var MatSelectChange = (function () {
+var MatSelectChange = /** @class */ (function () {
     function MatSelectChange(source, value) {
         this.source = source;
         this.value = value;
@@ -16695,7 +16777,7 @@ var MatSelectChange = (function () {
 /**
  * \@docs-private
  */
-var MatSelectBase = (function () {
+var MatSelectBase = /** @class */ (function () {
     function MatSelectBase(_elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
         this._elementRef = _elementRef;
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
@@ -16705,11 +16787,11 @@ var MatSelectBase = (function () {
     }
     return MatSelectBase;
 }());
-var _MatSelectMixinBase = mixinTabIndex(mixinDisabled(mixinErrorState(MatSelectBase)));
+var _MatSelectMixinBase = mixinDisableRipple(mixinTabIndex(mixinDisabled(mixinErrorState(MatSelectBase))));
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
-var MatSelectTrigger = (function () {
+var MatSelectTrigger = /** @class */ (function () {
     function MatSelectTrigger() {
     }
     MatSelectTrigger.decorators = [
@@ -16721,7 +16803,7 @@ var MatSelectTrigger = (function () {
     MatSelectTrigger.ctorParameters = function () { return []; };
     return MatSelectTrigger;
 }());
-var MatSelect = (function (_super) {
+var MatSelect = /** @class */ (function (_super) {
     __extends(MatSelect, _super);
     function MatSelect(_viewportRuler, _changeDetectorRef, _ngZone, _defaultErrorStateMatcher, elementRef, _dir, _parentForm, _parentFormGroup, _parentFormField, ngControl, tabIndex, _scrollStrategyFactory) {
         var _this = _super.call(this, elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
@@ -16822,7 +16904,6 @@ var MatSelect = (function (_super) {
          * A name for this control that can be used by `mat-form-field`.
          */
         _this.controlType = 'mat-select';
-        _this._disableRipple = false;
         /**
          * Aria label of the select. If not specified, the placeholder will be used as label.
          */
@@ -16958,22 +17039,6 @@ var MatSelect = (function (_super) {
                 this.writeValue(newValue);
                 this._value = newValue;
             }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatSelect.prototype, "disableRipple", {
-        get: /**
-         * Whether ripples for all options in the select are disabled.
-         * @return {?}
-         */
-        function () { return this._disableRipple; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disableRipple = _angular_cdk_coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -18158,7 +18223,7 @@ var MatSelect = (function (_super) {
                     exportAs: 'matSelect',
                     template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\" [ngSwitch]=\"empty\"><span class=\"mat-select-placeholder\" *ngSwitchCase=\"true\">{{placeholder || '\u00A0'}}</span> <span class=\"mat-select-value-text\" *ngSwitchCase=\"false\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{triggerValue}}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div #panel class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
                     styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-label{width:calc(100% - 18px)}.mat-select-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-form-field-hide-placeholder .mat-select-placeholder{color:transparent;transition:none}"],
-                    inputs: ['disabled', 'tabIndex'],
+                    inputs: ['disabled', 'disableRipple', 'tabIndex'],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -18221,7 +18286,6 @@ var MatSelect = (function (_super) {
         "multiple": [{ type: _angular_core.Input },],
         "compareWith": [{ type: _angular_core.Input },],
         "value": [{ type: _angular_core.Input },],
-        "disableRipple": [{ type: _angular_core.Input },],
         "ariaLabel": [{ type: _angular_core.Input, args: ['aria-label',] },],
         "ariaLabelledby": [{ type: _angular_core.Input, args: ['aria-labelledby',] },],
         "errorStateMatcher": [{ type: _angular_core.Input },],
@@ -18243,7 +18307,7 @@ var MatSelect = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSelectModule = (function () {
+var MatSelectModule = /** @class */ (function () {
     function MatSelectModule() {
     }
     MatSelectModule.decorators = [
@@ -18315,7 +18379,7 @@ var MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
  *
  * https://material.google.com/components/tooltips.html
  */
-var MatTooltip = (function () {
+var MatTooltip = /** @class */ (function () {
     function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir) {
         var _this = this;
         this._overlay = _overlay;
@@ -18623,7 +18687,7 @@ var MatTooltip = (function () {
                     // a parent scrollable then close the tooltip.
                     // After position changes occur and the overlay is clipped by
                     // a parent scrollable then close the tooltip.
-                    _this.hide(0);
+                    _this._ngZone.run(function () { return _this.hide(0); });
                 }
                 else {
                     // Otherwise recalculate the origin based on the new position.
@@ -18840,7 +18904,7 @@ var MatTooltip = (function () {
  * Internal component that wraps the tooltip's content.
  * \@docs-private
  */
-var TooltipComponent = (function () {
+var TooltipComponent = /** @class */ (function () {
     function TooltipComponent(_changeDetectorRef) {
         this._changeDetectorRef = _changeDetectorRef;
         /**
@@ -19083,7 +19147,7 @@ var TooltipComponent = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatTooltipModule = (function () {
+var MatTooltipModule = /** @class */ (function () {
     function MatTooltipModule() {
     }
     MatTooltipModule.decorators = [
@@ -19115,7 +19179,7 @@ var MatTooltipModule = (function () {
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
  * include it in a custom provider
  */
-var MatPaginatorIntl = (function () {
+var MatPaginatorIntl = /** @class */ (function () {
     function MatPaginatorIntl() {
         /**
          * Stream that emits whenever the labels here are changed. Use this to notify
@@ -19188,7 +19252,7 @@ var DEFAULT_PAGE_SIZE = 50;
  * Change event object that is emitted when the user selects a
  * different page size or navigates to another page.
  */
-var PageEvent = (function () {
+var PageEvent = /** @class */ (function () {
     function PageEvent() {
     }
     return PageEvent;
@@ -19198,7 +19262,7 @@ var PageEvent = (function () {
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
  */
-var MatPaginator = (function () {
+var MatPaginator = /** @class */ (function () {
     function MatPaginator(_intl, _changeDetectorRef) {
         var _this = this;
         this._intl = _intl;
@@ -19468,7 +19532,7 @@ var MatPaginator = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatPaginatorModule = (function () {
+var MatPaginatorModule = /** @class */ (function () {
     function MatPaginatorModule() {
     }
     MatPaginatorModule.decorators = [
@@ -19497,7 +19561,7 @@ var MatPaginatorModule = (function () {
 /**
  * <mat-progress-bar> component.
  */
-var MatProgressBar = (function () {
+var MatProgressBar = /** @class */ (function () {
     function MatProgressBar() {
         /**
          * Color of the progress bar.
@@ -19624,7 +19688,7 @@ function clamp(v, min, max) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatProgressBarModule = (function () {
+var MatProgressBarModule = /** @class */ (function () {
     function MatProgressBarModule() {
     }
     MatProgressBarModule.decorators = [
@@ -19643,6 +19707,7 @@ var MatProgressBarModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Base reference size of the spinner.
  * \@docs-private
@@ -19656,7 +19721,7 @@ var BASE_STROKE_WIDTH = 10;
 /**
  * \@docs-private
  */
-var MatProgressSpinnerBase = (function () {
+var MatProgressSpinnerBase = /** @class */ (function () {
     function MatProgressSpinnerBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -19667,7 +19732,7 @@ var INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-strok
 /**
  * <mat-progress-spinner> component.
  */
-var MatProgressSpinner = (function (_super) {
+var MatProgressSpinner = /** @class */ (function (_super) {
     __extends(MatProgressSpinner, _super);
     function MatProgressSpinner(_elementRef, platform, _document) {
         var _this = _super.call(this, _elementRef) || this;
@@ -19913,7 +19978,7 @@ var MatProgressSpinner = (function (_super) {
  * This is a component definition to be used as a convenience reference to create an
  * indeterminate <mat-progress-spinner> instance.
  */
-var MatSpinner = (function (_super) {
+var MatSpinner = /** @class */ (function (_super) {
     __extends(MatSpinner, _super);
     function MatSpinner(elementRef, platform, document) {
         var _this = _super.call(this, elementRef, platform, document) || this;
@@ -19951,7 +20016,7 @@ var MatSpinner = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatProgressSpinnerModule = (function () {
+var MatProgressSpinnerModule = /** @class */ (function () {
     function MatProgressSpinnerModule() {
     }
     MatProgressSpinnerModule.decorators = [
@@ -19977,6 +20042,7 @@ var MatProgressSpinnerModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 // Increasing integer for generating unique ids for radio components.
 var nextUniqueId$5 = 0;
 /**
@@ -19992,7 +20058,7 @@ var MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 /**
  * Change event object emitted by MatRadio and MatRadioGroup.
  */
-var MatRadioChange = (function () {
+var MatRadioChange = /** @class */ (function () {
     function MatRadioChange() {
     }
     return MatRadioChange;
@@ -20000,7 +20066,7 @@ var MatRadioChange = (function () {
 /**
  * \@docs-private
  */
-var MatRadioGroupBase = (function () {
+var MatRadioGroupBase = /** @class */ (function () {
     function MatRadioGroupBase() {
     }
     return MatRadioGroupBase;
@@ -20009,7 +20075,7 @@ var _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
-var MatRadioGroup = (function (_super) {
+var MatRadioGroup = /** @class */ (function (_super) {
     __extends(MatRadioGroup, _super);
     function MatRadioGroup(_changeDetector) {
         var _this = _super.call(this) || this;
@@ -20414,7 +20480,7 @@ var MatRadioGroup = (function (_super) {
 /**
  * \@docs-private
  */
-var MatRadioButtonBase = (function () {
+var MatRadioButtonBase = /** @class */ (function () {
     function MatRadioButtonBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -20426,7 +20492,7 @@ var _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(MatRadioButtonBase)
 /**
  * A radio-button. May be inside of
  */
-var MatRadioButton = (function (_super) {
+var MatRadioButton = /** @class */ (function (_super) {
     __extends(MatRadioButton, _super);
     function MatRadioButton(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher) {
         var _this = _super.call(this, elementRef) || this;
@@ -20838,7 +20904,7 @@ var MatRadioButton = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatRadioModule = (function () {
+var MatRadioModule = /** @class */ (function () {
     function MatRadioModule() {
     }
     MatRadioModule.decorators = [
@@ -20871,7 +20937,7 @@ function throwMatDuplicatedDrawerError(position) {
  * Drawer toggle promise result.
  * @deprecated
  */
-var MatDrawerToggleResult = (function () {
+var MatDrawerToggleResult = /** @class */ (function () {
     function MatDrawerToggleResult(type, animationFinished) {
         this.type = type;
         this.animationFinished = animationFinished;
@@ -20882,7 +20948,7 @@ var MatDrawerToggleResult = (function () {
  * Configures whether drawers should use auto sizing by default.
  */
 var MAT_DRAWER_DEFAULT_AUTOSIZE = new _angular_core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
-var MatDrawerContent = (function () {
+var MatDrawerContent = /** @class */ (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
         this._container = _container;
@@ -20929,7 +20995,7 @@ var MatDrawerContent = (function () {
 /**
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
-var MatDrawer = (function () {
+var MatDrawer = /** @class */ (function () {
     function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _doc) {
         var _this = this;
         this._elementRef = _elementRef;
@@ -21400,7 +21466,7 @@ var MatDrawer = (function () {
  * This is the parent component to one or two <mat-drawer>s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
-var MatDrawerContainer = (function () {
+var MatDrawerContainer = /** @class */ (function () {
     function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize) {
         if (defaultAutosize === void 0) { defaultAutosize = false; }
         var _this = this;
@@ -21706,7 +21772,7 @@ var MatDrawerContainer = (function () {
         // Close all open drawers where closing is not disabled and the mode is not `side`.
         [this._start, this._end]
             .filter(function (drawer) { return drawer && !drawer.disableClose && drawer.mode !== 'side'; })
-            .forEach(function (drawer) { return /** @type {?} */ ((drawer)).close(); });
+            .forEach(function (drawer) { return ((drawer)).close(); });
     };
     /**
      * @return {?}
@@ -21806,7 +21872,8 @@ var MatDrawerContainer = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var MatSidenavContent = (function (_super) {
+
+var MatSidenavContent = /** @class */ (function (_super) {
     __extends(MatSidenavContent, _super);
     function MatSidenavContent(changeDetectorRef, container) {
         return _super.call(this, changeDetectorRef, container) || this;
@@ -21831,7 +21898,7 @@ var MatSidenavContent = (function (_super) {
     ]; };
     return MatSidenavContent;
 }(MatDrawerContent));
-var MatSidenav = (function (_super) {
+var MatSidenav = /** @class */ (function (_super) {
     __extends(MatSidenav, _super);
     function MatSidenav() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -21932,7 +21999,7 @@ var MatSidenav = (function (_super) {
     };
     return MatSidenav;
 }(MatDrawer));
-var MatSidenavContainer = (function (_super) {
+var MatSidenavContainer = /** @class */ (function (_super) {
     __extends(MatSidenavContainer, _super);
     function MatSidenavContainer() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -21964,7 +22031,7 @@ var MatSidenavContainer = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSidenavModule = (function () {
+var MatSidenavModule = /** @class */ (function () {
     function MatSidenavModule() {
     }
     MatSidenavModule.decorators = [
@@ -22008,6 +22075,7 @@ var MatSidenavModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 // Increasing integer for generating unique ids for slide-toggle components.
 var nextUniqueId$6 = 0;
 var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
@@ -22018,7 +22086,7 @@ var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
 /**
  * Change event object emitted by a MatSlideToggle.
  */
-var MatSlideToggleChange = (function () {
+var MatSlideToggleChange = /** @class */ (function () {
     function MatSlideToggleChange() {
     }
     return MatSlideToggleChange;
@@ -22026,7 +22094,7 @@ var MatSlideToggleChange = (function () {
 /**
  * \@docs-private
  */
-var MatSlideToggleBase = (function () {
+var MatSlideToggleBase = /** @class */ (function () {
     function MatSlideToggleBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -22036,7 +22104,7 @@ var _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixin
 /**
  * Represents a slidable "switch" toggle that can be moved between on and off.
  */
-var MatSlideToggle = (function (_super) {
+var MatSlideToggle = /** @class */ (function (_super) {
     __extends(MatSlideToggle, _super);
     function MatSlideToggle(elementRef, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
         var _this = _super.call(this, elementRef) || this;
@@ -22414,7 +22482,7 @@ var MatSlideToggle = (function (_super) {
 /**
  * Renderer for the Slide Toggle component, which separates DOM modification in its own class
  */
-var SlideToggleRenderer = (function () {
+var SlideToggleRenderer = /** @class */ (function () {
     function SlideToggleRenderer(elementRef, platform) {
         /**
          * Whether the thumb is currently being dragged.
@@ -22509,7 +22577,7 @@ var SlideToggleRenderer = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSlideToggleModule = (function () {
+var MatSlideToggleModule = /** @class */ (function () {
     function MatSlideToggleModule() {
     }
     MatSlideToggleModule.decorators = [
@@ -22531,6 +22599,7 @@ var MatSlideToggleModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
  * the default separation we chose.
@@ -22560,7 +22629,7 @@ var MAT_SLIDER_VALUE_ACCESSOR = {
 /**
  * A simple change event emitted by the MatSlider component.
  */
-var MatSliderChange = (function () {
+var MatSliderChange = /** @class */ (function () {
     function MatSliderChange() {
     }
     return MatSliderChange;
@@ -22568,7 +22637,7 @@ var MatSliderChange = (function () {
 /**
  * \@docs-private
  */
-var MatSliderBase = (function () {
+var MatSliderBase = /** @class */ (function () {
     function MatSliderBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -22579,7 +22648,7 @@ var _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisabled(MatSliderBase),
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
  */
-var MatSlider = (function (_super) {
+var MatSlider = /** @class */ (function (_super) {
     __extends(MatSlider, _super);
     function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex) {
         var _this = _super.call(this, elementRef) || this;
@@ -23566,7 +23635,7 @@ var MatSlider = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSliderModule = (function () {
+var MatSliderModule = /** @class */ (function () {
     function MatSliderModule() {
     }
     MatSliderModule.decorators = [
@@ -23586,10 +23655,11 @@ var MatSliderModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */
-var MatSnackBarRef = (function () {
+var MatSnackBarRef = /** @class */ (function () {
     function MatSnackBarRef(containerInstance, _overlayRef) {
         var _this = this;
         this._overlayRef = _overlayRef;
@@ -23734,7 +23804,7 @@ var MAT_SNACK_BAR_DATA = new _angular_core.InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
  */
-var MatSnackBarConfig = (function () {
+var MatSnackBarConfig = /** @class */ (function () {
     function MatSnackBarConfig() {
         /**
          * The politeness level for the MatAriaLiveAnnouncer announcement.
@@ -23777,7 +23847,7 @@ var MatSnackBarConfig = (function () {
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
  */
-var SimpleSnackBar = (function () {
+var SimpleSnackBar = /** @class */ (function () {
     function SimpleSnackBar(snackBarRef, data) {
         this.snackBarRef = snackBarRef;
         this.data = data;
@@ -23839,13 +23909,14 @@ var SimpleSnackBar = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 var SHOW_ANIMATION = AnimationDurations.ENTERING + " " + AnimationCurves.DECELERATION_CURVE;
 var HIDE_ANIMATION = AnimationDurations.EXITING + " " + AnimationCurves.ACCELERATION_CURVE;
 /**
  * Internal component that wraps user-provided snack bar content.
  * \@docs-private
  */
-var MatSnackBarContainer = (function (_super) {
+var MatSnackBarContainer = /** @class */ (function (_super) {
     __extends(MatSnackBarContainer, _super);
     function MatSnackBarContainer(_ngZone, _elementRef, _changeDetectorRef) {
         var _this = _super.call(this) || this;
@@ -24057,10 +24128,11 @@ var MatSnackBarContainer = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Service to dispatch Material Design snack bar messages.
  */
-var MatSnackBar = (function () {
+var MatSnackBar = /** @class */ (function () {
     function MatSnackBar(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar) {
         this._overlay = _overlay;
         this._live = _live;
@@ -24343,7 +24415,7 @@ function _applyConfigDefaults$1(config) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSnackBarModule = (function () {
+var MatSnackBarModule = /** @class */ (function () {
     function MatSnackBarModule() {
     }
     MatSnackBarModule.decorators = [
@@ -24370,6 +24442,7 @@ var MatSnackBarModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @param {?} id
@@ -24405,6 +24478,7 @@ function getSortInvalidDirectionError(direction) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Interface for a directive that holds sorting state consumed by `MatSortHeader`.
  * @record
@@ -24418,7 +24492,7 @@ function getSortInvalidDirectionError(direction) {
 /**
  * \@docs-private
  */
-var MatSortBase = (function () {
+var MatSortBase = /** @class */ (function () {
     function MatSortBase() {
     }
     return MatSortBase;
@@ -24427,7 +24501,7 @@ var _MatSortMixinBase = mixinDisabled(MatSortBase);
 /**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
-var MatSort = (function (_super) {
+var MatSort = /** @class */ (function (_super) {
     __extends(MatSort, _super);
     function MatSort() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -24637,7 +24711,7 @@ function getSortDirectionCycle(start, disableClear) {
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
  * include it in a custom provider.
  */
-var MatSortHeaderIntl = (function () {
+var MatSortHeaderIntl = /** @class */ (function () {
     function MatSortHeaderIntl() {
         /**
          * Stream that emits whenever the labels here are changed. Use this to notify
@@ -24686,11 +24760,12 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' + AnimationCurves.STANDARD_CURVE;
 /**
  * \@docs-private
  */
-var MatSortHeaderBase = (function () {
+var MatSortHeaderBase = /** @class */ (function () {
     function MatSortHeaderBase() {
     }
     return MatSortHeaderBase;
@@ -24705,7 +24780,7 @@ var _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
  * If used on header cells in a CdkTable, it will automatically default its id from its containing
  * column definition.
  */
-var MatSortHeader = (function (_super) {
+var MatSortHeader = /** @class */ (function (_super) {
     __extends(MatSortHeader, _super);
     function MatSortHeader(_intl, changeDetectorRef, _sort, _cdkColumnDef) {
         var _this = _super.call(this) || this;
@@ -24868,7 +24943,7 @@ var MatSortHeader = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSortModule = (function () {
+var MatSortModule = /** @class */ (function () {
     function MatSortModule() {
     }
     MatSortModule.decorators = [
@@ -24888,7 +24963,8 @@ var MatSortModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var MatStepLabel = (function (_super) {
+
+var MatStepLabel = /** @class */ (function (_super) {
     __extends(MatStepLabel, _super);
     function MatStepLabel(template) {
         return _super.call(this, template) || this;
@@ -24913,7 +24989,7 @@ var MatStepLabel = (function (_super) {
 /**
  * Stepper data that is required for internationalization.
  */
-var MatStepperIntl = (function () {
+var MatStepperIntl = /** @class */ (function () {
     function MatStepperIntl() {
         /**
          * Stream that emits whenever the labels here are changed. Use this to notify
@@ -24938,7 +25014,7 @@ var MatStepperIntl = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatStepHeader = (function () {
+var MatStepHeader = /** @class */ (function () {
     function MatStepHeader(_intl, _focusMonitor, _element, changeDetectorRef) {
         this._intl = _intl;
         this._focusMonitor = _focusMonitor;
@@ -25091,7 +25167,8 @@ var MatStepHeader = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var MatStep = (function (_super) {
+
+var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper, _errorStateMatcher) {
         var _this = _super.call(this, stepper) || this;
@@ -25139,7 +25216,7 @@ var MatStep = (function (_super) {
     };
     return MatStep;
 }(_angular_cdk_stepper.CdkStep));
-var MatStepper = (function (_super) {
+var MatStepper = /** @class */ (function (_super) {
     __extends(MatStepper, _super);
     function MatStepper() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -25168,7 +25245,7 @@ var MatStepper = (function (_super) {
     };
     return MatStepper;
 }(_angular_cdk_stepper.CdkStepper));
-var MatHorizontalStepper = (function (_super) {
+var MatHorizontalStepper = /** @class */ (function (_super) {
     __extends(MatHorizontalStepper, _super);
     function MatHorizontalStepper() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -25202,7 +25279,7 @@ var MatHorizontalStepper = (function (_super) {
     MatHorizontalStepper.ctorParameters = function () { return []; };
     return MatHorizontalStepper;
 }(MatStepper));
-var MatVerticalStepper = (function (_super) {
+var MatVerticalStepper = /** @class */ (function (_super) {
     __extends(MatVerticalStepper, _super);
     function MatVerticalStepper() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -25241,10 +25318,11 @@ var MatVerticalStepper = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Button that moves to the next step in a stepper workflow.
  */
-var MatStepperNext = (function (_super) {
+var MatStepperNext = /** @class */ (function (_super) {
     __extends(MatStepperNext, _super);
     function MatStepperNext() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -25263,7 +25341,7 @@ var MatStepperNext = (function (_super) {
 /**
  * Button that moves to the previous step in a stepper workflow.
  */
-var MatStepperPrevious = (function (_super) {
+var MatStepperPrevious = /** @class */ (function (_super) {
     __extends(MatStepperPrevious, _super);
     function MatStepperPrevious() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -25285,7 +25363,7 @@ var MatStepperPrevious = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatStepperModule = (function () {
+var MatStepperModule = /** @class */ (function () {
     function MatStepperModule() {
     }
     MatStepperModule.decorators = [
@@ -25325,10 +25403,11 @@ var MatStepperModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Wrapper for the CdkTable with Material design styles.
  */
-var MatTable = (function (_super) {
+var MatTable = /** @class */ (function (_super) {
     __extends(MatTable, _super);
     function MatTable() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -25355,11 +25434,12 @@ var MatTable = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
  */
-var MatCellDef = (function (_super) {
+var MatCellDef = /** @class */ (function (_super) {
     __extends(MatCellDef, _super);
     function MatCellDef() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -25378,7 +25458,7 @@ var MatCellDef = (function (_super) {
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
  */
-var MatHeaderCellDef = (function (_super) {
+var MatHeaderCellDef = /** @class */ (function (_super) {
     __extends(MatHeaderCellDef, _super);
     function MatHeaderCellDef() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -25397,7 +25477,7 @@ var MatHeaderCellDef = (function (_super) {
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
  */
-var MatColumnDef = (function (_super) {
+var MatColumnDef = /** @class */ (function (_super) {
     __extends(MatColumnDef, _super);
     function MatColumnDef() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -25418,7 +25498,7 @@ var MatColumnDef = (function (_super) {
 /**
  * Header cell template container that adds the right classes and role.
  */
-var MatHeaderCell = (function (_super) {
+var MatHeaderCell = /** @class */ (function (_super) {
     __extends(MatHeaderCell, _super);
     function MatHeaderCell(columnDef, elementRef) {
         var _this = _super.call(this, columnDef, elementRef) || this;
@@ -25444,7 +25524,7 @@ var MatHeaderCell = (function (_super) {
 /**
  * Cell template container that adds the right classes and role.
  */
-var MatCell = (function (_super) {
+var MatCell = /** @class */ (function (_super) {
     __extends(MatCell, _super);
     function MatCell(columnDef, elementRef) {
         var _this = _super.call(this, columnDef, elementRef) || this;
@@ -25472,11 +25552,12 @@ var MatCell = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
  */
-var MatHeaderRowDef = (function (_super) {
+var MatHeaderRowDef = /** @class */ (function (_super) {
     __extends(MatHeaderRowDef, _super);
     function MatHeaderRowDef() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -25497,7 +25578,7 @@ var MatHeaderRowDef = (function (_super) {
  * Captures the header row's template and other row properties such as the columns to display and
  * a when predicate that describes when this row should be used.
  */
-var MatRowDef = (function (_super) {
+var MatRowDef = /** @class */ (function (_super) {
     __extends(MatRowDef, _super);
     function MatRowDef() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -25516,7 +25597,7 @@ var MatRowDef = (function (_super) {
 /**
  * Header template container that contains the cell outlet. Adds the right class and role.
  */
-var MatHeaderRow = (function (_super) {
+var MatHeaderRow = /** @class */ (function (_super) {
     __extends(MatHeaderRow, _super);
     function MatHeaderRow() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -25541,7 +25622,7 @@ var MatHeaderRow = (function (_super) {
 /**
  * Data row template container that contains the cell outlet. Adds the right class and role.
  */
-var MatRow = (function (_super) {
+var MatRow = /** @class */ (function (_super) {
     __extends(MatRow, _super);
     function MatRow() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -25569,7 +25650,7 @@ var MatRow = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatTableModule = (function () {
+var MatTableModule = /** @class */ (function () {
     function MatTableModule() {
     }
     MatTableModule.decorators = [
@@ -25592,6 +25673,7 @@ var MatTableModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
  * sorting (using MatSort), and pagination (using MatPaginator).
@@ -25600,7 +25682,7 @@ var MatTableModule = (function () {
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
  * which defines how row data is converted to a string for filter matching.
  */
-var MatTableDataSource = (function () {
+var MatTableDataSource = /** @class */ (function () {
     function MatTableDataSource(initialData) {
         if (initialData === void 0) { initialData = []; }
         /**
@@ -25944,7 +26026,7 @@ var MatTableDataSource = (function () {
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * \@docs-private
  */
-var MatInkBar = (function () {
+var MatInkBar = /** @class */ (function () {
     function MatInkBar(_elementRef, _ngZone) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
@@ -26037,10 +26119,11 @@ var MatInkBar = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Used to flag tab labels for use with the portal directive
  */
-var MatTabLabel = (function (_super) {
+var MatTabLabel = /** @class */ (function (_super) {
     __extends(MatTabLabel, _super);
     function MatTabLabel(templateRef, viewContainerRef) {
         return _super.call(this, templateRef, viewContainerRef) || this;
@@ -26062,16 +26145,17 @@ var MatTabLabel = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatTabBase = (function () {
+var MatTabBase = /** @class */ (function () {
     function MatTabBase() {
     }
     return MatTabBase;
 }());
 var _MatTabMixinBase = mixinDisabled(MatTabBase);
-var MatTab = (function (_super) {
+var MatTab = /** @class */ (function (_super) {
     __extends(MatTab, _super);
     function MatTab(_viewContainerRef) {
         var _this = _super.call(this) || this;
@@ -26181,11 +26265,12 @@ var MatTab = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * The portal host directive for the contents of the tab.
  * \@docs-private
  */
-var MatTabBodyPortal = (function (_super) {
+var MatTabBodyPortal = /** @class */ (function (_super) {
     __extends(MatTabBodyPortal, _super);
     function MatTabBodyPortal(_componentFactoryResolver, _viewContainerRef, _host) {
         var _this = _super.call(this, _componentFactoryResolver, _viewContainerRef) || this;
@@ -26251,7 +26336,7 @@ var MatTabBodyPortal = (function (_super) {
  * Wrapper for the contents of a tab.
  * \@docs-private
  */
-var MatTabBody = (function () {
+var MatTabBody = /** @class */ (function () {
     function MatTabBody(_elementRef, _dir) {
         this._elementRef = _elementRef;
         this._dir = _dir;
@@ -26441,6 +26526,7 @@ var MatTabBody = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Used to generate unique ID's for each tab component
  */
@@ -26448,7 +26534,7 @@ var nextId = 0;
 /**
  * A simple change event emitted on focus or selection changes.
  */
-var MatTabChangeEvent = (function () {
+var MatTabChangeEvent = /** @class */ (function () {
     function MatTabChangeEvent() {
     }
     return MatTabChangeEvent;
@@ -26456,7 +26542,7 @@ var MatTabChangeEvent = (function () {
 /**
  * \@docs-private
  */
-var MatTabGroupBase = (function () {
+var MatTabGroupBase = /** @class */ (function () {
     function MatTabGroupBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -26468,7 +26554,7 @@ var _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupBase), 'pri
  * animated ink-bar, keyboard navigation, and screen reader.
  * See: https://www.google.com/design/spec/components/tabs.html
  */
-var MatTabGroup = (function (_super) {
+var MatTabGroup = /** @class */ (function (_super) {
     __extends(MatTabGroup, _super);
     function MatTabGroup(elementRef, _changeDetectorRef) {
         var _this = _super.call(this, elementRef) || this;
@@ -26857,10 +26943,11 @@ var MatTabGroup = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatTabLabelWrapperBase = (function () {
+var MatTabLabelWrapperBase = /** @class */ (function () {
     function MatTabLabelWrapperBase() {
     }
     return MatTabLabelWrapperBase;
@@ -26870,7 +26957,7 @@ var _MatTabLabelWrapperMixinBase = mixinDisabled(MatTabLabelWrapperBase);
  * Used in the `mat-tab-group` view to display tab labels.
  * \@docs-private
  */
-var MatTabLabelWrapper = (function (_super) {
+var MatTabLabelWrapper = /** @class */ (function (_super) {
     __extends(MatTabLabelWrapper, _super);
     function MatTabLabelWrapper(elementRef) {
         var _this = _super.call(this) || this;
@@ -26927,6 +27014,7 @@ var MatTabLabelWrapper = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
  * provide a small affordance to the label next to it.
@@ -26935,7 +27023,7 @@ var EXAGGERATED_OVERSCROLL = 60;
 /**
  * \@docs-private
  */
-var MatTabHeaderBase = (function () {
+var MatTabHeaderBase = /** @class */ (function () {
     function MatTabHeaderBase() {
     }
     return MatTabHeaderBase;
@@ -26948,7 +27036,7 @@ var _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
  * left and right across the header.
  * \@docs-private
  */
-var MatTabHeader = (function (_super) {
+var MatTabHeader = /** @class */ (function (_super) {
     __extends(MatTabHeader, _super);
     function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir) {
         var _this = _super.call(this) || this;
@@ -27548,7 +27636,7 @@ var MatTabHeader = (function (_super) {
 /**
  * \@docs-private
  */
-var MatTabNavBase = (function () {
+var MatTabNavBase = /** @class */ (function () {
     function MatTabNavBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -27559,7 +27647,7 @@ var _MatTabNavMixinBase = mixinDisableRipple(mixinColor(MatTabNavBase, 'primary'
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-var MatTabNav = (function (_super) {
+var MatTabNav = /** @class */ (function (_super) {
     __extends(MatTabNav, _super);
     function MatTabNav(elementRef, _dir, _ngZone, _changeDetectorRef, _viewportRuler) {
         var _this = _super.call(this, elementRef) || this;
@@ -27726,7 +27814,7 @@ var MatTabNav = (function (_super) {
     };
     return MatTabNav;
 }(_MatTabNavMixinBase));
-var MatTabLinkBase = (function () {
+var MatTabLinkBase = /** @class */ (function () {
     function MatTabLinkBase() {
     }
     return MatTabLinkBase;
@@ -27735,7 +27823,7 @@ var _MatTabLinkMixinBase = mixinTabIndex(mixinDisabled(MatTabLinkBase));
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
-var MatTabLink = (function (_super) {
+var MatTabLink = /** @class */ (function (_super) {
     __extends(MatTabLink, _super);
     function MatTabLink(_tabNavBar, _elementRef, ngZone, platform, globalOptions, tabIndex) {
         var _this = _super.call(this) || this;
@@ -27840,7 +27928,7 @@ var MatTabLink = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatTabsModule = (function () {
+var MatTabsModule = /** @class */ (function () {
     function MatTabsModule() {
     }
     MatTabsModule.decorators = [
@@ -27886,17 +27974,18 @@ var MatTabsModule = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatToolbarBase = (function () {
+var MatToolbarBase = /** @class */ (function () {
     function MatToolbarBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatToolbarBase;
 }());
 var _MatToolbarMixinBase = mixinColor(MatToolbarBase);
-var MatToolbarRow = (function () {
+var MatToolbarRow = /** @class */ (function () {
     function MatToolbarRow() {
     }
     MatToolbarRow.decorators = [
@@ -27910,7 +27999,7 @@ var MatToolbarRow = (function () {
     MatToolbarRow.ctorParameters = function () { return []; };
     return MatToolbarRow;
 }());
-var MatToolbar = (function (_super) {
+var MatToolbar = /** @class */ (function (_super) {
     __extends(MatToolbar, _super);
     function MatToolbar(elementRef, _platform) {
         var _this = _super.call(this, elementRef) || this;
@@ -27995,7 +28084,7 @@ function throwToolbarMixedModesError() {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatToolbarModule = (function () {
+var MatToolbarModule = /** @class */ (function () {
     function MatToolbarModule() {
     }
     MatToolbarModule.decorators = [
@@ -28018,7 +28107,7 @@ var MatToolbarModule = (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.0-rc.3-05d726d');
+var VERSION = new _angular_core.Version('5.0.1-2fb4d61');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -28242,10 +28331,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MatMenuItemBase;
-exports.ɵb21 = _MatMenuItemMixinBase;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa16 = MatMenuItemBase;
+exports.ɵb16 = _MatMenuItemMixinBase;
+exports.ɵd16 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc16 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;

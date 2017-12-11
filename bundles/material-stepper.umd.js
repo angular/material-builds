@@ -41,7 +41,8 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var MatStepLabel = (function (_super) {
+
+var MatStepLabel = /** @class */ (function (_super) {
     __extends(MatStepLabel, _super);
     function MatStepLabel(template) {
         return _super.call(this, template) || this;
@@ -66,7 +67,7 @@ var MatStepLabel = (function (_super) {
 /**
  * Stepper data that is required for internationalization.
  */
-var MatStepperIntl = (function () {
+var MatStepperIntl = /** @class */ (function () {
     function MatStepperIntl() {
         /**
          * Stream that emits whenever the labels here are changed. Use this to notify
@@ -91,7 +92,7 @@ var MatStepperIntl = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatStepHeader = (function () {
+var MatStepHeader = /** @class */ (function () {
     function MatStepHeader(_intl, _focusMonitor, _element, changeDetectorRef) {
         this._intl = _intl;
         this._focusMonitor = _focusMonitor;
@@ -244,7 +245,8 @@ var MatStepHeader = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var MatStep = (function (_super) {
+
+var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper, _errorStateMatcher) {
         var _this = _super.call(this, stepper) || this;
@@ -292,7 +294,7 @@ var MatStep = (function (_super) {
     };
     return MatStep;
 }(_angular_cdk_stepper.CdkStep));
-var MatStepper = (function (_super) {
+var MatStepper = /** @class */ (function (_super) {
     __extends(MatStepper, _super);
     function MatStepper() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -321,7 +323,7 @@ var MatStepper = (function (_super) {
     };
     return MatStepper;
 }(_angular_cdk_stepper.CdkStepper));
-var MatHorizontalStepper = (function (_super) {
+var MatHorizontalStepper = /** @class */ (function (_super) {
     __extends(MatHorizontalStepper, _super);
     function MatHorizontalStepper() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -355,7 +357,7 @@ var MatHorizontalStepper = (function (_super) {
     MatHorizontalStepper.ctorParameters = function () { return []; };
     return MatHorizontalStepper;
 }(MatStepper));
-var MatVerticalStepper = (function (_super) {
+var MatVerticalStepper = /** @class */ (function (_super) {
     __extends(MatVerticalStepper, _super);
     function MatVerticalStepper() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -394,10 +396,11 @@ var MatVerticalStepper = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Button that moves to the next step in a stepper workflow.
  */
-var MatStepperNext = (function (_super) {
+var MatStepperNext = /** @class */ (function (_super) {
     __extends(MatStepperNext, _super);
     function MatStepperNext() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -416,7 +419,7 @@ var MatStepperNext = (function (_super) {
 /**
  * Button that moves to the previous step in a stepper workflow.
  */
-var MatStepperPrevious = (function (_super) {
+var MatStepperPrevious = /** @class */ (function (_super) {
     __extends(MatStepperPrevious, _super);
     function MatStepperPrevious() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -438,7 +441,7 @@ var MatStepperPrevious = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatStepperModule = (function () {
+var MatStepperModule = /** @class */ (function () {
     function MatStepperModule() {
     }
     MatStepperModule.decorators = [

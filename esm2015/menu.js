@@ -71,6 +71,7 @@ const fadeInItems = trigger('fadeInItems', [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Throws an exception for the case when menu trigger doesn't have a valid mat-menu instance
  * \@docs-private
@@ -108,6 +109,7 @@ function throwMatMenuInvalidPositionY() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
@@ -236,6 +238,7 @@ MatMenuItem.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Default `mat-menu` options that can be overridden.
  * @record
@@ -373,6 +376,7 @@ class MatMenu {
      */
     ngOnDestroy() {
         this._tabSubscription.unsubscribe();
+        this.closed.emit();
         this.closed.complete();
     }
     /**
@@ -676,7 +680,9 @@ class MatMenuTrigger {
     openMenu() {
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(() => this.closeMenu());
+            this._closeSubscription = this._menuClosingActions().subscribe(() => {
+                this.menu.close.emit();
+            });
             this._initMenu();
             if (this.menu instanceof MatMenu) {
                 this.menu._startAnimation();
@@ -704,8 +710,8 @@ class MatMenuTrigger {
     _destroyMenu() {
         if (this._overlayRef && this.menuOpen) {
             this._resetMenu();
-            this._closeSubscription.unsubscribe();
             this._overlayRef.detach();
+            this._closeSubscription.unsubscribe();
             if (this.menu instanceof MatMenu) {
                 this.menu._resetAnimation();
             }
@@ -871,10 +877,9 @@ class MatMenuTrigger {
      */
     _menuClosingActions() {
         const /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
-        const /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
         const /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of();
         const /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter(active => active !== this._menuItemInstance), filter(() => this._menuOpen)) : of();
-        return merge(backdrop, parentClose, hover, detachments);
+        return merge(backdrop, parentClose, hover);
     }
     /**
      * Handles mouse presses on the trigger.
@@ -1003,5 +1008,5 @@ MatMenuModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa21, _MatMenuItemMixinBase as ɵb21, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd21, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc21 };
+export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa16, _MatMenuItemMixinBase as ɵb16, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd16, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc16 };
 //# sourceMappingURL=menu.js.map

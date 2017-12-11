@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/platform'), require('@angular/common'), require('@angular/core'), require('@angular/material/form-field'), require('@angular/cdk/coercion'), require('@angular/forms'), require('@angular/material/core'), require('rxjs/Subject')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/platform', '@angular/common', '@angular/core', '@angular/material/form-field', '@angular/cdk/coercion', '@angular/forms', '@angular/material/core', 'rxjs/Subject'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.input = global.ng.material.input || {}),global.ng.cdk.platform,global.ng.common,global.ng.core,global.ng.material.formField,global.ng.cdk.coercion,global.ng.forms,global.ng.material.core,global.Rx));
-}(this, (function (exports,_angular_cdk_platform,_angular_common,_angular_core,_angular_material_formField,_angular_cdk_coercion,_angular_forms,_angular_material_core,rxjs_Subject) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/platform'), require('@angular/common'), require('@angular/core'), require('@angular/material/form-field'), require('rxjs/observable/fromEvent'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('rxjs/Subject'), require('@angular/cdk/coercion'), require('@angular/forms'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/platform', '@angular/common', '@angular/core', '@angular/material/form-field', 'rxjs/observable/fromEvent', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', 'rxjs/Subject', '@angular/cdk/coercion', '@angular/forms', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.input = global.ng.material.input || {}),global.ng.cdk.platform,global.ng.common,global.ng.core,global.ng.material.formField,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx,global.ng.cdk.coercion,global.ng.forms,global.ng.material.core));
+}(this, (function (exports,_angular_cdk_platform,_angular_common,_angular_core,_angular_material_formField,rxjs_observable_fromEvent,rxjs_operators_auditTime,rxjs_operators_takeUntil,rxjs_Subject,_angular_cdk_coercion,_angular_forms,_angular_material_core) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -45,10 +45,12 @@ function __extends(d, b) {
 /**
  * Directive to automatically resize a textarea to fit its content.
  */
-var MatTextareaAutosize = (function () {
-    function MatTextareaAutosize(_elementRef, _platform) {
+var MatTextareaAutosize = /** @class */ (function () {
+    function MatTextareaAutosize(_elementRef, _platform, _ngZone) {
         this._elementRef = _elementRef;
         this._platform = _platform;
+        this._ngZone = _ngZone;
+        this._destroyed = new rxjs_Subject.Subject();
     }
     Object.defineProperty(MatTextareaAutosize.prototype, "minRows", {
         get: /**
@@ -84,6 +86,7 @@ var MatTextareaAutosize = (function () {
         enumerable: true,
         configurable: true
     });
+    // TODO(crisbeto): make the `_ngZone` a required param in the next major version.
     /** Sets the minimum height of the textarea as determined by minRows. */
     /**
      * Sets the minimum height of the textarea as determined by minRows.
@@ -123,9 +126,27 @@ var MatTextareaAutosize = (function () {
      * @return {?}
      */
     function () {
+        var _this = this;
         if (this._platform.isBrowser) {
             this.resizeToFitContent();
+            if (this._ngZone) {
+                this._ngZone.runOutsideAngular(function () {
+                    rxjs_observable_fromEvent.fromEvent(window, 'resize')
+                        .pipe(rxjs_operators_auditTime.auditTime(16), rxjs_operators_takeUntil.takeUntil(_this._destroyed))
+                        .subscribe(function () { return _this.resizeToFitContent(true); });
+                });
+            }
         }
+    };
+    /**
+     * @return {?}
+     */
+    MatTextareaAutosize.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._destroyed.next();
+        this._destroyed.complete();
     };
     /**
      * Sets a style property on the textarea element.
@@ -201,16 +222,25 @@ var MatTextareaAutosize = (function () {
             this.resizeToFitContent();
         }
     };
-    /** Resize the textarea to fit its content. */
     /**
      * Resize the textarea to fit its content.
+     * @param force Whether to force a height recalculation. By default the height will be
+     *    recalculated only if the value changed since the last call.
+     */
+    /**
+     * Resize the textarea to fit its content.
+     * @param {?=} force Whether to force a height recalculation. By default the height will be
+     *    recalculated only if the value changed since the last call.
      * @return {?}
      */
     MatTextareaAutosize.prototype.resizeToFitContent = /**
      * Resize the textarea to fit its content.
+     * @param {?=} force Whether to force a height recalculation. By default the height will be
+     *    recalculated only if the value changed since the last call.
      * @return {?}
      */
-    function () {
+    function (force) {
+        if (force === void 0) { force = false; }
         this._cacheTextareaLineHeight();
         // If we haven't determined the line-height yet, we know we're still hidden and there's no point
         // in checking the height of the textarea.
@@ -220,7 +250,7 @@ var MatTextareaAutosize = (function () {
         var /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
         var /** @type {?} */ value = textarea.value;
         // Only resize of the value changed since these calculations can be expensive.
-        if (value === this._previousValue) {
+        if (value === this._previousValue && !force) {
             return;
         }
         var /** @type {?} */ placeholderText = textarea.placeholder;
@@ -243,6 +273,7 @@ var MatTextareaAutosize = (function () {
                     selector: "textarea[mat-autosize], textarea[matTextareaAutosize]",
                     exportAs: 'matTextareaAutosize',
                     host: {
+                        'class': 'mat-autosize',
                         // Textarea elements that have the directive applied should have a single row by default.
                         // Browsers normally show two rows by default and therefore this limits the minRows binding.
                         'rows': '1',
@@ -253,6 +284,7 @@ var MatTextareaAutosize = (function () {
     MatTextareaAutosize.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_platform.Platform, },
+        { type: _angular_core.NgZone, },
     ]; };
     MatTextareaAutosize.propDecorators = {
         "minRows": [{ type: _angular_core.Input, args: ['matAutosizeMinRows',] },],
@@ -265,6 +297,7 @@ var MatTextareaAutosize = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @param {?} type
@@ -291,6 +324,7 @@ var MAT_INPUT_VALUE_ACCESSOR = new _angular_core.InjectionToken('MAT_INPUT_VALUE
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
 var MAT_INPUT_INVALID_TYPES = [
     'button',
@@ -308,7 +342,7 @@ var nextUniqueId = 0;
 /**
  * \@docs-private
  */
-var MatInputBase = (function () {
+var MatInputBase = /** @class */ (function () {
     function MatInputBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._parentForm = _parentForm;
@@ -321,7 +355,7 @@ var _MatInputMixinBase = _angular_material_core.mixinErrorState(MatInputBase);
 /**
  * Directive that allows a native input to work inside a `MatFormField`.
  */
-var MatInput = (function (_super) {
+var MatInput = /** @class */ (function (_super) {
     __extends(MatInput, _super);
     function MatInput(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
@@ -737,7 +771,7 @@ var MatInput = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatInputModule = (function () {
+var MatInputModule = /** @class */ (function () {
     function MatInputModule() {
     }
     MatInputModule.decorators = [

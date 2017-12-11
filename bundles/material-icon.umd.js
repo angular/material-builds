@@ -77,7 +77,7 @@ function getMatIconFailedToSanitizeError(url) {
  * Configuration for an icon, including the URL and possibly the cached SVG element.
  * \@docs-private
  */
-var SvgIconConfig = (function () {
+var SvgIconConfig = /** @class */ (function () {
     function SvgIconConfig(url) {
         this.url = url;
         this.svgElement = null;
@@ -91,7 +91,7 @@ var SvgIconConfig = (function () {
  * - Registers aliases for CSS classes, for use with icon fonts.
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
-var MatIconRegistry = (function () {
+var MatIconRegistry = /** @class */ (function () {
     function MatIconRegistry(_httpClient, _sanitizer) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
@@ -736,10 +736,11 @@ function iconKey(namespace, name) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatIconBase = (function () {
+var MatIconBase = /** @class */ (function () {
     function MatIconBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -773,7 +774,7 @@ var _MatIconMixinBase = _angular_material_core.mixinColor(MatIconBase);
  *   Example:
  *     <mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>
  */
-var MatIcon = (function (_super) {
+var MatIcon = /** @class */ (function (_super) {
     __extends(MatIcon, _super);
     function MatIcon(elementRef, _iconRegistry, ariaHidden) {
         var _this = _super.call(this, elementRef) || this;
@@ -966,7 +967,7 @@ var MatIcon = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatIconModule = (function () {
+var MatIconModule = /** @class */ (function () {
     function MatIconModule() {
     }
     MatIconModule.decorators = [

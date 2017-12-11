@@ -20,6 +20,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 // Increasing integer for generating unique ids for radio components.
 var nextUniqueId = 0;
 /**
@@ -35,7 +36,7 @@ var MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
 /**
  * Change event object emitted by MatRadio and MatRadioGroup.
  */
-var MatRadioChange = (function () {
+var MatRadioChange = /** @class */ (function () {
     function MatRadioChange() {
     }
     return MatRadioChange;
@@ -43,7 +44,7 @@ var MatRadioChange = (function () {
 /**
  * \@docs-private
  */
-var MatRadioGroupBase = (function () {
+var MatRadioGroupBase = /** @class */ (function () {
     function MatRadioGroupBase() {
     }
     return MatRadioGroupBase;
@@ -52,7 +53,7 @@ var _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
-var MatRadioGroup = (function (_super) {
+var MatRadioGroup = /** @class */ (function (_super) {
     __extends(MatRadioGroup, _super);
     function MatRadioGroup(_changeDetector) {
         var _this = _super.call(this) || this;
@@ -457,7 +458,7 @@ var MatRadioGroup = (function (_super) {
 /**
  * \@docs-private
  */
-var MatRadioButtonBase = (function () {
+var MatRadioButtonBase = /** @class */ (function () {
     function MatRadioButtonBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -469,7 +470,7 @@ var _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(MatRadioButtonBase)
 /**
  * A radio-button. May be inside of
  */
-var MatRadioButton = (function (_super) {
+var MatRadioButton = /** @class */ (function (_super) {
     __extends(MatRadioButton, _super);
     function MatRadioButton(radioGroup, elementRef, _changeDetector, _focusMonitor, _radioDispatcher) {
         var _this = _super.call(this, elementRef) || this;
@@ -881,7 +882,7 @@ var MatRadioButton = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatRadioModule = (function () {
+var MatRadioModule = /** @class */ (function () {
     function MatRadioModule() {
     }
     MatRadioModule.decorators = [

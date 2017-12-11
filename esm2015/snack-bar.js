@@ -21,6 +21,7 @@ import { Subject } from 'rxjs/Subject';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */

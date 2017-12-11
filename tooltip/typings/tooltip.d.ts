@@ -29,7 +29,7 @@ export declare function MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Ov
 /** @docs-private */
 export declare const MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
-    deps: typeof Overlay[];
+    deps: (typeof Overlay)[];
     useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
 };
 /**

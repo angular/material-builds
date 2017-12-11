@@ -46,7 +46,7 @@ function __extends(d, b) {
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * \@docs-private
  */
-var MatInkBar = (function () {
+var MatInkBar = /** @class */ (function () {
     function MatInkBar(_elementRef, _ngZone) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
@@ -139,10 +139,11 @@ var MatInkBar = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Used to flag tab labels for use with the portal directive
  */
-var MatTabLabel = (function (_super) {
+var MatTabLabel = /** @class */ (function (_super) {
     __extends(MatTabLabel, _super);
     function MatTabLabel(templateRef, viewContainerRef) {
         return _super.call(this, templateRef, viewContainerRef) || this;
@@ -164,16 +165,17 @@ var MatTabLabel = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatTabBase = (function () {
+var MatTabBase = /** @class */ (function () {
     function MatTabBase() {
     }
     return MatTabBase;
 }());
 var _MatTabMixinBase = _angular_material_core.mixinDisabled(MatTabBase);
-var MatTab = (function (_super) {
+var MatTab = /** @class */ (function (_super) {
     __extends(MatTab, _super);
     function MatTab(_viewContainerRef) {
         var _this = _super.call(this) || this;
@@ -283,11 +285,12 @@ var MatTab = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * The portal host directive for the contents of the tab.
  * \@docs-private
  */
-var MatTabBodyPortal = (function (_super) {
+var MatTabBodyPortal = /** @class */ (function (_super) {
     __extends(MatTabBodyPortal, _super);
     function MatTabBodyPortal(_componentFactoryResolver, _viewContainerRef, _host) {
         var _this = _super.call(this, _componentFactoryResolver, _viewContainerRef) || this;
@@ -353,7 +356,7 @@ var MatTabBodyPortal = (function (_super) {
  * Wrapper for the contents of a tab.
  * \@docs-private
  */
-var MatTabBody = (function () {
+var MatTabBody = /** @class */ (function () {
     function MatTabBody(_elementRef, _dir) {
         this._elementRef = _elementRef;
         this._dir = _dir;
@@ -543,6 +546,7 @@ var MatTabBody = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Used to generate unique ID's for each tab component
  */
@@ -550,7 +554,7 @@ var nextId = 0;
 /**
  * A simple change event emitted on focus or selection changes.
  */
-var MatTabChangeEvent = (function () {
+var MatTabChangeEvent = /** @class */ (function () {
     function MatTabChangeEvent() {
     }
     return MatTabChangeEvent;
@@ -558,7 +562,7 @@ var MatTabChangeEvent = (function () {
 /**
  * \@docs-private
  */
-var MatTabGroupBase = (function () {
+var MatTabGroupBase = /** @class */ (function () {
     function MatTabGroupBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -570,7 +574,7 @@ var _MatTabGroupMixinBase = _angular_material_core.mixinColor(_angular_material_
  * animated ink-bar, keyboard navigation, and screen reader.
  * See: https://www.google.com/design/spec/components/tabs.html
  */
-var MatTabGroup = (function (_super) {
+var MatTabGroup = /** @class */ (function (_super) {
     __extends(MatTabGroup, _super);
     function MatTabGroup(elementRef, _changeDetectorRef) {
         var _this = _super.call(this, elementRef) || this;
@@ -959,10 +963,11 @@ var MatTabGroup = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatTabLabelWrapperBase = (function () {
+var MatTabLabelWrapperBase = /** @class */ (function () {
     function MatTabLabelWrapperBase() {
     }
     return MatTabLabelWrapperBase;
@@ -972,7 +977,7 @@ var _MatTabLabelWrapperMixinBase = _angular_material_core.mixinDisabled(MatTabLa
  * Used in the `mat-tab-group` view to display tab labels.
  * \@docs-private
  */
-var MatTabLabelWrapper = (function (_super) {
+var MatTabLabelWrapper = /** @class */ (function (_super) {
     __extends(MatTabLabelWrapper, _super);
     function MatTabLabelWrapper(elementRef) {
         var _this = _super.call(this) || this;
@@ -1029,6 +1034,7 @@ var MatTabLabelWrapper = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
  * provide a small affordance to the label next to it.
@@ -1037,7 +1043,7 @@ var EXAGGERATED_OVERSCROLL = 60;
 /**
  * \@docs-private
  */
-var MatTabHeaderBase = (function () {
+var MatTabHeaderBase = /** @class */ (function () {
     function MatTabHeaderBase() {
     }
     return MatTabHeaderBase;
@@ -1050,7 +1056,7 @@ var _MatTabHeaderMixinBase = _angular_material_core.mixinDisableRipple(MatTabHea
  * left and right across the header.
  * \@docs-private
  */
-var MatTabHeader = (function (_super) {
+var MatTabHeader = /** @class */ (function (_super) {
     __extends(MatTabHeader, _super);
     function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir) {
         var _this = _super.call(this) || this;
@@ -1650,7 +1656,7 @@ var MatTabHeader = (function (_super) {
 /**
  * \@docs-private
  */
-var MatTabNavBase = (function () {
+var MatTabNavBase = /** @class */ (function () {
     function MatTabNavBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -1661,7 +1667,7 @@ var _MatTabNavMixinBase = _angular_material_core.mixinDisableRipple(_angular_mat
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-var MatTabNav = (function (_super) {
+var MatTabNav = /** @class */ (function (_super) {
     __extends(MatTabNav, _super);
     function MatTabNav(elementRef, _dir, _ngZone, _changeDetectorRef, _viewportRuler) {
         var _this = _super.call(this, elementRef) || this;
@@ -1828,7 +1834,7 @@ var MatTabNav = (function (_super) {
     };
     return MatTabNav;
 }(_MatTabNavMixinBase));
-var MatTabLinkBase = (function () {
+var MatTabLinkBase = /** @class */ (function () {
     function MatTabLinkBase() {
     }
     return MatTabLinkBase;
@@ -1837,7 +1843,7 @@ var _MatTabLinkMixinBase = _angular_material_core.mixinTabIndex(_angular_materia
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
-var MatTabLink = (function (_super) {
+var MatTabLink = /** @class */ (function (_super) {
     __extends(MatTabLink, _super);
     function MatTabLink(_tabNavBar, _elementRef, ngZone, platform, globalOptions, tabIndex) {
         var _this = _super.call(this) || this;
@@ -1942,7 +1948,7 @@ var MatTabLink = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatTabsModule = (function () {
+var MatTabsModule = /** @class */ (function () {
     function MatTabsModule() {
     }
     MatTabsModule.decorators = [

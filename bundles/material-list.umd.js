@@ -41,10 +41,11 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatListBase = (function () {
+var MatListBase = /** @class */ (function () {
     function MatListBase() {
     }
     return MatListBase;
@@ -53,7 +54,7 @@ var _MatListMixinBase = _angular_material_core.mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
-var MatListItemBase = (function () {
+var MatListItemBase = /** @class */ (function () {
     function MatListItemBase() {
     }
     return MatListItemBase;
@@ -62,7 +63,7 @@ var _MatListItemMixinBase = _angular_material_core.mixinDisableRipple(MatListIte
 /**
  * Divider between items within a list.
  */
-var MatListDivider = (function () {
+var MatListDivider = /** @class */ (function () {
     function MatListDivider() {
     }
     MatListDivider.decorators = [
@@ -81,7 +82,7 @@ var MatListDivider = (function () {
 /**
  * A Material Design list component.
  */
-var MatNavList = (function (_super) {
+var MatNavList = /** @class */ (function (_super) {
     __extends(MatNavList, _super);
     function MatNavList() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -105,7 +106,7 @@ var MatNavList = (function (_super) {
     MatNavList.ctorParameters = function () { return []; };
     return MatNavList;
 }(_MatListMixinBase));
-var MatList = (function (_super) {
+var MatList = /** @class */ (function (_super) {
     __extends(MatList, _super);
     function MatList() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -130,7 +131,7 @@ var MatList = (function (_super) {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatDividerCssMatStyler = (function () {
+var MatDividerCssMatStyler = /** @class */ (function () {
     function MatDividerCssMatStyler() {
     }
     MatDividerCssMatStyler.decorators = [
@@ -147,7 +148,7 @@ var MatDividerCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatListAvatarCssMatStyler = (function () {
+var MatListAvatarCssMatStyler = /** @class */ (function () {
     function MatListAvatarCssMatStyler() {
     }
     MatListAvatarCssMatStyler.decorators = [
@@ -164,7 +165,7 @@ var MatListAvatarCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatListIconCssMatStyler = (function () {
+var MatListIconCssMatStyler = /** @class */ (function () {
     function MatListIconCssMatStyler() {
     }
     MatListIconCssMatStyler.decorators = [
@@ -181,7 +182,7 @@ var MatListIconCssMatStyler = (function () {
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
-var MatListSubheaderCssMatStyler = (function () {
+var MatListSubheaderCssMatStyler = /** @class */ (function () {
     function MatListSubheaderCssMatStyler() {
     }
     MatListSubheaderCssMatStyler.decorators = [
@@ -197,7 +198,7 @@ var MatListSubheaderCssMatStyler = (function () {
 /**
  * An item within a Material Design list.
  */
-var MatListItem = (function (_super) {
+var MatListItem = /** @class */ (function (_super) {
     __extends(MatListItem, _super);
     function MatListItem(_element, _navList) {
         var _this = _super.call(this) || this;
@@ -305,10 +306,11 @@ var MatListItem = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatSelectionListBase = (function () {
+var MatSelectionListBase = /** @class */ (function () {
     function MatSelectionListBase() {
     }
     return MatSelectionListBase;
@@ -317,7 +319,7 @@ var _MatSelectionListMixinBase = _angular_material_core.mixinTabIndex(_angular_m
 /**
  * \@docs-private
  */
-var MatListOptionBase = (function () {
+var MatListOptionBase = /** @class */ (function () {
     function MatListOptionBase() {
     }
     return MatListOptionBase;
@@ -335,7 +337,7 @@ var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
  * Change event object emitted by MatListOption whenever the selected state changes.
  * @deprecated Use the `MatSelectionListChange` event on the selection list instead.
  */
-var MatListOptionChange = (function () {
+var MatListOptionChange = /** @class */ (function () {
     function MatListOptionChange(source, selected) {
         this.source = source;
         this.selected = selected;
@@ -345,7 +347,7 @@ var MatListOptionChange = (function () {
 /**
  * Change event that is being fired whenever the selected state of an option changes.
  */
-var MatSelectionListChange = (function () {
+var MatSelectionListChange = /** @class */ (function () {
     function MatSelectionListChange(source, option) {
         this.source = source;
         this.option = option;
@@ -357,7 +359,7 @@ var MatSelectionListChange = (function () {
  * generate a checkbox and can put current item into the selectionModel of selection-list
  * if the current item is selected.
  */
-var MatListOption = (function (_super) {
+var MatListOption = /** @class */ (function (_super) {
     __extends(MatListOption, _super);
     function MatListOption(_element, _changeDetector, selectionList) {
         var _this = _super.call(this) || this;
@@ -617,7 +619,7 @@ var MatListOption = (function (_super) {
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-var MatSelectionList = (function (_super) {
+var MatSelectionList = /** @class */ (function (_super) {
     __extends(MatSelectionList, _super);
     function MatSelectionList(_element, tabIndex) {
         var _this = _super.call(this) || this;
@@ -864,7 +866,7 @@ var MatSelectionList = (function (_super) {
         values
             .map(function (value) { return _this._getOptionByValue(value); })
             .filter(Boolean)
-            .forEach(function (option) { return /** @type {?} */ ((option))._setSelected(true); });
+            .forEach(function (option) { return ((option))._setSelected(true); });
     };
     /**
      * Returns the values of the selected options.
@@ -963,7 +965,7 @@ var MatSelectionList = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatListModule = (function () {
+var MatListModule = /** @class */ (function () {
     function MatListModule() {
     }
     MatListModule.decorators = [

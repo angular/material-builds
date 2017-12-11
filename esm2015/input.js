@@ -7,12 +7,15 @@
  */
 import { Platform, PlatformModule, getSupportedInputTypes } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
-import { Directive, ElementRef, Inject, InjectionToken, Input, NgModule, Optional, Self } from '@angular/core';
+import { Directive, ElementRef, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Self } from '@angular/core';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { fromEvent } from 'rxjs/observable/fromEvent';
+import { auditTime } from 'rxjs/operators/auditTime';
+import { takeUntil } from 'rxjs/operators/takeUntil';
+import { Subject } from 'rxjs/Subject';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
-import { Subject } from 'rxjs/Subject';
 
 /**
  * @fileoverview added by tsickle
@@ -26,10 +29,13 @@ class MatTextareaAutosize {
     /**
      * @param {?} _elementRef
      * @param {?} _platform
+     * @param {?=} _ngZone
      */
-    constructor(_elementRef, _platform) {
+    constructor(_elementRef, _platform, _ngZone) {
         this._elementRef = _elementRef;
         this._platform = _platform;
+        this._ngZone = _ngZone;
+        this._destroyed = new Subject();
     }
     /**
      * Minimum amount of rows in the textarea.
@@ -85,7 +91,21 @@ class MatTextareaAutosize {
     ngAfterViewInit() {
         if (this._platform.isBrowser) {
             this.resizeToFitContent();
+            if (this._ngZone) {
+                this._ngZone.runOutsideAngular(() => {
+                    fromEvent(window, 'resize')
+                        .pipe(auditTime(16), takeUntil(this._destroyed))
+                        .subscribe(() => this.resizeToFitContent(true));
+                });
+            }
         }
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._destroyed.next();
+        this._destroyed.complete();
     }
     /**
      * Sets a style property on the textarea element.
@@ -146,9 +166,11 @@ class MatTextareaAutosize {
     }
     /**
      * Resize the textarea to fit its content.
+     * @param {?=} force Whether to force a height recalculation. By default the height will be
+     *    recalculated only if the value changed since the last call.
      * @return {?}
      */
-    resizeToFitContent() {
+    resizeToFitContent(force = false) {
         this._cacheTextareaLineHeight();
         // If we haven't determined the line-height yet, we know we're still hidden and there's no point
         // in checking the height of the textarea.
@@ -158,7 +180,7 @@ class MatTextareaAutosize {
         const /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
         const /** @type {?} */ value = textarea.value;
         // Only resize of the value changed since these calculations can be expensive.
-        if (value === this._previousValue) {
+        if (value === this._previousValue && !force) {
             return;
         }
         const /** @type {?} */ placeholderText = textarea.placeholder;
@@ -182,6 +204,7 @@ MatTextareaAutosize.decorators = [
                 selector: `textarea[mat-autosize], textarea[matTextareaAutosize]`,
                 exportAs: 'matTextareaAutosize',
                 host: {
+                    'class': 'mat-autosize',
                     // Textarea elements that have the directive applied should have a single row by default.
                     // Browsers normally show two rows by default and therefore this limits the minRows binding.
                     'rows': '1',
@@ -192,6 +215,7 @@ MatTextareaAutosize.decorators = [
 MatTextareaAutosize.ctorParameters = () => [
     { type: ElementRef, },
     { type: Platform, },
+    { type: NgZone, },
 ];
 MatTextareaAutosize.propDecorators = {
     "minRows": [{ type: Input, args: ['matAutosizeMinRows',] },],
@@ -202,6 +226,7 @@ MatTextareaAutosize.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  * @param {?} type

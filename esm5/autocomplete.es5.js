@@ -38,14 +38,14 @@ var _uniqueAutocompleteIdCounter = 0;
 /**
  * Event object that is emitted when an autocomplete option is selected
  */
-var MatAutocompleteSelectedEvent = (function () {
+var MatAutocompleteSelectedEvent = /** @class */ (function () {
     function MatAutocompleteSelectedEvent(source, option) {
         this.source = source;
         this.option = option;
     }
     return MatAutocompleteSelectedEvent;
 }());
-var MatAutocomplete = (function () {
+var MatAutocomplete = /** @class */ (function () {
     function MatAutocomplete(_changeDetectorRef, _elementRef) {
         this._changeDetectorRef = _changeDetectorRef;
         this._elementRef = _elementRef;
@@ -252,7 +252,7 @@ function getMatAutocompleteMissingPanelError() {
         'Make sure that the id passed to the `matAutocomplete` is correct and that ' +
         'you\'re attempting to open it after the ngAfterContentInit hook.');
 }
-var MatAutocompleteTrigger = (function () {
+var MatAutocompleteTrigger = /** @class */ (function () {
     function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _scrollStrategy, _dir, _formField, _document) {
         this._element = _element;
         this._overlay = _overlay;
@@ -855,7 +855,7 @@ var MatAutocompleteTrigger = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatAutocompleteModule = (function () {
+var MatAutocompleteModule = /** @class */ (function () {
     function MatAutocompleteModule() {
     }
     MatAutocompleteModule.decorators = [

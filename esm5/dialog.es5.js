@@ -27,6 +27,7 @@ import { take } from 'rxjs/operators/take';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Possible overrides for a dialog's position.
  * @record
@@ -35,7 +36,7 @@ import { take } from 'rxjs/operators/take';
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
  */
-var MatDialogConfig = (function () {
+var MatDialogConfig = /** @class */ (function () {
     function MatDialogConfig() {
         /**
          * The ARIA role of the dialog element.
@@ -97,6 +98,7 @@ var MatDialogConfig = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Throws an exception for the case when a ComponentPortal is
  * attached to a DomPortalOutlet without an origin.
@@ -111,7 +113,7 @@ function throwMatDialogContentAlreadyAttachedError() {
  * Animation is based on https://material.io/guidelines/motion/choreography.html.
  * \@docs-private
  */
-var MatDialogContainer = (function (_super) {
+var MatDialogContainer = /** @class */ (function (_super) {
     __extends(MatDialogContainer, _super);
     function MatDialogContainer(_elementRef, _focusTrapFactory, _changeDetectorRef, _document) {
         var _this = _super.call(this) || this;
@@ -338,13 +340,14 @@ var MatDialogContainer = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 // TODO(jelbourn): resizing
 // Counter for unique dialog ids.
 var uniqueId = 0;
 /**
  * Reference to a dialog opened via the MatDialog service.
  */
-var MatDialogRef = (function () {
+var MatDialogRef = /** @class */ (function () {
     function MatDialogRef(_overlayRef, _containerInstance, id) {
         if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
         var _this = this;
@@ -551,6 +554,7 @@ var MatDialogRef = (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 var MAT_DIALOG_DATA = new InjectionToken('MatDialogData');
 /**
  * Injection token that determines the scroll handling while the dialog is open.
@@ -575,7 +579,7 @@ var MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
 /**
  * Service to open Material Design modal dialogs.
  */
-var MatDialog = (function () {
+var MatDialog = /** @class */ (function () {
     function MatDialog(_overlay, _injector, location, _scrollStrategy, _parentDialog) {
         var _this = this;
         this._overlay = _overlay;
@@ -905,7 +909,7 @@ var dialogElementUid = 0;
 /**
  * Button that will close the current dialog.
  */
-var MatDialogClose = (function () {
+var MatDialogClose = /** @class */ (function () {
     function MatDialogClose(dialogRef) {
         this.dialogRef = dialogRef;
         /**
@@ -952,7 +956,7 @@ var MatDialogClose = (function () {
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
-var MatDialogTitle = (function () {
+var MatDialogTitle = /** @class */ (function () {
     function MatDialogTitle(_container) {
         this._container = _container;
         this.id = "mat-dialog-title-" + dialogElementUid++;
@@ -991,7 +995,7 @@ var MatDialogTitle = (function () {
 /**
  * Scrollable content container of a dialog.
  */
-var MatDialogContent = (function () {
+var MatDialogContent = /** @class */ (function () {
     function MatDialogContent() {
     }
     MatDialogContent.decorators = [
@@ -1008,7 +1012,7 @@ var MatDialogContent = (function () {
  * Container for the bottom action buttons in a dialog.
  * Stays fixed to the bottom when scrolling.
  */
-var MatDialogActions = (function () {
+var MatDialogActions = /** @class */ (function () {
     function MatDialogActions() {
     }
     MatDialogActions.decorators = [
@@ -1027,7 +1031,7 @@ var MatDialogActions = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatDialogModule = (function () {
+var MatDialogModule = /** @class */ (function () {
     function MatDialogModule() {
     }
     MatDialogModule.decorators = [

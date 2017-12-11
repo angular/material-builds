@@ -17,7 +17,7 @@ import { MatCommonModule } from '@angular/material/core';
  * Content of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MatCardContent = (function () {
+var MatCardContent = /** @class */ (function () {
     function MatCardContent() {
     }
     MatCardContent.decorators = [
@@ -34,7 +34,7 @@ var MatCardContent = (function () {
  * Title of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MatCardTitle = (function () {
+var MatCardTitle = /** @class */ (function () {
     function MatCardTitle() {
     }
     MatCardTitle.decorators = [
@@ -53,7 +53,7 @@ var MatCardTitle = (function () {
  * Sub-title of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MatCardSubtitle = (function () {
+var MatCardSubtitle = /** @class */ (function () {
     function MatCardSubtitle() {
     }
     MatCardSubtitle.decorators = [
@@ -72,7 +72,7 @@ var MatCardSubtitle = (function () {
  * Action section of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MatCardActions = (function () {
+var MatCardActions = /** @class */ (function () {
     function MatCardActions() {
         /**
          * Position of the actions inside the card.
@@ -100,7 +100,7 @@ var MatCardActions = (function () {
  * Footer of a card, needed as it's used as a selector in the API.
  * \@docs-private
  */
-var MatCardFooter = (function () {
+var MatCardFooter = /** @class */ (function () {
     function MatCardFooter() {
     }
     MatCardFooter.decorators = [
@@ -117,7 +117,7 @@ var MatCardFooter = (function () {
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MatCardImage = (function () {
+var MatCardImage = /** @class */ (function () {
     function MatCardImage() {
     }
     MatCardImage.decorators = [
@@ -134,7 +134,7 @@ var MatCardImage = (function () {
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MatCardSmImage = (function () {
+var MatCardSmImage = /** @class */ (function () {
     function MatCardSmImage() {
     }
     MatCardSmImage.decorators = [
@@ -151,7 +151,7 @@ var MatCardSmImage = (function () {
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MatCardMdImage = (function () {
+var MatCardMdImage = /** @class */ (function () {
     function MatCardMdImage() {
     }
     MatCardMdImage.decorators = [
@@ -168,7 +168,7 @@ var MatCardMdImage = (function () {
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MatCardLgImage = (function () {
+var MatCardLgImage = /** @class */ (function () {
     function MatCardLgImage() {
     }
     MatCardLgImage.decorators = [
@@ -185,7 +185,7 @@ var MatCardLgImage = (function () {
  * Large image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MatCardXlImage = (function () {
+var MatCardXlImage = /** @class */ (function () {
     function MatCardXlImage() {
     }
     MatCardXlImage.decorators = [
@@ -202,7 +202,7 @@ var MatCardXlImage = (function () {
  * Avatar image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
  */
-var MatCardAvatar = (function () {
+var MatCardAvatar = /** @class */ (function () {
     function MatCardAvatar() {
     }
     MatCardAvatar.decorators = [
@@ -226,7 +226,7 @@ var MatCardAvatar = (function () {
  * - mat-card-actions
  * - mat-card-footer
  */
-var MatCard = (function () {
+var MatCard = /** @class */ (function () {
     function MatCard() {
     }
     MatCard.decorators = [
@@ -249,7 +249,7 @@ var MatCard = (function () {
  * preset header section (i.e. a title, subtitle, and avatar layout).
  * \@docs-private
  */
-var MatCardHeader = (function () {
+var MatCardHeader = /** @class */ (function () {
     function MatCardHeader() {
     }
     MatCardHeader.decorators = [
@@ -270,7 +270,7 @@ var MatCardHeader = (function () {
  * layout that groups an image with a title section.
  * \@docs-private
  */
-var MatCardTitleGroup = (function () {
+var MatCardTitleGroup = /** @class */ (function () {
     function MatCardTitleGroup() {
     }
     MatCardTitleGroup.decorators = [
@@ -292,7 +292,7 @@ var MatCardTitleGroup = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatCardModule = (function () {
+var MatCardModule = /** @class */ (function () {
     function MatCardModule() {
     }
     MatCardModule.decorators = [

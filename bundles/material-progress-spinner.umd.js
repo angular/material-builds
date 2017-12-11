@@ -41,6 +41,7 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Base reference size of the spinner.
  * \@docs-private
@@ -54,7 +55,7 @@ var BASE_STROKE_WIDTH = 10;
 /**
  * \@docs-private
  */
-var MatProgressSpinnerBase = (function () {
+var MatProgressSpinnerBase = /** @class */ (function () {
     function MatProgressSpinnerBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -65,7 +66,7 @@ var INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-strok
 /**
  * <mat-progress-spinner> component.
  */
-var MatProgressSpinner = (function (_super) {
+var MatProgressSpinner = /** @class */ (function (_super) {
     __extends(MatProgressSpinner, _super);
     function MatProgressSpinner(_elementRef, platform, _document) {
         var _this = _super.call(this, _elementRef) || this;
@@ -311,7 +312,7 @@ var MatProgressSpinner = (function (_super) {
  * This is a component definition to be used as a convenience reference to create an
  * indeterminate <mat-progress-spinner> instance.
  */
-var MatSpinner = (function (_super) {
+var MatSpinner = /** @class */ (function (_super) {
     __extends(MatSpinner, _super);
     function MatSpinner(elementRef, platform, document) {
         var _this = _super.call(this, elementRef, platform, document) || this;
@@ -349,7 +350,7 @@ var MatSpinner = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatProgressSpinnerModule = (function () {
+var MatProgressSpinnerModule = /** @class */ (function () {
     function MatProgressSpinnerModule() {
     }
     MatProgressSpinnerModule.decorators = [

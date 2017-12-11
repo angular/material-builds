@@ -22,6 +22,8 @@ export declare class MatCommonModule {
     private _hasCheckedHammer;
     /** Reference to the global `document` object. */
     private _document;
+    /** Reference to the global 'window' object. */
+    private _window;
     constructor(_sanityChecksEnabled: boolean);
     /** Whether any sanity checks are enabled */
     private _areChecksEnabled();

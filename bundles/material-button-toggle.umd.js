@@ -41,10 +41,11 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * \@docs-private
  */
-var MatButtonToggleGroupBase = (function () {
+var MatButtonToggleGroupBase = /** @class */ (function () {
     function MatButtonToggleGroupBase() {
     }
     return MatButtonToggleGroupBase;
@@ -64,7 +65,7 @@ var _uniqueIdCounter = 0;
 /**
  * Change event object emitted by MatButtonToggle.
  */
-var MatButtonToggleChange = (function () {
+var MatButtonToggleChange = /** @class */ (function () {
     function MatButtonToggleChange() {
     }
     return MatButtonToggleChange;
@@ -72,7 +73,7 @@ var MatButtonToggleChange = (function () {
 /**
  * Exclusive selection button toggle group that behaves like a radio-button group.
  */
-var MatButtonToggleGroup = (function (_super) {
+var MatButtonToggleGroup = /** @class */ (function (_super) {
     __extends(MatButtonToggleGroup, _super);
     function MatButtonToggleGroup(_changeDetector) {
         var _this = _super.call(this) || this;
@@ -365,7 +366,7 @@ var MatButtonToggleGroup = (function (_super) {
 /**
  * Multiple selection button-toggle group. `ngModel` is not supported in this mode.
  */
-var MatButtonToggleGroupMultiple = (function (_super) {
+var MatButtonToggleGroupMultiple = /** @class */ (function (_super) {
     __extends(MatButtonToggleGroupMultiple, _super);
     function MatButtonToggleGroupMultiple() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -415,7 +416,7 @@ var MatButtonToggleGroupMultiple = (function (_super) {
 /**
  * Single button inside of a toggle group.
  */
-var MatButtonToggle = (function () {
+var MatButtonToggle = /** @class */ (function () {
     function MatButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _elementRef, _focusMonitor) {
         var _this = this;
         this._changeDetectorRef = _changeDetectorRef;
@@ -731,7 +732,7 @@ var MatButtonToggle = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatButtonToggleModule = (function () {
+var MatButtonToggleModule = /** @class */ (function () {
     function MatButtonToggleModule() {
     }
     MatButtonToggleModule.decorators = [

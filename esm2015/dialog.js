@@ -25,6 +25,7 @@ import { take } from 'rxjs/operators/take';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Possible overrides for a dialog's position.
  * @record
@@ -289,6 +290,7 @@ MatDialogContainer.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 // TODO(jelbourn): resizing
 // Counter for unique dialog ids.
 let uniqueId = 0;

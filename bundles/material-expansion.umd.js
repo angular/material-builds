@@ -41,10 +41,11 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Directive for a Material Design Accordion.
  */
-var MatAccordion = (function (_super) {
+var MatAccordion = /** @class */ (function (_super) {
     __extends(MatAccordion, _super);
     function MatAccordion() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -96,6 +97,7 @@ var MatAccordion = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Time and timing curve for expansion panel animations.
  */
@@ -103,7 +105,7 @@ var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 /**
  * \@docs-private
  */
-var MatExpansionPanelBase = (function (_super) {
+var MatExpansionPanelBase = /** @class */ (function (_super) {
     __extends(MatExpansionPanelBase, _super);
     function MatExpansionPanelBase(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
         return _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
@@ -132,7 +134,7 @@ var _MatExpansionPanelMixinBase = _angular_material_core.mixinDisabled(MatExpans
  *
  * Please refer to README.md for examples on how to use it.
  */
-var MatExpansionPanel = (function (_super) {
+var MatExpansionPanel = /** @class */ (function (_super) {
     __extends(MatExpansionPanel, _super);
     function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
         var _this = _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
@@ -263,7 +265,7 @@ var MatExpansionPanel = (function (_super) {
     };
     return MatExpansionPanel;
 }(_MatExpansionPanelMixinBase));
-var MatExpansionPanelActionRow = (function () {
+var MatExpansionPanelActionRow = /** @class */ (function () {
     function MatExpansionPanelActionRow() {
     }
     MatExpansionPanelActionRow.decorators = [
@@ -291,7 +293,7 @@ var MatExpansionPanelActionRow = (function () {
  *
  * Please refer to README.md for examples on how to use it.
  */
-var MatExpansionPanelHeader = (function () {
+var MatExpansionPanelHeader = /** @class */ (function () {
     function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef) {
         var _this = this;
         this.panel = panel;
@@ -459,7 +461,7 @@ var MatExpansionPanelHeader = (function () {
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
-var MatExpansionPanelDescription = (function () {
+var MatExpansionPanelDescription = /** @class */ (function () {
     function MatExpansionPanelDescription() {
     }
     MatExpansionPanelDescription.decorators = [
@@ -479,7 +481,7 @@ var MatExpansionPanelDescription = (function () {
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
-var MatExpansionPanelTitle = (function () {
+var MatExpansionPanelTitle = /** @class */ (function () {
     function MatExpansionPanelTitle() {
     }
     MatExpansionPanelTitle.decorators = [
@@ -500,7 +502,7 @@ var MatExpansionPanelTitle = (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatExpansionModule = (function () {
+var MatExpansionModule = /** @class */ (function () {
     function MatExpansionModule() {
     }
     MatExpansionModule.decorators = [

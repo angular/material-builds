@@ -29,6 +29,7 @@ var MAT_CHECKBOX_CLICK_ACTION = new InjectionToken('mat-checkbox-click-action');
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 // Increasing integer for generating unique ids for checkbox components.
 var nextUniqueId = 0;
 /**
@@ -59,7 +60,7 @@ TransitionCheckState[TransitionCheckState.Indeterminate] = "Indeterminate";
 /**
  * Change event object emitted by MatCheckbox.
  */
-var MatCheckboxChange = (function () {
+var MatCheckboxChange = /** @class */ (function () {
     function MatCheckboxChange() {
     }
     return MatCheckboxChange;
@@ -67,7 +68,7 @@ var MatCheckboxChange = (function () {
 /**
  * \@docs-private
  */
-var MatCheckboxBase = (function () {
+var MatCheckboxBase = /** @class */ (function () {
     function MatCheckboxBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -82,7 +83,7 @@ var _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDis
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://www.google.com/design/spec/components/selection-controls.html
  */
-var MatCheckbox = (function (_super) {
+var MatCheckbox = /** @class */ (function (_super) {
     __extends(MatCheckbox, _super);
     function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, tabIndex, _clickAction) {
         var _this = _super.call(this, elementRef) || this;
@@ -617,6 +618,7 @@ var MatCheckbox = (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(function () { return MatCheckboxRequiredValidator; }),
@@ -627,7 +629,7 @@ var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
  * Current CheckboxRequiredValidator only work with `input type=checkbox` and does not
  * work with `mat-checkbox`.
  */
-var MatCheckboxRequiredValidator = (function (_super) {
+var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
     __extends(MatCheckboxRequiredValidator, _super);
     function MatCheckboxRequiredValidator() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -649,7 +651,7 @@ var MatCheckboxRequiredValidator = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatCheckboxModule = (function () {
+var MatCheckboxModule = /** @class */ (function () {
     function MatCheckboxModule() {
     }
     MatCheckboxModule.decorators = [

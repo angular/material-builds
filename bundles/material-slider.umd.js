@@ -41,6 +41,7 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
 /**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
  * the default separation we chose.
@@ -70,7 +71,7 @@ var MAT_SLIDER_VALUE_ACCESSOR = {
 /**
  * A simple change event emitted by the MatSlider component.
  */
-var MatSliderChange = (function () {
+var MatSliderChange = /** @class */ (function () {
     function MatSliderChange() {
     }
     return MatSliderChange;
@@ -78,7 +79,7 @@ var MatSliderChange = (function () {
 /**
  * \@docs-private
  */
-var MatSliderBase = (function () {
+var MatSliderBase = /** @class */ (function () {
     function MatSliderBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -89,7 +90,7 @@ var _MatSliderMixinBase = _angular_material_core.mixinTabIndex(_angular_material
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
  */
-var MatSlider = (function (_super) {
+var MatSlider = /** @class */ (function (_super) {
     __extends(MatSlider, _super);
     function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex) {
         var _this = _super.call(this, elementRef) || this;
@@ -1076,7 +1077,7 @@ var MatSlider = (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var MatSliderModule = (function () {
+var MatSliderModule = /** @class */ (function () {
     function MatSliderModule() {
     }
     MatSliderModule.decorators = [
