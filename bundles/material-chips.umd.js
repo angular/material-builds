@@ -463,15 +463,21 @@ var MatChipRemove = /** @class */ (function () {
     /** Calls the parent chip's public `remove()` method if applicable. */
     /**
      * Calls the parent chip's public `remove()` method if applicable.
+     * @param {?} event
      * @return {?}
      */
     MatChipRemove.prototype._handleClick = /**
      * Calls the parent chip's public `remove()` method if applicable.
+     * @param {?} event
      * @return {?}
      */
-    function () {
+    function (event) {
         if (this._parentChip.removable) {
             this._parentChip.remove();
+            // Note: the parent chip does something similar, however since we're removing it,
+            // its event handler will be unbound before it has had the chance to fire.
+            event.preventDefault();
+            event.stopPropagation();
         }
     };
     MatChipRemove.decorators = [
@@ -479,7 +485,7 @@ var MatChipRemove = /** @class */ (function () {
                     selector: '[matChipRemove]',
                     host: {
                         'class': 'mat-chip-remove',
-                        '(click)': '_handleClick()',
+                        '(click)': '_handleClick($event)',
                     }
                 },] },
     ];

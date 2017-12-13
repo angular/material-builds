@@ -526,6 +526,7 @@ class MatSelect extends _MatSelectMixinBase {
     ngOnDestroy() {
         this._destroy.next();
         this._destroy.complete();
+        this.stateChanges.complete();
     }
     /**
      * Toggles the overlay panel open or closed.
@@ -673,7 +674,7 @@ class MatSelect extends _MatSelectMixinBase {
         const /** @type {?} */ keyCode = event.keyCode;
         const /** @type {?} */ isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
         const /** @type {?} */ isOpenKey = keyCode === ENTER || keyCode === SPACE;
-        if (isOpenKey || (this.multiple && isArrowKey)) {
+        if (isOpenKey || ((this.multiple || event.altKey) && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
         }

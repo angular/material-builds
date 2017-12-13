@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directionality } from '@angular/cdk/bidi';
-import { Overlay, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
+import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { MatOption, MatOptionSelectionChange } from '@angular/material/core';
@@ -25,12 +25,12 @@ export declare const AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /** Injection token that determines the scroll handling while the autocomplete panel is open. */
 export declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
-export declare function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
+export declare function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => ScrollStrategy;
 /** @docs-private */
 export declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];
-    useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
+    useFactory: (overlay: Overlay) => () => ScrollStrategy;
 };
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
@@ -108,6 +108,11 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
      * @param fn Callback to be triggered when the component has been touched.
      */
     registerOnTouched(fn: () => {}): void;
+    /**
+     * Disables the input. Implemented as a part of `ControlValueAccessor`.
+     * @param isDisabled Whether the component should be disabled.
+     */
+    setDisabledState(isDisabled: boolean): void;
     _handleKeydown(event: KeyboardEvent): void;
     _handleInput(event: KeyboardEvent): void;
     _handleFocus(): void;

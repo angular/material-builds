@@ -143,7 +143,9 @@ var MatDrawer = /** @class */ (function () {
         /**
          * Event emitted when the drawer open state is changed.
          */
-        this.openedChange = new _angular_core.EventEmitter();
+        this.openedChange = 
+        // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
+        new _angular_core.EventEmitter(/* isAsync */ /* isAsync */ true);
         /**
          * Event emitted when the drawer is fully opened.
          * @deprecated Use `opened` instead.
@@ -173,7 +175,7 @@ var MatDrawer = /** @class */ (function () {
                     _this._elementFocusedBeforeDrawerWasOpened = /** @type {?} */ (_this._doc.activeElement);
                 }
                 if (_this._isFocusTrapEnabled && _this._focusTrap) {
-                    _this._focusTrap.focusInitialElementWhenReady();
+                    _this._trapFocus();
                 }
             }
             else {
@@ -303,6 +305,24 @@ var MatDrawer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * Traps focus inside the drawer.
+     * @return {?}
+     */
+    MatDrawer.prototype._trapFocus = /**
+     * Traps focus inside the drawer.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this._focusTrap.focusInitialElementWhenReady().then(function (hasMovedFocus) {
+            // If there were no focusable elements, focus the sidenav itself so the keyboard navigation
+            // still works. We need to check that `focus` is a function due to Universal.
+            if (!hasMovedFocus && typeof _this._elementRef.nativeElement.focus === 'function') {
+                _this._elementRef.nativeElement.focus();
+            }
+        });
+    };
     /**
      * If focus is currently inside the drawer, restores it to where it was before the drawer
      * opened.
@@ -498,11 +518,9 @@ var MatDrawer = /** @class */ (function () {
      */
     function (event) {
         var fromState = event.fromState, toState = event.toState;
-        if (toState.indexOf('open') === 0 && fromState === 'void') {
-            this.openedChange.emit(true);
-        }
-        else if (toState === 'void' && fromState.indexOf('open') === 0) {
-            this.openedChange.emit(false);
+        if ((toState.indexOf('open') === 0 && fromState === 'void') ||
+            (toState === 'void' && fromState.indexOf('open') === 0)) {
+            this.openedChange.emit(this._opened);
         }
     };
     Object.defineProperty(MatDrawer.prototype, "_width", {

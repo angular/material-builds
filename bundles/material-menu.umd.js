@@ -442,7 +442,6 @@ var MatMenu = /** @class */ (function () {
      */
     function () {
         this._tabSubscription.unsubscribe();
-        this.closed.emit();
         this.closed.complete();
     };
     /** Stream that emits whenever the hovered menu item changes. */
@@ -843,9 +842,7 @@ var MatMenuTrigger = /** @class */ (function () {
         var _this = this;
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(function () {
-                _this.menu.close.emit();
-            });
+            this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
             this._initMenu();
             if (this.menu instanceof MatMenu) {
                 this.menu._startAnimation();
@@ -887,8 +884,8 @@ var MatMenuTrigger = /** @class */ (function () {
     function () {
         if (this._overlayRef && this.menuOpen) {
             this._resetMenu();
-            this._overlayRef.detach();
             this._closeSubscription.unsubscribe();
+            this._overlayRef.detach();
             if (this.menu instanceof MatMenu) {
                 this.menu._resetAnimation();
             }
@@ -1108,9 +1105,10 @@ var MatMenuTrigger = /** @class */ (function () {
     function () {
         var _this = this;
         var /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
+        var /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
         var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of();
         var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(rxjs_operators_filter.filter(function (active) { return active !== _this._menuItemInstance; }), rxjs_operators_filter.filter(function () { return _this._menuOpen; })) : rxjs_observable_of.of();
-        return rxjs_observable_merge.merge(backdrop, parentClose, hover);
+        return rxjs_observable_merge.merge(backdrop, parentClose, hover, detachments);
     };
     /** Handles mouse presses on the trigger. */
     /**
@@ -1251,10 +1249,10 @@ exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
 exports.MatMenuTrigger = MatMenuTrigger;
-exports.ɵa18 = MatMenuItemBase;
-exports.ɵb18 = _MatMenuItemMixinBase;
-exports.ɵd18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa19 = MatMenuItemBase;
+exports.ɵb19 = _MatMenuItemMixinBase;
+exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

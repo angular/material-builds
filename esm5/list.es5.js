@@ -13,7 +13,7 @@ import * as tslib_1 from 'tslib';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { SPACE } from '@angular/cdk/keycodes';
+import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 /**
@@ -720,6 +720,7 @@ var MatSelectionList = /** @class */ (function (_super) {
     function (event) {
         switch (event.keyCode) {
             case SPACE:
+            case ENTER:
                 this._toggleSelectOnFocusedOption();
                 // Always prevent space from scrolling the page since the list has focus
                 event.preventDefault();

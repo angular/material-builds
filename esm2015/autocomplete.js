@@ -305,7 +305,7 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     get panelClosingActions() {
-        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(() => this._panelOpen)), this._escapeEventStream, this._outsideClickStream);
+        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(() => this._panelOpen)), this._escapeEventStream, this._outsideClickStream, this._overlayRef ? this._overlayRef.detachments() : of());
     }
     /**
      * Stream of autocomplete option selections.
@@ -374,6 +374,14 @@ class MatAutocompleteTrigger {
      */
     registerOnTouched(fn) {
         this._onTouched = fn;
+    }
+    /**
+     * Disables the input. Implemented as a part of `ControlValueAccessor`.
+     * @param {?} isDisabled Whether the component should be disabled.
+     * @return {?}
+     */
+    setDisabledState(isDisabled) {
+        this._element.nativeElement.disabled = isDisabled;
     }
     /**
      * @param {?} event

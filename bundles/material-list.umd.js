@@ -741,6 +741,7 @@ var MatSelectionList = /** @class */ (function (_super) {
     function (event) {
         switch (event.keyCode) {
             case _angular_cdk_keycodes.SPACE:
+            case _angular_cdk_keycodes.ENTER:
                 this._toggleSelectOnFocusedOption();
                 // Always prevent space from scrolling the page since the list has focus
                 event.preventDefault();

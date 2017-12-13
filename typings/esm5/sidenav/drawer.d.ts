@@ -109,6 +109,8 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     _modeChanged: Subject<{}>;
     readonly _isFocusTrapEnabled: boolean;
     constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _doc: any);
+    /** Traps focus inside the drawer. */
+    private _trapFocus();
     /**
      * If focus is currently inside the drawer, restores it to where it was before the drawer
      * opened.

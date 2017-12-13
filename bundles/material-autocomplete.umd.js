@@ -337,7 +337,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () {
             var _this = this;
-            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(rxjs_operators_filter.filter(function () { return _this._panelOpen; })), this._escapeEventStream, this._outsideClickStream);
+            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(rxjs_operators_filter.filter(function () { return _this._panelOpen; })), this._escapeEventStream, this._outsideClickStream, this._overlayRef ? this._overlayRef.detachments() : rxjs_observable_of.of());
         },
         enumerable: true,
         configurable: true
@@ -468,6 +468,23 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function (fn) {
         this._onTouched = fn;
+    };
+    /**
+     * Disables the input. Implemented as a part of `ControlValueAccessor`.
+     * @param isDisabled Whether the component should be disabled.
+     */
+    /**
+     * Disables the input. Implemented as a part of `ControlValueAccessor`.
+     * @param {?} isDisabled Whether the component should be disabled.
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype.setDisabledState = /**
+     * Disables the input. Implemented as a part of `ControlValueAccessor`.
+     * @param {?} isDisabled Whether the component should be disabled.
+     * @return {?}
+     */
+    function (isDisabled) {
+        this._element.nativeElement.disabled = isDisabled;
     };
     /**
      * @param {?} event

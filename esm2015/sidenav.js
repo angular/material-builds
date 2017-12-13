@@ -140,7 +140,9 @@ class MatDrawer {
         /**
          * Event emitted when the drawer open state is changed.
          */
-        this.openedChange = new EventEmitter();
+        this.openedChange = 
+        // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
+        new EventEmitter(/* isAsync */ /* isAsync */ true);
         /**
          * Event emitted when the drawer is fully opened.
          * @deprecated Use `opened` instead.
@@ -170,7 +172,7 @@ class MatDrawer {
                     this._elementFocusedBeforeDrawerWasOpened = /** @type {?} */ (this._doc.activeElement);
                 }
                 if (this._isFocusTrapEnabled && this._focusTrap) {
-                    this._focusTrap.focusInitialElementWhenReady();
+                    this._trapFocus();
                 }
             }
             else {
@@ -263,6 +265,19 @@ class MatDrawer {
     get _isFocusTrapEnabled() {
         // The focus trap is only enabled when the drawer is open in any mode other than side.
         return this.opened && this.mode !== 'side';
+    }
+    /**
+     * Traps focus inside the drawer.
+     * @return {?}
+     */
+    _trapFocus() {
+        this._focusTrap.focusInitialElementWhenReady().then(hasMovedFocus => {
+            // If there were no focusable elements, focus the sidenav itself so the keyboard navigation
+            // still works. We need to check that `focus` is a function due to Universal.
+            if (!hasMovedFocus && typeof this._elementRef.nativeElement.focus === 'function') {
+                this._elementRef.nativeElement.focus();
+            }
+        });
     }
     /**
      * If focus is currently inside the drawer, restores it to where it was before the drawer
@@ -391,11 +406,9 @@ class MatDrawer {
      */
     _onAnimationEnd(event) {
         const { fromState, toState } = event;
-        if (toState.indexOf('open') === 0 && fromState === 'void') {
-            this.openedChange.emit(true);
-        }
-        else if (toState === 'void' && fromState.indexOf('open') === 0) {
-            this.openedChange.emit(false);
+        if ((toState.indexOf('open') === 0 && fromState === 'void') ||
+            (toState === 'void' && fromState.indexOf('open') === 0)) {
+            this.openedChange.emit(this._opened);
         }
     }
     /**

@@ -566,6 +566,7 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         this._destroy.next();
         this._destroy.complete();
+        this.stateChanges.complete();
     };
     /** Toggles the overlay panel open or closed. */
     /**
@@ -816,7 +817,7 @@ var MatSelect = /** @class */ (function (_super) {
         var /** @type {?} */ keyCode = event.keyCode;
         var /** @type {?} */ isArrowKey = keyCode === _angular_cdk_keycodes.DOWN_ARROW || keyCode === _angular_cdk_keycodes.UP_ARROW;
         var /** @type {?} */ isOpenKey = keyCode === _angular_cdk_keycodes.ENTER || keyCode === _angular_cdk_keycodes.SPACE;
-        if (isOpenKey || (this.multiple && isArrowKey)) {
+        if (isOpenKey || ((this.multiple || event.altKey) && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
         }

@@ -1530,7 +1530,6 @@ var RippleRef = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Fade-in duration for the ripples. Can be modified with the speedFactor option.
  */
@@ -1553,6 +1552,7 @@ var IGNORE_MOUSE_EVENTS_TIMEOUT = 800;
  */
 var RippleRenderer = /** @class */ (function () {
     function RippleRenderer(elementRef, _ngZone, platform) {
+        var _this = this;
         this._ngZone = _ngZone;
         /**
          * Whether the pointer is currently down or not.
@@ -1567,6 +1567,10 @@ var RippleRenderer = /** @class */ (function () {
          */
         this._activeRipples = new Set();
         /**
+         * Options that apply to all the event listeners that are bound by the renderer.
+         */
+        this._eventOptions = _angular_cdk_platform.supportsPassiveEventListeners() ? (/** @type {?} */ ({ passive: true })) : false;
+        /**
          * Ripple config for all ripples created by events.
          */
         this.rippleConfig = {};
@@ -1574,15 +1578,58 @@ var RippleRenderer = /** @class */ (function () {
          * Whether mouse ripples should be created or not.
          */
         this.rippleDisabled = false;
+        /**
+         * Function being called whenever the trigger is being pressed using mouse.
+         */
+        this.onMousedown = function (event) {
+            var /** @type {?} */ isSyntheticEvent = _this._lastTouchStartEvent &&
+                Date.now() < _this._lastTouchStartEvent + IGNORE_MOUSE_EVENTS_TIMEOUT;
+            if (!_this.rippleDisabled && !isSyntheticEvent) {
+                _this._isPointerDown = true;
+                _this.fadeInRipple(event.clientX, event.clientY, _this.rippleConfig);
+            }
+        };
+        /**
+         * Function being called whenever the trigger is being pressed using touch.
+         */
+        this.onTouchStart = function (event) {
+            if (!_this.rippleDisabled) {
+                // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
+                // events will launch a second ripple if we don't ignore mouse events for a specific
+                // time after a touchstart event.
+                // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
+                // events will launch a second ripple if we don't ignore mouse events for a specific
+                // time after a touchstart event.
+                _this._lastTouchStartEvent = Date.now();
+                _this._isPointerDown = true;
+                _this.fadeInRipple(event.touches[0].clientX, event.touches[0].clientY, _this.rippleConfig);
+            }
+        };
+        /**
+         * Function being called whenever the trigger is being released.
+         */
+        this.onPointerUp = function () {
+            if (!_this._isPointerDown) {
+                return;
+            }
+            _this._isPointerDown = false;
+            // Fade-out all ripples that are completely visible and not persistent.
+            // Fade-out all ripples that are completely visible and not persistent.
+            _this._activeRipples.forEach(function (ripple) {
+                if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
+                    ripple.fadeOut();
+                }
+            });
+        };
         // Only do anything if we're on the browser.
         if (platform.isBrowser) {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
-            this._triggerEvents.set('mousedown', this.onMousedown.bind(this));
-            this._triggerEvents.set('mouseup', this.onPointerUp.bind(this));
-            this._triggerEvents.set('mouseleave', this.onPointerUp.bind(this));
-            this._triggerEvents.set('touchstart', this.onTouchStart.bind(this));
-            this._triggerEvents.set('touchend', this.onPointerUp.bind(this));
+            this._triggerEvents.set('mousedown', this.onMousedown);
+            this._triggerEvents.set('mouseup', this.onPointerUp);
+            this._triggerEvents.set('mouseleave', this.onPointerUp);
+            this._triggerEvents.set('touchstart', this.onTouchStart);
+            this._triggerEvents.set('touchend', this.onPointerUp);
             // By default use the host element as trigger element.
             this.setTriggerElement(this._containerElement);
         }
@@ -1702,74 +1749,18 @@ var RippleRenderer = /** @class */ (function () {
         // Remove all previously register event listeners from the trigger element.
         if (this._triggerElement) {
             this._triggerEvents.forEach(function (fn, type) {
-                /** @type {?} */ ((_this._triggerElement)).removeEventListener(type, fn);
+                /** @type {?} */ ((_this._triggerElement)).removeEventListener(type, fn, _this._eventOptions);
             });
         }
         if (element) {
             // If the element is not null, register all event listeners on the trigger element.
             this._ngZone.runOutsideAngular(function () {
-                _this._triggerEvents.forEach(function (fn, type) { return element.addEventListener(type, fn); });
+                _this._triggerEvents.forEach(function (fn, type) {
+                    return element.addEventListener(type, fn, _this._eventOptions);
+                });
             });
         }
         this._triggerElement = element;
-    };
-    /**
-     * Function being called whenever the trigger is being pressed using mouse.
-     * @param {?} event
-     * @return {?}
-     */
-    RippleRenderer.prototype.onMousedown = /**
-     * Function being called whenever the trigger is being pressed using mouse.
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        var /** @type {?} */ isSyntheticEvent = this._lastTouchStartEvent &&
-            Date.now() < this._lastTouchStartEvent + IGNORE_MOUSE_EVENTS_TIMEOUT;
-        if (!this.rippleDisabled && !isSyntheticEvent) {
-            this._isPointerDown = true;
-            this.fadeInRipple(event.clientX, event.clientY, this.rippleConfig);
-        }
-    };
-    /**
-     * Function being called whenever the trigger is being pressed using touch.
-     * @param {?} event
-     * @return {?}
-     */
-    RippleRenderer.prototype.onTouchStart = /**
-     * Function being called whenever the trigger is being pressed using touch.
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        if (!this.rippleDisabled) {
-            // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
-            // events will launch a second ripple if we don't ignore mouse events for a specific
-            // time after a touchstart event.
-            this._lastTouchStartEvent = Date.now();
-            this._isPointerDown = true;
-            this.fadeInRipple(event.touches[0].clientX, event.touches[0].clientY, this.rippleConfig);
-        }
-    };
-    /**
-     * Function being called whenever the trigger is being released.
-     * @return {?}
-     */
-    RippleRenderer.prototype.onPointerUp = /**
-     * Function being called whenever the trigger is being released.
-     * @return {?}
-     */
-    function () {
-        if (!this._isPointerDown) {
-            return;
-        }
-        this._isPointerDown = false;
-        // Fade-out all ripples that are completely visible and not persistent.
-        this._activeRipples.forEach(function (ripple) {
-            if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
-                ripple.fadeOut();
-            }
-        });
     };
     /**
      * Runs a timeout outside of the Angular zone to avoid triggering the change detection.
@@ -3602,7 +3593,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () {
             var _this = this;
-            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(rxjs_operators_filter.filter(function () { return _this._panelOpen; })), this._escapeEventStream, this._outsideClickStream);
+            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(rxjs_operators_filter.filter(function () { return _this._panelOpen; })), this._escapeEventStream, this._outsideClickStream, this._overlayRef ? this._overlayRef.detachments() : rxjs_observable_of.of());
         },
         enumerable: true,
         configurable: true
@@ -3733,6 +3724,23 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function (fn) {
         this._onTouched = fn;
+    };
+    /**
+     * Disables the input. Implemented as a part of `ControlValueAccessor`.
+     * @param isDisabled Whether the component should be disabled.
+     */
+    /**
+     * Disables the input. Implemented as a part of `ControlValueAccessor`.
+     * @param {?} isDisabled Whether the component should be disabled.
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype.setDisabledState = /**
+     * Disables the input. Implemented as a part of `ControlValueAccessor`.
+     * @param {?} isDisabled Whether the component should be disabled.
+     * @return {?}
+     */
+    function (isDisabled) {
+        this._element.nativeElement.disabled = isDisabled;
     };
     /**
      * @param {?} event
@@ -6547,15 +6555,21 @@ var MatChipRemove = /** @class */ (function () {
     /** Calls the parent chip's public `remove()` method if applicable. */
     /**
      * Calls the parent chip's public `remove()` method if applicable.
+     * @param {?} event
      * @return {?}
      */
     MatChipRemove.prototype._handleClick = /**
      * Calls the parent chip's public `remove()` method if applicable.
+     * @param {?} event
      * @return {?}
      */
-    function () {
+    function (event) {
         if (this._parentChip.removable) {
             this._parentChip.remove();
+            // Note: the parent chip does something similar, however since we're removing it,
+            // its event handler will be unbound before it has had the chance to fire.
+            event.preventDefault();
+            event.stopPropagation();
         }
     };
     MatChipRemove.decorators = [
@@ -6563,7 +6577,7 @@ var MatChipRemove = /** @class */ (function () {
                     selector: '[matChipRemove]',
                     host: {
                         'class': 'mat-chip-remove',
-                        '(click)': '_handleClick()',
+                        '(click)': '_handleClick($event)',
                     }
                 },] },
     ];
@@ -12187,7 +12201,6 @@ var MatDatepicker = /** @class */ (function () {
                 _this._popupRef.updatePosition();
             });
         }
-        this._popupRef.backdropClick().subscribe(function () { return _this.close(); });
     };
     /**
      * Create the popup.
@@ -12198,6 +12211,7 @@ var MatDatepicker = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        var _this = this;
         var /** @type {?} */ overlayConfig = new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
@@ -12207,6 +12221,7 @@ var MatDatepicker = /** @class */ (function () {
             panelClass: 'mat-datepicker-popup',
         });
         this._popupRef = this._overlay.create(overlayConfig);
+        this._popupRef.backdropClick().subscribe(function () { return _this.close(); });
     };
     /**
      * Create the popup PositionStrategy.
@@ -12817,7 +12832,7 @@ var MatDatepickerToggle = /** @class */ (function () {
     };
     MatDatepickerToggle.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-toggle',
-                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5.0.1-bd50fa6.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
+                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5.0.1-693c8e8.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
                     host: {
                         'class': 'mat-datepicker-toggle',
                     },
@@ -15153,6 +15168,7 @@ var MatSelectionList = /** @class */ (function (_super) {
     function (event) {
         switch (event.keyCode) {
             case _angular_cdk_keycodes.SPACE:
+            case _angular_cdk_keycodes.ENTER:
                 this._toggleSelectOnFocusedOption();
                 // Always prevent space from scrolling the page since the list has focus
                 event.preventDefault();
@@ -15822,7 +15838,6 @@ var MatMenu = /** @class */ (function () {
      */
     function () {
         this._tabSubscription.unsubscribe();
-        this.closed.emit();
         this.closed.complete();
     };
     /** Stream that emits whenever the hovered menu item changes. */
@@ -16223,9 +16238,7 @@ var MatMenuTrigger = /** @class */ (function () {
         var _this = this;
         if (!this._menuOpen) {
             this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(function () {
-                _this.menu.close.emit();
-            });
+            this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
             this._initMenu();
             if (this.menu instanceof MatMenu) {
                 this.menu._startAnimation();
@@ -16267,8 +16280,8 @@ var MatMenuTrigger = /** @class */ (function () {
     function () {
         if (this._overlayRef && this.menuOpen) {
             this._resetMenu();
-            this._overlayRef.detach();
             this._closeSubscription.unsubscribe();
+            this._overlayRef.detach();
             if (this.menu instanceof MatMenu) {
                 this.menu._resetAnimation();
             }
@@ -16488,9 +16501,10 @@ var MatMenuTrigger = /** @class */ (function () {
     function () {
         var _this = this;
         var /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
+        var /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
         var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of();
         var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(rxjs_operators_filter.filter(function (active) { return active !== _this._menuItemInstance; }), rxjs_operators_filter.filter(function () { return _this._menuOpen; })) : rxjs_observable_of.of();
-        return rxjs_observable_merge.merge(backdrop, parentClose, hover);
+        return rxjs_observable_merge.merge(backdrop, parentClose, hover, detachments);
     };
     /** Handles mouse presses on the trigger. */
     /**
@@ -17152,6 +17166,7 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         this._destroy.next();
         this._destroy.complete();
+        this.stateChanges.complete();
     };
     /** Toggles the overlay panel open or closed. */
     /**
@@ -17402,7 +17417,7 @@ var MatSelect = /** @class */ (function (_super) {
         var /** @type {?} */ keyCode = event.keyCode;
         var /** @type {?} */ isArrowKey = keyCode === _angular_cdk_keycodes.DOWN_ARROW || keyCode === _angular_cdk_keycodes.UP_ARROW;
         var /** @type {?} */ isOpenKey = keyCode === _angular_cdk_keycodes.ENTER || keyCode === _angular_cdk_keycodes.SPACE;
-        if (isOpenKey || (this.multiple && isArrowKey)) {
+        if (isOpenKey || ((this.multiple || event.altKey) && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
         }
@@ -21025,7 +21040,9 @@ var MatDrawer = /** @class */ (function () {
         /**
          * Event emitted when the drawer open state is changed.
          */
-        this.openedChange = new _angular_core.EventEmitter();
+        this.openedChange = 
+        // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
+        new _angular_core.EventEmitter(/* isAsync */ /* isAsync */ true);
         /**
          * Event emitted when the drawer is fully opened.
          * @deprecated Use `opened` instead.
@@ -21055,7 +21072,7 @@ var MatDrawer = /** @class */ (function () {
                     _this._elementFocusedBeforeDrawerWasOpened = /** @type {?} */ (_this._doc.activeElement);
                 }
                 if (_this._isFocusTrapEnabled && _this._focusTrap) {
-                    _this._focusTrap.focusInitialElementWhenReady();
+                    _this._trapFocus();
                 }
             }
             else {
@@ -21185,6 +21202,24 @@ var MatDrawer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * Traps focus inside the drawer.
+     * @return {?}
+     */
+    MatDrawer.prototype._trapFocus = /**
+     * Traps focus inside the drawer.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this._focusTrap.focusInitialElementWhenReady().then(function (hasMovedFocus) {
+            // If there were no focusable elements, focus the sidenav itself so the keyboard navigation
+            // still works. We need to check that `focus` is a function due to Universal.
+            if (!hasMovedFocus && typeof _this._elementRef.nativeElement.focus === 'function') {
+                _this._elementRef.nativeElement.focus();
+            }
+        });
+    };
     /**
      * If focus is currently inside the drawer, restores it to where it was before the drawer
      * opened.
@@ -21380,11 +21415,9 @@ var MatDrawer = /** @class */ (function () {
      */
     function (event) {
         var fromState = event.fromState, toState = event.toState;
-        if (toState.indexOf('open') === 0 && fromState === 'void') {
-            this.openedChange.emit(true);
-        }
-        else if (toState === 'void' && fromState.indexOf('open') === 0) {
-            this.openedChange.emit(false);
+        if ((toState.indexOf('open') === 0 && fromState === 'void') ||
+            (toState === 'void' && fromState.indexOf('open') === 0)) {
+            this.openedChange.emit(this._opened);
         }
     };
     Object.defineProperty(MatDrawer.prototype, "_width", {
@@ -23596,7 +23629,7 @@ var MatSlider = /** @class */ (function (_super) {
                         '[class.mat-slider-hide-last-tick]': 'disabled || _isMinValue && _thumbGap && _invertAxis',
                     },
                     template: "<div class=\"mat-slider-wrapper\" #sliderWrapper><div class=\"mat-slider-track-wrapper\"><div class=\"mat-slider-track-background\" [ngStyle]=\"_trackBackgroundStyles\"></div><div class=\"mat-slider-track-fill\" [ngStyle]=\"_trackFillStyles\"></div></div><div class=\"mat-slider-ticks-container\" [ngStyle]=\"_ticksContainerStyles\"><div class=\"mat-slider-ticks\" [ngStyle]=\"_ticksStyles\"></div></div><div class=\"mat-slider-thumb-container\" [ngStyle]=\"_thumbContainerStyles\"><div class=\"mat-slider-focus-ring\"></div><div class=\"mat-slider-thumb\"></div><div class=\"mat-slider-thumb-label\"><span class=\"mat-slider-thumb-label-text\">{{displayValue}}</span></div></div></div>",
-                    styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:0;vertical-align:middle}.mat-slider-wrapper{position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{background-repeat:repeat;background-clip:content-box;box-sizing:border-box;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.cdk-keyboard-focused .mat-slider-focus-ring,.cdk-program-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label{cursor:-webkit-grab;cursor:grab}.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb-label,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label:active,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb:active{cursor:-webkit-grabbing;cursor:grabbing}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid transparent;border-radius:50%;transform:scale(.7);transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),border-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform .4s cubic-bezier(.25,.8,.25,1),border-radius .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label-text{z-index:1;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-sliding .mat-slider-thumb-container,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-track-fill{transition-duration:0s}.mat-slider-has-ticks .mat-slider-wrapper::after{content:'';position:absolute;border-width:0;border-style:solid;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.mat-slider:not(.mat-slider-disabled).cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label-text{opacity:1}.mat-slider:not(.mat-slider-disabled).cdk-mouse-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-touch-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}.mat-slider-horizontal .mat-slider-ticks{height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%}"],
+                    styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:0;vertical-align:middle}.mat-slider-wrapper{position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{background-repeat:repeat;background-clip:content-box;box-sizing:border-box;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.cdk-keyboard-focused .mat-slider-focus-ring,.cdk-program-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label{cursor:-webkit-grab;cursor:grab}.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb-label,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label:active,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb:active{cursor:-webkit-grabbing;cursor:grabbing}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid transparent;border-radius:50%;transform:scale(.7);transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),border-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform .4s cubic-bezier(.25,.8,.25,1),border-radius .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label-text{z-index:1;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-sliding .mat-slider-thumb-container,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-track-fill{transition-duration:0s}.mat-slider-has-ticks .mat-slider-wrapper::after{content:'';position:absolute;border-width:0;border-style:solid;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.mat-slider:not(.mat-slider-disabled).cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label-text{opacity:1}.mat-slider:not(.mat-slider-disabled).cdk-mouse-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-touch-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}.mat-slider-horizontal .mat-slider-ticks{height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb{-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%}"],
                     inputs: ['disabled', 'color', 'tabIndex'],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -25133,7 +25166,7 @@ var MatStepHeader = /** @class */ (function () {
     };
     MatStepHeader.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-step-header',
-                    template: "<div class=\"mat-step-header-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div><div [class.mat-step-icon]=\"icon !== 'number' || selected\" [class.mat-step-icon-not-touched]=\"icon == 'number' && !selected\" [ngSwitch]=\"icon\"><span *ngSwitchCase=\"'number'\">{{index + 1}}</span><mat-icon *ngSwitchCase=\"'edit'\">create</mat-icon><mat-icon *ngSwitchCase=\"'done'\">done</mat-icon></div><div class=\"mat-step-label\" [class.mat-step-label-active]=\"active\" [class.mat-step-label-selected]=\"selected\"><ng-container *ngIf=\"_templateLabel()\" [ngTemplateOutlet]=\"label.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel()\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">{{_intl.optionalLabel}}</div></div>",
+                    template: "<div class=\"mat-step-header-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div><div [class.mat-step-icon]=\"icon !== 'number' || selected\" [class.mat-step-icon-not-touched]=\"icon == 'number' && !selected\" [ngSwitch]=\"icon\"><span *ngSwitchCase=\"'number'\">{{index + 1}}</span><mat-icon *ngSwitchCase=\"'edit'\">create</mat-icon><mat-icon *ngSwitchCase=\"'done'\">done</mat-icon></div><div class=\"mat-step-label\" [class.mat-step-label-active]=\"active\" [class.mat-step-label-selected]=\"selected\"><ng-container *ngIf=\"_templateLabel()\" [ngTemplateOutlet]=\"_templateLabel()!.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel()\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">{{_intl.optionalLabel}}</div></div>",
                     styles: [".mat-step-header{overflow:hidden;outline:0;cursor:pointer;position:relative}.mat-step-optional{font-size:12px}.mat-step-icon,.mat-step-icon-not-touched{border-radius:50%;height:24px;width:24px;align-items:center;justify-content:center;display:flex}.mat-step-icon .mat-icon{font-size:16px;height:16px;width:16px}.mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle}.mat-step-text-label{text-overflow:ellipsis;overflow:hidden}.mat-step-header-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                     host: {
                         'class': 'mat-step-header',
@@ -28106,7 +28139,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.1-bd50fa6');
+var VERSION = new _angular_core.Version('5.0.1-693c8e8');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -28330,10 +28363,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa18 = MatMenuItemBase;
-exports.ɵb18 = _MatMenuItemMixinBase;
-exports.ɵd18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa19 = MatMenuItemBase;
+exports.ɵb19 = _MatMenuItemMixinBase;
+exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;

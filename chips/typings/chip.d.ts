@@ -129,5 +129,5 @@ export declare class MatChipRemove {
     protected _parentChip: MatChip;
     constructor(_parentChip: MatChip);
     /** Calls the parent chip's public `remove()` method if applicable. */
-    _handleClick(): void;
+    _handleClick(event: MouseEvent): void;
 }
