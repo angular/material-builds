@@ -12,7 +12,7 @@ import { MatDialogContainer } from './dialog-container';
 /**
  * Reference to a dialog opened via the MatDialog service.
  */
-export declare class MatDialogRef<T> {
+export declare class MatDialogRef<T, R = any> {
     private _overlayRef;
     private _containerInstance;
     readonly id: string;
@@ -33,7 +33,7 @@ export declare class MatDialogRef<T> {
      * Close the dialog.
      * @param dialogResult Optional result to return to the dialog opener.
      */
-    close(dialogResult?: any): void;
+    close(dialogResult?: R): void;
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      */
@@ -41,11 +41,11 @@ export declare class MatDialogRef<T> {
     /**
      * Gets an observable that is notified when the dialog is finished closing.
      */
-    afterClosed(): Observable<any>;
+    afterClosed(): Observable<R | undefined>;
     /**
      * Gets an observable that is notified when the dialog has started closing.
      */
-    beforeClose(): Observable<any>;
+    beforeClose(): Observable<R | undefined>;
     /**
      * Gets an observable that emits when the overlay's backdrop has been clicked.
      */
