@@ -18,6 +18,7 @@ import { CdkConnectedOverlay, Overlay, OverlayModule, ViewportRuler } from '@ang
 import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
 import { map } from 'rxjs/operators/map';
+import { switchMap } from 'rxjs/operators/switchMap';
 import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -26,6 +27,7 @@ import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/
 import 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import { Subject } from 'rxjs/Subject';
+import { defer } from 'rxjs/observable/defer';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
@@ -314,6 +316,17 @@ var MatSelect = /** @class */ (function (_super) {
          */
         _this.ariaLabel = '';
         /**
+         * Combined stream of all of the child options' change events.
+         */
+        _this.optionSelectionChanges = defer(function () {
+            if (_this.options) {
+                return merge.apply(void 0, _this.options.map(function (option) { return option.onSelectionChange; }));
+            }
+            return _this._ngZone.onStable
+                .asObservable()
+                .pipe(take(1), switchMap(function () { return _this.optionSelectionChanges; }));
+        });
+        /**
          * Event emitted when the select has been opened.
          */
         _this.openedChange = new EventEmitter();
@@ -461,18 +474,6 @@ var MatSelect = /** @class */ (function (_super) {
         function (value) {
             this._id = value || this._uid;
             this.stateChanges.next();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatSelect.prototype, "optionSelectionChanges", {
-        /** Combined stream of all of the child options' change events. */
-        get: /**
-         * Combined stream of all of the child options' change events.
-         * @return {?}
-         */
-        function () {
-            return merge.apply(void 0, this.options.map(function (option) { return option.onSelectionChange; }));
         },
         enumerable: true,
         configurable: true

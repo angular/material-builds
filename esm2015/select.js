@@ -16,6 +16,7 @@ import { CdkConnectedOverlay, Overlay, OverlayModule, ViewportRuler } from '@ang
 import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
 import { map } from 'rxjs/operators/map';
+import { switchMap } from 'rxjs/operators/switchMap';
 import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -24,6 +25,7 @@ import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/
 import 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import { Subject } from 'rxjs/Subject';
+import { defer } from 'rxjs/observable/defer';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
@@ -332,6 +334,17 @@ class MatSelect extends _MatSelectMixinBase {
          */
         this.ariaLabel = '';
         /**
+         * Combined stream of all of the child options' change events.
+         */
+        this.optionSelectionChanges = defer(() => {
+            if (this.options) {
+                return merge(...this.options.map(option => option.onSelectionChange));
+            }
+            return this._ngZone.onStable
+                .asObservable()
+                .pipe(take(1), switchMap(() => this.optionSelectionChanges));
+        });
+        /**
          * Event emitted when the select has been opened.
          */
         this.openedChange = new EventEmitter();
@@ -456,13 +469,6 @@ class MatSelect extends _MatSelectMixinBase {
     set id(value) {
         this._id = value || this._uid;
         this.stateChanges.next();
-    }
-    /**
-     * Combined stream of all of the child options' change events.
-     * @return {?}
-     */
-    get optionSelectionChanges() {
-        return merge(...this.options.map(option => option.onSelectionChange));
     }
     /**
      * Event emitted when the select has been opened.
