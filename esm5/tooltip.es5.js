@@ -27,10 +27,6 @@ import { Subject } from 'rxjs/Subject';
  */
 
 /**
- * Time in ms to delay before changing the tooltip visibility to hidden
- */
-var TOUCHEND_HIDE_DELAY = 1500;
-/**
  * Time in ms to throttle repositioning after scroll events.
  */
 var SCROLL_THROTTLE_MS = 20;
@@ -67,13 +63,23 @@ var MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
     useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY
 };
 /**
+ * Default `matTooltip` options that can be overridden.
+ * @record
+ */
+
+/**
+ * Injection token to be used to override the default options for `matTooltip`.
+ */
+var MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-options');
+/**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
  *
  * https://material.google.com/components/tooltips.html
  */
 var MatTooltip = /** @class */ (function () {
-    function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir) {
+    function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir, _defaultOptions) {
+        // TODO(crisbeto): make the `_defaultOptions` a required param next time we do breaking changes.
         var _this = this;
         this._overlay = _overlay;
         this._elementRef = _elementRef;
@@ -85,16 +91,17 @@ var MatTooltip = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
+        this._defaultOptions = _defaultOptions;
         this._position = 'below';
         this._disabled = false;
         /**
          * The default delay in ms before showing the tooltip after show is called
          */
-        this.showDelay = 0;
+        this.showDelay = this._defaultOptions ? this._defaultOptions.showDelay : 0;
         /**
          * The default delay in ms before hiding the tooltip after hide is called
          */
-        this.hideDelay = 0;
+        this.hideDelay = this._defaultOptions ? this._defaultOptions.hideDelay : 0;
         this._message = '';
         this._manualListeners = new Map();
         var /** @type {?} */ element = _elementRef.nativeElement;
@@ -332,6 +339,18 @@ var MatTooltip = /** @class */ (function () {
             this.hide(0);
         }
     };
+    /** Handles the touchend events on the host element. */
+    /**
+     * Handles the touchend events on the host element.
+     * @return {?}
+     */
+    MatTooltip.prototype._handleTouchend = /**
+     * Handles the touchend events on the host element.
+     * @return {?}
+     */
+    function () {
+        this.hide(this._defaultOptions ? this._defaultOptions.touchendHideDelay : 1500);
+    };
     /**
      * Create the tooltip to display
      * @return {?}
@@ -565,7 +584,7 @@ var MatTooltip = /** @class */ (function () {
                     host: {
                         '(longpress)': 'show()',
                         '(keydown)': '_handleKeydown($event)',
-                        '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
+                        '(touchend)': '_handleTouchend()',
                     },
                 },] },
     ];
@@ -581,6 +600,7 @@ var MatTooltip = /** @class */ (function () {
         { type: FocusMonitor, },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] },] },
         { type: Directionality, decorators: [{ type: Optional },] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] },] },
     ]; };
     MatTooltip.propDecorators = {
         "position": [{ type: Input, args: ['matTooltipPosition',] },],
@@ -840,6 +860,11 @@ var TooltipComponent = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
+var ɵ0 = {
+    showDelay: 0,
+    hideDelay: 0,
+    touchendHideDelay: 1500
+};
 var MatTooltipModule = /** @class */ (function () {
     function MatTooltipModule() {
     }
@@ -855,7 +880,14 @@ var MatTooltipModule = /** @class */ (function () {
                     exports: [MatTooltip, TooltipComponent, MatCommonModule],
                     declarations: [MatTooltip, TooltipComponent],
                     entryComponents: [TooltipComponent],
-                    providers: [MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, ARIA_DESCRIBER_PROVIDER],
+                    providers: [
+                        MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER,
+                        ARIA_DESCRIBER_PROVIDER,
+                        {
+                            provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+                            useValue: ɵ0
+                        }
+                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -876,5 +908,5 @@ var MatTooltipModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatTooltipModule, TOUCHEND_HIDE_DELAY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MatTooltip, TooltipComponent };
+export { MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltip, TooltipComponent };
 //# sourceMappingURL=tooltip.es5.js.map

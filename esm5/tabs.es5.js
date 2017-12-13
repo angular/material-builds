@@ -597,6 +597,10 @@ var MatTabGroup = /** @class */ (function (_super) {
          */
         _this.focusChange = new EventEmitter();
         /**
+         * Event emitted when the body animation has completed
+         */
+        _this.animationDone = new EventEmitter();
+        /**
          * Event emitted when the tab selection has changed.
          */
         _this.selectedTabChange = new EventEmitter(true);
@@ -869,6 +873,7 @@ var MatTabGroup = /** @class */ (function (_super) {
     function () {
         this._tabBodyWrapperHeight = this._tabBodyWrapper.nativeElement.clientHeight;
         this._tabBodyWrapper.nativeElement.style.height = '';
+        this.animationDone.emit();
     };
     /** Handle click events, setting new selected index if appropriate. */
     /**
@@ -940,6 +945,7 @@ var MatTabGroup = /** @class */ (function (_super) {
         "backgroundColor": [{ type: Input },],
         "selectedIndexChange": [{ type: Output },],
         "focusChange": [{ type: Output },],
+        "animationDone": [{ type: Output },],
         "selectedTabChange": [{ type: Output },],
         "selectChange": [{ type: Output },],
     };

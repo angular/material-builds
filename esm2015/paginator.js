@@ -10,6 +10,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, In
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs/Subject';
 
 /**
@@ -127,7 +128,7 @@ class MatPaginator {
      * @return {?}
      */
     set pageIndex(pageIndex) {
-        this._pageIndex = pageIndex;
+        this._pageIndex = coerceNumberProperty(pageIndex);
         this._changeDetectorRef.markForCheck();
     }
     /**
@@ -140,7 +141,7 @@ class MatPaginator {
      * @return {?}
      */
     set length(length) {
-        this._length = length;
+        this._length = coerceNumberProperty(length);
         this._changeDetectorRef.markForCheck();
     }
     /**
@@ -153,7 +154,7 @@ class MatPaginator {
      * @return {?}
      */
     set pageSize(pageSize) {
-        this._pageSize = pageSize;
+        this._pageSize = coerceNumberProperty(pageSize);
         this._updateDisplayedPageSizeOptions();
     }
     /**
@@ -166,7 +167,7 @@ class MatPaginator {
      * @return {?}
      */
     set pageSizeOptions(pageSizeOptions) {
-        this._pageSizeOptions = pageSizeOptions;
+        this._pageSizeOptions = (pageSizeOptions || []).map(p => coerceNumberProperty(p));
         this._updateDisplayedPageSizeOptions();
     }
     /**

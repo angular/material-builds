@@ -6,16 +6,19 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Host, Input, NgModule, Optional, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Directive, ElementRef, Host, Input, NgModule, Optional, TemplateRef, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
+import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { mixinDisabled } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
-import { ENTER, SPACE } from '@angular/cdk/keycodes';
+import { take } from 'rxjs/operators/take';
 import { filter } from 'rxjs/operators/filter';
+import { startWith } from 'rxjs/operators/startWith';
+import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -74,6 +77,33 @@ MatAccordion.propDecorators = {
  */
 
 /**
+ * Expansion panel content that will be rendered lazily
+ * after the panel is opened for the first time.
+ */
+class MatExpansionPanelContent {
+    /**
+     * @param {?} _template
+     */
+    constructor(_template) {
+        this._template = _template;
+    }
+}
+MatExpansionPanelContent.decorators = [
+    { type: Directive, args: [{
+                selector: 'ng-template[matExpansionPanelContent]'
+            },] },
+];
+/** @nocollapse */
+MatExpansionPanelContent.ctorParameters = () => [
+    { type: TemplateRef, },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Time and timing curve for expansion panel animations.
  */
 const EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
@@ -117,9 +147,11 @@ class MatExpansionPanel extends _MatExpansionPanelMixinBase {
      * @param {?} accordion
      * @param {?} _changeDetectorRef
      * @param {?} _uniqueSelectionDispatcher
+     * @param {?} _viewContainerRef
      */
-    constructor(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
+    constructor(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef) {
         super(accordion, _changeDetectorRef, _uniqueSelectionDispatcher);
+        this._viewContainerRef = _viewContainerRef;
         this._hideToggle = false;
         /**
          * Stream that emits for changes in `\@Input` properties.
@@ -169,6 +201,17 @@ class MatExpansionPanel extends _MatExpansionPanelMixinBase {
         return this.expanded ? 'expanded' : 'collapsed';
     }
     /**
+     * @return {?}
+     */
+    ngAfterContentInit() {
+        if (this._lazyContent) {
+            // Render the content as soon as the panel becomes open.
+            this.opened.pipe(startWith(/** @type {?} */ ((null))), filter(() => this.expanded && !this._portal), take(1)).subscribe(() => {
+                this._portal = new TemplatePortal(this._lazyContent._template, this._viewContainerRef);
+            });
+        }
+    }
+    /**
      * @param {?} changes
      * @return {?}
      */
@@ -187,7 +230,7 @@ MatExpansionPanel.decorators = [
     { type: Component, args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expanded .mat-expansion-panel-content{overflow:visible}.mat-expansion-panel-content,.mat-expansion-panel-content.ng-animating{overflow:hidden}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion .mat-expansion-panel-spacing:first-child{margin-top:0}.mat-accordion .mat-expansion-panel-spacing:last-child{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
                 selector: 'mat-expansion-panel',
                 exportAs: 'matExpansionPanel',
-                template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div [class.mat-expanded]=\"expanded\" class=\"mat-expansion-panel-content\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content></div><ng-content select=\"mat-action-row\"></ng-content></div>",
+                template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" [class.mat-expanded]=\"expanded\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -215,9 +258,11 @@ MatExpansionPanel.ctorParameters = () => [
     { type: MatAccordion, decorators: [{ type: Optional }, { type: Host },] },
     { type: ChangeDetectorRef, },
     { type: UniqueSelectionDispatcher, },
+    { type: ViewContainerRef, },
 ];
 MatExpansionPanel.propDecorators = {
     "hideToggle": [{ type: Input },],
+    "_lazyContent": [{ type: ContentChild, args: [MatExpansionPanelContent,] },],
 };
 class MatExpansionPanelActionRow {
 }
@@ -427,14 +472,15 @@ class MatExpansionModule {
 }
 MatExpansionModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, A11yModule, CdkAccordionModule],
+                imports: [CommonModule, A11yModule, CdkAccordionModule, PortalModule],
                 exports: [
                     MatAccordion,
                     MatExpansionPanel,
                     MatExpansionPanelActionRow,
                     MatExpansionPanelHeader,
                     MatExpansionPanelTitle,
-                    MatExpansionPanelDescription
+                    MatExpansionPanelDescription,
+                    MatExpansionPanelContent,
                 ],
                 declarations: [
                     MatExpansionPanelBase,
@@ -443,7 +489,8 @@ MatExpansionModule.decorators = [
                     MatExpansionPanelActionRow,
                     MatExpansionPanelHeader,
                     MatExpansionPanelTitle,
-                    MatExpansionPanelDescription
+                    MatExpansionPanelDescription,
+                    MatExpansionPanelContent,
                 ],
                 providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
             },] },
@@ -464,5 +511,5 @@ MatExpansionModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatExpansionModule, MatAccordion, EXPANSION_PANEL_ANIMATION_TIMING, MatExpansionPanelBase, _MatExpansionPanelMixinBase, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle };
+export { MatExpansionModule, MatAccordion, EXPANSION_PANEL_ANIMATION_TIMING, MatExpansionPanelBase, _MatExpansionPanelMixinBase, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent };
 //# sourceMappingURL=expansion.js.map

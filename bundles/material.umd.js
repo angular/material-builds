@@ -12138,6 +12138,7 @@ var MatDatepicker = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        var _this = this;
         if (!this._opened) {
             return;
         }
@@ -12151,13 +12152,24 @@ var MatDatepicker = /** @class */ (function () {
         if (this._calendarPortal && this._calendarPortal.isAttached) {
             this._calendarPortal.detach();
         }
+        var /** @type {?} */ completeClose = function () {
+            _this._opened = false;
+            _this.closedStream.emit();
+            _this._focusedElementBeforeOpen = null;
+        };
         if (this._focusedElementBeforeOpen &&
             typeof this._focusedElementBeforeOpen.focus === 'function') {
+            // Because IE moves focus asynchronously, we can't count on it being restored before we've
+            // marked the datepicker as closed. If the event fires out of sequence and the element that
+            // we're refocusing opens the datepicker on focus, the user could be stuck with not being
+            // able to close the calendar at all. We work around it by making the logic, that marks
+            // the datepicker as closed, async as well.
             this._focusedElementBeforeOpen.focus();
-            this._focusedElementBeforeOpen = null;
+            setTimeout(completeClose);
         }
-        this._opened = false;
-        this.closedStream.emit();
+        else {
+            completeClose();
+        }
     };
     /**
      * Open the calendar as a dialog.
@@ -12832,7 +12844,7 @@ var MatDatepickerToggle = /** @class */ (function () {
     };
     MatDatepickerToggle.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-toggle',
-                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5.0.1-693c8e8.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
+                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5.0.1-f95f832.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
                     host: {
                         'class': 'mat-datepicker-toggle',
                     },
@@ -12968,6 +12980,31 @@ var MatAccordion = /** @class */ (function (_super) {
  */
 
 /**
+ * Expansion panel content that will be rendered lazily
+ * after the panel is opened for the first time.
+ */
+var MatExpansionPanelContent = /** @class */ (function () {
+    function MatExpansionPanelContent(_template) {
+        this._template = _template;
+    }
+    MatExpansionPanelContent.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'ng-template[matExpansionPanelContent]'
+                },] },
+    ];
+    /** @nocollapse */
+    MatExpansionPanelContent.ctorParameters = function () { return [
+        { type: _angular_core.TemplateRef, },
+    ]; };
+    return MatExpansionPanelContent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Time and timing curve for expansion panel animations.
  */
 var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
@@ -13005,8 +13042,9 @@ var _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
  */
 var MatExpansionPanel = /** @class */ (function (_super) {
     __extends(MatExpansionPanel, _super);
-    function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
+    function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef) {
         var _this = _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
+        _this._viewContainerRef = _viewContainerRef;
         _this._hideToggle = false;
         /**
          * Stream that emits for changes in `\@Input` properties.
@@ -13076,6 +13114,21 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         return this.expanded ? 'expanded' : 'collapsed';
     };
     /**
+     * @return {?}
+     */
+    MatExpansionPanel.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this._lazyContent) {
+            // Render the content as soon as the panel becomes open.
+            this.opened.pipe(rxjs_operators_startWith.startWith(/** @type {?} */ ((null))), rxjs_operators_filter.filter(function () { return _this.expanded && !_this._portal; }), rxjs_operators_take.take(1)).subscribe(function () {
+                _this._portal = new _angular_cdk_portal.TemplatePortal(_this._lazyContent._template, _this._viewContainerRef);
+            });
+        }
+    };
+    /**
      * @param {?} changes
      * @return {?}
      */
@@ -13100,7 +13153,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         { type: _angular_core.Component, args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expanded .mat-expansion-panel-content{overflow:visible}.mat-expansion-panel-content,.mat-expansion-panel-content.ng-animating{overflow:hidden}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion .mat-expansion-panel-spacing:first-child{margin-top:0}.mat-accordion .mat-expansion-panel-spacing:last-child{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
                     selector: 'mat-expansion-panel',
                     exportAs: 'matExpansionPanel',
-                    template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div [class.mat-expanded]=\"expanded\" class=\"mat-expansion-panel-content\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content></div><ng-content select=\"mat-action-row\"></ng-content></div>",
+                    template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" [class.mat-expanded]=\"expanded\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -13128,9 +13181,11 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         { type: MatAccordion, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Host },] },
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
+        { type: _angular_core.ViewContainerRef, },
     ]; };
     MatExpansionPanel.propDecorators = {
         "hideToggle": [{ type: _angular_core.Input },],
+        "_lazyContent": [{ type: _angular_core.ContentChild, args: [MatExpansionPanelContent,] },],
     };
     return MatExpansionPanel;
 }(_MatExpansionPanelMixinBase));
@@ -13376,14 +13431,15 @@ var MatExpansionModule = /** @class */ (function () {
     }
     MatExpansionModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_common.CommonModule, _angular_cdk_a11y.A11yModule, _angular_cdk_accordion.CdkAccordionModule],
+                    imports: [_angular_common.CommonModule, _angular_cdk_a11y.A11yModule, _angular_cdk_accordion.CdkAccordionModule, _angular_cdk_portal.PortalModule],
                     exports: [
                         MatAccordion,
                         MatExpansionPanel,
                         MatExpansionPanelActionRow,
                         MatExpansionPanelHeader,
                         MatExpansionPanelTitle,
-                        MatExpansionPanelDescription
+                        MatExpansionPanelDescription,
+                        MatExpansionPanelContent,
                     ],
                     declarations: [
                         MatExpansionPanelBase,
@@ -13392,7 +13448,8 @@ var MatExpansionModule = /** @class */ (function () {
                         MatExpansionPanelActionRow,
                         MatExpansionPanelHeader,
                         MatExpansionPanelTitle,
-                        MatExpansionPanelDescription
+                        MatExpansionPanelDescription,
+                        MatExpansionPanelContent,
                     ],
                     providers: [_angular_cdk_collections.UNIQUE_SELECTION_DISPATCHER_PROVIDER]
                 },] },
@@ -18348,10 +18405,6 @@ var MatSelectModule = /** @class */ (function () {
  */
 
 /**
- * Time in ms to delay before changing the tooltip visibility to hidden
- */
-var TOUCHEND_HIDE_DELAY = 1500;
-/**
  * Time in ms to throttle repositioning after scroll events.
  */
 var SCROLL_THROTTLE_MS = 20;
@@ -18388,13 +18441,23 @@ var MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
     useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY
 };
 /**
+ * Default `matTooltip` options that can be overridden.
+ * @record
+ */
+
+/**
+ * Injection token to be used to override the default options for `matTooltip`.
+ */
+var MAT_TOOLTIP_DEFAULT_OPTIONS = new _angular_core.InjectionToken('mat-tooltip-default-options');
+/**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
  *
  * https://material.google.com/components/tooltips.html
  */
 var MatTooltip = /** @class */ (function () {
-    function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir) {
+    function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir, _defaultOptions) {
+        // TODO(crisbeto): make the `_defaultOptions` a required param next time we do breaking changes.
         var _this = this;
         this._overlay = _overlay;
         this._elementRef = _elementRef;
@@ -18406,16 +18469,17 @@ var MatTooltip = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._scrollStrategy = _scrollStrategy;
         this._dir = _dir;
+        this._defaultOptions = _defaultOptions;
         this._position = 'below';
         this._disabled = false;
         /**
          * The default delay in ms before showing the tooltip after show is called
          */
-        this.showDelay = 0;
+        this.showDelay = this._defaultOptions ? this._defaultOptions.showDelay : 0;
         /**
          * The default delay in ms before hiding the tooltip after hide is called
          */
-        this.hideDelay = 0;
+        this.hideDelay = this._defaultOptions ? this._defaultOptions.hideDelay : 0;
         this._message = '';
         this._manualListeners = new Map();
         var /** @type {?} */ element = _elementRef.nativeElement;
@@ -18653,6 +18717,18 @@ var MatTooltip = /** @class */ (function () {
             this.hide(0);
         }
     };
+    /** Handles the touchend events on the host element. */
+    /**
+     * Handles the touchend events on the host element.
+     * @return {?}
+     */
+    MatTooltip.prototype._handleTouchend = /**
+     * Handles the touchend events on the host element.
+     * @return {?}
+     */
+    function () {
+        this.hide(this._defaultOptions ? this._defaultOptions.touchendHideDelay : 1500);
+    };
     /**
      * Create the tooltip to display
      * @return {?}
@@ -18886,7 +18962,7 @@ var MatTooltip = /** @class */ (function () {
                     host: {
                         '(longpress)': 'show()',
                         '(keydown)': '_handleKeydown($event)',
-                        '(touchend)': 'hide(' + TOUCHEND_HIDE_DELAY + ')',
+                        '(touchend)': '_handleTouchend()',
                     },
                 },] },
     ];
@@ -18902,6 +18978,7 @@ var MatTooltip = /** @class */ (function () {
         { type: _angular_cdk_a11y.FocusMonitor, },
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] },] },
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] },] },
     ]; };
     MatTooltip.propDecorators = {
         "position": [{ type: _angular_core.Input, args: ['matTooltipPosition',] },],
@@ -19161,6 +19238,11 @@ var TooltipComponent = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
+var ɵ0$1$1 = {
+    showDelay: 0,
+    hideDelay: 0,
+    touchendHideDelay: 1500
+};
 var MatTooltipModule = /** @class */ (function () {
     function MatTooltipModule() {
     }
@@ -19176,7 +19258,14 @@ var MatTooltipModule = /** @class */ (function () {
                     exports: [MatTooltip, TooltipComponent, MatCommonModule],
                     declarations: [MatTooltip, TooltipComponent],
                     entryComponents: [TooltipComponent],
-                    providers: [MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, _angular_cdk_a11y.ARIA_DESCRIBER_PROVIDER],
+                    providers: [
+                        MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER,
+                        _angular_cdk_a11y.ARIA_DESCRIBER_PROVIDER,
+                        {
+                            provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
+                            useValue: ɵ0$1$1
+                        }
+                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -19301,7 +19390,7 @@ var MatPaginator = /** @class */ (function () {
          * @return {?}
          */
         function (pageIndex) {
-            this._pageIndex = pageIndex;
+            this._pageIndex = _angular_cdk_coercion.coerceNumberProperty(pageIndex);
             this._changeDetectorRef.markForCheck();
         },
         enumerable: true,
@@ -19318,7 +19407,7 @@ var MatPaginator = /** @class */ (function () {
          * @return {?}
          */
         function (length) {
-            this._length = length;
+            this._length = _angular_cdk_coercion.coerceNumberProperty(length);
             this._changeDetectorRef.markForCheck();
         },
         enumerable: true,
@@ -19335,7 +19424,7 @@ var MatPaginator = /** @class */ (function () {
          * @return {?}
          */
         function (pageSize) {
-            this._pageSize = pageSize;
+            this._pageSize = _angular_cdk_coercion.coerceNumberProperty(pageSize);
             this._updateDisplayedPageSizeOptions();
         },
         enumerable: true,
@@ -19352,7 +19441,7 @@ var MatPaginator = /** @class */ (function () {
          * @return {?}
          */
         function (pageSizeOptions) {
-            this._pageSizeOptions = pageSizeOptions;
+            this._pageSizeOptions = (pageSizeOptions || []).map(function (p) { return _angular_cdk_coercion.coerceNumberProperty(p); });
             this._updateDisplayedPageSizeOptions();
         },
         enumerable: true,
@@ -26622,6 +26711,10 @@ var MatTabGroup = /** @class */ (function (_super) {
          */
         _this.focusChange = new _angular_core.EventEmitter();
         /**
+         * Event emitted when the body animation has completed
+         */
+        _this.animationDone = new _angular_core.EventEmitter();
+        /**
          * Event emitted when the tab selection has changed.
          */
         _this.selectedTabChange = new _angular_core.EventEmitter(true);
@@ -26894,6 +26987,7 @@ var MatTabGroup = /** @class */ (function (_super) {
     function () {
         this._tabBodyWrapperHeight = this._tabBodyWrapper.nativeElement.clientHeight;
         this._tabBodyWrapper.nativeElement.style.height = '';
+        this.animationDone.emit();
     };
     /** Handle click events, setting new selected index if appropriate. */
     /**
@@ -26965,6 +27059,7 @@ var MatTabGroup = /** @class */ (function (_super) {
         "backgroundColor": [{ type: _angular_core.Input },],
         "selectedIndexChange": [{ type: _angular_core.Output },],
         "focusChange": [{ type: _angular_core.Output },],
+        "animationDone": [{ type: _angular_core.Output },],
         "selectedTabChange": [{ type: _angular_core.Output },],
         "selectChange": [{ type: _angular_core.Output },],
     };
@@ -28139,7 +28234,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.1-693c8e8');
+var VERSION = new _angular_core.Version('5.0.1-f95f832');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -28305,6 +28400,7 @@ exports.MatExpansionPanelActionRow = MatExpansionPanelActionRow;
 exports.MatExpansionPanelHeader = MatExpansionPanelHeader;
 exports.MatExpansionPanelDescription = MatExpansionPanelDescription;
 exports.MatExpansionPanelTitle = MatExpansionPanelTitle;
+exports.MatExpansionPanelContent = MatExpansionPanelContent;
 exports.MatFormFieldModule = MatFormFieldModule;
 exports.MatError = MatError;
 exports.MatFormField = MatFormField;
@@ -28363,10 +28459,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa19 = MatMenuItemBase;
-exports.ɵb19 = _MatMenuItemMixinBase;
-exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -28508,13 +28604,13 @@ exports.MatToolbarRow = MatToolbarRow;
 exports.MatToolbar = MatToolbar;
 exports.throwToolbarMixedModesError = throwToolbarMixedModesError;
 exports.MatTooltipModule = MatTooltipModule;
-exports.TOUCHEND_HIDE_DELAY = TOUCHEND_HIDE_DELAY;
 exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
 exports.TOOLTIP_PANEL_CLASS = TOOLTIP_PANEL_CLASS;
 exports.getMatTooltipInvalidPositionError = getMatTooltipInvalidPositionError;
 exports.MAT_TOOLTIP_SCROLL_STRATEGY = MAT_TOOLTIP_SCROLL_STRATEGY;
 exports.MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER;
+exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 

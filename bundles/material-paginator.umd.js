@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/select'), require('@angular/material/tooltip'), require('rxjs/Subject')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/select', '@angular/material/tooltip', 'rxjs/Subject'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = global.ng.material.paginator || {}),global.ng.common,global.ng.core,global.ng.material.button,global.ng.material.select,global.ng.material.tooltip,global.Rx));
-}(this, (function (exports,_angular_common,_angular_core,_angular_material_button,_angular_material_select,_angular_material_tooltip,rxjs_Subject) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/select'), require('@angular/material/tooltip'), require('@angular/cdk/coercion'), require('rxjs/Subject')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/select', '@angular/material/tooltip', '@angular/cdk/coercion', 'rxjs/Subject'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = global.ng.material.paginator || {}),global.ng.common,global.ng.core,global.ng.material.button,global.ng.material.select,global.ng.material.tooltip,global.ng.cdk.coercion,global.Rx));
+}(this, (function (exports,_angular_common,_angular_core,_angular_material_button,_angular_material_select,_angular_material_tooltip,_angular_cdk_coercion,rxjs_Subject) { 'use strict';
 
 /**
  * @fileoverview added by tsickle
@@ -128,7 +128,7 @@ var MatPaginator = /** @class */ (function () {
          * @return {?}
          */
         function (pageIndex) {
-            this._pageIndex = pageIndex;
+            this._pageIndex = _angular_cdk_coercion.coerceNumberProperty(pageIndex);
             this._changeDetectorRef.markForCheck();
         },
         enumerable: true,
@@ -145,7 +145,7 @@ var MatPaginator = /** @class */ (function () {
          * @return {?}
          */
         function (length) {
-            this._length = length;
+            this._length = _angular_cdk_coercion.coerceNumberProperty(length);
             this._changeDetectorRef.markForCheck();
         },
         enumerable: true,
@@ -162,7 +162,7 @@ var MatPaginator = /** @class */ (function () {
          * @return {?}
          */
         function (pageSize) {
-            this._pageSize = pageSize;
+            this._pageSize = _angular_cdk_coercion.coerceNumberProperty(pageSize);
             this._updateDisplayedPageSizeOptions();
         },
         enumerable: true,
@@ -179,7 +179,7 @@ var MatPaginator = /** @class */ (function () {
          * @return {?}
          */
         function (pageSizeOptions) {
-            this._pageSizeOptions = pageSizeOptions;
+            this._pageSizeOptions = (pageSizeOptions || []).map(function (p) { return _angular_cdk_coercion.coerceNumberProperty(p); });
             this._updateDisplayedPageSizeOptions();
         },
         enumerable: true,

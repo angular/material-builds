@@ -14,8 +14,6 @@ import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
-/** Time in ms to delay before changing the tooltip visibility to hidden */
-export declare const TOUCHEND_HIDE_DELAY = 1500;
 /** Time in ms to throttle repositioning after scroll events. */
 export declare const SCROLL_THROTTLE_MS = 20;
 /** CSS class that will be attached to the overlay panel. */
@@ -32,6 +30,14 @@ export declare const MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER: {
     deps: (typeof Overlay)[];
     useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
 };
+/** Default `matTooltip` options that can be overridden. */
+export interface MatTooltipDefaultOptions {
+    showDelay: number;
+    hideDelay: number;
+    touchendHideDelay: number;
+}
+/** Injection token to be used to override the default options for `matTooltip`. */
+export declare const MAT_TOOLTIP_DEFAULT_OPTIONS: InjectionToken<MatTooltipDefaultOptions>;
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -49,6 +55,7 @@ export declare class MatTooltip implements OnDestroy {
     private _focusMonitor;
     private _scrollStrategy;
     private _dir;
+    private _defaultOptions;
     _overlayRef: OverlayRef | null;
     _tooltipInstance: TooltipComponent | null;
     private _position;
@@ -72,7 +79,7 @@ export declare class MatTooltip implements OnDestroy {
         [key: string]: any;
     };
     private _manualListeners;
-    constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, _scrollStrategy: any, _dir: Directionality);
+    constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, _scrollStrategy: any, _dir: Directionality, _defaultOptions?: MatTooltipDefaultOptions | undefined);
     /**
      * Dispose the tooltip when destroyed.
      */
@@ -87,6 +94,8 @@ export declare class MatTooltip implements OnDestroy {
     _isTooltipVisible(): boolean;
     /** Handles the keydown events on the host element. */
     _handleKeydown(e: KeyboardEvent): void;
+    /** Handles the touchend events on the host element. */
+    _handleTouchend(): void;
     /** Create the tooltip to display */
     private _createTooltip();
     /** Create the overlay config and position strategy */

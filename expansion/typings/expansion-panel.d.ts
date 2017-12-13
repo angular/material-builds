@@ -1,9 +1,11 @@
-import { ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef, AfterContentInit } from '@angular/core';
 import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { CanDisable } from '@angular/material/core';
+import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs/Subject';
 import { MatAccordion } from './accordion';
+import { MatExpansionPanelContent } from './expansion-panel-content';
 /** Time and timing curve for expansion panel animations. */
 export declare const EXPANSION_PANEL_ANIMATION_TIMING = "225ms cubic-bezier(0.4,0.0,0.2,1)";
 /** @docs-private */
@@ -21,7 +23,8 @@ export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
  *
  * Please refer to README.md for examples on how to use it.
  */
-export declare class MatExpansionPanel extends _MatExpansionPanelMixinBase implements CanDisable, OnChanges, OnDestroy {
+export declare class MatExpansionPanel extends _MatExpansionPanelMixinBase implements CanDisable, AfterContentInit, OnChanges, OnDestroy {
+    private _viewContainerRef;
     /** Whether the toggle indicator should be hidden. */
     hideToggle: boolean;
     private _hideToggle;
@@ -29,13 +32,18 @@ export declare class MatExpansionPanel extends _MatExpansionPanelMixinBase imple
     _inputChanges: Subject<SimpleChanges>;
     /** Optionally defined accordion the expansion panel belongs to. */
     accordion: MatAccordion;
-    constructor(accordion: MatAccordion, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher);
+    /** Content that will be rendered lazily. */
+    _lazyContent: MatExpansionPanelContent;
+    /** Portal holding the user's content. */
+    _portal: TemplatePortal<any>;
+    constructor(accordion: MatAccordion, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher, _viewContainerRef: ViewContainerRef);
     /** Whether the expansion indicator should be hidden. */
     _getHideToggle(): boolean;
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     _hasSpacing(): boolean;
     /** Gets the expanded state string. */
     _getExpandedState(): MatExpansionPanelState;
+    ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
 }

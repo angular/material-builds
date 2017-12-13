@@ -1545,6 +1545,7 @@ var MatDatepicker = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        var _this = this;
         if (!this._opened) {
             return;
         }
@@ -1558,13 +1559,24 @@ var MatDatepicker = /** @class */ (function () {
         if (this._calendarPortal && this._calendarPortal.isAttached) {
             this._calendarPortal.detach();
         }
+        var /** @type {?} */ completeClose = function () {
+            _this._opened = false;
+            _this.closedStream.emit();
+            _this._focusedElementBeforeOpen = null;
+        };
         if (this._focusedElementBeforeOpen &&
             typeof this._focusedElementBeforeOpen.focus === 'function') {
+            // Because IE moves focus asynchronously, we can't count on it being restored before we've
+            // marked the datepicker as closed. If the event fires out of sequence and the element that
+            // we're refocusing opens the datepicker on focus, the user could be stuck with not being
+            // able to close the calendar at all. We work around it by making the logic, that marks
+            // the datepicker as closed, async as well.
             this._focusedElementBeforeOpen.focus();
-            this._focusedElementBeforeOpen = null;
+            setTimeout(completeClose);
         }
-        this._opened = false;
-        this.closedStream.emit();
+        else {
+            completeClose();
+        }
     };
     /**
      * Open the calendar as a dialog.
@@ -2239,7 +2251,7 @@ var MatDatepickerToggle = /** @class */ (function () {
     };
     MatDatepickerToggle.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-toggle',
-                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5.0.1-693c8e8.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
+                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5.0.1-f95f832.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
                     host: {
                         'class': 'mat-datepicker-toggle',
                     },
