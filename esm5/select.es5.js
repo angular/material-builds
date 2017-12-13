@@ -1180,9 +1180,9 @@ var MatSelect = /** @class */ (function (_super) {
             valueToEmit = this.selected ? (/** @type {?} */ (this.selected)).value : fallbackValue;
         }
         this._value = valueToEmit;
+        this.valueChange.emit(valueToEmit);
         this._onChange(valueToEmit);
         this.selectionChange.emit(new MatSelectChange(this, valueToEmit));
-        this.valueChange.emit(valueToEmit);
         this._changeDetectorRef.markForCheck();
     };
     /**

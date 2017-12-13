@@ -305,7 +305,7 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     get panelClosingActions() {
-        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._escapeEventStream, this._outsideClickStream);
+        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(() => this._panelOpen)), this._escapeEventStream, this._outsideClickStream);
     }
     /**
      * Stream of autocomplete option selections.

@@ -311,7 +311,6 @@ var MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 var MAT_INPUT_INVALID_TYPES = [
     'button',
     'checkbox',
-    'color',
     'file',
     'hidden',
     'image',

@@ -336,7 +336,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut, this._escapeEventStream, this._outsideClickStream);
+            var _this = this;
+            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(rxjs_operators_filter.filter(function () { return _this._panelOpen; })), this._escapeEventStream, this._outsideClickStream);
         },
         enumerable: true,
         configurable: true

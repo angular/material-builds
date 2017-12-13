@@ -560,7 +560,7 @@ var MatTooltip = /** @class */ (function () {
     };
     MatTooltip.decorators = [
         { type: Directive, args: [{
-                    selector: '[mat-tooltip], [matTooltip]',
+                    selector: '[matTooltip]',
                     exportAs: 'matTooltip',
                     host: {
                         '(longpress)': 'show()',
