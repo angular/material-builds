@@ -689,7 +689,7 @@ function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer) {
  * \@docs-private
  */
 var ICON_REGISTRY_PROVIDER = {
-    // If there is already an MdIconRegistry available, use that. Otherwise, provide a new one.
+    // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
     provide: MatIconRegistry,
     deps: [
         [new Optional(), new SkipSelf(), MatIconRegistry],
