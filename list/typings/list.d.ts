@@ -15,19 +15,9 @@ export declare const _MatListMixinBase: (new (...args: any[]) => CanDisableRippl
 export declare class MatListItemBase {
 }
 export declare const _MatListItemMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatListItemBase;
-/** Divider between items within a list. */
-export declare class MatListDivider {
-}
-/** A Material Design list component. */
 export declare class MatNavList extends _MatListMixinBase implements CanDisableRipple {
 }
 export declare class MatList extends _MatListMixinBase implements CanDisableRipple {
-}
-/**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * @docs-private
- */
-export declare class MatDividerCssMatStyler {
 }
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.

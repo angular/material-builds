@@ -285,13 +285,13 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     closePanel() {
-        if (this._overlayRef && this._overlayRef.hasAttached()) {
-            this._overlayRef.detach();
-            this._closingActionsSubscription.unsubscribe();
-        }
         this._resetLabel();
         if (this._panelOpen) {
             this.autocomplete._isOpen = this._panelOpen = false;
+            if (this._overlayRef && this._overlayRef.hasAttached()) {
+                this._overlayRef.detach();
+                this._closingActionsSubscription.unsubscribe();
+            }
             // We need to trigger change detection manually, because
             // `fromEvent` doesn't seem to do it at the proper time.
             // This ensures that the label is reset when the
@@ -305,7 +305,9 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     get panelClosingActions() {
-        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(() => this._panelOpen)), this._escapeEventStream, this._outsideClickStream, this._overlayRef ? this._overlayRef.detachments() : of());
+        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(() => this._panelOpen)), this._escapeEventStream, this._outsideClickStream, this._overlayRef ?
+            this._overlayRef.detachments().pipe(filter(() => this._panelOpen)) :
+            of());
     }
     /**
      * Stream of autocomplete option selections.

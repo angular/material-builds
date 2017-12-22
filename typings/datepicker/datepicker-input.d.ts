@@ -26,7 +26,7 @@ export declare class MatDatepickerInputEvent<D> {
 /** Directive used to connect an input to a MatDatepicker. */
 export declare class MatDatepickerInput<D> implements AfterContentInit, ControlValueAccessor, OnDestroy, Validator {
     private _elementRef;
-    private _dateAdapter;
+    _dateAdapter: DateAdapter<D>;
     private _dateFormats;
     private _formField;
     /** The datepicker that this input is associated with. */

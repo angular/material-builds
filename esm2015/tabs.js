@@ -155,7 +155,7 @@ class MatTab extends _MatTabMixinBase {
          */
         this._labelChange = new Subject();
         /**
-         * Emits whenevfer the disable changes
+         * Emits whenever the disable changes
          */
         this._disableChange = new Subject();
         /**

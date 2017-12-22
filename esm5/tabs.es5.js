@@ -180,7 +180,7 @@ var MatTab = /** @class */ (function (_super) {
          */
         _this._labelChange = new Subject();
         /**
-         * Emits whenevfer the disable changes
+         * Emits whenever the disable changes
          */
         _this._disableChange = new Subject();
         /**

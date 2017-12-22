@@ -46,25 +46,25 @@
       "from": "./sidenav"
     },
     {
+      "from": "./divider"
+    },
+    {
       "from": "./expansion"
     },
     {
       "from": "./form-field"
     },
     {
-      "from": "./list"
+      "from": "./radio"
     },
     {
       "from": "./menu"
     },
     {
-      "from": "./radio"
+      "from": "./progress-spinner"
     },
     {
       "from": "./tooltip"
-    },
-    {
-      "from": "./progress-spinner"
     },
     {
       "from": "./progress-bar"
@@ -74,6 +74,9 @@
     },
     {
       "from": "./select"
+    },
+    {
+      "from": "./list"
     },
     {
       "from": "./stepper"

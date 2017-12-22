@@ -325,13 +325,13 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (this._overlayRef && this._overlayRef.hasAttached()) {
-            this._overlayRef.detach();
-            this._closingActionsSubscription.unsubscribe();
-        }
         this._resetLabel();
         if (this._panelOpen) {
             this.autocomplete._isOpen = this._panelOpen = false;
+            if (this._overlayRef && this._overlayRef.hasAttached()) {
+                this._overlayRef.detach();
+                this._closingActionsSubscription.unsubscribe();
+            }
             // We need to trigger change detection manually, because
             // `fromEvent` doesn't seem to do it at the proper time.
             // This ensures that the label is reset when the
@@ -351,7 +351,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () {
             var _this = this;
-            return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(function () { return _this._panelOpen; })), this._escapeEventStream, this._outsideClickStream, this._overlayRef ? this._overlayRef.detachments() : of());
+            return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(function () { return _this._panelOpen; })), this._escapeEventStream, this._outsideClickStream, this._overlayRef ?
+                this._overlayRef.detachments().pipe(filter(function () { return _this._panelOpen; })) :
+                of());
         },
         enumerable: true,
         configurable: true

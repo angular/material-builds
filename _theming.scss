@@ -2559,10 +2559,6 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     background-color: mat-color($background, disabled-list-option);
   }
 
-  .mat-divider {
-    border-top-color: mat-color($foreground, divider);
-  }
-
   .mat-nav-list .mat-list-item {
     outline: none;
 
@@ -3885,6 +3881,22 @@ $dedupe: 0;
 
 
 
+@mixin mat-divider-theme($theme) {
+  $foreground: map-get($theme, foreground);
+
+  .mat-divider {
+    border-top-color: mat-color($foreground, divider);
+  }
+
+  .mat-divider-vertical {
+    border-right-color: mat-color($foreground, divider);
+  }
+}
+
+
+
+
+
 
 
 
@@ -3915,6 +3927,7 @@ $dedupe: 0;
   @include mat-table-theme($theme);
   @include mat-datepicker-theme($theme);
   @include mat-dialog-theme($theme);
+  @include mat-divider-theme($theme);
   @include mat-expansion-panel-theme($theme);
   @include mat-form-field-theme($theme);
   @include mat-grid-list-theme($theme);
