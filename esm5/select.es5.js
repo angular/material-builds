@@ -632,6 +632,7 @@ var MatSelect = /** @class */ (function (_super) {
         if (this._panelOpen) {
             this._panelOpen = false;
             this._changeDetectorRef.markForCheck();
+            this._onTouched();
             this.focus();
         }
     };
