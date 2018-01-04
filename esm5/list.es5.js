@@ -372,13 +372,13 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        if (this.selected) {
+        if (this._selected) {
             // List options that are selected at initialization can't be reported properly to the form
             // control. This is because it takes some time until the selection-list knows about all
             // available options. Also it can happen that the ControlValueAccessor has an initial value
             // that should be used instead. Deferring the value change report to the next tick ensures
             // that the form control value is not being overwritten.
-            Promise.resolve(function () { return _this.selected && _this.selectionList._reportValueChange(); });
+            Promise.resolve().then(function () { return _this.selected = true; });
         }
     };
     /**

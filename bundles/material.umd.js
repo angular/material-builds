@@ -15127,13 +15127,13 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        if (this.selected) {
+        if (this._selected) {
             // List options that are selected at initialization can't be reported properly to the form
             // control. This is because it takes some time until the selection-list knows about all
             // available options. Also it can happen that the ControlValueAccessor has an initial value
             // that should be used instead. Deferring the value change report to the next tick ensures
             // that the form control value is not being overwritten.
-            Promise.resolve(function () { return _this.selected && _this.selectionList._reportValueChange(); });
+            Promise.resolve().then(function () { return _this.selected = true; });
         }
     };
     /**
@@ -28566,7 +28566,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.3-ff1c5f1');
+var VERSION = new _angular_core.Version('5.0.3-91ea1a1');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -28797,10 +28797,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa20 = MatMenuItemBase;
-exports.ɵb20 = _MatMenuItemMixinBase;
-exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -28917,16 +28917,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe20 = MatTabBase;
+exports.ɵf20 = _MatTabMixinBase;
+exports.ɵa20 = MatTabHeaderBase;
+exports.ɵb20 = _MatTabHeaderMixinBase;
+exports.ɵc20 = MatTabLabelWrapperBase;
+exports.ɵd20 = _MatTabLabelWrapperMixinBase;
+exports.ɵi20 = MatTabLinkBase;
+exports.ɵg20 = MatTabNavBase;
+exports.ɵj20 = _MatTabLinkMixinBase;
+exports.ɵh20 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
