@@ -438,6 +438,10 @@ class MatDialogRef {
 
 const MAT_DIALOG_DATA = new InjectionToken('MatDialogData');
 /**
+ * Injection token that can be used to specify default dialog options.
+ */
+const MAT_DIALOG_DEFAULT_OPTIONS = new InjectionToken('mat-dialog-default-options');
+/**
  * Injection token that determines the scroll handling while the dialog is open.
  */
 const MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy');
@@ -465,12 +469,14 @@ class MatDialog {
      * @param {?} _overlay
      * @param {?} _injector
      * @param {?} location
+     * @param {?} _defaultOptions
      * @param {?} _scrollStrategy
      * @param {?} _parentDialog
      */
-    constructor(_overlay, _injector, location, _scrollStrategy, _parentDialog) {
+    constructor(_overlay, _injector, location, _defaultOptions, _scrollStrategy, _parentDialog) {
         this._overlay = _overlay;
         this._injector = _injector;
+        this._defaultOptions = _defaultOptions;
         this._scrollStrategy = _scrollStrategy;
         this._parentDialog = _parentDialog;
         this._openDialogsAtThisLevel = [];
@@ -520,7 +526,7 @@ class MatDialog {
      * @return {?} Reference to the newly-opened dialog.
      */
     open(componentOrTemplateRef, config) {
-        config = _applyConfigDefaults(config);
+        config = _applyConfigDefaults(config, this._defaultOptions || new MatDialogConfig());
         if (config.id && this.getDialogById(config.id)) {
             throw Error(`Dialog with id "${config.id}" exists already. The dialog id must be unique.`);
         }
@@ -683,16 +689,18 @@ MatDialog.ctorParameters = () => [
     { type: Overlay, },
     { type: Injector, },
     { type: Location, decorators: [{ type: Optional },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] },] },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] },] },
     { type: MatDialog, decorators: [{ type: Optional }, { type: SkipSelf },] },
 ];
 /**
  * Applies default options to the dialog config.
  * @param {?=} config Config to be modified.
+ * @param {?=} defaultOptions Default options provided.
  * @return {?} The new configuration object.
  */
-function _applyConfigDefaults(config) {
-    return Object.assign({}, new MatDialogConfig(), config);
+function _applyConfigDefaults(config, defaultOptions) {
+    return Object.assign({}, defaultOptions, config);
 }
 
 /**
@@ -868,5 +876,5 @@ MatDialogModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatDialogModule, MAT_DIALOG_DATA, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, throwMatDialogContentAlreadyAttachedError, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogConfig, MatDialogRef };
+export { MatDialogModule, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, throwMatDialogContentAlreadyAttachedError, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogConfig, MatDialogRef };
 //# sourceMappingURL=dialog.js.map

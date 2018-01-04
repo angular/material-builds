@@ -7,6 +7,8 @@ import { Subject } from 'rxjs/Subject';
 import { MatDialogConfig } from './dialog-config';
 import { MatDialogRef } from './dialog-ref';
 export declare const MAT_DIALOG_DATA: InjectionToken<any>;
+/** Injection token that can be used to specify default dialog options. */
+export declare const MAT_DIALOG_DEFAULT_OPTIONS: InjectionToken<MatDialogConfig<any>>;
 /** Injection token that determines the scroll handling while the dialog is open. */
 export declare const MAT_DIALOG_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
@@ -23,6 +25,7 @@ export declare const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER: {
 export declare class MatDialog {
     private _overlay;
     private _injector;
+    private _defaultOptions;
     private _scrollStrategy;
     private _parentDialog;
     private _openDialogsAtThisLevel;
@@ -38,7 +41,7 @@ export declare class MatDialog {
      * Will emit on subscribe if there are no open dialogs to begin with.
      */
     afterAllClosed: Observable<void>;
-    constructor(_overlay: Overlay, _injector: Injector, location: Location, _scrollStrategy: any, _parentDialog: MatDialog);
+    constructor(_overlay: Overlay, _injector: Injector, location: Location, _defaultOptions: any, _scrollStrategy: any, _parentDialog: MatDialog);
     /**
      * Opens a modal dialog containing the given component.
      * @param componentOrTemplateRef Type of the component to load into the dialog,

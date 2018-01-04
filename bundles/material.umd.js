@@ -8381,6 +8381,10 @@ var MatDialogRef = /** @class */ (function () {
 
 var MAT_DIALOG_DATA = new _angular_core.InjectionToken('MatDialogData');
 /**
+ * Injection token that can be used to specify default dialog options.
+ */
+var MAT_DIALOG_DEFAULT_OPTIONS = new _angular_core.InjectionToken('mat-dialog-default-options');
+/**
  * Injection token that determines the scroll handling while the dialog is open.
  */
 var MAT_DIALOG_SCROLL_STRATEGY = new _angular_core.InjectionToken('mat-dialog-scroll-strategy');
@@ -8404,10 +8408,11 @@ var MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  * Service to open Material Design modal dialogs.
  */
 var MatDialog = /** @class */ (function () {
-    function MatDialog(_overlay, _injector, location, _scrollStrategy, _parentDialog) {
+    function MatDialog(_overlay, _injector, location, _defaultOptions, _scrollStrategy, _parentDialog) {
         var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
+        this._defaultOptions = _defaultOptions;
         this._scrollStrategy = _scrollStrategy;
         this._parentDialog = _parentDialog;
         this._openDialogsAtThisLevel = [];
@@ -8489,7 +8494,7 @@ var MatDialog = /** @class */ (function () {
      */
     function (componentOrTemplateRef, config) {
         var _this = this;
-        config = _applyConfigDefaults(config);
+        config = _applyConfigDefaults(config, this._defaultOptions || new MatDialogConfig());
         if (config.id && this.getDialogById(config.id)) {
             throw Error("Dialog with id \"" + config.id + "\" exists already. The dialog id must be unique.");
         }
@@ -8707,6 +8712,7 @@ var MatDialog = /** @class */ (function () {
         { type: _angular_cdk_overlay.Overlay, },
         { type: _angular_core.Injector, },
         { type: _angular_common.Location, decorators: [{ type: _angular_core.Optional },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] },] },
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] },] },
         { type: MatDialog, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
     ]; };
@@ -8715,10 +8721,11 @@ var MatDialog = /** @class */ (function () {
 /**
  * Applies default options to the dialog config.
  * @param {?=} config Config to be modified.
+ * @param {?=} defaultOptions Default options provided.
  * @return {?} The new configuration object.
  */
-function _applyConfigDefaults(config) {
-    return __assign({}, new MatDialogConfig(), config);
+function _applyConfigDefaults(config, defaultOptions) {
+    return __assign({}, defaultOptions, config);
 }
 
 /**
@@ -28281,7 +28288,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.3-a0bd162');
+var VERSION = new _angular_core.Version('5.0.3-05304f0');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -28425,6 +28432,7 @@ exports.MatMonthView = MatMonthView;
 exports.MatYearView = MatYearView;
 exports.MatDialogModule = MatDialogModule;
 exports.MAT_DIALOG_DATA = MAT_DIALOG_DATA;
+exports.MAT_DIALOG_DEFAULT_OPTIONS = MAT_DIALOG_DEFAULT_OPTIONS;
 exports.MAT_DIALOG_SCROLL_STRATEGY = MAT_DIALOG_SCROLL_STRATEGY;
 exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER;
@@ -28506,10 +28514,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa12 = MatMenuItemBase;
-exports.ɵb12 = _MatMenuItemMixinBase;
-exports.ɵd12 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc12 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa5 = MatMenuItemBase;
+exports.ɵb5 = _MatMenuItemMixinBase;
+exports.ɵd5 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc5 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -28620,16 +28628,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe21 = MatTabBase;
-exports.ɵf21 = _MatTabMixinBase;
-exports.ɵa21 = MatTabHeaderBase;
-exports.ɵb21 = _MatTabHeaderMixinBase;
-exports.ɵc21 = MatTabLabelWrapperBase;
-exports.ɵd21 = _MatTabLabelWrapperMixinBase;
-exports.ɵi21 = MatTabLinkBase;
-exports.ɵg21 = MatTabNavBase;
-exports.ɵj21 = _MatTabLinkMixinBase;
-exports.ɵh21 = _MatTabNavMixinBase;
+exports.ɵe1 = MatTabBase;
+exports.ɵf1 = _MatTabMixinBase;
+exports.ɵa1 = MatTabHeaderBase;
+exports.ɵb1 = _MatTabHeaderMixinBase;
+exports.ɵc1 = MatTabLabelWrapperBase;
+exports.ɵd1 = _MatTabLabelWrapperMixinBase;
+exports.ɵi1 = MatTabLinkBase;
+exports.ɵg1 = MatTabNavBase;
+exports.ɵj1 = _MatTabLinkMixinBase;
+exports.ɵh1 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

@@ -579,6 +579,10 @@ var MatDialogRef = /** @class */ (function () {
 
 var MAT_DIALOG_DATA = new _angular_core.InjectionToken('MatDialogData');
 /**
+ * Injection token that can be used to specify default dialog options.
+ */
+var MAT_DIALOG_DEFAULT_OPTIONS = new _angular_core.InjectionToken('mat-dialog-default-options');
+/**
  * Injection token that determines the scroll handling while the dialog is open.
  */
 var MAT_DIALOG_SCROLL_STRATEGY = new _angular_core.InjectionToken('mat-dialog-scroll-strategy');
@@ -602,10 +606,11 @@ var MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  * Service to open Material Design modal dialogs.
  */
 var MatDialog = /** @class */ (function () {
-    function MatDialog(_overlay, _injector, location, _scrollStrategy, _parentDialog) {
+    function MatDialog(_overlay, _injector, location, _defaultOptions, _scrollStrategy, _parentDialog) {
         var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
+        this._defaultOptions = _defaultOptions;
         this._scrollStrategy = _scrollStrategy;
         this._parentDialog = _parentDialog;
         this._openDialogsAtThisLevel = [];
@@ -687,7 +692,7 @@ var MatDialog = /** @class */ (function () {
      */
     function (componentOrTemplateRef, config) {
         var _this = this;
-        config = _applyConfigDefaults(config);
+        config = _applyConfigDefaults(config, this._defaultOptions || new MatDialogConfig());
         if (config.id && this.getDialogById(config.id)) {
             throw Error("Dialog with id \"" + config.id + "\" exists already. The dialog id must be unique.");
         }
@@ -905,6 +910,7 @@ var MatDialog = /** @class */ (function () {
         { type: _angular_cdk_overlay.Overlay, },
         { type: _angular_core.Injector, },
         { type: _angular_common.Location, decorators: [{ type: _angular_core.Optional },] },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] },] },
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] },] },
         { type: MatDialog, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
     ]; };
@@ -913,10 +919,11 @@ var MatDialog = /** @class */ (function () {
 /**
  * Applies default options to the dialog config.
  * @param {?=} config Config to be modified.
+ * @param {?=} defaultOptions Default options provided.
  * @return {?} The new configuration object.
  */
-function _applyConfigDefaults(config) {
-    return __assign({}, new MatDialogConfig(), config);
+function _applyConfigDefaults(config, defaultOptions) {
+    return __assign({}, defaultOptions, config);
 }
 
 /**
@@ -1094,6 +1101,7 @@ var MatDialogModule = /** @class */ (function () {
 
 exports.MatDialogModule = MatDialogModule;
 exports.MAT_DIALOG_DATA = MAT_DIALOG_DATA;
+exports.MAT_DIALOG_DEFAULT_OPTIONS = MAT_DIALOG_DEFAULT_OPTIONS;
 exports.MAT_DIALOG_SCROLL_STRATEGY = MAT_DIALOG_SCROLL_STRATEGY;
 exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER;
