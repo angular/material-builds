@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentInit, ElementRef, QueryList, TemplateRef, ChangeDetectorRef, EventEmitter } from '@angular/core';
-import { MatOption, MatOptgroup } from '@angular/material/core';
+import { MatOption, MatOptgroup, CanDisableRipple } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 /** Event object that is emitted when an autocomplete option is selected */
 export declare class MatAutocompleteSelectedEvent {
@@ -20,7 +20,11 @@ export declare class MatAutocompleteSelectedEvent {
         /** Option that was selected. */
         option: MatOption);
 }
-export declare class MatAutocomplete implements AfterContentInit {
+/** @docs-private */
+export declare class MatAutocompleteBase {
+}
+export declare const _MatAutocompleteMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatAutocompleteBase;
+export declare class MatAutocomplete extends _MatAutocompleteMixinBase implements AfterContentInit, CanDisableRipple {
     private _changeDetectorRef;
     private _elementRef;
     /** Manages active item in option list based on key events. */

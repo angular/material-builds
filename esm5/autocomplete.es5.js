@@ -5,8 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { __extends } from 'tslib';
+import * as tslib_1 from 'tslib';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Host, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MatCommonModule, MatOptgroup, MatOption, MatOptionModule } from '@angular/material/core';
+import { MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisableRipple } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
@@ -29,7 +31,6 @@ import { of } from 'rxjs/observable/of';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
  * the component definition.
@@ -45,28 +46,40 @@ var MatAutocompleteSelectedEvent = /** @class */ (function () {
     }
     return MatAutocompleteSelectedEvent;
 }());
-var MatAutocomplete = /** @class */ (function () {
+/**
+ * \@docs-private
+ */
+var MatAutocompleteBase = /** @class */ (function () {
+    function MatAutocompleteBase() {
+    }
+    return MatAutocompleteBase;
+}());
+var _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompleteBase);
+var MatAutocomplete = /** @class */ (function (_super) {
+    __extends(MatAutocomplete, _super);
     function MatAutocomplete(_changeDetectorRef, _elementRef) {
-        this._changeDetectorRef = _changeDetectorRef;
-        this._elementRef = _elementRef;
+        var _this = _super.call(this) || this;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._elementRef = _elementRef;
         /**
          * Whether the autocomplete panel should be visible, depending on option length.
          */
-        this.showPanel = false;
-        this._isOpen = false;
+        _this.showPanel = false;
+        _this._isOpen = false;
         /**
          * Function that maps an option's control value to its display value in the trigger.
          */
-        this.displayWith = null;
+        _this.displayWith = null;
         /**
          * Event that is emitted whenever an option from the list is selected.
          */
-        this.optionSelected = new EventEmitter();
-        this._classList = {};
+        _this.optionSelected = new EventEmitter();
+        _this._classList = {};
         /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
-        this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
+        _this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
+        return _this;
     }
     Object.defineProperty(MatAutocomplete.prototype, "isOpen", {
         /** Whether the autocomplete panel is open. */
@@ -179,9 +192,13 @@ var MatAutocomplete = /** @class */ (function () {
                     preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     exportAs: 'matAutocomplete',
+                    inputs: ['disableRipple'],
                     host: {
                         'class': 'mat-autocomplete'
-                    }
+                    },
+                    providers: [
+                        { provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatAutocomplete }
+                    ]
                 },] },
     ];
     /** @nocollapse */
@@ -199,7 +216,7 @@ var MatAutocomplete = /** @class */ (function () {
         "classList": [{ type: Input, args: ['class',] },],
     };
     return MatAutocomplete;
-}());
+}(_MatAutocompleteMixinBase));
 
 /**
  * @fileoverview added by tsickle
@@ -904,5 +921,5 @@ var MatAutocompleteModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger };
 //# sourceMappingURL=autocomplete.es5.js.map

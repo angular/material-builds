@@ -3341,7 +3341,6 @@ var MatFormFieldModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
  * the component definition.
@@ -3357,28 +3356,40 @@ var MatAutocompleteSelectedEvent = /** @class */ (function () {
     }
     return MatAutocompleteSelectedEvent;
 }());
-var MatAutocomplete = /** @class */ (function () {
+/**
+ * \@docs-private
+ */
+var MatAutocompleteBase = /** @class */ (function () {
+    function MatAutocompleteBase() {
+    }
+    return MatAutocompleteBase;
+}());
+var _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompleteBase);
+var MatAutocomplete = /** @class */ (function (_super) {
+    __extends(MatAutocomplete, _super);
     function MatAutocomplete(_changeDetectorRef, _elementRef) {
-        this._changeDetectorRef = _changeDetectorRef;
-        this._elementRef = _elementRef;
+        var _this = _super.call(this) || this;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._elementRef = _elementRef;
         /**
          * Whether the autocomplete panel should be visible, depending on option length.
          */
-        this.showPanel = false;
-        this._isOpen = false;
+        _this.showPanel = false;
+        _this._isOpen = false;
         /**
          * Function that maps an option's control value to its display value in the trigger.
          */
-        this.displayWith = null;
+        _this.displayWith = null;
         /**
          * Event that is emitted whenever an option from the list is selected.
          */
-        this.optionSelected = new _angular_core.EventEmitter();
-        this._classList = {};
+        _this.optionSelected = new _angular_core.EventEmitter();
+        _this._classList = {};
         /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
-        this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
+        _this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
+        return _this;
     }
     Object.defineProperty(MatAutocomplete.prototype, "isOpen", {
         /** Whether the autocomplete panel is open. */
@@ -3491,9 +3502,13 @@ var MatAutocomplete = /** @class */ (function () {
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     exportAs: 'matAutocomplete',
+                    inputs: ['disableRipple'],
                     host: {
                         'class': 'mat-autocomplete'
-                    }
+                    },
+                    providers: [
+                        { provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatAutocomplete }
+                    ]
                 },] },
     ];
     /** @nocollapse */
@@ -3511,7 +3526,7 @@ var MatAutocomplete = /** @class */ (function () {
         "classList": [{ type: _angular_core.Input, args: ['class',] },],
     };
     return MatAutocomplete;
-}());
+}(_MatAutocompleteMixinBase));
 
 /**
  * @fileoverview added by tsickle
@@ -28547,10 +28562,12 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.3-41f5fe2');
+var VERSION = new _angular_core.Version('5.0.3-ff31ac8');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
+exports.MatAutocompleteBase = MatAutocompleteBase;
+exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
 exports.MatAutocomplete = MatAutocomplete;
 exports.MatAutocompleteModule = MatAutocompleteModule;
 exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;
@@ -28776,10 +28793,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa19 = MatMenuItemBase;
-exports.ɵb19 = _MatMenuItemMixinBase;
-exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -28896,16 +28913,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe16 = MatTabBase;
-exports.ɵf16 = _MatTabMixinBase;
-exports.ɵa16 = MatTabHeaderBase;
-exports.ɵb16 = _MatTabHeaderMixinBase;
-exports.ɵc16 = MatTabLabelWrapperBase;
-exports.ɵd16 = _MatTabLabelWrapperMixinBase;
-exports.ɵi16 = MatTabLinkBase;
-exports.ɵg16 = MatTabNavBase;
-exports.ɵj16 = _MatTabLinkMixinBase;
-exports.ɵh16 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

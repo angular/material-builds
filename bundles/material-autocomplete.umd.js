@@ -11,11 +11,36 @@
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.ng.material.formField,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
 }(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_a11y,_angular_common,_angular_cdk_overlay,_angular_cdk_bidi,_angular_cdk_keycodes,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,_angular_material_formField,rxjs_Subject,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
 
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = Object.setPrototypeOf ||
+    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
+
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
  * the component definition.
@@ -31,28 +56,40 @@ var MatAutocompleteSelectedEvent = /** @class */ (function () {
     }
     return MatAutocompleteSelectedEvent;
 }());
-var MatAutocomplete = /** @class */ (function () {
+/**
+ * \@docs-private
+ */
+var MatAutocompleteBase = /** @class */ (function () {
+    function MatAutocompleteBase() {
+    }
+    return MatAutocompleteBase;
+}());
+var _MatAutocompleteMixinBase = _angular_material_core.mixinDisableRipple(MatAutocompleteBase);
+var MatAutocomplete = /** @class */ (function (_super) {
+    __extends(MatAutocomplete, _super);
     function MatAutocomplete(_changeDetectorRef, _elementRef) {
-        this._changeDetectorRef = _changeDetectorRef;
-        this._elementRef = _elementRef;
+        var _this = _super.call(this) || this;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._elementRef = _elementRef;
         /**
          * Whether the autocomplete panel should be visible, depending on option length.
          */
-        this.showPanel = false;
-        this._isOpen = false;
+        _this.showPanel = false;
+        _this._isOpen = false;
         /**
          * Function that maps an option's control value to its display value in the trigger.
          */
-        this.displayWith = null;
+        _this.displayWith = null;
         /**
          * Event that is emitted whenever an option from the list is selected.
          */
-        this.optionSelected = new _angular_core.EventEmitter();
-        this._classList = {};
+        _this.optionSelected = new _angular_core.EventEmitter();
+        _this._classList = {};
         /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
-        this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
+        _this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
+        return _this;
     }
     Object.defineProperty(MatAutocomplete.prototype, "isOpen", {
         /** Whether the autocomplete panel is open. */
@@ -165,9 +202,13 @@ var MatAutocomplete = /** @class */ (function () {
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     exportAs: 'matAutocomplete',
+                    inputs: ['disableRipple'],
                     host: {
                         'class': 'mat-autocomplete'
-                    }
+                    },
+                    providers: [
+                        { provide: _angular_material_core.MAT_OPTION_PARENT_COMPONENT, useExisting: MatAutocomplete }
+                    ]
                 },] },
     ];
     /** @nocollapse */
@@ -185,7 +226,7 @@ var MatAutocomplete = /** @class */ (function () {
         "classList": [{ type: _angular_core.Input, args: ['class',] },],
     };
     return MatAutocomplete;
-}());
+}(_MatAutocompleteMixinBase));
 
 /**
  * @fileoverview added by tsickle
@@ -878,6 +919,8 @@ var MatAutocompleteModule = /** @class */ (function () {
 }());
 
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
+exports.MatAutocompleteBase = MatAutocompleteBase;
+exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
 exports.MatAutocomplete = MatAutocomplete;
 exports.MatAutocompleteModule = MatAutocompleteModule;
 exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;

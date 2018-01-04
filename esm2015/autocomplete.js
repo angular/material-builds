@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Host, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MatCommonModule, MatOptgroup, MatOption, MatOptionModule } from '@angular/material/core';
+import { MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisableRipple } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
@@ -48,12 +48,19 @@ class MatAutocompleteSelectedEvent {
         this.option = option;
     }
 }
-class MatAutocomplete {
+/**
+ * \@docs-private
+ */
+class MatAutocompleteBase {
+}
+const _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompleteBase);
+class MatAutocomplete extends _MatAutocompleteMixinBase {
     /**
      * @param {?} _changeDetectorRef
      * @param {?} _elementRef
      */
     constructor(_changeDetectorRef, _elementRef) {
+        super();
         this._changeDetectorRef = _changeDetectorRef;
         this._elementRef = _elementRef;
         /**
@@ -148,9 +155,13 @@ MatAutocomplete.decorators = [
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 exportAs: 'matAutocomplete',
+                inputs: ['disableRipple'],
                 host: {
                     'class': 'mat-autocomplete'
-                }
+                },
+                providers: [
+                    { provide: MAT_OPTION_PARENT_COMPONENT, useExisting: MatAutocomplete }
+                ]
             },] },
 ];
 /** @nocollapse */
@@ -704,5 +715,5 @@ MatAutocompleteModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger };
 //# sourceMappingURL=autocomplete.js.map
