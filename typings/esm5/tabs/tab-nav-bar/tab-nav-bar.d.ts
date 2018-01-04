@@ -9,7 +9,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList } from '@angular/core';
-import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, RippleGlobalOptions, ThemePalette } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, RippleConfig, RippleGlobalOptions, RippleTarget, ThemePalette } from '@angular/material/core';
 import { MatInkBar } from '../ink-bar';
 /** @docs-private */
 export declare class MatTabNavBase {
@@ -53,23 +53,29 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
 }
 export declare class MatTabLinkBase {
 }
-export declare const _MatTabLinkMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisable) & typeof MatTabLinkBase;
+export declare const _MatTabLinkMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatTabLinkBase;
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
-export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestroy, CanDisable, HasTabIndex {
+export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestroy, CanDisable, CanDisableRipple, HasTabIndex, RippleTarget {
     private _tabNavBar;
     private _elementRef;
     /** Whether the tab link is active or not. */
     private _isActive;
-    /** Whether the ripples for this tab should be disabled or not. */
-    private _disableRipple;
-    /** Reference to the instance of the ripple for the tab link. */
+    /** Reference to the RippleRenderer for the tab-link. */
     private _tabLinkRipple;
     /** Whether the link is active. */
     active: boolean;
-    /** Whether ripples should be disabled or not. */
-    disableRipple: boolean;
+    /**
+     * Ripple configuration for ripples that are launched on pointer down.
+     * @docs-private
+     */
+    rippleConfig: RippleConfig;
+    /**
+     * Whether ripples are disabled on interaction
+     * @docs-private
+     */
+    readonly rippleDisabled: boolean;
     constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions, tabIndex: string);
     ngOnDestroy(): void;
 }

@@ -1515,6 +1515,13 @@ var RIPPLE_FADE_OUT_DURATION = 400;
  */
 var IGNORE_MOUSE_EVENTS_TIMEOUT = 800;
 /**
+ * Interface that describes the target for launching ripples.
+ * It defines the ripple configuration and disabled state for interaction ripples.
+ * \@docs-private
+ * @record
+ */
+
+/**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
  * event handlers to be installed on the element that triggers ripple animations.
@@ -1522,8 +1529,9 @@ var IGNORE_MOUSE_EVENTS_TIMEOUT = 800;
  * \@docs-private
  */
 var RippleRenderer = /** @class */ (function () {
-    function RippleRenderer(elementRef, _ngZone, platform) {
+    function RippleRenderer(_target, _ngZone, elementRef, platform) {
         var _this = this;
+        this._target = _target;
         this._ngZone = _ngZone;
         /**
          * Whether the pointer is currently down or not.
@@ -1542,29 +1550,21 @@ var RippleRenderer = /** @class */ (function () {
          */
         this._eventOptions = supportsPassiveEventListeners() ? (/** @type {?} */ ({ passive: true })) : false;
         /**
-         * Ripple config for all ripples created by events.
-         */
-        this.rippleConfig = {};
-        /**
-         * Whether mouse ripples should be created or not.
-         */
-        this.rippleDisabled = false;
-        /**
          * Function being called whenever the trigger is being pressed using mouse.
          */
         this.onMousedown = function (event) {
             var /** @type {?} */ isSyntheticEvent = _this._lastTouchStartEvent &&
                 Date.now() < _this._lastTouchStartEvent + IGNORE_MOUSE_EVENTS_TIMEOUT;
-            if (!_this.rippleDisabled && !isSyntheticEvent) {
+            if (!_this._target.rippleDisabled && !isSyntheticEvent) {
                 _this._isPointerDown = true;
-                _this.fadeInRipple(event.clientX, event.clientY, _this.rippleConfig);
+                _this.fadeInRipple(event.clientX, event.clientY, _this._target.rippleConfig);
             }
         };
         /**
          * Function being called whenever the trigger is being pressed using touch.
          */
         this.onTouchStart = function (event) {
-            if (!_this.rippleDisabled) {
+            if (!_this._target.rippleDisabled) {
                 // Some browsers fire mouse events after a `touchstart` event. Those synthetic mouse
                 // events will launch a second ripple if we don't ignore mouse events for a specific
                 // time after a touchstart event.
@@ -1573,7 +1573,7 @@ var RippleRenderer = /** @class */ (function () {
                 // time after a touchstart event.
                 _this._lastTouchStartEvent = Date.now();
                 _this._isPointerDown = true;
-                _this.fadeInRipple(event.touches[0].clientX, event.touches[0].clientY, _this.rippleConfig);
+                _this.fadeInRipple(event.touches[0].clientX, event.touches[0].clientY, _this._target.rippleConfig);
             }
         };
         /**
@@ -1601,8 +1601,6 @@ var RippleRenderer = /** @class */ (function () {
             this._triggerEvents.set('mouseleave', this.onPointerUp);
             this._triggerEvents.set('touchstart', this.onTouchStart);
             this._triggerEvents.set('touchend', this.onPointerUp);
-            // By default use the host element as trigger element.
-            this.setTriggerElement(this._containerElement);
         }
     }
     /**
@@ -1704,33 +1702,29 @@ var RippleRenderer = /** @class */ (function () {
     function () {
         this._activeRipples.forEach(function (ripple) { return ripple.fadeOut(); });
     };
-    /** Sets the trigger element and registers the mouse events. */
+    /** Sets up the trigger event listeners */
     /**
-     * Sets the trigger element and registers the mouse events.
+     * Sets up the trigger event listeners
      * @param {?} element
      * @return {?}
      */
-    RippleRenderer.prototype.setTriggerElement = /**
-     * Sets the trigger element and registers the mouse events.
+    RippleRenderer.prototype.setupTriggerEvents = /**
+     * Sets up the trigger event listeners
      * @param {?} element
      * @return {?}
      */
     function (element) {
         var _this = this;
-        // Remove all previously register event listeners from the trigger element.
-        if (this._triggerElement) {
-            this._triggerEvents.forEach(function (fn, type) {
-                /** @type {?} */ ((_this._triggerElement)).removeEventListener(type, fn, _this._eventOptions);
-            });
+        if (!element || element === this._triggerElement) {
+            return;
         }
-        if (element) {
-            // If the element is not null, register all event listeners on the trigger element.
-            this._ngZone.runOutsideAngular(function () {
-                _this._triggerEvents.forEach(function (fn, type) {
-                    return element.addEventListener(type, fn, _this._eventOptions);
-                });
+        // Remove all previously registered event listeners from the trigger element.
+        this._removeTriggerEvents();
+        this._ngZone.runOutsideAngular(function () {
+            _this._triggerEvents.forEach(function (fn, type) {
+                return element.addEventListener(type, fn, _this._eventOptions);
             });
-        }
+        });
         this._triggerElement = element;
     };
     /**
@@ -1748,6 +1742,23 @@ var RippleRenderer = /** @class */ (function () {
     function (fn, delay) {
         if (delay === void 0) { delay = 0; }
         this._ngZone.runOutsideAngular(function () { return setTimeout(fn, delay); });
+    };
+    /** Removes previously registered event listeners from the trigger element. */
+    /**
+     * Removes previously registered event listeners from the trigger element.
+     * @return {?}
+     */
+    RippleRenderer.prototype._removeTriggerEvents = /**
+     * Removes previously registered event listeners from the trigger element.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (this._triggerElement) {
+            this._triggerEvents.forEach(function (fn, type) {
+                /** @type {?} */ ((_this._triggerElement)).removeEventListener(type, fn, _this._eventOptions);
+            });
+        }
     };
     return RippleRenderer;
 }());
@@ -1790,7 +1801,8 @@ function distanceToFurthestCorner(x, y, rect) {
  */
 var MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('mat-ripple-global-options');
 var MatRipple = /** @class */ (function () {
-    function MatRipple(elementRef, ngZone, platform, globalOptions) {
+    function MatRipple(_elementRef, ngZone, platform, globalOptions) {
+        this._elementRef = _elementRef;
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1803,23 +1815,59 @@ var MatRipple = /** @class */ (function () {
          * A changed speedFactor will not modify the fade-out duration of the ripples.
          */
         this.speedFactor = 1;
-        this._rippleRenderer = new RippleRenderer(elementRef, ngZone, platform);
-        this._globalOptions = globalOptions ? globalOptions : {};
-        this._updateRippleRenderer();
+        this._disabled = false;
+        /**
+         * Whether ripple directive is initialized and the input bindings are set.
+         */
+        this._isInitialized = false;
+        this._globalOptions = globalOptions || {};
+        this._rippleRenderer = new RippleRenderer(this, ngZone, _elementRef, platform);
     }
+    Object.defineProperty(MatRipple.prototype, "disabled", {
+        get: /**
+         * Whether click events will not trigger the ripple. Ripples can be still launched manually
+         * by using the `launch()` method.
+         * @return {?}
+         */
+        function () { return this._disabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._disabled = value;
+            this._setupTriggerEventsIfEnabled();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatRipple.prototype, "trigger", {
+        get: /**
+         * The element that triggers the ripple when click events are received.
+         * Defaults to the directive's host element.
+         * @return {?}
+         */
+        function () { return this._trigger || this._elementRef.nativeElement; },
+        set: /**
+         * @param {?} trigger
+         * @return {?}
+         */
+        function (trigger) {
+            this._trigger = trigger;
+            this._setupTriggerEventsIfEnabled();
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
-     * @param {?} changes
      * @return {?}
      */
-    MatRipple.prototype.ngOnChanges = /**
-     * @param {?} changes
+    MatRipple.prototype.ngOnInit = /**
      * @return {?}
      */
-    function (changes) {
-        if (changes['trigger'] && this.trigger) {
-            this._rippleRenderer.setTriggerElement(this.trigger);
-        }
-        this._updateRippleRenderer();
+    function () {
+        this._isInitialized = true;
+        this._setupTriggerEventsIfEnabled();
     };
     /**
      * @return {?}
@@ -1828,8 +1876,7 @@ var MatRipple = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        // Set the trigger element to null to cleanup all listeners.
-        this._rippleRenderer.setTriggerElement(null);
+        this._rippleRenderer._removeTriggerEvents();
     };
     /** Launches a manual ripple at the specified position. */
     /**
@@ -1847,7 +1894,7 @@ var MatRipple = /** @class */ (function () {
      * @return {?}
      */
     function (x, y, config) {
-        if (config === void 0) { config = this.rippleConfig; }
+        if (config === void 0) { config = this; }
         return this._rippleRenderer.fadeInRipple(x, y, config);
     };
     /** Fades out all currently showing ripple elements. */
@@ -1879,18 +1926,30 @@ var MatRipple = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    /** Updates the ripple renderer with the latest ripple configuration. */
+    Object.defineProperty(MatRipple.prototype, "rippleDisabled", {
+        /** Whether ripples on pointer-down are  disabled or not. */
+        get: /**
+         * Whether ripples on pointer-down are  disabled or not.
+         * @return {?}
+         */
+        function () {
+            return this.disabled || !!this._globalOptions.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
-     * Updates the ripple renderer with the latest ripple configuration.
+     * Sets up the the trigger event listeners if ripples are enabled.
      * @return {?}
      */
-    MatRipple.prototype._updateRippleRenderer = /**
-     * Updates the ripple renderer with the latest ripple configuration.
+    MatRipple.prototype._setupTriggerEventsIfEnabled = /**
+     * Sets up the the trigger event listeners if ripples are enabled.
      * @return {?}
      */
     function () {
-        this._rippleRenderer.rippleDisabled = this._globalOptions.disabled || this.disabled;
-        this._rippleRenderer.rippleConfig = this.rippleConfig;
+        if (!this.disabled && this._isInitialized) {
+            this._rippleRenderer.setupTriggerEvents(this.trigger);
+        }
     };
     MatRipple.decorators = [
         { type: Directive, args: [{
@@ -1910,13 +1969,13 @@ var MatRipple = /** @class */ (function () {
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
     ]; };
     MatRipple.propDecorators = {
-        "trigger": [{ type: Input, args: ['matRippleTrigger',] },],
-        "centered": [{ type: Input, args: ['matRippleCentered',] },],
-        "disabled": [{ type: Input, args: ['matRippleDisabled',] },],
-        "radius": [{ type: Input, args: ['matRippleRadius',] },],
-        "speedFactor": [{ type: Input, args: ['matRippleSpeedFactor',] },],
         "color": [{ type: Input, args: ['matRippleColor',] },],
         "unbounded": [{ type: Input, args: ['matRippleUnbounded',] },],
+        "centered": [{ type: Input, args: ['matRippleCentered',] },],
+        "radius": [{ type: Input, args: ['matRippleRadius',] },],
+        "speedFactor": [{ type: Input, args: ['matRippleSpeedFactor',] },],
+        "disabled": [{ type: Input, args: ['matRippleDisabled',] },],
+        "trigger": [{ type: Input, args: ['matRippleTrigger',] },],
     };
     return MatRipple;
 }());
@@ -2551,5 +2610,5 @@ var DEC = 11;
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_LABEL_GLOBAL_OPTIONS as MAT_PLACEHOLDER_GLOBAL_OPTIONS, AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRipple, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRef, RippleState, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, MatRippleModule, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, RippleRenderer as ɵa0 };
+export { MAT_LABEL_GLOBAL_OPTIONS as MAT_PLACEHOLDER_GLOBAL_OPTIONS, AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC };
 //# sourceMappingURL=core.es5.js.map

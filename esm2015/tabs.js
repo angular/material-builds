@@ -10,7 +10,7 @@ import { CdkPortal, CdkPortalOutlet, PortalModule, TemplatePortal } from '@angul
 import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRippleModule, RippleRenderer, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { Directionality } from '@angular/cdk/bidi';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -1433,7 +1433,7 @@ MatTabNav.propDecorators = {
 };
 class MatTabLinkBase {
 }
-const _MatTabLinkMixinBase = mixinTabIndex(mixinDisabled(MatTabLinkBase));
+const _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatTabLinkBase)));
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
@@ -1455,13 +1455,16 @@ class MatTabLink extends _MatTabLinkMixinBase {
          */
         this._isActive = false;
         /**
-         * Whether the ripples for this tab should be disabled or not.
+         * Ripple configuration for ripples that are launched on pointer down.
+         * \@docs-private
          */
-        this._disableRipple = false;
-        // Manually create a ripple instance that uses the tab link element as trigger element.
-        // Notice that the lifecycle hooks for the ripple config won't be called anymore.
-        this._tabLinkRipple = new MatRipple(_elementRef, ngZone, platform, globalOptions);
+        this.rippleConfig = {};
+        this._tabLinkRipple = new RippleRenderer(this, ngZone, _elementRef, platform);
+        this._tabLinkRipple.setupTriggerEvents(_elementRef.nativeElement);
         this.tabIndex = parseInt(tabIndex) || 0;
+        if (globalOptions) {
+            this.rippleConfig = { speedFactor: globalOptions.baseSpeedFactor };
+        }
     }
     /**
      * Whether the link is active.
@@ -1479,33 +1482,25 @@ class MatTabLink extends _MatTabLinkMixinBase {
         }
     }
     /**
-     * Whether ripples should be disabled or not.
+     * Whether ripples are disabled on interaction
+     * \@docs-private
      * @return {?}
      */
-    get disableRipple() { return this.disabled || this._disableRipple; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disableRipple(value) {
-        this._disableRipple = value;
-        this._tabLinkRipple.disabled = this.disableRipple;
-        this._tabLinkRipple._updateRippleRenderer();
+    get rippleDisabled() {
+        return this.disabled || this.disableRipple;
     }
     /**
      * @return {?}
      */
     ngOnDestroy() {
-        // Manually call the ngOnDestroy lifecycle hook of the ripple instance because it won't be
-        // called automatically since its instance is not created by Angular.
-        this._tabLinkRipple.ngOnDestroy();
+        this._tabLinkRipple._removeTriggerEvents();
     }
 }
 MatTabLink.decorators = [
     { type: Directive, args: [{
                 selector: '[mat-tab-link], [matTabLink]',
                 exportAs: 'matTabLink',
-                inputs: ['disabled', 'tabIndex'],
+                inputs: ['disabled', 'disableRipple', 'tabIndex'],
                 host: {
                     'class': 'mat-tab-link',
                     '[attr.aria-disabled]': 'disabled.toString()',

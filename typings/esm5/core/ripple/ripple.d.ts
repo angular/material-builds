@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, NgZone, OnChanges, SimpleChanges, OnDestroy, InjectionToken } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { RippleConfig } from './ripple-renderer';
+import { ElementRef, InjectionToken, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { RippleRef } from './ripple-ref';
+import { RippleConfig, RippleTarget } from './ripple-renderer';
 /** Configurable options for `matRipple`. */
 export interface RippleGlobalOptions {
     /**
@@ -25,22 +25,17 @@ export interface RippleGlobalOptions {
 }
 /** Injection token that can be used to specify the global ripple options. */
 export declare const MAT_RIPPLE_GLOBAL_OPTIONS: InjectionToken<RippleGlobalOptions>;
-export declare class MatRipple implements OnChanges, OnDestroy {
-    /**
-     * The element that triggers the ripple when click events are received. Defaults to the
-     * directive's host element.
-     */
-    trigger: HTMLElement | HTMLElement;
+export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
+    private _elementRef;
+    /** Custom color for all ripples. */
+    color: string;
+    /** Whether the ripples should be visible outside the component's bounds. */
+    unbounded: boolean;
     /**
      * Whether the ripple always originates from the center of the host element's bounds, rather
      * than originating from the location of the click event.
      */
     centered: boolean;
-    /**
-     * Whether click events will not trigger the ripple. Ripples can be still launched manually
-     * by using the `launch()` method.
-     */
-    disabled: boolean;
     /**
      * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
      * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -53,16 +48,26 @@ export declare class MatRipple implements OnChanges, OnDestroy {
      * A changed speedFactor will not modify the fade-out duration of the ripples.
      */
     speedFactor: number;
-    /** Custom color for ripples. */
-    color: string;
-    /** Whether foreground ripples should be visible outside the component's bounds. */
-    unbounded: boolean;
+    /**
+     * Whether click events will not trigger the ripple. Ripples can be still launched manually
+     * by using the `launch()` method.
+     */
+    disabled: boolean;
+    private _disabled;
+    /**
+     * The element that triggers the ripple when click events are received.
+     * Defaults to the directive's host element.
+     */
+    trigger: HTMLElement;
+    private _trigger;
     /** Renderer for the ripple DOM manipulations. */
     private _rippleRenderer;
     /** Options that are set globally for all ripples. */
     private _globalOptions;
-    constructor(elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions);
-    ngOnChanges(changes: SimpleChanges): void;
+    /** Whether ripple directive is initialized and the input bindings are set. */
+    private _isInitialized;
+    constructor(_elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions);
+    ngOnInit(): void;
     ngOnDestroy(): void;
     /** Launches a manual ripple at the specified position. */
     launch(x: number, y: number, config?: RippleConfig): RippleRef;
@@ -70,6 +75,8 @@ export declare class MatRipple implements OnChanges, OnDestroy {
     fadeOutAll(): void;
     /** Ripple configuration from the directive's input values. */
     readonly rippleConfig: RippleConfig;
-    /** Updates the ripple renderer with the latest ripple configuration. */
-    _updateRippleRenderer(): void;
+    /** Whether ripples on pointer-down are  disabled or not. */
+    readonly rippleDisabled: boolean;
+    /** Sets up the the trigger event listeners if ripples are enabled. */
+    private _setupTriggerEventsIfEnabled();
 }

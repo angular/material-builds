@@ -20,6 +20,17 @@ export declare type RippleConfig = {
     persistent?: boolean;
 };
 /**
+ * Interface that describes the target for launching ripples.
+ * It defines the ripple configuration and disabled state for interaction ripples.
+ * @docs-private
+ */
+export interface RippleTarget {
+    /** Configuration for ripples that are launched on pointer down. */
+    rippleConfig: RippleConfig;
+    /** Whether ripples on pointer down should be disabled. */
+    rippleDisabled: boolean;
+}
+/**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
  * event handlers to be installed on the element that triggers ripple animations.
@@ -27,6 +38,7 @@ export declare type RippleConfig = {
  * @docs-private
  */
 export declare class RippleRenderer {
+    private _target;
     private _ngZone;
     /** Element where the ripples are being added to. */
     private _containerElement;
@@ -42,11 +54,7 @@ export declare class RippleRenderer {
     private _lastTouchStartEvent;
     /** Options that apply to all the event listeners that are bound by the renderer. */
     private _eventOptions;
-    /** Ripple config for all ripples created by events. */
-    rippleConfig: RippleConfig;
-    /** Whether mouse ripples should be created or not. */
-    rippleDisabled: boolean;
-    constructor(elementRef: ElementRef, _ngZone: NgZone, platform: Platform);
+    constructor(_target: RippleTarget, _ngZone: NgZone, elementRef: ElementRef, platform: Platform);
     /**
      * Fades in a ripple at the given coordinates.
      * @param x Coordinate within the element, along the X axis at which to start the ripple.
@@ -58,8 +66,8 @@ export declare class RippleRenderer {
     fadeOutRipple(rippleRef: RippleRef): void;
     /** Fades out all currently active ripples. */
     fadeOutAll(): void;
-    /** Sets the trigger element and registers the mouse events. */
-    setTriggerElement(element: HTMLElement | null): void;
+    /** Sets up the trigger event listeners */
+    setupTriggerEvents(element: HTMLElement): void;
     /** Function being called whenever the trigger is being pressed using mouse. */
     private onMousedown;
     /** Function being called whenever the trigger is being pressed using touch. */
@@ -68,4 +76,6 @@ export declare class RippleRenderer {
     private onPointerUp;
     /** Runs a timeout outside of the Angular zone to avoid triggering the change detection. */
     private runTimeoutOutsideZone(fn, delay?);
+    /** Removes previously registered event listeners from the trigger element. */
+    _removeTriggerEvents(): void;
 }

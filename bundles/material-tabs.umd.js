@@ -1856,7 +1856,7 @@ var MatTabLinkBase = /** @class */ (function () {
     }
     return MatTabLinkBase;
 }());
-var _MatTabLinkMixinBase = _angular_material_core.mixinTabIndex(_angular_material_core.mixinDisabled(MatTabLinkBase));
+var _MatTabLinkMixinBase = _angular_material_core.mixinTabIndex(_angular_material_core.mixinDisableRipple(_angular_material_core.mixinDisabled(MatTabLinkBase)));
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
@@ -1871,15 +1871,16 @@ var MatTabLink = /** @class */ (function (_super) {
          */
         _this._isActive = false;
         /**
-         * Whether the ripples for this tab should be disabled or not.
+         * Ripple configuration for ripples that are launched on pointer down.
+         * \@docs-private
          */
-        _this._disableRipple = false;
-        // Manually create a ripple instance that uses the tab link element as trigger element.
-        // Notice that the lifecycle hooks for the ripple config won't be called anymore.
-        // Manually create a ripple instance that uses the tab link element as trigger element.
-        // Notice that the lifecycle hooks for the ripple config won't be called anymore.
-        _this._tabLinkRipple = new _angular_material_core.MatRipple(_elementRef, ngZone, platform, globalOptions);
+        _this.rippleConfig = {};
+        _this._tabLinkRipple = new _angular_material_core.RippleRenderer(_this, ngZone, _elementRef, platform);
+        _this._tabLinkRipple.setupTriggerEvents(_elementRef.nativeElement);
         _this.tabIndex = parseInt(tabIndex) || 0;
+        if (globalOptions) {
+            _this.rippleConfig = { speedFactor: globalOptions.baseSpeedFactor };
+        }
         return _this;
     }
     Object.defineProperty(MatTabLink.prototype, "active", {
@@ -1901,21 +1902,18 @@ var MatTabLink = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatTabLink.prototype, "disableRipple", {
-        /** Whether ripples should be disabled or not. */
+    Object.defineProperty(MatTabLink.prototype, "rippleDisabled", {
+        /**
+         * Whether ripples are disabled on interaction
+         * @docs-private
+         */
         get: /**
-         * Whether ripples should be disabled or not.
+         * Whether ripples are disabled on interaction
+         * \@docs-private
          * @return {?}
          */
-        function () { return this.disabled || this._disableRipple; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disableRipple = value;
-            this._tabLinkRipple.disabled = this.disableRipple;
-            this._tabLinkRipple._updateRippleRenderer();
+        function () {
+            return this.disabled || this.disableRipple;
         },
         enumerable: true,
         configurable: true
@@ -1927,15 +1925,13 @@ var MatTabLink = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // Manually call the ngOnDestroy lifecycle hook of the ripple instance because it won't be
-        // called automatically since its instance is not created by Angular.
-        this._tabLinkRipple.ngOnDestroy();
+        this._tabLinkRipple._removeTriggerEvents();
     };
     MatTabLink.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: '[mat-tab-link], [matTabLink]',
                     exportAs: 'matTabLink',
-                    inputs: ['disabled', 'tabIndex'],
+                    inputs: ['disabled', 'disableRipple', 'tabIndex'],
                     host: {
                         'class': 'mat-tab-link',
                         '[attr.aria-disabled]': 'disabled.toString()',
