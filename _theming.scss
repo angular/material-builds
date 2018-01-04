@@ -1480,7 +1480,7 @@ $mat-menu-icon-margin: 16px !default;
     $font-family: _mat-get-type-value($config, $level, font-family);
   }
 
-  @return unquote($font-family);
+  @return if($font-family == null, $font-family, unquote($font-family));
 }
 
 // Converts a typography level into CSS styles.
@@ -1495,7 +1495,11 @@ $mat-menu-icon-margin: 16px !default;
   @if ($font-size == inherit or
        $font-weight == inherit or
        $line-height == inherit or
-       $font-family == inherit) {
+       $font-family == inherit or
+       $font-size == null or
+       $font-weight == null or
+       $line-height == null or
+       $font-family == null) {
 
     font-size: $font-size;
     font-weight: $font-weight;

@@ -7,7 +7,7 @@
  */
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Injector, Input, NgModule, Optional, SkipSelf, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule, DOCUMENT, Location } from '@angular/common';
-import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { Overlay, OverlayConfig, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { A11yModule, FocusTrapFactory } from '@angular/cdk/a11y';
 import { MatCommonModule } from '@angular/material/core';
@@ -475,16 +475,19 @@ class MatDialog {
      * @param {?} _defaultOptions
      * @param {?} _scrollStrategy
      * @param {?} _parentDialog
+     * @param {?} _overlayContainer
      */
-    constructor(_overlay, _injector, location, _defaultOptions, _scrollStrategy, _parentDialog) {
+    constructor(_overlay, _injector, location, _defaultOptions, _scrollStrategy, _parentDialog, _overlayContainer) {
         this._overlay = _overlay;
         this._injector = _injector;
         this._defaultOptions = _defaultOptions;
         this._scrollStrategy = _scrollStrategy;
         this._parentDialog = _parentDialog;
+        this._overlayContainer = _overlayContainer;
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new Subject();
         this._afterOpenAtThisLevel = new Subject();
+        this._ariaHiddenElements = new Map();
         /**
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
@@ -536,6 +539,10 @@ class MatDialog {
         const /** @type {?} */ overlayRef = this._createOverlay(config);
         const /** @type {?} */ dialogContainer = this._attachDialogContainer(overlayRef, config);
         const /** @type {?} */ dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
+        // If this is the first dialog that we're opening, hide all the non-overlay content.
+        if (!this.openDialogs.length) {
+            this._hideNonDialogContentFromAssistiveTechnology();
+        }
         this.openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(() => this._removeOpenDialog(dialogRef));
         this.afterOpen.next(dialogRef);
@@ -675,9 +682,40 @@ class MatDialog {
         const /** @type {?} */ index = this.openDialogs.indexOf(dialogRef);
         if (index > -1) {
             this.openDialogs.splice(index, 1);
-            // no open dialogs are left, call next on afterAllClosed Subject
+            // If all the dialogs were closed, remove/restore the `aria-hidden`
+            // to a the siblings and emit to the `afterAllClosed` stream.
             if (!this.openDialogs.length) {
+                this._ariaHiddenElements.forEach((previousValue, element) => {
+                    if (previousValue) {
+                        element.setAttribute('aria-hidden', previousValue);
+                    }
+                    else {
+                        element.removeAttribute('aria-hidden');
+                    }
+                });
+                this._ariaHiddenElements.clear();
                 this._afterAllClosed.next();
+            }
+        }
+    }
+    /**
+     * Hides all of the content that isn't an overlay from assistive technology.
+     * @return {?}
+     */
+    _hideNonDialogContentFromAssistiveTechnology() {
+        const /** @type {?} */ overlayContainer = this._overlayContainer.getContainerElement();
+        // Ensure that the overlay container is attached to the DOM.
+        if (overlayContainer.parentElement) {
+            const /** @type {?} */ siblings = overlayContainer.parentElement.children;
+            for (let /** @type {?} */ i = siblings.length - 1; i > -1; i--) {
+                let /** @type {?} */ sibling = siblings[i];
+                if (sibling !== overlayContainer &&
+                    sibling.nodeName !== 'SCRIPT' &&
+                    sibling.nodeName !== 'STYLE' &&
+                    !sibling.hasAttribute('aria-live')) {
+                    this._ariaHiddenElements.set(sibling, sibling.getAttribute('aria-hidden'));
+                    sibling.setAttribute('aria-hidden', 'true');
+                }
             }
         }
     }
@@ -693,6 +731,7 @@ MatDialog.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] },] },
     { type: undefined, decorators: [{ type: Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] },] },
     { type: MatDialog, decorators: [{ type: Optional }, { type: SkipSelf },] },
+    { type: OverlayContainer, },
 ];
 /**
  * Applies default options to the dialog config.

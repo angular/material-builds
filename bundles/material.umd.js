@@ -8411,16 +8411,18 @@ var MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  * Service to open Material Design modal dialogs.
  */
 var MatDialog = /** @class */ (function () {
-    function MatDialog(_overlay, _injector, location, _defaultOptions, _scrollStrategy, _parentDialog) {
+    function MatDialog(_overlay, _injector, location, _defaultOptions, _scrollStrategy, _parentDialog, _overlayContainer) {
         var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
         this._defaultOptions = _defaultOptions;
         this._scrollStrategy = _scrollStrategy;
         this._parentDialog = _parentDialog;
+        this._overlayContainer = _overlayContainer;
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new rxjs_Subject.Subject();
         this._afterOpenAtThisLevel = new rxjs_Subject.Subject();
+        this._ariaHiddenElements = new Map();
         /**
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
@@ -8504,6 +8506,10 @@ var MatDialog = /** @class */ (function () {
         var /** @type {?} */ overlayRef = this._createOverlay(config);
         var /** @type {?} */ dialogContainer = this._attachDialogContainer(overlayRef, config);
         var /** @type {?} */ dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
+        // If this is the first dialog that we're opening, hide all the non-overlay content.
+        if (!this.openDialogs.length) {
+            this._hideNonDialogContentFromAssistiveTechnology();
+        }
         this.openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(function () { return _this._removeOpenDialog(dialogRef); });
         this.afterOpen.next(dialogRef);
@@ -8699,9 +8705,44 @@ var MatDialog = /** @class */ (function () {
         var /** @type {?} */ index = this.openDialogs.indexOf(dialogRef);
         if (index > -1) {
             this.openDialogs.splice(index, 1);
-            // no open dialogs are left, call next on afterAllClosed Subject
+            // If all the dialogs were closed, remove/restore the `aria-hidden`
+            // to a the siblings and emit to the `afterAllClosed` stream.
             if (!this.openDialogs.length) {
+                this._ariaHiddenElements.forEach(function (previousValue, element) {
+                    if (previousValue) {
+                        element.setAttribute('aria-hidden', previousValue);
+                    }
+                    else {
+                        element.removeAttribute('aria-hidden');
+                    }
+                });
+                this._ariaHiddenElements.clear();
                 this._afterAllClosed.next();
+            }
+        }
+    };
+    /**
+     * Hides all of the content that isn't an overlay from assistive technology.
+     * @return {?}
+     */
+    MatDialog.prototype._hideNonDialogContentFromAssistiveTechnology = /**
+     * Hides all of the content that isn't an overlay from assistive technology.
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ overlayContainer = this._overlayContainer.getContainerElement();
+        // Ensure that the overlay container is attached to the DOM.
+        if (overlayContainer.parentElement) {
+            var /** @type {?} */ siblings = overlayContainer.parentElement.children;
+            for (var /** @type {?} */ i = siblings.length - 1; i > -1; i--) {
+                var /** @type {?} */ sibling = siblings[i];
+                if (sibling !== overlayContainer &&
+                    sibling.nodeName !== 'SCRIPT' &&
+                    sibling.nodeName !== 'STYLE' &&
+                    !sibling.hasAttribute('aria-live')) {
+                    this._ariaHiddenElements.set(sibling, sibling.getAttribute('aria-hidden'));
+                    sibling.setAttribute('aria-hidden', 'true');
+                }
             }
         }
     };
@@ -8716,6 +8757,7 @@ var MatDialog = /** @class */ (function () {
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] },] },
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] },] },
         { type: MatDialog, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
+        { type: _angular_cdk_overlay.OverlayContainer, },
     ]; };
     return MatDialog;
 }());
@@ -28308,7 +28350,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.3-f82bbae');
+var VERSION = new _angular_core.Version('5.0.3-d8c1392');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

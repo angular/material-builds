@@ -1,4 +1,4 @@
-import { BlockScrollStrategy, Overlay, ScrollStrategy } from '@angular/cdk/overlay';
+import { BlockScrollStrategy, Overlay, ScrollStrategy, OverlayContainer } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
 import { Location } from '@angular/common';
 import { InjectionToken, Injector, TemplateRef } from '@angular/core';
@@ -28,9 +28,11 @@ export declare class MatDialog {
     private _defaultOptions;
     private _scrollStrategy;
     private _parentDialog;
+    private _overlayContainer;
     private _openDialogsAtThisLevel;
     private _afterAllClosedAtThisLevel;
     private _afterOpenAtThisLevel;
+    private _ariaHiddenElements;
     /** Keeps track of the currently-open dialogs. */
     readonly openDialogs: MatDialogRef<any>[];
     /** Stream that emits when a dialog has been opened. */
@@ -41,7 +43,7 @@ export declare class MatDialog {
      * Will emit on subscribe if there are no open dialogs to begin with.
      */
     afterAllClosed: Observable<void>;
-    constructor(_overlay: Overlay, _injector: Injector, location: Location, _defaultOptions: any, _scrollStrategy: any, _parentDialog: MatDialog);
+    constructor(_overlay: Overlay, _injector: Injector, location: Location, _defaultOptions: any, _scrollStrategy: any, _parentDialog: MatDialog, _overlayContainer: OverlayContainer);
     /**
      * Opens a modal dialog containing the given component.
      * @param componentOrTemplateRef Type of the component to load into the dialog,
@@ -102,4 +104,8 @@ export declare class MatDialog {
      * @param dialogRef Dialog to be removed.
      */
     private _removeOpenDialog(dialogRef);
+    /**
+     * Hides all of the content that isn't an overlay from assistive technology.
+     */
+    private _hideNonDialogContentFromAssistiveTechnology();
 }
