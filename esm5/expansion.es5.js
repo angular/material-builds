@@ -14,12 +14,12 @@ import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { mixinDisabled } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { take } from 'rxjs/operators/take';
 import { filter } from 'rxjs/operators/filter';
 import { startWith } from 'rxjs/operators/startWith';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
@@ -114,6 +114,43 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * Time and timing curve for expansion panel animations.
  */
 var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
+/**
+ * Animations used by the Material expansion panel.
+ */
+var matExpansionAnimations = {
+    /** Animation that rotates the indicator arrow. */
+    indicatorRotate: trigger('indicatorRotate', [
+        state('collapsed', style({ transform: 'rotate(0deg)' })),
+        state('expanded', style({ transform: 'rotate(180deg)' })),
+        transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    ]),
+    /** Animation that expands and collapses the panel header height. */
+    expansionHeaderHeight: trigger('expansionHeight', [
+        state('collapsed', style({
+            height: '{{collapsedHeight}}',
+        }), {
+            params: { collapsedHeight: '48px' },
+        }),
+        state('expanded', style({
+            height: '{{expandedHeight}}'
+        }), {
+            params: { expandedHeight: '64px' }
+        }),
+        transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    ]),
+    /** Animation that expands and collapses the panel content. */
+    bodyExpansion: trigger('bodyExpansion', [
+        state('collapsed', style({ height: '0px', visibility: 'hidden' })),
+        state('expanded', style({ height: '*', visibility: 'visible' })),
+        transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 /**
  * \@docs-private
  */
@@ -265,6 +302,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled', 'expanded'],
                     outputs: ['opened', 'closed'],
+                    animations: [matExpansionAnimations.bodyExpansion],
                     host: {
                         'class': 'mat-expansion-panel',
                         '[class.mat-expanded]': 'expanded',
@@ -272,13 +310,6 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     },
                     providers: [
                         { provide: _MatExpansionPanelMixinBase, useExisting: forwardRef(function () { return MatExpansionPanel; }) }
-                    ],
-                    animations: [
-                        trigger('bodyExpansion', [
-                            state('collapsed', style({ height: '0px', visibility: 'hidden' })),
-                            state('expanded', style({ height: '*', visibility: 'visible' })),
-                            transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-                        ]),
                     ],
                 },] },
     ];
@@ -439,6 +470,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
+                    animations: [
+                        matExpansionAnimations.indicatorRotate,
+                        matExpansionAnimations.expansionHeaderHeight
+                    ],
                     host: {
                         'class': 'mat-expansion-panel-header',
                         'role': 'button',
@@ -451,26 +486,6 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                         '(keyup)': '_keyup($event)',
                         '[@expansionHeight]': "{\n        value: _getExpandedState(),\n        params: {\n          collapsedHeight: collapsedHeight,\n          expandedHeight: expandedHeight\n        }\n    }",
                     },
-                    animations: [
-                        trigger('indicatorRotate', [
-                            state('collapsed', style({ transform: 'rotate(0deg)' })),
-                            state('expanded', style({ transform: 'rotate(180deg)' })),
-                            transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-                        ]),
-                        trigger('expansionHeight', [
-                            state('collapsed', style({
-                                height: '{{collapsedHeight}}',
-                            }), {
-                                params: { collapsedHeight: '48px' },
-                            }),
-                            state('expanded', style({
-                                height: '{{expandedHeight}}'
-                            }), {
-                                params: { expandedHeight: '64px' }
-                            }),
-                            transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-                        ]),
-                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -578,5 +593,5 @@ var MatExpansionModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatExpansionModule, MatAccordion, EXPANSION_PANEL_ANIMATION_TIMING, MatExpansionPanelBase, _MatExpansionPanelMixinBase, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent };
+export { MatExpansionModule, MatAccordion, MatExpansionPanelBase, _MatExpansionPanelMixinBase, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
 //# sourceMappingURL=expansion.es5.js.map

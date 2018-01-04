@@ -12,8 +12,8 @@ import { CommonModule } from '@angular/common';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
@@ -232,6 +232,33 @@ MatTab.propDecorators = {
  */
 
 /**
+ * Animations used by the Material tabs.
+ */
+const matTabsAnimations = {
+    /** Animation translates a tab along the X axis. */
+    translateTab: trigger('translateTab', [
+        // Note: transitions to `none` instead of 0, because some browsers might blur the content.
+        state('center, void, left-origin-center, right-origin-center', style({ transform: 'none' })),
+        state('left', style({ transform: 'translate3d(-100%, 0, 0)' })),
+        state('right', style({ transform: 'translate3d(100%, 0, 0)' })),
+        transition('* => left, * => right, left => center, right => center', animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
+        transition('void => left-origin-center', [
+            style({ transform: 'translate3d(-100%, 0, 0)' }),
+            animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
+        ]),
+        transition('void => right-origin-center', [
+            style({ transform: 'translate3d(100%, 0, 0)' }),
+            animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
+        ])
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * The portal host directive for the contents of the tab.
  * \@docs-private
  */
@@ -408,26 +435,10 @@ MatTabBody.decorators = [
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
+                animations: [matTabsAnimations.translateTab],
                 host: {
                     'class': 'mat-tab-body',
                 },
-                animations: [
-                    trigger('translateTab', [
-                        // Note: transitions to `none` instead of 0, because some browsers might blur the content.
-                        state('center, void, left-origin-center, right-origin-center', style({ transform: 'none' })),
-                        state('left', style({ transform: 'translate3d(-100%, 0, 0)' })),
-                        state('right', style({ transform: 'translate3d(100%, 0, 0)' })),
-                        transition('* => left, * => right, left => center, right => center', animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
-                        transition('void => left-origin-center', [
-                            style({ transform: 'translate3d(-100%, 0, 0)' }),
-                            animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
-                        ]),
-                        transition('void => right-origin-center', [
-                            style({ transform: 'translate3d(100%, 0, 0)' }),
-                            animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
-                        ])
-                    ])
-                ]
             },] },
 ];
 /** @nocollapse */
@@ -1579,5 +1590,5 @@ MatTabsModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, MatTabBase as ɵe20, _MatTabMixinBase as ɵf20, MatTabHeaderBase as ɵa20, _MatTabHeaderMixinBase as ɵb20, MatTabLabelWrapperBase as ɵc20, _MatTabLabelWrapperMixinBase as ɵd20, MatTabLinkBase as ɵi20, MatTabNavBase as ɵg20, _MatTabLinkMixinBase as ɵj20, _MatTabNavMixinBase as ɵh20 };
+export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe22, _MatTabMixinBase as ɵf22, MatTabHeaderBase as ɵa22, _MatTabHeaderMixinBase as ɵb22, MatTabLabelWrapperBase as ɵc22, _MatTabLabelWrapperMixinBase as ɵd22, MatTabLinkBase as ɵi22, MatTabNavBase as ɵg22, _MatTabLinkMixinBase as ɵj22, _MatTabNavMixinBase as ɵh22 };
 //# sourceMappingURL=tabs.js.map

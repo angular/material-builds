@@ -43,42 +43,58 @@ function __extends(d, b) {
  */
 
 /**
- * This animation controls the menu panel's entry and exit from the page.
- *
- * When the menu panel is added to the DOM, it scales in and fades in its border.
- *
- * When the menu panel is removed from the DOM, it simply fades out after a brief
- * delay to display the ripple.
+ * Animations used by the mat-menu component.
+ * Animation duration and timing values are based on:
+ * https://material.io/guidelines/components/menus.html#menus-usage
  */
-var transformMenu = _angular_animations.trigger('transformMenu', [
-    _angular_animations.state('void', _angular_animations.style({
-        opacity: 0,
-        // This starts off from 0.01, instead of 0, because there's an issue in the Angular animations
-        // as of 4.2, which causes the animation to be skipped if it starts from 0.
-        transform: 'scale(0.01, 0.01)'
-    })),
-    _angular_animations.state('enter-start', _angular_animations.style({
-        opacity: 1,
-        transform: 'scale(1, 0.5)'
-    })),
-    _angular_animations.state('enter', _angular_animations.style({
-        transform: 'scale(1, 1)'
-    })),
-    _angular_animations.transition('void => enter-start', _angular_animations.animate('100ms linear')),
-    _angular_animations.transition('enter-start => enter', _angular_animations.animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
-    _angular_animations.transition('* => void', _angular_animations.animate('150ms 50ms linear', _angular_animations.style({ opacity: 0 })))
-]);
-/**
- * This animation fades in the background color and content of the menu panel
- * after its containing element is scaled in.
- */
-var fadeInItems = _angular_animations.trigger('fadeInItems', [
-    _angular_animations.state('showing', _angular_animations.style({ opacity: 1 })),
-    _angular_animations.transition('void => *', [
-        _angular_animations.style({ opacity: 0 }),
-        _angular_animations.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+var matMenuAnimations = {
+    /**
+       * This animation controls the menu panel's entry and exit from the page.
+       *
+       * When the menu panel is added to the DOM, it scales in and fades in its border.
+       *
+       * When the menu panel is removed from the DOM, it simply fades out after a brief
+       * delay to display the ripple.
+       */
+    transformMenu: _angular_animations.trigger('transformMenu', [
+        // TODO(kara): switch to :enter and :leave once Mobile Safari is sorted out.
+        _angular_animations.state('void', _angular_animations.style({
+            opacity: 0,
+            // This starts off from 0.01, instead of 0, because there's an issue in the Angular animations
+            // as of 4.2, which causes the animation to be skipped if it starts from 0.
+            transform: 'scale(0.01, 0.01)'
+        })),
+        _angular_animations.state('enter-start', _angular_animations.style({
+            opacity: 1,
+            transform: 'scale(1, 0.5)'
+        })),
+        _angular_animations.state('enter', _angular_animations.style({
+            transform: 'scale(1, 1)'
+        })),
+        _angular_animations.transition('void => enter-start', _angular_animations.animate('100ms linear')),
+        _angular_animations.transition('enter-start => enter', _angular_animations.animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+        _angular_animations.transition('* => void', _angular_animations.animate('150ms 50ms linear', _angular_animations.style({ opacity: 0 })))
+    ]),
+    /**
+       * This animation fades in the background color and content of the menu panel
+       * after its containing element is scaled in.
+       */
+    fadeInItems: _angular_animations.trigger('fadeInItems', [
+        _angular_animations.state('showing', _angular_animations.style({ opacity: 1 })),
+        _angular_animations.transition('void => *', [
+            _angular_animations.style({ opacity: 0 }),
+            _angular_animations.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+        ])
     ])
-]);
+};
+/**
+ * @deprecated
+ */
+var fadeInItems = matMenuAnimations.fadeInItems;
+/**
+ * @deprecated
+ */
+var transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
@@ -628,8 +644,8 @@ var MatMenu = /** @class */ (function () {
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     animations: [
-                        transformMenu,
-                        fadeInItems
+                        matMenuAnimations.transformMenu,
+                        matMenuAnimations.fadeInItems
                     ],
                     exportAs: 'matMenu'
                 },] },
@@ -1242,17 +1258,18 @@ var MatMenuModule = /** @class */ (function () {
 }());
 
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
-exports.fadeInItems = fadeInItems;
-exports.transformMenu = transformMenu;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
 exports.MatMenuTrigger = MatMenuTrigger;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.matMenuAnimations = matMenuAnimations;
+exports.fadeInItems = fadeInItems;
+exports.transformMenu = transformMenu;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -11,7 +11,6 @@ import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgModule, NgZone, Optional, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
@@ -20,12 +19,30 @@ import { take } from 'rxjs/operators/take';
 import { merge } from 'rxjs/observable/merge';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Subject } from 'rxjs/Subject';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Animations used by MatTooltip.
+ */
+const matTooltipAnimations = {
+    /** Animation that transitions a tooltip in and out. */
+    tooltipState: trigger('state', [
+        state('initial, void, hidden', style({ transform: 'scale(0)' })),
+        state('visible', style({ transform: 'scale(1)' })),
+        transition('* => visible', animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
+        transition('* => hidden', animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Time in ms to throttle repositioning after scroll events.
  */
@@ -664,14 +681,7 @@ TooltipComponent.decorators = [
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
-                animations: [
-                    trigger('state', [
-                        state('initial, void, hidden', style({ transform: 'scale(0)' })),
-                        state('visible', style({ transform: 'scale(1)' })),
-                        transition('* => visible', animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
-                        transition('* => hidden', animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
-                    ])
-                ],
+                animations: [matTooltipAnimations.tooltipState],
                 host: {
                     // Forces the element to have a layout in IE and Edge. This fixes issues where the element
                     // won't be rendered if the animations are disabled or there is no web animations polyfill.
@@ -736,5 +746,5 @@ MatTooltipModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltip, TooltipComponent };
+export { MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltip, TooltipComponent, matTooltipAnimations };
 //# sourceMappingURL=tooltip.js.map

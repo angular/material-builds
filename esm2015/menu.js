@@ -30,42 +30,58 @@ import { of } from 'rxjs/observable/of';
  */
 
 /**
- * This animation controls the menu panel's entry and exit from the page.
- *
- * When the menu panel is added to the DOM, it scales in and fades in its border.
- *
- * When the menu panel is removed from the DOM, it simply fades out after a brief
- * delay to display the ripple.
+ * Animations used by the mat-menu component.
+ * Animation duration and timing values are based on:
+ * https://material.io/guidelines/components/menus.html#menus-usage
  */
-const transformMenu = trigger('transformMenu', [
-    state('void', style({
-        opacity: 0,
-        // This starts off from 0.01, instead of 0, because there's an issue in the Angular animations
-        // as of 4.2, which causes the animation to be skipped if it starts from 0.
-        transform: 'scale(0.01, 0.01)'
-    })),
-    state('enter-start', style({
-        opacity: 1,
-        transform: 'scale(1, 0.5)'
-    })),
-    state('enter', style({
-        transform: 'scale(1, 1)'
-    })),
-    transition('void => enter-start', animate('100ms linear')),
-    transition('enter-start => enter', animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
-    transition('* => void', animate('150ms 50ms linear', style({ opacity: 0 })))
-]);
-/**
- * This animation fades in the background color and content of the menu panel
- * after its containing element is scaled in.
- */
-const fadeInItems = trigger('fadeInItems', [
-    state('showing', style({ opacity: 1 })),
-    transition('void => *', [
-        style({ opacity: 0 }),
-        animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+const matMenuAnimations = {
+    /**
+       * This animation controls the menu panel's entry and exit from the page.
+       *
+       * When the menu panel is added to the DOM, it scales in and fades in its border.
+       *
+       * When the menu panel is removed from the DOM, it simply fades out after a brief
+       * delay to display the ripple.
+       */
+    transformMenu: trigger('transformMenu', [
+        // TODO(kara): switch to :enter and :leave once Mobile Safari is sorted out.
+        state('void', style({
+            opacity: 0,
+            // This starts off from 0.01, instead of 0, because there's an issue in the Angular animations
+            // as of 4.2, which causes the animation to be skipped if it starts from 0.
+            transform: 'scale(0.01, 0.01)'
+        })),
+        state('enter-start', style({
+            opacity: 1,
+            transform: 'scale(1, 0.5)'
+        })),
+        state('enter', style({
+            transform: 'scale(1, 1)'
+        })),
+        transition('void => enter-start', animate('100ms linear')),
+        transition('enter-start => enter', animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+        transition('* => void', animate('150ms 50ms linear', style({ opacity: 0 })))
+    ]),
+    /**
+       * This animation fades in the background color and content of the menu panel
+       * after its containing element is scaled in.
+       */
+    fadeInItems: trigger('fadeInItems', [
+        state('showing', style({ opacity: 1 })),
+        transition('void => *', [
+            style({ opacity: 0 }),
+            animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+        ])
     ])
-]);
+};
+/**
+ * @deprecated
+ */
+const fadeInItems = matMenuAnimations.fadeInItems;
+/**
+ * @deprecated
+ */
+const transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
@@ -495,8 +511,8 @@ MatMenu.decorators = [
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 animations: [
-                    transformMenu,
-                    fadeInItems
+                    matMenuAnimations.transformMenu,
+                    matMenuAnimations.fadeInItems
                 ],
                 exportAs: 'matMenu'
             },] },
@@ -1006,5 +1022,5 @@ MatMenuModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, fadeInItems, transformMenu, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, MatMenuItemBase as ɵa22, _MatMenuItemMixinBase as ɵb22, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd22, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc22 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuItemBase as ɵa21, _MatMenuItemMixinBase as ɵb21, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd21, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc21 };
 //# sourceMappingURL=menu.js.map

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('@angular/animations'), require('rxjs/operators/startWith'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/Observable'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/layout'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', '@angular/animations', 'rxjs/operators/startWith', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/Observable', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/layout', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.ng.animations,global.Rx.operators,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.accordion,global.Rx,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.layout,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,_angular_animations,rxjs_operators_startWith,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operators_auditTime,rxjs_operators_takeUntil,_angular_cdk_accordion,rxjs_Observable,_angular_cdk_scrolling,rxjs_operators_debounceTime,_angular_cdk_layout,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest,rxjs_observable_empty) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('rxjs/operators/startWith'), require('rxjs/observable/fromEvent'), require('@angular/animations'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/defer'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/Observable'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/layout'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', 'rxjs/operators/startWith', 'rxjs/observable/fromEvent', '@angular/animations', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/defer', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/Observable', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/layout', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.Rx.operators,global.Rx.Observable,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.accordion,global.Rx,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.layout,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,rxjs_operators_startWith,rxjs_observable_fromEvent,_angular_animations,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_defer,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operators_auditTime,rxjs_operators_takeUntil,_angular_cdk_accordion,rxjs_Observable,_angular_cdk_scrolling,rxjs_operators_debounceTime,_angular_cdk_layout,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest,rxjs_observable_empty) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -2771,6 +2771,26 @@ var MatSuffix = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Animations used by the MatFormField.
+ */
+var matFormFieldAnimations = {
+    /** Animation that transitions the form field's error and hint messages. */
+    transitionMessages: _angular_animations.trigger('transitionMessages', [
+        // TODO(mmalerba): Use angular animations for label animation as well.
+        _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
+        _angular_animations.transition('void => enter', [
+            _angular_animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
+            _angular_animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+        ]),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 var nextUniqueId$1 = 0;
 /**
  * Container for form controls that applies Material Design styling and behavior.
@@ -3165,16 +3185,7 @@ var MatFormField = /** @class */ (function () {
                     // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
                     // aren't using MatInput.
                     styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0;width:180px}.mat-form-field-label-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-label{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-label{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-empty.mat-form-field-label{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:block;transition:none}.mat-input-server:focus+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder,.mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder,.mat-form-field-can-float .mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:block}.mat-form-field-label:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;top:0;left:0;width:100%;height:2px;transform-origin:50%;transform:scaleX(.5);visibility:hidden;opacity:0;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-invalid:not(.mat-focused) .mat-form-field-underline .mat-form-field-ripple{height:1px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;opacity:1;transform:scaleX(1);transition:transform .3s cubic-bezier(.25,.8,.25,1),opacity .1s cubic-bezier(.25,.8,.25,1),background-color .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-label-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::-ms-clear,.mat-input-element::-ms-reveal{display:none}.mat-input-element[type=date]::after,.mat-input-element[type=datetime-local]::after,.mat-input-element[type=datetime]::after,.mat-input-element[type=month]::after,.mat-input-element[type=time]::after,.mat-input-element[type=week]::after{content:' ';white-space:pre;width:1px}.mat-input-element::placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-moz-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-webkit-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element:-ms-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-form-field-hide-placeholder .mat-input-element::placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-moz-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-webkit-input-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element:-ms-input-placeholder{color:transparent!important;transition:none}textarea.mat-input-element{resize:vertical;overflow:auto}textarea.mat-autosize{resize:none}"],
-                    animations: [
-                        // TODO(mmalerba): Use angular animations for label animation as well.
-                        _angular_animations.trigger('transitionMessages', [
-                            _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
-                            _angular_animations.transition('void => enter', [
-                                _angular_animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
-                                _angular_animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
-                            ]),
-                        ]),
-                    ],
+                    animations: [matFormFieldAnimations.transitionMessages],
                     host: {
                         'class': 'mat-input-container mat-form-field',
                         '[class.mat-input-invalid]': '_control.errorState',
@@ -7924,6 +7935,28 @@ var MatDialogConfig = /** @class */ (function () {
  */
 
 /**
+ * Animations used by MatDialog.
+ */
+var matDialogAnimations = {
+    /** Animation that slides the dialog in and out of view and fades the opacity. */
+    slideDialog: _angular_animations.trigger('slideDialog', [
+        // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
+        // scale(1)`, because for some reason specifying the transform explicitly, causes IE both
+        // to blur the dialog content and decimate the animation performance. Leaving it as `none`
+        // solves both issues.
+        _angular_animations.state('enter', _angular_animations.style({ transform: 'none', opacity: 1 })),
+        _angular_animations.state('void', _angular_animations.style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
+        _angular_animations.state('exit', _angular_animations.style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
+        _angular_animations.transition('* => *', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Throws an exception for the case when a ComponentPortal is
  * attached to a DomPortalOutlet without an origin.
  * \@docs-private
@@ -8122,18 +8155,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
                     // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
                     // tslint:disable-next-line:validate-decorators
                     changeDetection: _angular_core.ChangeDetectionStrategy.Default,
-                    animations: [
-                        _angular_animations.trigger('slideDialog', [
-                            // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
-                            // scale(1)`, because for some reason specifying the transform explicitly, causes IE both
-                            // to blur the dialog content and decimate the animation performance. Leaving it as `none`
-                            // solves both issues.
-                            _angular_animations.state('enter', _angular_animations.style({ transform: 'none', opacity: 1 })),
-                            _angular_animations.state('void', _angular_animations.style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
-                            _angular_animations.state('exit', _angular_animations.style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
-                            _angular_animations.transition('* => *', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
-                        ])
-                    ],
+                    animations: [matDialogAnimations.slideDialog],
                     host: {
                         'class': 'mat-dialog-container',
                         'tabindex': '-1',
@@ -13149,6 +13171,43 @@ var MatExpansionPanelContent = /** @class */ (function () {
  */
 var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 /**
+ * Animations used by the Material expansion panel.
+ */
+var matExpansionAnimations = {
+    /** Animation that rotates the indicator arrow. */
+    indicatorRotate: _angular_animations.trigger('indicatorRotate', [
+        _angular_animations.state('collapsed', _angular_animations.style({ transform: 'rotate(0deg)' })),
+        _angular_animations.state('expanded', _angular_animations.style({ transform: 'rotate(180deg)' })),
+        _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    ]),
+    /** Animation that expands and collapses the panel header height. */
+    expansionHeaderHeight: _angular_animations.trigger('expansionHeight', [
+        _angular_animations.state('collapsed', _angular_animations.style({
+            height: '{{collapsedHeight}}',
+        }), {
+            params: { collapsedHeight: '48px' },
+        }),
+        _angular_animations.state('expanded', _angular_animations.style({
+            height: '{{expandedHeight}}'
+        }), {
+            params: { expandedHeight: '64px' }
+        }),
+        _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    ]),
+    /** Animation that expands and collapses the panel content. */
+    bodyExpansion: _angular_animations.trigger('bodyExpansion', [
+        _angular_animations.state('collapsed', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
+        _angular_animations.state('expanded', _angular_animations.style({ height: '*', visibility: 'visible' })),
+        _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * \@docs-private
  */
 var MatExpansionPanelBase = /** @class */ (function (_super) {
@@ -13299,6 +13358,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled', 'expanded'],
                     outputs: ['opened', 'closed'],
+                    animations: [matExpansionAnimations.bodyExpansion],
                     host: {
                         'class': 'mat-expansion-panel',
                         '[class.mat-expanded]': 'expanded',
@@ -13306,13 +13366,6 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     },
                     providers: [
                         { provide: _MatExpansionPanelMixinBase, useExisting: _angular_core.forwardRef(function () { return MatExpansionPanel; }) }
-                    ],
-                    animations: [
-                        _angular_animations.trigger('bodyExpansion', [
-                            _angular_animations.state('collapsed', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
-                            _angular_animations.state('expanded', _angular_animations.style({ height: '*', visibility: 'visible' })),
-                            _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-                        ]),
                     ],
                 },] },
     ];
@@ -13473,6 +13526,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    animations: [
+                        matExpansionAnimations.indicatorRotate,
+                        matExpansionAnimations.expansionHeaderHeight
+                    ],
                     host: {
                         'class': 'mat-expansion-panel-header',
                         'role': 'button',
@@ -13485,26 +13542,6 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                         '(keyup)': '_keyup($event)',
                         '[@expansionHeight]': "{\n        value: _getExpandedState(),\n        params: {\n          collapsedHeight: collapsedHeight,\n          expandedHeight: expandedHeight\n        }\n    }",
                     },
-                    animations: [
-                        _angular_animations.trigger('indicatorRotate', [
-                            _angular_animations.state('collapsed', _angular_animations.style({ transform: 'rotate(0deg)' })),
-                            _angular_animations.state('expanded', _angular_animations.style({ transform: 'rotate(180deg)' })),
-                            _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-                        ]),
-                        _angular_animations.trigger('expansionHeight', [
-                            _angular_animations.state('collapsed', _angular_animations.style({
-                                height: '{{collapsedHeight}}',
-                            }), {
-                                params: { collapsedHeight: '48px' },
-                            }),
-                            _angular_animations.state('expanded', _angular_animations.style({
-                                height: '{{expandedHeight}}'
-                            }), {
-                                params: { expandedHeight: '64px' }
-                            }),
-                            _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-                        ]),
-                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -15607,42 +15644,58 @@ var MatListModule = /** @class */ (function () {
  */
 
 /**
- * This animation controls the menu panel's entry and exit from the page.
- *
- * When the menu panel is added to the DOM, it scales in and fades in its border.
- *
- * When the menu panel is removed from the DOM, it simply fades out after a brief
- * delay to display the ripple.
+ * Animations used by the mat-menu component.
+ * Animation duration and timing values are based on:
+ * https://material.io/guidelines/components/menus.html#menus-usage
  */
-var transformMenu = _angular_animations.trigger('transformMenu', [
-    _angular_animations.state('void', _angular_animations.style({
-        opacity: 0,
-        // This starts off from 0.01, instead of 0, because there's an issue in the Angular animations
-        // as of 4.2, which causes the animation to be skipped if it starts from 0.
-        transform: 'scale(0.01, 0.01)'
-    })),
-    _angular_animations.state('enter-start', _angular_animations.style({
-        opacity: 1,
-        transform: 'scale(1, 0.5)'
-    })),
-    _angular_animations.state('enter', _angular_animations.style({
-        transform: 'scale(1, 1)'
-    })),
-    _angular_animations.transition('void => enter-start', _angular_animations.animate('100ms linear')),
-    _angular_animations.transition('enter-start => enter', _angular_animations.animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
-    _angular_animations.transition('* => void', _angular_animations.animate('150ms 50ms linear', _angular_animations.style({ opacity: 0 })))
-]);
-/**
- * This animation fades in the background color and content of the menu panel
- * after its containing element is scaled in.
- */
-var fadeInItems = _angular_animations.trigger('fadeInItems', [
-    _angular_animations.state('showing', _angular_animations.style({ opacity: 1 })),
-    _angular_animations.transition('void => *', [
-        _angular_animations.style({ opacity: 0 }),
-        _angular_animations.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+var matMenuAnimations = {
+    /**
+       * This animation controls the menu panel's entry and exit from the page.
+       *
+       * When the menu panel is added to the DOM, it scales in and fades in its border.
+       *
+       * When the menu panel is removed from the DOM, it simply fades out after a brief
+       * delay to display the ripple.
+       */
+    transformMenu: _angular_animations.trigger('transformMenu', [
+        // TODO(kara): switch to :enter and :leave once Mobile Safari is sorted out.
+        _angular_animations.state('void', _angular_animations.style({
+            opacity: 0,
+            // This starts off from 0.01, instead of 0, because there's an issue in the Angular animations
+            // as of 4.2, which causes the animation to be skipped if it starts from 0.
+            transform: 'scale(0.01, 0.01)'
+        })),
+        _angular_animations.state('enter-start', _angular_animations.style({
+            opacity: 1,
+            transform: 'scale(1, 0.5)'
+        })),
+        _angular_animations.state('enter', _angular_animations.style({
+            transform: 'scale(1, 1)'
+        })),
+        _angular_animations.transition('void => enter-start', _angular_animations.animate('100ms linear')),
+        _angular_animations.transition('enter-start => enter', _angular_animations.animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+        _angular_animations.transition('* => void', _angular_animations.animate('150ms 50ms linear', _angular_animations.style({ opacity: 0 })))
+    ]),
+    /**
+       * This animation fades in the background color and content of the menu panel
+       * after its containing element is scaled in.
+       */
+    fadeInItems: _angular_animations.trigger('fadeInItems', [
+        _angular_animations.state('showing', _angular_animations.style({ opacity: 1 })),
+        _angular_animations.transition('void => *', [
+            _angular_animations.style({ opacity: 0 }),
+            _angular_animations.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+        ])
     ])
-]);
+};
+/**
+ * @deprecated
+ */
+var fadeInItems = matMenuAnimations.fadeInItems;
+/**
+ * @deprecated
+ */
+var transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
@@ -16192,8 +16245,8 @@ var MatMenu = /** @class */ (function () {
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     animations: [
-                        transformMenu,
-                        fadeInItems
+                        matMenuAnimations.transformMenu,
+                        matMenuAnimations.fadeInItems
                     ],
                     exportAs: 'matMenu'
                 },] },
@@ -16811,51 +16864,67 @@ var MatMenuModule = /** @class */ (function () {
  */
 
 /**
- * This animation transforms the select's overlay panel on and off the page.
+ * The following are all the animations for the mat-select component, with each
+ * const containing the metadata for one animation.
  *
- * When the panel is attached to the DOM, it expands its width by the amount of padding, scales it
- * up to 100% on the Y axis, fades in its border, and translates slightly up and to the
- * side to ensure the option text correctly overlaps the trigger text.
- *
- * When the panel is removed from the DOM, it simply fades out linearly.
+ * The values below match the implementation of the AngularJS Material mat-select animation.
  */
-var transformPanel = _angular_animations.trigger('transformPanel', [
-    _angular_animations.state('showing', _angular_animations.style({
-        opacity: 1,
-        minWidth: 'calc(100% + 32px)',
-        // 32px = 2 * 16px padding
-        transform: 'scaleY(1)'
-    })),
-    _angular_animations.state('showing-multiple', _angular_animations.style({
-        opacity: 1,
-        minWidth: 'calc(100% + 64px)',
-        // 64px = 48px padding on the left + 16px padding on the right
-        transform: 'scaleY(1)'
-    })),
-    _angular_animations.transition('void => *', [
-        _angular_animations.style({
-            opacity: 0,
-            minWidth: '100%',
-            transform: 'scaleY(0)'
-        }),
-        _angular_animations.animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)')
+var matSelectAnimations = {
+    /**
+       * This animation transforms the select's overlay panel on and off the page.
+       *
+       * When the panel is attached to the DOM, it expands its width by the amount of padding, scales it
+       * up to 100% on the Y axis, fades in its border, and translates slightly up and to the
+       * side to ensure the option text correctly overlaps the trigger text.
+       *
+       * When the panel is removed from the DOM, it simply fades out linearly.
+       */
+    transformPanel: _angular_animations.trigger('transformPanel', [
+        _angular_animations.state('showing', _angular_animations.style({
+            opacity: 1,
+            minWidth: 'calc(100% + 32px)',
+            // 32px = 2 * 16px padding
+            transform: 'scaleY(1)'
+        })),
+        _angular_animations.state('showing-multiple', _angular_animations.style({
+            opacity: 1,
+            minWidth: 'calc(100% + 64px)',
+            // 64px = 48px padding on the left + 16px padding on the right
+            transform: 'scaleY(1)'
+        })),
+        _angular_animations.transition('void => *', [
+            _angular_animations.style({
+                opacity: 0,
+                minWidth: '100%',
+                transform: 'scaleY(0)'
+            }),
+            _angular_animations.animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)')
+        ]),
+        _angular_animations.transition('* => void', [
+            _angular_animations.animate('250ms 100ms linear', _angular_animations.style({ opacity: 0 }))
+        ])
     ]),
-    _angular_animations.transition('* => void', [
-        _angular_animations.animate('250ms 100ms linear', _angular_animations.style({ opacity: 0 }))
+    /**
+       * This animation fades in the background color and text content of the
+       * select's options. It is time delayed to occur 100ms after the overlay
+       * panel has transformed in.
+       */
+    fadeInContent: _angular_animations.trigger('fadeInContent', [
+        _angular_animations.state('showing', _angular_animations.style({ opacity: 1 })),
+        _angular_animations.transition('void => showing', [
+            _angular_animations.style({ opacity: 0 }),
+            _angular_animations.animate('150ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+        ])
     ])
-]);
+};
 /**
- * This animation fades in the background color and text content of the
- * select's options. It is time delayed to occur 100ms after the overlay
- * panel has transformed in.
+ * @deprecated
  */
-var fadeInContent = _angular_animations.trigger('fadeInContent', [
-    _angular_animations.state('showing', _angular_animations.style({ opacity: 1 })),
-    _angular_animations.transition('void => showing', [
-        _angular_animations.style({ opacity: 0 }),
-        _angular_animations.animate('150ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
-    ])
-]);
+var transformPanel = matSelectAnimations.transformPanel;
+/**
+ * @deprecated
+ */
+var fadeInContent = matSelectAnimations.fadeInContent;
 
 /**
  * @fileoverview added by tsickle
@@ -18437,8 +18506,8 @@ var MatSelect = /** @class */ (function (_super) {
                         '(blur)': '_onBlur()',
                     },
                     animations: [
-                        transformPanel,
-                        fadeInContent
+                        matSelectAnimations.transformPanel,
+                        matSelectAnimations.fadeInContent
                     ],
                     providers: [
                         { provide: MatFormFieldControl, useExisting: MatSelect },
@@ -18521,6 +18590,23 @@ var MatSelectModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Animations used by MatTooltip.
+ */
+var matTooltipAnimations = {
+    /** Animation that transitions a tooltip in and out. */
+    tooltipState: _angular_animations.trigger('state', [
+        _angular_animations.state('initial, void, hidden', _angular_animations.style({ transform: 'scale(0)' })),
+        _angular_animations.state('visible', _angular_animations.style({ transform: 'scale(1)' })),
+        _angular_animations.transition('* => visible', _angular_animations.animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
+        _angular_animations.transition('* => hidden', _angular_animations.animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Time in ms to throttle repositioning after scroll events.
  */
@@ -19326,14 +19412,7 @@ var TooltipComponent = /** @class */ (function () {
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    animations: [
-                        _angular_animations.trigger('state', [
-                            _angular_animations.state('initial, void, hidden', _angular_animations.style({ transform: 'scale(0)' })),
-                            _angular_animations.state('visible', _angular_animations.style({ transform: 'scale(1)' })),
-                            _angular_animations.transition('* => visible', _angular_animations.animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
-                            _angular_animations.transition('* => hidden', _angular_animations.animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
-                        ])
-                    ],
+                    animations: [matTooltipAnimations.tooltipState],
                     host: {
                         // Forces the element to have a layout in IE and Edge. This fixes issues where the element
                         // won't be rendered if the animations are disabled or there is no web animations polyfill.
@@ -21146,6 +21225,28 @@ var MatRadioModule = /** @class */ (function () {
  */
 
 /**
+ * Animations used by the Material drawers.
+ */
+var matDrawerAnimations = {
+    /** Animation that slides a drawer in and out. */
+    transformDrawer: _angular_animations.trigger('transform', [
+        _angular_animations.state('open, open-instant', _angular_animations.style({
+            transform: 'translate3d(0, 0, 0)',
+            visibility: 'visible',
+        })),
+        _angular_animations.state('void', _angular_animations.style({
+            visibility: 'hidden',
+        })),
+        _angular_animations.transition('void => open-instant', _angular_animations.animate('0ms')),
+        _angular_animations.transition('void <=> open, open-instant => void', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Throws an exception when two MatDrawer are matching the same position.
  * @param {?} position
  * @return {?}
@@ -21640,19 +21741,7 @@ var MatDrawer = /** @class */ (function () {
         { type: _angular_core.Component, args: [{selector: 'mat-drawer',
                     exportAs: 'matDrawer',
                     template: '<ng-content></ng-content>',
-                    animations: [
-                        _angular_animations.trigger('transform', [
-                            _angular_animations.state('open, open-instant', _angular_animations.style({
-                                transform: 'translate3d(0, 0, 0)',
-                                visibility: 'visible',
-                            })),
-                            _angular_animations.state('void', _angular_animations.style({
-                                visibility: 'hidden',
-                            })),
-                            _angular_animations.transition('void => open-instant', _angular_animations.animate('0ms')),
-                            _angular_animations.transition('void <=> open, open-instant => void', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
-                        ])
-                    ],
+                    animations: [matDrawerAnimations.transformDrawer],
                     host: {
                         'class': 'mat-drawer',
                         '[@transform]': '_animationState',
@@ -22193,19 +22282,7 @@ var MatSidenav = /** @class */ (function (_super) {
         { type: _angular_core.Component, args: [{selector: 'mat-sidenav',
                     exportAs: 'matSidenav',
                     template: '<ng-content></ng-content>',
-                    animations: [
-                        _angular_animations.trigger('transform', [
-                            _angular_animations.state('open, open-instant', _angular_animations.style({
-                                transform: 'translate3d(0, 0, 0)',
-                                visibility: 'visible',
-                            })),
-                            _angular_animations.state('void', _angular_animations.style({
-                                visibility: 'hidden',
-                            })),
-                            _angular_animations.transition('void => open-instant', _angular_animations.animate('0ms')),
-                            _angular_animations.transition('void <=> open, open-instant => void', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
-                        ])
-                    ],
+                    animations: [matDrawerAnimations.transformDrawer],
                     host: {
                         'class': 'mat-drawer mat-sidenav',
                         'tabIndex': '-1',
@@ -24082,6 +24159,38 @@ var MatSnackBarConfig = /** @class */ (function () {
  */
 
 /**
+ * \@docs-private
+ */
+var SHOW_ANIMATION = AnimationDurations.ENTERING + " " + AnimationCurves.DECELERATION_CURVE;
+/**
+ * \@docs-private
+ */
+var HIDE_ANIMATION = AnimationDurations.EXITING + " " + AnimationCurves.ACCELERATION_CURVE;
+/**
+ * Animations used by the Material snack bar.
+ */
+var matSnackBarAnimations = {
+    /** Animation that slides the dialog in and out of view and fades the opacity. */
+    contentFade: _angular_animations.trigger('contentFade', [
+        _angular_animations.transition(':enter', [
+            _angular_animations.style({ opacity: '0' }),
+            _angular_animations.animate(AnimationDurations.COMPLEX + " " + AnimationCurves.STANDARD_CURVE)
+        ])
+    ]),
+    /** Animation that shows and hides a snack bar. */
+    snackBarState: _angular_animations.trigger('state', [
+        _angular_animations.state('visible-top, visible-bottom', _angular_animations.style({ transform: 'translateY(0%)' })),
+        _angular_animations.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', _angular_animations.animate(HIDE_ANIMATION)),
+        _angular_animations.transition('void => visible-top, void => visible-bottom', _angular_animations.animate(SHOW_ANIMATION)),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
  */
@@ -24121,14 +24230,7 @@ var SimpleSnackBar = /** @class */ (function () {
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    animations: [
-                        _angular_animations.trigger('contentFade', [
-                            _angular_animations.transition(':enter', [
-                                _angular_animations.style({ opacity: '0' }),
-                                _angular_animations.animate(AnimationDurations.COMPLEX + " " + AnimationCurves.STANDARD_CURVE)
-                            ])
-                        ])
-                    ],
+                    animations: [matSnackBarAnimations.contentFade],
                     host: {
                         '[@contentFade]': '',
                         'class': 'mat-simple-snackbar',
@@ -24148,8 +24250,6 @@ var SimpleSnackBar = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var SHOW_ANIMATION = AnimationDurations.ENTERING + " " + AnimationCurves.DECELERATION_CURVE;
-var HIDE_ANIMATION = AnimationDurations.EXITING + " " + AnimationCurves.ACCELERATION_CURVE;
 /**
  * Internal component that wraps user-provided snack bar content.
  * \@docs-private
@@ -24335,19 +24435,13 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
+                    animations: [matSnackBarAnimations.snackBarState],
                     host: {
                         'role': 'alert',
                         'class': 'mat-snack-bar-container',
                         '[@state]': '_animationState',
                         '(@state.done)': 'onAnimationEnd($event)'
                     },
-                    animations: [
-                        _angular_animations.trigger('state', [
-                            _angular_animations.state('visible-top, visible-bottom', _angular_animations.style({ transform: 'translateY(0%)' })),
-                            _angular_animations.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', _angular_animations.animate(HIDE_ANIMATION)),
-                            _angular_animations.transition('void => visible-top, void => visible-bottom', _angular_animations.animate(SHOW_ANIMATION)),
-                        ])
-                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -24999,7 +25093,57 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
  * @suppress {checkTypes} checked by tsc
  */
 
-var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' + AnimationCurves.STANDARD_CURVE;
+var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
+    AnimationCurves.STANDARD_CURVE;
+/**
+ * Animations used by MatSort.
+ */
+var matSortAnimations = {
+    /** Animation that moves the sort indicator. */
+    indicator: _angular_animations.trigger('indicator', [
+        _angular_animations.state('asc', _angular_animations.style({ transform: 'translateY(0px)' })),
+        // 10px is the height of the sort indicator, minus the width of the pointers
+        _angular_animations.state('desc', _angular_animations.style({ transform: 'translateY(10px)' })),
+        _angular_animations.transition('asc <=> desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+    ]),
+    /** Animation that rotates the left pointer of the indicator based on the sorting direction. */
+    leftPointer: _angular_animations.trigger('leftPointer', [
+        _angular_animations.state('asc', _angular_animations.style({ transform: 'rotate(-45deg)' })),
+        _angular_animations.state('desc', _angular_animations.style({ transform: 'rotate(45deg)' })),
+        _angular_animations.transition('asc <=> desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+    ]),
+    /** Animation that rotates the right pointer of the indicator based on the sorting direction. */
+    rightPointer: _angular_animations.trigger('rightPointer', [
+        _angular_animations.state('asc', _angular_animations.style({ transform: 'rotate(45deg)' })),
+        _angular_animations.state('desc', _angular_animations.style({ transform: 'rotate(-45deg)' })),
+        _angular_animations.transition('asc <=> desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+    ]),
+    /** Animation that moves the indicator in and out of view when sorting is enabled/disabled. */
+    indicatorToggle: _angular_animations.trigger('indicatorToggle', [
+        _angular_animations.transition('void => asc', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
+            _angular_animations.style({ transform: 'translateY(25%)', opacity: 0 }),
+            _angular_animations.style({ transform: 'none', opacity: 1 })
+        ]))),
+        _angular_animations.transition('asc => void', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
+            _angular_animations.style({ transform: 'none', opacity: 1 }),
+            _angular_animations.style({ transform: 'translateY(-25%)', opacity: 0 })
+        ]))),
+        _angular_animations.transition('void => desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
+            _angular_animations.style({ transform: 'translateY(-25%)', opacity: 0 }),
+            _angular_animations.style({ transform: 'none', opacity: 1 })
+        ]))),
+        _angular_animations.transition('desc => void', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
+            _angular_animations.style({ transform: 'none', opacity: 1 }),
+            _angular_animations.style({ transform: 'translateY(25%)', opacity: 0 })
+        ]))),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 /**
  * \@docs-private
  */
@@ -25123,40 +25267,10 @@ var MatSortHeader = /** @class */ (function (_super) {
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled'],
                     animations: [
-                        _angular_animations.trigger('indicator', [
-                            _angular_animations.state('asc', _angular_animations.style({ transform: 'translateY(0px)' })),
-                            // 10px is the height of the sort indicator, minus the width of the pointers
-                            _angular_animations.state('desc', _angular_animations.style({ transform: 'translateY(10px)' })),
-                            _angular_animations.transition('asc <=> desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
-                        ]),
-                        _angular_animations.trigger('leftPointer', [
-                            _angular_animations.state('asc', _angular_animations.style({ transform: 'rotate(-45deg)' })),
-                            _angular_animations.state('desc', _angular_animations.style({ transform: 'rotate(45deg)' })),
-                            _angular_animations.transition('asc <=> desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
-                        ]),
-                        _angular_animations.trigger('rightPointer', [
-                            _angular_animations.state('asc', _angular_animations.style({ transform: 'rotate(45deg)' })),
-                            _angular_animations.state('desc', _angular_animations.style({ transform: 'rotate(-45deg)' })),
-                            _angular_animations.transition('asc <=> desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
-                        ]),
-                        _angular_animations.trigger('indicatorToggle', [
-                            _angular_animations.transition('void => asc', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
-                                _angular_animations.style({ transform: 'translateY(25%)', opacity: 0 }),
-                                _angular_animations.style({ transform: 'none', opacity: 1 })
-                            ]))),
-                            _angular_animations.transition('asc => void', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
-                                _angular_animations.style({ transform: 'none', opacity: 1 }),
-                                _angular_animations.style({ transform: 'translateY(-25%)', opacity: 0 })
-                            ]))),
-                            _angular_animations.transition('void => desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
-                                _angular_animations.style({ transform: 'translateY(-25%)', opacity: 0 }),
-                                _angular_animations.style({ transform: 'none', opacity: 1 })
-                            ]))),
-                            _angular_animations.transition('desc => void', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
-                                _angular_animations.style({ transform: 'none', opacity: 1 }),
-                                _angular_animations.style({ transform: 'translateY(25%)', opacity: 0 })
-                            ]))),
-                        ])
+                        matSortAnimations.indicator,
+                        matSortAnimations.leftPointer,
+                        matSortAnimations.rightPointer,
+                        matSortAnimations.indicatorToggle
                     ]
                 },] },
     ];
@@ -25406,6 +25520,31 @@ var MatStepHeader = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Animations used by the Material steppers.
+ */
+var matStepperAnimations = {
+    /** Animation that transitions the step along the X axis in a horizontal stepper. */
+    horizontalStepTransition: _angular_animations.trigger('stepTransition', [
+        _angular_animations.state('previous', _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
+        _angular_animations.state('current', _angular_animations.style({ transform: 'none', visibility: 'visible' })),
+        _angular_animations.state('next', _angular_animations.style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
+        _angular_animations.transition('* => *', _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
+    ]),
+    /** Animation that transitions the step along the Y axis in a vertical stepper. */
+    verticalStepTransition: _angular_animations.trigger('stepTransition', [
+        _angular_animations.state('previous', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
+        _angular_animations.state('next', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
+        _angular_animations.state('current', _angular_animations.style({ height: '*', visibility: 'visible' })),
+        _angular_animations.transition('* <=> current', _angular_animations.animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper, _errorStateMatcher) {
@@ -25499,14 +25638,7 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
                         'aria-orientation': 'horizontal',
                         'role': 'tablist',
                     },
-                    animations: [
-                        _angular_animations.trigger('stepTransition', [
-                            _angular_animations.state('previous', _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
-                            _angular_animations.state('current', _angular_animations.style({ transform: 'none', visibility: 'visible' })),
-                            _angular_animations.state('next', _angular_animations.style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
-                            _angular_animations.transition('* => *', _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
-                        ])
-                    ],
+                    animations: [matStepperAnimations.horizontalStepTransition],
                     providers: [{ provide: MatStepper, useExisting: MatHorizontalStepper }],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -25533,14 +25665,7 @@ var MatVerticalStepper = /** @class */ (function (_super) {
                         'aria-orientation': 'vertical',
                         'role': 'tablist',
                     },
-                    animations: [
-                        _angular_animations.trigger('stepTransition', [
-                            _angular_animations.state('previous', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
-                            _angular_animations.state('next', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
-                            _angular_animations.state('current', _angular_animations.style({ height: '*', visibility: 'visible' })),
-                            _angular_animations.transition('* <=> current', _angular_animations.animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
-                        ])
-                    ],
+                    animations: [matStepperAnimations.verticalStepTransition],
                     providers: [{ provide: MatStepper, useExisting: MatVerticalStepper }],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -26505,6 +26630,33 @@ var MatTab = /** @class */ (function (_super) {
  */
 
 /**
+ * Animations used by the Material tabs.
+ */
+var matTabsAnimations = {
+    /** Animation translates a tab along the X axis. */
+    translateTab: _angular_animations.trigger('translateTab', [
+        // Note: transitions to `none` instead of 0, because some browsers might blur the content.
+        _angular_animations.state('center, void, left-origin-center, right-origin-center', _angular_animations.style({ transform: 'none' })),
+        _angular_animations.state('left', _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)' })),
+        _angular_animations.state('right', _angular_animations.style({ transform: 'translate3d(100%, 0, 0)' })),
+        _angular_animations.transition('* => left, * => right, left => center, right => center', _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
+        _angular_animations.transition('void => left-origin-center', [
+            _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)' }),
+            _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
+        ]),
+        _angular_animations.transition('void => right-origin-center', [
+            _angular_animations.style({ transform: 'translate3d(100%, 0, 0)' }),
+            _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
+        ])
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * The portal host directive for the contents of the tab.
  * \@docs-private
  */
@@ -26721,26 +26873,10 @@ var MatTabBody = /** @class */ (function () {
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    animations: [matTabsAnimations.translateTab],
                     host: {
                         'class': 'mat-tab-body',
                     },
-                    animations: [
-                        _angular_animations.trigger('translateTab', [
-                            // Note: transitions to `none` instead of 0, because some browsers might blur the content.
-                            _angular_animations.state('center, void, left-origin-center, right-origin-center', _angular_animations.style({ transform: 'none' })),
-                            _angular_animations.state('left', _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)' })),
-                            _angular_animations.state('right', _angular_animations.style({ transform: 'translate3d(100%, 0, 0)' })),
-                            _angular_animations.transition('* => left, * => right, left => center, right => center', _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
-                            _angular_animations.transition('void => left-origin-center', [
-                                _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)' }),
-                                _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
-                            ]),
-                            _angular_animations.transition('void => right-origin-center', [
-                                _angular_animations.style({ transform: 'translate3d(100%, 0, 0)' }),
-                                _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
-                            ])
-                        ])
-                    ]
                 },] },
     ];
     /** @nocollapse */
@@ -28351,7 +28487,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.3-c77f69f');
+var VERSION = new _angular_core.Version('5.0.3-f826805');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -28508,11 +28644,11 @@ exports.MatDialogContent = MatDialogContent;
 exports.MatDialogActions = MatDialogActions;
 exports.MatDialogConfig = MatDialogConfig;
 exports.MatDialogRef = MatDialogRef;
+exports.matDialogAnimations = matDialogAnimations;
 exports.MatDivider = MatDivider;
 exports.MatDividerModule = MatDividerModule;
 exports.MatExpansionModule = MatExpansionModule;
 exports.MatAccordion = MatAccordion;
-exports.EXPANSION_PANEL_ANIMATION_TIMING = EXPANSION_PANEL_ANIMATION_TIMING;
 exports.MatExpansionPanelBase = MatExpansionPanelBase;
 exports._MatExpansionPanelMixinBase = _MatExpansionPanelMixinBase;
 exports.MatExpansionPanel = MatExpansionPanel;
@@ -28521,6 +28657,8 @@ exports.MatExpansionPanelHeader = MatExpansionPanelHeader;
 exports.MatExpansionPanelDescription = MatExpansionPanelDescription;
 exports.MatExpansionPanelTitle = MatExpansionPanelTitle;
 exports.MatExpansionPanelContent = MatExpansionPanelContent;
+exports.EXPANSION_PANEL_ANIMATION_TIMING = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.matExpansionAnimations = matExpansionAnimations;
 exports.MatFormFieldModule = MatFormFieldModule;
 exports.MatError = MatError;
 exports.MatFormField = MatFormField;
@@ -28533,6 +28671,7 @@ exports.MatPlaceholder = MatPlaceholder;
 exports.MatPrefix = MatPrefix;
 exports.MatSuffix = MatSuffix;
 exports.MatLabel = MatLabel;
+exports.matFormFieldAnimations = matFormFieldAnimations;
 exports.MatGridListModule = MatGridListModule;
 exports.MatGridList = MatGridList;
 exports.MatGridTile = MatGridTile;
@@ -28577,18 +28716,19 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
-exports.fadeInItems = fadeInItems;
-exports.transformMenu = transformMenu;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
 exports.MAT_MENU_DEFAULT_OPTIONS = MAT_MENU_DEFAULT_OPTIONS;
 exports.MatMenuItem = MatMenuItem;
 exports.MatMenuTrigger = MatMenuTrigger;
+exports.matMenuAnimations = matMenuAnimations;
+exports.fadeInItems = fadeInItems;
+exports.transformMenu = transformMenu;
 exports.MatPaginatorModule = MatPaginatorModule;
 exports.PageEvent = PageEvent;
 exports.MatPaginator = MatPaginator;
@@ -28626,6 +28766,7 @@ exports.MatSelectBase = MatSelectBase;
 exports._MatSelectMixinBase = _MatSelectMixinBase;
 exports.MatSelectTrigger = MatSelectTrigger;
 exports.MatSelect = MatSelect;
+exports.matSelectAnimations = matSelectAnimations;
 exports.transformPanel = transformPanel;
 exports.fadeInContent = fadeInContent;
 exports.MatSidenavModule = MatSidenavModule;
@@ -28638,6 +28779,7 @@ exports.MatDrawerContainer = MatDrawerContainer;
 exports.MatSidenavContent = MatSidenavContent;
 exports.MatSidenav = MatSidenav;
 exports.MatSidenavContainer = MatSidenavContainer;
+exports.matDrawerAnimations = matDrawerAnimations;
 exports.MatSlideToggleModule = MatSlideToggleModule;
 exports.MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = MAT_SLIDE_TOGGLE_VALUE_ACCESSOR;
 exports.MatSlideToggleChange = MatSlideToggleChange;
@@ -28652,13 +28794,14 @@ exports._MatSliderMixinBase = _MatSliderMixinBase;
 exports.MatSlider = MatSlider;
 exports.MatSnackBarModule = MatSnackBarModule;
 exports.MatSnackBar = MatSnackBar;
-exports.SHOW_ANIMATION = SHOW_ANIMATION;
-exports.HIDE_ANIMATION = HIDE_ANIMATION;
 exports.MatSnackBarContainer = MatSnackBarContainer;
 exports.MAT_SNACK_BAR_DATA = MAT_SNACK_BAR_DATA;
 exports.MatSnackBarConfig = MatSnackBarConfig;
 exports.MatSnackBarRef = MatSnackBarRef;
 exports.SimpleSnackBar = SimpleSnackBar;
+exports.SHOW_ANIMATION = SHOW_ANIMATION;
+exports.HIDE_ANIMATION = HIDE_ANIMATION;
+exports.matSnackBarAnimations = matSnackBarAnimations;
 exports.MatSortModule = MatSortModule;
 exports.MatSortHeaderBase = MatSortHeaderBase;
 exports._MatSortHeaderMixinBase = _MatSortHeaderMixinBase;
@@ -28669,6 +28812,7 @@ exports.MAT_SORT_HEADER_INTL_PROVIDER = MAT_SORT_HEADER_INTL_PROVIDER;
 exports.MatSortBase = MatSortBase;
 exports._MatSortMixinBase = _MatSortMixinBase;
 exports.MatSort = MatSort;
+exports.matSortAnimations = matSortAnimations;
 exports.MatStepperModule = MatStepperModule;
 exports.MatStepLabel = MatStepLabel;
 exports.MatStep = MatStep;
@@ -28679,6 +28823,7 @@ exports.MatStepperNext = MatStepperNext;
 exports.MatStepperPrevious = MatStepperPrevious;
 exports.MatStepHeader = MatStepHeader;
 exports.MatStepperIntl = MatStepperIntl;
+exports.matStepperAnimations = matStepperAnimations;
 exports.MatTableModule = MatTableModule;
 exports.MatCellDef = MatCellDef;
 exports.MatHeaderCellDef = MatHeaderCellDef;
@@ -28691,16 +28836,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe20 = MatTabBase;
-exports.ɵf20 = _MatTabMixinBase;
-exports.ɵa20 = MatTabHeaderBase;
-exports.ɵb20 = _MatTabHeaderMixinBase;
-exports.ɵc20 = MatTabLabelWrapperBase;
-exports.ɵd20 = _MatTabLabelWrapperMixinBase;
-exports.ɵi20 = MatTabLinkBase;
-exports.ɵg20 = MatTabNavBase;
-exports.ɵj20 = _MatTabLinkMixinBase;
-exports.ɵh20 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
@@ -28715,6 +28860,7 @@ exports.MatTabChangeEvent = MatTabChangeEvent;
 exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
+exports.matTabsAnimations = matTabsAnimations;
 exports.MatToolbarModule = MatToolbarModule;
 exports.MatToolbarBase = MatToolbarBase;
 exports._MatToolbarMixinBase = _MatToolbarMixinBase;
@@ -28731,6 +28877,7 @@ exports.MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = MAT_TOOLTIP_SCROLL_STRATEGY_PROVI
 exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
+exports.matTooltipAnimations = matTooltipAnimations;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -43,51 +43,67 @@ function __extends(d, b) {
  */
 
 /**
- * This animation transforms the select's overlay panel on and off the page.
+ * The following are all the animations for the mat-select component, with each
+ * const containing the metadata for one animation.
  *
- * When the panel is attached to the DOM, it expands its width by the amount of padding, scales it
- * up to 100% on the Y axis, fades in its border, and translates slightly up and to the
- * side to ensure the option text correctly overlaps the trigger text.
- *
- * When the panel is removed from the DOM, it simply fades out linearly.
+ * The values below match the implementation of the AngularJS Material mat-select animation.
  */
-var transformPanel = _angular_animations.trigger('transformPanel', [
-    _angular_animations.state('showing', _angular_animations.style({
-        opacity: 1,
-        minWidth: 'calc(100% + 32px)',
-        // 32px = 2 * 16px padding
-        transform: 'scaleY(1)'
-    })),
-    _angular_animations.state('showing-multiple', _angular_animations.style({
-        opacity: 1,
-        minWidth: 'calc(100% + 64px)',
-        // 64px = 48px padding on the left + 16px padding on the right
-        transform: 'scaleY(1)'
-    })),
-    _angular_animations.transition('void => *', [
-        _angular_animations.style({
-            opacity: 0,
-            minWidth: '100%',
-            transform: 'scaleY(0)'
-        }),
-        _angular_animations.animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)')
+var matSelectAnimations = {
+    /**
+       * This animation transforms the select's overlay panel on and off the page.
+       *
+       * When the panel is attached to the DOM, it expands its width by the amount of padding, scales it
+       * up to 100% on the Y axis, fades in its border, and translates slightly up and to the
+       * side to ensure the option text correctly overlaps the trigger text.
+       *
+       * When the panel is removed from the DOM, it simply fades out linearly.
+       */
+    transformPanel: _angular_animations.trigger('transformPanel', [
+        _angular_animations.state('showing', _angular_animations.style({
+            opacity: 1,
+            minWidth: 'calc(100% + 32px)',
+            // 32px = 2 * 16px padding
+            transform: 'scaleY(1)'
+        })),
+        _angular_animations.state('showing-multiple', _angular_animations.style({
+            opacity: 1,
+            minWidth: 'calc(100% + 64px)',
+            // 64px = 48px padding on the left + 16px padding on the right
+            transform: 'scaleY(1)'
+        })),
+        _angular_animations.transition('void => *', [
+            _angular_animations.style({
+                opacity: 0,
+                minWidth: '100%',
+                transform: 'scaleY(0)'
+            }),
+            _angular_animations.animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)')
+        ]),
+        _angular_animations.transition('* => void', [
+            _angular_animations.animate('250ms 100ms linear', _angular_animations.style({ opacity: 0 }))
+        ])
     ]),
-    _angular_animations.transition('* => void', [
-        _angular_animations.animate('250ms 100ms linear', _angular_animations.style({ opacity: 0 }))
+    /**
+       * This animation fades in the background color and text content of the
+       * select's options. It is time delayed to occur 100ms after the overlay
+       * panel has transformed in.
+       */
+    fadeInContent: _angular_animations.trigger('fadeInContent', [
+        _angular_animations.state('showing', _angular_animations.style({ opacity: 1 })),
+        _angular_animations.transition('void => showing', [
+            _angular_animations.style({ opacity: 0 }),
+            _angular_animations.animate('150ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+        ])
     ])
-]);
+};
 /**
- * This animation fades in the background color and text content of the
- * select's options. It is time delayed to occur 100ms after the overlay
- * panel has transformed in.
+ * @deprecated
  */
-var fadeInContent = _angular_animations.trigger('fadeInContent', [
-    _angular_animations.state('showing', _angular_animations.style({ opacity: 1 })),
-    _angular_animations.transition('void => showing', [
-        _angular_animations.style({ opacity: 0 }),
-        _angular_animations.animate('150ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
-    ])
-]);
+var transformPanel = matSelectAnimations.transformPanel;
+/**
+ * @deprecated
+ */
+var fadeInContent = matSelectAnimations.fadeInContent;
 
 /**
  * @fileoverview added by tsickle
@@ -1669,8 +1685,8 @@ var MatSelect = /** @class */ (function (_super) {
                         '(blur)': '_onBlur()',
                     },
                     animations: [
-                        transformPanel,
-                        fadeInContent
+                        matSelectAnimations.transformPanel,
+                        matSelectAnimations.fadeInContent
                     ],
                     providers: [
                         { provide: _angular_material_formField.MatFormFieldControl, useExisting: MatSelect },
@@ -1763,6 +1779,7 @@ exports.MatSelectBase = MatSelectBase;
 exports._MatSelectMixinBase = _MatSelectMixinBase;
 exports.MatSelectTrigger = MatSelectTrigger;
 exports.MatSelect = MatSelect;
+exports.matSelectAnimations = matSelectAnimations;
 exports.transformPanel = transformPanel;
 exports.fadeInContent = fadeInContent;
 
