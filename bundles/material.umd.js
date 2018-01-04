@@ -21889,10 +21889,13 @@ var MatDrawerContainer = /** @class */ (function () {
          */
         this._doCheckSubject = new rxjs_Subject.Subject();
         this._contentMargins = new rxjs_Subject.Subject();
-        // If a `Dir` directive exists up the tree, listen direction changes and update the left/right
-        // properties to point to the proper start/end.
-        if (_dir != null) {
-            _dir.change.pipe(rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function () { return _this._validateDrawers(); });
+        // If a `Dir` directive exists up the tree, listen direction changes
+        // and update the left/right properties to point to the proper start/end.
+        if (_dir) {
+            _dir.change.pipe(rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function () {
+                _this._validateDrawers();
+                _this._updateContentMargins();
+            });
         }
         this._autosize = defaultAutosize;
     }
@@ -22133,7 +22136,7 @@ var MatDrawerContainer = /** @class */ (function () {
         });
         this._right = this._left = null;
         // Detect if we're LTR or RTL.
-        if (this._dir == null || this._dir.value == 'ltr') {
+        if (!this._dir || this._dir.value == 'ltr') {
             this._left = this._start;
             this._right = this._end;
         }
@@ -28563,7 +28566,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.3-9e47d40');
+var VERSION = new _angular_core.Version('5.0.3-ff1c5f1');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -28794,10 +28797,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa2 = MatMenuItemBase;
-exports.ɵb2 = _MatMenuItemMixinBase;
-exports.ɵd2 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc2 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa20 = MatMenuItemBase;
+exports.ɵb20 = _MatMenuItemMixinBase;
+exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -28914,16 +28917,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe1 = MatTabBase;
-exports.ɵf1 = _MatTabMixinBase;
-exports.ɵa1 = MatTabHeaderBase;
-exports.ɵb1 = _MatTabHeaderMixinBase;
-exports.ɵc1 = MatTabLabelWrapperBase;
-exports.ɵd1 = _MatTabLabelWrapperMixinBase;
-exports.ɵi1 = MatTabLinkBase;
-exports.ɵg1 = MatTabNavBase;
-exports.ɵj1 = _MatTabLinkMixinBase;
-exports.ɵh1 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
