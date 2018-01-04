@@ -699,7 +699,13 @@ class MatSelect extends _MatSelectMixinBase {
             this._keyManager.activeItem._selectViaInteraction();
         }
         else {
+            const /** @type {?} */ isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
+            const /** @type {?} */ previouslyFocusedIndex = this._keyManager.activeItemIndex;
             this._keyManager.onKeydown(event);
+            if (this._multiple && isArrowKey && event.shiftKey && this._keyManager.activeItem &&
+                this._keyManager.activeItemIndex !== previouslyFocusedIndex) {
+                this._keyManager.activeItem._selectViaInteraction();
+            }
         }
     }
     /**

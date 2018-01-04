@@ -13,7 +13,7 @@ import * as tslib_1 from 'tslib';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ENTER, SPACE } from '@angular/cdk/keycodes';
+import { END, ENTER, HOME, SPACE } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 
@@ -592,6 +592,10 @@ var MatSelectionList = /** @class */ (function (_super) {
      */
     function () {
         this._keyManager = new FocusKeyManager(this.options).withWrap();
+        if (this._tempValues) {
+            this._setOptionsFromValues(this._tempValues);
+            this._tempValues = null;
+        }
     };
     /** Focus the selection-list. */
     /**
@@ -687,6 +691,12 @@ var MatSelectionList = /** @class */ (function (_super) {
                 // Always prevent space from scrolling the page since the list has focus
                 event.preventDefault();
                 break;
+            case HOME:
+            case END:
+                event.keyCode === HOME ? this._keyManager.setFirstItemActive() :
+                    this._keyManager.setLastItemActive();
+                event.preventDefault();
+                break;
             default:
                 this._keyManager.onKeydown(event);
         }
@@ -733,6 +743,9 @@ var MatSelectionList = /** @class */ (function (_super) {
     function (values) {
         if (this.options) {
             this._setOptionsFromValues(values || []);
+        }
+        else {
+            this._tempValues = values;
         }
     };
     /** Implemented as a part of ControlValueAccessor. */

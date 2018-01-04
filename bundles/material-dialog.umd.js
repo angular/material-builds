@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('rxjs/observable/defer'), require('rxjs/observable/of'), require('rxjs/operators/filter'), require('rxjs/operators/startWith'), require('rxjs/Subject'), require('@angular/animations'), require('rxjs/operators/take')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/keycodes', 'rxjs/observable/defer', 'rxjs/observable/of', 'rxjs/operators/filter', 'rxjs/operators/startWith', 'rxjs/Subject', '@angular/animations', 'rxjs/operators/take'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = global.ng.material.dialog || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx,global.ng.animations,global.Rx.operators));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_material_core,_angular_cdk_bidi,_angular_cdk_keycodes,rxjs_observable_defer,rxjs_observable_of,rxjs_operators_filter,rxjs_operators_startWith,rxjs_Subject,_angular_animations,rxjs_operators_take) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('rxjs/observable/defer'), require('rxjs/observable/of'), require('rxjs/operators/startWith'), require('rxjs/Subject'), require('@angular/animations'), require('@angular/cdk/keycodes'), require('rxjs/operators/filter'), require('rxjs/operators/take')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/bidi', 'rxjs/observable/defer', 'rxjs/observable/of', 'rxjs/operators/startWith', 'rxjs/Subject', '@angular/animations', '@angular/cdk/keycodes', 'rxjs/operators/filter', 'rxjs/operators/take'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = global.ng.material.dialog || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.bidi,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx,global.ng.animations,global.ng.cdk.keycodes,global.Rx.operators,global.Rx.operators));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_material_core,_angular_cdk_bidi,rxjs_observable_defer,rxjs_observable_of,rxjs_operators_startWith,rxjs_Subject,_angular_animations,_angular_cdk_keycodes,rxjs_operators_filter,rxjs_operators_take) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -406,6 +406,9 @@ var MatDialogRef = /** @class */ (function () {
             _this._afterClosed.complete();
             _this.componentInstance = /** @type {?} */ ((null));
         });
+        _overlayRef.keydownEvents()
+            .pipe(rxjs_operators_filter.filter(function (event) { return event.keyCode === _angular_cdk_keycodes.ESCAPE && !_this.disableClose; }))
+            .subscribe(function () { return _this.close(); });
     }
     /**
      * Close the dialog.
@@ -833,8 +836,6 @@ var MatDialog = /** @class */ (function () {
                 }
             });
         }
-        // Close when escape keydown event occurs
-        overlayRef.keydownEvents().pipe(rxjs_operators_filter.filter(function (event) { return event.keyCode === _angular_cdk_keycodes.ESCAPE && !dialogRef.disableClose; })).subscribe(function () { return dialogRef.close(); });
         if (componentOrTemplateRef instanceof _angular_core.TemplateRef) {
             dialogContainer.attachTemplatePortal(new _angular_cdk_portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({ $implicit: config.data, dialogRef: dialogRef })));
         }

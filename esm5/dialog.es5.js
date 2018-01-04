@@ -14,13 +14,13 @@ import { MatCommonModule } from '@angular/material/core';
 import { __assign, __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { Directionality } from '@angular/cdk/bidi';
-import { ESCAPE } from '@angular/cdk/keycodes';
 import { defer } from 'rxjs/observable/defer';
 import { of } from 'rxjs/observable/of';
-import { filter } from 'rxjs/operators/filter';
 import { startWith } from 'rxjs/operators/startWith';
 import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ESCAPE } from '@angular/cdk/keycodes';
+import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
 
 /**
@@ -384,6 +384,9 @@ var MatDialogRef = /** @class */ (function () {
             _this._afterClosed.complete();
             _this.componentInstance = /** @type {?} */ ((null));
         });
+        _overlayRef.keydownEvents()
+            .pipe(filter(function (event) { return event.keyCode === ESCAPE && !_this.disableClose; }))
+            .subscribe(function () { return _this.close(); });
     }
     /**
      * Close the dialog.
@@ -811,8 +814,6 @@ var MatDialog = /** @class */ (function () {
                 }
             });
         }
-        // Close when escape keydown event occurs
-        overlayRef.keydownEvents().pipe(filter(function (event) { return event.keyCode === ESCAPE && !dialogRef.disableClose; })).subscribe(function () { return dialogRef.close(); });
         if (componentOrTemplateRef instanceof TemplateRef) {
             dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({ $implicit: config.data, dialogRef: dialogRef })));
         }

@@ -612,6 +612,10 @@ var MatSelectionList = /** @class */ (function (_super) {
      */
     function () {
         this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.options).withWrap();
+        if (this._tempValues) {
+            this._setOptionsFromValues(this._tempValues);
+            this._tempValues = null;
+        }
     };
     /** Focus the selection-list. */
     /**
@@ -707,6 +711,12 @@ var MatSelectionList = /** @class */ (function (_super) {
                 // Always prevent space from scrolling the page since the list has focus
                 event.preventDefault();
                 break;
+            case _angular_cdk_keycodes.HOME:
+            case _angular_cdk_keycodes.END:
+                event.keyCode === _angular_cdk_keycodes.HOME ? this._keyManager.setFirstItemActive() :
+                    this._keyManager.setLastItemActive();
+                event.preventDefault();
+                break;
             default:
                 this._keyManager.onKeydown(event);
         }
@@ -753,6 +763,9 @@ var MatSelectionList = /** @class */ (function (_super) {
     function (values) {
         if (this.options) {
             this._setOptionsFromValues(values || []);
+        }
+        else {
+            this._tempValues = values;
         }
     };
     /** Implemented as a part of ControlValueAccessor. */

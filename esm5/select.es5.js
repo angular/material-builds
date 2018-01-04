@@ -840,7 +840,13 @@ var MatSelect = /** @class */ (function (_super) {
             this._keyManager.activeItem._selectViaInteraction();
         }
         else {
+            var /** @type {?} */ isArrowKey = keyCode === DOWN_ARROW || keyCode === UP_ARROW;
+            var /** @type {?} */ previouslyFocusedIndex = this._keyManager.activeItemIndex;
             this._keyManager.onKeydown(event);
+            if (this._multiple && isArrowKey && event.shiftKey && this._keyManager.activeItem &&
+                this._keyManager.activeItemIndex !== previouslyFocusedIndex) {
+                this._keyManager.activeItem._selectViaInteraction();
+            }
         }
     };
     /**

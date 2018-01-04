@@ -8208,6 +8208,9 @@ var MatDialogRef = /** @class */ (function () {
             _this._afterClosed.complete();
             _this.componentInstance = /** @type {?} */ ((null));
         });
+        _overlayRef.keydownEvents()
+            .pipe(rxjs_operators_filter.filter(function (event) { return event.keyCode === _angular_cdk_keycodes.ESCAPE && !_this.disableClose; }))
+            .subscribe(function () { return _this.close(); });
     }
     /**
      * Close the dialog.
@@ -8635,8 +8638,6 @@ var MatDialog = /** @class */ (function () {
                 }
             });
         }
-        // Close when escape keydown event occurs
-        overlayRef.keydownEvents().pipe(rxjs_operators_filter.filter(function (event) { return event.keyCode === _angular_cdk_keycodes.ESCAPE && !dialogRef.disableClose; })).subscribe(function () { return dialogRef.close(); });
         if (componentOrTemplateRef instanceof _angular_core.TemplateRef) {
             dialogContainer.attachTemplatePortal(new _angular_cdk_portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({ $implicit: config.data, dialogRef: dialogRef })));
         }
@@ -10999,7 +11000,7 @@ var MatMonthView = /** @class */ (function () {
     MatMonthView.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-month-view',
                     template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body role=\"grid\" [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
-                    exportAs: 'matMonthVeiw',
+                    exportAs: 'matMonthView',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -15192,6 +15193,10 @@ var MatSelectionList = /** @class */ (function (_super) {
      */
     function () {
         this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.options).withWrap();
+        if (this._tempValues) {
+            this._setOptionsFromValues(this._tempValues);
+            this._tempValues = null;
+        }
     };
     /** Focus the selection-list. */
     /**
@@ -15287,6 +15292,12 @@ var MatSelectionList = /** @class */ (function (_super) {
                 // Always prevent space from scrolling the page since the list has focus
                 event.preventDefault();
                 break;
+            case _angular_cdk_keycodes.HOME:
+            case _angular_cdk_keycodes.END:
+                event.keyCode === _angular_cdk_keycodes.HOME ? this._keyManager.setFirstItemActive() :
+                    this._keyManager.setLastItemActive();
+                event.preventDefault();
+                break;
             default:
                 this._keyManager.onKeydown(event);
         }
@@ -15333,6 +15344,9 @@ var MatSelectionList = /** @class */ (function (_super) {
     function (values) {
         if (this.options) {
             this._setOptionsFromValues(values || []);
+        }
+        else {
+            this._tempValues = values;
         }
     };
     /** Implemented as a part of ControlValueAccessor. */
@@ -17558,7 +17572,13 @@ var MatSelect = /** @class */ (function (_super) {
             this._keyManager.activeItem._selectViaInteraction();
         }
         else {
+            var /** @type {?} */ isArrowKey = keyCode === _angular_cdk_keycodes.DOWN_ARROW || keyCode === _angular_cdk_keycodes.UP_ARROW;
+            var /** @type {?} */ previouslyFocusedIndex = this._keyManager.activeItemIndex;
             this._keyManager.onKeydown(event);
+            if (this._multiple && isArrowKey && event.shiftKey && this._keyManager.activeItem &&
+                this._keyManager.activeItemIndex !== previouslyFocusedIndex) {
+                this._keyManager.activeItem._selectViaInteraction();
+            }
         }
     };
     /**
@@ -28288,7 +28308,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.3-05304f0');
+var VERSION = new _angular_core.Version('5.0.3-f82bbae');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -28514,10 +28534,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa5 = MatMenuItemBase;
-exports.ɵb5 = _MatMenuItemMixinBase;
-exports.ɵd5 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc5 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
@@ -28628,16 +28648,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe1 = MatTabBase;
-exports.ɵf1 = _MatTabMixinBase;
-exports.ɵa1 = MatTabHeaderBase;
-exports.ɵb1 = _MatTabHeaderMixinBase;
-exports.ɵc1 = MatTabLabelWrapperBase;
-exports.ɵd1 = _MatTabLabelWrapperMixinBase;
-exports.ɵi1 = MatTabLinkBase;
-exports.ɵg1 = MatTabNavBase;
-exports.ɵj1 = _MatTabLinkMixinBase;
-exports.ɵh1 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

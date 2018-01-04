@@ -11,7 +11,7 @@ import { MatCommonModule, MatLine, MatLineModule, MatLineSetter, MatPseudoCheckb
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ENTER, SPACE } from '@angular/cdk/keycodes';
+import { END, ENTER, HOME, SPACE } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 
@@ -486,6 +486,10 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      */
     ngAfterContentInit() {
         this._keyManager = new FocusKeyManager(this.options).withWrap();
+        if (this._tempValues) {
+            this._setOptionsFromValues(this._tempValues);
+            this._tempValues = null;
+        }
     }
     /**
      * Focus the selection-list.
@@ -548,6 +552,12 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                 // Always prevent space from scrolling the page since the list has focus
                 event.preventDefault();
                 break;
+            case HOME:
+            case END:
+                event.keyCode === HOME ? this._keyManager.setFirstItemActive() :
+                    this._keyManager.setLastItemActive();
+                event.preventDefault();
+                break;
             default:
                 this._keyManager.onKeydown(event);
         }
@@ -577,6 +587,9 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     writeValue(values) {
         if (this.options) {
             this._setOptionsFromValues(values || []);
+        }
+        else {
+            this._tempValues = values;
         }
     }
     /**
