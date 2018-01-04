@@ -20,10 +20,10 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Subscription } from 'rxjs/Subscription';
+import { merge } from 'rxjs/observable/merge';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
-import { merge } from 'rxjs/observable/merge';
 import { of } from 'rxjs/observable/of';
 
 /**
@@ -1283,9 +1283,13 @@ class MatDatepicker {
             this._calendarPortal.detach();
         }
         const /** @type {?} */ completeClose = () => {
-            this._opened = false;
-            this.closedStream.emit();
-            this._focusedElementBeforeOpen = null;
+            // The `_opened` could've been reset already if
+            // we got two events in quick succession.
+            if (this._opened) {
+                this._opened = false;
+                this.closedStream.emit();
+                this._focusedElementBeforeOpen = null;
+            }
         };
         if (this._focusedElementBeforeOpen &&
             typeof this._focusedElementBeforeOpen.focus === 'function') {
@@ -1348,7 +1352,8 @@ class MatDatepicker {
             panelClass: 'mat-datepicker-popup',
         });
         this._popupRef = this._overlay.create(overlayConfig);
-        this._popupRef.backdropClick().subscribe(() => this.close());
+        merge(this._popupRef.backdropClick(), this._popupRef.detachments())
+            .subscribe(() => this.close());
     }
     /**
      * Create the popup PositionStrategy.

@@ -12149,9 +12149,13 @@ var MatDatepicker = /** @class */ (function () {
             this._calendarPortal.detach();
         }
         var /** @type {?} */ completeClose = function () {
-            _this._opened = false;
-            _this.closedStream.emit();
-            _this._focusedElementBeforeOpen = null;
+            // The `_opened` could've been reset already if
+            // we got two events in quick succession.
+            if (_this._opened) {
+                _this._opened = false;
+                _this.closedStream.emit();
+                _this._focusedElementBeforeOpen = null;
+            }
         };
         if (this._focusedElementBeforeOpen &&
             typeof this._focusedElementBeforeOpen.focus === 'function') {
@@ -12229,7 +12233,8 @@ var MatDatepicker = /** @class */ (function () {
             panelClass: 'mat-datepicker-popup',
         });
         this._popupRef = this._overlay.create(overlayConfig);
-        this._popupRef.backdropClick().subscribe(function () { return _this.close(); });
+        rxjs_observable_merge.merge(this._popupRef.backdropClick(), this._popupRef.detachments())
+            .subscribe(function () { return _this.close(); });
     };
     /**
      * Create the popup PositionStrategy.
@@ -28276,7 +28281,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.3-e20d8f0');
+var VERSION = new _angular_core.Version('5.0.3-32d0dbb');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -28615,16 +28620,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe21 = MatTabBase;
+exports.ɵf21 = _MatTabMixinBase;
+exports.ɵa21 = MatTabHeaderBase;
+exports.ɵb21 = _MatTabHeaderMixinBase;
+exports.ɵc21 = MatTabLabelWrapperBase;
+exports.ɵd21 = _MatTabLabelWrapperMixinBase;
+exports.ɵi21 = MatTabLinkBase;
+exports.ɵg21 = MatTabNavBase;
+exports.ɵj21 = _MatTabLinkMixinBase;
+exports.ɵh21 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
