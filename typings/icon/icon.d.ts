@@ -40,8 +40,10 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     svgIcon: string;
     /** Font set that the icon is a part of. */
     fontSet: string;
+    private _fontSet;
     /** Name of an icon within a font set. */
     fontIcon: string;
+    private _fontIcon;
     private _previousFontSetClass;
     private _previousFontIconClass;
     constructor(elementRef: ElementRef, _iconRegistry: MatIconRegistry, ariaHidden: string);
@@ -65,4 +67,10 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     private _setSvgElement(svg);
     private _clearSvgElement();
     private _updateFontIconClasses();
+    /**
+     * Cleans up a value to be used as a fontIcon or fontSet.
+     * Since the value ends up being assigned as a CSS class, we
+     * have to trim the value and omit space-separated values.
+     */
+    private _cleanupFontValue(value);
 }

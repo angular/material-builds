@@ -576,6 +576,30 @@ class MatIcon extends _MatIconMixinBase {
         }
     }
     /**
+     * Font set that the icon is a part of.
+     * @return {?}
+     */
+    get fontSet() { return this._fontSet; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set fontSet(value) {
+        this._fontSet = this._cleanupFontValue(value);
+    }
+    /**
+     * Name of an icon within a font set.
+     * @return {?}
+     */
+    get fontIcon() { return this._fontIcon; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set fontIcon(value) {
+        this._fontIcon = this._cleanupFontValue(value);
+    }
+    /**
      * Splits an svgIcon binding value into its icon set and icon name components.
      * Returns a 2-element array of [(icon set), (icon name)].
      * The separator for the two fields is ':'. If there is no separator, an empty
@@ -685,6 +709,16 @@ class MatIcon extends _MatIconMixinBase {
             }
             this._previousFontIconClass = this.fontIcon;
         }
+    }
+    /**
+     * Cleans up a value to be used as a fontIcon or fontSet.
+     * Since the value ends up being assigned as a CSS class, we
+     * have to trim the value and omit space-separated values.
+     * @param {?} value
+     * @return {?}
+     */
+    _cleanupFontValue(value) {
+        return typeof value === 'string' ? value.trim().split(' ')[0] : value;
     }
 }
 MatIcon.decorators = [

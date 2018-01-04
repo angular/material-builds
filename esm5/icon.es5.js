@@ -771,6 +771,38 @@ var MatIcon = /** @class */ (function (_super) {
         }
         return _this;
     }
+    Object.defineProperty(MatIcon.prototype, "fontSet", {
+        get: /**
+         * Font set that the icon is a part of.
+         * @return {?}
+         */
+        function () { return this._fontSet; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._fontSet = this._cleanupFontValue(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatIcon.prototype, "fontIcon", {
+        get: /**
+         * Name of an icon within a font set.
+         * @return {?}
+         */
+        function () { return this._fontIcon; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._fontIcon = this._cleanupFontValue(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
      * Returns a 2-element array of [(icon set), (icon name)].
@@ -917,6 +949,23 @@ var MatIcon = /** @class */ (function (_super) {
             }
             this._previousFontIconClass = this.fontIcon;
         }
+    };
+    /**
+     * Cleans up a value to be used as a fontIcon or fontSet.
+     * Since the value ends up being assigned as a CSS class, we
+     * have to trim the value and omit space-separated values.
+     * @param {?} value
+     * @return {?}
+     */
+    MatIcon.prototype._cleanupFontValue = /**
+     * Cleans up a value to be used as a fontIcon or fontSet.
+     * Since the value ends up being assigned as a CSS class, we
+     * have to trim the value and omit space-separated values.
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        return typeof value === 'string' ? value.trim().split(' ')[0] : value;
     };
     MatIcon.decorators = [
         { type: Component, args: [{template: '<ng-content></ng-content>',
