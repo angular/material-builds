@@ -620,7 +620,8 @@ var MatIconRegistry = /** @class */ (function () {
     function (element) {
         var /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
         for (var /** @type {?} */ i = 0; i < element.childNodes.length; i++) {
-            if (element.childNodes[i].nodeType === Node.ELEMENT_NODE) {
+            // Note: 1 corresponds to `Node.ELEMENT_NODE` which we can't use in Universal.
+            if (element.childNodes[i].nodeType === 1) {
                 svg.appendChild(element.childNodes[i].cloneNode(true));
             }
         }
