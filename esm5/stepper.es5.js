@@ -9,7 +9,7 @@ import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { PortalModule } from '@angular/cdk/portal';
 import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, CdkStepperPrevious } from '@angular/cdk/stepper';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, Inject, Injectable, Input, NgModule, SkipSelf, TemplateRef, ViewChildren, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, Inject, Injectable, Input, NgModule, Optional, SkipSelf, TemplateRef, ViewChildren, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,8 +17,9 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { Subject } from 'rxjs/Subject';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Directionality } from '@angular/cdk/bidi';
 import { takeUntil } from 'rxjs/operators/takeUntil';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
  * @fileoverview added by tsickle
@@ -229,6 +230,31 @@ var MatStepHeader = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Animations used by the Material steppers.
+ */
+var matStepperAnimations = {
+    /** Animation that transitions the step along the X axis in a horizontal stepper. */
+    horizontalStepTransition: trigger('stepTransition', [
+        state('previous', style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
+        state('current', style({ transform: 'none', visibility: 'visible' })),
+        state('next', style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
+        transition('* => *', animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
+    ]),
+    /** Animation that transitions the step along the Y axis in a vertical stepper. */
+    verticalStepTransition: trigger('stepTransition', [
+        state('previous', style({ height: '0px', visibility: 'hidden' })),
+        state('next', style({ height: '0px', visibility: 'hidden' })),
+        state('current', style({ height: '*', visibility: 'visible' })),
+        transition('* <=> current', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper, _errorStateMatcher) {
@@ -322,14 +348,7 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
                         'aria-orientation': 'horizontal',
                         'role': 'tablist',
                     },
-                    animations: [
-                        trigger('stepTransition', [
-                            state('previous', style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
-                            state('current', style({ transform: 'none', visibility: 'visible' })),
-                            state('next', style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
-                            transition('* => *', animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
-                        ])
-                    ],
+                    animations: [matStepperAnimations.horizontalStepTransition],
                     providers: [{ provide: MatStepper, useExisting: MatHorizontalStepper }],
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -342,8 +361,10 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
 }(MatStepper));
 var MatVerticalStepper = /** @class */ (function (_super) {
     __extends(MatVerticalStepper, _super);
-    function MatVerticalStepper() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    function MatVerticalStepper(dir, changeDetectorRef) {
+        var _this = _super.call(this, dir, changeDetectorRef) || this;
+        _this._orientation = 'vertical';
+        return _this;
     }
     MatVerticalStepper.decorators = [
         { type: Component, args: [{selector: 'mat-vertical-stepper',
@@ -356,14 +377,7 @@ var MatVerticalStepper = /** @class */ (function (_super) {
                         'aria-orientation': 'vertical',
                         'role': 'tablist',
                     },
-                    animations: [
-                        trigger('stepTransition', [
-                            state('previous', style({ height: '0px', visibility: 'hidden' })),
-                            state('next', style({ height: '0px', visibility: 'hidden' })),
-                            state('current', style({ height: '*', visibility: 'visible' })),
-                            transition('* <=> current', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
-                        ])
-                    ],
+                    animations: [matStepperAnimations.verticalStepTransition],
                     providers: [{ provide: MatStepper, useExisting: MatVerticalStepper }],
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -371,7 +385,10 @@ var MatVerticalStepper = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatVerticalStepper.ctorParameters = function () { return []; };
+    MatVerticalStepper.ctorParameters = function () { return [
+        { type: Directionality, decorators: [{ type: Optional },] },
+        { type: ChangeDetectorRef, },
+    ]; };
     return MatVerticalStepper;
 }(MatStepper));
 
@@ -473,5 +490,5 @@ var MatStepperModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatStepperModule, MatStepLabel, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl };
+export { MatStepperModule, MatStepLabel, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl, matStepperAnimations };
 //# sourceMappingURL=stepper.es5.js.map

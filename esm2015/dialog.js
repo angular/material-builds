@@ -97,6 +97,28 @@ class MatDialogConfig {
  */
 
 /**
+ * Animations used by MatDialog.
+ */
+const matDialogAnimations = {
+    /** Animation that slides the dialog in and out of view and fades the opacity. */
+    slideDialog: trigger('slideDialog', [
+        // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
+        // scale(1)`, because for some reason specifying the transform explicitly, causes IE both
+        // to blur the dialog content and decimate the animation performance. Leaving it as `none`
+        // solves both issues.
+        state('enter', style({ transform: 'none', opacity: 1 })),
+        state('void', style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
+        state('exit', style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
+        transition('* => *', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Throws an exception for the case when a ComponentPortal is
  * attached to a DomPortalOutlet without an origin.
  * \@docs-private
@@ -250,18 +272,7 @@ MatDialogContainer.decorators = [
                 // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
                 // tslint:disable-next-line:validate-decorators
                 changeDetection: ChangeDetectionStrategy.Default,
-                animations: [
-                    trigger('slideDialog', [
-                        // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
-                        // scale(1)`, because for some reason specifying the transform explicitly, causes IE both
-                        // to blur the dialog content and decimate the animation performance. Leaving it as `none`
-                        // solves both issues.
-                        state('enter', style({ transform: 'none', opacity: 1 })),
-                        state('void', style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
-                        state('exit', style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
-                        transition('* => *', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
-                    ])
-                ],
+                animations: [matDialogAnimations.slideDialog],
                 host: {
                     'class': 'mat-dialog-container',
                     'tabindex': '-1',
@@ -916,5 +927,5 @@ MatDialogModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatDialogModule, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, throwMatDialogContentAlreadyAttachedError, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogConfig, MatDialogRef };
+export { MatDialogModule, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, throwMatDialogContentAlreadyAttachedError, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogConfig, MatDialogRef, matDialogAnimations };
 //# sourceMappingURL=dialog.js.map

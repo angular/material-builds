@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('rxjs/Subject'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subscription'), require('rxjs/observable/merge'), require('@angular/cdk/keycodes'), require('rxjs/observable/of'), require('@angular/cdk/platform'), require('rxjs/operators/takeUntil')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/observers', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/common', '@angular/core', '@angular/material/core', 'rxjs/Subject', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subscription', 'rxjs/observable/merge', '@angular/cdk/keycodes', 'rxjs/observable/of', '@angular/cdk/platform', 'rxjs/operators/takeUntil'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = global.ng.material.tabs || {}),global.ng.cdk.observers,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.common,global.ng.core,global.ng.material.core,global.Rx,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx.Observable,global.ng.cdk.keycodes,global.Rx.Observable,global.ng.cdk.platform,global.Rx.operators));
-}(this, (function (exports,_angular_cdk_observers,_angular_cdk_portal,_angular_cdk_scrolling,_angular_common,_angular_core,_angular_material_core,rxjs_Subject,_angular_animations,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subscription,rxjs_observable_merge,_angular_cdk_keycodes,rxjs_observable_of,_angular_cdk_platform,rxjs_operators_takeUntil) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/observers'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('rxjs/Subject'), require('@angular/cdk/bidi'), require('@angular/animations'), require('@angular/cdk/coercion'), require('rxjs/Subscription'), require('rxjs/observable/merge'), require('@angular/cdk/keycodes'), require('rxjs/observable/of'), require('@angular/cdk/platform'), require('rxjs/operators/takeUntil')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/observers', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/common', '@angular/core', '@angular/material/core', 'rxjs/Subject', '@angular/cdk/bidi', '@angular/animations', '@angular/cdk/coercion', 'rxjs/Subscription', 'rxjs/observable/merge', '@angular/cdk/keycodes', 'rxjs/observable/of', '@angular/cdk/platform', 'rxjs/operators/takeUntil'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = global.ng.material.tabs || {}),global.ng.cdk.observers,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.common,global.ng.core,global.ng.material.core,global.Rx,global.ng.cdk.bidi,global.ng.animations,global.ng.cdk.coercion,global.Rx,global.Rx.Observable,global.ng.cdk.keycodes,global.Rx.Observable,global.ng.cdk.platform,global.Rx.operators));
+}(this, (function (exports,_angular_cdk_observers,_angular_cdk_portal,_angular_cdk_scrolling,_angular_common,_angular_core,_angular_material_core,rxjs_Subject,_angular_cdk_bidi,_angular_animations,_angular_cdk_coercion,rxjs_Subscription,rxjs_observable_merge,_angular_cdk_keycodes,rxjs_observable_of,_angular_cdk_platform,rxjs_operators_takeUntil) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -287,6 +287,33 @@ var MatTab = /** @class */ (function (_super) {
  */
 
 /**
+ * Animations used by the Material tabs.
+ */
+var matTabsAnimations = {
+    /** Animation translates a tab along the X axis. */
+    translateTab: _angular_animations.trigger('translateTab', [
+        // Note: transitions to `none` instead of 0, because some browsers might blur the content.
+        _angular_animations.state('center, void, left-origin-center, right-origin-center', _angular_animations.style({ transform: 'none' })),
+        _angular_animations.state('left', _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)' })),
+        _angular_animations.state('right', _angular_animations.style({ transform: 'translate3d(100%, 0, 0)' })),
+        _angular_animations.transition('* => left, * => right, left => center, right => center', _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
+        _angular_animations.transition('void => left-origin-center', [
+            _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)' }),
+            _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
+        ]),
+        _angular_animations.transition('void => right-origin-center', [
+            _angular_animations.style({ transform: 'translate3d(100%, 0, 0)' }),
+            _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
+        ])
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * The portal host directive for the contents of the tab.
  * \@docs-private
  */
@@ -503,26 +530,10 @@ var MatTabBody = /** @class */ (function () {
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    animations: [matTabsAnimations.translateTab],
                     host: {
                         'class': 'mat-tab-body',
                     },
-                    animations: [
-                        _angular_animations.trigger('translateTab', [
-                            // Note: transitions to `none` instead of 0, because some browsers might blur the content.
-                            _angular_animations.state('center, void, left-origin-center, right-origin-center', _angular_animations.style({ transform: 'none' })),
-                            _angular_animations.state('left', _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)' })),
-                            _angular_animations.state('right', _angular_animations.style({ transform: 'translate3d(100%, 0, 0)' })),
-                            _angular_animations.transition('* => left, * => right, left => center, right => center', _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
-                            _angular_animations.transition('void => left-origin-center', [
-                                _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)' }),
-                                _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
-                            ]),
-                            _angular_animations.transition('void => right-origin-center', [
-                                _angular_animations.style({ transform: 'translate3d(100%, 0, 0)' }),
-                                _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
-                            ])
-                        ])
-                    ]
                 },] },
     ];
     /** @nocollapse */
@@ -2010,6 +2021,7 @@ exports.MatTabChangeEvent = MatTabChangeEvent;
 exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
+exports.matTabsAnimations = matTabsAnimations;
 exports.ɵe21 = MatTabBase;
 exports.ɵf21 = _MatTabMixinBase;
 exports.ɵa21 = MatTabHeaderBase;

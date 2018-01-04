@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('rxjs/operators/debounceTime'), require('rxjs/operators/map'), require('rxjs/Subject'), require('rxjs/Observable')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', 'rxjs/operators/debounceTime', 'rxjs/operators/map', 'rxjs/Subject', 'rxjs/Observable'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = global.ng.material.sidenav || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_core,_angular_cdk_scrolling,_angular_cdk_platform,_angular_animations,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_keycodes,rxjs_observable_merge,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_startWith,rxjs_operators_takeUntil,rxjs_operators_debounceTime,rxjs_operators_map,rxjs_Subject) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('rxjs/operators/debounceTime'), require('rxjs/operators/map'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/animations')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', 'rxjs/operators/debounceTime', 'rxjs/operators/map', 'rxjs/Subject', 'rxjs/Observable', '@angular/animations'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = global.ng.material.sidenav || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx,global.Rx,global.ng.animations));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_core,_angular_cdk_scrolling,_angular_cdk_platform,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_keycodes,rxjs_observable_merge,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_startWith,rxjs_operators_takeUntil,rxjs_operators_debounceTime,rxjs_operators_map,rxjs_Subject,rxjs_Observable,_angular_animations) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -42,6 +42,28 @@ function __extends(d, b) {
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Animations used by the Material drawers.
+ */
+var matDrawerAnimations = {
+    /** Animation that slides a drawer in and out. */
+    transformDrawer: _angular_animations.trigger('transform', [
+        _angular_animations.state('open, open-instant', _angular_animations.style({
+            transform: 'translate3d(0, 0, 0)',
+            visibility: 'visible',
+        })),
+        _angular_animations.state('void', _angular_animations.style({
+            visibility: 'hidden',
+        })),
+        _angular_animations.transition('void => open-instant', _angular_animations.animate('0ms')),
+        _angular_animations.transition('void <=> open, open-instant => void', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Throws an exception when two MatDrawer are matching the same position.
  * @param {?} position
@@ -537,19 +559,7 @@ var MatDrawer = /** @class */ (function () {
         { type: _angular_core.Component, args: [{selector: 'mat-drawer',
                     exportAs: 'matDrawer',
                     template: '<ng-content></ng-content>',
-                    animations: [
-                        _angular_animations.trigger('transform', [
-                            _angular_animations.state('open, open-instant', _angular_animations.style({
-                                transform: 'translate3d(0, 0, 0)',
-                                visibility: 'visible',
-                            })),
-                            _angular_animations.state('void', _angular_animations.style({
-                                visibility: 'hidden',
-                            })),
-                            _angular_animations.transition('void => open-instant', _angular_animations.animate('0ms')),
-                            _angular_animations.transition('void <=> open, open-instant => void', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
-                        ])
-                    ],
+                    animations: [matDrawerAnimations.transformDrawer],
                     host: {
                         'class': 'mat-drawer',
                         '[@transform]': '_animationState',
@@ -1090,19 +1100,7 @@ var MatSidenav = /** @class */ (function (_super) {
         { type: _angular_core.Component, args: [{selector: 'mat-sidenav',
                     exportAs: 'matSidenav',
                     template: '<ng-content></ng-content>',
-                    animations: [
-                        _angular_animations.trigger('transform', [
-                            _angular_animations.state('open, open-instant', _angular_animations.style({
-                                transform: 'translate3d(0, 0, 0)',
-                                visibility: 'visible',
-                            })),
-                            _angular_animations.state('void', _angular_animations.style({
-                                visibility: 'hidden',
-                            })),
-                            _angular_animations.transition('void => open-instant', _angular_animations.animate('0ms')),
-                            _angular_animations.transition('void <=> open, open-instant => void', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
-                        ])
-                    ],
+                    animations: [matDrawerAnimations.transformDrawer],
                     host: {
                         'class': 'mat-drawer mat-sidenav',
                         'tabIndex': '-1',
@@ -1216,6 +1214,7 @@ exports.MatDrawerContainer = MatDrawerContainer;
 exports.MatSidenavContent = MatSidenavContent;
 exports.MatSidenav = MatSidenav;
 exports.MatSidenavContainer = MatSidenavContainer;
+exports.matDrawerAnimations = matDrawerAnimations;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

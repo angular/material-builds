@@ -1,5 +1,13 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { CdkStep, CdkStepper } from '@angular/cdk/stepper';
-import { AfterContentInit, ElementRef, QueryList } from '@angular/core';
+import { Directionality } from '@angular/cdk/bidi';
+import { AfterContentInit, ElementRef, QueryList, ChangeDetectorRef } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatStepLabel } from './step-label';
@@ -21,4 +29,5 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
 export declare class MatHorizontalStepper extends MatStepper {
 }
 export declare class MatVerticalStepper extends MatStepper {
+    constructor(dir: Directionality, changeDetectorRef: ChangeDetectorRef);
 }

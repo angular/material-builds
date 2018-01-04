@@ -14,7 +14,6 @@ import { ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
@@ -27,12 +26,35 @@ import { debounceTime } from 'rxjs/operators/debounceTime';
 import { map } from 'rxjs/operators/map';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/Observable';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Animations used by the Material drawers.
+ */
+var matDrawerAnimations = {
+    /** Animation that slides a drawer in and out. */
+    transformDrawer: trigger('transform', [
+        state('open, open-instant', style({
+            transform: 'translate3d(0, 0, 0)',
+            visibility: 'visible',
+        })),
+        state('void', style({
+            visibility: 'hidden',
+        })),
+        transition('void => open-instant', animate('0ms')),
+        transition('void <=> open, open-instant => void', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Throws an exception when two MatDrawer are matching the same position.
  * @param {?} position
@@ -528,19 +550,7 @@ var MatDrawer = /** @class */ (function () {
         { type: Component, args: [{selector: 'mat-drawer',
                     exportAs: 'matDrawer',
                     template: '<ng-content></ng-content>',
-                    animations: [
-                        trigger('transform', [
-                            state('open, open-instant', style({
-                                transform: 'translate3d(0, 0, 0)',
-                                visibility: 'visible',
-                            })),
-                            state('void', style({
-                                visibility: 'hidden',
-                            })),
-                            transition('void => open-instant', animate('0ms')),
-                            transition('void <=> open, open-instant => void', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
-                        ])
-                    ],
+                    animations: [matDrawerAnimations.transformDrawer],
                     host: {
                         'class': 'mat-drawer',
                         '[@transform]': '_animationState',
@@ -1081,19 +1091,7 @@ var MatSidenav = /** @class */ (function (_super) {
         { type: Component, args: [{selector: 'mat-sidenav',
                     exportAs: 'matSidenav',
                     template: '<ng-content></ng-content>',
-                    animations: [
-                        trigger('transform', [
-                            state('open, open-instant', style({
-                                transform: 'translate3d(0, 0, 0)',
-                                visibility: 'visible',
-                            })),
-                            state('void', style({
-                                visibility: 'hidden',
-                            })),
-                            transition('void => open-instant', animate('0ms')),
-                            transition('void <=> open, open-instant => void', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
-                        ])
-                    ],
+                    animations: [matDrawerAnimations.transformDrawer],
                     host: {
                         'class': 'mat-drawer mat-sidenav',
                         'tabIndex': '-1',
@@ -1210,5 +1208,5 @@ var MatSidenavModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatSidenavModule, throwMatDuplicatedDrawerError, MatDrawerToggleResult, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer };
+export { MatSidenavModule, throwMatDuplicatedDrawerError, MatDrawerToggleResult, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
 //# sourceMappingURL=sidenav.es5.js.map

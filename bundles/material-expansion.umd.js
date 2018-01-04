@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/collections'), require('@angular/cdk/accordion'), require('@angular/cdk/a11y'), require('@angular/cdk/portal'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/material/core'), require('rxjs/Subject'), require('rxjs/operators/take'), require('rxjs/operators/filter'), require('rxjs/operators/startWith'), require('@angular/cdk/keycodes'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/collections', '@angular/cdk/accordion', '@angular/cdk/a11y', '@angular/cdk/portal', '@angular/cdk/coercion', '@angular/animations', '@angular/material/core', 'rxjs/Subject', 'rxjs/operators/take', 'rxjs/operators/filter', 'rxjs/operators/startWith', '@angular/cdk/keycodes', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = global.ng.material.expansion || {}),global.ng.common,global.ng.core,global.ng.cdk.collections,global.ng.cdk.accordion,global.ng.cdk.a11y,global.ng.cdk.portal,global.ng.cdk.coercion,global.ng.animations,global.ng.material.core,global.Rx,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx));
-}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_collections,_angular_cdk_accordion,_angular_cdk_a11y,_angular_cdk_portal,_angular_cdk_coercion,_angular_animations,_angular_material_core,rxjs_Subject,rxjs_operators_take,rxjs_operators_filter,rxjs_operators_startWith,_angular_cdk_keycodes,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/collections'), require('@angular/cdk/accordion'), require('@angular/cdk/a11y'), require('@angular/cdk/portal'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs/Subject'), require('rxjs/operators/take'), require('rxjs/operators/filter'), require('rxjs/operators/startWith'), require('@angular/animations'), require('@angular/cdk/keycodes'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/collections', '@angular/cdk/accordion', '@angular/cdk/a11y', '@angular/cdk/portal', '@angular/cdk/coercion', '@angular/material/core', 'rxjs/Subject', 'rxjs/operators/take', 'rxjs/operators/filter', 'rxjs/operators/startWith', '@angular/animations', '@angular/cdk/keycodes', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = global.ng.material.expansion || {}),global.ng.common,global.ng.core,global.ng.cdk.collections,global.ng.cdk.accordion,global.ng.cdk.a11y,global.ng.cdk.portal,global.ng.cdk.coercion,global.ng.material.core,global.Rx,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.animations,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx));
+}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_collections,_angular_cdk_accordion,_angular_cdk_a11y,_angular_cdk_portal,_angular_cdk_coercion,_angular_material_core,rxjs_Subject,rxjs_operators_take,rxjs_operators_filter,rxjs_operators_startWith,_angular_animations,_angular_cdk_keycodes,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -127,6 +127,43 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * Time and timing curve for expansion panel animations.
  */
 var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
+/**
+ * Animations used by the Material expansion panel.
+ */
+var matExpansionAnimations = {
+    /** Animation that rotates the indicator arrow. */
+    indicatorRotate: _angular_animations.trigger('indicatorRotate', [
+        _angular_animations.state('collapsed', _angular_animations.style({ transform: 'rotate(0deg)' })),
+        _angular_animations.state('expanded', _angular_animations.style({ transform: 'rotate(180deg)' })),
+        _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    ]),
+    /** Animation that expands and collapses the panel header height. */
+    expansionHeaderHeight: _angular_animations.trigger('expansionHeight', [
+        _angular_animations.state('collapsed', _angular_animations.style({
+            height: '{{collapsedHeight}}',
+        }), {
+            params: { collapsedHeight: '48px' },
+        }),
+        _angular_animations.state('expanded', _angular_animations.style({
+            height: '{{expandedHeight}}'
+        }), {
+            params: { expandedHeight: '64px' }
+        }),
+        _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    ]),
+    /** Animation that expands and collapses the panel content. */
+    bodyExpansion: _angular_animations.trigger('bodyExpansion', [
+        _angular_animations.state('collapsed', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
+        _angular_animations.state('expanded', _angular_animations.style({ height: '*', visibility: 'visible' })),
+        _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
 /**
  * \@docs-private
  */
@@ -278,6 +315,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled', 'expanded'],
                     outputs: ['opened', 'closed'],
+                    animations: [matExpansionAnimations.bodyExpansion],
                     host: {
                         'class': 'mat-expansion-panel',
                         '[class.mat-expanded]': 'expanded',
@@ -285,13 +323,6 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     },
                     providers: [
                         { provide: _MatExpansionPanelMixinBase, useExisting: _angular_core.forwardRef(function () { return MatExpansionPanel; }) }
-                    ],
-                    animations: [
-                        _angular_animations.trigger('bodyExpansion', [
-                            _angular_animations.state('collapsed', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
-                            _angular_animations.state('expanded', _angular_animations.style({ height: '*', visibility: 'visible' })),
-                            _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-                        ]),
                     ],
                 },] },
     ];
@@ -452,6 +483,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    animations: [
+                        matExpansionAnimations.indicatorRotate,
+                        matExpansionAnimations.expansionHeaderHeight
+                    ],
                     host: {
                         'class': 'mat-expansion-panel-header',
                         'role': 'button',
@@ -464,26 +499,6 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                         '(keyup)': '_keyup($event)',
                         '[@expansionHeight]': "{\n        value: _getExpandedState(),\n        params: {\n          collapsedHeight: collapsedHeight,\n          expandedHeight: expandedHeight\n        }\n    }",
                     },
-                    animations: [
-                        _angular_animations.trigger('indicatorRotate', [
-                            _angular_animations.state('collapsed', _angular_animations.style({ transform: 'rotate(0deg)' })),
-                            _angular_animations.state('expanded', _angular_animations.style({ transform: 'rotate(180deg)' })),
-                            _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-                        ]),
-                        _angular_animations.trigger('expansionHeight', [
-                            _angular_animations.state('collapsed', _angular_animations.style({
-                                height: '{{collapsedHeight}}',
-                            }), {
-                                params: { collapsedHeight: '48px' },
-                            }),
-                            _angular_animations.state('expanded', _angular_animations.style({
-                                height: '{{expandedHeight}}'
-                            }), {
-                                params: { expandedHeight: '64px' }
-                            }),
-                            _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
-                        ]),
-                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -580,7 +595,6 @@ var MatExpansionModule = /** @class */ (function () {
 
 exports.MatExpansionModule = MatExpansionModule;
 exports.MatAccordion = MatAccordion;
-exports.EXPANSION_PANEL_ANIMATION_TIMING = EXPANSION_PANEL_ANIMATION_TIMING;
 exports.MatExpansionPanelBase = MatExpansionPanelBase;
 exports._MatExpansionPanelMixinBase = _MatExpansionPanelMixinBase;
 exports.MatExpansionPanel = MatExpansionPanel;
@@ -589,6 +603,8 @@ exports.MatExpansionPanelHeader = MatExpansionPanelHeader;
 exports.MatExpansionPanelDescription = MatExpansionPanelDescription;
 exports.MatExpansionPanelTitle = MatExpansionPanelTitle;
 exports.MatExpansionPanelContent = MatExpansionPanelContent;
+exports.EXPANSION_PANEL_ANIMATION_TIMING = EXPANSION_PANEL_ANIMATION_TIMING;
+exports.matExpansionAnimations = matExpansionAnimations;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

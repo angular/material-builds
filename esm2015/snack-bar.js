@@ -14,8 +14,8 @@ import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layo
 import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
 import { take } from 'rxjs/operators/take';
 import { takeUntil } from 'rxjs/operators/takeUntil';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Subject } from 'rxjs/Subject';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
  * @fileoverview added by tsickle
@@ -170,6 +170,38 @@ class MatSnackBarConfig {
  */
 
 /**
+ * \@docs-private
+ */
+const SHOW_ANIMATION = `${AnimationDurations.ENTERING} ${AnimationCurves.DECELERATION_CURVE}`;
+/**
+ * \@docs-private
+ */
+const HIDE_ANIMATION = `${AnimationDurations.EXITING} ${AnimationCurves.ACCELERATION_CURVE}`;
+/**
+ * Animations used by the Material snack bar.
+ */
+const matSnackBarAnimations = {
+    /** Animation that slides the dialog in and out of view and fades the opacity. */
+    contentFade: trigger('contentFade', [
+        transition(':enter', [
+            style({ opacity: '0' }),
+            animate(`${AnimationDurations.COMPLEX} ${AnimationCurves.STANDARD_CURVE}`)
+        ])
+    ]),
+    /** Animation that shows and hides a snack bar. */
+    snackBarState: trigger('state', [
+        state('visible-top, visible-bottom', style({ transform: 'translateY(0%)' })),
+        transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animate(HIDE_ANIMATION)),
+        transition('void => visible-top, void => visible-bottom', animate(SHOW_ANIMATION)),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
  */
@@ -204,14 +236,7 @@ SimpleSnackBar.decorators = [
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
-                animations: [
-                    trigger('contentFade', [
-                        transition(':enter', [
-                            style({ opacity: '0' }),
-                            animate(`${AnimationDurations.COMPLEX} ${AnimationCurves.STANDARD_CURVE}`)
-                        ])
-                    ])
-                ],
+                animations: [matSnackBarAnimations.contentFade],
                 host: {
                     '[@contentFade]': '',
                     'class': 'mat-simple-snackbar',
@@ -229,8 +254,6 @@ SimpleSnackBar.ctorParameters = () => [
  * @suppress {checkTypes} checked by tsc
  */
 
-const SHOW_ANIMATION = `${AnimationDurations.ENTERING} ${AnimationCurves.DECELERATION_CURVE}`;
-const HIDE_ANIMATION = `${AnimationDurations.EXITING} ${AnimationCurves.ACCELERATION_CURVE}`;
 /**
  * Internal component that wraps user-provided snack bar content.
  * \@docs-private
@@ -376,19 +399,13 @@ MatSnackBarContainer.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
+                animations: [matSnackBarAnimations.snackBarState],
                 host: {
                     'role': 'alert',
                     'class': 'mat-snack-bar-container',
                     '[@state]': '_animationState',
                     '(@state.done)': 'onAnimationEnd($event)'
                 },
-                animations: [
-                    trigger('state', [
-                        state('visible-top, visible-bottom', style({ transform: 'translateY(0%)' })),
-                        transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animate(HIDE_ANIMATION)),
-                        transition('void => visible-top, void => visible-bottom', animate(SHOW_ANIMATION)),
-                    ])
-                ],
             },] },
 ];
 /** @nocollapse */
@@ -663,5 +680,5 @@ MatSnackBarModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatSnackBarModule, MatSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar };
+export { MatSnackBarModule, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, matSnackBarAnimations };
 //# sourceMappingURL=snack-bar.js.map
