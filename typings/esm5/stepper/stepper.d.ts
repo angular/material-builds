@@ -1,10 +1,3 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { CdkStep, CdkStepper } from '@angular/cdk/stepper';
 import { AfterContentInit, ElementRef, QueryList } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';

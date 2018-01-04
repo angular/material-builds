@@ -122,28 +122,6 @@ var MatDialogConfig = /** @class */ (function () {
  */
 
 /**
- * Animations used by MatDialog.
- */
-var matDialogAnimations = {
-    /** Animation that slides the dialog in and out of view and fades the opacity. */
-    slideDialog: _angular_animations.trigger('slideDialog', [
-        // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
-        // scale(1)`, because for some reason specifying the transform explicitly, causes IE both
-        // to blur the dialog content and decimate the animation performance. Leaving it as `none`
-        // solves both issues.
-        _angular_animations.state('enter', _angular_animations.style({ transform: 'none', opacity: 1 })),
-        _angular_animations.state('void', _angular_animations.style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
-        _angular_animations.state('exit', _angular_animations.style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
-        _angular_animations.transition('* => *', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
-    ])
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
  * Throws an exception for the case when a ComponentPortal is
  * attached to a DomPortalOutlet without an origin.
  * \@docs-private
@@ -342,7 +320,18 @@ var MatDialogContainer = /** @class */ (function (_super) {
                     // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
                     // tslint:disable-next-line:validate-decorators
                     changeDetection: _angular_core.ChangeDetectionStrategy.Default,
-                    animations: [matDialogAnimations.slideDialog],
+                    animations: [
+                        _angular_animations.trigger('slideDialog', [
+                            // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
+                            // scale(1)`, because for some reason specifying the transform explicitly, causes IE both
+                            // to blur the dialog content and decimate the animation performance. Leaving it as `none`
+                            // solves both issues.
+                            _angular_animations.state('enter', _angular_animations.style({ transform: 'none', opacity: 1 })),
+                            _angular_animations.state('void', _angular_animations.style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
+                            _angular_animations.state('exit', _angular_animations.style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
+                            _angular_animations.transition('* => *', _angular_animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+                        ])
+                    ],
                     host: {
                         'class': 'mat-dialog-container',
                         'tabindex': '-1',
@@ -1168,7 +1157,6 @@ exports.MatDialogContent = MatDialogContent;
 exports.MatDialogActions = MatDialogActions;
 exports.MatDialogConfig = MatDialogConfig;
 exports.MatDialogRef = MatDialogRef;
-exports.matDialogAnimations = matDialogAnimations;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

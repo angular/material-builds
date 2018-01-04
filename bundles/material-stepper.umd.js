@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/portal'), require('@angular/cdk/stepper'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/core'), require('@angular/material/icon'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/operators/takeUntil'), require('@angular/animations')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/portal', '@angular/cdk/stepper', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/core', '@angular/material/icon', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/operators/takeUntil', '@angular/animations'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.stepper = global.ng.material.stepper || {}),global.ng.cdk.a11y,global.ng.cdk.portal,global.ng.cdk.stepper,global.ng.common,global.ng.core,global.ng.material.button,global.ng.material.core,global.ng.material.icon,global.ng.cdk.coercion,global.Rx,global.Rx.operators,global.ng.animations));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_portal,_angular_cdk_stepper,_angular_common,_angular_core,_angular_material_button,_angular_material_core,_angular_material_icon,_angular_cdk_coercion,rxjs_Subject,rxjs_operators_takeUntil,_angular_animations) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/portal'), require('@angular/cdk/stepper'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/core'), require('@angular/material/icon'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/animations'), require('rxjs/operators/takeUntil')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/portal', '@angular/cdk/stepper', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/core', '@angular/material/icon', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/animations', 'rxjs/operators/takeUntil'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.stepper = global.ng.material.stepper || {}),global.ng.cdk.a11y,global.ng.cdk.portal,global.ng.cdk.stepper,global.ng.common,global.ng.core,global.ng.material.button,global.ng.material.core,global.ng.material.icon,global.ng.cdk.coercion,global.Rx,global.ng.animations,global.Rx.operators));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_portal,_angular_cdk_stepper,_angular_common,_angular_core,_angular_material_button,_angular_material_core,_angular_material_icon,_angular_cdk_coercion,rxjs_Subject,_angular_animations,rxjs_operators_takeUntil) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -246,31 +246,6 @@ var MatStepHeader = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-/**
- * Animations used by the Material steppers.
- */
-var matStepperAnimations = {
-    /** Animation that transitions the step along the X axis in a horizontal stepper. */
-    horizontalStepTransition: _angular_animations.trigger('stepTransition', [
-        _angular_animations.state('previous', _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
-        _angular_animations.state('current', _angular_animations.style({ transform: 'none', visibility: 'visible' })),
-        _angular_animations.state('next', _angular_animations.style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
-        _angular_animations.transition('* => *', _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
-    ]),
-    /** Animation that transitions the step along the Y axis in a vertical stepper. */
-    verticalStepTransition: _angular_animations.trigger('stepTransition', [
-        _angular_animations.state('previous', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
-        _angular_animations.state('next', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
-        _angular_animations.state('current', _angular_animations.style({ height: '*', visibility: 'visible' })),
-        _angular_animations.transition('* <=> current', _angular_animations.animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
-    ])
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper, _errorStateMatcher) {
@@ -364,7 +339,14 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
                         'aria-orientation': 'horizontal',
                         'role': 'tablist',
                     },
-                    animations: [matStepperAnimations.horizontalStepTransition],
+                    animations: [
+                        _angular_animations.trigger('stepTransition', [
+                            _angular_animations.state('previous', _angular_animations.style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
+                            _angular_animations.state('current', _angular_animations.style({ transform: 'none', visibility: 'visible' })),
+                            _angular_animations.state('next', _angular_animations.style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
+                            _angular_animations.transition('* => *', _angular_animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
+                        ])
+                    ],
                     providers: [{ provide: MatStepper, useExisting: MatHorizontalStepper }],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -391,7 +373,14 @@ var MatVerticalStepper = /** @class */ (function (_super) {
                         'aria-orientation': 'vertical',
                         'role': 'tablist',
                     },
-                    animations: [matStepperAnimations.verticalStepTransition],
+                    animations: [
+                        _angular_animations.trigger('stepTransition', [
+                            _angular_animations.state('previous', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
+                            _angular_animations.state('next', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
+                            _angular_animations.state('current', _angular_animations.style({ height: '*', visibility: 'visible' })),
+                            _angular_animations.transition('* <=> current', _angular_animations.animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+                        ])
+                    ],
                     providers: [{ provide: MatStepper, useExisting: MatVerticalStepper }],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -498,7 +487,6 @@ exports.MatStepperNext = MatStepperNext;
 exports.MatStepperPrevious = MatStepperPrevious;
 exports.MatStepHeader = MatStepHeader;
 exports.MatStepperIntl = MatStepperIntl;
-exports.matStepperAnimations = matStepperAnimations;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

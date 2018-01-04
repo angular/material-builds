@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/material/core'), require('rxjs/operators/take'), require('rxjs/operators/takeUntil'), require('rxjs/Subject'), require('@angular/animations')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/material/core', 'rxjs/operators/take', 'rxjs/operators/takeUntil', 'rxjs/Subject', '@angular/animations'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = global.ng.material.snackBar || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.material.core,global.Rx.operators,global.Rx.operators,global.Rx,global.ng.animations));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_cdk_layout,_angular_material_core,rxjs_operators_take,rxjs_operators_takeUntil,rxjs_Subject,_angular_animations) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/material/core'), require('rxjs/operators/take'), require('rxjs/operators/takeUntil'), require('@angular/animations'), require('rxjs/Subject')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/material/core', 'rxjs/operators/take', 'rxjs/operators/takeUntil', '@angular/animations', 'rxjs/Subject'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = global.ng.material.snackBar || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.material.core,global.Rx.operators,global.Rx.operators,global.ng.animations,global.Rx));
+}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_cdk_layout,_angular_material_core,rxjs_operators_take,rxjs_operators_takeUntil,_angular_animations,rxjs_Subject) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -238,38 +238,6 @@ var MatSnackBarConfig = /** @class */ (function () {
  */
 
 /**
- * \@docs-private
- */
-var SHOW_ANIMATION = _angular_material_core.AnimationDurations.ENTERING + " " + _angular_material_core.AnimationCurves.DECELERATION_CURVE;
-/**
- * \@docs-private
- */
-var HIDE_ANIMATION = _angular_material_core.AnimationDurations.EXITING + " " + _angular_material_core.AnimationCurves.ACCELERATION_CURVE;
-/**
- * Animations used by the Material snack bar.
- */
-var matSnackBarAnimations = {
-    /** Animation that slides the dialog in and out of view and fades the opacity. */
-    contentFade: _angular_animations.trigger('contentFade', [
-        _angular_animations.transition(':enter', [
-            _angular_animations.style({ opacity: '0' }),
-            _angular_animations.animate(_angular_material_core.AnimationDurations.COMPLEX + " " + _angular_material_core.AnimationCurves.STANDARD_CURVE)
-        ])
-    ]),
-    /** Animation that shows and hides a snack bar. */
-    snackBarState: _angular_animations.trigger('state', [
-        _angular_animations.state('visible-top, visible-bottom', _angular_animations.style({ transform: 'translateY(0%)' })),
-        _angular_animations.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', _angular_animations.animate(HIDE_ANIMATION)),
-        _angular_animations.transition('void => visible-top, void => visible-bottom', _angular_animations.animate(SHOW_ANIMATION)),
-    ])
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
  */
@@ -309,7 +277,14 @@ var SimpleSnackBar = /** @class */ (function () {
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    animations: [matSnackBarAnimations.contentFade],
+                    animations: [
+                        _angular_animations.trigger('contentFade', [
+                            _angular_animations.transition(':enter', [
+                                _angular_animations.style({ opacity: '0' }),
+                                _angular_animations.animate(_angular_material_core.AnimationDurations.COMPLEX + " " + _angular_material_core.AnimationCurves.STANDARD_CURVE)
+                            ])
+                        ])
+                    ],
                     host: {
                         '[@contentFade]': '',
                         'class': 'mat-simple-snackbar',
@@ -329,6 +304,8 @@ var SimpleSnackBar = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
+var SHOW_ANIMATION = _angular_material_core.AnimationDurations.ENTERING + " " + _angular_material_core.AnimationCurves.DECELERATION_CURVE;
+var HIDE_ANIMATION = _angular_material_core.AnimationDurations.EXITING + " " + _angular_material_core.AnimationCurves.ACCELERATION_CURVE;
 /**
  * Internal component that wraps user-provided snack bar content.
  * \@docs-private
@@ -514,13 +491,19 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    animations: [matSnackBarAnimations.snackBarState],
                     host: {
                         'role': 'alert',
                         'class': 'mat-snack-bar-container',
                         '[@state]': '_animationState',
                         '(@state.done)': 'onAnimationEnd($event)'
                     },
+                    animations: [
+                        _angular_animations.trigger('state', [
+                            _angular_animations.state('visible-top, visible-bottom', _angular_animations.style({ transform: 'translateY(0%)' })),
+                            _angular_animations.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', _angular_animations.animate(HIDE_ANIMATION)),
+                            _angular_animations.transition('void => visible-top, void => visible-bottom', _angular_animations.animate(SHOW_ANIMATION)),
+                        ])
+                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -851,14 +834,13 @@ var MatSnackBarModule = /** @class */ (function () {
 
 exports.MatSnackBarModule = MatSnackBarModule;
 exports.MatSnackBar = MatSnackBar;
+exports.SHOW_ANIMATION = SHOW_ANIMATION;
+exports.HIDE_ANIMATION = HIDE_ANIMATION;
 exports.MatSnackBarContainer = MatSnackBarContainer;
 exports.MAT_SNACK_BAR_DATA = MAT_SNACK_BAR_DATA;
 exports.MatSnackBarConfig = MatSnackBarConfig;
 exports.MatSnackBarRef = MatSnackBarRef;
 exports.SimpleSnackBar = SimpleSnackBar;
-exports.SHOW_ANIMATION = SHOW_ANIMATION;
-exports.HIDE_ANIMATION = HIDE_ANIMATION;
-exports.matSnackBarAnimations = matSnackBarAnimations;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

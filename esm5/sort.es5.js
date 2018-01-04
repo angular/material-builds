@@ -9,11 +9,11 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, Event
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { CdkColumnDef } from '@angular/cdk/table';
 import { merge } from 'rxjs/observable/merge';
 import { AnimationCurves, AnimationDurations, mixinDisabled } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
-import { animate, keyframes, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -339,57 +339,7 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
  * @suppress {checkTypes} checked by tsc
  */
 
-var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
-    AnimationCurves.STANDARD_CURVE;
-/**
- * Animations used by MatSort.
- */
-var matSortAnimations = {
-    /** Animation that moves the sort indicator. */
-    indicator: trigger('indicator', [
-        state('asc', style({ transform: 'translateY(0px)' })),
-        // 10px is the height of the sort indicator, minus the width of the pointers
-        state('desc', style({ transform: 'translateY(10px)' })),
-        transition('asc <=> desc', animate(SORT_ANIMATION_TRANSITION))
-    ]),
-    /** Animation that rotates the left pointer of the indicator based on the sorting direction. */
-    leftPointer: trigger('leftPointer', [
-        state('asc', style({ transform: 'rotate(-45deg)' })),
-        state('desc', style({ transform: 'rotate(45deg)' })),
-        transition('asc <=> desc', animate(SORT_ANIMATION_TRANSITION))
-    ]),
-    /** Animation that rotates the right pointer of the indicator based on the sorting direction. */
-    rightPointer: trigger('rightPointer', [
-        state('asc', style({ transform: 'rotate(45deg)' })),
-        state('desc', style({ transform: 'rotate(-45deg)' })),
-        transition('asc <=> desc', animate(SORT_ANIMATION_TRANSITION))
-    ]),
-    /** Animation that moves the indicator in and out of view when sorting is enabled/disabled. */
-    indicatorToggle: trigger('indicatorToggle', [
-        transition('void => asc', animate(SORT_ANIMATION_TRANSITION, keyframes([
-            style({ transform: 'translateY(25%)', opacity: 0 }),
-            style({ transform: 'none', opacity: 1 })
-        ]))),
-        transition('asc => void', animate(SORT_ANIMATION_TRANSITION, keyframes([
-            style({ transform: 'none', opacity: 1 }),
-            style({ transform: 'translateY(-25%)', opacity: 0 })
-        ]))),
-        transition('void => desc', animate(SORT_ANIMATION_TRANSITION, keyframes([
-            style({ transform: 'translateY(-25%)', opacity: 0 }),
-            style({ transform: 'none', opacity: 1 })
-        ]))),
-        transition('desc => void', animate(SORT_ANIMATION_TRANSITION, keyframes([
-            style({ transform: 'none', opacity: 1 }),
-            style({ transform: 'translateY(25%)', opacity: 0 })
-        ]))),
-    ])
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
+var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' + AnimationCurves.STANDARD_CURVE;
 /**
  * \@docs-private
  */
@@ -513,10 +463,40 @@ var MatSortHeader = /** @class */ (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled'],
                     animations: [
-                        matSortAnimations.indicator,
-                        matSortAnimations.leftPointer,
-                        matSortAnimations.rightPointer,
-                        matSortAnimations.indicatorToggle
+                        trigger('indicator', [
+                            state('asc', style({ transform: 'translateY(0px)' })),
+                            // 10px is the height of the sort indicator, minus the width of the pointers
+                            state('desc', style({ transform: 'translateY(10px)' })),
+                            transition('asc <=> desc', animate(SORT_ANIMATION_TRANSITION))
+                        ]),
+                        trigger('leftPointer', [
+                            state('asc', style({ transform: 'rotate(-45deg)' })),
+                            state('desc', style({ transform: 'rotate(45deg)' })),
+                            transition('asc <=> desc', animate(SORT_ANIMATION_TRANSITION))
+                        ]),
+                        trigger('rightPointer', [
+                            state('asc', style({ transform: 'rotate(45deg)' })),
+                            state('desc', style({ transform: 'rotate(-45deg)' })),
+                            transition('asc <=> desc', animate(SORT_ANIMATION_TRANSITION))
+                        ]),
+                        trigger('indicatorToggle', [
+                            transition('void => asc', animate(SORT_ANIMATION_TRANSITION, keyframes([
+                                style({ transform: 'translateY(25%)', opacity: 0 }),
+                                style({ transform: 'none', opacity: 1 })
+                            ]))),
+                            transition('asc => void', animate(SORT_ANIMATION_TRANSITION, keyframes([
+                                style({ transform: 'none', opacity: 1 }),
+                                style({ transform: 'translateY(-25%)', opacity: 0 })
+                            ]))),
+                            transition('void => desc', animate(SORT_ANIMATION_TRANSITION, keyframes([
+                                style({ transform: 'translateY(-25%)', opacity: 0 }),
+                                style({ transform: 'none', opacity: 1 })
+                            ]))),
+                            transition('desc => void', animate(SORT_ANIMATION_TRANSITION, keyframes([
+                                style({ transform: 'none', opacity: 1 }),
+                                style({ transform: 'translateY(25%)', opacity: 0 })
+                            ]))),
+                        ])
                     ]
                 },] },
     ];
@@ -570,5 +550,5 @@ var MatSortModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatSortModule, MatSortHeaderBase, _MatSortHeaderMixinBase, MatSortHeader, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MAT_SORT_HEADER_INTL_PROVIDER, MatSortBase, _MatSortMixinBase, MatSort, matSortAnimations };
+export { MatSortModule, MatSortHeaderBase, _MatSortHeaderMixinBase, MatSortHeader, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MAT_SORT_HEADER_INTL_PROVIDER, MatSortBase, _MatSortMixinBase, MatSort };
 //# sourceMappingURL=sort.es5.js.map

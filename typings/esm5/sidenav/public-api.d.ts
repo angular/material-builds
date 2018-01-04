@@ -8,4 +8,3 @@
 export * from './sidenav-module';
 export * from './drawer';
 export * from './sidenav';
-export * from './drawer-animations';

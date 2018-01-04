@@ -11,6 +11,8 @@ import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet } from '@angular/cdk
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { MatSnackBarConfig } from './snack-bar-config';
+export declare const SHOW_ANIMATION: string;
+export declare const HIDE_ANIMATION: string;
 /**
  * Internal component that wraps user-provided snack bar content.
  * @docs-private
