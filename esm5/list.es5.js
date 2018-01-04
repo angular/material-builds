@@ -397,6 +397,12 @@ var MatListOption = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        var _this = this;
+        if (this.selected) {
+            // We have to delay this until the next tick in order
+            // to avoid changed after checked errors.
+            Promise.resolve().then(function () { return _this.selected = false; });
+        }
         this.selectionList._removeOptionFromList(this);
     };
     /** Toggles the selection state of the option. */
