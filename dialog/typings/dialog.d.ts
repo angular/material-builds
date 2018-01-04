@@ -1,4 +1,4 @@
-import { BlockScrollStrategy, Overlay, ScrollStrategy, OverlayContainer } from '@angular/cdk/overlay';
+import { Overlay, ScrollStrategy, OverlayContainer } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
 import { Location } from '@angular/common';
 import { InjectionToken, Injector, TemplateRef } from '@angular/core';
@@ -12,12 +12,12 @@ export declare const MAT_DIALOG_DEFAULT_OPTIONS: InjectionToken<MatDialogConfig<
 /** Injection token that determines the scroll handling while the dialog is open. */
 export declare const MAT_DIALOG_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
-export declare function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => BlockScrollStrategy;
+export declare function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => ScrollStrategy;
 /** @docs-private */
 export declare const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];
-    useFactory: (overlay: Overlay) => () => BlockScrollStrategy;
+    useFactory: (overlay: Overlay) => () => ScrollStrategy;
 };
 /**
  * Service to open Material Design modal dialogs.

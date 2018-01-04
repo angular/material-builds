@@ -8676,7 +8676,7 @@ var MatDialog = /** @class */ (function () {
     function (dialogConfig) {
         var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._overlay.position().global(),
-            scrollStrategy: this._scrollStrategy(),
+            scrollStrategy: dialogConfig.scrollStrategy || this._scrollStrategy(),
             panelClass: dialogConfig.panelClass,
             hasBackdrop: dialogConfig.hasBackdrop,
             direction: dialogConfig.direction,
@@ -28563,7 +28563,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.3-4846e4c');
+var VERSION = new _angular_core.Version('5.0.3-c7de734');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

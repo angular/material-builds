@@ -7,6 +7,7 @@
  */
 import { ViewContainerRef } from '@angular/core';
 import { Direction } from '@angular/cdk/bidi';
+import { ScrollStrategy } from '@angular/cdk/overlay';
 /** Valid ARIA roles for a dialog element. */
 export declare type DialogRole = 'dialog' | 'alertdialog';
 /** Possible overrides for a dialog's position. */
@@ -67,4 +68,6 @@ export declare class MatDialogConfig<D = any> {
     ariaLabel?: string | null;
     /** Whether the dialog should focus the first focusable element on open. */
     autoFocus?: boolean;
+    /** Scroll strategy to be used for the dialog. */
+    scrollStrategy?: ScrollStrategy;
 }

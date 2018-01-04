@@ -789,7 +789,7 @@ var MatDialog = /** @class */ (function () {
     function (dialogConfig) {
         var /** @type {?} */ state$$1 = new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._overlay.position().global(),
-            scrollStrategy: this._scrollStrategy(),
+            scrollStrategy: dialogConfig.scrollStrategy || this._scrollStrategy(),
             panelClass: dialogConfig.panelClass,
             hasBackdrop: dialogConfig.hasBackdrop,
             direction: dialogConfig.direction,

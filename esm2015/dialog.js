@@ -598,7 +598,7 @@ class MatDialog {
     _getOverlayConfig(dialogConfig) {
         const /** @type {?} */ state$$1 = new OverlayConfig({
             positionStrategy: this._overlay.position().global(),
-            scrollStrategy: this._scrollStrategy(),
+            scrollStrategy: dialogConfig.scrollStrategy || this._scrollStrategy(),
             panelClass: dialogConfig.panelClass,
             hasBackdrop: dialogConfig.hasBackdrop,
             direction: dialogConfig.direction,
