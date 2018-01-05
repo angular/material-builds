@@ -1147,6 +1147,7 @@ var MatSelect = /** @class */ (function (_super) {
             this._selectionModel.toggle(option);
             this.stateChanges.next();
             wasSelected ? option.deselect() : option.select();
+            this._keyManager.setActiveItem(/** @type {?} */ ((this._getOptionIndex(option))));
             this._sortValues();
         }
         else {
