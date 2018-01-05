@@ -30,6 +30,7 @@ export declare function getMatIconFailedToSanitizeError(url: SafeResourceUrl): E
 export declare class MatIconRegistry {
     private _httpClient;
     private _sanitizer;
+    private _document;
     /**
      * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
      */
@@ -51,7 +52,7 @@ export declare class MatIconRegistry {
      * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
      */
     private _defaultFontSetClass;
-    constructor(_httpClient: HttpClient, _sanitizer: DomSanitizer);
+    constructor(_httpClient: HttpClient, _sanitizer: DomSanitizer, _document?: any);
     /**
      * Registers an icon by URL in the default namespace.
      * @param iconName Name under which the icon should be registered.
@@ -178,10 +179,10 @@ export declare class MatIconRegistry {
     private _fetchUrl(safeUrl);
 }
 /** @docs-private */
-export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer): MatIconRegistry;
+export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, document?: any): MatIconRegistry;
 /** @docs-private */
 export declare const ICON_REGISTRY_PROVIDER: {
     provide: typeof MatIconRegistry;
     deps: (Optional[] | typeof DomSanitizer)[];
-    useFactory: (parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer) => MatIconRegistry;
+    useFactory: (parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, document?: any) => MatIconRegistry;
 };

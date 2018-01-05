@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Injectable, Input, NgModule, Optional, SecurityContext, SkipSelf, ViewEncapsulation } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Inject, Injectable, Input, NgModule, Optional, SecurityContext, SkipSelf, ViewEncapsulation } from '@angular/core';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
@@ -20,6 +20,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
+import { DOCUMENT } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -76,9 +77,11 @@ var SvgIconConfig = /** @class */ (function () {
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 var MatIconRegistry = /** @class */ (function () {
-    function MatIconRegistry(_httpClient, _sanitizer) {
+    function MatIconRegistry(_httpClient, _sanitizer, _document) {
+        // TODO(crisbeto): make _document required next major release.
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
+        this._document = _document;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
          */
@@ -583,13 +586,16 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (str) {
-        var /** @type {?} */ div = document.createElement('DIV');
-        div.innerHTML = str;
-        var /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
-        if (!svg) {
-            throw Error('<svg> tag not found');
+        if (this._document || typeof document !== 'undefined') {
+            var /** @type {?} */ div = (this._document || document).createElement('DIV');
+            div.innerHTML = str;
+            var /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
+            if (!svg) {
+                throw Error('<svg> tag not found');
+            }
+            return svg;
         }
-        return svg;
+        throw new Error('MatIconRegistry could not resolve document.');
     };
     /**
      * Converts an element into an SVG node by cloning all of its children.
@@ -673,6 +679,7 @@ var MatIconRegistry = /** @class */ (function () {
     MatIconRegistry.ctorParameters = function () { return [
         { type: HttpClient, decorators: [{ type: Optional },] },
         { type: DomSanitizer, },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
     ]; };
     return MatIconRegistry;
 }());
@@ -681,10 +688,11 @@ var MatIconRegistry = /** @class */ (function () {
  * @param {?} parentRegistry
  * @param {?} httpClient
  * @param {?} sanitizer
+ * @param {?=} document
  * @return {?}
  */
-function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer) {
-    return parentRegistry || new MatIconRegistry(httpClient, sanitizer);
+function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, document) {
+    return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document);
 }
 /**
  * \@docs-private
@@ -695,7 +703,8 @@ var ICON_REGISTRY_PROVIDER = {
     deps: [
         [new Optional(), new SkipSelf(), MatIconRegistry],
         [new Optional(), HttpClient],
-        DomSanitizer
+        DomSanitizer,
+        [new Optional(), /** @type {?} */ (DOCUMENT)]
     ],
     useFactory: ICON_REGISTRY_PROVIDER_FACTORY
 };

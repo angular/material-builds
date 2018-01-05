@@ -9095,9 +9095,11 @@ var SvgIconConfig = /** @class */ (function () {
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 var MatIconRegistry = /** @class */ (function () {
-    function MatIconRegistry(_httpClient, _sanitizer) {
+    function MatIconRegistry(_httpClient, _sanitizer, _document) {
+        // TODO(crisbeto): make _document required next major release.
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
+        this._document = _document;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
          */
@@ -9602,13 +9604,16 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (str) {
-        var /** @type {?} */ div = document.createElement('DIV');
-        div.innerHTML = str;
-        var /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
-        if (!svg) {
-            throw Error('<svg> tag not found');
+        if (this._document || typeof document !== 'undefined') {
+            var /** @type {?} */ div = (this._document || document).createElement('DIV');
+            div.innerHTML = str;
+            var /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
+            if (!svg) {
+                throw Error('<svg> tag not found');
+            }
+            return svg;
         }
-        return svg;
+        throw new Error('MatIconRegistry could not resolve document.');
     };
     /**
      * Converts an element into an SVG node by cloning all of its children.
@@ -9692,6 +9697,7 @@ var MatIconRegistry = /** @class */ (function () {
     MatIconRegistry.ctorParameters = function () { return [
         { type: _angular_common_http.HttpClient, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_platformBrowser.DomSanitizer, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
     ]; };
     return MatIconRegistry;
 }());
@@ -9700,10 +9706,11 @@ var MatIconRegistry = /** @class */ (function () {
  * @param {?} parentRegistry
  * @param {?} httpClient
  * @param {?} sanitizer
+ * @param {?=} document
  * @return {?}
  */
-function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer) {
-    return parentRegistry || new MatIconRegistry(httpClient, sanitizer);
+function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, document) {
+    return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document);
 }
 /**
  * \@docs-private
@@ -9714,7 +9721,8 @@ var ICON_REGISTRY_PROVIDER = {
     deps: [
         [new _angular_core.Optional(), new _angular_core.SkipSelf(), MatIconRegistry],
         [new _angular_core.Optional(), _angular_common_http.HttpClient],
-        _angular_platformBrowser.DomSanitizer
+        _angular_platformBrowser.DomSanitizer,
+        [new _angular_core.Optional(), /** @type {?} */ (_angular_common.DOCUMENT)]
     ],
     useFactory: ICON_REGISTRY_PROVIDER_FACTORY
 };
@@ -28622,7 +28630,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.3-d85c44b');
+var VERSION = new _angular_core.Version('5.0.3-b6da765');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -28853,10 +28861,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa13 = MatMenuItemBase;
-exports.ɵb13 = _MatMenuItemMixinBase;
-exports.ɵd13 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc13 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -28973,16 +28981,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe7 = MatTabBase;
-exports.ɵf7 = _MatTabMixinBase;
-exports.ɵa7 = MatTabHeaderBase;
-exports.ɵb7 = _MatTabHeaderMixinBase;
-exports.ɵc7 = MatTabLabelWrapperBase;
-exports.ɵd7 = _MatTabLabelWrapperMixinBase;
-exports.ɵi7 = MatTabLinkBase;
-exports.ɵg7 = MatTabNavBase;
-exports.ɵj7 = _MatTabLinkMixinBase;
-exports.ɵh7 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
