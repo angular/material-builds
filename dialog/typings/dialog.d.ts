@@ -25,6 +25,7 @@ export declare const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER: {
 export declare class MatDialog {
     private _overlay;
     private _injector;
+    private _location;
     private _defaultOptions;
     private _scrollStrategy;
     private _parentDialog;
@@ -43,7 +44,7 @@ export declare class MatDialog {
      * Will emit on subscribe if there are no open dialogs to begin with.
      */
     afterAllClosed: Observable<void>;
-    constructor(_overlay: Overlay, _injector: Injector, location: Location, _defaultOptions: any, _scrollStrategy: any, _parentDialog: MatDialog, _overlayContainer: OverlayContainer);
+    constructor(_overlay: Overlay, _injector: Injector, _location: Location, _defaultOptions: any, _scrollStrategy: any, _parentDialog: MatDialog, _overlayContainer: OverlayContainer);
     /**
      * Opens a modal dialog containing the given component.
      * @param componentOrTemplateRef Type of the component to load into the dialog,

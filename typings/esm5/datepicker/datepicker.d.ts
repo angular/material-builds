@@ -34,11 +34,6 @@ export declare class MatDatepickerContent<D> implements AfterContentInit {
     datepicker: MatDatepicker<D>;
     _calendar: MatCalendar<D>;
     ngAfterContentInit(): void;
-    /**
-     * Handles keydown event on datepicker content.
-     * @param event The event.
-     */
-    _handleKeydown(event: KeyboardEvent): void;
 }
 /** Component responsible for managing the datepicker popup/dialog. */
 export declare class MatDatepicker<D> implements OnDestroy {

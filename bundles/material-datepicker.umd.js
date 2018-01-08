@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/dialog'), require('@angular/material/icon'), require('@angular/cdk/keycodes'), require('@angular/material/core'), require('rxjs/operators/take'), require('rxjs/Subject'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/portal'), require('rxjs/Subscription'), require('rxjs/observable/merge'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/dialog', '@angular/material/icon', '@angular/cdk/keycodes', '@angular/material/core', 'rxjs/operators/take', 'rxjs/Subject', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/portal', 'rxjs/Subscription', 'rxjs/observable/merge', '@angular/forms', '@angular/material/form-field', '@angular/material/input', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = global.ng.material.datepicker || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.button,global.ng.material.dialog,global.ng.material.icon,global.ng.cdk.keycodes,global.ng.material.core,global.Rx.operators,global.Rx,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.portal,global.Rx,global.Rx.Observable,global.ng.forms,global.ng.material.formField,global.ng.material.input,global.Rx.Observable));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_button,_angular_material_dialog,_angular_material_icon,_angular_cdk_keycodes,_angular_material_core,rxjs_operators_take,rxjs_Subject,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_portal,rxjs_Subscription,rxjs_observable_merge,_angular_forms,_angular_material_formField,_angular_material_input,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/button'), require('@angular/material/dialog'), require('@angular/material/icon'), require('@angular/cdk/keycodes'), require('@angular/material/core'), require('rxjs/operators/take'), require('rxjs/Subject'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/Subscription'), require('rxjs/observable/merge'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/button', '@angular/material/dialog', '@angular/material/icon', '@angular/cdk/keycodes', '@angular/material/core', 'rxjs/operators/take', 'rxjs/Subject', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/Subscription', 'rxjs/observable/merge', '@angular/forms', '@angular/material/form-field', '@angular/material/input', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = global.ng.material.datepicker || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.button,global.ng.material.dialog,global.ng.material.icon,global.ng.cdk.keycodes,global.ng.material.core,global.Rx.operators,global.Rx,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.portal,global.Rx.operators,global.Rx,global.Rx.Observable,global.ng.forms,global.ng.material.formField,global.ng.material.input,global.Rx.Observable));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_button,_angular_material_dialog,_angular_material_icon,_angular_cdk_keycodes,_angular_material_core,rxjs_operators_take,rxjs_Subject,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_portal,rxjs_operators_filter,rxjs_Subscription,rxjs_observable_merge,_angular_forms,_angular_material_formField,_angular_material_input,rxjs_observable_of) { 'use strict';
 
 /**
  * @fileoverview added by tsickle
@@ -1239,27 +1239,6 @@ var MatDatepickerContent = /** @class */ (function () {
     function () {
         this._calendar._focusActiveCell();
     };
-    /**
-     * Handles keydown event on datepicker content.
-     * @param event The event.
-     */
-    /**
-     * Handles keydown event on datepicker content.
-     * @param {?} event The event.
-     * @return {?}
-     */
-    MatDatepickerContent.prototype._handleKeydown = /**
-     * Handles keydown event on datepicker content.
-     * @param {?} event The event.
-     * @return {?}
-     */
-    function (event) {
-        if (event.keyCode === _angular_cdk_keycodes.ESCAPE) {
-            this.datepicker.close();
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    };
     MatDatepickerContent.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-content',
                     template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
@@ -1267,7 +1246,6 @@ var MatDatepickerContent = /** @class */ (function () {
                     host: {
                         'class': 'mat-datepicker-content',
                         '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
-                        '(keydown)': '_handleKeydown($event)',
                     },
                     exportAs: 'matDatepickerContent',
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -1644,8 +1622,7 @@ var MatDatepicker = /** @class */ (function () {
             panelClass: 'mat-datepicker-popup',
         });
         this._popupRef = this._overlay.create(overlayConfig);
-        rxjs_observable_merge.merge(this._popupRef.backdropClick(), this._popupRef.detachments())
-            .subscribe(function () { return _this.close(); });
+        rxjs_observable_merge.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(rxjs_operators_filter.filter(function (event) { return event.keyCode === _angular_cdk_keycodes.ESCAPE; }))).subscribe(function () { return _this.close(); });
     };
     /**
      * Create the popup PositionStrategy.
@@ -1851,8 +1828,8 @@ var MatDatepickerInput = /** @class */ (function () {
          * @param {?} filter
          * @return {?}
          */
-        function (filter) {
-            this._dateFilter = filter;
+        function (filter$$1) {
+            this._dateFilter = filter$$1;
             this._validatorOnChange();
         },
         enumerable: true,

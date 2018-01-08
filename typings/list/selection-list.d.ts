@@ -62,6 +62,8 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     /** Whether the option has focus. */
     _hasFocus: boolean;
     _lines: QueryList<MatLine>;
+    /** DOM element containing the item's text. */
+    _text: ElementRef;
     /** Whether the label should appear before or after the checkbox. Defaults to 'after' */
     checkboxPosition: 'before' | 'after';
     /** Value of the option */
@@ -83,6 +85,11 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     toggle(): void;
     /** Allows for programmatic focusing of the option. */
     focus(): void;
+    /**
+     * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
+     * @docs-private
+     */
+    getLabel(): any;
     /** Whether this list item should show a ripple effect when clicked.  */
     _isRippleDisabled(): any;
     _handleClick(): void;

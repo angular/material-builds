@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { OverlayRef } from '@angular/cdk/overlay';
+import { Location } from '@angular/common';
 import { DialogPosition } from './dialog-config';
 import { Observable } from 'rxjs/Observable';
 import { MatDialogContainer } from './dialog-container';
@@ -28,7 +29,9 @@ export declare class MatDialogRef<T, R = any> {
     private _beforeClose;
     /** Result to be passed to afterClosed. */
     private _result;
-    constructor(_overlayRef: OverlayRef, _containerInstance: MatDialogContainer, id?: string);
+    /** Subscription to changes in the user's location. */
+    private _locationChanges;
+    constructor(_overlayRef: OverlayRef, _containerInstance: MatDialogContainer, location?: Location, id?: string);
     /**
      * Close the dialog.
      * @param dialogResult Optional result to return to the dialog opener.

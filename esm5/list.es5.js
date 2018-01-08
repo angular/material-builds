@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule } from '@angular/common';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, Optional, Output, ViewEncapsulation, forwardRef } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatCommonModule, MatLine, MatLineModule, MatLineSetter, MatPseudoCheckboxModule, MatRippleModule, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
@@ -429,6 +429,23 @@ var MatListOption = /** @class */ (function (_super) {
     function () {
         this._element.nativeElement.focus();
     };
+    /**
+     * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
+     * @docs-private
+     */
+    /**
+     * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
+     * \@docs-private
+     * @return {?}
+     */
+    MatListOption.prototype.getLabel = /**
+     * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
+     * \@docs-private
+     * @return {?}
+     */
+    function () {
+        return this._text ? this._text.nativeElement.textContent : '';
+    };
     /** Whether this list item should show a ripple effect when clicked.  */
     /**
      * Whether this list item should show a ripple effect when clicked.
@@ -541,7 +558,7 @@ var MatListOption = /** @class */ (function (_super) {
                         '[attr.aria-selected]': 'selected.toString()',
                         '[attr.aria-disabled]': 'disabled.toString()',
                     },
-                    template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div mat-ripple class=\"mat-list-item-ripple\" [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><mat-pseudo-checkbox #autocheckbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox><div class=\"mat-list-text\"><ng-content></ng-content></div></div>",
+                    template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div mat-ripple class=\"mat-list-item-ripple\" [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><mat-pseudo-checkbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox><div class=\"mat-list-text\" #text><ng-content></ng-content></div></div>",
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -555,6 +572,7 @@ var MatListOption = /** @class */ (function (_super) {
     ]; };
     MatListOption.propDecorators = {
         "_lines": [{ type: ContentChildren, args: [MatLine,] },],
+        "_text": [{ type: ViewChild, args: ['text',] },],
         "checkboxPosition": [{ type: Input },],
         "value": [{ type: Input },],
         "disabled": [{ type: Input },],
@@ -597,7 +615,7 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._keyManager = new FocusKeyManager(this.options).withWrap();
+        this._keyManager = new FocusKeyManager(this.options).withWrap().withTypeAhead();
         if (this._tempValues) {
             this._setOptionsFromValues(this._tempValues);
             this._tempValues = null;

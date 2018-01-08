@@ -449,6 +449,23 @@ var MatListOption = /** @class */ (function (_super) {
     function () {
         this._element.nativeElement.focus();
     };
+    /**
+     * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
+     * @docs-private
+     */
+    /**
+     * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
+     * \@docs-private
+     * @return {?}
+     */
+    MatListOption.prototype.getLabel = /**
+     * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
+     * \@docs-private
+     * @return {?}
+     */
+    function () {
+        return this._text ? this._text.nativeElement.textContent : '';
+    };
     /** Whether this list item should show a ripple effect when clicked.  */
     /**
      * Whether this list item should show a ripple effect when clicked.
@@ -561,7 +578,7 @@ var MatListOption = /** @class */ (function (_super) {
                         '[attr.aria-selected]': 'selected.toString()',
                         '[attr.aria-disabled]': 'disabled.toString()',
                     },
-                    template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div mat-ripple class=\"mat-list-item-ripple\" [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><mat-pseudo-checkbox #autocheckbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox><div class=\"mat-list-text\"><ng-content></ng-content></div></div>",
+                    template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div mat-ripple class=\"mat-list-item-ripple\" [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><mat-pseudo-checkbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox><div class=\"mat-list-text\" #text><ng-content></ng-content></div></div>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -575,6 +592,7 @@ var MatListOption = /** @class */ (function (_super) {
     ]; };
     MatListOption.propDecorators = {
         "_lines": [{ type: _angular_core.ContentChildren, args: [_angular_material_core.MatLine,] },],
+        "_text": [{ type: _angular_core.ViewChild, args: ['text',] },],
         "checkboxPosition": [{ type: _angular_core.Input },],
         "value": [{ type: _angular_core.Input },],
         "disabled": [{ type: _angular_core.Input },],
@@ -617,7 +635,7 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.options).withWrap();
+        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.options).withWrap().withTypeAhead();
         if (this._tempValues) {
             this._setOptionsFromValues(this._tempValues);
             this._tempValues = null;

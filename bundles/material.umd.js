@@ -7999,6 +7999,10 @@ var MatDialogConfig = /** @class */ (function () {
          * Whether the dialog should focus the first focusable element on open.
          */
         this.autoFocus = true;
+        /**
+         * Whether the dialog should close when the user goes backwards/forwards in history.
+         */
+        this.closeOnNavigation = true;
     }
     return MatDialogConfig;
 }());
@@ -8268,7 +8272,7 @@ var uniqueId = 0;
  * Reference to a dialog opened via the MatDialog service.
  */
 var MatDialogRef = /** @class */ (function () {
-    function MatDialogRef(_overlayRef, _containerInstance, id) {
+    function MatDialogRef(_overlayRef, _containerInstance, location, id) {
         if (id === void 0) { id = "mat-dialog-" + uniqueId++; }
         var _this = this;
         this._overlayRef = _overlayRef;
@@ -8290,6 +8294,10 @@ var MatDialogRef = /** @class */ (function () {
          * Subject for notifying the user that the dialog has started closing.
          */
         this._beforeClose = new rxjs_Subject.Subject();
+        /**
+         * Subscription to changes in the user's location.
+         */
+        this._locationChanges = rxjs_Subscription.Subscription.EMPTY;
         // Emit when opening animation completes
         _containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), rxjs_operators_take.take(1))
             .subscribe(function () {
@@ -8300,6 +8308,7 @@ var MatDialogRef = /** @class */ (function () {
         _containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), rxjs_operators_take.take(1))
             .subscribe(function () {
             _this._overlayRef.dispose();
+            _this._locationChanges.unsubscribe();
             _this._afterClosed.next(_this._result);
             _this._afterClosed.complete();
             _this.componentInstance = /** @type {?} */ ((null));
@@ -8307,6 +8316,16 @@ var MatDialogRef = /** @class */ (function () {
         _overlayRef.keydownEvents()
             .pipe(rxjs_operators_filter.filter(function (event) { return event.keyCode === _angular_cdk_keycodes.ESCAPE && !_this.disableClose; }))
             .subscribe(function () { return _this.close(); });
+        if (location) {
+            // Close the dialog when the user goes forwards/backwards in history or when the location
+            // hash changes. Note that this usually doesn't include clicking on links (unless the user
+            // is using the `HashLocationStrategy`).
+            this._locationChanges = location.subscribe(function () {
+                if (_this._containerInstance._config.closeOnNavigation) {
+                    _this.close();
+                }
+            });
+        }
     }
     /**
      * Close the dialog.
@@ -8507,10 +8526,11 @@ var MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
  * Service to open Material Design modal dialogs.
  */
 var MatDialog = /** @class */ (function () {
-    function MatDialog(_overlay, _injector, location, _defaultOptions, _scrollStrategy, _parentDialog, _overlayContainer) {
+    function MatDialog(_overlay, _injector, _location, _defaultOptions, _scrollStrategy, _parentDialog, _overlayContainer) {
         var _this = this;
         this._overlay = _overlay;
         this._injector = _injector;
+        this._location = _location;
         this._defaultOptions = _defaultOptions;
         this._scrollStrategy = _scrollStrategy;
         this._parentDialog = _parentDialog;
@@ -8528,12 +8548,6 @@ var MatDialog = /** @class */ (function () {
                 _this._afterAllClosed :
                 _this._afterAllClosed.pipe(rxjs_operators_startWith.startWith(undefined));
         });
-        // Close all of the dialogs when the user goes forwards/backwards in history or when the
-        // location hash changes. Note that this usually doesn't include clicking on links (unless
-        // the user is using the `HashLocationStrategy`).
-        if (!_parentDialog && location) {
-            location.subscribe(function () { return _this.closeAll(); });
-        }
     }
     Object.defineProperty(MatDialog.prototype, "openDialogs", {
         /** Keeps track of the currently-open dialogs. */
@@ -8731,7 +8745,7 @@ var MatDialog = /** @class */ (function () {
     function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
         // Create a reference to the dialog we're creating in order to give the user a handle
         // to modify and close it.
-        var /** @type {?} */ dialogRef = new MatDialogRef(overlayRef, dialogContainer, config.id);
+        var /** @type {?} */ dialogRef = new MatDialogRef(overlayRef, dialogContainer, this._location, config.id);
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(function () {
@@ -12032,27 +12046,6 @@ var MatDatepickerContent = /** @class */ (function () {
     function () {
         this._calendar._focusActiveCell();
     };
-    /**
-     * Handles keydown event on datepicker content.
-     * @param event The event.
-     */
-    /**
-     * Handles keydown event on datepicker content.
-     * @param {?} event The event.
-     * @return {?}
-     */
-    MatDatepickerContent.prototype._handleKeydown = /**
-     * Handles keydown event on datepicker content.
-     * @param {?} event The event.
-     * @return {?}
-     */
-    function (event) {
-        if (event.keyCode === _angular_cdk_keycodes.ESCAPE) {
-            this.datepicker.close();
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    };
     MatDatepickerContent.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-content',
                     template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
@@ -12060,7 +12053,6 @@ var MatDatepickerContent = /** @class */ (function () {
                     host: {
                         'class': 'mat-datepicker-content',
                         '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
-                        '(keydown)': '_handleKeydown($event)',
                     },
                     exportAs: 'matDatepickerContent',
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -12437,8 +12429,7 @@ var MatDatepicker = /** @class */ (function () {
             panelClass: 'mat-datepicker-popup',
         });
         this._popupRef = this._overlay.create(overlayConfig);
-        rxjs_observable_merge.merge(this._popupRef.backdropClick(), this._popupRef.detachments())
-            .subscribe(function () { return _this.close(); });
+        rxjs_observable_merge.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(rxjs_operators_filter.filter(function (event) { return event.keyCode === _angular_cdk_keycodes.ESCAPE; }))).subscribe(function () { return _this.close(); });
     };
     /**
      * Create the popup PositionStrategy.
@@ -15241,6 +15232,23 @@ var MatListOption = /** @class */ (function (_super) {
     function () {
         this._element.nativeElement.focus();
     };
+    /**
+     * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
+     * @docs-private
+     */
+    /**
+     * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
+     * \@docs-private
+     * @return {?}
+     */
+    MatListOption.prototype.getLabel = /**
+     * Returns the list item's text label. Implemented as a part of the FocusKeyManager.
+     * \@docs-private
+     * @return {?}
+     */
+    function () {
+        return this._text ? this._text.nativeElement.textContent : '';
+    };
     /** Whether this list item should show a ripple effect when clicked.  */
     /**
      * Whether this list item should show a ripple effect when clicked.
@@ -15353,7 +15361,7 @@ var MatListOption = /** @class */ (function (_super) {
                         '[attr.aria-selected]': 'selected.toString()',
                         '[attr.aria-disabled]': 'disabled.toString()',
                     },
-                    template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div mat-ripple class=\"mat-list-item-ripple\" [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><mat-pseudo-checkbox #autocheckbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox><div class=\"mat-list-text\"><ng-content></ng-content></div></div>",
+                    template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\" [class.mat-list-item-disabled]=\"disabled\"><div mat-ripple class=\"mat-list-item-ripple\" [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><mat-pseudo-checkbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox><div class=\"mat-list-text\" #text><ng-content></ng-content></div></div>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -15367,6 +15375,7 @@ var MatListOption = /** @class */ (function (_super) {
     ]; };
     MatListOption.propDecorators = {
         "_lines": [{ type: _angular_core.ContentChildren, args: [MatLine,] },],
+        "_text": [{ type: _angular_core.ViewChild, args: ['text',] },],
         "checkboxPosition": [{ type: _angular_core.Input },],
         "value": [{ type: _angular_core.Input },],
         "disabled": [{ type: _angular_core.Input },],
@@ -15409,7 +15418,7 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.options).withWrap();
+        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.options).withWrap().withTypeAhead();
         if (this._tempValues) {
             this._setOptionsFromValues(this._tempValues);
             this._tempValues = null;
@@ -28630,7 +28639,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.3-8492637');
+var VERSION = new _angular_core.Version('5.0.3-af44b9d');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -28861,10 +28870,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MatMenuItemBase;
-exports.ɵb21 = _MatMenuItemMixinBase;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa20 = MatMenuItemBase;
+exports.ɵb20 = _MatMenuItemMixinBase;
+exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

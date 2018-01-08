@@ -70,4 +70,6 @@ export declare class MatDialogConfig<D = any> {
     autoFocus?: boolean;
     /** Scroll strategy to be used for the dialog. */
     scrollStrategy?: ScrollStrategy;
+    /** Whether the dialog should close when the user goes backwards/forwards in history. */
+    closeOnNavigation?: boolean;
 }

@@ -19,6 +19,7 @@ import { Subject } from 'rxjs/Subject';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { filter } from 'rxjs/operators/filter';
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
@@ -1254,27 +1255,6 @@ var MatDatepickerContent = /** @class */ (function () {
     function () {
         this._calendar._focusActiveCell();
     };
-    /**
-     * Handles keydown event on datepicker content.
-     * @param event The event.
-     */
-    /**
-     * Handles keydown event on datepicker content.
-     * @param {?} event The event.
-     * @return {?}
-     */
-    MatDatepickerContent.prototype._handleKeydown = /**
-     * Handles keydown event on datepicker content.
-     * @param {?} event The event.
-     * @return {?}
-     */
-    function (event) {
-        if (event.keyCode === ESCAPE) {
-            this.datepicker.close();
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    };
     MatDatepickerContent.decorators = [
         { type: Component, args: [{selector: 'mat-datepicker-content',
                     template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
@@ -1282,7 +1262,6 @@ var MatDatepickerContent = /** @class */ (function () {
                     host: {
                         'class': 'mat-datepicker-content',
                         '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
-                        '(keydown)': '_handleKeydown($event)',
                     },
                     exportAs: 'matDatepickerContent',
                     encapsulation: ViewEncapsulation.None,
@@ -1659,8 +1638,7 @@ var MatDatepicker = /** @class */ (function () {
             panelClass: 'mat-datepicker-popup',
         });
         this._popupRef = this._overlay.create(overlayConfig);
-        merge(this._popupRef.backdropClick(), this._popupRef.detachments())
-            .subscribe(function () { return _this.close(); });
+        merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(filter(function (event) { return event.keyCode === ESCAPE; }))).subscribe(function () { return _this.close(); });
     };
     /**
      * Create the popup PositionStrategy.
@@ -1866,8 +1844,8 @@ var MatDatepickerInput = /** @class */ (function () {
          * @param {?} filter
          * @return {?}
          */
-        function (filter) {
-            this._dateFilter = filter;
+        function (filter$$1) {
+            this._dateFilter = filter$$1;
             this._validatorOnChange();
         },
         enumerable: true,

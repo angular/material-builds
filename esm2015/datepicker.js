@@ -19,6 +19,7 @@ import { Subject } from 'rxjs/Subject';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { filter } from 'rxjs/operators/filter';
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
@@ -1027,18 +1028,6 @@ class MatDatepickerContent {
     ngAfterContentInit() {
         this._calendar._focusActiveCell();
     }
-    /**
-     * Handles keydown event on datepicker content.
-     * @param {?} event The event.
-     * @return {?}
-     */
-    _handleKeydown(event) {
-        if (event.keyCode === ESCAPE) {
-            this.datepicker.close();
-            event.preventDefault();
-            event.stopPropagation();
-        }
-    }
 }
 MatDatepickerContent.decorators = [
     { type: Component, args: [{selector: 'mat-datepicker-content',
@@ -1047,7 +1036,6 @@ MatDatepickerContent.decorators = [
                 host: {
                     'class': 'mat-datepicker-content',
                     '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
-                    '(keydown)': '_handleKeydown($event)',
                 },
                 exportAs: 'matDatepickerContent',
                 encapsulation: ViewEncapsulation.None,
@@ -1352,8 +1340,7 @@ class MatDatepicker {
             panelClass: 'mat-datepicker-popup',
         });
         this._popupRef = this._overlay.create(overlayConfig);
-        merge(this._popupRef.backdropClick(), this._popupRef.detachments())
-            .subscribe(() => this.close());
+        merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(filter(event => event.keyCode === ESCAPE))).subscribe(() => this.close());
     }
     /**
      * Create the popup PositionStrategy.
@@ -1549,8 +1536,8 @@ class MatDatepickerInput {
      * @param {?} filter
      * @return {?}
      */
-    set matDatepickerFilter(filter) {
-        this._dateFilter = filter;
+    set matDatepickerFilter(filter$$1) {
+        this._dateFilter = filter$$1;
         this._validatorOnChange();
     }
     /**
