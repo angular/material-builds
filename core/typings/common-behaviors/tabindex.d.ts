@@ -9,6 +9,7 @@ import { Constructor } from './constructor';
 import { CanDisable } from './disabled';
 /** @docs-private */
 export interface HasTabIndex {
+    /** Tabindex of the component. */
     tabIndex: number;
 }
 /** Mixin to augment a directive with a `tabIndex` property. */

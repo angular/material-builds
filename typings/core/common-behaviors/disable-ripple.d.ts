@@ -1,6 +1,7 @@
 import { Constructor } from './constructor';
 /** @docs-private */
 export interface CanDisableRipple {
+    /** Whether ripples are disabled. */
     disableRipple: boolean;
 }
 /** Mixin to augment a directive with a `disableRipple` property. */

@@ -9,6 +9,7 @@ import { Constructor } from './constructor';
 import { ElementRef } from '@angular/core';
 /** @docs-private */
 export interface CanColor {
+    /** Theme color palette for the component. */
     color: ThemePalette;
 }
 /** @docs-private */
