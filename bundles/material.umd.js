@@ -25935,7 +25935,7 @@ var MatTable = /** @class */ (function (_super) {
         { type: _angular_core.Component, args: [{selector: 'mat-table',
                     exportAs: 'matTable',
                     template: _angular_cdk_table.CDK_TABLE_TEMPLATE,
-                    styles: [".mat-table{display:block}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;min-height:48px;padding:0 24px}.mat-header-row::after,.mat-row::after{display:inline-block;min-height:inherit;content:''}.mat-cell,.mat-header-cell{flex:1;overflow:hidden;word-wrap:break-word}"],
+                    styles: [".mat-table{display:block}.mat-header-row{min-height:56px}.mat-row{min-height:48px}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;padding:0 24px}.mat-header-row::after,.mat-row::after{display:inline-block;min-height:inherit;content:''}.mat-cell,.mat-header-cell{flex:1;overflow:hidden;word-wrap:break-word}"],
                     host: {
                         'class': 'mat-table',
                     },
@@ -28639,7 +28639,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.0.4-65b63bb');
+var VERSION = new _angular_core.Version('5.0.4-0c4ee2e');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
