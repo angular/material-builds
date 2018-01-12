@@ -1,7 +1,8 @@
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { MatDatepickerIntl } from './datepicker-intl';
 import { MatMonthView } from './month-view';
+import { MatMultiYearView } from './multi-year-view';
 import { MatYearView } from './year-view';
 /**
  * A calendar that is used as part of the datepicker.
@@ -18,7 +19,7 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     startAt: D | null;
     private _startAt;
     /** Whether the calendar should be started in month or year view. */
-    startView: 'month' | 'year';
+    startView: 'month' | 'year' | 'multi-year';
     /** The currently selected date. */
     selected: D | null;
     private _selected;
@@ -38,7 +39,9 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     monthView: MatMonthView<D>;
     /** Reference to the current year view component. */
     yearView: MatYearView<D>;
-    /** Date filter for the month and year views. */
+    /** Reference to the current multi-year view component. */
+    multiYearView: MatMultiYearView<D>;
+    /** Date filter for the month, year, and multi-year views. */
     _dateFilterForViews: (date: D) => boolean;
     /**
      * The current active date. This determines which time period is shown and which date is
@@ -47,7 +50,7 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     _activeDate: D;
     private _clampedActiveDate;
     /** Whether the calendar is in month view. */
-    _monthView: boolean;
+    _currentView: 'month' | 'year' | 'multi-year';
     /** The label for the current calendar view. */
     readonly _periodButtonText: string;
     readonly _periodButtonLabel: string;
@@ -62,8 +65,8 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     /** Handles date selection in the month view. */
     _dateSelected(date: D): void;
     _userSelected(): void;
-    /** Handles month selection in the year view. */
-    _monthSelected(month: D): void;
+    /** Handles month selection in the multi-year view. */
+    _goToDateInView(date: D, view: 'month' | 'year' | 'multi-year'): void;
     /** Handles user clicks on the period label. */
     _currentPeriodClicked(): void;
     /** Handles user clicks on the previous button. */
@@ -84,16 +87,8 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     private _handleCalendarBodyKeydownInMonthView(event);
     /** Handles keydown events on the calendar body when calendar is in year view. */
     private _handleCalendarBodyKeydownInYearView(event);
-    /**
-     * Determine the date for the month that comes before the given month in the same column in the
-     * calendar table.
-     */
-    private _prevMonthInSameCol(date);
-    /**
-     * Determine the date for the month that comes after the given month in the same column in the
-     * calendar table.
-     */
-    private _nextMonthInSameCol(date);
+    /** Handles keydown events on the calendar body when calendar is in multi-year view. */
+    private _handleCalendarBodyKeydownInMultiYearView(event);
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.

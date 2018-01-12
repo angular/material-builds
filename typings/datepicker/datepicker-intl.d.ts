@@ -18,8 +18,12 @@ export declare class MatDatepickerIntl {
     prevYearLabel: string;
     /** A label for the next year button (used by screen readers). */
     nextYearLabel: string;
+    /** A label for the previous multi-year button (used by screen readers). */
+    prevMultiYearLabel: string;
+    /** A label for the next multi-year button (used by screen readers). */
+    nextMultiYearLabel: string;
     /** A label for the 'switch to month view' button (used by screen readers). */
     switchToMonthViewLabel: string;
     /** A label for the 'switch to year view' button (used by screen readers). */
-    switchToYearViewLabel: string;
+    switchToMultiYearViewLabel: string;
 }

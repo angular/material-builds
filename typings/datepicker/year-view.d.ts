@@ -41,7 +41,7 @@ export declare class MatYearView<D> implements AfterContentInit {
     ngAfterContentInit(): void;
     /** Handles when a new month is selected. */
     _monthSelected(month: number): void;
-    /** Initializes this month view. */
+    /** Initializes this year view. */
     _init(): void;
     /**
      * Gets the month in this year that the given Date falls on.
