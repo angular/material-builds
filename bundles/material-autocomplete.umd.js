@@ -319,8 +319,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         this._escapeEventStream.complete();
     };
     Object.defineProperty(MatAutocompleteTrigger.prototype, "panelOpen", {
-        /* Whether or not the autocomplete panel is open. */
+        /** Whether or not the autocomplete panel is open. */
         get: /**
+         * Whether or not the autocomplete panel is open.
          * @return {?}
          */
         function () {

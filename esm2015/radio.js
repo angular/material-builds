@@ -355,7 +355,7 @@ class MatRadioButtonBase {
 // palette by default. https://material.io/guidelines/components/selection-controls.html
 const _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(MatRadioButtonBase), 'accent');
 /**
- * A radio-button. May be inside of
+ * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
 class MatRadioButton extends _MatRadioButtonMixinBase {
     /**
@@ -394,7 +394,7 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
          */
         this._rippleConfig = { centered: true, radius: 23, speedFactor: 1.5 };
         /**
-         * Unregister function for _radioDispatcher *
+         * Unregister function for _radioDispatcher
          */
         this._removeUniqueSelectionListener = () => { };
         // Assertions. Ideally these should be stripped out by the compiler.

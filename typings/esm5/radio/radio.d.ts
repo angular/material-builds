@@ -131,7 +131,7 @@ export declare class MatRadioButtonBase {
 }
 export declare const _MatRadioButtonMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & typeof MatRadioButtonBase;
 /**
- * A radio-button. May be inside of
+ * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
 export declare class MatRadioButton extends _MatRadioButtonMixinBase implements OnInit, AfterViewInit, OnDestroy, CanColor, CanDisableRipple {
     private _changeDetector;
@@ -178,7 +178,7 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     private _disabled;
     /** Whether this radio is required. */
     private _required;
-    /** Value assigned to this radio.*/
+    /** Value assigned to this radio. */
     private _value;
     /** The child ripple instance. */
     _ripple: MatRipple;
@@ -186,7 +186,7 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     _rippleConfig: RippleConfig;
     /** Reference to the current focus ripple. */
     private _focusRipple;
-    /** Unregister function for _radioDispatcher **/
+    /** Unregister function for _radioDispatcher */
     private _removeUniqueSelectionListener;
     /** The native `<input type=radio>` element */
     _inputElement: ElementRef;

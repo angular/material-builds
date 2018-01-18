@@ -248,8 +248,10 @@ var TileCoordinator = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(TileCoordinator.prototype, "rowspan", {
-        /** Gets the total span of rows occupied by tiles.
-         * Ex: A list with 1 row that contains a tile with rowspan 2 will have a total rowspan of 2. */
+        /**
+         * Gets the total span of rows occupied by tiles.
+         * Ex: A list with 1 row that contains a tile with rowspan 2 will have a total rowspan of 2.
+         */
         get: /**
          * Gets the total span of rows occupied by tiles.
          * Ex: A list with 1 row that contains a tile with rowspan 2 will have a total rowspan of 2.

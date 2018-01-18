@@ -1527,7 +1527,7 @@ $mat-menu-icon-margin: 16px !default;
   @else {
     // Otherwise use the shorthand `font` to represent a typography level, because it's the the
     // least amount of bytes. Note that we need to use interpolation for `font-size/line-height`
-    // in order to prevent SASS from dividing the two values.
+    // in order to prevent Sass from dividing the two values.
     font: $font-weight #{$font-size}/#{$line-height} $font-family;
   }
 }
@@ -1726,7 +1726,7 @@ $mat-menu-icon-margin: 16px !default;
   );
 
   // Loop through the levels and set the `font-family` of the ones that don't have one to the base.
-  // Note that SASS can't modify maps in place, which means that we need to merge and re-assign.
+  // Note that Sass can't modify maps in place, which means that we need to merge and re-assign.
   @each $key, $level in $config {
     @if map-get($level, font-family) == null {
       $new-level: map-merge($level, (font-family: $font-family));

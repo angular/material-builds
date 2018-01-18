@@ -77,7 +77,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
         this._value = 0;
         this._fallbackAnimation = false;
         /**
-         * The width and height of the host element. Will grow with stroke width. *
+         * The width and height of the host element. Will grow with stroke width.
          */
         this._elementSize = BASE_SIZE;
         this._diameter = BASE_SIZE;

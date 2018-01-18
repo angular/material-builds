@@ -1271,13 +1271,18 @@ var ErrorStateMatcher = /** @class */ (function () {
  * More info at http://hammerjs.github.io/api/.
  */
 var MAT_HAMMER_OPTIONS = new _angular_core.InjectionToken('MAT_HAMMER_OPTIONS');
+/**
+ * Adjusts configuration of our gesture library, Hammer.
+ */
 var GestureConfig = /** @class */ (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig(_hammerOptions, commonModule) {
         var _this = _super.call(this) || this;
         _this._hammerOptions = _hammerOptions;
         _this._hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
-        /* List of new event names to add to the gesture support list */
+        /**
+         * List of new event names to add to the gesture support list
+         */
         _this.events = _this._hammer ? [
             'longpress',
             'slide',

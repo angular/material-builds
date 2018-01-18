@@ -1271,13 +1271,18 @@ var ErrorStateMatcher = /** @class */ (function () {
  * More info at http://hammerjs.github.io/api/.
  */
 var MAT_HAMMER_OPTIONS = new _angular_core.InjectionToken('MAT_HAMMER_OPTIONS');
+/**
+ * Adjusts configuration of our gesture library, Hammer.
+ */
 var GestureConfig = /** @class */ (function (_super) {
     __extends(GestureConfig, _super);
     function GestureConfig(_hammerOptions, commonModule) {
         var _this = _super.call(this) || this;
         _this._hammerOptions = _hammerOptions;
         _this._hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
-        /* List of new event names to add to the gesture support list */
+        /**
+         * List of new event names to add to the gesture support list
+         */
         _this.events = _this._hammer ? [
             'longpress',
             'slide',
@@ -3619,8 +3624,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         this._escapeEventStream.complete();
     };
     Object.defineProperty(MatAutocompleteTrigger.prototype, "panelOpen", {
-        /* Whether or not the autocomplete panel is open. */
+        /** Whether or not the autocomplete panel is open. */
         get: /**
+         * Whether or not the autocomplete panel is open.
          * @return {?}
          */
         function () {
@@ -4942,7 +4948,7 @@ var MatButtonToggle = /** @class */ (function () {
          */
         this._isSingleSelector = false;
         /**
-         * Unregister function for _buttonToggleDispatcher *
+         * Unregister function for _buttonToggleDispatcher
          */
         this._removeUniqueSelectionListener = function () { };
         /**
@@ -14221,8 +14227,10 @@ var TileCoordinator = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(TileCoordinator.prototype, "rowspan", {
-        /** Gets the total span of rows occupied by tiles.
-         * Ex: A list with 1 row that contains a tile with rowspan 2 will have a total rowspan of 2. */
+        /**
+         * Gets the total span of rows occupied by tiles.
+         * Ex: A list with 1 row that contains a tile with rowspan 2 will have a total rowspan of 2.
+         */
         get: /**
          * Gets the total span of rows occupied by tiles.
          * Ex: A list with 1 row that contains a tile with rowspan 2 will have a total rowspan of 2.
@@ -20414,7 +20422,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         _this._value = 0;
         _this._fallbackAnimation = false;
         /**
-         * The width and height of the host element. Will grow with stroke width. *
+         * The width and height of the host element. Will grow with stroke width.
          */
         _this._elementSize = BASE_SIZE;
         _this._diameter = BASE_SIZE;
@@ -21163,7 +21171,7 @@ var MatRadioButtonBase = /** @class */ (function () {
 // palette by default. https://material.io/guidelines/components/selection-controls.html
 var _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(MatRadioButtonBase), 'accent');
 /**
- * A radio-button. May be inside of
+ * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
 var MatRadioButton = /** @class */ (function (_super) {
     __extends(MatRadioButton, _super);
@@ -21196,7 +21204,7 @@ var MatRadioButton = /** @class */ (function (_super) {
          */
         _this._rippleConfig = { centered: true, radius: 23, speedFactor: 1.5 };
         /**
-         * Unregister function for _radioDispatcher *
+         * Unregister function for _radioDispatcher
          */
         _this._removeUniqueSelectionListener = function () { };
         // Assertions. Ideally these should be stripped out by the compiler.
@@ -23846,7 +23854,7 @@ var MatSlider = /** @class */ (function (_super) {
         this._isSliding = false;
         this._focusHostElement();
         this._updateValueFromPosition({ x: event.clientX, y: event.clientY });
-        /* Emit a change and input event if the value changed. */
+        // Emit a change and input event if the value changed.
         if (oldValue != this.value) {
             this._emitInputEvent();
             this._emitChangeEvent();
@@ -28865,7 +28873,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-56e2566');
+var VERSION = new _angular_core.Version('5.1.0-5c87a84');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

@@ -939,6 +939,9 @@ ErrorStateMatcher.ctorParameters = () => [];
  * More info at http://hammerjs.github.io/api/.
  */
 const MAT_HAMMER_OPTIONS = new InjectionToken('MAT_HAMMER_OPTIONS');
+/**
+ * Adjusts configuration of our gesture library, Hammer.
+ */
 class GestureConfig extends HammerGestureConfig {
     /**
      * @param {?=} _hammerOptions
@@ -948,7 +951,9 @@ class GestureConfig extends HammerGestureConfig {
         super();
         this._hammerOptions = _hammerOptions;
         this._hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
-        /* List of new event names to add to the gesture support list */
+        /**
+         * List of new event names to add to the gesture support list
+         */
         this.events = this._hammer ? [
             'longpress',
             'slide',

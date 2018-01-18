@@ -126,7 +126,7 @@ export declare class MatButtonToggle implements OnInit, OnDestroy {
     private _value;
     /** Whether or not the button toggle is a single selection. */
     private _isSingleSelector;
-    /** Unregister function for _buttonToggleDispatcher **/
+    /** Unregister function for _buttonToggleDispatcher */
     private _removeUniqueSelectionListener;
     _inputElement: ElementRef;
     /** The parent button toggle group (exclusive selection). Optional. */

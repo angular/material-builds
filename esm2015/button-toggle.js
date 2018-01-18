@@ -346,7 +346,7 @@ class MatButtonToggle {
          */
         this._isSingleSelector = false;
         /**
-         * Unregister function for _buttonToggleDispatcher *
+         * Unregister function for _buttonToggleDispatcher
          */
         this._removeUniqueSelectionListener = () => { };
         /**

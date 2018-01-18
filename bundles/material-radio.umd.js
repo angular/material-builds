@@ -497,7 +497,7 @@ var MatRadioButtonBase = /** @class */ (function () {
 // palette by default. https://material.io/guidelines/components/selection-controls.html
 var _MatRadioButtonMixinBase = _angular_material_core.mixinColor(_angular_material_core.mixinDisableRipple(MatRadioButtonBase), 'accent');
 /**
- * A radio-button. May be inside of
+ * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
 var MatRadioButton = /** @class */ (function (_super) {
     __extends(MatRadioButton, _super);
@@ -530,7 +530,7 @@ var MatRadioButton = /** @class */ (function (_super) {
          */
         _this._rippleConfig = { centered: true, radius: 23, speedFactor: 1.5 };
         /**
-         * Unregister function for _radioDispatcher *
+         * Unregister function for _radioDispatcher
          */
         _this._removeUniqueSelectionListener = function () { };
         // Assertions. Ideally these should be stripped out by the compiler.

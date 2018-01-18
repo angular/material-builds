@@ -66,9 +66,11 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     _onChange: (value: any) => void;
     /** View -> model callback called when autocomplete has been touched */
     _onTouched: () => void;
+    /** The autocomplete panel to be attached to this trigger. */
     autocomplete: MatAutocomplete;
     constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, _scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any);
     ngOnDestroy(): void;
+    /** Whether or not the autocomplete panel is open. */
     readonly panelOpen: boolean;
     /** Opens the autocomplete suggestion panel. */
     openPanel(): void;
@@ -144,10 +146,10 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _destroyPanel();
     private _setTriggerValue(value);
     /**
-    * This method closes the panel, and if a value is specified, also sets the associated
-    * control to that value. It will also mark the control as dirty if this interaction
-    * stemmed from the user.
-    */
+     * This method closes the panel, and if a value is specified, also sets the associated
+     * control to that value. It will also mark the control as dirty if this interaction
+     * stemmed from the user.
+     */
     private _setValueAndClose(event);
     /**
      * Clear any previous selected option and emit a selection change event for this option
@@ -159,6 +161,6 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _getConnectedElement();
     /** Returns the width of the input element, so the panel width can match it. */
     private _getHostWidth();
-    /** Reset active item to -1 so arrow events will activate the correct options.*/
+    /** Reset active item to -1 so arrow events will activate the correct options. */
     private _resetActiveItem();
 }

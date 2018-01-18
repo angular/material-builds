@@ -75,7 +75,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         _this._value = 0;
         _this._fallbackAnimation = false;
         /**
-         * The width and height of the host element. Will grow with stroke width. *
+         * The width and height of the host element. Will grow with stroke width.
          */
         _this._elementSize = BASE_SIZE;
         _this._diameter = BASE_SIZE;

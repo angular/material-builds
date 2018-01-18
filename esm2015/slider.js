@@ -462,7 +462,7 @@ class MatSlider extends _MatSliderMixinBase {
         this._isSliding = false;
         this._focusHostElement();
         this._updateValueFromPosition({ x: event.clientX, y: event.clientY });
-        /* Emit a change and input event if the value changed. */
+        // Emit a change and input event if the value changed.
         if (oldValue != this.value) {
             this._emitInputEvent();
             this._emitChangeEvent();

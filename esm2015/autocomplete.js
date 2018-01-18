@@ -278,6 +278,7 @@ class MatAutocompleteTrigger {
         this._escapeEventStream.complete();
     }
     /**
+     * Whether or not the autocomplete panel is open.
      * @return {?}
      */
     get panelOpen() {

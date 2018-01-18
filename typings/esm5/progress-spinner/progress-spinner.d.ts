@@ -25,7 +25,7 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     private _value;
     private _strokeWidth;
     private _fallbackAnimation;
-    /** The width and height of the host element. Will grow with stroke width. **/
+    /** The width and height of the host element. Will grow with stroke width. */
     _elementSize: number;
     /** Tracks diameters of existing instances to de-dupe generated styles (default d = 100) */
     private static diameters;
