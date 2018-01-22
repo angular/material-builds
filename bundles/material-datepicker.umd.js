@@ -2171,11 +2171,14 @@ var MatDatepickerInput = /** @class */ (function () {
         this._valueChange.complete();
         this._disabledChange.complete();
     };
+    /** @docs-private */
     /**
+     * \@docs-private
      * @param {?} fn
      * @return {?}
      */
     MatDatepickerInput.prototype.registerOnValidatorChange = /**
+     * \@docs-private
      * @param {?} fn
      * @return {?}
      */

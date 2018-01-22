@@ -1615,32 +1615,51 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         return this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
     };
-    // Implemented as part of MatFormFieldControl.
     /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
     MatSelect.prototype.setDescribedByIds = /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
     function (ids) {
         this._ariaDescribedby = ids.join(' ');
     };
-    // Implemented as part of MatFormFieldControl.
     /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     MatSelect.prototype.onContainerClick = /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     function () {
         this.focus();
         this.open();
     };
-    Object.defineProperty(MatSelect.prototype, "shouldLabelFloat", {
-        // Implemented as part of MatFormFieldControl.
+    Object.defineProperty(MatSelect.prototype, "shouldPlaceholderFloat", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () {

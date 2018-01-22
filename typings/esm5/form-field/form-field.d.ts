@@ -17,7 +17,7 @@ export declare class MatFormField implements AfterViewInit, AfterContentInit, Af
     /** @deprecated Use `color` instead. */
     dividerColor: 'primary' | 'accent' | 'warn';
     /** Whether the required marker should be hidden. */
-    hideRequiredMarker: any;
+    hideRequiredMarker: boolean;
     private _hideRequiredMarker;
     /** Override for the logic that disables the label animation in certain cases. */
     private _showAlwaysAnimate;

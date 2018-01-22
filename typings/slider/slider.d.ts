@@ -37,7 +37,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private _changeDetectorRef;
     private _dir;
     /** Whether the slider is inverted. */
-    invert: any;
+    invert: boolean;
     private _invert;
     /** The maximum value that the slider can have. */
     max: number;
@@ -65,7 +65,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     value: number | null;
     private _value;
     /** Whether the slider is vertical. */
-    vertical: any;
+    vertical: boolean;
     private _vertical;
     /** Event emitted when the slider value has changed. */
     change: EventEmitter<MatSliderChange>;
@@ -92,7 +92,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      * Whether the axis of the slider is inverted.
      * (i.e. whether moving the thumb in the positive x or y direction decreases the slider's value).
      */
-    readonly _invertAxis: any;
+    readonly _invertAxis: boolean;
     /** Whether the slider is at its minimum value. */
     readonly _isMinValue: boolean;
     /**

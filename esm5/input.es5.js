@@ -36,11 +36,11 @@ var MatTextareaAutosize = /** @class */ (function () {
     }
     Object.defineProperty(MatTextareaAutosize.prototype, "minRows", {
         get: /**
-         * Minimum amount of rows in the textarea.
          * @return {?}
          */
         function () { return this._minRows; },
         set: /**
+         * Minimum amount of rows in the textarea.
          * @param {?} value
          * @return {?}
          */
@@ -412,7 +412,12 @@ var MatInput = /** @class */ (function (_super) {
          * Whether the element is disabled.
          * @return {?}
          */
-        function () { return this.ngControl ? this.ngControl.disabled : this._disabled; },
+        function () {
+            if (this.ngControl && this.ngControl.disabled !== null) {
+                return this.ngControl.disabled;
+            }
+            return this._disabled;
+        },
         set: /**
          * @param {?} value
          * @return {?}
@@ -674,29 +679,48 @@ var MatInput = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatInput.prototype, "shouldLabelFloat", {
-        // Implemented as part of MatFormFieldControl.
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this.focused || !this.empty; },
         enumerable: true,
         configurable: true
     });
-    // Implemented as part of MatFormFieldControl.
     /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
     MatInput.prototype.setDescribedByIds = /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
     function (ids) { this._ariaDescribedby = ids.join(' '); };
-    // Implemented as part of MatFormFieldControl.
     /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     MatInput.prototype.onContainerClick = /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     function () { this.focus(); };

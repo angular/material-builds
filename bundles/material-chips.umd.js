@@ -762,7 +762,9 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "shouldLabelFloat", {
+        /** @docs-private */
         get: /**
+         * \@docs-private
          * @return {?}
          */
         function () {
@@ -941,12 +943,19 @@ var MatChipList = /** @class */ (function (_super) {
     function (inputElement) {
         this._chipInput = inputElement;
     };
-    // Implemented as part of MatFormFieldControl.
     /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
     MatChipList.prototype.setDescribedByIds = /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
@@ -1003,10 +1012,13 @@ var MatChipList = /** @class */ (function (_super) {
         this._elementRef.nativeElement.disabled = disabled;
         this.stateChanges.next();
     };
+    /** @docs-private */
     /**
+     * \@docs-private
      * @return {?}
      */
     MatChipList.prototype.onContainerClick = /**
+     * \@docs-private
      * @return {?}
      */
     function () {

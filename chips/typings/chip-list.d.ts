@@ -114,13 +114,14 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     /** Required for FormFieldControl. The ID of the chip list */
     id: string;
     /** Required for FormFieldControl. Whether the chip list is required. */
-    required: any;
+    required: boolean;
     /** For FormFieldControl. Use chip input's placholder if there's a chip input */
     placeholder: string;
     /** Whether any chips or the matChipInput inside of this chip-list has focus. */
     readonly focused: boolean;
     /** Whether this chip-list contains no chips and no matChipInput. */
     readonly empty: boolean;
+    /** @docs-private */
     readonly shouldLabelFloat: boolean;
     /** Whether this chip-list is disabled. */
     disabled: any;
@@ -157,11 +158,16 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     ngOnDestroy(): void;
     /** Associates an HTML input element with this chip list. */
     registerInput(inputElement: MatChipInput): void;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     setDescribedByIds(ids: string[]): void;
     writeValue(value: any): void;
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: () => void): void;
     setDisabledState(disabled: boolean): void;
+    /** @docs-private */
     onContainerClick(): void;
     /**
      * Focuses the the first non-disabled chip in this chip list, or the associated input when there

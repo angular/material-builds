@@ -69,7 +69,7 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel, OnDestro
      */
     classList: string;
     /** Event emitted when the menu is closed. */
-    closed: EventEmitter<void | "click" | "keydown">;
+    closed: EventEmitter<void | 'click' | 'keydown'>;
     /**
      * Event emitted when the menu is closed.
      * @deprecated Switch to `closed` instead

@@ -1828,6 +1828,7 @@ class MatDatepickerInput {
         this._disabledChange.complete();
     }
     /**
+     * \@docs-private
      * @param {?} fn
      * @return {?}
      */

@@ -41,21 +41,21 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     /** A name for this control that can be used by `mat-form-field`. */
     controlType: string;
     /** Whether the element is disabled. */
-    disabled: any;
+    disabled: boolean;
     /** Unique id of the element. */
     id: string;
     /** Placeholder attribute of the element. */
     placeholder: string;
     /** Whether the element is required. */
-    required: any;
+    required: boolean;
     /** Input type of the element. */
     type: string;
     /** An object used to control when error messages are shown. */
     errorStateMatcher: ErrorStateMatcher;
     /** The input element's value. */
-    value: any;
+    value: string;
     /** Whether the element is readonly. */
-    readonly: any;
+    readonly: boolean;
     protected _neverEmptyInputTypes: string[];
     constructor(_elementRef: ElementRef, _platform: Platform, ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any);
     ngOnChanges(): void;
@@ -76,7 +76,19 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     /** Determines if the component host is a textarea. If not recognizable it returns false. */
     protected _isTextarea(): boolean;
     readonly empty: boolean;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     readonly shouldLabelFloat: boolean;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     setDescribedByIds(ids: string[]): void;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     onContainerClick(): void;
 }

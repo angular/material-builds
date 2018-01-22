@@ -165,7 +165,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Placeholder to be shown if no value has been selected. */
     placeholder: string;
     /** Whether the component is required. */
-    required: any;
+    required: boolean;
     /** Whether the user should be allowed to select multiple options. */
     multiple: boolean;
     /**
@@ -384,7 +384,19 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _getItemCount();
     /** Calculates the height of the select's options. */
     private _getItemHeight();
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     setDescribedByIds(ids: string[]): void;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     onContainerClick(): void;
-    readonly shouldLabelFloat: boolean;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    readonly shouldPlaceholderFloat: boolean;
 }

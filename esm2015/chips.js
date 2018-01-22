@@ -637,6 +637,7 @@ class MatChipList extends _MatChipListMixinBase {
         return (!this._chipInput || this._chipInput.empty) && this.chips.length === 0;
     }
     /**
+     * \@docs-private
      * @return {?}
      */
     get shouldLabelFloat() {
@@ -759,6 +760,8 @@ class MatChipList extends _MatChipListMixinBase {
         this._chipInput = inputElement;
     }
     /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
@@ -796,6 +799,7 @@ class MatChipList extends _MatChipListMixinBase {
         this.stateChanges.next();
     }
     /**
+     * \@docs-private
      * @return {?}
      */
     onContainerClick() {

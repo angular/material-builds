@@ -6947,7 +6947,9 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "shouldLabelFloat", {
+        /** @docs-private */
         get: /**
+         * \@docs-private
          * @return {?}
          */
         function () {
@@ -7126,12 +7128,19 @@ var MatChipList = /** @class */ (function (_super) {
     function (inputElement) {
         this._chipInput = inputElement;
     };
-    // Implemented as part of MatFormFieldControl.
     /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
     MatChipList.prototype.setDescribedByIds = /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
@@ -7188,10 +7197,13 @@ var MatChipList = /** @class */ (function (_super) {
         this._elementRef.nativeElement.disabled = disabled;
         this.stateChanges.next();
     };
+    /** @docs-private */
     /**
+     * \@docs-private
      * @return {?}
      */
     MatChipList.prototype.onContainerClick = /**
+     * \@docs-private
      * @return {?}
      */
     function () {
@@ -10081,11 +10093,11 @@ var MatTextareaAutosize = /** @class */ (function () {
     }
     Object.defineProperty(MatTextareaAutosize.prototype, "minRows", {
         get: /**
-         * Minimum amount of rows in the textarea.
          * @return {?}
          */
         function () { return this._minRows; },
         set: /**
+         * Minimum amount of rows in the textarea.
          * @param {?} value
          * @return {?}
          */
@@ -10457,7 +10469,12 @@ var MatInput = /** @class */ (function (_super) {
          * Whether the element is disabled.
          * @return {?}
          */
-        function () { return this.ngControl ? this.ngControl.disabled : this._disabled; },
+        function () {
+            if (this.ngControl && this.ngControl.disabled !== null) {
+                return this.ngControl.disabled;
+            }
+            return this._disabled;
+        },
         set: /**
          * @param {?} value
          * @return {?}
@@ -10719,29 +10736,48 @@ var MatInput = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatInput.prototype, "shouldLabelFloat", {
-        // Implemented as part of MatFormFieldControl.
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this.focused || !this.empty; },
         enumerable: true,
         configurable: true
     });
-    // Implemented as part of MatFormFieldControl.
     /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
     MatInput.prototype.setDescribedByIds = /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
     function (ids) { this._ariaDescribedby = ids.join(' '); };
-    // Implemented as part of MatFormFieldControl.
     /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     MatInput.prototype.onContainerClick = /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     function () { this.focus(); };
@@ -12984,11 +13020,14 @@ var MatDatepickerInput = /** @class */ (function () {
         this._valueChange.complete();
         this._disabledChange.complete();
     };
+    /** @docs-private */
     /**
+     * \@docs-private
      * @param {?} fn
      * @return {?}
      */
     MatDatepickerInput.prototype.registerOnValidatorChange = /**
+     * \@docs-private
      * @param {?} fn
      * @return {?}
      */
@@ -13586,12 +13625,10 @@ var MatExpansionPanelBase = /** @class */ (function (_super) {
 }(_angular_cdk_accordion.CdkAccordionItem));
 var _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
 /**
- * <mat-expansion-panel> component.
+ * <mat-expansion-panel>
  *
  * This component can be used as a single element to show expandable content, or as one of
- * multiple children of an element with the MatAccordion directive attached.
- *
- * Please refer to README.md for examples on how to use it.
+ * multiple children of an element with the MdAccordion directive attached.
  */
 var MatExpansionPanel = /** @class */ (function (_super) {
     __extends(MatExpansionPanel, _super);
@@ -13758,11 +13795,9 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
  */
 
 /**
- * <mat-expansion-panel-header> component.
+ * <mat-expansion-panel-header>
  *
  * This component corresponds to the header element of an <mat-expansion-panel>.
- *
- * Please refer to README.md for examples on how to use it.
  */
 var MatExpansionPanelHeader = /** @class */ (function () {
     function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef) {
@@ -13912,7 +13947,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
     return MatExpansionPanelHeader;
 }());
 /**
- * <mat-panel-description> directive.
+ * <mat-panel-description>
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
@@ -13932,7 +13967,7 @@ var MatExpansionPanelDescription = /** @class */ (function () {
     return MatExpansionPanelDescription;
 }());
 /**
- * <mat-panel-title> directive.
+ * <mat-panel-title>
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
@@ -18823,32 +18858,51 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         return this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
     };
-    // Implemented as part of MatFormFieldControl.
     /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
     MatSelect.prototype.setDescribedByIds = /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
     function (ids) {
         this._ariaDescribedby = ids.join(' ');
     };
-    // Implemented as part of MatFormFieldControl.
     /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     MatSelect.prototype.onContainerClick = /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     function () {
         this.focus();
         this.open();
     };
-    Object.defineProperty(MatSelect.prototype, "shouldLabelFloat", {
-        // Implemented as part of MatFormFieldControl.
+    Object.defineProperty(MatSelect.prototype, "shouldPlaceholderFloat", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () {
@@ -28873,7 +28927,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-33afd93');
+var VERSION = new _angular_core.Version('5.1.0-b071d64');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29105,10 +29159,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa20 = MatMenuItemBase;
-exports.ɵb20 = _MatMenuItemMixinBase;
-exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -29225,16 +29279,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe10 = MatTabBase;
+exports.ɵf10 = _MatTabMixinBase;
+exports.ɵa10 = MatTabHeaderBase;
+exports.ɵb10 = _MatTabHeaderMixinBase;
+exports.ɵc10 = MatTabLabelWrapperBase;
+exports.ɵd10 = _MatTabLabelWrapperMixinBase;
+exports.ɵi10 = MatTabLinkBase;
+exports.ɵg10 = MatTabNavBase;
+exports.ɵj10 = _MatTabLinkMixinBase;
+exports.ɵh10 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

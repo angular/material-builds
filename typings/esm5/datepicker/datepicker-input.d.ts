@@ -46,7 +46,7 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     max: D | null;
     private _max;
     /** Whether the datepicker-input is disabled. */
-    disabled: any;
+    disabled: boolean;
     private _disabled;
     /** Emits when a `change` event is fired on this `<input>`. */
     dateChange: EventEmitter<MatDatepickerInputEvent<D>>;
@@ -76,6 +76,7 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     constructor(_elementRef: ElementRef, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, _formField: MatFormField);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
+    /** @docs-private */
     registerOnValidatorChange(fn: () => void): void;
     validate(c: AbstractControl): ValidationErrors | null;
     /**

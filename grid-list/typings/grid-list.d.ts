@@ -28,9 +28,9 @@ export declare class MatGridList implements OnInit, AfterContentChecked {
     _tiles: QueryList<MatGridTile>;
     constructor(_element: ElementRef, _dir: Directionality);
     /** Amount of columns in the grid list. */
-    cols: any;
+    cols: number;
     /** Size of the grid list's gutter in pixels. */
-    gutterSize: any;
+    gutterSize: string;
     /** Set internal representation of row height from the user-provided value. */
     rowHeight: string | number;
     ngOnInit(): void;

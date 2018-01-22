@@ -176,12 +176,10 @@ var MatExpansionPanelBase = /** @class */ (function (_super) {
 }(CdkAccordionItem));
 var _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
 /**
- * <mat-expansion-panel> component.
+ * <mat-expansion-panel>
  *
  * This component can be used as a single element to show expandable content, or as one of
- * multiple children of an element with the MatAccordion directive attached.
- *
- * Please refer to README.md for examples on how to use it.
+ * multiple children of an element with the MdAccordion directive attached.
  */
 var MatExpansionPanel = /** @class */ (function (_super) {
     __extends(MatExpansionPanel, _super);
@@ -348,11 +346,9 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
  */
 
 /**
- * <mat-expansion-panel-header> component.
+ * <mat-expansion-panel-header>
  *
  * This component corresponds to the header element of an <mat-expansion-panel>.
- *
- * Please refer to README.md for examples on how to use it.
  */
 var MatExpansionPanelHeader = /** @class */ (function () {
     function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef) {
@@ -502,7 +498,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
     return MatExpansionPanelHeader;
 }());
 /**
- * <mat-panel-description> directive.
+ * <mat-panel-description>
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
@@ -522,7 +518,7 @@ var MatExpansionPanelDescription = /** @class */ (function () {
     return MatExpansionPanelDescription;
 }());
 /**
- * <mat-panel-title> directive.
+ * <mat-panel-title>
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */

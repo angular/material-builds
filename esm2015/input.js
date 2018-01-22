@@ -39,10 +39,6 @@ class MatTextareaAutosize {
     }
     /**
      * Minimum amount of rows in the textarea.
-     * @return {?}
-     */
-    get minRows() { return this._minRows; }
-    /**
      * @param {?} value
      * @return {?}
      */
@@ -50,6 +46,10 @@ class MatTextareaAutosize {
         this._minRows = value;
         this._setMinHeight();
     }
+    /**
+     * @return {?}
+     */
+    get minRows() { return this._minRows; }
     /**
      * Maximum amount of rows in the textarea.
      * @return {?}
@@ -367,7 +367,12 @@ class MatInput extends _MatInputMixinBase {
      * Whether the element is disabled.
      * @return {?}
      */
-    get disabled() { return this.ngControl ? this.ngControl.disabled : this._disabled; }
+    get disabled() {
+        if (this.ngControl && this.ngControl.disabled !== null) {
+            return this.ngControl.disabled;
+        }
+        return this._disabled;
+    }
     /**
      * @param {?} value
      * @return {?}
@@ -555,15 +560,21 @@ class MatInput extends _MatInputMixinBase {
         return !this._isNeverEmpty() && !this._elementRef.nativeElement.value && !this._isBadInput();
     }
     /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     get shouldLabelFloat() { return this.focused || !this.empty; }
     /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
     setDescribedByIds(ids) { this._ariaDescribedby = ids.join(' '); }
     /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     onContainerClick() { this.focus(); }

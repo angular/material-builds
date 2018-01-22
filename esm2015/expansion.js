@@ -172,12 +172,10 @@ MatExpansionPanelBase.ctorParameters = () => [
 ];
 const _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
 /**
- * <mat-expansion-panel> component.
+ * <mat-expansion-panel>
  *
  * This component can be used as a single element to show expandable content, or as one of
- * multiple children of an element with the MatAccordion directive attached.
- *
- * Please refer to README.md for examples on how to use it.
+ * multiple children of an element with the MdAccordion directive attached.
  */
 class MatExpansionPanel extends _MatExpansionPanelMixinBase {
     /**
@@ -314,11 +312,9 @@ MatExpansionPanelActionRow.ctorParameters = () => [];
  */
 
 /**
- * <mat-expansion-panel-header> component.
+ * <mat-expansion-panel-header>
  *
  * This component corresponds to the header element of an <mat-expansion-panel>.
- *
- * Please refer to README.md for examples on how to use it.
  */
 class MatExpansionPanelHeader {
     /**
@@ -444,7 +440,7 @@ MatExpansionPanelHeader.propDecorators = {
     "collapsedHeight": [{ type: Input },],
 };
 /**
- * <mat-panel-description> directive.
+ * <mat-panel-description>
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
@@ -461,7 +457,7 @@ MatExpansionPanelDescription.decorators = [
 /** @nocollapse */
 MatExpansionPanelDescription.ctorParameters = () => [];
 /**
- * <mat-panel-title> directive.
+ * <mat-panel-title>
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */

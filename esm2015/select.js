@@ -1270,6 +1270,8 @@ class MatSelect extends _MatSelectMixinBase {
         return this._triggerFontSize * SELECT_ITEM_HEIGHT_EM;
     }
     /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @param {?} ids
      * @return {?}
      */
@@ -1277,6 +1279,8 @@ class MatSelect extends _MatSelectMixinBase {
         this._ariaDescribedby = ids.join(' ');
     }
     /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     onContainerClick() {
@@ -1284,9 +1288,11 @@ class MatSelect extends _MatSelectMixinBase {
         this.open();
     }
     /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
-    get shouldLabelFloat() {
+    get shouldPlaceholderFloat() {
         return this._panelOpen || !this.empty;
     }
 }

@@ -21,12 +21,10 @@ export declare const _MatExpansionPanelMixinBase: (new (...args: any[]) => CanDi
 /** MatExpansionPanel's states. */
 export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
 /**
- * <mat-expansion-panel> component.
+ * <mat-expansion-panel>
  *
  * This component can be used as a single element to show expandable content, or as one of
- * multiple children of an element with the MatAccordion directive attached.
- *
- * Please refer to README.md for examples on how to use it.
+ * multiple children of an element with the MdAccordion directive attached.
  */
 export declare class MatExpansionPanel extends _MatExpansionPanelMixinBase implements CanDisable, AfterContentInit, OnChanges, OnDestroy {
     private _viewContainerRef;
