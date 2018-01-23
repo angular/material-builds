@@ -34,6 +34,8 @@ export declare class MatPaginator implements OnInit, OnDestroy {
     /** The set of provided page size options to display to the user. */
     pageSizeOptions: number[];
     private _pageSizeOptions;
+    /** Whether to hide the page size selection UI from the user. */
+    hidePageSize: boolean;
     /** Event emitted when the paginator changes the page size or page index. */
     page: EventEmitter<PageEvent>;
     /** Displayed set of page size options. Will be sorted and include current page size. */
