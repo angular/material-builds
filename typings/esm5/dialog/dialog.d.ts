@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { MatDialogConfig } from './dialog-config';
 import { MatDialogRef } from './dialog-ref';
+/** Injection token that can be used to access the data that was passed in to a dialog. */
 export declare const MAT_DIALOG_DATA: InjectionToken<any>;
 /** Injection token that can be used to specify default dialog options. */
 export declare const MAT_DIALOG_DEFAULT_OPTIONS: InjectionToken<MatDialogConfig<any>>;

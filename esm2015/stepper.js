@@ -347,7 +347,11 @@ class MatStepperNext extends CdkStepperNext {
 MatStepperNext.decorators = [
     { type: Directive, args: [{
                 selector: 'button[matStepperNext]',
-                host: { '(click)': '_stepper.next()' },
+                host: {
+                    '(click)': '_stepper.next()',
+                    '[type]': 'type',
+                },
+                inputs: ['type'],
                 providers: [{ provide: CdkStepper, useExisting: MatStepper }]
             },] },
 ];
@@ -361,7 +365,11 @@ class MatStepperPrevious extends CdkStepperPrevious {
 MatStepperPrevious.decorators = [
     { type: Directive, args: [{
                 selector: 'button[matStepperPrevious]',
-                host: { '(click)': '_stepper.previous()' },
+                host: {
+                    '(click)': '_stepper.previous()',
+                    '[type]': 'type',
+                },
+                inputs: ['type'],
                 providers: [{ provide: CdkStepper, useExisting: MatStepper }]
             },] },
 ];

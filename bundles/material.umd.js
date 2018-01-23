@@ -8487,6 +8487,9 @@ var MatDialogRef = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Injection token that can be used to access the data that was passed in to a dialog.
+ */
 var MAT_DIALOG_DATA = new _angular_core.InjectionToken('MatDialogData');
 /**
  * Injection token that can be used to specify default dialog options.
@@ -24517,6 +24520,9 @@ var MatSnackBarRef = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Injection token that can be used to access the data that was passed in to a snack bar.
+ */
 var MAT_SNACK_BAR_DATA = new _angular_core.InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
@@ -26092,7 +26098,11 @@ var MatStepperNext = /** @class */ (function (_super) {
     MatStepperNext.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: 'button[matStepperNext]',
-                    host: { '(click)': '_stepper.next()' },
+                    host: {
+                        '(click)': '_stepper.next()',
+                        '[type]': 'type',
+                    },
+                    inputs: ['type'],
                     providers: [{ provide: _angular_cdk_stepper.CdkStepper, useExisting: MatStepper }]
                 },] },
     ];
@@ -26111,7 +26121,11 @@ var MatStepperPrevious = /** @class */ (function (_super) {
     MatStepperPrevious.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: 'button[matStepperPrevious]',
-                    host: { '(click)': '_stepper.previous()' },
+                    host: {
+                        '(click)': '_stepper.previous()',
+                        '[type]': 'type',
+                    },
+                    inputs: ['type'],
                     providers: [{ provide: _angular_cdk_stepper.CdkStepper, useExisting: MatStepper }]
                 },] },
     ];
@@ -28883,7 +28897,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-d0ad3b7');
+var VERSION = new _angular_core.Version('5.1.0-b3d2e78');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29115,10 +29129,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa10 = MatMenuItemBase;
-exports.ɵb10 = _MatMenuItemMixinBase;
-exports.ɵd10 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc10 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa19 = MatMenuItemBase;
+exports.ɵb19 = _MatMenuItemMixinBase;
+exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

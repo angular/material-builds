@@ -471,6 +471,9 @@ class MatDialogRef {
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Injection token that can be used to access the data that was passed in to a dialog.
+ */
 const MAT_DIALOG_DATA = new InjectionToken('MatDialogData');
 /**
  * Injection token that can be used to specify default dialog options.

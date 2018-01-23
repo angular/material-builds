@@ -416,7 +416,11 @@ var MatStepperNext = /** @class */ (function (_super) {
     MatStepperNext.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: 'button[matStepperNext]',
-                    host: { '(click)': '_stepper.next()' },
+                    host: {
+                        '(click)': '_stepper.next()',
+                        '[type]': 'type',
+                    },
+                    inputs: ['type'],
                     providers: [{ provide: _angular_cdk_stepper.CdkStepper, useExisting: MatStepper }]
                 },] },
     ];
@@ -435,7 +439,11 @@ var MatStepperPrevious = /** @class */ (function (_super) {
     MatStepperPrevious.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: 'button[matStepperPrevious]',
-                    host: { '(click)': '_stepper.previous()' },
+                    host: {
+                        '(click)': '_stepper.previous()',
+                        '[type]': 'type',
+                    },
+                    inputs: ['type'],
                     providers: [{ provide: _angular_cdk_stepper.CdkStepper, useExisting: MatStepper }]
                 },] },
     ];

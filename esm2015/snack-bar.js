@@ -127,6 +127,9 @@ class MatSnackBarRef {
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Injection token that can be used to access the data that was passed in to a snack bar.
+ */
 const MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.

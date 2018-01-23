@@ -194,6 +194,9 @@ var MatSnackBarRef = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Injection token that can be used to access the data that was passed in to a snack bar.
+ */
 var MAT_SNACK_BAR_DATA = new _angular_core.InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
