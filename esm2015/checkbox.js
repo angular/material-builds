@@ -318,7 +318,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      */
     _onInputFocusChange(focusOrigin) {
         if (!this._focusRipple && focusOrigin === 'keyboard') {
-            this._focusRipple = this._ripple.launch(0, 0, Object.assign({ persistent: true }, this._rippleConfig));
+            this._focusRipple = this.ripple.launch(0, 0, Object.assign({ persistent: true }, this._rippleConfig));
         }
         else if (!focusOrigin) {
             this._removeFocusRipple();
@@ -476,7 +476,7 @@ MatCheckbox.propDecorators = {
     "indeterminateChange": [{ type: Output },],
     "value": [{ type: Input },],
     "_inputElement": [{ type: ViewChild, args: ['input',] },],
-    "_ripple": [{ type: ViewChild, args: [MatRipple,] },],
+    "ripple": [{ type: ViewChild, args: [MatRipple,] },],
     "checked": [{ type: Input },],
     "indeterminate": [{ type: Input },],
 };

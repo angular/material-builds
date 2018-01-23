@@ -63,7 +63,8 @@ export declare class MatTableDataSource<T> implements DataSource<T> {
     paginator: MatPaginator | null;
     private _paginator;
     /**
-     * Data accessor function that is used for accessing data properties for sorting.
+     * Data accessor function that is used for accessing data properties for sorting through
+     * the default sortData function.
      * This default function assumes that the sort header IDs (which defaults to the column name)
      * matches the data's properties (e.g. column Xyz represents data['Xyz']).
      * May be set to a custom function for different behavior.
@@ -72,10 +73,20 @@ export declare class MatTableDataSource<T> implements DataSource<T> {
      */
     sortingDataAccessor: ((data: T, sortHeaderId: string) => string | number);
     /**
+     * Gets a sorted copy of the data array based on the state of the MatSort. Called
+     * after changes are made to the filtered data or when sort changes are emitted from MatSort.
+     * By default, the function retrieves the active sort and its direction and compares data
+     * by retrieving data using the sortingDataAccessor. May be overridden for a custom implementation
+     * of data ordering.
+     * @param data The array of data that should be sorted.
+     * @param sort The connected MatSort that holds the current sort state.
+     */
+    sortData: ((data: T[], sort: MatSort) => T[]);
+    /**
      * Checks if a data object matches the data source's filter string. By default, each data object
      * is converted to a string of its properties and returns true if the filter has
      * at least one occurrence in that string. By default, the filter string has its whitespace
-     * trimmed and the match is case-insensitive. May be overriden for a custom implementation of
+     * trimmed and the match is case-insensitive. May be overridden for a custom implementation of
      * filter matching.
      * @param data Data object used to check against the filter.
      * @param filter Filter string that has been set on the data source.

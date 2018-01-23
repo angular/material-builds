@@ -89,8 +89,8 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     value: string;
     /** The native `<input type="checkbox"> element */
     _inputElement: ElementRef;
-    /** Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor. */
-    _ripple: MatRipple;
+    /** Reference to the ripple instance of the checkbox. */
+    ripple: MatRipple;
     /** Ripple configuration for the mouse ripples and focus indicators. */
     _rippleConfig: RippleConfig;
     /**

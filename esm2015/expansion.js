@@ -122,12 +122,12 @@ const matExpansionAnimations = {
         state('collapsed', style({
             height: '{{collapsedHeight}}',
         }), {
-            params: { collapsedHeight: '48px' },
+            params: { collapsedHeight: '*' },
         }),
         state('expanded', style({
             height: '{{expandedHeight}}'
         }), {
-            params: { expandedHeight: '64px' }
+            params: { expandedHeight: '*' }
         }),
         transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ]),
@@ -172,6 +172,10 @@ MatExpansionPanelBase.ctorParameters = () => [
 ];
 const _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
 /**
+ * Counter for generating unique element ids.
+ */
+let uniqueId = 0;
+/**
  * <mat-expansion-panel>
  *
  * This component can be used as a single element to show expandable content, or as one of
@@ -192,6 +196,10 @@ class MatExpansionPanel extends _MatExpansionPanelMixinBase {
          * Stream that emits for changes in `\@Input` properties.
          */
         this._inputChanges = new Subject();
+        /**
+         * ID for the associated header element. Used for a11y labelling.
+         */
+        this._headerId = `mat-expansion-panel-header-${uniqueId++}`;
         this.accordion = accordion;
     }
     /**
@@ -263,12 +271,12 @@ MatExpansionPanel.decorators = [
     { type: Component, args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expanded .mat-expansion-panel-content{overflow:visible}.mat-expansion-panel-content,.mat-expansion-panel-content.ng-animating{overflow:hidden}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion .mat-expansion-panel-spacing:first-child{margin-top:0}.mat-accordion .mat-expansion-panel-spacing:last-child{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
                 selector: 'mat-expansion-panel',
                 exportAs: 'matExpansionPanel',
-                template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" [class.mat-expanded]=\"expanded\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
+                template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" role=\"region\" [class.mat-expanded]=\"expanded\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\" [attr.aria-labelledby]=\"_headerId\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 inputs: ['disabled', 'expanded'],
-                outputs: ['opened', 'closed'],
+                outputs: ['opened', 'closed', 'expandedChange'],
                 animations: [matExpansionAnimations.bodyExpansion],
                 host: {
                     'class': 'mat-expansion-panel',
@@ -371,11 +379,11 @@ class MatExpansionPanelHeader {
         return !this.panel.hideToggle && !this.panel.disabled;
     }
     /**
-     * Handle keyup event calling to toggle() if appropriate.
+     * Handle keydown event calling to toggle() if appropriate.
      * @param {?} event
      * @return {?}
      */
-    _keyup(event) {
+    _keydown(event) {
         switch (event.keyCode) {
             // Toggle for space and enter keys.
             case SPACE:
@@ -397,7 +405,7 @@ class MatExpansionPanelHeader {
 }
 MatExpansionPanelHeader.decorators = [
     { type: Component, args: [{selector: 'mat-expansion-panel-header',
-                styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
+                styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;height:48px;align-items:center;padding:0 24px}.mat-expansion-panel-header.mat-expanded{height:64px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
                 template: "<span class=\"mat-content\"><ng-content select=\"mat-panel-title\"></ng-content><ng-content select=\"mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\" class=\"mat-expansion-indicator\"></span>",
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -409,13 +417,14 @@ MatExpansionPanelHeader.decorators = [
                 host: {
                     'class': 'mat-expansion-panel-header',
                     'role': 'button',
+                    '[attr.id]': 'panel._headerId',
                     '[attr.tabindex]': 'panel.disabled ? -1 : 0',
                     '[attr.aria-controls]': '_getPanelId()',
                     '[attr.aria-expanded]': '_isExpanded()',
                     '[attr.aria-disabled]': 'panel.disabled',
                     '[class.mat-expanded]': '_isExpanded()',
                     '(click)': '_toggle()',
-                    '(keyup)': '_keyup($event)',
+                    '(keydown)': '_keydown($event)',
                     '[@expansionHeight]': `{
         value: _getExpandedState(),
         params: {

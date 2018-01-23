@@ -4,6 +4,7 @@ import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, 
 import { MatMenu } from './menu-directive';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
+import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 /** Injection token that determines the scroll handling while the menu is open. */
 export declare const MAT_MENU_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
@@ -28,6 +29,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _parentMenu;
     private _menuItemInstance;
     private _dir;
+    private _focusMonitor;
     private _portal;
     private _overlayRef;
     private _menuOpen;
@@ -53,7 +55,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      * @deprecated Switch to `menuClosed` instead
      */
     onMenuClose: EventEmitter<void>;
-    constructor(_overlay: Overlay, _element: ElementRef, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _parentMenu: MatMenu, _menuItemInstance: MatMenuItem, _dir: Directionality);
+    constructor(_overlay: Overlay, _element: ElementRef, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _parentMenu: MatMenu, _menuItemInstance: MatMenuItem, _dir: Directionality, _focusMonitor?: FocusMonitor | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Whether the menu is open. */
@@ -68,8 +70,11 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     openMenu(): void;
     /** Closes the menu. */
     closeMenu(): void;
-    /** Focuses the menu trigger. */
-    focus(): void;
+    /**
+     * Focuses the menu trigger.
+     * @param origin Source of the menu trigger's focus.
+     */
+    focus(origin?: FocusOrigin): void;
     /** Closes the menu and does the necessary cleanup. */
     private _destroyMenu();
     /**

@@ -1010,6 +1010,7 @@ var MatDrawerContainer = /** @class */ (function () {
         "_content": [{ type: _angular_core.ContentChild, args: [MatDrawerContent,] },],
         "autosize": [{ type: _angular_core.Input },],
         "backdropClick": [{ type: _angular_core.Output },],
+        "scrollable": [{ type: _angular_core.ViewChild, args: [_angular_cdk_scrolling.CdkScrollable,] },],
     };
     return MatDrawerContainer;
 }());

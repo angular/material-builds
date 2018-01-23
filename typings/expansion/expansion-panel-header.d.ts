@@ -34,8 +34,8 @@ export declare class MatExpansionPanelHeader implements OnDestroy {
     _getPanelId(): string;
     /** Gets whether the expand indicator should be shown. */
     _showToggle(): boolean;
-    /** Handle keyup event calling to toggle() if appropriate. */
-    _keyup(event: KeyboardEvent): void;
+    /** Handle keydown event calling to toggle() if appropriate. */
+    _keydown(event: KeyboardEvent): void;
     ngOnDestroy(): void;
 }
 /**

@@ -59,6 +59,8 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     private _attachStyleNode();
     /** Generates animation styles adjusted for the spinner's diameter. */
     private _getAnimationText();
+    /** Updates the spinner element size based on its diameter. */
+    private _updateElementSize();
 }
 /**
  * <mat-spinner> component.

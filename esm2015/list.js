@@ -257,7 +257,8 @@ class MatListOption extends _MatListOptionMixinBase {
      * @param {?} _changeDetector
      * @param {?} selectionList
      */
-    constructor(_element, _changeDetector, selectionList) {
+    constructor(_element, _changeDetector, /** @docs-private */
+        selectionList) {
         super();
         this._element = _element;
         this._changeDetector = _changeDetector;
@@ -282,7 +283,7 @@ class MatListOption extends _MatListOptionMixinBase {
      * Whether the option is disabled.
      * @return {?}
      */
-    get disabled() { return (this.selectionList && this.selectionList.disabled) || this._disabled; }
+    get disabled() { return this._disabled || (this.selectionList && this.selectionList.disabled); }
     /**
      * @param {?} value
      * @return {?}
@@ -393,7 +394,7 @@ class MatListOption extends _MatListOptionMixinBase {
      */
     _handleBlur() {
         this._hasFocus = false;
-        this.selectionList.onTouched();
+        this.selectionList._onTouched();
     }
     /**
      * Retrieves the DOM element of the component host.
@@ -492,7 +493,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         /**
          * View to model callback that should be called if the list or its options lost focus.
          */
-        this.onTouched = () => { };
+        this._onTouched = () => { };
         this.tabIndex = parseInt(tabIndex) || 0;
     }
     /**
@@ -630,7 +631,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      * @return {?}
      */
     registerOnTouched(fn) {
-        this.onTouched = fn;
+        this._onTouched = fn;
     }
     /**
      * Returns the option with the specified value.
@@ -703,7 +704,7 @@ MatSelectionList.decorators = [
                     '[tabIndex]': 'tabIndex',
                     'class': 'mat-selection-list',
                     '(focus)': 'focus()',
-                    '(blur)': 'onTouched()',
+                    '(blur)': '_onTouched()',
                     '(keydown)': '_keydown($event)',
                     '[attr.aria-disabled]': 'disabled.toString()'
                 },

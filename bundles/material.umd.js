@@ -2143,6 +2143,7 @@ var MatOptgroup = /** @class */ (function (_super) {
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled'],
+                    styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}"],
                     host: {
                         'class': 'mat-optgroup',
                         'role': 'group',
@@ -2530,6 +2531,7 @@ var MatOption = /** @class */ (function () {
                         '(keydown)': '_handleKeydown($event)',
                         'class': 'mat-option',
                     },
+                    styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative;cursor:pointer;outline:0;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-option-ripple{opacity:.5}}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}"],
                     template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -5168,7 +5170,7 @@ var MatButtonToggle = /** @class */ (function () {
     };
     MatButtonToggle.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-button-toggle',
-                    template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled || null\" [name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div>",
+                    template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled || null\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div>",
                     styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap;overflow:hidden}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay,.mat-button-toggle.cdk-program-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -5457,7 +5459,7 @@ var MatCard = /** @class */ (function () {
         { type: _angular_core.Component, args: [{selector: 'mat-card',
                     exportAs: 'matCard',
                     template: "<ng-content></ng-content><ng-content select=\"mat-card-footer\"></ng-content>",
-                    styles: [".mat-card{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:block;position:relative;padding:24px;border-radius:2px}.mat-card:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-card .mat-divider{position:absolute;left:0;width:100%}[dir=rtl] .mat-card .mat-divider{left:auto;right:0}.mat-card .mat-divider.mat-divider-inset{position:static;margin:0}@media screen and (-ms-high-contrast:active){.mat-card{outline:solid 1px}}.mat-card-flat{box-shadow:none}.mat-card-actions,.mat-card-content,.mat-card-subtitle,.mat-card-title{display:block;margin-bottom:16px}.mat-card-actions{margin-left:-16px;margin-right:-16px;padding:8px 0}.mat-card-actions-align-end{display:flex;justify-content:flex-end}.mat-card-image{width:calc(100% + 48px);margin:0 -24px 16px -24px}.mat-card-xl-image{width:240px;height:240px;margin:-8px}.mat-card-footer{display:block;margin:0 -24px -24px -24px}.mat-card-actions .mat-button,.mat-card-actions .mat-raised-button{margin:0 4px}.mat-card-header{display:flex;flex-direction:row}.mat-card-header-text{margin:0 8px}.mat-card-avatar{height:40px;width:40px;border-radius:50%;flex-shrink:0}.mat-card-lg-image,.mat-card-md-image,.mat-card-sm-image{margin:-8px 0}.mat-card-title-group{display:flex;justify-content:space-between;margin:0 -8px}.mat-card-sm-image{width:80px;height:80px}.mat-card-md-image{width:112px;height:112px}.mat-card-lg-image{width:152px;height:152px}@media (max-width:600px){.mat-card{padding:24px 16px}.mat-card-actions{margin-left:-8px;margin-right:-8px}.mat-card-image{width:calc(100% + 32px);margin:16px -16px}.mat-card-title-group{margin:0}.mat-card-xl-image{margin-left:0;margin-right:0}.mat-card-header{margin:-8px 0 0 0}.mat-card-footer{margin-left:-16px;margin-right:-16px}}.mat-card-content>:first-child,.mat-card>:first-child{margin-top:0}.mat-card-content>:last-child:not(.mat-card-footer),.mat-card>:last-child:not(.mat-card-footer){margin-bottom:0}.mat-card-image:first-child{margin-top:-24px}.mat-card>.mat-card-actions:last-child{margin-bottom:-16px;padding-bottom:0}.mat-card-actions .mat-button:first-child,.mat-card-actions .mat-raised-button:first-child{margin-left:0;margin-right:0}.mat-card-subtitle:not(:first-child),.mat-card-title:not(:first-child){margin-top:-4px}.mat-card-header .mat-card-subtitle:not(:first-child){margin-top:-8px}.mat-card>.mat-card-xl-image:first-child{margin-top:-8px}.mat-card>.mat-card-xl-image:last-child{margin-bottom:-8px}"],
+                    styles: [".mat-card{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:block;position:relative;padding:24px;border-radius:2px}.mat-card:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-card .mat-divider{position:absolute;left:0;width:100%}[dir=rtl] .mat-card .mat-divider{left:auto;right:0}.mat-card .mat-divider.mat-divider-inset{position:static;margin:0}@media screen and (-ms-high-contrast:active){.mat-card{outline:solid 1px}}.mat-card-flat{box-shadow:none}.mat-card-actions,.mat-card-content,.mat-card-subtitle,.mat-card-title{display:block;margin-bottom:16px}.mat-card-actions{margin-left:-16px;margin-right:-16px;padding:8px 0}.mat-card-actions-align-end{display:flex;justify-content:flex-end}.mat-card-image{width:calc(100% + 48px);margin:0 -24px 16px -24px}.mat-card-xl-image{width:240px;height:240px;margin:-8px}.mat-card-footer{display:block;margin:0 -24px -24px -24px}.mat-card-actions .mat-button,.mat-card-actions .mat-raised-button{margin:0 4px}.mat-card-header{display:flex;flex-direction:row}.mat-card-header-text{margin:0 8px}.mat-card-avatar{height:40px;width:40px;border-radius:50%;flex-shrink:0}.mat-card-lg-image,.mat-card-md-image,.mat-card-sm-image{margin:-8px 0}.mat-card-title-group{display:flex;justify-content:space-between;margin:0 -8px}.mat-card-sm-image{width:80px;height:80px}.mat-card-md-image{width:112px;height:112px}.mat-card-lg-image{width:152px;height:152px}@media (max-width:599px){.mat-card{padding:24px 16px}.mat-card-actions{margin-left:-8px;margin-right:-8px}.mat-card-image{width:calc(100% + 32px);margin:16px -16px}.mat-card-title-group{margin:0}.mat-card-xl-image{margin-left:0;margin-right:0}.mat-card-header{margin:-8px 0 0 0}.mat-card-footer{margin-left:-16px;margin-right:-16px}}.mat-card-content>:first-child,.mat-card>:first-child{margin-top:0}.mat-card-content>:last-child:not(.mat-card-footer),.mat-card>:last-child:not(.mat-card-footer){margin-bottom:0}.mat-card-image:first-child{margin-top:-24px}.mat-card>.mat-card-actions:last-child{margin-bottom:-16px;padding-bottom:0}.mat-card-actions .mat-button:first-child,.mat-card-actions .mat-raised-button:first-child{margin-left:0;margin-right:0}.mat-card-subtitle:not(:first-child),.mat-card-title:not(:first-child){margin-top:-4px}.mat-card-header .mat-card-subtitle:not(:first-child){margin-top:-8px}.mat-card>.mat-card-xl-image:first-child{margin-top:-8px}.mat-card>.mat-card-xl-image:last-child{margin-bottom:-8px}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -5943,7 +5945,7 @@ var MatCheckbox = /** @class */ (function (_super) {
      */
     function (focusOrigin) {
         if (!this._focusRipple && focusOrigin === 'keyboard') {
-            this._focusRipple = this._ripple.launch(0, 0, __assign({ persistent: true }, this._rippleConfig));
+            this._focusRipple = this.ripple.launch(0, 0, __assign({ persistent: true }, this._rippleConfig));
         }
         else if (!focusOrigin) {
             this._removeFocusRipple();
@@ -6139,7 +6141,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         "indeterminateChange": [{ type: _angular_core.Output },],
         "value": [{ type: _angular_core.Input },],
         "_inputElement": [{ type: _angular_core.ViewChild, args: ['input',] },],
-        "_ripple": [{ type: _angular_core.ViewChild, args: [MatRipple,] },],
+        "ripple": [{ type: _angular_core.ViewChild, args: [MatRipple,] },],
         "checked": [{ type: _angular_core.Input },],
         "indeterminate": [{ type: _angular_core.Input },],
     };
@@ -10574,11 +10576,10 @@ var MatInput = /** @class */ (function (_super) {
             // that whatever logic is in here has to be super lean or we risk destroying the performance.
             this.updateErrorState();
         }
-        else {
-            // When the input isn't used together with `@angular/forms`, we need to check manually for
-            // changes to the native `value` property in order to update the floating label.
-            this._dirtyCheckNativeValue();
-        }
+        // We need to dirty-check the native element's value, because there are some cases where
+        // we won't be notified when it changes (e.g. the consumer isn't using forms or they're
+        // updating the value using `emitEvent: false`).
+        this._dirtyCheckNativeValue();
     };
     /**
      * @return {?}
@@ -13267,15 +13268,18 @@ var MatDatepickerToggle = /** @class */ (function () {
         var /** @type {?} */ datepickerDisabled = this.datepicker ? this.datepicker._disabledChange : rxjs_observable_of.of();
         var /** @type {?} */ inputDisabled = this.datepicker && this.datepicker._datepickerInput ?
             this.datepicker._datepickerInput._disabledChange : rxjs_observable_of.of();
+        var /** @type {?} */ datepickerToggled = this.datepicker ?
+            rxjs_observable_merge.merge(this.datepicker.openedStream, this.datepicker.closedStream) :
+            rxjs_observable_of.of();
         this._stateChanges.unsubscribe();
-        this._stateChanges = rxjs_observable_merge.merge(this._intl.changes, datepickerDisabled, inputDisabled)
-            .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        this._stateChanges = rxjs_observable_merge.merge(this._intl.changes, datepickerDisabled, inputDisabled, datepickerToggled).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
     };
     MatDatepickerToggle.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-toggle',
                     template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
                     host: {
                         'class': 'mat-datepicker-toggle',
+                        '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
                     },
                     exportAs: 'matDatepickerToggle',
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -13542,12 +13546,12 @@ var matExpansionAnimations = {
         _angular_animations.state('collapsed', _angular_animations.style({
             height: '{{collapsedHeight}}',
         }), {
-            params: { collapsedHeight: '48px' },
+            params: { collapsedHeight: '*' },
         }),
         _angular_animations.state('expanded', _angular_animations.style({
             height: '{{expandedHeight}}'
         }), {
-            params: { expandedHeight: '64px' }
+            params: { expandedHeight: '*' }
         }),
         _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ]),
@@ -13589,6 +13593,10 @@ var MatExpansionPanelBase = /** @class */ (function (_super) {
 }(_angular_cdk_accordion.CdkAccordionItem));
 var _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
 /**
+ * Counter for generating unique element ids.
+ */
+var uniqueId$1 = 0;
+/**
  * <mat-expansion-panel>
  *
  * This component can be used as a single element to show expandable content, or as one of
@@ -13604,6 +13612,10 @@ var MatExpansionPanel = /** @class */ (function (_super) {
          * Stream that emits for changes in `\@Input` properties.
          */
         _this._inputChanges = new rxjs_Subject.Subject();
+        /**
+         * ID for the associated header element. Used for a11y labelling.
+         */
+        _this._headerId = "mat-expansion-panel-header-" + uniqueId$1++;
         _this.accordion = accordion;
         return _this;
     }
@@ -13705,12 +13717,12 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         { type: _angular_core.Component, args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expanded .mat-expansion-panel-content{overflow:visible}.mat-expansion-panel-content,.mat-expansion-panel-content.ng-animating{overflow:hidden}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion .mat-expansion-panel-spacing:first-child{margin-top:0}.mat-accordion .mat-expansion-panel-spacing:last-child{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
                     selector: 'mat-expansion-panel',
                     exportAs: 'matExpansionPanel',
-                    template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" [class.mat-expanded]=\"expanded\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
+                    template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" role=\"region\" [class.mat-expanded]=\"expanded\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\" [attr.aria-labelledby]=\"_headerId\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled', 'expanded'],
-                    outputs: ['opened', 'closed'],
+                    outputs: ['opened', 'closed', 'expandedChange'],
                     animations: [matExpansionAnimations.bodyExpansion],
                     host: {
                         'class': 'mat-expansion-panel',
@@ -13837,14 +13849,14 @@ var MatExpansionPanelHeader = /** @class */ (function () {
     function () {
         return !this.panel.hideToggle && !this.panel.disabled;
     };
-    /** Handle keyup event calling to toggle() if appropriate. */
+    /** Handle keydown event calling to toggle() if appropriate. */
     /**
-     * Handle keyup event calling to toggle() if appropriate.
+     * Handle keydown event calling to toggle() if appropriate.
      * @param {?} event
      * @return {?}
      */
-    MatExpansionPanelHeader.prototype._keyup = /**
-     * Handle keyup event calling to toggle() if appropriate.
+    MatExpansionPanelHeader.prototype._keydown = /**
+     * Handle keydown event calling to toggle() if appropriate.
      * @param {?} event
      * @return {?}
      */
@@ -13872,7 +13884,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
     };
     MatExpansionPanelHeader.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-expansion-panel-header',
-                    styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
+                    styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;height:48px;align-items:center;padding:0 24px}.mat-expansion-panel-header.mat-expanded{height:64px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
                     template: "<span class=\"mat-content\"><ng-content select=\"mat-panel-title\"></ng-content><ng-content select=\"mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\" class=\"mat-expansion-indicator\"></span>",
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -13884,13 +13896,14 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                     host: {
                         'class': 'mat-expansion-panel-header',
                         'role': 'button',
+                        '[attr.id]': 'panel._headerId',
                         '[attr.tabindex]': 'panel.disabled ? -1 : 0',
                         '[attr.aria-controls]': '_getPanelId()',
                         '[attr.aria-expanded]': '_isExpanded()',
                         '[attr.aria-disabled]': 'panel.disabled',
                         '[class.mat-expanded]': '_isExpanded()',
                         '(click)': '_toggle()',
-                        '(keyup)': '_keyup($event)',
+                        '(keydown)': '_keydown($event)',
                         '[@expansionHeight]': "{\n        value: _getExpandedState(),\n        params: {\n          collapsedHeight: collapsedHeight,\n          expandedHeight: expandedHeight\n        }\n    }",
                     },
                 },] },
@@ -14299,7 +14312,9 @@ var TileCoordinator = /** @class */ (function () {
             this.columnIndex = gapStartIndex + 1;
             // Continue iterating until we find a gap wide enough for this tile.
         } while (gapEndIndex - gapStartIndex < tileCols);
-        return gapStartIndex;
+        // If we still didn't manage to find a gap, ensure that the index is
+        // at least zero so the tile doesn't get pulled out of the grid.
+        return Math.max(gapStartIndex, 0);
     };
     /**
      * Move "down" to the next row.
@@ -15336,7 +15351,8 @@ var MatSelectionListChange = /** @class */ (function () {
  */
 var MatListOption = /** @class */ (function (_super) {
     __extends(MatListOption, _super);
-    function MatListOption(_element, _changeDetector, selectionList) {
+    function MatListOption(_element, _changeDetector, /** @docs-private */
+        selectionList) {
         var _this = _super.call(this) || this;
         _this._element = _element;
         _this._changeDetector = _changeDetector;
@@ -15363,7 +15379,7 @@ var MatListOption = /** @class */ (function (_super) {
          * Whether the option is disabled.
          * @return {?}
          */
-        function () { return (this.selectionList && this.selectionList.disabled) || this._disabled; },
+        function () { return this._disabled || (this.selectionList && this.selectionList.disabled); },
         set: /**
          * @param {?} value
          * @return {?}
@@ -15525,7 +15541,7 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         this._hasFocus = false;
-        this.selectionList.onTouched();
+        this.selectionList._onTouched();
     };
     /** Retrieves the DOM element of the component host. */
     /**
@@ -15638,7 +15654,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         /**
          * View to model callback that should be called if the list or its options lost focus.
          */
-        _this.onTouched = function () { };
+        _this._onTouched = function () { };
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -15848,7 +15864,7 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (fn) {
-        this.onTouched = fn;
+        this._onTouched = fn;
     };
     /**
      * Returns the option with the specified value.
@@ -15949,7 +15965,7 @@ var MatSelectionList = /** @class */ (function (_super) {
                         '[tabIndex]': 'tabIndex',
                         'class': 'mat-selection-list',
                         '(focus)': 'focus()',
-                        '(blur)': 'onTouched()',
+                        '(blur)': '_onTouched()',
                         '(keydown)': '_keydown($event)',
                         '[attr.aria-disabled]': 'disabled.toString()'
                     },
@@ -16636,7 +16652,7 @@ var MatMenu = /** @class */ (function () {
     MatMenu.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-menu',
                     template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
-                    styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.ng-animating{pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item .mat-icon{vertical-align:middle}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:8px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
+                    styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.ng-animating{pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item .mat-icon{vertical-align:middle}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -16701,7 +16717,7 @@ var MENU_PANEL_TOP_PADDING = 8;
  * responsible for toggling the display of the provided menu instance.
  */
 var MatMenuTrigger = /** @class */ (function () {
-    function MatMenuTrigger(_overlay, _element, _viewContainerRef, _scrollStrategy, _parentMenu, _menuItemInstance, _dir) {
+    function MatMenuTrigger(_overlay, _element, _viewContainerRef, _scrollStrategy, _parentMenu, _menuItemInstance, _dir, _focusMonitor) {
         this._overlay = _overlay;
         this._element = _element;
         this._viewContainerRef = _viewContainerRef;
@@ -16709,6 +16725,7 @@ var MatMenuTrigger = /** @class */ (function () {
         this._parentMenu = _parentMenu;
         this._menuItemInstance = _menuItemInstance;
         this._dir = _dir;
+        this._focusMonitor = _focusMonitor;
         this._overlayRef = null;
         this._menuOpen = false;
         this._closeSubscription = rxjs_Subscription.Subscription.EMPTY;
@@ -16874,17 +16891,28 @@ var MatMenuTrigger = /** @class */ (function () {
     function () {
         this.menu.close.emit();
     };
-    /** Focuses the menu trigger. */
     /**
      * Focuses the menu trigger.
+     * @param origin Source of the menu trigger's focus.
+     */
+    /**
+     * Focuses the menu trigger.
+     * @param {?=} origin Source of the menu trigger's focus.
      * @return {?}
      */
     MatMenuTrigger.prototype.focus = /**
      * Focuses the menu trigger.
+     * @param {?=} origin Source of the menu trigger's focus.
      * @return {?}
      */
-    function () {
-        this._element.nativeElement.focus();
+    function (origin) {
+        if (origin === void 0) { origin = 'program'; }
+        if (this._focusMonitor) {
+            this._focusMonitor.focusVia(this._element.nativeElement, origin);
+        }
+        else {
+            this._element.nativeElement.focus();
+        }
     };
     /**
      * Closes the menu and does the necessary cleanup.
@@ -16955,8 +16983,13 @@ var MatMenuTrigger = /** @class */ (function () {
         // We should reset focus if the user is navigating using a keyboard or
         // if we have a top-level trigger which might cause focus to be lost
         // when clicking on the backdrop.
-        if (!this._openedByMouse || !this.triggersSubmenu()) {
+        if (!this._openedByMouse) {
+            // Note that the focus style will show up both for `program` and
+            // `keyboard` so we don't have to specify which one it is.
             this.focus();
+        }
+        else if (!this.triggersSubmenu()) {
+            this.focus('mouse');
         }
         this._openedByMouse = false;
     };
@@ -17194,6 +17227,7 @@ var MatMenuTrigger = /** @class */ (function () {
         { type: MatMenu, decorators: [{ type: _angular_core.Optional },] },
         { type: MatMenuItem, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
         { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
+        { type: _angular_cdk_a11y.FocusMonitor, },
     ]; };
     MatMenuTrigger.propDecorators = {
         "_deprecatedMatMenuTriggerFor": [{ type: _angular_core.Input, args: ['mat-menu-trigger-for',] },],
@@ -17222,11 +17256,11 @@ var MatMenuModule = /** @class */ (function () {
     MatMenuModule.decorators = [
         { type: _angular_core.NgModule, args: [{
                     imports: [
-                        _angular_cdk_overlay.OverlayModule,
-                        _angular_common.CommonModule,
-                        MatRippleModule,
-                        MatCommonModule,
                         _angular_cdk_a11y.A11yModule,
+                        _angular_common.CommonModule,
+                        MatCommonModule,
+                        MatRippleModule,
+                        _angular_cdk_overlay.OverlayModule,
                     ],
                     exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatCommonModule],
                     declarations: [MatMenu, MatMenuItem, MatMenuTrigger],
@@ -18044,6 +18078,7 @@ var MatSelect = /** @class */ (function (_super) {
         var /** @type {?} */ keyCode = event.keyCode;
         var /** @type {?} */ isArrowKey = keyCode === _angular_cdk_keycodes.DOWN_ARROW || keyCode === _angular_cdk_keycodes.UP_ARROW;
         var /** @type {?} */ isOpenKey = keyCode === _angular_cdk_keycodes.ENTER || keyCode === _angular_cdk_keycodes.SPACE;
+        // Open the select on ALT + arrow key to match the native <select>
         if (isOpenKey || ((this.multiple || event.altKey) && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
@@ -18064,22 +18099,27 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function (event) {
         var /** @type {?} */ keyCode = event.keyCode;
+        var /** @type {?} */ isArrowKey = keyCode === _angular_cdk_keycodes.DOWN_ARROW || keyCode === _angular_cdk_keycodes.UP_ARROW;
+        var /** @type {?} */ manager = this._keyManager;
         if (keyCode === _angular_cdk_keycodes.HOME || keyCode === _angular_cdk_keycodes.END) {
             event.preventDefault();
-            keyCode === _angular_cdk_keycodes.HOME ? this._keyManager.setFirstItemActive() :
-                this._keyManager.setLastItemActive();
+            keyCode === _angular_cdk_keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
         }
-        else if ((keyCode === _angular_cdk_keycodes.ENTER || keyCode === _angular_cdk_keycodes.SPACE) && this._keyManager.activeItem) {
+        else if (isArrowKey && event.altKey) {
+            // Close the select on ALT + arrow key to match the native <select>
             event.preventDefault();
-            this._keyManager.activeItem._selectViaInteraction();
+            this.close();
+        }
+        else if ((keyCode === _angular_cdk_keycodes.ENTER || keyCode === _angular_cdk_keycodes.SPACE) && manager.activeItem) {
+            event.preventDefault();
+            manager.activeItem._selectViaInteraction();
         }
         else {
-            var /** @type {?} */ isArrowKey = keyCode === _angular_cdk_keycodes.DOWN_ARROW || keyCode === _angular_cdk_keycodes.UP_ARROW;
-            var /** @type {?} */ previouslyFocusedIndex = this._keyManager.activeItemIndex;
-            this._keyManager.onKeydown(event);
-            if (this._multiple && isArrowKey && event.shiftKey && this._keyManager.activeItem &&
-                this._keyManager.activeItemIndex !== previouslyFocusedIndex) {
-                this._keyManager.activeItem._selectViaInteraction();
+            var /** @type {?} */ previouslyFocusedIndex = manager.activeItemIndex;
+            manager.onKeydown(event);
+            if (this._multiple && isArrowKey && event.shiftKey && manager.activeItem &&
+                manager.activeItemIndex !== previouslyFocusedIndex) {
+                manager.activeItem._selectViaInteraction();
             }
         }
     };
@@ -20486,6 +20526,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
             if (!this._fallbackAnimation && !MatProgressSpinner.diameters.has(this._diameter)) {
                 this._attachStyleNode();
             }
+            this._updateElementSize();
         },
         enumerable: true,
         configurable: true
@@ -20536,7 +20577,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
      */
     function (changes) {
         if (changes["strokeWidth"] || changes["diameter"]) {
-            this._elementSize = this._diameter + Math.max(this.strokeWidth - BASE_STROKE_WIDTH, 0);
+            this._updateElementSize();
         }
     };
     Object.defineProperty(MatProgressSpinner.prototype, "_circleRadius", {
@@ -20640,6 +20681,17 @@ var MatProgressSpinner = /** @class */ (function (_super) {
             .replace(/START_VALUE/g, "" + 0.95 * this._strokeCircumference)
             .replace(/END_VALUE/g, "" + 0.2 * this._strokeCircumference)
             .replace(/DIAMETER/g, "" + this.diameter);
+    };
+    /**
+     * Updates the spinner element size based on its diameter.
+     * @return {?}
+     */
+    MatProgressSpinner.prototype._updateElementSize = /**
+     * Updates the spinner element size based on its diameter.
+     * @return {?}
+     */
+    function () {
+        this._elementSize = this._diameter + Math.max(this.strokeWidth - BASE_STROKE_WIDTH, 0);
     };
     /**
      * Tracks diameters of existing instances to de-dupe generated styles (default d = 100)
@@ -22604,6 +22656,7 @@ var MatDrawerContainer = /** @class */ (function () {
         "_content": [{ type: _angular_core.ContentChild, args: [MatDrawerContent,] },],
         "autosize": [{ type: _angular_core.Input },],
         "backdropClick": [{ type: _angular_core.Output },],
+        "scrollable": [{ type: _angular_core.ViewChild, args: [_angular_cdk_scrolling.CdkScrollable,] },],
     };
     return MatDrawerContainer;
 }());
@@ -23176,7 +23229,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
                         '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
                     },
                     template: "<label class=\"mat-slide-toggle-label\" #label><div class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"disableRipple || disabled\" [matRippleCentered]=\"_rippleConfig.centered\" [matRippleRadius]=\"_rippleConfig.radius\" [matRippleSpeedFactor]=\"_rippleConfig.speedFactor\"></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
-                    styles: [".mat-slide-toggle{display:inline-block;height:24px;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;height:inherit;cursor:pointer}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:-13px;left:-13px;height:46px;width:46px;z-index:1;pointer-events:none}"],
+                    styles: [".mat-slide-toggle{display:inline-block;height:24px;max-width:100%;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;height:inherit;cursor:pointer}.mat-slide-toggle-content{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;flex-shrink:0;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:-13px;left:-13px;height:46px;width:46px;z-index:1;pointer-events:none}"],
                     providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
                     inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -24419,6 +24472,11 @@ var MatSliderModule = /** @class */ (function () {
  */
 
 /**
+ * Event that is emitted when a snack bar is dismissed.
+ * @record
+ */
+
+/**
  * Reference to a snack bar dispatched from the snack bar service.
  */
 var MatSnackBarRef = /** @class */ (function () {
@@ -24426,9 +24484,9 @@ var MatSnackBarRef = /** @class */ (function () {
         var _this = this;
         this._overlayRef = _overlayRef;
         /**
-         * Subject for notifying the user that the snack bar has closed.
+         * Subject for notifying the user that the snack bar has been dismissed.
          */
-        this._afterClosed = new rxjs_Subject.Subject();
+        this._afterDismissed = new rxjs_Subject.Subject();
         /**
          * Subject for notifying the user that the snack bar has opened and appeared.
          */
@@ -24437,6 +24495,10 @@ var MatSnackBarRef = /** @class */ (function () {
          * Subject for notifying the user that the snack bar action was called.
          */
         this._onAction = new rxjs_Subject.Subject();
+        /**
+         * Whether the snack bar was dismissed using the action button.
+         */
+        this._dismissedByAction = false;
         this.containerInstance = containerInstance;
         // Dismiss snackbar on action.
         this.onAction().subscribe(function () { return _this.dismiss(); });
@@ -24452,7 +24514,7 @@ var MatSnackBarRef = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (!this._afterClosed.closed) {
+        if (!this._afterDismissed.closed) {
             this.containerInstance.exit();
         }
         clearTimeout(this._durationTimeoutId);
@@ -24462,15 +24524,33 @@ var MatSnackBarRef = /** @class */ (function () {
      * Marks the snackbar action clicked.
      * @return {?}
      */
-    MatSnackBarRef.prototype.closeWithAction = /**
+    MatSnackBarRef.prototype.dismissWithAction = /**
      * Marks the snackbar action clicked.
      * @return {?}
      */
     function () {
         if (!this._onAction.closed) {
+            this._dismissedByAction = true;
             this._onAction.next();
             this._onAction.complete();
         }
+    };
+    /**
+     * Marks the snackbar action clicked.
+     * @deprecated Use `dismissWithAction` instead.
+     */
+    /**
+     * Marks the snackbar action clicked.
+     * @deprecated Use `dismissWithAction` instead.
+     * @return {?}
+     */
+    MatSnackBarRef.prototype.closeWithAction = /**
+     * Marks the snackbar action clicked.
+     * @deprecated Use `dismissWithAction` instead.
+     * @return {?}
+     */
+    function () {
+        this.dismissWithAction();
     };
     /** Dismisses the snack bar after some duration */
     /**
@@ -24515,8 +24595,9 @@ var MatSnackBarRef = /** @class */ (function () {
         if (!this._onAction.closed) {
             this._onAction.complete();
         }
-        this._afterClosed.next();
-        this._afterClosed.complete();
+        this._afterDismissed.next({ dismissedByAction: this._dismissedByAction });
+        this._afterDismissed.complete();
+        this._dismissedByAction = false;
     };
     /** Gets an observable that is notified when the snack bar is finished closing. */
     /**
@@ -24528,7 +24609,7 @@ var MatSnackBarRef = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this._afterClosed.asObservable();
+        return this._afterDismissed.asObservable();
     };
     /** Gets an observable that is notified when the snack bar has opened and appeared. */
     /**
@@ -24659,7 +24740,7 @@ var SimpleSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.snackBarRef.closeWithAction();
+        this.snackBarRef.dismissWithAction();
     };
     Object.defineProperty(SimpleSnackBar.prototype, "hasAction", {
         /** If the action button should be shown. */
@@ -26503,6 +26584,7 @@ var MatTableModule = /** @class */ (function () {
 var MatTableDataSource = /** @class */ (function () {
     function MatTableDataSource(initialData) {
         if (initialData === void 0) { initialData = []; }
+        var _this = this;
         /**
          * Stream emitting render data to the table (depends on ordered data changes).
          */
@@ -26512,7 +26594,8 @@ var MatTableDataSource = /** @class */ (function () {
          */
         this._filter = new rxjs_BehaviorSubject.BehaviorSubject('');
         /**
-         * Data accessor function that is used for accessing data properties for sorting.
+         * Data accessor function that is used for accessing data properties for sorting through
+         * the default sortData function.
          * This default function assumes that the sort header IDs (which defaults to the column name)
          * matches the data's properties (e.g. column Xyz represents data['Xyz']).
          * May be set to a custom function for different behavior.
@@ -26521,18 +26604,54 @@ var MatTableDataSource = /** @class */ (function () {
          */
         this.sortingDataAccessor = function (data, sortHeaderId) {
             var /** @type {?} */ value = data[sortHeaderId];
-            // If the value is a string and only whitespace, return the value.
-            // Otherwise +value will convert it to 0.
-            if (typeof value === 'string' && !value.trim()) {
-                return value;
+            return _angular_cdk_coercion._isNumberValue(value) ? Number(value) : value;
+        };
+        /**
+         * Gets a sorted copy of the data array based on the state of the MatSort. Called
+         * after changes are made to the filtered data or when sort changes are emitted from MatSort.
+         * By default, the function retrieves the active sort and its direction and compares data
+         * by retrieving data using the sortingDataAccessor. May be overridden for a custom implementation
+         * of data ordering.
+         * @param data The array of data that should be sorted.
+         * @param sort The connected MatSort that holds the current sort state.
+         */
+        this.sortData = function (data, sort) {
+            var /** @type {?} */ active = sort.active;
+            var /** @type {?} */ direction = sort.direction;
+            if (!active || direction == '') {
+                return data;
             }
-            return isNaN(+value) ? value : +value;
+            return data.sort(function (a, b) {
+                var /** @type {?} */ valueA = _this.sortingDataAccessor(a, active);
+                var /** @type {?} */ valueB = _this.sortingDataAccessor(b, active);
+                // If both valueA and valueB exist (truthy), then compare the two. Otherwise, check if
+                // one value exists while the other doesn't. In this case, existing value should come first.
+                // This avoids inconsistent results when comparing values to undefined/null.
+                // If neither value exists, return 0 (equal).
+                var /** @type {?} */ comparatorResult = 0;
+                if (valueA && valueB) {
+                    // Check if one value is greater than the other; if equal, comparatorResult should remain 0.
+                    if (valueA > valueB) {
+                        comparatorResult = 1;
+                    }
+                    else if (valueA < valueB) {
+                        comparatorResult = -1;
+                    }
+                }
+                else if (valueA) {
+                    comparatorResult = 1;
+                }
+                else if (valueB) {
+                    comparatorResult = -1;
+                }
+                return comparatorResult * (direction == 'asc' ? 1 : -1);
+            });
         };
         /**
          * Checks if a data object matches the data source's filter string. By default, each data object
          * is converted to a string of its properties and returns true if the filter has
          * at least one occurrence in that string. By default, the filter string has its whitespace
-         * trimmed and the match is case-insensitive. May be overriden for a custom implementation of
+         * trimmed and the match is case-insensitive. May be overridden for a custom implementation of
          * filter matching.
          * @param data Data object used to check against the filter.
          * @param filter Filter string that has been set on the data source.
@@ -26705,7 +26824,7 @@ var MatTableDataSource = /** @class */ (function () {
         var _this = this;
         // If there is a filter string, filter out data that does not contain it.
         // Each data object is converted to a string using the function defined by filterTermAccessor.
-        // May be overriden for customization.
+        // May be overridden for customization.
         this.filteredData =
             !this.filter ? data : data.filter(function (obj) { return _this.filterPredicate(obj, _this.filter); });
         if (this.paginator) {
@@ -26733,18 +26852,11 @@ var MatTableDataSource = /** @class */ (function () {
      * @return {?}
      */
     function (data) {
-        var _this = this;
         // If there is no active sort or direction, return the data without trying to sort.
-        if (!this.sort || !this.sort.active || this.sort.direction == '') {
+        if (!this.sort) {
             return data;
         }
-        var /** @type {?} */ active = this.sort.active;
-        var /** @type {?} */ direction = this.sort.direction;
-        return data.slice().sort(function (a, b) {
-            var /** @type {?} */ valueA = _this.sortingDataAccessor(a, active);
-            var /** @type {?} */ valueB = _this.sortingDataAccessor(b, active);
-            return (valueA < valueB ? -1 : 1) * (direction == 'asc' ? 1 : -1);
-        });
+        return this.sortData(data.slice(), this.sort);
     };
     /**
      * Returns a paged splice of the provided data array according to the provided MatPaginator's page
@@ -27741,7 +27853,7 @@ var MatTabGroup = /** @class */ (function (_super) {
         { type: _angular_core.Component, args: [{selector: 'mat-tab-group',
                     exportAs: 'matTabGroup',
                     template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [attr.tabIndex]=\"_getTabIndex(tab, i)\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"tab.disabled || disableRipple\" (click)=\"_handleClick(tab, tabHeader, i)\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (_onCentered)=\"_removeTabBodyWrapperHeight()\" (_onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
-                    styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default}@media (max-width:600px){.mat-tab-label{padding:0 12px}}@media (max-width:960px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
+                    styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default}@media (max-width:599px){.mat-tab-label{padding:0 12px}}@media (max-width:959px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -28434,7 +28546,7 @@ var MatTabHeader = /** @class */ (function (_super) {
     MatTabHeader.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-tab-header',
                     template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><mat-ink-bar></mat-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
-                    styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default}@media (max-width:600px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.mat-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-tab-labels{display:flex}"],
+                    styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default}@media (max-width:599px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.mat-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-tab-labels{display:flex}"],
                     inputs: ['disableRipple'],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -28627,7 +28739,7 @@ var MatTabNav = /** @class */ (function (_super) {
                     exportAs: 'matTabNavBar, matTabNav',
                     inputs: ['color'],
                     template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
-                    styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
+                    styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
                     host: { 'class': 'mat-tab-nav-bar' },
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -28897,7 +29009,7 @@ var MatToolbar = /** @class */ (function (_super) {
         { type: _angular_core.Component, args: [{selector: 'mat-toolbar',
                     exportAs: 'matToolbar',
                     template: "<ng-content></ng-content><ng-content select=\"mat-toolbar-row\"></ng-content>",
-                    styles: [".mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}.mat-toolbar-multiple-rows{min-height:64px}.mat-toolbar-row,.mat-toolbar-single-row{height:64px}@media (max-width:600px){.mat-toolbar-multiple-rows{min-height:56px}.mat-toolbar-row,.mat-toolbar-single-row{height:56px}}"],
+                    styles: [".mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}.mat-toolbar-multiple-rows{min-height:64px}.mat-toolbar-row,.mat-toolbar-single-row{height:64px}@media (max-width:599px){.mat-toolbar-multiple-rows{min-height:56px}.mat-toolbar-row,.mat-toolbar-single-row{height:56px}}"],
                     inputs: ['color'],
                     host: {
                         'class': 'mat-toolbar',
@@ -28958,7 +29070,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-6f7332b');
+var VERSION = new _angular_core.Version('5.1.0-99cc2e4');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

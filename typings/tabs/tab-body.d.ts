@@ -59,7 +59,7 @@ export declare class MatTabBody implements OnInit {
     /** Event emitted when the tab completes its animation towards the center. */
     _onCentered: EventEmitter<void>;
     /** The tab body content to display. */
-    _content: TemplatePortal<any>;
+    _content: TemplatePortal;
     /** The shifted index position of the tab body, where zero represents the active center tab. */
     position: number;
     _position: MatTabBodyPositionState;

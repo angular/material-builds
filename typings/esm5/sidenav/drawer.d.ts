@@ -12,6 +12,7 @@ import { Platform } from '@angular/cdk/platform';
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, QueryList, InjectionToken } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 /** Throws an exception when two MatDrawer are matching the same position. */
 export declare function throwMatDuplicatedDrawerError(position: string): void;
 /**
@@ -196,6 +197,8 @@ export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
         left: number | null;
         right: number | null;
     }>;
+    /** Reference to the CdkScrollable instance that wraps the scrollable content. */
+    scrollable: CdkScrollable;
     constructor(_dir: Directionality, _element: ElementRef, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, defaultAutosize?: boolean);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

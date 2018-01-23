@@ -23,6 +23,11 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
  */
 
 /**
+ * Event that is emitted when a snack bar is dismissed.
+ * @record
+ */
+
+/**
  * Reference to a snack bar dispatched from the snack bar service.
  */
 class MatSnackBarRef {
@@ -33,9 +38,9 @@ class MatSnackBarRef {
     constructor(containerInstance, _overlayRef) {
         this._overlayRef = _overlayRef;
         /**
-         * Subject for notifying the user that the snack bar has closed.
+         * Subject for notifying the user that the snack bar has been dismissed.
          */
-        this._afterClosed = new Subject();
+        this._afterDismissed = new Subject();
         /**
          * Subject for notifying the user that the snack bar has opened and appeared.
          */
@@ -44,6 +49,10 @@ class MatSnackBarRef {
          * Subject for notifying the user that the snack bar action was called.
          */
         this._onAction = new Subject();
+        /**
+         * Whether the snack bar was dismissed using the action button.
+         */
+        this._dismissedByAction = false;
         this.containerInstance = containerInstance;
         // Dismiss snackbar on action.
         this.onAction().subscribe(() => this.dismiss());
@@ -54,7 +63,7 @@ class MatSnackBarRef {
      * @return {?}
      */
     dismiss() {
-        if (!this._afterClosed.closed) {
+        if (!this._afterDismissed.closed) {
             this.containerInstance.exit();
         }
         clearTimeout(this._durationTimeoutId);
@@ -63,11 +72,20 @@ class MatSnackBarRef {
      * Marks the snackbar action clicked.
      * @return {?}
      */
-    closeWithAction() {
+    dismissWithAction() {
         if (!this._onAction.closed) {
+            this._dismissedByAction = true;
             this._onAction.next();
             this._onAction.complete();
         }
+    }
+    /**
+     * Marks the snackbar action clicked.
+     * @deprecated Use `dismissWithAction` instead.
+     * @return {?}
+     */
+    closeWithAction() {
+        this.dismissWithAction();
     }
     /**
      * Dismisses the snack bar after some duration
@@ -96,15 +114,16 @@ class MatSnackBarRef {
         if (!this._onAction.closed) {
             this._onAction.complete();
         }
-        this._afterClosed.next();
-        this._afterClosed.complete();
+        this._afterDismissed.next({ dismissedByAction: this._dismissedByAction });
+        this._afterDismissed.complete();
+        this._dismissedByAction = false;
     }
     /**
      * Gets an observable that is notified when the snack bar is finished closing.
      * @return {?}
      */
     afterDismissed() {
-        return this._afterClosed.asObservable();
+        return this._afterDismissed.asObservable();
     }
     /**
      * Gets an observable that is notified when the snack bar has opened and appeared.
@@ -222,7 +241,7 @@ class SimpleSnackBar {
      * @return {?}
      */
     action() {
-        this.snackBarRef.closeWithAction();
+        this.snackBarRef.dismissWithAction();
     }
     /**
      * If the action button should be shown.

@@ -55,7 +55,7 @@ export declare class MatSelectionListChange {
 export declare class MatListOption extends _MatListOptionMixinBase implements AfterContentInit, OnDestroy, OnInit, FocusableOption, CanDisableRipple {
     private _element;
     private _changeDetector;
-    selectionList: MatSelectionList;
+    /** @docs-private */ selectionList: MatSelectionList;
     private _lineSetter;
     private _selected;
     private _disabled;
@@ -77,7 +77,8 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
      * @deprecated Use the `selectionChange` event on the `<mat-selection-list>` instead.
      */
     selectionChange: EventEmitter<MatListOptionChange>;
-    constructor(_element: ElementRef, _changeDetector: ChangeDetectorRef, selectionList: MatSelectionList);
+    constructor(_element: ElementRef, _changeDetector: ChangeDetectorRef, 
+        /** @docs-private */ selectionList: MatSelectionList);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -120,7 +121,7 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     /** Used for storing the values that were assigned before the options were initialized. */
     private _tempValues;
     /** View to model callback that should be called if the list or its options lost focus. */
-    onTouched: () => void;
+    _onTouched: () => void;
     constructor(_element: ElementRef, tabIndex: string);
     ngAfterContentInit(): void;
     /** Focus the selection-list. */

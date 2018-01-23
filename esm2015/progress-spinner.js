@@ -105,6 +105,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
         if (!this._fallbackAnimation && !MatProgressSpinner.diameters.has(this._diameter)) {
             this._attachStyleNode();
         }
+        this._updateElementSize();
     }
     /**
      * Stroke width of the progress spinner.
@@ -140,7 +141,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      */
     ngOnChanges(changes) {
         if (changes["strokeWidth"] || changes["diameter"]) {
-            this._elementSize = this._diameter + Math.max(this.strokeWidth - BASE_STROKE_WIDTH, 0);
+            this._updateElementSize();
         }
     }
     /**
@@ -211,6 +212,13 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
             .replace(/START_VALUE/g, `${0.95 * this._strokeCircumference}`)
             .replace(/END_VALUE/g, `${0.2 * this._strokeCircumference}`)
             .replace(/DIAMETER/g, `${this.diameter}`);
+    }
+    /**
+     * Updates the spinner element size based on its diameter.
+     * @return {?}
+     */
+    _updateElementSize() {
+        this._elementSize = this._diameter + Math.max(this.strokeWidth - BASE_STROKE_WIDTH, 0);
     }
 }
 /**

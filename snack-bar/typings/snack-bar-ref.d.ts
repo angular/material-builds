@@ -8,6 +8,11 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBarContainer } from './snack-bar-container';
+/** Event that is emitted when a snack bar is dismissed. */
+export interface MatSnackBarDismiss {
+    /** Whether the snack bar was dismissed using the action button. */
+    dismissedByAction: boolean;
+}
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */
@@ -20,8 +25,8 @@ export declare class MatSnackBarRef<T> {
      * @docs-private
      */
     containerInstance: MatSnackBarContainer;
-    /** Subject for notifying the user that the snack bar has closed. */
-    private _afterClosed;
+    /** Subject for notifying the user that the snack bar has been dismissed. */
+    private _afterDismissed;
     /** Subject for notifying the user that the snack bar has opened and appeared. */
     private _afterOpened;
     /** Subject for notifying the user that the snack bar action was called. */
@@ -31,10 +36,17 @@ export declare class MatSnackBarRef<T> {
      * dismissed before the duration passes.
      */
     private _durationTimeoutId;
+    /** Whether the snack bar was dismissed using the action button. */
+    private _dismissedByAction;
     constructor(containerInstance: MatSnackBarContainer, _overlayRef: OverlayRef);
     /** Dismisses the snack bar. */
     dismiss(): void;
     /** Marks the snackbar action clicked. */
+    dismissWithAction(): void;
+    /**
+     * Marks the snackbar action clicked.
+     * @deprecated Use `dismissWithAction` instead.
+     */
     closeWithAction(): void;
     /** Dismisses the snack bar after some duration */
     _dismissAfter(duration: number): void;
@@ -43,7 +55,7 @@ export declare class MatSnackBarRef<T> {
     /** Cleans up the DOM after closing. */
     private _finishDismiss();
     /** Gets an observable that is notified when the snack bar is finished closing. */
-    afterDismissed(): Observable<void>;
+    afterDismissed(): Observable<MatSnackBarDismiss>;
     /** Gets an observable that is notified when the snack bar has opened and appeared. */
     afterOpened(): Observable<void>;
     /** Gets an observable that is notified when the snack bar action is called. */

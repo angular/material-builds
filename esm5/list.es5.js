@@ -302,7 +302,8 @@ var MatSelectionListChange = /** @class */ (function () {
  */
 var MatListOption = /** @class */ (function (_super) {
     __extends(MatListOption, _super);
-    function MatListOption(_element, _changeDetector, selectionList) {
+    function MatListOption(_element, _changeDetector, /** @docs-private */
+        selectionList) {
         var _this = _super.call(this) || this;
         _this._element = _element;
         _this._changeDetector = _changeDetector;
@@ -329,7 +330,7 @@ var MatListOption = /** @class */ (function (_super) {
          * Whether the option is disabled.
          * @return {?}
          */
-        function () { return (this.selectionList && this.selectionList.disabled) || this._disabled; },
+        function () { return this._disabled || (this.selectionList && this.selectionList.disabled); },
         set: /**
          * @param {?} value
          * @return {?}
@@ -491,7 +492,7 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         this._hasFocus = false;
-        this.selectionList.onTouched();
+        this.selectionList._onTouched();
     };
     /** Retrieves the DOM element of the component host. */
     /**
@@ -604,7 +605,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         /**
          * View to model callback that should be called if the list or its options lost focus.
          */
-        _this.onTouched = function () { };
+        _this._onTouched = function () { };
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -814,7 +815,7 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (fn) {
-        this.onTouched = fn;
+        this._onTouched = fn;
     };
     /**
      * Returns the option with the specified value.
@@ -915,7 +916,7 @@ var MatSelectionList = /** @class */ (function (_super) {
                         '[tabIndex]': 'tabIndex',
                         'class': 'mat-selection-list',
                         '(focus)': 'focus()',
-                        '(blur)': 'onTouched()',
+                        '(blur)': '_onTouched()',
                         '(keydown)': '_keydown($event)',
                         '[attr.aria-disabled]': 'disabled.toString()'
                     },

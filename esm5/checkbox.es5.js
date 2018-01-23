@@ -407,7 +407,7 @@ var MatCheckbox = /** @class */ (function (_super) {
      */
     function (focusOrigin) {
         if (!this._focusRipple && focusOrigin === 'keyboard') {
-            this._focusRipple = this._ripple.launch(0, 0, __assign({ persistent: true }, this._rippleConfig));
+            this._focusRipple = this.ripple.launch(0, 0, __assign({ persistent: true }, this._rippleConfig));
         }
         else if (!focusOrigin) {
             this._removeFocusRipple();
@@ -603,7 +603,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         "indeterminateChange": [{ type: Output },],
         "value": [{ type: Input },],
         "_inputElement": [{ type: ViewChild, args: ['input',] },],
-        "_ripple": [{ type: ViewChild, args: [MatRipple,] },],
+        "ripple": [{ type: ViewChild, args: [MatRipple,] },],
         "checked": [{ type: Input },],
         "indeterminate": [{ type: Input },],
     };

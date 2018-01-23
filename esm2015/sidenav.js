@@ -8,9 +8,9 @@
 import { A11yModule, FocusMonitor, FocusTrapFactory } from '@angular/cdk/a11y';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
-import { ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { CdkScrollable, ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
@@ -808,6 +808,7 @@ MatDrawerContainer.propDecorators = {
     "_content": [{ type: ContentChild, args: [MatDrawerContent,] },],
     "autosize": [{ type: Input },],
     "backdropClick": [{ type: Output },],
+    "scrollable": [{ type: ViewChild, args: [CdkScrollable,] },],
 };
 
 /**

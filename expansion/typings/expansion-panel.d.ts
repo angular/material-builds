@@ -38,7 +38,9 @@ export declare class MatExpansionPanel extends _MatExpansionPanelMixinBase imple
     /** Content that will be rendered lazily. */
     _lazyContent: MatExpansionPanelContent;
     /** Portal holding the user's content. */
-    _portal: TemplatePortal<any>;
+    _portal: TemplatePortal;
+    /** ID for the associated header element. Used for a11y labelling. */
+    _headerId: string;
     constructor(accordion: MatAccordion, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher, _viewContainerRef: ViewContainerRef);
     /** Whether the expansion indicator should be hidden. */
     _getHideToggle(): boolean;

@@ -9,7 +9,7 @@ $cdk-z-index-overlay: 1000;
 $cdk-z-index-overlay-backdrop: 1000;
 
 // Background color for all of the backdrops
-$cdk-overlay-dark-backdrop-background: rgba(0, 0, 0, 0.6);
+$cdk-overlay-dark-backdrop-background: rgba(0, 0, 0, 0.288);
 
 // Default backdrop animation is based on the Material Design swift-ease-out.
 $backdrop-animation-duration: 400ms !default;
@@ -67,7 +67,7 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
     opacity: 0;
 
     &.cdk-overlay-backdrop-showing {
-      opacity: 0.48;
+      opacity: 1;
     }
   }
 
@@ -111,6 +111,13 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
     padding: 0;
     position: absolute;
     width: 1px;
+
+    // Avoid browsers rendering the focus ring in some cases.
+    outline: 0;
+
+    // Avoid some cases where the browser will still render the native controls (see #9049).
+    -webkit-appearance: none;
+    -moz-appearance: none;
   }
 }
 
@@ -128,10 +135,9 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
 
 // Core styles that can be used to apply material design treatments to any element.
 // Media queries
-// TODO: Find a way to respect media query ranges.
-// TODO: For example the xs-breakpoint should not interfere with the sm-breakpoint.
-$mat-xsmall: 'max-width: 600px';
-$mat-small: 'max-width: 960px';
+// TODO(josephperrott): Change $mat-xsmall and $mat-small usages to rely on BreakpointObserver,
+$mat-xsmall: 'max-width: 599px';
+$mat-small: 'max-width: 959px';
 
 // TODO(crisbeto): this isn't being used anywhere within Material. keeping for backwards compat.
 $mat-font-family: Roboto, 'Helvetica Neue', sans-serif !default;
@@ -1213,269 +1219,6 @@ $mat-ripple-color-opacity: 0.1;
 
 
 
-// This mixin will ensure that lines that overflow the container will hide the overflow and
-// truncate neatly with an ellipsis.
-@mixin mat-truncate-line() {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-// Mixin to provide all mat-line styles, changing secondary font size based on whether the list
-// is in dense mode.
-@mixin mat-line-base($secondary-font-size) {
-  .mat-line {
-    @include mat-truncate-line();
-    display: block;
-    box-sizing: border-box;
-
-    // all lines but the top line should have smaller text
-    &:nth-child(n+2) {
-      font-size: $secondary-font-size;
-    }
-  }
-}
-
-// This mixin normalizes default element styles, e.g. font weight for heading text.
-@mixin mat-normalize-text() {
-  & > * {
-    margin: 0;
-    padding: 0;
-    font-weight: normal;
-    font-size: inherit;
-  }
-}
-
-// This mixin provides base styles for the wrapper around mat-line elements in a list.
-@mixin mat-line-wrapper-base() {
-  @include mat-normalize-text();
-
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  box-sizing: border-box;
-  overflow: hidden;
-
-  // Must remove wrapper when lines are empty or it takes up horizontal
-  // space and pushes other elements to the right.
-  &:empty {
-    display: none;
-  }
-}
-
-
-/** The mixins below are shared between mat-menu and mat-select */
-
-// menu width must be a multiple of 56px
-$mat-menu-overlay-min-width: 112px !default;   // 56 * 2
-$mat-menu-overlay-max-width: 280px !default;   // 56 * 5
-
-$mat-menu-item-height: 48px !default;
-$mat-menu-side-padding: 16px !default;
-$mat-menu-icon-margin: 16px !default;
-
-
-@mixin mat-menu-base($default-elevation) {
-  @include mat-overridable-elevation($default-elevation);
-  min-width: $mat-menu-overlay-min-width;
-  max-width: $mat-menu-overlay-max-width;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;   // for momentum scroll on mobile
-}
-
-@mixin mat-menu-item-base() {
-  @include mat-truncate-line();
-
-  // Needs to be a block for the ellipsis to work.
-  display: block;
-  line-height: $mat-menu-item-height;
-  height: $mat-menu-item-height;
-  padding: 0 $mat-menu-side-padding;
-
-  text-align: left;
-  text-decoration: none;   // necessary to reset anchor tags
-
-  &[disabled] {
-    cursor: default;
-  }
-
-  [dir='rtl'] & {
-    text-align: right;
-  }
-
-  .mat-icon {
-    margin-right: $mat-menu-icon-margin;
-
-    [dir='rtl'] & {
-      margin-left: $mat-menu-icon-margin;
-      margin-right: 0;
-    }
-  }
-}
-
-/**
- * This mixin adds the correct panel transform styles based
- * on the direction that the menu panel opens.
- */
-@mixin mat-menu-positions() {
-  &.mat-menu-after.mat-menu-below {
-    transform-origin: left top;
-  }
-
-  &.mat-menu-after.mat-menu-above {
-    transform-origin: left bottom;
-  }
-
-  &.mat-menu-before.mat-menu-below {
-    transform-origin: right top;
-  }
-
-  &.mat-menu-before.mat-menu-above {
-    transform-origin: right bottom;
-  }
-
-  [dir='rtl'] & {
-    &.mat-menu-after.mat-menu-below {
-      transform-origin: right top;
-    }
-
-    &.mat-menu-after.mat-menu-above {
-      transform-origin: right bottom;
-    }
-
-    &.mat-menu-before.mat-menu-below {
-      transform-origin: left top;
-    }
-
-    &.mat-menu-before.mat-menu-above {
-      transform-origin: left bottom;
-    }
-  }
-}
-
-/* stylelint-disable material/no-prefixes */
-@mixin user-select($value) {
-  -webkit-user-select: $value;
-  -moz-user-select: $value;
-  -ms-user-select: $value;
-  user-select: $value;
-}
-
-@mixin input-placeholder {
-  &::placeholder {
-    @content;
-  }
-
-  &::-moz-placeholder {
-    @content;
-  }
-
-  &::-webkit-input-placeholder {
-    @content;
-  }
-
-  &:-ms-input-placeholder {
-    @content;
-  }
-}
-
-@mixin cursor-grab {
-  cursor: -webkit-grab;
-  cursor: grab;
-}
-
-@mixin cursor-grabbing {
-  cursor: -webkit-grabbing;
-  cursor: grabbing;
-}
-
-@mixin backface-visibility($value) {
-  -webkit-backface-visibility: $value;
-  backface-visibility: $value;
-}
-/* stylelint-enable */
-
-// This mixin ensures an element spans to fill the nearest ancestor with defined positioning.
-@mixin mat-fill {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: absolute;
-}
-
-
-
-/**
- * This mixin contains shared option styles between the select and
- * autocomplete components.
- */
-@mixin mat-option() {
-  .mat-option {
-    @include mat-menu-item-base();
-    position: relative;
-    cursor: pointer;
-    outline: none;
-    display: flex;
-    flex-direction: row;
-    max-width: 100%;
-    box-sizing: border-box;
-    align-items: center;
-
-    &[aria-disabled='true'] {
-      @include user-select(none);
-      cursor: default;
-    }
-
-    .mat-optgroup &:not(.mat-option-multiple) {
-      padding-left: $mat-menu-side-padding * 2;
-
-      [dir='rtl'] & {
-        padding-left: $mat-menu-side-padding;
-        padding-right: $mat-menu-side-padding * 2;
-      }
-    }
-  }
-
-  // Collapses unwanted whitespace created by newlines in code like the following:
-  // <mat-option>
-  //   {{value}}
-  // </mat-option>
-  .mat-option-text {
-    display: inline-block;
-    flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .mat-option-ripple {
-    @include mat-fill;
-
-    // Disable pointer events for the ripple container because the container will overlay the
-    // user content and we don't want to disable mouse events on the user content.
-    // Pointer events can be safely disabled because the ripple trigger element is the host element.
-    pointer-events: none;
-
-    // Prevents the ripple from completely covering the option in high contrast mode.
-    @include cdk-high-contrast {
-      opacity: 0.5;
-    }
-  }
-
-  .mat-option-pseudo-checkbox {
-    $margin: $mat-menu-side-padding / 2;
-    margin-right: $margin;
-
-    [dir='rtl'] & {
-      margin-left: $margin;
-      margin-right: 0;
-    }
-  }
-}
-
-
-
-
 // Utility for fetching a nested value from a typography config.
 @function _mat-get-type-value($config, $level, $name) {
   @return map-get(map-get($config, $level), $name);
@@ -1594,17 +1337,6 @@ $mat-menu-icon-margin: 16px !default;
       family: mat-font-family($config, subheading-2);
       size: mat-font-size($config, subheading-2);
     }
-  }
-}
-
-
-
-
-@mixin mat-optgroup() {
-  .mat-optgroup-label {
-    @include mat-menu-item-base();
-    @include user-select(none);
-    cursor: default;
   }
 }
 
@@ -2364,6 +2096,10 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   .mat-calendar-body-disabled > .mat-calendar-body-today:not(.mat-calendar-body-selected) {
     border-color: fade-out(mat-color($foreground, hint-text), $mat-datepicker-today-fade-amount);
   }
+
+  .mat-datepicker-toggle-active {
+    color: mat-color($primary);
+  }
 }
 
 @mixin mat-datepicker-typography($config) {
@@ -2475,6 +2211,55 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 
 
+// This mixin will ensure that lines that overflow the container will hide the overflow and
+// truncate neatly with an ellipsis.
+@mixin mat-truncate-line() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Mixin to provide all mat-line styles, changing secondary font size based on whether the list
+// is in dense mode.
+@mixin mat-line-base($secondary-font-size) {
+  .mat-line {
+    @include mat-truncate-line();
+    display: block;
+    box-sizing: border-box;
+
+    // all lines but the top line should have smaller text
+    &:nth-child(n+2) {
+      font-size: $secondary-font-size;
+    }
+  }
+}
+
+// This mixin normalizes default element styles, e.g. font weight for heading text.
+@mixin mat-normalize-text() {
+  & > * {
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: inherit;
+  }
+}
+
+// This mixin provides base styles for the wrapper around mat-line elements in a list.
+@mixin mat-line-wrapper-base() {
+  @include mat-normalize-text();
+
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  // Must remove wrapper when lines are empty or it takes up horizontal
+  // space and pushes other elements to the right.
+  &:empty {
+    display: none;
+  }
+}
 
 
 
@@ -2540,6 +2325,47 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 }
 
 
+/* stylelint-disable material/no-prefixes */
+@mixin user-select($value) {
+  -webkit-user-select: $value;
+  -moz-user-select: $value;
+  -ms-user-select: $value;
+  user-select: $value;
+}
+
+@mixin input-placeholder {
+  &::placeholder {
+    @content;
+  }
+
+  &::-moz-placeholder {
+    @content;
+  }
+
+  &::-webkit-input-placeholder {
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+
+@mixin cursor-grab {
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+@mixin cursor-grabbing {
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
+}
+
+@mixin backface-visibility($value) {
+  -webkit-backface-visibility: $value;
+  backface-visibility: $value;
+}
+/* stylelint-enable */
 
 
 
@@ -3896,8 +3722,6 @@ $dedupe: 0;
 
   @include angular-material-typography($typography-config);
   @include mat-ripple();
-  @include mat-option();
-  @include mat-optgroup();
   @include cdk-a11y();
   @include cdk-overlay();
 }
