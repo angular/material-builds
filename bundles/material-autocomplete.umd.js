@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/Subject'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', '@angular/material/form-field', 'rxjs/Subject', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.ng.material.formField,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_a11y,_angular_common,_angular_cdk_overlay,_angular_cdk_bidi,_angular_cdk_keycodes,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,_angular_material_formField,rxjs_Subject,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/Subject'), require('rxjs/observable/defer'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', '@angular/material/form-field', 'rxjs/Subject', 'rxjs/observable/defer', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.ng.material.formField,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_a11y,_angular_common,_angular_cdk_overlay,_angular_cdk_bidi,_angular_cdk_keycodes,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,_angular_material_formField,rxjs_Subject,rxjs_observable_defer,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -281,6 +281,7 @@ function getMatAutocompleteMissingPanelError() {
 }
 var MatAutocompleteTrigger = /** @class */ (function () {
     function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _scrollStrategy, _dir, _formField, _document) {
+        var _this = this;
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
@@ -307,6 +308,19 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * View -> model callback called when autocomplete has been touched
          */
         this._onTouched = function () { };
+        /**
+         * Stream of autocomplete option selections.
+         */
+        this.optionSelections = rxjs_observable_defer.defer(function () {
+            if (_this.autocomplete && _this.autocomplete.options) {
+                return rxjs_observable_merge.merge.apply(void 0, _this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
+            }
+            // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
+            // Return a stream that we'll replace with the real one once everything is in place.
+            return _this._zone.onStable
+                .asObservable()
+                .pipe(rxjs_operators_take.take(1), rxjs_operators_switchMap.switchMap(function () { return _this.optionSelections; }));
+        });
     }
     /**
      * @return {?}
@@ -382,18 +396,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(rxjs_operators_filter.filter(function () { return _this._panelOpen; })), this._escapeEventStream, this._outsideClickStream, this._overlayRef ?
                 this._overlayRef.detachments().pipe(rxjs_operators_filter.filter(function () { return _this._panelOpen; })) :
                 rxjs_observable_of.of());
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatAutocompleteTrigger.prototype, "optionSelections", {
-        /** Stream of autocomplete option selections. */
-        get: /**
-         * Stream of autocomplete option selections.
-         * @return {?}
-         */
-        function () {
-            return rxjs_observable_merge.merge.apply(void 0, this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
         },
         enumerable: true,
         configurable: true

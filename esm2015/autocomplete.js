@@ -21,6 +21,7 @@ import { delay } from 'rxjs/operators/delay';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { Subject } from 'rxjs/Subject';
+import { defer } from 'rxjs/observable/defer';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 import { of } from 'rxjs/observable/of';
@@ -269,6 +270,19 @@ class MatAutocompleteTrigger {
          * View -> model callback called when autocomplete has been touched
          */
         this._onTouched = () => { };
+        /**
+         * Stream of autocomplete option selections.
+         */
+        this.optionSelections = defer(() => {
+            if (this.autocomplete && this.autocomplete.options) {
+                return merge(...this.autocomplete.options.map(option => option.onSelectionChange));
+            }
+            // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
+            // Return a stream that we'll replace with the real one once everything is in place.
+            return this._zone.onStable
+                .asObservable()
+                .pipe(take(1), switchMap(() => this.optionSelections));
+        });
     }
     /**
      * @return {?}
@@ -320,13 +334,6 @@ class MatAutocompleteTrigger {
         return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(() => this._panelOpen)), this._escapeEventStream, this._outsideClickStream, this._overlayRef ?
             this._overlayRef.detachments().pipe(filter(() => this._panelOpen)) :
             of());
-    }
-    /**
-     * Stream of autocomplete option selections.
-     * @return {?}
-     */
-    get optionSelections() {
-        return merge(...this.autocomplete.options.map(option => option.onSelectionChange));
     }
     /**
      * The currently active option, coerced to MatOption type.

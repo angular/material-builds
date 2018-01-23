@@ -23,6 +23,7 @@ import { delay } from 'rxjs/operators/delay';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { Subject } from 'rxjs/Subject';
+import { defer } from 'rxjs/observable/defer';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 import { of } from 'rxjs/observable/of';
@@ -271,6 +272,7 @@ function getMatAutocompleteMissingPanelError() {
 }
 var MatAutocompleteTrigger = /** @class */ (function () {
     function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _scrollStrategy, _dir, _formField, _document) {
+        var _this = this;
         this._element = _element;
         this._overlay = _overlay;
         this._viewContainerRef = _viewContainerRef;
@@ -297,6 +299,19 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * View -> model callback called when autocomplete has been touched
          */
         this._onTouched = function () { };
+        /**
+         * Stream of autocomplete option selections.
+         */
+        this.optionSelections = defer(function () {
+            if (_this.autocomplete && _this.autocomplete.options) {
+                return merge.apply(void 0, _this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
+            }
+            // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
+            // Return a stream that we'll replace with the real one once everything is in place.
+            return _this._zone.onStable
+                .asObservable()
+                .pipe(take(1), switchMap(function () { return _this.optionSelections; }));
+        });
     }
     /**
      * @return {?}
@@ -372,18 +387,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(function () { return _this._panelOpen; })), this._escapeEventStream, this._outsideClickStream, this._overlayRef ?
                 this._overlayRef.detachments().pipe(filter(function () { return _this._panelOpen; })) :
                 of());
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatAutocompleteTrigger.prototype, "optionSelections", {
-        /** Stream of autocomplete option selections. */
-        get: /**
-         * Stream of autocomplete option selections.
-         * @return {?}
-         */
-        function () {
-            return merge.apply(void 0, this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
         },
         enumerable: true,
         configurable: true
