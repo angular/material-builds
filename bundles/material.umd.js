@@ -17876,7 +17876,6 @@ var MatSelect = /** @class */ (function (_super) {
             this._panelOpen = false;
             this._changeDetectorRef.markForCheck();
             this._onTouched();
-            this.focus();
         }
     };
     /**
@@ -18180,8 +18179,8 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        this.focused = false;
         if (!this.disabled && !this.panelOpen) {
-            this.focused = false;
             this._onTouched();
             this._changeDetectorRef.markForCheck();
             this.stateChanges.next();
@@ -18367,8 +18366,9 @@ var MatSelect = /** @class */ (function (_super) {
         var _this = this;
         this.optionSelectionChanges.pipe(rxjs_operators_takeUntil.takeUntil(rxjs_observable_merge.merge(this._destroy, this.options.changes)), rxjs_operators_filter.filter(function (event) { return event.isUserInput; })).subscribe(function (event) {
             _this._onSelect(event.source);
-            if (!_this.multiple) {
+            if (!_this.multiple && _this._panelOpen) {
                 _this.close();
+                _this.focus();
             }
         });
         this._setOptionIds();
@@ -28932,7 +28932,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-a6f9fc2');
+var VERSION = new _angular_core.Version('5.1.0-9dc43de');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29164,10 +29164,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa19 = MatMenuItemBase;
-exports.ɵb19 = _MatMenuItemMixinBase;
-exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc19 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa20 = MatMenuItemBase;
+exports.ɵb20 = _MatMenuItemMixinBase;
+exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

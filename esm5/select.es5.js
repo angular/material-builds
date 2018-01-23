@@ -633,7 +633,6 @@ var MatSelect = /** @class */ (function (_super) {
             this._panelOpen = false;
             this._changeDetectorRef.markForCheck();
             this._onTouched();
-            this.focus();
         }
     };
     /**
@@ -937,8 +936,8 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        this.focused = false;
         if (!this.disabled && !this.panelOpen) {
-            this.focused = false;
             this._onTouched();
             this._changeDetectorRef.markForCheck();
             this.stateChanges.next();
@@ -1124,8 +1123,9 @@ var MatSelect = /** @class */ (function (_super) {
         var _this = this;
         this.optionSelectionChanges.pipe(takeUntil(merge(this._destroy, this.options.changes)), filter(function (event) { return event.isUserInput; })).subscribe(function (event) {
             _this._onSelect(event.source);
-            if (!_this.multiple) {
+            if (!_this.multiple && _this._panelOpen) {
                 _this.close();
+                _this.focus();
             }
         });
         this._setOptionIds();

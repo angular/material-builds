@@ -584,7 +584,6 @@ class MatSelect extends _MatSelectMixinBase {
             this._panelOpen = false;
             this._changeDetectorRef.markForCheck();
             this._onTouched();
-            this.focus();
         }
     }
     /**
@@ -766,8 +765,8 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _onBlur() {
+        this.focused = false;
         if (!this.disabled && !this.panelOpen) {
-            this.focused = false;
             this._onTouched();
             this._changeDetectorRef.markForCheck();
             this.stateChanges.next();
@@ -899,8 +898,9 @@ class MatSelect extends _MatSelectMixinBase {
     _resetOptions() {
         this.optionSelectionChanges.pipe(takeUntil(merge(this._destroy, this.options.changes)), filter(event => event.isUserInput)).subscribe(event => {
             this._onSelect(event.source);
-            if (!this.multiple) {
+            if (!this.multiple && this._panelOpen) {
                 this.close();
+                this.focus();
             }
         });
         this._setOptionIds();
