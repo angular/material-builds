@@ -16,12 +16,12 @@ export declare class MatTabNavBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatTabNavMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanColor) & typeof MatTabNavBase;
+export declare const _MatTabNavMixinBase: (new (...args: any[]) => CanColor) & typeof MatTabNavBase;
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-export declare class MatTabNav extends _MatTabNavMixinBase implements AfterContentInit, CanColor, CanDisableRipple, OnDestroy {
+export declare class MatTabNav extends _MatTabNavMixinBase implements AfterContentInit, CanColor, OnDestroy {
     private _dir;
     private _ngZone;
     private _changeDetectorRef;

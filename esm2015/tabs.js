@@ -1293,7 +1293,7 @@ class MatTabNavBase {
         this._elementRef = _elementRef;
     }
 }
-const _MatTabNavMixinBase = mixinDisableRipple(mixinColor(MatTabNavBase, 'primary'));
+const _MatTabNavMixinBase = mixinColor(MatTabNavBase, 'primary');
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -1410,7 +1410,7 @@ class MatTabNav extends _MatTabNavMixinBase {
 MatTabNav.decorators = [
     { type: Component, args: [{selector: '[mat-tab-nav-bar]',
                 exportAs: 'matTabNavBar, matTabNav',
-                inputs: ['color', 'disableRipple'],
+                inputs: ['color'],
                 template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
                 styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
                 host: { 'class': 'mat-tab-nav-bar' },
@@ -1431,6 +1431,7 @@ MatTabNav.propDecorators = {
     "_inkBar": [{ type: ViewChild, args: [MatInkBar,] },],
     "_tabLinks": [{ type: ContentChildren, args: [forwardRef(() => MatTabLink), { descendants: true },] },],
     "backgroundColor": [{ type: Input },],
+    "disableRipple": [{ type: Input },],
 };
 class MatTabLinkBase {
 }

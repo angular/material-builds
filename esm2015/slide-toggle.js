@@ -30,6 +30,14 @@ const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
  * Change event object emitted by a MatSlideToggle.
  */
 class MatSlideToggleChange {
+    /**
+     * @param {?} source
+     * @param {?} checked
+     */
+    constructor(source, checked) {
+        this.source = source;
+        this.checked = checked;
+    }
 }
 /**
  * \@docs-private
@@ -246,11 +254,8 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @return {?}
      */
     _emitChangeEvent() {
-        let /** @type {?} */ event = new MatSlideToggleChange();
-        event.source = this;
-        event.checked = this.checked;
         this.onChange(this.checked);
-        this.change.emit(event);
+        this.change.emit(new MatSlideToggleChange(this, this.checked));
     }
     /**
      * @return {?}
@@ -390,7 +395,7 @@ class SlideToggleRenderer {
     updateThumbPosition(distance) {
         this.dragPercentage = this._getDragPercentage(distance);
         // Calculate the moved distance based on the thumb bar width.
-        let /** @type {?} */ dragX = (this.dragPercentage / 100) * this._thumbBarWidth;
+        const /** @type {?} */ dragX = (this.dragPercentage / 100) * this._thumbBarWidth;
         applyCssTransform(this._thumbEl, `translate3d(${dragX}px, 0, 0)`);
     }
     /**

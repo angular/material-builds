@@ -61,7 +61,9 @@ var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
  * Change event object emitted by a MatSlideToggle.
  */
 var MatSlideToggleChange = /** @class */ (function () {
-    function MatSlideToggleChange() {
+    function MatSlideToggleChange(source, checked) {
+        this.source = source;
+        this.checked = checked;
     }
     return MatSlideToggleChange;
 }());
@@ -348,11 +350,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ event = new MatSlideToggleChange();
-        event.source = this;
-        event.checked = this.checked;
         this.onChange(this.checked);
-        this.change.emit(event);
+        this.change.emit(new MatSlideToggleChange(this, this.checked));
     };
     /**
      * @return {?}

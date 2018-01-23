@@ -1680,7 +1680,7 @@ var MatTabNavBase = /** @class */ (function () {
     }
     return MatTabNavBase;
 }());
-var _MatTabNavMixinBase = _angular_material_core.mixinDisableRipple(_angular_material_core.mixinColor(MatTabNavBase, 'primary'));
+var _MatTabNavMixinBase = _angular_material_core.mixinColor(MatTabNavBase, 'primary');
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -1722,7 +1722,6 @@ var MatTabNav = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatTabNav.prototype, "disableRipple", {
-        /** Whether ripples should be disabled for all links or not. */
         get: /**
          * Whether ripples should be disabled for all links or not.
          * @return {?}
@@ -1828,7 +1827,7 @@ var MatTabNav = /** @class */ (function (_super) {
     MatTabNav.decorators = [
         { type: _angular_core.Component, args: [{selector: '[mat-tab-nav-bar]',
                     exportAs: 'matTabNavBar, matTabNav',
-                    inputs: ['color', 'disableRipple'],
+                    inputs: ['color'],
                     template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
                     styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0;opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default}@media (max-width:600px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
                     host: { 'class': 'mat-tab-nav-bar' },
@@ -1849,6 +1848,7 @@ var MatTabNav = /** @class */ (function (_super) {
         "_inkBar": [{ type: _angular_core.ViewChild, args: [MatInkBar,] },],
         "_tabLinks": [{ type: _angular_core.ContentChildren, args: [_angular_core.forwardRef(function () { return MatTabLink; }), { descendants: true },] },],
         "backgroundColor": [{ type: _angular_core.Input },],
+        "disableRipple": [{ type: _angular_core.Input },],
     };
     return MatTabNav;
 }(_MatTabNavMixinBase));

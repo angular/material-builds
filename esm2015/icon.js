@@ -80,13 +80,11 @@ class MatIconRegistry {
     /**
      * @param {?} _httpClient
      * @param {?} _sanitizer
-     * @param {?=} _document
+     * @param {?=} document
      */
-    constructor(_httpClient, _sanitizer, _document) {
-        // TODO(crisbeto): make _document required next major release.
+    constructor(_httpClient, _sanitizer, document) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
-        this._document = _document;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
          */
@@ -114,6 +112,8 @@ class MatIconRegistry {
          * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
          */
         this._defaultFontSetClass = 'material-icons';
+        // TODO(crisbeto): make _document required next major release.
+        this._document = document;
     }
     /**
      * Registers an icon by URL in the default namespace.
@@ -423,8 +423,7 @@ class MatIconRegistry {
     _toSvgElement(element) {
         let /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
         for (let /** @type {?} */ i = 0; i < element.childNodes.length; i++) {
-            // Note: 1 corresponds to `Node.ELEMENT_NODE` which we can't use in Universal.
-            if (element.childNodes[i].nodeType === 1) {
+            if (element.childNodes[i].nodeType === this._document.ELEMENT_NODE) {
                 svg.appendChild(element.childNodes[i].cloneNode(true));
             }
         }

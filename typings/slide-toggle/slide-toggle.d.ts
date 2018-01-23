@@ -13,8 +13,15 @@ import { CanColor, CanDisable, CanDisableRipple, HammerInput, HasTabIndex, MatRi
 export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 /** Change event object emitted by a MatSlideToggle. */
 export declare class MatSlideToggleChange {
+    /** The source MatSlideToggle of the event. */
     source: MatSlideToggle;
+    /** The new `checked` value of the MatSlideToggle. */
     checked: boolean;
+    constructor(
+        /** The source MatSlideToggle of the event. */
+        source: MatSlideToggle, 
+        /** The new `checked` value of the MatSlideToggle. */
+        checked: boolean);
 }
 /** @docs-private */
 export declare class MatSlideToggleBase {

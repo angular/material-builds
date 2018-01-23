@@ -77,11 +77,9 @@ var SvgIconConfig = /** @class */ (function () {
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 var MatIconRegistry = /** @class */ (function () {
-    function MatIconRegistry(_httpClient, _sanitizer, _document) {
-        // TODO(crisbeto): make _document required next major release.
+    function MatIconRegistry(_httpClient, _sanitizer, document) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
-        this._document = _document;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
          */
@@ -109,6 +107,8 @@ var MatIconRegistry = /** @class */ (function () {
          * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
          */
         this._defaultFontSetClass = 'material-icons';
+        // TODO(crisbeto): make _document required next major release.
+        this._document = document;
     }
     /**
      * Registers an icon by URL in the default namespace.
@@ -610,8 +610,7 @@ var MatIconRegistry = /** @class */ (function () {
     function (element) {
         var /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
         for (var /** @type {?} */ i = 0; i < element.childNodes.length; i++) {
-            // Note: 1 corresponds to `Node.ELEMENT_NODE` which we can't use in Universal.
-            if (element.childNodes[i].nodeType === 1) {
+            if (element.childNodes[i].nodeType === this._document.ELEMENT_NODE) {
                 svg.appendChild(element.childNodes[i].cloneNode(true));
             }
         }
