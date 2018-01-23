@@ -297,9 +297,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         this._manuallyFloatingLabel = false;
         /**
-         * Stream of escape keyboard events.
+         * Stream of keyboard events that can close the panel.
          */
-        this._escapeEventStream = new rxjs_Subject.Subject();
+        this._closeKeyEventStream = new rxjs_Subject.Subject();
         /**
          * View -> model callback called when value changes
          */
@@ -330,7 +330,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         this._destroyPanel();
-        this._escapeEventStream.complete();
+        this._closeKeyEventStream.complete();
     };
     Object.defineProperty(MatAutocompleteTrigger.prototype, "panelOpen", {
         /** Whether or not the autocomplete panel is open. */
@@ -393,7 +393,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () {
             var _this = this;
-            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(rxjs_operators_filter.filter(function () { return _this._panelOpen; })), this._escapeEventStream, this._outsideClickStream, this._overlayRef ?
+            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(rxjs_operators_filter.filter(function () { return _this._panelOpen; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
                 this._overlayRef.detachments().pipe(rxjs_operators_filter.filter(function () { return _this._panelOpen; })) :
                 rxjs_observable_of.of());
         },
@@ -542,9 +542,11 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function (event) {
         var /** @type {?} */ keyCode = event.keyCode;
-        if (keyCode === _angular_cdk_keycodes.ESCAPE && this.panelOpen) {
+        // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
+        // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
+        if (this.panelOpen && (keyCode === _angular_cdk_keycodes.ESCAPE || (keyCode === _angular_cdk_keycodes.UP_ARROW && event.altKey))) {
             this._resetActiveItem();
-            this._escapeEventStream.next();
+            this._closeKeyEventStream.next();
             event.stopPropagation();
         }
         else if (this.activeOption && keyCode === _angular_cdk_keycodes.ENTER && this.panelOpen) {

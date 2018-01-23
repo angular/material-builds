@@ -60,8 +60,8 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _manuallyFloatingLabel;
     /** The subscription for closing actions (some are bound to document). */
     private _closingActionsSubscription;
-    /** Stream of escape keyboard events. */
-    private _escapeEventStream;
+    /** Stream of keyboard events that can close the panel. */
+    private _closeKeyEventStream;
     /** View -> model callback called when value changes */
     _onChange: (value: any) => void;
     /** View -> model callback called when autocomplete has been touched */

@@ -1507,13 +1507,9 @@ $mat-menu-icon-margin: 16px !default;
   @return if($font-family == null, $font-family, unquote($font-family));
 }
 
-// Converts a typography level into CSS styles.
-@mixin mat-typography-level-to-styles($config, $level) {
-  $font-size: mat-font-size($config, $level);
-  $font-weight: mat-font-weight($config, $level);
-  $line-height: mat-line-height($config, $level);
-  $font-family: mat-font-family($config, $level);
-
+// Outputs the shorthand `font` CSS property, based on a set of typography values. Falls back to
+// the individual properties if a value that isn't allowed in the shorthand is passed in.
+@mixin mat-typography-font-shorthand($font-size, $font-weight, $line-height, $font-family) {
   // If any of the values are set to `inherit`, we can't use the shorthand
   // so we fall back to passing in the individual properties.
   @if ($font-size == inherit or
@@ -1531,11 +1527,21 @@ $mat-menu-icon-margin: 16px !default;
     font-family: $font-family;
   }
   @else {
-    // Otherwise use the shorthand `font` to represent a typography level, because it's the the
-    // least amount of bytes. Note that we need to use interpolation for `font-size/line-height`
-    // in order to prevent Sass from dividing the two values.
+    // Otherwise use the shorthand `font`, because it's the least amount of bytes. Note
+    // that we need to use interpolation for `font-size/line-height` in order to prevent
+    // Sass from dividing the two values.
     font: $font-weight #{$font-size}/#{$line-height} $font-family;
   }
+}
+
+// Converts a typography level into CSS styles.
+@mixin mat-typography-level-to-styles($config, $level) {
+  $font-size: mat-font-size($config, $level);
+  $font-weight: mat-font-weight($config, $level);
+  $line-height: mat-line-height($config, $level);
+  $font-family: mat-font-family($config, $level);
+
+  @include mat-typography-font-shorthand($font-size, $font-weight, $line-height, $font-family);
 }
 
 
@@ -1770,18 +1776,24 @@ $mat-menu-icon-margin: 16px !default;
   // consistency. The font sizes come from the Chrome user agent styles which have h5 at 0.83em
   // and h6 at 0.67em.
   .mat-h5, #{$selector} h5 {
-    font-size: mat-font-size($config, body-1) * 0.83;
-    font-weight: mat-font-weight($config, body-1);
-    font-family: mat-font-family($config, body-1);
-    line-height: mat-line-height($config, body-1);
+    @include mat-typography-font-shorthand(
+      mat-font-size($config, body-1) * 0.83,
+      mat-font-weight($config, body-1),
+      mat-line-height($config, body-1),
+      mat-font-family($config, body-1)
+    );
+
     margin: 0 0 12px;
   }
 
   .mat-h6, #{$selector} h6 {
-    font-size: mat-font-size($config, body-1) * 0.67;
-    font-weight: mat-font-weight($config, body-1);
-    font-family: mat-font-family($config, body-1);
-    line-height: mat-line-height($config, body-1);
+    @include mat-typography-font-shorthand(
+      mat-font-size($config, body-1) * 0.67,
+      mat-font-weight($config, body-1),
+      mat-line-height($config, body-1),
+      mat-font-family($config, body-1)
+    );
+
     margin: 0 0 12px;
   }
 
@@ -3439,7 +3451,8 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 }
 
 @mixin _mat-tab-label-focus($tab-focus-color) {
-  .mat-tab-label:focus, .mat-tab-link:focus {
+  .mat-tab-label:not(.mat-tab-disabled):focus,
+  .mat-tab-link:not(.mat-tab-disabled):focus {
     background-color: mat-color($tab-focus-color, lighter, 0.3);
   }
 }

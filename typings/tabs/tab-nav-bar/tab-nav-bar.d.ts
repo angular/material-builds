@@ -78,4 +78,8 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestro
     readonly rippleDisabled: boolean;
     constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions, tabIndex: string);
     ngOnDestroy(): void;
+    /**
+     * Handles the click event, preventing default navigation if the tab link is disabled.
+     */
+    _handleClick(event: MouseEvent): void;
 }

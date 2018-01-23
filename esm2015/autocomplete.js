@@ -259,9 +259,9 @@ class MatAutocompleteTrigger {
          */
         this._manuallyFloatingLabel = false;
         /**
-         * Stream of escape keyboard events.
+         * Stream of keyboard events that can close the panel.
          */
-        this._escapeEventStream = new Subject();
+        this._closeKeyEventStream = new Subject();
         /**
          * View -> model callback called when value changes
          */
@@ -289,7 +289,7 @@ class MatAutocompleteTrigger {
      */
     ngOnDestroy() {
         this._destroyPanel();
-        this._escapeEventStream.complete();
+        this._closeKeyEventStream.complete();
     }
     /**
      * Whether or not the autocomplete panel is open.
@@ -331,7 +331,7 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     get panelClosingActions() {
-        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(() => this._panelOpen)), this._escapeEventStream, this._outsideClickStream, this._overlayRef ?
+        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(() => this._panelOpen)), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
             this._overlayRef.detachments().pipe(filter(() => this._panelOpen)) :
             of());
     }
@@ -410,9 +410,11 @@ class MatAutocompleteTrigger {
      */
     _handleKeydown(event) {
         const /** @type {?} */ keyCode = event.keyCode;
-        if (keyCode === ESCAPE && this.panelOpen) {
+        // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
+        // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
+        if (this.panelOpen && (keyCode === ESCAPE || (keyCode === UP_ARROW && event.altKey))) {
             this._resetActiveItem();
-            this._escapeEventStream.next();
+            this._closeKeyEventStream.next();
             event.stopPropagation();
         }
         else if (this.activeOption && keyCode === ENTER && this.panelOpen) {
