@@ -98,6 +98,10 @@ class MatSort extends _MatSortMixinBase {
     }
     /**
      * The sort direction of the currently active MatSortable.
+     * @return {?}
+     */
+    get direction() { return this._direction; }
+    /**
      * @param {?} direction
      * @return {?}
      */
@@ -107,10 +111,6 @@ class MatSort extends _MatSortMixinBase {
         }
         this._direction = direction;
     }
-    /**
-     * @return {?}
-     */
-    get direction() { return this._direction; }
     /**
      * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
      * May be overriden by the MatSortable's disable clear input.
@@ -454,7 +454,7 @@ MatSortHeader.ctorParameters = () => [
 MatSortHeader.propDecorators = {
     "id": [{ type: Input, args: ['mat-sort-header',] },],
     "arrowPosition": [{ type: Input },],
-    "start": [{ type: Input, args: ['start',] },],
+    "start": [{ type: Input },],
     "disableClear": [{ type: Input },],
 };
 

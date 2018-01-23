@@ -95,9 +95,7 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      * The diameter of the progress spinner (will set width and height of svg).
      * @return {?}
      */
-    get diameter() {
-        return this._diameter;
-    }
+    get diameter() { return this._diameter; }
     /**
      * @param {?} size
      * @return {?}

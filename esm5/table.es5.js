@@ -350,13 +350,13 @@ var MatTableDataSource = /** @class */ (function () {
         this._updateChangeSubscription();
     }
     Object.defineProperty(MatTableDataSource.prototype, "data", {
+        /** Array of data that should be rendered by the table, where each object represents one row. */
         get: /**
+         * Array of data that should be rendered by the table, where each object represents one row.
          * @return {?}
          */
         function () { return this._data.value; },
-        /** Array of data that should be rendered by the table, where each object represents one row. */
         set: /**
-         * Array of data that should be rendered by the table, where each object represents one row.
          * @param {?} data
          * @return {?}
          */
@@ -365,17 +365,17 @@ var MatTableDataSource = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatTableDataSource.prototype, "filter", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._filter.value; },
         /**
          * Filter term that should be used to filter out objects from the data array. To override how
          * data objects match to this filter string, provide a custom function for filterPredicate.
          */
-        set: /**
+        get: /**
          * Filter term that should be used to filter out objects from the data array. To override how
          * data objects match to this filter string, provide a custom function for filterPredicate.
+         * @return {?}
+         */
+        function () { return this._filter.value; },
+        set: /**
          * @param {?} filter
          * @return {?}
          */
@@ -384,17 +384,17 @@ var MatTableDataSource = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatTableDataSource.prototype, "sort", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._sort; },
         /**
          * Instance of the MatSort directive used by the table to control its sorting. Sort changes
          * emitted by the MatSort will trigger an update to the table's rendered data.
          */
-        set: /**
+        get: /**
          * Instance of the MatSort directive used by the table to control its sorting. Sort changes
          * emitted by the MatSort will trigger an update to the table's rendered data.
+         * @return {?}
+         */
+        function () { return this._sort; },
+        set: /**
          * @param {?} sort
          * @return {?}
          */
@@ -406,10 +406,6 @@ var MatTableDataSource = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatTableDataSource.prototype, "paginator", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._paginator; },
         /**
          * Instance of the MatPaginator component used by the table to control what page of the data is
          * displayed. Page changes emitted by the MatPaginator will trigger an update to the
@@ -420,7 +416,7 @@ var MatTableDataSource = /** @class */ (function () {
          * e.g. `[pageLength]=100` or `[pageIndex]=1`, then be sure that the paginator's view has been
          * initialized before assigning it to this data source.
          */
-        set: /**
+        get: /**
          * Instance of the MatPaginator component used by the table to control what page of the data is
          * displayed. Page changes emitted by the MatPaginator will trigger an update to the
          * table's rendered data.
@@ -429,6 +425,10 @@ var MatTableDataSource = /** @class */ (function () {
          * should be displayed. If the paginator receives its properties as template inputs,
          * e.g. `[pageLength]=100` or `[pageIndex]=1`, then be sure that the paginator's view has been
          * initialized before assigning it to this data source.
+         * @return {?}
+         */
+        function () { return this._paginator; },
+        set: /**
          * @param {?} paginator
          * @return {?}
          */

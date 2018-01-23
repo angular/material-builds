@@ -406,9 +406,7 @@ var MatDrawer = /** @class */ (function () {
          * @param {?} v
          * @return {?}
          */
-        function (v) {
-            this.toggle(coerceBooleanProperty(v));
-        },
+        function (v) { this.toggle(coerceBooleanProperty(v)); },
         enumerable: true,
         configurable: true
     });

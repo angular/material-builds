@@ -88,7 +88,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _scrollStrategyFactory;
     /** Whether or not the overlay panel is open. */
     private _panelOpen;
-    /** Whether filling out the select is required in the form.  */
+    /** Whether filling out the select is required in the form. */
     private _required;
     /** The scroll position of the overlay panel, calculated to center the selected option. */
     private _scrollTop;

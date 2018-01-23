@@ -238,9 +238,7 @@ var MatCheckbox = /** @class */ (function (_super) {
          * Whether the checkbox is checked.
          * @return {?}
          */
-        function () {
-            return this._checked;
-        },
+        function () { return this._checked; },
         set: /**
          * @param {?} checked
          * @return {?}
@@ -262,9 +260,7 @@ var MatCheckbox = /** @class */ (function (_super) {
          * set to false.
          * @return {?}
          */
-        function () {
-            return this._indeterminate;
-        },
+        function () { return this._indeterminate; },
         set: /**
          * @param {?} indeterminate
          * @return {?}

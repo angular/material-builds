@@ -212,9 +212,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
          * Whether the toggle indicator should be hidden.
          * @return {?}
          */
-        function () {
-            return this._hideToggle;
-        },
+        function () { return this._hideToggle; },
         set: /**
          * @param {?} value
          * @return {?}

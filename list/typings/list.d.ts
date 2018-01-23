@@ -47,7 +47,7 @@ export declare class MatListItem extends _MatListItemMixinBase implements AfterC
     _hasAvatar: MatListAvatarCssMatStyler;
     constructor(_element: ElementRef, _navList: MatNavList);
     ngAfterContentInit(): void;
-    /** Whether this list item should show a ripple effect when clicked.  */
+    /** Whether this list item should show a ripple effect when clicked. */
     _isRippleDisabled(): boolean;
     _handleFocus(): void;
     _handleBlur(): void;

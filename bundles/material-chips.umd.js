@@ -138,9 +138,7 @@ var MatChip = /** @class */ (function (_super) {
          * Whether the chip is selected.
          * @return {?}
          */
-        function () {
-            return this._selected;
-        },
+        function () { return this._selected; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -182,9 +180,7 @@ var MatChip = /** @class */ (function (_super) {
          * changes to it's selected state are always ignored.
          * @return {?}
          */
-        function () {
-            return this._selectable;
-        },
+        function () { return this._selectable; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -200,9 +196,7 @@ var MatChip = /** @class */ (function (_super) {
          * Determines whether or not the chip displays the remove styling and emits (remove) events.
          * @return {?}
          */
-        function () {
-            return this._removable;
-        },
+        function () { return this._removable; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -683,11 +677,11 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "id", {
         get: /**
+         * Required for FormFieldControl. The ID of the chip list
          * @return {?}
          */
         function () { return this._id || this._uid; },
         set: /**
-         * Required for FormFieldControl. The ID of the chip list
          * @param {?} value
          * @return {?}
          */
@@ -700,13 +694,11 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "required", {
         get: /**
+         * Required for FormFieldControl. Whether the chip list is required.
          * @return {?}
          */
-        function () {
-            return this._required;
-        },
+        function () { return this._required; },
         set: /**
-         * Required for FormFieldControl. Whether the chip list is required.
          * @param {?} value
          * @return {?}
          */
@@ -719,13 +711,13 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "placeholder", {
         get: /**
+         * For FormFieldControl. Use chip input's placholder if there's a chip input
          * @return {?}
          */
         function () {
             return this._chipInput ? this._chipInput.placeholder : this._placeholder;
         },
         set: /**
-         * For FormFieldControl. Use chip input's placholder if there's a chip input
          * @param {?} value
          * @return {?}
          */
@@ -767,9 +759,7 @@ var MatChipList = /** @class */ (function (_super) {
          * \@docs-private
          * @return {?}
          */
-        function () {
-            return !this.empty || this.focused;
-        },
+        function () { return !this.empty || this.focused; },
         enumerable: true,
         configurable: true
     });

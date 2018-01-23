@@ -61,12 +61,11 @@ export declare class MatTabBody implements OnInit {
     /** The tab body content to display. */
     _content: TemplatePortal<any>;
     /** The shifted index position of the tab body, where zero represents the active center tab. */
-    _position: MatTabBodyPositionState;
     position: number;
-    /** The origin position from which this tab should appear when it is centered into view. */
-    _origin: MatTabBodyOriginState;
+    _position: MatTabBodyPositionState;
     /** The origin position from which this tab should appear when it is centered into view. */
     origin: number;
+    _origin: MatTabBodyOriginState;
     constructor(_elementRef: ElementRef, _dir: Directionality);
     /**
      * After initialized, check if the content is centered and has an origin. If so, set the

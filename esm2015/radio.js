@@ -439,9 +439,7 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
      * The value of this radio button.
      * @return {?}
      */
-    get value() {
-        return this._value;
-    }
+    get value() { return this._value; }
     /**
      * @param {?} value
      * @return {?}

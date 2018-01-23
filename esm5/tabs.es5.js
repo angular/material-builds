@@ -393,6 +393,7 @@ var MatTabBody = /** @class */ (function () {
     }
     Object.defineProperty(MatTabBody.prototype, "position", {
         set: /**
+         * The shifted index position of the tab body, where zero represents the active center tab.
          * @param {?} position
          * @return {?}
          */
@@ -534,8 +535,8 @@ var MatTabBody = /** @class */ (function () {
         "_afterLeavingCenter": [{ type: Output },],
         "_onCentered": [{ type: Output },],
         "_content": [{ type: Input, args: ['content',] },],
-        "position": [{ type: Input, args: ['position',] },],
-        "origin": [{ type: Input, args: ['origin',] },],
+        "position": [{ type: Input },],
+        "origin": [{ type: Input },],
     };
     return MatTabBody;
 }());
@@ -653,11 +654,11 @@ var MatTabGroup = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatTabGroup.prototype, "selectedIndex", {
         get: /**
+         * The index of the active tab.
          * @return {?}
          */
         function () { return this._selectedIndex; },
         set: /**
-         * The index of the active tab.
          * @param {?} value
          * @return {?}
          */
@@ -1404,13 +1405,13 @@ var MatTabHeader = /** @class */ (function (_super) {
         this._tabList.nativeElement.style.transform = "translate3d(" + translateX + "px, 0, 0)";
     };
     Object.defineProperty(MatTabHeader.prototype, "scrollDistance", {
+        /** Sets the distance in pixels that the tab header should be transformed in the X-axis. */
         get: /**
+         * Sets the distance in pixels that the tab header should be transformed in the X-axis.
          * @return {?}
          */
         function () { return this._scrollDistance; },
-        /** Sets the distance in pixels that the tab header should be transformed in the X-axis. */
         set: /**
-         * Sets the distance in pixels that the tab header should be transformed in the X-axis.
          * @param {?} v
          * @return {?}
          */

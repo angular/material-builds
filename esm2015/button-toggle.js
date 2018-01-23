@@ -89,9 +89,7 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      * `name` attribute for the underlying `input` element.
      * @return {?}
      */
-    get name() {
-        return this._name;
-    }
+    get name() { return this._name; }
     /**
      * @param {?} value
      * @return {?}
@@ -104,23 +102,17 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      * Whether the toggle group is vertical.
      * @return {?}
      */
-    get vertical() {
-        return this._vertical;
-    }
+    get vertical() { return this._vertical; }
     /**
      * @param {?} value
      * @return {?}
      */
-    set vertical(value) {
-        this._vertical = coerceBooleanProperty(value);
-    }
+    set vertical(value) { this._vertical = coerceBooleanProperty(value); }
     /**
      * Value of the toggle group.
      * @return {?}
      */
-    get value() {
-        return this._value;
-    }
+    get value() { return this._value; }
     /**
      * @param {?} newValue
      * @return {?}
@@ -136,9 +128,7 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      * Whether the toggle group is selected.
      * @return {?}
      */
-    get selected() {
-        return this._selected;
-    }
+    get selected() { return this._selected; }
     /**
      * @param {?} selected
      * @return {?}
@@ -275,9 +265,7 @@ class MatButtonToggleGroupMultiple extends _MatButtonToggleGroupMixinBase {
      * Whether the toggle group is vertical.
      * @return {?}
      */
-    get vertical() {
-        return this._vertical;
-    }
+    get vertical() { return this._vertical; }
     /**
      * @param {?} value
      * @return {?}
@@ -378,9 +366,7 @@ class MatButtonToggle {
      * Unique ID for the underlying `input` element.
      * @return {?}
      */
-    get inputId() {
-        return `${this.id}-input`;
-    }
+    get inputId() { return `${this.id}-input`; }
     /**
      * Whether the button is checked.
      * @return {?}
@@ -405,9 +391,7 @@ class MatButtonToggle {
      * MatButtonToggleGroup reads this to assign its own value.
      * @return {?}
      */
-    get value() {
-        return this._value;
-    }
+    get value() { return this._value; }
     /**
      * @param {?} value
      * @return {?}

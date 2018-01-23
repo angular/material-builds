@@ -126,11 +126,11 @@ var MatSort = /** @class */ (function (_super) {
     }
     Object.defineProperty(MatSort.prototype, "direction", {
         get: /**
+         * The sort direction of the currently active MatSortable.
          * @return {?}
          */
         function () { return this._direction; },
         set: /**
-         * The sort direction of the currently active MatSortable.
          * @param {?} direction
          * @return {?}
          */
@@ -551,7 +551,7 @@ var MatSortHeader = /** @class */ (function (_super) {
     MatSortHeader.propDecorators = {
         "id": [{ type: _angular_core.Input, args: ['mat-sort-header',] },],
         "arrowPosition": [{ type: _angular_core.Input },],
-        "start": [{ type: _angular_core.Input, args: ['start',] },],
+        "start": [{ type: _angular_core.Input },],
         "disableClear": [{ type: _angular_core.Input },],
     };
     return MatSortHeader;

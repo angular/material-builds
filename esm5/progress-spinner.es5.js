@@ -71,9 +71,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
          * The diameter of the progress spinner (will set width and height of svg).
          * @return {?}
          */
-        function () {
-            return this._diameter;
-        },
+        function () { return this._diameter; },
         set: /**
          * @param {?} size
          * @return {?}

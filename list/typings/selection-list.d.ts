@@ -90,7 +90,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
      * @docs-private
      */
     getLabel(): any;
-    /** Whether this list item should show a ripple effect when clicked.  */
+    /** Whether this list item should show a ripple effect when clicked. */
     _isRippleDisabled(): any;
     _handleClick(): void;
     _handleFocus(): void;

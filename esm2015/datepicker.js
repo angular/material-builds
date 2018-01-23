@@ -1327,9 +1327,7 @@ class MatDatepicker {
      * than a popup and elements have more padding to allow for bigger touch targets.
      * @return {?}
      */
-    get touchUi() {
-        return this._touchUi;
-    }
+    get touchUi() { return this._touchUi; }
     /**
      * @param {?} value
      * @return {?}
@@ -1742,9 +1740,7 @@ class MatDatepickerInput {
      * The value of the input.
      * @return {?}
      */
-    get value() {
-        return this._value;
-    }
+    get value() { return this._value; }
     /**
      * @param {?} value
      * @return {?}

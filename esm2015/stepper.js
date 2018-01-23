@@ -97,9 +97,7 @@ class MatStepHeader {
      * @param {?} value
      * @return {?}
      */
-    set index(value) {
-        this._index = coerceNumberProperty(value);
-    }
+    set index(value) { this._index = coerceNumberProperty(value); }
     /**
      * Whether the given step is selected.
      * @return {?}
@@ -109,9 +107,7 @@ class MatStepHeader {
      * @param {?} value
      * @return {?}
      */
-    set selected(value) {
-        this._selected = coerceBooleanProperty(value);
-    }
+    set selected(value) { this._selected = coerceBooleanProperty(value); }
     /**
      * Whether the given step label is active.
      * @return {?}
@@ -121,9 +117,7 @@ class MatStepHeader {
      * @param {?} value
      * @return {?}
      */
-    set active(value) {
-        this._active = coerceBooleanProperty(value);
-    }
+    set active(value) { this._active = coerceBooleanProperty(value); }
     /**
      * Whether the given step is optional.
      * @return {?}
@@ -133,9 +127,7 @@ class MatStepHeader {
      * @param {?} value
      * @return {?}
      */
-    set optional(value) {
-        this._optional = coerceBooleanProperty(value);
-    }
+    set optional(value) { this._optional = coerceBooleanProperty(value); }
     /**
      * @return {?}
      */

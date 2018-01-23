@@ -310,28 +310,32 @@ class MatTableDataSource {
     }
     /**
      * Array of data that should be rendered by the table, where each object represents one row.
+     * @return {?}
+     */
+    get data() { return this._data.value; }
+    /**
      * @param {?} data
      * @return {?}
      */
     set data(data) { this._data.next(data); }
     /**
-     * @return {?}
-     */
-    get data() { return this._data.value; }
-    /**
      * Filter term that should be used to filter out objects from the data array. To override how
      * data objects match to this filter string, provide a custom function for filterPredicate.
+     * @return {?}
+     */
+    get filter() { return this._filter.value; }
+    /**
      * @param {?} filter
      * @return {?}
      */
     set filter(filter) { this._filter.next(filter); }
     /**
-     * @return {?}
-     */
-    get filter() { return this._filter.value; }
-    /**
      * Instance of the MatSort directive used by the table to control its sorting. Sort changes
      * emitted by the MatSort will trigger an update to the table's rendered data.
+     * @return {?}
+     */
+    get sort() { return this._sort; }
+    /**
      * @param {?} sort
      * @return {?}
      */
@@ -339,10 +343,6 @@ class MatTableDataSource {
         this._sort = sort;
         this._updateChangeSubscription();
     }
-    /**
-     * @return {?}
-     */
-    get sort() { return this._sort; }
     /**
      * Instance of the MatPaginator component used by the table to control what page of the data is
      * displayed. Page changes emitted by the MatPaginator will trigger an update to the
@@ -352,6 +352,10 @@ class MatTableDataSource {
      * should be displayed. If the paginator receives its properties as template inputs,
      * e.g. `[pageLength]=100` or `[pageIndex]=1`, then be sure that the paginator's view has been
      * initialized before assigning it to this data source.
+     * @return {?}
+     */
+    get paginator() { return this._paginator; }
+    /**
      * @param {?} paginator
      * @return {?}
      */
@@ -359,10 +363,6 @@ class MatTableDataSource {
         this._paginator = paginator;
         this._updateChangeSubscription();
     }
-    /**
-     * @return {?}
-     */
-    get paginator() { return this._paginator; }
     /**
      * Subscribe to changes that should trigger an update to the table's rendered rows. When the
      * changes occur, process the current state of the filter, sort, and pagination along with

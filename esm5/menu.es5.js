@@ -374,13 +374,11 @@ var MatMenu = /** @class */ (function () {
     });
     Object.defineProperty(MatMenu.prototype, "overlapTrigger", {
         get: /**
+         * Whether the menu should overlap its trigger.
          * @return {?}
          */
-        function () {
-            return this._overlapTrigger;
-        },
+        function () { return this._overlapTrigger; },
         set: /**
-         * Whether the menu should overlap its trigger.
          * @param {?} value
          * @return {?}
          */
@@ -413,14 +411,14 @@ var MatMenu = /** @class */ (function () {
     });
     Object.defineProperty(MatMenu.prototype, "classList", {
         get: /**
-         * @return {?}
-         */
-        function () { return this.panelClass; },
-        set: /**
          * This method takes classes set on the host mat-menu element and applies them on the
          * menu template that displays in the overlay container.  Otherwise, it's difficult
          * to style the containing menu from outside the component.
          * @deprecated Use `panelClass` instead.
+         * @return {?}
+         */
+        function () { return this.panelClass; },
+        set: /**
          * @param {?} classes
          * @return {?}
          */

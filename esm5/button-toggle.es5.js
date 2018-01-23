@@ -97,9 +97,7 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
          * `name` attribute for the underlying `input` element.
          * @return {?}
          */
-        function () {
-            return this._name;
-        },
+        function () { return this._name; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -116,16 +114,12 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
          * Whether the toggle group is vertical.
          * @return {?}
          */
-        function () {
-            return this._vertical;
-        },
+        function () { return this._vertical; },
         set: /**
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._vertical = coerceBooleanProperty(value);
-        },
+        function (value) { this._vertical = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -134,9 +128,7 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
          * Value of the toggle group.
          * @return {?}
          */
-        function () {
-            return this._value;
-        },
+        function () { return this._value; },
         set: /**
          * @param {?} newValue
          * @return {?}
@@ -156,9 +148,7 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
          * Whether the toggle group is selected.
          * @return {?}
          */
-        function () {
-            return this._selected;
-        },
+        function () { return this._selected; },
         set: /**
          * @param {?} selected
          * @return {?}
@@ -358,9 +348,7 @@ var MatButtonToggleGroupMultiple = /** @class */ (function (_super) {
          * Whether the toggle group is vertical.
          * @return {?}
          */
-        function () {
-            return this._vertical;
-        },
+        function () { return this._vertical; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -460,9 +448,7 @@ var MatButtonToggle = /** @class */ (function () {
          * Unique ID for the underlying `input` element.
          * @return {?}
          */
-        function () {
-            return this.id + "-input";
-        },
+        function () { return this.id + "-input"; },
         enumerable: true,
         configurable: true
     });
@@ -495,9 +481,7 @@ var MatButtonToggle = /** @class */ (function () {
          * MatButtonToggleGroup reads this to assign its own value.
          * @return {?}
          */
-        function () {
-            return this._value;
-        },
+        function () { return this._value; },
         set: /**
          * @param {?} value
          * @return {?}

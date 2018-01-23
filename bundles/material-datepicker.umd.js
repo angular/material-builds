@@ -1560,9 +1560,7 @@ var MatDatepicker = /** @class */ (function () {
          * than a popup and elements have more padding to allow for bigger touch targets.
          * @return {?}
          */
-        function () {
-            return this._touchUi;
-        },
+        function () { return this._touchUi; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -2064,9 +2062,7 @@ var MatDatepickerInput = /** @class */ (function () {
          * The value of the input.
          * @return {?}
          */
-        function () {
-            return this._value;
-        },
+        function () { return this._value; },
         set: /**
          * @param {?} value
          * @return {?}

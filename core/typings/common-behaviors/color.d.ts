@@ -16,7 +16,7 @@ export interface CanColor {
 export interface HasElementRef {
     _elementRef: ElementRef;
 }
-/** Possible color palette values.  */
+/** Possible color palette values. */
 export declare type ThemePalette = 'primary' | 'accent' | 'warn' | undefined;
 /** Mixin to augment a directive with a `color` property. */
 export declare function mixinColor<T extends Constructor<HasElementRef>>(base: T, defaultColor?: ThemePalette): Constructor<CanColor> & T;

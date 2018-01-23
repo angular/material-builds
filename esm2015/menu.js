@@ -338,17 +338,15 @@ class MatMenu {
     }
     /**
      * Whether the menu should overlap its trigger.
+     * @return {?}
+     */
+    get overlapTrigger() { return this._overlapTrigger; }
+    /**
      * @param {?} value
      * @return {?}
      */
     set overlapTrigger(value) {
         this._overlapTrigger = coerceBooleanProperty(value);
-    }
-    /**
-     * @return {?}
-     */
-    get overlapTrigger() {
-        return this._overlapTrigger;
     }
     /**
      * This method takes classes set on the host mat-menu element and applies them on the
@@ -372,14 +370,14 @@ class MatMenu {
      * menu template that displays in the overlay container.  Otherwise, it's difficult
      * to style the containing menu from outside the component.
      * @deprecated Use `panelClass` instead.
+     * @return {?}
+     */
+    get classList() { return this.panelClass; }
+    /**
      * @param {?} classes
      * @return {?}
      */
     set classList(classes) { this.panelClass = classes; }
-    /**
-     * @return {?}
-     */
-    get classList() { return this.panelClass; }
     /**
      * @return {?}
      */

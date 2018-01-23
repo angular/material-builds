@@ -415,9 +415,7 @@ var MatDrawer = /** @class */ (function () {
          * @param {?} v
          * @return {?}
          */
-        function (v) {
-            this.toggle(_angular_cdk_coercion.coerceBooleanProperty(v));
-        },
+        function (v) { this.toggle(_angular_cdk_coercion.coerceBooleanProperty(v)); },
         enumerable: true,
         configurable: true
     });

@@ -174,7 +174,7 @@ var MatListItem = /** @class */ (function (_super) {
     function () {
         this._lineSetter = new MatLineSetter(this._lines, this._element);
     };
-    /** Whether this list item should show a ripple effect when clicked.  */
+    /** Whether this list item should show a ripple effect when clicked. */
     /**
      * Whether this list item should show a ripple effect when clicked.
      * @return {?}
@@ -446,7 +446,7 @@ var MatListOption = /** @class */ (function (_super) {
     function () {
         return this._text ? this._text.nativeElement.textContent : '';
     };
-    /** Whether this list item should show a ripple effect when clicked.  */
+    /** Whether this list item should show a ripple effect when clicked. */
     /**
      * Whether this list item should show a ripple effect when clicked.
      * @return {?}

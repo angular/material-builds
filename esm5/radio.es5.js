@@ -553,9 +553,7 @@ var MatRadioButton = /** @class */ (function (_super) {
          * The value of this radio button.
          * @return {?}
          */
-        function () {
-            return this._value;
-        },
+        function () { return this._value; },
         set: /**
          * @param {?} value
          * @return {?}

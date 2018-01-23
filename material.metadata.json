@@ -28,9 +28,6 @@
       "from": "./snack-bar"
     },
     {
-      "from": "./dialog"
-    },
-    {
       "from": "./icon"
     },
     {
@@ -41,6 +38,9 @@
     },
     {
       "from": "./slide-toggle"
+    },
+    {
+      "from": "./dialog"
     },
     {
       "from": "./sidenav"

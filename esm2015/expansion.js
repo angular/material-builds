@@ -198,9 +198,7 @@ class MatExpansionPanel extends _MatExpansionPanelMixinBase {
      * Whether the toggle indicator should be hidden.
      * @return {?}
      */
-    get hideToggle() {
-        return this._hideToggle;
-    }
+    get hideToggle() { return this._hideToggle; }
     /**
      * @param {?} value
      * @return {?}

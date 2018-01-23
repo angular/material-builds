@@ -110,9 +110,7 @@ var MatStepHeader = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._index = _angular_cdk_coercion.coerceNumberProperty(value);
-        },
+        function (value) { this._index = _angular_cdk_coercion.coerceNumberProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -126,9 +124,7 @@ var MatStepHeader = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._selected = _angular_cdk_coercion.coerceBooleanProperty(value);
-        },
+        function (value) { this._selected = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -142,9 +138,7 @@ var MatStepHeader = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._active = _angular_cdk_coercion.coerceBooleanProperty(value);
-        },
+        function (value) { this._active = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -158,9 +152,7 @@ var MatStepHeader = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._optional = _angular_cdk_coercion.coerceBooleanProperty(value);
-        },
+        function (value) { this._optional = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });

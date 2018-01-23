@@ -345,6 +345,7 @@ class MatTabBody {
         this._onCentered = new EventEmitter(true);
     }
     /**
+     * The shifted index position of the tab body, where zero represents the active center tab.
      * @param {?} position
      * @return {?}
      */
@@ -452,8 +453,8 @@ MatTabBody.propDecorators = {
     "_afterLeavingCenter": [{ type: Output },],
     "_onCentered": [{ type: Output },],
     "_content": [{ type: Input, args: ['content',] },],
-    "position": [{ type: Input, args: ['position',] },],
-    "origin": [{ type: Input, args: ['origin',] },],
+    "position": [{ type: Input },],
+    "origin": [{ type: Input },],
 };
 
 /**
@@ -562,16 +563,16 @@ class MatTabGroup extends _MatTabGroupMixinBase {
     set _dynamicHeightDeprecated(value) { this._dynamicHeight = value; }
     /**
      * The index of the active tab.
+     * @return {?}
+     */
+    get selectedIndex() { return this._selectedIndex; }
+    /**
      * @param {?} value
      * @return {?}
      */
     set selectedIndex(value) {
         this._indexToSelect = coerceNumberProperty(value, null);
     }
-    /**
-     * @return {?}
-     */
-    get selectedIndex() { return this._selectedIndex; }
     /**
      * Background color of the tab group.
      * @return {?}
@@ -1121,6 +1122,10 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
     }
     /**
      * Sets the distance in pixels that the tab header should be transformed in the X-axis.
+     * @return {?}
+     */
+    get scrollDistance() { return this._scrollDistance; }
+    /**
      * @param {?} v
      * @return {?}
      */
@@ -1131,10 +1136,6 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         this._scrollDistanceChanged = true;
         this._checkScrollingControls();
     }
-    /**
-     * @return {?}
-     */
-    get scrollDistance() { return this._scrollDistance; }
     /**
      * Moves the tab list in the 'before' or 'after' direction (towards the beginning of the list or
      * the end of the list, respectively). The distance to scroll is computed to be a third of the

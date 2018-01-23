@@ -4621,9 +4621,7 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
          * `name` attribute for the underlying `input` element.
          * @return {?}
          */
-        function () {
-            return this._name;
-        },
+        function () { return this._name; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -4640,16 +4638,12 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
          * Whether the toggle group is vertical.
          * @return {?}
          */
-        function () {
-            return this._vertical;
-        },
+        function () { return this._vertical; },
         set: /**
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._vertical = _angular_cdk_coercion.coerceBooleanProperty(value);
-        },
+        function (value) { this._vertical = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -4658,9 +4652,7 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
          * Value of the toggle group.
          * @return {?}
          */
-        function () {
-            return this._value;
-        },
+        function () { return this._value; },
         set: /**
          * @param {?} newValue
          * @return {?}
@@ -4680,9 +4672,7 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
          * Whether the toggle group is selected.
          * @return {?}
          */
-        function () {
-            return this._selected;
-        },
+        function () { return this._selected; },
         set: /**
          * @param {?} selected
          * @return {?}
@@ -4882,9 +4872,7 @@ var MatButtonToggleGroupMultiple = /** @class */ (function (_super) {
          * Whether the toggle group is vertical.
          * @return {?}
          */
-        function () {
-            return this._vertical;
-        },
+        function () { return this._vertical; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -4984,9 +4972,7 @@ var MatButtonToggle = /** @class */ (function () {
          * Unique ID for the underlying `input` element.
          * @return {?}
          */
-        function () {
-            return this.id + "-input";
-        },
+        function () { return this.id + "-input"; },
         enumerable: true,
         configurable: true
     });
@@ -5019,9 +5005,7 @@ var MatButtonToggle = /** @class */ (function () {
          * MatButtonToggleGroup reads this to assign its own value.
          * @return {?}
          */
-        function () {
-            return this._value;
-        },
+        function () { return this._value; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -5766,9 +5750,7 @@ var MatCheckbox = /** @class */ (function (_super) {
          * Whether the checkbox is checked.
          * @return {?}
          */
-        function () {
-            return this._checked;
-        },
+        function () { return this._checked; },
         set: /**
          * @param {?} checked
          * @return {?}
@@ -5790,9 +5772,7 @@ var MatCheckbox = /** @class */ (function (_super) {
          * set to false.
          * @return {?}
          */
-        function () {
-            return this._indeterminate;
-        },
+        function () { return this._indeterminate; },
         set: /**
          * @param {?} indeterminate
          * @return {?}
@@ -6325,9 +6305,7 @@ var MatChip = /** @class */ (function (_super) {
          * Whether the chip is selected.
          * @return {?}
          */
-        function () {
-            return this._selected;
-        },
+        function () { return this._selected; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -6369,9 +6347,7 @@ var MatChip = /** @class */ (function (_super) {
          * changes to it's selected state are always ignored.
          * @return {?}
          */
-        function () {
-            return this._selectable;
-        },
+        function () { return this._selectable; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -6387,9 +6363,7 @@ var MatChip = /** @class */ (function (_super) {
          * Determines whether or not the chip displays the remove styling and emits (remove) events.
          * @return {?}
          */
-        function () {
-            return this._removable;
-        },
+        function () { return this._removable; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -6870,11 +6844,11 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "id", {
         get: /**
+         * Required for FormFieldControl. The ID of the chip list
          * @return {?}
          */
         function () { return this._id || this._uid; },
         set: /**
-         * Required for FormFieldControl. The ID of the chip list
          * @param {?} value
          * @return {?}
          */
@@ -6887,13 +6861,11 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "required", {
         get: /**
+         * Required for FormFieldControl. Whether the chip list is required.
          * @return {?}
          */
-        function () {
-            return this._required;
-        },
+        function () { return this._required; },
         set: /**
-         * Required for FormFieldControl. Whether the chip list is required.
          * @param {?} value
          * @return {?}
          */
@@ -6906,13 +6878,13 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "placeholder", {
         get: /**
+         * For FormFieldControl. Use chip input's placholder if there's a chip input
          * @return {?}
          */
         function () {
             return this._chipInput ? this._chipInput.placeholder : this._placeholder;
         },
         set: /**
-         * For FormFieldControl. Use chip input's placholder if there's a chip input
          * @param {?} value
          * @return {?}
          */
@@ -6954,9 +6926,7 @@ var MatChipList = /** @class */ (function (_super) {
          * \@docs-private
          * @return {?}
          */
-        function () {
-            return !this.empty || this.focused;
-        },
+        function () { return !this.empty || this.focused; },
         enumerable: true,
         configurable: true
     });
@@ -12411,9 +12381,7 @@ var MatDatepicker = /** @class */ (function () {
          * than a popup and elements have more padding to allow for bigger touch targets.
          * @return {?}
          */
-        function () {
-            return this._touchUi;
-        },
+        function () { return this._touchUi; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -12915,9 +12883,7 @@ var MatDatepickerInput = /** @class */ (function () {
          * The value of the input.
          * @return {?}
          */
-        function () {
-            return this._value;
-        },
+        function () { return this._value; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -13650,9 +13616,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
          * Whether the toggle indicator should be hidden.
          * @return {?}
          */
-        function () {
-            return this._hideToggle;
-        },
+        function () { return this._hideToggle; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -15248,7 +15212,7 @@ var MatListItem = /** @class */ (function (_super) {
     function () {
         this._lineSetter = new MatLineSetter(this._lines, this._element);
     };
-    /** Whether this list item should show a ripple effect when clicked.  */
+    /** Whether this list item should show a ripple effect when clicked. */
     /**
      * Whether this list item should show a ripple effect when clicked.
      * @return {?}
@@ -15520,7 +15484,7 @@ var MatListOption = /** @class */ (function (_super) {
     function () {
         return this._text ? this._text.nativeElement.textContent : '';
     };
-    /** Whether this list item should show a ripple effect when clicked.  */
+    /** Whether this list item should show a ripple effect when clicked. */
     /**
      * Whether this list item should show a ripple effect when clicked.
      * @return {?}
@@ -16403,13 +16367,11 @@ var MatMenu = /** @class */ (function () {
     });
     Object.defineProperty(MatMenu.prototype, "overlapTrigger", {
         get: /**
+         * Whether the menu should overlap its trigger.
          * @return {?}
          */
-        function () {
-            return this._overlapTrigger;
-        },
+        function () { return this._overlapTrigger; },
         set: /**
-         * Whether the menu should overlap its trigger.
          * @param {?} value
          * @return {?}
          */
@@ -16442,14 +16404,14 @@ var MatMenu = /** @class */ (function () {
     });
     Object.defineProperty(MatMenu.prototype, "classList", {
         get: /**
-         * @return {?}
-         */
-        function () { return this.panelClass; },
-        set: /**
          * This method takes classes set on the host mat-menu element and applies them on the
          * menu template that displays in the overlay container.  Otherwise, it's difficult
          * to style the containing menu from outside the component.
          * @deprecated Use `panelClass` instead.
+         * @return {?}
+         */
+        function () { return this.panelClass; },
+        set: /**
          * @param {?} classes
          * @return {?}
          */
@@ -20503,9 +20465,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
          * The diameter of the progress spinner (will set width and height of svg).
          * @return {?}
          */
-        function () {
-            return this._diameter;
-        },
+        function () { return this._diameter; },
         set: /**
          * @param {?} size
          * @return {?}
@@ -21318,9 +21278,7 @@ var MatRadioButton = /** @class */ (function (_super) {
          * The value of this radio button.
          * @return {?}
          */
-        function () {
-            return this._value;
-        },
+        function () { return this._value; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -22040,9 +21998,7 @@ var MatDrawer = /** @class */ (function () {
          * @param {?} v
          * @return {?}
          */
-        function (v) {
-            this.toggle(_angular_cdk_coercion.coerceBooleanProperty(v));
-        },
+        function (v) { this.toggle(_angular_cdk_coercion.coerceBooleanProperty(v)); },
         enumerable: true,
         configurable: true
     });
@@ -25305,11 +25261,11 @@ var MatSort = /** @class */ (function (_super) {
     }
     Object.defineProperty(MatSort.prototype, "direction", {
         get: /**
+         * The sort direction of the currently active MatSortable.
          * @return {?}
          */
         function () { return this._direction; },
         set: /**
-         * The sort direction of the currently active MatSortable.
          * @param {?} direction
          * @return {?}
          */
@@ -25730,7 +25686,7 @@ var MatSortHeader = /** @class */ (function (_super) {
     MatSortHeader.propDecorators = {
         "id": [{ type: _angular_core.Input, args: ['mat-sort-header',] },],
         "arrowPosition": [{ type: _angular_core.Input },],
-        "start": [{ type: _angular_core.Input, args: ['start',] },],
+        "start": [{ type: _angular_core.Input },],
         "disableClear": [{ type: _angular_core.Input },],
     };
     return MatSortHeader;
@@ -25830,9 +25786,7 @@ var MatStepHeader = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._index = _angular_cdk_coercion.coerceNumberProperty(value);
-        },
+        function (value) { this._index = _angular_cdk_coercion.coerceNumberProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -25846,9 +25800,7 @@ var MatStepHeader = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._selected = _angular_cdk_coercion.coerceBooleanProperty(value);
-        },
+        function (value) { this._selected = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -25862,9 +25814,7 @@ var MatStepHeader = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._active = _angular_cdk_coercion.coerceBooleanProperty(value);
-        },
+        function (value) { this._active = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -25878,9 +25828,7 @@ var MatStepHeader = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._optional = _angular_cdk_coercion.coerceBooleanProperty(value);
-        },
+        function (value) { this._optional = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -26546,13 +26494,13 @@ var MatTableDataSource = /** @class */ (function () {
         this._updateChangeSubscription();
     }
     Object.defineProperty(MatTableDataSource.prototype, "data", {
+        /** Array of data that should be rendered by the table, where each object represents one row. */
         get: /**
+         * Array of data that should be rendered by the table, where each object represents one row.
          * @return {?}
          */
         function () { return this._data.value; },
-        /** Array of data that should be rendered by the table, where each object represents one row. */
         set: /**
-         * Array of data that should be rendered by the table, where each object represents one row.
          * @param {?} data
          * @return {?}
          */
@@ -26561,17 +26509,17 @@ var MatTableDataSource = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatTableDataSource.prototype, "filter", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._filter.value; },
         /**
          * Filter term that should be used to filter out objects from the data array. To override how
          * data objects match to this filter string, provide a custom function for filterPredicate.
          */
-        set: /**
+        get: /**
          * Filter term that should be used to filter out objects from the data array. To override how
          * data objects match to this filter string, provide a custom function for filterPredicate.
+         * @return {?}
+         */
+        function () { return this._filter.value; },
+        set: /**
          * @param {?} filter
          * @return {?}
          */
@@ -26580,17 +26528,17 @@ var MatTableDataSource = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatTableDataSource.prototype, "sort", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._sort; },
         /**
          * Instance of the MatSort directive used by the table to control its sorting. Sort changes
          * emitted by the MatSort will trigger an update to the table's rendered data.
          */
-        set: /**
+        get: /**
          * Instance of the MatSort directive used by the table to control its sorting. Sort changes
          * emitted by the MatSort will trigger an update to the table's rendered data.
+         * @return {?}
+         */
+        function () { return this._sort; },
+        set: /**
          * @param {?} sort
          * @return {?}
          */
@@ -26602,10 +26550,6 @@ var MatTableDataSource = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatTableDataSource.prototype, "paginator", {
-        get: /**
-         * @return {?}
-         */
-        function () { return this._paginator; },
         /**
          * Instance of the MatPaginator component used by the table to control what page of the data is
          * displayed. Page changes emitted by the MatPaginator will trigger an update to the
@@ -26616,7 +26560,7 @@ var MatTableDataSource = /** @class */ (function () {
          * e.g. `[pageLength]=100` or `[pageIndex]=1`, then be sure that the paginator's view has been
          * initialized before assigning it to this data source.
          */
-        set: /**
+        get: /**
          * Instance of the MatPaginator component used by the table to control what page of the data is
          * displayed. Page changes emitted by the MatPaginator will trigger an update to the
          * table's rendered data.
@@ -26625,6 +26569,10 @@ var MatTableDataSource = /** @class */ (function () {
          * should be displayed. If the paginator receives its properties as template inputs,
          * e.g. `[pageLength]=100` or `[pageIndex]=1`, then be sure that the paginator's view has been
          * initialized before assigning it to this data source.
+         * @return {?}
+         */
+        function () { return this._paginator; },
+        set: /**
          * @param {?} paginator
          * @return {?}
          */
@@ -27200,6 +27148,7 @@ var MatTabBody = /** @class */ (function () {
     }
     Object.defineProperty(MatTabBody.prototype, "position", {
         set: /**
+         * The shifted index position of the tab body, where zero represents the active center tab.
          * @param {?} position
          * @return {?}
          */
@@ -27341,8 +27290,8 @@ var MatTabBody = /** @class */ (function () {
         "_afterLeavingCenter": [{ type: _angular_core.Output },],
         "_onCentered": [{ type: _angular_core.Output },],
         "_content": [{ type: _angular_core.Input, args: ['content',] },],
-        "position": [{ type: _angular_core.Input, args: ['position',] },],
-        "origin": [{ type: _angular_core.Input, args: ['origin',] },],
+        "position": [{ type: _angular_core.Input },],
+        "origin": [{ type: _angular_core.Input },],
     };
     return MatTabBody;
 }());
@@ -27460,11 +27409,11 @@ var MatTabGroup = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatTabGroup.prototype, "selectedIndex", {
         get: /**
+         * The index of the active tab.
          * @return {?}
          */
         function () { return this._selectedIndex; },
         set: /**
-         * The index of the active tab.
          * @param {?} value
          * @return {?}
          */
@@ -28211,13 +28160,13 @@ var MatTabHeader = /** @class */ (function (_super) {
         this._tabList.nativeElement.style.transform = "translate3d(" + translateX + "px, 0, 0)";
     };
     Object.defineProperty(MatTabHeader.prototype, "scrollDistance", {
+        /** Sets the distance in pixels that the tab header should be transformed in the X-axis. */
         get: /**
+         * Sets the distance in pixels that the tab header should be transformed in the X-axis.
          * @return {?}
          */
         function () { return this._scrollDistance; },
-        /** Sets the distance in pixels that the tab header should be transformed in the X-axis. */
         set: /**
-         * Sets the distance in pixels that the tab header should be transformed in the X-axis.
          * @param {?} v
          * @return {?}
          */
@@ -28934,7 +28883,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-0b8955b');
+var VERSION = new _angular_core.Version('5.1.0-379a305');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

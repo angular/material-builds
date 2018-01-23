@@ -189,9 +189,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      * Whether the checkbox is checked.
      * @return {?}
      */
-    get checked() {
-        return this._checked;
-    }
+    get checked() { return this._checked; }
     /**
      * @param {?} checked
      * @return {?}
@@ -209,9 +207,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      * set to false.
      * @return {?}
      */
-    get indeterminate() {
-        return this._indeterminate;
-    }
+    get indeterminate() { return this._indeterminate; }
     /**
      * @param {?} indeterminate
      * @return {?}

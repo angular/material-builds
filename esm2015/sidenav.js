@@ -356,9 +356,7 @@ class MatDrawer {
      * @param {?} v
      * @return {?}
      */
-    set opened(v) {
-        this.toggle(coerceBooleanProperty(v));
-    }
+    set opened(v) { this.toggle(coerceBooleanProperty(v)); }
     /**
      * Open the drawer.
      * @param {?=} openedVia Whether the drawer was opened by a key press, mouse click or programmatically.

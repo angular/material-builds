@@ -94,9 +94,7 @@ var MatStepHeader = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._index = coerceNumberProperty(value);
-        },
+        function (value) { this._index = coerceNumberProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -110,9 +108,7 @@ var MatStepHeader = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._selected = coerceBooleanProperty(value);
-        },
+        function (value) { this._selected = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -126,9 +122,7 @@ var MatStepHeader = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._active = coerceBooleanProperty(value);
-        },
+        function (value) { this._active = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -142,9 +136,7 @@ var MatStepHeader = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._optional = coerceBooleanProperty(value);
-        },
+        function (value) { this._optional = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });

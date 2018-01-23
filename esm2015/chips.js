@@ -122,9 +122,7 @@ class MatChip extends _MatChipMixinBase {
      * Whether the chip is selected.
      * @return {?}
      */
-    get selected() {
-        return this._selected;
-    }
+    get selected() { return this._selected; }
     /**
      * @param {?} value
      * @return {?}
@@ -158,9 +156,7 @@ class MatChip extends _MatChipMixinBase {
      * changes to it's selected state are always ignored.
      * @return {?}
      */
-    get selectable() {
-        return this._selectable;
-    }
+    get selectable() { return this._selectable; }
     /**
      * @param {?} value
      * @return {?}
@@ -172,9 +168,7 @@ class MatChip extends _MatChipMixinBase {
      * Determines whether or not the chip displays the remove styling and emits (remove) events.
      * @return {?}
      */
-    get removable() {
-        return this._removable;
-    }
+    get removable() { return this._removable; }
     /**
      * @param {?} value
      * @return {?}
@@ -580,6 +574,10 @@ class MatChipList extends _MatChipListMixinBase {
     }
     /**
      * Required for FormFieldControl. The ID of the chip list
+     * @return {?}
+     */
+    get id() { return this._id || this._uid; }
+    /**
      * @param {?} value
      * @return {?}
      */
@@ -588,11 +586,11 @@ class MatChipList extends _MatChipListMixinBase {
         this.stateChanges.next();
     }
     /**
+     * Required for FormFieldControl. Whether the chip list is required.
      * @return {?}
      */
-    get id() { return this._id || this._uid; }
+    get required() { return this._required; }
     /**
-     * Required for FormFieldControl. Whether the chip list is required.
      * @param {?} value
      * @return {?}
      */
@@ -601,25 +599,19 @@ class MatChipList extends _MatChipListMixinBase {
         this.stateChanges.next();
     }
     /**
+     * For FormFieldControl. Use chip input's placholder if there's a chip input
      * @return {?}
      */
-    get required() {
-        return this._required;
+    get placeholder() {
+        return this._chipInput ? this._chipInput.placeholder : this._placeholder;
     }
     /**
-     * For FormFieldControl. Use chip input's placholder if there's a chip input
      * @param {?} value
      * @return {?}
      */
     set placeholder(value) {
         this._placeholder = value;
         this.stateChanges.next();
-    }
-    /**
-     * @return {?}
-     */
-    get placeholder() {
-        return this._chipInput ? this._chipInput.placeholder : this._placeholder;
     }
     /**
      * Whether any chips or the matChipInput inside of this chip-list has focus.
@@ -640,9 +632,7 @@ class MatChipList extends _MatChipListMixinBase {
      * \@docs-private
      * @return {?}
      */
-    get shouldLabelFloat() {
-        return !this.empty || this.focused;
-    }
+    get shouldLabelFloat() { return !this.empty || this.focused; }
     /**
      * Whether this chip-list is disabled.
      * @return {?}
