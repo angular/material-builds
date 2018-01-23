@@ -331,7 +331,7 @@ class MatExpansionPanelHeader {
         // need to  subscribe and trigger change detection manually.
         this._parentChangeSubscription = merge(panel.opened, panel.closed, panel._inputChanges.pipe(filter(changes => !!(changes["hideToggle"] || changes["disabled"]))))
             .subscribe(() => this._changeDetectorRef.markForCheck());
-        _focusMonitor.monitor(_element.nativeElement, false);
+        _focusMonitor.monitor(_element.nativeElement);
     }
     /**
      * Toggles the expanded state of the panel.

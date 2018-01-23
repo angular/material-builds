@@ -5733,7 +5733,7 @@ var MatCheckbox = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._focusMonitor
-            .monitor(this._inputElement.nativeElement, false)
+            .monitor(this._inputElement.nativeElement)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -13779,7 +13779,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         // need to  subscribe and trigger change detection manually.
         this._parentChangeSubscription = rxjs_observable_merge.merge(panel.opened, panel.closed, panel._inputChanges.pipe(rxjs_operators_filter.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
-        _focusMonitor.monitor(_element.nativeElement, false);
+        _focusMonitor.monitor(_element.nativeElement);
     }
     /** Toggles the expanded state of the panel. */
     /**
@@ -19104,7 +19104,7 @@ var MatTooltip = /** @class */ (function () {
             // the `user-select` to avoid these issues.
             element.style.webkitUserSelect = element.style.userSelect = '';
         }
-        _focusMonitor.monitor(element, false).subscribe(function (origin) {
+        _focusMonitor.monitor(element).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
                 _ngZone.run(function () { return _this.hide(0); });
@@ -21444,7 +21444,7 @@ var MatRadioButton = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._focusMonitor
-            .monitor(this._inputElement.nativeElement, false)
+            .monitor(this._inputElement.nativeElement)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -22919,7 +22919,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         var _this = this;
         this._slideRenderer = new SlideToggleRenderer(this._elementRef, this._platform);
         this._focusMonitor
-            .monitor(this._inputElement.nativeElement, false)
+            .monitor(this._inputElement.nativeElement)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -28895,7 +28895,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-c44f4aa');
+var VERSION = new _angular_core.Version('5.1.0-9177fbf');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

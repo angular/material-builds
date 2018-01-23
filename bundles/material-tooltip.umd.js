@@ -128,7 +128,7 @@ var MatTooltip = /** @class */ (function () {
             // the `user-select` to avoid these issues.
             element.style.webkitUserSelect = element.style.userSelect = '';
         }
-        _focusMonitor.monitor(element, false).subscribe(function (origin) {
+        _focusMonitor.monitor(element).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
                 _ngZone.run(function () { return _this.hide(0); });

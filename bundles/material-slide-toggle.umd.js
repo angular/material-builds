@@ -174,7 +174,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         var _this = this;
         this._slideRenderer = new SlideToggleRenderer(this._elementRef, this._platform);
         this._focusMonitor
-            .monitor(this._inputElement.nativeElement, false)
+            .monitor(this._inputElement.nativeElement)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**

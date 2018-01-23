@@ -373,7 +373,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         // need to  subscribe and trigger change detection manually.
         this._parentChangeSubscription = rxjs_observable_merge.merge(panel.opened, panel.closed, panel._inputChanges.pipe(rxjs_operators_filter.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
-        _focusMonitor.monitor(_element.nativeElement, false);
+        _focusMonitor.monitor(_element.nativeElement);
     }
     /** Toggles the expanded state of the panel. */
     /**

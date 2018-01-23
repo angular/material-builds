@@ -136,7 +136,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
     ngAfterContentInit() {
         this._slideRenderer = new SlideToggleRenderer(this._elementRef, this._platform);
         this._focusMonitor
-            .monitor(this._inputElement.nativeElement, false)
+            .monitor(this._inputElement.nativeElement)
             .subscribe(focusOrigin => this._onInputFocusChange(focusOrigin));
     }
     /**
