@@ -9,7 +9,7 @@ import { ChangeDetectionStrategy, Component, ContentChildren, Directive, Element
 import { CommonModule } from '@angular/common';
 import { MatCommonModule, MatRippleModule, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
+import { A11yModule, FocusKeyManager, FocusMonitor, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
@@ -139,10 +139,12 @@ const _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase))
 class MatMenuItem extends _MatMenuItemMixinBase {
     /**
      * @param {?} _elementRef
+     * @param {?=} _focusMonitor
      */
-    constructor(_elementRef) {
+    constructor(_elementRef, _focusMonitor) {
         super();
         this._elementRef = _elementRef;
+        this._focusMonitor = _focusMonitor;
         /**
          * Stream that emits when the menu item is hovered.
          */
@@ -155,18 +157,33 @@ class MatMenuItem extends _MatMenuItemMixinBase {
          * Whether the menu item acts as a trigger for a sub-menu.
          */
         this._triggersSubmenu = false;
+        if (_focusMonitor) {
+            // Start monitoring the element so it gets the appropriate focused classes. We want
+            // to show the focus style for menu items only when the focus was not caused by a
+            // mouse or touch interaction.
+            _focusMonitor.monitor(this._getHostElement(), false);
+        }
     }
     /**
      * Focuses the menu item.
+     * @param {?=} origin
      * @return {?}
      */
-    focus() {
-        this._getHostElement().focus();
+    focus(origin = 'program') {
+        if (this._focusMonitor) {
+            this._focusMonitor.focusVia(this._getHostElement(), origin);
+        }
+        else {
+            this._getHostElement().focus();
+        }
     }
     /**
      * @return {?}
      */
     ngOnDestroy() {
+        if (this._focusMonitor) {
+            this._focusMonitor.stopMonitoring(this._getHostElement());
+        }
         this._hovered.complete();
     }
     /**
@@ -248,6 +265,7 @@ MatMenuItem.decorators = [
 /** @nocollapse */
 MatMenuItem.ctorParameters = () => [
     { type: ElementRef, },
+    { type: FocusMonitor, },
 ];
 
 /**
@@ -430,16 +448,17 @@ class MatMenu {
         }
     }
     /**
-     * Focus the first item in the menu. This method is used by the menu trigger
-     * to focus the first item when the menu is opened by the ENTER key.
+     * Focus the first item in the menu.
+     * @param {?=} origin Action from which the focus originated. Used to set the correct styling.
      * @return {?}
      */
-    focusFirstItem() {
-        this._keyManager.setFirstItemActive();
+    focusFirstItem(origin = 'program') {
+        // TODO(crisbeto): make the origin required when doing breaking changes.
+        this._keyManager.setFocusOrigin(origin).setFirstItemActive();
     }
     /**
-     * Resets the active item in the menu. This is used when the menu is opened by mouse,
-     * allowing the user to start from the first option when pressing the down arrow.
+     * Resets the active item in the menu. This is used when the menu is opened, allowing
+     * the user to start from the first option when pressing the down arrow.
      * @return {?}
      */
     resetActiveItem() {
@@ -738,18 +757,7 @@ class MatMenuTrigger {
         this.menu.direction = this.dir;
         this._setMenuElevation();
         this._setIsMenuOpen(true);
-        // If the menu was opened by mouse, we focus the root node, which allows for the keyboard
-        // interactions to work. Otherwise, if the menu was opened by keyboard, we focus the first item.
-        if (this._openedByMouse) {
-            let /** @type {?} */ rootNode = /** @type {?} */ (((this._overlayRef)).overlayElement.firstElementChild);
-            if (rootNode) {
-                this.menu.resetActiveItem();
-                rootNode.focus();
-            }
-        }
-        else {
-            this.menu.focusFirstItem();
-        }
+        this.menu.focusFirstItem(this._openedByMouse ? 'mouse' : 'program');
     }
     /**
      * Updates the menu elevation based on the amount of parent menus that it has.
@@ -987,6 +995,7 @@ MatMenuModule.decorators = [
                     CommonModule,
                     MatRippleModule,
                     MatCommonModule,
+                    A11yModule,
                 ],
                 exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatCommonModule],
                 declarations: [MatMenu, MatMenuItem, MatMenuTrigger],

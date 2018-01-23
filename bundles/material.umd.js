@@ -4291,9 +4291,7 @@ var MatIconButtonCssMatStyler = /** @class */ (function () {
  * \@docs-private
  */
 var MatFab = /** @class */ (function () {
-    function MatFab(button, anchor) {
-        // Set the default color palette for the mat-fab components.
-        (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
+    function MatFab() {
     }
     MatFab.decorators = [
         { type: _angular_core.Directive, args: [{
@@ -4302,21 +4300,15 @@ var MatFab = /** @class */ (function () {
                 },] },
     ];
     /** @nocollapse */
-    MatFab.ctorParameters = function () { return [
-        { type: MatButton, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatButton; }),] },] },
-        { type: MatAnchor, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatAnchor; }),] },] },
-    ]; };
+    MatFab.ctorParameters = function () { return []; };
     return MatFab;
 }());
 /**
- * Directive that targets mini-fab buttons and anchors. It's used to apply the `mat-` class
- * to all mini-fab buttons and also is responsible for setting the default color palette.
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
 var MatMiniFab = /** @class */ (function () {
-    function MatMiniFab(button, anchor) {
-        // Set the default color palette for the mat-mini-fab components.
-        (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
+    function MatMiniFab() {
     }
     MatMiniFab.decorators = [
         { type: _angular_core.Directive, args: [{
@@ -4325,10 +4317,7 @@ var MatMiniFab = /** @class */ (function () {
                 },] },
     ];
     /** @nocollapse */
-    MatMiniFab.ctorParameters = function () { return [
-        { type: MatButton, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatButton; }),] },] },
-        { type: MatAnchor, decorators: [{ type: _angular_core.Self }, { type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatAnchor; }),] },] },
-    ]; };
+    MatMiniFab.ctorParameters = function () { return []; };
     return MatMiniFab;
 }());
 /**
@@ -4359,6 +4348,9 @@ var MatButton = /** @class */ (function (_super) {
          */
         _this._isIconButton = _this._hasHostAttributes('mat-icon-button');
         _this._focusMonitor.monitor(_this._elementRef.nativeElement, true);
+        if (_this._isRoundButton) {
+            _this.color = DEFAULT_ROUND_BUTTON_COLOR;
+        }
         return _this;
     }
     /**
@@ -16132,9 +16124,10 @@ var _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase));
  */
 var MatMenuItem = /** @class */ (function (_super) {
     __extends(MatMenuItem, _super);
-    function MatMenuItem(_elementRef) {
+    function MatMenuItem(_elementRef, _focusMonitor) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
+        _this._focusMonitor = _focusMonitor;
         /**
          * Stream that emits when the menu item is hovered.
          */
@@ -16147,19 +16140,33 @@ var MatMenuItem = /** @class */ (function (_super) {
          * Whether the menu item acts as a trigger for a sub-menu.
          */
         _this._triggersSubmenu = false;
+        if (_focusMonitor) {
+            // Start monitoring the element so it gets the appropriate focused classes. We want
+            // to show the focus style for menu items only when the focus was not caused by a
+            // mouse or touch interaction.
+            _focusMonitor.monitor(_this._getHostElement(), false);
+        }
         return _this;
     }
     /** Focuses the menu item. */
     /**
      * Focuses the menu item.
+     * @param {?=} origin
      * @return {?}
      */
     MatMenuItem.prototype.focus = /**
      * Focuses the menu item.
+     * @param {?=} origin
      * @return {?}
      */
-    function () {
-        this._getHostElement().focus();
+    function (origin) {
+        if (origin === void 0) { origin = 'program'; }
+        if (this._focusMonitor) {
+            this._focusMonitor.focusVia(this._getHostElement(), origin);
+        }
+        else {
+            this._getHostElement().focus();
+        }
     };
     /**
      * @return {?}
@@ -16168,6 +16175,9 @@ var MatMenuItem = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        if (this._focusMonitor) {
+            this._focusMonitor.stopMonitoring(this._getHostElement());
+        }
         this._hovered.complete();
     };
     /** Used to set the `tabindex`. */
@@ -16274,6 +16284,7 @@ var MatMenuItem = /** @class */ (function (_super) {
     /** @nocollapse */
     MatMenuItem.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
+        { type: _angular_cdk_a11y.FocusMonitor, },
     ]; };
     return MatMenuItem;
 }(_MatMenuItemMixinBase));
@@ -16492,34 +16503,36 @@ var MatMenu = /** @class */ (function () {
         }
     };
     /**
-     * Focus the first item in the menu. This method is used by the menu trigger
-     * to focus the first item when the menu is opened by the ENTER key.
+     * Focus the first item in the menu.
+     * @param origin Action from which the focus originated. Used to set the correct styling.
      */
     /**
-     * Focus the first item in the menu. This method is used by the menu trigger
-     * to focus the first item when the menu is opened by the ENTER key.
+     * Focus the first item in the menu.
+     * @param {?=} origin Action from which the focus originated. Used to set the correct styling.
      * @return {?}
      */
     MatMenu.prototype.focusFirstItem = /**
-     * Focus the first item in the menu. This method is used by the menu trigger
-     * to focus the first item when the menu is opened by the ENTER key.
+     * Focus the first item in the menu.
+     * @param {?=} origin Action from which the focus originated. Used to set the correct styling.
      * @return {?}
      */
-    function () {
-        this._keyManager.setFirstItemActive();
+    function (origin) {
+        if (origin === void 0) { origin = 'program'; }
+        // TODO(crisbeto): make the origin required when doing breaking changes.
+        this._keyManager.setFocusOrigin(origin).setFirstItemActive();
     };
     /**
-     * Resets the active item in the menu. This is used when the menu is opened by mouse,
-     * allowing the user to start from the first option when pressing the down arrow.
+     * Resets the active item in the menu. This is used when the menu is opened, allowing
+     * the user to start from the first option when pressing the down arrow.
      */
     /**
-     * Resets the active item in the menu. This is used when the menu is opened by mouse,
-     * allowing the user to start from the first option when pressing the down arrow.
+     * Resets the active item in the menu. This is used when the menu is opened, allowing
+     * the user to start from the first option when pressing the down arrow.
      * @return {?}
      */
     MatMenu.prototype.resetActiveItem = /**
-     * Resets the active item in the menu. This is used when the menu is opened by mouse,
-     * allowing the user to start from the first option when pressing the down arrow.
+     * Resets the active item in the menu. This is used when the menu is opened, allowing
+     * the user to start from the first option when pressing the down arrow.
      * @return {?}
      */
     function () {
@@ -16904,18 +16917,7 @@ var MatMenuTrigger = /** @class */ (function () {
         this.menu.direction = this.dir;
         this._setMenuElevation();
         this._setIsMenuOpen(true);
-        // If the menu was opened by mouse, we focus the root node, which allows for the keyboard
-        // interactions to work. Otherwise, if the menu was opened by keyboard, we focus the first item.
-        if (this._openedByMouse) {
-            var /** @type {?} */ rootNode = /** @type {?} */ (((this._overlayRef)).overlayElement.firstElementChild);
-            if (rootNode) {
-                this.menu.resetActiveItem();
-                rootNode.focus();
-            }
-        }
-        else {
-            this.menu.focusFirstItem();
-        }
+        this.menu.focusFirstItem(this._openedByMouse ? 'mouse' : 'program');
     };
     /**
      * Updates the menu elevation based on the amount of parent menus that it has.
@@ -17222,6 +17224,7 @@ var MatMenuModule = /** @class */ (function () {
                         _angular_common.CommonModule,
                         MatRippleModule,
                         MatCommonModule,
+                        _angular_cdk_a11y.A11yModule,
                     ],
                     exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatCommonModule],
                     declarations: [MatMenu, MatMenuItem, MatMenuTrigger],
@@ -23627,6 +23630,30 @@ var MatSlider = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    /** set focus to the host element */
+    /**
+     * set focus to the host element
+     * @return {?}
+     */
+    MatSlider.prototype.focus = /**
+     * set focus to the host element
+     * @return {?}
+     */
+    function () {
+        this._focusHostElement();
+    };
+    /** blur the host element */
+    /**
+     * blur the host element
+     * @return {?}
+     */
+    MatSlider.prototype.blur = /**
+     * blur the host element
+     * @return {?}
+     */
+    function () {
+        this._blurHostElement();
+    };
     Object.defineProperty(MatSlider.prototype, "percent", {
         /** The percentage of the slider that coincides with the value. */
         get: /**
@@ -24204,6 +24231,17 @@ var MatSlider = /** @class */ (function (_super) {
      */
     function () {
         this._elementRef.nativeElement.focus();
+    };
+    /**
+     * Blurs the native element.
+     * @return {?}
+     */
+    MatSlider.prototype._blurHostElement = /**
+     * Blurs the native element.
+     * @return {?}
+     */
+    function () {
+        this._elementRef.nativeElement.blur();
     };
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
@@ -28895,7 +28933,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-9177fbf');
+var VERSION = new _angular_core.Version('5.1.0-2d592a5');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

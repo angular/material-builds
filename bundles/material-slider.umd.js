@@ -351,6 +351,30 @@ var MatSlider = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    /** set focus to the host element */
+    /**
+     * set focus to the host element
+     * @return {?}
+     */
+    MatSlider.prototype.focus = /**
+     * set focus to the host element
+     * @return {?}
+     */
+    function () {
+        this._focusHostElement();
+    };
+    /** blur the host element */
+    /**
+     * blur the host element
+     * @return {?}
+     */
+    MatSlider.prototype.blur = /**
+     * blur the host element
+     * @return {?}
+     */
+    function () {
+        this._blurHostElement();
+    };
     Object.defineProperty(MatSlider.prototype, "percent", {
         /** The percentage of the slider that coincides with the value. */
         get: /**
@@ -928,6 +952,17 @@ var MatSlider = /** @class */ (function (_super) {
      */
     function () {
         this._elementRef.nativeElement.focus();
+    };
+    /**
+     * Blurs the native element.
+     * @return {?}
+     */
+    MatSlider.prototype._blurHostElement = /**
+     * Blurs the native element.
+     * @return {?}
+     */
+    function () {
+        this._elementRef.nativeElement.blur();
     };
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.

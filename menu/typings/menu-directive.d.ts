@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/Observable';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
 import { MenuPositionX, MenuPositionY } from './menu-positions';
+import { FocusOrigin } from '@angular/cdk/a11y';
 /** Default `mat-menu` options that can be overridden. */
 export interface MatMenuDefaultOptions {
     /** The x-axis position of the menu. */
@@ -83,13 +84,13 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel, OnDestro
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
     _handleKeydown(event: KeyboardEvent): void;
     /**
-     * Focus the first item in the menu. This method is used by the menu trigger
-     * to focus the first item when the menu is opened by the ENTER key.
+     * Focus the first item in the menu.
+     * @param origin Action from which the focus originated. Used to set the correct styling.
      */
-    focusFirstItem(): void;
+    focusFirstItem(origin?: FocusOrigin): void;
     /**
-     * Resets the active item in the menu. This is used when the menu is opened by mouse,
-     * allowing the user to start from the first option when pressing the down arrow.
+     * Resets the active item in the menu. This is used when the menu is opened, allowing
+     * the user to start from the first option when pressing the down arrow.
      */
     resetActiveItem(): void;
     /**

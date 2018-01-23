@@ -290,6 +290,20 @@ class MatSlider extends _MatSliderMixinBase {
         return this.value || 0;
     }
     /**
+     * set focus to the host element
+     * @return {?}
+     */
+    focus() {
+        this._focusHostElement();
+    }
+    /**
+     * blur the host element
+     * @return {?}
+     */
+    blur() {
+        this._blurHostElement();
+    }
+    /**
      * The percentage of the slider that coincides with the value.
      * @return {?}
      */
@@ -712,6 +726,13 @@ class MatSlider extends _MatSliderMixinBase {
      */
     _focusHostElement() {
         this._elementRef.nativeElement.focus();
+    }
+    /**
+     * Blurs the native element.
+     * @return {?}
+     */
+    _blurHostElement() {
+        this._elementRef.nativeElement.blur();
     }
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.

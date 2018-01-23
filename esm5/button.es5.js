@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, Inject, NgModule, Optional, Self, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ElementRef, NgModule, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
@@ -78,9 +78,7 @@ var MatIconButtonCssMatStyler = /** @class */ (function () {
  * \@docs-private
  */
 var MatFab = /** @class */ (function () {
-    function MatFab(button, anchor) {
-        // Set the default color palette for the mat-fab components.
-        (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
+    function MatFab() {
     }
     MatFab.decorators = [
         { type: Directive, args: [{
@@ -89,21 +87,15 @@ var MatFab = /** @class */ (function () {
                 },] },
     ];
     /** @nocollapse */
-    MatFab.ctorParameters = function () { return [
-        { type: MatButton, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(function () { return MatButton; }),] },] },
-        { type: MatAnchor, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(function () { return MatAnchor; }),] },] },
-    ]; };
+    MatFab.ctorParameters = function () { return []; };
     return MatFab;
 }());
 /**
- * Directive that targets mini-fab buttons and anchors. It's used to apply the `mat-` class
- * to all mini-fab buttons and also is responsible for setting the default color palette.
+ * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
  */
 var MatMiniFab = /** @class */ (function () {
-    function MatMiniFab(button, anchor) {
-        // Set the default color palette for the mat-mini-fab components.
-        (button || anchor).color = DEFAULT_ROUND_BUTTON_COLOR;
+    function MatMiniFab() {
     }
     MatMiniFab.decorators = [
         { type: Directive, args: [{
@@ -112,10 +104,7 @@ var MatMiniFab = /** @class */ (function () {
                 },] },
     ];
     /** @nocollapse */
-    MatMiniFab.ctorParameters = function () { return [
-        { type: MatButton, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(function () { return MatButton; }),] },] },
-        { type: MatAnchor, decorators: [{ type: Self }, { type: Optional }, { type: Inject, args: [forwardRef(function () { return MatAnchor; }),] },] },
-    ]; };
+    MatMiniFab.ctorParameters = function () { return []; };
     return MatMiniFab;
 }());
 /**
@@ -146,6 +135,9 @@ var MatButton = /** @class */ (function (_super) {
          */
         _this._isIconButton = _this._hasHostAttributes('mat-icon-button');
         _this._focusMonitor.monitor(_this._elementRef.nativeElement, true);
+        if (_this._isRoundButton) {
+            _this.color = DEFAULT_ROUND_BUTTON_COLOR;
+        }
         return _this;
     }
     /**

@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { FocusableOption } from '@angular/cdk/a11y';
+import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { ElementRef, OnDestroy } from '@angular/core';
 import { CanDisable, CanDisableRipple } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
@@ -19,15 +19,16 @@ export declare const _MatMenuItemMixinBase: (new (...args: any[]) => CanDisableR
  */
 export declare class MatMenuItem extends _MatMenuItemMixinBase implements FocusableOption, CanDisable, CanDisableRipple, OnDestroy {
     private _elementRef;
+    private _focusMonitor;
     /** Stream that emits when the menu item is hovered. */
     _hovered: Subject<MatMenuItem>;
     /** Whether the menu item is highlighted. */
     _highlighted: boolean;
     /** Whether the menu item acts as a trigger for a sub-menu. */
     _triggersSubmenu: boolean;
-    constructor(_elementRef: ElementRef);
+    constructor(_elementRef: ElementRef, _focusMonitor?: FocusMonitor | undefined);
     /** Focuses the menu item. */
-    focus(): void;
+    focus(origin?: FocusOrigin): void;
     ngOnDestroy(): void;
     /** Used to set the `tabindex`. */
     _getTabIndex(): string;

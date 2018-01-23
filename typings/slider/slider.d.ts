@@ -73,6 +73,10 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     input: EventEmitter<MatSliderChange>;
     /** The value to be used for display purposes. */
     readonly displayValue: string | number;
+    /** set focus to the host element */
+    focus(): void;
+    /** blur the host element */
+    blur(): void;
     /** onTouch function registered via registerOnTouch (ControlValueAccessor). */
     onTouched: () => any;
     /** The percentage of the slider that coincides with the value. */
@@ -180,6 +184,8 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.
      */
     private _focusHostElement();
+    /** Blurs the native element. */
+    private _blurHostElement();
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
      * @param value
