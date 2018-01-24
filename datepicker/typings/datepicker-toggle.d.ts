@@ -1,6 +1,9 @@
 import { AfterContentInit, ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { MatDatepicker } from './datepicker';
 import { MatDatepickerIntl } from './datepicker-intl';
+/** Can be used to override the icon of a `matDatepickerToggle`. */
+export declare class MatDatepickerToggleIcon {
+}
 export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChanges, OnDestroy {
     _intl: MatDatepickerIntl;
     private _changeDetectorRef;
@@ -10,6 +13,8 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     /** Whether the toggle button is disabled. */
     disabled: boolean;
     private _disabled;
+    /** Custom icon set by the consumer. */
+    _customIcon: MatDatepickerToggleIcon;
     constructor(_intl: MatDatepickerIntl, _changeDetectorRef: ChangeDetectorRef);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;

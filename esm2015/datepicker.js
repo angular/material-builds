@@ -8,7 +8,7 @@
 import { A11yModule } from '@angular/cdk/a11y';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, NgModule, NgZone, Optional, Output, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, NgModule, NgZone, Optional, Output, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -1963,6 +1963,18 @@ MatDatepickerInput.propDecorators = {
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Can be used to override the icon of a `matDatepickerToggle`.
+ */
+class MatDatepickerToggleIcon {
+}
+MatDatepickerToggleIcon.decorators = [
+    { type: Directive, args: [{
+                selector: '[matDatepickerToggleIcon]'
+            },] },
+];
+/** @nocollapse */
+MatDatepickerToggleIcon.ctorParameters = () => [];
 class MatDatepickerToggle {
     /**
      * @param {?} _intl
@@ -2034,7 +2046,7 @@ class MatDatepickerToggle {
 }
 MatDatepickerToggle.decorators = [
     { type: Component, args: [{selector: 'mat-datepicker-toggle',
-                template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
+                template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon *ngIf=\"!_customIcon\"><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
                 host: {
                     'class': 'mat-datepicker-toggle',
                     '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
@@ -2053,6 +2065,7 @@ MatDatepickerToggle.ctorParameters = () => [
 MatDatepickerToggle.propDecorators = {
     "datepicker": [{ type: Input, args: ['for',] },],
     "disabled": [{ type: Input },],
+    "_customIcon": [{ type: ContentChild, args: [MatDatepickerToggleIcon,] },],
 };
 
 /**
@@ -2079,6 +2092,7 @@ MatDatepickerModule.decorators = [
                     MatDatepickerContent,
                     MatDatepickerInput,
                     MatDatepickerToggle,
+                    MatDatepickerToggleIcon,
                     MatMonthView,
                     MatYearView,
                     MatMultiYearView,
@@ -2090,6 +2104,7 @@ MatDatepickerModule.decorators = [
                     MatDatepickerContent,
                     MatDatepickerInput,
                     MatDatepickerToggle,
+                    MatDatepickerToggleIcon,
                     MatMonthView,
                     MatYearView,
                     MatMultiYearView,
@@ -2119,5 +2134,5 @@ MatDatepickerModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatDatepickerModule, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MatDatepickerContent, MatDatepicker, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa31 };
+export { MatDatepickerModule, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MatDatepickerContent, MatDatepicker, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa31 };
 //# sourceMappingURL=datepicker.js.map

@@ -13188,6 +13188,21 @@ var MatDatepickerInput = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
+/**
+ * Can be used to override the icon of a `matDatepickerToggle`.
+ */
+var MatDatepickerToggleIcon = /** @class */ (function () {
+    function MatDatepickerToggleIcon() {
+    }
+    MatDatepickerToggleIcon.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[matDatepickerToggleIcon]'
+                },] },
+    ];
+    /** @nocollapse */
+    MatDatepickerToggleIcon.ctorParameters = function () { return []; };
+    return MatDatepickerToggleIcon;
+}());
 var MatDatepickerToggle = /** @class */ (function () {
     function MatDatepickerToggle(_intl, _changeDetectorRef) {
         this._intl = _intl;
@@ -13276,7 +13291,7 @@ var MatDatepickerToggle = /** @class */ (function () {
     };
     MatDatepickerToggle.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-toggle',
-                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon></button>",
+                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon *ngIf=\"!_customIcon\"><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
                     host: {
                         'class': 'mat-datepicker-toggle',
                         '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
@@ -13295,6 +13310,7 @@ var MatDatepickerToggle = /** @class */ (function () {
     MatDatepickerToggle.propDecorators = {
         "datepicker": [{ type: _angular_core.Input, args: ['for',] },],
         "disabled": [{ type: _angular_core.Input },],
+        "_customIcon": [{ type: _angular_core.ContentChild, args: [MatDatepickerToggleIcon,] },],
     };
     return MatDatepickerToggle;
 }());
@@ -13324,6 +13340,7 @@ var MatDatepickerModule = /** @class */ (function () {
                         MatDatepickerContent,
                         MatDatepickerInput,
                         MatDatepickerToggle,
+                        MatDatepickerToggleIcon,
                         MatMonthView,
                         MatYearView,
                         MatMultiYearView,
@@ -13335,6 +13352,7 @@ var MatDatepickerModule = /** @class */ (function () {
                         MatDatepickerContent,
                         MatDatepickerInput,
                         MatDatepickerToggle,
+                        MatDatepickerToggleIcon,
                         MatMonthView,
                         MatYearView,
                         MatMultiYearView,
@@ -29070,7 +29088,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-83ca9a8');
+var VERSION = new _angular_core.Version('5.1.0-01867ad');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29212,6 +29230,7 @@ exports.MAT_DATEPICKER_VALIDATORS = MAT_DATEPICKER_VALIDATORS;
 exports.MatDatepickerInputEvent = MatDatepickerInputEvent;
 exports.MatDatepickerInput = MatDatepickerInput;
 exports.MatDatepickerIntl = MatDatepickerIntl;
+exports.MatDatepickerToggleIcon = MatDatepickerToggleIcon;
 exports.MatDatepickerToggle = MatDatepickerToggle;
 exports.MatMonthView = MatMonthView;
 exports.MatYearView = MatYearView;
@@ -29422,16 +29441,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe19 = MatTabBase;
+exports.ɵf19 = _MatTabMixinBase;
+exports.ɵa19 = MatTabHeaderBase;
+exports.ɵb19 = _MatTabHeaderMixinBase;
+exports.ɵc19 = MatTabLabelWrapperBase;
+exports.ɵd19 = _MatTabLabelWrapperMixinBase;
+exports.ɵi19 = MatTabLinkBase;
+exports.ɵg19 = MatTabNavBase;
+exports.ɵj19 = _MatTabLinkMixinBase;
+exports.ɵh19 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
