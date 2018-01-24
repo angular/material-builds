@@ -40,6 +40,8 @@ export declare class MatDialogContainer extends BasePortalOutlet {
     _animationStateChanged: EventEmitter<AnimationEvent>;
     /** ID of the element that should be considered as the dialog's label. */
     _ariaLabelledBy: string | null;
+    /** ID for the container DOM element. */
+    _id: string;
     constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _changeDetectorRef: ChangeDetectorRef, _document: any);
     /**
      * Attach a ComponentPortal as content to this dialog container.

@@ -15,7 +15,7 @@ import { MatDialogContainer } from './dialog-container';
  */
 export declare class MatDialogRef<T, R = any> {
     private _overlayRef;
-    private _containerInstance;
+    _containerInstance: MatDialogContainer;
     readonly id: string;
     /** The instance of component opened into the dialog. */
     componentInstance: T;

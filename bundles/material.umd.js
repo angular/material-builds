@@ -8223,6 +8223,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
                     host: {
                         'class': 'mat-dialog-container',
                         'tabindex': '-1',
+                        '[attr.id]': '_id',
                         '[attr.role]': '_config?.role',
                         '[attr.aria-labelledby]': '_config?.ariaLabel ? null : _ariaLabelledBy',
                         '[attr.aria-label]': '_config?.ariaLabel',
@@ -8284,6 +8285,8 @@ var MatDialogRef = /** @class */ (function () {
          * Subscription to changes in the user's location.
          */
         this._locationChanges = rxjs_Subscription.Subscription.EMPTY;
+        // Pass the id along to the container.
+        _containerInstance._id = id;
         // Emit when opening animation completes
         _containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), rxjs_operators_take.take(1))
             .subscribe(function () {
@@ -8883,13 +8886,31 @@ var dialogElementUid = 0;
  * Button that will close the current dialog.
  */
 var MatDialogClose = /** @class */ (function () {
-    function MatDialogClose(dialogRef) {
+    function MatDialogClose(dialogRef, _elementRef, _dialog) {
         this.dialogRef = dialogRef;
+        this._elementRef = _elementRef;
+        this._dialog = _dialog;
         /**
          * Screenreader label for the button.
          */
         this.ariaLabel = 'Close dialog';
     }
+    /**
+     * @return {?}
+     */
+    MatDialogClose.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        if (!this.dialogRef) {
+            // When this directive is included in a dialog via TemplateRef (rather than being
+            // in a Component), the DialogRef isn't available via injection because embedded
+            // views cannot be given a custom injector. Instead, we look up the DialogRef by
+            // ID. This must occur in `onInit`, as the ID binding for the dialog container won't
+            // be resolved at constructor time.
+            this.dialogRef = /** @type {?} */ ((getClosestDialog(this._elementRef, this._dialog.openDialogs)));
+        }
+    };
     /**
      * @param {?} changes
      * @return {?}
@@ -8917,7 +8938,9 @@ var MatDialogClose = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatDialogClose.ctorParameters = function () { return [
-        { type: MatDialogRef, },
+        { type: MatDialogRef, decorators: [{ type: _angular_core.Optional },] },
+        { type: _angular_core.ElementRef, },
+        { type: MatDialog, },
     ]; };
     MatDialogClose.propDecorators = {
         "ariaLabel": [{ type: _angular_core.Input, args: ['aria-label',] },],
@@ -8930,8 +8953,10 @@ var MatDialogClose = /** @class */ (function () {
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
  */
 var MatDialogTitle = /** @class */ (function () {
-    function MatDialogTitle(_container) {
-        this._container = _container;
+    function MatDialogTitle(_dialogRef, _elementRef, _dialog) {
+        this._dialogRef = _dialogRef;
+        this._elementRef = _elementRef;
+        this._dialog = _dialog;
         this.id = "mat-dialog-title-" + dialogElementUid++;
     }
     /**
@@ -8942,8 +8967,16 @@ var MatDialogTitle = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        if (this._container && !this._container._ariaLabelledBy) {
-            Promise.resolve().then(function () { return _this._container._ariaLabelledBy = _this.id; });
+        if (!this._dialogRef) {
+            this._dialogRef = /** @type {?} */ ((getClosestDialog(this._elementRef, this._dialog.openDialogs)));
+        }
+        if (this._dialogRef) {
+            Promise.resolve().then(function () {
+                var /** @type {?} */ container = _this._dialogRef._containerInstance;
+                if (container && !container._ariaLabelledBy) {
+                    container._ariaLabelledBy = _this.id;
+                }
+            });
         }
     };
     MatDialogTitle.decorators = [
@@ -8958,7 +8991,9 @@ var MatDialogTitle = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatDialogTitle.ctorParameters = function () { return [
-        { type: MatDialogContainer, decorators: [{ type: _angular_core.Optional },] },
+        { type: MatDialogRef, decorators: [{ type: _angular_core.Optional },] },
+        { type: _angular_core.ElementRef, },
+        { type: MatDialog, },
     ]; };
     MatDialogTitle.propDecorators = {
         "id": [{ type: _angular_core.Input },],
@@ -8998,6 +9033,19 @@ var MatDialogActions = /** @class */ (function () {
     MatDialogActions.ctorParameters = function () { return []; };
     return MatDialogActions;
 }());
+/**
+ * Finds the closest MatDialogRef to an element by looking at the DOM.
+ * @param {?} element Element relative to which to look for a dialog.
+ * @param {?} openDialogs References to the currently-open dialogs.
+ * @return {?}
+ */
+function getClosestDialog(element, openDialogs) {
+    var /** @type {?} */ parent = element.nativeElement.parentElement;
+    while (parent && !parent.classList.contains('mat-dialog-container')) {
+        parent = parent.parentElement;
+    }
+    return parent ? openDialogs.find(function (dialog) { return dialog.id === /** @type {?} */ ((parent)).id; }) : null;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -29098,7 +29146,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-dfa68db');
+var VERSION = new _angular_core.Version('5.1.0-99b768e');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29331,10 +29379,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -29451,16 +29499,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe21 = MatTabBase;
-exports.ɵf21 = _MatTabMixinBase;
-exports.ɵa21 = MatTabHeaderBase;
-exports.ɵb21 = _MatTabHeaderMixinBase;
-exports.ɵc21 = MatTabLabelWrapperBase;
-exports.ɵd21 = _MatTabLabelWrapperMixinBase;
-exports.ɵi21 = MatTabLinkBase;
-exports.ɵg21 = MatTabNavBase;
-exports.ɵj21 = _MatTabLinkMixinBase;
-exports.ɵh21 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

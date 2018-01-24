@@ -281,6 +281,7 @@ MatDialogContainer.decorators = [
                 host: {
                     'class': 'mat-dialog-container',
                     'tabindex': '-1',
+                    '[attr.id]': '_id',
                     '[attr.role]': '_config?.role',
                     '[attr.aria-labelledby]': '_config?.ariaLabel ? null : _ariaLabelledBy',
                     '[attr.aria-label]': '_config?.ariaLabel',
@@ -344,6 +345,8 @@ class MatDialogRef {
          * Subscription to changes in the user's location.
          */
         this._locationChanges = Subscription.EMPTY;
+        // Pass the id along to the container.
+        _containerInstance._id = id;
         // Emit when opening animation completes
         _containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'enter'), take(1))
             .subscribe(() => {
@@ -788,13 +791,30 @@ let dialogElementUid = 0;
 class MatDialogClose {
     /**
      * @param {?} dialogRef
+     * @param {?} _elementRef
+     * @param {?} _dialog
      */
-    constructor(dialogRef) {
+    constructor(dialogRef, _elementRef, _dialog) {
         this.dialogRef = dialogRef;
+        this._elementRef = _elementRef;
+        this._dialog = _dialog;
         /**
          * Screenreader label for the button.
          */
         this.ariaLabel = 'Close dialog';
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        if (!this.dialogRef) {
+            // When this directive is included in a dialog via TemplateRef (rather than being
+            // in a Component), the DialogRef isn't available via injection because embedded
+            // views cannot be given a custom injector. Instead, we look up the DialogRef by
+            // ID. This must occur in `onInit`, as the ID binding for the dialog container won't
+            // be resolved at constructor time.
+            this.dialogRef = /** @type {?} */ ((getClosestDialog(this._elementRef, this._dialog.openDialogs)));
+        }
     }
     /**
      * @param {?} changes
@@ -820,7 +840,9 @@ MatDialogClose.decorators = [
 ];
 /** @nocollapse */
 MatDialogClose.ctorParameters = () => [
-    { type: MatDialogRef, },
+    { type: MatDialogRef, decorators: [{ type: Optional },] },
+    { type: ElementRef, },
+    { type: MatDialog, },
 ];
 MatDialogClose.propDecorators = {
     "ariaLabel": [{ type: Input, args: ['aria-label',] },],
@@ -832,18 +854,30 @@ MatDialogClose.propDecorators = {
  */
 class MatDialogTitle {
     /**
-     * @param {?} _container
+     * @param {?} _dialogRef
+     * @param {?} _elementRef
+     * @param {?} _dialog
      */
-    constructor(_container) {
-        this._container = _container;
+    constructor(_dialogRef, _elementRef, _dialog) {
+        this._dialogRef = _dialogRef;
+        this._elementRef = _elementRef;
+        this._dialog = _dialog;
         this.id = `mat-dialog-title-${dialogElementUid++}`;
     }
     /**
      * @return {?}
      */
     ngOnInit() {
-        if (this._container && !this._container._ariaLabelledBy) {
-            Promise.resolve().then(() => this._container._ariaLabelledBy = this.id);
+        if (!this._dialogRef) {
+            this._dialogRef = /** @type {?} */ ((getClosestDialog(this._elementRef, this._dialog.openDialogs)));
+        }
+        if (this._dialogRef) {
+            Promise.resolve().then(() => {
+                const /** @type {?} */ container = this._dialogRef._containerInstance;
+                if (container && !container._ariaLabelledBy) {
+                    container._ariaLabelledBy = this.id;
+                }
+            });
         }
     }
 }
@@ -859,7 +893,9 @@ MatDialogTitle.decorators = [
 ];
 /** @nocollapse */
 MatDialogTitle.ctorParameters = () => [
-    { type: MatDialogContainer, decorators: [{ type: Optional },] },
+    { type: MatDialogRef, decorators: [{ type: Optional },] },
+    { type: ElementRef, },
+    { type: MatDialog, },
 ];
 MatDialogTitle.propDecorators = {
     "id": [{ type: Input },],
@@ -891,6 +927,19 @@ MatDialogActions.decorators = [
 ];
 /** @nocollapse */
 MatDialogActions.ctorParameters = () => [];
+/**
+ * Finds the closest MatDialogRef to an element by looking at the DOM.
+ * @param {?} element Element relative to which to look for a dialog.
+ * @param {?} openDialogs References to the currently-open dialogs.
+ * @return {?}
+ */
+function getClosestDialog(element, openDialogs) {
+    let /** @type {?} */ parent = element.nativeElement.parentElement;
+    while (parent && !parent.classList.contains('mat-dialog-container')) {
+        parent = parent.parentElement;
+    }
+    return parent ? openDialogs.find(dialog => dialog.id === /** @type {?} */ ((parent)).id) : null;
+}
 
 /**
  * @fileoverview added by tsickle
