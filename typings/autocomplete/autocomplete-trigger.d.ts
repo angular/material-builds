@@ -54,6 +54,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _overlayRef;
     private _portal;
     private _panelOpen;
+    private _componentDestroyed;
     /** Strategy that is used to position the panel. */
     private _positionStrategy;
     /** Whether or not the label state is being overridden. */

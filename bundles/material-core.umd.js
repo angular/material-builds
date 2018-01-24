@@ -733,13 +733,12 @@ var NativeDateAdapter = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _super.prototype.setLocale.call(_this, matDateLocale);
         // IE does its own time zone correction, so we disable this on IE.
-        // TODO(mmalerba): replace with !platform.TRIDENT, logic currently duplicated to avoid breaking
-        // change from injecting the Platform.
-        // IE does its own time zone correction, so we disable this on IE.
-        // TODO(mmalerba): replace with !platform.TRIDENT, logic currently duplicated to avoid breaking
-        // change from injecting the Platform.
-        _this.useUtcForDisplay = !(typeof document === 'object' && !!document &&
-            /(msie|trident)/i.test(navigator.userAgent));
+        // TODO(mmalerba): replace with checks from PLATFORM, logic currently duplicated to avoid
+        // breaking change from injecting the Platform.
+        var /** @type {?} */ isBrowser = typeof document === 'object' && !!document;
+        var /** @type {?} */ isIE = isBrowser && /(msie|trident)/i.test(navigator.userAgent);
+        _this.useUtcForDisplay = !isIE;
+        _this._clampDate = isIE || (isBrowser && /(edge)/i.test(navigator.userAgent));
         return _this;
     }
     /**
@@ -951,6 +950,12 @@ var NativeDateAdapter = /** @class */ (function (_super) {
             throw Error('NativeDateAdapter: Cannot format invalid date.');
         }
         if (SUPPORTS_INTL_API) {
+            // On IE and Edge the i18n API will throw a hard error that can crash the entire app
+            // if we attempt to format a date whose year is less than 1 or greater than 9999.
+            if (this._clampDate && (date.getFullYear() < 1 || date.getFullYear() > 9999)) {
+                date = this.clone(date);
+                date.setFullYear(Math.max(1, Math.min(9999, date.getFullYear())));
+            }
             if (this.useUtcForDisplay) {
                 date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
                 displayFormat = __assign({}, displayFormat, { timeZone: 'utc' });
@@ -2206,10 +2211,15 @@ var MatOption = /** @class */ (function () {
         this._active = false;
         this._disabled = false;
         this._id = "mat-option-" + _uniqueIdCounter++;
+        this._mostRecentViewValue = '';
         /**
          * Event emitted when the option is selected or deselected.
          */
         this.onSelectionChange = new _angular_core.EventEmitter();
+        /**
+         * Emits when the state of the option changes and any parents have to be notified.
+         */
+        this._stateChanges = new rxjs_Subject.Subject();
     }
     Object.defineProperty(MatOption.prototype, "multiple", {
         /** Whether the wrapping component is in multiple selection mode. */
@@ -2465,6 +2475,26 @@ var MatOption = /** @class */ (function () {
      */
     function () {
         return this._element.nativeElement;
+    };
+    /**
+     * @return {?}
+     */
+    MatOption.prototype.ngAfterViewChecked = /**
+     * @return {?}
+     */
+    function () {
+        // Since parent components could be using the option's label to display the selected values
+        // (e.g. `mat-select`) and they don't have a way of knowing if the option's label has changed
+        // we have to check for changes in the DOM ourselves and dispatch an event. These checks are
+        // relatively cheap, however we still limit them only to selected options in order to avoid
+        // hitting the DOM too often.
+        if (this._selected) {
+            var /** @type {?} */ viewValue = this.viewValue;
+            if (viewValue !== this._mostRecentViewValue) {
+                this._mostRecentViewValue = viewValue;
+                this._stateChanges.next();
+            }
+        }
     };
     /**
      * Emits the selection change event.

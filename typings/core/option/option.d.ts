@@ -1,4 +1,5 @@
-import { ChangeDetectorRef, ElementRef, EventEmitter, QueryList, InjectionToken } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { ChangeDetectorRef, ElementRef, EventEmitter, QueryList, InjectionToken, AfterViewChecked } from '@angular/core';
 import { MatOptgroup } from './optgroup';
 /** Event object emitted by MatOption when selected or deselected. */
 export declare class MatOptionSelectionChange {
@@ -28,7 +29,7 @@ export declare const MAT_OPTION_PARENT_COMPONENT: InjectionToken<MatOptionParent
 /**
  * Single option inside of a `<mat-select>` element.
  */
-export declare class MatOption {
+export declare class MatOption implements AfterViewChecked {
     private _element;
     private _changeDetectorRef;
     private _parent;
@@ -37,6 +38,7 @@ export declare class MatOption {
     private _active;
     private _disabled;
     private _id;
+    private _mostRecentViewValue;
     /** Whether the wrapping component is in multiple selection mode. */
     readonly multiple: boolean | undefined;
     /** The unique ID of the option. */
@@ -51,6 +53,8 @@ export declare class MatOption {
     readonly disableRipple: boolean | undefined;
     /** Event emitted when the option is selected or deselected. */
     onSelectionChange: EventEmitter<MatOptionSelectionChange>;
+    /** Emits when the state of the option changes and any parents have to be notified. */
+    _stateChanges: Subject<void>;
     constructor(_element: ElementRef, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: MatOptgroup);
     /**
      * Whether or not the option is currently active and ready to be selected.
@@ -95,6 +99,7 @@ export declare class MatOption {
     _getTabIndex(): string;
     /** Gets the host DOM element. */
     _getHostElement(): HTMLElement;
+    ngAfterViewChecked(): void;
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent(isUserInput?);
     /**

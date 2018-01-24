@@ -254,6 +254,7 @@ class MatAutocompleteTrigger {
         this._formField = _formField;
         this._document = _document;
         this._panelOpen = false;
+        this._componentDestroyed = false;
         /**
          * Whether or not the label state is being overridden.
          */
@@ -288,6 +289,7 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     ngOnDestroy() {
+        this._componentDestroyed = true;
         this._destroyPanel();
         this._closeKeyEventStream.complete();
     }
@@ -318,11 +320,15 @@ class MatAutocompleteTrigger {
                 this._overlayRef.detach();
                 this._closingActionsSubscription.unsubscribe();
             }
-            // We need to trigger change detection manually, because
-            // `fromEvent` doesn't seem to do it at the proper time.
-            // This ensures that the label is reset when the
-            // user clicks outside.
-            this._changeDetectorRef.detectChanges();
+            // Note that in some cases this can end up being called after the component is destroyed.
+            // Add a check to ensure that we don't try to run change detection on a destroyed view.
+            if (!this._componentDestroyed) {
+                // We need to trigger change detection manually, because
+                // `fromEvent` doesn't seem to do it at the proper time.
+                // This ensures that the label is reset when the
+                // user clicks outside.
+                this._changeDetectorRef.detectChanges();
+            }
         }
     }
     /**

@@ -1,6 +1,8 @@
 import { DateAdapter } from './date-adapter';
 /** Adapts the native JS Date for use with cdk-based components that work with dates. */
 export declare class NativeDateAdapter extends DateAdapter<Date> {
+    /** Whether to clamp the date between 1 and 9999 to avoid IE and Edge errors. */
+    private readonly _clampDate;
     /**
      * Whether to use `timeZone: 'utc'` with `Intl.DateTimeFormat` when formatting dates.
      * Without this `Intl.DateTimeFormat` sometimes chooses the wrong timeZone, which can throw off

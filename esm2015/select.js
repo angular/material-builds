@@ -904,12 +904,23 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _resetOptions() {
-        this.optionSelectionChanges.pipe(takeUntil(merge(this._destroy, this.options.changes)), filter(event => event.isUserInput)).subscribe(event => {
+        const /** @type {?} */ changedOrDestroyed = merge(this.options.changes, this._destroy);
+        this.optionSelectionChanges
+            .pipe(takeUntil(changedOrDestroyed), filter(event => event.isUserInput))
+            .subscribe(event => {
             this._onSelect(event.source);
             if (!this.multiple && this._panelOpen) {
                 this.close();
                 this.focus();
             }
+        });
+        // Listen to changes in the internal state of the options and react accordingly.
+        // Handles cases like the labels of the selected options changing.
+        merge(...this.options.map(option => option._stateChanges))
+            .pipe(takeUntil(changedOrDestroyed))
+            .subscribe(() => {
+            this._changeDetectorRef.markForCheck();
+            this.stateChanges.next();
         });
         this._setOptionIds();
     }

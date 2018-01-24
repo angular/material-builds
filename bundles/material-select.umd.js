@@ -1138,12 +1138,22 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this.optionSelectionChanges.pipe(rxjs_operators_takeUntil.takeUntil(rxjs_observable_merge.merge(this._destroy, this.options.changes)), rxjs_operators_filter.filter(function (event) { return event.isUserInput; })).subscribe(function (event) {
+        var /** @type {?} */ changedOrDestroyed = rxjs_observable_merge.merge(this.options.changes, this._destroy);
+        this.optionSelectionChanges
+            .pipe(rxjs_operators_takeUntil.takeUntil(changedOrDestroyed), rxjs_operators_filter.filter(function (event) { return event.isUserInput; }))
+            .subscribe(function (event) {
             _this._onSelect(event.source);
             if (!_this.multiple && _this._panelOpen) {
                 _this.close();
                 _this.focus();
             }
+        });
+        // Listen to changes in the internal state of the options and react accordingly.
+        // Handles cases like the labels of the selected options changing.
+        rxjs_observable_merge.merge.apply(void 0, this.options.map(function (option) { return option._stateChanges; })).pipe(rxjs_operators_takeUntil.takeUntil(changedOrDestroyed))
+            .subscribe(function () {
+            _this._changeDetectorRef.markForCheck();
+            _this.stateChanges.next();
         });
         this._setOptionIds();
     };
