@@ -7,7 +7,7 @@
  */
 import { A11yModule, FocusKeyManager, FocusMonitor, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, Self, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { MatCommonModule, MatRippleModule, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
@@ -137,8 +137,10 @@ var _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase));
  */
 var MatMenuItem = /** @class */ (function (_super) {
     __extends(MatMenuItem, _super);
-    function MatMenuItem(_elementRef, _focusMonitor) {
-        var _this = _super.call(this) || this;
+    function MatMenuItem(_elementRef, document, _focusMonitor) {
+        var _this = 
+        // @deletion-target 6.0.0 make `_focusMonitor` and `document` required params.
+        _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._focusMonitor = _focusMonitor;
         /**
@@ -159,6 +161,7 @@ var MatMenuItem = /** @class */ (function (_super) {
             // mouse or touch interaction.
             _focusMonitor.monitor(_this._getHostElement(), false);
         }
+        _this._document = document;
         return _this;
     }
     /** Focuses the menu item. */
@@ -259,6 +262,7 @@ var MatMenuItem = /** @class */ (function (_super) {
      */
     function () {
         var /** @type {?} */ element = this._elementRef.nativeElement;
+        var /** @type {?} */ textNodeType = this._document ? this._document.TEXT_NODE : 3;
         var /** @type {?} */ output = '';
         if (element.childNodes) {
             var /** @type {?} */ length_1 = element.childNodes.length;
@@ -266,7 +270,7 @@ var MatMenuItem = /** @class */ (function (_super) {
             // We skip anything that's not a text node to prevent the text from
             // being thrown off by something like an icon.
             for (var /** @type {?} */ i = 0; i < length_1; i++) {
-                if (element.childNodes[i].nodeType === Node.TEXT_NODE) {
+                if (element.childNodes[i].nodeType === textNodeType) {
                     output += element.childNodes[i].textContent;
                 }
             }
@@ -297,6 +301,7 @@ var MatMenuItem = /** @class */ (function (_super) {
     /** @nocollapse */
     MatMenuItem.ctorParameters = function () { return [
         { type: ElementRef, },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
         { type: FocusMonitor, },
     ]; };
     return MatMenuItem;
@@ -1291,5 +1296,5 @@ var MatMenuModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuItemBase as ɵa14, _MatMenuItemMixinBase as ɵb14, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd14, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc14 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuItemBase as ɵa22, _MatMenuItemMixinBase as ɵb22, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd22, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc22 };
 //# sourceMappingURL=menu.es5.js.map

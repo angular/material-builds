@@ -5,11 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, NgModule, ViewEncapsulation, isDevMode } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Inject, NgModule, ViewEncapsulation, isDevMode } from '@angular/core';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
+import { DOCUMENT } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -42,9 +43,12 @@ var MatToolbarRow = /** @class */ (function () {
 }());
 var MatToolbar = /** @class */ (function (_super) {
     __extends(MatToolbar, _super);
-    function MatToolbar(elementRef, _platform) {
+    function MatToolbar(elementRef, _platform, document) {
         var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
+        // TODO: make the document a required param when doing breaking changes.
+        // TODO: make the document a required param when doing breaking changes.
+        _this._document = document;
         return _this;
     }
     /**
@@ -70,6 +74,7 @@ var MatToolbar = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        var _this = this;
         if (!this._toolbarRows.length) {
             return;
         }
@@ -77,7 +82,7 @@ var MatToolbar = /** @class */ (function (_super) {
         // a <mat-toolbar-row> element.
         var /** @type {?} */ isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
             .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
-            .filter(function (node) { return node.nodeType !== Node.COMMENT_NODE; })
+            .filter(function (node) { return node.nodeType !== (_this._document ? _this._document.COMMENT_NODE : 8); })
             .some(function (node) { return node.textContent.trim(); });
         if (isCombinedUsage) {
             throwToolbarMixedModesError();
@@ -103,6 +108,7 @@ var MatToolbar = /** @class */ (function (_super) {
     MatToolbar.ctorParameters = function () { return [
         { type: ElementRef, },
         { type: Platform, },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     ]; };
     MatToolbar.propDecorators = {
         "_toolbarRows": [{ type: ContentChildren, args: [MatToolbarRow,] },],

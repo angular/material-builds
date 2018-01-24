@@ -5,9 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, NgModule, ViewEncapsulation, isDevMode } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Inject, NgModule, ViewEncapsulation, isDevMode } from '@angular/core';
 import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { DOCUMENT } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -41,10 +42,13 @@ class MatToolbar extends _MatToolbarMixinBase {
     /**
      * @param {?} elementRef
      * @param {?} _platform
+     * @param {?=} document
      */
-    constructor(elementRef, _platform) {
+    constructor(elementRef, _platform, document) {
         super(elementRef);
         this._platform = _platform;
+        // TODO: make the document a required param when doing breaking changes.
+        this._document = document;
     }
     /**
      * @return {?}
@@ -68,7 +72,7 @@ class MatToolbar extends _MatToolbarMixinBase {
         // a <mat-toolbar-row> element.
         const /** @type {?} */ isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
             .filter(node => !(node.classList && node.classList.contains('mat-toolbar-row')))
-            .filter(node => node.nodeType !== Node.COMMENT_NODE)
+            .filter(node => node.nodeType !== (this._document ? this._document.COMMENT_NODE : 8))
             .some(node => node.textContent.trim());
         if (isCombinedUsage) {
             throwToolbarMixedModesError();
@@ -95,6 +99,7 @@ MatToolbar.decorators = [
 MatToolbar.ctorParameters = () => [
     { type: ElementRef, },
     { type: Platform, },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];
 MatToolbar.propDecorators = {
     "_toolbarRows": [{ type: ContentChildren, args: [MatToolbarRow,] },],

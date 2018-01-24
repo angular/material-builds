@@ -18,9 +18,10 @@ export declare class MatToolbarRow {
 }
 export declare class MatToolbar extends _MatToolbarMixinBase implements CanColor, AfterViewInit {
     private _platform;
+    private _document;
     /** Reference to all toolbar row elements that have been projected. */
     _toolbarRows: QueryList<MatToolbarRow>;
-    constructor(elementRef: ElementRef, _platform: Platform);
+    constructor(elementRef: ElementRef, _platform: Platform, document?: any);
     ngAfterViewInit(): void;
     /**
      * Throws an exception when developers are attempting to combine the different toolbar row modes.

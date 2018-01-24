@@ -16160,8 +16160,10 @@ var _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase));
  */
 var MatMenuItem = /** @class */ (function (_super) {
     __extends(MatMenuItem, _super);
-    function MatMenuItem(_elementRef, _focusMonitor) {
-        var _this = _super.call(this) || this;
+    function MatMenuItem(_elementRef, document, _focusMonitor) {
+        var _this = 
+        // @deletion-target 6.0.0 make `_focusMonitor` and `document` required params.
+        _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._focusMonitor = _focusMonitor;
         /**
@@ -16182,6 +16184,7 @@ var MatMenuItem = /** @class */ (function (_super) {
             // mouse or touch interaction.
             _focusMonitor.monitor(_this._getHostElement(), false);
         }
+        _this._document = document;
         return _this;
     }
     /** Focuses the menu item. */
@@ -16282,6 +16285,7 @@ var MatMenuItem = /** @class */ (function (_super) {
      */
     function () {
         var /** @type {?} */ element = this._elementRef.nativeElement;
+        var /** @type {?} */ textNodeType = this._document ? this._document.TEXT_NODE : 3;
         var /** @type {?} */ output = '';
         if (element.childNodes) {
             var /** @type {?} */ length_1 = element.childNodes.length;
@@ -16289,7 +16293,7 @@ var MatMenuItem = /** @class */ (function (_super) {
             // We skip anything that's not a text node to prevent the text from
             // being thrown off by something like an icon.
             for (var /** @type {?} */ i = 0; i < length_1; i++) {
-                if (element.childNodes[i].nodeType === Node.TEXT_NODE) {
+                if (element.childNodes[i].nodeType === textNodeType) {
                     output += element.childNodes[i].textContent;
                 }
             }
@@ -16320,6 +16324,7 @@ var MatMenuItem = /** @class */ (function (_super) {
     /** @nocollapse */
     MatMenuItem.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
         { type: _angular_cdk_a11y.FocusMonitor, },
     ]; };
     return MatMenuItem;
@@ -28982,9 +28987,12 @@ var MatToolbarRow = /** @class */ (function () {
 }());
 var MatToolbar = /** @class */ (function (_super) {
     __extends(MatToolbar, _super);
-    function MatToolbar(elementRef, _platform) {
+    function MatToolbar(elementRef, _platform, document) {
         var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
+        // TODO: make the document a required param when doing breaking changes.
+        // TODO: make the document a required param when doing breaking changes.
+        _this._document = document;
         return _this;
     }
     /**
@@ -29010,6 +29018,7 @@ var MatToolbar = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        var _this = this;
         if (!this._toolbarRows.length) {
             return;
         }
@@ -29017,7 +29026,7 @@ var MatToolbar = /** @class */ (function (_super) {
         // a <mat-toolbar-row> element.
         var /** @type {?} */ isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
             .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
-            .filter(function (node) { return node.nodeType !== Node.COMMENT_NODE; })
+            .filter(function (node) { return node.nodeType !== (_this._document ? _this._document.COMMENT_NODE : 8); })
             .some(function (node) { return node.textContent.trim(); });
         if (isCombinedUsage) {
             throwToolbarMixedModesError();
@@ -29043,6 +29052,7 @@ var MatToolbar = /** @class */ (function (_super) {
     MatToolbar.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_platform.Platform, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
     ]; };
     MatToolbar.propDecorators = {
         "_toolbarRows": [{ type: _angular_core.ContentChildren, args: [MatToolbarRow,] },],
@@ -29088,7 +29098,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-a1db4e4');
+var VERSION = new _angular_core.Version('5.1.0-dfa68db');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29321,10 +29331,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa14 = MatMenuItemBase;
-exports.ɵb14 = _MatMenuItemMixinBase;
-exports.ɵd14 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc14 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -29441,16 +29451,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe20 = MatTabBase;
-exports.ɵf20 = _MatTabMixinBase;
-exports.ɵa20 = MatTabHeaderBase;
-exports.ɵb20 = _MatTabHeaderMixinBase;
-exports.ɵc20 = MatTabLabelWrapperBase;
-exports.ɵd20 = _MatTabLabelWrapperMixinBase;
-exports.ɵi20 = MatTabLinkBase;
-exports.ɵg20 = MatTabNavBase;
-exports.ɵj20 = _MatTabLinkMixinBase;
-exports.ɵh20 = _MatTabNavMixinBase;
+exports.ɵe21 = MatTabBase;
+exports.ɵf21 = _MatTabMixinBase;
+exports.ɵa21 = MatTabHeaderBase;
+exports.ɵb21 = _MatTabHeaderMixinBase;
+exports.ɵc21 = MatTabLabelWrapperBase;
+exports.ɵd21 = _MatTabLabelWrapperMixinBase;
+exports.ɵi21 = MatTabLinkBase;
+exports.ɵg21 = MatTabNavBase;
+exports.ɵj21 = _MatTabLinkMixinBase;
+exports.ɵh21 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

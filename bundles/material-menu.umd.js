@@ -148,8 +148,10 @@ var _MatMenuItemMixinBase = _angular_material_core.mixinDisableRipple(_angular_m
  */
 var MatMenuItem = /** @class */ (function (_super) {
     __extends(MatMenuItem, _super);
-    function MatMenuItem(_elementRef, _focusMonitor) {
-        var _this = _super.call(this) || this;
+    function MatMenuItem(_elementRef, document, _focusMonitor) {
+        var _this = 
+        // @deletion-target 6.0.0 make `_focusMonitor` and `document` required params.
+        _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._focusMonitor = _focusMonitor;
         /**
@@ -170,6 +172,7 @@ var MatMenuItem = /** @class */ (function (_super) {
             // mouse or touch interaction.
             _focusMonitor.monitor(_this._getHostElement(), false);
         }
+        _this._document = document;
         return _this;
     }
     /** Focuses the menu item. */
@@ -270,6 +273,7 @@ var MatMenuItem = /** @class */ (function (_super) {
      */
     function () {
         var /** @type {?} */ element = this._elementRef.nativeElement;
+        var /** @type {?} */ textNodeType = this._document ? this._document.TEXT_NODE : 3;
         var /** @type {?} */ output = '';
         if (element.childNodes) {
             var /** @type {?} */ length_1 = element.childNodes.length;
@@ -277,7 +281,7 @@ var MatMenuItem = /** @class */ (function (_super) {
             // We skip anything that's not a text node to prevent the text from
             // being thrown off by something like an icon.
             for (var /** @type {?} */ i = 0; i < length_1; i++) {
-                if (element.childNodes[i].nodeType === Node.TEXT_NODE) {
+                if (element.childNodes[i].nodeType === textNodeType) {
                     output += element.childNodes[i].textContent;
                 }
             }
@@ -308,6 +312,7 @@ var MatMenuItem = /** @class */ (function (_super) {
     /** @nocollapse */
     MatMenuItem.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
         { type: _angular_cdk_a11y.FocusMonitor, },
     ]; };
     return MatMenuItem;
@@ -1293,10 +1298,10 @@ exports.MatMenuTrigger = MatMenuTrigger;
 exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
-exports.ɵa14 = MatMenuItemBase;
-exports.ɵb14 = _MatMenuItemMixinBase;
-exports.ɵd14 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc14 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

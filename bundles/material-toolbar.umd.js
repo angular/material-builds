@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/platform')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/platform'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = global.ng.material.toolbar || {}),global.ng.core,global.ng.material.core,global.ng.cdk.platform));
-}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_platform) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/platform'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/platform', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = global.ng.material.toolbar || {}),global.ng.core,global.ng.material.core,global.ng.cdk.platform,global.ng.common));
+}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_platform,_angular_common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -68,9 +68,12 @@ var MatToolbarRow = /** @class */ (function () {
 }());
 var MatToolbar = /** @class */ (function (_super) {
     __extends(MatToolbar, _super);
-    function MatToolbar(elementRef, _platform) {
+    function MatToolbar(elementRef, _platform, document) {
         var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
+        // TODO: make the document a required param when doing breaking changes.
+        // TODO: make the document a required param when doing breaking changes.
+        _this._document = document;
         return _this;
     }
     /**
@@ -96,6 +99,7 @@ var MatToolbar = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        var _this = this;
         if (!this._toolbarRows.length) {
             return;
         }
@@ -103,7 +107,7 @@ var MatToolbar = /** @class */ (function (_super) {
         // a <mat-toolbar-row> element.
         var /** @type {?} */ isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
             .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
-            .filter(function (node) { return node.nodeType !== Node.COMMENT_NODE; })
+            .filter(function (node) { return node.nodeType !== (_this._document ? _this._document.COMMENT_NODE : 8); })
             .some(function (node) { return node.textContent.trim(); });
         if (isCombinedUsage) {
             throwToolbarMixedModesError();
@@ -129,6 +133,7 @@ var MatToolbar = /** @class */ (function (_super) {
     MatToolbar.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
         { type: _angular_cdk_platform.Platform, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
     ]; };
     MatToolbar.propDecorators = {
         "_toolbarRows": [{ type: _angular_core.ContentChildren, args: [MatToolbarRow,] },],

@@ -20,13 +20,14 @@ export declare const _MatMenuItemMixinBase: (new (...args: any[]) => CanDisableR
 export declare class MatMenuItem extends _MatMenuItemMixinBase implements FocusableOption, CanDisable, CanDisableRipple, OnDestroy {
     private _elementRef;
     private _focusMonitor;
+    private _document;
     /** Stream that emits when the menu item is hovered. */
     _hovered: Subject<MatMenuItem>;
     /** Whether the menu item is highlighted. */
     _highlighted: boolean;
     /** Whether the menu item acts as a trigger for a sub-menu. */
     _triggersSubmenu: boolean;
-    constructor(_elementRef: ElementRef, _focusMonitor?: FocusMonitor | undefined);
+    constructor(_elementRef: ElementRef, document?: any, _focusMonitor?: FocusMonitor | undefined);
     /** Focuses the menu item. */
     focus(origin?: FocusOrigin): void;
     ngOnDestroy(): void;
