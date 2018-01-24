@@ -38,7 +38,7 @@ import { of } from 'rxjs/observable/of';
  */
 var _uniqueAutocompleteIdCounter = 0;
 /**
- * Event object that is emitted when an autocomplete option is selected
+ * Event object that is emitted when an autocomplete option is selected.
  */
 var MatAutocompleteSelectedEvent = /** @class */ (function () {
     function MatAutocompleteSelectedEvent(source, option) {

@@ -8,7 +8,7 @@
 import { AfterContentInit, ElementRef, QueryList, TemplateRef, ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { MatOption, MatOptgroup, CanDisableRipple } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-/** Event object that is emitted when an autocomplete option is selected */
+/** Event object that is emitted when an autocomplete option is selected. */
 export declare class MatAutocompleteSelectedEvent {
     /** Reference to the autocomplete panel that emitted the event. */
     source: MatAutocomplete;
