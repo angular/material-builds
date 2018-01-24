@@ -713,13 +713,15 @@ class MatCalendar {
      * @param {?} _dateAdapter
      * @param {?} _dateFormats
      * @param {?} changeDetectorRef
+     * @param {?=} _dir
      */
-    constructor(_elementRef, _intl, _ngZone, _dateAdapter, _dateFormats, changeDetectorRef) {
+    constructor(_elementRef, _intl, _ngZone, _dateAdapter, _dateFormats, changeDetectorRef, _dir) {
         this._elementRef = _elementRef;
         this._intl = _intl;
         this._ngZone = _ngZone;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
+        this._dir = _dir;
         /**
          * Whether the calendar should be started in month or year view.
          */
@@ -1005,12 +1007,13 @@ class MatCalendar {
      * @return {?}
      */
     _handleCalendarBodyKeydownInMonthView(event) {
+        const /** @type {?} */ isRtl = this._isRtl();
         switch (event.keyCode) {
             case LEFT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, -1);
+                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, isRtl ? 1 : -1);
                 break;
             case RIGHT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, 1);
+                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, isRtl ? -1 : 1);
                 break;
             case UP_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, -7);
@@ -1057,12 +1060,13 @@ class MatCalendar {
      * @return {?}
      */
     _handleCalendarBodyKeydownInYearView(event) {
+        const /** @type {?} */ isRtl = this._isRtl();
         switch (event.keyCode) {
             case LEFT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -1);
+                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, isRtl ? 1 : -1);
                 break;
             case RIGHT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
+                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, isRtl ? -1 : 1);
                 break;
             case UP_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -4);
@@ -1146,6 +1150,13 @@ class MatCalendar {
     _getValidDateOrNull(obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     }
+    /**
+     * Determines whether the user has the RTL layout direction.
+     * @return {?}
+     */
+    _isRtl() {
+        return this._dir && this._dir.value === 'rtl';
+    }
 }
 MatCalendar.decorators = [
     { type: Component, args: [{selector: 'mat-calendar',
@@ -1168,6 +1179,7 @@ MatCalendar.ctorParameters = () => [
     { type: DateAdapter, decorators: [{ type: Optional },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] },] },
     { type: ChangeDetectorRef, },
+    { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MatCalendar.propDecorators = {
     "startAt": [{ type: Input },],

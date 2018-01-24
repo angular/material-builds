@@ -248,6 +248,9 @@ var MatButton = /** @class */ (function (_super) {
         { type: _angular_cdk_platform.Platform, },
         { type: _angular_cdk_a11y.FocusMonitor, },
     ]; };
+    MatButton.propDecorators = {
+        "ripple": [{ type: _angular_core.ViewChild, args: [_angular_material_core.MatRipple,] },],
+    };
     return MatButton;
 }(_MatButtonMixinBase));
 /**

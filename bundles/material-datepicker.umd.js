@@ -813,13 +813,14 @@ var MatYearView = /** @class */ (function () {
  * \@docs-private
  */
 var MatCalendar = /** @class */ (function () {
-    function MatCalendar(_elementRef, _intl, _ngZone, _dateAdapter, _dateFormats, changeDetectorRef) {
+    function MatCalendar(_elementRef, _intl, _ngZone, _dateAdapter, _dateFormats, changeDetectorRef, _dir) {
         var _this = this;
         this._elementRef = _elementRef;
         this._intl = _intl;
         this._ngZone = _ngZone;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
+        this._dir = _dir;
         /**
          * Whether the calendar should be started in month or year view.
          */
@@ -1222,12 +1223,13 @@ var MatCalendar = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
+        var /** @type {?} */ isRtl = this._isRtl();
         switch (event.keyCode) {
             case _angular_cdk_keycodes.LEFT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, -1);
+                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, isRtl ? 1 : -1);
                 break;
             case _angular_cdk_keycodes.RIGHT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, 1);
+                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, isRtl ? -1 : 1);
                 break;
             case _angular_cdk_keycodes.UP_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, -7);
@@ -1279,12 +1281,13 @@ var MatCalendar = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
+        var /** @type {?} */ isRtl = this._isRtl();
         switch (event.keyCode) {
             case _angular_cdk_keycodes.LEFT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -1);
+                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, isRtl ? 1 : -1);
                 break;
             case _angular_cdk_keycodes.RIGHT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
+                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, isRtl ? -1 : 1);
                 break;
             case _angular_cdk_keycodes.UP_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -4);
@@ -1377,6 +1380,17 @@ var MatCalendar = /** @class */ (function () {
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /**
+     * Determines whether the user has the RTL layout direction.
+     * @return {?}
+     */
+    MatCalendar.prototype._isRtl = /**
+     * Determines whether the user has the RTL layout direction.
+     * @return {?}
+     */
+    function () {
+        return this._dir && this._dir.value === 'rtl';
+    };
     MatCalendar.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-calendar',
                     template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"_currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_currentView\" cdkMonitorSubtreeFocus tabindex=\"-1\"><mat-month-view *ngSwitchCase=\"'month'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\" (_userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchCase=\"'year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view><mat-multi-year-view *ngSwitchCase=\"'multi-year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view></div>",
@@ -1398,6 +1412,7 @@ var MatCalendar = /** @class */ (function () {
         { type: _angular_material_core.DateAdapter, decorators: [{ type: _angular_core.Optional },] },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_material_core.MAT_DATE_FORMATS,] },] },
         { type: _angular_core.ChangeDetectorRef, },
+        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatCalendar.propDecorators = {
         "startAt": [{ type: _angular_core.Input },],

@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, NgModule, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ElementRef, NgModule, ViewChild, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCommonModule, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
+import { MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
@@ -224,6 +224,9 @@ var MatButton = /** @class */ (function (_super) {
         { type: Platform, },
         { type: FocusMonitor, },
     ]; };
+    MatButton.propDecorators = {
+        "ripple": [{ type: ViewChild, args: [MatRipple,] },],
+    };
     return MatButton;
 }(_MatButtonMixinBase));
 /**

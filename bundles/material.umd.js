@@ -3867,7 +3867,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             if (this.panelOpen || keyCode === _angular_cdk_keycodes.TAB) {
                 this.autocomplete._keyManager.onKeydown(event);
             }
-            else if (isArrowKey) {
+            else if (isArrowKey && this._canOpen()) {
                 this.openPanel();
             }
             if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
@@ -3887,7 +3887,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         // We need to ensure that the input is focused, because IE will fire the `input`
         // event on focus/blur/load if the input has a placeholder. See:
         // https://connect.microsoft.com/IE/feedback/details/885747/
-        if (document.activeElement === event.target) {
+        if (this._canOpen() && document.activeElement === event.target) {
             this._onChange((/** @type {?} */ (event.target)).value);
             this.openPanel();
         }
@@ -3899,7 +3899,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (!this._element.nativeElement.readOnly) {
+        if (this._canOpen()) {
             this._attachOverlay();
             this._floatLabel(true);
         }
@@ -4171,6 +4171,18 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     function () {
         this.autocomplete._keyManager.setActiveItem(-1);
     };
+    /**
+     * Determines whether the panel can be opened.
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype._canOpen = /**
+     * Determines whether the panel can be opened.
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ element = this._element.nativeElement;
+        return !element.readOnly && !element.disabled;
+    };
     MatAutocompleteTrigger.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: "input[matAutocomplete], textarea[matAutocomplete]",
@@ -4441,6 +4453,9 @@ var MatButton = /** @class */ (function (_super) {
         { type: _angular_cdk_platform.Platform, },
         { type: _angular_cdk_a11y.FocusMonitor, },
     ]; };
+    MatButton.propDecorators = {
+        "ripple": [{ type: _angular_core.ViewChild, args: [MatRipple,] },],
+    };
     return MatButton;
 }(_MatButtonMixinBase));
 /**
@@ -11679,13 +11694,14 @@ var MatYearView = /** @class */ (function () {
  * \@docs-private
  */
 var MatCalendar = /** @class */ (function () {
-    function MatCalendar(_elementRef, _intl, _ngZone, _dateAdapter, _dateFormats, changeDetectorRef) {
+    function MatCalendar(_elementRef, _intl, _ngZone, _dateAdapter, _dateFormats, changeDetectorRef, _dir) {
         var _this = this;
         this._elementRef = _elementRef;
         this._intl = _intl;
         this._ngZone = _ngZone;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
+        this._dir = _dir;
         /**
          * Whether the calendar should be started in month or year view.
          */
@@ -12088,12 +12104,13 @@ var MatCalendar = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
+        var /** @type {?} */ isRtl = this._isRtl();
         switch (event.keyCode) {
             case _angular_cdk_keycodes.LEFT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, -1);
+                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, isRtl ? 1 : -1);
                 break;
             case _angular_cdk_keycodes.RIGHT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, 1);
+                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, isRtl ? -1 : 1);
                 break;
             case _angular_cdk_keycodes.UP_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, -7);
@@ -12145,12 +12162,13 @@ var MatCalendar = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
+        var /** @type {?} */ isRtl = this._isRtl();
         switch (event.keyCode) {
             case _angular_cdk_keycodes.LEFT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -1);
+                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, isRtl ? 1 : -1);
                 break;
             case _angular_cdk_keycodes.RIGHT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, 1);
+                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, isRtl ? -1 : 1);
                 break;
             case _angular_cdk_keycodes.UP_ARROW:
                 this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -4);
@@ -12243,6 +12261,17 @@ var MatCalendar = /** @class */ (function () {
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /**
+     * Determines whether the user has the RTL layout direction.
+     * @return {?}
+     */
+    MatCalendar.prototype._isRtl = /**
+     * Determines whether the user has the RTL layout direction.
+     * @return {?}
+     */
+    function () {
+        return this._dir && this._dir.value === 'rtl';
+    };
     MatCalendar.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-calendar',
                     template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"_currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_currentView\" cdkMonitorSubtreeFocus tabindex=\"-1\"><mat-month-view *ngSwitchCase=\"'month'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\" (_userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchCase=\"'year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view><mat-multi-year-view *ngSwitchCase=\"'multi-year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view></div>",
@@ -12264,6 +12293,7 @@ var MatCalendar = /** @class */ (function () {
         { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
         { type: _angular_core.ChangeDetectorRef, },
+        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatCalendar.propDecorators = {
         "startAt": [{ type: _angular_core.Input },],
@@ -29146,7 +29176,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-1e7eeab');
+var VERSION = new _angular_core.Version('5.1.0-4f65276');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29379,10 +29409,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa16 = MatMenuItemBase;
-exports.ɵb16 = _MatMenuItemMixinBase;
-exports.ɵd16 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc16 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -29499,16 +29529,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe21 = MatTabBase;
+exports.ɵf21 = _MatTabMixinBase;
+exports.ɵa21 = MatTabHeaderBase;
+exports.ɵb21 = _MatTabHeaderMixinBase;
+exports.ɵc21 = MatTabLabelWrapperBase;
+exports.ɵd21 = _MatTabLabelWrapperMixinBase;
+exports.ɵi21 = MatTabLinkBase;
+exports.ɵg21 = MatTabNavBase;
+exports.ɵj21 = _MatTabLinkMixinBase;
+exports.ɵh21 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

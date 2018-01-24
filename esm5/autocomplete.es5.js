@@ -551,7 +551,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             if (this.panelOpen || keyCode === TAB) {
                 this.autocomplete._keyManager.onKeydown(event);
             }
-            else if (isArrowKey) {
+            else if (isArrowKey && this._canOpen()) {
                 this.openPanel();
             }
             if (isArrowKey || this.autocomplete._keyManager.activeItem !== prevActiveItem) {
@@ -571,7 +571,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         // We need to ensure that the input is focused, because IE will fire the `input`
         // event on focus/blur/load if the input has a placeholder. See:
         // https://connect.microsoft.com/IE/feedback/details/885747/
-        if (document.activeElement === event.target) {
+        if (this._canOpen() && document.activeElement === event.target) {
             this._onChange((/** @type {?} */ (event.target)).value);
             this.openPanel();
         }
@@ -583,7 +583,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (!this._element.nativeElement.readOnly) {
+        if (this._canOpen()) {
             this._attachOverlay();
             this._floatLabel(true);
         }
@@ -854,6 +854,18 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         this.autocomplete._keyManager.setActiveItem(-1);
+    };
+    /**
+     * Determines whether the panel can be opened.
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype._canOpen = /**
+     * Determines whether the panel can be opened.
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ element = this._element.nativeElement;
+        return !element.readOnly && !element.disabled;
     };
     MatAutocompleteTrigger.decorators = [
         { type: Directive, args: [{
