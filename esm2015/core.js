@@ -1159,18 +1159,11 @@ class RippleRef {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Fade-in duration for the ripples. Can be modified with the speedFactor option.
+ * Interface that describes the configuration for the animation of a ripple.
+ * There are two animation phases with different durations for the ripples.
+ * @record
  */
-const RIPPLE_FADE_IN_DURATION = 450;
-/**
- * Fade-out duration for the ripples in milliseconds. This can't be modified by the speedFactor.
- */
-const RIPPLE_FADE_OUT_DURATION = 400;
-/**
- * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
- * events to avoid synthetic mouse events.
- */
-const IGNORE_MOUSE_EVENTS_TIMEOUT = 800;
+
 /**
  * Interface that describes the target for launching ripples.
  * It defines the ripple configuration and disabled state for interaction ripples.
@@ -1178,6 +1171,19 @@ const IGNORE_MOUSE_EVENTS_TIMEOUT = 800;
  * @record
  */
 
+/**
+ * Default ripple animation configuration for ripples without an explicit
+ * animation config specified.
+ */
+const defaultRippleAnimationConfig = {
+    enterDuration: 450,
+    exitDuration: 400
+};
+/**
+ * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
+ * events to avoid synthetic mouse events.
+ */
+const ignoreMouseEventsTimeout = 800;
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
@@ -1216,7 +1222,7 @@ class RippleRenderer {
          */
         this.onMousedown = (event) => {
             const /** @type {?} */ isSyntheticEvent = this._lastTouchStartEvent &&
-                Date.now() < this._lastTouchStartEvent + IGNORE_MOUSE_EVENTS_TIMEOUT;
+                Date.now() < this._lastTouchStartEvent + ignoreMouseEventsTimeout;
             if (!this._target.rippleDisabled && !isSyntheticEvent) {
                 this._isPointerDown = true;
                 this.fadeInRipple(event.clientX, event.clientY, this._target.rippleConfig);
@@ -1270,14 +1276,15 @@ class RippleRenderer {
      */
     fadeInRipple(x, y, config = {}) {
         const /** @type {?} */ containerRect = this._containerElement.getBoundingClientRect();
+        const /** @type {?} */ animationConfig = Object.assign({}, defaultRippleAnimationConfig, config.animation);
         if (config.centered) {
             x = containerRect.left + containerRect.width / 2;
             y = containerRect.top + containerRect.height / 2;
         }
         const /** @type {?} */ radius = config.radius || distanceToFurthestCorner(x, y, containerRect);
-        const /** @type {?} */ duration = RIPPLE_FADE_IN_DURATION / (config.speedFactor || 1);
         const /** @type {?} */ offsetX = x - containerRect.left;
         const /** @type {?} */ offsetY = y - containerRect.top;
+        const /** @type {?} */ duration = animationConfig.enterDuration / (config.speedFactor || 1);
         const /** @type {?} */ ripple = document.createElement('div');
         ripple.classList.add('mat-ripple-element');
         ripple.style.left = `${offsetX - radius}px`;
@@ -1318,14 +1325,15 @@ class RippleRenderer {
             return;
         }
         const /** @type {?} */ rippleEl = rippleRef.element;
-        rippleEl.style.transitionDuration = `${RIPPLE_FADE_OUT_DURATION}ms`;
+        const /** @type {?} */ animationConfig = Object.assign({}, defaultRippleAnimationConfig, rippleRef.config.animation);
+        rippleEl.style.transitionDuration = `${animationConfig.exitDuration}ms`;
         rippleEl.style.opacity = '0';
         rippleRef.state = RippleState.FADING_OUT;
         // Once the ripple faded out, the ripple can be safely removed from the DOM.
         this.runTimeoutOutsideZone(() => {
             rippleRef.state = RippleState.HIDDEN; /** @type {?} */
             ((rippleEl.parentNode)).removeChild(rippleEl);
-        }, RIPPLE_FADE_OUT_DURATION);
+        }, animationConfig.exitDuration);
     }
     /**
      * Fades out all currently active ripples.
@@ -1428,6 +1436,7 @@ class MatRipple {
          * If set, the normal duration of ripple animations is divided by this value. For example,
          * setting it to 0.5 will cause the animations to take twice as long.
          * A changed speedFactor will not modify the fade-out duration of the ripples.
+         * @deprecated Use the [matRippleAnimation] binding instead.
          */
         this.speedFactor = 1;
         this._disabled = false;
@@ -1486,8 +1495,8 @@ class MatRipple {
      * @param {?=} config
      * @return {?}
      */
-    launch(x, y, config = this) {
-        return this._rippleRenderer.fadeInRipple(x, y, config);
+    launch(x, y, config) {
+        return this._rippleRenderer.fadeInRipple(x, y, Object.assign({}, this.rippleConfig, config));
     }
     /**
      * Fades out all currently showing ripple elements.
@@ -1503,13 +1512,14 @@ class MatRipple {
     get rippleConfig() {
         return {
             centered: this.centered,
-            speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
             radius: this.radius,
-            color: this.color
+            color: this.color,
+            animation: Object.assign({}, this._globalOptions.animation, this.animation),
+            speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
         };
     }
     /**
-     * Whether ripples on pointer-down are  disabled or not.
+     * Whether ripples on pointer-down are disabled or not.
      * @return {?}
      */
     get rippleDisabled() {
@@ -1548,6 +1558,7 @@ MatRipple.propDecorators = {
     "centered": [{ type: Input, args: ['matRippleCentered',] },],
     "radius": [{ type: Input, args: ['matRippleRadius',] },],
     "speedFactor": [{ type: Input, args: ['matRippleSpeedFactor',] },],
+    "animation": [{ type: Input, args: ['matRippleAnimation',] },],
     "disabled": [{ type: Input, args: ['matRippleDisabled',] },],
     "trigger": [{ type: Input, args: ['matRippleTrigger',] },],
 };
@@ -2069,5 +2080,5 @@ const DEC = 11;
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_LABEL_GLOBAL_OPTIONS as MAT_PLACEHOLDER_GLOBAL_OPTIONS, AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, RIPPLE_FADE_IN_DURATION, RIPPLE_FADE_OUT_DURATION, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC };
+export { MAT_LABEL_GLOBAL_OPTIONS as MAT_PLACEHOLDER_GLOBAL_OPTIONS, AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, applyCssTransform, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC };
 //# sourceMappingURL=core.js.map

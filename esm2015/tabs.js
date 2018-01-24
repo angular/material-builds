@@ -1465,7 +1465,10 @@ class MatTabLink extends _MatTabLinkMixinBase {
         this._tabLinkRipple.setupTriggerEvents(_elementRef.nativeElement);
         this.tabIndex = parseInt(tabIndex) || 0;
         if (globalOptions) {
-            this.rippleConfig = { speedFactor: globalOptions.baseSpeedFactor };
+            this.rippleConfig = {
+                speedFactor: globalOptions.baseSpeedFactor,
+                animation: globalOptions.animation,
+            };
         }
     }
     /**

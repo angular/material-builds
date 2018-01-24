@@ -1541,18 +1541,11 @@ var RippleRef = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Fade-in duration for the ripples. Can be modified with the speedFactor option.
+ * Interface that describes the configuration for the animation of a ripple.
+ * There are two animation phases with different durations for the ripples.
+ * @record
  */
-var RIPPLE_FADE_IN_DURATION = 450;
-/**
- * Fade-out duration for the ripples in milliseconds. This can't be modified by the speedFactor.
- */
-var RIPPLE_FADE_OUT_DURATION = 400;
-/**
- * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
- * events to avoid synthetic mouse events.
- */
-var IGNORE_MOUSE_EVENTS_TIMEOUT = 800;
+
 /**
  * Interface that describes the target for launching ripples.
  * It defines the ripple configuration and disabled state for interaction ripples.
@@ -1560,6 +1553,19 @@ var IGNORE_MOUSE_EVENTS_TIMEOUT = 800;
  * @record
  */
 
+/**
+ * Default ripple animation configuration for ripples without an explicit
+ * animation config specified.
+ */
+var defaultRippleAnimationConfig = {
+    enterDuration: 450,
+    exitDuration: 400
+};
+/**
+ * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
+ * events to avoid synthetic mouse events.
+ */
+var ignoreMouseEventsTimeout = 800;
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
@@ -1593,7 +1599,7 @@ var RippleRenderer = /** @class */ (function () {
          */
         this.onMousedown = function (event) {
             var /** @type {?} */ isSyntheticEvent = _this._lastTouchStartEvent &&
-                Date.now() < _this._lastTouchStartEvent + IGNORE_MOUSE_EVENTS_TIMEOUT;
+                Date.now() < _this._lastTouchStartEvent + ignoreMouseEventsTimeout;
             if (!_this._target.rippleDisabled && !isSyntheticEvent) {
                 _this._isPointerDown = true;
                 _this.fadeInRipple(event.clientX, event.clientY, _this._target.rippleConfig);
@@ -1666,14 +1672,15 @@ var RippleRenderer = /** @class */ (function () {
         var _this = this;
         if (config === void 0) { config = {}; }
         var /** @type {?} */ containerRect = this._containerElement.getBoundingClientRect();
+        var /** @type {?} */ animationConfig = __assign({}, defaultRippleAnimationConfig, config.animation);
         if (config.centered) {
             x = containerRect.left + containerRect.width / 2;
             y = containerRect.top + containerRect.height / 2;
         }
         var /** @type {?} */ radius = config.radius || distanceToFurthestCorner(x, y, containerRect);
-        var /** @type {?} */ duration = RIPPLE_FADE_IN_DURATION / (config.speedFactor || 1);
         var /** @type {?} */ offsetX = x - containerRect.left;
         var /** @type {?} */ offsetY = y - containerRect.top;
+        var /** @type {?} */ duration = animationConfig.enterDuration / (config.speedFactor || 1);
         var /** @type {?} */ ripple = document.createElement('div');
         ripple.classList.add('mat-ripple-element');
         ripple.style.left = offsetX - radius + "px";
@@ -1720,14 +1727,15 @@ var RippleRenderer = /** @class */ (function () {
             return;
         }
         var /** @type {?} */ rippleEl = rippleRef.element;
-        rippleEl.style.transitionDuration = RIPPLE_FADE_OUT_DURATION + "ms";
+        var /** @type {?} */ animationConfig = __assign({}, defaultRippleAnimationConfig, rippleRef.config.animation);
+        rippleEl.style.transitionDuration = animationConfig.exitDuration + "ms";
         rippleEl.style.opacity = '0';
         rippleRef.state = RippleState.FADING_OUT;
         // Once the ripple faded out, the ripple can be safely removed from the DOM.
         this.runTimeoutOutsideZone(function () {
             rippleRef.state = RippleState.HIDDEN; /** @type {?} */
             ((rippleEl.parentNode)).removeChild(rippleEl);
-        }, RIPPLE_FADE_OUT_DURATION);
+        }, animationConfig.exitDuration);
     };
     /** Fades out all currently active ripples. */
     /**
@@ -1852,6 +1860,7 @@ var MatRipple = /** @class */ (function () {
          * If set, the normal duration of ripple animations is divided by this value. For example,
          * setting it to 0.5 will cause the animations to take twice as long.
          * A changed speedFactor will not modify the fade-out duration of the ripples.
+         * @deprecated Use the [matRippleAnimation] binding instead.
          */
         this.speedFactor = 1;
         this._disabled = false;
@@ -1933,8 +1942,7 @@ var MatRipple = /** @class */ (function () {
      * @return {?}
      */
     function (x, y, config) {
-        if (config === void 0) { config = this; }
-        return this._rippleRenderer.fadeInRipple(x, y, config);
+        return this._rippleRenderer.fadeInRipple(x, y, __assign({}, this.rippleConfig, config));
     };
     /** Fades out all currently showing ripple elements. */
     /**
@@ -1957,18 +1965,19 @@ var MatRipple = /** @class */ (function () {
         function () {
             return {
                 centered: this.centered,
-                speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
                 radius: this.radius,
-                color: this.color
+                color: this.color,
+                animation: __assign({}, this._globalOptions.animation, this.animation),
+                speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
             };
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatRipple.prototype, "rippleDisabled", {
-        /** Whether ripples on pointer-down are  disabled or not. */
+        /** Whether ripples on pointer-down are disabled or not. */
         get: /**
-         * Whether ripples on pointer-down are  disabled or not.
+         * Whether ripples on pointer-down are disabled or not.
          * @return {?}
          */
         function () {
@@ -2013,6 +2022,7 @@ var MatRipple = /** @class */ (function () {
         "centered": [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
         "radius": [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
         "speedFactor": [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
+        "animation": [{ type: _angular_core.Input, args: ['matRippleAnimation',] },],
         "disabled": [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
         "trigger": [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
     };
@@ -2701,8 +2711,7 @@ exports.MAT_RIPPLE_GLOBAL_OPTIONS = MAT_RIPPLE_GLOBAL_OPTIONS;
 exports.MatRipple = MatRipple;
 exports.RippleState = RippleState;
 exports.RippleRef = RippleRef;
-exports.RIPPLE_FADE_IN_DURATION = RIPPLE_FADE_IN_DURATION;
-exports.RIPPLE_FADE_OUT_DURATION = RIPPLE_FADE_OUT_DURATION;
+exports.defaultRippleAnimationConfig = defaultRippleAnimationConfig;
 exports.RippleRenderer = RippleRenderer;
 exports.MatPseudoCheckboxModule = MatPseudoCheckboxModule;
 exports.MatPseudoCheckbox = MatPseudoCheckbox;

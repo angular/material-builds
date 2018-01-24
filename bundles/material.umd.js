@@ -1541,18 +1541,11 @@ var RippleRef = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Fade-in duration for the ripples. Can be modified with the speedFactor option.
+ * Interface that describes the configuration for the animation of a ripple.
+ * There are two animation phases with different durations for the ripples.
+ * @record
  */
-var RIPPLE_FADE_IN_DURATION = 450;
-/**
- * Fade-out duration for the ripples in milliseconds. This can't be modified by the speedFactor.
- */
-var RIPPLE_FADE_OUT_DURATION = 400;
-/**
- * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
- * events to avoid synthetic mouse events.
- */
-var IGNORE_MOUSE_EVENTS_TIMEOUT = 800;
+
 /**
  * Interface that describes the target for launching ripples.
  * It defines the ripple configuration and disabled state for interaction ripples.
@@ -1560,6 +1553,19 @@ var IGNORE_MOUSE_EVENTS_TIMEOUT = 800;
  * @record
  */
 
+/**
+ * Default ripple animation configuration for ripples without an explicit
+ * animation config specified.
+ */
+var defaultRippleAnimationConfig = {
+    enterDuration: 450,
+    exitDuration: 400
+};
+/**
+ * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
+ * events to avoid synthetic mouse events.
+ */
+var ignoreMouseEventsTimeout = 800;
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
@@ -1593,7 +1599,7 @@ var RippleRenderer = /** @class */ (function () {
          */
         this.onMousedown = function (event) {
             var /** @type {?} */ isSyntheticEvent = _this._lastTouchStartEvent &&
-                Date.now() < _this._lastTouchStartEvent + IGNORE_MOUSE_EVENTS_TIMEOUT;
+                Date.now() < _this._lastTouchStartEvent + ignoreMouseEventsTimeout;
             if (!_this._target.rippleDisabled && !isSyntheticEvent) {
                 _this._isPointerDown = true;
                 _this.fadeInRipple(event.clientX, event.clientY, _this._target.rippleConfig);
@@ -1666,14 +1672,15 @@ var RippleRenderer = /** @class */ (function () {
         var _this = this;
         if (config === void 0) { config = {}; }
         var /** @type {?} */ containerRect = this._containerElement.getBoundingClientRect();
+        var /** @type {?} */ animationConfig = __assign({}, defaultRippleAnimationConfig, config.animation);
         if (config.centered) {
             x = containerRect.left + containerRect.width / 2;
             y = containerRect.top + containerRect.height / 2;
         }
         var /** @type {?} */ radius = config.radius || distanceToFurthestCorner(x, y, containerRect);
-        var /** @type {?} */ duration = RIPPLE_FADE_IN_DURATION / (config.speedFactor || 1);
         var /** @type {?} */ offsetX = x - containerRect.left;
         var /** @type {?} */ offsetY = y - containerRect.top;
+        var /** @type {?} */ duration = animationConfig.enterDuration / (config.speedFactor || 1);
         var /** @type {?} */ ripple = document.createElement('div');
         ripple.classList.add('mat-ripple-element');
         ripple.style.left = offsetX - radius + "px";
@@ -1720,14 +1727,15 @@ var RippleRenderer = /** @class */ (function () {
             return;
         }
         var /** @type {?} */ rippleEl = rippleRef.element;
-        rippleEl.style.transitionDuration = RIPPLE_FADE_OUT_DURATION + "ms";
+        var /** @type {?} */ animationConfig = __assign({}, defaultRippleAnimationConfig, rippleRef.config.animation);
+        rippleEl.style.transitionDuration = animationConfig.exitDuration + "ms";
         rippleEl.style.opacity = '0';
         rippleRef.state = RippleState.FADING_OUT;
         // Once the ripple faded out, the ripple can be safely removed from the DOM.
         this.runTimeoutOutsideZone(function () {
             rippleRef.state = RippleState.HIDDEN; /** @type {?} */
             ((rippleEl.parentNode)).removeChild(rippleEl);
-        }, RIPPLE_FADE_OUT_DURATION);
+        }, animationConfig.exitDuration);
     };
     /** Fades out all currently active ripples. */
     /**
@@ -1852,6 +1860,7 @@ var MatRipple = /** @class */ (function () {
          * If set, the normal duration of ripple animations is divided by this value. For example,
          * setting it to 0.5 will cause the animations to take twice as long.
          * A changed speedFactor will not modify the fade-out duration of the ripples.
+         * @deprecated Use the [matRippleAnimation] binding instead.
          */
         this.speedFactor = 1;
         this._disabled = false;
@@ -1933,8 +1942,7 @@ var MatRipple = /** @class */ (function () {
      * @return {?}
      */
     function (x, y, config) {
-        if (config === void 0) { config = this; }
-        return this._rippleRenderer.fadeInRipple(x, y, config);
+        return this._rippleRenderer.fadeInRipple(x, y, __assign({}, this.rippleConfig, config));
     };
     /** Fades out all currently showing ripple elements. */
     /**
@@ -1957,18 +1965,19 @@ var MatRipple = /** @class */ (function () {
         function () {
             return {
                 centered: this.centered,
-                speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
                 radius: this.radius,
-                color: this.color
+                color: this.color,
+                animation: __assign({}, this._globalOptions.animation, this.animation),
+                speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
             };
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatRipple.prototype, "rippleDisabled", {
-        /** Whether ripples on pointer-down are  disabled or not. */
+        /** Whether ripples on pointer-down are disabled or not. */
         get: /**
-         * Whether ripples on pointer-down are  disabled or not.
+         * Whether ripples on pointer-down are disabled or not.
          * @return {?}
          */
         function () {
@@ -2013,6 +2022,7 @@ var MatRipple = /** @class */ (function () {
         "centered": [{ type: _angular_core.Input, args: ['matRippleCentered',] },],
         "radius": [{ type: _angular_core.Input, args: ['matRippleRadius',] },],
         "speedFactor": [{ type: _angular_core.Input, args: ['matRippleSpeedFactor',] },],
+        "animation": [{ type: _angular_core.Input, args: ['matRippleAnimation',] },],
         "disabled": [{ type: _angular_core.Input, args: ['matRippleDisabled',] },],
         "trigger": [{ type: _angular_core.Input, args: ['matRippleTrigger',] },],
     };
@@ -5710,10 +5720,6 @@ var MatCheckbox = /** @class */ (function (_super) {
          */
         _this.indeterminateChange = new _angular_core.EventEmitter();
         /**
-         * Ripple configuration for the mouse ripples and focus indicators.
-         */
-        _this._rippleConfig = { centered: true, radius: 25, speedFactor: 1.5 };
-        /**
          * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
          * \@docs-private
          */
@@ -5996,7 +6002,7 @@ var MatCheckbox = /** @class */ (function (_super) {
      */
     function (focusOrigin) {
         if (!this._focusRipple && focusOrigin === 'keyboard') {
-            this._focusRipple = this.ripple.launch(0, 0, __assign({ persistent: true }, this._rippleConfig));
+            this._focusRipple = this.ripple.launch(0, 0, { persistent: true });
         }
         else if (!focusOrigin) {
             this._removeFocusRipple();
@@ -6154,7 +6160,7 @@ var MatCheckbox = /** @class */ (function (_super) {
     };
     MatCheckbox.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-checkbox',
-                    template: "<label [attr.for]=\"inputId\" class=\"mat-checkbox-layout\" #label><div class=\"mat-checkbox-inner-container\" [class.mat-checkbox-inner-container-no-side-margin]=\"!checkboxLabel.textContent || !checkboxLabel.textContent.trim()\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [attr.value]=\"value\" [disabled]=\"disabled\" [attr.name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" [attr.aria-checked]=\"_getAriaChecked()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div matRipple class=\"mat-checkbox-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleRadius]=\"_rippleConfig.radius\" [matRippleSpeedFactor]=\"_rippleConfig.speedFactor\" [matRippleCentered]=\"_rippleConfig.centered\"></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" focusable=\"false\" class=\"mat-checkbox-checkmark\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\" #checkboxLabel (cdkObserveContent)=\"_onLabelTextChange()\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></span></label>",
+                    template: "<label [attr.for]=\"inputId\" class=\"mat-checkbox-layout\" #label><div class=\"mat-checkbox-inner-container\" [class.mat-checkbox-inner-container-no-side-margin]=\"!checkboxLabel.textContent || !checkboxLabel.textContent.trim()\"><input #input class=\"mat-checkbox-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [checked]=\"checked\" [attr.value]=\"value\" [disabled]=\"disabled\" [attr.name]=\"name\" [tabIndex]=\"tabIndex\" [indeterminate]=\"indeterminate\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" [attr.aria-checked]=\"_getAriaChecked()\" (change)=\"_onInteractionEvent($event)\" (click)=\"_onInputClick($event)\"><div matRipple class=\"mat-checkbox-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleRadius]=\"25\" [matRippleCentered]=\"true\" [matRippleAnimation]=\"{enterDuration: 300}\"></div><div class=\"mat-checkbox-frame\"></div><div class=\"mat-checkbox-background\"><svg version=\"1.1\" focusable=\"false\" class=\"mat-checkbox-checkmark\" viewBox=\"0 0 24 24\" xml:space=\"preserve\"><path class=\"mat-checkbox-checkmark-path\" fill=\"none\" stroke=\"white\" d=\"M4.1,12.7 9,17.6 20.3,6.3\"/></svg><div class=\"mat-checkbox-mixedmark\"></div></div></div><span class=\"mat-checkbox-label\" #checkboxLabel (cdkObserveContent)=\"_onLabelTextChange()\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></span></label>",
                     styles: ["@keyframes mat-checkbox-fade-in-background{0%{opacity:0}50%{opacity:1}}@keyframes mat-checkbox-fade-out-background{0%,50%{opacity:1}100%{opacity:0}}@keyframes mat-checkbox-unchecked-checked-checkmark-path{0%,50%{stroke-dashoffset:22.91026}50%{animation-timing-function:cubic-bezier(0,0,.2,.1)}100%{stroke-dashoffset:0}}@keyframes mat-checkbox-unchecked-indeterminate-mixedmark{0%,68.2%{transform:scaleX(0)}68.2%{animation-timing-function:cubic-bezier(0,0,0,1)}100%{transform:scaleX(1)}}@keyframes mat-checkbox-checked-unchecked-checkmark-path{from{animation-timing-function:cubic-bezier(.4,0,1,1);stroke-dashoffset:0}to{stroke-dashoffset:-22.91026}}@keyframes mat-checkbox-checked-indeterminate-checkmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(45deg)}}@keyframes mat-checkbox-indeterminate-checked-checkmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:0;transform:rotate(45deg)}to{opacity:1;transform:rotate(360deg)}}@keyframes mat-checkbox-checked-indeterminate-mixedmark{from{animation-timing-function:cubic-bezier(0,0,.2,.1);opacity:0;transform:rotate(-45deg)}to{opacity:1;transform:rotate(0)}}@keyframes mat-checkbox-indeterminate-checked-mixedmark{from{animation-timing-function:cubic-bezier(.14,0,0,1);opacity:1;transform:rotate(0)}to{opacity:0;transform:rotate(315deg)}}@keyframes mat-checkbox-indeterminate-unchecked-mixedmark{0%{animation-timing-function:linear;opacity:1;transform:scaleX(1)}100%,32.8%{opacity:0;transform:scaleX(0)}}.mat-checkbox-checkmark,.mat-checkbox-mixedmark{width:calc(100% - 4px)}.mat-checkbox-background,.mat-checkbox-frame{top:0;left:0;right:0;bottom:0;position:absolute;border-radius:2px;box-sizing:border-box;pointer-events:none}.mat-checkbox{transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);cursor:pointer}.mat-checkbox-layout{cursor:inherit;align-items:baseline;vertical-align:middle;display:inline-flex;white-space:nowrap}.mat-checkbox-inner-container{display:inline-block;height:20px;line-height:0;margin:auto;margin-right:8px;order:0;position:relative;vertical-align:middle;white-space:nowrap;width:20px;flex-shrink:0}[dir=rtl] .mat-checkbox-inner-container{margin-left:8px;margin-right:auto}.mat-checkbox-inner-container-no-side-margin{margin-left:0;margin-right:0}.mat-checkbox-frame{background-color:transparent;transition:border-color 90ms cubic-bezier(0,0,.2,.1);border-width:2px;border-style:solid}.mat-checkbox-background{align-items:center;display:inline-flex;justify-content:center;transition:background-color 90ms cubic-bezier(0,0,.2,.1),opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-checkbox-checkmark{top:0;left:0;right:0;bottom:0;position:absolute;width:100%}.mat-checkbox-checkmark-path{stroke-dashoffset:22.91026;stroke-dasharray:22.91026;stroke-width:2.66667px}.mat-checkbox-mixedmark{height:2px;opacity:0;transform:scaleX(0) rotate(0)}.mat-checkbox-label-before .mat-checkbox-inner-container{order:1;margin-left:8px;margin-right:auto}[dir=rtl] .mat-checkbox-label-before .mat-checkbox-inner-container{margin-left:auto;margin-right:8px}.mat-checkbox-checked .mat-checkbox-checkmark{opacity:1}.mat-checkbox-checked .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-checked .mat-checkbox-mixedmark{transform:scaleX(1) rotate(-45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark{opacity:0;transform:rotate(45deg)}.mat-checkbox-indeterminate .mat-checkbox-checkmark-path{stroke-dashoffset:0}.mat-checkbox-indeterminate .mat-checkbox-mixedmark{opacity:1;transform:scaleX(1) rotate(0)}.mat-checkbox-unchecked .mat-checkbox-background{background-color:transparent}.mat-checkbox-disabled{cursor:default}.mat-checkbox-anim-unchecked-checked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-checked .mat-checkbox-checkmark-path{animation:180ms linear 0s mat-checkbox-unchecked-checked-checkmark-path}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-in-background}.mat-checkbox-anim-unchecked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-unchecked-indeterminate-mixedmark}.mat-checkbox-anim-checked-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-checked-unchecked .mat-checkbox-checkmark-path{animation:90ms linear 0s mat-checkbox-checked-unchecked-checkmark-path}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-checkmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-checkmark}.mat-checkbox-anim-checked-indeterminate .mat-checkbox-mixedmark{animation:90ms linear 0s mat-checkbox-checked-indeterminate-mixedmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-checkmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-checkmark}.mat-checkbox-anim-indeterminate-checked .mat-checkbox-mixedmark{animation:.5s linear 0s mat-checkbox-indeterminate-checked-mixedmark}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-background{animation:180ms linear 0s mat-checkbox-fade-out-background}.mat-checkbox-anim-indeterminate-unchecked .mat-checkbox-mixedmark{animation:.3s linear 0s mat-checkbox-indeterminate-unchecked-mixedmark}.mat-checkbox-input{bottom:0;left:50%}.mat-checkbox-ripple{position:absolute;left:-15px;top:-15px;height:50px;width:50px;z-index:1;pointer-events:none}"],
                     exportAs: 'matCheckbox',
                     host: {
@@ -21440,10 +21446,6 @@ var MatRadioButton = /** @class */ (function (_super) {
          */
         _this._value = null;
         /**
-         * Ripple configuration for the mouse ripples and focus indicators.
-         */
-        _this._rippleConfig = { centered: true, radius: 23, speedFactor: 1.5 };
-        /**
          * Unregister function for _radioDispatcher
          */
         _this._removeUniqueSelectionListener = function () { };
@@ -21759,7 +21761,7 @@ var MatRadioButton = /** @class */ (function (_super) {
      */
     function (focusOrigin) {
         if (!this._focusRipple && focusOrigin === 'keyboard') {
-            this._focusRipple = this._ripple.launch(0, 0, __assign({ persistent: true }, this._rippleConfig));
+            this._focusRipple = this._ripple.launch(0, 0, { persistent: true });
         }
         else if (!focusOrigin) {
             if (this.radioGroup) {
@@ -21773,7 +21775,7 @@ var MatRadioButton = /** @class */ (function (_super) {
     };
     MatRadioButton.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-radio-button',
-                    template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div mat-ripple class=\"mat-radio-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_rippleConfig.centered\" [matRippleRadius]=\"_rippleConfig.radius\" [matRippleSpeedFactor]=\"_rippleConfig.speedFactor\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [tabIndex]=\"tabIndex\" [attr.name]=\"name\" [required]=\"required\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
+                    template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div mat-ripple class=\"mat-radio-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\" [matRippleRadius]=\"23\" [matRippleAnimation]=\"{enterDuration: 300}\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [tabIndex]=\"tabIndex\" [attr.name]=\"name\" [required]=\"required\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
                     styles: [".mat-radio-button{display:inline-block}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(.001)}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:-15px;top:-15px;height:50px;width:50px;z-index:1;pointer-events:none}"],
                     inputs: ['color', 'disableRipple', 'tabIndex'],
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -23079,10 +23081,6 @@ var MatSlideToggle = /** @class */ (function (_super) {
          * An event will be dispatched each time the slide-toggle changes its value.
          */
         _this.change = new _angular_core.EventEmitter();
-        /**
-         * Ripple configuration for the mouse ripples and focus indicators.
-         */
-        _this._rippleConfig = { centered: true, radius: 23, speedFactor: 1.5 };
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -23293,7 +23291,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
     function (focusOrigin) {
         if (!this._focusRipple && focusOrigin === 'keyboard') {
             // For keyboard focus show a persistent ripple as focus indicator.
-            this._focusRipple = this._ripple.launch(0, 0, __assign({ persistent: true }, this._rippleConfig));
+            this._focusRipple = this._ripple.launch(0, 0, { persistent: true });
         }
         else if (!focusOrigin) {
             this.onTouched();
@@ -23384,7 +23382,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
                         '[class.mat-disabled]': 'disabled',
                         '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
                     },
-                    template: "<label class=\"mat-slide-toggle-label\" #label><div class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"disableRipple || disabled\" [matRippleCentered]=\"_rippleConfig.centered\" [matRippleRadius]=\"_rippleConfig.radius\" [matRippleSpeedFactor]=\"_rippleConfig.speedFactor\"></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
+                    template: "<label class=\"mat-slide-toggle-label\" #label><div class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"disableRipple || disabled\" [matRippleCentered]=\"true\" [matRippleRadius]=\"23\" [matRippleAnimation]=\"{enterDuration: 300}\"></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
                     styles: [".mat-slide-toggle{display:inline-block;height:24px;max-width:100%;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;height:inherit;cursor:pointer}.mat-slide-toggle-content{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;flex-shrink:0;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:-13px;left:-13px;height:46px;width:46px;z-index:1;pointer-events:none}"],
                     providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
                     inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
@@ -28946,7 +28944,10 @@ var MatTabLink = /** @class */ (function (_super) {
         _this._tabLinkRipple.setupTriggerEvents(_elementRef.nativeElement);
         _this.tabIndex = parseInt(tabIndex) || 0;
         if (globalOptions) {
-            _this.rippleConfig = { speedFactor: globalOptions.baseSpeedFactor };
+            _this.rippleConfig = {
+                speedFactor: globalOptions.baseSpeedFactor,
+                animation: globalOptions.animation,
+            };
         }
         return _this;
     }
@@ -29231,7 +29232,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-d5a7cce');
+var VERSION = new _angular_core.Version('5.1.0-3bc4cd3');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29340,8 +29341,7 @@ exports.MAT_RIPPLE_GLOBAL_OPTIONS = MAT_RIPPLE_GLOBAL_OPTIONS;
 exports.MatRipple = MatRipple;
 exports.RippleState = RippleState;
 exports.RippleRef = RippleRef;
-exports.RIPPLE_FADE_IN_DURATION = RIPPLE_FADE_IN_DURATION;
-exports.RIPPLE_FADE_OUT_DURATION = RIPPLE_FADE_OUT_DURATION;
+exports.defaultRippleAnimationConfig = defaultRippleAnimationConfig;
 exports.RippleRenderer = RippleRenderer;
 exports.MatPseudoCheckboxModule = MatPseudoCheckboxModule;
 exports.MatPseudoCheckbox = MatPseudoCheckbox;

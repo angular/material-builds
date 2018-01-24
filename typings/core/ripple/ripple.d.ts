@@ -8,7 +8,7 @@
 import { Platform } from '@angular/cdk/platform';
 import { ElementRef, InjectionToken, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { RippleRef } from './ripple-ref';
-import { RippleConfig, RippleTarget } from './ripple-renderer';
+import { RippleAnimationConfig, RippleConfig, RippleTarget } from './ripple-renderer';
 /** Configurable options for `matRipple`. */
 export interface RippleGlobalOptions {
     /**
@@ -17,9 +17,15 @@ export interface RippleGlobalOptions {
      */
     disabled?: boolean;
     /**
+     * Configuration for the animation duration of the ripples.
+     * There are two phases with different durations for the ripples.
+     */
+    animation?: RippleAnimationConfig;
+    /**
      * If set, the default duration of the fade-in animation is divided by this value. For example,
      * setting it to 0.5 will cause the ripple fade-in animation to take twice as long.
      * A changed speedFactor will not affect the fade-out duration of the ripples.
+     * @deprecated Use the `animation` global option instead.
      */
     baseSpeedFactor?: number;
 }
@@ -46,8 +52,14 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
      * If set, the normal duration of ripple animations is divided by this value. For example,
      * setting it to 0.5 will cause the animations to take twice as long.
      * A changed speedFactor will not modify the fade-out duration of the ripples.
+     * @deprecated Use the [matRippleAnimation] binding instead.
      */
     speedFactor: number;
+    /**
+     * Configuration for the ripple animation. Allows modifying the enter and exit animation
+     * duration of the ripples.
+     */
+    animation: RippleAnimationConfig;
     /**
      * Whether click events will not trigger the ripple. Ripples can be still launched manually
      * by using the `launch()` method.
@@ -75,7 +87,7 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     fadeOutAll(): void;
     /** Ripple configuration from the directive's input values. */
     readonly rippleConfig: RippleConfig;
-    /** Whether ripples on pointer-down are  disabled or not. */
+    /** Whether ripples on pointer-down are disabled or not. */
     readonly rippleDisabled: boolean;
     /** Sets up the the trigger event listeners if ripples are enabled. */
     private _setupTriggerEventsIfEnabled();

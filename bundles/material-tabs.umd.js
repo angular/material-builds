@@ -1880,7 +1880,10 @@ var MatTabLink = /** @class */ (function (_super) {
         _this._tabLinkRipple.setupTriggerEvents(_elementRef.nativeElement);
         _this.tabIndex = parseInt(tabIndex) || 0;
         if (globalOptions) {
-            _this.rippleConfig = { speedFactor: globalOptions.baseSpeedFactor };
+            _this.rippleConfig = {
+                speedFactor: globalOptions.baseSpeedFactor,
+                animation: globalOptions.animation,
+            };
         }
         return _this;
     }

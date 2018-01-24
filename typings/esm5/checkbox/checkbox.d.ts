@@ -8,7 +8,7 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, MatRipple, RippleConfig } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, MatRipple } from '@angular/material/core';
 import { MatCheckboxClickAction } from './checkbox-config';
 /**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
@@ -91,8 +91,6 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     _inputElement: ElementRef;
     /** Reference to the ripple instance of the checkbox. */
     ripple: MatRipple;
-    /** Ripple configuration for the mouse ripples and focus indicators. */
-    _rippleConfig: RippleConfig;
     /**
      * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
      * @docs-private

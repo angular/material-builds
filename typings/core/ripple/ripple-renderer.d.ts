@@ -8,17 +8,25 @@
 import { ElementRef, NgZone } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { RippleRef } from './ripple-ref';
-/** Fade-in duration for the ripples. Can be modified with the speedFactor option. */
-export declare const RIPPLE_FADE_IN_DURATION = 450;
-/** Fade-out duration for the ripples in milliseconds. This can't be modified by the speedFactor. */
-export declare const RIPPLE_FADE_OUT_DURATION = 400;
 export declare type RippleConfig = {
     color?: string;
     centered?: boolean;
     radius?: number;
-    speedFactor?: number;
     persistent?: boolean;
+    animation?: RippleAnimationConfig;
+    /** @deprecated Use the animation property instead. */
+    speedFactor?: number;
 };
+/**
+ * Interface that describes the configuration for the animation of a ripple.
+ * There are two animation phases with different durations for the ripples.
+ */
+export interface RippleAnimationConfig {
+    /** Duration in milliseconds for the enter animation (expansion from point of contact). */
+    enterDuration?: number;
+    /** Duration in milliseconds for the exit animation (fade-out). */
+    exitDuration?: number;
+}
 /**
  * Interface that describes the target for launching ripples.
  * It defines the ripple configuration and disabled state for interaction ripples.
@@ -30,6 +38,14 @@ export interface RippleTarget {
     /** Whether ripples on pointer down should be disabled. */
     rippleDisabled: boolean;
 }
+/**
+ * Default ripple animation configuration for ripples without an explicit
+ * animation config specified.
+ */
+export declare const defaultRippleAnimationConfig: {
+    enterDuration: number;
+    exitDuration: number;
+};
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM

@@ -9,7 +9,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanDisable, CanDisableRipple, HammerInput, HasTabIndex, MatRipple, RippleConfig } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple, HammerInput, HasTabIndex, MatRipple } from '@angular/material/core';
 export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 /** Change event object emitted by a MatSlideToggle. */
 export declare class MatSlideToggleChange {
@@ -65,8 +65,6 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     _inputElement: ElementRef;
     /** Reference to the ripple directive on the thumb container. */
     _ripple: MatRipple;
-    /** Ripple configuration for the mouse ripples and focus indicators. */
-    _rippleConfig: RippleConfig;
     constructor(elementRef: ElementRef, _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
