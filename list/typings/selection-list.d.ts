@@ -23,6 +23,7 @@ export declare const MAT_SELECTION_LIST_VALUE_ACCESSOR: any;
 /**
  * Change event object emitted by MatListOption whenever the selected state changes.
  * @deprecated Use the `MatSelectionListChange` event on the selection list instead.
+ * @deletion-target 6.0.0
  */
 export declare class MatListOptionChange {
     /** Reference to the list option that changed. */
@@ -75,6 +76,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     /**
      * Emits a change event whenever the selected state of an option changes.
      * @deprecated Use the `selectionChange` event on the `<mat-selection-list>` instead.
+     * @deletion-target 6.0.0
      */
     selectionChange: EventEmitter<MatListOptionChange>;
     constructor(_element: ElementRef, _changeDetector: ChangeDetectorRef, 

@@ -65,7 +65,10 @@ export declare class MatTooltip implements OnDestroy {
     position: TooltipPosition;
     /** Disables the display of the tooltip. */
     disabled: boolean;
-    /** @deprecated */
+    /**
+     * @deprecated
+     * @deletion-target 6.0.0
+     */
     _positionDeprecated: TooltipPosition;
     /** The default delay in ms before showing the tooltip after show is called */
     showDelay: number;

@@ -37,7 +37,10 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _positionSubscription;
     private _hoverSubscription;
     private _openedByMouse;
-    /** @deprecated */
+    /**
+     * @deprecated
+     * @deletion-target 6.0.0
+     */
     _deprecatedMatMenuTriggerFor: MatMenuPanel;
     /** References the menu instance that the trigger is associated with. */
     menu: MatMenuPanel;
@@ -46,6 +49,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     /**
      * Event emitted when the associated menu is opened.
      * @deprecated Switch to `menuOpened` instead
+     * @deletion-target 6.0.0
      */
     onMenuOpen: EventEmitter<void>;
     /** Event emitted when the associated menu is closed. */
@@ -53,6 +57,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     /**
      * Event emitted when the associated menu is closed.
      * @deprecated Switch to `menuClosed` instead
+     * @deletion-target 6.0.0
      */
     onMenuClose: EventEmitter<void>;
     constructor(_overlay: Overlay, _element: ElementRef, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _parentMenu: MatMenu, _menuItemInstance: MatMenuItem, _dir: Directionality, _focusMonitor?: FocusMonitor | undefined);

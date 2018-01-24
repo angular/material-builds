@@ -18,6 +18,7 @@ export declare function throwMatDuplicatedDrawerError(position: string): void;
 /**
  * Drawer toggle promise result.
  * @deprecated
+ * @deletion-target 6.0.0
  */
 export declare class MatDrawerToggleResult {
     /** Whether the drawer is opened or closed. */
@@ -63,7 +64,10 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     /** The side that the drawer is attached to. */
     position: 'start' | 'end';
     private _position;
-    /** @deprecated */
+    /**
+     * @deprecated
+     * @deletion-target 6.0.0
+     */
     align: 'start' | 'end';
     /** Mode of the drawer; one of 'over', 'push' or 'side'. */
     mode: 'over' | 'push' | 'side';
@@ -92,16 +96,21 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     /**
      * Event emitted when the drawer is fully opened.
      * @deprecated Use `opened` instead.
+     * @deletion-target 6.0.0
      */
     onOpen: Observable<void>;
     /**
      * Event emitted when the drawer is fully closed.
      * @deprecated Use `closed` instead.
+     * @deletion-target 6.0.0
      */
     onClose: Observable<void>;
     /** Event emitted when the drawer's position changes. */
     onPositionChanged: EventEmitter<void>;
-    /** @deprecated */
+    /**
+     * @deprecated
+     * @deletion-target 6.0.0
+     */
     onAlignChanged: EventEmitter<void>;
     /**
      * An observable that emits when the drawer mode changes. This is used by the drawer container to

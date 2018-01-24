@@ -31,6 +31,7 @@ export declare abstract class MatFormFieldControl<T> {
     /**
      * Whether the `MatFormField` placeholder should try to float.
      * @deprecated Use `shouldLabelFloat` instead.
+     * @deletion-target 6.0.0
      */
     readonly shouldPlaceholderFloat?: boolean;
     /** Whether the control is required. */

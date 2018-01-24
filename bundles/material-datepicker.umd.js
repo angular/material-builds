@@ -1520,6 +1520,7 @@ var MatDatepicker = /** @class */ (function () {
         /**
          * Emits new selected date when selected date changes.
          * @deprecated Switch to the `dateChange` and `dateInput` binding on the input element.
+         * \@deletion-target 6.0.0
          */
         this.selectedChanged = new _angular_core.EventEmitter();
         /**

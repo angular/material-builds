@@ -78,10 +78,12 @@ var matMenuAnimations = {
 };
 /**
  * @deprecated
+ * \@deletion-target 7.0.0
  */
 var fadeInItems = matMenuAnimations.fadeInItems;
 /**
  * @deprecated
+ * \@deletion-target 7.0.0
  */
 var transformMenu = matMenuAnimations.transformMenu;
 
@@ -353,6 +355,7 @@ var MatMenu = /** @class */ (function () {
         /**
          * Event emitted when the menu is closed.
          * @deprecated Switch to `closed` instead
+         * \@deletion-target 6.0.0
          */
         this.close = this.closed;
     }
@@ -439,6 +442,7 @@ var MatMenu = /** @class */ (function () {
          * menu template that displays in the overlay container.  Otherwise, it's difficult
          * to style the containing menu from outside the component.
          * @deprecated Use `panelClass` instead.
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this.panelClass; },
@@ -739,6 +743,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is opened.
          * @deprecated Switch to `menuOpened` instead
+         * \@deletion-target 6.0.0
          */
         this.onMenuOpen = this.menuOpened;
         /**
@@ -748,6 +753,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is closed.
          * @deprecated Switch to `menuClosed` instead
+         * \@deletion-target 6.0.0
          */
         this.onMenuClose = this.menuClosed;
         if (_menuItemInstance) {
@@ -757,6 +763,7 @@ var MatMenuTrigger = /** @class */ (function () {
     Object.defineProperty(MatMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", {
         get: /**
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () {
@@ -1296,5 +1303,5 @@ var MatMenuModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuItemBase as ɵa21, _MatMenuItemMixinBase as ɵb21, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd21, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc21 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuItemBase as ɵa22, _MatMenuItemMixinBase as ɵb22, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd22, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc22 };
 //# sourceMappingURL=menu.es5.js.map

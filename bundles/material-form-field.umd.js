@@ -264,6 +264,7 @@ var MatFormField = /** @class */ (function () {
     Object.defineProperty(MatFormField.prototype, "dividerColor", {
         get: /**
          * @deprecated Use `color` instead.
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this.color; },
@@ -334,6 +335,7 @@ var MatFormField = /** @class */ (function () {
         get: /**
          * Whether the placeholder should always float, never float or float as the user types.
          * @deprecated Use floatLabel instead.
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this._floatLabel; },

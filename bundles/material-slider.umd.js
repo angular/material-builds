@@ -240,6 +240,7 @@ var MatSlider = /** @class */ (function (_super) {
     Object.defineProperty(MatSlider.prototype, "_thumbLabelDeprecated", {
         get: /**
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this._thumbLabel; },
@@ -279,6 +280,7 @@ var MatSlider = /** @class */ (function (_super) {
     Object.defineProperty(MatSlider.prototype, "_tickIntervalDeprecated", {
         get: /**
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this.tickInterval; },

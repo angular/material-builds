@@ -97,6 +97,7 @@ var MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-option
 var MatTooltip = /** @class */ (function () {
     function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir, _defaultOptions) {
         // TODO(crisbeto): make the `_defaultOptions` a required param next time we do breaking changes.
+        // @deletion-target 6.0.0
         var _this = this;
         this._overlay = _overlay;
         this._elementRef = _elementRef;
@@ -194,6 +195,7 @@ var MatTooltip = /** @class */ (function () {
     Object.defineProperty(MatTooltip.prototype, "_positionDeprecated", {
         get: /**
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this._position; },

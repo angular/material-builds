@@ -71,6 +71,7 @@ export declare class MatRadioGroup extends _MatRadioGroupMixinBase implements Af
     /**
      * Alignment of the radio-buttons relative to their labels. Can be 'before' or 'after'.
      * @deprecated
+     * @deletion-target 6.0.0
      */
     align: 'start' | 'end';
     /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
@@ -154,6 +155,7 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     /**
      * Whether or not the radio-button should appear before or after the label.
      * @deprecated
+     * @deletion-target
      */
     align: 'start' | 'end';
     private _labelPosition;

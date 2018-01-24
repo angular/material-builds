@@ -110,6 +110,7 @@ class MatTooltip {
      */
     constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir, _defaultOptions) {
         // TODO(crisbeto): make the `_defaultOptions` a required param next time we do breaking changes.
+        // @deletion-target 6.0.0
         this._overlay = _overlay;
         this._elementRef = _elementRef;
         this._scrollDispatcher = _scrollDispatcher;
@@ -197,6 +198,7 @@ class MatTooltip {
     }
     /**
      * @deprecated
+     * \@deletion-target 6.0.0
      * @return {?}
      */
     get _positionDeprecated() { return this._position; }

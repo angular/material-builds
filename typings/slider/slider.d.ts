@@ -51,7 +51,10 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     /** Whether or not to show the thumb label. */
     thumbLabel: boolean;
     private _thumbLabel;
-    /** @deprecated */
+    /**
+     * @deprecated
+     * @deletion-target 6.0.0
+     */
     _thumbLabelDeprecated: boolean;
     /**
      * How often to show ticks. Relative to the step so that a tick always appears on a step.
@@ -59,7 +62,10 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      */
     tickInterval: 'auto' | number;
     private _tickInterval;
-    /** @deprecated */
+    /**
+     * @deprecated
+     * @deletion-target 6.0.0
+     */
     _tickIntervalDeprecated: number | "auto";
     /** Value of the slider. */
     value: number | null;

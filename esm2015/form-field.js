@@ -255,6 +255,7 @@ class MatFormField {
     }
     /**
      * @deprecated Use `color` instead.
+     * \@deletion-target 6.0.0
      * @return {?}
      */
     get dividerColor() { return this.color; }
@@ -303,6 +304,7 @@ class MatFormField {
     /**
      * Whether the placeholder should always float, never float or float as the user types.
      * @deprecated Use floatLabel instead.
+     * \@deletion-target 6.0.0
      * @return {?}
      */
     get floatPlaceholder() { return this._floatLabel; }

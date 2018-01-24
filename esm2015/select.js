@@ -89,10 +89,12 @@ const matSelectAnimations = {
 };
 /**
  * @deprecated
+ * \@deletion-target 7.0.0
  */
 const transformPanel = matSelectAnimations.transformPanel;
 /**
  * @deprecated
+ * \@deletion-target 7.0.0
  */
 const fadeInContent = matSelectAnimations.fadeInContent;
 
@@ -367,11 +369,13 @@ class MatSelect extends _MatSelectMixinBase {
         /**
          * Event emitted when the select has been opened.
          * @deprecated Use `openedChange` instead.
+         * \@deletion-target 6.0.0
          */
         this.onOpen = this._openedStream;
         /**
          * Event emitted when the select has been closed.
          * @deprecated Use `openedChange` instead.
+         * \@deletion-target 6.0.0
          */
         this.onClose = this._closedStream;
         /**
@@ -381,6 +385,7 @@ class MatSelect extends _MatSelectMixinBase {
         /**
          * Event emitted when the selected value has been changed by the user.
          * @deprecated Use `selectionChange` instead.
+         * \@deletion-target 6.0.0
          */
         this.change = this.selectionChange;
         /**

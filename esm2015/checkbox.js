@@ -153,6 +153,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
     /**
      * Whether or not the checkbox should appear before or after the label.
      * @deprecated
+     * \@deletion-target 6.0.0
      * @return {?}
      */
     get align() {

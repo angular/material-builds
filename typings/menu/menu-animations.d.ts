@@ -15,7 +15,13 @@ export declare const matMenuAnimations: {
     readonly transformMenu: AnimationTriggerMetadata;
     readonly fadeInItems: AnimationTriggerMetadata;
 };
-/** @deprecated */
+/**
+ * @deprecated
+ * @deletion-target 7.0.0
+ */
 export declare const fadeInItems: AnimationTriggerMetadata;
-/** @deprecated */
+/**
+ * @deprecated
+ * @deletion-target 7.0.0
+ */
 export declare const transformMenu: AnimationTriggerMetadata;

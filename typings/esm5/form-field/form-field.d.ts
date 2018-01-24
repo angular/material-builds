@@ -14,7 +14,10 @@ export declare class MatFormField implements AfterViewInit, AfterContentInit, Af
     private _labelOptions;
     /** Color of the form field underline, based on the theme. */
     color: 'primary' | 'accent' | 'warn';
-    /** @deprecated Use `color` instead. */
+    /**
+     * @deprecated Use `color` instead.
+     * @deletion-target 6.0.0
+     */
     dividerColor: 'primary' | 'accent' | 'warn';
     /** Whether the required marker should be hidden. */
     hideRequiredMarker: boolean;
@@ -34,6 +37,7 @@ export declare class MatFormField implements AfterViewInit, AfterContentInit, Af
     /**
      * Whether the placeholder should always float, never float or float as the user types.
      * @deprecated Use floatLabel instead.
+     * @deletion-target 6.0.0
      */
     floatPlaceholder: FloatLabelType;
     /** Whether the label should always float, never float or float as the user types. */

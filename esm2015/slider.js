@@ -202,6 +202,7 @@ class MatSlider extends _MatSliderMixinBase {
     set thumbLabel(value) { this._thumbLabel = coerceBooleanProperty(value); }
     /**
      * @deprecated
+     * \@deletion-target 6.0.0
      * @return {?}
      */
     get _thumbLabelDeprecated() { return this._thumbLabel; }
@@ -233,6 +234,7 @@ class MatSlider extends _MatSliderMixinBase {
     }
     /**
      * @deprecated
+     * \@deletion-target 6.0.0
      * @return {?}
      */
     get _tickIntervalDeprecated() { return this.tickInterval; }

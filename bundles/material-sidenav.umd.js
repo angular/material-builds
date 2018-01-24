@@ -75,6 +75,7 @@ function throwMatDuplicatedDrawerError(position) {
 /**
  * Drawer toggle promise result.
  * @deprecated
+ * \@deletion-target 6.0.0
  */
 var MatDrawerToggleResult = /** @class */ (function () {
     function MatDrawerToggleResult(type, animationFinished) {
@@ -171,11 +172,13 @@ var MatDrawer = /** @class */ (function () {
         /**
          * Event emitted when the drawer is fully opened.
          * @deprecated Use `opened` instead.
+         * \@deletion-target 6.0.0
          */
         this.onOpen = this._openedStream;
         /**
          * Event emitted when the drawer is fully closed.
          * @deprecated Use `closed` instead.
+         * \@deletion-target 6.0.0
          */
         this.onClose = this._closedStream;
         /**
@@ -184,6 +187,7 @@ var MatDrawer = /** @class */ (function () {
         this.onPositionChanged = new _angular_core.EventEmitter();
         /**
          * @deprecated
+         * \@deletion-target 6.0.0
          */
         this.onAlignChanged = new _angular_core.EventEmitter();
         /**
@@ -230,6 +234,7 @@ var MatDrawer = /** @class */ (function () {
     Object.defineProperty(MatDrawer.prototype, "align", {
         get: /**
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this.position; },
@@ -489,6 +494,7 @@ var MatDrawer = /** @class */ (function () {
         }
         // TODO(crisbeto): This promise is here for backwards-compatibility.
         // It should be removed next time we do breaking changes in the drawer.
+        // @deletion-target 6.0.0
         return new Promise(function (resolve) {
             _this.openedChange.pipe(rxjs_operators_take.take(1)).subscribe(function (open) {
                 resolve(new MatDrawerToggleResult(open ? 'open' : 'close', true));

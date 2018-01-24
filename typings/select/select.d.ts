@@ -197,11 +197,13 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /**
      * Event emitted when the select has been opened.
      * @deprecated Use `openedChange` instead.
+     * @deletion-target 6.0.0
      */
     onOpen: Observable<void>;
     /**
      * Event emitted when the select has been closed.
      * @deprecated Use `openedChange` instead.
+     * @deletion-target 6.0.0
      */
     onClose: Observable<void>;
     /** Event emitted when the selected value has been changed by the user. */
@@ -209,6 +211,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /**
      * Event emitted when the selected value has been changed by the user.
      * @deprecated Use `selectionChange` instead.
+     * @deletion-target 6.0.0
      */
     change: EventEmitter<MatSelectChange>;
     /**

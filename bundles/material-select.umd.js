@@ -98,10 +98,12 @@ var matSelectAnimations = {
 };
 /**
  * @deprecated
+ * \@deletion-target 7.0.0
  */
 var transformPanel = matSelectAnimations.transformPanel;
 /**
  * @deprecated
+ * \@deletion-target 7.0.0
  */
 var fadeInContent = matSelectAnimations.fadeInContent;
 
@@ -356,11 +358,13 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Event emitted when the select has been opened.
          * @deprecated Use `openedChange` instead.
+         * \@deletion-target 6.0.0
          */
         _this.onOpen = _this._openedStream;
         /**
          * Event emitted when the select has been closed.
          * @deprecated Use `openedChange` instead.
+         * \@deletion-target 6.0.0
          */
         _this.onClose = _this._closedStream;
         /**
@@ -370,6 +374,7 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Event emitted when the selected value has been changed by the user.
          * @deprecated Use `selectionChange` instead.
+         * \@deletion-target 6.0.0
          */
         _this.change = _this.selectionChange;
         /**

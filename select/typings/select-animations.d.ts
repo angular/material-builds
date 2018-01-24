@@ -16,7 +16,13 @@ export declare const matSelectAnimations: {
     readonly transformPanel: AnimationTriggerMetadata;
     readonly fadeInContent: AnimationTriggerMetadata;
 };
-/** @deprecated */
+/**
+ * @deprecated
+ * @deletion-target 7.0.0
+ */
 export declare const transformPanel: AnimationTriggerMetadata;
-/** @deprecated */
+/**
+ * @deprecated
+ * @deletion-target 7.0.0
+ */
 export declare const fadeInContent: AnimationTriggerMetadata;

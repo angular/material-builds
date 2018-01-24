@@ -2926,6 +2926,7 @@ var MatFormField = /** @class */ (function () {
     Object.defineProperty(MatFormField.prototype, "dividerColor", {
         get: /**
          * @deprecated Use `color` instead.
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this.color; },
@@ -2996,6 +2997,7 @@ var MatFormField = /** @class */ (function () {
         get: /**
          * Whether the placeholder should always float, never float or float as the user types.
          * @deprecated Use floatLabel instead.
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this._floatLabel; },
@@ -5760,6 +5762,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         get: /**
          * Whether or not the checkbox should appear before or after the label.
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () {
@@ -6340,6 +6343,7 @@ var MatChip = /** @class */ (function (_super) {
         /**
          * Emitted when the chip is destroyed.
          * @deprecated Use 'destroyed' instead.
+         * \@deletion-target 6.0.0
          */
         _this.destroy = _this.destroyed;
         /**
@@ -6349,6 +6353,7 @@ var MatChip = /** @class */ (function (_super) {
         /**
          * Emitted when a chip is to be removed.
          * @deprecated Use `removed` instead.
+         * \@deletion-target 6.0.0
          */
         _this.onRemove = _this.removed;
         return _this;
@@ -12443,6 +12448,7 @@ var MatDatepicker = /** @class */ (function () {
         /**
          * Emits new selected date when selected date changes.
          * @deprecated Switch to the `dateChange` and `dateInput` binding on the input element.
+         * \@deletion-target 6.0.0
          */
         this.selectedChanged = new _angular_core.EventEmitter();
         /**
@@ -15464,6 +15470,7 @@ var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
 /**
  * Change event object emitted by MatListOption whenever the selected state changes.
  * @deprecated Use the `MatSelectionListChange` event on the selection list instead.
+ * \@deletion-target 6.0.0
  */
 var MatListOptionChange = /** @class */ (function () {
     function MatListOptionChange(source, selected) {
@@ -15508,6 +15515,7 @@ var MatListOption = /** @class */ (function (_super) {
         /**
          * Emits a change event whenever the selected state of an option changes.
          * @deprecated Use the `selectionChange` event on the `<mat-selection-list>` instead.
+         * \@deletion-target 6.0.0
          */
         _this.selectionChange = new _angular_core.EventEmitter();
         return _this;
@@ -16221,10 +16229,12 @@ var matMenuAnimations = {
 };
 /**
  * @deprecated
+ * \@deletion-target 7.0.0
  */
 var fadeInItems = matMenuAnimations.fadeInItems;
 /**
  * @deprecated
+ * \@deletion-target 7.0.0
  */
 var transformMenu = matMenuAnimations.transformMenu;
 
@@ -16496,6 +16506,7 @@ var MatMenu = /** @class */ (function () {
         /**
          * Event emitted when the menu is closed.
          * @deprecated Switch to `closed` instead
+         * \@deletion-target 6.0.0
          */
         this.close = this.closed;
     }
@@ -16582,6 +16593,7 @@ var MatMenu = /** @class */ (function () {
          * menu template that displays in the overlay container.  Otherwise, it's difficult
          * to style the containing menu from outside the component.
          * @deprecated Use `panelClass` instead.
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this.panelClass; },
@@ -16882,6 +16894,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is opened.
          * @deprecated Switch to `menuOpened` instead
+         * \@deletion-target 6.0.0
          */
         this.onMenuOpen = this.menuOpened;
         /**
@@ -16891,6 +16904,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is closed.
          * @deprecated Switch to `menuClosed` instead
+         * \@deletion-target 6.0.0
          */
         this.onMenuClose = this.menuClosed;
         if (_menuItemInstance) {
@@ -16900,6 +16914,7 @@ var MatMenuTrigger = /** @class */ (function () {
     Object.defineProperty(MatMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", {
         get: /**
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () {
@@ -17482,10 +17497,12 @@ var matSelectAnimations = {
 };
 /**
  * @deprecated
+ * \@deletion-target 7.0.0
  */
 var transformPanel = matSelectAnimations.transformPanel;
 /**
  * @deprecated
+ * \@deletion-target 7.0.0
  */
 var fadeInContent = matSelectAnimations.fadeInContent;
 
@@ -17740,11 +17757,13 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Event emitted when the select has been opened.
          * @deprecated Use `openedChange` instead.
+         * \@deletion-target 6.0.0
          */
         _this.onOpen = _this._openedStream;
         /**
          * Event emitted when the select has been closed.
          * @deprecated Use `openedChange` instead.
+         * \@deletion-target 6.0.0
          */
         _this.onClose = _this._closedStream;
         /**
@@ -17754,6 +17773,7 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Event emitted when the selected value has been changed by the user.
          * @deprecated Use `selectionChange` instead.
+         * \@deletion-target 6.0.0
          */
         _this.change = _this.selectionChange;
         /**
@@ -19265,6 +19285,7 @@ var MAT_TOOLTIP_DEFAULT_OPTIONS = new _angular_core.InjectionToken('mat-tooltip-
 var MatTooltip = /** @class */ (function () {
     function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir, _defaultOptions) {
         // TODO(crisbeto): make the `_defaultOptions` a required param next time we do breaking changes.
+        // @deletion-target 6.0.0
         var _this = this;
         this._overlay = _overlay;
         this._elementRef = _elementRef;
@@ -19362,6 +19383,7 @@ var MatTooltip = /** @class */ (function () {
     Object.defineProperty(MatTooltip.prototype, "_positionDeprecated", {
         get: /**
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this._position; },
@@ -21076,6 +21098,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         get: /**
          * Alignment of the radio-buttons relative to their labels. Can be 'before' or 'after'.
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () {
@@ -21525,6 +21548,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         get: /**
          * Whether or not the radio-button should appear before or after the label.
          * @deprecated
+         * \@deletion-target
          * @return {?}
          */
         function () {
@@ -21879,6 +21903,7 @@ function throwMatDuplicatedDrawerError(position) {
 /**
  * Drawer toggle promise result.
  * @deprecated
+ * \@deletion-target 6.0.0
  */
 var MatDrawerToggleResult = /** @class */ (function () {
     function MatDrawerToggleResult(type, animationFinished) {
@@ -21975,11 +22000,13 @@ var MatDrawer = /** @class */ (function () {
         /**
          * Event emitted when the drawer is fully opened.
          * @deprecated Use `opened` instead.
+         * \@deletion-target 6.0.0
          */
         this.onOpen = this._openedStream;
         /**
          * Event emitted when the drawer is fully closed.
          * @deprecated Use `closed` instead.
+         * \@deletion-target 6.0.0
          */
         this.onClose = this._closedStream;
         /**
@@ -21988,6 +22015,7 @@ var MatDrawer = /** @class */ (function () {
         this.onPositionChanged = new _angular_core.EventEmitter();
         /**
          * @deprecated
+         * \@deletion-target 6.0.0
          */
         this.onAlignChanged = new _angular_core.EventEmitter();
         /**
@@ -22034,6 +22062,7 @@ var MatDrawer = /** @class */ (function () {
     Object.defineProperty(MatDrawer.prototype, "align", {
         get: /**
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this.position; },
@@ -22293,6 +22322,7 @@ var MatDrawer = /** @class */ (function () {
         }
         // TODO(crisbeto): This promise is here for backwards-compatibility.
         // It should be removed next time we do breaking changes in the drawer.
+        // @deletion-target 6.0.0
         return new Promise(function (resolve) {
             _this.openedChange.pipe(rxjs_operators_take.take(1)).subscribe(function (open) {
                 resolve(new MatDrawerToggleResult(open ? 'open' : 'close', true));
@@ -23732,6 +23762,7 @@ var MatSlider = /** @class */ (function (_super) {
     Object.defineProperty(MatSlider.prototype, "_thumbLabelDeprecated", {
         get: /**
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this._thumbLabel; },
@@ -23771,6 +23802,7 @@ var MatSlider = /** @class */ (function (_super) {
     Object.defineProperty(MatSlider.prototype, "_tickIntervalDeprecated", {
         get: /**
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this.tickInterval; },
@@ -27696,6 +27728,7 @@ var MatTabGroup = /** @class */ (function (_super) {
         /**
          * Event emitted when the tab selection has changed.
          * @deprecated Use `selectedTabChange` instead.
+         * \@deletion-target 6.0.0
          */
         _this.selectChange = _this.selectedTabChange;
         _this._groupId = nextId++;
@@ -27718,6 +27751,7 @@ var MatTabGroup = /** @class */ (function (_super) {
     Object.defineProperty(MatTabGroup.prototype, "_dynamicHeightDeprecated", {
         get: /**
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () { return this._dynamicHeight; },
@@ -29232,7 +29266,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-fa4e647');
+var VERSION = new _angular_core.Version('5.1.0-48ff4ba');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29464,10 +29498,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MatMenuItemBase;
-exports.ɵb21 = _MatMenuItemMixinBase;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -29586,16 +29620,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe21 = MatTabBase;
+exports.ɵf21 = _MatTabMixinBase;
+exports.ɵa21 = MatTabHeaderBase;
+exports.ɵb21 = _MatTabHeaderMixinBase;
+exports.ɵc21 = MatTabLabelWrapperBase;
+exports.ɵd21 = _MatTabLabelWrapperMixinBase;
+exports.ɵi21 = MatTabLinkBase;
+exports.ɵg21 = MatTabNavBase;
+exports.ɵj21 = _MatTabLinkMixinBase;
+exports.ɵh21 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

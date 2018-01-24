@@ -31,6 +31,7 @@ export declare class MatSnackBarConfig<D = any> {
     /**
      * Extra CSS classes to be added to the snack bar container.
      * @deprecated Use `panelClass` instead.
+     * @deletion-target 6.0.0
      */
     extraClasses?: string | string[];
     /** Text layout direction for the snack bar. */

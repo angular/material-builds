@@ -104,6 +104,7 @@ var MatChip = /** @class */ (function (_super) {
         /**
          * Emitted when the chip is destroyed.
          * @deprecated Use 'destroyed' instead.
+         * \@deletion-target 6.0.0
          */
         _this.destroy = _this.destroyed;
         /**
@@ -113,6 +114,7 @@ var MatChip = /** @class */ (function (_super) {
         /**
          * Emitted when a chip is to be removed.
          * @deprecated Use `removed` instead.
+         * \@deletion-target 6.0.0
          */
         _this.onRemove = _this.removed;
         return _this;

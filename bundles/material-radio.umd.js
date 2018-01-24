@@ -148,6 +148,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         get: /**
          * Alignment of the radio-buttons relative to their labels. Can be 'before' or 'after'.
          * @deprecated
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () {
@@ -597,6 +598,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         get: /**
          * Whether or not the radio-button should appear before or after the label.
          * @deprecated
+         * \@deletion-target
          * @return {?}
          */
         function () {

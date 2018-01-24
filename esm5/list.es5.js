@@ -277,6 +277,7 @@ var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
 /**
  * Change event object emitted by MatListOption whenever the selected state changes.
  * @deprecated Use the `MatSelectionListChange` event on the selection list instead.
+ * \@deletion-target 6.0.0
  */
 var MatListOptionChange = /** @class */ (function () {
     function MatListOptionChange(source, selected) {
@@ -321,6 +322,7 @@ var MatListOption = /** @class */ (function (_super) {
         /**
          * Emits a change event whenever the selected state of an option changes.
          * @deprecated Use the `selectionChange` event on the `<mat-selection-list>` instead.
+         * \@deletion-target 6.0.0
          */
         _this.selectionChange = new EventEmitter();
         return _this;
