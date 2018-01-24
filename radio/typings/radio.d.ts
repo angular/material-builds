@@ -9,7 +9,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanDisable, CanDisableRipple, MatRipple, RippleConfig } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, MatRipple, RippleConfig } from '@angular/material/core';
 /**
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -127,13 +127,14 @@ export declare class MatRadioGroup extends _MatRadioGroupMixinBase implements Af
 /** @docs-private */
 export declare class MatRadioButtonBase {
     _elementRef: ElementRef;
+    disabled: boolean;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatRadioButtonMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & typeof MatRadioButtonBase;
+export declare const _MatRadioButtonMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => HasTabIndex) & typeof MatRadioButtonBase;
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
-export declare class MatRadioButton extends _MatRadioButtonMixinBase implements OnInit, AfterViewInit, OnDestroy, CanColor, CanDisableRipple {
+export declare class MatRadioButton extends _MatRadioButtonMixinBase implements OnInit, AfterViewInit, OnDestroy, CanColor, CanDisableRipple, HasTabIndex {
     private _changeDetector;
     private _focusMonitor;
     private _radioDispatcher;
