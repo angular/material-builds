@@ -1678,7 +1678,6 @@ $mat-ripple-color-opacity: 0.1;
 
   .mat-button, .mat-icon-button {
     background: transparent;
-    color: mat-color($foreground, text);
 
     @include _mat-button-focus-color($theme);
     @include _mat-button-theme-color($theme, 'color');
