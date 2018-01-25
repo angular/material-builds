@@ -272,11 +272,11 @@ var MatSelect = /** @class */ (function (_super) {
          */
         _this._triggerFontSize = 0;
         /**
-         * View -> model callback called when value changes
+         * `View -> model callback called when value changes`
          */
         _this._onChange = function () { };
         /**
-         * View -> model callback called when select has been touched
+         * `View -> model callback called when select has been touched`
          */
         _this._onTouched = function () { };
         /**

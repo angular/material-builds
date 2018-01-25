@@ -264,11 +264,11 @@ class MatAutocompleteTrigger {
          */
         this._closeKeyEventStream = new Subject();
         /**
-         * View -> model callback called when value changes
+         * `View -> model callback called when value changes`
          */
         this._onChange = () => { };
         /**
-         * View -> model callback called when autocomplete has been touched
+         * `View -> model callback called when autocomplete has been touched`
          */
         this._onTouched = () => { };
         /**

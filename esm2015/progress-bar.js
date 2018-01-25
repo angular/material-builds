@@ -27,7 +27,7 @@ class MatProgressBarBase {
 }
 const _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
 /**
- * <mat-progress-bar> component.
+ * `<mat-progress-bar>` component.
  */
 class MatProgressBar extends _MatProgressBarMixinBase {
     /**

@@ -55,7 +55,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     _hasFocus: boolean;
     /** Whether the chip is selected. */
     selected: boolean;
-    /** The value of the chip. Defaults to the content inside <mat-chip> tags. */
+    /** The value of the chip. Defaults to the content inside `<mat-chip>` tags. */
     value: any;
     /**
      * Whether or not the chips are selectable. When a chip is not selectable,
@@ -120,9 +120,9 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
  *
  * Example:
  *
- *     <mat-chip>
+ *     `<mat-chip>
  *       <mat-icon matChipRemove>cancel</mat-icon>
- *     </mat-chip>
+ *     </mat-chip>`
  *
  * You *may* use a custom icon, but you may need to override the `mat-chip-remove` positioning
  * styles to properly center the icon within the chip.

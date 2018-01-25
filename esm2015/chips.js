@@ -138,7 +138,7 @@ class MatChip extends _MatChipMixinBase {
         });
     }
     /**
-     * The value of the chip. Defaults to the content inside <mat-chip> tags.
+     * The value of the chip. Defaults to the content inside `<mat-chip>` tags.
      * @return {?}
      */
     get value() {
@@ -351,9 +351,9 @@ MatChip.propDecorators = {
  *
  * Example:
  *
- *     <mat-chip>
+ *     `<mat-chip>
  *       <mat-icon matChipRemove>cancel</mat-icon>
- *     </mat-chip>
+ *     </mat-chip>`
  *
  * You *may* use a custom icon, but you may need to override the `mat-chip-remove` positioning
  * styles to properly center the icon within the chip.
@@ -1213,7 +1213,7 @@ MatChipList.propDecorators = {
 
 /**
  * Directive that adds chip-specific behaviors to an input element inside <mat-form-field>.
- * May be placed inside or outside of an <mat-chip-list>.
+ * May be placed inside or outside of an `<mat-chip-list>`.
  */
 class MatChipInput {
     /**

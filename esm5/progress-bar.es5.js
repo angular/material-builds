@@ -27,7 +27,7 @@ var MatProgressBarBase = /** @class */ (function () {
 }());
 var _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
 /**
- * <mat-progress-bar> component.
+ * `<mat-progress-bar>` component.
  */
 var MatProgressBar = /** @class */ (function (_super) {
     __extends(MatProgressBar, _super);

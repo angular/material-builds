@@ -53,7 +53,7 @@ var MatProgressBarBase = /** @class */ (function () {
 }());
 var _MatProgressBarMixinBase = _angular_material_core.mixinColor(MatProgressBarBase, 'primary');
 /**
- * <mat-progress-bar> component.
+ * `<mat-progress-bar>` component.
  */
 var MatProgressBar = /** @class */ (function (_super) {
     __extends(MatProgressBar, _super);

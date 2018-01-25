@@ -21,7 +21,7 @@ export declare function getMatIconNoHttpProviderError(): Error;
  */
 export declare function getMatIconFailedToSanitizeError(url: SafeResourceUrl): Error;
 /**
- * Service to register and display icons used by the <mat-icon> component.
+ * Service to register and display icons used by the `<mat-icon>` component.
  * - Registers icon URLs by namespace and name.
  * - Registers icon set URLs by namespace.
  * - Registers aliases for CSS classes, for use with icon fonts.
@@ -47,7 +47,7 @@ export declare class MatIconRegistry {
     /** Map from font identifiers to their CSS class names. Used for icon fonts. */
     private _fontCssClassesByAlias;
     /**
-     * The CSS class to apply when an <mat-icon> component has no icon name, url, or font specified.
+     * The CSS class to apply when an `<mat-icon>` component has no icon name, url, or font specified.
      * The default 'material-icons' value assumes that the material icon font has been loaded as
      * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
      */
@@ -80,7 +80,7 @@ export declare class MatIconRegistry {
     /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
-     * to the <mat-icon> element.
+     * to the `<mat-icon>` element.
      *
      * @param alias Alias for the font.
      * @param className Class name override to be used instead of the alias.
@@ -92,14 +92,14 @@ export declare class MatIconRegistry {
      */
     classNameForFontAlias(alias: string): string;
     /**
-     * Sets the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      *
      * @param className
      */
     setDefaultFontSetClass(className: string): this;
     /**
-     * Returns the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      */
     getDefaultFontSetClass(): string;
@@ -128,7 +128,7 @@ export declare class MatIconRegistry {
     /**
      * Attempts to find an icon with the specified name in any of the SVG icon sets.
      * First searches the available cached icons for a nested element with a matching name, and
-     * if found copies the element to a new <svg> element. If not found, fetches all icon sets
+     * if found copies the element to a new `<svg>` element. If not found, fetches all icon sets
      * that have not been cached, and searches again after all fetches are completed.
      * The returned Observable produces the SVG element if possible, and throws
      * an error if no icon with the specified name can be found.

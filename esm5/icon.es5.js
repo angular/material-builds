@@ -70,7 +70,7 @@ var SvgIconConfig = /** @class */ (function () {
     return SvgIconConfig;
 }());
 /**
- * Service to register and display icons used by the <mat-icon> component.
+ * Service to register and display icons used by the `<mat-icon>` component.
  * - Registers icon URLs by namespace and name.
  * - Registers icon set URLs by namespace.
  * - Registers aliases for CSS classes, for use with icon fonts.
@@ -102,7 +102,7 @@ var MatIconRegistry = /** @class */ (function () {
          */
         this._fontCssClassesByAlias = new Map();
         /**
-         * The CSS class to apply when an <mat-icon> component has no icon name, url, or font specified.
+         * The CSS class to apply when an `<mat-icon>` component has no icon name, url, or font specified.
          * The default 'material-icons' value assumes that the material icon font has been loaded as
          * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
          */
@@ -203,7 +203,7 @@ var MatIconRegistry = /** @class */ (function () {
     /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
-     * to the <mat-icon> element.
+     * to the `<mat-icon>` element.
      *
      * @param alias Alias for the font.
      * @param className Class name override to be used instead of the alias.
@@ -211,7 +211,7 @@ var MatIconRegistry = /** @class */ (function () {
     /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
-     * to the <mat-icon> element.
+     * to the `<mat-icon>` element.
      *
      * @param {?} alias Alias for the font.
      * @param {?=} className Class name override to be used instead of the alias.
@@ -220,7 +220,7 @@ var MatIconRegistry = /** @class */ (function () {
     MatIconRegistry.prototype.registerFontClassAlias = /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
-     * to the <mat-icon> element.
+     * to the `<mat-icon>` element.
      *
      * @param {?} alias Alias for the font.
      * @param {?=} className Class name override to be used instead of the alias.
@@ -251,20 +251,20 @@ var MatIconRegistry = /** @class */ (function () {
         return this._fontCssClassesByAlias.get(alias) || alias;
     };
     /**
-     * Sets the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      *
      * @param className
      */
     /**
-     * Sets the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      *
      * @param {?} className
      * @return {?}
      */
     MatIconRegistry.prototype.setDefaultFontSetClass = /**
-     * Sets the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      *
      * @param {?} className
@@ -275,16 +275,16 @@ var MatIconRegistry = /** @class */ (function () {
         return this;
     };
     /**
-     * Returns the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      */
     /**
-     * Returns the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      * @return {?}
      */
     MatIconRegistry.prototype.getDefaultFontSetClass = /**
-     * Returns the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      * @return {?}
      */
@@ -393,7 +393,7 @@ var MatIconRegistry = /** @class */ (function () {
     /**
      * Attempts to find an icon with the specified name in any of the SVG icon sets.
      * First searches the available cached icons for a nested element with a matching name, and
-     * if found copies the element to a new <svg> element. If not found, fetches all icon sets
+     * if found copies the element to a new `<svg>` element. If not found, fetches all icon sets
      * that have not been cached, and searches again after all fetches are completed.
      * The returned Observable produces the SVG element if possible, and throws
      * an error if no icon with the specified name can be found.
@@ -404,7 +404,7 @@ var MatIconRegistry = /** @class */ (function () {
     MatIconRegistry.prototype._getSvgFromIconSetConfigs = /**
      * Attempts to find an icon with the specified name in any of the SVG icon sets.
      * First searches the available cached icons for a nested element with a matching name, and
-     * if found copies the element to a new <svg> element. If not found, fetches all icon sets
+     * if found copies the element to a new `<svg>` element. If not found, fetches all icon sets
      * that have not been cached, and searches again after all fetches are completed.
      * The returned Observable produces the SVG element if possible, and throws
      * an error if no icon with the specified name can be found.
@@ -748,8 +748,8 @@ var _MatIconMixinBase = mixinColor(MatIconBase);
  *   MatIconRegistry. If the svgIcon value contains a colon it is assumed to be in the format
  *   "[namespace]:[name]", if not the value will be the name of an icon in the default namespace.
  *   Examples:
- *     <mat-icon svgIcon="left-arrow"></mat-icon>
- *     <mat-icon svgIcon="animals:cat"></mat-icon>
+ *     `<mat-icon svgIcon="left-arrow"></mat-icon>
+ *     <mat-icon svgIcon="animals:cat"></mat-icon>`
  *
  * - Use a font ligature as an icon by putting the ligature text in the content of the <mat-icon>
  *   component. By default the Material icons font is used as described at
@@ -757,15 +757,15 @@ var _MatIconMixinBase = mixinColor(MatIconBase);
  *   alternate font by setting the fontSet input to either the CSS class to apply to use the
  *   desired font, or to an alias previously registered with MatIconRegistry.registerFontClassAlias.
  *   Examples:
- *     <mat-icon>home</mat-icon>
- *     <mat-icon fontSet="myfont">sun</mat-icon>
+ *     `<mat-icon>home</mat-icon>
+ *     <mat-icon fontSet="myfont">sun</mat-icon>`
  *
  * - Specify a font glyph to be included via CSS rules by setting the fontSet input to specify the
  *   font, and the fontIcon input to specify the icon. Typically the fontIcon will specify a
  *   CSS class which causes the glyph to be displayed via a :before selector, as in
  *   https://fortawesome.github.io/Font-Awesome/examples/
  *   Example:
- *     <mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>
+ *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
  */
 var MatIcon = /** @class */ (function (_super) {
     __extends(MatIcon, _super);
@@ -819,10 +819,10 @@ var MatIcon = /** @class */ (function (_super) {
      * the icon name. If the argument is falsy, returns an array of two empty strings.
      * Throws an error if the name contains two or more ':' separators.
      * Examples:
-     *   'social:cake' -> ['social', 'cake']
+     *   `'social:cake' -> ['social', 'cake']
      *   'penguin' -> ['', 'penguin']
      *   null -> ['', '']
-     *   'a:b:c' -> (throws Error)
+     *   'a:b:c' -> (throws Error)`
      * @param {?} iconName
      * @return {?}
      */
@@ -834,10 +834,10 @@ var MatIcon = /** @class */ (function (_super) {
      * the icon name. If the argument is falsy, returns an array of two empty strings.
      * Throws an error if the name contains two or more ':' separators.
      * Examples:
-     *   'social:cake' -> ['social', 'cake']
+     *   `'social:cake' -> ['social', 'cake']
      *   'penguin' -> ['', 'penguin']
      *   null -> ['', '']
-     *   'a:b:c' -> (throws Error)
+     *   'a:b:c' -> (throws Error)`
      * @param {?} iconName
      * @return {?}
      */

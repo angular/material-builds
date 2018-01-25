@@ -90,7 +90,7 @@ export declare abstract class TileStyler {
 }
 /**
  * This type of styler is instantiated when the user passes in a fixed row height.
- * Example <mat-grid-list cols="3" rowHeight="100px">
+ * Example `<mat-grid-list cols="3" rowHeight="100px">`
  * @docs-private
  */
 export declare class FixedTileStyler extends TileStyler {
@@ -103,7 +103,7 @@ export declare class FixedTileStyler extends TileStyler {
 }
 /**
  * This type of styler is instantiated when the user passes in a width:height ratio
- * for the row height.  Example <mat-grid-list cols="3" rowHeight="3:1">
+ * for the row height.  Example `<mat-grid-list cols="3" rowHeight="3:1">`
  * @docs-private
  */
 export declare class RatioTileStyler extends TileStyler {
@@ -119,7 +119,7 @@ export declare class RatioTileStyler extends TileStyler {
 /**
  * This type of styler is instantiated when the user selects a "fit" row height mode.
  * In other words, the row height will reflect the total height of the container divided
- * by the number of rows.  Example <mat-grid-list cols="3" rowHeight="fit">
+ * by the number of rows.  Example `<mat-grid-list cols="3" rowHeight="fit">`
  *
  * @docs-private
  */

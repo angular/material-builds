@@ -88,7 +88,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     readonly indeterminateChange: EventEmitter<boolean>;
     /** The value attribute of the native input element */
     value: string;
-    /** The native `<input type="checkbox"> element */
+    /** The native `<input type="checkbox">` element */
     _inputElement: ElementRef;
     /** Reference to the ripple instance of the checkbox. */
     ripple: MatRipple;

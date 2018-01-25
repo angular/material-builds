@@ -17,7 +17,7 @@ export declare class MatProgressSpinnerBase {
 }
 export declare const _MatProgressSpinnerMixinBase: (new (...args: any[]) => CanColor) & typeof MatProgressSpinnerBase;
 /**
- * <mat-progress-spinner> component.
+ * `<mat-progress-spinner>` component.
  */
 export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase implements CanColor, OnChanges {
     _elementRef: ElementRef;
@@ -63,10 +63,10 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     private _updateElementSize();
 }
 /**
- * <mat-spinner> component.
+ * `<mat-spinner>` component.
  *
  * This is a component definition to be used as a convenience reference to create an
- * indeterminate <mat-progress-spinner> instance.
+ * indeterminate `<mat-progress-spinner>` instance.
  */
 export declare class MatSpinner extends MatProgressSpinner {
     constructor(elementRef: ElementRef, platform: Platform, document: any);

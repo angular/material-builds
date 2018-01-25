@@ -302,11 +302,11 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         this._closeKeyEventStream = new rxjs_Subject.Subject();
         /**
-         * View -> model callback called when value changes
+         * `View -> model callback called when value changes`
          */
         this._onChange = function () { };
         /**
-         * View -> model callback called when autocomplete has been touched
+         * `View -> model callback called when autocomplete has been touched`
          */
         this._onTouched = function () { };
         /**

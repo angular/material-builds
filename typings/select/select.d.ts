@@ -112,9 +112,9 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     _selectionModel: SelectionModel<MatOption>;
     /** Manages keyboard events for options in the panel. */
     _keyManager: ActiveDescendantKeyManager<MatOption>;
-    /** View -> model callback called when value changes */
+    /** `View -> model callback called when value changes` */
     _onChange: (value: any) => void;
-    /** View -> model callback called when select has been touched */
+    /** `View -> model callback called when select has been touched` */
     _onTouched: () => void;
     /** The IDs of child options to be passed to the aria-owns attribute. */
     _optionIds: string;

@@ -13,7 +13,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatStepLabel } from './step-label';
 export declare class MatStep extends CdkStep implements ErrorStateMatcher {
     private _errorStateMatcher;
-    /** Content for step label given by <ng-template matStepLabel>. */
+    /** Content for step label given by `<ng-template matStepLabel>`. */
     stepLabel: MatStepLabel;
     constructor(stepper: MatStepper, _errorStateMatcher: ErrorStateMatcher);
     /** Custom error state matcher that additionally checks for validity of interacted form. */

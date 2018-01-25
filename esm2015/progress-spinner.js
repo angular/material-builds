@@ -62,7 +62,7 @@ const INDETERMINATE_ANIMATION_TEMPLATE = `
   }
 `;
 /**
- * <mat-progress-spinner> component.
+ * `<mat-progress-spinner>` component.
  */
 class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
     /**
@@ -264,10 +264,10 @@ MatProgressSpinner.propDecorators = {
     "value": [{ type: Input },],
 };
 /**
- * <mat-spinner> component.
+ * `<mat-spinner>` component.
  *
  * This is a component definition to be used as a convenience reference to create an
- * indeterminate <mat-progress-spinner> instance.
+ * indeterminate `<mat-progress-spinner>` instance.
  */
 class MatSpinner extends MatProgressSpinner {
     /**

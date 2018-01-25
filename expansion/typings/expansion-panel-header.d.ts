@@ -9,9 +9,9 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { ChangeDetectorRef, ElementRef, OnDestroy } from '@angular/core';
 import { MatExpansionPanel } from './expansion-panel';
 /**
- * <mat-expansion-panel-header>
+ * `<mat-expansion-panel-header>`
  *
- * This component corresponds to the header element of an <mat-expansion-panel>.
+ * This component corresponds to the header element of an `<mat-expansion-panel>`.
  */
 export declare class MatExpansionPanelHeader implements OnDestroy {
     panel: MatExpansionPanel;
@@ -39,14 +39,14 @@ export declare class MatExpansionPanelHeader implements OnDestroy {
     ngOnDestroy(): void;
 }
 /**
- * <mat-panel-description>
+ * `<mat-panel-description>`
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
 export declare class MatExpansionPanelDescription {
 }
 /**
- * <mat-panel-title>
+ * `<mat-panel-title>`
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */

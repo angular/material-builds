@@ -169,7 +169,7 @@ var matExpansionAnimations = {
  */
 var uniqueId = 0;
 /**
- * <mat-expansion-panel>
+ * `<mat-expansion-panel>`
  *
  * This component can be used as a single element to show expandable content, or as one of
  * multiple children of an element with the MdAccordion directive attached.
@@ -338,9 +338,9 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
  */
 
 /**
- * <mat-expansion-panel-header>
+ * `<mat-expansion-panel-header>`
  *
- * This component corresponds to the header element of an <mat-expansion-panel>.
+ * This component corresponds to the header element of an `<mat-expansion-panel>`.
  */
 var MatExpansionPanelHeader = /** @class */ (function () {
     function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef) {
@@ -489,7 +489,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
     return MatExpansionPanelHeader;
 }());
 /**
- * <mat-panel-description>
+ * `<mat-panel-description>`
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
@@ -509,7 +509,7 @@ var MatExpansionPanelDescription = /** @class */ (function () {
     return MatExpansionPanelDescription;
 }());
 /**
- * <mat-panel-title>
+ * `<mat-panel-title>`
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */

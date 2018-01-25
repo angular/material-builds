@@ -419,7 +419,7 @@ function mixinErrorState(base) {
             _this.errorState = false;
             /**
              * Stream that emits whenever the state of the input changes such that the wrapping
-             * `MatFormField needs to run change detection.
+             * `MatFormField` needs to run change detection.
              */
             _this.stateChanges = new Subject();
             return _this;
@@ -2033,9 +2033,9 @@ var MatRippleModule = /** @class */ (function () {
  * `mat-primary .mat-pseudo-checkbox`.
  *
  * Note that this component will be completely invisible to screen-reader users. This is *not*
- * interchangeable with <mat-checkbox> and should *not* be used if the user would directly interact
- * with the checkbox. The pseudo-checkbox should only be used as an implementation detail of
- * more complex components that appropriately handle selected / checked state.
+ * interchangeable with `<mat-checkbox>` and should *not* be used if the user would directly
+ * interact with the checkbox. The pseudo-checkbox should only be used as an implementation detail
+ * of more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
 var MatPseudoCheckbox = /** @class */ (function () {
@@ -2413,17 +2413,17 @@ var MatOption = /** @class */ (function () {
         }
     };
     /**
-     * Selects the option while indicating the selection came from the user. Used to
-     * determine if the select's view -> model callback should be invoked.
+     * `Selects the option while indicating the selection came from the user. Used to
+     * determine if the select's view -> model callback should be invoked.`
      */
     /**
-     * Selects the option while indicating the selection came from the user. Used to
-     * determine if the select's view -> model callback should be invoked.
+     * `Selects the option while indicating the selection came from the user. Used to
+     * determine if the select's view -> model callback should be invoked.`
      * @return {?}
      */
     MatOption.prototype._selectViaInteraction = /**
-     * Selects the option while indicating the selection came from the user. Used to
-     * determine if the select's view -> model callback should be invoked.
+     * `Selects the option while indicating the selection came from the user. Used to
+     * determine if the select's view -> model callback should be invoked.`
      * @return {?}
      */
     function () {

@@ -266,7 +266,7 @@ var MatCardHeader = /** @class */ (function () {
     return MatCardHeader;
 }());
 /**
- * Component intended to be used within the <mat-card> component. It adds styles for a preset
+ * Component intended to be used within the `<mat-card>` component. It adds styles for a preset
  * layout that groups an image with a title section.
  * \@docs-private
  */

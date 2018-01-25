@@ -290,11 +290,11 @@ class MatSelect extends _MatSelectMixinBase {
          */
         this._triggerFontSize = 0;
         /**
-         * View -> model callback called when value changes
+         * `View -> model callback called when value changes`
          */
         this._onChange = () => { };
         /**
-         * View -> model callback called when select has been touched
+         * `View -> model callback called when select has been touched`
          */
         this._onTouched = () => { };
         /**

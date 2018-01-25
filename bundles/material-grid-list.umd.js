@@ -654,7 +654,7 @@ var TileStyler = /** @class */ (function () {
 }());
 /**
  * This type of styler is instantiated when the user passes in a fixed row height.
- * Example <mat-grid-list cols="3" rowHeight="100px">
+ * Example `<mat-grid-list cols="3" rowHeight="100px">`
  * \@docs-private
  */
 var FixedTileStyler = /** @class */ (function (_super) {
@@ -726,7 +726,7 @@ var FixedTileStyler = /** @class */ (function (_super) {
 }(TileStyler));
 /**
  * This type of styler is instantiated when the user passes in a width:height ratio
- * for the row height.  Example <mat-grid-list cols="3" rowHeight="3:1">
+ * for the row height.  Example `<mat-grid-list cols="3" rowHeight="3:1">`
  * \@docs-private
  */
 var RatioTileStyler = /** @class */ (function (_super) {
@@ -805,7 +805,7 @@ var RatioTileStyler = /** @class */ (function (_super) {
 /**
  * This type of styler is instantiated when the user selects a "fit" row height mode.
  * In other words, the row height will reflect the total height of the container divided
- * by the number of rows.  Example <mat-grid-list cols="3" rowHeight="fit">
+ * by the number of rows.  Example `<mat-grid-list cols="3" rowHeight="fit">`
  *
  * \@docs-private
  */

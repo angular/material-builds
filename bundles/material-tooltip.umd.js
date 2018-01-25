@@ -443,16 +443,16 @@ var MatTooltip = /** @class */ (function () {
     };
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
-     * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
+     * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).
      */
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
-     * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
+     * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).
      * @return {?}
      */
     MatTooltip.prototype._getOrigin = /**
      * Returns the origin position and a fallback position based on the user's position preference.
-     * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
+     * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).
      * @return {?}
      */
     function () {

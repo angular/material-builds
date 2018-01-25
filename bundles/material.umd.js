@@ -448,7 +448,7 @@ function mixinErrorState(base) {
             _this.errorState = false;
             /**
              * Stream that emits whenever the state of the input changes such that the wrapping
-             * `MatFormField needs to run change detection.
+             * `MatFormField` needs to run change detection.
              */
             _this.stateChanges = new rxjs_Subject.Subject();
             return _this;
@@ -2062,9 +2062,9 @@ var MatRippleModule = /** @class */ (function () {
  * `mat-primary .mat-pseudo-checkbox`.
  *
  * Note that this component will be completely invisible to screen-reader users. This is *not*
- * interchangeable with <mat-checkbox> and should *not* be used if the user would directly interact
- * with the checkbox. The pseudo-checkbox should only be used as an implementation detail of
- * more complex components that appropriately handle selected / checked state.
+ * interchangeable with `<mat-checkbox>` and should *not* be used if the user would directly
+ * interact with the checkbox. The pseudo-checkbox should only be used as an implementation detail
+ * of more complex components that appropriately handle selected / checked state.
  * \@docs-private
  */
 var MatPseudoCheckbox = /** @class */ (function () {
@@ -2442,17 +2442,17 @@ var MatOption = /** @class */ (function () {
         }
     };
     /**
-     * Selects the option while indicating the selection came from the user. Used to
-     * determine if the select's view -> model callback should be invoked.
+     * `Selects the option while indicating the selection came from the user. Used to
+     * determine if the select's view -> model callback should be invoked.`
      */
     /**
-     * Selects the option while indicating the selection came from the user. Used to
-     * determine if the select's view -> model callback should be invoked.
+     * `Selects the option while indicating the selection came from the user. Used to
+     * determine if the select's view -> model callback should be invoked.`
      * @return {?}
      */
     MatOption.prototype._selectViaInteraction = /**
-     * Selects the option while indicating the selection came from the user. Used to
-     * determine if the select's view -> model callback should be invoked.
+     * `Selects the option while indicating the selection came from the user. Used to
+     * determine if the select's view -> model callback should be invoked.`
      * @return {?}
      */
     function () {
@@ -3633,11 +3633,11 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         this._closeKeyEventStream = new rxjs_Subject.Subject();
         /**
-         * View -> model callback called when value changes
+         * `View -> model callback called when value changes`
          */
         this._onChange = function () { };
         /**
-         * View -> model callback called when autocomplete has been touched
+         * `View -> model callback called when autocomplete has been touched`
          */
         this._onTouched = function () { };
         /**
@@ -5537,7 +5537,7 @@ var MatCardHeader = /** @class */ (function () {
     return MatCardHeader;
 }());
 /**
- * Component intended to be used within the <mat-card> component. It adds styles for a preset
+ * Component intended to be used within the `<mat-card>` component. It adds styles for a preset
  * layout that groups an image with a title section.
  * \@docs-private
  */
@@ -6363,7 +6363,7 @@ var MatChip = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChip.prototype, "value", {
         get: /**
-         * The value of the chip. Defaults to the content inside <mat-chip> tags.
+         * The value of the chip. Defaults to the content inside `<mat-chip>` tags.
          * @return {?}
          */
         function () {
@@ -6650,9 +6650,9 @@ var MatChip = /** @class */ (function (_super) {
  *
  * Example:
  *
- *     <mat-chip>
+ *     `<mat-chip>
  *       <mat-icon matChipRemove>cancel</mat-icon>
- *     </mat-chip>
+ *     </mat-chip>`
  *
  * You *may* use a custom icon, but you may need to override the `mat-chip-remove` positioning
  * styles to properly center the icon within the chip.
@@ -7766,7 +7766,7 @@ var MatChipList = /** @class */ (function (_super) {
 
 /**
  * Directive that adds chip-specific behaviors to an input element inside <mat-form-field>.
- * May be placed inside or outside of an <mat-chip-list>.
+ * May be placed inside or outside of an `<mat-chip-list>`.
  */
 var MatChipInput = /** @class */ (function () {
     function MatChipInput(_elementRef) {
@@ -9183,7 +9183,7 @@ var SvgIconConfig = /** @class */ (function () {
     return SvgIconConfig;
 }());
 /**
- * Service to register and display icons used by the <mat-icon> component.
+ * Service to register and display icons used by the `<mat-icon>` component.
  * - Registers icon URLs by namespace and name.
  * - Registers icon set URLs by namespace.
  * - Registers aliases for CSS classes, for use with icon fonts.
@@ -9215,7 +9215,7 @@ var MatIconRegistry = /** @class */ (function () {
          */
         this._fontCssClassesByAlias = new Map();
         /**
-         * The CSS class to apply when an <mat-icon> component has no icon name, url, or font specified.
+         * The CSS class to apply when an `<mat-icon>` component has no icon name, url, or font specified.
          * The default 'material-icons' value assumes that the material icon font has been loaded as
          * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
          */
@@ -9316,7 +9316,7 @@ var MatIconRegistry = /** @class */ (function () {
     /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
-     * to the <mat-icon> element.
+     * to the `<mat-icon>` element.
      *
      * @param alias Alias for the font.
      * @param className Class name override to be used instead of the alias.
@@ -9324,7 +9324,7 @@ var MatIconRegistry = /** @class */ (function () {
     /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
-     * to the <mat-icon> element.
+     * to the `<mat-icon>` element.
      *
      * @param {?} alias Alias for the font.
      * @param {?=} className Class name override to be used instead of the alias.
@@ -9333,7 +9333,7 @@ var MatIconRegistry = /** @class */ (function () {
     MatIconRegistry.prototype.registerFontClassAlias = /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
-     * to the <mat-icon> element.
+     * to the `<mat-icon>` element.
      *
      * @param {?} alias Alias for the font.
      * @param {?=} className Class name override to be used instead of the alias.
@@ -9364,20 +9364,20 @@ var MatIconRegistry = /** @class */ (function () {
         return this._fontCssClassesByAlias.get(alias) || alias;
     };
     /**
-     * Sets the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      *
      * @param className
      */
     /**
-     * Sets the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      *
      * @param {?} className
      * @return {?}
      */
     MatIconRegistry.prototype.setDefaultFontSetClass = /**
-     * Sets the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      *
      * @param {?} className
@@ -9388,16 +9388,16 @@ var MatIconRegistry = /** @class */ (function () {
         return this;
     };
     /**
-     * Returns the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      */
     /**
-     * Returns the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      * @return {?}
      */
     MatIconRegistry.prototype.getDefaultFontSetClass = /**
-     * Returns the CSS class name to be used for icon fonts when an <mat-icon> component does not
+     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
      * have a fontSet input value, and is not loading an icon by name or URL.
      * @return {?}
      */
@@ -9506,7 +9506,7 @@ var MatIconRegistry = /** @class */ (function () {
     /**
      * Attempts to find an icon with the specified name in any of the SVG icon sets.
      * First searches the available cached icons for a nested element with a matching name, and
-     * if found copies the element to a new <svg> element. If not found, fetches all icon sets
+     * if found copies the element to a new `<svg>` element. If not found, fetches all icon sets
      * that have not been cached, and searches again after all fetches are completed.
      * The returned Observable produces the SVG element if possible, and throws
      * an error if no icon with the specified name can be found.
@@ -9517,7 +9517,7 @@ var MatIconRegistry = /** @class */ (function () {
     MatIconRegistry.prototype._getSvgFromIconSetConfigs = /**
      * Attempts to find an icon with the specified name in any of the SVG icon sets.
      * First searches the available cached icons for a nested element with a matching name, and
-     * if found copies the element to a new <svg> element. If not found, fetches all icon sets
+     * if found copies the element to a new `<svg>` element. If not found, fetches all icon sets
      * that have not been cached, and searches again after all fetches are completed.
      * The returned Observable produces the SVG element if possible, and throws
      * an error if no icon with the specified name can be found.
@@ -9861,8 +9861,8 @@ var _MatIconMixinBase = mixinColor(MatIconBase);
  *   MatIconRegistry. If the svgIcon value contains a colon it is assumed to be in the format
  *   "[namespace]:[name]", if not the value will be the name of an icon in the default namespace.
  *   Examples:
- *     <mat-icon svgIcon="left-arrow"></mat-icon>
- *     <mat-icon svgIcon="animals:cat"></mat-icon>
+ *     `<mat-icon svgIcon="left-arrow"></mat-icon>
+ *     <mat-icon svgIcon="animals:cat"></mat-icon>`
  *
  * - Use a font ligature as an icon by putting the ligature text in the content of the <mat-icon>
  *   component. By default the Material icons font is used as described at
@@ -9870,15 +9870,15 @@ var _MatIconMixinBase = mixinColor(MatIconBase);
  *   alternate font by setting the fontSet input to either the CSS class to apply to use the
  *   desired font, or to an alias previously registered with MatIconRegistry.registerFontClassAlias.
  *   Examples:
- *     <mat-icon>home</mat-icon>
- *     <mat-icon fontSet="myfont">sun</mat-icon>
+ *     `<mat-icon>home</mat-icon>
+ *     <mat-icon fontSet="myfont">sun</mat-icon>`
  *
  * - Specify a font glyph to be included via CSS rules by setting the fontSet input to specify the
  *   font, and the fontIcon input to specify the icon. Typically the fontIcon will specify a
  *   CSS class which causes the glyph to be displayed via a :before selector, as in
  *   https://fortawesome.github.io/Font-Awesome/examples/
  *   Example:
- *     <mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>
+ *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
  */
 var MatIcon = /** @class */ (function (_super) {
     __extends(MatIcon, _super);
@@ -9932,10 +9932,10 @@ var MatIcon = /** @class */ (function (_super) {
      * the icon name. If the argument is falsy, returns an array of two empty strings.
      * Throws an error if the name contains two or more ':' separators.
      * Examples:
-     *   'social:cake' -> ['social', 'cake']
+     *   `'social:cake' -> ['social', 'cake']
      *   'penguin' -> ['', 'penguin']
      *   null -> ['', '']
-     *   'a:b:c' -> (throws Error)
+     *   'a:b:c' -> (throws Error)`
      * @param {?} iconName
      * @return {?}
      */
@@ -9947,10 +9947,10 @@ var MatIcon = /** @class */ (function (_super) {
      * the icon name. If the argument is falsy, returns an array of two empty strings.
      * Throws an error if the name contains two or more ':' separators.
      * Examples:
-     *   'social:cake' -> ['social', 'cake']
+     *   `'social:cake' -> ['social', 'cake']
      *   'penguin' -> ['', 'penguin']
      *   null -> ['', '']
-     *   'a:b:c' -> (throws Error)
+     *   'a:b:c' -> (throws Error)`
      * @param {?} iconName
      * @return {?}
      */
@@ -13722,7 +13722,7 @@ var matExpansionAnimations = {
  */
 var uniqueId$1 = 0;
 /**
- * <mat-expansion-panel>
+ * `<mat-expansion-panel>`
  *
  * This component can be used as a single element to show expandable content, or as one of
  * multiple children of an element with the MdAccordion directive attached.
@@ -13891,9 +13891,9 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
  */
 
 /**
- * <mat-expansion-panel-header>
+ * `<mat-expansion-panel-header>`
  *
- * This component corresponds to the header element of an <mat-expansion-panel>.
+ * This component corresponds to the header element of an `<mat-expansion-panel>`.
  */
 var MatExpansionPanelHeader = /** @class */ (function () {
     function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef) {
@@ -14042,7 +14042,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
     return MatExpansionPanelHeader;
 }());
 /**
- * <mat-panel-description>
+ * `<mat-panel-description>`
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
@@ -14062,7 +14062,7 @@ var MatExpansionPanelDescription = /** @class */ (function () {
     return MatExpansionPanelDescription;
 }());
 /**
- * <mat-panel-title>
+ * `<mat-panel-title>`
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
@@ -14736,7 +14736,7 @@ var TileStyler = /** @class */ (function () {
 }());
 /**
  * This type of styler is instantiated when the user passes in a fixed row height.
- * Example <mat-grid-list cols="3" rowHeight="100px">
+ * Example `<mat-grid-list cols="3" rowHeight="100px">`
  * \@docs-private
  */
 var FixedTileStyler = /** @class */ (function (_super) {
@@ -14808,7 +14808,7 @@ var FixedTileStyler = /** @class */ (function (_super) {
 }(TileStyler));
 /**
  * This type of styler is instantiated when the user passes in a width:height ratio
- * for the row height.  Example <mat-grid-list cols="3" rowHeight="3:1">
+ * for the row height.  Example `<mat-grid-list cols="3" rowHeight="3:1">`
  * \@docs-private
  */
 var RatioTileStyler = /** @class */ (function (_super) {
@@ -14887,7 +14887,7 @@ var RatioTileStyler = /** @class */ (function (_super) {
 /**
  * This type of styler is instantiated when the user selects a "fit" row height mode.
  * In other words, the row height will reflect the total height of the container divided
- * by the number of rows.  Example <mat-grid-list cols="3" rowHeight="fit">
+ * by the number of rows.  Example `<mat-grid-list cols="3" rowHeight="fit">`
  *
  * \@docs-private
  */
@@ -17748,11 +17748,11 @@ var MatSelect = /** @class */ (function (_super) {
          */
         _this._triggerFontSize = 0;
         /**
-         * View -> model callback called when value changes
+         * `View -> model callback called when value changes`
          */
         _this._onChange = function () { };
         /**
-         * View -> model callback called when select has been touched
+         * `View -> model callback called when select has been touched`
          */
         _this._onTouched = function () { };
         /**
@@ -19717,16 +19717,16 @@ var MatTooltip = /** @class */ (function () {
     };
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
-     * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
+     * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).
      */
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
-     * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
+     * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).
      * @return {?}
      */
     MatTooltip.prototype._getOrigin = /**
      * Returns the origin position and a fallback position based on the user's position preference.
-     * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
+     * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).
      * @return {?}
      */
     function () {
@@ -20575,7 +20575,7 @@ var MatProgressBarBase = /** @class */ (function () {
 }());
 var _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
 /**
- * <mat-progress-bar> component.
+ * `<mat-progress-bar>` component.
  */
 var MatProgressBar = /** @class */ (function (_super) {
     __extends(MatProgressBar, _super);
@@ -20745,7 +20745,7 @@ var MatProgressSpinnerBase = /** @class */ (function () {
 var _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
 var INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-stroke-rotate-DIAMETER {\n    0%      { stroke-dashoffset: START_VALUE;  transform: rotate(0); }\n    12.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(0); }\n    12.51%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(72.5deg); }\n    25%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(72.5deg); }\n\n    25.1%   { stroke-dashoffset: START_VALUE;  transform: rotate(270deg); }\n    37.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(270deg); }\n    37.51%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(161.5deg); }\n    50%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(161.5deg); }\n\n    50.01%  { stroke-dashoffset: START_VALUE;  transform: rotate(180deg); }\n    62.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(180deg); }\n    62.51%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(251.5deg); }\n    75%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(251.5deg); }\n\n    75.01%  { stroke-dashoffset: START_VALUE;  transform: rotate(90deg); }\n    87.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(90deg); }\n    87.51%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(341.5deg); }\n    100%    { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(341.5deg); }\n  }\n";
 /**
- * <mat-progress-spinner> component.
+ * `<mat-progress-spinner>` component.
  */
 var MatProgressSpinner = /** @class */ (function (_super) {
     __extends(MatProgressSpinner, _super);
@@ -20998,10 +20998,10 @@ var MatProgressSpinner = /** @class */ (function (_super) {
     return MatProgressSpinner;
 }(_MatProgressSpinnerMixinBase));
 /**
- * <mat-spinner> component.
+ * `<mat-spinner>` component.
  *
  * This is a component definition to be used as a convenience reference to create an
- * indeterminate <mat-progress-spinner> instance.
+ * indeterminate `<mat-progress-spinner>` instance.
  */
 var MatSpinner = /** @class */ (function (_super) {
     __extends(MatSpinner, _super);
@@ -22510,9 +22510,9 @@ var MatDrawer = /** @class */ (function () {
     return MatDrawer;
 }());
 /**
- * <mat-drawer-container> component.
+ * `<mat-drawer-container>` component.
  *
- * This is the parent component to one or two <mat-drawer>s that validates the state internally
+ * This is the parent component to one or two `<mat-drawer>`s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
 var MatDrawerContainer = /** @class */ (function () {
@@ -29338,7 +29338,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-ff0e612');
+var VERSION = new _angular_core.Version('5.1.0-40a5070');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29569,10 +29569,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -29692,16 +29692,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe20 = MatTabBase;
-exports.ɵf20 = _MatTabMixinBase;
-exports.ɵa20 = MatTabHeaderBase;
-exports.ɵb20 = _MatTabHeaderMixinBase;
-exports.ɵc20 = MatTabLabelWrapperBase;
-exports.ɵd20 = _MatTabLabelWrapperMixinBase;
-exports.ɵi20 = MatTabLinkBase;
-exports.ɵg20 = MatTabNavBase;
-exports.ɵj20 = _MatTabLinkMixinBase;
-exports.ɵh20 = _MatTabNavMixinBase;
+exports.ɵe19 = MatTabBase;
+exports.ɵf19 = _MatTabMixinBase;
+exports.ɵa19 = MatTabHeaderBase;
+exports.ɵb19 = _MatTabHeaderMixinBase;
+exports.ɵc19 = MatTabLabelWrapperBase;
+exports.ɵd19 = _MatTabLabelWrapperMixinBase;
+exports.ɵi19 = MatTabLinkBase;
+exports.ɵg19 = MatTabNavBase;
+exports.ɵj19 = _MatTabLinkMixinBase;
+exports.ɵh19 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

@@ -148,7 +148,7 @@ const matExpansionAnimations = {
  */
 let uniqueId = 0;
 /**
- * <mat-expansion-panel>
+ * `<mat-expansion-panel>`
  *
  * This component can be used as a single element to show expandable content, or as one of
  * multiple children of an element with the MdAccordion directive attached.
@@ -287,9 +287,9 @@ MatExpansionPanelActionRow.ctorParameters = () => [];
  */
 
 /**
- * <mat-expansion-panel-header>
+ * `<mat-expansion-panel-header>`
  *
- * This component corresponds to the header element of an <mat-expansion-panel>.
+ * This component corresponds to the header element of an `<mat-expansion-panel>`.
  */
 class MatExpansionPanelHeader {
     /**
@@ -414,7 +414,7 @@ MatExpansionPanelHeader.propDecorators = {
     "collapsedHeight": [{ type: Input },],
 };
 /**
- * <mat-panel-description>
+ * `<mat-panel-description>`
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */
@@ -431,7 +431,7 @@ MatExpansionPanelDescription.decorators = [
 /** @nocollapse */
 MatExpansionPanelDescription.ctorParameters = () => [];
 /**
- * <mat-panel-title>
+ * `<mat-panel-title>`
  *
  * This direction is to be used inside of the MatExpansionPanelHeader component.
  */

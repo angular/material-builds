@@ -107,7 +107,7 @@ export declare class MatTooltip implements OnDestroy {
     private _disposeTooltip();
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
-     * The fallback position is the inverse of the origin (e.g. 'below' -> 'above').
+     * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).
      */
     _getOrigin(): {
         main: OriginConnectionPosition;

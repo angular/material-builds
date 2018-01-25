@@ -14,7 +14,7 @@ export declare class MatProgressBarBase {
 }
 export declare const _MatProgressBarMixinBase: (new (...args: any[]) => CanColor) & typeof MatProgressBarBase;
 /**
- * <mat-progress-bar> component.
+ * `<mat-progress-bar>` component.
  */
 export declare class MatProgressBar extends _MatProgressBarMixinBase implements CanColor {
     _elementRef: ElementRef;

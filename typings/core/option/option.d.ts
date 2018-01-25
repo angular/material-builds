@@ -91,8 +91,8 @@ export declare class MatOption implements AfterViewChecked {
     /** Ensures the option is selected when activated from the keyboard. */
     _handleKeydown(event: KeyboardEvent): void;
     /**
-     * Selects the option while indicating the selection came from the user. Used to
-     * determine if the select's view -> model callback should be invoked.
+     * `Selects the option while indicating the selection came from the user. Used to
+     * determine if the select's view -> model callback should be invoked.`
      */
     _selectViaInteraction(): void;
     /** Returns the correct tabindex for the option depending on disabled state. */

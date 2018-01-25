@@ -493,9 +493,9 @@ MatDrawer.propDecorators = {
     "opened": [{ type: Input },],
 };
 /**
- * <mat-drawer-container> component.
+ * `<mat-drawer-container>` component.
  *
- * This is the parent component to one or two <mat-drawer>s that validates the state internally
+ * This is the parent component to one or two `<mat-drawer>`s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
 class MatDrawerContainer {
