@@ -8,7 +8,7 @@
 import { ObserversModule } from '@angular/cdk/observers';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { GestureConfig, MatCommonModule, MatRipple, MatRippleModule, applyCssTransform, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { GestureConfig, MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { __extends } from 'tslib';
@@ -471,7 +471,7 @@ var SlideToggleRenderer = /** @class */ (function () {
         this.dragging = false;
         this._thumbEl.classList.remove('mat-dragging');
         // Reset the transform because the component will take care of the thumb position after drag.
-        applyCssTransform(this._thumbEl, '');
+        this._thumbEl.style.transform = '';
         return this.dragPercentage > 50;
     };
     /** Updates the thumb containers position from the specified distance. */
@@ -489,7 +489,7 @@ var SlideToggleRenderer = /** @class */ (function () {
         this.dragPercentage = this._getDragPercentage(distance);
         // Calculate the moved distance based on the thumb bar width.
         var /** @type {?} */ dragX = (this.dragPercentage / 100) * this._thumbBarWidth;
-        applyCssTransform(this._thumbEl, "translate3d(" + dragX + "px, 0, 0)");
+        this._thumbEl.style.transform = "translate3d(" + dragX + "px, 0, 0)";
     };
     /**
      * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.

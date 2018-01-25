@@ -2633,30 +2633,6 @@ var MAT_LABEL_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-label-globa
  */
 
 /**
- * Applies a CSS transform to an element, including browser-prefixed properties.
- * @param {?} element
- * @param {?} transformValue
- * @return {?}
- */
-function applyCssTransform(element, transformValue) {
-    // It's important to trim the result, because the browser will ignore the set operation
-    // if the string contains only whitespace.
-    var /** @type {?} */ value = transformValue.trim();
-    element.style.transform = value;
-    element.style.webkitTransform = value;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
  */
@@ -23495,7 +23471,7 @@ var SlideToggleRenderer = /** @class */ (function () {
         this.dragging = false;
         this._thumbEl.classList.remove('mat-dragging');
         // Reset the transform because the component will take care of the thumb position after drag.
-        applyCssTransform(this._thumbEl, '');
+        this._thumbEl.style.transform = '';
         return this.dragPercentage > 50;
     };
     /** Updates the thumb containers position from the specified distance. */
@@ -23513,7 +23489,7 @@ var SlideToggleRenderer = /** @class */ (function () {
         this.dragPercentage = this._getDragPercentage(distance);
         // Calculate the moved distance based on the thumb bar width.
         var /** @type {?} */ dragX = (this.dragPercentage / 100) * this._thumbBarWidth;
-        applyCssTransform(this._thumbEl, "translate3d(" + dragX + "px, 0, 0)");
+        this._thumbEl.style.transform = "translate3d(" + dragX + "px, 0, 0)";
     };
     /**
      * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
@@ -29266,7 +29242,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-a5ca9ce');
+var VERSION = new _angular_core.Version('5.1.0-53c45ec');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29379,7 +29355,6 @@ exports.defaultRippleAnimationConfig = defaultRippleAnimationConfig;
 exports.RippleRenderer = RippleRenderer;
 exports.MatPseudoCheckboxModule = MatPseudoCheckboxModule;
 exports.MatPseudoCheckbox = MatPseudoCheckbox;
-exports.applyCssTransform = applyCssTransform;
 exports.JAN = JAN;
 exports.FEB = FEB;
 exports.MAR = MAR;
@@ -29620,16 +29595,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe19 = MatTabBase;
+exports.ɵf19 = _MatTabMixinBase;
+exports.ɵa19 = MatTabHeaderBase;
+exports.ɵb19 = _MatTabHeaderMixinBase;
+exports.ɵc19 = MatTabLabelWrapperBase;
+exports.ɵd19 = _MatTabLabelWrapperMixinBase;
+exports.ɵi19 = MatTabLinkBase;
+exports.ɵg19 = MatTabNavBase;
+exports.ɵj19 = _MatTabLinkMixinBase;
+exports.ɵh19 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

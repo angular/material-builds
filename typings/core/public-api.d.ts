@@ -16,7 +16,6 @@ export * from './option/index';
 export * from './label/label-options';
 export * from './ripple/index';
 export * from './selection/index';
-export * from './style/index';
 /**
  * @deprecated
  * @deletion-target 6.0.0

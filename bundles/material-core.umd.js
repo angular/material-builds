@@ -2633,30 +2633,6 @@ var MAT_LABEL_GLOBAL_OPTIONS = new _angular_core.InjectionToken('mat-label-globa
  */
 
 /**
- * Applies a CSS transform to an element, including browser-prefixed properties.
- * @param {?} element
- * @param {?} transformValue
- * @return {?}
- */
-function applyCssTransform(element, transformValue) {
-    // It's important to trim the result, because the browser will ignore the set operation
-    // if the string contains only whitespace.
-    var /** @type {?} */ value = transformValue.trim();
-    element.style.transform = value;
-    element.style.webkitTransform = value;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
  */
@@ -2715,7 +2691,6 @@ exports.defaultRippleAnimationConfig = defaultRippleAnimationConfig;
 exports.RippleRenderer = RippleRenderer;
 exports.MatPseudoCheckboxModule = MatPseudoCheckboxModule;
 exports.MatPseudoCheckbox = MatPseudoCheckbox;
-exports.applyCssTransform = applyCssTransform;
 exports.JAN = JAN;
 exports.FEB = FEB;
 exports.MAR = MAR;
