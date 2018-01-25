@@ -34,7 +34,7 @@ export declare class MatSort extends _MatSortMixinBase implements CanDisable, On
     /** Collection of all registered sortables that this directive manages. */
     sortables: Map<string, MatSortable>;
     /** Used to notify any child components listening to state changes. */
-    _stateChanges: Subject<void>;
+    readonly _stateChanges: Subject<void>;
     /** The id of the most recently sorted MatSortable. */
     active: string;
     /**

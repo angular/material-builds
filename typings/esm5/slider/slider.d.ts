@@ -74,9 +74,9 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     vertical: boolean;
     private _vertical;
     /** Event emitted when the slider value has changed. */
-    change: EventEmitter<MatSliderChange>;
+    readonly change: EventEmitter<MatSliderChange>;
     /** Event emitted when the slider thumb moves. */
-    input: EventEmitter<MatSliderChange>;
+    readonly input: EventEmitter<MatSliderChange>;
     /** The value to be used for display purposes. */
     readonly displayValue: string | number;
     /** set focus to the host element */

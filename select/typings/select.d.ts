@@ -101,7 +101,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Unique id for this input. */
     private _uid;
     /** Emits whenever the component is destroyed. */
-    private _destroy;
+    private readonly _destroy;
     /** The last measured value for the trigger's client bounding rect. */
     _triggerRect: ClientRect;
     /** The aria-describedby attribute on the select for improved a11y. */
@@ -187,9 +187,9 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     id: string;
     private _id;
     /** Combined stream of all of the child options' change events. */
-    optionSelectionChanges: Observable<MatOptionSelectionChange>;
+    readonly optionSelectionChanges: Observable<MatOptionSelectionChange>;
     /** Event emitted when the select has been opened. */
-    openedChange: EventEmitter<boolean>;
+    readonly openedChange: EventEmitter<boolean>;
     /** Event emitted when the select has been opened. */
     readonly _openedStream: Observable<void>;
     /** Event emitted when the select has been closed. */
@@ -199,27 +199,27 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * @deprecated Use `openedChange` instead.
      * @deletion-target 6.0.0
      */
-    onOpen: Observable<void>;
+    readonly onOpen: Observable<void>;
     /**
      * Event emitted when the select has been closed.
      * @deprecated Use `openedChange` instead.
      * @deletion-target 6.0.0
      */
-    onClose: Observable<void>;
+    readonly onClose: Observable<void>;
     /** Event emitted when the selected value has been changed by the user. */
-    selectionChange: EventEmitter<MatSelectChange>;
+    readonly selectionChange: EventEmitter<MatSelectChange>;
     /**
      * Event emitted when the selected value has been changed by the user.
      * @deprecated Use `selectionChange` instead.
      * @deletion-target 6.0.0
      */
-    change: EventEmitter<MatSelectChange>;
+    readonly change: EventEmitter<MatSelectChange>;
     /**
      * Event that emits whenever the raw value of the select changes. This is here primarily
      * to facilitate the two-way binding for the `value` input.
      * @docs-private
      */
-    valueChange: EventEmitter<any>;
+    readonly valueChange: EventEmitter<any>;
     constructor(_viewportRuler: ViewportRuler, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone, _defaultErrorStateMatcher: ErrorStateMatcher, elementRef: ElementRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _parentFormField: MatFormField, ngControl: NgControl, tabIndex: string, _scrollStrategyFactory: any);
     ngOnInit(): void;
     ngAfterContentInit(): void;

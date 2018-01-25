@@ -45,7 +45,7 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     /** Function that maps an option's control value to its display value in the trigger. */
     displayWith: ((value: any) => string) | null;
     /** Event that is emitted whenever an option from the list is selected. */
-    optionSelected: EventEmitter<MatAutocompleteSelectedEvent>;
+    readonly optionSelected: EventEmitter<MatAutocompleteSelectedEvent>;
     /**
      * Takes classes set on the host mat-autocomplete element and applies them to the panel
      * inside the overlay container to allow for easy styling.

@@ -151,7 +151,7 @@ export declare class TooltipComponent {
     /** Current position of the tooltip. */
     private _position;
     /** Subject for notifying that the tooltip has been hidden from the view */
-    private _onHide;
+    private readonly _onHide;
     constructor(_changeDetectorRef: ChangeDetectorRef);
     /**
      * Shows the tooltip with an animation originating from the provided origin

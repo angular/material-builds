@@ -22,11 +22,11 @@ export declare class MatDialogRef<T, R = any> {
     /** Whether the user is allowed to close the dialog. */
     disableClose: boolean | undefined;
     /** Subject for notifying the user that the dialog has finished opening. */
-    private _afterOpen;
+    private readonly _afterOpen;
     /** Subject for notifying the user that the dialog has finished closing. */
-    private _afterClosed;
+    private readonly _afterClosed;
     /** Subject for notifying the user that the dialog has started closing. */
-    private _beforeClose;
+    private readonly _beforeClose;
     /** Result to be passed to afterClosed. */
     private _result;
     /** Subscription to changes in the user's location. */

@@ -20,11 +20,11 @@ import { Subscription } from 'rxjs/Subscription';
  */
 export declare class MatTableDataSource<T> implements DataSource<T> {
     /** Stream that emits when a new data array is set on the data source. */
-    private _data;
+    private readonly _data;
     /** Stream emitting render data to the table (depends on ordered data changes). */
-    private _renderData;
+    private readonly _renderData;
     /** Stream that emits when a new filter string is set on the data source. */
-    private _filter;
+    private readonly _filter;
     /**
      * Subscription to the changes that should trigger an update to the table's rendered rows, such
      * as filtering, sorting, pagination, or base data changes.

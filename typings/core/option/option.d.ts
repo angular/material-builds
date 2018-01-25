@@ -52,9 +52,9 @@ export declare class MatOption implements AfterViewChecked {
     /** Whether ripples for the option are disabled. */
     readonly disableRipple: boolean | undefined;
     /** Event emitted when the option is selected or deselected. */
-    onSelectionChange: EventEmitter<MatOptionSelectionChange>;
+    readonly onSelectionChange: EventEmitter<MatOptionSelectionChange>;
     /** Emits when the state of the option changes and any parents have to be notified. */
-    _stateChanges: Subject<void>;
+    readonly _stateChanges: Subject<void>;
     constructor(_element: ElementRef, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: MatOptgroup);
     /**
      * Whether or not the option is currently active and ready to be selected.

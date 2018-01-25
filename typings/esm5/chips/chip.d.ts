@@ -67,21 +67,21 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
      */
     removable: boolean;
     /** Emits when the chip is focused. */
-    _onFocus: Subject<MatChipEvent>;
+    readonly _onFocus: Subject<MatChipEvent>;
     /** Emits when the chip is blured. */
-    _onBlur: Subject<MatChipEvent>;
+    readonly _onBlur: Subject<MatChipEvent>;
     /** Emitted when the chip is selected or deselected. */
-    selectionChange: EventEmitter<MatChipSelectionChange>;
+    readonly selectionChange: EventEmitter<MatChipSelectionChange>;
     /** Emitted when the chip is destroyed. */
-    destroyed: EventEmitter<MatChipEvent>;
+    readonly destroyed: EventEmitter<MatChipEvent>;
     /**
      * Emitted when the chip is destroyed.
      * @deprecated Use 'destroyed' instead.
      * @deletion-target 6.0.0
      */
-    destroy: EventEmitter<MatChipEvent>;
+    readonly destroy: EventEmitter<MatChipEvent>;
     /** Emitted when a chip is to be removed. */
-    removed: EventEmitter<MatChipEvent>;
+    readonly removed: EventEmitter<MatChipEvent>;
     /**
      * Emitted when a chip is to be removed.
      * @deprecated Use `removed` instead.

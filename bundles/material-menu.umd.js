@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/keycodes'), require('rxjs/operators/startWith'), require('rxjs/operators/switchMap'), require('rxjs/operators/take'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/animations'), require('rxjs/Subject'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/keycodes', 'rxjs/operators/startWith', 'rxjs/operators/switchMap', 'rxjs/operators/take', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/animations', 'rxjs/Subject', '@angular/cdk/coercion', '@angular/cdk/bidi', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = global.ng.material.menu || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.keycodes,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.Rx,global.ng.animations,global.Rx,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.portal,global.Rx.operators,global.Rx.Observable));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_core,_angular_cdk_keycodes,rxjs_operators_startWith,rxjs_operators_switchMap,rxjs_operators_take,rxjs_observable_merge,rxjs_Subscription,_angular_animations,rxjs_Subject,_angular_cdk_coercion,_angular_cdk_bidi,_angular_cdk_portal,rxjs_operators_filter,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/portal'), require('@angular/cdk/keycodes'), require('rxjs/operators/startWith'), require('rxjs/operators/switchMap'), require('rxjs/operators/take'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/animations'), require('rxjs/Subject'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('rxjs/operators/filter'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/portal', '@angular/cdk/keycodes', 'rxjs/operators/startWith', 'rxjs/operators/switchMap', 'rxjs/operators/take', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/animations', 'rxjs/Subject', '@angular/cdk/coercion', '@angular/cdk/bidi', 'rxjs/operators/filter', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = global.ng.material.menu || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.portal,global.ng.cdk.keycodes,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.Rx,global.ng.animations,global.Rx,global.ng.cdk.coercion,global.ng.cdk.bidi,global.Rx.operators,global.Rx.Observable));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_core,_angular_cdk_portal,_angular_cdk_keycodes,rxjs_operators_startWith,rxjs_operators_switchMap,rxjs_operators_take,rxjs_observable_merge,rxjs_Subscription,_angular_animations,rxjs_Subject,_angular_cdk_coercion,_angular_cdk_bidi,rxjs_operators_filter,rxjs_observable_of) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -326,6 +326,86 @@ var MatMenuItem = /** @class */ (function (_super) {
  */
 
 /**
+ * Menu content that will be rendered lazily once the menu is opened.
+ */
+var MatMenuContent = /** @class */ (function () {
+    function MatMenuContent(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document) {
+        this._template = _template;
+        this._componentFactoryResolver = _componentFactoryResolver;
+        this._appRef = _appRef;
+        this._injector = _injector;
+        this._viewContainerRef = _viewContainerRef;
+        this._document = _document;
+    }
+    /**
+     * Attaches the content with a particular context.
+     * @docs-private
+     */
+    /**
+     * Attaches the content with a particular context.
+     * \@docs-private
+     * @param {?=} context
+     * @return {?}
+     */
+    MatMenuContent.prototype.attach = /**
+     * Attaches the content with a particular context.
+     * \@docs-private
+     * @param {?=} context
+     * @return {?}
+     */
+    function (context) {
+        if (context === void 0) { context = {}; }
+        if (!this._portal) {
+            this._portal = new _angular_cdk_portal.TemplatePortal(this._template, this._viewContainerRef);
+        }
+        else if (this._portal.isAttached) {
+            this._portal.detach();
+        }
+        if (!this._outlet) {
+            this._outlet = new _angular_cdk_portal.DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
+        }
+        var /** @type {?} */ element = this._template.elementRef.nativeElement; /** @type {?} */
+        ((
+        // Because we support opening the same menu from different triggers (which in turn have their
+        // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
+        // risk it staying attached to a pane that's no longer in the DOM.
+        element.parentNode)).insertBefore(this._outlet.outletElement, element);
+        this._portal.attach(this._outlet, context);
+    };
+    /**
+     * @return {?}
+     */
+    MatMenuContent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        if (this._outlet) {
+            this._outlet.dispose();
+        }
+    };
+    MatMenuContent.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'ng-template[matMenuContent]'
+                },] },
+    ];
+    /** @nocollapse */
+    MatMenuContent.ctorParameters = function () { return [
+        { type: _angular_core.TemplateRef, },
+        { type: _angular_core.ComponentFactoryResolver, },
+        { type: _angular_core.ApplicationRef, },
+        { type: _angular_core.Injector, },
+        { type: _angular_core.ViewContainerRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
+    ]; };
+    return MatMenuContent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Default `mat-menu` options that can be overridden.
  * @record
  */
@@ -550,9 +630,17 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function (origin) {
+        var _this = this;
         if (origin === void 0) { origin = 'program'; }
-        // TODO(crisbeto): make the origin required when doing breaking changes.
-        this._keyManager.setFocusOrigin(origin).setFirstItemActive();
+        // When the content is rendered lazily, it takes a bit before the items are inside the DOM.
+        if (this.lazyContent) {
+            this._ngZone.onStable.asObservable()
+                .pipe(rxjs_operators_take.take(1))
+                .subscribe(function () { return _this._keyManager.setFocusOrigin(origin).setFirstItemActive(); });
+        }
+        else {
+            this._keyManager.setFocusOrigin(origin).setFirstItemActive();
+        }
     };
     /**
      * Resets the active item in the menu. This is used when the menu is opened, allowing
@@ -667,7 +755,7 @@ var MatMenu = /** @class */ (function () {
     MatMenu.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-menu',
                     template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
-                    styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.ng-animating{pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item .mat-icon{vertical-align:middle}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
+                    styles: [".mat-menu-panel{-webkit-backface-visibility:hidden;backface-visibility:hidden;min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.ng-animating{pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item .mat-icon{vertical-align:middle}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -689,6 +777,7 @@ var MatMenu = /** @class */ (function () {
         "yPosition": [{ type: _angular_core.Input },],
         "templateRef": [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
         "items": [{ type: _angular_core.ContentChildren, args: [MatMenuItem,] },],
+        "lazyContent": [{ type: _angular_core.ContentChild, args: [MatMenuContent,] },],
         "overlapTrigger": [{ type: _angular_core.Input },],
         "panelClass": [{ type: _angular_core.Input, args: ['class',] },],
         "classList": [{ type: _angular_core.Input },],
@@ -888,13 +977,17 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        if (!this._menuOpen) {
-            this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
-            this._initMenu();
-            if (this.menu instanceof MatMenu) {
-                this.menu._startAnimation();
-            }
+        if (this._menuOpen) {
+            return;
+        }
+        this._createOverlay().attach(this._portal);
+        if (this.menu.lazyContent) {
+            this.menu.lazyContent.attach(this.menuData);
+        }
+        this._closeSubscription = this._menuClosingActions().subscribe(function () { return _this.closeMenu(); });
+        this._initMenu();
+        if (this.menu instanceof MatMenu) {
+            this.menu._startAnimation();
         }
     };
     /** Closes the menu. */
@@ -1250,6 +1343,7 @@ var MatMenuTrigger = /** @class */ (function () {
     MatMenuTrigger.propDecorators = {
         "_deprecatedMatMenuTriggerFor": [{ type: _angular_core.Input, args: ['mat-menu-trigger-for',] },],
         "menu": [{ type: _angular_core.Input, args: ['matMenuTriggerFor',] },],
+        "menuData": [{ type: _angular_core.Input, args: ['matMenuTriggerData',] },],
         "menuOpened": [{ type: _angular_core.Output },],
         "onMenuOpen": [{ type: _angular_core.Output },],
         "menuClosed": [{ type: _angular_core.Output },],
@@ -1279,9 +1373,10 @@ var MatMenuModule = /** @class */ (function () {
                         _angular_material_core.MatCommonModule,
                         _angular_material_core.MatRippleModule,
                         _angular_cdk_overlay.OverlayModule,
+                        _angular_cdk_portal.PortalModule,
                     ],
-                    exports: [MatMenu, MatMenuItem, MatMenuTrigger, _angular_material_core.MatCommonModule],
-                    declarations: [MatMenu, MatMenuItem, MatMenuTrigger],
+                    exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent, _angular_material_core.MatCommonModule],
+                    declarations: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent],
                     providers: [
                         MAT_MENU_SCROLL_STRATEGY_PROVIDER,
                         {
@@ -1305,10 +1400,11 @@ exports.MatMenuTrigger = MatMenuTrigger;
 exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
-exports.ɵa21 = MatMenuItemBase;
-exports.ɵb21 = _MatMenuItemMixinBase;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MatMenuContent = MatMenuContent;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

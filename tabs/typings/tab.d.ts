@@ -27,9 +27,9 @@ export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisab
     /** @docs-private */
     readonly content: TemplatePortal | null;
     /** Emits whenever the label changes. */
-    _labelChange: Subject<void>;
+    readonly _labelChange: Subject<void>;
     /** Emits whenever the disable changes */
-    _disableChange: Subject<void>;
+    readonly _disableChange: Subject<void>;
     /**
      * The relatively indexed position where 0 represents the center, negative is left, and positive
      * represents the right.

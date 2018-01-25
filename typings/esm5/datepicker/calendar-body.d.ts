@@ -44,7 +44,7 @@ export declare class MatCalendarBody {
      */
     cellAspectRatio: number;
     /** Emits when a new value is selected. */
-    selectedValueChange: EventEmitter<number>;
+    readonly selectedValueChange: EventEmitter<number>;
     _cellClicked(cell: MatCalendarCell): void;
     /** The number of blank cells to put at the beginning for the first row. */
     readonly _firstRowOffset: number;

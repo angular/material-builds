@@ -58,19 +58,19 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     backgroundColor: ThemePalette;
     private _backgroundColor;
     /** Output to enable support for two-way binding on `[(selectedIndex)]` */
-    selectedIndexChange: EventEmitter<number>;
+    readonly selectedIndexChange: EventEmitter<number>;
     /** Event emitted when focus has changed within a tab group. */
-    focusChange: EventEmitter<MatTabChangeEvent>;
+    readonly focusChange: EventEmitter<MatTabChangeEvent>;
     /** Event emitted when the body animation has completed */
-    animationDone: EventEmitter<void>;
+    readonly animationDone: EventEmitter<void>;
     /** Event emitted when the tab selection has changed. */
-    selectedTabChange: EventEmitter<MatTabChangeEvent>;
+    readonly selectedTabChange: EventEmitter<MatTabChangeEvent>;
     /**
      * Event emitted when the tab selection has changed.
      * @deprecated Use `selectedTabChange` instead.
      * @deletion-target 6.0.0
      */
-    selectChange: EventEmitter<MatTabChangeEvent>;
+    readonly selectChange: EventEmitter<MatTabChangeEvent>;
     private _groupId;
     constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);
     /**

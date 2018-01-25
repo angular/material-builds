@@ -60,11 +60,11 @@ export declare class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase
      * Used to facilitate two-way data binding.
      * @docs-private
      */
-    valueChange: EventEmitter<any>;
+    readonly valueChange: EventEmitter<any>;
     /** Whether the toggle group is selected. */
     selected: MatButtonToggle | null;
     /** Event emitted when the group's value changes. */
-    change: EventEmitter<MatButtonToggleChange>;
+    readonly change: EventEmitter<MatButtonToggleChange>;
     constructor(_changeDetector: ChangeDetectorRef);
     private _updateButtonToggleNames();
     private _updateSelectedButtonToggleFromValue();
@@ -146,7 +146,7 @@ export declare class MatButtonToggle implements OnInit, OnDestroy {
     /** Whether the button is disabled. */
     disabled: boolean;
     /** Event emitted when the group value changes. */
-    change: EventEmitter<MatButtonToggleChange>;
+    readonly change: EventEmitter<MatButtonToggleChange>;
     constructor(toggleGroup: MatButtonToggleGroup, toggleGroupMultiple: MatButtonToggleGroupMultiple, _changeDetectorRef: ChangeDetectorRef, _buttonToggleDispatcher: UniqueSelectionDispatcher, _elementRef: ElementRef, _focusMonitor: FocusMonitor);
     ngOnInit(): void;
     /** Focuses the button. */

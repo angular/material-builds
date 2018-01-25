@@ -62,7 +62,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     /** The subscription for closing actions (some are bound to document). */
     private _closingActionsSubscription;
     /** Stream of keyboard events that can close the panel. */
-    private _closeKeyEventStream;
+    private readonly _closeKeyEventStream;
     /** View -> model callback called when value changes */
     _onChange: (value: any) => void;
     /** View -> model callback called when autocomplete has been touched */
@@ -83,7 +83,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
      */
     readonly panelClosingActions: Observable<MatOptionSelectionChange>;
     /** Stream of autocomplete option selections. */
-    optionSelections: Observable<MatOptionSelectionChange>;
+    readonly optionSelections: Observable<MatOptionSelectionChange>;
     /** The currently active option, coerced to MatOption type. */
     readonly activeOption: MatOption | null;
     /** Stream of clicks outside of the autocomplete panel. */

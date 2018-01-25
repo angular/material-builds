@@ -58,7 +58,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     /** Whether the slide-toggle element is checked or not */
     checked: boolean;
     /** An event will be dispatched each time the slide-toggle changes its value. */
-    change: EventEmitter<MatSlideToggleChange>;
+    readonly change: EventEmitter<MatSlideToggleChange>;
     /** Returns the unique id for the visual hidden input. */
     readonly inputId: string;
     /** Reference to the underlying input element. */

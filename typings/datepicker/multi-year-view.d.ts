@@ -26,7 +26,7 @@ export declare class MatMultiYearView<D> implements AfterContentInit {
     /** A function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;
     /** Emits when a new month is selected. */
-    selectedChange: EventEmitter<D>;
+    readonly selectedChange: EventEmitter<D>;
     /** Grid of calendar cells representing the currently displayed years. */
     _years: MatCalendarCell[][];
     /** The year that today falls on. */
@@ -42,6 +42,8 @@ export declare class MatMultiYearView<D> implements AfterContentInit {
     _getActiveCell(): number;
     /** Creates an MatCalendarCell for the given year. */
     private _createCellForYear(year);
+    /** Whether the given year is enabled. */
+    private _isYearEnabled(year);
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.

@@ -11,6 +11,7 @@ import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, 
 import { Observable } from 'rxjs/Observable';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
+import { MatMenuContent } from './menu-content';
 import { MenuPositionX, MenuPositionY } from './menu-positions';
 import { FocusOrigin } from '@angular/cdk/a11y';
 /** Default `mat-menu` options that can be overridden. */
@@ -52,6 +53,11 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel, OnDestro
     templateRef: TemplateRef<any>;
     /** List of the items inside of a menu. */
     items: QueryList<MatMenuItem>;
+    /**
+     * Menu content that will be rendered lazily.
+     * @docs-private
+     */
+    lazyContent: MatMenuContent;
     /** Whether the menu should overlap its trigger. */
     overlapTrigger: boolean;
     private _overlapTrigger;
@@ -71,7 +77,7 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel, OnDestro
      */
     classList: string;
     /** Event emitted when the menu is closed. */
-    closed: EventEmitter<void | 'click' | 'keydown'>;
+    readonly closed: EventEmitter<void | 'click' | 'keydown'>;
     /**
      * Event emitted when the menu is closed.
      * @deprecated Switch to `closed` instead

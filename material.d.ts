@@ -7,7 +7,7 @@
  */
 export * from './typings/index';
 export * from './core';
-export * from './toolbar';
+export * from './expansion';
 export * from './sort';
 export * from './button';
 export * from './button-toggle';
@@ -21,7 +21,7 @@ export * from './slide-toggle';
 export * from './dialog';
 export * from './sidenav';
 export * from './divider';
-export * from './expansion';
+export * from './toolbar';
 export * from './form-field';
 export * from './radio';
 export * from './menu';

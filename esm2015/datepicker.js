@@ -508,7 +508,25 @@ class MatMultiYearView {
      */
     _createCellForYear(year) {
         let /** @type {?} */ yearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(year, 0, 1));
-        return new MatCalendarCell(year, yearName, yearName, true);
+        return new MatCalendarCell(year, yearName, yearName, this._isYearEnabled(year));
+    }
+    /**
+     * Whether the given year is enabled.
+     * @param {?} year
+     * @return {?}
+     */
+    _isYearEnabled(year) {
+        if (!this.dateFilter) {
+            return true;
+        }
+        const /** @type {?} */ firstOfYear = this._dateAdapter.createDate(year, 0, 1);
+        // If any date in the year is enabled count the year as enabled.
+        for (let /** @type {?} */ date = firstOfYear; this._dateAdapter.getYear(date) == year; date = this._dateAdapter.addCalendarDays(date, 1)) {
+            if (this.dateFilter(date)) {
+                return true;
+            }
+        }
+        return false;
     }
     /**
      * @param {?} obj The object to check.

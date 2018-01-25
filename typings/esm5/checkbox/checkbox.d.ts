@@ -83,9 +83,9 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     /** Name value will be applied to the input element if present */
     name: string | null;
     /** Event emitted when the checkbox's `checked` value changes. */
-    change: EventEmitter<MatCheckboxChange>;
+    readonly change: EventEmitter<MatCheckboxChange>;
     /** Event emitted when the checkbox's `indeterminate` value changes. */
-    indeterminateChange: EventEmitter<boolean>;
+    readonly indeterminateChange: EventEmitter<boolean>;
     /** The value attribute of the native input element */
     value: string;
     /** The native `<input type="checkbox"> element */

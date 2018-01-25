@@ -78,7 +78,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
      * @deprecated Use the `selectionChange` event on the `<mat-selection-list>` instead.
      * @deletion-target 6.0.0
      */
-    selectionChange: EventEmitter<MatListOptionChange>;
+    readonly selectionChange: EventEmitter<MatListOptionChange>;
     constructor(_element: ElementRef, _changeDetector: ChangeDetectorRef, 
         /** @docs-private */ selectionList: MatSelectionList);
     ngOnInit(): void;
@@ -115,7 +115,7 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     /** The option components contained within this selection-list. */
     options: QueryList<MatListOption>;
     /** Emits a change event whenever the selected state of an option changes. */
-    selectionChange: EventEmitter<MatSelectionListChange>;
+    readonly selectionChange: EventEmitter<MatSelectionListChange>;
     /** The currently selected options. */
     selectedOptions: SelectionModel<MatListOption>;
     /** View to model callback that should be called whenever the selected options change. */

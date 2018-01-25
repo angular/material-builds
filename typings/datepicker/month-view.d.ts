@@ -27,9 +27,9 @@ export declare class MatMonthView<D> implements AfterContentInit {
     /** A function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;
     /** Emits when a new date is selected. */
-    selectedChange: EventEmitter<D | null>;
+    readonly selectedChange: EventEmitter<D | null>;
     /** Emits when any date is selected. */
-    _userSelection: EventEmitter<void>;
+    readonly _userSelection: EventEmitter<void>;
     /** The label for this month (e.g. "January 2017"). */
     _monthLabel: string;
     /** Grid of calendar cells representing the dates of the month. */

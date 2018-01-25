@@ -16,7 +16,7 @@ export declare class MatTextareaAutosize implements AfterViewInit, DoCheck, OnDe
     private _ngZone;
     /** Keep track of the previous textarea value to avoid resizing when the value hasn't changed. */
     private _previousValue;
-    private _destroyed;
+    private readonly _destroyed;
     private _minRows;
     private _maxRows;
     /** Minimum amount of rows in the textarea. */

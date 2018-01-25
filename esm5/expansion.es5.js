@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Directive, ElementRef, Host, Input, NgModule, Optional, TemplateRef, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Directive, ElementRef, Host, Input, NgModule, Optional, TemplateRef, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
 import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
@@ -14,7 +14,6 @@ import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { mixinDisabled } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { take } from 'rxjs/operators/take';
 import { filter } from 'rxjs/operators/filter';
@@ -129,12 +128,12 @@ var matExpansionAnimations = {
         state('collapsed', style({
             height: '{{collapsedHeight}}',
         }), {
-            params: { collapsedHeight: '*' },
+            params: { collapsedHeight: '48px' },
         }),
         state('expanded', style({
             height: '{{expandedHeight}}'
         }), {
-            params: { expandedHeight: '*' }
+            params: { expandedHeight: '64px' }
         }),
         transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ]),
@@ -151,30 +150,6 @@ var matExpansionAnimations = {
  * @suppress {checkTypes} checked by tsc
  */
 
-/**
- * \@docs-private
- */
-var MatExpansionPanelBase = /** @class */ (function (_super) {
-    __extends(MatExpansionPanelBase, _super);
-    function MatExpansionPanelBase(accordion, _changeDetectorRef, _uniqueSelectionDispatcher) {
-        return _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
-    }
-    MatExpansionPanelBase.decorators = [
-        { type: Component, args: [{
-                    template: '',encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
-                    changeDetection: ChangeDetectionStrategy.OnPush,
-                },] },
-    ];
-    /** @nocollapse */
-    MatExpansionPanelBase.ctorParameters = function () { return [
-        { type: MatAccordion, },
-        { type: ChangeDetectorRef, },
-        { type: UniqueSelectionDispatcher, },
-    ]; };
-    return MatExpansionPanelBase;
-}(CdkAccordionItem));
-var _MatExpansionPanelMixinBase = mixinDisabled(MatExpansionPanelBase);
 /**
  * Counter for generating unique element ids.
  */
@@ -311,10 +286,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                         'class': 'mat-expansion-panel',
                         '[class.mat-expanded]': 'expanded',
                         '[class.mat-expansion-panel-spacing]': '_hasSpacing()',
-                    },
-                    providers: [
-                        { provide: _MatExpansionPanelMixinBase, useExisting: forwardRef(function () { return MatExpansionPanel; }) }
-                    ],
+                    }
                 },] },
     ];
     /** @nocollapse */
@@ -329,7 +301,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         "_lazyContent": [{ type: ContentChild, args: [MatExpansionPanelContent,] },],
     };
     return MatExpansionPanel;
-}(_MatExpansionPanelMixinBase));
+}(CdkAccordionItem));
 var MatExpansionPanelActionRow = /** @class */ (function () {
     function MatExpansionPanelActionRow() {
     }
@@ -380,9 +352,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (!this.panel.disabled) {
-            this.panel.toggle();
-        }
+        this.panel.toggle();
     };
     /** Gets whether the panel is expanded. */
     /**
@@ -467,7 +437,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
     };
     MatExpansionPanelHeader.decorators = [
         { type: Component, args: [{selector: 'mat-expansion-panel-header',
-                    styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;height:48px;align-items:center;padding:0 24px}.mat-expansion-panel-header.mat-expanded{height:64px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
+                    styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
                     template: "<span class=\"mat-content\"><ng-content select=\"mat-panel-title\"></ng-content><ng-content select=\"mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\" class=\"mat-expansion-indicator\"></span>",
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -566,7 +536,6 @@ var MatExpansionModule = /** @class */ (function () {
                         MatExpansionPanelContent,
                     ],
                     declarations: [
-                        MatExpansionPanelBase,
                         MatAccordion,
                         MatExpansionPanel,
                         MatExpansionPanelActionRow,
@@ -596,5 +565,5 @@ var MatExpansionModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatExpansionModule, MatAccordion, MatExpansionPanelBase, _MatExpansionPanelMixinBase, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
+export { MatExpansionModule, MatAccordion, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
 //# sourceMappingURL=expansion.es5.js.map

@@ -84,7 +84,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     /** Current state of the sidenav animation. */
     _animationState: 'open-instant' | 'open' | 'void';
     /** Event emitted when the drawer open state is changed. */
-    openedChange: EventEmitter<boolean>;
+    readonly openedChange: EventEmitter<boolean>;
     /** Event emitted when the drawer has been opened. */
     readonly _openedStream: Observable<void>;
     /** Event emitted when the drawer has started opening. */
@@ -98,13 +98,13 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      * @deprecated Use `opened` instead.
      * @deletion-target 6.0.0
      */
-    onOpen: Observable<void>;
+    readonly onOpen: Observable<void>;
     /**
      * Event emitted when the drawer is fully closed.
      * @deprecated Use `closed` instead.
      * @deletion-target 6.0.0
      */
-    onClose: Observable<void>;
+    readonly onClose: Observable<void>;
     /** Event emitted when the drawer's position changes. */
     onPositionChanged: EventEmitter<void>;
     /**
@@ -116,7 +116,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      * An observable that emits when the drawer mode changes. This is used by the drawer container to
      * to know when to when the mode changes so it can adapt the margins on the content.
      */
-    _modeChanged: Subject<{}>;
+    readonly _modeChanged: Subject<{}>;
     readonly _isFocusTrapEnabled: boolean;
     constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _doc: any);
     /** Traps focus inside the drawer. */
@@ -186,7 +186,7 @@ export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
     autosize: boolean;
     private _autosize;
     /** Event emitted when the drawer backdrop is clicked. */
-    backdropClick: EventEmitter<void>;
+    readonly backdropClick: EventEmitter<void>;
     /** The drawer at the start/end position, independent of direction. */
     private _start;
     private _end;
@@ -199,10 +199,10 @@ export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
     private _left;
     private _right;
     /** Emits when the component is destroyed. */
-    private _destroyed;
+    private readonly _destroyed;
     /** Emits on every ngDoCheck. Used for debouncing reflows. */
-    private _doCheckSubject;
-    _contentMargins: Subject<{
+    private readonly _doCheckSubject;
+    readonly _contentMargins: Subject<{
         left: number | null;
         right: number | null;
     }>;

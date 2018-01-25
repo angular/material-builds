@@ -19,9 +19,14 @@ export declare const MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR: any;
 /** Change event object emitted by MatRadio and MatRadioGroup. */
 export declare class MatRadioChange {
     /** The MatRadioButton that emits the change event. */
-    source: MatRadioButton | null;
+    source: MatRadioButton;
     /** The value of the MatRadioButton. */
     value: any;
+    constructor(
+        /** The MatRadioButton that emits the change event. */
+        source: MatRadioButton, 
+        /** The value of the MatRadioButton. */
+        value: any);
 }
 /** @docs-private */
 export declare class MatRadioGroupBase {
@@ -63,7 +68,7 @@ export declare class MatRadioGroup extends _MatRadioGroupMixinBase implements Af
      * Change events are only emitted when the value changes due to user interaction with
      * a radio button (the same behavior as `<input type-"radio">`).
      */
-    change: EventEmitter<MatRadioChange>;
+    readonly change: EventEmitter<MatRadioChange>;
     /** Child radio buttons. */
     _radios: QueryList<MatRadioButton>;
     /** Name of the radio button group. All radio buttons inside this group will use this name. */
@@ -170,7 +175,7 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
      * Change events are only emitted when the value changes due to user interaction with
      * the radio button (the same behavior as `<input type-"radio">`).
      */
-    change: EventEmitter<MatRadioChange>;
+    readonly change: EventEmitter<MatRadioChange>;
     /** The parent radio group. May or may not be present. */
     radioGroup: MatRadioGroup;
     /** ID of the native input element inside `<mat-radio-button>` */

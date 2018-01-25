@@ -142,13 +142,13 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     /** Combined stream of all of the child chips' remove change events. */
     readonly chipRemoveChanges: Observable<MatChipEvent>;
     /** Event emitted when the selected chip list value has been changed by the user. */
-    change: EventEmitter<MatChipListChange>;
+    readonly change: EventEmitter<MatChipListChange>;
     /**
      * Event that emits whenever the raw value of the chip-list changes. This is here primarily
      * to facilitate the two-way binding for the `value` input.
      * @docs-private
      */
-    valueChange: EventEmitter<any>;
+    readonly valueChange: EventEmitter<any>;
     /** The chip components contained within this chip list. */
     chips: QueryList<MatChip>;
     constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, ngControl: NgControl);

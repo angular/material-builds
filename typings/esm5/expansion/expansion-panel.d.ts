@@ -8,16 +8,10 @@
 import { ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef, AfterContentInit } from '@angular/core';
 import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { CanDisable } from '@angular/material/core';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { Subject } from 'rxjs/Subject';
 import { MatAccordion } from './accordion';
 import { MatExpansionPanelContent } from './expansion-panel-content';
-/** @docs-private */
-export declare class MatExpansionPanelBase extends CdkAccordionItem {
-    constructor(accordion: MatAccordion, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher);
-}
-export declare const _MatExpansionPanelMixinBase: (new (...args: any[]) => CanDisable) & typeof MatExpansionPanelBase;
 /** MatExpansionPanel's states. */
 export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
 /**
@@ -26,13 +20,13 @@ export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
  * This component can be used as a single element to show expandable content, or as one of
  * multiple children of an element with the MdAccordion directive attached.
  */
-export declare class MatExpansionPanel extends _MatExpansionPanelMixinBase implements CanDisable, AfterContentInit, OnChanges, OnDestroy {
+export declare class MatExpansionPanel extends CdkAccordionItem implements AfterContentInit, OnChanges, OnDestroy {
     private _viewContainerRef;
     /** Whether the toggle indicator should be hidden. */
     hideToggle: boolean;
     private _hideToggle;
     /** Stream that emits for changes in `@Input` properties. */
-    _inputChanges: Subject<SimpleChanges>;
+    readonly _inputChanges: Subject<SimpleChanges>;
     /** Optionally defined accordion the expansion panel belongs to. */
     accordion: MatAccordion;
     /** Content that will be rendered lazily. */

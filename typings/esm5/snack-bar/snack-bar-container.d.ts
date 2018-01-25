@@ -24,9 +24,9 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     /** The portal outlet inside of this container into which the snack bar content will be loaded. */
     _portalOutlet: CdkPortalOutlet;
     /** Subject for notifying that the snack bar has exited from view. */
-    _onExit: Subject<any>;
+    readonly _onExit: Subject<any>;
     /** Subject for notifying that the snack bar has finished entering the view. */
-    _onEnter: Subject<any>;
+    readonly _onEnter: Subject<any>;
     /** The state of the snack bar animations. */
     _animationState: string;
     /** The snack bar configuration. */

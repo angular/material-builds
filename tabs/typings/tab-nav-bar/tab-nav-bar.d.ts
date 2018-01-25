@@ -27,7 +27,7 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
     private _changeDetectorRef;
     private _viewportRuler;
     /** Subject that emits when the component has been destroyed. */
-    private _onDestroy;
+    private readonly _onDestroy;
     _activeLinkChanged: boolean;
     _activeLinkElement: ElementRef;
     _inkBar: MatInkBar;

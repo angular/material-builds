@@ -8,8 +8,9 @@
 import { A11yModule, FocusKeyManager, FocusMonitor, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, Self, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Injector, Input, NgModule, NgZone, Optional, Output, Self, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { MatCommonModule, MatRippleModule, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
+import { DomPortalOutlet, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
@@ -20,7 +21,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Subject } from 'rxjs/Subject';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Directionality } from '@angular/cdk/bidi';
-import { TemplatePortal } from '@angular/cdk/portal';
 import { filter } from 'rxjs/operators/filter';
 import { of } from 'rxjs/observable/of';
 
@@ -281,6 +281,79 @@ MatMenuItem.ctorParameters = () => [
  */
 
 /**
+ * Menu content that will be rendered lazily once the menu is opened.
+ */
+class MatMenuContent {
+    /**
+     * @param {?} _template
+     * @param {?} _componentFactoryResolver
+     * @param {?} _appRef
+     * @param {?} _injector
+     * @param {?} _viewContainerRef
+     * @param {?} _document
+     */
+    constructor(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document) {
+        this._template = _template;
+        this._componentFactoryResolver = _componentFactoryResolver;
+        this._appRef = _appRef;
+        this._injector = _injector;
+        this._viewContainerRef = _viewContainerRef;
+        this._document = _document;
+    }
+    /**
+     * Attaches the content with a particular context.
+     * \@docs-private
+     * @param {?=} context
+     * @return {?}
+     */
+    attach(context = {}) {
+        if (!this._portal) {
+            this._portal = new TemplatePortal(this._template, this._viewContainerRef);
+        }
+        else if (this._portal.isAttached) {
+            this._portal.detach();
+        }
+        if (!this._outlet) {
+            this._outlet = new DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
+        }
+        const /** @type {?} */ element = this._template.elementRef.nativeElement; /** @type {?} */
+        ((
+        // Because we support opening the same menu from different triggers (which in turn have their
+        // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
+        // risk it staying attached to a pane that's no longer in the DOM.
+        element.parentNode)).insertBefore(this._outlet.outletElement, element);
+        this._portal.attach(this._outlet, context);
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        if (this._outlet) {
+            this._outlet.dispose();
+        }
+    }
+}
+MatMenuContent.decorators = [
+    { type: Directive, args: [{
+                selector: 'ng-template[matMenuContent]'
+            },] },
+];
+/** @nocollapse */
+MatMenuContent.ctorParameters = () => [
+    { type: TemplateRef, },
+    { type: ComponentFactoryResolver, },
+    { type: ApplicationRef, },
+    { type: Injector, },
+    { type: ViewContainerRef, },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Default `mat-menu` options that can be overridden.
  * @record
  */
@@ -462,8 +535,15 @@ class MatMenu {
      * @return {?}
      */
     focusFirstItem(origin = 'program') {
-        // TODO(crisbeto): make the origin required when doing breaking changes.
-        this._keyManager.setFocusOrigin(origin).setFirstItemActive();
+        // When the content is rendered lazily, it takes a bit before the items are inside the DOM.
+        if (this.lazyContent) {
+            this._ngZone.onStable.asObservable()
+                .pipe(take(1))
+                .subscribe(() => this._keyManager.setFocusOrigin(origin).setFirstItemActive());
+        }
+        else {
+            this._keyManager.setFocusOrigin(origin).setFirstItemActive();
+        }
     }
     /**
      * Resets the active item in the menu. This is used when the menu is opened, allowing
@@ -532,7 +612,7 @@ class MatMenu {
 MatMenu.decorators = [
     { type: Component, args: [{selector: 'mat-menu',
                 template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
-                styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.ng-animating{pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item .mat-icon{vertical-align:middle}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
+                styles: [".mat-menu-panel{-webkit-backface-visibility:hidden;backface-visibility:hidden;min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.ng-animating{pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item .mat-icon{vertical-align:middle}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -554,6 +634,7 @@ MatMenu.propDecorators = {
     "yPosition": [{ type: Input },],
     "templateRef": [{ type: ViewChild, args: [TemplateRef,] },],
     "items": [{ type: ContentChildren, args: [MatMenuItem,] },],
+    "lazyContent": [{ type: ContentChild, args: [MatMenuContent,] },],
     "overlapTrigger": [{ type: Input },],
     "panelClass": [{ type: Input, args: ['class',] },],
     "classList": [{ type: Input },],
@@ -724,13 +805,17 @@ class MatMenuTrigger {
      * @return {?}
      */
     openMenu() {
-        if (!this._menuOpen) {
-            this._createOverlay().attach(this._portal);
-            this._closeSubscription = this._menuClosingActions().subscribe(() => this.closeMenu());
-            this._initMenu();
-            if (this.menu instanceof MatMenu) {
-                this.menu._startAnimation();
-            }
+        if (this._menuOpen) {
+            return;
+        }
+        this._createOverlay().attach(this._portal);
+        if (this.menu.lazyContent) {
+            this.menu.lazyContent.attach(this.menuData);
+        }
+        this._closeSubscription = this._menuClosingActions().subscribe(() => this.closeMenu());
+        this._initMenu();
+        if (this.menu instanceof MatMenu) {
+            this.menu._startAnimation();
         }
     }
     /**
@@ -996,6 +1081,7 @@ MatMenuTrigger.ctorParameters = () => [
 MatMenuTrigger.propDecorators = {
     "_deprecatedMatMenuTriggerFor": [{ type: Input, args: ['mat-menu-trigger-for',] },],
     "menu": [{ type: Input, args: ['matMenuTriggerFor',] },],
+    "menuData": [{ type: Input, args: ['matMenuTriggerData',] },],
     "menuOpened": [{ type: Output },],
     "onMenuOpen": [{ type: Output },],
     "menuClosed": [{ type: Output },],
@@ -1022,9 +1108,10 @@ MatMenuModule.decorators = [
                     MatCommonModule,
                     MatRippleModule,
                     OverlayModule,
+                    PortalModule,
                 ],
-                exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatCommonModule],
-                declarations: [MatMenu, MatMenuItem, MatMenuTrigger],
+                exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent, MatCommonModule],
+                declarations: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent],
                 providers: [
                     MAT_MENU_SCROLL_STRATEGY_PROVIDER,
                     {
@@ -1055,5 +1142,5 @@ MatMenuModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuItemBase as ɵa21, _MatMenuItemMixinBase as ɵb21, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd21, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc21 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa22, _MatMenuItemMixinBase as ɵb22, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd22, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc22 };
 //# sourceMappingURL=menu.js.map

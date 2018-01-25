@@ -5,7 +5,7 @@ export declare class MatDatepickerIntl {
      * Stream that emits whenever the labels here are changed. Use this to notify
      * components if the labels have changed after initialization.
      */
-    changes: Subject<void>;
+    readonly changes: Subject<void>;
     /** A label for the calendar popup (used by screen readers). */
     calendarLabel: string;
     /** A label for the button used to open the calendar popup (used by screen readers). */

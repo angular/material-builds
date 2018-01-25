@@ -32,8 +32,8 @@ export declare class MatDialog {
     private _parentDialog;
     private _overlayContainer;
     private _openDialogsAtThisLevel;
-    private _afterAllClosedAtThisLevel;
-    private _afterOpenAtThisLevel;
+    private readonly _afterAllClosedAtThisLevel;
+    private readonly _afterOpenAtThisLevel;
     private _ariaHiddenElements;
     /** Keeps track of the currently-open dialogs. */
     readonly openDialogs: MatDialogRef<any>[];
@@ -44,7 +44,7 @@ export declare class MatDialog {
      * Stream that emits when all open dialog have finished closing.
      * Will emit on subscribe if there are no open dialogs to begin with.
      */
-    afterAllClosed: Observable<void>;
+    readonly afterAllClosed: Observable<void>;
     constructor(_overlay: Overlay, _injector: Injector, _location: Location, _defaultOptions: any, _scrollStrategy: any, _parentDialog: MatDialog, _overlayContainer: OverlayContainer);
     /**
      * Opens a modal dialog containing the given component.

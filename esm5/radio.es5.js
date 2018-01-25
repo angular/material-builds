@@ -36,7 +36,9 @@ var MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
  * Change event object emitted by MatRadio and MatRadioGroup.
  */
 var MatRadioChange = /** @class */ (function () {
-    function MatRadioChange() {
+    function MatRadioChange(source, value) {
+        this.source = source;
+        this.value = value;
     }
     return MatRadioChange;
 }());
@@ -333,10 +335,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
      */
     function () {
         if (this._isInitialized) {
-            var /** @type {?} */ event_1 = new MatRadioChange();
-            event_1.source = this._selected;
-            event_1.value = this._value;
-            this.change.emit(event_1);
+            this.change.emit(new MatRadioChange(/** @type {?} */ ((this._selected)), this._value));
         }
     };
     /**
@@ -737,10 +736,7 @@ var MatRadioButton = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ event = new MatRadioChange();
-        event.source = this;
-        event.value = this._value;
-        this.change.emit(event);
+        this.change.emit(new MatRadioChange(this, this._value));
     };
     /**
      * @return {?}

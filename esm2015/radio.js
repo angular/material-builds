@@ -34,6 +34,14 @@ const MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
  * Change event object emitted by MatRadio and MatRadioGroup.
  */
 class MatRadioChange {
+    /**
+     * @param {?} source
+     * @param {?} value
+     */
+    constructor(source, value) {
+        this.source = source;
+        this.value = value;
+    }
 }
 /**
  * \@docs-private
@@ -263,10 +271,7 @@ class MatRadioGroup extends _MatRadioGroupMixinBase {
      */
     _emitChangeEvent() {
         if (this._isInitialized) {
-            const /** @type {?} */ event = new MatRadioChange();
-            event.source = this._selected;
-            event.value = this._value;
-            this.change.emit(event);
+            this.change.emit(new MatRadioChange(/** @type {?} */ ((this._selected)), this._value));
         }
     }
     /**
@@ -569,10 +574,7 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
      * @return {?}
      */
     _emitChangeEvent() {
-        const /** @type {?} */ event = new MatRadioChange();
-        event.source = this;
-        event.value = this._value;
-        this.change.emit(event);
+        this.change.emit(new MatRadioChange(this, this._value));
     }
     /**
      * @return {?}

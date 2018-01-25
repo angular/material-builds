@@ -49,9 +49,9 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     disabled: boolean;
     private _disabled;
     /** Emits when a `change` event is fired on this `<input>`. */
-    dateChange: EventEmitter<MatDatepickerInputEvent<D>>;
+    readonly dateChange: EventEmitter<MatDatepickerInputEvent<D>>;
     /** Emits when an `input` event is fired on this `<input>`. */
-    dateInput: EventEmitter<MatDatepickerInputEvent<D>>;
+    readonly dateInput: EventEmitter<MatDatepickerInputEvent<D>>;
     /** Emits when the value changes (either due to user input or programmatic change). */
     _valueChange: EventEmitter<D | null>;
     /** Emits when the disabled state has changed */

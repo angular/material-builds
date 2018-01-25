@@ -665,7 +665,7 @@ var MatSlider = /** @class */ (function (_super) {
      */
     function () {
         this._isSliding = false;
-        if (this._valueOnSlideStart != this.value) {
+        if (this._valueOnSlideStart != this.value && !this.disabled) {
             this._emitChangeEvent();
         }
         this._valueOnSlideStart = null;
