@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('rxjs/operators/startWith'), require('rxjs/observable/fromEvent'), require('@angular/animations'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/Observable'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/layout'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', 'rxjs/operators/startWith', 'rxjs/observable/fromEvent', '@angular/animations', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/Observable', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/layout', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.Rx.operators,global.Rx.Observable,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.accordion,global.Rx,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.layout,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,rxjs_operators_startWith,rxjs_observable_fromEvent,_angular_animations,rxjs_observable_defer,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operators_auditTime,rxjs_operators_takeUntil,_angular_cdk_accordion,rxjs_Observable,_angular_cdk_scrolling,rxjs_operators_debounceTime,_angular_cdk_layout,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest,rxjs_observable_empty) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('@angular/animations'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/Observable'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/layout'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', '@angular/animations', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/Observable', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/layout', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.Rx.Observable,global.Rx.operators,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.accordion,global.Rx,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.layout,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,rxjs_observable_fromEvent,rxjs_operators_startWith,_angular_animations,rxjs_observable_defer,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operators_auditTime,rxjs_operators_takeUntil,_angular_cdk_accordion,rxjs_Observable,_angular_cdk_scrolling,rxjs_operators_debounceTime,_angular_cdk_layout,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest,rxjs_observable_empty) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -2686,6 +2686,26 @@ var MatError = /** @class */ (function () {
  */
 
 /**
+ * Animations used by the MatFormField.
+ */
+var matFormFieldAnimations = {
+    /** Animation that transitions the form field's error and hint messages. */
+    transitionMessages: _angular_animations.trigger('transitionMessages', [
+        // TODO(mmalerba): Use angular animations for label animation as well.
+        _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
+        _angular_animations.transition('void => enter', [
+            _angular_animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
+            _angular_animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+        ]),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
  */
@@ -2770,27 +2790,6 @@ var MatHint = /** @class */ (function () {
  */
 
 /**
- * The placeholder text for an `MatFormField`.
- */
-var MatPlaceholder = /** @class */ (function () {
-    function MatPlaceholder() {
-    }
-    MatPlaceholder.decorators = [
-        { type: _angular_core.Directive, args: [{
-                    selector: 'mat-placeholder'
-                },] },
-    ];
-    /** @nocollapse */
-    MatPlaceholder.ctorParameters = function () { return []; };
-    return MatPlaceholder;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
  * The floating label for a `mat-form-field`.
  */
 var MatLabel = /** @class */ (function () {
@@ -2804,6 +2803,27 @@ var MatLabel = /** @class */ (function () {
     /** @nocollapse */
     MatLabel.ctorParameters = function () { return []; };
     return MatLabel;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * The placeholder text for an `MatFormField`.
+ */
+var MatPlaceholder = /** @class */ (function () {
+    function MatPlaceholder() {
+    }
+    MatPlaceholder.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: 'mat-placeholder'
+                },] },
+    ];
+    /** @nocollapse */
+    MatPlaceholder.ctorParameters = function () { return []; };
+    return MatPlaceholder;
 }());
 
 /**
@@ -2854,50 +2874,39 @@ var MatSuffix = /** @class */ (function () {
  */
 
 /**
- * Animations used by the MatFormField.
+ * \@docs-private
  */
-var matFormFieldAnimations = {
-    /** Animation that transitions the form field's error and hint messages. */
-    transitionMessages: _angular_animations.trigger('transitionMessages', [
-        // TODO(mmalerba): Use angular animations for label animation as well.
-        _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
-        _angular_animations.transition('void => enter', [
-            _angular_animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
-            _angular_animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
-        ]),
-    ])
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
+var MatFormFieldBase = /** @class */ (function () {
+    function MatFormFieldBase(_elementRef) {
+        this._elementRef = _elementRef;
+    }
+    return MatFormFieldBase;
+}());
+var _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
 var nextUniqueId$1 = 0;
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
-var MatFormField = /** @class */ (function () {
+var MatFormField = /** @class */ (function (_super) {
+    __extends(MatFormField, _super);
     function MatFormField(_elementRef, _changeDetectorRef, labelOptions) {
-        this._elementRef = _elementRef;
-        this._changeDetectorRef = _changeDetectorRef;
-        /**
-         * Color of the form field underline, based on the theme.
-         */
-        this.color = 'primary';
+        var _this = _super.call(this, _elementRef) || this;
+        _this._elementRef = _elementRef;
+        _this._changeDetectorRef = _changeDetectorRef;
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
-        this._showAlwaysAnimate = false;
+        _this._showAlwaysAnimate = false;
         /**
          * State of the mat-hint and mat-error animations.
          */
-        this._subscriptAnimationState = '';
-        this._hintLabel = '';
+        _this._subscriptAnimationState = '';
+        _this._hintLabel = '';
         // Unique id for the hint label.
-        this._hintLabelId = "mat-hint-" + nextUniqueId$1++;
-        this._labelOptions = labelOptions ? labelOptions : {};
-        this.floatLabel = this._labelOptions.float || 'auto';
+        _this._hintLabelId = "mat-hint-" + nextUniqueId$1++;
+        _this._labelOptions = labelOptions ? labelOptions : {};
+        _this.floatLabel = _this._labelOptions.float || 'auto';
+        return _this;
     }
     Object.defineProperty(MatFormField.prototype, "dividerColor", {
         get: /**
@@ -3197,13 +3206,13 @@ var MatFormField = /** @class */ (function () {
             var /** @type {?} */ startHint_1;
             var /** @type {?} */ endHint_1;
             this._hintChildren.forEach(function (hint) {
-                if (hint.align == 'start') {
+                if (hint.align === 'start') {
                     if (startHint_1 || _this.hintLabel) {
                         throw getMatFormFieldDuplicatedHintError('start');
                     }
                     startHint_1 = hint;
                 }
-                else if (hint.align == 'end') {
+                else if (hint.align === 'end') {
                     if (endHint_1) {
                         throw getMatFormFieldDuplicatedHintError('end');
                     }
@@ -3279,9 +3288,6 @@ var MatFormField = /** @class */ (function () {
                         '[class.mat-form-field-hide-placeholder]': '_hideControlPlaceholder()',
                         '[class.mat-form-field-disabled]': '_control.disabled',
                         '[class.mat-focused]': '_control.focused',
-                        '[class.mat-primary]': 'color == "primary"',
-                        '[class.mat-accent]': 'color == "accent"',
-                        '[class.mat-warn]': 'color == "warn"',
                         '[class.ng-untouched]': '_shouldForward("untouched")',
                         '[class.ng-touched]': '_shouldForward("touched")',
                         '[class.ng-pristine]': '_shouldForward("pristine")',
@@ -3290,6 +3296,7 @@ var MatFormField = /** @class */ (function () {
                         '[class.ng-invalid]': '_shouldForward("invalid")',
                         '[class.ng-pending]': '_shouldForward("pending")',
                     },
+                    inputs: ['color'],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -3302,7 +3309,6 @@ var MatFormField = /** @class */ (function () {
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_LABEL_GLOBAL_OPTIONS,] },] },
     ]; };
     MatFormField.propDecorators = {
-        "color": [{ type: _angular_core.Input },],
         "dividerColor": [{ type: _angular_core.Input },],
         "hideRequiredMarker": [{ type: _angular_core.Input },],
         "hintLabel": [{ type: _angular_core.Input },],
@@ -3321,7 +3327,7 @@ var MatFormField = /** @class */ (function () {
         "_suffixChildren": [{ type: _angular_core.ContentChildren, args: [MatSuffix,] },],
     };
     return MatFormField;
-}());
+}(_MatFormFieldMixinBase));
 
 /**
  * @fileoverview added by tsickle
@@ -29242,7 +29248,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-53c45ec');
+var VERSION = new _angular_core.Version('5.1.0-36be23c');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29418,6 +29424,8 @@ exports.EXPANSION_PANEL_ANIMATION_TIMING = EXPANSION_PANEL_ANIMATION_TIMING;
 exports.matExpansionAnimations = matExpansionAnimations;
 exports.MatFormFieldModule = MatFormFieldModule;
 exports.MatError = MatError;
+exports.MatFormFieldBase = MatFormFieldBase;
+exports._MatFormFieldMixinBase = _MatFormFieldMixinBase;
 exports.MatFormField = MatFormField;
 exports.MatFormFieldControl = MatFormFieldControl;
 exports.getMatFormFieldPlaceholderConflictError = getMatFormFieldPlaceholderConflictError;
@@ -29595,16 +29603,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe19 = MatTabBase;
-exports.ɵf19 = _MatTabMixinBase;
-exports.ɵa19 = MatTabHeaderBase;
-exports.ɵb19 = _MatTabHeaderMixinBase;
-exports.ɵc19 = MatTabLabelWrapperBase;
-exports.ɵd19 = _MatTabLabelWrapperMixinBase;
-exports.ɵi19 = MatTabLinkBase;
-exports.ɵg19 = MatTabNavBase;
-exports.ɵj19 = _MatTabLinkMixinBase;
-exports.ɵh19 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

@@ -9,10 +9,10 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, Inject, Input, NgModule, Optional, ViewChild, ViewEncapsulation } from '@angular/core';
 import { PlatformModule } from '@angular/cdk/platform';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { take } from 'rxjs/operators/take';
-import { startWith } from 'rxjs/operators/startWith';
-import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
+import { MAT_LABEL_GLOBAL_OPTIONS, mixinColor } from '@angular/material/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
+import { startWith } from 'rxjs/operators/startWith';
+import { take } from 'rxjs/operators/take';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
@@ -43,6 +43,26 @@ MatError.decorators = [
 MatError.ctorParameters = () => [];
 MatError.propDecorators = {
     "id": [{ type: Input },],
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * Animations used by the MatFormField.
+ */
+const matFormFieldAnimations = {
+    /** Animation that transitions the form field's error and hint messages. */
+    transitionMessages: trigger('transitionMessages', [
+        // TODO(mmalerba): Use angular animations for label animation as well.
+        state('enter', style({ opacity: 1, transform: 'translateY(0%)' })),
+        transition('void => enter', [
+            style({ opacity: 0, transform: 'translateY(-100%)' }),
+            animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+        ]),
+    ])
 };
 
 /**
@@ -131,24 +151,6 @@ MatHint.propDecorators = {
  */
 
 /**
- * The placeholder text for an `MatFormField`.
- */
-class MatPlaceholder {
-}
-MatPlaceholder.decorators = [
-    { type: Directive, args: [{
-                selector: 'mat-placeholder'
-            },] },
-];
-/** @nocollapse */
-MatPlaceholder.ctorParameters = () => [];
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
  * The floating label for a `mat-form-field`.
  */
 class MatLabel {
@@ -160,6 +162,24 @@ MatLabel.decorators = [
 ];
 /** @nocollapse */
 MatLabel.ctorParameters = () => [];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * The placeholder text for an `MatFormField`.
+ */
+class MatPlaceholder {
+}
+MatPlaceholder.decorators = [
+    { type: Directive, args: [{
+                selector: 'mat-placeholder'
+            },] },
+];
+/** @nocollapse */
+MatPlaceholder.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -203,42 +223,31 @@ MatSuffix.ctorParameters = () => [];
  */
 
 /**
- * Animations used by the MatFormField.
+ * \@docs-private
  */
-const matFormFieldAnimations = {
-    /** Animation that transitions the form field's error and hint messages. */
-    transitionMessages: trigger('transitionMessages', [
-        // TODO(mmalerba): Use angular animations for label animation as well.
-        state('enter', style({ opacity: 1, transform: 'translateY(0%)' })),
-        transition('void => enter', [
-            style({ opacity: 0, transform: 'translateY(-100%)' }),
-            animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
-        ]),
-    ])
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
+class MatFormFieldBase {
+    /**
+     * @param {?} _elementRef
+     */
+    constructor(_elementRef) {
+        this._elementRef = _elementRef;
+    }
+}
+const _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
 let nextUniqueId$1 = 0;
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
-class MatFormField {
+class MatFormField extends _MatFormFieldMixinBase {
     /**
      * @param {?} _elementRef
      * @param {?} _changeDetectorRef
      * @param {?} labelOptions
      */
     constructor(_elementRef, _changeDetectorRef, labelOptions) {
+        super(_elementRef);
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
-        /**
-         * Color of the form field underline, based on the theme.
-         */
-        this.color = 'primary';
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
@@ -464,13 +473,13 @@ class MatFormField {
             let /** @type {?} */ startHint;
             let /** @type {?} */ endHint;
             this._hintChildren.forEach((hint) => {
-                if (hint.align == 'start') {
+                if (hint.align === 'start') {
                     if (startHint || this.hintLabel) {
                         throw getMatFormFieldDuplicatedHintError('start');
                     }
                     startHint = hint;
                 }
-                else if (hint.align == 'end') {
+                else if (hint.align === 'end') {
                     if (endHint) {
                         throw getMatFormFieldDuplicatedHintError('end');
                     }
@@ -537,9 +546,6 @@ MatFormField.decorators = [
                     '[class.mat-form-field-hide-placeholder]': '_hideControlPlaceholder()',
                     '[class.mat-form-field-disabled]': '_control.disabled',
                     '[class.mat-focused]': '_control.focused',
-                    '[class.mat-primary]': 'color == "primary"',
-                    '[class.mat-accent]': 'color == "accent"',
-                    '[class.mat-warn]': 'color == "warn"',
                     '[class.ng-untouched]': '_shouldForward("untouched")',
                     '[class.ng-touched]': '_shouldForward("touched")',
                     '[class.ng-pristine]': '_shouldForward("pristine")',
@@ -548,6 +554,7 @@ MatFormField.decorators = [
                     '[class.ng-invalid]': '_shouldForward("invalid")',
                     '[class.ng-pending]': '_shouldForward("pending")',
                 },
+                inputs: ['color'],
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
@@ -560,7 +567,6 @@ MatFormField.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_LABEL_GLOBAL_OPTIONS,] },] },
 ];
 MatFormField.propDecorators = {
-    "color": [{ type: Input },],
     "dividerColor": [{ type: Input },],
     "hideRequiredMarker": [{ type: Input },],
     "hintLabel": [{ type: Input },],
@@ -628,5 +634,5 @@ MatFormFieldModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatFormFieldModule, MatError, MatFormField, MatFormFieldControl, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations };
+export { MatFormFieldModule, MatError, MatFormFieldBase, _MatFormFieldMixinBase, MatFormField, MatFormFieldControl, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations };
 //# sourceMappingURL=form-field.js.map

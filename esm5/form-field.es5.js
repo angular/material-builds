@@ -8,11 +8,13 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, Inject, Input, NgModule, Optional, ViewChild, ViewEncapsulation } from '@angular/core';
 import { PlatformModule } from '@angular/cdk/platform';
+import { __extends } from 'tslib';
+import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { take } from 'rxjs/operators/take';
-import { startWith } from 'rxjs/operators/startWith';
-import { MAT_LABEL_GLOBAL_OPTIONS } from '@angular/material/core';
+import { MAT_LABEL_GLOBAL_OPTIONS, mixinColor } from '@angular/material/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
+import { startWith } from 'rxjs/operators/startWith';
+import { take } from 'rxjs/operators/take';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 /**
@@ -45,6 +47,26 @@ var MatError = /** @class */ (function () {
     };
     return MatError;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * Animations used by the MatFormField.
+ */
+var matFormFieldAnimations = {
+    /** Animation that transitions the form field's error and hint messages. */
+    transitionMessages: trigger('transitionMessages', [
+        // TODO(mmalerba): Use angular animations for label animation as well.
+        state('enter', style({ opacity: 1, transform: 'translateY(0%)' })),
+        transition('void => enter', [
+            style({ opacity: 0, transform: 'translateY(-100%)' }),
+            animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+        ]),
+    ])
+};
 
 /**
  * @fileoverview added by tsickle
@@ -136,27 +158,6 @@ var MatHint = /** @class */ (function () {
  */
 
 /**
- * The placeholder text for an `MatFormField`.
- */
-var MatPlaceholder = /** @class */ (function () {
-    function MatPlaceholder() {
-    }
-    MatPlaceholder.decorators = [
-        { type: Directive, args: [{
-                    selector: 'mat-placeholder'
-                },] },
-    ];
-    /** @nocollapse */
-    MatPlaceholder.ctorParameters = function () { return []; };
-    return MatPlaceholder;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
  * The floating label for a `mat-form-field`.
  */
 var MatLabel = /** @class */ (function () {
@@ -170,6 +171,27 @@ var MatLabel = /** @class */ (function () {
     /** @nocollapse */
     MatLabel.ctorParameters = function () { return []; };
     return MatLabel;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * The placeholder text for an `MatFormField`.
+ */
+var MatPlaceholder = /** @class */ (function () {
+    function MatPlaceholder() {
+    }
+    MatPlaceholder.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-placeholder'
+                },] },
+    ];
+    /** @nocollapse */
+    MatPlaceholder.ctorParameters = function () { return []; };
+    return MatPlaceholder;
 }());
 
 /**
@@ -220,50 +242,39 @@ var MatSuffix = /** @class */ (function () {
  */
 
 /**
- * Animations used by the MatFormField.
+ * \@docs-private
  */
-var matFormFieldAnimations = {
-    /** Animation that transitions the form field's error and hint messages. */
-    transitionMessages: trigger('transitionMessages', [
-        // TODO(mmalerba): Use angular animations for label animation as well.
-        state('enter', style({ opacity: 1, transform: 'translateY(0%)' })),
-        transition('void => enter', [
-            style({ opacity: 0, transform: 'translateY(-100%)' }),
-            animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
-        ]),
-    ])
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
+var MatFormFieldBase = /** @class */ (function () {
+    function MatFormFieldBase(_elementRef) {
+        this._elementRef = _elementRef;
+    }
+    return MatFormFieldBase;
+}());
+var _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
 var nextUniqueId$1 = 0;
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
-var MatFormField = /** @class */ (function () {
+var MatFormField = /** @class */ (function (_super) {
+    __extends(MatFormField, _super);
     function MatFormField(_elementRef, _changeDetectorRef, labelOptions) {
-        this._elementRef = _elementRef;
-        this._changeDetectorRef = _changeDetectorRef;
-        /**
-         * Color of the form field underline, based on the theme.
-         */
-        this.color = 'primary';
+        var _this = _super.call(this, _elementRef) || this;
+        _this._elementRef = _elementRef;
+        _this._changeDetectorRef = _changeDetectorRef;
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
-        this._showAlwaysAnimate = false;
+        _this._showAlwaysAnimate = false;
         /**
          * State of the mat-hint and mat-error animations.
          */
-        this._subscriptAnimationState = '';
-        this._hintLabel = '';
+        _this._subscriptAnimationState = '';
+        _this._hintLabel = '';
         // Unique id for the hint label.
-        this._hintLabelId = "mat-hint-" + nextUniqueId$1++;
-        this._labelOptions = labelOptions ? labelOptions : {};
-        this.floatLabel = this._labelOptions.float || 'auto';
+        _this._hintLabelId = "mat-hint-" + nextUniqueId$1++;
+        _this._labelOptions = labelOptions ? labelOptions : {};
+        _this.floatLabel = _this._labelOptions.float || 'auto';
+        return _this;
     }
     Object.defineProperty(MatFormField.prototype, "dividerColor", {
         get: /**
@@ -563,13 +574,13 @@ var MatFormField = /** @class */ (function () {
             var /** @type {?} */ startHint_1;
             var /** @type {?} */ endHint_1;
             this._hintChildren.forEach(function (hint) {
-                if (hint.align == 'start') {
+                if (hint.align === 'start') {
                     if (startHint_1 || _this.hintLabel) {
                         throw getMatFormFieldDuplicatedHintError('start');
                     }
                     startHint_1 = hint;
                 }
-                else if (hint.align == 'end') {
+                else if (hint.align === 'end') {
                     if (endHint_1) {
                         throw getMatFormFieldDuplicatedHintError('end');
                     }
@@ -645,9 +656,6 @@ var MatFormField = /** @class */ (function () {
                         '[class.mat-form-field-hide-placeholder]': '_hideControlPlaceholder()',
                         '[class.mat-form-field-disabled]': '_control.disabled',
                         '[class.mat-focused]': '_control.focused',
-                        '[class.mat-primary]': 'color == "primary"',
-                        '[class.mat-accent]': 'color == "accent"',
-                        '[class.mat-warn]': 'color == "warn"',
                         '[class.ng-untouched]': '_shouldForward("untouched")',
                         '[class.ng-touched]': '_shouldForward("touched")',
                         '[class.ng-pristine]': '_shouldForward("pristine")',
@@ -656,6 +664,7 @@ var MatFormField = /** @class */ (function () {
                         '[class.ng-invalid]': '_shouldForward("invalid")',
                         '[class.ng-pending]': '_shouldForward("pending")',
                     },
+                    inputs: ['color'],
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -668,7 +677,6 @@ var MatFormField = /** @class */ (function () {
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_LABEL_GLOBAL_OPTIONS,] },] },
     ]; };
     MatFormField.propDecorators = {
-        "color": [{ type: Input },],
         "dividerColor": [{ type: Input },],
         "hideRequiredMarker": [{ type: Input },],
         "hintLabel": [{ type: Input },],
@@ -687,7 +695,7 @@ var MatFormField = /** @class */ (function () {
         "_suffixChildren": [{ type: ContentChildren, args: [MatSuffix,] },],
     };
     return MatFormField;
-}());
+}(_MatFormFieldMixinBase));
 
 /**
  * @fileoverview added by tsickle
@@ -741,5 +749,5 @@ var MatFormFieldModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MatFormFieldModule, MatError, MatFormField, MatFormFieldControl, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations };
+export { MatFormFieldModule, MatError, MatFormFieldBase, _MatFormFieldMixinBase, MatFormField, MatFormFieldControl, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations };
 //# sourceMappingURL=form-field.es5.js.map

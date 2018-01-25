@@ -1,24 +1,28 @@
 import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, QueryList } from '@angular/core';
-import { FloatLabelType, LabelOptions } from '@angular/material/core';
+import { CanColor, FloatLabelType, LabelOptions, ThemePalette } from '@angular/material/core';
 import { MatError } from './error';
 import { MatFormFieldControl } from './form-field-control';
 import { MatHint } from './hint';
-import { MatPlaceholder } from './placeholder';
 import { MatLabel } from './label';
+import { MatPlaceholder } from './placeholder';
 import { MatPrefix } from './prefix';
 import { MatSuffix } from './suffix';
+/** @docs-private */
+export declare class MatFormFieldBase {
+    _elementRef: ElementRef;
+    constructor(_elementRef: ElementRef);
+}
+export declare const _MatFormFieldMixinBase: (new (...args: any[]) => CanColor) & typeof MatFormFieldBase;
 /** Container for form controls that applies Material Design styling and behavior. */
-export declare class MatFormField implements AfterViewInit, AfterContentInit, AfterContentChecked {
+export declare class MatFormField extends _MatFormFieldMixinBase implements AfterContentInit, AfterContentChecked, AfterViewInit, CanColor {
     _elementRef: ElementRef;
     private _changeDetectorRef;
     private _labelOptions;
-    /** Color of the form field underline, based on the theme. */
-    color: 'primary' | 'accent' | 'warn';
     /**
      * @deprecated Use `color` instead.
      * @deletion-target 6.0.0
      */
-    dividerColor: 'primary' | 'accent' | 'warn';
+    dividerColor: ThemePalette;
     /** Whether the required marker should be hidden. */
     hideRequiredMarker: boolean;
     private _hideRequiredMarker;
