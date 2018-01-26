@@ -789,16 +789,12 @@ var TooltipComponent = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        var _this = this;
         var /** @type {?} */ toState = /** @type {?} */ (event.toState);
         if (toState === 'hidden' && !this.isVisible()) {
             this._onHide.next();
         }
         if (toState === 'visible' || toState === 'hidden') {
-            // Note: as of Angular 4.3, the animations module seems to fire the `start` callback before
-            // the end if animations are disabled. Make this call async to ensure that it still fires
-            // at the appropriate time.
-            Promise.resolve().then(function () { return _this._closeOnInteraction = true; });
+            this._closeOnInteraction = true;
         }
     };
     /**

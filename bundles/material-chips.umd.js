@@ -862,7 +862,10 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.chips).withWrap();
+        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.chips)
+            .withWrap()
+            .withVerticalOrientation()
+            .withHorizontalOrientation(this._dir ? this._dir.value : 'ltr');
         // Prevents the chip list from capturing focus and redirecting
         // it back to the first chip when the user tabs out.
         this._tabOutSubscription = this._keyManager.tabOut.subscribe(function () {
@@ -1073,35 +1076,16 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ code = event.keyCode;
         var /** @type {?} */ target = /** @type {?} */ (event.target);
-        var /** @type {?} */ isInputEmpty = this._isInputEmpty(target);
-        var /** @type {?} */ isRtl = this._dir && this._dir.value == 'rtl';
-        var /** @type {?} */ isPrevKey = (code === (isRtl ? _angular_cdk_keycodes.RIGHT_ARROW : _angular_cdk_keycodes.LEFT_ARROW));
-        var /** @type {?} */ isNextKey = (code === (isRtl ? _angular_cdk_keycodes.LEFT_ARROW : _angular_cdk_keycodes.RIGHT_ARROW));
-        var /** @type {?} */ isBackKey = code === _angular_cdk_keycodes.BACKSPACE;
         // If they are on an empty input and hit backspace, focus the last chip
-        if (isInputEmpty && isBackKey) {
+        if (event.keyCode === _angular_cdk_keycodes.BACKSPACE && this._isInputEmpty(target)) {
             this._keyManager.setLastItemActive();
             event.preventDefault();
-            return;
         }
-        // If they are on a chip, check for space/left/right, otherwise pass to our key manager (like
-        // up/down keys)
-        if (target && target.classList.contains('mat-chip')) {
-            if (isPrevKey) {
-                this._keyManager.setPreviousItemActive();
-                event.preventDefault();
-            }
-            else if (isNextKey) {
-                this._keyManager.setNextItemActive();
-                event.preventDefault();
-            }
-            else {
-                this._keyManager.onKeydown(event);
-            }
+        else {
+            this._keyManager.onKeydown(event);
+            this.stateChanges.next();
         }
-        this.stateChanges.next();
     };
     /**
      * Check the tab index as you should not be allowed to focus an empty list.
