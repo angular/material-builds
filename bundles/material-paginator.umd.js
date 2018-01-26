@@ -338,7 +338,7 @@ var MatPaginator = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.page.next({
+        this.page.emit({
             pageIndex: this.pageIndex,
             pageSize: this.pageSize,
             length: this.length

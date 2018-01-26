@@ -103,6 +103,10 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     _focusNextTab(): void;
     /** Decrement the focus index by 1 until a valid tab is found. */
     _focusPreviousTab(): void;
+    /** Focuses the first tab. */
+    private _focusFirstTab();
+    /** Focuses the last tab. */
+    private _focusLastTab();
     /** The layout direction of the containing app. */
     _getLayoutDirection(): Direction;
     /** Performs the CSS transformation on the tab list that will cause the list to scroll. */

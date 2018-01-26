@@ -19,7 +19,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
-import { ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
+import { END, ENTER, HOME, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { of } from 'rxjs/observable/of';
 import { Platform } from '@angular/cdk/platform';
 import { takeUntil } from 'rxjs/operators/takeUntil';
@@ -1175,6 +1175,14 @@ var MatTabHeader = /** @class */ (function (_super) {
             case LEFT_ARROW:
                 this._focusPreviousTab();
                 break;
+            case HOME:
+                this._focusFirstTab();
+                event.preventDefault();
+                break;
+            case END:
+                this._focusLastTab();
+                event.preventDefault();
+                break;
             case ENTER:
             case SPACE:
                 this.selectFocusedIndex.emit(this.focusIndex);
@@ -1379,6 +1387,38 @@ var MatTabHeader = /** @class */ (function (_super) {
      */
     function () {
         this._moveFocus(this._getLayoutDirection() == 'ltr' ? -1 : 1);
+    };
+    /**
+     * Focuses the first tab.
+     * @return {?}
+     */
+    MatTabHeader.prototype._focusFirstTab = /**
+     * Focuses the first tab.
+     * @return {?}
+     */
+    function () {
+        for (var /** @type {?} */ i = 0; i < this._labelWrappers.length; i++) {
+            if (this._isValidIndex(i)) {
+                this.focusIndex = i;
+                break;
+            }
+        }
+    };
+    /**
+     * Focuses the last tab.
+     * @return {?}
+     */
+    MatTabHeader.prototype._focusLastTab = /**
+     * Focuses the last tab.
+     * @return {?}
+     */
+    function () {
+        for (var /** @type {?} */ i = this._labelWrappers.length - 1; i > -1; i--) {
+            if (this._isValidIndex(i)) {
+                this.focusIndex = i;
+                break;
+            }
+        }
     };
     /** The layout direction of the containing app. */
     /**

@@ -33,6 +33,8 @@ export declare class MatProgressBar extends _MatProgressBarMixinBase implements 
      * Mirrored to mode attribute.
      */
     mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';
+    /** The id of the progress bar. */
+    progressbarId: string;
     /** Gets the current transform value for the progress bar's primary indicator. */
     _primaryTransform(): {
         transform: string;

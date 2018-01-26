@@ -270,7 +270,7 @@ class MatPaginator {
      * @return {?}
      */
     _emitPageEvent() {
-        this.page.next({
+        this.page.emit({
             pageIndex: this.pageIndex,
             pageSize: this.pageSize,
             length: this.length

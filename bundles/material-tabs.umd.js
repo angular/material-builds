@@ -1188,6 +1188,14 @@ var MatTabHeader = /** @class */ (function (_super) {
             case _angular_cdk_keycodes.LEFT_ARROW:
                 this._focusPreviousTab();
                 break;
+            case _angular_cdk_keycodes.HOME:
+                this._focusFirstTab();
+                event.preventDefault();
+                break;
+            case _angular_cdk_keycodes.END:
+                this._focusLastTab();
+                event.preventDefault();
+                break;
             case _angular_cdk_keycodes.ENTER:
             case _angular_cdk_keycodes.SPACE:
                 this.selectFocusedIndex.emit(this.focusIndex);
@@ -1392,6 +1400,38 @@ var MatTabHeader = /** @class */ (function (_super) {
      */
     function () {
         this._moveFocus(this._getLayoutDirection() == 'ltr' ? -1 : 1);
+    };
+    /**
+     * Focuses the first tab.
+     * @return {?}
+     */
+    MatTabHeader.prototype._focusFirstTab = /**
+     * Focuses the first tab.
+     * @return {?}
+     */
+    function () {
+        for (var /** @type {?} */ i = 0; i < this._labelWrappers.length; i++) {
+            if (this._isValidIndex(i)) {
+                this.focusIndex = i;
+                break;
+            }
+        }
+    };
+    /**
+     * Focuses the last tab.
+     * @return {?}
+     */
+    MatTabHeader.prototype._focusLastTab = /**
+     * Focuses the last tab.
+     * @return {?}
+     */
+    function () {
+        for (var /** @type {?} */ i = this._labelWrappers.length - 1; i > -1; i--) {
+            if (this._isValidIndex(i)) {
+                this.focusIndex = i;
+                break;
+            }
+        }
     };
     /** The layout direction of the containing app. */
     /**

@@ -159,7 +159,7 @@ class MatSort extends _MatSortMixinBase {
         else {
             this.direction = this.getNextSortDirection(sortable);
         }
-        this.sortChange.next({ active: this.active, direction: this.direction });
+        this.sortChange.emit({ active: this.active, direction: this.direction });
     }
     /**
      * Returns the next sort direction of the active sortable, checking for potential overrides.
