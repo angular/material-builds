@@ -162,7 +162,10 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _getConnectedElement();
     /** Returns the width of the input element, so the panel width can match it. */
     private _getHostWidth();
-    /** Reset active item to -1 so arrow events will activate the correct options. */
+    /**
+     * Resets the active item to -1 so arrow events will activate the
+     * correct options, or to 0 if the consumer opted into it.
+     */
     private _resetActiveItem();
     /** Determines whether the panel can be opened. */
     private _canOpen();

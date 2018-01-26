@@ -3396,9 +3396,20 @@ var MatAutocompleteBase = /** @class */ (function () {
     return MatAutocompleteBase;
 }());
 var _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompleteBase);
+/**
+ * Default `mat-autocomplete` options that can be overridden.
+ * @record
+ */
+
+/**
+ * Injection token to be used to override the default options for `mat-autocomplete`.
+ */
+var MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new _angular_core.InjectionToken('mat-autocomplete-default-options');
 var MatAutocomplete = /** @class */ (function (_super) {
     __extends(MatAutocomplete, _super);
-    function MatAutocomplete(_changeDetectorRef, _elementRef) {
+    function MatAutocomplete(_changeDetectorRef, _elementRef, 
+        // @deletion-target Turn into required param in 6.0.0
+        defaults) {
         var _this = _super.call(this) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._elementRef = _elementRef;
@@ -3420,6 +3431,10 @@ var MatAutocomplete = /** @class */ (function (_super) {
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
         _this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
+        _this._autoActiveFirstOption = defaults &&
+            typeof defaults.autoActiveFirstOption !== 'undefined' ?
+            defaults.autoActiveFirstOption :
+            false;
         return _this;
     }
     Object.defineProperty(MatAutocomplete.prototype, "isOpen", {
@@ -3430,6 +3445,23 @@ var MatAutocomplete = /** @class */ (function (_super) {
          */
         function () {
             return this._isOpen && this.showPanel;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatAutocomplete.prototype, "autoActiveFirstOption", {
+        get: /**
+         * Whether the first option should be highlighted when the autocomplete panel is opened.
+         * Can be configured globally through the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
+         * @return {?}
+         */
+        function () { return this._autoActiveFirstOption; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._autoActiveFirstOption = _angular_cdk_coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -3546,6 +3578,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
     MatAutocomplete.ctorParameters = function () { return [
         { type: _angular_core.ChangeDetectorRef, },
         { type: _angular_core.ElementRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] },] },
     ]; };
     MatAutocomplete.propDecorators = {
         "template": [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
@@ -3553,6 +3586,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
         "options": [{ type: _angular_core.ContentChildren, args: [MatOption, { descendants: true },] },],
         "optionGroups": [{ type: _angular_core.ContentChildren, args: [MatOptgroup,] },],
         "displayWith": [{ type: _angular_core.Input },],
+        "autoActiveFirstOption": [{ type: _angular_core.Input },],
         "optionSelected": [{ type: _angular_core.Output },],
         "classList": [{ type: _angular_core.Input, args: ['class',] },],
     };
@@ -4191,15 +4225,17 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         return this._getConnectedElement().nativeElement.getBoundingClientRect().width;
     };
     /**
-     * Reset active item to -1 so arrow events will activate the correct options.
+     * Resets the active item to -1 so arrow events will activate the
+     * correct options, or to 0 if the consumer opted into it.
      * @return {?}
      */
     MatAutocompleteTrigger.prototype._resetActiveItem = /**
-     * Reset active item to -1 so arrow events will activate the correct options.
+     * Resets the active item to -1 so arrow events will activate the
+     * correct options, or to 0 if the consumer opted into it.
      * @return {?}
      */
     function () {
-        this.autocomplete._keyManager.setActiveItem(-1);
+        this.autocomplete._keyManager.setActiveItem(this.autocomplete.autoActiveFirstOption ? 0 : -1);
     };
     /**
      * Determines whether the panel can be opened.
@@ -29338,12 +29374,13 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-c306297');
+var VERSION = new _angular_core.Version('5.1.0-b42fcb9');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
+exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS;
 exports.MatAutocomplete = MatAutocomplete;
 exports.MatAutocompleteModule = MatAutocompleteModule;
 exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;
@@ -29569,10 +29606,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa18 = MatMenuItemBase;
-exports.ɵb18 = _MatMenuItemMixinBase;
-exports.ɵd18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -29692,16 +29729,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe19 = MatTabBase;
+exports.ɵf19 = _MatTabMixinBase;
+exports.ɵa19 = MatTabHeaderBase;
+exports.ɵb19 = _MatTabHeaderMixinBase;
+exports.ɵc19 = MatTabLabelWrapperBase;
+exports.ɵd19 = _MatTabLabelWrapperMixinBase;
+exports.ɵi19 = MatTabLinkBase;
+exports.ɵg19 = MatTabNavBase;
+exports.ɵj19 = _MatTabLinkMixinBase;
+exports.ɵh19 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

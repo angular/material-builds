@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ElementRef, QueryList, TemplateRef, ChangeDetectorRef, EventEmitter } from '@angular/core';
+import { AfterContentInit, ElementRef, QueryList, TemplateRef, ChangeDetectorRef, EventEmitter, InjectionToken } from '@angular/core';
 import { MatOption, MatOptgroup, CanDisableRipple } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 /** Event object that is emitted when an autocomplete option is selected. */
@@ -24,6 +24,13 @@ export declare class MatAutocompleteSelectedEvent {
 export declare class MatAutocompleteBase {
 }
 export declare const _MatAutocompleteMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatAutocompleteBase;
+/** Default `mat-autocomplete` options that can be overridden. */
+export interface MatAutocompleteDefaultOptions {
+    /** Whether the first option should be highlighted when an autocomplete panel is opened. */
+    autoActiveFirstOption?: boolean;
+}
+/** Injection token to be used to override the default options for `mat-autocomplete`. */
+export declare const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS: InjectionToken<MatAutocompleteDefaultOptions>;
 export declare class MatAutocomplete extends _MatAutocompleteMixinBase implements AfterContentInit, CanDisableRipple {
     private _changeDetectorRef;
     private _elementRef;
@@ -44,6 +51,12 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     optionGroups: QueryList<MatOptgroup>;
     /** Function that maps an option's control value to its display value in the trigger. */
     displayWith: ((value: any) => string) | null;
+    /**
+     * Whether the first option should be highlighted when the autocomplete panel is opened.
+     * Can be configured globally through the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
+     */
+    autoActiveFirstOption: boolean;
+    private _autoActiveFirstOption;
     /** Event that is emitted whenever an option from the list is selected. */
     readonly optionSelected: EventEmitter<MatAutocompleteSelectedEvent>;
     /**
@@ -56,7 +69,7 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     };
     /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
     id: string;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef);
+    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef, defaults?: MatAutocompleteDefaultOptions);
     ngAfterContentInit(): void;
     /**
      * Sets the panel scrollTop. This allows us to manually scroll to display options

@@ -8,6 +8,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Host, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisableRipple } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Directionality } from '@angular/cdk/bidi';
@@ -55,12 +56,24 @@ class MatAutocompleteSelectedEvent {
 class MatAutocompleteBase {
 }
 const _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompleteBase);
+/**
+ * Default `mat-autocomplete` options that can be overridden.
+ * @record
+ */
+
+/**
+ * Injection token to be used to override the default options for `mat-autocomplete`.
+ */
+const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken('mat-autocomplete-default-options');
 class MatAutocomplete extends _MatAutocompleteMixinBase {
     /**
      * @param {?} _changeDetectorRef
      * @param {?} _elementRef
+     * @param {?=} defaults
      */
-    constructor(_changeDetectorRef, _elementRef) {
+    constructor(_changeDetectorRef, _elementRef, 
+        // @deletion-target Turn into required param in 6.0.0
+        defaults) {
         super();
         this._changeDetectorRef = _changeDetectorRef;
         this._elementRef = _elementRef;
@@ -82,6 +95,10 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
         this.id = `mat-autocomplete-${_uniqueAutocompleteIdCounter++}`;
+        this._autoActiveFirstOption = defaults &&
+            typeof defaults.autoActiveFirstOption !== 'undefined' ?
+            defaults.autoActiveFirstOption :
+            false;
     }
     /**
      * Whether the autocomplete panel is open.
@@ -89,6 +106,19 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
      */
     get isOpen() {
         return this._isOpen && this.showPanel;
+    }
+    /**
+     * Whether the first option should be highlighted when the autocomplete panel is opened.
+     * Can be configured globally through the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
+     * @return {?}
+     */
+    get autoActiveFirstOption() { return this._autoActiveFirstOption; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set autoActiveFirstOption(value) {
+        this._autoActiveFirstOption = coerceBooleanProperty(value);
     }
     /**
      * Takes classes set on the host mat-autocomplete element and applies them to the panel
@@ -169,6 +199,7 @@ MatAutocomplete.decorators = [
 MatAutocomplete.ctorParameters = () => [
     { type: ChangeDetectorRef, },
     { type: ElementRef, },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] },] },
 ];
 MatAutocomplete.propDecorators = {
     "template": [{ type: ViewChild, args: [TemplateRef,] },],
@@ -176,6 +207,7 @@ MatAutocomplete.propDecorators = {
     "options": [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
     "optionGroups": [{ type: ContentChildren, args: [MatOptgroup,] },],
     "displayWith": [{ type: Input },],
+    "autoActiveFirstOption": [{ type: Input },],
     "optionSelected": [{ type: Output },],
     "classList": [{ type: Input, args: ['class',] },],
 };
@@ -657,11 +689,12 @@ class MatAutocompleteTrigger {
         return this._getConnectedElement().nativeElement.getBoundingClientRect().width;
     }
     /**
-     * Reset active item to -1 so arrow events will activate the correct options.
+     * Resets the active item to -1 so arrow events will activate the
+     * correct options, or to 0 if the consumer opted into it.
      * @return {?}
      */
     _resetActiveItem() {
-        this.autocomplete._keyManager.setActiveItem(-1);
+        this.autocomplete._keyManager.setActiveItem(this.autocomplete.autoActiveFirstOption ? 0 : -1);
     }
     /**
      * Determines whether the panel can be opened.
@@ -739,5 +772,5 @@ MatAutocompleteModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger };
 //# sourceMappingURL=autocomplete.js.map
