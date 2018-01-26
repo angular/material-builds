@@ -7765,7 +7765,7 @@ var MatChipList = /** @class */ (function (_super) {
  */
 
 /**
- * Directive that adds chip-specific behaviors to an input element inside <mat-form-field>.
+ * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
  */
 var MatChipInput = /** @class */ (function () {
@@ -9864,7 +9864,7 @@ var _MatIconMixinBase = mixinColor(MatIconBase);
  *     `<mat-icon svgIcon="left-arrow"></mat-icon>
  *     <mat-icon svgIcon="animals:cat"></mat-icon>`
  *
- * - Use a font ligature as an icon by putting the ligature text in the content of the <mat-icon>
+ * - Use a font ligature as an icon by putting the ligature text in the content of the `<mat-icon>`
  *   component. By default the Material icons font is used as described at
  *   http://google.github.io/material-design-icons/#icon-font-for-the-web. You can specify an
  *   alternate font by setting the fontSet input to either the CSS class to apply to use the
@@ -29338,7 +29338,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-7613f98');
+var VERSION = new _angular_core.Version('5.1.0-8df7389');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29569,10 +29569,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MatMenuItemBase;
-exports.ɵb21 = _MatMenuItemMixinBase;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -29692,16 +29692,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe21 = MatTabBase;
+exports.ɵf21 = _MatTabMixinBase;
+exports.ɵa21 = MatTabHeaderBase;
+exports.ɵb21 = _MatTabHeaderMixinBase;
+exports.ɵc21 = MatTabLabelWrapperBase;
+exports.ɵd21 = _MatTabLabelWrapperMixinBase;
+exports.ɵi21 = MatTabLinkBase;
+exports.ɵg21 = MatTabNavBase;
+exports.ɵj21 = _MatTabLinkMixinBase;
+exports.ɵh21 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

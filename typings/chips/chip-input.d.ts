@@ -8,7 +8,7 @@ export interface MatChipInputEvent {
     value: string;
 }
 /**
- * Directive that adds chip-specific behaviors to an input element inside <mat-form-field>.
+ * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
  */
 export declare class MatChipInput {
