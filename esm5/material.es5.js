@@ -47,7 +47,7 @@ import { MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_S
 /**
  * Current version of Angular Material.
  */
-var VERSION = new Version('5.1.0-3352201');
+var VERSION = new Version('5.1.0-e6e4c3c');
 
 /**
  * @fileoverview added by tsickle

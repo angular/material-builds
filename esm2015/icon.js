@@ -292,11 +292,6 @@ class MatIconRegistry {
                 // necessarily fail.
                 console.log(`Loading icon set URL: ${url} failed: ${err}`);
                 return of(null);
-            }), tap(svg => {
-                // Cache the SVG element.
-                if (svg) {
-                    iconSetConfig.svgElement = svg;
-                }
             }));
         });
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
@@ -347,8 +342,18 @@ class MatIconRegistry {
      * @return {?}
      */
     _loadSvgIconSetFromConfig(config) {
-        // TODO: Document that icons should only be loaded from trusted sources.
-        return this._fetchUrl(config.url).pipe(map(svgText => this._svgElementFromString(svgText)));
+        // If the SVG for this icon set has already been parsed, do nothing.
+        if (config.svgElement) {
+            return of(config.svgElement);
+        }
+        return this._fetchUrl(config.url).pipe(map(svgText => {
+            // It is possible that the icon set was parsed and cached by an earlier request, so parsing
+            // only needs to occur if the cache is yet unset.
+            if (!config.svgElement) {
+                config.svgElement = this._svgElementFromString(svgText);
+            }
+            return config.svgElement;
+        }));
     }
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
@@ -503,9 +508,9 @@ const ICON_REGISTRY_PROVIDER = {
         [new Optional(), new SkipSelf(), MatIconRegistry],
         [new Optional(), HttpClient],
         DomSanitizer,
-        [new Optional(), /** @type {?} */ (DOCUMENT)]
+        [new Optional(), /** @type {?} */ (DOCUMENT)],
     ],
-    useFactory: ICON_REGISTRY_PROVIDER_FACTORY
+    useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
 };
 /**
  * Clones an SVGElement while preserving type information.

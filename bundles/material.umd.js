@@ -9567,11 +9567,6 @@ var MatIconRegistry = /** @class */ (function () {
                 // necessarily fail.
                 console.log("Loading icon set URL: " + url + " failed: " + err);
                 return rxjs_observable_of.of(null);
-            }), rxjs_operators_tap.tap(function (svg) {
-                // Cache the SVG element.
-                if (svg) {
-                    iconSetConfig.svgElement = svg;
-                }
             }));
         });
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
@@ -9644,8 +9639,18 @@ var MatIconRegistry = /** @class */ (function () {
      */
     function (config) {
         var _this = this;
-        // TODO: Document that icons should only be loaded from trusted sources.
-        return this._fetchUrl(config.url).pipe(rxjs_operators_map.map(function (svgText) { return _this._svgElementFromString(svgText); }));
+        // If the SVG for this icon set has already been parsed, do nothing.
+        if (config.svgElement) {
+            return rxjs_observable_of.of(config.svgElement);
+        }
+        return this._fetchUrl(config.url).pipe(rxjs_operators_map.map(function (svgText) {
+            // It is possible that the icon set was parsed and cached by an earlier request, so parsing
+            // only needs to occur if the cache is yet unset.
+            if (!config.svgElement) {
+                config.svgElement = _this._svgElementFromString(svgText);
+            }
+            return config.svgElement;
+        }));
     };
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
@@ -9836,9 +9841,9 @@ var ICON_REGISTRY_PROVIDER = {
         [new _angular_core.Optional(), new _angular_core.SkipSelf(), MatIconRegistry],
         [new _angular_core.Optional(), _angular_common_http.HttpClient],
         _angular_platformBrowser.DomSanitizer,
-        [new _angular_core.Optional(), /** @type {?} */ (_angular_common.DOCUMENT)]
+        [new _angular_core.Optional(), /** @type {?} */ (_angular_common.DOCUMENT)],
     ],
-    useFactory: ICON_REGISTRY_PROVIDER_FACTORY
+    useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
 };
 /**
  * Clones an SVGElement while preserving type information.
@@ -29401,7 +29406,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.1.0-3352201');
+var VERSION = new _angular_core.Version('5.1.0-e6e4c3c');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
