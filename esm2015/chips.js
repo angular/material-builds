@@ -841,7 +841,7 @@ class MatChipList extends _MatChipListMixinBase {
             this._keyManager.setLastItemActive();
             event.preventDefault();
         }
-        else {
+        else if (target && target.classList.contains('mat-chip')) {
             this._keyManager.onKeydown(event);
             this.stateChanges.next();
         }

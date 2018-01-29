@@ -1066,7 +1066,7 @@ var MatChipList = /** @class */ (function (_super) {
             this._keyManager.setLastItemActive();
             event.preventDefault();
         }
-        else {
+        else if (target && target.classList.contains('mat-chip')) {
             this._keyManager.onKeydown(event);
             this.stateChanges.next();
         }
