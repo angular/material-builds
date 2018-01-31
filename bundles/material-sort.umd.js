@@ -449,7 +449,7 @@ var MatSortHeaderBase = /** @class */ (function () {
 }());
 var _MatSortHeaderMixinBase = _angular_material_core.mixinDisabled(MatSortHeaderBase);
 /**
- * States describing the arrow's animated position (animating fromState -> toState).
+ * States describing the arrow's animated position (animating fromState to toState).
  * If the fromState is not defined, there will be no animated transition to the toState.
  * \@docs-private
  * @record

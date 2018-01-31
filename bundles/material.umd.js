@@ -26108,7 +26108,7 @@ var MatSortHeaderBase = /** @class */ (function () {
 }());
 var _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
 /**
- * States describing the arrow's animated position (animating fromState -> toState).
+ * States describing the arrow's animated position (animating fromState to toState).
  * If the fromState is not defined, there will be no animated transition to the toState.
  * \@docs-private
  * @record
@@ -29771,7 +29771,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.2.0-beta.0-6d4413f');
+var VERSION = new _angular_core.Version('5.2.0-beta.0-1417387');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -30130,16 +30130,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe18 = MatTabBase;
-exports.ɵf18 = _MatTabMixinBase;
-exports.ɵa18 = MatTabHeaderBase;
-exports.ɵb18 = _MatTabHeaderMixinBase;
-exports.ɵc18 = MatTabLabelWrapperBase;
-exports.ɵd18 = _MatTabLabelWrapperMixinBase;
-exports.ɵi18 = MatTabLinkBase;
-exports.ɵg18 = MatTabNavBase;
-exports.ɵj18 = _MatTabLinkMixinBase;
-exports.ɵh18 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
