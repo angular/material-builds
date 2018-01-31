@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { ChangeDetectorRef, ElementRef, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, OnDestroy, TemplateRef } from '@angular/core';
 import { MatStepLabel } from './step-label';
 import { MatStepperIntl } from './stepper-intl';
 export declare class MatStepHeader implements OnDestroy {
@@ -14,10 +14,14 @@ export declare class MatStepHeader implements OnDestroy {
     private _focusMonitor;
     private _element;
     private _intlSubscription;
-    /** Icon for the given step. */
-    icon: string;
+    /** State of the given step. */
+    state: string;
     /** Label of the given step. */
     label: MatStepLabel | string;
+    /** Overrides for the header icons, passed in via the stepper. */
+    iconOverrides: {
+        [key: string]: TemplateRef<any>;
+    };
     /** Index of the given step. */
     index: number;
     private _index;

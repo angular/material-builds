@@ -7,10 +7,14 @@
  */
 import { CdkStep, CdkStepper } from '@angular/cdk/stepper';
 import { Directionality } from '@angular/cdk/bidi';
-import { AfterContentInit, ElementRef, QueryList, ChangeDetectorRef } from '@angular/core';
+import { AfterContentInit, ElementRef, QueryList, ChangeDetectorRef, TemplateRef } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatStepLabel } from './step-label';
+import { MatStepperIcon } from './stepper-icon';
+/** Workaround for https://github.com/angular/angular/issues/17849 */
+export declare const _MatStep: typeof CdkStep;
+export declare const _MatStepper: typeof CdkStepper;
 export declare class MatStep extends CdkStep implements ErrorStateMatcher {
     private _errorStateMatcher;
     /** Content for step label given by `<ng-template matStepLabel>`. */
@@ -24,6 +28,12 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     _stepHeader: QueryList<ElementRef>;
     /** Steps that the stepper holds. */
     _steps: QueryList<MatStep>;
+    /** Custom icon overrides passed in by the consumer. */
+    _icons: QueryList<MatStepperIcon>;
+    /** Consumer-specified template-refs to be used to override the header icons. */
+    _iconOverrides: {
+        [key: string]: TemplateRef<any>;
+    };
     ngAfterContentInit(): void;
 }
 export declare class MatHorizontalStepper extends MatStepper {
