@@ -5,6 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { AnimationEvent } from '@angular/animations';
 import { ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef, AfterContentInit } from '@angular/core';
 import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
@@ -45,6 +46,7 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     ngAfterContentInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
+    _bodyAnimation(event: AnimationEvent): void;
 }
 export declare class MatExpansionPanelActionRow {
 }

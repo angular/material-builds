@@ -238,12 +238,31 @@ class MatExpansionPanel extends CdkAccordionItem {
         super.ngOnDestroy();
         this._inputChanges.complete();
     }
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    _bodyAnimation(event) {
+        const /** @type {?} */ classList = event.element.classList;
+        const /** @type {?} */ cssClass = 'mat-expanded';
+        const { phaseName, toState } = event;
+        // Toggle the body's `overflow: hidden` class when closing starts or when expansion ends in
+        // order to prevent the cases where switching too early would cause the animation to jump.
+        // Note that we do it directly on the DOM element to avoid the slight delay that comes
+        // with doing it via change detection.
+        if (phaseName === 'done' && toState === 'expanded') {
+            classList.add(cssClass);
+        }
+        else if (phaseName === 'start' && toState === 'collapsed') {
+            classList.remove(cssClass);
+        }
+    }
 }
 MatExpansionPanel.decorators = [
-    { type: Component, args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expanded .mat-expansion-panel-content{overflow:visible}.mat-expansion-panel-content,.mat-expansion-panel-content.ng-animating{overflow:hidden}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion .mat-expansion-panel-spacing:first-child{margin-top:0}.mat-accordion .mat-expansion-panel-spacing:last-child{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
+    { type: Component, args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expansion-panel-content{overflow:hidden}.mat-expansion-panel-content.mat-expanded{overflow:visible}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion .mat-expansion-panel-spacing:first-child{margin-top:0}.mat-accordion .mat-expansion-panel-spacing:last-child{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
                 selector: 'mat-expansion-panel',
                 exportAs: 'matExpansionPanel',
-                template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" role=\"region\" [class.mat-expanded]=\"expanded\" [@bodyExpansion]=\"_getExpandedState()\" [id]=\"id\" [attr.aria-labelledby]=\"_headerId\"><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
+                template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" role=\"region\" [@bodyExpansion]=\"_getExpandedState()\" (@bodyExpansion.done)=\"_bodyAnimation($event)\" (@bodyExpansion.start)=\"_bodyAnimation($event)\" [class.mat-expanded]=\"expanded\" [attr.aria-labelledby]=\"_headerId\" [id]=\"id\" #body><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,

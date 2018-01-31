@@ -11,5 +11,7 @@ export declare const matSortAnimations: {
     readonly indicator: AnimationTriggerMetadata;
     readonly leftPointer: AnimationTriggerMetadata;
     readonly rightPointer: AnimationTriggerMetadata;
-    readonly indicatorToggle: AnimationTriggerMetadata;
+    readonly arrowOpacity: AnimationTriggerMetadata;
+    readonly arrowPosition: AnimationTriggerMetadata;
+    readonly allowChildren: AnimationTriggerMetadata;
 };

@@ -368,42 +368,70 @@ var SORT_ANIMATION_TRANSITION = _angular_material_core.AnimationDurations.ENTERI
 var matSortAnimations = {
     /** Animation that moves the sort indicator. */
     indicator: _angular_animations.trigger('indicator', [
-        _angular_animations.state('asc', _angular_animations.style({ transform: 'translateY(0px)' })),
+        _angular_animations.state('active-asc, asc', _angular_animations.style({ transform: 'translateY(0px)' })),
         // 10px is the height of the sort indicator, minus the width of the pointers
-        _angular_animations.state('desc', _angular_animations.style({ transform: 'translateY(10px)' })),
-        _angular_animations.transition('asc <=> desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+        _angular_animations.state('active-desc, desc', _angular_animations.style({ transform: 'translateY(10px)' })),
+        _angular_animations.transition('active-asc <=> active-desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
     ]),
     /** Animation that rotates the left pointer of the indicator based on the sorting direction. */
     leftPointer: _angular_animations.trigger('leftPointer', [
-        _angular_animations.state('asc', _angular_animations.style({ transform: 'rotate(-45deg)' })),
-        _angular_animations.state('desc', _angular_animations.style({ transform: 'rotate(45deg)' })),
-        _angular_animations.transition('asc <=> desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+        _angular_animations.state('active-asc, asc', _angular_animations.style({ transform: 'rotate(-45deg)' })),
+        _angular_animations.state('active-desc, desc', _angular_animations.style({ transform: 'rotate(45deg)' })),
+        _angular_animations.transition('active-asc <=> active-desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
     ]),
     /** Animation that rotates the right pointer of the indicator based on the sorting direction. */
     rightPointer: _angular_animations.trigger('rightPointer', [
-        _angular_animations.state('asc', _angular_animations.style({ transform: 'rotate(45deg)' })),
-        _angular_animations.state('desc', _angular_animations.style({ transform: 'rotate(-45deg)' })),
-        _angular_animations.transition('asc <=> desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+        _angular_animations.state('active-asc, asc', _angular_animations.style({ transform: 'rotate(45deg)' })),
+        _angular_animations.state('active-desc, desc', _angular_animations.style({ transform: 'rotate(-45deg)' })),
+        _angular_animations.transition('active-asc <=> active-desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
     ]),
-    /** Animation that moves the indicator in and out of view when sorting is enabled/disabled. */
-    indicatorToggle: _angular_animations.trigger('indicatorToggle', [
-        _angular_animations.transition('void => asc', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
-            _angular_animations.style({ transform: 'translateY(25%)', opacity: 0 }),
-            _angular_animations.style({ transform: 'none', opacity: 1 })
+    /** Animation that controls the arrow opacity. */
+    arrowOpacity: _angular_animations.trigger('arrowOpacity', [
+        _angular_animations.state('desc-to-active, asc-to-active, active', _angular_animations.style({ opacity: 1 })),
+        _angular_animations.state('desc-to-hint, asc-to-hint, hint', _angular_animations.style({ opacity: .54 })),
+        _angular_animations.state('hint-to-desc, active-to-desc, desc, hint-to-asc, active-to-asc, asc', _angular_animations.style({ opacity: 0 })),
+        // Transition between all states except for immediate transitions
+        _angular_animations.transition('* => asc, * => desc, * => active, * => hint', _angular_animations.animate('0ms')),
+        _angular_animations.transition('* <=> *', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+    ]),
+    /**
+       * Animation for the translation of the arrow as a whole. States are separated into two
+       * groups: ones with animations and others that are immediate. Immediate states are asc, desc,
+       * peek, and active. The other states define a specific animation (source-to-destination)
+       * and are determined as a function of their prev user-perceived state and what the next state
+       * should be.
+       */
+    arrowPosition: _angular_animations.trigger('arrowPosition', [
+        // Hidden Above => Hint Center
+        _angular_animations.transition('* => desc-to-hint, * => desc-to-active', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
+            _angular_animations.style({ transform: 'translateY(-25%)' }),
+            _angular_animations.style({ transform: 'translateY(0)' })
         ]))),
-        _angular_animations.transition('asc => void', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
-            _angular_animations.style({ transform: 'none', opacity: 1 }),
-            _angular_animations.style({ transform: 'translateY(-25%)', opacity: 0 })
+        // Hint Center => Hidden Below
+        _angular_animations.transition('* => hint-to-desc, * => active-to-desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
+            _angular_animations.style({ transform: 'translateY(0)' }),
+            _angular_animations.style({ transform: 'translateY(25%)' })
         ]))),
-        _angular_animations.transition('void => desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
-            _angular_animations.style({ transform: 'translateY(-25%)', opacity: 0 }),
-            _angular_animations.style({ transform: 'none', opacity: 1 })
+        // Hidden Below => Hint Center
+        _angular_animations.transition('* => asc-to-hint, * => asc-to-active', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
+            _angular_animations.style({ transform: 'translateY(25%)' }),
+            _angular_animations.style({ transform: 'translateY(0)' })
         ]))),
-        _angular_animations.transition('desc => void', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
-            _angular_animations.style({ transform: 'none', opacity: 1 }),
-            _angular_animations.style({ transform: 'translateY(25%)', opacity: 0 })
+        // Hint Center => Hidden Above
+        _angular_animations.transition('* => hint-to-asc, * => active-to-asc', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
+            _angular_animations.style({ transform: 'translateY(0)' }),
+            _angular_animations.style({ transform: 'translateY(-25%)' })
         ]))),
-    ])
+        _angular_animations.state('desc-to-hint, asc-to-hint, hint, desc-to-active, asc-to-active, active', _angular_animations.style({ transform: 'translateY(0)' })),
+        _angular_animations.state('hint-to-desc, active-to-desc, desc', _angular_animations.style({ transform: 'translateY(-25%)' })),
+        _angular_animations.state('hint-to-asc, active-to-asc, asc', _angular_animations.style({ transform: 'translateY(25%)' })),
+    ]),
+    /** Necessary trigger that calls animate on children animations. */
+    allowChildren: _angular_animations.trigger('allowChildren', [
+        _angular_animations.transition('* <=> *', [
+            _angular_animations.query('@*', _angular_animations.animateChild(), { optional: true })
+        ])
+    ]),
 };
 
 /**
@@ -421,6 +449,13 @@ var MatSortHeaderBase = /** @class */ (function () {
 }());
 var _MatSortHeaderMixinBase = _angular_material_core.mixinDisabled(MatSortHeaderBase);
 /**
+ * States describing the arrow's animated position (animating fromState -> toState).
+ * If the fromState is not defined, there will be no animated transition to the toState.
+ * \@docs-private
+ * @record
+ */
+
+/**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
  *
@@ -437,6 +472,19 @@ var MatSortHeader = /** @class */ (function (_super) {
         _this._sort = _sort;
         _this._cdkColumnDef = _cdkColumnDef;
         /**
+         * Flag set to true when the indicator should be displayed while the sort is not active. Used to
+         * provide an affordance that the header is sortable by showing on focus and hover.
+         */
+        _this._showIndicatorHint = false;
+        /**
+         * The direction the arrow should be facing according to the current state.
+         */
+        _this._arrowDirection = '';
+        /**
+         * Whether the view state animation should show the transition between the `from` and `to` states.
+         */
+        _this._disableViewStateAnimation = false;
+        /**
          * Sets the position of the arrow that displays when sorted.
          */
         _this.arrowPosition = 'after';
@@ -444,7 +492,17 @@ var MatSortHeader = /** @class */ (function (_super) {
             throw getSortHeaderNotContainedWithinSortError();
         }
         _this._rerenderSubscription = rxjs_observable_merge.merge(_sort.sortChange, _sort._stateChanges, _intl.changes)
-            .subscribe(function () { return changeDetectorRef.markForCheck(); });
+            .subscribe(function () {
+            if (_this._isSorted()) {
+                _this._updateArrowDirection();
+            }
+            // If this header was recently active and now no longer sorted, animate away the arrow.
+            if (!_this._isSorted() && _this._viewState && _this._viewState.toState === 'active') {
+                _this._disableViewStateAnimation = false;
+                _this._setAnimationTransitionState({ fromState: 'active', toState: _this._arrowDirection });
+            }
+            changeDetectorRef.markForCheck();
+        });
         return _this;
     }
     Object.defineProperty(MatSortHeader.prototype, "disableClear", {
@@ -471,6 +529,9 @@ var MatSortHeader = /** @class */ (function (_super) {
         if (!this.id && this._cdkColumnDef) {
             this.id = this._cdkColumnDef.name;
         }
+        // Initialize the direction of the arrow and set the view state to be immediately that state.
+        this._updateArrowDirection();
+        this._setAnimationTransitionState({ toState: this._isSorted() ? 'active' : this._arrowDirection });
         this._sort.register(this);
     };
     /**
@@ -483,19 +544,90 @@ var MatSortHeader = /** @class */ (function (_super) {
         this._sort.deregister(this);
         this._rerenderSubscription.unsubscribe();
     };
-    /** Handles click events on the header. */
     /**
-     * Handles click events on the header.
+     * Sets the "hint" state such that the arrow will be semi-transparently displayed as a hint to the
+     * user showing what the active sort will become. If set to false, the arrow will fade away.
+     */
+    /**
+     * Sets the "hint" state such that the arrow will be semi-transparently displayed as a hint to the
+     * user showing what the active sort will become. If set to false, the arrow will fade away.
+     * @param {?} visible
+     * @return {?}
+     */
+    MatSortHeader.prototype._setIndicatorHintVisible = /**
+     * Sets the "hint" state such that the arrow will be semi-transparently displayed as a hint to the
+     * user showing what the active sort will become. If set to false, the arrow will fade away.
+     * @param {?} visible
+     * @return {?}
+     */
+    function (visible) {
+        // No-op if the sort header is disabled - should not make the hint visible.
+        if (this._isDisabled() && visible) {
+            return;
+        }
+        this._showIndicatorHint = visible;
+        if (!this._isSorted()) {
+            this._updateArrowDirection();
+            if (this._showIndicatorHint) {
+                this._setAnimationTransitionState({ fromState: this._arrowDirection, toState: 'hint' });
+            }
+            else {
+                this._setAnimationTransitionState({ fromState: 'hint', toState: this._arrowDirection });
+            }
+        }
+    };
+    /**
+     * Sets the animation transition view state for the arrow's position and opacity. If the
+     * `disableViewStateAnimation` flag is set to true, the `fromState` will be ignored so that
+     * no animation appears.
+     */
+    /**
+     * Sets the animation transition view state for the arrow's position and opacity. If the
+     * `disableViewStateAnimation` flag is set to true, the `fromState` will be ignored so that
+     * no animation appears.
+     * @param {?} viewState
+     * @return {?}
+     */
+    MatSortHeader.prototype._setAnimationTransitionState = /**
+     * Sets the animation transition view state for the arrow's position and opacity. If the
+     * `disableViewStateAnimation` flag is set to true, the `fromState` will be ignored so that
+     * no animation appears.
+     * @param {?} viewState
+     * @return {?}
+     */
+    function (viewState) {
+        this._viewState = viewState;
+        // If the animation for arrow position state (opacity/translation) should be disabled,
+        // remove the fromState so that it jumps right to the toState.
+        if (this._disableViewStateAnimation) {
+            this._viewState = { toState: viewState.toState };
+        }
+    };
+    /** Triggers the sort on this sort header and removes the indicator hint. */
+    /**
+     * Triggers the sort on this sort header and removes the indicator hint.
      * @return {?}
      */
     MatSortHeader.prototype._handleClick = /**
-     * Handles click events on the header.
+     * Triggers the sort on this sort header and removes the indicator hint.
      * @return {?}
      */
     function () {
-        if (!this._isDisabled()) {
-            this._sort.sort(this);
+        if (this._isDisabled()) {
+            return;
         }
+        this._sort.sort(this);
+        // Do not show the animation if the header was already shown in the right position.
+        if (this._viewState.toState === 'hint' || this._viewState.toState === 'active') {
+            this._disableViewStateAnimation = true;
+        }
+        // If the arrow is now sorted, animate the arrow into place. Otherwise, animate it away into
+        // the direction it is facing.
+        var /** @type {?} */ viewState = this._isSorted() ?
+            { fromState: this._arrowDirection, toState: 'active' } :
+            { fromState: 'active', toState: this._arrowDirection };
+        this._setAnimationTransitionState(viewState);
+        this._showIndicatorHint = false;
     };
     /** Whether this MatSortHeader is currently sorted in either ascending or descending order. */
     /**
@@ -510,6 +642,68 @@ var MatSortHeader = /** @class */ (function (_super) {
         return this._sort.active == this.id &&
             (this._sort.direction === 'asc' || this._sort.direction === 'desc');
     };
+    /** Returns the animation state for the arrow direction (indicator and pointers). */
+    /**
+     * Returns the animation state for the arrow direction (indicator and pointers).
+     * @return {?}
+     */
+    MatSortHeader.prototype._getArrowDirectionState = /**
+     * Returns the animation state for the arrow direction (indicator and pointers).
+     * @return {?}
+     */
+    function () {
+        return "" + (this._isSorted() ? 'active-' : '') + this._arrowDirection;
+    };
+    /** Returns the arrow position state (opacity, translation). */
+    /**
+     * Returns the arrow position state (opacity, translation).
+     * @return {?}
+     */
+    MatSortHeader.prototype._getArrowViewState = /**
+     * Returns the arrow position state (opacity, translation).
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ fromState = this._viewState.fromState;
+        return (fromState ? fromState + "-to-" : '') + this._viewState.toState;
+    };
+    /**
+     * Updates the direction the arrow should be pointing. If it is not sorted, the arrow should be
+     * facing the start direction. Otherwise if it is sorted, the arrow should point in the currently
+     * active sorted direction. The reason this is updated through a function is because the direction
+     * should only be changed at specific times - when deactivated but the hint is displayed and when
+     * the sort is active and the direction changes. Otherwise the arrow's direction should linger
+     * in cases such as the sort becoming deactivated but we want to animate the arrow away while
+     * preserving its direction, even though the next sort direction is actually different and should
+     * only be changed once the arrow displays again (hint or activation).
+     */
+    /**
+     * Updates the direction the arrow should be pointing. If it is not sorted, the arrow should be
+     * facing the start direction. Otherwise if it is sorted, the arrow should point in the currently
+     * active sorted direction. The reason this is updated through a function is because the direction
+     * should only be changed at specific times - when deactivated but the hint is displayed and when
+     * the sort is active and the direction changes. Otherwise the arrow's direction should linger
+     * in cases such as the sort becoming deactivated but we want to animate the arrow away while
+     * preserving its direction, even though the next sort direction is actually different and should
+     * only be changed once the arrow displays again (hint or activation).
+     * @return {?}
+     */
+    MatSortHeader.prototype._updateArrowDirection = /**
+     * Updates the direction the arrow should be pointing. If it is not sorted, the arrow should be
+     * facing the start direction. Otherwise if it is sorted, the arrow should point in the currently
+     * active sorted direction. The reason this is updated through a function is because the direction
+     * should only be changed at specific times - when deactivated but the hint is displayed and when
+     * the sort is active and the direction changes. Otherwise the arrow's direction should linger
+     * in cases such as the sort becoming deactivated but we want to animate the arrow away while
+     * preserving its direction, even though the next sort direction is actually different and should
+     * only be changed once the arrow displays again (hint or activation).
+     * @return {?}
+     */
+    function () {
+        this._arrowDirection = this._isSorted() ?
+            this._sort.direction :
+            (this.start || this._sort.start);
+    };
     /**
      * @return {?}
      */
@@ -522,11 +716,13 @@ var MatSortHeader = /** @class */ (function (_super) {
     MatSortHeader.decorators = [
         { type: _angular_core.Component, args: [{selector: '[mat-sort-header]',
                     exportAs: 'matSortHeader',
-                    template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\" [attr.disabled]=\"_isDisabled() || null\"><ng-content></ng-content></button><div *ngIf=\"_isSorted()\" class=\"mat-sort-header-arrow\" [@indicatorToggle]=\"_sort.direction\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_sort.direction\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_sort.direction\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">&nbsp;{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
-                    styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:inherit;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;margin:0 0 0 6px;position:relative;display:flex}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0;transition:225ms cubic-bezier(.4,0,.2,1)}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;transition:225ms cubic-bezier(.4,0,.2,1);position:absolute;top:0}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
+                    template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-sorted]=\"_isSorted()\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.disabled]=\"_isDisabled() || null\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\" (focus)=\"_setIndicatorHintVisible(true)\" (blur)=\"_setIndicatorHintVisible(false)\"><ng-content></ng-content></button><div class=\"mat-sort-header-arrow\" [@arrowOpacity]=\"_getArrowViewState()\" [@arrowPosition]=\"_getArrowViewState()\" [@allowChildren]=\"_getArrowDirectionState()\" (@arrowPosition.start)=\"_disableViewStateAnimation = true\" (@arrowPosition.done)=\"_disableViewStateAnimation = false\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_getArrowDirectionState()\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">&nbsp;{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
+                    styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:inherit;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;margin:0 0 0 6px;position:relative;display:flex}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;position:absolute;top:0}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
                     host: {
                         '(click)': '_handleClick()',
-                        '[class.mat-sort-header-sorted]': '_isSorted()',
+                        '(mouseenter)': '_setIndicatorHintVisible(true)',
+                        '(longpress)': '_setIndicatorHintVisible(true)',
+                        '(mouseleave)': '_setIndicatorHintVisible(false)',
                         '[class.mat-sort-header-disabled]': '_isDisabled()',
                     },
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -537,7 +733,9 @@ var MatSortHeader = /** @class */ (function (_super) {
                         matSortAnimations.indicator,
                         matSortAnimations.leftPointer,
                         matSortAnimations.rightPointer,
-                        matSortAnimations.indicatorToggle
+                        matSortAnimations.arrowOpacity,
+                        matSortAnimations.arrowPosition,
+                        matSortAnimations.allowChildren,
                     ]
                 },] },
     ];
