@@ -11,7 +11,6 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, NgModule, NgZone, Optional, Output, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
 import { DOWN_ARROW, END, ENTER, ESCAPE, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { take } from 'rxjs/operators/take';
@@ -1600,11 +1599,11 @@ var MatDatepicker = /** @class */ (function () {
             return this._startAt || (this._datepickerInput ? this._datepickerInput.value : null);
         },
         set: /**
-         * @param {?} date
+         * @param {?} value
          * @return {?}
          */
-        function (date) {
-            this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(date));
+        function (value) {
+            this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
         },
         enumerable: true,
         configurable: true
@@ -1656,10 +1655,10 @@ var MatDatepicker = /** @class */ (function () {
          */
         function () { return this._opened; },
         set: /**
-         * @param {?} shouldOpen
+         * @param {?} value
          * @return {?}
          */
-        function (shouldOpen) { shouldOpen ? this.open() : this.close(); },
+        function (value) { value ? this.open() : this.close(); },
         enumerable: true,
         configurable: true
     });
@@ -2102,11 +2101,11 @@ var MatDatepickerInput = /** @class */ (function () {
     Object.defineProperty(MatDatepickerInput.prototype, "matDatepickerFilter", {
         set: /**
          * Function that can be used to filter out dates within the datepicker.
-         * @param {?} filter
+         * @param {?} value
          * @return {?}
          */
-        function (filter$$1) {
-            this._dateFilter = filter$$1;
+        function (value) {
+            this._dateFilter = value;
             this._validatorOnChange();
         },
         enumerable: true,
@@ -2236,11 +2235,14 @@ var MatDatepickerInput = /** @class */ (function () {
     function (fn) {
         this._validatorOnChange = fn;
     };
+    /** @docs-private */
     /**
+     * \@docs-private
      * @param {?} c
      * @return {?}
      */
     MatDatepickerInput.prototype.validate = /**
+     * \@docs-private
      * @param {?} c
      * @return {?}
      */
@@ -2279,7 +2281,7 @@ var MatDatepickerInput = /** @class */ (function () {
     function () {
         return this._formField ? -this._formField._inputContainerRef.nativeElement.clientHeight : 0;
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
      * @return {?}
@@ -2291,7 +2293,7 @@ var MatDatepickerInput = /** @class */ (function () {
     function (value) {
         this.value = value;
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -2303,7 +2305,7 @@ var MatDatepickerInput = /** @class */ (function () {
     function (fn) {
         this._cvaOnChange = fn;
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -2315,17 +2317,17 @@ var MatDatepickerInput = /** @class */ (function () {
     function (fn) {
         this._onTouched = fn;
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
-     * @param {?} disabled
+     * @param {?} isDisabled
      * @return {?}
      */
     MatDatepickerInput.prototype.setDisabledState = /**
-     * @param {?} disabled
+     * @param {?} isDisabled
      * @return {?}
      */
-    function (disabled) {
-        this.disabled = disabled;
+    function (isDisabled) {
+        this.disabled = isDisabled;
     };
     /**
      * @param {?} event
@@ -2528,7 +2530,8 @@ var MatDatepickerToggle = /** @class */ (function () {
     };
     MatDatepickerToggle.decorators = [
         { type: Component, args: [{selector: 'mat-datepicker-toggle',
-                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon *ngIf=\"!_customIcon\"><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
+                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
+                    styles: [".mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field-suffix .mat-datepicker-toggle-default-icon{width:1em}"],
                     host: {
                         'class': 'mat-datepicker-toggle',
                         '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
@@ -2566,7 +2569,6 @@ var MatDatepickerModule = /** @class */ (function () {
                         CommonModule,
                         MatButtonModule,
                         MatDialogModule,
-                        MatIconModule,
                         OverlayModule,
                         A11yModule,
                     ],

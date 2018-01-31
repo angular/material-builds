@@ -11,6 +11,7 @@ import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgModule, NgZone, Optional, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
+import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
@@ -637,8 +638,9 @@ var MatTooltip = /** @class */ (function () {
  * \@docs-private
  */
 var TooltipComponent = /** @class */ (function () {
-    function TooltipComponent(_changeDetectorRef) {
+    function TooltipComponent(_changeDetectorRef, _breakpointObserver) {
         this._changeDetectorRef = _changeDetectorRef;
+        this._breakpointObserver = _breakpointObserver;
         /**
          * Property watched by the animation framework to show or hide the tooltip
          */
@@ -655,6 +657,10 @@ var TooltipComponent = /** @class */ (function () {
          * Subject for notifying that the tooltip has been hidden from the view
          */
         this._onHide = new Subject();
+        /**
+         * Stream that emits whether the user has a handset-sized display.
+         */
+        this._isHandset = this._breakpointObserver.observe(Breakpoints.Handset);
     }
     /**
      * Shows the tooltip with an animation originating from the provided origin
@@ -841,8 +847,8 @@ var TooltipComponent = /** @class */ (function () {
     };
     TooltipComponent.decorators = [
         { type: Component, args: [{selector: 'mat-tooltip-component',
-                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
-                    styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}"],
+                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)!.matches\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
+                    styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}"],
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -859,6 +865,7 @@ var TooltipComponent = /** @class */ (function () {
     /** @nocollapse */
     TooltipComponent.ctorParameters = function () { return [
         { type: ChangeDetectorRef, },
+        { type: BreakpointObserver, },
     ]; };
     return TooltipComponent;
 }());
@@ -884,6 +891,7 @@ var MatTooltipModule = /** @class */ (function () {
                         MatCommonModule,
                         PlatformModule,
                         A11yModule,
+                        LayoutModule,
                     ],
                     exports: [MatTooltip, TooltipComponent, MatCommonModule],
                     declarations: [MatTooltip, TooltipComponent],

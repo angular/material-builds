@@ -11,6 +11,7 @@ import { __assign, __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
@@ -440,6 +441,106 @@ function mixinErrorState(base) {
                 this.errorState = newState;
                 this.stateChanges.next();
             }
+        };
+        return class_1;
+    }(base));
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * Mixin that adds an initialized property to a directive which, when subscribed to, will emit a
+ * value once markInitialized has been called, which should be done during the ngOnInit function.
+ * If the subscription is made after it has already been marked as initialized, then it will trigger
+ * an emit immediately.
+ * \@docs-private
+ * @record
+ */
+
+/**
+ * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
+ * @template T
+ * @param {?} base
+ * @return {?}
+ */
+function mixinInitialized(base) {
+    return /** @class */ (function (_super) {
+        __extends(class_1, _super);
+        function class_1() {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            var _this = _super.apply(this, args) || this;
+            /**
+             * Whether this directive has been marked as initialized.
+             */
+            _this._isInitialized = false;
+            /**
+             * List of subscribers that subscribed before the directive was initialized. Should be notified
+             * during _markInitialized. Set to null after pending subscribers are notified, and should
+             * not expect to be populated after.
+             */
+            _this._pendingSubscribers = [];
+            /**
+             * Observable stream that emits when the directive initializes. If already initialized, the
+             * subscriber is stored to be notified once _markInitialized is called.
+             */
+            _this.initialized = new Observable(function (subscriber) {
+                // If initialized, immediately notify the subscriber. Otherwise store the subscriber to notify
+                // when _markInitialized is called.
+                if (_this._isInitialized) {
+                    _this._notifySubscriber(subscriber);
+                }
+                else {
+                    /** @type {?} */ ((_this._pendingSubscribers)).push(subscriber);
+                }
+            });
+            return _this;
+        }
+        /**
+         * Marks the state as initialized and notifies pending subscribers. Should be called at the end
+         * of ngOnInit.
+         * @docs-private
+         */
+        /**
+         * Marks the state as initialized and notifies pending subscribers. Should be called at the end
+         * of ngOnInit.
+         * \@docs-private
+         * @return {?}
+         */
+        class_1.prototype._markInitialized = /**
+         * Marks the state as initialized and notifies pending subscribers. Should be called at the end
+         * of ngOnInit.
+         * \@docs-private
+         * @return {?}
+         */
+        function () {
+            if (this._isInitialized) {
+                throw Error('This directive has already been marked as initialized and ' +
+                    'should not be called twice.');
+            }
+            this._isInitialized = true; /** @type {?} */
+            ((this._pendingSubscribers)).forEach(this._notifySubscriber);
+            this._pendingSubscribers = null;
+        };
+        /** Emits and completes the subscriber stream (should only emit once). */
+        /**
+         * Emits and completes the subscriber stream (should only emit once).
+         * @param {?} subscriber
+         * @return {?}
+         */
+        class_1.prototype._notifySubscriber = /**
+         * Emits and completes the subscriber stream (should only emit once).
+         * @param {?} subscriber
+         * @return {?}
+         */
+        function (subscriber) {
+            subscriber.next();
+            subscriber.complete();
         };
         return class_1;
     }(base));
@@ -2633,5 +2734,5 @@ var DEC = 11;
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_LABEL_GLOBAL_OPTIONS as MAT_PLACEHOLDER_GLOBAL_OPTIONS, AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC };
+export { MAT_LABEL_GLOBAL_OPTIONS as MAT_PLACEHOLDER_GLOBAL_OPTIONS, AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC };
 //# sourceMappingURL=core.es5.js.map

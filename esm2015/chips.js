@@ -80,13 +80,13 @@ class MatChip extends _MatChipMixinBase {
     constructor(_elementRef) {
         super(_elementRef);
         this._elementRef = _elementRef;
-        this._selected = false;
-        this._selectable = true;
-        this._removable = true;
         /**
          * Whether the chip has focus.
          */
         this._hasFocus = false;
+        this._selected = false;
+        this._selectable = true;
+        this._removable = true;
         /**
          * Emits when the chip is focused.
          */
@@ -147,12 +147,10 @@ class MatChip extends _MatChipMixinBase {
             : this._elementRef.nativeElement.textContent;
     }
     /**
-     * @param {?} newValue
+     * @param {?} value
      * @return {?}
      */
-    set value(newValue) {
-        this._value = newValue;
-    }
+    set value(value) { this._value = value; }
     /**
      * Whether or not the chips are selectable. When a chip is not selectable,
      * changes to it's selected state are always ignored.
@@ -179,6 +177,7 @@ class MatChip extends _MatChipMixinBase {
         this._removable = coerceBooleanProperty(value);
     }
     /**
+     * The ARIA selected applied to the chip.
      * @return {?}
      */
     get ariaSelected() {
@@ -440,12 +439,17 @@ class MatChipList extends _MatChipListMixinBase {
      * @param {?} _defaultErrorStateMatcher
      * @param {?} ngControl
      */
-    constructor(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, ngControl) {
+    constructor(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, /** @docs-private */
+        ngControl) {
         super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
         this.ngControl = ngControl;
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
+         */
         this.controlType = 'mat-chip-list';
         /**
          * When a chip is destroyed, we track the index so we can focus the appropriate next chip.
@@ -460,25 +464,9 @@ class MatChipList extends _MatChipListMixinBase {
          */
         this._tabOutSubscription = Subscription.EMPTY;
         /**
-         * Whether or not the chip is selectable.
-         */
-        this._selectable = true;
-        /**
-         * Whether the component is in multiple selection mode.
-         */
-        this._multiple = false;
-        /**
          * Uid of the chip list
          */
         this._uid = `mat-chip-list-${nextUniqueId++}`;
-        /**
-         * Whether this is required
-         */
-        this._required = false;
-        /**
-         * Whether this is disabled
-         */
-        this._disabled = false;
         /**
          * Tab index for the chip list.
          */
@@ -496,14 +484,15 @@ class MatChipList extends _MatChipListMixinBase {
          * Function when changed
          */
         this._onChange = () => { };
-        /**
-         * Comparison function to specify which option is displayed. Defaults to object equality.
-         */
+        this._multiple = false;
         this._compareWith = (o1, o2) => o1 === o2;
+        this._required = false;
+        this._disabled = false;
         /**
          * Orientation of the chip list.
          */
         this.ariaOrientation = 'horizontal';
+        this._selectable = true;
         /**
          * Event emitted when the selected chip list value has been changed by the user.
          */
@@ -526,11 +515,10 @@ class MatChipList extends _MatChipListMixinBase {
         return this.multiple ? this._selectionModel.selected : this._selectionModel.selected[0];
     }
     /**
+     * The ARIA role applied to the chip list.
      * @return {?}
      */
-    get role() {
-        return this.empty ? null : 'listbox';
-    }
+    get role() { return this.empty ? null : 'listbox'; }
     /**
      * Whether the user should be allowed to select multiple chips.
      * @return {?}
@@ -562,20 +550,22 @@ class MatChipList extends _MatChipListMixinBase {
         }
     }
     /**
-     * Required for FormFieldControl
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     get value() { return this._value; }
     /**
-     * @param {?} newValue
+     * @param {?} value
      * @return {?}
      */
-    set value(newValue) {
-        this.writeValue(newValue);
-        this._value = newValue;
+    set value(value) {
+        this.writeValue(value);
+        this._value = value;
     }
     /**
-     * Required for FormFieldControl. The ID of the chip list
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     get id() { return this._id || this._uid; }
@@ -588,7 +578,8 @@ class MatChipList extends _MatChipListMixinBase {
         this.stateChanges.next();
     }
     /**
-     * Required for FormFieldControl. Whether the chip list is required.
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     get required() { return this._required; }
@@ -601,7 +592,8 @@ class MatChipList extends _MatChipListMixinBase {
         this.stateChanges.next();
     }
     /**
-     * For FormFieldControl. Use chip input's placholder if there's a chip input
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     get placeholder() {
@@ -624,22 +616,25 @@ class MatChipList extends _MatChipListMixinBase {
             (this._chipInput && this._chipInput.focused);
     }
     /**
-     * Whether this chip-list contains no chips and no matChipInput.
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     get empty() {
         return (!this._chipInput || this._chipInput.empty) && this.chips.length === 0;
     }
     /**
+     * Implemented as part of MatFormFieldControl.
      * \@docs-private
      * @return {?}
      */
     get shouldLabelFloat() { return !this.empty || this.focused; }
     /**
-     * Whether this chip-list is disabled.
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
-    get disabled() { return this.ngControl ? this.ngControl.disabled : this._disabled; }
+    get disabled() { return this.ngControl ? !!this.ngControl.disabled : this._disabled; }
     /**
      * @param {?} value
      * @return {?}
@@ -785,21 +780,20 @@ class MatChipList extends _MatChipListMixinBase {
         this._onTouched = fn;
     }
     /**
-     * @param {?} disabled
+     * @param {?} isDisabled
      * @return {?}
      */
-    setDisabledState(disabled) {
-        this.disabled = disabled;
-        this._elementRef.nativeElement.disabled = disabled;
+    setDisabledState(isDisabled) {
+        this.disabled = isDisabled;
+        this._elementRef.nativeElement.disabled = isDisabled;
         this.stateChanges.next();
     }
     /**
+     * Implemented as part of MatFormFieldControl.
      * \@docs-private
      * @return {?}
      */
-    onContainerClick() {
-        this.focus();
-    }
+    onContainerClick() { this.focus(); }
     /**
      * Focuses the the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
@@ -1116,7 +1110,7 @@ class MatChipList extends _MatChipListMixinBase {
             }
             this.stateChanges.next();
         });
-        this._chipBlurSubscription = this.chipBlurChanges.subscribe(_ => {
+        this._chipBlurSubscription = this.chipBlurChanges.subscribe(() => {
             this._blur();
             this.stateChanges.next();
         });
@@ -1125,7 +1119,7 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     _listenToChipsRemoved() {
-        this._chipRemoveSubscription = this.chipRemoveChanges.subscribe((event) => {
+        this._chipRemoveSubscription = this.chipRemoveChanges.subscribe(event => {
             this._updateKeyManager(event.chip);
         });
     }
@@ -1205,6 +1199,9 @@ class MatChipInput {
      */
     constructor(_elementRef) {
         this._elementRef = _elementRef;
+        /**
+         * Whether the control is focused.
+         */
         this.focused = false;
         this._addOnBlur = false;
         /**
@@ -1248,10 +1245,7 @@ class MatChipInput {
      * Whether the input is empty.
      * @return {?}
      */
-    get empty() {
-        let /** @type {?} */ value = this._inputElement.value;
-        return (value == null || value === '');
-    }
+    get empty() { return !this._inputElement.value; }
     /**
      * Utility method to make host definition/tests more clear.
      * @param {?=} event
@@ -1306,6 +1300,7 @@ class MatChipInput {
         this._chipList.stateChanges.next();
     }
     /**
+     * Focuses the input.
      * @return {?}
      */
     focus() { this._inputElement.focus(); }

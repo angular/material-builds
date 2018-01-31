@@ -13,6 +13,7 @@ import { Platform } from '@angular/cdk/platform';
 import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 /** Time in ms to throttle repositioning after scroll events. */
 export declare const SCROLL_THROTTLE_MS = 20;
@@ -132,6 +133,7 @@ export declare type TooltipVisibility = 'initial' | 'visible' | 'hidden';
  */
 export declare class TooltipComponent {
     private _changeDetectorRef;
+    private _breakpointObserver;
     /** Message to display in the tooltip */
     message: string;
     /** Classes to be added to the tooltip. Supports the same syntax as `ngClass`. */
@@ -152,7 +154,9 @@ export declare class TooltipComponent {
     private _position;
     /** Subject for notifying that the tooltip has been hidden from the view */
     private readonly _onHide;
-    constructor(_changeDetectorRef: ChangeDetectorRef);
+    /** Stream that emits whether the user has a handset-sized display.  */
+    _isHandset: Observable<BreakpointState>;
+    constructor(_changeDetectorRef: ChangeDetectorRef, _breakpointObserver: BreakpointObserver);
     /**
      * Shows the tooltip with an animation originating from the provided origin
      * @param position Position of the tooltip.

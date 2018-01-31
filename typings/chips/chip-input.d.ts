@@ -13,6 +13,7 @@ export interface MatChipInputEvent {
  */
 export declare class MatChipInput {
     protected _elementRef: ElementRef;
+    /** Whether the control is focused. */
     focused: boolean;
     _chipList: MatChipList;
     /** Register input for chip list */
@@ -45,5 +46,6 @@ export declare class MatChipInput {
     /** Checks to see if the (chipEnd) event needs to be emitted. */
     _emitChipEnd(event?: KeyboardEvent): void;
     _onInput(): void;
+    /** Focuses the input. */
     focus(): void;
 }

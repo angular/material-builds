@@ -298,40 +298,41 @@ class MatInput extends _MatInputMixinBase {
      * @param {?} _defaultErrorStateMatcher
      * @param {?} inputValueAccessor
      */
-    constructor(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
+    constructor(_elementRef, _platform, /** @docs-private */
+        ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
         super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._elementRef = _elementRef;
         this._platform = _platform;
         this.ngControl = ngControl;
-        /**
-         * Variables used as cache for getters and setters.
-         */
-        this._type = 'text';
-        this._disabled = false;
-        this._required = false;
         this._uid = `mat-input-${nextUniqueId++}`;
-        this._readonly = false;
-        /**
-         * Whether the input is focused.
-         */
-        this.focused = false;
         /**
          * Whether the component is being rendered on the server.
          */
         this._isServer = false;
         /**
-         * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
-         * needs to run change detection.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
+         */
+        this.focused = false;
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          */
         this.stateChanges = new Subject();
         /**
-         * A name for this control that can be used by `mat-form-field`.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          */
         this.controlType = 'mat-input';
+        this._disabled = false;
         /**
-         * Placeholder attribute of the element.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          */
         this.placeholder = '';
+        this._required = false;
+        this._type = 'text';
+        this._readonly = false;
         this._neverEmptyInputTypes = [
             'date',
             'datetime',
@@ -364,7 +365,8 @@ class MatInput extends _MatInputMixinBase {
         this._isServer = !this._platform.isBrowser;
     }
     /**
-     * Whether the element is disabled.
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     get disabled() {
@@ -387,7 +389,8 @@ class MatInput extends _MatInputMixinBase {
         }
     }
     /**
-     * Unique id of the element.
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     get id() { return this._id; }
@@ -397,7 +400,8 @@ class MatInput extends _MatInputMixinBase {
      */
     set id(value) { this._id = value || this._uid; }
     /**
-     * Whether the element is required.
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     get required() { return this._required; }
@@ -426,7 +430,8 @@ class MatInput extends _MatInputMixinBase {
         }
     }
     /**
-     * The input element's value.
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     get value() { return this._inputValueAccessor.value; }
@@ -478,6 +483,7 @@ class MatInput extends _MatInputMixinBase {
         this._dirtyCheckNativeValue();
     }
     /**
+     * Focuses the input.
      * @return {?}
      */
     focus() { this._elementRef.nativeElement.focus(); }
@@ -553,6 +559,8 @@ class MatInput extends _MatInputMixinBase {
         return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
     }
     /**
+     * Implemented as part of MatFormFieldControl.
+     * \@docs-private
      * @return {?}
      */
     get empty() {

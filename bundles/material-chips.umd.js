@@ -94,13 +94,13 @@ var MatChip = /** @class */ (function (_super) {
     function MatChip(_elementRef) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
-        _this._selected = false;
-        _this._selectable = true;
-        _this._removable = true;
         /**
          * Whether the chip has focus.
          */
         _this._hasFocus = false;
+        _this._selected = false;
+        _this._selectable = true;
+        _this._removable = true;
         /**
          * Emits when the chip is focused.
          */
@@ -167,12 +167,10 @@ var MatChip = /** @class */ (function (_super) {
                 : this._elementRef.nativeElement.textContent;
         },
         set: /**
-         * @param {?} newValue
+         * @param {?} value
          * @return {?}
          */
-        function (newValue) {
-            this._value = newValue;
-        },
+        function (value) { this._value = value; },
         enumerable: true,
         configurable: true
     });
@@ -210,7 +208,9 @@ var MatChip = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChip.prototype, "ariaSelected", {
+        /** The ARIA selected applied to the chip. */
         get: /**
+         * The ARIA selected applied to the chip.
          * @return {?}
          */
         function () {
@@ -521,12 +521,17 @@ var MatChipListChange = /** @class */ (function () {
  */
 var MatChipList = /** @class */ (function (_super) {
     __extends(MatChipList, _super);
-    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, ngControl) {
+    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, /** @docs-private */
+        ngControl) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
         _this.ngControl = ngControl;
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
+         */
         _this.controlType = 'mat-chip-list';
         /**
          * When a chip is destroyed, we track the index so we can focus the appropriate next chip.
@@ -541,25 +546,9 @@ var MatChipList = /** @class */ (function (_super) {
          */
         _this._tabOutSubscription = rxjs_Subscription.Subscription.EMPTY;
         /**
-         * Whether or not the chip is selectable.
-         */
-        _this._selectable = true;
-        /**
-         * Whether the component is in multiple selection mode.
-         */
-        _this._multiple = false;
-        /**
          * Uid of the chip list
          */
         _this._uid = "mat-chip-list-" + nextUniqueId++;
-        /**
-         * Whether this is required
-         */
-        _this._required = false;
-        /**
-         * Whether this is disabled
-         */
-        _this._disabled = false;
         /**
          * Tab index for the chip list.
          */
@@ -577,14 +566,15 @@ var MatChipList = /** @class */ (function (_super) {
          * Function when changed
          */
         _this._onChange = function () { };
-        /**
-         * Comparison function to specify which option is displayed. Defaults to object equality.
-         */
+        _this._multiple = false;
         _this._compareWith = function (o1, o2) { return o1 === o2; };
+        _this._required = false;
+        _this._disabled = false;
         /**
          * Orientation of the chip list.
          */
         _this.ariaOrientation = 'horizontal';
+        _this._selectable = true;
         /**
          * Event emitted when the selected chip list value has been changed by the user.
          */
@@ -613,12 +603,12 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "role", {
+        /** The ARIA role applied to the chip list. */
         get: /**
+         * The ARIA role applied to the chip list.
          * @return {?}
          */
-        function () {
-            return this.empty ? null : 'listbox';
-        },
+        function () { return this.empty ? null : 'listbox'; },
         enumerable: true,
         configurable: true
     });
@@ -662,24 +652,26 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "value", {
         get: /**
-         * Required for FormFieldControl
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this._value; },
         set: /**
-         * @param {?} newValue
+         * @param {?} value
          * @return {?}
          */
-        function (newValue) {
-            this.writeValue(newValue);
-            this._value = newValue;
+        function (value) {
+            this.writeValue(value);
+            this._value = value;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "id", {
         get: /**
-         * Required for FormFieldControl. The ID of the chip list
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this._id || this._uid; },
@@ -696,7 +688,8 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "required", {
         get: /**
-         * Required for FormFieldControl. Whether the chip list is required.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this._required; },
@@ -713,7 +706,8 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "placeholder", {
         get: /**
-         * For FormFieldControl. Use chip input's placholder if there's a chip input
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () {
@@ -744,9 +738,13 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "empty", {
-        /** Whether this chip-list contains no chips and no matChipInput. */
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
-         * Whether this chip-list contains no chips and no matChipInput.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () {
@@ -756,8 +754,12 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "shouldLabelFloat", {
-        /** @docs-private */
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
+         * Implemented as part of MatFormFieldControl.
          * \@docs-private
          * @return {?}
          */
@@ -767,10 +769,11 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "disabled", {
         get: /**
-         * Whether this chip-list is disabled.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
-        function () { return this.ngControl ? this.ngControl.disabled : this._disabled; },
+        function () { return this.ngControl ? !!this.ngControl.disabled : this._disabled; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -955,7 +958,7 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (ids) { this._ariaDescribedby = ids.join(' '); };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
      * @return {?}
@@ -969,7 +972,7 @@ var MatChipList = /** @class */ (function (_super) {
             this._setSelectionByValue(value, false);
         }
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -981,7 +984,7 @@ var MatChipList = /** @class */ (function (_super) {
     function (fn) {
         this._onChange = fn;
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -993,32 +996,35 @@ var MatChipList = /** @class */ (function (_super) {
     function (fn) {
         this._onTouched = fn;
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
-     * @param {?} disabled
+     * @param {?} isDisabled
      * @return {?}
      */
     MatChipList.prototype.setDisabledState = /**
-     * @param {?} disabled
+     * @param {?} isDisabled
      * @return {?}
      */
-    function (disabled) {
-        this.disabled = disabled;
-        this._elementRef.nativeElement.disabled = disabled;
+    function (isDisabled) {
+        this.disabled = isDisabled;
+        this._elementRef.nativeElement.disabled = isDisabled;
         this.stateChanges.next();
     };
-    /** @docs-private */
     /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    /**
+     * Implemented as part of MatFormFieldControl.
      * \@docs-private
      * @return {?}
      */
     MatChipList.prototype.onContainerClick = /**
+     * Implemented as part of MatFormFieldControl.
      * \@docs-private
      * @return {?}
      */
-    function () {
-        this.focus();
-    };
+    function () { this.focus(); };
     /**
      * Focuses the the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
@@ -1459,7 +1465,7 @@ var MatChipList = /** @class */ (function (_super) {
             }
             _this.stateChanges.next();
         });
-        this._chipBlurSubscription = this.chipBlurChanges.subscribe(function (_) {
+        this._chipBlurSubscription = this.chipBlurChanges.subscribe(function () {
             _this._blur();
             _this.stateChanges.next();
         });
@@ -1550,6 +1556,9 @@ var MatChipList = /** @class */ (function (_super) {
 var MatChipInput = /** @class */ (function () {
     function MatChipInput(_elementRef) {
         this._elementRef = _elementRef;
+        /**
+         * Whether the control is focused.
+         */
         this.focused = false;
         this._addOnBlur = false;
         /**
@@ -1603,10 +1612,7 @@ var MatChipInput = /** @class */ (function () {
          * Whether the input is empty.
          * @return {?}
          */
-        function () {
-            var /** @type {?} */ value = this._inputElement.value;
-            return (value == null || value === '');
-        },
+        function () { return !this._inputElement.value; },
         enumerable: true,
         configurable: true
     });
@@ -1686,10 +1692,13 @@ var MatChipInput = /** @class */ (function () {
         // Let chip list know whenever the value changes.
         this._chipList.stateChanges.next();
     };
+    /** Focuses the input. */
     /**
+     * Focuses the input.
      * @return {?}
      */
     MatChipInput.prototype.focus = /**
+     * Focuses the input.
      * @return {?}
      */
     function () { this._inputElement.focus(); };

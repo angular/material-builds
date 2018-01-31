@@ -23,6 +23,10 @@ export declare class MatPaginatorIntl {
     nextPageLabel: string;
     /** A label for the button that decrements the current page. */
     previousPageLabel: string;
+    /** A label for the button that moves to the first page. */
+    firstPageLabel: string;
+    /** A label for the button that moves to the last page. */
+    lastPageLabel: string;
     /** A label for the range of items within the current page and the length of the whole list. */
     getRangeLabel: (page: number, pageSize: number, length: number) => string;
 }

@@ -78,6 +78,7 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     ngOnDestroy(): void;
     /** @docs-private */
     registerOnValidatorChange(fn: () => void): void;
+    /** @docs-private */
     validate(c: AbstractControl): ValidationErrors | null;
     /**
      * Gets the element that the datepicker popup should be connected to.
@@ -92,7 +93,7 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     writeValue(value: D): void;
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: () => void): void;
-    setDisabledState(disabled: boolean): void;
+    setDisabledState(isDisabled: boolean): void;
     _onKeydown(event: KeyboardEvent): void;
     _onInput(value: string): void;
     _onChange(): void;

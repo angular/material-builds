@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('@angular/animations'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/Observable'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/layout'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', '@angular/animations', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/Observable', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/layout', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.Rx.Observable,global.Rx.operators,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.accordion,global.Rx,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.layout,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,rxjs_observable_fromEvent,rxjs_operators_startWith,_angular_animations,rxjs_observable_defer,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,rxjs_operators_auditTime,rxjs_operators_takeUntil,_angular_cdk_accordion,rxjs_Observable,_angular_cdk_scrolling,rxjs_operators_debounceTime,_angular_cdk_layout,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest,rxjs_observable_empty) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('@angular/animations'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('@angular/cdk/layout'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', '@angular/animations', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', '@angular/cdk/layout', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.Rx.Observable,global.Rx.operators,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.operators,global.Rx.operators,global.ng.cdk.accordion,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.layout,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,rxjs_Observable,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,rxjs_observable_fromEvent,rxjs_operators_startWith,_angular_animations,rxjs_observable_defer,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_operators_auditTime,rxjs_operators_takeUntil,_angular_cdk_accordion,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,_angular_cdk_layout,_angular_cdk_scrolling,rxjs_operators_debounceTime,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest,rxjs_observable_empty) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -469,6 +469,106 @@ function mixinErrorState(base) {
                 this.errorState = newState;
                 this.stateChanges.next();
             }
+        };
+        return class_1;
+    }(base));
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * Mixin that adds an initialized property to a directive which, when subscribed to, will emit a
+ * value once markInitialized has been called, which should be done during the ngOnInit function.
+ * If the subscription is made after it has already been marked as initialized, then it will trigger
+ * an emit immediately.
+ * \@docs-private
+ * @record
+ */
+
+/**
+ * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
+ * @template T
+ * @param {?} base
+ * @return {?}
+ */
+function mixinInitialized(base) {
+    return /** @class */ (function (_super) {
+        __extends(class_1, _super);
+        function class_1() {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            var _this = _super.apply(this, args) || this;
+            /**
+             * Whether this directive has been marked as initialized.
+             */
+            _this._isInitialized = false;
+            /**
+             * List of subscribers that subscribed before the directive was initialized. Should be notified
+             * during _markInitialized. Set to null after pending subscribers are notified, and should
+             * not expect to be populated after.
+             */
+            _this._pendingSubscribers = [];
+            /**
+             * Observable stream that emits when the directive initializes. If already initialized, the
+             * subscriber is stored to be notified once _markInitialized is called.
+             */
+            _this.initialized = new rxjs_Observable.Observable(function (subscriber) {
+                // If initialized, immediately notify the subscriber. Otherwise store the subscriber to notify
+                // when _markInitialized is called.
+                if (_this._isInitialized) {
+                    _this._notifySubscriber(subscriber);
+                }
+                else {
+                    /** @type {?} */ ((_this._pendingSubscribers)).push(subscriber);
+                }
+            });
+            return _this;
+        }
+        /**
+         * Marks the state as initialized and notifies pending subscribers. Should be called at the end
+         * of ngOnInit.
+         * @docs-private
+         */
+        /**
+         * Marks the state as initialized and notifies pending subscribers. Should be called at the end
+         * of ngOnInit.
+         * \@docs-private
+         * @return {?}
+         */
+        class_1.prototype._markInitialized = /**
+         * Marks the state as initialized and notifies pending subscribers. Should be called at the end
+         * of ngOnInit.
+         * \@docs-private
+         * @return {?}
+         */
+        function () {
+            if (this._isInitialized) {
+                throw Error('This directive has already been marked as initialized and ' +
+                    'should not be called twice.');
+            }
+            this._isInitialized = true; /** @type {?} */
+            ((this._pendingSubscribers)).forEach(this._notifySubscriber);
+            this._pendingSubscribers = null;
+        };
+        /** Emits and completes the subscriber stream (should only emit once). */
+        /**
+         * Emits and completes the subscriber stream (should only emit once).
+         * @param {?} subscriber
+         * @return {?}
+         */
+        class_1.prototype._notifySubscriber = /**
+         * Emits and completes the subscriber stream (should only emit once).
+         * @param {?} subscriber
+         * @return {?}
+         */
+        function (subscriber) {
+            subscriber.next();
+            subscriber.complete();
         };
         return class_1;
     }(base));
@@ -3443,9 +3543,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
          * Whether the autocomplete panel is open.
          * @return {?}
          */
-        function () {
-            return this._isOpen && this.showPanel;
-        },
+        function () { return this._isOpen && this.showPanel; },
         enumerable: true,
         configurable: true
     });
@@ -3470,13 +3568,13 @@ var MatAutocomplete = /** @class */ (function (_super) {
         set: /**
          * Takes classes set on the host mat-autocomplete element and applies them to the panel
          * inside the overlay container to allow for easy styling.
-         * @param {?} classList
+         * @param {?} value
          * @return {?}
          */
-        function (classList) {
+        function (value) {
             var _this = this;
-            if (classList && classList.length) {
-                classList.split(' ').forEach(function (className) { return _this._classList[className.trim()] = true; });
+            if (value && value.length) {
+                value.split(' ').forEach(function (className) { return _this._classList[className.trim()] = true; });
                 this._elementRef.nativeElement.className = '';
             }
         },
@@ -3656,7 +3754,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         this._dir = _dir;
         this._formField = _formField;
         this._document = _document;
-        this._panelOpen = false;
         this._componentDestroyed = false;
         /**
          * Whether or not the label state is being overridden.
@@ -3674,6 +3771,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * `View -> model callback called when autocomplete has been touched`
          */
         this._onTouched = function () { };
+        this._panelOpen = false;
         /**
          * Stream of autocomplete option selections.
          */
@@ -3705,9 +3803,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * Whether or not the autocomplete panel is open.
          * @return {?}
          */
-        function () {
-            return this._panelOpen && this.autocomplete.showPanel;
-        },
+        function () { return this._panelOpen && this.autocomplete.showPanel; },
         enumerable: true,
         configurable: true
     });
@@ -3810,94 +3906,50 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Sets the autocomplete's value. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param value New value to be written to the model.
-     */
-    /**
-     * Sets the autocomplete's value. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param {?} value New value to be written to the model.
+     * @param {?} value
      * @return {?}
      */
     MatAutocompleteTrigger.prototype.writeValue = /**
-     * Sets the autocomplete's value. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param {?} value New value to be written to the model.
+     * @param {?} value
      * @return {?}
      */
     function (value) {
         var _this = this;
         Promise.resolve(null).then(function () { return _this._setTriggerValue(value); });
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Saves a callback function to be invoked when the autocomplete's value
-     * changes from user input. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param fn Callback to be triggered when the value changes.
-     */
-    /**
-     * Saves a callback function to be invoked when the autocomplete's value
-     * changes from user input. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param {?} fn Callback to be triggered when the value changes.
+     * @param {?} fn
      * @return {?}
      */
     MatAutocompleteTrigger.prototype.registerOnChange = /**
-     * Saves a callback function to be invoked when the autocomplete's value
-     * changes from user input. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param {?} fn Callback to be triggered when the value changes.
+     * @param {?} fn
      * @return {?}
      */
     function (fn) {
         this._onChange = fn;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Saves a callback function to be invoked when the autocomplete is blurred
-     * by the user. Part of the ControlValueAccessor interface required
-     * to integrate with Angular's core forms API.
-     *
-     * @param fn Callback to be triggered when the component has been touched.
-     */
-    /**
-     * Saves a callback function to be invoked when the autocomplete is blurred
-     * by the user. Part of the ControlValueAccessor interface required
-     * to integrate with Angular's core forms API.
-     *
-     * @param {?} fn Callback to be triggered when the component has been touched.
+     * @param {?} fn
      * @return {?}
      */
     MatAutocompleteTrigger.prototype.registerOnTouched = /**
-     * Saves a callback function to be invoked when the autocomplete is blurred
-     * by the user. Part of the ControlValueAccessor interface required
-     * to integrate with Angular's core forms API.
-     *
-     * @param {?} fn Callback to be triggered when the component has been touched.
+     * @param {?} fn
      * @return {?}
      */
     function (fn) {
         this._onTouched = fn;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Disables the input. Implemented as a part of `ControlValueAccessor`.
-     * @param isDisabled Whether the component should be disabled.
-     */
-    /**
-     * Disables the input. Implemented as a part of `ControlValueAccessor`.
-     * @param {?} isDisabled Whether the component should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     MatAutocompleteTrigger.prototype.setDisabledState = /**
-     * Disables the input. Implemented as a part of `ControlValueAccessor`.
-     * @param {?} isDisabled Whether the component should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     function (isDisabled) {
@@ -4657,22 +4709,6 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this._changeDetector = _changeDetector;
         /**
-         * The value for the button toggle group. Should match currently selected button toggle.
-         */
-        _this._value = null;
-        /**
-         * The HTML name attribute applied to toggles in this group.
-         */
-        _this._name = "mat-button-toggle-group-" + _uniqueIdCounter$1++;
-        /**
-         * Whether the button toggle group should be vertical.
-         */
-        _this._vertical = false;
-        /**
-         * The currently selected button toggle, should match the value.
-         */
-        _this._selected = null;
-        /**
          * The method to be called in order to update ngModel.
          * Now `ngModel` binding is not supported in multiple selection mode.
          */
@@ -4681,12 +4717,16 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
         _this._onTouched = function () { };
+        _this._name = "mat-button-toggle-group-" + _uniqueIdCounter$1++;
+        _this._vertical = false;
+        _this._value = null;
         /**
          * Event that emits whenever the value of the group changes.
          * Used to facilitate two-way data binding.
          * \@docs-private
          */
         _this.valueChange = new _angular_core.EventEmitter();
+        _this._selected = null;
         /**
          * Event emitted when the group's value changes.
          */
@@ -4731,13 +4771,13 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
          */
         function () { return this._value; },
         set: /**
-         * @param {?} newValue
+         * @param {?} value
          * @return {?}
          */
-        function (newValue) {
-            if (this._value != newValue) {
-                this._value = newValue;
-                this.valueChange.emit(newValue);
+        function (value) {
+            if (this._value != value) {
+                this._value = value;
+                this.valueChange.emit(value);
                 this._updateSelectedButtonToggleFromValue();
             }
         },
@@ -4746,7 +4786,7 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatButtonToggleGroup.prototype, "selected", {
         get: /**
-         * Whether the toggle group is selected.
+         * The currently selected button toggle, should match the value.
          * @return {?}
          */
         function () { return this._selected; },
@@ -4816,76 +4856,50 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
         this._controlValueAccessorChangeFn(event.value);
         this.change.emit(event);
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param value Value to be set to the model.
-     */
-    /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param {?} value Value to be set to the model.
+     * @param {?} value
      * @return {?}
      */
     MatButtonToggleGroup.prototype.writeValue = /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param {?} value Value to be set to the model.
+     * @param {?} value
      * @return {?}
      */
     function (value) {
         this.value = value;
         this._changeDetector.markForCheck();
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Registers a callback that will be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn On change callback function.
-     */
-    /**
-     * Registers a callback that will be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn On change callback function.
+     * @param {?} fn
      * @return {?}
      */
     MatButtonToggleGroup.prototype.registerOnChange = /**
-     * Registers a callback that will be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn On change callback function.
+     * @param {?} fn
      * @return {?}
      */
     function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Registers a callback that will be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn On touch callback function.
-     */
-    /**
-     * Registers a callback that will be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn On touch callback function.
+     * @param {?} fn
      * @return {?}
      */
     MatButtonToggleGroup.prototype.registerOnTouched = /**
-     * Registers a callback that will be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn On touch callback function.
+     * @param {?} fn
      * @return {?}
      */
     function (fn) {
         this._onTouched = fn;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Toggles the disabled state of the component. Implemented as part of ControlValueAccessor.
-     * @param isDisabled Whether the component should be disabled.
-     */
-    /**
-     * Toggles the disabled state of the component. Implemented as part of ControlValueAccessor.
-     * @param {?} isDisabled Whether the component should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     MatButtonToggleGroup.prototype.setDisabledState = /**
-     * Toggles the disabled state of the component. Implemented as part of ControlValueAccessor.
-     * @param {?} isDisabled Whether the component should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     function (isDisabled) {
@@ -4938,9 +4952,6 @@ var MatButtonToggleGroupMultiple = /** @class */ (function (_super) {
     __extends(MatButtonToggleGroupMultiple, _super);
     function MatButtonToggleGroupMultiple() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        /**
-         * Whether the button toggle group should be vertical.
-         */
         _this._vertical = false;
         return _this;
     }
@@ -4954,9 +4965,7 @@ var MatButtonToggleGroupMultiple = /** @class */ (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._vertical = _angular_cdk_coercion.coerceBooleanProperty(value);
-        },
+        function (value) { this._vertical = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -4999,18 +5008,6 @@ var MatButtonToggle = /** @class */ (function () {
          */
         this.ariaLabelledby = null;
         /**
-         * Whether or not this button toggle is checked.
-         */
-        this._checked = false;
-        /**
-         * Whether or not this button toggle is disabled.
-         */
-        this._disabled = false;
-        /**
-         * Value assigned to this button toggle.
-         */
-        this._value = null;
-        /**
          * Whether or not the button toggle is a single selection.
          */
         this._isSingleSelector = false;
@@ -5018,6 +5015,9 @@ var MatButtonToggle = /** @class */ (function () {
          * Unregister function for _buttonToggleDispatcher
          */
         this._removeUniqueSelectionListener = function () { };
+        this._checked = false;
+        this._value = null;
+        this._disabled = false;
         /**
          * Event emitted when the group value changes.
          */
@@ -5060,17 +5060,17 @@ var MatButtonToggle = /** @class */ (function () {
          */
         function () { return this._checked; },
         set: /**
-         * @param {?} newCheckedState
+         * @param {?} value
          * @return {?}
          */
-        function (newCheckedState) {
-            if (this._isSingleSelector && newCheckedState) {
+        function (value) {
+            if (this._isSingleSelector && value) {
                 // Notify all button toggles with the same name (in the same group) to un-check.
                 this._buttonToggleDispatcher.notify(this.id, this.name);
                 this._changeDetectorRef.markForCheck();
             }
-            this._checked = newCheckedState;
-            if (newCheckedState && this._isSingleSelector && this.buttonToggleGroup.value != this.value) {
+            this._checked = value;
+            if (value && this._isSingleSelector && this.buttonToggleGroup.value != this.value) {
                 this.buttonToggleGroup.selected = this;
             }
         },
@@ -5111,9 +5111,7 @@ var MatButtonToggle = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value);
-        },
+        function (value) { this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -5743,12 +5741,12 @@ var MatCheckbox = /** @class */ (function (_super) {
          * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
          * \@docs-private
          */
-        _this.onTouched = function () { };
+        _this._onTouched = function () { };
         _this._currentAnimationClass = '';
         _this._currentCheckState = TransitionCheckState.Init;
+        _this._controlValueAccessorChangeFn = function () { };
         _this._checked = false;
         _this._indeterminate = false;
-        _this._controlValueAccessorChangeFn = function () { };
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -5789,11 +5787,11 @@ var MatCheckbox = /** @class */ (function (_super) {
             return this.labelPosition == 'after' ? 'start' : 'end';
         },
         set: /**
-         * @param {?} v
+         * @param {?} value
          * @return {?}
          */
-        function (v) {
-            this.labelPosition = (v == 'start') ? 'after' : 'before';
+        function (value) {
+            this.labelPosition = (value == 'start') ? 'after' : 'before';
         },
         enumerable: true,
         configurable: true
@@ -5826,12 +5824,12 @@ var MatCheckbox = /** @class */ (function (_super) {
          */
         function () { return this._checked; },
         set: /**
-         * @param {?} checked
+         * @param {?} value
          * @return {?}
          */
-        function (checked) {
-            if (checked != this.checked) {
-                this._checked = checked;
+        function (value) {
+            if (value != this.checked) {
+                this._checked = value;
                 this._changeDetectorRef.markForCheck();
             }
         },
@@ -5848,12 +5846,12 @@ var MatCheckbox = /** @class */ (function (_super) {
          */
         function () { return this._indeterminate; },
         set: /**
-         * @param {?} indeterminate
+         * @param {?} value
          * @return {?}
          */
-        function (indeterminate) {
-            var /** @type {?} */ changed = indeterminate != this._indeterminate;
-            this._indeterminate = indeterminate;
+        function (value) {
+            var /** @type {?} */ changed = value != this._indeterminate;
+            this._indeterminate = value;
             if (changed) {
                 if (this._indeterminate) {
                     this._transitionCheckState(TransitionCheckState.Indeterminate);
@@ -5891,75 +5889,49 @@ var MatCheckbox = /** @class */ (function (_super) {
         // that has been recognized by the cdkObserveContent directive.
         this._changeDetectorRef.markForCheck();
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param value Value to be set to the model.
-     */
-    /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param {?} value Value to be set to the model.
+     * @param {?} value
      * @return {?}
      */
     MatCheckbox.prototype.writeValue = /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param {?} value Value to be set to the model.
+     * @param {?} value
      * @return {?}
      */
     function (value) {
         this.checked = !!value;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Registers a callback to be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn Function to be called on change.
-     */
-    /**
-     * Registers a callback to be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn Function to be called on change.
+     * @param {?} fn
      * @return {?}
      */
     MatCheckbox.prototype.registerOnChange = /**
-     * Registers a callback to be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn Function to be called on change.
+     * @param {?} fn
      * @return {?}
      */
     function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Registers a callback to be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn Callback to be triggered when the checkbox is touched.
-     */
-    /**
-     * Registers a callback to be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn Callback to be triggered when the checkbox is touched.
+     * @param {?} fn
      * @return {?}
      */
     MatCheckbox.prototype.registerOnTouched = /**
-     * Registers a callback to be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn Callback to be triggered when the checkbox is touched.
+     * @param {?} fn
      * @return {?}
      */
     function (fn) {
-        this.onTouched = fn;
+        this._onTouched = fn;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
-     * @param isDisabled Whether the checkbox should be disabled.
-     */
-    /**
-     * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
-     * @param {?} isDisabled Whether the checkbox should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     MatCheckbox.prototype.setDisabledState = /**
-     * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
-     * @param {?} isDisabled Whether the checkbox should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     function (isDisabled) {
@@ -6027,7 +5999,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         }
         else if (!focusOrigin) {
             this._removeFocusRipple();
-            this.onTouched();
+            this._onTouched();
         }
     };
     /** Toggles the `checked` state of the checkbox. */
@@ -6335,13 +6307,13 @@ var MatChip = /** @class */ (function (_super) {
     function MatChip(_elementRef) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
-        _this._selected = false;
-        _this._selectable = true;
-        _this._removable = true;
         /**
          * Whether the chip has focus.
          */
         _this._hasFocus = false;
+        _this._selected = false;
+        _this._selectable = true;
+        _this._removable = true;
         /**
          * Emits when the chip is focused.
          */
@@ -6408,12 +6380,10 @@ var MatChip = /** @class */ (function (_super) {
                 : this._elementRef.nativeElement.textContent;
         },
         set: /**
-         * @param {?} newValue
+         * @param {?} value
          * @return {?}
          */
-        function (newValue) {
-            this._value = newValue;
-        },
+        function (value) { this._value = value; },
         enumerable: true,
         configurable: true
     });
@@ -6451,7 +6421,9 @@ var MatChip = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChip.prototype, "ariaSelected", {
+        /** The ARIA selected applied to the chip. */
         get: /**
+         * The ARIA selected applied to the chip.
          * @return {?}
          */
         function () {
@@ -6762,12 +6734,17 @@ var MatChipListChange = /** @class */ (function () {
  */
 var MatChipList = /** @class */ (function (_super) {
     __extends(MatChipList, _super);
-    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, ngControl) {
+    function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, /** @docs-private */
+        ngControl) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
         _this.ngControl = ngControl;
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
+         */
         _this.controlType = 'mat-chip-list';
         /**
          * When a chip is destroyed, we track the index so we can focus the appropriate next chip.
@@ -6782,25 +6759,9 @@ var MatChipList = /** @class */ (function (_super) {
          */
         _this._tabOutSubscription = rxjs_Subscription.Subscription.EMPTY;
         /**
-         * Whether or not the chip is selectable.
-         */
-        _this._selectable = true;
-        /**
-         * Whether the component is in multiple selection mode.
-         */
-        _this._multiple = false;
-        /**
          * Uid of the chip list
          */
         _this._uid = "mat-chip-list-" + nextUniqueId$2$1++;
-        /**
-         * Whether this is required
-         */
-        _this._required = false;
-        /**
-         * Whether this is disabled
-         */
-        _this._disabled = false;
         /**
          * Tab index for the chip list.
          */
@@ -6818,14 +6779,15 @@ var MatChipList = /** @class */ (function (_super) {
          * Function when changed
          */
         _this._onChange = function () { };
-        /**
-         * Comparison function to specify which option is displayed. Defaults to object equality.
-         */
+        _this._multiple = false;
         _this._compareWith = function (o1, o2) { return o1 === o2; };
+        _this._required = false;
+        _this._disabled = false;
         /**
          * Orientation of the chip list.
          */
         _this.ariaOrientation = 'horizontal';
+        _this._selectable = true;
         /**
          * Event emitted when the selected chip list value has been changed by the user.
          */
@@ -6854,12 +6816,12 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "role", {
+        /** The ARIA role applied to the chip list. */
         get: /**
+         * The ARIA role applied to the chip list.
          * @return {?}
          */
-        function () {
-            return this.empty ? null : 'listbox';
-        },
+        function () { return this.empty ? null : 'listbox'; },
         enumerable: true,
         configurable: true
     });
@@ -6903,24 +6865,26 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "value", {
         get: /**
-         * Required for FormFieldControl
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this._value; },
         set: /**
-         * @param {?} newValue
+         * @param {?} value
          * @return {?}
          */
-        function (newValue) {
-            this.writeValue(newValue);
-            this._value = newValue;
+        function (value) {
+            this.writeValue(value);
+            this._value = value;
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "id", {
         get: /**
-         * Required for FormFieldControl. The ID of the chip list
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this._id || this._uid; },
@@ -6937,7 +6901,8 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "required", {
         get: /**
-         * Required for FormFieldControl. Whether the chip list is required.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this._required; },
@@ -6954,7 +6919,8 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "placeholder", {
         get: /**
-         * For FormFieldControl. Use chip input's placholder if there's a chip input
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () {
@@ -6985,9 +6951,13 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "empty", {
-        /** Whether this chip-list contains no chips and no matChipInput. */
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
-         * Whether this chip-list contains no chips and no matChipInput.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () {
@@ -6997,8 +6967,12 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "shouldLabelFloat", {
-        /** @docs-private */
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
+         * Implemented as part of MatFormFieldControl.
          * \@docs-private
          * @return {?}
          */
@@ -7008,10 +6982,11 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "disabled", {
         get: /**
-         * Whether this chip-list is disabled.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
-        function () { return this.ngControl ? this.ngControl.disabled : this._disabled; },
+        function () { return this.ngControl ? !!this.ngControl.disabled : this._disabled; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -7196,7 +7171,7 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (ids) { this._ariaDescribedby = ids.join(' '); };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
      * @return {?}
@@ -7210,7 +7185,7 @@ var MatChipList = /** @class */ (function (_super) {
             this._setSelectionByValue(value, false);
         }
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -7222,7 +7197,7 @@ var MatChipList = /** @class */ (function (_super) {
     function (fn) {
         this._onChange = fn;
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -7234,32 +7209,35 @@ var MatChipList = /** @class */ (function (_super) {
     function (fn) {
         this._onTouched = fn;
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
-     * @param {?} disabled
+     * @param {?} isDisabled
      * @return {?}
      */
     MatChipList.prototype.setDisabledState = /**
-     * @param {?} disabled
+     * @param {?} isDisabled
      * @return {?}
      */
-    function (disabled) {
-        this.disabled = disabled;
-        this._elementRef.nativeElement.disabled = disabled;
+    function (isDisabled) {
+        this.disabled = isDisabled;
+        this._elementRef.nativeElement.disabled = isDisabled;
         this.stateChanges.next();
     };
-    /** @docs-private */
     /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    /**
+     * Implemented as part of MatFormFieldControl.
      * \@docs-private
      * @return {?}
      */
     MatChipList.prototype.onContainerClick = /**
+     * Implemented as part of MatFormFieldControl.
      * \@docs-private
      * @return {?}
      */
-    function () {
-        this.focus();
-    };
+    function () { this.focus(); };
     /**
      * Focuses the the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
@@ -7700,7 +7678,7 @@ var MatChipList = /** @class */ (function (_super) {
             }
             _this.stateChanges.next();
         });
-        this._chipBlurSubscription = this.chipBlurChanges.subscribe(function (_) {
+        this._chipBlurSubscription = this.chipBlurChanges.subscribe(function () {
             _this._blur();
             _this.stateChanges.next();
         });
@@ -7791,6 +7769,9 @@ var MatChipList = /** @class */ (function (_super) {
 var MatChipInput = /** @class */ (function () {
     function MatChipInput(_elementRef) {
         this._elementRef = _elementRef;
+        /**
+         * Whether the control is focused.
+         */
         this.focused = false;
         this._addOnBlur = false;
         /**
@@ -7844,10 +7825,7 @@ var MatChipInput = /** @class */ (function () {
          * Whether the input is empty.
          * @return {?}
          */
-        function () {
-            var /** @type {?} */ value = this._inputElement.value;
-            return (value == null || value === '');
-        },
+        function () { return !this._inputElement.value; },
         enumerable: true,
         configurable: true
     });
@@ -7927,10 +7905,13 @@ var MatChipInput = /** @class */ (function () {
         // Let chip list know whenever the value changes.
         this._chipList.stateChanges.next();
     };
+    /** Focuses the input. */
     /**
+     * Focuses the input.
      * @return {?}
      */
     MatChipInput.prototype.focus = /**
+     * Focuses the input.
      * @return {?}
      */
     function () { this._inputElement.focus(); };
@@ -9161,1014 +9142,6 @@ var MatDialogModule = /** @class */ (function () {
  */
 
 /**
- * Returns an exception to be thrown in the case when attempting to
- * load an icon with a name that cannot be found.
- * \@docs-private
- * @param {?} iconName
- * @return {?}
- */
-function getMatIconNameNotFoundError(iconName) {
-    return Error("Unable to find icon with the name \"" + iconName + "\"");
-}
-/**
- * Returns an exception to be thrown when the consumer attempts to use
- * `<mat-icon>` without including \@angular/http.
- * \@docs-private
- * @return {?}
- */
-function getMatIconNoHttpProviderError() {
-    return Error('Could not find HttpClient provider for use with Angular Material icons. ' +
-        'Please include the HttpClientModule from @angular/common/http in your ' +
-        'app imports.');
-}
-/**
- * Returns an exception to be thrown when a URL couldn't be sanitized.
- * \@docs-private
- * @param {?} url URL that was attempted to be sanitized.
- * @return {?}
- */
-function getMatIconFailedToSanitizeError(url) {
-    return Error("The URL provided to MatIconRegistry was not trusted as a resource URL " +
-        ("via Angular's DomSanitizer. Attempted URL was \"" + url + "\"."));
-}
-/**
- * Configuration for an icon, including the URL and possibly the cached SVG element.
- * \@docs-private
- */
-var SvgIconConfig = /** @class */ (function () {
-    function SvgIconConfig(url) {
-        this.url = url;
-        this.svgElement = null;
-    }
-    return SvgIconConfig;
-}());
-/**
- * Service to register and display icons used by the `<mat-icon>` component.
- * - Registers icon URLs by namespace and name.
- * - Registers icon set URLs by namespace.
- * - Registers aliases for CSS classes, for use with icon fonts.
- * - Loads icons from URLs and extracts individual icons from icon sets.
- */
-var MatIconRegistry = /** @class */ (function () {
-    function MatIconRegistry(_httpClient, _sanitizer, document) {
-        this._httpClient = _httpClient;
-        this._sanitizer = _sanitizer;
-        /**
-         * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
-         */
-        this._svgIconConfigs = new Map();
-        /**
-         * SvgIconConfig objects and cached SVG elements for icon sets, keyed by namespace.
-         * Multiple icon sets can be registered under the same namespace.
-         */
-        this._iconSetConfigs = new Map();
-        /**
-         * Cache for icons loaded by direct URLs.
-         */
-        this._cachedIconsByUrl = new Map();
-        /**
-         * In-progress icon fetches. Used to coalesce multiple requests to the same URL.
-         */
-        this._inProgressUrlFetches = new Map();
-        /**
-         * Map from font identifiers to their CSS class names. Used for icon fonts.
-         */
-        this._fontCssClassesByAlias = new Map();
-        /**
-         * The CSS class to apply when an `<mat-icon>` component has no icon name, url, or font specified.
-         * The default 'material-icons' value assumes that the material icon font has been loaded as
-         * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
-         */
-        this._defaultFontSetClass = 'material-icons';
-        // TODO(crisbeto): make _document required next major release.
-        this._document = document;
-    }
-    /**
-     * Registers an icon by URL in the default namespace.
-     * @param iconName Name under which the icon should be registered.
-     * @param url
-     */
-    /**
-     * Registers an icon by URL in the default namespace.
-     * @param {?} iconName Name under which the icon should be registered.
-     * @param {?} url
-     * @return {?}
-     */
-    MatIconRegistry.prototype.addSvgIcon = /**
-     * Registers an icon by URL in the default namespace.
-     * @param {?} iconName Name under which the icon should be registered.
-     * @param {?} url
-     * @return {?}
-     */
-    function (iconName, url) {
-        return this.addSvgIconInNamespace('', iconName, url);
-    };
-    /**
-     * Registers an icon by URL in the specified namespace.
-     * @param namespace Namespace in which the icon should be registered.
-     * @param iconName Name under which the icon should be registered.
-     * @param url
-     */
-    /**
-     * Registers an icon by URL in the specified namespace.
-     * @param {?} namespace Namespace in which the icon should be registered.
-     * @param {?} iconName Name under which the icon should be registered.
-     * @param {?} url
-     * @return {?}
-     */
-    MatIconRegistry.prototype.addSvgIconInNamespace = /**
-     * Registers an icon by URL in the specified namespace.
-     * @param {?} namespace Namespace in which the icon should be registered.
-     * @param {?} iconName Name under which the icon should be registered.
-     * @param {?} url
-     * @return {?}
-     */
-    function (namespace, iconName, url) {
-        var /** @type {?} */ key = iconKey(namespace, iconName);
-        this._svgIconConfigs.set(key, new SvgIconConfig(url));
-        return this;
-    };
-    /**
-     * Registers an icon set by URL in the default namespace.
-     * @param url
-     */
-    /**
-     * Registers an icon set by URL in the default namespace.
-     * @param {?} url
-     * @return {?}
-     */
-    MatIconRegistry.prototype.addSvgIconSet = /**
-     * Registers an icon set by URL in the default namespace.
-     * @param {?} url
-     * @return {?}
-     */
-    function (url) {
-        return this.addSvgIconSetInNamespace('', url);
-    };
-    /**
-     * Registers an icon set by URL in the specified namespace.
-     * @param namespace Namespace in which to register the icon set.
-     * @param url
-     */
-    /**
-     * Registers an icon set by URL in the specified namespace.
-     * @param {?} namespace Namespace in which to register the icon set.
-     * @param {?} url
-     * @return {?}
-     */
-    MatIconRegistry.prototype.addSvgIconSetInNamespace = /**
-     * Registers an icon set by URL in the specified namespace.
-     * @param {?} namespace Namespace in which to register the icon set.
-     * @param {?} url
-     * @return {?}
-     */
-    function (namespace, url) {
-        var /** @type {?} */ config = new SvgIconConfig(url);
-        var /** @type {?} */ configNamespace = this._iconSetConfigs.get(namespace);
-        if (configNamespace) {
-            configNamespace.push(config);
-        }
-        else {
-            this._iconSetConfigs.set(namespace, [config]);
-        }
-        return this;
-    };
-    /**
-     * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
-     * component with the alias as the fontSet input will cause the class name to be applied
-     * to the `<mat-icon>` element.
-     *
-     * @param alias Alias for the font.
-     * @param className Class name override to be used instead of the alias.
-     */
-    /**
-     * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
-     * component with the alias as the fontSet input will cause the class name to be applied
-     * to the `<mat-icon>` element.
-     *
-     * @param {?} alias Alias for the font.
-     * @param {?=} className Class name override to be used instead of the alias.
-     * @return {?}
-     */
-    MatIconRegistry.prototype.registerFontClassAlias = /**
-     * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
-     * component with the alias as the fontSet input will cause the class name to be applied
-     * to the `<mat-icon>` element.
-     *
-     * @param {?} alias Alias for the font.
-     * @param {?=} className Class name override to be used instead of the alias.
-     * @return {?}
-     */
-    function (alias, className) {
-        if (className === void 0) { className = alias; }
-        this._fontCssClassesByAlias.set(alias, className);
-        return this;
-    };
-    /**
-     * Returns the CSS class name associated with the alias by a previous call to
-     * registerFontClassAlias. If no CSS class has been associated, returns the alias unmodified.
-     */
-    /**
-     * Returns the CSS class name associated with the alias by a previous call to
-     * registerFontClassAlias. If no CSS class has been associated, returns the alias unmodified.
-     * @param {?} alias
-     * @return {?}
-     */
-    MatIconRegistry.prototype.classNameForFontAlias = /**
-     * Returns the CSS class name associated with the alias by a previous call to
-     * registerFontClassAlias. If no CSS class has been associated, returns the alias unmodified.
-     * @param {?} alias
-     * @return {?}
-     */
-    function (alias) {
-        return this._fontCssClassesByAlias.get(alias) || alias;
-    };
-    /**
-     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
-     * have a fontSet input value, and is not loading an icon by name or URL.
-     *
-     * @param className
-     */
-    /**
-     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
-     * have a fontSet input value, and is not loading an icon by name or URL.
-     *
-     * @param {?} className
-     * @return {?}
-     */
-    MatIconRegistry.prototype.setDefaultFontSetClass = /**
-     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
-     * have a fontSet input value, and is not loading an icon by name or URL.
-     *
-     * @param {?} className
-     * @return {?}
-     */
-    function (className) {
-        this._defaultFontSetClass = className;
-        return this;
-    };
-    /**
-     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
-     * have a fontSet input value, and is not loading an icon by name or URL.
-     */
-    /**
-     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
-     * have a fontSet input value, and is not loading an icon by name or URL.
-     * @return {?}
-     */
-    MatIconRegistry.prototype.getDefaultFontSetClass = /**
-     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
-     * have a fontSet input value, and is not loading an icon by name or URL.
-     * @return {?}
-     */
-    function () {
-        return this._defaultFontSetClass;
-    };
-    /**
-     * Returns an Observable that produces the icon (as an `<svg>` DOM element) from the given URL.
-     * The response from the URL may be cached so this will not always cause an HTTP request, but
-     * the produced element will always be a new copy of the originally fetched icon. (That is,
-     * it will not contain any modifications made to elements previously returned).
-     *
-     * @param safeUrl URL from which to fetch the SVG icon.
-     */
-    /**
-     * Returns an Observable that produces the icon (as an `<svg>` DOM element) from the given URL.
-     * The response from the URL may be cached so this will not always cause an HTTP request, but
-     * the produced element will always be a new copy of the originally fetched icon. (That is,
-     * it will not contain any modifications made to elements previously returned).
-     *
-     * @param {?} safeUrl URL from which to fetch the SVG icon.
-     * @return {?}
-     */
-    MatIconRegistry.prototype.getSvgIconFromUrl = /**
-     * Returns an Observable that produces the icon (as an `<svg>` DOM element) from the given URL.
-     * The response from the URL may be cached so this will not always cause an HTTP request, but
-     * the produced element will always be a new copy of the originally fetched icon. (That is,
-     * it will not contain any modifications made to elements previously returned).
-     *
-     * @param {?} safeUrl URL from which to fetch the SVG icon.
-     * @return {?}
-     */
-    function (safeUrl) {
-        var _this = this;
-        var /** @type {?} */ url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
-        if (!url) {
-            throw getMatIconFailedToSanitizeError(safeUrl);
-        }
-        var /** @type {?} */ cachedIcon = this._cachedIconsByUrl.get(url);
-        if (cachedIcon) {
-            return rxjs_observable_of.of(cloneSvg(cachedIcon));
-        }
-        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(rxjs_operators_tap.tap(function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); }), rxjs_operators_map.map(function (svg) { return cloneSvg(svg); }));
-    };
-    /**
-     * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
-     * and namespace. The icon must have been previously registered with addIcon or addIconSet;
-     * if not, the Observable will throw an error.
-     *
-     * @param name Name of the icon to be retrieved.
-     * @param namespace Namespace in which to look for the icon.
-     */
-    /**
-     * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
-     * and namespace. The icon must have been previously registered with addIcon or addIconSet;
-     * if not, the Observable will throw an error.
-     *
-     * @param {?} name Name of the icon to be retrieved.
-     * @param {?=} namespace Namespace in which to look for the icon.
-     * @return {?}
-     */
-    MatIconRegistry.prototype.getNamedSvgIcon = /**
-     * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
-     * and namespace. The icon must have been previously registered with addIcon or addIconSet;
-     * if not, the Observable will throw an error.
-     *
-     * @param {?} name Name of the icon to be retrieved.
-     * @param {?=} namespace Namespace in which to look for the icon.
-     * @return {?}
-     */
-    function (name, namespace) {
-        if (namespace === void 0) { namespace = ''; }
-        // Return (copy of) cached icon if possible.
-        var /** @type {?} */ key = iconKey(namespace, name);
-        var /** @type {?} */ config = this._svgIconConfigs.get(key);
-        if (config) {
-            return this._getSvgFromConfig(config);
-        }
-        // See if we have any icon sets registered for the namespace.
-        var /** @type {?} */ iconSetConfigs = this._iconSetConfigs.get(namespace);
-        if (iconSetConfigs) {
-            return this._getSvgFromIconSetConfigs(name, iconSetConfigs);
-        }
-        return rxjs_observable_throw._throw(getMatIconNameNotFoundError(key));
-    };
-    /**
-     * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
-     * @param {?} config
-     * @return {?}
-     */
-    MatIconRegistry.prototype._getSvgFromConfig = /**
-     * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
-     * @param {?} config
-     * @return {?}
-     */
-    function (config) {
-        if (config.svgElement) {
-            // We already have the SVG element for this icon, return a copy.
-            return rxjs_observable_of.of(cloneSvg(config.svgElement));
-        }
-        else {
-            // Fetch the icon from the config's URL, cache it, and return a copy.
-            return this._loadSvgIconFromConfig(config).pipe(rxjs_operators_tap.tap(function (svg) { return config.svgElement = svg; }), rxjs_operators_map.map(function (svg) { return cloneSvg(svg); }));
-        }
-    };
-    /**
-     * Attempts to find an icon with the specified name in any of the SVG icon sets.
-     * First searches the available cached icons for a nested element with a matching name, and
-     * if found copies the element to a new `<svg>` element. If not found, fetches all icon sets
-     * that have not been cached, and searches again after all fetches are completed.
-     * The returned Observable produces the SVG element if possible, and throws
-     * an error if no icon with the specified name can be found.
-     * @param {?} name
-     * @param {?} iconSetConfigs
-     * @return {?}
-     */
-    MatIconRegistry.prototype._getSvgFromIconSetConfigs = /**
-     * Attempts to find an icon with the specified name in any of the SVG icon sets.
-     * First searches the available cached icons for a nested element with a matching name, and
-     * if found copies the element to a new `<svg>` element. If not found, fetches all icon sets
-     * that have not been cached, and searches again after all fetches are completed.
-     * The returned Observable produces the SVG element if possible, and throws
-     * an error if no icon with the specified name can be found.
-     * @param {?} name
-     * @param {?} iconSetConfigs
-     * @return {?}
-     */
-    function (name, iconSetConfigs) {
-        var _this = this;
-        // For all the icon set SVG elements we've fetched, see if any contain an icon with the
-        // requested name.
-        var /** @type {?} */ namedIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
-        if (namedIcon) {
-            // We could cache namedIcon in _svgIconConfigs, but since we have to make a copy every
-            // time anyway, there's probably not much advantage compared to just always extracting
-            // it from the icon set.
-            return rxjs_observable_of.of(namedIcon);
-        }
-        // Not found in any cached icon sets. If there are icon sets with URLs that we haven't
-        // fetched, fetch them now and look for iconName in the results.
-        var /** @type {?} */ iconSetFetchRequests = iconSetConfigs
-            .filter(function (iconSetConfig) { return !iconSetConfig.svgElement; })
-            .map(function (iconSetConfig) {
-            return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(rxjs_operators_catchError.catchError(function (err) {
-                var /** @type {?} */ url = _this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
-                // Swallow errors fetching individual URLs so the combined Observable won't
-                // necessarily fail.
-                console.log("Loading icon set URL: " + url + " failed: " + err);
-                return rxjs_observable_of.of(null);
-            }));
-        });
-        // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
-        // cached SVG element (unless the request failed), and we can check again for the icon.
-        return rxjs_observable_forkJoin.forkJoin(iconSetFetchRequests).pipe(rxjs_operators_map.map(function () {
-            var /** @type {?} */ foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
-            if (!foundIcon) {
-                throw getMatIconNameNotFoundError(name);
-            }
-            return foundIcon;
-        }));
-    };
-    /**
-     * Searches the cached SVG elements for the given icon sets for a nested icon element whose "id"
-     * tag matches the specified name. If found, copies the nested element to a new SVG element and
-     * returns it. Returns null if no matching element is found.
-     * @param {?} iconName
-     * @param {?} iconSetConfigs
-     * @return {?}
-     */
-    MatIconRegistry.prototype._extractIconWithNameFromAnySet = /**
-     * Searches the cached SVG elements for the given icon sets for a nested icon element whose "id"
-     * tag matches the specified name. If found, copies the nested element to a new SVG element and
-     * returns it. Returns null if no matching element is found.
-     * @param {?} iconName
-     * @param {?} iconSetConfigs
-     * @return {?}
-     */
-    function (iconName, iconSetConfigs) {
-        // Iterate backwards, so icon sets added later have precedence.
-        for (var /** @type {?} */ i = iconSetConfigs.length - 1; i >= 0; i--) {
-            var /** @type {?} */ config = iconSetConfigs[i];
-            if (config.svgElement) {
-                var /** @type {?} */ foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName);
-                if (foundIcon) {
-                    return foundIcon;
-                }
-            }
-        }
-        return null;
-    };
-    /**
-     * Loads the content of the icon URL specified in the SvgIconConfig and creates an SVG element
-     * from it.
-     * @param {?} config
-     * @return {?}
-     */
-    MatIconRegistry.prototype._loadSvgIconFromConfig = /**
-     * Loads the content of the icon URL specified in the SvgIconConfig and creates an SVG element
-     * from it.
-     * @param {?} config
-     * @return {?}
-     */
-    function (config) {
-        var _this = this;
-        return this._fetchUrl(config.url)
-            .pipe(rxjs_operators_map.map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText); }));
-    };
-    /**
-     * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
-     * from it.
-     * @param {?} config
-     * @return {?}
-     */
-    MatIconRegistry.prototype._loadSvgIconSetFromConfig = /**
-     * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
-     * from it.
-     * @param {?} config
-     * @return {?}
-     */
-    function (config) {
-        var _this = this;
-        // If the SVG for this icon set has already been parsed, do nothing.
-        if (config.svgElement) {
-            return rxjs_observable_of.of(config.svgElement);
-        }
-        return this._fetchUrl(config.url).pipe(rxjs_operators_map.map(function (svgText) {
-            // It is possible that the icon set was parsed and cached by an earlier request, so parsing
-            // only needs to occur if the cache is yet unset.
-            if (!config.svgElement) {
-                config.svgElement = _this._svgElementFromString(svgText);
-            }
-            return config.svgElement;
-        }));
-    };
-    /**
-     * Creates a DOM element from the given SVG string, and adds default attributes.
-     * @param {?} responseText
-     * @return {?}
-     */
-    MatIconRegistry.prototype._createSvgElementForSingleIcon = /**
-     * Creates a DOM element from the given SVG string, and adds default attributes.
-     * @param {?} responseText
-     * @return {?}
-     */
-    function (responseText) {
-        var /** @type {?} */ svg = this._svgElementFromString(responseText);
-        this._setSvgAttributes(svg);
-        return svg;
-    };
-    /**
-     * Searches the cached element of the given SvgIconConfig for a nested icon element whose "id"
-     * tag matches the specified name. If found, copies the nested element to a new SVG element and
-     * returns it. Returns null if no matching element is found.
-     * @param {?} iconSet
-     * @param {?} iconName
-     * @return {?}
-     */
-    MatIconRegistry.prototype._extractSvgIconFromSet = /**
-     * Searches the cached element of the given SvgIconConfig for a nested icon element whose "id"
-     * tag matches the specified name. If found, copies the nested element to a new SVG element and
-     * returns it. Returns null if no matching element is found.
-     * @param {?} iconSet
-     * @param {?} iconName
-     * @return {?}
-     */
-    function (iconSet, iconName) {
-        var /** @type {?} */ iconSource = iconSet.querySelector('#' + iconName);
-        if (!iconSource) {
-            return null;
-        }
-        // Clone the element and remove the ID to prevent multiple elements from being added
-        // to the page with the same ID.
-        var /** @type {?} */ iconElement = /** @type {?} */ (iconSource.cloneNode(true));
-        iconElement.id = '';
-        // If the icon node is itself an <svg> node, clone and return it directly. If not, set it as
-        // the content of a new <svg> node.
-        if (iconElement.nodeName.toLowerCase() === 'svg') {
-            return this._setSvgAttributes(/** @type {?} */ (iconElement));
-        }
-        // If the node is a <symbol>, it won't be rendered so we have to convert it into <svg>. Note
-        // that the same could be achieved by referring to it via <use href="#id">, however the <use>
-        // tag is problematic on Firefox, because it needs to include the current page path.
-        if (iconElement.nodeName.toLowerCase() === 'symbol') {
-            return this._setSvgAttributes(this._toSvgElement(iconElement));
-        }
-        // createElement('SVG') doesn't work as expected; the DOM ends up with
-        // the correct nodes, but the SVG content doesn't render. Instead we
-        // have to create an empty SVG node using innerHTML and append its content.
-        // Elements created using DOMParser.parseFromString have the same problem.
-        // http://stackoverflow.com/questions/23003278/svg-innerhtml-in-firefox-can-not-display
-        var /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
-        // Clone the node so we don't remove it from the parent icon set element.
-        svg.appendChild(iconElement);
-        return this._setSvgAttributes(svg);
-    };
-    /**
-     * Creates a DOM element from the given SVG string.
-     * @param {?} str
-     * @return {?}
-     */
-    MatIconRegistry.prototype._svgElementFromString = /**
-     * Creates a DOM element from the given SVG string.
-     * @param {?} str
-     * @return {?}
-     */
-    function (str) {
-        if (this._document || typeof document !== 'undefined') {
-            var /** @type {?} */ div = (this._document || document).createElement('DIV');
-            div.innerHTML = str;
-            var /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
-            if (!svg) {
-                throw Error('<svg> tag not found');
-            }
-            return svg;
-        }
-        throw new Error('MatIconRegistry could not resolve document.');
-    };
-    /**
-     * Converts an element into an SVG node by cloning all of its children.
-     * @param {?} element
-     * @return {?}
-     */
-    MatIconRegistry.prototype._toSvgElement = /**
-     * Converts an element into an SVG node by cloning all of its children.
-     * @param {?} element
-     * @return {?}
-     */
-    function (element) {
-        var /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
-        for (var /** @type {?} */ i = 0; i < element.childNodes.length; i++) {
-            if (element.childNodes[i].nodeType === this._document.ELEMENT_NODE) {
-                svg.appendChild(element.childNodes[i].cloneNode(true));
-            }
-        }
-        return svg;
-    };
-    /**
-     * Sets the default attributes for an SVG element to be used as an icon.
-     * @param {?} svg
-     * @return {?}
-     */
-    MatIconRegistry.prototype._setSvgAttributes = /**
-     * Sets the default attributes for an SVG element to be used as an icon.
-     * @param {?} svg
-     * @return {?}
-     */
-    function (svg) {
-        if (!svg.getAttribute('xmlns')) {
-            svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        }
-        svg.setAttribute('fit', '');
-        svg.setAttribute('height', '100%');
-        svg.setAttribute('width', '100%');
-        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
-        svg.setAttribute('focusable', 'false'); // Disable IE11 default behavior to make SVGs focusable.
-        return svg;
-    };
-    /**
-     * Returns an Observable which produces the string contents of the given URL. Results may be
-     * cached, so future calls with the same URL may not cause another HTTP request.
-     * @param {?} safeUrl
-     * @return {?}
-     */
-    MatIconRegistry.prototype._fetchUrl = /**
-     * Returns an Observable which produces the string contents of the given URL. Results may be
-     * cached, so future calls with the same URL may not cause another HTTP request.
-     * @param {?} safeUrl
-     * @return {?}
-     */
-    function (safeUrl) {
-        var _this = this;
-        if (!this._httpClient) {
-            throw getMatIconNoHttpProviderError();
-        }
-        var /** @type {?} */ url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
-        if (!url) {
-            throw getMatIconFailedToSanitizeError(safeUrl);
-        }
-        // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
-        // already a request in progress for that URL. It's necessary to call share() on the
-        // Observable returned by http.get() so that multiple subscribers don't cause multiple XHRs.
-        var /** @type {?} */ inProgressFetch = this._inProgressUrlFetches.get(url);
-        if (inProgressFetch) {
-            return inProgressFetch;
-        }
-        // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
-        // Observable. Figure out why and fix it.
-        var /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(rxjs_operators_finalize.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), rxjs_operators_share.share());
-        this._inProgressUrlFetches.set(url, req);
-        return req;
-    };
-    MatIconRegistry.decorators = [
-        { type: _angular_core.Injectable },
-    ];
-    /** @nocollapse */
-    MatIconRegistry.ctorParameters = function () { return [
-        { type: _angular_common_http.HttpClient, decorators: [{ type: _angular_core.Optional },] },
-        { type: _angular_platformBrowser.DomSanitizer, },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
-    ]; };
-    return MatIconRegistry;
-}());
-/**
- * \@docs-private
- * @param {?} parentRegistry
- * @param {?} httpClient
- * @param {?} sanitizer
- * @param {?=} document
- * @return {?}
- */
-function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, document) {
-    return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document);
-}
-/**
- * \@docs-private
- */
-var ICON_REGISTRY_PROVIDER = {
-    // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
-    provide: MatIconRegistry,
-    deps: [
-        [new _angular_core.Optional(), new _angular_core.SkipSelf(), MatIconRegistry],
-        [new _angular_core.Optional(), _angular_common_http.HttpClient],
-        _angular_platformBrowser.DomSanitizer,
-        [new _angular_core.Optional(), /** @type {?} */ (_angular_common.DOCUMENT)],
-    ],
-    useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
-};
-/**
- * Clones an SVGElement while preserving type information.
- * @param {?} svg
- * @return {?}
- */
-function cloneSvg(svg) {
-    return /** @type {?} */ (svg.cloneNode(true));
-}
-/**
- * Returns the cache key to use for an icon namespace and name.
- * @param {?} namespace
- * @param {?} name
- * @return {?}
- */
-function iconKey(namespace, name) {
-    return namespace + ':' + name;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * \@docs-private
- */
-var MatIconBase = /** @class */ (function () {
-    function MatIconBase(_elementRef) {
-        this._elementRef = _elementRef;
-    }
-    return MatIconBase;
-}());
-var _MatIconMixinBase = mixinColor(MatIconBase);
-/**
- * Component to display an icon. It can be used in the following ways:
- *
- * - Specify the svgIcon input to load an SVG icon from a URL previously registered with the
- *   addSvgIcon, addSvgIconInNamespace, addSvgIconSet, or addSvgIconSetInNamespace methods of
- *   MatIconRegistry. If the svgIcon value contains a colon it is assumed to be in the format
- *   "[namespace]:[name]", if not the value will be the name of an icon in the default namespace.
- *   Examples:
- *     `<mat-icon svgIcon="left-arrow"></mat-icon>
- *     <mat-icon svgIcon="animals:cat"></mat-icon>`
- *
- * - Use a font ligature as an icon by putting the ligature text in the content of the `<mat-icon>`
- *   component. By default the Material icons font is used as described at
- *   http://google.github.io/material-design-icons/#icon-font-for-the-web. You can specify an
- *   alternate font by setting the fontSet input to either the CSS class to apply to use the
- *   desired font, or to an alias previously registered with MatIconRegistry.registerFontClassAlias.
- *   Examples:
- *     `<mat-icon>home</mat-icon>
- *     <mat-icon fontSet="myfont">sun</mat-icon>`
- *
- * - Specify a font glyph to be included via CSS rules by setting the fontSet input to specify the
- *   font, and the fontIcon input to specify the icon. Typically the fontIcon will specify a
- *   CSS class which causes the glyph to be displayed via a :before selector, as in
- *   https://fortawesome.github.io/Font-Awesome/examples/
- *   Example:
- *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
- */
-var MatIcon = /** @class */ (function (_super) {
-    __extends(MatIcon, _super);
-    function MatIcon(elementRef, _iconRegistry, ariaHidden) {
-        var _this = _super.call(this, elementRef) || this;
-        _this._iconRegistry = _iconRegistry;
-        // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
-        // the right thing to do for the majority of icon use-cases.
-        if (!ariaHidden) {
-            elementRef.nativeElement.setAttribute('aria-hidden', 'true');
-        }
-        return _this;
-    }
-    Object.defineProperty(MatIcon.prototype, "fontSet", {
-        get: /**
-         * Font set that the icon is a part of.
-         * @return {?}
-         */
-        function () { return this._fontSet; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._fontSet = this._cleanupFontValue(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatIcon.prototype, "fontIcon", {
-        get: /**
-         * Name of an icon within a font set.
-         * @return {?}
-         */
-        function () { return this._fontIcon; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._fontIcon = this._cleanupFontValue(value);
-        },
-        enumerable: true,
-        configurable: true
-    });
-    /**
-     * Splits an svgIcon binding value into its icon set and icon name components.
-     * Returns a 2-element array of [(icon set), (icon name)].
-     * The separator for the two fields is ':'. If there is no separator, an empty
-     * string is returned for the icon set and the entire value is returned for
-     * the icon name. If the argument is falsy, returns an array of two empty strings.
-     * Throws an error if the name contains two or more ':' separators.
-     * Examples:
-     *   `'social:cake' -> ['social', 'cake']
-     *   'penguin' -> ['', 'penguin']
-     *   null -> ['', '']
-     *   'a:b:c' -> (throws Error)`
-     * @param {?} iconName
-     * @return {?}
-     */
-    MatIcon.prototype._splitIconName = /**
-     * Splits an svgIcon binding value into its icon set and icon name components.
-     * Returns a 2-element array of [(icon set), (icon name)].
-     * The separator for the two fields is ':'. If there is no separator, an empty
-     * string is returned for the icon set and the entire value is returned for
-     * the icon name. If the argument is falsy, returns an array of two empty strings.
-     * Throws an error if the name contains two or more ':' separators.
-     * Examples:
-     *   `'social:cake' -> ['social', 'cake']
-     *   'penguin' -> ['', 'penguin']
-     *   null -> ['', '']
-     *   'a:b:c' -> (throws Error)`
-     * @param {?} iconName
-     * @return {?}
-     */
-    function (iconName) {
-        if (!iconName) {
-            return ['', ''];
-        }
-        var /** @type {?} */ parts = iconName.split(':');
-        switch (parts.length) {
-            case 1: return ['', parts[0]]; // Use default namespace.
-            case 2: return /** @type {?} */ (parts);
-            default: throw Error("Invalid icon name: \"" + iconName + "\"");
-        }
-    };
-    /**
-     * @param {?} changes
-     * @return {?}
-     */
-    MatIcon.prototype.ngOnChanges = /**
-     * @param {?} changes
-     * @return {?}
-     */
-    function (changes) {
-        var _this = this;
-        // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
-        if (changes["svgIcon"]) {
-            if (this.svgIcon) {
-                var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
-                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(rxjs_operators_take.take(1)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
-            }
-            else {
-                this._clearSvgElement();
-            }
-        }
-        if (this._usingFontIcon()) {
-            this._updateFontIconClasses();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatIcon.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        // Update font classes because ngOnChanges won't be called if none of the inputs are present,
-        // e.g. <mat-icon>arrow</mat-icon> In this case we need to add a CSS class for the default font.
-        if (this._usingFontIcon()) {
-            this._updateFontIconClasses();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatIcon.prototype._usingFontIcon = /**
-     * @return {?}
-     */
-    function () {
-        return !this.svgIcon;
-    };
-    /**
-     * @param {?} svg
-     * @return {?}
-     */
-    MatIcon.prototype._setSvgElement = /**
-     * @param {?} svg
-     * @return {?}
-     */
-    function (svg) {
-        this._clearSvgElement();
-        this._elementRef.nativeElement.appendChild(svg);
-    };
-    /**
-     * @return {?}
-     */
-    MatIcon.prototype._clearSvgElement = /**
-     * @return {?}
-     */
-    function () {
-        var /** @type {?} */ layoutElement = this._elementRef.nativeElement;
-        var /** @type {?} */ childCount = layoutElement.childNodes.length;
-        // Remove existing child nodes and add the new SVG element. Note that we can't
-        // use innerHTML, because IE will throw if the element has a data binding.
-        for (var /** @type {?} */ i = 0; i < childCount; i++) {
-            layoutElement.removeChild(layoutElement.childNodes[i]);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatIcon.prototype._updateFontIconClasses = /**
-     * @return {?}
-     */
-    function () {
-        if (!this._usingFontIcon()) {
-            return;
-        }
-        var /** @type {?} */ elem = this._elementRef.nativeElement;
-        var /** @type {?} */ fontSetClass = this.fontSet ?
-            this._iconRegistry.classNameForFontAlias(this.fontSet) :
-            this._iconRegistry.getDefaultFontSetClass();
-        if (fontSetClass != this._previousFontSetClass) {
-            if (this._previousFontSetClass) {
-                elem.classList.remove(this._previousFontSetClass);
-            }
-            if (fontSetClass) {
-                elem.classList.add(fontSetClass);
-            }
-            this._previousFontSetClass = fontSetClass;
-        }
-        if (this.fontIcon != this._previousFontIconClass) {
-            if (this._previousFontIconClass) {
-                elem.classList.remove(this._previousFontIconClass);
-            }
-            if (this.fontIcon) {
-                elem.classList.add(this.fontIcon);
-            }
-            this._previousFontIconClass = this.fontIcon;
-        }
-    };
-    /**
-     * Cleans up a value to be used as a fontIcon or fontSet.
-     * Since the value ends up being assigned as a CSS class, we
-     * have to trim the value and omit space-separated values.
-     * @param {?} value
-     * @return {?}
-     */
-    MatIcon.prototype._cleanupFontValue = /**
-     * Cleans up a value to be used as a fontIcon or fontSet.
-     * Since the value ends up being assigned as a CSS class, we
-     * have to trim the value and omit space-separated values.
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        return typeof value === 'string' ? value.trim().split(' ')[0] : value;
-    };
-    MatIcon.decorators = [
-        { type: _angular_core.Component, args: [{template: '<ng-content></ng-content>',
-                    selector: 'mat-icon',
-                    exportAs: 'matIcon',
-                    styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}"],
-                    inputs: ['color'],
-                    host: {
-                        'role': 'img',
-                        'class': 'mat-icon',
-                    },
-                    encapsulation: _angular_core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                },] },
-    ];
-    /** @nocollapse */
-    MatIcon.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: MatIconRegistry, },
-        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['aria-hidden',] },] },
-    ]; };
-    MatIcon.propDecorators = {
-        "svgIcon": [{ type: _angular_core.Input },],
-        "fontSet": [{ type: _angular_core.Input },],
-        "fontIcon": [{ type: _angular_core.Input },],
-    };
-    return MatIcon;
-}(_MatIconMixinBase));
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-var MatIconModule = /** @class */ (function () {
-    function MatIconModule() {
-    }
-    MatIconModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [MatCommonModule],
-                    exports: [MatIcon, MatCommonModule],
-                    declarations: [MatIcon],
-                    providers: [ICON_REGISTRY_PROVIDER],
-                },] },
-    ];
-    /** @nocollapse */
-    MatIconModule.ctorParameters = function () { return []; };
-    return MatIconModule;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
  * Directive to automatically resize a textarea to fit its content.
  */
 var MatTextareaAutosize = /** @class */ (function () {
@@ -10482,40 +9455,41 @@ var _MatInputMixinBase = mixinErrorState(MatInputBase);
  */
 var MatInput = /** @class */ (function (_super) {
     __extends(MatInput, _super);
-    function MatInput(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
+    function MatInput(_elementRef, _platform, /** @docs-private */
+        ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._elementRef = _elementRef;
         _this._platform = _platform;
         _this.ngControl = ngControl;
-        /**
-         * Variables used as cache for getters and setters.
-         */
-        _this._type = 'text';
-        _this._disabled = false;
-        _this._required = false;
         _this._uid = "mat-input-" + nextUniqueId$3++;
-        _this._readonly = false;
-        /**
-         * Whether the input is focused.
-         */
-        _this.focused = false;
         /**
          * Whether the component is being rendered on the server.
          */
         _this._isServer = false;
         /**
-         * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
-         * needs to run change detection.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
+         */
+        _this.focused = false;
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          */
         _this.stateChanges = new rxjs_Subject.Subject();
         /**
-         * A name for this control that can be used by `mat-form-field`.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          */
         _this.controlType = 'mat-input';
+        _this._disabled = false;
         /**
-         * Placeholder attribute of the element.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          */
         _this.placeholder = '';
+        _this._required = false;
+        _this._type = 'text';
+        _this._readonly = false;
         _this._neverEmptyInputTypes = [
             'date',
             'datetime',
@@ -10553,7 +9527,8 @@ var MatInput = /** @class */ (function (_super) {
     }
     Object.defineProperty(MatInput.prototype, "disabled", {
         get: /**
-         * Whether the element is disabled.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () {
@@ -10580,7 +9555,8 @@ var MatInput = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatInput.prototype, "id", {
         get: /**
-         * Unique id of the element.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this._id; },
@@ -10594,7 +9570,8 @@ var MatInput = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatInput.prototype, "required", {
         get: /**
-         * Whether the element is required.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this._required; },
@@ -10631,7 +9608,8 @@ var MatInput = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatInput.prototype, "value", {
         get: /**
-         * The input element's value.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this._inputValueAccessor.value; },
@@ -10698,10 +9676,13 @@ var MatInput = /** @class */ (function (_super) {
         // updating the value using `emitEvent: false`).
         this._dirtyCheckNativeValue();
     };
+    /** Focuses the input. */
     /**
+     * Focuses the input.
      * @return {?}
      */
     MatInput.prototype.focus = /**
+     * Focuses the input.
      * @return {?}
      */
     function () { this._elementRef.nativeElement.focus(); };
@@ -10811,8 +9792,13 @@ var MatInput = /** @class */ (function (_super) {
         return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
     };
     Object.defineProperty(MatInput.prototype, "empty", {
-        // Implemented as part of MatFormFieldControl.
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () {
@@ -12519,11 +11505,11 @@ var MatDatepicker = /** @class */ (function () {
             return this._startAt || (this._datepickerInput ? this._datepickerInput.value : null);
         },
         set: /**
-         * @param {?} date
+         * @param {?} value
          * @return {?}
          */
-        function (date) {
-            this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(date));
+        function (value) {
+            this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
         },
         enumerable: true,
         configurable: true
@@ -12575,10 +11561,10 @@ var MatDatepicker = /** @class */ (function () {
          */
         function () { return this._opened; },
         set: /**
-         * @param {?} shouldOpen
+         * @param {?} value
          * @return {?}
          */
-        function (shouldOpen) { shouldOpen ? this.open() : this.close(); },
+        function (value) { value ? this.open() : this.close(); },
         enumerable: true,
         configurable: true
     });
@@ -13021,11 +12007,11 @@ var MatDatepickerInput = /** @class */ (function () {
     Object.defineProperty(MatDatepickerInput.prototype, "matDatepickerFilter", {
         set: /**
          * Function that can be used to filter out dates within the datepicker.
-         * @param {?} filter
+         * @param {?} value
          * @return {?}
          */
-        function (filter$$1) {
-            this._dateFilter = filter$$1;
+        function (value) {
+            this._dateFilter = value;
             this._validatorOnChange();
         },
         enumerable: true,
@@ -13155,11 +12141,14 @@ var MatDatepickerInput = /** @class */ (function () {
     function (fn) {
         this._validatorOnChange = fn;
     };
+    /** @docs-private */
     /**
+     * \@docs-private
      * @param {?} c
      * @return {?}
      */
     MatDatepickerInput.prototype.validate = /**
+     * \@docs-private
      * @param {?} c
      * @return {?}
      */
@@ -13198,7 +12187,7 @@ var MatDatepickerInput = /** @class */ (function () {
     function () {
         return this._formField ? -this._formField._inputContainerRef.nativeElement.clientHeight : 0;
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
      * @return {?}
@@ -13210,7 +12199,7 @@ var MatDatepickerInput = /** @class */ (function () {
     function (value) {
         this.value = value;
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -13222,7 +12211,7 @@ var MatDatepickerInput = /** @class */ (function () {
     function (fn) {
         this._cvaOnChange = fn;
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} fn
      * @return {?}
@@ -13234,17 +12223,17 @@ var MatDatepickerInput = /** @class */ (function () {
     function (fn) {
         this._onTouched = fn;
     };
-    // Implemented as part of ControlValueAccessor
+    // Implemented as part of ControlValueAccessor.
     /**
-     * @param {?} disabled
+     * @param {?} isDisabled
      * @return {?}
      */
     MatDatepickerInput.prototype.setDisabledState = /**
-     * @param {?} disabled
+     * @param {?} isDisabled
      * @return {?}
      */
-    function (disabled) {
-        this.disabled = disabled;
+    function (isDisabled) {
+        this.disabled = isDisabled;
     };
     /**
      * @param {?} event
@@ -13447,7 +12436,8 @@ var MatDatepickerToggle = /** @class */ (function () {
     };
     MatDatepickerToggle.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-toggle',
-                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon *ngIf=\"!_customIcon\"><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
+                    template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
+                    styles: [".mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field-suffix .mat-datepicker-toggle-default-icon{width:1em}"],
                     host: {
                         'class': 'mat-datepicker-toggle',
                         '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
@@ -13485,7 +12475,6 @@ var MatDatepickerModule = /** @class */ (function () {
                         _angular_common.CommonModule,
                         MatButtonModule,
                         MatDialogModule,
-                        MatIconModule,
                         _angular_cdk_overlay.OverlayModule,
                         _angular_cdk_a11y.A11yModule,
                     ],
@@ -15231,6 +14220,1014 @@ var MatGridListModule = /** @class */ (function () {
     /** @nocollapse */
     MatGridListModule.ctorParameters = function () { return []; };
     return MatGridListModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * Returns an exception to be thrown in the case when attempting to
+ * load an icon with a name that cannot be found.
+ * \@docs-private
+ * @param {?} iconName
+ * @return {?}
+ */
+function getMatIconNameNotFoundError(iconName) {
+    return Error("Unable to find icon with the name \"" + iconName + "\"");
+}
+/**
+ * Returns an exception to be thrown when the consumer attempts to use
+ * `<mat-icon>` without including \@angular/http.
+ * \@docs-private
+ * @return {?}
+ */
+function getMatIconNoHttpProviderError() {
+    return Error('Could not find HttpClient provider for use with Angular Material icons. ' +
+        'Please include the HttpClientModule from @angular/common/http in your ' +
+        'app imports.');
+}
+/**
+ * Returns an exception to be thrown when a URL couldn't be sanitized.
+ * \@docs-private
+ * @param {?} url URL that was attempted to be sanitized.
+ * @return {?}
+ */
+function getMatIconFailedToSanitizeError(url) {
+    return Error("The URL provided to MatIconRegistry was not trusted as a resource URL " +
+        ("via Angular's DomSanitizer. Attempted URL was \"" + url + "\"."));
+}
+/**
+ * Configuration for an icon, including the URL and possibly the cached SVG element.
+ * \@docs-private
+ */
+var SvgIconConfig = /** @class */ (function () {
+    function SvgIconConfig(url) {
+        this.url = url;
+        this.svgElement = null;
+    }
+    return SvgIconConfig;
+}());
+/**
+ * Service to register and display icons used by the `<mat-icon>` component.
+ * - Registers icon URLs by namespace and name.
+ * - Registers icon set URLs by namespace.
+ * - Registers aliases for CSS classes, for use with icon fonts.
+ * - Loads icons from URLs and extracts individual icons from icon sets.
+ */
+var MatIconRegistry = /** @class */ (function () {
+    function MatIconRegistry(_httpClient, _sanitizer, document) {
+        this._httpClient = _httpClient;
+        this._sanitizer = _sanitizer;
+        /**
+         * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
+         */
+        this._svgIconConfigs = new Map();
+        /**
+         * SvgIconConfig objects and cached SVG elements for icon sets, keyed by namespace.
+         * Multiple icon sets can be registered under the same namespace.
+         */
+        this._iconSetConfigs = new Map();
+        /**
+         * Cache for icons loaded by direct URLs.
+         */
+        this._cachedIconsByUrl = new Map();
+        /**
+         * In-progress icon fetches. Used to coalesce multiple requests to the same URL.
+         */
+        this._inProgressUrlFetches = new Map();
+        /**
+         * Map from font identifiers to their CSS class names. Used for icon fonts.
+         */
+        this._fontCssClassesByAlias = new Map();
+        /**
+         * The CSS class to apply when an `<mat-icon>` component has no icon name, url, or font specified.
+         * The default 'material-icons' value assumes that the material icon font has been loaded as
+         * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
+         */
+        this._defaultFontSetClass = 'material-icons';
+        // TODO(crisbeto): make _document required next major release.
+        this._document = document;
+    }
+    /**
+     * Registers an icon by URL in the default namespace.
+     * @param iconName Name under which the icon should be registered.
+     * @param url
+     */
+    /**
+     * Registers an icon by URL in the default namespace.
+     * @param {?} iconName Name under which the icon should be registered.
+     * @param {?} url
+     * @return {?}
+     */
+    MatIconRegistry.prototype.addSvgIcon = /**
+     * Registers an icon by URL in the default namespace.
+     * @param {?} iconName Name under which the icon should be registered.
+     * @param {?} url
+     * @return {?}
+     */
+    function (iconName, url) {
+        return this.addSvgIconInNamespace('', iconName, url);
+    };
+    /**
+     * Registers an icon by URL in the specified namespace.
+     * @param namespace Namespace in which the icon should be registered.
+     * @param iconName Name under which the icon should be registered.
+     * @param url
+     */
+    /**
+     * Registers an icon by URL in the specified namespace.
+     * @param {?} namespace Namespace in which the icon should be registered.
+     * @param {?} iconName Name under which the icon should be registered.
+     * @param {?} url
+     * @return {?}
+     */
+    MatIconRegistry.prototype.addSvgIconInNamespace = /**
+     * Registers an icon by URL in the specified namespace.
+     * @param {?} namespace Namespace in which the icon should be registered.
+     * @param {?} iconName Name under which the icon should be registered.
+     * @param {?} url
+     * @return {?}
+     */
+    function (namespace, iconName, url) {
+        var /** @type {?} */ key = iconKey(namespace, iconName);
+        this._svgIconConfigs.set(key, new SvgIconConfig(url));
+        return this;
+    };
+    /**
+     * Registers an icon set by URL in the default namespace.
+     * @param url
+     */
+    /**
+     * Registers an icon set by URL in the default namespace.
+     * @param {?} url
+     * @return {?}
+     */
+    MatIconRegistry.prototype.addSvgIconSet = /**
+     * Registers an icon set by URL in the default namespace.
+     * @param {?} url
+     * @return {?}
+     */
+    function (url) {
+        return this.addSvgIconSetInNamespace('', url);
+    };
+    /**
+     * Registers an icon set by URL in the specified namespace.
+     * @param namespace Namespace in which to register the icon set.
+     * @param url
+     */
+    /**
+     * Registers an icon set by URL in the specified namespace.
+     * @param {?} namespace Namespace in which to register the icon set.
+     * @param {?} url
+     * @return {?}
+     */
+    MatIconRegistry.prototype.addSvgIconSetInNamespace = /**
+     * Registers an icon set by URL in the specified namespace.
+     * @param {?} namespace Namespace in which to register the icon set.
+     * @param {?} url
+     * @return {?}
+     */
+    function (namespace, url) {
+        var /** @type {?} */ config = new SvgIconConfig(url);
+        var /** @type {?} */ configNamespace = this._iconSetConfigs.get(namespace);
+        if (configNamespace) {
+            configNamespace.push(config);
+        }
+        else {
+            this._iconSetConfigs.set(namespace, [config]);
+        }
+        return this;
+    };
+    /**
+     * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
+     * component with the alias as the fontSet input will cause the class name to be applied
+     * to the `<mat-icon>` element.
+     *
+     * @param alias Alias for the font.
+     * @param className Class name override to be used instead of the alias.
+     */
+    /**
+     * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
+     * component with the alias as the fontSet input will cause the class name to be applied
+     * to the `<mat-icon>` element.
+     *
+     * @param {?} alias Alias for the font.
+     * @param {?=} className Class name override to be used instead of the alias.
+     * @return {?}
+     */
+    MatIconRegistry.prototype.registerFontClassAlias = /**
+     * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
+     * component with the alias as the fontSet input will cause the class name to be applied
+     * to the `<mat-icon>` element.
+     *
+     * @param {?} alias Alias for the font.
+     * @param {?=} className Class name override to be used instead of the alias.
+     * @return {?}
+     */
+    function (alias, className) {
+        if (className === void 0) { className = alias; }
+        this._fontCssClassesByAlias.set(alias, className);
+        return this;
+    };
+    /**
+     * Returns the CSS class name associated with the alias by a previous call to
+     * registerFontClassAlias. If no CSS class has been associated, returns the alias unmodified.
+     */
+    /**
+     * Returns the CSS class name associated with the alias by a previous call to
+     * registerFontClassAlias. If no CSS class has been associated, returns the alias unmodified.
+     * @param {?} alias
+     * @return {?}
+     */
+    MatIconRegistry.prototype.classNameForFontAlias = /**
+     * Returns the CSS class name associated with the alias by a previous call to
+     * registerFontClassAlias. If no CSS class has been associated, returns the alias unmodified.
+     * @param {?} alias
+     * @return {?}
+     */
+    function (alias) {
+        return this._fontCssClassesByAlias.get(alias) || alias;
+    };
+    /**
+     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
+     * have a fontSet input value, and is not loading an icon by name or URL.
+     *
+     * @param className
+     */
+    /**
+     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
+     * have a fontSet input value, and is not loading an icon by name or URL.
+     *
+     * @param {?} className
+     * @return {?}
+     */
+    MatIconRegistry.prototype.setDefaultFontSetClass = /**
+     * Sets the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
+     * have a fontSet input value, and is not loading an icon by name or URL.
+     *
+     * @param {?} className
+     * @return {?}
+     */
+    function (className) {
+        this._defaultFontSetClass = className;
+        return this;
+    };
+    /**
+     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
+     * have a fontSet input value, and is not loading an icon by name or URL.
+     */
+    /**
+     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
+     * have a fontSet input value, and is not loading an icon by name or URL.
+     * @return {?}
+     */
+    MatIconRegistry.prototype.getDefaultFontSetClass = /**
+     * Returns the CSS class name to be used for icon fonts when an `<mat-icon>` component does not
+     * have a fontSet input value, and is not loading an icon by name or URL.
+     * @return {?}
+     */
+    function () {
+        return this._defaultFontSetClass;
+    };
+    /**
+     * Returns an Observable that produces the icon (as an `<svg>` DOM element) from the given URL.
+     * The response from the URL may be cached so this will not always cause an HTTP request, but
+     * the produced element will always be a new copy of the originally fetched icon. (That is,
+     * it will not contain any modifications made to elements previously returned).
+     *
+     * @param safeUrl URL from which to fetch the SVG icon.
+     */
+    /**
+     * Returns an Observable that produces the icon (as an `<svg>` DOM element) from the given URL.
+     * The response from the URL may be cached so this will not always cause an HTTP request, but
+     * the produced element will always be a new copy of the originally fetched icon. (That is,
+     * it will not contain any modifications made to elements previously returned).
+     *
+     * @param {?} safeUrl URL from which to fetch the SVG icon.
+     * @return {?}
+     */
+    MatIconRegistry.prototype.getSvgIconFromUrl = /**
+     * Returns an Observable that produces the icon (as an `<svg>` DOM element) from the given URL.
+     * The response from the URL may be cached so this will not always cause an HTTP request, but
+     * the produced element will always be a new copy of the originally fetched icon. (That is,
+     * it will not contain any modifications made to elements previously returned).
+     *
+     * @param {?} safeUrl URL from which to fetch the SVG icon.
+     * @return {?}
+     */
+    function (safeUrl) {
+        var _this = this;
+        var /** @type {?} */ url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
+        if (!url) {
+            throw getMatIconFailedToSanitizeError(safeUrl);
+        }
+        var /** @type {?} */ cachedIcon = this._cachedIconsByUrl.get(url);
+        if (cachedIcon) {
+            return rxjs_observable_of.of(cloneSvg(cachedIcon));
+        }
+        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(rxjs_operators_tap.tap(function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); }), rxjs_operators_map.map(function (svg) { return cloneSvg(svg); }));
+    };
+    /**
+     * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
+     * and namespace. The icon must have been previously registered with addIcon or addIconSet;
+     * if not, the Observable will throw an error.
+     *
+     * @param name Name of the icon to be retrieved.
+     * @param namespace Namespace in which to look for the icon.
+     */
+    /**
+     * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
+     * and namespace. The icon must have been previously registered with addIcon or addIconSet;
+     * if not, the Observable will throw an error.
+     *
+     * @param {?} name Name of the icon to be retrieved.
+     * @param {?=} namespace Namespace in which to look for the icon.
+     * @return {?}
+     */
+    MatIconRegistry.prototype.getNamedSvgIcon = /**
+     * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
+     * and namespace. The icon must have been previously registered with addIcon or addIconSet;
+     * if not, the Observable will throw an error.
+     *
+     * @param {?} name Name of the icon to be retrieved.
+     * @param {?=} namespace Namespace in which to look for the icon.
+     * @return {?}
+     */
+    function (name, namespace) {
+        if (namespace === void 0) { namespace = ''; }
+        // Return (copy of) cached icon if possible.
+        var /** @type {?} */ key = iconKey(namespace, name);
+        var /** @type {?} */ config = this._svgIconConfigs.get(key);
+        if (config) {
+            return this._getSvgFromConfig(config);
+        }
+        // See if we have any icon sets registered for the namespace.
+        var /** @type {?} */ iconSetConfigs = this._iconSetConfigs.get(namespace);
+        if (iconSetConfigs) {
+            return this._getSvgFromIconSetConfigs(name, iconSetConfigs);
+        }
+        return rxjs_observable_throw._throw(getMatIconNameNotFoundError(key));
+    };
+    /**
+     * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
+     * @param {?} config
+     * @return {?}
+     */
+    MatIconRegistry.prototype._getSvgFromConfig = /**
+     * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
+     * @param {?} config
+     * @return {?}
+     */
+    function (config) {
+        if (config.svgElement) {
+            // We already have the SVG element for this icon, return a copy.
+            return rxjs_observable_of.of(cloneSvg(config.svgElement));
+        }
+        else {
+            // Fetch the icon from the config's URL, cache it, and return a copy.
+            return this._loadSvgIconFromConfig(config).pipe(rxjs_operators_tap.tap(function (svg) { return config.svgElement = svg; }), rxjs_operators_map.map(function (svg) { return cloneSvg(svg); }));
+        }
+    };
+    /**
+     * Attempts to find an icon with the specified name in any of the SVG icon sets.
+     * First searches the available cached icons for a nested element with a matching name, and
+     * if found copies the element to a new `<svg>` element. If not found, fetches all icon sets
+     * that have not been cached, and searches again after all fetches are completed.
+     * The returned Observable produces the SVG element if possible, and throws
+     * an error if no icon with the specified name can be found.
+     * @param {?} name
+     * @param {?} iconSetConfigs
+     * @return {?}
+     */
+    MatIconRegistry.prototype._getSvgFromIconSetConfigs = /**
+     * Attempts to find an icon with the specified name in any of the SVG icon sets.
+     * First searches the available cached icons for a nested element with a matching name, and
+     * if found copies the element to a new `<svg>` element. If not found, fetches all icon sets
+     * that have not been cached, and searches again after all fetches are completed.
+     * The returned Observable produces the SVG element if possible, and throws
+     * an error if no icon with the specified name can be found.
+     * @param {?} name
+     * @param {?} iconSetConfigs
+     * @return {?}
+     */
+    function (name, iconSetConfigs) {
+        var _this = this;
+        // For all the icon set SVG elements we've fetched, see if any contain an icon with the
+        // requested name.
+        var /** @type {?} */ namedIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
+        if (namedIcon) {
+            // We could cache namedIcon in _svgIconConfigs, but since we have to make a copy every
+            // time anyway, there's probably not much advantage compared to just always extracting
+            // it from the icon set.
+            return rxjs_observable_of.of(namedIcon);
+        }
+        // Not found in any cached icon sets. If there are icon sets with URLs that we haven't
+        // fetched, fetch them now and look for iconName in the results.
+        var /** @type {?} */ iconSetFetchRequests = iconSetConfigs
+            .filter(function (iconSetConfig) { return !iconSetConfig.svgElement; })
+            .map(function (iconSetConfig) {
+            return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(rxjs_operators_catchError.catchError(function (err) {
+                var /** @type {?} */ url = _this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
+                // Swallow errors fetching individual URLs so the combined Observable won't
+                // necessarily fail.
+                console.log("Loading icon set URL: " + url + " failed: " + err);
+                return rxjs_observable_of.of(null);
+            }));
+        });
+        // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
+        // cached SVG element (unless the request failed), and we can check again for the icon.
+        return rxjs_observable_forkJoin.forkJoin(iconSetFetchRequests).pipe(rxjs_operators_map.map(function () {
+            var /** @type {?} */ foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
+            if (!foundIcon) {
+                throw getMatIconNameNotFoundError(name);
+            }
+            return foundIcon;
+        }));
+    };
+    /**
+     * Searches the cached SVG elements for the given icon sets for a nested icon element whose "id"
+     * tag matches the specified name. If found, copies the nested element to a new SVG element and
+     * returns it. Returns null if no matching element is found.
+     * @param {?} iconName
+     * @param {?} iconSetConfigs
+     * @return {?}
+     */
+    MatIconRegistry.prototype._extractIconWithNameFromAnySet = /**
+     * Searches the cached SVG elements for the given icon sets for a nested icon element whose "id"
+     * tag matches the specified name. If found, copies the nested element to a new SVG element and
+     * returns it. Returns null if no matching element is found.
+     * @param {?} iconName
+     * @param {?} iconSetConfigs
+     * @return {?}
+     */
+    function (iconName, iconSetConfigs) {
+        // Iterate backwards, so icon sets added later have precedence.
+        for (var /** @type {?} */ i = iconSetConfigs.length - 1; i >= 0; i--) {
+            var /** @type {?} */ config = iconSetConfigs[i];
+            if (config.svgElement) {
+                var /** @type {?} */ foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName);
+                if (foundIcon) {
+                    return foundIcon;
+                }
+            }
+        }
+        return null;
+    };
+    /**
+     * Loads the content of the icon URL specified in the SvgIconConfig and creates an SVG element
+     * from it.
+     * @param {?} config
+     * @return {?}
+     */
+    MatIconRegistry.prototype._loadSvgIconFromConfig = /**
+     * Loads the content of the icon URL specified in the SvgIconConfig and creates an SVG element
+     * from it.
+     * @param {?} config
+     * @return {?}
+     */
+    function (config) {
+        var _this = this;
+        return this._fetchUrl(config.url)
+            .pipe(rxjs_operators_map.map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText); }));
+    };
+    /**
+     * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
+     * from it.
+     * @param {?} config
+     * @return {?}
+     */
+    MatIconRegistry.prototype._loadSvgIconSetFromConfig = /**
+     * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
+     * from it.
+     * @param {?} config
+     * @return {?}
+     */
+    function (config) {
+        var _this = this;
+        // If the SVG for this icon set has already been parsed, do nothing.
+        if (config.svgElement) {
+            return rxjs_observable_of.of(config.svgElement);
+        }
+        return this._fetchUrl(config.url).pipe(rxjs_operators_map.map(function (svgText) {
+            // It is possible that the icon set was parsed and cached by an earlier request, so parsing
+            // only needs to occur if the cache is yet unset.
+            if (!config.svgElement) {
+                config.svgElement = _this._svgElementFromString(svgText);
+            }
+            return config.svgElement;
+        }));
+    };
+    /**
+     * Creates a DOM element from the given SVG string, and adds default attributes.
+     * @param {?} responseText
+     * @return {?}
+     */
+    MatIconRegistry.prototype._createSvgElementForSingleIcon = /**
+     * Creates a DOM element from the given SVG string, and adds default attributes.
+     * @param {?} responseText
+     * @return {?}
+     */
+    function (responseText) {
+        var /** @type {?} */ svg = this._svgElementFromString(responseText);
+        this._setSvgAttributes(svg);
+        return svg;
+    };
+    /**
+     * Searches the cached element of the given SvgIconConfig for a nested icon element whose "id"
+     * tag matches the specified name. If found, copies the nested element to a new SVG element and
+     * returns it. Returns null if no matching element is found.
+     * @param {?} iconSet
+     * @param {?} iconName
+     * @return {?}
+     */
+    MatIconRegistry.prototype._extractSvgIconFromSet = /**
+     * Searches the cached element of the given SvgIconConfig for a nested icon element whose "id"
+     * tag matches the specified name. If found, copies the nested element to a new SVG element and
+     * returns it. Returns null if no matching element is found.
+     * @param {?} iconSet
+     * @param {?} iconName
+     * @return {?}
+     */
+    function (iconSet, iconName) {
+        var /** @type {?} */ iconSource = iconSet.querySelector('#' + iconName);
+        if (!iconSource) {
+            return null;
+        }
+        // Clone the element and remove the ID to prevent multiple elements from being added
+        // to the page with the same ID.
+        var /** @type {?} */ iconElement = /** @type {?} */ (iconSource.cloneNode(true));
+        iconElement.id = '';
+        // If the icon node is itself an <svg> node, clone and return it directly. If not, set it as
+        // the content of a new <svg> node.
+        if (iconElement.nodeName.toLowerCase() === 'svg') {
+            return this._setSvgAttributes(/** @type {?} */ (iconElement));
+        }
+        // If the node is a <symbol>, it won't be rendered so we have to convert it into <svg>. Note
+        // that the same could be achieved by referring to it via <use href="#id">, however the <use>
+        // tag is problematic on Firefox, because it needs to include the current page path.
+        if (iconElement.nodeName.toLowerCase() === 'symbol') {
+            return this._setSvgAttributes(this._toSvgElement(iconElement));
+        }
+        // createElement('SVG') doesn't work as expected; the DOM ends up with
+        // the correct nodes, but the SVG content doesn't render. Instead we
+        // have to create an empty SVG node using innerHTML and append its content.
+        // Elements created using DOMParser.parseFromString have the same problem.
+        // http://stackoverflow.com/questions/23003278/svg-innerhtml-in-firefox-can-not-display
+        var /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
+        // Clone the node so we don't remove it from the parent icon set element.
+        svg.appendChild(iconElement);
+        return this._setSvgAttributes(svg);
+    };
+    /**
+     * Creates a DOM element from the given SVG string.
+     * @param {?} str
+     * @return {?}
+     */
+    MatIconRegistry.prototype._svgElementFromString = /**
+     * Creates a DOM element from the given SVG string.
+     * @param {?} str
+     * @return {?}
+     */
+    function (str) {
+        if (this._document || typeof document !== 'undefined') {
+            var /** @type {?} */ div = (this._document || document).createElement('DIV');
+            div.innerHTML = str;
+            var /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
+            if (!svg) {
+                throw Error('<svg> tag not found');
+            }
+            return svg;
+        }
+        throw new Error('MatIconRegistry could not resolve document.');
+    };
+    /**
+     * Converts an element into an SVG node by cloning all of its children.
+     * @param {?} element
+     * @return {?}
+     */
+    MatIconRegistry.prototype._toSvgElement = /**
+     * Converts an element into an SVG node by cloning all of its children.
+     * @param {?} element
+     * @return {?}
+     */
+    function (element) {
+        var /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
+        for (var /** @type {?} */ i = 0; i < element.childNodes.length; i++) {
+            if (element.childNodes[i].nodeType === this._document.ELEMENT_NODE) {
+                svg.appendChild(element.childNodes[i].cloneNode(true));
+            }
+        }
+        return svg;
+    };
+    /**
+     * Sets the default attributes for an SVG element to be used as an icon.
+     * @param {?} svg
+     * @return {?}
+     */
+    MatIconRegistry.prototype._setSvgAttributes = /**
+     * Sets the default attributes for an SVG element to be used as an icon.
+     * @param {?} svg
+     * @return {?}
+     */
+    function (svg) {
+        if (!svg.getAttribute('xmlns')) {
+            svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        }
+        svg.setAttribute('fit', '');
+        svg.setAttribute('height', '100%');
+        svg.setAttribute('width', '100%');
+        svg.setAttribute('preserveAspectRatio', 'xMidYMid meet');
+        svg.setAttribute('focusable', 'false'); // Disable IE11 default behavior to make SVGs focusable.
+        return svg;
+    };
+    /**
+     * Returns an Observable which produces the string contents of the given URL. Results may be
+     * cached, so future calls with the same URL may not cause another HTTP request.
+     * @param {?} safeUrl
+     * @return {?}
+     */
+    MatIconRegistry.prototype._fetchUrl = /**
+     * Returns an Observable which produces the string contents of the given URL. Results may be
+     * cached, so future calls with the same URL may not cause another HTTP request.
+     * @param {?} safeUrl
+     * @return {?}
+     */
+    function (safeUrl) {
+        var _this = this;
+        if (!this._httpClient) {
+            throw getMatIconNoHttpProviderError();
+        }
+        var /** @type {?} */ url = this._sanitizer.sanitize(_angular_core.SecurityContext.RESOURCE_URL, safeUrl);
+        if (!url) {
+            throw getMatIconFailedToSanitizeError(safeUrl);
+        }
+        // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
+        // already a request in progress for that URL. It's necessary to call share() on the
+        // Observable returned by http.get() so that multiple subscribers don't cause multiple XHRs.
+        var /** @type {?} */ inProgressFetch = this._inProgressUrlFetches.get(url);
+        if (inProgressFetch) {
+            return inProgressFetch;
+        }
+        // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
+        // Observable. Figure out why and fix it.
+        var /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(rxjs_operators_finalize.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), rxjs_operators_share.share());
+        this._inProgressUrlFetches.set(url, req);
+        return req;
+    };
+    MatIconRegistry.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    MatIconRegistry.ctorParameters = function () { return [
+        { type: _angular_common_http.HttpClient, decorators: [{ type: _angular_core.Optional },] },
+        { type: _angular_platformBrowser.DomSanitizer, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
+    ]; };
+    return MatIconRegistry;
+}());
+/**
+ * \@docs-private
+ * @param {?} parentRegistry
+ * @param {?} httpClient
+ * @param {?} sanitizer
+ * @param {?=} document
+ * @return {?}
+ */
+function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, document) {
+    return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document);
+}
+/**
+ * \@docs-private
+ */
+var ICON_REGISTRY_PROVIDER = {
+    // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
+    provide: MatIconRegistry,
+    deps: [
+        [new _angular_core.Optional(), new _angular_core.SkipSelf(), MatIconRegistry],
+        [new _angular_core.Optional(), _angular_common_http.HttpClient],
+        _angular_platformBrowser.DomSanitizer,
+        [new _angular_core.Optional(), /** @type {?} */ (_angular_common.DOCUMENT)],
+    ],
+    useFactory: ICON_REGISTRY_PROVIDER_FACTORY,
+};
+/**
+ * Clones an SVGElement while preserving type information.
+ * @param {?} svg
+ * @return {?}
+ */
+function cloneSvg(svg) {
+    return /** @type {?} */ (svg.cloneNode(true));
+}
+/**
+ * Returns the cache key to use for an icon namespace and name.
+ * @param {?} namespace
+ * @param {?} name
+ * @return {?}
+ */
+function iconKey(namespace, name) {
+    return namespace + ':' + name;
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * \@docs-private
+ */
+var MatIconBase = /** @class */ (function () {
+    function MatIconBase(_elementRef) {
+        this._elementRef = _elementRef;
+    }
+    return MatIconBase;
+}());
+var _MatIconMixinBase = mixinColor(MatIconBase);
+/**
+ * Component to display an icon. It can be used in the following ways:
+ *
+ * - Specify the svgIcon input to load an SVG icon from a URL previously registered with the
+ *   addSvgIcon, addSvgIconInNamespace, addSvgIconSet, or addSvgIconSetInNamespace methods of
+ *   MatIconRegistry. If the svgIcon value contains a colon it is assumed to be in the format
+ *   "[namespace]:[name]", if not the value will be the name of an icon in the default namespace.
+ *   Examples:
+ *     `<mat-icon svgIcon="left-arrow"></mat-icon>
+ *     <mat-icon svgIcon="animals:cat"></mat-icon>`
+ *
+ * - Use a font ligature as an icon by putting the ligature text in the content of the `<mat-icon>`
+ *   component. By default the Material icons font is used as described at
+ *   http://google.github.io/material-design-icons/#icon-font-for-the-web. You can specify an
+ *   alternate font by setting the fontSet input to either the CSS class to apply to use the
+ *   desired font, or to an alias previously registered with MatIconRegistry.registerFontClassAlias.
+ *   Examples:
+ *     `<mat-icon>home</mat-icon>
+ *     <mat-icon fontSet="myfont">sun</mat-icon>`
+ *
+ * - Specify a font glyph to be included via CSS rules by setting the fontSet input to specify the
+ *   font, and the fontIcon input to specify the icon. Typically the fontIcon will specify a
+ *   CSS class which causes the glyph to be displayed via a :before selector, as in
+ *   https://fortawesome.github.io/Font-Awesome/examples/
+ *   Example:
+ *     `<mat-icon fontSet="fa" fontIcon="alarm"></mat-icon>`
+ */
+var MatIcon = /** @class */ (function (_super) {
+    __extends(MatIcon, _super);
+    function MatIcon(elementRef, _iconRegistry, ariaHidden) {
+        var _this = _super.call(this, elementRef) || this;
+        _this._iconRegistry = _iconRegistry;
+        // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
+        // the right thing to do for the majority of icon use-cases.
+        if (!ariaHidden) {
+            elementRef.nativeElement.setAttribute('aria-hidden', 'true');
+        }
+        return _this;
+    }
+    Object.defineProperty(MatIcon.prototype, "fontSet", {
+        get: /**
+         * Font set that the icon is a part of.
+         * @return {?}
+         */
+        function () { return this._fontSet; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._fontSet = this._cleanupFontValue(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatIcon.prototype, "fontIcon", {
+        get: /**
+         * Name of an icon within a font set.
+         * @return {?}
+         */
+        function () { return this._fontIcon; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._fontIcon = this._cleanupFontValue(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * Splits an svgIcon binding value into its icon set and icon name components.
+     * Returns a 2-element array of [(icon set), (icon name)].
+     * The separator for the two fields is ':'. If there is no separator, an empty
+     * string is returned for the icon set and the entire value is returned for
+     * the icon name. If the argument is falsy, returns an array of two empty strings.
+     * Throws an error if the name contains two or more ':' separators.
+     * Examples:
+     *   `'social:cake' -> ['social', 'cake']
+     *   'penguin' -> ['', 'penguin']
+     *   null -> ['', '']
+     *   'a:b:c' -> (throws Error)`
+     * @param {?} iconName
+     * @return {?}
+     */
+    MatIcon.prototype._splitIconName = /**
+     * Splits an svgIcon binding value into its icon set and icon name components.
+     * Returns a 2-element array of [(icon set), (icon name)].
+     * The separator for the two fields is ':'. If there is no separator, an empty
+     * string is returned for the icon set and the entire value is returned for
+     * the icon name. If the argument is falsy, returns an array of two empty strings.
+     * Throws an error if the name contains two or more ':' separators.
+     * Examples:
+     *   `'social:cake' -> ['social', 'cake']
+     *   'penguin' -> ['', 'penguin']
+     *   null -> ['', '']
+     *   'a:b:c' -> (throws Error)`
+     * @param {?} iconName
+     * @return {?}
+     */
+    function (iconName) {
+        if (!iconName) {
+            return ['', ''];
+        }
+        var /** @type {?} */ parts = iconName.split(':');
+        switch (parts.length) {
+            case 1: return ['', parts[0]]; // Use default namespace.
+            case 2: return /** @type {?} */ (parts);
+            default: throw Error("Invalid icon name: \"" + iconName + "\"");
+        }
+    };
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    MatIcon.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        var _this = this;
+        // Only update the inline SVG icon if the inputs changed, to avoid unnecessary DOM operations.
+        if (changes["svgIcon"]) {
+            if (this.svgIcon) {
+                var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
+                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(rxjs_operators_take.take(1)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
+            }
+            else {
+                this._clearSvgElement();
+            }
+        }
+        if (this._usingFontIcon()) {
+            this._updateFontIconClasses();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MatIcon.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        // Update font classes because ngOnChanges won't be called if none of the inputs are present,
+        // e.g. <mat-icon>arrow</mat-icon> In this case we need to add a CSS class for the default font.
+        if (this._usingFontIcon()) {
+            this._updateFontIconClasses();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MatIcon.prototype._usingFontIcon = /**
+     * @return {?}
+     */
+    function () {
+        return !this.svgIcon;
+    };
+    /**
+     * @param {?} svg
+     * @return {?}
+     */
+    MatIcon.prototype._setSvgElement = /**
+     * @param {?} svg
+     * @return {?}
+     */
+    function (svg) {
+        this._clearSvgElement();
+        this._elementRef.nativeElement.appendChild(svg);
+    };
+    /**
+     * @return {?}
+     */
+    MatIcon.prototype._clearSvgElement = /**
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ layoutElement = this._elementRef.nativeElement;
+        var /** @type {?} */ childCount = layoutElement.childNodes.length;
+        // Remove existing child nodes and add the new SVG element. Note that we can't
+        // use innerHTML, because IE will throw if the element has a data binding.
+        for (var /** @type {?} */ i = 0; i < childCount; i++) {
+            layoutElement.removeChild(layoutElement.childNodes[i]);
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MatIcon.prototype._updateFontIconClasses = /**
+     * @return {?}
+     */
+    function () {
+        if (!this._usingFontIcon()) {
+            return;
+        }
+        var /** @type {?} */ elem = this._elementRef.nativeElement;
+        var /** @type {?} */ fontSetClass = this.fontSet ?
+            this._iconRegistry.classNameForFontAlias(this.fontSet) :
+            this._iconRegistry.getDefaultFontSetClass();
+        if (fontSetClass != this._previousFontSetClass) {
+            if (this._previousFontSetClass) {
+                elem.classList.remove(this._previousFontSetClass);
+            }
+            if (fontSetClass) {
+                elem.classList.add(fontSetClass);
+            }
+            this._previousFontSetClass = fontSetClass;
+        }
+        if (this.fontIcon != this._previousFontIconClass) {
+            if (this._previousFontIconClass) {
+                elem.classList.remove(this._previousFontIconClass);
+            }
+            if (this.fontIcon) {
+                elem.classList.add(this.fontIcon);
+            }
+            this._previousFontIconClass = this.fontIcon;
+        }
+    };
+    /**
+     * Cleans up a value to be used as a fontIcon or fontSet.
+     * Since the value ends up being assigned as a CSS class, we
+     * have to trim the value and omit space-separated values.
+     * @param {?} value
+     * @return {?}
+     */
+    MatIcon.prototype._cleanupFontValue = /**
+     * Cleans up a value to be used as a fontIcon or fontSet.
+     * Since the value ends up being assigned as a CSS class, we
+     * have to trim the value and omit space-separated values.
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        return typeof value === 'string' ? value.trim().split(' ')[0] : value;
+    };
+    MatIcon.decorators = [
+        { type: _angular_core.Component, args: [{template: '<ng-content></ng-content>',
+                    selector: 'mat-icon',
+                    exportAs: 'matIcon',
+                    styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}"],
+                    inputs: ['color'],
+                    host: {
+                        'role': 'img',
+                        'class': 'mat-icon',
+                    },
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /** @nocollapse */
+    MatIcon.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: MatIconRegistry, },
+        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['aria-hidden',] },] },
+    ]; };
+    MatIcon.propDecorators = {
+        "svgIcon": [{ type: _angular_core.Input },],
+        "fontSet": [{ type: _angular_core.Input },],
+        "fontIcon": [{ type: _angular_core.Input },],
+    };
+    return MatIcon;
+}(_MatIconMixinBase));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+var MatIconModule = /** @class */ (function () {
+    function MatIconModule() {
+    }
+    MatIconModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [MatCommonModule],
+                    exports: [MatIcon, MatCommonModule],
+                    declarations: [MatIcon],
+                    providers: [ICON_REGISTRY_PROVIDER],
+                },] },
+    ];
+    /** @nocollapse */
+    MatIconModule.ctorParameters = function () { return []; };
+    return MatIconModule;
 }());
 
 /**
@@ -19949,8 +19946,9 @@ var MatTooltip = /** @class */ (function () {
  * \@docs-private
  */
 var TooltipComponent = /** @class */ (function () {
-    function TooltipComponent(_changeDetectorRef) {
+    function TooltipComponent(_changeDetectorRef, _breakpointObserver) {
         this._changeDetectorRef = _changeDetectorRef;
+        this._breakpointObserver = _breakpointObserver;
         /**
          * Property watched by the animation framework to show or hide the tooltip
          */
@@ -19967,6 +19965,10 @@ var TooltipComponent = /** @class */ (function () {
          * Subject for notifying that the tooltip has been hidden from the view
          */
         this._onHide = new rxjs_Subject.Subject();
+        /**
+         * Stream that emits whether the user has a handset-sized display.
+         */
+        this._isHandset = this._breakpointObserver.observe(_angular_cdk_layout.Breakpoints.Handset);
     }
     /**
      * Shows the tooltip with an animation originating from the provided origin
@@ -20153,8 +20155,8 @@ var TooltipComponent = /** @class */ (function () {
     };
     TooltipComponent.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-tooltip-component',
-                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
-                    styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}"],
+                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)!.matches\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
+                    styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -20171,6 +20173,7 @@ var TooltipComponent = /** @class */ (function () {
     /** @nocollapse */
     TooltipComponent.ctorParameters = function () { return [
         { type: _angular_core.ChangeDetectorRef, },
+        { type: _angular_cdk_layout.BreakpointObserver, },
     ]; };
     return TooltipComponent;
 }());
@@ -20196,6 +20199,7 @@ var MatTooltipModule = /** @class */ (function () {
                         MatCommonModule,
                         _angular_cdk_platform.PlatformModule,
                         _angular_cdk_a11y.A11yModule,
+                        _angular_cdk_layout.LayoutModule,
                     ],
                     exports: [MatTooltip, TooltipComponent, MatCommonModule],
                     declarations: [MatTooltip, TooltipComponent],
@@ -20243,6 +20247,14 @@ var MatPaginatorIntl = /** @class */ (function () {
          * A label for the button that decrements the current page.
          */
         this.previousPageLabel = 'Previous page';
+        /**
+         * A label for the button that moves to the first page.
+         */
+        this.firstPageLabel = 'First page';
+        /**
+         * A label for the button that moves to the last page.
+         */
+        this.lastPageLabel = 'Last page';
         /**
          * A label for the range of items within the current page and the length of the whole list.
          */
@@ -20315,10 +20327,8 @@ var MatPaginator = /** @class */ (function () {
         this._pageIndex = 0;
         this._length = 0;
         this._pageSizeOptions = [];
-        /**
-         * Whether to hide the page size selection UI from the user.
-         */
-        this.hidePageSize = false;
+        this._hidePageSize = false;
+        this._showFirstLastButtons = false;
         /**
          * Event emitted when the paginator changes the page size or page index.
          */
@@ -20332,11 +20342,11 @@ var MatPaginator = /** @class */ (function () {
          */
         function () { return this._pageIndex; },
         set: /**
-         * @param {?} pageIndex
+         * @param {?} value
          * @return {?}
          */
-        function (pageIndex) {
-            this._pageIndex = _angular_cdk_coercion.coerceNumberProperty(pageIndex);
+        function (value) {
+            this._pageIndex = _angular_cdk_coercion.coerceNumberProperty(value);
             this._changeDetectorRef.markForCheck();
         },
         enumerable: true,
@@ -20349,11 +20359,11 @@ var MatPaginator = /** @class */ (function () {
          */
         function () { return this._length; },
         set: /**
-         * @param {?} length
+         * @param {?} value
          * @return {?}
          */
-        function (length) {
-            this._length = _angular_cdk_coercion.coerceNumberProperty(length);
+        function (value) {
+            this._length = _angular_cdk_coercion.coerceNumberProperty(value);
             this._changeDetectorRef.markForCheck();
         },
         enumerable: true,
@@ -20366,11 +20376,11 @@ var MatPaginator = /** @class */ (function () {
          */
         function () { return this._pageSize; },
         set: /**
-         * @param {?} pageSize
+         * @param {?} value
          * @return {?}
          */
-        function (pageSize) {
-            this._pageSize = _angular_cdk_coercion.coerceNumberProperty(pageSize);
+        function (value) {
+            this._pageSize = _angular_cdk_coercion.coerceNumberProperty(value);
             this._updateDisplayedPageSizeOptions();
         },
         enumerable: true,
@@ -20383,12 +20393,44 @@ var MatPaginator = /** @class */ (function () {
          */
         function () { return this._pageSizeOptions; },
         set: /**
-         * @param {?} pageSizeOptions
+         * @param {?} value
          * @return {?}
          */
-        function (pageSizeOptions) {
-            this._pageSizeOptions = (pageSizeOptions || []).map(function (p) { return _angular_cdk_coercion.coerceNumberProperty(p); });
+        function (value) {
+            this._pageSizeOptions = (value || []).map(function (p) { return _angular_cdk_coercion.coerceNumberProperty(p); });
             this._updateDisplayedPageSizeOptions();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatPaginator.prototype, "hidePageSize", {
+        get: /**
+         * Whether to hide the page size selection UI from the user.
+         * @return {?}
+         */
+        function () { return this._hidePageSize; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._hidePageSize = _angular_cdk_coercion.coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatPaginator.prototype, "showFirstLastButtons", {
+        get: /**
+         * Whether to show the first/last buttons UI to the user.
+         * @return {?}
+         */
+        function () { return this._showFirstLastButtons; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._showFirstLastButtons = _angular_cdk_coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -20444,6 +20486,40 @@ var MatPaginator = /** @class */ (function () {
         this.pageIndex--;
         this._emitPageEvent();
     };
+    /** Move to the first page if not already there. */
+    /**
+     * Move to the first page if not already there.
+     * @return {?}
+     */
+    MatPaginator.prototype.firstPage = /**
+     * Move to the first page if not already there.
+     * @return {?}
+     */
+    function () {
+        // hasPreviousPage being false implies at the start
+        if (!this.hasPreviousPage()) {
+            return;
+        }
+        this.pageIndex = 0;
+        this._emitPageEvent();
+    };
+    /** Move to the last page if not already there. */
+    /**
+     * Move to the last page if not already there.
+     * @return {?}
+     */
+    MatPaginator.prototype.lastPage = /**
+     * Move to the last page if not already there.
+     * @return {?}
+     */
+    function () {
+        // hasNextPage being false implies at the end
+        if (!this.hasNextPage()) {
+            return;
+        }
+        this.pageIndex = this.getNumberOfPages();
+        this._emitPageEvent();
+    };
     /** Whether there is a previous page. */
     /**
      * Whether there is a previous page.
@@ -20466,8 +20542,20 @@ var MatPaginator = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ numberOfPages = Math.ceil(this.length / this.pageSize) - 1;
+        var /** @type {?} */ numberOfPages = this.getNumberOfPages();
         return this.pageIndex < numberOfPages && this.pageSize != 0;
+    };
+    /** Calculate the number of pages */
+    /**
+     * Calculate the number of pages
+     * @return {?}
+     */
+    MatPaginator.prototype.getNumberOfPages = /**
+     * Calculate the number of pages
+     * @return {?}
+     */
+    function () {
+        return Math.ceil(this.length / this.pageSize) - 1;
     };
     /**
      * Changes the page size so that the first item displayed on the page will still be
@@ -20551,8 +20639,8 @@ var MatPaginator = /** @class */ (function () {
     MatPaginator.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-paginator',
                     exportAs: 'matPaginator',
-                    template: "<div class=\"mat-paginator-container\"><div class=\"mat-paginator-page-size\" *ngIf=\"!hidePageSize\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\"><mat-select [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-actions\"><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-increment\"></div></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-decrement\"></div></button></div></div>",
-                    styles: [".mat-paginator{display:block}.mat-paginator-container{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px;flex-wrap:wrap-reverse}.mat-paginator-page-size{display:flex;align-items:baseline;margin-right:8px}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:6px 4px 0 4px;width:56px}.mat-paginator-range-label{margin:0 32px 0 24px}.mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 0 0 8px}[dir=rtl] .mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 8px 0 0}.mat-paginator-decrement,.mat-paginator-increment{width:8px;height:8px}.mat-paginator-decrement,[dir=rtl] .mat-paginator-increment{transform:rotate(45deg)}.mat-paginator-increment,[dir=rtl] .mat-paginator-decrement{transform:rotate(225deg)}.mat-paginator-decrement{margin-left:12px}[dir=rtl] .mat-paginator-decrement{margin-right:12px}.mat-paginator-increment{margin-left:16px}[dir=rtl] .mat-paginator-increment{margin-right:16px}.mat-paginator-range-actions{display:flex;align-items:center;min-height:48px}"],
+                    template: "<div class=\"mat-paginator-container\"><div class=\"mat-paginator-page-size\" *ngIf=\"!hidePageSize\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\"><mat-select [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-actions\"><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-first\" (click)=\"firstPage()\" [attr.aria-label]=\"_intl.firstPageLabel\" [matTooltip]=\"_intl.firstPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\" *ngIf=\"showFirstLastButtons\"><div class=\"mat-paginator-first\"></div><div class=\"mat-paginator-decrement\"></div></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-decrement\"></div></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-increment\"></div></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-last\" (click)=\"lastPage()\" [attr.aria-label]=\"_intl.lastPageLabel\" [matTooltip]=\"_intl.lastPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\" *ngIf=\"showFirstLastButtons\"><div class=\"mat-paginator-increment\"></div><div class=\"mat-paginator-last\"></div></button></div></div>",
+                    styles: [".mat-paginator{display:block}.mat-paginator-container{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px;flex-wrap:wrap-reverse}.mat-paginator-page-size{display:flex;align-items:baseline;margin-right:8px}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:6px 4px 0 4px;width:56px}.mat-paginator-range-label{margin:0 32px 0 24px}.mat-paginator-decrement-button+.mat-paginator-decrement-button{margin:0 0 0 8px}[dir=rtl] .mat-paginator-decrement-button+.mat-paginator-decrement-button{margin:0 8px 0 0}.mat-paginator-decrement,.mat-paginator-increment{width:8px;height:8px}.mat-paginator-increment,[dir=rtl] .mat-paginator-decrement{transform:rotate(45deg)}.mat-paginator-decrement,[dir=rtl] .mat-paginator-increment{transform:rotate(225deg)}.mat-paginator-increment{margin-left:12px}[dir=rtl] .mat-paginator-increment{margin-right:12px}.mat-paginator-decrement{margin-left:16px}[dir=rtl] .mat-paginator-decrement{margin-right:16px}.mat-paginator-first{transform:rotate(90deg);width:14px;height:8px;float:left;margin-left:3px}.mat-paginator-navigation-first .mat-paginator-decrement{margin-left:21px}.mat-paginator-navigation-last .mat-paginator-increment{float:left;margin-left:9px}.mat-paginator-last{transform:rotate(90deg);width:14px;height:8px;margin-left:15px}.mat-paginator-range-actions{display:flex;align-items:center;min-height:48px}"],
                     host: {
                         'class': 'mat-paginator',
                     },
@@ -20572,6 +20660,7 @@ var MatPaginator = /** @class */ (function () {
         "pageSize": [{ type: _angular_core.Input },],
         "pageSizeOptions": [{ type: _angular_core.Input },],
         "hidePageSize": [{ type: _angular_core.Input },],
+        "showFirstLastButtons": [{ type: _angular_core.Input },],
         "page": [{ type: _angular_core.Output },],
     };
     return MatPaginator;
@@ -20718,7 +20807,7 @@ var MatProgressBar = /** @class */ (function (_super) {
                         'class': 'mat-progress-bar',
                     },
                     inputs: ['color'],
-                    template: "<svg width=\"100%\" height=\"5\" class=\"mat-progress-bar-background mat-progress-bar-element\"><defs><pattern [id]=\"progressbarId\" x=\"5\" y=\"0\" width=\"10\" height=\"5\" patternUnits=\"userSpaceOnUse\"><circle cx=\"2.5\" cy=\"2.5\" r=\"2.5\"/></pattern></defs><rect [attr.fill]=\"'url(#' + progressbarId + ')'\" width=\"100%\" height=\"100%\"/></svg><div class=\"mat-progress-bar-buffer mat-progress-bar-element\" [ngStyle]=\"_bufferTransform()\"></div><div class=\"mat-progress-bar-primary mat-progress-bar-fill mat-progress-bar-element\" [ngStyle]=\"_primaryTransform()\"></div><div class=\"mat-progress-bar-secondary mat-progress-bar-fill mat-progress-bar-element\"></div>",
+                    template: "<svg width=\"100%\" height=\"5\" focusable=\"false\" class=\"mat-progress-bar-background mat-progress-bar-element\"><defs><pattern [id]=\"progressbarId\" x=\"5\" y=\"0\" width=\"10\" height=\"5\" patternUnits=\"userSpaceOnUse\"><circle cx=\"2.5\" cy=\"2.5\" r=\"2.5\"/></pattern></defs><rect [attr.fill]=\"'url(#' + progressbarId + ')'\" width=\"100%\" height=\"100%\"/></svg><div class=\"mat-progress-bar-buffer mat-progress-bar-element\" [ngStyle]=\"_bufferTransform()\"></div><div class=\"mat-progress-bar-primary mat-progress-bar-fill mat-progress-bar-element\" [ngStyle]=\"_primaryTransform()\"></div><div class=\"mat-progress-bar-secondary mat-progress-bar-fill mat-progress-bar-element\"></div>",
                     styles: [".mat-progress-bar{display:block;height:5px;overflow:hidden;position:relative;transition:opacity 250ms linear;width:100%}.mat-progress-bar .mat-progress-bar-element,.mat-progress-bar .mat-progress-bar-fill::after{height:100%;position:absolute;width:100%}.mat-progress-bar .mat-progress-bar-background{width:calc(100% + 10px)}.mat-progress-bar .mat-progress-bar-buffer{transform-origin:top left;transition:transform 250ms ease}.mat-progress-bar .mat-progress-bar-secondary{display:none}.mat-progress-bar .mat-progress-bar-fill{animation:none;transform-origin:top left;transition:transform 250ms ease}.mat-progress-bar .mat-progress-bar-fill::after{animation:none;content:'';display:inline-block;left:0}.mat-progress-bar[dir=rtl],[dir=rtl] .mat-progress-bar{transform:rotateY(180deg)}.mat-progress-bar[mode=query]{transform:rotateZ(180deg)}.mat-progress-bar[mode=query][dir=rtl],[dir=rtl] .mat-progress-bar[mode=query]{transform:rotateZ(180deg) rotateY(180deg)}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-fill,.mat-progress-bar[mode=query] .mat-progress-bar-fill{transition:none}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-primary,.mat-progress-bar[mode=query] .mat-progress-bar-primary{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-primary-indeterminate-translate 2s infinite linear;left:-145.166611%}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-primary.mat-progress-bar-fill::after,.mat-progress-bar[mode=query] .mat-progress-bar-primary.mat-progress-bar-fill::after{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-primary-indeterminate-scale 2s infinite linear}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-secondary,.mat-progress-bar[mode=query] .mat-progress-bar-secondary{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-secondary-indeterminate-translate 2s infinite linear;left:-54.888891%;display:block}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-secondary.mat-progress-bar-fill::after,.mat-progress-bar[mode=query] .mat-progress-bar-secondary.mat-progress-bar-fill::after{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-secondary-indeterminate-scale 2s infinite linear}.mat-progress-bar[mode=buffer] .mat-progress-bar-background{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-background-scroll 250ms infinite linear}@keyframes mat-progress-bar-primary-indeterminate-translate{0%{transform:translateX(0)}20%{animation-timing-function:cubic-bezier(.5,0,.70173,.49582);transform:translateX(0)}59.15%{animation-timing-function:cubic-bezier(.30244,.38135,.55,.95635);transform:translateX(83.67142%)}100%{transform:translateX(200.61106%)}}@keyframes mat-progress-bar-primary-indeterminate-scale{0%{transform:scaleX(.08)}36.65%{animation-timing-function:cubic-bezier(.33473,.12482,.78584,1);transform:scaleX(.08)}69.15%{animation-timing-function:cubic-bezier(.06,.11,.6,1);transform:scaleX(.66148)}100%{transform:scaleX(.08)}}@keyframes mat-progress-bar-secondary-indeterminate-translate{0%{animation-timing-function:cubic-bezier(.15,0,.51506,.40969);transform:translateX(0)}25%{animation-timing-function:cubic-bezier(.31033,.28406,.8,.73371);transform:translateX(37.65191%)}48.35%{animation-timing-function:cubic-bezier(.4,.62704,.6,.90203);transform:translateX(84.38617%)}100%{transform:translateX(160.27778%)}}@keyframes mat-progress-bar-secondary-indeterminate-scale{0%{animation-timing-function:cubic-bezier(.15,0,.51506,.40969);transform:scaleX(.08)}19.15%{animation-timing-function:cubic-bezier(.31033,.28406,.8,.73371);transform:scaleX(.4571)}44.15%{animation-timing-function:cubic-bezier(.4,.62704,.6,.90203);transform:scaleX(.72796)}100%{transform:scaleX(.08)}}@keyframes mat-progress-bar-background-scroll{to{transform:translateX(-10px)}}"],
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -22103,10 +22192,6 @@ var MatDrawer = /** @class */ (function () {
         this._mode = 'over';
         this._disableClose = false;
         /**
-         * Whether the drawer is opened.
-         */
-        this._opened = false;
-        /**
          * Emits whenever the drawer has started animating.
          */
         this._animationStarted = new _angular_core.EventEmitter();
@@ -22146,6 +22231,7 @@ var MatDrawer = /** @class */ (function () {
          * to know when to when the mode changes so it can adapt the margins on the content.
          */
         this._modeChanged = new rxjs_Subject.Subject();
+        this._opened = false;
         this.openedChange.subscribe(function (opened) {
             if (opened) {
                 if (_this._doc) {
@@ -22368,10 +22454,10 @@ var MatDrawer = /** @class */ (function () {
          */
         function () { return this._opened; },
         set: /**
-         * @param {?} v
+         * @param {?} value
          * @return {?}
          */
-        function (v) { this.toggle(_angular_cdk_coercion.coerceBooleanProperty(v)); },
+        function (value) { this.toggle(_angular_cdk_coercion.coerceBooleanProperty(value)); },
         enumerable: true,
         configurable: true
     });
@@ -29685,7 +29771,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.2.0-beta.0-cde00df');
+var VERSION = new _angular_core.Version('5.2.0-beta.0-6d4413f');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29767,6 +29853,7 @@ exports.mixinColor = mixinColor;
 exports.mixinDisableRipple = mixinDisableRipple;
 exports.mixinTabIndex = mixinTabIndex;
 exports.mixinErrorState = mixinErrorState;
+exports.mixinInitialized = mixinInitialized;
 exports.NativeDateModule = NativeDateModule;
 exports.MatNativeDateModule = MatNativeDateModule;
 exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;
@@ -29917,10 +30004,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -30043,16 +30130,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe21 = MatTabBase;
-exports.ɵf21 = _MatTabMixinBase;
-exports.ɵa21 = MatTabHeaderBase;
-exports.ɵb21 = _MatTabHeaderMixinBase;
-exports.ɵc21 = MatTabLabelWrapperBase;
-exports.ɵd21 = _MatTabLabelWrapperMixinBase;
-exports.ɵi21 = MatTabLinkBase;
-exports.ɵg21 = MatTabNavBase;
-exports.ɵj21 = _MatTabLinkMixinBase;
-exports.ɵh21 = _MatTabNavMixinBase;
+exports.ɵe18 = MatTabBase;
+exports.ɵf18 = _MatTabMixinBase;
+exports.ɵa18 = MatTabHeaderBase;
+exports.ɵb18 = _MatTabHeaderMixinBase;
+exports.ɵc18 = MatTabLabelWrapperBase;
+exports.ɵd18 = _MatTabLabelWrapperMixinBase;
+exports.ɵi18 = MatTabLinkBase;
+exports.ɵg18 = MatTabNavBase;
+exports.ɵj18 = _MatTabLinkMixinBase;
+exports.ɵh18 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

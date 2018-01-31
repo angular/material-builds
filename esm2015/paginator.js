@@ -10,7 +10,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, In
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { coerceNumberProperty } from '@angular/cdk/coercion';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs/Subject';
 
 /**
@@ -41,6 +41,14 @@ class MatPaginatorIntl {
          * A label for the button that decrements the current page.
          */
         this.previousPageLabel = 'Previous page';
+        /**
+         * A label for the button that moves to the first page.
+         */
+        this.firstPageLabel = 'First page';
+        /**
+         * A label for the button that moves to the last page.
+         */
+        this.lastPageLabel = 'Last page';
         /**
          * A label for the range of items within the current page and the length of the whole list.
          */
@@ -112,10 +120,8 @@ class MatPaginator {
         this._pageIndex = 0;
         this._length = 0;
         this._pageSizeOptions = [];
-        /**
-         * Whether to hide the page size selection UI from the user.
-         */
-        this.hidePageSize = false;
+        this._hidePageSize = false;
+        this._showFirstLastButtons = false;
         /**
          * Event emitted when the paginator changes the page size or page index.
          */
@@ -128,11 +134,11 @@ class MatPaginator {
      */
     get pageIndex() { return this._pageIndex; }
     /**
-     * @param {?} pageIndex
+     * @param {?} value
      * @return {?}
      */
-    set pageIndex(pageIndex) {
-        this._pageIndex = coerceNumberProperty(pageIndex);
+    set pageIndex(value) {
+        this._pageIndex = coerceNumberProperty(value);
         this._changeDetectorRef.markForCheck();
     }
     /**
@@ -141,11 +147,11 @@ class MatPaginator {
      */
     get length() { return this._length; }
     /**
-     * @param {?} length
+     * @param {?} value
      * @return {?}
      */
-    set length(length) {
-        this._length = coerceNumberProperty(length);
+    set length(value) {
+        this._length = coerceNumberProperty(value);
         this._changeDetectorRef.markForCheck();
     }
     /**
@@ -154,11 +160,11 @@ class MatPaginator {
      */
     get pageSize() { return this._pageSize; }
     /**
-     * @param {?} pageSize
+     * @param {?} value
      * @return {?}
      */
-    set pageSize(pageSize) {
-        this._pageSize = coerceNumberProperty(pageSize);
+    set pageSize(value) {
+        this._pageSize = coerceNumberProperty(value);
         this._updateDisplayedPageSizeOptions();
     }
     /**
@@ -167,12 +173,36 @@ class MatPaginator {
      */
     get pageSizeOptions() { return this._pageSizeOptions; }
     /**
-     * @param {?} pageSizeOptions
+     * @param {?} value
      * @return {?}
      */
-    set pageSizeOptions(pageSizeOptions) {
-        this._pageSizeOptions = (pageSizeOptions || []).map(p => coerceNumberProperty(p));
+    set pageSizeOptions(value) {
+        this._pageSizeOptions = (value || []).map(p => coerceNumberProperty(p));
         this._updateDisplayedPageSizeOptions();
+    }
+    /**
+     * Whether to hide the page size selection UI from the user.
+     * @return {?}
+     */
+    get hidePageSize() { return this._hidePageSize; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set hidePageSize(value) {
+        this._hidePageSize = coerceBooleanProperty(value);
+    }
+    /**
+     * Whether to show the first/last buttons UI to the user.
+     * @return {?}
+     */
+    get showFirstLastButtons() { return this._showFirstLastButtons; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set showFirstLastButtons(value) {
+        this._showFirstLastButtons = coerceBooleanProperty(value);
     }
     /**
      * @return {?}
@@ -210,6 +240,30 @@ class MatPaginator {
         this._emitPageEvent();
     }
     /**
+     * Move to the first page if not already there.
+     * @return {?}
+     */
+    firstPage() {
+        // hasPreviousPage being false implies at the start
+        if (!this.hasPreviousPage()) {
+            return;
+        }
+        this.pageIndex = 0;
+        this._emitPageEvent();
+    }
+    /**
+     * Move to the last page if not already there.
+     * @return {?}
+     */
+    lastPage() {
+        // hasNextPage being false implies at the end
+        if (!this.hasNextPage()) {
+            return;
+        }
+        this.pageIndex = this.getNumberOfPages();
+        this._emitPageEvent();
+    }
+    /**
      * Whether there is a previous page.
      * @return {?}
      */
@@ -221,8 +275,15 @@ class MatPaginator {
      * @return {?}
      */
     hasNextPage() {
-        const /** @type {?} */ numberOfPages = Math.ceil(this.length / this.pageSize) - 1;
+        const /** @type {?} */ numberOfPages = this.getNumberOfPages();
         return this.pageIndex < numberOfPages && this.pageSize != 0;
+    }
+    /**
+     * Calculate the number of pages
+     * @return {?}
+     */
+    getNumberOfPages() {
+        return Math.ceil(this.length / this.pageSize) - 1;
     }
     /**
      * Changes the page size so that the first item displayed on the page will still be
@@ -280,8 +341,8 @@ class MatPaginator {
 MatPaginator.decorators = [
     { type: Component, args: [{selector: 'mat-paginator',
                 exportAs: 'matPaginator',
-                template: "<div class=\"mat-paginator-container\"><div class=\"mat-paginator-page-size\" *ngIf=\"!hidePageSize\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\"><mat-select [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-actions\"><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-increment\"></div></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-decrement\"></div></button></div></div>",
-                styles: [".mat-paginator{display:block}.mat-paginator-container{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px;flex-wrap:wrap-reverse}.mat-paginator-page-size{display:flex;align-items:baseline;margin-right:8px}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:6px 4px 0 4px;width:56px}.mat-paginator-range-label{margin:0 32px 0 24px}.mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 0 0 8px}[dir=rtl] .mat-paginator-increment-button+.mat-paginator-increment-button{margin:0 8px 0 0}.mat-paginator-decrement,.mat-paginator-increment{width:8px;height:8px}.mat-paginator-decrement,[dir=rtl] .mat-paginator-increment{transform:rotate(45deg)}.mat-paginator-increment,[dir=rtl] .mat-paginator-decrement{transform:rotate(225deg)}.mat-paginator-decrement{margin-left:12px}[dir=rtl] .mat-paginator-decrement{margin-right:12px}.mat-paginator-increment{margin-left:16px}[dir=rtl] .mat-paginator-increment{margin-right:16px}.mat-paginator-range-actions{display:flex;align-items:center;min-height:48px}"],
+                template: "<div class=\"mat-paginator-container\"><div class=\"mat-paginator-page-size\" *ngIf=\"!hidePageSize\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\"><mat-select [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (change)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-actions\"><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-first\" (click)=\"firstPage()\" [attr.aria-label]=\"_intl.firstPageLabel\" [matTooltip]=\"_intl.firstPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\" *ngIf=\"showFirstLastButtons\"><div class=\"mat-paginator-first\"></div><div class=\"mat-paginator-decrement\"></div></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><div class=\"mat-paginator-decrement\"></div></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><div class=\"mat-paginator-increment\"></div></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-last\" (click)=\"lastPage()\" [attr.aria-label]=\"_intl.lastPageLabel\" [matTooltip]=\"_intl.lastPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\" *ngIf=\"showFirstLastButtons\"><div class=\"mat-paginator-increment\"></div><div class=\"mat-paginator-last\"></div></button></div></div>",
+                styles: [".mat-paginator{display:block}.mat-paginator-container{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px;flex-wrap:wrap-reverse}.mat-paginator-page-size{display:flex;align-items:baseline;margin-right:8px}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:6px 4px 0 4px;width:56px}.mat-paginator-range-label{margin:0 32px 0 24px}.mat-paginator-decrement-button+.mat-paginator-decrement-button{margin:0 0 0 8px}[dir=rtl] .mat-paginator-decrement-button+.mat-paginator-decrement-button{margin:0 8px 0 0}.mat-paginator-decrement,.mat-paginator-increment{width:8px;height:8px}.mat-paginator-increment,[dir=rtl] .mat-paginator-decrement{transform:rotate(45deg)}.mat-paginator-decrement,[dir=rtl] .mat-paginator-increment{transform:rotate(225deg)}.mat-paginator-increment{margin-left:12px}[dir=rtl] .mat-paginator-increment{margin-right:12px}.mat-paginator-decrement{margin-left:16px}[dir=rtl] .mat-paginator-decrement{margin-right:16px}.mat-paginator-first{transform:rotate(90deg);width:14px;height:8px;float:left;margin-left:3px}.mat-paginator-navigation-first .mat-paginator-decrement{margin-left:21px}.mat-paginator-navigation-last .mat-paginator-increment{float:left;margin-left:9px}.mat-paginator-last{transform:rotate(90deg);width:14px;height:8px;margin-left:15px}.mat-paginator-range-actions{display:flex;align-items:center;min-height:48px}"],
                 host: {
                     'class': 'mat-paginator',
                 },
@@ -301,6 +362,7 @@ MatPaginator.propDecorators = {
     "pageSize": [{ type: Input },],
     "pageSizeOptions": [{ type: Input },],
     "hidePageSize": [{ type: Input },],
+    "showFirstLastButtons": [{ type: Input },],
     "page": [{ type: Output },],
 };
 

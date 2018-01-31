@@ -56,22 +56,6 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this._changeDetector = _changeDetector;
         /**
-         * The value for the button toggle group. Should match currently selected button toggle.
-         */
-        _this._value = null;
-        /**
-         * The HTML name attribute applied to toggles in this group.
-         */
-        _this._name = "mat-button-toggle-group-" + _uniqueIdCounter++;
-        /**
-         * Whether the button toggle group should be vertical.
-         */
-        _this._vertical = false;
-        /**
-         * The currently selected button toggle, should match the value.
-         */
-        _this._selected = null;
-        /**
          * The method to be called in order to update ngModel.
          * Now `ngModel` binding is not supported in multiple selection mode.
          */
@@ -80,12 +64,16 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
         _this._onTouched = function () { };
+        _this._name = "mat-button-toggle-group-" + _uniqueIdCounter++;
+        _this._vertical = false;
+        _this._value = null;
         /**
          * Event that emits whenever the value of the group changes.
          * Used to facilitate two-way data binding.
          * \@docs-private
          */
         _this.valueChange = new EventEmitter();
+        _this._selected = null;
         /**
          * Event emitted when the group's value changes.
          */
@@ -130,13 +118,13 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
          */
         function () { return this._value; },
         set: /**
-         * @param {?} newValue
+         * @param {?} value
          * @return {?}
          */
-        function (newValue) {
-            if (this._value != newValue) {
-                this._value = newValue;
-                this.valueChange.emit(newValue);
+        function (value) {
+            if (this._value != value) {
+                this._value = value;
+                this.valueChange.emit(value);
                 this._updateSelectedButtonToggleFromValue();
             }
         },
@@ -145,7 +133,7 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatButtonToggleGroup.prototype, "selected", {
         get: /**
-         * Whether the toggle group is selected.
+         * The currently selected button toggle, should match the value.
          * @return {?}
          */
         function () { return this._selected; },
@@ -215,76 +203,50 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
         this._controlValueAccessorChangeFn(event.value);
         this.change.emit(event);
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param value Value to be set to the model.
-     */
-    /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param {?} value Value to be set to the model.
+     * @param {?} value
      * @return {?}
      */
     MatButtonToggleGroup.prototype.writeValue = /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param {?} value Value to be set to the model.
+     * @param {?} value
      * @return {?}
      */
     function (value) {
         this.value = value;
         this._changeDetector.markForCheck();
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Registers a callback that will be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn On change callback function.
-     */
-    /**
-     * Registers a callback that will be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn On change callback function.
+     * @param {?} fn
      * @return {?}
      */
     MatButtonToggleGroup.prototype.registerOnChange = /**
-     * Registers a callback that will be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn On change callback function.
+     * @param {?} fn
      * @return {?}
      */
     function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Registers a callback that will be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn On touch callback function.
-     */
-    /**
-     * Registers a callback that will be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn On touch callback function.
+     * @param {?} fn
      * @return {?}
      */
     MatButtonToggleGroup.prototype.registerOnTouched = /**
-     * Registers a callback that will be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn On touch callback function.
+     * @param {?} fn
      * @return {?}
      */
     function (fn) {
         this._onTouched = fn;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Toggles the disabled state of the component. Implemented as part of ControlValueAccessor.
-     * @param isDisabled Whether the component should be disabled.
-     */
-    /**
-     * Toggles the disabled state of the component. Implemented as part of ControlValueAccessor.
-     * @param {?} isDisabled Whether the component should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     MatButtonToggleGroup.prototype.setDisabledState = /**
-     * Toggles the disabled state of the component. Implemented as part of ControlValueAccessor.
-     * @param {?} isDisabled Whether the component should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     function (isDisabled) {
@@ -337,9 +299,6 @@ var MatButtonToggleGroupMultiple = /** @class */ (function (_super) {
     __extends(MatButtonToggleGroupMultiple, _super);
     function MatButtonToggleGroupMultiple() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        /**
-         * Whether the button toggle group should be vertical.
-         */
         _this._vertical = false;
         return _this;
     }
@@ -353,9 +312,7 @@ var MatButtonToggleGroupMultiple = /** @class */ (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._vertical = coerceBooleanProperty(value);
-        },
+        function (value) { this._vertical = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -398,18 +355,6 @@ var MatButtonToggle = /** @class */ (function () {
          */
         this.ariaLabelledby = null;
         /**
-         * Whether or not this button toggle is checked.
-         */
-        this._checked = false;
-        /**
-         * Whether or not this button toggle is disabled.
-         */
-        this._disabled = false;
-        /**
-         * Value assigned to this button toggle.
-         */
-        this._value = null;
-        /**
          * Whether or not the button toggle is a single selection.
          */
         this._isSingleSelector = false;
@@ -417,6 +362,9 @@ var MatButtonToggle = /** @class */ (function () {
          * Unregister function for _buttonToggleDispatcher
          */
         this._removeUniqueSelectionListener = function () { };
+        this._checked = false;
+        this._value = null;
+        this._disabled = false;
         /**
          * Event emitted when the group value changes.
          */
@@ -459,17 +407,17 @@ var MatButtonToggle = /** @class */ (function () {
          */
         function () { return this._checked; },
         set: /**
-         * @param {?} newCheckedState
+         * @param {?} value
          * @return {?}
          */
-        function (newCheckedState) {
-            if (this._isSingleSelector && newCheckedState) {
+        function (value) {
+            if (this._isSingleSelector && value) {
                 // Notify all button toggles with the same name (in the same group) to un-check.
                 this._buttonToggleDispatcher.notify(this.id, this.name);
                 this._changeDetectorRef.markForCheck();
             }
-            this._checked = newCheckedState;
-            if (newCheckedState && this._isSingleSelector && this.buttonToggleGroup.value != this.value) {
+            this._checked = value;
+            if (value && this._isSingleSelector && this.buttonToggleGroup.value != this.value) {
                 this.buttonToggleGroup.selected = this;
             }
         },
@@ -510,9 +458,7 @@ var MatButtonToggle = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._disabled = coerceBooleanProperty(value);
-        },
+        function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });

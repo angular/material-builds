@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/portal'), require('rxjs/operators/take'), require('rxjs/observable/merge'), require('@angular/cdk/scrolling'), require('rxjs/Subject'), require('@angular/animations')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/portal', 'rxjs/operators/take', 'rxjs/observable/merge', '@angular/cdk/scrolling', 'rxjs/Subject', '@angular/animations'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = global.ng.material.tooltip || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.portal,global.Rx.operators,global.Rx.Observable,global.ng.cdk.scrolling,global.Rx,global.ng.animations));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_platform,_angular_common,_angular_core,_angular_material_core,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_keycodes,_angular_cdk_portal,rxjs_operators_take,rxjs_observable_merge,_angular_cdk_scrolling,rxjs_Subject,_angular_animations) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/layout'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/portal'), require('rxjs/operators/take'), require('rxjs/observable/merge'), require('@angular/cdk/scrolling'), require('rxjs/Subject'), require('@angular/animations')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/layout', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/portal', 'rxjs/operators/take', 'rxjs/observable/merge', '@angular/cdk/scrolling', 'rxjs/Subject', '@angular/animations'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = global.ng.material.tooltip || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.layout,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.portal,global.Rx.operators,global.Rx.Observable,global.ng.cdk.scrolling,global.Rx,global.ng.animations));
+}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_platform,_angular_common,_angular_core,_angular_material_core,_angular_cdk_layout,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_keycodes,_angular_cdk_portal,rxjs_operators_take,rxjs_observable_merge,_angular_cdk_scrolling,rxjs_Subject,_angular_animations) { 'use strict';
 
 /**
  * @fileoverview added by tsickle
@@ -627,8 +627,9 @@ var MatTooltip = /** @class */ (function () {
  * \@docs-private
  */
 var TooltipComponent = /** @class */ (function () {
-    function TooltipComponent(_changeDetectorRef) {
+    function TooltipComponent(_changeDetectorRef, _breakpointObserver) {
         this._changeDetectorRef = _changeDetectorRef;
+        this._breakpointObserver = _breakpointObserver;
         /**
          * Property watched by the animation framework to show or hide the tooltip
          */
@@ -645,6 +646,10 @@ var TooltipComponent = /** @class */ (function () {
          * Subject for notifying that the tooltip has been hidden from the view
          */
         this._onHide = new rxjs_Subject.Subject();
+        /**
+         * Stream that emits whether the user has a handset-sized display.
+         */
+        this._isHandset = this._breakpointObserver.observe(_angular_cdk_layout.Breakpoints.Handset);
     }
     /**
      * Shows the tooltip with an animation originating from the provided origin
@@ -831,8 +836,8 @@ var TooltipComponent = /** @class */ (function () {
     };
     TooltipComponent.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-tooltip-component',
-                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
-                    styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}"],
+                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)!.matches\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
+                    styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -849,6 +854,7 @@ var TooltipComponent = /** @class */ (function () {
     /** @nocollapse */
     TooltipComponent.ctorParameters = function () { return [
         { type: _angular_core.ChangeDetectorRef, },
+        { type: _angular_cdk_layout.BreakpointObserver, },
     ]; };
     return TooltipComponent;
 }());
@@ -874,6 +880,7 @@ var MatTooltipModule = /** @class */ (function () {
                         _angular_material_core.MatCommonModule,
                         _angular_cdk_platform.PlatformModule,
                         _angular_cdk_a11y.A11yModule,
+                        _angular_cdk_layout.LayoutModule,
                     ],
                     exports: [MatTooltip, TooltipComponent, _angular_material_core.MatCommonModule],
                     declarations: [MatTooltip, TooltipComponent],

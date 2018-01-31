@@ -104,9 +104,7 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
      * Whether the autocomplete panel is open.
      * @return {?}
      */
-    get isOpen() {
-        return this._isOpen && this.showPanel;
-    }
+    get isOpen() { return this._isOpen && this.showPanel; }
     /**
      * Whether the first option should be highlighted when the autocomplete panel is opened.
      * Can be configured globally through the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
@@ -123,12 +121,12 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
     /**
      * Takes classes set on the host mat-autocomplete element and applies them to the panel
      * inside the overlay container to allow for easy styling.
-     * @param {?} classList
+     * @param {?} value
      * @return {?}
      */
-    set classList(classList) {
-        if (classList && classList.length) {
-            classList.split(' ').forEach(className => this._classList[className.trim()] = true);
+    set classList(value) {
+        if (value && value.length) {
+            value.split(' ').forEach(className => this._classList[className.trim()] = true);
             this._elementRef.nativeElement.className = '';
         }
     }
@@ -285,7 +283,6 @@ class MatAutocompleteTrigger {
         this._dir = _dir;
         this._formField = _formField;
         this._document = _document;
-        this._panelOpen = false;
         this._componentDestroyed = false;
         /**
          * Whether or not the label state is being overridden.
@@ -303,6 +300,7 @@ class MatAutocompleteTrigger {
          * `View -> model callback called when autocomplete has been touched`
          */
         this._onTouched = () => { };
+        this._panelOpen = false;
         /**
          * Stream of autocomplete option selections.
          */
@@ -329,9 +327,7 @@ class MatAutocompleteTrigger {
      * Whether or not the autocomplete panel is open.
      * @return {?}
      */
-    get panelOpen() {
-        return this._panelOpen && this.autocomplete.showPanel;
-    }
+    get panelOpen() { return this._panelOpen && this.autocomplete.showPanel; }
     /**
      * Opens the autocomplete suggestion panel.
      * @return {?}
@@ -403,40 +399,28 @@ class MatAutocompleteTrigger {
         }));
     }
     /**
-     * Sets the autocomplete's value. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param {?} value New value to be written to the model.
+     * @param {?} value
      * @return {?}
      */
     writeValue(value) {
         Promise.resolve(null).then(() => this._setTriggerValue(value));
     }
     /**
-     * Saves a callback function to be invoked when the autocomplete's value
-     * changes from user input. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param {?} fn Callback to be triggered when the value changes.
+     * @param {?} fn
      * @return {?}
      */
     registerOnChange(fn) {
         this._onChange = fn;
     }
     /**
-     * Saves a callback function to be invoked when the autocomplete is blurred
-     * by the user. Part of the ControlValueAccessor interface required
-     * to integrate with Angular's core forms API.
-     *
-     * @param {?} fn Callback to be triggered when the component has been touched.
+     * @param {?} fn
      * @return {?}
      */
     registerOnTouched(fn) {
         this._onTouched = fn;
     }
     /**
-     * Disables the input. Implemented as a part of `ControlValueAccessor`.
-     * @param {?} isDisabled Whether the component should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     setDisabledState(isDisabled) {

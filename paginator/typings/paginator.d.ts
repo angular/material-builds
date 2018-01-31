@@ -36,6 +36,10 @@ export declare class MatPaginator implements OnInit, OnDestroy {
     private _pageSizeOptions;
     /** Whether to hide the page size selection UI from the user. */
     hidePageSize: boolean;
+    private _hidePageSize;
+    /** Whether to show the first/last buttons UI to the user. */
+    showFirstLastButtons: boolean;
+    private _showFirstLastButtons;
     /** Event emitted when the paginator changes the page size or page index. */
     readonly page: EventEmitter<PageEvent>;
     /** Displayed set of page size options. Will be sorted and include current page size. */
@@ -47,10 +51,16 @@ export declare class MatPaginator implements OnInit, OnDestroy {
     nextPage(): void;
     /** Move back to the previous page if it exists. */
     previousPage(): void;
+    /** Move to the first page if not already there. */
+    firstPage(): void;
+    /** Move to the last page if not already there. */
+    lastPage(): void;
     /** Whether there is a previous page. */
     hasPreviousPage(): boolean;
     /** Whether there is a next page. */
     hasNextPage(): boolean;
+    /** Calculate the number of pages */
+    getNumberOfPages(): number;
     /**
      * Changes the page size so that the first item displayed on the page will still be
      * displayed using the new page size.

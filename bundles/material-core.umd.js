@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = global.ng.material.core || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = global.ng.material.core || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,rxjs_Observable,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -469,6 +469,106 @@ function mixinErrorState(base) {
                 this.errorState = newState;
                 this.stateChanges.next();
             }
+        };
+        return class_1;
+    }(base));
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * Mixin that adds an initialized property to a directive which, when subscribed to, will emit a
+ * value once markInitialized has been called, which should be done during the ngOnInit function.
+ * If the subscription is made after it has already been marked as initialized, then it will trigger
+ * an emit immediately.
+ * \@docs-private
+ * @record
+ */
+
+/**
+ * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
+ * @template T
+ * @param {?} base
+ * @return {?}
+ */
+function mixinInitialized(base) {
+    return /** @class */ (function (_super) {
+        __extends(class_1, _super);
+        function class_1() {
+            var args = [];
+            for (var _i = 0; _i < arguments.length; _i++) {
+                args[_i] = arguments[_i];
+            }
+            var _this = _super.apply(this, args) || this;
+            /**
+             * Whether this directive has been marked as initialized.
+             */
+            _this._isInitialized = false;
+            /**
+             * List of subscribers that subscribed before the directive was initialized. Should be notified
+             * during _markInitialized. Set to null after pending subscribers are notified, and should
+             * not expect to be populated after.
+             */
+            _this._pendingSubscribers = [];
+            /**
+             * Observable stream that emits when the directive initializes. If already initialized, the
+             * subscriber is stored to be notified once _markInitialized is called.
+             */
+            _this.initialized = new rxjs_Observable.Observable(function (subscriber) {
+                // If initialized, immediately notify the subscriber. Otherwise store the subscriber to notify
+                // when _markInitialized is called.
+                if (_this._isInitialized) {
+                    _this._notifySubscriber(subscriber);
+                }
+                else {
+                    /** @type {?} */ ((_this._pendingSubscribers)).push(subscriber);
+                }
+            });
+            return _this;
+        }
+        /**
+         * Marks the state as initialized and notifies pending subscribers. Should be called at the end
+         * of ngOnInit.
+         * @docs-private
+         */
+        /**
+         * Marks the state as initialized and notifies pending subscribers. Should be called at the end
+         * of ngOnInit.
+         * \@docs-private
+         * @return {?}
+         */
+        class_1.prototype._markInitialized = /**
+         * Marks the state as initialized and notifies pending subscribers. Should be called at the end
+         * of ngOnInit.
+         * \@docs-private
+         * @return {?}
+         */
+        function () {
+            if (this._isInitialized) {
+                throw Error('This directive has already been marked as initialized and ' +
+                    'should not be called twice.');
+            }
+            this._isInitialized = true; /** @type {?} */
+            ((this._pendingSubscribers)).forEach(this._notifySubscriber);
+            this._pendingSubscribers = null;
+        };
+        /** Emits and completes the subscriber stream (should only emit once). */
+        /**
+         * Emits and completes the subscriber stream (should only emit once).
+         * @param {?} subscriber
+         * @return {?}
+         */
+        class_1.prototype._notifySubscriber = /**
+         * Emits and completes the subscriber stream (should only emit once).
+         * @param {?} subscriber
+         * @return {?}
+         */
+        function (subscriber) {
+            subscriber.next();
+            subscriber.complete();
         };
         return class_1;
     }(base));
@@ -2659,6 +2759,7 @@ exports.mixinColor = mixinColor;
 exports.mixinDisableRipple = mixinDisableRipple;
 exports.mixinTabIndex = mixinTabIndex;
 exports.mixinErrorState = mixinErrorState;
+exports.mixinInitialized = mixinInitialized;
 exports.NativeDateModule = NativeDateModule;
 exports.MatNativeDateModule = MatNativeDateModule;
 exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;

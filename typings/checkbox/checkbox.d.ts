@@ -69,9 +69,9 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     id: string;
     /** Returns the unique id for the visual hidden input. */
     readonly inputId: string;
-    private _required;
     /** Whether the checkbox is required. */
     required: boolean;
+    private _required;
     /**
      * Whether or not the checkbox should appear before or after the label.
      * @deprecated
@@ -96,11 +96,9 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
      * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
      * @docs-private
      */
-    onTouched: () => any;
+    _onTouched: () => any;
     private _currentAnimationClass;
     private _currentCheckState;
-    private _checked;
-    private _indeterminate;
     private _controlValueAccessorChangeFn;
     /** Reference to the focused state ripple. */
     private _focusRipple;
@@ -111,6 +109,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
      * Whether the checkbox is checked.
      */
     checked: boolean;
+    private _checked;
     /**
      * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
      * represent a checkbox with three states, e.g. a checkbox that represents a nested list of
@@ -118,30 +117,13 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
      * set to false.
      */
     indeterminate: boolean;
+    private _indeterminate;
     _isRippleDisabled(): boolean;
     /** Method being called whenever the label text changes. */
     _onLabelTextChange(): void;
-    /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param value Value to be set to the model.
-     */
     writeValue(value: any): void;
-    /**
-     * Registers a callback to be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn Function to be called on change.
-     */
     registerOnChange(fn: (value: any) => void): void;
-    /**
-     * Registers a callback to be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn Callback to be triggered when the checkbox is touched.
-     */
     registerOnTouched(fn: any): void;
-    /**
-     * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
-     * @param isDisabled Whether the checkbox should be disabled.
-     */
     setDisabledState(isDisabled: boolean): void;
     _getAriaChecked(): 'true' | 'false' | 'mixed';
     private _transitionCheckState(newState);

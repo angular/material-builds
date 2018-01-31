@@ -47,25 +47,25 @@ export declare class MatBasicChip {
  */
 export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisable {
     _elementRef: ElementRef;
-    protected _value: any;
-    protected _selected: boolean;
-    protected _selectable: boolean;
-    protected _removable: boolean;
     /** Whether the chip has focus. */
     _hasFocus: boolean;
     /** Whether the chip is selected. */
     selected: boolean;
+    protected _selected: boolean;
     /** The value of the chip. Defaults to the content inside `<mat-chip>` tags. */
     value: any;
+    protected _value: any;
     /**
      * Whether or not the chips are selectable. When a chip is not selectable,
      * changes to it's selected state are always ignored.
      */
     selectable: boolean;
+    protected _selectable: boolean;
     /**
      * Determines whether or not the chip displays the remove styling and emits (remove) events.
      */
     removable: boolean;
+    protected _removable: boolean;
     /** Emits when the chip is focused. */
     readonly _onFocus: Subject<MatChipEvent>;
     /** Emits when the chip is blured. */
@@ -88,6 +88,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
      * @deletion-target 6.0.0
      */
     onRemove: EventEmitter<MatChipEvent>;
+    /** The ARIA selected applied to the chip. */
     readonly ariaSelected: string | null;
     constructor(_elementRef: ElementRef);
     ngOnDestroy(): void;

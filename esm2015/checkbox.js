@@ -127,12 +127,12 @@ class MatCheckbox extends _MatCheckboxMixinBase {
          * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
          * \@docs-private
          */
-        this.onTouched = () => { };
+        this._onTouched = () => { };
         this._currentAnimationClass = '';
         this._currentCheckState = TransitionCheckState.Init;
+        this._controlValueAccessorChangeFn = () => { };
         this._checked = false;
         this._indeterminate = false;
-        this._controlValueAccessorChangeFn = () => { };
         this.tabIndex = parseInt(tabIndex) || 0;
     }
     /**
@@ -162,11 +162,11 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         return this.labelPosition == 'after' ? 'start' : 'end';
     }
     /**
-     * @param {?} v
+     * @param {?} value
      * @return {?}
      */
-    set align(v) {
-        this.labelPosition = (v == 'start') ? 'after' : 'before';
+    set align(value) {
+        this.labelPosition = (value == 'start') ? 'after' : 'before';
     }
     /**
      * @return {?}
@@ -188,12 +188,12 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      */
     get checked() { return this._checked; }
     /**
-     * @param {?} checked
+     * @param {?} value
      * @return {?}
      */
-    set checked(checked) {
-        if (checked != this.checked) {
-            this._checked = checked;
+    set checked(value) {
+        if (value != this.checked) {
+            this._checked = value;
             this._changeDetectorRef.markForCheck();
         }
     }
@@ -206,12 +206,12 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      */
     get indeterminate() { return this._indeterminate; }
     /**
-     * @param {?} indeterminate
+     * @param {?} value
      * @return {?}
      */
-    set indeterminate(indeterminate) {
-        let /** @type {?} */ changed = indeterminate != this._indeterminate;
-        this._indeterminate = indeterminate;
+    set indeterminate(value) {
+        const /** @type {?} */ changed = value != this._indeterminate;
+        this._indeterminate = value;
         if (changed) {
             if (this._indeterminate) {
                 this._transitionCheckState(TransitionCheckState.Indeterminate);
@@ -239,34 +239,28 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         this._changeDetectorRef.markForCheck();
     }
     /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param {?} value Value to be set to the model.
+     * @param {?} value
      * @return {?}
      */
     writeValue(value) {
         this.checked = !!value;
     }
     /**
-     * Registers a callback to be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn Function to be called on change.
+     * @param {?} fn
      * @return {?}
      */
     registerOnChange(fn) {
         this._controlValueAccessorChangeFn = fn;
     }
     /**
-     * Registers a callback to be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn Callback to be triggered when the checkbox is touched.
+     * @param {?} fn
      * @return {?}
      */
     registerOnTouched(fn) {
-        this.onTouched = fn;
+        this._onTouched = fn;
     }
     /**
-     * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
-     * @param {?} isDisabled Whether the checkbox should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     setDisabledState(isDisabled) {
@@ -319,7 +313,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         }
         else if (!focusOrigin) {
             this._removeFocusRipple();
-            this.onTouched();
+            this._onTouched();
         }
     }
     /**

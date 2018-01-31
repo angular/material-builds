@@ -146,12 +146,12 @@ var MatCheckbox = /** @class */ (function (_super) {
          * Called when the checkbox is blurred. Needed to properly implement ControlValueAccessor.
          * \@docs-private
          */
-        _this.onTouched = function () { };
+        _this._onTouched = function () { };
         _this._currentAnimationClass = '';
         _this._currentCheckState = TransitionCheckState.Init;
+        _this._controlValueAccessorChangeFn = function () { };
         _this._checked = false;
         _this._indeterminate = false;
-        _this._controlValueAccessorChangeFn = function () { };
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -192,11 +192,11 @@ var MatCheckbox = /** @class */ (function (_super) {
             return this.labelPosition == 'after' ? 'start' : 'end';
         },
         set: /**
-         * @param {?} v
+         * @param {?} value
          * @return {?}
          */
-        function (v) {
-            this.labelPosition = (v == 'start') ? 'after' : 'before';
+        function (value) {
+            this.labelPosition = (value == 'start') ? 'after' : 'before';
         },
         enumerable: true,
         configurable: true
@@ -229,12 +229,12 @@ var MatCheckbox = /** @class */ (function (_super) {
          */
         function () { return this._checked; },
         set: /**
-         * @param {?} checked
+         * @param {?} value
          * @return {?}
          */
-        function (checked) {
-            if (checked != this.checked) {
-                this._checked = checked;
+        function (value) {
+            if (value != this.checked) {
+                this._checked = value;
                 this._changeDetectorRef.markForCheck();
             }
         },
@@ -251,12 +251,12 @@ var MatCheckbox = /** @class */ (function (_super) {
          */
         function () { return this._indeterminate; },
         set: /**
-         * @param {?} indeterminate
+         * @param {?} value
          * @return {?}
          */
-        function (indeterminate) {
-            var /** @type {?} */ changed = indeterminate != this._indeterminate;
-            this._indeterminate = indeterminate;
+        function (value) {
+            var /** @type {?} */ changed = value != this._indeterminate;
+            this._indeterminate = value;
             if (changed) {
                 if (this._indeterminate) {
                     this._transitionCheckState(TransitionCheckState.Indeterminate);
@@ -294,75 +294,49 @@ var MatCheckbox = /** @class */ (function (_super) {
         // that has been recognized by the cdkObserveContent directive.
         this._changeDetectorRef.markForCheck();
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param value Value to be set to the model.
-     */
-    /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param {?} value Value to be set to the model.
+     * @param {?} value
      * @return {?}
      */
     MatCheckbox.prototype.writeValue = /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param {?} value Value to be set to the model.
+     * @param {?} value
      * @return {?}
      */
     function (value) {
         this.checked = !!value;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Registers a callback to be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn Function to be called on change.
-     */
-    /**
-     * Registers a callback to be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn Function to be called on change.
+     * @param {?} fn
      * @return {?}
      */
     MatCheckbox.prototype.registerOnChange = /**
-     * Registers a callback to be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn Function to be called on change.
+     * @param {?} fn
      * @return {?}
      */
     function (fn) {
         this._controlValueAccessorChangeFn = fn;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Registers a callback to be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param fn Callback to be triggered when the checkbox is touched.
-     */
-    /**
-     * Registers a callback to be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn Callback to be triggered when the checkbox is touched.
+     * @param {?} fn
      * @return {?}
      */
     MatCheckbox.prototype.registerOnTouched = /**
-     * Registers a callback to be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn Callback to be triggered when the checkbox is touched.
+     * @param {?} fn
      * @return {?}
      */
     function (fn) {
-        this.onTouched = fn;
+        this._onTouched = fn;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
-     * @param isDisabled Whether the checkbox should be disabled.
-     */
-    /**
-     * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
-     * @param {?} isDisabled Whether the checkbox should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     MatCheckbox.prototype.setDisabledState = /**
-     * Sets the checkbox's disabled state. Implemented as a part of ControlValueAccessor.
-     * @param {?} isDisabled Whether the checkbox should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     function (isDisabled) {
@@ -430,7 +404,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         }
         else if (!focusOrigin) {
             this._removeFocusRipple();
-            this.onTouched();
+            this._onTouched();
         }
     };
     /** Toggles the `checked` state of the checkbox. */

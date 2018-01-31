@@ -50,22 +50,6 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
         super();
         this._changeDetector = _changeDetector;
         /**
-         * The value for the button toggle group. Should match currently selected button toggle.
-         */
-        this._value = null;
-        /**
-         * The HTML name attribute applied to toggles in this group.
-         */
-        this._name = `mat-button-toggle-group-${_uniqueIdCounter++}`;
-        /**
-         * Whether the button toggle group should be vertical.
-         */
-        this._vertical = false;
-        /**
-         * The currently selected button toggle, should match the value.
-         */
-        this._selected = null;
-        /**
          * The method to be called in order to update ngModel.
          * Now `ngModel` binding is not supported in multiple selection mode.
          */
@@ -74,12 +58,16 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
         this._onTouched = () => { };
+        this._name = `mat-button-toggle-group-${_uniqueIdCounter++}`;
+        this._vertical = false;
+        this._value = null;
         /**
          * Event that emits whenever the value of the group changes.
          * Used to facilitate two-way data binding.
          * \@docs-private
          */
         this.valueChange = new EventEmitter();
+        this._selected = null;
         /**
          * Event emitted when the group's value changes.
          */
@@ -114,18 +102,18 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      */
     get value() { return this._value; }
     /**
-     * @param {?} newValue
+     * @param {?} value
      * @return {?}
      */
-    set value(newValue) {
-        if (this._value != newValue) {
-            this._value = newValue;
-            this.valueChange.emit(newValue);
+    set value(value) {
+        if (this._value != value) {
+            this._value = value;
+            this.valueChange.emit(value);
             this._updateSelectedButtonToggleFromValue();
         }
     }
     /**
-     * Whether the toggle group is selected.
+     * The currently selected button toggle, should match the value.
      * @return {?}
      */
     get selected() { return this._selected; }
@@ -180,8 +168,7 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
         this.change.emit(event);
     }
     /**
-     * Sets the model value. Implemented as part of ControlValueAccessor.
-     * @param {?} value Value to be set to the model.
+     * @param {?} value
      * @return {?}
      */
     writeValue(value) {
@@ -189,26 +176,21 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
         this._changeDetector.markForCheck();
     }
     /**
-     * Registers a callback that will be triggered when the value has changed.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn On change callback function.
+     * @param {?} fn
      * @return {?}
      */
     registerOnChange(fn) {
         this._controlValueAccessorChangeFn = fn;
     }
     /**
-     * Registers a callback that will be triggered when the control has been touched.
-     * Implemented as part of ControlValueAccessor.
-     * @param {?} fn On touch callback function.
+     * @param {?} fn
      * @return {?}
      */
     registerOnTouched(fn) {
         this._onTouched = fn;
     }
     /**
-     * Toggles the disabled state of the component. Implemented as part of ControlValueAccessor.
-     * @param {?} isDisabled Whether the component should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     setDisabledState(isDisabled) {
@@ -256,9 +238,6 @@ MatButtonToggleGroup.propDecorators = {
 class MatButtonToggleGroupMultiple extends _MatButtonToggleGroupMixinBase {
     constructor() {
         super(...arguments);
-        /**
-         * Whether the button toggle group should be vertical.
-         */
         this._vertical = false;
     }
     /**
@@ -270,9 +249,7 @@ class MatButtonToggleGroupMultiple extends _MatButtonToggleGroupMixinBase {
      * @param {?} value
      * @return {?}
      */
-    set vertical(value) {
-        this._vertical = coerceBooleanProperty(value);
-    }
+    set vertical(value) { this._vertical = coerceBooleanProperty(value); }
 }
 MatButtonToggleGroupMultiple.decorators = [
     { type: Directive, args: [{
@@ -318,18 +295,6 @@ class MatButtonToggle {
          */
         this.ariaLabelledby = null;
         /**
-         * Whether or not this button toggle is checked.
-         */
-        this._checked = false;
-        /**
-         * Whether or not this button toggle is disabled.
-         */
-        this._disabled = false;
-        /**
-         * Value assigned to this button toggle.
-         */
-        this._value = null;
-        /**
          * Whether or not the button toggle is a single selection.
          */
         this._isSingleSelector = false;
@@ -337,6 +302,9 @@ class MatButtonToggle {
          * Unregister function for _buttonToggleDispatcher
          */
         this._removeUniqueSelectionListener = () => { };
+        this._checked = false;
+        this._value = null;
+        this._disabled = false;
         /**
          * Event emitted when the group value changes.
          */
@@ -373,17 +341,17 @@ class MatButtonToggle {
      */
     get checked() { return this._checked; }
     /**
-     * @param {?} newCheckedState
+     * @param {?} value
      * @return {?}
      */
-    set checked(newCheckedState) {
-        if (this._isSingleSelector && newCheckedState) {
+    set checked(value) {
+        if (this._isSingleSelector && value) {
             // Notify all button toggles with the same name (in the same group) to un-check.
             this._buttonToggleDispatcher.notify(this.id, this.name);
             this._changeDetectorRef.markForCheck();
         }
-        this._checked = newCheckedState;
-        if (newCheckedState && this._isSingleSelector && this.buttonToggleGroup.value != this.value) {
+        this._checked = value;
+        if (value && this._isSingleSelector && this.buttonToggleGroup.value != this.value) {
             this.buttonToggleGroup.selected = this;
         }
     }
@@ -416,9 +384,7 @@ class MatButtonToggle {
      * @param {?} value
      * @return {?}
      */
-    set disabled(value) {
-        this._disabled = coerceBooleanProperty(value);
-    }
+    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     /**
      * @return {?}
      */

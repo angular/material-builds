@@ -53,7 +53,6 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _document;
     private _overlayRef;
     private _portal;
-    private _panelOpen;
     private _componentDestroyed;
     /** Strategy that is used to position the panel. */
     private _positionStrategy;
@@ -73,6 +72,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     ngOnDestroy(): void;
     /** Whether or not the autocomplete panel is open. */
     readonly panelOpen: boolean;
+    private _panelOpen;
     /** Opens the autocomplete suggestion panel. */
     openPanel(): void;
     /** Closes the autocomplete suggestion panel. */
@@ -88,33 +88,9 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     readonly activeOption: MatOption | null;
     /** Stream of clicks outside of the autocomplete panel. */
     private readonly _outsideClickStream;
-    /**
-     * Sets the autocomplete's value. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param value New value to be written to the model.
-     */
     writeValue(value: any): void;
-    /**
-     * Saves a callback function to be invoked when the autocomplete's value
-     * changes from user input. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param fn Callback to be triggered when the value changes.
-     */
     registerOnChange(fn: (value: any) => {}): void;
-    /**
-     * Saves a callback function to be invoked when the autocomplete is blurred
-     * by the user. Part of the ControlValueAccessor interface required
-     * to integrate with Angular's core forms API.
-     *
-     * @param fn Callback to be triggered when the component has been touched.
-     */
     registerOnTouched(fn: () => {}): void;
-    /**
-     * Disables the input. Implemented as a part of `ControlValueAccessor`.
-     * @param isDisabled Whether the component should be disabled.
-     */
     setDisabledState(isDisabled: boolean): void;
     _handleKeydown(event: KeyboardEvent): void;
     _handleInput(event: KeyboardEvent): void;

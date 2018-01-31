@@ -112,9 +112,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
          * Whether the autocomplete panel is open.
          * @return {?}
          */
-        function () {
-            return this._isOpen && this.showPanel;
-        },
+        function () { return this._isOpen && this.showPanel; },
         enumerable: true,
         configurable: true
     });
@@ -139,13 +137,13 @@ var MatAutocomplete = /** @class */ (function (_super) {
         set: /**
          * Takes classes set on the host mat-autocomplete element and applies them to the panel
          * inside the overlay container to allow for easy styling.
-         * @param {?} classList
+         * @param {?} value
          * @return {?}
          */
-        function (classList) {
+        function (value) {
             var _this = this;
-            if (classList && classList.length) {
-                classList.split(' ').forEach(function (className) { return _this._classList[className.trim()] = true; });
+            if (value && value.length) {
+                value.split(' ').forEach(function (className) { return _this._classList[className.trim()] = true; });
                 this._elementRef.nativeElement.className = '';
             }
         },
@@ -325,7 +323,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         this._dir = _dir;
         this._formField = _formField;
         this._document = _document;
-        this._panelOpen = false;
         this._componentDestroyed = false;
         /**
          * Whether or not the label state is being overridden.
@@ -343,6 +340,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * `View -> model callback called when autocomplete has been touched`
          */
         this._onTouched = function () { };
+        this._panelOpen = false;
         /**
          * Stream of autocomplete option selections.
          */
@@ -374,9 +372,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * Whether or not the autocomplete panel is open.
          * @return {?}
          */
-        function () {
-            return this._panelOpen && this.autocomplete.showPanel;
-        },
+        function () { return this._panelOpen && this.autocomplete.showPanel; },
         enumerable: true,
         configurable: true
     });
@@ -479,94 +475,50 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Sets the autocomplete's value. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param value New value to be written to the model.
-     */
-    /**
-     * Sets the autocomplete's value. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param {?} value New value to be written to the model.
+     * @param {?} value
      * @return {?}
      */
     MatAutocompleteTrigger.prototype.writeValue = /**
-     * Sets the autocomplete's value. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param {?} value New value to be written to the model.
+     * @param {?} value
      * @return {?}
      */
     function (value) {
         var _this = this;
         Promise.resolve(null).then(function () { return _this._setTriggerValue(value); });
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Saves a callback function to be invoked when the autocomplete's value
-     * changes from user input. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param fn Callback to be triggered when the value changes.
-     */
-    /**
-     * Saves a callback function to be invoked when the autocomplete's value
-     * changes from user input. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param {?} fn Callback to be triggered when the value changes.
+     * @param {?} fn
      * @return {?}
      */
     MatAutocompleteTrigger.prototype.registerOnChange = /**
-     * Saves a callback function to be invoked when the autocomplete's value
-     * changes from user input. Part of the ControlValueAccessor interface
-     * required to integrate with Angular's core forms API.
-     *
-     * @param {?} fn Callback to be triggered when the value changes.
+     * @param {?} fn
      * @return {?}
      */
     function (fn) {
         this._onChange = fn;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Saves a callback function to be invoked when the autocomplete is blurred
-     * by the user. Part of the ControlValueAccessor interface required
-     * to integrate with Angular's core forms API.
-     *
-     * @param fn Callback to be triggered when the component has been touched.
-     */
-    /**
-     * Saves a callback function to be invoked when the autocomplete is blurred
-     * by the user. Part of the ControlValueAccessor interface required
-     * to integrate with Angular's core forms API.
-     *
-     * @param {?} fn Callback to be triggered when the component has been touched.
+     * @param {?} fn
      * @return {?}
      */
     MatAutocompleteTrigger.prototype.registerOnTouched = /**
-     * Saves a callback function to be invoked when the autocomplete is blurred
-     * by the user. Part of the ControlValueAccessor interface required
-     * to integrate with Angular's core forms API.
-     *
-     * @param {?} fn Callback to be triggered when the component has been touched.
+     * @param {?} fn
      * @return {?}
      */
     function (fn) {
         this._onTouched = fn;
     };
+    // Implemented as part of ControlValueAccessor.
     /**
-     * Disables the input. Implemented as a part of `ControlValueAccessor`.
-     * @param isDisabled Whether the component should be disabled.
-     */
-    /**
-     * Disables the input. Implemented as a part of `ControlValueAccessor`.
-     * @param {?} isDisabled Whether the component should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     MatAutocompleteTrigger.prototype.setDisabledState = /**
-     * Disables the input. Implemented as a part of `ControlValueAccessor`.
-     * @param {?} isDisabled Whether the component should be disabled.
+     * @param {?} isDisabled
      * @return {?}
      */
     function (isDisabled) {

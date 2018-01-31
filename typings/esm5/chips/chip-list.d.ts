@@ -20,8 +20,11 @@ export declare class MatChipListBase {
     _defaultErrorStateMatcher: ErrorStateMatcher;
     _parentForm: NgForm;
     _parentFormGroup: FormGroupDirective;
+    /** @docs-private */
     ngControl: NgControl;
-    constructor(_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl);
+    constructor(_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, 
+        /** @docs-private */
+        ngControl: NgControl);
 }
 export declare const _MatChipListMixinBase: (new (...args: any[]) => CanUpdateErrorState) & typeof MatChipListBase;
 /** Change event object that is emitted when the chip list value has changed. */
@@ -43,7 +46,12 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     protected _elementRef: ElementRef;
     private _changeDetectorRef;
     private _dir;
+    /** @docs-private */
     ngControl: NgControl;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     readonly controlType: string;
     /** When a chip is destroyed, we track the index so we can focus the appropriate next chip. */
     protected _lastDestroyedIndex: number | null;
@@ -61,23 +69,10 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     private _chipSelectionSubscription;
     /** Subscription to remove changes in chips. */
     private _chipRemoveSubscription;
-    /** Whether or not the chip is selectable. */
-    protected _selectable: boolean;
-    /** Whether the component is in multiple selection mode. */
-    private _multiple;
     /** The chip input to add more chips */
     protected _chipInput: MatChipInput;
-    /** Id of the chip list */
-    protected _id: string;
     /** Uid of the chip list */
     protected _uid: string;
-    /** Whether this is required */
-    protected _required: boolean;
-    /** Whether this is disabled */
-    protected _disabled: boolean;
-    protected _value: any;
-    /** Placeholder for the chip list. Alternatively, placeholder can be set on MatChipInput */
-    protected _placeholder: string;
     /** The aria-describedby attribute on the chip list for improved a11y. */
     _ariaDescribedby: string;
     /** Tab index for the chip list. */
@@ -94,37 +89,64 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     /** Function when changed */
     _onChange: (value: any) => void;
     _selectionModel: SelectionModel<MatChip>;
-    /** Comparison function to specify which option is displayed. Defaults to object equality. */
-    private _compareWith;
     /** The array of selected chips inside chip list. */
     readonly selected: MatChip[] | MatChip;
+    /** The ARIA role applied to the chip list. */
     readonly role: string | null;
     /** An object used to control when error messages are shown. */
     errorStateMatcher: ErrorStateMatcher;
     /** Whether the user should be allowed to select multiple chips. */
     multiple: boolean;
+    private _multiple;
     /**
      * A function to compare the option values with the selected values. The first argument
      * is a value from an option. The second is a value from the selection. A boolean
      * should be returned.
      */
     compareWith: (o1: any, o2: any) => boolean;
-    /** Required for FormFieldControl */
+    private _compareWith;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     value: any;
-    /** Required for FormFieldControl. The ID of the chip list */
+    protected _value: any;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     id: string;
-    /** Required for FormFieldControl. Whether the chip list is required. */
+    protected _id: string;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     required: boolean;
-    /** For FormFieldControl. Use chip input's placholder if there's a chip input */
+    protected _required: boolean;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     placeholder: string;
+    protected _placeholder: string;
     /** Whether any chips or the matChipInput inside of this chip-list has focus. */
     readonly focused: boolean;
-    /** Whether this chip-list contains no chips and no matChipInput. */
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     readonly empty: boolean;
-    /** @docs-private */
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     readonly shouldLabelFloat: boolean;
-    /** Whether this chip-list is disabled. */
-    disabled: any;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
+    disabled: boolean;
+    protected _disabled: boolean;
     /** Orientation of the chip list. */
     ariaOrientation: 'horizontal' | 'vertical';
     /**
@@ -132,6 +154,7 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
      * its selected state is always ignored.
      */
     selectable: boolean;
+    protected _selectable: boolean;
     tabIndex: number;
     /** Combined stream of all of the child chips' selection change events. */
     readonly chipSelectionChanges: Observable<MatChipSelectionChange>;
@@ -151,7 +174,9 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     readonly valueChange: EventEmitter<any>;
     /** The chip components contained within this chip list. */
     chips: QueryList<MatChip>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, ngControl: NgControl);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, 
+        /** @docs-private */
+        ngControl: NgControl);
     ngAfterContentInit(): void;
     ngOnInit(): void;
     ngDoCheck(): void;
@@ -166,8 +191,11 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     writeValue(value: any): void;
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: () => void): void;
-    setDisabledState(disabled: boolean): void;
-    /** @docs-private */
+    setDisabledState(isDisabled: boolean): void;
+    /**
+     * Implemented as part of MatFormFieldControl.
+     * @docs-private
+     */
     onContainerClick(): void;
     /**
      * Focuses the the first non-disabled chip in this chip list, or the associated input when there

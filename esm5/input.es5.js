@@ -338,40 +338,41 @@ var _MatInputMixinBase = mixinErrorState(MatInputBase);
  */
 var MatInput = /** @class */ (function (_super) {
     __extends(MatInput, _super);
-    function MatInput(_elementRef, _platform, ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
+    function MatInput(_elementRef, _platform, /** @docs-private */
+        ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._elementRef = _elementRef;
         _this._platform = _platform;
         _this.ngControl = ngControl;
-        /**
-         * Variables used as cache for getters and setters.
-         */
-        _this._type = 'text';
-        _this._disabled = false;
-        _this._required = false;
         _this._uid = "mat-input-" + nextUniqueId++;
-        _this._readonly = false;
-        /**
-         * Whether the input is focused.
-         */
-        _this.focused = false;
         /**
          * Whether the component is being rendered on the server.
          */
         _this._isServer = false;
         /**
-         * Stream that emits whenever the state of the input changes such that the wrapping `MatFormField`
-         * needs to run change detection.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
+         */
+        _this.focused = false;
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          */
         _this.stateChanges = new Subject();
         /**
-         * A name for this control that can be used by `mat-form-field`.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          */
         _this.controlType = 'mat-input';
+        _this._disabled = false;
         /**
-         * Placeholder attribute of the element.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          */
         _this.placeholder = '';
+        _this._required = false;
+        _this._type = 'text';
+        _this._readonly = false;
         _this._neverEmptyInputTypes = [
             'date',
             'datetime',
@@ -409,7 +410,8 @@ var MatInput = /** @class */ (function (_super) {
     }
     Object.defineProperty(MatInput.prototype, "disabled", {
         get: /**
-         * Whether the element is disabled.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () {
@@ -436,7 +438,8 @@ var MatInput = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatInput.prototype, "id", {
         get: /**
-         * Unique id of the element.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this._id; },
@@ -450,7 +453,8 @@ var MatInput = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatInput.prototype, "required", {
         get: /**
-         * Whether the element is required.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this._required; },
@@ -487,7 +491,8 @@ var MatInput = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatInput.prototype, "value", {
         get: /**
-         * The input element's value.
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () { return this._inputValueAccessor.value; },
@@ -554,10 +559,13 @@ var MatInput = /** @class */ (function (_super) {
         // updating the value using `emitEvent: false`).
         this._dirtyCheckNativeValue();
     };
+    /** Focuses the input. */
     /**
+     * Focuses the input.
      * @return {?}
      */
     MatInput.prototype.focus = /**
+     * Focuses the input.
      * @return {?}
      */
     function () { this._elementRef.nativeElement.focus(); };
@@ -667,8 +675,13 @@ var MatInput = /** @class */ (function (_super) {
         return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
     };
     Object.defineProperty(MatInput.prototype, "empty", {
-        // Implemented as part of MatFormFieldControl.
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
+         * Implemented as part of MatFormFieldControl.
+         * \@docs-private
          * @return {?}
          */
         function () {

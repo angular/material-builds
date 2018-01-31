@@ -143,10 +143,6 @@ var MatDrawer = /** @class */ (function () {
         this._mode = 'over';
         this._disableClose = false;
         /**
-         * Whether the drawer is opened.
-         */
-        this._opened = false;
-        /**
          * Emits whenever the drawer has started animating.
          */
         this._animationStarted = new EventEmitter();
@@ -186,6 +182,7 @@ var MatDrawer = /** @class */ (function () {
          * to know when to when the mode changes so it can adapt the margins on the content.
          */
         this._modeChanged = new Subject();
+        this._opened = false;
         this.openedChange.subscribe(function (opened) {
             if (opened) {
                 if (_this._doc) {
@@ -408,10 +405,10 @@ var MatDrawer = /** @class */ (function () {
          */
         function () { return this._opened; },
         set: /**
-         * @param {?} v
+         * @param {?} value
          * @return {?}
          */
-        function (v) { this.toggle(coerceBooleanProperty(v)); },
+        function (value) { this.toggle(coerceBooleanProperty(value)); },
         enumerable: true,
         configurable: true
     });

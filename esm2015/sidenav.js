@@ -149,10 +149,6 @@ class MatDrawer {
         this._mode = 'over';
         this._disableClose = false;
         /**
-         * Whether the drawer is opened.
-         */
-        this._opened = false;
-        /**
          * Emits whenever the drawer has started animating.
          */
         this._animationStarted = new EventEmitter();
@@ -192,6 +188,7 @@ class MatDrawer {
          * to know when to when the mode changes so it can adapt the margins on the content.
          */
         this._modeChanged = new Subject();
+        this._opened = false;
         this.openedChange.subscribe((opened) => {
             if (opened) {
                 if (this._doc) {
@@ -358,10 +355,10 @@ class MatDrawer {
      */
     get opened() { return this._opened; }
     /**
-     * @param {?} v
+     * @param {?} value
      * @return {?}
      */
-    set opened(v) { this.toggle(coerceBooleanProperty(v)); }
+    set opened(value) { this.toggle(coerceBooleanProperty(value)); }
     /**
      * Open the drawer.
      * @param {?=} openedVia Whether the drawer was opened by a key press, mouse click or programmatically.

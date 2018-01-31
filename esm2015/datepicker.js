@@ -11,7 +11,6 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, NgModule, NgZone, Optional, Output, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from '@angular/material/icon';
 import { DOWN_ARROW, END, ENTER, ESCAPE, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { take } from 'rxjs/operators/take';
@@ -1347,11 +1346,11 @@ class MatDatepicker {
         return this._startAt || (this._datepickerInput ? this._datepickerInput.value : null);
     }
     /**
-     * @param {?} date
+     * @param {?} value
      * @return {?}
      */
-    set startAt(date) {
-        this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(date));
+    set startAt(value) {
+        this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
     /**
      * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
@@ -1391,10 +1390,10 @@ class MatDatepicker {
      */
     get opened() { return this._opened; }
     /**
-     * @param {?} shouldOpen
+     * @param {?} value
      * @return {?}
      */
-    set opened(shouldOpen) { shouldOpen ? this.open() : this.close(); }
+    set opened(value) { value ? this.open() : this.close(); }
     /**
      * The currently selected date.
      * @return {?}
@@ -1760,11 +1759,11 @@ class MatDatepickerInput {
     }
     /**
      * Function that can be used to filter out dates within the datepicker.
-     * @param {?} filter
+     * @param {?} value
      * @return {?}
      */
-    set matDatepickerFilter(filter$$1) {
-        this._dateFilter = filter$$1;
+    set matDatepickerFilter(value) {
+        this._dateFilter = value;
         this._validatorOnChange();
     }
     /**
@@ -1863,6 +1862,7 @@ class MatDatepickerInput {
         this._validatorOnChange = fn;
     }
     /**
+     * \@docs-private
      * @param {?} c
      * @return {?}
      */
@@ -1906,11 +1906,11 @@ class MatDatepickerInput {
         this._onTouched = fn;
     }
     /**
-     * @param {?} disabled
+     * @param {?} isDisabled
      * @return {?}
      */
-    setDisabledState(disabled) {
-        this.disabled = disabled;
+    setDisabledState(isDisabled) {
+        this.disabled = isDisabled;
     }
     /**
      * @param {?} event
@@ -2077,7 +2077,8 @@ class MatDatepickerToggle {
 }
 MatDatepickerToggle.decorators = [
     { type: Component, args: [{selector: 'mat-datepicker-toggle',
-                template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><mat-icon *ngIf=\"!_customIcon\"><svg viewBox=\"0 0 24 24\" width=\"100%\" height=\"100%\" fill=\"currentColor\" style=\"vertical-align: top\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg></mat-icon><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
+                template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
+                styles: [".mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field-suffix .mat-datepicker-toggle-default-icon{width:1em}"],
                 host: {
                     'class': 'mat-datepicker-toggle',
                     '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
@@ -2112,7 +2113,6 @@ MatDatepickerModule.decorators = [
                     CommonModule,
                     MatButtonModule,
                     MatDialogModule,
-                    MatIconModule,
                     OverlayModule,
                     A11yModule,
                 ],

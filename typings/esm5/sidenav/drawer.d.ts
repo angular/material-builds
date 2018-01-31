@@ -75,8 +75,6 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     /** Whether the drawer can be closed with the escape key or by clicking on the backdrop. */
     disableClose: boolean;
     private _disableClose;
-    /** Whether the drawer is opened. */
-    private _opened;
     /** How the sidenav was opened (keypress, mouse click etc.) */
     private _openedVia;
     /** Emits whenever the drawer has started animating. */
@@ -134,6 +132,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      * starts or end.
      */
     opened: boolean;
+    private _opened;
     /**
      * Open the drawer.
      * @param openedVia Whether the drawer was opened by a key press, mouse click or programmatically.
@@ -156,7 +155,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     handleKeydown(event: KeyboardEvent): void;
     _onAnimationStart(event: AnimationEvent): void;
     _onAnimationEnd(event: AnimationEvent): void;
-    readonly _width: any;
+    readonly _width: number;
 }
 /**
  * `<mat-drawer-container>` component.
