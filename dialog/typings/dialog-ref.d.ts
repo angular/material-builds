@@ -52,7 +52,7 @@ export declare class MatDialogRef<T, R = any> {
     /**
      * Gets an observable that emits when the overlay's backdrop has been clicked.
      */
-    backdropClick(): Observable<void>;
+    backdropClick(): Observable<MouseEvent>;
     /**
      * Gets an observable that emits when keydown events are targeted on the overlay.
      */

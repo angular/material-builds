@@ -706,6 +706,7 @@ MatAutocompleteTrigger.decorators = [
                     '(input)': '_handleInput($event)',
                     '(keydown)': '_handleKeydown($event)',
                 },
+                exportAs: 'matAutocompleteTrigger',
                 providers: [MAT_AUTOCOMPLETE_VALUE_ACCESSOR]
             },] },
 ];
