@@ -833,7 +833,6 @@ var MatMenuTrigger = /** @class */ (function () {
         this._overlayRef = null;
         this._menuOpen = false;
         this._closeSubscription = rxjs_Subscription.Subscription.EMPTY;
-        this._positionSubscription = rxjs_Subscription.Subscription.EMPTY;
         this._hoverSubscription = rxjs_Subscription.Subscription.EMPTY;
         this._openedByMouse = false;
         /**
@@ -1186,7 +1185,7 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function (position) {
         var _this = this;
-        this._positionSubscription = position.onPositionChange.subscribe(function (change) {
+        position.onPositionChange.subscribe(function (change) {
             var /** @type {?} */ posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
             var /** @type {?} */ posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above';
             _this.menu.setPositionClasses(posX, posY);
@@ -1237,7 +1236,6 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function () {
         this._closeSubscription.unsubscribe();
-        this._positionSubscription.unsubscribe();
         this._hoverSubscription.unsubscribe();
     };
     /**

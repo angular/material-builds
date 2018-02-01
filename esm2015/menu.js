@@ -698,7 +698,6 @@ class MatMenuTrigger {
         this._overlayRef = null;
         this._menuOpen = false;
         this._closeSubscription = Subscription.EMPTY;
-        this._positionSubscription = Subscription.EMPTY;
         this._hoverSubscription = Subscription.EMPTY;
         this._openedByMouse = false;
         /**
@@ -955,7 +954,7 @@ class MatMenuTrigger {
      * @return {?}
      */
     _subscribeToPositions(position) {
-        this._positionSubscription = position.onPositionChange.subscribe(change => {
+        position.onPositionChange.subscribe(change => {
             const /** @type {?} */ posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
             const /** @type {?} */ posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above';
             this.menu.setPositionClasses(posX, posY);
@@ -997,7 +996,6 @@ class MatMenuTrigger {
      */
     _cleanUpSubscriptions() {
         this._closeSubscription.unsubscribe();
-        this._positionSubscription.unsubscribe();
         this._hoverSubscription.unsubscribe();
     }
     /**
