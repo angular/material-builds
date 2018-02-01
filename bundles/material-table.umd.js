@@ -320,18 +320,19 @@ var MatTableModule = /** @class */ (function () {
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
  * which defines how row data is converted to a string for filter matching.
  */
-var MatTableDataSource = /** @class */ (function () {
+var MatTableDataSource = /** @class */ (function (_super) {
+    __extends(MatTableDataSource, _super);
     function MatTableDataSource(initialData) {
         if (initialData === void 0) { initialData = []; }
-        var _this = this;
+        var _this = _super.call(this) || this;
         /**
          * Stream emitting render data to the table (depends on ordered data changes).
          */
-        this._renderData = new rxjs_BehaviorSubject.BehaviorSubject([]);
+        _this._renderData = new rxjs_BehaviorSubject.BehaviorSubject([]);
         /**
          * Stream that emits when a new filter string is set on the data source.
          */
-        this._filter = new rxjs_BehaviorSubject.BehaviorSubject('');
+        _this._filter = new rxjs_BehaviorSubject.BehaviorSubject('');
         /**
          * Data accessor function that is used for accessing data properties for sorting through
          * the default sortData function.
@@ -341,7 +342,7 @@ var MatTableDataSource = /** @class */ (function () {
          * @param data Data object that is being accessed.
          * @param sortHeaderId The name of the column that represents the data.
          */
-        this.sortingDataAccessor = function (data, sortHeaderId) {
+        _this.sortingDataAccessor = function (data, sortHeaderId) {
             var /** @type {?} */ value = data[sortHeaderId];
             return _angular_cdk_coercion._isNumberValue(value) ? Number(value) : value;
         };
@@ -354,7 +355,7 @@ var MatTableDataSource = /** @class */ (function () {
          * @param data The array of data that should be sorted.
          * @param sort The connected MatSort that holds the current sort state.
          */
-        this.sortData = function (data, sort) {
+        _this.sortData = function (data, sort) {
             var /** @type {?} */ active = sort.active;
             var /** @type {?} */ direction = sort.direction;
             if (!active || direction == '') {
@@ -396,7 +397,7 @@ var MatTableDataSource = /** @class */ (function () {
          * @param filter Filter string that has been set on the data source.
          * @return Whether the filter matches against the data
          */
-        this.filterPredicate = function (data, filter) {
+        _this.filterPredicate = function (data, filter) {
             // Transform the data into a lowercase string of all property values.
             var /** @type {?} */ accumulator = function (currentTerm, key) { return currentTerm + data[key]; };
             var /** @type {?} */ dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
@@ -404,8 +405,9 @@ var MatTableDataSource = /** @class */ (function () {
             var /** @type {?} */ transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
         };
-        this._data = new rxjs_BehaviorSubject.BehaviorSubject(initialData);
-        this._updateChangeSubscription();
+        _this._data = new rxjs_BehaviorSubject.BehaviorSubject(initialData);
+        _this._updateChangeSubscription();
+        return _this;
     }
     Object.defineProperty(MatTableDataSource.prototype, "data", {
         /** Array of data that should be rendered by the table, where each object represents one row. */
@@ -684,7 +686,7 @@ var MatTableDataSource = /** @class */ (function () {
      */
     function () { };
     return MatTableDataSource;
-}());
+}(_angular_cdk_table.DataSource));
 
 exports.MatTableModule = MatTableModule;
 exports.MatCellDef = MatCellDef;

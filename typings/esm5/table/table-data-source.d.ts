@@ -18,7 +18,7 @@ import { Subscription } from 'rxjs/Subscription';
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
  * which defines how row data is converted to a string for filter matching.
  */
-export declare class MatTableDataSource<T> implements DataSource<T> {
+export declare class MatTableDataSource<T> extends DataSource<T> {
     /** Stream that emits when a new data array is set on the data source. */
     private readonly _data;
     /** Stream emitting render data to the table (depends on ordered data changes). */

@@ -1729,10 +1729,14 @@ var RippleRenderer = /** @class */ (function () {
                 return;
             }
             _this._isPointerDown = false;
-            // Fade-out all ripples that are completely visible and not persistent.
-            // Fade-out all ripples that are completely visible and not persistent.
+            // Fade-out all ripples that are visible and not persistent.
+            // Fade-out all ripples that are visible and not persistent.
             _this._activeRipples.forEach(function (ripple) {
-                if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
+                // By default, only ripples that are completely visible will fade out on pointer release.
+                // If the `terminateOnPointerUp` option is set, ripples that still fade in will also fade out.
+                var /** @type {?} */ isVisible = ripple.state === RippleState.VISIBLE ||
+                    ripple.config.terminateOnPointerUp && ripple.state === RippleState.FADING_IN;
+                if (!ripple.config.persistent && isVisible) {
                     ripple.fadeOut();
                 }
             });
@@ -2068,6 +2072,7 @@ var MatRipple = /** @class */ (function () {
                 radius: this.radius,
                 color: this.color,
                 animation: __assign({}, this._globalOptions.animation, this.animation),
+                terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
                 speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
             };
         },
@@ -4004,7 +4009,13 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         // event on focus/blur/load if the input has a placeholder. See:
         // https://connect.microsoft.com/IE/feedback/details/885747/
         if (this._canOpen() && document.activeElement === event.target) {
-            this._onChange((/** @type {?} */ (event.target)).value);
+            var /** @type {?} */ target = /** @type {?} */ (event.target);
+            var /** @type {?} */ value = target.value;
+            // Based on `NumberValueAccessor` from forms.
+            if (target.type === 'number') {
+                value = value == '' ? null : parseFloat(value);
+            }
+            this._onChange(value);
             this.openPanel();
         }
     };
@@ -8134,10 +8145,13 @@ var MatDialogContainer = /** @class */ (function (_super) {
         var _this = this;
         if (this._document) {
             this._elementFocusedBeforeDialogWasOpened = /** @type {?} */ (this._document.activeElement);
-            // Move focus onto the dialog immediately in order to prevent the user from accidentally
-            // opening multiple dialogs at the same time. Needs to be async, because the element
-            // may not be focusable immediately.
-            Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
+            // Note that there is no focus method when rendering on the server.
+            if (this._elementRef.nativeElement.focus) {
+                // Move focus onto the dialog immediately in order to prevent the user from accidentally
+                // opening multiple dialogs at the same time. Needs to be async, because the element
+                // may not be focusable immediately.
+                Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
+            }
         }
     };
     /** Callback, invoked whenever an animation on the host completes. */
@@ -27164,18 +27178,19 @@ var MatTableModule = /** @class */ (function () {
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
  * which defines how row data is converted to a string for filter matching.
  */
-var MatTableDataSource = /** @class */ (function () {
+var MatTableDataSource = /** @class */ (function (_super) {
+    __extends(MatTableDataSource, _super);
     function MatTableDataSource(initialData) {
         if (initialData === void 0) { initialData = []; }
-        var _this = this;
+        var _this = _super.call(this) || this;
         /**
          * Stream emitting render data to the table (depends on ordered data changes).
          */
-        this._renderData = new rxjs_BehaviorSubject.BehaviorSubject([]);
+        _this._renderData = new rxjs_BehaviorSubject.BehaviorSubject([]);
         /**
          * Stream that emits when a new filter string is set on the data source.
          */
-        this._filter = new rxjs_BehaviorSubject.BehaviorSubject('');
+        _this._filter = new rxjs_BehaviorSubject.BehaviorSubject('');
         /**
          * Data accessor function that is used for accessing data properties for sorting through
          * the default sortData function.
@@ -27185,7 +27200,7 @@ var MatTableDataSource = /** @class */ (function () {
          * @param data Data object that is being accessed.
          * @param sortHeaderId The name of the column that represents the data.
          */
-        this.sortingDataAccessor = function (data, sortHeaderId) {
+        _this.sortingDataAccessor = function (data, sortHeaderId) {
             var /** @type {?} */ value = data[sortHeaderId];
             return _angular_cdk_coercion._isNumberValue(value) ? Number(value) : value;
         };
@@ -27198,7 +27213,7 @@ var MatTableDataSource = /** @class */ (function () {
          * @param data The array of data that should be sorted.
          * @param sort The connected MatSort that holds the current sort state.
          */
-        this.sortData = function (data, sort) {
+        _this.sortData = function (data, sort) {
             var /** @type {?} */ active = sort.active;
             var /** @type {?} */ direction = sort.direction;
             if (!active || direction == '') {
@@ -27240,7 +27255,7 @@ var MatTableDataSource = /** @class */ (function () {
          * @param filter Filter string that has been set on the data source.
          * @return Whether the filter matches against the data
          */
-        this.filterPredicate = function (data, filter$$1) {
+        _this.filterPredicate = function (data, filter$$1) {
             // Transform the data into a lowercase string of all property values.
             var /** @type {?} */ accumulator = function (currentTerm, key) { return currentTerm + data[key]; };
             var /** @type {?} */ dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
@@ -27248,8 +27263,9 @@ var MatTableDataSource = /** @class */ (function () {
             var /** @type {?} */ transformedFilter = filter$$1.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
         };
-        this._data = new rxjs_BehaviorSubject.BehaviorSubject(initialData);
-        this._updateChangeSubscription();
+        _this._data = new rxjs_BehaviorSubject.BehaviorSubject(initialData);
+        _this._updateChangeSubscription();
+        return _this;
     }
     Object.defineProperty(MatTableDataSource.prototype, "data", {
         /** Array of data that should be rendered by the table, where each object represents one row. */
@@ -27528,7 +27544,7 @@ var MatTableDataSource = /** @class */ (function () {
      */
     function () { };
     return MatTableDataSource;
-}());
+}(_angular_cdk_table.DataSource));
 
 /**
  * @fileoverview added by tsickle
@@ -29416,6 +29432,7 @@ var MatTabLink = /** @class */ (function (_super) {
         _this.tabIndex = parseInt(tabIndex) || 0;
         if (globalOptions) {
             _this.rippleConfig = {
+                terminateOnPointerUp: globalOptions.terminateOnPointerUp,
                 speedFactor: globalOptions.baseSpeedFactor,
                 animation: globalOptions.animation,
             };
@@ -29703,7 +29720,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.2.0-beta.0-8997db0');
+var VERSION = new _angular_core.Version('5.2.0-beta.0-085d805');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29931,10 +29948,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MatMenuItemBase;
-exports.ɵb21 = _MatMenuItemMixinBase;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -30057,16 +30074,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe21 = MatTabBase;
+exports.ɵf21 = _MatTabMixinBase;
+exports.ɵa21 = MatTabHeaderBase;
+exports.ɵb21 = _MatTabHeaderMixinBase;
+exports.ɵc21 = MatTabLabelWrapperBase;
+exports.ɵd21 = _MatTabLabelWrapperMixinBase;
+exports.ɵi21 = MatTabLinkBase;
+exports.ɵg21 = MatTabNavBase;
+exports.ɵj21 = _MatTabLinkMixinBase;
+exports.ɵh21 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

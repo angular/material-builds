@@ -28,6 +28,11 @@ export interface RippleGlobalOptions {
      * @deprecated Use the `animation` global option instead.
      */
     baseSpeedFactor?: number;
+    /**
+     * Whether ripples should start fading out immediately after the mouse our touch is released. By
+     * default, ripples will wait for the enter animation to complete and for mouse or touch release.
+     */
+    terminateOnPointerUp?: boolean;
 }
 /** Injection token that can be used to specify the global ripple options. */
 export declare const MAT_RIPPLE_GLOBAL_OPTIONS: InjectionToken<RippleGlobalOptions>;

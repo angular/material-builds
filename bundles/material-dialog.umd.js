@@ -282,10 +282,13 @@ var MatDialogContainer = /** @class */ (function (_super) {
         var _this = this;
         if (this._document) {
             this._elementFocusedBeforeDialogWasOpened = /** @type {?} */ (this._document.activeElement);
-            // Move focus onto the dialog immediately in order to prevent the user from accidentally
-            // opening multiple dialogs at the same time. Needs to be async, because the element
-            // may not be focusable immediately.
-            Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
+            // Note that there is no focus method when rendering on the server.
+            if (this._elementRef.nativeElement.focus) {
+                // Move focus onto the dialog immediately in order to prevent the user from accidentally
+                // opening multiple dialogs at the same time. Needs to be async, because the element
+                // may not be focusable immediately.
+                Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
+            }
         }
     };
     /** Callback, invoked whenever an animation on the host completes. */

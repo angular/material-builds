@@ -573,7 +573,13 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         // event on focus/blur/load if the input has a placeholder. See:
         // https://connect.microsoft.com/IE/feedback/details/885747/
         if (this._canOpen() && document.activeElement === event.target) {
-            this._onChange((/** @type {?} */ (event.target)).value);
+            var /** @type {?} */ target = /** @type {?} */ (event.target);
+            var /** @type {?} */ value = target.value;
+            // Based on `NumberValueAccessor` from forms.
+            if (target.type === 'number') {
+                value = value == '' ? null : parseFloat(value);
+            }
+            this._onChange(value);
             this.openPanel();
         }
     };

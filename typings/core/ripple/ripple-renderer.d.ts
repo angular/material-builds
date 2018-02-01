@@ -14,6 +14,7 @@ export declare type RippleConfig = {
     radius?: number;
     persistent?: boolean;
     animation?: RippleAnimationConfig;
+    terminateOnPointerUp?: boolean;
     /** @deprecated Use the animation property instead. */
     speedFactor?: number;
 };

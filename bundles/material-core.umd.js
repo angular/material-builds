@@ -1729,10 +1729,14 @@ var RippleRenderer = /** @class */ (function () {
                 return;
             }
             _this._isPointerDown = false;
-            // Fade-out all ripples that are completely visible and not persistent.
-            // Fade-out all ripples that are completely visible and not persistent.
+            // Fade-out all ripples that are visible and not persistent.
+            // Fade-out all ripples that are visible and not persistent.
             _this._activeRipples.forEach(function (ripple) {
-                if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
+                // By default, only ripples that are completely visible will fade out on pointer release.
+                // If the `terminateOnPointerUp` option is set, ripples that still fade in will also fade out.
+                var /** @type {?} */ isVisible = ripple.state === RippleState.VISIBLE ||
+                    ripple.config.terminateOnPointerUp && ripple.state === RippleState.FADING_IN;
+                if (!ripple.config.persistent && isVisible) {
                     ripple.fadeOut();
                 }
             });
@@ -2068,6 +2072,7 @@ var MatRipple = /** @class */ (function () {
                 radius: this.radius,
                 color: this.color,
                 animation: __assign({}, this._globalOptions.animation, this.animation),
+                terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
                 speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
             };
         },

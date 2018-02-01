@@ -1329,9 +1329,13 @@ class RippleRenderer {
                 return;
             }
             this._isPointerDown = false;
-            // Fade-out all ripples that are completely visible and not persistent.
+            // Fade-out all ripples that are visible and not persistent.
             this._activeRipples.forEach(ripple => {
-                if (!ripple.config.persistent && ripple.state === RippleState.VISIBLE) {
+                // By default, only ripples that are completely visible will fade out on pointer release.
+                // If the `terminateOnPointerUp` option is set, ripples that still fade in will also fade out.
+                const /** @type {?} */ isVisible = ripple.state === RippleState.VISIBLE ||
+                    ripple.config.terminateOnPointerUp && ripple.state === RippleState.FADING_IN;
+                if (!ripple.config.persistent && isVisible) {
                     ripple.fadeOut();
                 }
             });
@@ -1595,6 +1599,7 @@ class MatRipple {
             radius: this.radius,
             color: this.color,
             animation: Object.assign({}, this._globalOptions.animation, this.animation),
+            terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
             speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
         };
     }
