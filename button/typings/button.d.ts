@@ -9,36 +9,6 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { ElementRef, OnDestroy } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, MatRipple } from '@angular/material/core';
-/**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * @docs-private
- */
-export declare class MatButtonCssMatStyler {
-}
-/**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * @docs-private
- */
-export declare class MatRaisedButtonCssMatStyler {
-}
-/**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * @docs-private
- */
-export declare class MatIconButtonCssMatStyler {
-}
-/**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * @docs-private
- */
-export declare class MatFab {
-}
-/**
- * Directive whose purpose is to add the mat- CSS styling to this selector.
- * @docs-private
- */
-export declare class MatMiniFab {
-}
 /** @docs-private */
 export declare class MatButtonBase {
     _elementRef: ElementRef;
