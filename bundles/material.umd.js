@@ -4005,16 +4005,20 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        // We need to ensure that the input is focused, because IE will fire the `input`
-        // event on focus/blur/load if the input has a placeholder. See:
-        // https://connect.microsoft.com/IE/feedback/details/885747/
-        if (this._canOpen() && document.activeElement === event.target) {
-            var /** @type {?} */ target = /** @type {?} */ (event.target);
-            var /** @type {?} */ value = target.value;
-            // Based on `NumberValueAccessor` from forms.
-            if (target.type === 'number') {
-                value = value == '' ? null : parseFloat(value);
-            }
+        var /** @type {?} */ target = /** @type {?} */ (event.target);
+        var /** @type {?} */ value = target.value;
+        // Based on `NumberValueAccessor` from forms.
+        if (target.type === 'number') {
+            value = value == '' ? null : parseFloat(value);
+        }
+        // If the input has a placeholder, IE will fire the `input` event on page load,
+        // focus and blur, in addition to when the user actually changed the value. To
+        // filter out all of the extra events, we save the value on focus and between
+        // `input` events, and we check whether it changed.
+        // See: https://connect.microsoft.com/IE/feedback/details/885747/
+        if (this._canOpen() && this._previousValue !== value &&
+            document.activeElement === event.target) {
+            this._previousValue = value;
             this._onChange(value);
             this.openPanel();
         }
@@ -4027,6 +4031,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         if (this._canOpen()) {
+            this._previousValue = this._element.nativeElement.value;
             this._attachOverlay();
             this._floatLabel(true);
         }
@@ -29720,7 +29725,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.2.0-beta.0-e30852a');
+var VERSION = new _angular_core.Version('5.2.0-beta.0-95ffe37');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29948,10 +29953,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -30074,16 +30079,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe17 = MatTabBase;
-exports.ɵf17 = _MatTabMixinBase;
-exports.ɵa17 = MatTabHeaderBase;
-exports.ɵb17 = _MatTabHeaderMixinBase;
-exports.ɵc17 = MatTabLabelWrapperBase;
-exports.ɵd17 = _MatTabLabelWrapperMixinBase;
-exports.ɵi17 = MatTabLinkBase;
-exports.ɵg17 = MatTabNavBase;
-exports.ɵj17 = _MatTabLinkMixinBase;
-exports.ɵh17 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
