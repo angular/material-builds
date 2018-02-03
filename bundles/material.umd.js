@@ -1965,6 +1965,7 @@ var MatRipple = /** @class */ (function () {
          * setting it to 0.5 will cause the animations to take twice as long.
          * A changed speedFactor will not modify the fade-out duration of the ripples.
          * @deprecated Use the [matRippleAnimation] binding instead.
+         * \@deletion-target 7.0.0
          */
         this.speedFactor = 1;
         this._disabled = false;
@@ -21714,7 +21715,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         get: /**
          * Whether or not the radio-button should appear before or after the label.
          * @deprecated
-         * \@deletion-target
+         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () {
@@ -24884,15 +24885,18 @@ var MatSnackBarRef = /** @class */ (function () {
     /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
+     * @deletion-target 7.0.0
      */
     /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
+     * \@deletion-target 7.0.0
      * @return {?}
      */
     MatSnackBarRef.prototype.closeWithAction = /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
+     * \@deletion-target 7.0.0
      * @return {?}
      */
     function () {
@@ -29725,7 +29729,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.2.0-beta.0-01f35ab');
+var VERSION = new _angular_core.Version('5.2.0-beta.0-4523ecd');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -29953,10 +29957,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -30079,16 +30083,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe21 = MatTabBase;
-exports.ɵf21 = _MatTabMixinBase;
-exports.ɵa21 = MatTabHeaderBase;
-exports.ɵb21 = _MatTabHeaderMixinBase;
-exports.ɵc21 = MatTabLabelWrapperBase;
-exports.ɵd21 = _MatTabLabelWrapperMixinBase;
-exports.ɵi21 = MatTabLinkBase;
-exports.ɵg21 = MatTabNavBase;
-exports.ɵj21 = _MatTabLinkMixinBase;
-exports.ɵh21 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

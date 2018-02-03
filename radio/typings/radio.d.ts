@@ -160,7 +160,7 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     /**
      * Whether or not the radio-button should appear before or after the label.
      * @deprecated
-     * @deletion-target
+     * @deletion-target 6.0.0
      */
     align: 'start' | 'end';
     private _labelPosition;

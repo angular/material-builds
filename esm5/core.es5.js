@@ -1937,6 +1937,7 @@ var MatRipple = /** @class */ (function () {
          * setting it to 0.5 will cause the animations to take twice as long.
          * A changed speedFactor will not modify the fade-out duration of the ripples.
          * @deprecated Use the [matRippleAnimation] binding instead.
+         * \@deletion-target 7.0.0
          */
         this.speedFactor = 1;
         this._disabled = false;
