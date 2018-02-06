@@ -293,6 +293,30 @@ class MatMonthView {
         this._selectedDate = this._getDateInCurrentMonth(this._selected);
     }
     /**
+     * The minimum selectable date.
+     * @return {?}
+     */
+    get minDate() { return this._minDate; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set minDate(value) {
+        this._minDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+    }
+    /**
+     * The maximum selectable date.
+     * @return {?}
+     */
+    get maxDate() { return this._maxDate; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set maxDate(value) {
+        this._maxDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+    }
+    /**
      * @return {?}
      */
     ngAfterContentInit() {
@@ -334,21 +358,31 @@ class MatMonthView {
      * @return {?}
      */
     _createWeekCells() {
-        let /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
-        let /** @type {?} */ dateNames = this._dateAdapter.getDateNames();
+        const /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
+        const /** @type {?} */ dateNames = this._dateAdapter.getDateNames();
         this._weeks = [[]];
         for (let /** @type {?} */ i = 0, /** @type {?} */ cell = this._firstWeekOffset; i < daysInMonth; i++, cell++) {
             if (cell == DAYS_PER_WEEK) {
                 this._weeks.push([]);
                 cell = 0;
             }
-            let /** @type {?} */ date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), i + 1);
-            let /** @type {?} */ enabled = !this.dateFilter ||
-                this.dateFilter(date);
-            let /** @type {?} */ ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
+            const /** @type {?} */ date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), i + 1);
+            const /** @type {?} */ enabled = this._shouldEnableDate(date);
+            const /** @type {?} */ ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
             this._weeks[this._weeks.length - 1]
                 .push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled));
         }
+    }
+    /**
+     * Date filter for the month
+     * @param {?} date
+     * @return {?}
+     */
+    _shouldEnableDate(date) {
+        return !!date &&
+            (!this.dateFilter || this.dateFilter(date)) &&
+            (!this.minDate || this._dateAdapter.compareDate(date, this.minDate) >= 0) &&
+            (!this.maxDate || this._dateAdapter.compareDate(date, this.maxDate) <= 0);
     }
     /**
      * Gets the date in this month that the given Date falls on.
@@ -396,6 +430,8 @@ MatMonthView.ctorParameters = () => [
 MatMonthView.propDecorators = {
     "activeDate": [{ type: Input },],
     "selected": [{ type: Input },],
+    "minDate": [{ type: Input },],
+    "maxDate": [{ type: Input },],
     "dateFilter": [{ type: Input },],
     "selectedChange": [{ type: Output },],
     "_userSelection": [{ type: Output },],
@@ -465,6 +501,30 @@ class MatMultiYearView {
         this._selectedYear = this._selected && this._dateAdapter.getYear(this._selected);
     }
     /**
+     * The minimum selectable date.
+     * @return {?}
+     */
+    get minDate() { return this._minDate; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set minDate(value) {
+        this._minDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+    }
+    /**
+     * The maximum selectable date.
+     * @return {?}
+     */
+    get maxDate() { return this._maxDate; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set maxDate(value) {
+        this._maxDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+    }
+    /**
      * @return {?}
      */
     ngAfterContentInit() {
@@ -512,14 +572,21 @@ class MatMultiYearView {
      */
     _createCellForYear(year) {
         let /** @type {?} */ yearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(year, 0, 1));
-        return new MatCalendarCell(year, yearName, yearName, this._isYearEnabled(year));
+        return new MatCalendarCell(year, yearName, yearName, this._shouldEnableYear(year));
     }
     /**
      * Whether the given year is enabled.
      * @param {?} year
      * @return {?}
      */
-    _isYearEnabled(year) {
+    _shouldEnableYear(year) {
+        // disable if the year is greater than maxDate lower than minDate
+        if (year === undefined || year === null ||
+            (this.maxDate && year > this._dateAdapter.getYear(this.maxDate)) ||
+            (this.minDate && year < this._dateAdapter.getYear(this.minDate))) {
+            return false;
+        }
+        // enable if it reaches here and there's no filter defined
         if (!this.dateFilter) {
             return true;
         }
@@ -557,6 +624,8 @@ MatMultiYearView.ctorParameters = () => [
 MatMultiYearView.propDecorators = {
     "activeDate": [{ type: Input },],
     "selected": [{ type: Input },],
+    "minDate": [{ type: Input },],
+    "maxDate": [{ type: Input },],
     "dateFilter": [{ type: Input },],
     "selectedChange": [{ type: Output },],
     "yearSelected": [{ type: Output },],
@@ -628,6 +697,30 @@ class MatYearView {
         this._selectedMonth = this._getMonthInCurrentYear(this._selected);
     }
     /**
+     * The minimum selectable date.
+     * @return {?}
+     */
+    get minDate() { return this._minDate; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set minDate(value) {
+        this._minDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+    }
+    /**
+     * The maximum selectable date.
+     * @return {?}
+     */
+    get maxDate() { return this._maxDate; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set maxDate(value) {
+        this._maxDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
+    }
+    /**
      * @return {?}
      */
     ngAfterContentInit() {
@@ -675,23 +768,59 @@ class MatYearView {
      */
     _createCellForMonth(month, monthName) {
         let /** @type {?} */ ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
-        return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._isMonthEnabled(month));
+        return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._shouldEnableMonth(month));
     }
     /**
      * Whether the given month is enabled.
      * @param {?} month
      * @return {?}
      */
-    _isMonthEnabled(month) {
+    _shouldEnableMonth(month) {
+        const /** @type {?} */ activeYear = this._dateAdapter.getYear(this.activeDate);
+        if (month === undefined || month === null ||
+            this._isYearAndMonthAfterMaxDate(activeYear, month) ||
+            this._isYearAndMonthBeforeMinDate(activeYear, month)) {
+            return false;
+        }
         if (!this.dateFilter) {
             return true;
         }
-        let /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1);
+        const /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(activeYear, month, 1);
         // If any date in the month is enabled count the month as enabled.
         for (let /** @type {?} */ date = firstOfMonth; this._dateAdapter.getMonth(date) == month; date = this._dateAdapter.addCalendarDays(date, 1)) {
             if (this.dateFilter(date)) {
                 return true;
             }
+        }
+        return false;
+    }
+    /**
+     * Tests whether the combination month/year is after this.maxDate, considering
+     * just the month and year of this.maxDate
+     * @param {?} year
+     * @param {?} month
+     * @return {?}
+     */
+    _isYearAndMonthAfterMaxDate(year, month) {
+        if (this.maxDate) {
+            const /** @type {?} */ maxYear = this._dateAdapter.getYear(this.maxDate);
+            const /** @type {?} */ maxMonth = this._dateAdapter.getMonth(this.maxDate);
+            return year > maxYear || (year === maxYear && month > maxMonth);
+        }
+        return false;
+    }
+    /**
+     * Tests whether the combination month/year is before this.minDate, considering
+     * just the month and year of this.minDate
+     * @param {?} year
+     * @param {?} month
+     * @return {?}
+     */
+    _isYearAndMonthBeforeMinDate(year, month) {
+        if (this.minDate) {
+            const /** @type {?} */ minYear = this._dateAdapter.getYear(this.minDate);
+            const /** @type {?} */ minMonth = this._dateAdapter.getMonth(this.minDate);
+            return year < minYear || (year === minYear && month < minMonth);
         }
         return false;
     }
@@ -721,6 +850,8 @@ MatYearView.ctorParameters = () => [
 MatYearView.propDecorators = {
     "activeDate": [{ type: Input },],
     "selected": [{ type: Input },],
+    "minDate": [{ type: Input },],
+    "maxDate": [{ type: Input },],
     "dateFilter": [{ type: Input },],
     "selectedChange": [{ type: Output },],
     "monthSelected": [{ type: Output },],
@@ -774,15 +905,6 @@ class MatCalendar {
          * Emits when any date is selected.
          */
         this._userSelection = new EventEmitter();
-        /**
-         * Date filter for the month, year, and multi-year views.
-         */
-        this._dateFilterForViews = (date) => {
-            return !!date &&
-                (!this.dateFilter || this.dateFilter(date)) &&
-                (!this.minDate || this._dateAdapter.compareDate(date, this.minDate) >= 0) &&
-                (!this.maxDate || this._dateAdapter.compareDate(date, this.maxDate) <= 0);
-        };
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -1095,7 +1217,7 @@ class MatCalendar {
                     this._dateAdapter.addCalendarMonths(this._activeDate, 1);
                 break;
             case ENTER:
-                if (this._dateFilterForViews(this._activeDate)) {
+                if (!this.dateFilter || this.dateFilter(this._activeDate)) {
                     this._dateSelected(this._activeDate);
                     this._userSelected();
                     // Prevent unexpected default actions such as form submission.
@@ -1216,7 +1338,7 @@ class MatCalendar {
 }
 MatCalendar.decorators = [
     { type: Component, args: [{selector: 'mat-calendar',
-                template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"_currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_currentView\" cdkMonitorSubtreeFocus tabindex=\"-1\"><mat-month-view *ngSwitchCase=\"'month'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\" (_userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchCase=\"'year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (monthSelected)=\"_monthSelectedInYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view><mat-multi-year-view *ngSwitchCase=\"'multi-year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (yearSelected)=\"_yearSelectedInMultiYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view></div>",
+                template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"_currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_currentView\" cdkMonitorSubtreeFocus tabindex=\"-1\"><mat-month-view *ngSwitchCase=\"'month'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (selectedChange)=\"_dateSelected($event)\" (_userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchCase=\"'year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (monthSelected)=\"_monthSelectedInYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view><mat-multi-year-view *ngSwitchCase=\"'multi-year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (yearSelected)=\"_yearSelectedInMultiYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view></div>",
                 styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:0}.mat-calendar-controls{display:flex;margin:5% calc(33% / 7 - 16px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}.mat-calendar-next-button,.mat-calendar-previous-button{position:relative}.mat-calendar-next-button::after,.mat-calendar-previous-button::after{top:0;left:0;right:0;bottom:0;position:absolute;content:'';margin:15.5px;border:0 solid currentColor;border-top-width:2px}[dir=rtl] .mat-calendar-next-button,[dir=rtl] .mat-calendar-previous-button{transform:rotate(180deg)}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:'';position:absolute;top:0;left:-8px;right:-8px;height:1px}"],
                 host: {
                     'class': 'mat-calendar',

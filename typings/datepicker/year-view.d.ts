@@ -22,6 +22,12 @@ export declare class MatYearView<D> implements AfterContentInit {
     /** The currently selected date. */
     selected: D | null;
     private _selected;
+    /** The minimum selectable date. */
+    minDate: D | null;
+    private _minDate;
+    /** The maximum selectable date. */
+    maxDate: D | null;
+    private _maxDate;
     /** A function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;
     /** Emits when a new month is selected. */
@@ -53,7 +59,17 @@ export declare class MatYearView<D> implements AfterContentInit {
     /** Creates an MatCalendarCell for the given month. */
     private _createCellForMonth(month, monthName);
     /** Whether the given month is enabled. */
-    private _isMonthEnabled(month);
+    private _shouldEnableMonth(month);
+    /**
+     * Tests whether the combination month/year is after this.maxDate, considering
+     * just the month and year of this.maxDate
+     */
+    private _isYearAndMonthAfterMaxDate(year, month);
+    /**
+     * Tests whether the combination month/year is before this.minDate, considering
+     * just the month and year of this.minDate
+     */
+    private _isYearAndMonthBeforeMinDate(year, month);
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.

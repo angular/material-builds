@@ -53,8 +53,6 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     yearView: MatYearView<D>;
     /** Reference to the current multi-year view component. */
     multiYearView: MatMultiYearView<D>;
-    /** Date filter for the month, year, and multi-year views. */
-    _dateFilterForViews: (date: D) => boolean;
     /**
      * The current active date. This determines which time period is shown and which date is
      * highlighted when using keyboard navigation.

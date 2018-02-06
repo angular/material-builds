@@ -24,6 +24,12 @@ export declare class MatMonthView<D> implements AfterContentInit {
     /** The currently selected date. */
     selected: D | null;
     private _selected;
+    /** The minimum selectable date. */
+    minDate: D | null;
+    private _minDate;
+    /** The maximum selectable date. */
+    maxDate: D | null;
+    private _maxDate;
     /** A function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;
     /** Emits when a new date is selected. */
@@ -56,6 +62,8 @@ export declare class MatMonthView<D> implements AfterContentInit {
     _init(): void;
     /** Creates MatCalendarCells for the dates in this month. */
     private _createWeekCells();
+    /** Date filter for the month */
+    private _shouldEnableDate(date);
     /**
      * Gets the date in this month that the given Date falls on.
      * Returns null if the given Date is in another month.
