@@ -1894,12 +1894,11 @@ var MatDatepicker = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ fallbackOffset = this._datepickerInput._getPopupFallbackOffset();
         return this._overlay.position()
-            .connectedTo(this._datepickerInput.getPopupConnectionElementRef(), { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
-            .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' }, undefined, fallbackOffset)
+            .connectedTo(this._datepickerInput.getConnectedOverlayOrigin(), { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
+            .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' })
             .withFallbackPosition({ originX: 'end', originY: 'bottom' }, { overlayX: 'end', overlayY: 'top' })
-            .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' }, undefined, fallbackOffset);
+            .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' });
     };
     /**
      * @param {?} obj The object to check.
@@ -2234,6 +2233,18 @@ var MatDatepickerInput = /** @class */ (function () {
     function (c) {
         return this._validator ? this._validator(c) : null;
     };
+    /** @deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead */
+    /**
+     * \@deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
+     * @return {?}
+     */
+    MatDatepickerInput.prototype.getPopupConnectionElementRef = /**
+     * \@deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
+     * @return {?}
+     */
+    function () {
+        return this.getConnectedOverlayOrigin();
+    };
     /**
      * Gets the element that the datepicker popup should be connected to.
      * @return The element to connect the popup to.
@@ -2242,29 +2253,12 @@ var MatDatepickerInput = /** @class */ (function () {
      * Gets the element that the datepicker popup should be connected to.
      * @return {?} The element to connect the popup to.
      */
-    MatDatepickerInput.prototype.getPopupConnectionElementRef = /**
+    MatDatepickerInput.prototype.getConnectedOverlayOrigin = /**
      * Gets the element that the datepicker popup should be connected to.
      * @return {?} The element to connect the popup to.
      */
     function () {
-        return this._formField ? this._formField.underlineRef : this._elementRef;
-    };
-    /**
-     * Determines the offset to be used when the calendar goes into a fallback position.
-     * Primarily used to prevent the calendar from overlapping the input.
-     */
-    /**
-     * Determines the offset to be used when the calendar goes into a fallback position.
-     * Primarily used to prevent the calendar from overlapping the input.
-     * @return {?}
-     */
-    MatDatepickerInput.prototype._getPopupFallbackOffset = /**
-     * Determines the offset to be used when the calendar goes into a fallback position.
-     * Primarily used to prevent the calendar from overlapping the input.
-     * @return {?}
-     */
-    function () {
-        return this._formField ? -this._formField._inputContainerRef.nativeElement.clientHeight : 0;
+        return this._formField ? this._formField.getConnectedOverlayOrigin() : this._elementRef;
     };
     // Implemented as part of ControlValueAccessor.
     /**
@@ -2516,7 +2510,7 @@ var MatDatepickerToggle = /** @class */ (function () {
     MatDatepickerToggle.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-toggle',
                     template: "<button mat-icon-button type=\"button\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
-                    styles: [".mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field-suffix .mat-datepicker-toggle-default-icon{width:1em}"],
+                    styles: [".mat-form-field-appearance-legacy .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon{width:1em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-datepicker-toggle-default-icon{display:block;width:1.5em;height:1.5em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-datepicker-toggle-default-icon{margin:auto}"],
                     host: {
                         'class': 'mat-datepicker-toggle',
                         '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
@@ -2613,7 +2607,7 @@ exports.MatDatepickerToggleIcon = MatDatepickerToggleIcon;
 exports.MatDatepickerToggle = MatDatepickerToggle;
 exports.MatMonthView = MatMonthView;
 exports.MatYearView = MatYearView;
-exports.ɵa31 = MatMultiYearView;
+exports.ɵa32 = MatMultiYearView;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

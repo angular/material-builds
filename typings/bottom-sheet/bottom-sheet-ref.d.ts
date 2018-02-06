@@ -1,0 +1,42 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { OverlayRef } from '@angular/cdk/overlay';
+import { Observable } from 'rxjs/Observable';
+import { MatBottomSheetContainer } from './bottom-sheet-container';
+/**
+ * Reference to a bottom sheet dispatched from the bottom sheet service.
+ */
+export declare class MatBottomSheetRef<T = any> {
+    private _overlayRef;
+    /** Instance of the component making up the content of the bottom sheet. */
+    instance: T;
+    /**
+     * Instance of the component into which the bottom sheet content is projected.
+     * @docs-private
+     */
+    containerInstance: MatBottomSheetContainer;
+    /** Subject for notifying the user that the bottom sheet has been dismissed. */
+    private readonly _afterDismissed;
+    /** Subject for notifying the user that the bottom sheet has opened and appeared. */
+    private readonly _afterOpened;
+    constructor(containerInstance: MatBottomSheetContainer, _overlayRef: OverlayRef);
+    /** Dismisses the bottom sheet. */
+    dismiss(): void;
+    /** Gets an observable that is notified when the bottom sheet is finished closing. */
+    afterDismissed(): Observable<void>;
+    /** Gets an observable that is notified when the bottom sheet has opened and appeared. */
+    afterOpened(): Observable<void>;
+    /**
+     * Gets an observable that emits when the overlay's backdrop has been clicked.
+     */
+    backdropClick(): Observable<MouseEvent>;
+    /**
+     * Gets an observable that emits when keydown events are targeted on the overlay.
+     */
+    keydownEvents(): Observable<KeyboardEvent>;
+}
