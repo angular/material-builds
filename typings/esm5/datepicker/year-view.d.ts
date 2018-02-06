@@ -26,6 +26,8 @@ export declare class MatYearView<D> implements AfterContentInit {
     dateFilter: (date: D) => boolean;
     /** Emits when a new month is selected. */
     readonly selectedChange: EventEmitter<D>;
+    /** Emits the selected month. This doesn't imply a change on the selected date */
+    readonly monthSelected: EventEmitter<D>;
     /** Grid of calendar cells representing the months of the year. */
     _months: MatCalendarCell[][];
     /** The label for this year (e.g. "2017"). */

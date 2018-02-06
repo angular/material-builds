@@ -35,6 +35,16 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     dateFilter: (date: D) => boolean;
     /** Emits when the currently selected date changes. */
     readonly selectedChange: EventEmitter<D>;
+    /**
+     * Emits the year chosen in multiyear view.
+     * This doesn't imply a change on the selected date.
+     */
+    readonly yearSelected: EventEmitter<D>;
+    /**
+     * Emits the month chosen in year view.
+     * This doesn't imply a change on the selected date.
+     */
+    readonly monthSelected: EventEmitter<D>;
     /** Emits when any date is selected. */
     readonly _userSelection: EventEmitter<void>;
     /** Reference to the current month view component. */
@@ -66,6 +76,10 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     ngOnChanges(changes: SimpleChanges): void;
     /** Handles date selection in the month view. */
     _dateSelected(date: D): void;
+    /** Handles year selection in the multiyear view. */
+    _yearSelectedInMultiYearView(normalizedYear: D): void;
+    /** Handles month selection in the year view. */
+    _monthSelectedInYearView(normalizedMonth: D): void;
     _userSelected(): void;
     /** Handles month selection in the multi-year view. */
     _goToDateInView(date: D, view: 'month' | 'year' | 'multi-year'): void;

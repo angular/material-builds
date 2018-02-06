@@ -1652,6 +1652,28 @@ $mat-ripple-color-opacity: 0.1;
 
 
 
+@mixin mat-bottom-sheet-theme($theme) {
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .mat-bottom-sheet-container {
+    background: mat-color($background, dialog);
+    color: mat-color($foreground, text);
+  }
+}
+
+@mixin mat-bottom-sheet-typography($config) {
+  .mat-bottom-sheet-container {
+    // Note: we don't use the line-height, because it's way too big.
+    font-family: mat-font-family($config);
+    font-size: mat-font-size($config, subheading-2);
+    font-weight: mat-font-weight($config, subheading-2);
+  }
+}
+
+
+
+
 // Applies a focus style to an mat-button element for each of the supported palettes.
 @mixin _mat-button-focus-color($theme) {
   $primary: map-get($theme, primary);
@@ -4115,6 +4137,7 @@ $mat-form-field-dedupe: 0;
 
   @include mat-base-typography($config);
   @include mat-autocomplete-typography($config);
+  @include mat-bottom-sheet-typography($config);
   @include mat-button-typography($config);
   @include mat-button-toggle-typography($config);
   @include mat-card-typography($config);
@@ -4202,6 +4225,7 @@ $mat-form-field-dedupe: 0;
 
 
 
+
 @mixin mat-divider-theme($theme) {
   $foreground: map-get($theme, foreground);
 
@@ -4240,6 +4264,7 @@ $mat-form-field-dedupe: 0;
 @mixin angular-material-theme($theme) {
   @include mat-core-theme($theme);
   @include mat-autocomplete-theme($theme);
+  @include mat-bottom-sheet-theme($theme);
   @include mat-button-theme($theme);
   @include mat-button-toggle-theme($theme);
   @include mat-card-theme($theme);

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('@angular/animations'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/empty'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('@angular/cdk/layout'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', '@angular/animations', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/empty', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', '@angular/cdk/layout', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.Rx.Observable,global.Rx.operators,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.accordion,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.layout,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,rxjs_Observable,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,rxjs_observable_fromEvent,rxjs_operators_startWith,_angular_animations,rxjs_observable_defer,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_empty,rxjs_operators_auditTime,rxjs_operators_takeUntil,_angular_cdk_accordion,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,_angular_cdk_layout,_angular_cdk_scrolling,rxjs_operators_debounceTime,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('@angular/animations'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/empty'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', '@angular/animations', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/empty', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.Rx.Observable,global.Rx.operators,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.accordion,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,rxjs_Observable,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,rxjs_observable_fromEvent,rxjs_operators_startWith,_angular_animations,rxjs_observable_defer,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_layout,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_empty,rxjs_operators_auditTime,rxjs_operators_takeUntil,_angular_cdk_accordion,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,_angular_cdk_scrolling,rxjs_operators_debounceTime,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -4478,6 +4478,650 @@ var MatAutocompleteModule = /** @class */ (function () {
  */
 
 /**
+ * Animations used by the Material bottom sheet.
+ */
+var matBottomSheetAnimations = {
+    /** Animation that shows and hides a bottom sheet. */
+    bottomSheetState: _angular_animations.trigger('state', [
+        _angular_animations.state('void, hidden', _angular_animations.style({ transform: 'translateY(100%)' })),
+        _angular_animations.state('visible', _angular_animations.style({ transform: 'translateY(0%)' })),
+        _angular_animations.transition('visible => void, visible => hidden', _angular_animations.animate(AnimationDurations.COMPLEX + " " + AnimationCurves.ACCELERATION_CURVE)),
+        _angular_animations.transition('void => visible', _angular_animations.animate(AnimationDurations.EXITING + " " + AnimationCurves.DECELERATION_CURVE)),
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * Internal component that wraps user-provided bottom sheet content.
+ * \@docs-private
+ */
+var MatBottomSheetContainer = /** @class */ (function (_super) {
+    __extends(MatBottomSheetContainer, _super);
+    function MatBottomSheetContainer(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document) {
+        var _this = _super.call(this) || this;
+        _this._elementRef = _elementRef;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._focusTrapFactory = _focusTrapFactory;
+        /**
+         * The state of the bottom sheet animations.
+         */
+        _this._animationState = 'void';
+        /**
+         * Emits whenever the state of the animation changes.
+         */
+        _this._animationStateChanged = new _angular_core.EventEmitter();
+        /**
+         * Element that was focused before the bottom sheet was opened.
+         */
+        _this._elementFocusedBeforeOpened = null;
+        _this._document = document;
+        _this._breakpointSubscription = breakpointObserver
+            .observe([_angular_cdk_layout.Breakpoints.Medium, _angular_cdk_layout.Breakpoints.Large, _angular_cdk_layout.Breakpoints.XLarge])
+            .subscribe(function () {
+            _this._toggleClass('mat-bottom-sheet-container-medium', breakpointObserver.isMatched(_angular_cdk_layout.Breakpoints.Medium));
+            _this._toggleClass('mat-bottom-sheet-container-large', breakpointObserver.isMatched(_angular_cdk_layout.Breakpoints.Large));
+            _this._toggleClass('mat-bottom-sheet-container-xlarge', breakpointObserver.isMatched(_angular_cdk_layout.Breakpoints.XLarge));
+        });
+        return _this;
+    }
+    /** Attach a component portal as content to this bottom sheet container. */
+    /**
+     * Attach a component portal as content to this bottom sheet container.
+     * @template T
+     * @param {?} portal
+     * @return {?}
+     */
+    MatBottomSheetContainer.prototype.attachComponentPortal = /**
+     * Attach a component portal as content to this bottom sheet container.
+     * @template T
+     * @param {?} portal
+     * @return {?}
+     */
+    function (portal) {
+        this._validatePortalAttached();
+        this._setPanelClass();
+        this._savePreviouslyFocusedElement();
+        return this._portalOutlet.attachComponentPortal(portal);
+    };
+    /** Attach a template portal as content to this bottom sheet container. */
+    /**
+     * Attach a template portal as content to this bottom sheet container.
+     * @template C
+     * @param {?} portal
+     * @return {?}
+     */
+    MatBottomSheetContainer.prototype.attachTemplatePortal = /**
+     * Attach a template portal as content to this bottom sheet container.
+     * @template C
+     * @param {?} portal
+     * @return {?}
+     */
+    function (portal) {
+        this._validatePortalAttached();
+        this._setPanelClass();
+        this._savePreviouslyFocusedElement();
+        return this._portalOutlet.attachTemplatePortal(portal);
+    };
+    /** Begin animation of bottom sheet entrance into view. */
+    /**
+     * Begin animation of bottom sheet entrance into view.
+     * @return {?}
+     */
+    MatBottomSheetContainer.prototype.enter = /**
+     * Begin animation of bottom sheet entrance into view.
+     * @return {?}
+     */
+    function () {
+        this._animationState = 'visible';
+        this._changeDetectorRef.detectChanges();
+    };
+    /** Begin animation of the bottom sheet exiting from view. */
+    /**
+     * Begin animation of the bottom sheet exiting from view.
+     * @return {?}
+     */
+    MatBottomSheetContainer.prototype.exit = /**
+     * Begin animation of the bottom sheet exiting from view.
+     * @return {?}
+     */
+    function () {
+        this._animationState = 'hidden';
+        this._changeDetectorRef.markForCheck();
+    };
+    /**
+     * @return {?}
+     */
+    MatBottomSheetContainer.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._breakpointSubscription.unsubscribe();
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MatBottomSheetContainer.prototype._onAnimationDone = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        if (event.toState === 'visible') {
+            this._trapFocus();
+        }
+        else if (event.toState === 'hidden') {
+            this._restoreFocus();
+        }
+        this._animationStateChanged.emit(event);
+    };
+    /**
+     * @param {?} event
+     * @return {?}
+     */
+    MatBottomSheetContainer.prototype._onAnimationStart = /**
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        this._animationStateChanged.emit(event);
+    };
+    /**
+     * @param {?} cssClass
+     * @param {?} add
+     * @return {?}
+     */
+    MatBottomSheetContainer.prototype._toggleClass = /**
+     * @param {?} cssClass
+     * @param {?} add
+     * @return {?}
+     */
+    function (cssClass, add) {
+        var /** @type {?} */ classList = this._elementRef.nativeElement.classList;
+        add ? classList.add(cssClass) : classList.remove(cssClass);
+    };
+    /**
+     * @return {?}
+     */
+    MatBottomSheetContainer.prototype._validatePortalAttached = /**
+     * @return {?}
+     */
+    function () {
+        if (this._portalOutlet.hasAttached()) {
+            throw Error('Attempting to attach bottom sheet content after content is already attached');
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MatBottomSheetContainer.prototype._setPanelClass = /**
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ element = this._elementRef.nativeElement;
+        var /** @type {?} */ panelClass = this.bottomSheetConfig.panelClass;
+        if (Array.isArray(panelClass)) {
+            // Note that we can't use a spread here, because IE doesn't support multiple arguments.
+            panelClass.forEach(function (cssClass) { return element.classList.add(cssClass); });
+        }
+        else if (panelClass) {
+            element.classList.add(panelClass);
+        }
+    };
+    /**
+     * Moves the focus inside the focus trap.
+     * @return {?}
+     */
+    MatBottomSheetContainer.prototype._trapFocus = /**
+     * Moves the focus inside the focus trap.
+     * @return {?}
+     */
+    function () {
+        if (!this._focusTrap) {
+            this._focusTrap = this._focusTrapFactory.create(this._elementRef.nativeElement);
+        }
+        this._focusTrap.focusInitialElementWhenReady();
+    };
+    /**
+     * Restores focus to the element that was focused before the bottom sheet opened.
+     * @return {?}
+     */
+    MatBottomSheetContainer.prototype._restoreFocus = /**
+     * Restores focus to the element that was focused before the bottom sheet opened.
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ toFocus = this._elementFocusedBeforeOpened;
+        // We need the extra check, because IE can set the `activeElement` to null in some cases.
+        if (toFocus && typeof toFocus.focus === 'function') {
+            toFocus.focus();
+        }
+        if (this._focusTrap) {
+            this._focusTrap.destroy();
+        }
+    };
+    /**
+     * Saves a reference to the element that was focused before the bottom sheet was opened.
+     * @return {?}
+     */
+    MatBottomSheetContainer.prototype._savePreviouslyFocusedElement = /**
+     * Saves a reference to the element that was focused before the bottom sheet was opened.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this._elementFocusedBeforeOpened = /** @type {?} */ (this._document.activeElement);
+        Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
+    };
+    MatBottomSheetContainer.decorators = [
+        { type: _angular_core.Component, args: [{selector: 'mat-bottom-sheet-container',
+                    template: "<ng-template cdkPortalOutlet></ng-template>",
+                    styles: [".mat-bottom-sheet-container{box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12);padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0}.mat-bottom-sheet-container-medium{min-width:384px}.mat-bottom-sheet-container-large{min-width:512px}.mat-bottom-sheet-container-xlarge{min-width:576px}"],
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    animations: [matBottomSheetAnimations.bottomSheetState],
+                    host: {
+                        'class': 'mat-bottom-sheet-container',
+                        'tabindex': '-1',
+                        'role': 'dialog',
+                        '[attr.aria-label]': 'bottomSheetConfig?.ariaLabel',
+                        '[@state]': '_animationState',
+                        '(@state.start)': '_onAnimationStart($event)',
+                        '(@state.done)': '_onAnimationDone($event)'
+                    },
+                },] },
+    ];
+    /** @nocollapse */
+    MatBottomSheetContainer.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.ChangeDetectorRef, },
+        { type: _angular_cdk_a11y.FocusTrapFactory, },
+        { type: _angular_cdk_layout.BreakpointObserver, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
+    ]; };
+    MatBottomSheetContainer.propDecorators = {
+        "_portalOutlet": [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.CdkPortalOutlet,] },],
+    };
+    return MatBottomSheetContainer;
+}(_angular_cdk_portal.BasePortalOutlet));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * Injection token that can be used to access the data that was passed in to a bottom sheet.
+ */
+var MAT_BOTTOM_SHEET_DATA = new _angular_core.InjectionToken('MatBottomSheetData');
+/**
+ * Configuration used when opening a bottom sheet.
+ */
+var MatBottomSheetConfig = /** @class */ (function () {
+    function MatBottomSheetConfig() {
+        /**
+         * Text layout direction for the bottom sheet.
+         */
+        this.direction = 'ltr';
+        /**
+         * Data being injected into the child component.
+         */
+        this.data = null;
+        /**
+         * Whether the bottom sheet has a backdrop.
+         */
+        this.hasBackdrop = true;
+        /**
+         * Whether the user can use escape or clicking outside to close the bottom sheet.
+         */
+        this.disableClose = false;
+        /**
+         * Aria label to assign to the bottom sheet element.
+         */
+        this.ariaLabel = null;
+    }
+    return MatBottomSheetConfig;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * Reference to a bottom sheet dispatched from the bottom sheet service.
+ */
+var MatBottomSheetRef = /** @class */ (function () {
+    function MatBottomSheetRef(containerInstance, _overlayRef) {
+        var _this = this;
+        this._overlayRef = _overlayRef;
+        /**
+         * Subject for notifying the user that the bottom sheet has been dismissed.
+         */
+        this._afterDismissed = new rxjs_Subject.Subject();
+        /**
+         * Subject for notifying the user that the bottom sheet has opened and appeared.
+         */
+        this._afterOpened = new rxjs_Subject.Subject();
+        this.containerInstance = containerInstance;
+        // Emit when opening animation completes
+        containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), rxjs_operators_take.take(1))
+            .subscribe(function () {
+            _this._afterOpened.next();
+            _this._afterOpened.complete();
+        });
+        // Dispose overlay when closing animation is complete
+        containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), rxjs_operators_take.take(1))
+            .subscribe(function () {
+            _this._overlayRef.dispose();
+            _this._afterDismissed.next();
+            _this._afterDismissed.complete();
+        });
+        if (!containerInstance.bottomSheetConfig.disableClose) {
+            rxjs_observable_merge.merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(rxjs_operators_filter.filter(function (event) { return event.keyCode === _angular_cdk_keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
+        }
+    }
+    /** Dismisses the bottom sheet. */
+    /**
+     * Dismisses the bottom sheet.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.dismiss = /**
+     * Dismisses the bottom sheet.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (!this._afterDismissed.closed) {
+            // Transition the backdrop in parallel to the bottom sheet.
+            this.containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'start'; }), rxjs_operators_take.take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
+            this.containerInstance.exit();
+        }
+    };
+    /** Gets an observable that is notified when the bottom sheet is finished closing. */
+    /**
+     * Gets an observable that is notified when the bottom sheet is finished closing.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.afterDismissed = /**
+     * Gets an observable that is notified when the bottom sheet is finished closing.
+     * @return {?}
+     */
+    function () {
+        return this._afterDismissed.asObservable();
+    };
+    /** Gets an observable that is notified when the bottom sheet has opened and appeared. */
+    /**
+     * Gets an observable that is notified when the bottom sheet has opened and appeared.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.afterOpened = /**
+     * Gets an observable that is notified when the bottom sheet has opened and appeared.
+     * @return {?}
+     */
+    function () {
+        return this._afterOpened.asObservable();
+    };
+    /**
+     * Gets an observable that emits when the overlay's backdrop has been clicked.
+     */
+    /**
+     * Gets an observable that emits when the overlay's backdrop has been clicked.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.backdropClick = /**
+     * Gets an observable that emits when the overlay's backdrop has been clicked.
+     * @return {?}
+     */
+    function () {
+        return this._overlayRef.backdropClick();
+    };
+    /**
+     * Gets an observable that emits when keydown events are targeted on the overlay.
+     */
+    /**
+     * Gets an observable that emits when keydown events are targeted on the overlay.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.keydownEvents = /**
+     * Gets an observable that emits when keydown events are targeted on the overlay.
+     * @return {?}
+     */
+    function () {
+        return this._overlayRef.keydownEvents();
+    };
+    return MatBottomSheetRef;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
+ * Service to trigger Material Design bottom sheets.
+ */
+var MatBottomSheet = /** @class */ (function () {
+    function MatBottomSheet(_overlay, _injector, _parentBottomSheet) {
+        this._overlay = _overlay;
+        this._injector = _injector;
+        this._parentBottomSheet = _parentBottomSheet;
+        this._bottomSheetRefAtThisLevel = null;
+    }
+    Object.defineProperty(MatBottomSheet.prototype, "_openedBottomSheetRef", {
+        /** Reference to the currently opened bottom sheet. */
+        get: /**
+         * Reference to the currently opened bottom sheet.
+         * @return {?}
+         */
+        function () {
+            var /** @type {?} */ parent = this._parentBottomSheet;
+            return parent ? parent._openedBottomSheetRef : this._bottomSheetRefAtThisLevel;
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (this._parentBottomSheet) {
+                this._parentBottomSheet._openedBottomSheetRef = value;
+            }
+            else {
+                this._bottomSheetRefAtThisLevel = value;
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @template T, D
+     * @param {?} componentOrTemplateRef
+     * @param {?=} config
+     * @return {?}
+     */
+    MatBottomSheet.prototype.open = /**
+     * @template T, D
+     * @param {?} componentOrTemplateRef
+     * @param {?=} config
+     * @return {?}
+     */
+    function (componentOrTemplateRef, config) {
+        var _this = this;
+        var /** @type {?} */ _config = _applyConfigDefaults(config);
+        var /** @type {?} */ overlayRef = this._createOverlay(_config);
+        var /** @type {?} */ container = this._attachContainer(overlayRef, _config);
+        var /** @type {?} */ ref = new MatBottomSheetRef(container, overlayRef);
+        if (componentOrTemplateRef instanceof _angular_core.TemplateRef) {
+            container.attachTemplatePortal(new _angular_cdk_portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({
+                $implicit: _config.data,
+                bottomSheetRef: ref
+            })));
+        }
+        else {
+            var /** @type {?} */ portal = new _angular_cdk_portal.ComponentPortal(componentOrTemplateRef, undefined, this._createInjector(_config, ref));
+            var /** @type {?} */ contentRef = container.attachComponentPortal(portal);
+            ref.instance = contentRef.instance;
+        }
+        // When the bottom sheet is dismissed, clear the reference to it.
+        ref.afterDismissed().subscribe(function () {
+            // Clear the bottom sheet ref if it hasn't already been replaced by a newer one.
+            if (_this._openedBottomSheetRef == ref) {
+                _this._openedBottomSheetRef = null;
+            }
+        });
+        if (this._openedBottomSheetRef) {
+            // If a bottom sheet is already in view, dismiss it and enter the
+            // new bottom sheet after exit animation is complete.
+            this._openedBottomSheetRef.afterDismissed().subscribe(function () { return ref.containerInstance.enter(); });
+            this._openedBottomSheetRef.dismiss();
+        }
+        else {
+            // If no bottom sheet is in view, enter the new bottom sheet.
+            ref.containerInstance.enter();
+        }
+        this._openedBottomSheetRef = ref;
+        return ref;
+    };
+    /**
+     * Dismisses the currently-visible bottom sheet.
+     */
+    /**
+     * Dismisses the currently-visible bottom sheet.
+     * @return {?}
+     */
+    MatBottomSheet.prototype.dismiss = /**
+     * Dismisses the currently-visible bottom sheet.
+     * @return {?}
+     */
+    function () {
+        if (this._openedBottomSheetRef) {
+            this._openedBottomSheetRef.dismiss();
+        }
+    };
+    /**
+     * Attaches the bottom sheet container component to the overlay.
+     * @param {?} overlayRef
+     * @param {?} config
+     * @return {?}
+     */
+    MatBottomSheet.prototype._attachContainer = /**
+     * Attaches the bottom sheet container component to the overlay.
+     * @param {?} overlayRef
+     * @param {?} config
+     * @return {?}
+     */
+    function (overlayRef, config) {
+        var /** @type {?} */ containerPortal = new _angular_cdk_portal.ComponentPortal(MatBottomSheetContainer, config.viewContainerRef);
+        var /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
+        containerRef.instance.bottomSheetConfig = config;
+        return containerRef.instance;
+    };
+    /**
+     * Creates a new overlay and places it in the correct location.
+     * @param {?} config The user-specified bottom sheet config.
+     * @return {?}
+     */
+    MatBottomSheet.prototype._createOverlay = /**
+     * Creates a new overlay and places it in the correct location.
+     * @param {?} config The user-specified bottom sheet config.
+     * @return {?}
+     */
+    function (config) {
+        var /** @type {?} */ overlayConfig = new _angular_cdk_overlay.OverlayConfig({
+            direction: config.direction,
+            hasBackdrop: config.hasBackdrop,
+            maxWidth: '100%',
+            scrollStrategy: this._overlay.scrollStrategies.block(),
+            positionStrategy: this._overlay.position()
+                .global()
+                .centerHorizontally()
+                .bottom('0')
+        });
+        if (config.backdropClass) {
+            overlayConfig.backdropClass = config.backdropClass;
+        }
+        return this._overlay.create(overlayConfig);
+    };
+    /**
+     * Creates an injector to be used inside of a bottom sheet component.
+     * @template T
+     * @param {?} config Config that was used to create the bottom sheet.
+     * @param {?} bottomSheetRef Reference to the bottom sheet.
+     * @return {?}
+     */
+    MatBottomSheet.prototype._createInjector = /**
+     * Creates an injector to be used inside of a bottom sheet component.
+     * @template T
+     * @param {?} config Config that was used to create the bottom sheet.
+     * @param {?} bottomSheetRef Reference to the bottom sheet.
+     * @return {?}
+     */
+    function (config, bottomSheetRef) {
+        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        var /** @type {?} */ injectionTokens = new WeakMap();
+        injectionTokens.set(MatBottomSheetRef, bottomSheetRef);
+        injectionTokens.set(MAT_BOTTOM_SHEET_DATA, config.data);
+        return new _angular_cdk_portal.PortalInjector(userInjector || this._injector, injectionTokens);
+    };
+    MatBottomSheet.decorators = [
+        { type: _angular_core.Injectable },
+    ];
+    /** @nocollapse */
+    MatBottomSheet.ctorParameters = function () { return [
+        { type: _angular_cdk_overlay.Overlay, },
+        { type: _angular_core.Injector, },
+        { type: MatBottomSheet, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
+    ]; };
+    return MatBottomSheet;
+}());
+/**
+ * Applies default options to the bottom sheet config.
+ * @param {?=} config The configuration to which the defaults will be applied.
+ * @return {?} The new configuration object with defaults applied.
+ */
+function _applyConfigDefaults(config) {
+    return __assign({}, new MatBottomSheetConfig(), config);
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+var MatBottomSheetModule = /** @class */ (function () {
+    function MatBottomSheetModule() {
+    }
+    MatBottomSheetModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [
+                        _angular_cdk_a11y.A11yModule,
+                        _angular_common.CommonModule,
+                        _angular_cdk_overlay.OverlayModule,
+                        MatCommonModule,
+                        _angular_cdk_portal.PortalModule,
+                        _angular_cdk_layout.LayoutModule,
+                    ],
+                    exports: [MatBottomSheetContainer, MatCommonModule],
+                    declarations: [MatBottomSheetContainer],
+                    entryComponents: [MatBottomSheetContainer],
+                    providers: [MatBottomSheet],
+                },] },
+    ];
+    /** @nocollapse */
+    MatBottomSheetModule.ctorParameters = function () { return []; };
+    return MatBottomSheetModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
  */
 var DEFAULT_ROUND_BUTTON_COLOR = 'accent';
@@ -8779,7 +9423,7 @@ var MatDialog = /** @class */ (function () {
      */
     function (componentOrTemplateRef, config) {
         var _this = this;
-        config = _applyConfigDefaults(config, this._defaultOptions || new MatDialogConfig());
+        config = _applyConfigDefaults$1(config, this._defaultOptions || new MatDialogConfig());
         if (config.id && this.getDialogById(config.id)) {
             throw Error("Dialog with id \"" + config.id + "\" exists already. The dialog id must be unique.");
         }
@@ -9047,7 +9691,7 @@ var MatDialog = /** @class */ (function () {
  * @param {?=} defaultOptions Default options provided.
  * @return {?} The new configuration object.
  */
-function _applyConfigDefaults(config, defaultOptions) {
+function _applyConfigDefaults$1(config, defaultOptions) {
     return __assign({}, defaultOptions, config);
 }
 
@@ -10687,6 +11331,10 @@ var MatMultiYearView = /** @class */ (function () {
          * Emits when a new month is selected.
          */
         this.selectedChange = new _angular_core.EventEmitter();
+        /**
+         * Emits the selected year. This doesn't imply a change on the selected date
+         */
+        this.yearSelected = new _angular_core.EventEmitter();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -10776,6 +11424,7 @@ var MatMultiYearView = /** @class */ (function () {
      * @return {?}
      */
     function (year) {
+        this.yearSelected.emit(this._dateAdapter.createDate(year, 0, 1));
         var /** @type {?} */ month = this._dateAdapter.getMonth(this.activeDate);
         var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this._dateAdapter.createDate(year, month, 1));
         this.selectedChange.emit(this._dateAdapter.createDate(year, month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
@@ -10856,6 +11505,7 @@ var MatMultiYearView = /** @class */ (function () {
         "selected": [{ type: _angular_core.Input },],
         "dateFilter": [{ type: _angular_core.Input },],
         "selectedChange": [{ type: _angular_core.Output },],
+        "yearSelected": [{ type: _angular_core.Output },],
     };
     return MatMultiYearView;
 }());
@@ -10878,6 +11528,10 @@ var MatYearView = /** @class */ (function () {
          * Emits when a new month is selected.
          */
         this.selectedChange = new _angular_core.EventEmitter();
+        /**
+         * Emits the selected month. This doesn't imply a change on the selected date
+         */
+        this.monthSelected = new _angular_core.EventEmitter();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -10945,7 +11599,9 @@ var MatYearView = /** @class */ (function () {
      * @return {?}
      */
     function (month) {
-        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1));
+        var /** @type {?} */ normalizedDate = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1);
+        this.monthSelected.emit(normalizedDate);
+        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(normalizedDate);
         this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
     };
     /** Initializes this year view. */
@@ -11055,6 +11711,7 @@ var MatYearView = /** @class */ (function () {
         "selected": [{ type: _angular_core.Input },],
         "dateFilter": [{ type: _angular_core.Input },],
         "selectedChange": [{ type: _angular_core.Output },],
+        "monthSelected": [{ type: _angular_core.Output },],
     };
     return MatYearView;
 }());
@@ -11085,6 +11742,16 @@ var MatCalendar = /** @class */ (function () {
          * Emits when the currently selected date changes.
          */
         this.selectedChange = new _angular_core.EventEmitter();
+        /**
+         * Emits the year chosen in multiyear view.
+         * This doesn't imply a change on the selected date.
+         */
+        this.yearSelected = new _angular_core.EventEmitter();
+        /**
+         * Emits the month chosen in year view.
+         * This doesn't imply a change on the selected date.
+         */
+        this.monthSelected = new _angular_core.EventEmitter();
         /**
          * Emits when any date is selected.
          */
@@ -11308,6 +11975,34 @@ var MatCalendar = /** @class */ (function () {
         if (!this._dateAdapter.sameDate(date, this.selected)) {
             this.selectedChange.emit(date);
         }
+    };
+    /** Handles year selection in the multiyear view. */
+    /**
+     * Handles year selection in the multiyear view.
+     * @param {?} normalizedYear
+     * @return {?}
+     */
+    MatCalendar.prototype._yearSelectedInMultiYearView = /**
+     * Handles year selection in the multiyear view.
+     * @param {?} normalizedYear
+     * @return {?}
+     */
+    function (normalizedYear) {
+        this.yearSelected.emit(normalizedYear);
+    };
+    /** Handles month selection in the year view. */
+    /**
+     * Handles month selection in the year view.
+     * @param {?} normalizedMonth
+     * @return {?}
+     */
+    MatCalendar.prototype._monthSelectedInYearView = /**
+     * Handles month selection in the year view.
+     * @param {?} normalizedMonth
+     * @return {?}
+     */
+    function (normalizedMonth) {
+        this.monthSelected.emit(normalizedMonth);
     };
     /**
      * @return {?}
@@ -11649,7 +12344,7 @@ var MatCalendar = /** @class */ (function () {
     };
     MatCalendar.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-calendar',
-                    template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"_currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_currentView\" cdkMonitorSubtreeFocus tabindex=\"-1\"><mat-month-view *ngSwitchCase=\"'month'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\" (_userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchCase=\"'year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view><mat-multi-year-view *ngSwitchCase=\"'multi-year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view></div>",
+                    template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"_currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_currentView\" cdkMonitorSubtreeFocus tabindex=\"-1\"><mat-month-view *ngSwitchCase=\"'month'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (selectedChange)=\"_dateSelected($event)\" (_userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchCase=\"'year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (monthSelected)=\"_monthSelectedInYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view><mat-multi-year-view *ngSwitchCase=\"'multi-year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"_dateFilterForViews\" (yearSelected)=\"_yearSelectedInMultiYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view></div>",
                     styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:0}.mat-calendar-controls{display:flex;margin:5% calc(33% / 7 - 16px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}.mat-calendar-next-button,.mat-calendar-previous-button{position:relative}.mat-calendar-next-button::after,.mat-calendar-previous-button::after{top:0;left:0;right:0;bottom:0;position:absolute;content:'';margin:15.5px;border:0 solid currentColor;border-top-width:2px}[dir=rtl] .mat-calendar-next-button,[dir=rtl] .mat-calendar-previous-button{transform:rotate(180deg)}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:'';position:absolute;top:0;left:-8px;right:-8px;height:1px}"],
                     host: {
                         'class': 'mat-calendar',
@@ -11678,6 +12373,8 @@ var MatCalendar = /** @class */ (function () {
         "maxDate": [{ type: _angular_core.Input },],
         "dateFilter": [{ type: _angular_core.Input },],
         "selectedChange": [{ type: _angular_core.Output },],
+        "yearSelected": [{ type: _angular_core.Output },],
+        "monthSelected": [{ type: _angular_core.Output },],
         "_userSelection": [{ type: _angular_core.Output },],
         "monthView": [{ type: _angular_core.ViewChild, args: [MatMonthView,] },],
         "yearView": [{ type: _angular_core.ViewChild, args: [MatYearView,] },],
@@ -11736,7 +12433,7 @@ var MatDatepickerContent = /** @class */ (function () {
     };
     MatDatepickerContent.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-content',
-                    template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
+                    template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (yearSelected)=\"datepicker._selectYear($event)\" (monthSelected)=\"datepicker._selectMonth($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
                     styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block;border-radius:2px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
                     host: {
                         'class': 'mat-datepicker-content',
@@ -11779,6 +12476,16 @@ var MatDatepicker = /** @class */ (function () {
          * \@deletion-target 6.0.0
          */
         this.selectedChanged = new _angular_core.EventEmitter();
+        /**
+         * Emits selected year in multiyear view.
+         * This doesn't imply a change on the selected date.
+         */
+        this.yearSelected = new _angular_core.EventEmitter();
+        /**
+         * Emits selected month in year view.
+         * This doesn't imply a change on the selected date.
+         */
+        this.monthSelected = new _angular_core.EventEmitter();
         /**
          * Emits when the datepicker has been opened.
          */
@@ -11960,6 +12667,34 @@ var MatDatepicker = /** @class */ (function () {
         if (!this._dateAdapter.sameDate(oldValue, this._selected)) {
             this.selectedChanged.emit(date);
         }
+    };
+    /** Emits the selected year in multiyear view */
+    /**
+     * Emits the selected year in multiyear view
+     * @param {?} normalizedYear
+     * @return {?}
+     */
+    MatDatepicker.prototype._selectYear = /**
+     * Emits the selected year in multiyear view
+     * @param {?} normalizedYear
+     * @return {?}
+     */
+    function (normalizedYear) {
+        this.yearSelected.emit(normalizedYear);
+    };
+    /** Emits selected month in year view */
+    /**
+     * Emits selected month in year view
+     * @param {?} normalizedMonth
+     * @return {?}
+     */
+    MatDatepicker.prototype._selectMonth = /**
+     * Emits selected month in year view
+     * @param {?} normalizedMonth
+     * @return {?}
+     */
+    function (normalizedMonth) {
+        this.monthSelected.emit(normalizedMonth);
     };
     /**
      * Register an input with this datepicker.
@@ -12170,6 +12905,8 @@ var MatDatepicker = /** @class */ (function () {
         "touchUi": [{ type: _angular_core.Input },],
         "disabled": [{ type: _angular_core.Input },],
         "selectedChanged": [{ type: _angular_core.Output },],
+        "yearSelected": [{ type: _angular_core.Output },],
+        "monthSelected": [{ type: _angular_core.Output },],
         "panelClass": [{ type: _angular_core.Input },],
         "openedStream": [{ type: _angular_core.Output, args: ['opened',] },],
         "closedStream": [{ type: _angular_core.Output, args: ['closed',] },],
@@ -25763,7 +26500,7 @@ var MatSnackBar = /** @class */ (function () {
      */
     function (component, config) {
         var _this = this;
-        var /** @type {?} */ _config = _applyConfigDefaults$1(config);
+        var /** @type {?} */ _config = _applyConfigDefaults$2(config);
         var /** @type {?} */ snackBarRef = this._attach(component, _config);
         // When the snackbar is dismissed, clear the reference to it.
         snackBarRef.afterDismissed().subscribe(function () {
@@ -25816,7 +26553,7 @@ var MatSnackBar = /** @class */ (function () {
      */
     function (message, action, config) {
         if (action === void 0) { action = ''; }
-        var /** @type {?} */ _config = _applyConfigDefaults$1(config);
+        var /** @type {?} */ _config = _applyConfigDefaults$2(config);
         // Since the user doesn't have access to the component, we can
         // override the data to pass in our own message and action.
         _config.data = { message: message, action: action };
@@ -25971,7 +26708,7 @@ var MatSnackBar = /** @class */ (function () {
  * @param {?=} config The configuration to which the defaults will be applied.
  * @return {?} The new configuration object with defaults applied.
  */
-function _applyConfigDefaults$1(config) {
+function _applyConfigDefaults$2(config) {
     return __assign({}, new MatSnackBarConfig(), config);
 }
 
@@ -28814,8 +29551,8 @@ var MatTabGroup = /** @class */ (function (_super) {
     MatTabGroup.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-tab-group',
                     exportAs: 'matTabGroup',
-                    template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [attr.tabIndex]=\"_getTabIndex(tab, i)\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"tab.disabled || disableRipple\" (click)=\"_handleClick(tab, tabHeader, i)\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (_onCentered)=\"_removeTabBodyWrapperHeight()\" (_onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
-                    styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default}@media (max-width:599px){.mat-tab-label{padding:0 12px}}@media (max-width:959px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
+                    template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [attr.tabIndex]=\"_getTabIndex(tab, i)\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"tab.disabled || disableRipple\" (click)=\"_handleClick(tab, tabHeader, i)\"><div class=\"mat-tab-label-content\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (_onCentered)=\"_removeTabBodyWrapperHeight()\" (_onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
+                    styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default}.mat-tab-label.mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (max-width:599px){.mat-tab-label{padding:0 12px}}@media (max-width:959px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
@@ -29548,7 +30285,7 @@ var MatTabHeader = /** @class */ (function (_super) {
     MatTabHeader.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-tab-header',
                     template: "<div class=\"mat-tab-header-pagination mat-tab-header-pagination-before mat-elevation-z4\" aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollBefore || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollBefore\" (click)=\"_scrollHeader('before')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div><div class=\"mat-tab-label-container\" #tabListContainer (keydown)=\"_handleKeydown($event)\"><div class=\"mat-tab-list\" #tabList role=\"tablist\" (cdkObserveContent)=\"_onContentChanges()\"><div class=\"mat-tab-labels\"><ng-content></ng-content></div><mat-ink-bar></mat-ink-bar></div></div><div class=\"mat-tab-header-pagination mat-tab-header-pagination-after mat-elevation-z4\" aria-hidden=\"true\" mat-ripple [matRippleDisabled]=\"_disableScrollAfter || disableRipple\" [class.mat-tab-header-pagination-disabled]=\"_disableScrollAfter\" (click)=\"_scrollHeader('after')\"><div class=\"mat-tab-header-pagination-chevron\"></div></div>",
-                    styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default}@media (max-width:599px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.mat-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-tab-labels{display:flex}"],
+                    styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default}.mat-tab-label.mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (max-width:599px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}.mat-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-tab-labels{display:flex}"],
                     inputs: ['disableRipple'],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -29741,7 +30478,7 @@ var MatTabNav = /** @class */ (function (_super) {
                     exportAs: 'matTabNavBar, matTabNav',
                     inputs: ['color'],
                     template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
-                    styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
+                    styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default}.mat-tab-link.mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}"],
                     host: { 'class': 'mat-tab-nav-bar' },
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -30081,7 +30818,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.2.0-4a5287c');
+var VERSION = new _angular_core.Version('5.2.0-c2e108e');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -30098,6 +30835,13 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = MAT_AUTOCOMPLETE_SCROLL_STRA
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
+exports.MatBottomSheetModule = MatBottomSheetModule;
+exports.MatBottomSheet = MatBottomSheet;
+exports.MAT_BOTTOM_SHEET_DATA = MAT_BOTTOM_SHEET_DATA;
+exports.MatBottomSheetConfig = MatBottomSheetConfig;
+exports.MatBottomSheetContainer = MatBottomSheetContainer;
+exports.matBottomSheetAnimations = matBottomSheetAnimations;
+exports.MatBottomSheetRef = MatBottomSheetRef;
 exports.MatButtonModule = MatButtonModule;
 exports.MatButtonBase = MatButtonBase;
 exports._MatButtonMixinBase = _MatButtonMixinBase;
@@ -30204,7 +30948,7 @@ exports.SEP = SEP;
 exports.OCT = OCT;
 exports.NOV = NOV;
 exports.DEC = DEC;
-exports.ɵa31 = MatMultiYearView;
+exports.ɵa32 = MatMultiYearView;
 exports.MatDatepickerModule = MatDatepickerModule;
 exports.MatCalendar = MatCalendar;
 exports.MatCalendarCell = MatCalendarCell;
@@ -30438,16 +31182,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe20 = MatTabBase;
-exports.ɵf20 = _MatTabMixinBase;
-exports.ɵa20 = MatTabHeaderBase;
-exports.ɵb20 = _MatTabHeaderMixinBase;
-exports.ɵc20 = MatTabLabelWrapperBase;
-exports.ɵd20 = _MatTabLabelWrapperMixinBase;
-exports.ɵi20 = MatTabLinkBase;
-exports.ɵg20 = MatTabNavBase;
-exports.ɵj20 = _MatTabLinkMixinBase;
-exports.ɵh20 = _MatTabNavMixinBase;
+exports.ɵe23 = MatTabBase;
+exports.ɵf23 = _MatTabMixinBase;
+exports.ɵa23 = MatTabHeaderBase;
+exports.ɵb23 = _MatTabHeaderMixinBase;
+exports.ɵc23 = MatTabLabelWrapperBase;
+exports.ɵd23 = _MatTabLabelWrapperMixinBase;
+exports.ɵi23 = MatTabLinkBase;
+exports.ɵg23 = MatTabNavBase;
+exports.ɵj23 = _MatTabLinkMixinBase;
+exports.ɵh23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

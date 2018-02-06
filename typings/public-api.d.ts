@@ -7,6 +7,7 @@
  */
 export * from './version';
 export * from '@angular/material/autocomplete';
+export * from '@angular/material/bottom-sheet';
 export * from '@angular/material/button';
 export * from '@angular/material/button-toggle';
 export * from '@angular/material/card';
