@@ -31,9 +31,6 @@
       "from": "./sort"
     },
     {
-      "from": "./dialog"
-    },
-    {
       "from": "./icon"
     },
     {
@@ -44,6 +41,9 @@
     },
     {
       "from": "./slider"
+    },
+    {
+      "from": "./dialog"
     },
     {
       "from": "./slide-toggle"
