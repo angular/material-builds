@@ -2231,7 +2231,7 @@ var MatOptgroup = /** @class */ (function (_super) {
     MatOptgroup.decorators = [
         { type: Component, args: [{selector: 'mat-optgroup',
                     exportAs: 'matOptgroup',
-                    template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option\"></ng-content>",
+                    template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option, ng-container\"></ng-content>",
                     encapsulation: ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,

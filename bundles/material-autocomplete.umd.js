@@ -534,6 +534,13 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function (event) {
         var /** @type {?} */ keyCode = event.keyCode;
+        // Prevent the default action on all escape key presses. This is here primarily to bring IE
+        // in line with other browsers. By default, pressing escape on IE will cause it to revert
+        // the input value to the one that it had on focus, however it won't dispatch any events
+        // which means that the model value will be out of sync with the view.
+        if (keyCode === _angular_cdk_keycodes.ESCAPE) {
+            event.preventDefault();
+        }
         // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
         // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
         if (this.panelOpen && (keyCode === _angular_cdk_keycodes.ESCAPE || (keyCode === _angular_cdk_keycodes.UP_ARROW && event.altKey))) {

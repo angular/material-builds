@@ -153,6 +153,8 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     ariaLabel: string;
     /** The 'aria-labelledby' attribute takes precedence as the element's text alternative. */
     ariaLabelledby: string;
+    /** The 'aria-describedby' attribute is read after the element's label and field type. */
+    ariaDescribedby: string;
     /** Whether this radio button is checked. */
     checked: boolean;
     /** The value of this radio button. */
