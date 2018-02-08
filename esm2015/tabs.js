@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ObserversModule } from '@angular/cdk/observers';
-import { CdkPortal, CdkPortalOutlet, PortalModule, TemplatePortal } from '@angular/cdk/portal';
+import { CdkPortal, CdkPortalOutlet, PortalHostDirective, PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
@@ -130,6 +130,30 @@ MatTabLabel.ctorParameters = () => [
  */
 
 /**
+ * Decorates the `ng-template` tags and reads out the template from it.
+ */
+class MatTabContent {
+    /**
+     * @param {?} template
+     */
+    constructor(template) {
+        this.template = template;
+    }
+}
+MatTabContent.decorators = [
+    { type: Directive, args: [{ selector: '[matTabContent]' },] },
+];
+/** @nocollapse */
+MatTabContent.ctorParameters = () => [
+    { type: TemplateRef, },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * \@docs-private
  */
 class MatTabBase {
@@ -203,7 +227,7 @@ class MatTab extends _MatTabMixinBase {
      * @return {?}
      */
     ngOnInit() {
-        this._contentPortal = new TemplatePortal(this._content, this._viewContainerRef);
+        this._contentPortal = new TemplatePortal(this._explicitContent || this._implicitContent, this._viewContainerRef);
     }
 }
 MatTab.decorators = [
@@ -222,7 +246,8 @@ MatTab.ctorParameters = () => [
 ];
 MatTab.propDecorators = {
     "templateLabel": [{ type: ContentChild, args: [MatTabLabel,] },],
-    "_content": [{ type: ViewChild, args: [TemplateRef,] },],
+    "_explicitContent": [{ type: ContentChild, args: [MatTabContent, { read: TemplateRef },] },],
+    "_implicitContent": [{ type: ViewChild, args: [TemplateRef,] },],
     "textLabel": [{ type: Input, args: ['label',] },],
 };
 
@@ -452,6 +477,7 @@ MatTabBody.propDecorators = {
     "_beforeCentering": [{ type: Output },],
     "_afterLeavingCenter": [{ type: Output },],
     "_onCentered": [{ type: Output },],
+    "_portalHost": [{ type: ViewChild, args: [PortalHostDirective,] },],
     "_content": [{ type: Input, args: ['content',] },],
     "position": [{ type: Input },],
     "origin": [{ type: Input },],
@@ -1599,6 +1625,7 @@ MatTabsModule.decorators = [
                     MatTab,
                     MatTabNav,
                     MatTabLink,
+                    MatTabContent,
                 ],
                 declarations: [
                     MatTabGroup,
@@ -1610,7 +1637,8 @@ MatTabsModule.decorators = [
                     MatTabLink,
                     MatTabBody,
                     MatTabBodyPortal,
-                    MatTabHeader
+                    MatTabHeader,
+                    MatTabContent,
                 ],
                 providers: [VIEWPORT_RULER_PROVIDER],
             },] },
@@ -1636,5 +1664,5 @@ MatTabsModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe23, _MatTabMixinBase as ɵf23, MatTabHeaderBase as ɵa23, _MatTabHeaderMixinBase as ɵb23, MatTabLabelWrapperBase as ɵc23, _MatTabLabelWrapperMixinBase as ɵd23, MatTabLinkBase as ɵi23, MatTabNavBase as ɵg23, _MatTabLinkMixinBase as ɵj23, _MatTabNavMixinBase as ɵh23 };
+export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe23, _MatTabMixinBase as ɵf23, MatTabHeaderBase as ɵa23, _MatTabHeaderMixinBase as ɵb23, MatTabLabelWrapperBase as ɵc23, _MatTabLabelWrapperMixinBase as ɵd23, MatTabLinkBase as ɵi23, MatTabNavBase as ɵg23, _MatTabLinkMixinBase as ɵj23, _MatTabNavMixinBase as ɵh23 };
 //# sourceMappingURL=tabs.js.map

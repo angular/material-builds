@@ -102,11 +102,21 @@ export declare class MatOption implements AfterViewChecked {
     ngAfterViewChecked(): void;
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent(isUserInput?);
-    /**
-     * Counts the amount of option group labels that precede the specified option.
-     * @param optionIndex Index of the option at which to start counting.
-     * @param options Flat list of all of the options.
-     * @param optionGroups Flat list of all of the option groups.
-     */
-    static countGroupLabelsBeforeOption(optionIndex: number, options: QueryList<MatOption>, optionGroups: QueryList<MatOptgroup>): number;
 }
+/**
+ * Counts the amount of option group labels that precede the specified option.
+ * @param optionIndex Index of the option at which to start counting.
+ * @param options Flat list of all of the options.
+ * @param optionGroups Flat list of all of the option groups.
+ * @docs-private
+ */
+export declare function _countGroupLabelsBeforeOption(optionIndex: number, options: QueryList<MatOption>, optionGroups: QueryList<MatOptgroup>): number;
+/**
+ * Determines the position to which to scroll a panel in order for an option to be into view.
+ * @param optionIndex Index of the option to be scrolled into the view.
+ * @param optionHeight Height of the options.
+ * @param currentScrollPosition Current scroll position of the panel.
+ * @param panelHeight Height of the panel.
+ * @docs-private
+ */
+export declare function _getOptionScrollPosition(optionIndex: number, optionHeight: number, currentScrollPosition: number, panelHeight: number): number;

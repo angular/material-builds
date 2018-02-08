@@ -1288,18 +1288,9 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ itemHeight = this._getItemHeight();
         var /** @type {?} */ activeOptionIndex = this._keyManager.activeItemIndex || 0;
-        var /** @type {?} */ labelCount = _angular_material_core.MatOption.countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
-        var /** @type {?} */ scrollOffset = (activeOptionIndex + labelCount) * itemHeight;
-        var /** @type {?} */ panelTop = this.panel.nativeElement.scrollTop;
-        if (scrollOffset < panelTop) {
-            this.panel.nativeElement.scrollTop = scrollOffset;
-        }
-        else if (scrollOffset + itemHeight > panelTop + SELECT_PANEL_MAX_HEIGHT) {
-            this.panel.nativeElement.scrollTop =
-                Math.max(0, scrollOffset - SELECT_PANEL_MAX_HEIGHT + itemHeight);
-        }
+        var /** @type {?} */ labelCount = _angular_material_core._countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
+        this.panel.nativeElement.scrollTop = _angular_material_core._getOptionScrollPosition(activeOptionIndex + labelCount, this._getItemHeight(), this.panel.nativeElement.scrollTop, SELECT_PANEL_MAX_HEIGHT);
     };
     /** Focuses the select element. */
     /**
@@ -1345,7 +1336,7 @@ var MatSelect = /** @class */ (function (_super) {
         var /** @type {?} */ maxScroll = scrollContainerHeight - panelHeight;
         // If no value is selected we open the popup to the first item.
         var /** @type {?} */ selectedOptionOffset = this.empty ? 0 : /** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0])));
-        selectedOptionOffset += _angular_material_core.MatOption.countGroupLabelsBeforeOption(selectedOptionOffset, this.options, this.optionGroups);
+        selectedOptionOffset += _angular_material_core._countGroupLabelsBeforeOption(selectedOptionOffset, this.options, this.optionGroups);
         // We must maintain a scroll buffer so the selected option will be scrolled to the
         // center of the overlay panel rather than the top.
         var /** @type {?} */ scrollBuffer = panelHeight / 2;

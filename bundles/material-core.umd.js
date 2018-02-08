@@ -2626,40 +2626,6 @@ var MatOption = /** @class */ (function () {
         if (isUserInput === void 0) { isUserInput = false; }
         this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
     };
-    /**
-     * Counts the amount of option group labels that precede the specified option.
-     * @param optionIndex Index of the option at which to start counting.
-     * @param options Flat list of all of the options.
-     * @param optionGroups Flat list of all of the option groups.
-     */
-    /**
-     * Counts the amount of option group labels that precede the specified option.
-     * @param {?} optionIndex Index of the option at which to start counting.
-     * @param {?} options Flat list of all of the options.
-     * @param {?} optionGroups Flat list of all of the option groups.
-     * @return {?}
-     */
-    MatOption.countGroupLabelsBeforeOption = /**
-     * Counts the amount of option group labels that precede the specified option.
-     * @param {?} optionIndex Index of the option at which to start counting.
-     * @param {?} options Flat list of all of the options.
-     * @param {?} optionGroups Flat list of all of the option groups.
-     * @return {?}
-     */
-    function (optionIndex, options, optionGroups) {
-        if (optionGroups.length) {
-            var /** @type {?} */ optionsArray = options.toArray();
-            var /** @type {?} */ groups = optionGroups.toArray();
-            var /** @type {?} */ groupCounter = 0;
-            for (var /** @type {?} */ i = 0; i < optionIndex + 1; i++) {
-                if (optionsArray[i].group && optionsArray[i].group === groups[groupCounter]) {
-                    groupCounter++;
-                }
-            }
-            return groupCounter;
-        }
-        return 0;
-    };
     MatOption.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-option',
                     exportAs: 'matOption',
@@ -2698,6 +2664,47 @@ var MatOption = /** @class */ (function () {
     };
     return MatOption;
 }());
+/**
+ * Counts the amount of option group labels that precede the specified option.
+ * \@docs-private
+ * @param {?} optionIndex Index of the option at which to start counting.
+ * @param {?} options Flat list of all of the options.
+ * @param {?} optionGroups Flat list of all of the option groups.
+ * @return {?}
+ */
+function _countGroupLabelsBeforeOption(optionIndex, options, optionGroups) {
+    if (optionGroups.length) {
+        var /** @type {?} */ optionsArray = options.toArray();
+        var /** @type {?} */ groups = optionGroups.toArray();
+        var /** @type {?} */ groupCounter = 0;
+        for (var /** @type {?} */ i = 0; i < optionIndex + 1; i++) {
+            if (optionsArray[i].group && optionsArray[i].group === groups[groupCounter]) {
+                groupCounter++;
+            }
+        }
+        return groupCounter;
+    }
+    return 0;
+}
+/**
+ * Determines the position to which to scroll a panel in order for an option to be into view.
+ * \@docs-private
+ * @param {?} optionIndex Index of the option to be scrolled into the view.
+ * @param {?} optionHeight Height of the options.
+ * @param {?} currentScrollPosition Current scroll position of the panel.
+ * @param {?} panelHeight Height of the panel.
+ * @return {?}
+ */
+function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPosition, panelHeight) {
+    var /** @type {?} */ optionOffset = optionIndex * optionHeight;
+    if (optionOffset < currentScrollPosition) {
+        return optionOffset;
+    }
+    if (optionOffset + optionHeight > currentScrollPosition + panelHeight) {
+        return Math.max(0, optionOffset - panelHeight + optionHeight);
+    }
+    return currentScrollPosition;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2785,6 +2792,8 @@ exports.MatOptionModule = MatOptionModule;
 exports.MatOptionSelectionChange = MatOptionSelectionChange;
 exports.MAT_OPTION_PARENT_COMPONENT = MAT_OPTION_PARENT_COMPONENT;
 exports.MatOption = MatOption;
+exports._countGroupLabelsBeforeOption = _countGroupLabelsBeforeOption;
+exports._getOptionScrollPosition = _getOptionScrollPosition;
 exports.MatOptgroupBase = MatOptgroupBase;
 exports._MatOptgroupMixinBase = _MatOptgroupMixinBase;
 exports.MatOptgroup = MatOptgroup;

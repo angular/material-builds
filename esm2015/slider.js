@@ -260,7 +260,7 @@ class MatSlider extends _MatSliderMixinBase {
      */
     set value(v) {
         if (v !== this._value) {
-            this._value = coerceNumberProperty(v, this._value || 0);
+            this._value = coerceNumberProperty(v);
             this._percent = this._calculatePercentage(this._value);
             // Since this also modifies the percentage, we need to let the change detection know.
             this._changeDetectorRef.markForCheck();

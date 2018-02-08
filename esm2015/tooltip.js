@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { A11yModule, ARIA_DESCRIBER_PROVIDER, AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
-import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { Overlay, OverlayModule, ScrollDispatcher } from '@angular/cdk/overlay';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgModule, NgZone, Optional, ViewContainerRef, ViewEncapsulation } from '@angular/core';
@@ -17,8 +17,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { take } from 'rxjs/operators/take';
-import { merge } from 'rxjs/observable/merge';
-import { ScrollDispatcher } from '@angular/cdk/scrolling';
+import { filter } from 'rxjs/operators/filter';
 import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
@@ -174,10 +173,11 @@ class MatTooltip {
     set position(value) {
         if (value !== this._position) {
             this._position = value;
-            // TODO(andrewjs): When the overlay's position can be dynamically changed, do not destroy
-            // the tooltip.
-            if (this._tooltipInstance) {
-                this._disposeTooltip();
+            if (this._overlayRef) {
+                // TODO(andrewjs): When the overlay's position can be
+                // dynamically changed, do not destroy the tooltip.
+                this._detach();
+                this._updatePosition();
             }
         }
     }
@@ -249,14 +249,13 @@ class MatTooltip {
      * @return {?}
      */
     ngOnDestroy() {
-        if (this._tooltipInstance) {
-            this._disposeTooltip();
+        if (this._overlayRef) {
+            this._overlayRef.dispose();
+            this._tooltipInstance = null;
         }
         // Clean up the event listeners set in the constructor
         if (!this._platform.IOS) {
-            this._manualListeners.forEach((listener, event) => {
-                this._elementRef.nativeElement.removeEventListener(event, listener);
-            });
+            this._manualListeners.forEach((listener, event) => this._elementRef.nativeElement.removeEventListener(event, listener));
             this._manualListeners.clear();
         }
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
@@ -271,9 +270,11 @@ class MatTooltip {
         if (this.disabled || !this.message) {
             return;
         }
-        if (!this._tooltipInstance) {
-            this._createTooltip();
-        }
+        const /** @type {?} */ overlayRef = this._createOverlay();
+        this._detach();
+        this._portal = this._portal || new ComponentPortal(TooltipComponent, this._viewContainerRef);
+        this._tooltipInstance = overlayRef.attach(this._portal).instance;
+        this._tooltipInstance.afterHidden().subscribe(() => this._detach());
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage(); /** @type {?} */
         ((this._tooltipInstance)).show(this._position, delay);
@@ -321,68 +322,64 @@ class MatTooltip {
         this.hide(this._defaultOptions ? this._defaultOptions.touchendHideDelay : 1500);
     }
     /**
-     * Create the tooltip to display
-     * @return {?}
-     */
-    _createTooltip() {
-        const /** @type {?} */ overlayRef = this._createOverlay();
-        const /** @type {?} */ portal = new ComponentPortal(TooltipComponent, this._viewContainerRef);
-        this._tooltipInstance = overlayRef.attach(portal).instance;
-        // Dispose of the tooltip when the overlay is detached.
-        merge(/** @type {?} */ ((this._tooltipInstance)).afterHidden(), overlayRef.detachments()).subscribe(() => {
-            // Check first if the tooltip has already been removed through this components destroy.
-            if (this._tooltipInstance) {
-                this._disposeTooltip();
-            }
-        });
-    }
-    /**
      * Create the overlay config and position strategy
      * @return {?}
      */
     _createOverlay() {
+        if (this._overlayRef) {
+            return this._overlayRef;
+        }
         const /** @type {?} */ origin = this._getOrigin();
         const /** @type {?} */ overlay = this._getOverlayPosition();
         // Create connected position strategy that listens for scroll events to reposition.
         const /** @type {?} */ strategy = this._overlay
             .position()
             .connectedTo(this._elementRef, origin.main, overlay.main)
-            .withFallbackPosition(origin.fallback, overlay.fallback);
-        const /** @type {?} */ scrollableAncestors = this._scrollDispatcher
-            .getAncestorScrollContainers(this._elementRef);
-        strategy.withScrollableContainers(scrollableAncestors);
-        strategy.onPositionChange.subscribe(change => {
-            if (this._tooltipInstance) {
-                if (change.scrollableViewProperties.isOverlayClipped && this._tooltipInstance.isVisible()) {
-                    // After position changes occur and the overlay is clipped by
-                    // a parent scrollable then close the tooltip.
-                    this._ngZone.run(() => this.hide(0));
-                }
-                else {
-                    // Otherwise recalculate the origin based on the new position.
-                    this._tooltipInstance._setTransformOrigin(change.connectionPair);
-                }
+            .withFallbackPosition(origin.fallback, overlay.fallback)
+            .withScrollableContainers(this._scrollDispatcher.getAncestorScrollContainers(this._elementRef));
+        strategy.onPositionChange.pipe(filter(() => !!this._tooltipInstance)).subscribe(change => {
+            if (change.scrollableViewProperties.isOverlayClipped && /** @type {?} */ ((this._tooltipInstance)).isVisible()) {
+                // After position changes occur and the overlay is clipped by
+                // a parent scrollable then close the tooltip.
+                this._ngZone.run(() => this.hide(0));
+            }
+            else {
+                /** @type {?} */ ((
+                // Otherwise recalculate the origin based on the new position.
+                this._tooltipInstance))._setTransformOrigin(change.connectionPair);
             }
         });
-        const /** @type {?} */ config = new OverlayConfig({
+        this._overlayRef = this._overlay.create({
             direction: this._dir ? this._dir.value : 'ltr',
             positionStrategy: strategy,
             panelClass: TOOLTIP_PANEL_CLASS,
             scrollStrategy: this._scrollStrategy()
         });
-        this._overlayRef = this._overlay.create(config);
+        this._overlayRef.detachments().subscribe(() => this._detach());
         return this._overlayRef;
     }
     /**
-     * Disposes the current tooltip and the overlay it is attached to
+     * Detaches the currently-attached tooltip.
      * @return {?}
      */
-    _disposeTooltip() {
-        if (this._overlayRef) {
-            this._overlayRef.dispose();
-            this._overlayRef = null;
+    _detach() {
+        if (this._overlayRef && this._overlayRef.hasAttached()) {
+            this._overlayRef.detach();
         }
         this._tooltipInstance = null;
+    }
+    /**
+     * Updates the position of the current tooltip.
+     * @return {?}
+     */
+    _updatePosition() {
+        const /** @type {?} */ position = /** @type {?} */ (((this._overlayRef)).getConfig().positionStrategy);
+        const /** @type {?} */ origin = this._getOrigin();
+        const /** @type {?} */ overlay = this._getOverlayPosition();
+        position
+            .withPositions([])
+            .withFallbackPosition(origin.main, overlay.main)
+            .withFallbackPosition(origin.fallback, overlay.fallback);
     }
     /**
      * Returns the origin position and a fallback position based on the user's position preference.

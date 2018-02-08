@@ -22,7 +22,7 @@ import { switchMap } from 'rxjs/operators/switchMap';
 import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinTabIndex } from '@angular/material/core';
+import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinTabIndex } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
@@ -1281,18 +1281,9 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ itemHeight = this._getItemHeight();
         var /** @type {?} */ activeOptionIndex = this._keyManager.activeItemIndex || 0;
-        var /** @type {?} */ labelCount = MatOption.countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
-        var /** @type {?} */ scrollOffset = (activeOptionIndex + labelCount) * itemHeight;
-        var /** @type {?} */ panelTop = this.panel.nativeElement.scrollTop;
-        if (scrollOffset < panelTop) {
-            this.panel.nativeElement.scrollTop = scrollOffset;
-        }
-        else if (scrollOffset + itemHeight > panelTop + SELECT_PANEL_MAX_HEIGHT) {
-            this.panel.nativeElement.scrollTop =
-                Math.max(0, scrollOffset - SELECT_PANEL_MAX_HEIGHT + itemHeight);
-        }
+        var /** @type {?} */ labelCount = _countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
+        this.panel.nativeElement.scrollTop = _getOptionScrollPosition(activeOptionIndex + labelCount, this._getItemHeight(), this.panel.nativeElement.scrollTop, SELECT_PANEL_MAX_HEIGHT);
     };
     /** Focuses the select element. */
     /**
@@ -1338,7 +1329,7 @@ var MatSelect = /** @class */ (function (_super) {
         var /** @type {?} */ maxScroll = scrollContainerHeight - panelHeight;
         // If no value is selected we open the popup to the first item.
         var /** @type {?} */ selectedOptionOffset = this.empty ? 0 : /** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0])));
-        selectedOptionOffset += MatOption.countGroupLabelsBeforeOption(selectedOptionOffset, this.options, this.optionGroups);
+        selectedOptionOffset += _countGroupLabelsBeforeOption(selectedOptionOffset, this.options, this.optionGroups);
         // We must maintain a scroll buffer so the selected option will be scrolled to the
         // center of the overlay panel rather than the top.
         var /** @type {?} */ scrollBuffer = panelHeight / 2;

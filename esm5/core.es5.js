@@ -2598,40 +2598,6 @@ var MatOption = /** @class */ (function () {
         if (isUserInput === void 0) { isUserInput = false; }
         this.onSelectionChange.emit(new MatOptionSelectionChange(this, isUserInput));
     };
-    /**
-     * Counts the amount of option group labels that precede the specified option.
-     * @param optionIndex Index of the option at which to start counting.
-     * @param options Flat list of all of the options.
-     * @param optionGroups Flat list of all of the option groups.
-     */
-    /**
-     * Counts the amount of option group labels that precede the specified option.
-     * @param {?} optionIndex Index of the option at which to start counting.
-     * @param {?} options Flat list of all of the options.
-     * @param {?} optionGroups Flat list of all of the option groups.
-     * @return {?}
-     */
-    MatOption.countGroupLabelsBeforeOption = /**
-     * Counts the amount of option group labels that precede the specified option.
-     * @param {?} optionIndex Index of the option at which to start counting.
-     * @param {?} options Flat list of all of the options.
-     * @param {?} optionGroups Flat list of all of the option groups.
-     * @return {?}
-     */
-    function (optionIndex, options, optionGroups) {
-        if (optionGroups.length) {
-            var /** @type {?} */ optionsArray = options.toArray();
-            var /** @type {?} */ groups = optionGroups.toArray();
-            var /** @type {?} */ groupCounter = 0;
-            for (var /** @type {?} */ i = 0; i < optionIndex + 1; i++) {
-                if (optionsArray[i].group && optionsArray[i].group === groups[groupCounter]) {
-                    groupCounter++;
-                }
-            }
-            return groupCounter;
-        }
-        return 0;
-    };
     MatOption.decorators = [
         { type: Component, args: [{selector: 'mat-option',
                     exportAs: 'matOption',
@@ -2670,6 +2636,47 @@ var MatOption = /** @class */ (function () {
     };
     return MatOption;
 }());
+/**
+ * Counts the amount of option group labels that precede the specified option.
+ * \@docs-private
+ * @param {?} optionIndex Index of the option at which to start counting.
+ * @param {?} options Flat list of all of the options.
+ * @param {?} optionGroups Flat list of all of the option groups.
+ * @return {?}
+ */
+function _countGroupLabelsBeforeOption(optionIndex, options, optionGroups) {
+    if (optionGroups.length) {
+        var /** @type {?} */ optionsArray = options.toArray();
+        var /** @type {?} */ groups = optionGroups.toArray();
+        var /** @type {?} */ groupCounter = 0;
+        for (var /** @type {?} */ i = 0; i < optionIndex + 1; i++) {
+            if (optionsArray[i].group && optionsArray[i].group === groups[groupCounter]) {
+                groupCounter++;
+            }
+        }
+        return groupCounter;
+    }
+    return 0;
+}
+/**
+ * Determines the position to which to scroll a panel in order for an option to be into view.
+ * \@docs-private
+ * @param {?} optionIndex Index of the option to be scrolled into the view.
+ * @param {?} optionHeight Height of the options.
+ * @param {?} currentScrollPosition Current scroll position of the panel.
+ * @param {?} panelHeight Height of the panel.
+ * @return {?}
+ */
+function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPosition, panelHeight) {
+    var /** @type {?} */ optionOffset = optionIndex * optionHeight;
+    if (optionOffset < currentScrollPosition) {
+        return optionOffset;
+    }
+    if (optionOffset + optionHeight > currentScrollPosition + panelHeight) {
+        return Math.max(0, optionOffset - panelHeight + optionHeight);
+    }
+    return currentScrollPosition;
+}
 
 /**
  * @fileoverview added by tsickle
@@ -2740,5 +2747,5 @@ var DEC = 11;
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_LABEL_GLOBAL_OPTIONS as MAT_PLACEHOLDER_GLOBAL_OPTIONS, AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC };
+export { MAT_LABEL_GLOBAL_OPTIONS as MAT_PLACEHOLDER_GLOBAL_OPTIONS, AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC };
 //# sourceMappingURL=core.es5.js.map
