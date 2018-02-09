@@ -17035,6 +17035,7 @@ var MatSelectionList = /** @class */ (function (_super) {
          * View to model callback that should be called whenever the selected options change.
          */
         _this._onChange = function (_) { };
+        _this._modelChanges = rxjs_Subscription.Subscription.EMPTY;
         /**
          * View to model callback that should be called if the list or its options lost focus.
          */
@@ -17054,6 +17055,30 @@ var MatSelectionList = /** @class */ (function (_super) {
             this._setOptionsFromValues(this._tempValues);
             this._tempValues = null;
         }
+        // Sync external changes to the model back to the options.
+        this._modelChanges = /** @type {?} */ ((this.selectedOptions.onChange)).subscribe(function (event) {
+            if (event.added) {
+                for (var _i = 0, _a = event.added; _i < _a.length; _i++) {
+                    var item = _a[_i];
+                    item.selected = true;
+                }
+            }
+            if (event.removed) {
+                for (var _b = 0, _c = event.removed; _b < _c.length; _b++) {
+                    var item = _c[_b];
+                    item.selected = false;
+                }
+            }
+        });
+    };
+    /**
+     * @return {?}
+     */
+    MatSelectionList.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._modelChanges.unsubscribe();
     };
     /** Focus the selection-list. */
     /**
@@ -31011,7 +31036,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.2.0-1b90318');
+var VERSION = new _angular_core.Version('5.2.0-39936c6');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

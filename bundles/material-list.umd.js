@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/forms'), require('@angular/material/divider')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/forms', '@angular/material/divider'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.list = global.ng.material.list || {}),global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.forms,global.ng.material.divider));
-}(this, (function (exports,_angular_common,_angular_core,_angular_material_core,_angular_cdk_a11y,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,_angular_forms,_angular_material_divider) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/forms'), require('rxjs/Subscription'), require('@angular/material/divider')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/forms', 'rxjs/Subscription', '@angular/material/divider'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.list = global.ng.material.list || {}),global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.forms,global.Rx,global.ng.material.divider));
+}(this, (function (exports,_angular_common,_angular_core,_angular_material_core,_angular_cdk_a11y,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,_angular_forms,rxjs_Subscription,_angular_material_divider) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -624,6 +624,7 @@ var MatSelectionList = /** @class */ (function (_super) {
          * View to model callback that should be called whenever the selected options change.
          */
         _this._onChange = function (_) { };
+        _this._modelChanges = rxjs_Subscription.Subscription.EMPTY;
         /**
          * View to model callback that should be called if the list or its options lost focus.
          */
@@ -643,6 +644,30 @@ var MatSelectionList = /** @class */ (function (_super) {
             this._setOptionsFromValues(this._tempValues);
             this._tempValues = null;
         }
+        // Sync external changes to the model back to the options.
+        this._modelChanges = /** @type {?} */ ((this.selectedOptions.onChange)).subscribe(function (event) {
+            if (event.added) {
+                for (var _i = 0, _a = event.added; _i < _a.length; _i++) {
+                    var item = _a[_i];
+                    item.selected = true;
+                }
+            }
+            if (event.removed) {
+                for (var _b = 0, _c = event.removed; _b < _c.length; _b++) {
+                    var item = _c[_b];
+                    item.selected = false;
+                }
+            }
+        });
+    };
+    /**
+     * @return {?}
+     */
+    MatSelectionList.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._modelChanges.unsubscribe();
     };
     /** Focus the selection-list. */
     /**

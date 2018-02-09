@@ -13,6 +13,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { END, ENTER, HOME, SPACE } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 import { MatDividerModule } from '@angular/material/divider';
 
 /**
@@ -492,6 +493,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
          * View to model callback that should be called whenever the selected options change.
          */
         this._onChange = (_) => { };
+        this._modelChanges = Subscription.EMPTY;
         /**
          * View to model callback that should be called if the list or its options lost focus.
          */
@@ -507,6 +509,25 @@ class MatSelectionList extends _MatSelectionListMixinBase {
             this._setOptionsFromValues(this._tempValues);
             this._tempValues = null;
         }
+        // Sync external changes to the model back to the options.
+        this._modelChanges = /** @type {?} */ ((this.selectedOptions.onChange)).subscribe(event => {
+            if (event.added) {
+                for (let /** @type {?} */ item of event.added) {
+                    item.selected = true;
+                }
+            }
+            if (event.removed) {
+                for (let /** @type {?} */ item of event.removed) {
+                    item.selected = false;
+                }
+            }
+        });
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._modelChanges.unsubscribe();
     }
     /**
      * Focus the selection-list.
