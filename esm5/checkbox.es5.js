@@ -19,7 +19,6 @@ import { ObserversModule } from '@angular/cdk/observers';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Injection token that can be used to specify the checkbox click behavior.
  */

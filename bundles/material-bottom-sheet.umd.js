@@ -49,7 +49,6 @@ var __assign = Object.assign || function __assign(t) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by the Material bottom sheet.
  */

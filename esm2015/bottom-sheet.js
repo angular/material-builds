@@ -23,7 +23,6 @@ import { take } from 'rxjs/operators/take';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by the Material bottom sheet.
  */

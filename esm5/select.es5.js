@@ -1778,7 +1778,6 @@ var MatSelect = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatSelectModule = /** @class */ (function () {
     function MatSelectModule() {
     }

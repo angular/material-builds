@@ -136,7 +136,6 @@ function getMatSelectNonFunctionValueError() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 let nextUniqueId = 0;
 /**
  * The max height of the select's overlay panel
@@ -1403,7 +1402,6 @@ MatSelect.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatSelectModule {
 }
 MatSelectModule.decorators = [

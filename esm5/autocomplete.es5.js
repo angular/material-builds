@@ -256,7 +256,6 @@ var MatAutocomplete = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * The height of each autocomplete option.
  */

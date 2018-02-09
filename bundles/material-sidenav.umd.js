@@ -41,7 +41,6 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by the Material drawers.
  */

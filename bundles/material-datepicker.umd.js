@@ -2496,12 +2496,17 @@ var MatDatepickerInput = /** @class */ (function () {
     function (c) {
         return this._validator ? this._validator(c) : null;
     };
-    /** @deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead */
     /**
+     * @deprecated
+     * @deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
+     */
+    /**
+     * @deprecated
      * \@deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
      * @return {?}
      */
     MatDatepickerInput.prototype.getPopupConnectionElementRef = /**
+     * @deprecated
      * \@deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
      * @return {?}
      */

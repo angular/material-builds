@@ -359,7 +359,6 @@ var MatSpinner = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatProgressSpinnerModule = /** @class */ (function () {
     function MatProgressSpinnerModule() {
     }

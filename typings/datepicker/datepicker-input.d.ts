@@ -80,7 +80,10 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     registerOnValidatorChange(fn: () => void): void;
     /** @docs-private */
     validate(c: AbstractControl): ValidationErrors | null;
-    /** @deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead */
+    /**
+     * @deprecated
+     * @deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
+     */
     getPopupConnectionElementRef(): ElementRef;
     /**
      * Gets the element that the datepicker popup should be connected to.

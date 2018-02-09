@@ -2066,6 +2066,7 @@ class MatDatepickerInput {
         return this._validator ? this._validator(c) : null;
     }
     /**
+     * @deprecated
      * \@deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
      * @return {?}
      */

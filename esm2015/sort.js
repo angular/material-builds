@@ -283,7 +283,6 @@ const MAT_SORT_HEADER_INTL_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 const SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
     AnimationCurves.STANDARD_CURVE;
 /**

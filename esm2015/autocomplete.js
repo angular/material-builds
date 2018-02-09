@@ -31,7 +31,6 @@ import { of } from 'rxjs/observable/of';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
  * the component definition.
@@ -214,7 +213,6 @@ MatAutocomplete.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * The height of each autocomplete option.
  */

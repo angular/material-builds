@@ -308,7 +308,6 @@ var MatTab = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by the Material tabs.
  */
@@ -2111,16 +2110,16 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

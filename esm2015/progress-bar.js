@@ -13,7 +13,6 @@ import { MatCommonModule, mixinColor } from '@angular/material/core';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */

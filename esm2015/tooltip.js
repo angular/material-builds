@@ -25,7 +25,6 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by MatTooltip.
  */

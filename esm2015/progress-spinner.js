@@ -308,7 +308,6 @@ MatSpinner.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatProgressSpinnerModule {
 }
 MatProgressSpinnerModule.decorators = [

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/platform'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('@angular/animations'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/empty'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/platform-browser', '@angular/common', '@angular/cdk/platform', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', '@angular/animations', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/empty', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.platformBrowser,global.ng.common,global.ng.cdk.platform,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.Rx.Observable,global.Rx.operators,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.accordion,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators));
-}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,rxjs_Observable,_angular_platformBrowser,_angular_common,_angular_cdk_platform,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,rxjs_observable_fromEvent,rxjs_operators_startWith,_angular_animations,rxjs_observable_defer,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_layout,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_empty,rxjs_operators_auditTime,rxjs_operators_takeUntil,_angular_cdk_accordion,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,_angular_cdk_scrolling,rxjs_operators_debounceTime,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/common'), require('@angular/cdk/keycodes'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('@angular/animations'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/empty'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/cdk/platform', '@angular/platform-browser', '@angular/common', '@angular/cdk/keycodes', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', '@angular/animations', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/empty', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.common,global.ng.cdk.keycodes,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.Rx.Observable,global.Rx.operators,global.ng.animations,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.accordion,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators));
+}(this, (function (exports,_angular_core,_angular_cdk_bidi,_angular_cdk_coercion,rxjs_Subject,rxjs_Observable,_angular_cdk_platform,_angular_platformBrowser,_angular_common,_angular_cdk_keycodes,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,rxjs_observable_fromEvent,rxjs_operators_startWith,_angular_animations,rxjs_observable_defer,rxjs_observable_merge,rxjs_observable_of,_angular_cdk_layout,_angular_cdk_collections,_angular_cdk_observers,rxjs_Subscription,rxjs_observable_empty,rxjs_operators_auditTime,rxjs_operators_takeUntil,_angular_cdk_accordion,rxjs_operators_catchError,rxjs_operators_finalize,rxjs_operators_map,rxjs_operators_share,_angular_common_http,rxjs_observable_forkJoin,rxjs_observable_throw,_angular_cdk_scrolling,rxjs_operators_debounceTime,_angular_cdk_table,_angular_cdk_stepper,rxjs_BehaviorSubject,rxjs_operators_combineLatest) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -829,16 +829,20 @@ function range(length, valueFunction) {
  */
 var NativeDateAdapter = /** @class */ (function (_super) {
     __extends(NativeDateAdapter, _super);
-    function NativeDateAdapter(matDateLocale) {
+    function NativeDateAdapter(matDateLocale, platform) {
         var _this = _super.call(this) || this;
+        /**
+         * Whether to use `timeZone: 'utc'` with `Intl.DateTimeFormat` when formatting dates.
+         * Without this `Intl.DateTimeFormat` sometimes chooses the wrong timeZone, which can throw off
+         * the result. (e.g. in the en-US locale `new Date(1800, 7, 14).toLocaleDateString()`
+         * will produce `'8/13/1800'`.
+         */
+        _this.useUtcForDisplay = true;
         _super.prototype.setLocale.call(_this, matDateLocale);
         // IE does its own time zone correction, so we disable this on IE.
-        // TODO(mmalerba): replace with checks from PLATFORM, logic currently duplicated to avoid
-        // breaking change from injecting the Platform.
-        var /** @type {?} */ isBrowser = typeof document === 'object' && !!document;
-        var /** @type {?} */ isIE = isBrowser && /(msie|trident)/i.test(navigator.userAgent);
-        _this.useUtcForDisplay = !isIE;
-        _this._clampDate = isIE || (isBrowser && /(edge)/i.test(navigator.userAgent));
+        // IE does its own time zone correction, so we disable this on IE.
+        _this.useUtcForDisplay = !platform.TRIDENT;
+        _this._clampDate = platform.TRIDENT || platform.EDGE;
         return _this;
     }
     /**
@@ -1252,6 +1256,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     /** @nocollapse */
     NativeDateAdapter.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_LOCALE,] },] },
+        { type: _angular_cdk_platform.Platform, },
     ]; };
     return NativeDateAdapter;
 }(DateAdapter));
@@ -1283,6 +1288,7 @@ var NativeDateModule = /** @class */ (function () {
     }
     NativeDateModule.decorators = [
         { type: _angular_core.NgModule, args: [{
+                    imports: [_angular_cdk_platform.PlatformModule],
                     providers: [
                         { provide: DateAdapter, useClass: NativeDateAdapter },
                         MAT_DATE_LOCALE_PROVIDER
@@ -2797,7 +2803,6 @@ var MatError = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by the MatFormField.
  */
@@ -3802,7 +3807,6 @@ var MatAutocomplete = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * The height of each autocomplete option.
  */
@@ -4481,7 +4485,6 @@ var MatAutocompleteModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by the Material bottom sheet.
  */
@@ -6330,7 +6333,6 @@ var MatCardModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Injection token that can be used to specify the checkbox click behavior.
  */
@@ -8821,7 +8823,6 @@ var MatDialogConfig = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by MatDialog.
  */
@@ -13378,12 +13379,17 @@ var MatDatepickerInput = /** @class */ (function () {
     function (c) {
         return this._validator ? this._validator(c) : null;
     };
-    /** @deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead */
     /**
+     * @deprecated
+     * @deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
+     */
+    /**
+     * @deprecated
      * \@deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
      * @return {?}
      */
     MatDatepickerInput.prototype.getPopupConnectionElementRef = /**
+     * @deprecated
      * \@deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
      * @return {?}
      */
@@ -13838,7 +13844,7 @@ var MatAccordion = /** @class */ (function (_super) {
         /**
          * The display mode used for all expansion panels in the accordion. Currently two display
          * modes exist:
-         *   default - a gutter-like spacing is placed around any expanded panel, placing the expanded
+         *  default - a gutter-like spacing is placed around any expanded panel, placing the expanded
          *     panel at a different elevation from the reset of the accordion.
          *  flat - no spacing is placed around expanded panels, showing all panels at the same
          *     elevation.
@@ -13907,7 +13913,6 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Time and timing curve for expansion panel animations.
  */
@@ -20540,7 +20545,6 @@ var MatSelect = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatSelectModule = /** @class */ (function () {
     function MatSelectModule() {
     }
@@ -20566,7 +20570,6 @@ var MatSelectModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by MatTooltip.
  */
@@ -22412,7 +22415,6 @@ var MatSpinner = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatProgressSpinnerModule = /** @class */ (function () {
     function MatProgressSpinnerModule() {
     }
@@ -23314,7 +23316,6 @@ var MatRadioModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by the Material drawers.
  */
@@ -26319,7 +26320,6 @@ var MatSnackBarConfig = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
@@ -27254,7 +27254,6 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
     AnimationCurves.STANDARD_CURVE;
 /**
@@ -27872,7 +27871,6 @@ var MatStepHeader = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by the Material steppers.
  */
@@ -29107,7 +29105,6 @@ var MatTab = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by the Material tabs.
  */
@@ -31036,7 +31033,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('5.2.0-39936c6');
+var VERSION = new _angular_core.Version('5.2.0-008ee07');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -31276,10 +31273,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa23 = MatMenuItemBase;
+exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -31402,16 +31399,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
