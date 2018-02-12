@@ -132,50 +132,6 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
   }
 }
 
-// Core styles that enable monitoring autofill state of inputs.
-@mixin mat-input-autofill {
-  // Keyframes that apply no styles, but allow us to monitor when an input becomes autofilled
-  // by watching for the animation events that are fired when they start.
-  // Based on: https://medium.com/@brunn/detecting-autofilled-fields-in-javascript-aed598d25da7
-  @keyframes mat-input-autofill-start {}
-  @keyframes mat-input-autofill-end {}
-
-  .mat-input-autofill-monitored:-webkit-autofill {
-    animation-name: mat-input-autofill-start;
-  }
-
-  .mat-input-autofill-monitored:not(:-webkit-autofill) {
-    animation-name: mat-input-autofill-end;
-  }
-}
-
-// Used to generate UIDs for keyframes used to change the input autofill styles.
-$mat-input-autofill-color-frame-count: 0;
-
-// Mixin used to apply custom background and foreground colors to an autofilled input. Based on:
-// https://stackoverflow.com/questions/2781549/
-// removing-input-background-colour-for-chrome-autocomplete#answer-37432260
-@mixin mat-input-autofill-color($background, $foreground:'') {
-  @keyframes mat-input-autofill-color-#{$mat-input-autofill-color-frame-count} {
-    to {
-      background: $background;
-      @if $foreground != '' { color: $foreground; }
-    }
-  }
-
-  &:-webkit-autofill {
-    animation-name: mat-input-autofill-color-#{$mat-input-autofill-color-frame-count};
-    animation-fill-mode: both;
-  }
-
-  &.mat-input-autofill-monitored:-webkit-autofill {
-    animation-name: mat-input-autofill-start,
-                    mat-input-autofill-color-#{$mat-input-autofill-color-frame-count};
-  }
-
-  $mat-input-autofill-color-frame-count: $mat-input-autofill-color-frame-count + 1 !global;
-}
-
 
 // Core styles that can be used to apply material design treatments to any element.
 // Media queries
@@ -1652,28 +1608,6 @@ $mat-ripple-color-opacity: 0.1;
 
 
 
-@mixin mat-bottom-sheet-theme($theme) {
-  $background: map-get($theme, background);
-  $foreground: map-get($theme, foreground);
-
-  .mat-bottom-sheet-container {
-    background: mat-color($background, dialog);
-    color: mat-color($foreground, text);
-  }
-}
-
-@mixin mat-bottom-sheet-typography($config) {
-  .mat-bottom-sheet-container {
-    // Note: we don't use the line-height, because it's way too big.
-    font-family: mat-font-family($config);
-    font-size: mat-font-size($config, subheading-2);
-    font-weight: mat-font-weight($config, subheading-2);
-  }
-}
-
-
-
-
 // Applies a focus style to an mat-button element for each of the supported palettes.
 @mixin _mat-button-focus-color($theme) {
   $primary: map-get($theme, primary);
@@ -2023,11 +1957,11 @@ $mat-chip-remove-font-size: 18px;
   $unselected-foreground: mat-color($foreground, text);
 
 
-  .mat-chip.mat-standard-chip {
+  .mat-chip:not(.mat-basic-chip) {
     @include mat-chips-color($unselected-foreground, $unselected-background);
   }
 
-  .mat-chip.mat-standard-chip.mat-chip-selected {
+  .mat-chip.mat-chip-selected {
 
     &.mat-primary {
       @include mat-chips-theme-color($primary);
@@ -2048,7 +1982,6 @@ $mat-chip-remove-font-size: 18px;
     font-size: $mat-chip-font-size;
     line-height: $mat-chip-line-height;
 
-    .mat-chip-trailing-icon.mat-icon,
     .mat-chip-remove.mat-icon {
       font-size: $mat-chip-remove-font-size;
     }
@@ -3515,407 +3448,6 @@ $mat-tooltip-handset-vertical-padding:
 
 
 
-
-
-
-
-// Theme styles that only apply to the fill appearance of the form-field.
-
-@mixin mat-form-field-fill-theme($theme) {
-  $foreground: map-get($theme, foreground);
-  $is-dark-theme: map-get($theme, is-dark);
-
-  $fill-background: mat-color($foreground, base, if($is-dark-theme, 0.1, 0.04));
-  $fill-disabled-background: mat-color($foreground, base, if($is-dark-theme, 0.05, 0.02));
-  $underline-color: mat-color($foreground, divider, if($is-dark-theme, 0.5, 0.42));
-  $label-disabled-color: mat-color($foreground, disabled-text);
-
-  .mat-form-field-appearance-fill {
-    .mat-form-field-flex {
-      background-color: $fill-background;
-    }
-
-    &.mat-form-field-disabled .mat-form-field-flex {
-      background-color: $fill-disabled-background;
-    }
-
-    .mat-form-field-underline::before {
-      background-color: $underline-color;
-    }
-
-    &.mat-form-field-disabled {
-      .mat-form-field-label {
-        color: $label-disabled-color;
-      }
-
-      .mat-form-field-underline::before {
-        background-color: transparent;
-      }
-    }
-  }
-}
-
-// Used to make instances of the _mat-form-field-label-floating mixin negligibly different,
-// and prevent Google's CSS Optimizer from collapsing the declarations. This is needed because some
-// of the selectors contain pseudo-classes not recognized in all browsers. If a browser encounters
-// an unknown pseudo-class it will discard the entire rule set.
-$mat-form-field-fill-dedupe: 0;
-
-// Applies a floating label above the form field control itself.
-@mixin _mat-form-field-fill-label-floating($font-scale, $infix-padding, $infix-margin-top) {
-  transform: translateY(-$infix-margin-top - $infix-padding + $mat-form-field-fill-dedupe)
-             scale($font-scale);
-  width: 100% / $font-scale + $mat-form-field-fill-dedupe;
-
-  $mat-form-field-fill-dedupe: $mat-form-field-fill-dedupe + 0.00001 !global;
-}
-
-@mixin mat-form-field-fill-typography($config) {
-  // The unit-less line-height from the font config.
-  $line-height: mat-line-height($config, input);
-  // The amount to scale the font for the floating label and subscript.
-  $subscript-font-scale: 0.75;
-  // The padding on top of the infix.
-  $infix-padding-top: 0.25em;
-  // The padding below the infix.
-  $infix-padding-bottom: 0.75em;
-  // The margin applied to the form-field-infix to reserve space for the floating label.
-  $infix-margin-top: 1em * $line-height * $subscript-font-scale;
-  // The amount we offset the label from the input text in the fill appearance.
-  $fill-appearance-label-offset: -0.5em;
-
-  .mat-form-field-appearance-fill {
-    .mat-form-field-infix {
-      padding: $infix-padding-top 0 $infix-padding-bottom 0;
-    }
-
-    .mat-form-field-label {
-      top: $infix-margin-top + $infix-padding-top;
-      margin-top: $fill-appearance-label-offset;
-    }
-
-    &.mat-form-field-can-float {
-      &.mat-form-field-should-float .mat-form-field-label,
-      .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
-        @include _mat-form-field-fill-label-floating(
-                $subscript-font-scale, $infix-padding-top + $fill-appearance-label-offset,
-                $infix-margin-top);
-      }
-
-      // Server-side rendered matInput with a label attribute but label not shown
-      // (used as a pure CSS stand-in for mat-form-field-should-float).
-      .mat-input-server[label]:not(:label-shown) + .mat-form-field-label-wrapper
-      .mat-form-field-label {
-        @include _mat-form-field-fill-label-floating(
-                $subscript-font-scale, $infix-padding-top + $fill-appearance-label-offset,
-                $infix-margin-top);
-      }
-    }
-  }
-}
-
-
-
-
-
-
-
-// Theme styles that only apply to the legacy appearance of the form-field.
-
-@mixin mat-form-field-legacy-theme($theme) {
-  $foreground: map-get($theme, foreground);
-  $is-dark-theme: map-get($theme, is-dark);
-
-  $label-color: mat-color($foreground, secondary-text);
-  $underline-color: mat-color($foreground, divider, if($is-dark-theme, 0.7, 0.42));
-
-  .mat-form-field-appearance-legacy {
-    .mat-form-field-label {
-      color: $label-color;
-    }
-
-    .mat-hint {
-      color: $label-color;
-    }
-
-    .mat-form-field-underline {
-      background-color: $underline-color;
-    }
-
-    &.mat-form-field-disabled .mat-form-field-underline {
-      @include mat-control-disabled-underline($underline-color);
-    }
-  }
-}
-
-// Used to make instances of the _mat-form-field-label-floating mixin negligibly different,
-// and prevent Google's CSS Optimizer from collapsing the declarations. This is needed because some
-// of the selectors contain pseudo-classes not recognized in all browsers. If a browser encounters
-// an unknown pseudo-class it will discard the entire rule set.
-$mat-form-field-legacy-dedupe: 0;
-
-// Applies a floating label above the form field control itself.
-@mixin _mat-form-field-legacy-label-floating($font-scale, $infix-padding, $infix-margin-top) {
-  // We use perspective to fix the text blurriness as described here:
-  // http://www.useragentman.com/blog/2014/05/04/fixing-typography-inside-of-2-d-css-transforms/
-  // This results in a small jitter after the label floats on Firefox, which the
-  // translateZ fixes.
-  transform: translateY(-$infix-margin-top - $infix-padding) scale($font-scale) perspective(100px)
-  translateZ(0.001px + $mat-form-field-legacy-dedupe);
-  // The tricks above used to smooth out the animation on chrome and firefox actually make things
-  // worse on IE, so we don't include them in the IE version.
-  -ms-transform: translateY(-$infix-margin-top - $infix-padding + $mat-form-field-legacy-dedupe)
-                 scale($font-scale);
-
-  width: 100% / $font-scale + $mat-form-field-legacy-dedupe;
-
-  $mat-form-field-legacy-dedupe: $mat-form-field-legacy-dedupe + 0.00001 !global;
-}
-
-@mixin mat-form-field-legacy-typography($config) {
-  // The unit-less line-height from the font config.
-  $line-height: mat-line-height($config, input);
-  // The amount to scale the font for the floating label and subscript.
-  $subscript-font-scale: 0.75;
-  // The amount of space between the top of the line and the top of the actual text
-  // (as a fraction of the font-size).
-  $line-spacing: ($line-height - 1) / 2;
-  // The padding on the infix. Mocks show half of the text size, but seem to measure from the edge
-  // of the text itself, not the edge of the line; therefore we subtract off the line spacing.
-  $infix-padding: 0.5em - $line-spacing;
-  // The margin applied to the form-field-infix to reserve space for the floating label.
-  $infix-margin-top: 1em * $line-height * $subscript-font-scale;
-  // The space between the bottom of the .mat-form-field-flex area and the subscript wrapper.
-  // Mocks show half of the text size, but this margin is applied to an element with the subscript
-  // text font size, so we need to divide by the scale factor to make it half of the original text
-  // size. We again need to subtract off the line spacing since the mocks measure to the edge of the
-  // text, not the  edge of the line.
-  $subscript-margin-top: 0.5em / $subscript-font-scale - ($line-spacing * 2);
-  // The padding applied to the form-field-wrapper to reserve space for the subscript, since it's
-  // absolutely positioned. This is a combination of the subscript's margin and line-height, but we
-  // need to multiply by the subscript font scale factor since the wrapper has a larger font size.
-  $wrapper-padding-bottom: ($subscript-margin-top + $line-height) * $subscript-font-scale;
-
-  .mat-form-field-appearance-legacy {
-    .mat-form-field-wrapper {
-      padding-bottom: $wrapper-padding-bottom;
-    }
-
-    .mat-form-field-infix {
-      padding: $infix-padding 0;
-    }
-
-    &.mat-form-field-can-float {
-      &.mat-form-field-should-float .mat-form-field-label,
-      .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
-        @include _mat-form-field-legacy-label-floating(
-                $subscript-font-scale, $infix-padding, $infix-margin-top);
-      }
-
-      // @deletion-target 7.0.0 will rely on AutofillMonitor instead.
-      .mat-form-field-autofill-control:-webkit-autofill + .mat-form-field-label-wrapper
-      .mat-form-field-label {
-        @include _mat-form-field-legacy-label-floating(
-                $subscript-font-scale, $infix-padding, $infix-margin-top);
-      }
-
-      // Server-side rendered matInput with a label attribute but label not shown
-      // (used as a pure CSS stand-in for mat-form-field-should-float).
-      .mat-input-server[label]:not(:label-shown) + .mat-form-field-label-wrapper
-      .mat-form-field-label {
-        @include _mat-form-field-legacy-label-floating(
-                $subscript-font-scale, $infix-padding, $infix-margin-top);
-      }
-    }
-
-    .mat-form-field-label {
-      top: $infix-margin-top + $infix-padding;
-    }
-
-    .mat-form-field-underline {
-      // We want the underline to start at the end of the content box, not the padding box,
-      // so we move it up by the padding amount.
-      bottom: $wrapper-padding-bottom;
-    }
-
-    .mat-form-field-subscript-wrapper {
-      margin-top: $subscript-margin-top;
-
-      // We want the subscript to start at the end of the content box, not the padding box,
-      // so we move it up by the padding amount (adjusted for the smaller font size);
-      top: calc(100% - #{$wrapper-padding-bottom / $subscript-font-scale});
-    }
-  }
-}
-
-
-
-
-
-
-
-// Theme styles that only apply to the outline appearance of the form-field.
-
-@mixin mat-form-field-outline-theme($theme) {
-  $primary: map-get($theme, primary);
-  $accent: map-get($theme, accent);
-  $warn: map-get($theme, warn);
-  $foreground: map-get($theme, foreground);
-  $is-dark-theme: map-get($theme, is-dark);
-
-  $label-disabled-color: mat-color($foreground, disabled-text);
-  $outline-color: mat-color($foreground, divider, if($is-dark-theme, 0.3, 0.12));
-  $outline-color-hover: mat-color($foreground, divider, if($is-dark-theme, 1, 0.87));
-  $outline-color-primary: mat-color($primary);
-  $outline-color-accent: mat-color($accent);
-  $outline-color-warn: mat-color($warn);
-  $outline-color-disabled: mat-color($foreground, divider, if($is-dark-theme, 0.15, 0.06));
-
-  .mat-form-field-appearance-outline {
-    .mat-form-field-outline {
-      color: $outline-color;
-    }
-
-    .mat-form-field-outline-thick {
-      color: $outline-color-hover;
-    }
-
-    &.mat-focused {
-      .mat-form-field-outline-thick {
-        color: $outline-color-primary;
-      }
-
-      &.mat-accent .mat-form-field-outline-thick {
-        color: $outline-color-accent;
-      }
-
-      &.mat-warn .mat-form-field-outline-thick {
-        color: $outline-color-warn;
-      }
-    }
-
-    // Class repeated so that rule is specific enough to override focused accent color case.
-    &.mat-form-field-invalid.mat-form-field-invalid {
-      .mat-form-field-outline-thick {
-        color: $outline-color-warn;
-      }
-    }
-
-    &.mat-form-field-disabled {
-      .mat-form-field-label {
-        color: $label-disabled-color;
-      }
-
-      .mat-form-field-outline {
-        color: $outline-color-disabled;
-      }
-    }
-  }
-}
-
-// Used to make instances of the _mat-form-field-label-floating mixin negligibly different,
-// and prevent Google's CSS Optimizer from collapsing the declarations. This is needed because some
-// of the selectors contain pseudo-classes not recognized in all browsers. If a browser encounters
-// an unknown pseudo-class it will discard the entire rule set.
-$mat-form-field-outline-dedupe: 0;
-
-// Applies a floating label above the form field control itself.
-@mixin _mat-form-field-outline-label-floating($font-scale, $infix-padding, $infix-margin-top) {
-  transform: translateY(-$infix-margin-top - $infix-padding + $mat-form-field-outline-dedupe)
-  scale($font-scale);
-  width: 100% / $font-scale + $mat-form-field-outline-dedupe;
-
-  $mat-form-field-fill-dedupe: $mat-form-field-outline-dedupe + 0.00001 !global;
-}
-
-@mixin mat-form-field-outline-typography($config) {
-  // The unit-less line-height from the font config.
-  $line-height: mat-line-height($config, input);
-  // The amount to scale the font for the floating label and subscript.
-  $subscript-font-scale: 0.75;
-  // The padding above and below the infix.
-  $infix-padding: 1em;
-  // The margin applied to the form-field-infix to reserve space for the floating label.
-  $infix-margin-top: 1em * $line-height * $subscript-font-scale;
-  // The space between the bottom of the .mat-form-field-flex area and the subscript wrapper.
-  // Mocks show half of the text size, but this margin is applied to an element with the subscript
-  // text font size, so we need to divide by the scale factor to make it half of the original text
-  // size.
-  $subscript-margin-top: 0.5em / $subscript-font-scale;
-  // The padding applied to the form-field-wrapper to reserve space for the subscript, since it's
-  // absolutely positioned. This is a combination of the subscript's margin and line-height, but we
-  // need to multiply by the subscript font scale factor since the wrapper has a larger font size.
-  $wrapper-padding-bottom: ($subscript-margin-top + $line-height) * $subscript-font-scale;
-  // The amount we offset the label from the input text in the outline appearance.
-  $outline-appearance-label-offset: -0.25em;
-
-  .mat-form-field-appearance-outline {
-    .mat-form-field-infix {
-      padding: $infix-padding 0 $infix-padding 0;
-    }
-
-    .mat-form-field-outline {
-      // We want the bottom of the outline to start at the end of the content box, not the padding
-      // box, so we move it up by the padding amount.
-      bottom: $wrapper-padding-bottom;
-    }
-
-    .mat-form-field-label {
-      top: $infix-margin-top + $infix-padding;
-      margin-top: $outline-appearance-label-offset;
-    }
-
-    &.mat-form-field-can-float {
-      &.mat-form-field-should-float .mat-form-field-label,
-      .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
-        @include _mat-form-field-outline-label-floating(
-                $subscript-font-scale, $infix-padding + $outline-appearance-label-offset,
-                $infix-margin-top);
-      }
-
-      // Server-side rendered matInput with a label attribute but label not shown
-      // (used as a pure CSS stand-in for mat-form-field-should-float).
-      .mat-input-server[label]:not(:label-shown) + .mat-form-field-label-wrapper
-      .mat-form-field-label {
-        @include _mat-form-field-outline-label-floating(
-                $subscript-font-scale, $infix-padding + $outline-appearance-label-offset,
-                $infix-margin-top);
-      }
-    }
-  }
-}
-
-
-
-
-
-
-
-// Theme styles that only apply to the standard appearance of the form-field.
-
-@mixin mat-form-field-standard-theme($theme) {
-  $foreground: map-get($theme, foreground);
-  $is-dark-theme: map-get($theme, is-dark);
-
-  $underline-color: mat-color($foreground, divider, if($is-dark-theme, 0.7, 0.42));
-
-  .mat-form-field-appearance-standard {
-    .mat-form-field-underline {
-      background-color: $underline-color;
-    }
-
-    &.mat-form-field-disabled .mat-form-field-underline {
-      @include mat-control-disabled-underline($underline-color);
-    }
-  }
-}
-
-@mixin mat-form-field-standard-typography($config) {}
-
-
-
-// Theme styles that apply to all appearances of the form-field.
-
 @mixin mat-form-field-theme($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -3925,12 +3457,12 @@ $mat-form-field-outline-dedupe: 0;
   $is-dark-theme: map-get($theme, is-dark);
 
   // Label colors. Required is used for the `*` star shown in the label.
-  $label-color: mat-color($foreground, secondary-text, if($is-dark-theme, 0.7, 0.6));
+  $label-color: mat-color($foreground, secondary-text);
   $focused-label-color: mat-color($primary);
   $required-label-color: mat-color($accent);
 
   // Underline colors.
-  $underline-color-base: mat-color($foreground, divider, if($is-dark-theme, 1, 0.87));
+  $underline-color: mat-color($foreground, divider, if($is-dark-theme, 0.7, 0.42));
   $underline-color-accent: mat-color($accent);
   $underline-color-warn: mat-color($warn);
   $underline-focused-color: mat-color($primary);
@@ -3940,10 +3472,10 @@ $mat-form-field-outline-dedupe: 0;
   }
 
   .mat-hint {
-    color: $label-color;
+    color: mat-color($foreground, secondary-text);
   }
 
-  .mat-form-field.mat-focused .mat-form-field-label {
+  .mat-focused .mat-form-field-label {
     color: $focused-label-color;
 
     &.mat-accent {
@@ -3959,28 +3491,30 @@ $mat-form-field-outline-dedupe: 0;
     color: $required-label-color;
   }
 
-  .mat-form-field-ripple {
-    background-color: $underline-color-base;
+  .mat-form-field-underline {
+    background-color: $underline-color;
   }
 
-  .mat-form-field.mat-focused {
-    .mat-form-field-ripple {
-      background-color: $underline-focused-color;
+  .mat-form-field-disabled .mat-form-field-underline {
+    @include mat-control-disabled-underline($underline-color);
+  }
 
-      &.mat-accent {
-        background-color: $underline-color-accent;
-      }
+  .mat-form-field-ripple {
+    background-color: $underline-focused-color;
 
-      &.mat-warn {
-        background-color: $underline-color-warn;
-      }
+    &.mat-accent {
+      background-color: $underline-color-accent;
+    }
+
+    &.mat-warn {
+      background-color: $underline-color-warn;
     }
   }
 
   // Styling for the error state of the form field. Note that while the same can be
   // achieved with the ng-* classes, we use this approach in order to ensure that the same
   // logic is used to style the error state and to show the error messages.
-  .mat-form-field.mat-form-field-invalid {
+  .mat-form-field-invalid {
     .mat-form-field-label {
       color: $underline-color-warn;
 
@@ -3998,26 +3532,29 @@ $mat-form-field-outline-dedupe: 0;
   .mat-error {
     color: $underline-color-warn;
   }
-
-  @include mat-form-field-legacy-theme($theme);
-  @include mat-form-field-standard-theme($theme);
-  @include mat-form-field-fill-theme($theme);
-  @include mat-form-field-outline-theme($theme);
 }
 
 // Used to make instances of the _mat-form-field-label-floating mixin negligibly different,
 // and prevent Google's CSS Optimizer from collapsing the declarations. This is needed because some
 // of the selectors contain pseudo-classes not recognized in all browsers. If a browser encounters
 // an unknown pseudo-class it will discard the entire rule set.
-$mat-form-field-dedupe: 0;
+$dedupe: 0;
 
 // Applies a floating label above the form field control itself.
 @mixin _mat-form-field-label-floating($font-scale, $infix-padding, $infix-margin-top) {
-  transform: translateY(-$infix-margin-top - $infix-padding + $mat-form-field-dedupe)
-             scale($font-scale);
-  width: 100% / $font-scale + $mat-form-field-dedupe;
+  // We use perspective to fix the text blurriness as described here:
+  // http://www.useragentman.com/blog/2014/05/04/fixing-typography-inside-of-2-d-css-transforms/
+  // This results in a small jitter after the label floats on Firefox, which the
+  // translateZ fixes.
+  transform: translateY(-$infix-margin-top - $infix-padding) scale($font-scale) perspective(100px)
+             translateZ(0.001px + $dedupe);
+  // The tricks above used to smooth out the animation on chrome and firefox actually make things
+  // worse on IE, so we don't include them in the IE version.
+  -ms-transform: translateY(-$infix-margin-top - $infix-padding + $dedupe) scale($font-scale);
 
-  $mat-form-field-dedupe: $mat-form-field-dedupe + 0.00001 !global;
+  width: 100% / $font-scale + $dedupe;
+
+  $dedupe: $dedupe + 0.00001 !global;
 }
 
 @mixin mat-form-field-typography($config) {
@@ -4029,8 +3566,12 @@ $mat-form-field-dedupe: 0;
   // The amount to scale the font for the prefix and suffix icons.
   $prefix-suffix-icon-font-scale: 1.5;
 
-  // The padding on the infix. Mocks show half of the text size.
-  $infix-padding: 0.5em;
+  // The amount of space between the top of the line and the top of the actual text
+  // (as a fraction of the font-size).
+  $line-spacing: ($line-height - 1) / 2;
+  // The padding on the infix. Mocks show half of the text size, but seem to measure from the edge
+  // of the text itself, not the edge of the line; therefore we subtract off the line spacing.
+  $infix-padding: 0.5em - $line-spacing;
   // The margin applied to the form-field-infix to reserve space for the floating label.
   $infix-margin-top: 1em * $line-height * $subscript-font-scale;
   // Font size to use for the label and subscript text.
@@ -4040,8 +3581,9 @@ $mat-form-field-dedupe: 0;
   // The space between the bottom of the .mat-form-field-flex area and the subscript wrapper.
   // Mocks show half of the text size, but this margin is applied to an element with the subscript
   // text font size, so we need to divide by the scale factor to make it half of the original text
-  // size.
-  $subscript-margin-top: 0.5em / $subscript-font-scale;
+  // size. We again need to subtract off the line spacing since the mocks measure to the edge of the
+  // text, not the  edge of the line.
+  $subscript-margin-top: 0.5em / $subscript-font-scale - ($line-spacing * 2);
   // The padding applied to the form-field-wrapper to reserve space for the subscript, since it's
   // absolutely positioned. This is a combination of the subscript's margin and line-height, but we
   // need to multiply by the subscript font scale factor since the wrapper has a larger font size.
@@ -4088,6 +3630,12 @@ $mat-form-field-dedupe: 0;
               $subscript-font-scale, $infix-padding, $infix-margin-top);
     }
 
+    .mat-form-field-autofill-control:-webkit-autofill + .mat-form-field-label-wrapper
+        .mat-form-field-label {
+      @include _mat-form-field-label-floating(
+              $subscript-font-scale, $infix-padding, $infix-margin-top);
+    }
+
     // Server-side rendered matInput with a label attribute but label not shown
     // (used as a pure CSS stand-in for mat-form-field-should-float).
     .mat-input-server[label]:not(:label-shown) + .mat-form-field-label-wrapper
@@ -4120,11 +3668,6 @@ $mat-form-field-dedupe: 0;
     // so we move it up by the padding amount (adjusted for the smaller font size);
     top: calc(100% - #{$wrapper-padding-bottom / $subscript-font-scale});
   }
-
-  @include mat-form-field-legacy-typography($config);
-  @include mat-form-field-standard-typography($config);
-  @include mat-form-field-fill-typography($config);
-  @include mat-form-field-outline-typography($config);
 }
 
 
@@ -4137,7 +3680,6 @@ $mat-form-field-dedupe: 0;
 
   @include mat-base-typography($config);
   @include mat-autocomplete-typography($config);
-  @include mat-bottom-sheet-typography($config);
   @include mat-button-typography($config);
   @include mat-button-toggle-typography($config);
   @include mat-card-typography($config);
@@ -4186,7 +3728,6 @@ $mat-form-field-dedupe: 0;
   @include mat-ripple();
   @include cdk-a11y();
   @include cdk-overlay();
-  @include mat-input-autofill();
 }
 
 // Mixin that renders all of the core styles that depend on the theme.
@@ -4211,7 +3752,6 @@ $mat-form-field-dedupe: 0;
     display: none;
   }
 }
-
 
 
 
@@ -4264,7 +3804,6 @@ $mat-form-field-dedupe: 0;
 @mixin angular-material-theme($theme) {
   @include mat-core-theme($theme);
   @include mat-autocomplete-theme($theme);
-  @include mat-bottom-sheet-theme($theme);
   @include mat-button-theme($theme);
   @include mat-button-toggle-theme($theme);
   @include mat-card-theme($theme);

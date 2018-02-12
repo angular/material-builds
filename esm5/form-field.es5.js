@@ -16,7 +16,6 @@ import { fromEvent } from 'rxjs/observable/fromEvent';
 import { startWith } from 'rxjs/operators/startWith';
 import { take } from 'rxjs/operators/take';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Directionality } from '@angular/cdk/bidi';
 
 /**
  * @fileoverview added by tsickle
@@ -241,9 +240,6 @@ var MatSuffix = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var nextUniqueId$1 = 0;
-var floatingLabelScale = 0.75;
-var outlineGapPadding = 5;
 /**
  * \@docs-private
  */
@@ -254,20 +250,16 @@ var MatFormFieldBase = /** @class */ (function () {
     return MatFormFieldBase;
 }());
 var _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
+var nextUniqueId$1 = 0;
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
 var MatFormField = /** @class */ (function (_super) {
     __extends(MatFormField, _super);
-    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir) {
+    function MatFormField(_elementRef, _changeDetectorRef, labelOptions) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
-        _this._dir = _dir;
-        /**
-         * The form-field appearance style.
-         */
-        _this.appearance = 'legacy';
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
@@ -279,8 +271,6 @@ var MatFormField = /** @class */ (function (_super) {
         _this._hintLabel = '';
         // Unique id for the hint label.
         _this._hintLabelId = "mat-hint-" + nextUniqueId$1++;
-        _this._outlineGapWidth = 0;
-        _this._outlineGapStart = 0;
         _this._labelOptions = labelOptions ? labelOptions : {};
         _this.floatLabel = _this._labelOptions.float || 'auto';
         return _this;
@@ -323,7 +313,7 @@ var MatFormField = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this.floatLabel === 'always' && !this._showAlwaysAnimate;
+            return this._floatLabel === 'always' && !this._showAlwaysAnimate;
         },
         enumerable: true,
         configurable: true
@@ -334,7 +324,7 @@ var MatFormField = /** @class */ (function (_super) {
          * Whether the label can float or not.
          * @return {?}
          */
-        function () { return this.floatLabel !== 'never'; },
+        function () { return this._floatLabel !== 'never'; },
         enumerable: true,
         configurable: true
     });
@@ -362,7 +352,7 @@ var MatFormField = /** @class */ (function (_super) {
          * \@deletion-target 6.0.0
          * @return {?}
          */
-        function () { return this.floatLabel; },
+        function () { return this._floatLabel; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -374,16 +364,9 @@ var MatFormField = /** @class */ (function (_super) {
     Object.defineProperty(MatFormField.prototype, "floatLabel", {
         get: /**
          * Whether the label should always float, never float or float as the user types.
-         *
-         * Note: only the legacy appearance supports the `never` option. `never` was originally added as a
-         * way to make the floating label emulate the behavior of a standard input placeholder. However
-         * the form field now supports both floating labels and placeholders. Therefore in the non-legacy
-         * appearances the `never` option has been disabled in favor of just using the placeholder.
          * @return {?}
          */
-        function () {
-            return this.appearance !== 'legacy' && this._floatLabel === 'never' ? 'auto' : this._floatLabel;
-        },
+        function () { return this._floatLabel; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -397,23 +380,6 @@ var MatFormField = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    /**
-     * Gets an ElementRef for the element that a overlay attached to the form-field should be
-     * positioned relative to.
-     */
-    /**
-     * Gets an ElementRef for the element that a overlay attached to the form-field should be
-     * positioned relative to.
-     * @return {?}
-     */
-    MatFormField.prototype.getConnectedOverlayOrigin = /**
-     * Gets an ElementRef for the element that a overlay attached to the form-field should be
-     * positioned relative to.
-     * @return {?}
-     */
-    function () {
-        return this._connectionContainerRef || this._elementRef;
-    };
     /**
      * @return {?}
      */
@@ -447,10 +413,6 @@ var MatFormField = /** @class */ (function (_super) {
         // Update the aria-described by when the number of errors changes.
         this._errorChildren.changes.pipe(startWith(null)).subscribe(function () {
             _this._syncDescribedByIds();
-            _this._changeDetectorRef.markForCheck();
-        });
-        Promise.resolve().then(function () {
-            _this.updateOutlineGap();
             _this._changeDetectorRef.markForCheck();
         });
     };
@@ -496,7 +458,7 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        return !!(this._control && this._control.placeholder || this._placeholderChild);
+        return !!(this._control.placeholder || this._placeholderChild);
     };
     /**
      * @return {?}
@@ -524,9 +486,7 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // In the legacy appearance the placeholder is promoted to a label if no label is given.
-        return this.appearance === 'legacy' && !this._hasLabel() ||
-            this._hasLabel() && !this._shouldLabelFloat();
+        return !this._hasLabel() || !this._shouldLabelFloat();
     };
     /**
      * @return {?}
@@ -535,8 +495,7 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // In the legacy appearance the placeholder is promoted to a label if no label is given.
-        return this._hasLabel() || this.appearance === 'legacy' && this._hasPlaceholder();
+        return this._hasLabel() || this._hasPlaceholder();
     };
     /** Determines whether to display hints or errors. */
     /**
@@ -564,7 +523,7 @@ var MatFormField = /** @class */ (function (_super) {
         var _this = this;
         if (this._hasFloatingLabel() && this._canLabelFloat) {
             this._showAlwaysAnimate = true;
-            this.floatLabel = 'always';
+            this._floatLabel = 'always';
             fromEvent(this._label.nativeElement, 'transitionend').pipe(take(1)).subscribe(function () {
                 _this._showAlwaysAnimate = false;
             });
@@ -677,77 +636,25 @@ var MatFormField = /** @class */ (function (_super) {
             throw getMatFormFieldMissingControlError();
         }
     };
-    /**
-     * Updates the width and position of the gap in the outline. Only relevant for the outline
-     * appearance.
-     */
-    /**
-     * Updates the width and position of the gap in the outline. Only relevant for the outline
-     * appearance.
-     * @return {?}
-     */
-    MatFormField.prototype.updateOutlineGap = /**
-     * Updates the width and position of the gap in the outline. Only relevant for the outline
-     * appearance.
-     * @return {?}
-     */
-    function () {
-        if (this.appearance === 'outline' && this._label && this._label.nativeElement.children.length) {
-            var /** @type {?} */ containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
-            var /** @type {?} */ labelStart = this._getStartEnd(this._label.nativeElement.children[0].getBoundingClientRect());
-            var /** @type {?} */ labelWidth = 0;
-            for (var _i = 0, _a = this._label.nativeElement.children; _i < _a.length; _i++) {
-                var child = _a[_i];
-                labelWidth += child.offsetWidth;
-            }
-            this._outlineGapStart = labelStart - containerStart - outlineGapPadding;
-            this._outlineGapWidth = labelWidth * floatingLabelScale + outlineGapPadding * 2;
-        }
-        else {
-            this._outlineGapStart = 0;
-            this._outlineGapWidth = 0;
-        }
-        this._changeDetectorRef.markForCheck();
-    };
-    /**
-     * Gets the start end of the rect considering the current directionality.
-     * @param {?} rect
-     * @return {?}
-     */
-    MatFormField.prototype._getStartEnd = /**
-     * Gets the start end of the rect considering the current directionality.
-     * @param {?} rect
-     * @return {?}
-     */
-    function (rect) {
-        return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
-    };
     MatFormField.decorators = [
         { type: Component, args: [{// TODO(mmalerba): the input-container selectors and classes are deprecated and will be removed.
                     selector: 'mat-input-container, mat-form-field',
                     exportAs: 'matFormField',
-                    template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\" #inputContainer><ng-content></ng-content><span class=\"mat-form-field-label-wrapper mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-form-field-label mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #label *ngIf=\"_hasFloatingLabel()\" [ngSwitch]=\"_hasLabel()\"><ng-container *ngSwitchCase=\"false\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}}</ng-container><ng-content select=\"mat-label\" *ngSwitchCase=\"true\"></ng-content><span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required && !_control.disabled\">&nbsp;*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline *ngIf=\"appearance != 'outline'\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><ng-container *ngIf=\"appearance == 'outline'\"><div class=\"mat-form-field-outline\"><div class=\"mat-form-field-outline-start\" [style.width.px]=\"_outlineGapStart\"></div><div class=\"mat-form-field-outline-gap\" [style.width.px]=\"_outlineGapWidth\"></div><div class=\"mat-form-field-outline-end\"></div></div><div class=\"mat-form-field-outline mat-form-field-outline-thick\"><div class=\"mat-form-field-outline-start\" [style.width.px]=\"_outlineGapStart\"></div><div class=\"mat-form-field-outline-gap\" [style.width.px]=\"_outlineGapWidth\"></div><div class=\"mat-form-field-outline-end\"></div></div></ng-container><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
+                    template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\" #inputContainer><ng-content></ng-content><span class=\"mat-form-field-label-wrapper mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-form-field-label mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #label *ngIf=\"_hasFloatingLabel()\" [ngSwitch]=\"_hasLabel()\"><ng-container *ngSwitchCase=\"false\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}}</ng-container><ng-content select=\"mat-label\" *ngSwitchCase=\"true\"></ng-content><span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required && !_control.disabled\">&nbsp;*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
                     // MatInput is a directive and can't have styles, so we need to include its styles here.
                     // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
                     // aren't using MatInput.
-                    styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;box-sizing:border-box;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none;position:relative}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0;width:180px}.mat-form-field-label-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-label{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-label{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-empty.mat-form-field-label{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:block;transition:none}.mat-input-server:focus+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder,.mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder,.mat-form-field-can-float .mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:block}.mat-form-field-label:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;width:100%;pointer-events:none}.mat-form-field-ripple{position:absolute;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);opacity:0;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field.mat-focused .mat-form-field-ripple,.mat-form-field.mat-form-field-invalid .mat-form-field-ripple{opacity:1;transform:scaleX(1);transition:transform .3s cubic-bezier(.25,.8,.25,1),opacity .1s cubic-bezier(.25,.8,.25,1),background-color .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-subscript-wrapper{position:absolute;box-sizing:border-box;width:100%;overflow:hidden}.mat-form-field-label-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-form-field-appearance-fill .mat-form-field-flex{border-radius:4px 4px 0 0;padding:.75em .75em 0 .75em}.mat-form-field-appearance-fill .mat-form-field-underline::before{content:'';display:block;position:absolute;bottom:0;height:1px;width:100%}.mat-form-field-appearance-fill .mat-form-field-ripple{bottom:0;height:2px}.mat-form-field-appearance-fill:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-underline .mat-form-field-ripple{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-fill .mat-form-field-subscript-wrapper{padding:0 1em} .mat-form-field-appearance-legacy .mat-form-field-label{transform:perspective(100px);-ms-transform:none}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon-button,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-appearance-legacy .mat-form-field-underline{height:1px}.mat-form-field-appearance-legacy .mat-form-field-ripple{top:0;height:2px}.mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-appearance-legacy.mat-form-field-invalid:not(.mat-focused) .mat-form-field-ripple{height:1px} .mat-form-field-appearance-outline .mat-form-field-wrapper{margin:.25em 0}.mat-form-field-appearance-outline .mat-form-field-flex{padding:0 .75em 0 .75em;margin-top:-.25em}.mat-form-field-appearance-outline .mat-form-field-prefix,.mat-form-field-appearance-outline .mat-form-field-suffix{top:.25em}.mat-form-field-appearance-outline .mat-form-field-outline{display:flex;position:absolute;top:0;left:0;right:0;pointer-events:none}.mat-form-field-appearance-outline .mat-form-field-outline-end,.mat-form-field-appearance-outline .mat-form-field-outline-start{border:1px solid currentColor;min-width:5px}.mat-form-field-appearance-outline .mat-form-field-outline-start{border-radius:5px 0 0 5px;border-right-style:none}[dir=rtl] .mat-form-field-appearance-outline .mat-form-field-outline-start{border-right-style:solid;border-left-style:none;border-radius:0 5px 5px 0}.mat-form-field-appearance-outline .mat-form-field-outline-end{border-radius:0 5px 5px 0;border-left-style:none;flex-grow:1}[dir=rtl] .mat-form-field-appearance-outline .mat-form-field-outline-end{border-left-style:solid;border-right-style:none;border-radius:5px 0 0 5px}.mat-form-field-appearance-outline .mat-form-field-outline-gap{border-bottom:1px solid currentColor}.mat-form-field-appearance-outline .mat-form-field-outline-gap::before{content:'';display:block;width:100%;border-top:1px solid currentColor;opacity:1;transition:opacity .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-outline-gap::before{opacity:0}.mat-form-field-appearance-outline .mat-form-field-outline-thick{opacity:0}.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap::before,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start{border-width:2px;transition:border-color .3s cubic-bezier(.25,.8,.25,1),opacity .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline,.mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline{opacity:0;transition:opacity .1s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick,.mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline-thick{opacity:1}.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-outline{opacity:0;transition:opacity .6s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-outline-thick{opacity:1}.mat-form-field-appearance-outline .mat-form-field-subscript-wrapper{padding:0 1em} .mat-form-field-appearance-standard .mat-form-field-flex{padding-top:.75em}.mat-form-field-appearance-standard .mat-form-field-underline{height:1px}.mat-form-field-appearance-standard .mat-form-field-ripple{bottom:0;height:2px}.mat-form-field-appearance-standard.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-appearance-standard:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-underline .mat-form-field-ripple{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.25,.8,.25,1)} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom;text-align:inherit}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::-ms-clear,.mat-input-element::-ms-reveal{display:none}.mat-input-element[type=date]::after,.mat-input-element[type=datetime-local]::after,.mat-input-element[type=datetime]::after,.mat-input-element[type=month]::after,.mat-input-element[type=time]::after,.mat-input-element[type=week]::after{content:' ';white-space:pre;width:1px}.mat-input-element::placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-moz-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-webkit-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element:-ms-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-form-field-hide-placeholder .mat-input-element::placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-moz-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-webkit-input-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element:-ms-input-placeholder{color:transparent!important;transition:none}textarea.mat-input-element{resize:vertical;overflow:auto}textarea.mat-autosize{resize:none}"],
+                    styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none}.mat-form-field-prefix .mat-icon,.mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-prefix .mat-icon-button,.mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0;width:180px}.mat-form-field-label-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-label{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform:perspective(100px);-ms-transform:none;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-label{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-empty.mat-form-field-label{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:block;transition:none}.mat-input-server:focus+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder,.mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:none}.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder,.mat-form-field-can-float .mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-placeholder-wrapper .mat-form-field-placeholder{display:block}.mat-form-field-label:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;height:1px;width:100%}.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-underline .mat-form-field-ripple{position:absolute;top:0;left:0;width:100%;height:2px;transform-origin:50%;transform:scaleX(.5);visibility:hidden;opacity:0;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field-invalid:not(.mat-focused) .mat-form-field-underline .mat-form-field-ripple{height:1px}.mat-focused .mat-form-field-underline .mat-form-field-ripple,.mat-form-field-invalid .mat-form-field-underline .mat-form-field-ripple{visibility:visible;opacity:1;transform:scaleX(1);transition:transform .3s cubic-bezier(.25,.8,.25,1),opacity .1s cubic-bezier(.25,.8,.25,1),background-color .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-subscript-wrapper{position:absolute;width:100%;overflow:hidden}.mat-form-field-label-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom;text-align:inherit}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::-ms-clear,.mat-input-element::-ms-reveal{display:none}.mat-input-element[type=date]::after,.mat-input-element[type=datetime-local]::after,.mat-input-element[type=datetime]::after,.mat-input-element[type=month]::after,.mat-input-element[type=time]::after,.mat-input-element[type=week]::after{content:' ';white-space:pre;width:1px}.mat-input-element::placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-moz-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-webkit-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element:-ms-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-form-field-hide-placeholder .mat-input-element::placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-moz-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-webkit-input-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element:-ms-input-placeholder{color:transparent!important;transition:none}textarea.mat-input-element{resize:vertical;overflow:auto}textarea.mat-autosize{resize:none}"],
                     animations: [matFormFieldAnimations.transitionMessages],
                     host: {
                         'class': 'mat-input-container mat-form-field',
-                        '[class.mat-form-field-appearance-standard]': 'appearance == "standard"',
-                        '[class.mat-form-field-appearance-fill]': 'appearance == "fill"',
-                        '[class.mat-form-field-appearance-outline]': 'appearance == "outline"',
-                        '[class.mat-form-field-appearance-legacy]': 'appearance == "legacy"',
                         '[class.mat-input-invalid]': '_control.errorState',
                         '[class.mat-form-field-invalid]': '_control.errorState',
                         '[class.mat-form-field-can-float]': '_canLabelFloat',
                         '[class.mat-form-field-should-float]': '_shouldLabelFloat()',
                         '[class.mat-form-field-hide-placeholder]': '_hideControlPlaceholder()',
                         '[class.mat-form-field-disabled]': '_control.disabled',
-                        '[class.mat-form-field-autofilled]': '_control.autofilled',
                         '[class.mat-focused]': '_control.focused',
-                        '[class.mat-accent]': 'color == "accent"',
-                        '[class.mat-warn]': 'color == "warn"',
                         '[class.ng-untouched]': '_shouldForward("untouched")',
                         '[class.ng-touched]': '_shouldForward("touched")',
                         '[class.ng-pristine]': '_shouldForward("pristine")',
@@ -767,10 +674,8 @@ var MatFormField = /** @class */ (function (_super) {
         { type: ElementRef, },
         { type: ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_LABEL_GLOBAL_OPTIONS,] },] },
-        { type: Directionality, decorators: [{ type: Optional },] },
     ]; };
     MatFormField.propDecorators = {
-        "appearance": [{ type: Input },],
         "dividerColor": [{ type: Input },],
         "hideRequiredMarker": [{ type: Input },],
         "hintLabel": [{ type: Input },],

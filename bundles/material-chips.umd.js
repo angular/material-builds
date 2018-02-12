@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/platform'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/Subject'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/operators/startWith'), require('rxjs/Subscription')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/platform', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/Subject', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/operators/startWith', 'rxjs/Subscription'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = global.ng.material.chips || {}),global.ng.cdk.platform,global.ng.core,global.ng.material.core,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.Rx,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.collections,global.ng.forms,global.ng.material.formField,global.Rx.Observable,global.Rx.operators,global.Rx));
-}(this, (function (exports,_angular_cdk_platform,_angular_core,_angular_material_core,_angular_cdk_coercion,_angular_cdk_keycodes,rxjs_Subject,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_collections,_angular_forms,_angular_material_formField,rxjs_observable_merge,rxjs_operators_startWith,rxjs_Subscription) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('rxjs/operators/startWith'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('rxjs/Subject')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', 'rxjs/operators/startWith', '@angular/forms', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/Subscription', 'rxjs/Subject'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = global.ng.material.chips || {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.Rx.operators,global.ng.forms,global.ng.material.formField,global.Rx.Observable,global.Rx,global.Rx));
+}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_collections,_angular_cdk_keycodes,rxjs_operators_startWith,_angular_forms,_angular_material_formField,rxjs_observable_merge,rxjs_Subscription,rxjs_Subject) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -68,55 +68,32 @@ var MatChipBase = /** @class */ (function () {
     }
     return MatChipBase;
 }());
-var _MatChipMixinBase = _angular_material_core.mixinColor(_angular_material_core.mixinDisableRipple(_angular_material_core.mixinDisabled(MatChipBase)), 'primary');
-var CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
+var _MatChipMixinBase = _angular_material_core.mixinColor(_angular_material_core.mixinDisabled(MatChipBase), 'primary');
 /**
- * Dummy directive to add CSS class to chip avatar.
+ * Dummy directive to add CSS class to basic chips.
  * \@docs-private
  */
-var MatChipAvatar = /** @class */ (function () {
-    function MatChipAvatar() {
+var MatBasicChip = /** @class */ (function () {
+    function MatBasicChip() {
     }
-    MatChipAvatar.decorators = [
+    MatBasicChip.decorators = [
         { type: _angular_core.Directive, args: [{
-                    selector: 'mat-chip-avatar, [matChipAvatar]',
-                    host: { 'class': 'mat-chip-avatar' }
+                    selector: "mat-basic-chip, [mat-basic-chip]",
+                    host: { 'class': 'mat-basic-chip' },
                 },] },
     ];
     /** @nocollapse */
-    MatChipAvatar.ctorParameters = function () { return []; };
-    return MatChipAvatar;
-}());
-/**
- * Dummy directive to add CSS class to chip trailing icon.
- * \@docs-private
- */
-var MatChipTrailingIcon = /** @class */ (function () {
-    function MatChipTrailingIcon() {
-    }
-    MatChipTrailingIcon.decorators = [
-        { type: _angular_core.Directive, args: [{
-                    selector: 'mat-chip-trailing-icon, [matChipTrailingIcon]',
-                    host: { 'class': 'mat-chip-trailing-icon' }
-                },] },
-    ];
-    /** @nocollapse */
-    MatChipTrailingIcon.ctorParameters = function () { return []; };
-    return MatChipTrailingIcon;
+    MatBasicChip.ctorParameters = function () { return []; };
+    return MatBasicChip;
 }());
 /**
  * Material design styled Chip component. Used inside the MatChipList component.
  */
 var MatChip = /** @class */ (function (_super) {
     __extends(MatChip, _super);
-    function MatChip(_elementRef, ngZone, platform, globalOptions) {
+    function MatChip(_elementRef) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
-        /**
-         * Ripple configuration for ripples that are launched on pointer down.
-         * \@docs-private
-         */
-        _this.rippleConfig = {};
         /**
          * Whether the chip has focus.
          */
@@ -156,34 +133,8 @@ var MatChip = /** @class */ (function (_super) {
          * \@deletion-target 6.0.0
          */
         _this.onRemove = _this.removed;
-        _this._addHostClassName();
-        _this._chipRipple = new _angular_material_core.RippleRenderer(_this, ngZone, _elementRef, platform);
-        _this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
-        if (globalOptions) {
-            _this.rippleConfig = {
-                speedFactor: globalOptions.baseSpeedFactor,
-                animation: globalOptions.animation,
-                terminateOnPointerUp: globalOptions.terminateOnPointerUp,
-            };
-        }
         return _this;
     }
-    Object.defineProperty(MatChip.prototype, "rippleDisabled", {
-        /**
-         * Whether ripples are disabled on interaction
-         * @docs-private
-         */
-        get: /**
-         * Whether ripples are disabled on interaction
-         * \@docs-private
-         * @return {?}
-         */
-        function () {
-            return this.disabled || this.disableRipple;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MatChip.prototype, "selected", {
         get: /**
          * Whether the chip is selected.
@@ -271,30 +222,11 @@ var MatChip = /** @class */ (function (_super) {
     /**
      * @return {?}
      */
-    MatChip.prototype._addHostClassName = /**
-     * @return {?}
-     */
-    function () {
-        // Add class for the different chips
-        for (var _i = 0, CHIP_ATTRIBUTE_NAMES_1 = CHIP_ATTRIBUTE_NAMES; _i < CHIP_ATTRIBUTE_NAMES_1.length; _i++) {
-            var attr = CHIP_ATTRIBUTE_NAMES_1[_i];
-            if (this._elementRef.nativeElement.hasAttribute(attr) ||
-                this._elementRef.nativeElement.tagName.toLowerCase() === attr) {
-                (/** @type {?} */ (this._elementRef.nativeElement)).classList.add(attr);
-                return;
-            }
-        }
-        (/** @type {?} */ (this._elementRef.nativeElement)).classList.add('mat-standard-chip');
-    };
-    /**
-     * @return {?}
-     */
     MatChip.prototype.ngOnDestroy = /**
      * @return {?}
      */
     function () {
         this.destroyed.emit({ chip: this });
-        this._chipRipple._removeTriggerEvents();
     };
     /** Selects the chip. */
     /**
@@ -473,16 +405,13 @@ var MatChip = /** @class */ (function (_super) {
     MatChip.decorators = [
         { type: _angular_core.Directive, args: [{
                     selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
-                    inputs: ['color', 'disabled', 'disableRipple'],
+                    inputs: ['color', 'disabled'],
                     exportAs: 'matChip',
                     host: {
                         'class': 'mat-chip',
                         '[attr.tabindex]': 'disabled ? null : -1',
                         'role': 'option',
                         '[class.mat-chip-selected]': 'selected',
-                        '[class.mat-chip-with-avatar]': 'avatar',
-                        '[class.mat-chip-with-trailing-icon]': 'trailingIcon || removeIcon',
-                        '[class.mat-chip-disabled]': 'disabled',
                         '[attr.disabled]': 'disabled || null',
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '[attr.aria-selected]': 'ariaSelected',
@@ -496,14 +425,8 @@ var MatChip = /** @class */ (function (_super) {
     /** @nocollapse */
     MatChip.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
-        { type: _angular_core.NgZone, },
-        { type: _angular_cdk_platform.Platform, },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_material_core.MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
     ]; };
     MatChip.propDecorators = {
-        "avatar": [{ type: _angular_core.ContentChild, args: [MatChipAvatar,] },],
-        "trailingIcon": [{ type: _angular_core.ContentChild, args: [MatChipTrailingIcon,] },],
-        "removeIcon": [{ type: _angular_core.ContentChild, args: [_angular_core.forwardRef(function () { return MatChipRemove; }),] },],
         "selected": [{ type: _angular_core.Input },],
         "value": [{ type: _angular_core.Input },],
         "selectable": [{ type: _angular_core.Input },],
@@ -551,7 +474,7 @@ var MatChipRemove = /** @class */ (function () {
         { type: _angular_core.Directive, args: [{
                     selector: '[matChipRemove]',
                     host: {
-                        'class': 'mat-chip-remove mat-chip-trailing-icon',
+                        'class': 'mat-chip-remove',
                         '(click)': '_handleClick()',
                     }
                 },] },
@@ -1581,7 +1504,7 @@ var MatChipList = /** @class */ (function (_super) {
                         '(keydown)': '_keydown($event)'
                     },
                     providers: [{ provide: _angular_material_formField.MatFormFieldControl, useExisting: MatChipList }],
-                    styles: [".mat-chip{position:relative;overflow:hidden}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip:focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-standard-chip{outline:solid 1px}}.mat-standard-chip.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:7px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:7px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:7px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:7px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:32px;height:32px;margin-right:8px;margin-left:0}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:0}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:7px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:7px;margin-left:0}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper .mat-standard-chip,.mat-chip-list-wrapper input.mat-input-element{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden}input.mat-chip-input{width:150px;margin:3px;flex:1 0 150px}"],
+                    styles: [".mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:baseline}.mat-chip:not(.mat-basic-chip){transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 0 0 8px}[dir=rtl] .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip){margin:0 8px 0 0}.mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-right:8px}[dir=rtl] .mat-form-field-prefix .mat-chip:not(.mat-basic-chip):last-child{margin-left:8px}.mat-chip:not(.mat-basic-chip) .mat-chip-remove.mat-icon{width:1em;height:1em}.mat-chip:not(.mat-basic-chip):focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-chip:not(.mat-basic-chip){outline:solid 1px}}.mat-chip-list-stacked .mat-chip-list-wrapper{display:block}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){display:block;margin:0;margin-bottom:8px}[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip){margin:0;margin-bottom:8px}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child,[dir=rtl] .mat-chip-list-stacked .mat-chip-list-wrapper .mat-chip:not(.mat-basic-chip):last-child{margin-bottom:0}.mat-form-field-prefix .mat-chip-list-wrapper{margin-bottom:8px}.mat-chip-remove{margin-right:-4px;margin-left:6px;cursor:pointer}[dir=rtl] .mat-chip-remove{margin-right:6px;margin-left:-4px}input.mat-chip-input{width:150px;margin:3px;flex:1 0 150px}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
@@ -1811,22 +1734,14 @@ var MatChipInput = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-var CHIP_DECLARATIONS = [
-    MatChipList,
-    MatChip,
-    MatChipInput,
-    MatChipRemove,
-    MatChipAvatar,
-    MatChipTrailingIcon,
-];
 var MatChipsModule = /** @class */ (function () {
     function MatChipsModule() {
     }
     MatChipsModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_cdk_platform.PlatformModule],
-                    exports: CHIP_DECLARATIONS,
-                    declarations: CHIP_DECLARATIONS,
+                    imports: [],
+                    exports: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip],
+                    declarations: [MatChipList, MatChip, MatChipInput, MatChipRemove, MatChipRemove, MatBasicChip],
                     providers: [_angular_material_core.ErrorStateMatcher]
                 },] },
     ];
@@ -1843,8 +1758,7 @@ exports.MatChipList = MatChipList;
 exports.MatChipSelectionChange = MatChipSelectionChange;
 exports.MatChipBase = MatChipBase;
 exports._MatChipMixinBase = _MatChipMixinBase;
-exports.MatChipAvatar = MatChipAvatar;
-exports.MatChipTrailingIcon = MatChipTrailingIcon;
+exports.MatBasicChip = MatBasicChip;
 exports.MatChip = MatChip;
 exports.MatChipRemove = MatChipRemove;
 exports.MatChipInput = MatChipInput;

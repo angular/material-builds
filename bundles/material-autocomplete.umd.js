@@ -840,7 +840,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return this._formField ? this._formField.getConnectedOverlayOrigin() : this._element;
+        return this._formField ? this._formField._connectionContainerRef : this._element;
     };
     /**
      * Returns the width of the input element, so the panel width can match it.

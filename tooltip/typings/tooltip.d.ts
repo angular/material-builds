@@ -8,8 +8,9 @@
 import { AnimationEvent } from '@angular/animations';
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
-import { ConnectionPositionPair, OriginConnectionPosition, Overlay, ScrollDispatcher, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
+import { ConnectionPositionPair, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
+import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
@@ -58,7 +59,6 @@ export declare class MatTooltip implements OnDestroy {
     private _defaultOptions;
     _overlayRef: OverlayRef | null;
     _tooltipInstance: TooltipComponent | null;
-    private _portal;
     private _position;
     private _disabled;
     private _tooltipClass;
@@ -100,12 +100,12 @@ export declare class MatTooltip implements OnDestroy {
     _handleKeydown(e: KeyboardEvent): void;
     /** Handles the touchend events on the host element. */
     _handleTouchend(): void;
+    /** Create the tooltip to display */
+    private _createTooltip();
     /** Create the overlay config and position strategy */
     private _createOverlay();
-    /** Detaches the currently-attached tooltip. */
-    private _detach();
-    /** Updates the position of the current tooltip. */
-    private _updatePosition();
+    /** Disposes the current tooltip and the overlay it is attached to */
+    private _disposeTooltip();
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
      * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).

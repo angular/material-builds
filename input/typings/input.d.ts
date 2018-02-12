@@ -1,10 +1,9 @@
 import { Platform } from '@angular/cdk/platform';
-import { DoCheck, ElementRef, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { DoCheck, ElementRef, OnChanges, OnDestroy } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanUpdateErrorState, ErrorStateMatcher } from '@angular/material/core';
+import { ErrorStateMatcher, CanUpdateErrorState } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs/Subject';
-import { AutofillMonitor } from './autofill';
 /** @docs-private */
 export declare class MatInputBase {
     _defaultErrorStateMatcher: ErrorStateMatcher;
@@ -18,12 +17,11 @@ export declare class MatInputBase {
 }
 export declare const _MatInputMixinBase: (new (...args: any[]) => CanUpdateErrorState) & typeof MatInputBase;
 /** Directive that allows a native input to work inside a `MatFormField`. */
-export declare class MatInput extends _MatInputMixinBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, OnInit, DoCheck, CanUpdateErrorState {
+export declare class MatInput extends _MatInputMixinBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, DoCheck, CanUpdateErrorState {
     protected _elementRef: ElementRef;
     protected _platform: Platform;
     /** @docs-private */
     ngControl: NgControl;
-    private _autofillMonitor;
     protected _uid: string;
     protected _previousNativeValue: any;
     private _inputValueAccessor;
@@ -46,11 +44,6 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
      * @docs-private
      */
     controlType: string;
-    /**
-     * Implemented as part of MatFormFieldControl.
-     * @docs-private
-     */
-    autofilled: boolean;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -90,8 +83,7 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     protected _neverEmptyInputTypes: string[];
     constructor(_elementRef: ElementRef, _platform: Platform, 
         /** @docs-private */
-        ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor);
-    ngOnInit(): void;
+        ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any);
     ngOnChanges(): void;
     ngOnDestroy(): void;
     ngDoCheck(): void;
