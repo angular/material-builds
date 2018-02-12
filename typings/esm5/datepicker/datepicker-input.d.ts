@@ -81,15 +81,15 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     /** @docs-private */
     validate(c: AbstractControl): ValidationErrors | null;
     /**
-     * Gets the element that the datepicker popup should be connected to.
-     * @return The element to connect the popup to.
+     * @deprecated
+     * @deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
      */
     getPopupConnectionElementRef(): ElementRef;
     /**
-     * Determines the offset to be used when the calendar goes into a fallback position.
-     * Primarily used to prevent the calendar from overlapping the input.
+     * Gets the element that the datepicker popup should be connected to.
+     * @return The element to connect the popup to.
      */
-    _getPopupFallbackOffset(): number;
+    getConnectedOverlayOrigin(): ElementRef;
     writeValue(value: D): void;
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: () => void): void;

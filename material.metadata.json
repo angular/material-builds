@@ -4,13 +4,16 @@
   "metadata": {},
   "exports": [
     {
-      "from": "./core"
-    },
-    {
       "from": "./expansion"
     },
     {
-      "from": "./sort"
+      "from": "./core"
+    },
+    {
+      "from": "./grid-list"
+    },
+    {
+      "from": "./toolbar"
     },
     {
       "from": "./button"
@@ -25,52 +28,52 @@
       "from": "./checkbox"
     },
     {
-      "from": "./snack-bar"
+      "from": "./sort"
     },
     {
       "from": "./icon"
     },
     {
-      "from": "./slider"
+      "from": "./snack-bar"
     },
     {
       "from": "./tabs"
     },
     {
-      "from": "./slide-toggle"
+      "from": "./slider"
     },
     {
       "from": "./dialog"
     },
     {
-      "from": "./sidenav"
+      "from": "./slide-toggle"
     },
     {
       "from": "./divider"
     },
     {
-      "from": "./toolbar"
-    },
-    {
       "from": "./form-field"
     },
     {
-      "from": "./radio"
+      "from": "./bottom-sheet"
+    },
+    {
+      "from": "./sidenav"
     },
     {
       "from": "./menu"
     },
     {
-      "from": "./progress-spinner"
+      "from": "./radio"
     },
     {
       "from": "./tooltip"
     },
     {
-      "from": "./progress-bar"
+      "from": "./progress-spinner"
     },
     {
-      "from": "./grid-list"
+      "from": "./progress-bar"
     },
     {
       "from": "./select"
