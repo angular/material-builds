@@ -10,9 +10,9 @@ import { BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 
 /**
@@ -631,17 +631,21 @@ function range(length, valueFunction) {
 class NativeDateAdapter extends DateAdapter {
     /**
      * @param {?} matDateLocale
+     * @param {?} platform
      */
-    constructor(matDateLocale) {
+    constructor(matDateLocale, platform) {
         super();
+        /**
+         * Whether to use `timeZone: 'utc'` with `Intl.DateTimeFormat` when formatting dates.
+         * Without this `Intl.DateTimeFormat` sometimes chooses the wrong timeZone, which can throw off
+         * the result. (e.g. in the en-US locale `new Date(1800, 7, 14).toLocaleDateString()`
+         * will produce `'8/13/1800'`.
+         */
+        this.useUtcForDisplay = true;
         super.setLocale(matDateLocale);
         // IE does its own time zone correction, so we disable this on IE.
-        // TODO(mmalerba): replace with checks from PLATFORM, logic currently duplicated to avoid
-        // breaking change from injecting the Platform.
-        const /** @type {?} */ isBrowser = typeof document === 'object' && !!document;
-        const /** @type {?} */ isIE = isBrowser && /(msie|trident)/i.test(navigator.userAgent);
-        this.useUtcForDisplay = !isIE;
-        this._clampDate = isIE || (isBrowser && /(edge)/i.test(navigator.userAgent));
+        this.useUtcForDisplay = !platform.TRIDENT;
+        this._clampDate = platform.TRIDENT || platform.EDGE;
     }
     /**
      * @param {?} date
@@ -927,6 +931,7 @@ NativeDateAdapter.decorators = [
 /** @nocollapse */
 NativeDateAdapter.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_LOCALE,] },] },
+    { type: Platform, },
 ];
 
 /**
@@ -955,6 +960,7 @@ class NativeDateModule {
 }
 NativeDateModule.decorators = [
     { type: NgModule, args: [{
+                imports: [PlatformModule],
                 providers: [
                     { provide: DateAdapter, useClass: NativeDateAdapter },
                     MAT_DATE_LOCALE_PROVIDER

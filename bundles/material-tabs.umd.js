@@ -167,6 +167,28 @@ var MatTabLabel = /** @class */ (function (_super) {
  */
 
 /**
+ * Decorates the `ng-template` tags and reads out the template from it.
+ */
+var MatTabContent = /** @class */ (function () {
+    function MatTabContent(template) {
+        this.template = template;
+    }
+    MatTabContent.decorators = [
+        { type: _angular_core.Directive, args: [{ selector: '[matTabContent]' },] },
+    ];
+    /** @nocollapse */
+    MatTabContent.ctorParameters = function () { return [
+        { type: _angular_core.TemplateRef, },
+    ]; };
+    return MatTabContent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+/**
  * \@docs-private
  */
 var MatTabBase = /** @class */ (function () {
@@ -257,7 +279,7 @@ var MatTab = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._contentPortal = new _angular_cdk_portal.TemplatePortal(this._content, this._viewContainerRef);
+        this._contentPortal = new _angular_cdk_portal.TemplatePortal(this._explicitContent || this._implicitContent, this._viewContainerRef);
     };
     MatTab.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-tab',
@@ -275,7 +297,8 @@ var MatTab = /** @class */ (function (_super) {
     ]; };
     MatTab.propDecorators = {
         "templateLabel": [{ type: _angular_core.ContentChild, args: [MatTabLabel,] },],
-        "_content": [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
+        "_explicitContent": [{ type: _angular_core.ContentChild, args: [MatTabContent, { read: _angular_core.TemplateRef },] },],
+        "_implicitContent": [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
         "textLabel": [{ type: _angular_core.Input, args: ['label',] },],
     };
     return MatTab;
@@ -546,6 +569,7 @@ var MatTabBody = /** @class */ (function () {
         "_beforeCentering": [{ type: _angular_core.Output },],
         "_afterLeavingCenter": [{ type: _angular_core.Output },],
         "_onCentered": [{ type: _angular_core.Output },],
+        "_portalHost": [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.PortalHostDirective,] },],
         "_content": [{ type: _angular_core.Input, args: ['content',] },],
         "position": [{ type: _angular_core.Input },],
         "origin": [{ type: _angular_core.Input },],
@@ -2047,6 +2071,7 @@ var MatTabsModule = /** @class */ (function () {
                         MatTab,
                         MatTabNav,
                         MatTabLink,
+                        MatTabContent,
                     ],
                     declarations: [
                         MatTabGroup,
@@ -2058,7 +2083,8 @@ var MatTabsModule = /** @class */ (function () {
                         MatTabLink,
                         MatTabBody,
                         MatTabBodyPortal,
-                        MatTabHeader
+                        MatTabHeader,
+                        MatTabContent,
                     ],
                     providers: [_angular_cdk_scrolling.VIEWPORT_RULER_PROVIDER],
                 },] },
@@ -2077,22 +2103,23 @@ exports.MatTab = MatTab;
 exports.MatTabLabel = MatTabLabel;
 exports.MatTabNav = MatTabNav;
 exports.MatTabLink = MatTabLink;
+exports.MatTabContent = MatTabContent;
 exports.MatTabsModule = MatTabsModule;
 exports.MatTabChangeEvent = MatTabChangeEvent;
 exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵe21 = MatTabBase;
-exports.ɵf21 = _MatTabMixinBase;
-exports.ɵa21 = MatTabHeaderBase;
-exports.ɵb21 = _MatTabHeaderMixinBase;
-exports.ɵc21 = MatTabLabelWrapperBase;
-exports.ɵd21 = _MatTabLabelWrapperMixinBase;
-exports.ɵi21 = MatTabLinkBase;
-exports.ɵg21 = MatTabNavBase;
-exports.ɵj21 = _MatTabLinkMixinBase;
-exports.ɵh21 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

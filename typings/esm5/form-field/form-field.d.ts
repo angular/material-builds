@@ -7,17 +7,22 @@ import { MatLabel } from './label';
 import { MatPlaceholder } from './placeholder';
 import { MatPrefix } from './prefix';
 import { MatSuffix } from './suffix';
+import { Directionality } from '@angular/cdk/bidi';
 /** @docs-private */
 export declare class MatFormFieldBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
 export declare const _MatFormFieldMixinBase: (new (...args: any[]) => CanColor) & typeof MatFormFieldBase;
+export declare type MatFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
 /** Container for form controls that applies Material Design styling and behavior. */
 export declare class MatFormField extends _MatFormFieldMixinBase implements AfterContentInit, AfterContentChecked, AfterViewInit, CanColor {
     _elementRef: ElementRef;
     private _changeDetectorRef;
+    private _dir;
     private _labelOptions;
+    /** The form-field appearance style. */
+    appearance: MatFormFieldAppearance;
     /**
      * @deprecated Use `color` instead.
      * @deletion-target 6.0.0
@@ -44,10 +49,22 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
      * @deletion-target 6.0.0
      */
     floatPlaceholder: FloatLabelType;
-    /** Whether the label should always float, never float or float as the user types. */
+    /**
+     * Whether the label should always float, never float or float as the user types.
+     *
+     * Note: only the legacy appearance supports the `never` option. `never` was originally added as a
+     * way to make the floating label emulate the behavior of a standard input placeholder. However
+     * the form field now supports both floating labels and placeholders. Therefore in the non-legacy
+     * appearances the `never` option has been disabled in favor of just using the placeholder.
+     */
     floatLabel: FloatLabelType;
     private _floatLabel;
-    /** Reference to the form field's underline element. */
+    _outlineGapWidth: number;
+    _outlineGapStart: number;
+    /**
+     * @deprecated
+     * @deletion-target 7.0.0
+     */
     underlineRef: ElementRef;
     _connectionContainerRef: ElementRef;
     _inputContainerRef: ElementRef;
@@ -59,7 +76,12 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     _hintChildren: QueryList<MatHint>;
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions, _dir: Directionality);
+    /**
+     * Gets an ElementRef for the element that a overlay attached to the form-field should be
+     * positioned relative to.
+     */
+    getConnectedOverlayOrigin(): ElementRef;
     ngAfterContentInit(): void;
     ngAfterContentChecked(): void;
     ngAfterViewInit(): void;
@@ -93,4 +115,11 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _syncDescribedByIds();
     /** Throws an error if the form field's control is missing. */
     protected _validateControlChild(): void;
+    /**
+     * Updates the width and position of the gap in the outline. Only relevant for the outline
+     * appearance.
+     */
+    updateOutlineGap(): void;
+    /** Gets the start end of the rect considering the current directionality. */
+    private _getStartEnd(rect);
 }
