@@ -65,16 +65,6 @@ export declare class MatDatepicker<D> implements OnDestroy {
      * @deletion-target 6.0.0
      */
     readonly selectedChanged: EventEmitter<D>;
-    /**
-     * Emits selected year in multiyear view.
-     * This doesn't imply a change on the selected date.
-     */
-    readonly yearSelected: EventEmitter<D>;
-    /**
-     * Emits selected month in year view.
-     * This doesn't imply a change on the selected date.
-     */
-    readonly monthSelected: EventEmitter<D>;
     /** Classes to be passed to the date picker panel. Supports the same syntax as `ngClass`. */
     panelClass: string | string[];
     /** Emits when the datepicker has been opened. */
@@ -111,10 +101,6 @@ export declare class MatDatepicker<D> implements OnDestroy {
     ngOnDestroy(): void;
     /** Selects the given date */
     _select(date: D): void;
-    /** Emits the selected year in multiyear view */
-    _selectYear(normalizedYear: D): void;
-    /** Emits selected month in year view */
-    _selectMonth(normalizedMonth: D): void;
     /**
      * Register an input with this datepicker.
      * @param input The datepicker input to register with this datepicker.

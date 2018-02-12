@@ -10,7 +10,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanUpdateErrorState, ErrorStateMatcher } from '@angular/material/core';
+import { ErrorStateMatcher, CanUpdateErrorState } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs/Observable';
 import { MatChip, MatChipEvent, MatChipSelectionChange } from './chip';
