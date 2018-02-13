@@ -572,7 +572,7 @@ var MatListOption = /** @class */ (function (_super) {
     MatListOption.ctorParameters = function () { return [
         { type: ElementRef, },
         { type: ChangeDetectorRef, },
-        { type: MatSelectionList, decorators: [{ type: Optional }, { type: Inject, args: [forwardRef(function () { return MatSelectionList; }),] },] },
+        { type: MatSelectionList, decorators: [{ type: Inject, args: [forwardRef(function () { return MatSelectionList; }),] },] },
     ]; };
     MatListOption.propDecorators = {
         "_lines": [{ type: ContentChildren, args: [MatLine,] },],

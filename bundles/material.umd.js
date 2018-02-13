@@ -2037,24 +2037,6 @@ var MatRipple = /** @class */ (function () {
     function () {
         this._rippleRenderer._removeTriggerEvents();
     };
-    /** Launches a manual ripple at the specified position. */
-    /**
-     * Launches a manual ripple at the specified position.
-     * @param {?} x
-     * @param {?} y
-     * @param {?=} config
-     * @return {?}
-     */
-    MatRipple.prototype.launch = /**
-     * Launches a manual ripple at the specified position.
-     * @param {?} x
-     * @param {?} y
-     * @param {?=} config
-     * @return {?}
-     */
-    function (x, y, config) {
-        return this._rippleRenderer.fadeInRipple(x, y, __assign({}, this.rippleConfig, config));
-    };
     /** Fades out all currently showing ripple elements. */
     /**
      * Fades out all currently showing ripple elements.
@@ -2109,6 +2091,30 @@ var MatRipple = /** @class */ (function () {
     function () {
         if (!this.disabled && this._isInitialized) {
             this._rippleRenderer.setupTriggerEvents(this.trigger);
+        }
+    };
+    /** Launches a manual ripple at the specified coordinated or just by the ripple config. */
+    /**
+     * Launches a manual ripple at the specified coordinated or just by the ripple config.
+     * @param {?} configOrX
+     * @param {?=} y
+     * @param {?=} config
+     * @return {?}
+     */
+    MatRipple.prototype.launch = /**
+     * Launches a manual ripple at the specified coordinated or just by the ripple config.
+     * @param {?} configOrX
+     * @param {?=} y
+     * @param {?=} config
+     * @return {?}
+     */
+    function (configOrX, y, config) {
+        if (y === void 0) { y = 0; }
+        if (typeof configOrX === 'number') {
+            return this._rippleRenderer.fadeInRipple(configOrX, y, __assign({}, this.rippleConfig, config));
+        }
+        else {
+            return this._rippleRenderer.fadeInRipple(0, 0, __assign({}, this.rippleConfig, configOrX));
         }
     };
     MatRipple.decorators = [
@@ -3638,6 +3644,14 @@ var MatAutocomplete = /** @class */ (function (_super) {
          * Event that is emitted whenever an option from the list is selected.
          */
         _this.optionSelected = new _angular_core.EventEmitter();
+        /**
+         * Event that is emitted when the autocomplete panel is opened.
+         */
+        _this.opened = new _angular_core.EventEmitter();
+        /**
+         * Event that is emitted when the autocomplete panel is closed.
+         */
+        _this.closed = new _angular_core.EventEmitter();
         _this._classList = {};
         /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
@@ -3701,7 +3715,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
      */
     function () {
         this._keyManager = new _angular_cdk_a11y.ActiveDescendantKeyManager(this.options).withWrap();
-        // Set the initial visibiity state.
+        // Set the initial visibility state.
         this._setVisibility();
     };
     /**
@@ -3798,6 +3812,8 @@ var MatAutocomplete = /** @class */ (function (_super) {
         "displayWith": [{ type: _angular_core.Input },],
         "autoActiveFirstOption": [{ type: _angular_core.Input },],
         "optionSelected": [{ type: _angular_core.Output },],
+        "opened": [{ type: _angular_core.Output },],
+        "closed": [{ type: _angular_core.Output },],
         "classList": [{ type: _angular_core.Input, args: ['class',] },],
     };
     return MatAutocomplete;
@@ -3944,6 +3960,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         this._resetLabel();
         if (this._panelOpen) {
             this.autocomplete._isOpen = this._panelOpen = false;
+            this.autocomplete.closed.emit();
             if (this._overlayRef && this._overlayRef.hasAttached()) {
                 this._overlayRef.detach();
                 this._closingActionsSubscription.unsubscribe();
@@ -4348,8 +4365,14 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             this._overlayRef.attach(this._portal);
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
+        var /** @type {?} */ wasOpen = this.panelOpen;
         this.autocomplete._setVisibility();
         this.autocomplete._isOpen = this._panelOpen = true;
+        // We need to do an extra `panelOpen` check in here, because the
+        // autocomplete won't be shown if there are no options.
+        if (this.panelOpen && wasOpen !== this.panelOpen) {
+            this.autocomplete.opened.emit();
+        }
     };
     /**
      * @return {?}
@@ -17082,7 +17105,7 @@ var MatListOption = /** @class */ (function (_super) {
     MatListOption.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
         { type: _angular_core.ChangeDetectorRef, },
-        { type: MatSelectionList, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatSelectionList; }),] },] },
+        { type: MatSelectionList, decorators: [{ type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatSelectionList; }),] },] },
     ]; };
     MatListOption.propDecorators = {
         "_lines": [{ type: _angular_core.ContentChildren, args: [MatLine,] },],
@@ -20535,7 +20558,7 @@ var MatSelect = /** @class */ (function (_super) {
     MatSelect.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-select',
                     exportAs: 'matSelect',
-                    template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\" [ngSwitch]=\"empty\"><span class=\"mat-select-placeholder\" *ngSwitchCase=\"true\">{{placeholder || '\u00A0'}}</span> <span class=\"mat-select-value-text\" *ngSwitchCase=\"false\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{triggerValue}}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div #panel class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\" (keydown)=\"_handleKeydown($event)\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
+                    template: "<div cdk-overlay-origin class=\"mat-select-trigger\" aria-hidden=\"true\" (click)=\"toggle()\" #origin=\"cdkOverlayOrigin\" #trigger><div class=\"mat-select-value\" [ngSwitch]=\"empty\"><span class=\"mat-select-placeholder\" *ngSwitchCase=\"true\">{{placeholder || '\u00A0'}}</span> <span class=\"mat-select-value-text\" *ngSwitchCase=\"false\" [ngSwitch]=\"!!customTrigger\"><span *ngSwitchDefault>{{triggerValue}}</span><ng-content select=\"mat-select-trigger\" *ngSwitchCase=\"true\"></ng-content></span></div><div class=\"mat-select-arrow-wrapper\"><div class=\"mat-select-arrow\"></div></div></div><ng-template cdk-connected-overlay hasBackdrop cdkConnectedOverlayLockPosition backdropClass=\"cdk-overlay-transparent-backdrop\" [scrollStrategy]=\"_scrollStrategy\" [origin]=\"origin\" [open]=\"panelOpen\" [positions]=\"_positions\" [minWidth]=\"_triggerRect?.width\" [offsetY]=\"_offsetY\" (backdropClick)=\"close()\" (attach)=\"_onAttached()\" (detach)=\"close()\"><div #panel class=\"mat-select-panel {{ _getPanelTheme() }}\" [ngClass]=\"panelClass\" [@transformPanel]=\"multiple ? 'showing-multiple' : 'showing'\" (@transformPanel.done)=\"_onPanelDone()\" [style.transformOrigin]=\"_transformOrigin\" [class.mat-select-panel-done-animating]=\"_panelDoneAnimating\" [style.font-size.px]=\"_triggerFontSize\" (keydown)=\"_handleKeydown($event)\"><div class=\"mat-select-content\" [@fadeInContent]=\"'showing'\" (@fadeInContent.done)=\"_onFadeInDone()\"><ng-content></ng-content></div></div></ng-template>",
                     styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-form-field-appearance-fill .mat-select-arrow-wrapper,.mat-form-field-appearance-standard .mat-select-arrow-wrapper{transform:translateY(-50%)}.mat-form-field-appearance-outline .mat-select-arrow-wrapper{transform:translateY(-25%)}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{-webkit-backface-visibility:hidden;backface-visibility:hidden;min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-label{width:calc(100% - 18px)}.mat-select-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-form-field-hide-placeholder .mat-select-placeholder{color:transparent;transition:none;display:block}"],
                     inputs: ['disabled', 'disableRipple', 'tabIndex'],
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -31142,7 +31165,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta-0-98a6910');
+var VERSION = new _angular_core.Version('6.0.0-beta-0-708b91a');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -31386,10 +31409,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa8 = MatMenuItemBase;
-exports.ɵb8 = _MatMenuItemMixinBase;
-exports.ɵd8 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc8 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa23 = MatMenuItemBase;
+exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -31512,16 +31535,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe17 = MatTabBase;
-exports.ɵf17 = _MatTabMixinBase;
-exports.ɵa17 = MatTabHeaderBase;
-exports.ɵb17 = _MatTabHeaderMixinBase;
-exports.ɵc17 = MatTabLabelWrapperBase;
-exports.ɵd17 = _MatTabLabelWrapperMixinBase;
-exports.ɵi17 = MatTabLinkBase;
-exports.ɵg17 = MatTabNavBase;
-exports.ɵj17 = _MatTabLinkMixinBase;
-exports.ɵh17 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

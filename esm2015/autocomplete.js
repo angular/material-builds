@@ -89,6 +89,14 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
          * Event that is emitted whenever an option from the list is selected.
          */
         this.optionSelected = new EventEmitter();
+        /**
+         * Event that is emitted when the autocomplete panel is opened.
+         */
+        this.opened = new EventEmitter();
+        /**
+         * Event that is emitted when the autocomplete panel is closed.
+         */
+        this.closed = new EventEmitter();
         this._classList = {};
         /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
@@ -134,7 +142,7 @@ class MatAutocomplete extends _MatAutocompleteMixinBase {
      */
     ngAfterContentInit() {
         this._keyManager = new ActiveDescendantKeyManager(this.options).withWrap();
-        // Set the initial visibiity state.
+        // Set the initial visibility state.
         this._setVisibility();
     }
     /**
@@ -206,6 +214,8 @@ MatAutocomplete.propDecorators = {
     "displayWith": [{ type: Input },],
     "autoActiveFirstOption": [{ type: Input },],
     "optionSelected": [{ type: Output },],
+    "opened": [{ type: Output },],
+    "closed": [{ type: Output },],
     "classList": [{ type: Input, args: ['class',] },],
 };
 
@@ -342,6 +352,7 @@ class MatAutocompleteTrigger {
         this._resetLabel();
         if (this._panelOpen) {
             this.autocomplete._isOpen = this._panelOpen = false;
+            this.autocomplete.closed.emit();
             if (this._overlayRef && this._overlayRef.hasAttached()) {
                 this._overlayRef.detach();
                 this._closingActionsSubscription.unsubscribe();
@@ -644,8 +655,14 @@ class MatAutocompleteTrigger {
             this._overlayRef.attach(this._portal);
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
+        const /** @type {?} */ wasOpen = this.panelOpen;
         this.autocomplete._setVisibility();
         this.autocomplete._isOpen = this._panelOpen = true;
+        // We need to do an extra `panelOpen` check in here, because the
+        // autocomplete won't be shown if there are no options.
+        if (this.panelOpen && wasOpen !== this.panelOpen) {
+            this.autocomplete.opened.emit();
+        }
     }
     /**
      * @return {?}

@@ -88,8 +88,6 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     constructor(_elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions);
     ngOnInit(): void;
     ngOnDestroy(): void;
-    /** Launches a manual ripple at the specified position. */
-    launch(x: number, y: number, config?: RippleConfig): RippleRef;
     /** Fades out all currently showing ripple elements. */
     fadeOutAll(): void;
     /** Ripple configuration from the directive's input values. */
@@ -98,4 +96,16 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     readonly rippleDisabled: boolean;
     /** Sets up the the trigger event listeners if ripples are enabled. */
     private _setupTriggerEventsIfEnabled();
+    /**
+     * Launches a manual ripple using the specified ripple configuration.
+     * @param config Configuration for the manual ripple.
+     */
+    launch(config: RippleConfig): RippleRef;
+    /**
+     * Launches a manual ripple at the specified coordinates within the element.
+     * @param x Coordinate within the element, along the X axis at which to fade-in the ripple.
+     * @param y Coordinate within the element, along the Y axis at which to fade-in the ripple.
+     * @param config Optional ripple configuration for the manual ripple.
+     */
+    launch(x: number, y: number, config?: RippleConfig): RippleRef;
 }

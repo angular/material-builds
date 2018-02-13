@@ -591,7 +591,7 @@ var MatListOption = /** @class */ (function (_super) {
     MatListOption.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
         { type: _angular_core.ChangeDetectorRef, },
-        { type: MatSelectionList, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatSelectionList; }),] },] },
+        { type: MatSelectionList, decorators: [{ type: _angular_core.Inject, args: [_angular_core.forwardRef(function () { return MatSelectionList; }),] },] },
     ]; };
     MatListOption.propDecorators = {
         "_lines": [{ type: _angular_core.ContentChildren, args: [_angular_material_core.MatLine,] },],

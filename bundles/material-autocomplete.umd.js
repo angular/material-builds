@@ -95,6 +95,14 @@ var MatAutocomplete = /** @class */ (function (_super) {
          * Event that is emitted whenever an option from the list is selected.
          */
         _this.optionSelected = new _angular_core.EventEmitter();
+        /**
+         * Event that is emitted when the autocomplete panel is opened.
+         */
+        _this.opened = new _angular_core.EventEmitter();
+        /**
+         * Event that is emitted when the autocomplete panel is closed.
+         */
+        _this.closed = new _angular_core.EventEmitter();
         _this._classList = {};
         /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
@@ -158,7 +166,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
      */
     function () {
         this._keyManager = new _angular_cdk_a11y.ActiveDescendantKeyManager(this.options).withWrap();
-        // Set the initial visibiity state.
+        // Set the initial visibility state.
         this._setVisibility();
     };
     /**
@@ -255,6 +263,8 @@ var MatAutocomplete = /** @class */ (function (_super) {
         "displayWith": [{ type: _angular_core.Input },],
         "autoActiveFirstOption": [{ type: _angular_core.Input },],
         "optionSelected": [{ type: _angular_core.Output },],
+        "opened": [{ type: _angular_core.Output },],
+        "closed": [{ type: _angular_core.Output },],
         "classList": [{ type: _angular_core.Input, args: ['class',] },],
     };
     return MatAutocomplete;
@@ -401,6 +411,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         this._resetLabel();
         if (this._panelOpen) {
             this.autocomplete._isOpen = this._panelOpen = false;
+            this.autocomplete.closed.emit();
             if (this._overlayRef && this._overlayRef.hasAttached()) {
                 this._overlayRef.detach();
                 this._closingActionsSubscription.unsubscribe();
@@ -805,8 +816,14 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             this._overlayRef.attach(this._portal);
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
+        var /** @type {?} */ wasOpen = this.panelOpen;
         this.autocomplete._setVisibility();
         this.autocomplete._isOpen = this._panelOpen = true;
+        // We need to do an extra `panelOpen` check in here, because the
+        // autocomplete won't be shown if there are no options.
+        if (this.panelOpen && wasOpen !== this.panelOpen) {
+            this.autocomplete.opened.emit();
+        }
     };
     /**
      * @return {?}

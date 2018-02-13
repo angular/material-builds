@@ -1037,6 +1037,9 @@ $mat-grey: (
   )
 );
 
+// Alias for alternate spelling.
+$mat-gray: $mat-grey;
+
 $mat-blue-grey: (
   50: #eceff1,
   100: #cfd8dc,
@@ -1069,6 +1072,9 @@ $mat-blue-grey: (
     A700: $light-primary-text,
   )
 );
+
+// Alias for alternate spelling.
+$mat-blue-gray: $mat-blue-grey;
 
 
 // Background palette for light themes.

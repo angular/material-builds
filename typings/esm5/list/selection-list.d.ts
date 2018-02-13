@@ -56,7 +56,8 @@ export declare class MatSelectionListChange {
 export declare class MatListOption extends _MatListOptionMixinBase implements AfterContentInit, OnDestroy, OnInit, FocusableOption, CanDisableRipple {
     private _element;
     private _changeDetector;
-    /** @docs-private */ selectionList: MatSelectionList;
+    /** @docs-private */
+    selectionList: MatSelectionList;
     private _lineSetter;
     private _selected;
     private _disabled;
@@ -80,7 +81,8 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
      */
     readonly selectionChange: EventEmitter<MatListOptionChange>;
     constructor(_element: ElementRef, _changeDetector: ChangeDetectorRef, 
-        /** @docs-private */ selectionList: MatSelectionList);
+        /** @docs-private */
+        selectionList: MatSelectionList);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

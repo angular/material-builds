@@ -459,7 +459,7 @@ MatListOption.decorators = [
 MatListOption.ctorParameters = () => [
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
-    { type: MatSelectionList, decorators: [{ type: Optional }, { type: Inject, args: [forwardRef(() => MatSelectionList),] },] },
+    { type: MatSelectionList, decorators: [{ type: Inject, args: [forwardRef(() => MatSelectionList),] },] },
 ];
 MatListOption.propDecorators = {
     "_lines": [{ type: ContentChildren, args: [MatLine,] },],

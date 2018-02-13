@@ -2037,24 +2037,6 @@ var MatRipple = /** @class */ (function () {
     function () {
         this._rippleRenderer._removeTriggerEvents();
     };
-    /** Launches a manual ripple at the specified position. */
-    /**
-     * Launches a manual ripple at the specified position.
-     * @param {?} x
-     * @param {?} y
-     * @param {?=} config
-     * @return {?}
-     */
-    MatRipple.prototype.launch = /**
-     * Launches a manual ripple at the specified position.
-     * @param {?} x
-     * @param {?} y
-     * @param {?=} config
-     * @return {?}
-     */
-    function (x, y, config) {
-        return this._rippleRenderer.fadeInRipple(x, y, __assign({}, this.rippleConfig, config));
-    };
     /** Fades out all currently showing ripple elements. */
     /**
      * Fades out all currently showing ripple elements.
@@ -2109,6 +2091,30 @@ var MatRipple = /** @class */ (function () {
     function () {
         if (!this.disabled && this._isInitialized) {
             this._rippleRenderer.setupTriggerEvents(this.trigger);
+        }
+    };
+    /** Launches a manual ripple at the specified coordinated or just by the ripple config. */
+    /**
+     * Launches a manual ripple at the specified coordinated or just by the ripple config.
+     * @param {?} configOrX
+     * @param {?=} y
+     * @param {?=} config
+     * @return {?}
+     */
+    MatRipple.prototype.launch = /**
+     * Launches a manual ripple at the specified coordinated or just by the ripple config.
+     * @param {?} configOrX
+     * @param {?=} y
+     * @param {?=} config
+     * @return {?}
+     */
+    function (configOrX, y, config) {
+        if (y === void 0) { y = 0; }
+        if (typeof configOrX === 'number') {
+            return this._rippleRenderer.fadeInRipple(configOrX, y, __assign({}, this.rippleConfig, config));
+        }
+        else {
+            return this._rippleRenderer.fadeInRipple(0, 0, __assign({}, this.rippleConfig, configOrX));
         }
     };
     MatRipple.decorators = [

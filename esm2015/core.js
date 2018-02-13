@@ -1580,16 +1580,6 @@ class MatRipple {
         this._rippleRenderer._removeTriggerEvents();
     }
     /**
-     * Launches a manual ripple at the specified position.
-     * @param {?} x
-     * @param {?} y
-     * @param {?=} config
-     * @return {?}
-     */
-    launch(x, y, config) {
-        return this._rippleRenderer.fadeInRipple(x, y, Object.assign({}, this.rippleConfig, config));
-    }
-    /**
      * Fades out all currently showing ripple elements.
      * @return {?}
      */
@@ -1624,6 +1614,21 @@ class MatRipple {
     _setupTriggerEventsIfEnabled() {
         if (!this.disabled && this._isInitialized) {
             this._rippleRenderer.setupTriggerEvents(this.trigger);
+        }
+    }
+    /**
+     * Launches a manual ripple at the specified coordinated or just by the ripple config.
+     * @param {?} configOrX
+     * @param {?=} y
+     * @param {?=} config
+     * @return {?}
+     */
+    launch(configOrX, y = 0, config) {
+        if (typeof configOrX === 'number') {
+            return this._rippleRenderer.fadeInRipple(configOrX, y, Object.assign({}, this.rippleConfig, config));
+        }
+        else {
+            return this._rippleRenderer.fadeInRipple(0, 0, Object.assign({}, this.rippleConfig, configOrX));
         }
     }
 }
