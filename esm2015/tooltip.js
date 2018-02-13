@@ -17,6 +17,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { take } from 'rxjs/operators/take';
+import { takeUntil } from 'rxjs/operators/takeUntil';
 import { filter } from 'rxjs/operators/filter';
 import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
@@ -133,6 +134,10 @@ class MatTooltip {
         this.hideDelay = this._defaultOptions ? this._defaultOptions.hideDelay : 0;
         this._message = '';
         this._manualListeners = new Map();
+        /**
+         * Emits when the component is destroyed.
+         */
+        this._destroyed = new Subject();
         const /** @type {?} */ element = _elementRef.nativeElement;
         // The mouse events shouldn't be bound on iOS devices, because
         // they can prevent the first tap from firing its click event.
@@ -150,7 +155,7 @@ class MatTooltip {
             // the `user-select` to avoid these issues.
             element.style.webkitUserSelect = element.style.userSelect = '';
         }
-        _focusMonitor.monitor(element).subscribe(origin => {
+        _focusMonitor.monitor(element).pipe(takeUntil(this._destroyed)).subscribe(origin => {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
                 _ngZone.run(() => this.hide(0));
@@ -257,6 +262,8 @@ class MatTooltip {
             this._manualListeners.forEach((listener, event) => this._elementRef.nativeElement.removeEventListener(event, listener));
             this._manualListeners.clear();
         }
+        this._destroyed.next();
+        this._destroyed.complete();
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
         this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
     }
@@ -273,7 +280,9 @@ class MatTooltip {
         this._detach();
         this._portal = this._portal || new ComponentPortal(TooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
-        this._tooltipInstance.afterHidden().subscribe(() => this._detach());
+        this._tooltipInstance.afterHidden()
+            .pipe(takeUntil(this._destroyed))
+            .subscribe(() => this._detach());
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage(); /** @type {?} */
         ((this._tooltipInstance)).show(this._position, delay);
@@ -336,7 +345,7 @@ class MatTooltip {
             .connectedTo(this._elementRef, origin.main, overlay.main)
             .withFallbackPosition(origin.fallback, overlay.fallback)
             .withScrollableContainers(this._scrollDispatcher.getAncestorScrollContainers(this._elementRef));
-        strategy.onPositionChange.pipe(filter(() => !!this._tooltipInstance)).subscribe(change => {
+        strategy.onPositionChange.pipe(filter(() => !!this._tooltipInstance), takeUntil(this._destroyed)).subscribe(change => {
             if (change.scrollableViewProperties.isOverlayClipped && /** @type {?} */ ((this._tooltipInstance)).isVisible()) {
                 // After position changes occur and the overlay is clipped by
                 // a parent scrollable then close the tooltip.
@@ -354,7 +363,9 @@ class MatTooltip {
             panelClass: TOOLTIP_PANEL_CLASS,
             scrollStrategy: this._scrollStrategy()
         });
-        this._overlayRef.detachments().subscribe(() => this._detach());
+        this._overlayRef.detachments()
+            .pipe(takeUntil(this._destroyed))
+            .subscribe(() => this._detach());
         return this._overlayRef;
     }
     /**
@@ -452,7 +463,7 @@ class MatTooltip {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = this.message;
             this._tooltipInstance._markForCheck();
-            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(() => {
+            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1), takeUntil(this._destroyed)).subscribe(() => {
                 if (this._tooltipInstance) {
                     /** @type {?} */ ((this._overlayRef)).updatePosition();
                 }

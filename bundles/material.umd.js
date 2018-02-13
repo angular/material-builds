@@ -20720,6 +20720,10 @@ var MatTooltip = /** @class */ (function () {
         this.hideDelay = this._defaultOptions ? this._defaultOptions.hideDelay : 0;
         this._message = '';
         this._manualListeners = new Map();
+        /**
+         * Emits when the component is destroyed.
+         */
+        this._destroyed = new rxjs_Subject.Subject();
         var /** @type {?} */ element = _elementRef.nativeElement;
         // The mouse events shouldn't be bound on iOS devices, because
         // they can prevent the first tap from firing its click event.
@@ -20737,7 +20741,7 @@ var MatTooltip = /** @class */ (function () {
             // the `user-select` to avoid these issues.
             element.style.webkitUserSelect = element.style.userSelect = '';
         }
-        _focusMonitor.monitor(element).subscribe(function (origin) {
+        _focusMonitor.monitor(element).pipe(rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
                 _ngZone.run(function () { return _this.hide(0); });
@@ -20874,6 +20878,8 @@ var MatTooltip = /** @class */ (function () {
             });
             this._manualListeners.clear();
         }
+        this._destroyed.next();
+        this._destroyed.complete();
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
         this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
     };
@@ -20898,7 +20904,9 @@ var MatTooltip = /** @class */ (function () {
         this._detach();
         this._portal = this._portal || new _angular_cdk_portal.ComponentPortal(TooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
-        this._tooltipInstance.afterHidden().subscribe(function () { return _this._detach(); });
+        this._tooltipInstance.afterHidden()
+            .pipe(rxjs_operators_takeUntil.takeUntil(this._destroyed))
+            .subscribe(function () { return _this._detach(); });
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage(); /** @type {?} */
         ((this._tooltipInstance)).show(this._position, delay$$1);
@@ -20994,7 +21002,7 @@ var MatTooltip = /** @class */ (function () {
             .connectedTo(this._elementRef, origin.main, overlay.main)
             .withFallbackPosition(origin.fallback, overlay.fallback)
             .withScrollableContainers(this._scrollDispatcher.getAncestorScrollContainers(this._elementRef));
-        strategy.onPositionChange.pipe(rxjs_operators_filter.filter(function () { return !!_this._tooltipInstance; })).subscribe(function (change) {
+        strategy.onPositionChange.pipe(rxjs_operators_filter.filter(function () { return !!_this._tooltipInstance; }), rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function (change) {
             if (change.scrollableViewProperties.isOverlayClipped && /** @type {?} */ ((_this._tooltipInstance)).isVisible()) {
                 // After position changes occur and the overlay is clipped by
                 // a parent scrollable then close the tooltip.
@@ -21015,7 +21023,9 @@ var MatTooltip = /** @class */ (function () {
             panelClass: TOOLTIP_PANEL_CLASS,
             scrollStrategy: this._scrollStrategy()
         });
-        this._overlayRef.detachments().subscribe(function () { return _this._detach(); });
+        this._overlayRef.detachments()
+            .pipe(rxjs_operators_takeUntil.takeUntil(this._destroyed))
+            .subscribe(function () { return _this._detach(); });
         return this._overlayRef;
     };
     /**
@@ -21140,7 +21150,7 @@ var MatTooltip = /** @class */ (function () {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = this.message;
             this._tooltipInstance._markForCheck();
-            this._ngZone.onMicrotaskEmpty.asObservable().pipe(rxjs_operators_take.take(1)).subscribe(function () {
+            this._ngZone.onMicrotaskEmpty.asObservable().pipe(rxjs_operators_take.take(1), rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function () {
                 if (_this._tooltipInstance) {
                     /** @type {?} */ ((_this._overlayRef)).updatePosition();
                 }
@@ -31109,7 +31119,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta-0-6d4e052');
+var VERSION = new _angular_core.Version('6.0.0-beta-0-66a01fb');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -31351,10 +31361,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -31477,16 +31487,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe18 = MatTabBase;
-exports.ɵf18 = _MatTabMixinBase;
-exports.ɵa18 = MatTabHeaderBase;
-exports.ɵb18 = _MatTabHeaderMixinBase;
-exports.ɵc18 = MatTabLabelWrapperBase;
-exports.ɵd18 = _MatTabLabelWrapperMixinBase;
-exports.ɵi18 = MatTabLinkBase;
-exports.ɵg18 = MatTabNavBase;
-exports.ɵj18 = _MatTabLinkMixinBase;
-exports.ɵh18 = _MatTabNavMixinBase;
+exports.ɵe23 = MatTabBase;
+exports.ɵf23 = _MatTabMixinBase;
+exports.ɵa23 = MatTabHeaderBase;
+exports.ɵb23 = _MatTabHeaderMixinBase;
+exports.ɵc23 = MatTabLabelWrapperBase;
+exports.ɵd23 = _MatTabLabelWrapperMixinBase;
+exports.ɵi23 = MatTabLinkBase;
+exports.ɵg23 = MatTabNavBase;
+exports.ɵj23 = _MatTabLinkMixinBase;
+exports.ɵh23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
