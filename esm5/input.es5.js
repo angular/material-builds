@@ -101,6 +101,7 @@ var AutofillMonitor = /** @class */ (function () {
         var /** @type {?} */ info = this._monitoredElements.get(element);
         if (info) {
             info.unlisten();
+            info.subject.complete();
             element.classList.remove('mat-input-autofill-monitored');
             element.classList.remove('mat-input-autofilled');
             this._monitoredElements.delete(element);
@@ -113,10 +114,8 @@ var AutofillMonitor = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._monitoredElements.forEach(function (info) {
-            info.unlisten();
-            info.subject.complete();
-        });
+        var _this = this;
+        this._monitoredElements.forEach(function (_info, element) { return _this.stopMonitoring(element); });
     };
     AutofillMonitor.decorators = [
         { type: Injectable },
@@ -144,7 +143,8 @@ var MatAutofill = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this._autofillMonitor.monitor(this._elementRef.nativeElement)
+        this._autofillMonitor
+            .monitor(this._elementRef.nativeElement)
             .subscribe(function (event) { return _this.matAutofill.emit(event); });
     };
     /**

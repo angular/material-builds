@@ -316,6 +316,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function (focusOrigin) {
+        // TODO(paul): support `program`. See https://github.com/angular/material2/issues/9889
         if (!this._focusRipple && focusOrigin === 'keyboard') {
             // For keyboard focus show a persistent ripple as focus indicator.
             this._focusRipple = this._ripple.launch(0, 0, { persistent: true });

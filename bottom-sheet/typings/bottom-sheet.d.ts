@@ -21,8 +21,8 @@ export declare class MatBottomSheet {
     /** Reference to the currently opened bottom sheet. */
     _openedBottomSheetRef: MatBottomSheetRef<any> | null;
     constructor(_overlay: Overlay, _injector: Injector, _parentBottomSheet: MatBottomSheet);
-    open<T, D = any>(component: ComponentType<T>, config?: MatBottomSheetConfig<D>): MatBottomSheetRef<T>;
-    open<T, D = any>(template: TemplateRef<T>, config?: MatBottomSheetConfig<D>): MatBottomSheetRef<T>;
+    open<T, D = any, R = any>(component: ComponentType<T>, config?: MatBottomSheetConfig<D>): MatBottomSheetRef<T, R>;
+    open<T, D = any, R = any>(template: TemplateRef<T>, config?: MatBottomSheetConfig<D>): MatBottomSheetRef<T, R>;
     /**
      * Dismisses the currently-visible bottom sheet.
      */

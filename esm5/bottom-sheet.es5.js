@@ -366,27 +366,33 @@ var MatBottomSheetRef = /** @class */ (function () {
         containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), take(1))
             .subscribe(function () {
             _this._overlayRef.dispose();
-            _this._afterDismissed.next();
+            _this._afterDismissed.next(_this._result);
             _this._afterDismissed.complete();
         });
         if (!containerInstance.bottomSheetConfig.disableClose) {
             merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(filter(function (event) { return event.keyCode === ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
         }
     }
-    /** Dismisses the bottom sheet. */
     /**
      * Dismisses the bottom sheet.
+     * @param result Data to be passed back to the bottom sheet opener.
+     */
+    /**
+     * Dismisses the bottom sheet.
+     * @param {?=} result Data to be passed back to the bottom sheet opener.
      * @return {?}
      */
     MatBottomSheetRef.prototype.dismiss = /**
      * Dismisses the bottom sheet.
+     * @param {?=} result Data to be passed back to the bottom sheet opener.
      * @return {?}
      */
-    function () {
+    function (result) {
         var _this = this;
         if (!this._afterDismissed.closed) {
             // Transition the backdrop in parallel to the bottom sheet.
             this.containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'start'; }), take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
+            this._result = result;
             this.containerInstance.exit();
         }
     };
@@ -486,13 +492,13 @@ var MatBottomSheet = /** @class */ (function () {
         configurable: true
     });
     /**
-     * @template T, D
+     * @template T, D, R
      * @param {?} componentOrTemplateRef
      * @param {?=} config
      * @return {?}
      */
     MatBottomSheet.prototype.open = /**
-     * @template T, D
+     * @template T, D, R
      * @param {?} componentOrTemplateRef
      * @param {?=} config
      * @return {?}

@@ -307,6 +307,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      * @return {?}
      */
     _onInputFocusChange(focusOrigin) {
+        // TODO(paul): support `program`. See https://github.com/angular/material2/issues/9889
         if (!this._focusRipple && focusOrigin === 'keyboard') {
             this._focusRipple = this.ripple.launch(0, 0, { persistent: true });
         }

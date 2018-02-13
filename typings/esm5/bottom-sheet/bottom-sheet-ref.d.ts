@@ -11,7 +11,7 @@ import { MatBottomSheetContainer } from './bottom-sheet-container';
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
  */
-export declare class MatBottomSheetRef<T = any> {
+export declare class MatBottomSheetRef<T = any, R = any> {
     private _overlayRef;
     /** Instance of the component making up the content of the bottom sheet. */
     instance: T;
@@ -24,11 +24,16 @@ export declare class MatBottomSheetRef<T = any> {
     private readonly _afterDismissed;
     /** Subject for notifying the user that the bottom sheet has opened and appeared. */
     private readonly _afterOpened;
+    /** Result to be passed down to the `afterDismissed` stream. */
+    private _result;
     constructor(containerInstance: MatBottomSheetContainer, _overlayRef: OverlayRef);
-    /** Dismisses the bottom sheet. */
-    dismiss(): void;
+    /**
+     * Dismisses the bottom sheet.
+     * @param result Data to be passed back to the bottom sheet opener.
+     */
+    dismiss(result?: R): void;
     /** Gets an observable that is notified when the bottom sheet is finished closing. */
-    afterDismissed(): Observable<void>;
+    afterDismissed(): Observable<R | undefined>;
     /** Gets an observable that is notified when the bottom sheet has opened and appeared. */
     afterOpened(): Observable<void>;
     /**

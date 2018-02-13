@@ -83,6 +83,7 @@ class AutofillMonitor {
         const /** @type {?} */ info = this._monitoredElements.get(element);
         if (info) {
             info.unlisten();
+            info.subject.complete();
             element.classList.remove('mat-input-autofill-monitored');
             element.classList.remove('mat-input-autofilled');
             this._monitoredElements.delete(element);
@@ -92,10 +93,7 @@ class AutofillMonitor {
      * @return {?}
      */
     ngOnDestroy() {
-        this._monitoredElements.forEach(info => {
-            info.unlisten();
-            info.subject.complete();
-        });
+        this._monitoredElements.forEach((_info, element) => this.stopMonitoring(element));
     }
 }
 AutofillMonitor.decorators = [
@@ -122,7 +120,8 @@ class MatAutofill {
      * @return {?}
      */
     ngOnInit() {
-        this._autofillMonitor.monitor(this._elementRef.nativeElement)
+        this._autofillMonitor
+            .monitor(this._elementRef.nativeElement)
             .subscribe(event => this.matAutofill.emit(event));
     }
     /**

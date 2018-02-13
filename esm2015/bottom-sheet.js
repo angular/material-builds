@@ -311,7 +311,7 @@ class MatBottomSheetRef {
         containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'hidden'), take(1))
             .subscribe(() => {
             this._overlayRef.dispose();
-            this._afterDismissed.next();
+            this._afterDismissed.next(this._result);
             this._afterDismissed.complete();
         });
         if (!containerInstance.bottomSheetConfig.disableClose) {
@@ -320,12 +320,14 @@ class MatBottomSheetRef {
     }
     /**
      * Dismisses the bottom sheet.
+     * @param {?=} result Data to be passed back to the bottom sheet opener.
      * @return {?}
      */
-    dismiss() {
+    dismiss(result) {
         if (!this._afterDismissed.closed) {
             // Transition the backdrop in parallel to the bottom sheet.
             this.containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'start'), take(1)).subscribe(() => this._overlayRef.detachBackdrop());
+            this._result = result;
             this.containerInstance.exit();
         }
     }
@@ -400,7 +402,7 @@ class MatBottomSheet {
         }
     }
     /**
-     * @template T, D
+     * @template T, D, R
      * @param {?} componentOrTemplateRef
      * @param {?=} config
      * @return {?}

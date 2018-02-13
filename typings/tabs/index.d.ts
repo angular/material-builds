@@ -2,7 +2,7 @@
  * Generated bundle index. Do not edit.
  */
 export * from './public-api';
-export { MatTabBase as ɵe23, _MatTabMixinBase as ɵf23 } from './tab';
-export { MatTabHeaderBase as ɵa23, _MatTabHeaderMixinBase as ɵb23 } from './tab-header';
-export { MatTabLabelWrapperBase as ɵc23, _MatTabLabelWrapperMixinBase as ɵd23 } from './tab-label-wrapper';
-export { MatTabLinkBase as ɵi23, MatTabNavBase as ɵg23, _MatTabLinkMixinBase as ɵj23, _MatTabNavMixinBase as ɵh23 } from './tab-nav-bar/tab-nav-bar';
+export { MatTabBase as ɵe17, _MatTabMixinBase as ɵf17 } from './tab';
+export { MatTabHeaderBase as ɵa17, _MatTabHeaderMixinBase as ɵb17 } from './tab-header';
+export { MatTabLabelWrapperBase as ɵc17, _MatTabLabelWrapperMixinBase as ɵd17 } from './tab-label-wrapper';
+export { MatTabLinkBase as ɵi17, MatTabNavBase as ɵg17, _MatTabLinkMixinBase as ɵj17, _MatTabNavMixinBase as ɵh17 } from './tab-nav-bar/tab-nav-bar';
