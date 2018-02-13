@@ -12583,14 +12583,26 @@ var MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = {
     useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
+ * \@docs-private
+ */
+var MatDatepickerContentBase = /** @class */ (function () {
+    function MatDatepickerContentBase(_elementRef) {
+        this._elementRef = _elementRef;
+    }
+    return MatDatepickerContentBase;
+}());
+var _MatDatepickerContentMixinBase = mixinColor(MatDatepickerContentBase);
+/**
  * Component used as the content for the datepicker dialog and popup. We use this instead of using
  * MatCalendar directly as the content so we can control the initial focus. This also gives us a
  * place to put additional features of the popup that are not part of the calendar itself in the
  * future. (e.g. confirmation buttons).
  * \@docs-private
  */
-var MatDatepickerContent = /** @class */ (function () {
-    function MatDatepickerContent() {
+var MatDatepickerContent = /** @class */ (function (_super) {
+    __extends(MatDatepickerContent, _super);
+    function MatDatepickerContent(elementRef) {
+        return _super.call(this, elementRef) || this;
     }
     /**
      * @return {?}
@@ -12613,15 +12625,18 @@ var MatDatepickerContent = /** @class */ (function () {
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    inputs: ['color'],
                 },] },
     ];
     /** @nocollapse */
-    MatDatepickerContent.ctorParameters = function () { return []; };
+    MatDatepickerContent.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+    ]; };
     MatDatepickerContent.propDecorators = {
         "_calendar": [{ type: _angular_core.ViewChild, args: [MatCalendar,] },],
     };
     return MatDatepickerContent;
-}());
+}(_MatDatepickerContentMixinBase));
 /**
  * Component responsible for managing the datepicker popup/dialog.
  */
@@ -12674,6 +12689,9 @@ var MatDatepicker = /** @class */ (function () {
          * The element that was focused before the datepicker was opened.
          */
         this._focusedElementBeforeOpen = null;
+        /**
+         * Subscription to value changes in the associated input element.
+         */
         this._inputSubscription = rxjs_Subscription.Subscription.EMPTY;
         /**
          * Emits when the datepicker is disabled.
@@ -12818,6 +12836,7 @@ var MatDatepicker = /** @class */ (function () {
         this._disabledChange.complete();
         if (this._popupRef) {
             this._popupRef.dispose();
+            this._popupComponentRef = null;
         }
     };
     /** Selects the given date */
@@ -12976,6 +12995,7 @@ var MatDatepicker = /** @class */ (function () {
         });
         this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
         this._dialogRef.componentInstance.datepicker = this;
+        this._setColor();
     };
     /**
      * Open the calendar as a popup.
@@ -12994,8 +13014,9 @@ var MatDatepicker = /** @class */ (function () {
             this._createPopup();
         }
         if (!this._popupRef.hasAttached()) {
-            var /** @type {?} */ componentRef = this._popupRef.attach(this._calendarPortal);
-            componentRef.instance.datepicker = this;
+            this._popupComponentRef = this._popupRef.attach(this._calendarPortal);
+            this._popupComponentRef.instance.datepicker = this;
+            this._setColor();
             // Update the position once the calendar has rendered.
             this._ngZone.onStable.asObservable().pipe(rxjs_operators_take.take(1)).subscribe(function () {
                 _this._popupRef.updatePosition();
@@ -13049,6 +13070,24 @@ var MatDatepicker = /** @class */ (function () {
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /**
+     * Passes the current theme color along to the calendar overlay.
+     * @return {?}
+     */
+    MatDatepicker.prototype._setColor = /**
+     * Passes the current theme color along to the calendar overlay.
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ input = this._datepickerInput;
+        var /** @type {?} */ color = this.color || (input ? input._getThemePalette() : undefined);
+        if (this._popupComponentRef) {
+            this._popupComponentRef.instance.color = color;
+        }
+        if (this._dialogRef) {
+            this._dialogRef.componentInstance.color = color;
+        }
+    };
     MatDatepicker.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker',
                     template: '',
@@ -13072,6 +13111,7 @@ var MatDatepicker = /** @class */ (function () {
     MatDatepicker.propDecorators = {
         "startAt": [{ type: _angular_core.Input },],
         "startView": [{ type: _angular_core.Input },],
+        "color": [{ type: _angular_core.Input },],
         "touchUi": [{ type: _angular_core.Input },],
         "disabled": [{ type: _angular_core.Input },],
         "selectedChanged": [{ type: _angular_core.Output },],
@@ -13499,6 +13539,18 @@ var MatDatepickerInput = /** @class */ (function () {
     function () {
         this.dateChange.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
     };
+    /** Returns the palette used by the input's form field, if any. */
+    /**
+     * Returns the palette used by the input's form field, if any.
+     * @return {?}
+     */
+    MatDatepickerInput.prototype._getThemePalette = /**
+     * Returns the palette used by the input's form field, if any.
+     * @return {?}
+     */
+    function () {
+        return this._formField ? this._formField.color : undefined;
+    };
     /**
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
@@ -13665,6 +13717,8 @@ var MatDatepickerToggle = /** @class */ (function () {
                     host: {
                         'class': 'mat-datepicker-toggle',
                         '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
+                        '[class.mat-accent]': 'datepicker && datepicker.color === "accent"',
+                        '[class.mat-warn]': 'datepicker && datepicker.color === "warn"',
                     },
                     exportAs: 'matDatepickerToggle',
                     encapsulation: _angular_core.ViewEncapsulation.None,
@@ -31033,7 +31087,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta-0-21a83ba');
+var VERSION = new _angular_core.Version('6.0.0-beta-0-0383704');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -31173,6 +31227,8 @@ exports.MatCalendarBody = MatCalendarBody;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY = MAT_DATEPICKER_SCROLL_STRATEGY;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER;
+exports.MatDatepickerContentBase = MatDatepickerContentBase;
+exports._MatDatepickerContentMixinBase = _MatDatepickerContentMixinBase;
 exports.MatDatepickerContent = MatDatepickerContent;
 exports.MatDatepicker = MatDatepicker;
 exports.MAT_DATEPICKER_VALUE_ACCESSOR = MAT_DATEPICKER_VALUE_ACCESSOR;

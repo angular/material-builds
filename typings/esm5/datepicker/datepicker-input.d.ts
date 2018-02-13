@@ -97,6 +97,8 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     _onKeydown(event: KeyboardEvent): void;
     _onInput(value: string): void;
     _onChange(): void;
+    /** Returns the palette used by the input's form field, if any. */
+    _getThemePalette(): "primary" | "accent" | "warn" | undefined;
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.
