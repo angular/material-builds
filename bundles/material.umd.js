@@ -31165,7 +31165,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta-0-2f891e6');
+var VERSION = new _angular_core.Version('6.0.0-beta-0-4b017ba');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
