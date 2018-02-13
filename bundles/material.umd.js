@@ -4508,6 +4508,292 @@ var MatAutocompleteModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+
+var nextId = 0;
+/**
+ * Directive to display a text badge.
+ */
+var MatBadge = /** @class */ (function () {
+    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber) {
+        this._document = _document;
+        this._ngZone = _ngZone;
+        this._elementRef = _elementRef;
+        this._ariaDescriber = _ariaDescriber;
+        this._color = 'primary';
+        this._overlap = true;
+        /**
+         * Position the badge should reside.
+         * Accepts any combination of 'above'|'below' and 'before'|'after'
+         */
+        this.position = 'above after';
+        /**
+         * Size of the badge. Can be 'small', 'medium', or 'large'.
+         */
+        this.size = 'medium';
+        /**
+         * Unique id for the badge
+         */
+        this._id = nextId++;
+    }
+    Object.defineProperty(MatBadge.prototype, "color", {
+        get: /**
+         * The color of the badge. Can be `primary`, `accent`, or `warn`.
+         * @return {?}
+         */
+        function () { return this._color; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._setColor(value);
+            this._color = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatBadge.prototype, "overlap", {
+        get: /**
+         * Whether the badge should overlap its contents or not
+         * @return {?}
+         */
+        function () { return this._overlap; },
+        set: /**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            this._overlap = _angular_cdk_coercion.coerceBooleanProperty(val);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatBadge.prototype, "content", {
+        get: /**
+         * The content for the badge
+         * @return {?}
+         */
+        function () { return this._content; },
+        set: /**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            this._content = val;
+            this._updateTextContent();
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatBadge.prototype, "description", {
+        get: /**
+         * Message used to describe the decorated element via aria-describedby
+         * @return {?}
+         */
+        function () { return this._description; },
+        set: /**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            if (this._description) {
+                this._updateHostAriaDescription(val, this._description);
+            }
+            this._description = val;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatBadge.prototype, "hidden", {
+        get: /**
+         * Whether the badge is hidden.
+         * @return {?}
+         */
+        function () { return this._hidden; },
+        set: /**
+         * @param {?} val
+         * @return {?}
+         */
+        function (val) {
+            this._hidden = _angular_cdk_coercion.coerceBooleanProperty(val);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Whether the badge is above the host or not */
+    /**
+     * Whether the badge is above the host or not
+     * @return {?}
+     */
+    MatBadge.prototype.isAbove = /**
+     * Whether the badge is above the host or not
+     * @return {?}
+     */
+    function () {
+        return this.position.indexOf('below') === -1;
+    };
+    /** Whether the badge is after the host or not */
+    /**
+     * Whether the badge is after the host or not
+     * @return {?}
+     */
+    MatBadge.prototype.isAfter = /**
+     * Whether the badge is after the host or not
+     * @return {?}
+     */
+    function () {
+        return this.position.indexOf('before') === -1;
+    };
+    /**
+     * Injects a span element into the DOM with the content.
+     * @return {?}
+     */
+    MatBadge.prototype._updateTextContent = /**
+     * Injects a span element into the DOM with the content.
+     * @return {?}
+     */
+    function () {
+        if (!this._badgeElement) {
+            this._badgeElement = this._createBadgeElement();
+        }
+        else {
+            this._badgeElement.textContent = this.content;
+        }
+        return this._badgeElement;
+    };
+    /**
+     * Creates the badge element
+     * @return {?}
+     */
+    MatBadge.prototype._createBadgeElement = /**
+     * Creates the badge element
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ badgeElement = this._document.createElement('span');
+        badgeElement.setAttribute('id', "mat-badge-content-" + this._id);
+        badgeElement.classList.add('mat-badge-content');
+        badgeElement.textContent = this.content;
+        if (this.description) {
+            badgeElement.setAttribute('aria-label', this.description);
+        }
+        this._elementRef.nativeElement.appendChild(badgeElement);
+        // animate in after insertion
+        this._ngZone.runOutsideAngular(function () {
+            return requestAnimationFrame(function () {
+                // ensure content available
+                if (badgeElement) {
+                    badgeElement.classList.add('mat-badge-active');
+                }
+            });
+        });
+        return badgeElement;
+    };
+    /**
+     * Sets the aria-label property on the element
+     * @param {?} val
+     * @param {?} prevVal
+     * @return {?}
+     */
+    MatBadge.prototype._updateHostAriaDescription = /**
+     * Sets the aria-label property on the element
+     * @param {?} val
+     * @param {?} prevVal
+     * @return {?}
+     */
+    function (val, prevVal) {
+        // ensure content available before setting label
+        var /** @type {?} */ content = this._updateTextContent();
+        this._ariaDescriber.removeDescription(content, prevVal);
+        this._ariaDescriber.describe(content, val);
+    };
+    /**
+     * Adds css theme class given the color to the component host
+     * @param {?} colorPalette
+     * @return {?}
+     */
+    MatBadge.prototype._setColor = /**
+     * Adds css theme class given the color to the component host
+     * @param {?} colorPalette
+     * @return {?}
+     */
+    function (colorPalette) {
+        if (colorPalette !== this._color) {
+            if (this._color) {
+                this._elementRef.nativeElement.classList.remove("mat-badge-" + this._color);
+            }
+            if (colorPalette) {
+                this._elementRef.nativeElement.classList.add("mat-badge-" + colorPalette);
+            }
+        }
+    };
+    MatBadge.decorators = [
+        { type: _angular_core.Directive, args: [{
+                    selector: '[matBadge]',
+                    host: {
+                        'class': 'mat-badge',
+                        '[class.mat-badge-overlap]': '_overlap',
+                        '[class.mat-badge-above]': 'isAbove()',
+                        '[class.mat-badge-below]': '!isAbove()',
+                        '[class.mat-badge-before]': '!isAfter()',
+                        '[class.mat-badge-after]': 'isAfter()',
+                        '[class.mat-badge-small]': 'size === "small"',
+                        '[class.mat-badge-medium]': 'size === "medium"',
+                        '[class.mat-badge-large]': 'size === "large"',
+                        '[class.mat-badge-hidden]': 'hidden',
+                    },
+                },] },
+    ];
+    /** @nocollapse */
+    MatBadge.ctorParameters = function () { return [
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
+        { type: _angular_core.NgZone, },
+        { type: _angular_core.ElementRef, },
+        { type: _angular_cdk_a11y.AriaDescriber, },
+    ]; };
+    MatBadge.propDecorators = {
+        "color": [{ type: _angular_core.Input, args: ['matBadgeColor',] },],
+        "overlap": [{ type: _angular_core.Input, args: ['matBadgeOverlap',] },],
+        "position": [{ type: _angular_core.Input, args: ['matBadgePosition',] },],
+        "content": [{ type: _angular_core.Input, args: ['matBadge',] },],
+        "description": [{ type: _angular_core.Input, args: ['matBadgeDescription',] },],
+        "size": [{ type: _angular_core.Input, args: ['matBadgeSize',] },],
+        "hidden": [{ type: _angular_core.Input, args: ['matBadgeHidden',] },],
+    };
+    return MatBadge;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+
+var MatBadgeModule = /** @class */ (function () {
+    function MatBadgeModule() {
+    }
+    MatBadgeModule.decorators = [
+        { type: _angular_core.NgModule, args: [{
+                    imports: [
+                        MatCommonModule,
+                        _angular_cdk_a11y.A11yModule,
+                    ],
+                    exports: [
+                        MatBadge,
+                    ],
+                    declarations: [
+                        MatBadge,
+                    ],
+                },] },
+    ];
+    /** @nocollapse */
+    MatBadgeModule.ctorParameters = function () { return []; };
+    return MatBadgeModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Animations used by the Material bottom sheet.
  */
@@ -29514,7 +29800,7 @@ var MatTabBody = /** @class */ (function () {
 /**
  * Used to generate unique ID's for each tab component
  */
-var nextId = 0;
+var nextId$1 = 0;
 /**
  * A simple change event emitted on focus or selection changes.
  */
@@ -29587,7 +29873,7 @@ var MatTabGroup = /** @class */ (function (_super) {
          * \@deletion-target 6.0.0
          */
         _this.selectChange = _this.selectedTabChange;
-        _this._groupId = nextId++;
+        _this._groupId = nextId$1++;
         return _this;
     }
     Object.defineProperty(MatTabGroup.prototype, "dynamicHeight", {
@@ -31165,7 +31451,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta-0-4b017ba');
+var VERSION = new _angular_core.Version('6.0.0-beta-0-c98d217');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -31182,6 +31468,8 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = MAT_AUTOCOMPLETE_SCROLL_STRA
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
+exports.MatBadgeModule = MatBadgeModule;
+exports.MatBadge = MatBadge;
 exports.MatBottomSheetModule = MatBottomSheetModule;
 exports.MatBottomSheet = MatBottomSheet;
 exports.MAT_BOTTOM_SHEET_DATA = MAT_BOTTOM_SHEET_DATA;
@@ -31299,7 +31587,7 @@ exports.SEP = SEP;
 exports.OCT = OCT;
 exports.NOV = NOV;
 exports.DEC = DEC;
-exports.ɵa32 = MatMultiYearView;
+exports.ɵa33 = MatMultiYearView;
 exports.MatDatepickerModule = MatDatepickerModule;
 exports.MatCalendar = MatCalendar;
 exports.MatCalendarCell = MatCalendarCell;
@@ -31409,10 +31697,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc21 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -31535,16 +31823,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵe24 = MatTabBase;
+exports.ɵf24 = _MatTabMixinBase;
+exports.ɵa24 = MatTabHeaderBase;
+exports.ɵb24 = _MatTabHeaderMixinBase;
+exports.ɵc24 = MatTabLabelWrapperBase;
+exports.ɵd24 = _MatTabLabelWrapperMixinBase;
+exports.ɵi24 = MatTabLinkBase;
+exports.ɵg24 = MatTabNavBase;
+exports.ɵj24 = _MatTabLinkMixinBase;
+exports.ɵh24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

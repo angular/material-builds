@@ -16,6 +16,9 @@
       "from": "./toolbar"
     },
     {
+      "from": "./bottom-sheet"
+    },
+    {
       "from": "./button"
     },
     {
@@ -55,7 +58,7 @@
       "from": "./form-field"
     },
     {
-      "from": "./bottom-sheet"
+      "from": "./badge"
     },
     {
       "from": "./sidenav"
