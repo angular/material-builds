@@ -106,6 +106,10 @@ var MatChip = /** @class */ (function (_super) {
          * Whether the chip has focus.
          */
         _this._hasFocus = false;
+        /**
+         * Whether the chip list is selectable
+         */
+        _this.chipListSelectable = true;
         _this._selected = false;
         _this._selectable = true;
         _this._removable = true;
@@ -210,11 +214,13 @@ var MatChip = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChip.prototype, "selectable", {
         get: /**
-         * Whether or not the chips are selectable. When a chip is not selectable,
-         * changes to it's selected state are always ignored.
+         * Whether or not the chip is selectable. When a chip is not selectable,
+         * changes to it's selected state are always ignored. By default a chip is
+         * selectable, and it becomes non-selectable if it's parent chip list is
+         * not selectable.
          * @return {?}
          */
-        function () { return this._selectable; },
+        function () { return this._selectable && this.chipListSelectable; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -846,8 +852,8 @@ var MatChipList = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChipList.prototype, "selectable", {
         get: /**
-         * Whether or not this chip is selectable. When a chip is not selectable,
-         * its selected state is always ignored.
+         * Whether or not this chip list is selectable. When a chip list is not selectable,
+         * the selected states for all the chips inside the chip list are always ignored.
          * @return {?}
          */
         function () { return this._selectable; },
@@ -855,7 +861,13 @@ var MatChipList = /** @class */ (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._selectable = coerceBooleanProperty(value); },
+        function (value) {
+            var _this = this;
+            this._selectable = coerceBooleanProperty(value);
+            if (this.chips) {
+                this.chips.forEach(function (chip) { return chip.chipListSelectable = _this._selectable; });
+            }
+        },
         enumerable: true,
         configurable: true
     });

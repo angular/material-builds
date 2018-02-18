@@ -108,6 +108,10 @@ class MatChip extends _MatChipMixinBase {
          * Whether the chip has focus.
          */
         this._hasFocus = false;
+        /**
+         * Whether the chip list is selectable
+         */
+        this.chipListSelectable = true;
         this._selected = false;
         this._selectable = true;
         this._removable = true;
@@ -194,11 +198,13 @@ class MatChip extends _MatChipMixinBase {
      */
     set value(value) { this._value = value; }
     /**
-     * Whether or not the chips are selectable. When a chip is not selectable,
-     * changes to it's selected state are always ignored.
+     * Whether or not the chip is selectable. When a chip is not selectable,
+     * changes to it's selected state are always ignored. By default a chip is
+     * selectable, and it becomes non-selectable if it's parent chip list is
+     * not selectable.
      * @return {?}
      */
-    get selectable() { return this._selectable; }
+    get selectable() { return this._selectable && this.chipListSelectable; }
     /**
      * @param {?} value
      * @return {?}
@@ -707,8 +713,8 @@ class MatChipList extends _MatChipListMixinBase {
      */
     set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     /**
-     * Whether or not this chip is selectable. When a chip is not selectable,
-     * its selected state is always ignored.
+     * Whether or not this chip list is selectable. When a chip list is not selectable,
+     * the selected states for all the chips inside the chip list are always ignored.
      * @return {?}
      */
     get selectable() { return this._selectable; }
@@ -716,7 +722,12 @@ class MatChipList extends _MatChipListMixinBase {
      * @param {?} value
      * @return {?}
      */
-    set selectable(value) { this._selectable = coerceBooleanProperty(value); }
+    set selectable(value) {
+        this._selectable = coerceBooleanProperty(value);
+        if (this.chips) {
+            this.chips.forEach(chip => chip.chipListSelectable = this._selectable);
+        }
+    }
     /**
      * @param {?} value
      * @return {?}

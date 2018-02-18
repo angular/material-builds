@@ -150,8 +150,8 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     /** Orientation of the chip list. */
     ariaOrientation: 'horizontal' | 'vertical';
     /**
-     * Whether or not this chip is selectable. When a chip is not selectable,
-     * its selected state is always ignored.
+     * Whether or not this chip list is selectable. When a chip list is not selectable,
+     * the selected states for all the chips inside the chip list are always ignored.
      */
     selectable: boolean;
     protected _selectable: boolean;

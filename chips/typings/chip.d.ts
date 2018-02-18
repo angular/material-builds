@@ -68,6 +68,8 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     readonly rippleDisabled: boolean;
     /** Whether the chip has focus. */
     _hasFocus: boolean;
+    /** Whether the chip list is selectable */
+    chipListSelectable: boolean;
     /** The chip avatar */
     avatar: MatChipAvatar;
     /** The chip's trailing icon. */
@@ -81,8 +83,10 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     value: any;
     protected _value: any;
     /**
-     * Whether or not the chips are selectable. When a chip is not selectable,
-     * changes to it's selected state are always ignored.
+     * Whether or not the chip is selectable. When a chip is not selectable,
+     * changes to it's selected state are always ignored. By default a chip is
+     * selectable, and it becomes non-selectable if it's parent chip list is
+     * not selectable.
      */
     selectable: boolean;
     protected _selectable: boolean;
