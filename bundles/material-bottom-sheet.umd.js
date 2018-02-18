@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/layout'), require('@angular/animations'), require('@angular/cdk/keycodes'), require('rxjs/Subject'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/layout', '@angular/animations', '@angular/cdk/keycodes', 'rxjs/Subject', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = global.ng.material.bottomSheet || {}),global.ng.core,global.ng.common,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.layout,global.ng.animations,global.ng.cdk.keycodes,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators));
-}(this, (function (exports,_angular_core,_angular_common,_angular_material_core,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_layout,_angular_animations,_angular_cdk_keycodes,rxjs_Subject,rxjs_observable_merge,rxjs_operators_filter,rxjs_operators_take) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/layout'), require('@angular/animations'), require('@angular/cdk/keycodes'), require('rxjs/Subject'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/observable/of'), require('@angular/cdk/bidi')) :
+	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/layout', '@angular/animations', '@angular/cdk/keycodes', 'rxjs/Subject', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/observable/of', '@angular/cdk/bidi'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = global.ng.material.bottomSheet || {}),global.ng.core,global.ng.common,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.layout,global.ng.animations,global.ng.cdk.keycodes,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.ng.cdk.bidi));
+}(this, (function (exports,_angular_core,_angular_common,_angular_material_core,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_layout,_angular_animations,_angular_cdk_keycodes,rxjs_Subject,rxjs_observable_merge,rxjs_operators_filter,rxjs_operators_take,rxjs_observable_of,_angular_cdk_bidi) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -639,6 +639,12 @@ var MatBottomSheet = /** @class */ (function () {
         var /** @type {?} */ injectionTokens = new WeakMap();
         injectionTokens.set(MatBottomSheetRef, bottomSheetRef);
         injectionTokens.set(MAT_BOTTOM_SHEET_DATA, config.data);
+        if (!userInjector || !userInjector.get(_angular_cdk_bidi.Directionality, null)) {
+            injectionTokens.set(_angular_cdk_bidi.Directionality, {
+                value: config.direction,
+                change: rxjs_observable_of.of()
+            });
+        }
         return new _angular_cdk_portal.PortalInjector(userInjector || this._injector, injectionTokens);
     };
     MatBottomSheet.decorators = [
