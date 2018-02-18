@@ -5084,10 +5084,6 @@ var MAT_BOTTOM_SHEET_DATA = new _angular_core.InjectionToken('MatBottomSheetData
 var MatBottomSheetConfig = /** @class */ (function () {
     function MatBottomSheetConfig() {
         /**
-         * Text layout direction for the bottom sheet.
-         */
-        this.direction = 'ltr';
-        /**
          * Data being injected into the child component.
          */
         this.data = null;
@@ -9128,10 +9124,6 @@ var MatDialogConfig = /** @class */ (function () {
          * Data being injected into the child component.
          */
         this.data = null;
-        /**
-         * Layout direction for the dialog's content.
-         */
-        this.direction = 'ltr';
         /**
          * ID of the element that describes the dialog.
          */
@@ -26722,10 +26714,6 @@ var MatSnackBarConfig = /** @class */ (function () {
          */
         this.duration = 0;
         /**
-         * Text layout direction for the snack bar.
-         */
-        this.direction = 'ltr';
-        /**
          * Data being injected into the child component.
          */
         this.data = null;
@@ -31458,7 +31446,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta-0-e24bb42');
+var VERSION = new _angular_core.Version('6.0.0-beta-0-47674f1');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -31704,10 +31692,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -31830,16 +31818,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe23 = MatTabBase;
+exports.ɵf23 = _MatTabMixinBase;
+exports.ɵa23 = MatTabHeaderBase;
+exports.ɵb23 = _MatTabHeaderMixinBase;
+exports.ɵc23 = MatTabLabelWrapperBase;
+exports.ɵd23 = _MatTabLabelWrapperMixinBase;
+exports.ɵi23 = MatTabLinkBase;
+exports.ɵg23 = MatTabNavBase;
+exports.ɵj23 = _MatTabLinkMixinBase;
+exports.ɵh23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

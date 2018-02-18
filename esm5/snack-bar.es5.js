@@ -221,10 +221,6 @@ var MatSnackBarConfig = /** @class */ (function () {
          */
         this.duration = 0;
         /**
-         * Text layout direction for the snack bar.
-         */
-        this.direction = 'ltr';
-        /**
          * Data being injected into the child component.
          */
         this.data = null;

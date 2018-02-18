@@ -312,10 +312,6 @@ var MAT_BOTTOM_SHEET_DATA = new InjectionToken('MatBottomSheetData');
 var MatBottomSheetConfig = /** @class */ (function () {
     function MatBottomSheetConfig() {
         /**
-         * Text layout direction for the bottom sheet.
-         */
-        this.direction = 'ltr';
-        /**
          * Data being injected into the child component.
          */
         this.data = null;
