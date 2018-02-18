@@ -4671,6 +4671,7 @@ var MatBadge = /** @class */ (function () {
      */
     function () {
         var /** @type {?} */ badgeElement = this._document.createElement('span');
+        var /** @type {?} */ activeClass = 'mat-badge-active';
         badgeElement.setAttribute('id', "mat-badge-content-" + this._id);
         badgeElement.classList.add('mat-badge-content');
         badgeElement.textContent = this.content;
@@ -4679,14 +4680,16 @@ var MatBadge = /** @class */ (function () {
         }
         this._elementRef.nativeElement.appendChild(badgeElement);
         // animate in after insertion
-        this._ngZone.runOutsideAngular(function () {
-            return requestAnimationFrame(function () {
-                // ensure content available
-                if (badgeElement) {
-                    badgeElement.classList.add('mat-badge-active');
-                }
+        if (typeof requestAnimationFrame === 'function') {
+            this._ngZone.runOutsideAngular(function () {
+                requestAnimationFrame(function () {
+                    badgeElement.classList.add(activeClass);
+                });
             });
-        });
+        }
+        else {
+            badgeElement.classList.add(activeClass);
+        }
         return badgeElement;
     };
     /**
@@ -4732,7 +4735,7 @@ var MatBadge = /** @class */ (function () {
                     selector: '[matBadge]',
                     host: {
                         'class': 'mat-badge',
-                        '[class.mat-badge-overlap]': '_overlap',
+                        '[class.mat-badge-overlap]': 'overlap',
                         '[class.mat-badge-above]': 'isAbove()',
                         '[class.mat-badge-below]': '!isAbove()',
                         '[class.mat-badge-before]': '!isAfter()',
@@ -31451,7 +31454,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta-0-bd7a408');
+var VERSION = new _angular_core.Version('6.0.0-beta-0-06b4017');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -31697,10 +31700,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

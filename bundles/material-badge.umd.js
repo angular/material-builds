@@ -178,6 +178,7 @@ var MatBadge = /** @class */ (function () {
      */
     function () {
         var /** @type {?} */ badgeElement = this._document.createElement('span');
+        var /** @type {?} */ activeClass = 'mat-badge-active';
         badgeElement.setAttribute('id', "mat-badge-content-" + this._id);
         badgeElement.classList.add('mat-badge-content');
         badgeElement.textContent = this.content;
@@ -186,14 +187,16 @@ var MatBadge = /** @class */ (function () {
         }
         this._elementRef.nativeElement.appendChild(badgeElement);
         // animate in after insertion
-        this._ngZone.runOutsideAngular(function () {
-            return requestAnimationFrame(function () {
-                // ensure content available
-                if (badgeElement) {
-                    badgeElement.classList.add('mat-badge-active');
-                }
+        if (typeof requestAnimationFrame === 'function') {
+            this._ngZone.runOutsideAngular(function () {
+                requestAnimationFrame(function () {
+                    badgeElement.classList.add(activeClass);
+                });
             });
-        });
+        }
+        else {
+            badgeElement.classList.add(activeClass);
+        }
         return badgeElement;
     };
     /**
@@ -239,7 +242,7 @@ var MatBadge = /** @class */ (function () {
                     selector: '[matBadge]',
                     host: {
                         'class': 'mat-badge',
-                        '[class.mat-badge-overlap]': '_overlap',
+                        '[class.mat-badge-overlap]': 'overlap',
                         '[class.mat-badge-above]': 'isAbove()',
                         '[class.mat-badge-below]': '!isAbove()',
                         '[class.mat-badge-before]': '!isAfter()',
