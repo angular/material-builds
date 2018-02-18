@@ -99,14 +99,14 @@ var MatBadge = /** @class */ (function () {
          */
         function () { return this._description; },
         set: /**
-         * @param {?} val
+         * @param {?} newDescription
          * @return {?}
          */
-        function (val) {
-            if (this._description) {
-                this._updateHostAriaDescription(val, this._description);
+        function (newDescription) {
+            if (newDescription !== this._description) {
+                this._updateHostAriaDescription(newDescription, this._description);
+                this._description = newDescription;
             }
-            this._description = val;
         },
         enumerable: true,
         configurable: true
@@ -150,6 +150,17 @@ var MatBadge = /** @class */ (function () {
      */
     function () {
         return this.position.indexOf('before') === -1;
+    };
+    /**
+     * @return {?}
+     */
+    MatBadge.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        if (this.description && this._badgeElement) {
+            this._ariaDescriber.removeDescription(this._badgeElement, this.description);
+        }
     };
     /**
      * Injects a span element into the DOM with the content.
@@ -201,21 +212,25 @@ var MatBadge = /** @class */ (function () {
     };
     /**
      * Sets the aria-label property on the element
-     * @param {?} val
-     * @param {?} prevVal
+     * @param {?} newDescription
+     * @param {?} oldDescription
      * @return {?}
      */
     MatBadge.prototype._updateHostAriaDescription = /**
      * Sets the aria-label property on the element
-     * @param {?} val
-     * @param {?} prevVal
+     * @param {?} newDescription
+     * @param {?} oldDescription
      * @return {?}
      */
-    function (val, prevVal) {
+    function (newDescription, oldDescription) {
         // ensure content available before setting label
         var /** @type {?} */ content = this._updateTextContent();
-        this._ariaDescriber.removeDescription(content, prevVal);
-        this._ariaDescriber.describe(content, val);
+        if (oldDescription) {
+            this._ariaDescriber.removeDescription(content, oldDescription);
+        }
+        if (newDescription) {
+            this._ariaDescriber.describe(content, newDescription);
+        }
     };
     /**
      * Adds css theme class given the color to the component host

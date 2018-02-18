@@ -1295,6 +1295,11 @@ $mat-ripple-color-opacity: 0.1;
   @return _mat-get-type-value($config, $level, font-weight);
 }
 
+// Gets the letter spacing for a level inside a typography config.
+@function mat-letter-spacing($config, $level) {
+  @return _mat-get-type-value($config, $level, letter-spacing);
+}
+
 // Gets the font-family from a typography config and removes the quotes around it.
 @function mat-font-family($config, $level: null) {
   $font-family: map-get($config, font-family);
@@ -1341,6 +1346,7 @@ $mat-ripple-color-opacity: 0.1;
   $font-family: mat-font-family($config, $level);
 
   @include mat-typography-font-shorthand($font-size, $font-weight, $line-height, $font-family);
+  letter-spacing: mat-letter-spacing($config, $level);
 }
 
 
@@ -1478,13 +1484,15 @@ $mat-ripple-color-opacity: 0.1;
   $font-size,
   $line-height: $font-size,
   $font-weight: 400,
-  $font-family: null) {
+  $font-family: null,
+  $letter-spacing: null) {
 
   @return (
     font-size: $font-size,
     line-height: $line-height,
     font-weight: $font-weight,
-    font-family: $font-family
+    font-family: $font-family,
+    letter-spacing: $letter-spacing
   );
 }
 

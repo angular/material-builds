@@ -5,13 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, NgZone } from '@angular/core';
+import { ElementRef, NgZone, OnDestroy } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 import { AriaDescriber } from '@angular/cdk/a11y';
 export declare type MatBadgePosition = 'above after' | 'above before' | 'below before' | 'below after';
 export declare type MatBadgeSize = 'small' | 'medium' | 'large';
 /** Directive to display a text badge. */
-export declare class MatBadge {
+export declare class MatBadge implements OnDestroy {
     private _document;
     private _ngZone;
     private _elementRef;
@@ -46,12 +46,13 @@ export declare class MatBadge {
     isAbove(): boolean;
     /** Whether the badge is after the host or not */
     isAfter(): boolean;
+    ngOnDestroy(): void;
     /** Injects a span element into the DOM with the content. */
     private _updateTextContent();
     /** Creates the badge element */
     private _createBadgeElement();
     /** Sets the aria-label property on the element */
-    private _updateHostAriaDescription(val, prevVal);
+    private _updateHostAriaDescription(newDescription, oldDescription);
     /** Adds css theme class given the color to the component host */
     private _setColor(colorPalette);
 }

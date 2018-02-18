@@ -92,14 +92,14 @@ class MatBadge {
      */
     get description() { return this._description; }
     /**
-     * @param {?} val
+     * @param {?} newDescription
      * @return {?}
      */
-    set description(val) {
-        if (this._description) {
-            this._updateHostAriaDescription(val, this._description);
+    set description(newDescription) {
+        if (newDescription !== this._description) {
+            this._updateHostAriaDescription(newDescription, this._description);
+            this._description = newDescription;
         }
-        this._description = val;
     }
     /**
      * Whether the badge is hidden.
@@ -126,6 +126,14 @@ class MatBadge {
      */
     isAfter() {
         return this.position.indexOf('before') === -1;
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        if (this.description && this._badgeElement) {
+            this._ariaDescriber.removeDescription(this._badgeElement, this.description);
+        }
     }
     /**
      * Injects a span element into the DOM with the content.
@@ -169,15 +177,19 @@ class MatBadge {
     }
     /**
      * Sets the aria-label property on the element
-     * @param {?} val
-     * @param {?} prevVal
+     * @param {?} newDescription
+     * @param {?} oldDescription
      * @return {?}
      */
-    _updateHostAriaDescription(val, prevVal) {
+    _updateHostAriaDescription(newDescription, oldDescription) {
         // ensure content available before setting label
         const /** @type {?} */ content = this._updateTextContent();
-        this._ariaDescriber.removeDescription(content, prevVal);
-        this._ariaDescriber.describe(content, val);
+        if (oldDescription) {
+            this._ariaDescriber.removeDescription(content, oldDescription);
+        }
+        if (newDescription) {
+            this._ariaDescriber.describe(content, newDescription);
+        }
     }
     /**
      * Adds css theme class given the color to the component host

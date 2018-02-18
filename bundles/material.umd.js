@@ -4592,14 +4592,14 @@ var MatBadge = /** @class */ (function () {
          */
         function () { return this._description; },
         set: /**
-         * @param {?} val
+         * @param {?} newDescription
          * @return {?}
          */
-        function (val) {
-            if (this._description) {
-                this._updateHostAriaDescription(val, this._description);
+        function (newDescription) {
+            if (newDescription !== this._description) {
+                this._updateHostAriaDescription(newDescription, this._description);
+                this._description = newDescription;
             }
-            this._description = val;
         },
         enumerable: true,
         configurable: true
@@ -4643,6 +4643,17 @@ var MatBadge = /** @class */ (function () {
      */
     function () {
         return this.position.indexOf('before') === -1;
+    };
+    /**
+     * @return {?}
+     */
+    MatBadge.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        if (this.description && this._badgeElement) {
+            this._ariaDescriber.removeDescription(this._badgeElement, this.description);
+        }
     };
     /**
      * Injects a span element into the DOM with the content.
@@ -4694,21 +4705,25 @@ var MatBadge = /** @class */ (function () {
     };
     /**
      * Sets the aria-label property on the element
-     * @param {?} val
-     * @param {?} prevVal
+     * @param {?} newDescription
+     * @param {?} oldDescription
      * @return {?}
      */
     MatBadge.prototype._updateHostAriaDescription = /**
      * Sets the aria-label property on the element
-     * @param {?} val
-     * @param {?} prevVal
+     * @param {?} newDescription
+     * @param {?} oldDescription
      * @return {?}
      */
-    function (val, prevVal) {
+    function (newDescription, oldDescription) {
         // ensure content available before setting label
         var /** @type {?} */ content = this._updateTextContent();
-        this._ariaDescriber.removeDescription(content, prevVal);
-        this._ariaDescriber.describe(content, val);
+        if (oldDescription) {
+            this._ariaDescriber.removeDescription(content, oldDescription);
+        }
+        if (newDescription) {
+            this._ariaDescriber.describe(content, newDescription);
+        }
     };
     /**
      * Adds css theme class given the color to the component host
@@ -31550,7 +31565,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta-0-9d19291');
+var VERSION = new _angular_core.Version('6.0.0-beta-0-aed7e8a');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -31796,10 +31811,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa20 = MatMenuItemBase;
-exports.ɵb20 = _MatMenuItemMixinBase;
-exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -31922,16 +31937,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe23 = MatTabBase;
+exports.ɵf23 = _MatTabMixinBase;
+exports.ɵa23 = MatTabHeaderBase;
+exports.ɵb23 = _MatTabHeaderMixinBase;
+exports.ɵc23 = MatTabLabelWrapperBase;
+exports.ɵd23 = _MatTabLabelWrapperMixinBase;
+exports.ɵi23 = MatTabLinkBase;
+exports.ɵg23 = MatTabNavBase;
+exports.ɵj23 = _MatTabLinkMixinBase;
+exports.ɵh23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
