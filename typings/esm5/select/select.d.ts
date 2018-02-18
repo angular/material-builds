@@ -142,6 +142,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
         overlayX: string;
         overlayY: string;
     }[];
+    /** Whether the component is disabling centering of the active option over the trigger. */
+    private _disableOptionCentering;
     /** Whether the select is focused. */
     focused: boolean;
     /** A name for this control that can be used by `mat-form-field`. */
@@ -168,6 +170,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     required: boolean;
     /** Whether the user should be allowed to select multiple options. */
     multiple: boolean;
+    /** Whether to center the active option over the trigger. */
+    disableOptionCentering: boolean;
     /**
      * A function to compare the option values with the selected values. The first argument
      * is a value from an option. The second is a value from the selection. A boolean

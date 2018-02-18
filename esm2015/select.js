@@ -339,6 +339,10 @@ class MatSelect extends _MatSelectMixinBase {
             },
         ];
         /**
+         * Whether the component is disabling centering of the active option over the trigger.
+         */
+        this._disableOptionCentering = false;
+        /**
          * Whether the select is focused.
          */
         this.focused = false;
@@ -442,6 +446,18 @@ class MatSelect extends _MatSelectMixinBase {
             throw getMatSelectDynamicMultipleError();
         }
         this._multiple = coerceBooleanProperty(value);
+    }
+    /**
+     * Whether to center the active option over the trigger.
+     * @return {?}
+     */
+    get disableOptionCentering() { return this._disableOptionCentering; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set disableOptionCentering(value) {
+        this._disableOptionCentering = coerceBooleanProperty(value);
     }
     /**
      * A function to compare the option values with the selected values. The first argument
@@ -1165,6 +1181,10 @@ class MatSelect extends _MatSelectMixinBase {
         const /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
         const /** @type {?} */ maxOptionsDisplayed = Math.floor(SELECT_PANEL_MAX_HEIGHT / itemHeight);
         let /** @type {?} */ optionOffsetFromPanelTop;
+        // Disable offset if requested by user by returning 0 as value to offset
+        if (this._disableOptionCentering) {
+            return 0;
+        }
         if (this._scrollTop === 0) {
             optionOffsetFromPanelTop = selectedIndex * itemHeight;
         }
@@ -1382,6 +1402,7 @@ MatSelect.propDecorators = {
     "placeholder": [{ type: Input },],
     "required": [{ type: Input },],
     "multiple": [{ type: Input },],
+    "disableOptionCentering": [{ type: Input },],
     "compareWith": [{ type: Input },],
     "value": [{ type: Input },],
     "ariaLabel": [{ type: Input, args: ['aria-label',] },],

@@ -19587,6 +19587,10 @@ var MatSelect = /** @class */ (function (_super) {
             },
         ];
         /**
+         * Whether the component is disabling centering of the active option over the trigger.
+         */
+        _this._disableOptionCentering = false;
+        /**
          * Whether the select is focused.
          */
         _this.focused = false;
@@ -19703,6 +19707,22 @@ var MatSelect = /** @class */ (function (_super) {
                 throw getMatSelectDynamicMultipleError();
             }
             this._multiple = _angular_cdk_coercion.coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatSelect.prototype, "disableOptionCentering", {
+        get: /**
+         * Whether to center the active option over the trigger.
+         * @return {?}
+         */
+        function () { return this._disableOptionCentering; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._disableOptionCentering = _angular_cdk_coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -20745,6 +20765,10 @@ var MatSelect = /** @class */ (function (_super) {
         var /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
         var /** @type {?} */ maxOptionsDisplayed = Math.floor(SELECT_PANEL_MAX_HEIGHT / itemHeight);
         var /** @type {?} */ optionOffsetFromPanelTop;
+        // Disable offset if requested by user by returning 0 as value to offset
+        if (this._disableOptionCentering) {
+            return 0;
+        }
         if (this._scrollTop === 0) {
             optionOffsetFromPanelTop = selectedIndex * itemHeight;
         }
@@ -21021,6 +21045,7 @@ var MatSelect = /** @class */ (function (_super) {
         "placeholder": [{ type: _angular_core.Input },],
         "required": [{ type: _angular_core.Input },],
         "multiple": [{ type: _angular_core.Input },],
+        "disableOptionCentering": [{ type: _angular_core.Input },],
         "compareWith": [{ type: _angular_core.Input },],
         "value": [{ type: _angular_core.Input },],
         "ariaLabel": [{ type: _angular_core.Input, args: ['aria-label',] },],
@@ -31565,7 +31590,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta-0-aed7e8a');
+var VERSION = new _angular_core.Version('6.0.0-beta-0-f38bcd9');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -31811,10 +31836,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MatMenuItemBase;
-exports.ɵb24 = _MatMenuItemMixinBase;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa23 = MatMenuItemBase;
+exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -31937,16 +31962,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵe24 = MatTabBase;
+exports.ɵf24 = _MatTabMixinBase;
+exports.ɵa24 = MatTabHeaderBase;
+exports.ɵb24 = _MatTabHeaderMixinBase;
+exports.ɵc24 = MatTabLabelWrapperBase;
+exports.ɵd24 = _MatTabLabelWrapperMixinBase;
+exports.ɵi24 = MatTabLinkBase;
+exports.ɵg24 = MatTabNavBase;
+exports.ɵj24 = _MatTabLinkMixinBase;
+exports.ɵh24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
