@@ -5387,12 +5387,6 @@ var MatBottomSheet = /** @class */ (function () {
         var /** @type {?} */ injectionTokens = new WeakMap();
         injectionTokens.set(MatBottomSheetRef, bottomSheetRef);
         injectionTokens.set(MAT_BOTTOM_SHEET_DATA, config.data);
-        if (!userInjector || !userInjector.get(_angular_cdk_bidi.Directionality, null)) {
-            injectionTokens.set(_angular_cdk_bidi.Directionality, {
-                value: config.direction,
-                change: rxjs_observable_of.of()
-            });
-        }
         return new _angular_cdk_portal.PortalInjector(userInjector || this._injector, injectionTokens);
     };
     MatBottomSheet.decorators = [
@@ -31550,7 +31544,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta-0-9d784a0');
+var VERSION = new _angular_core.Version('6.0.0-beta-0-8e3ab8d');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

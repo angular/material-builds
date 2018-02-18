@@ -20,8 +20,6 @@ import { Subject } from 'rxjs/Subject';
 import { merge } from 'rxjs/observable/merge';
 import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
-import { of } from 'rxjs/observable/of';
-import { Directionality } from '@angular/cdk/bidi';
 
 /**
  * @fileoverview added by tsickle
@@ -617,12 +615,6 @@ var MatBottomSheet = /** @class */ (function () {
         var /** @type {?} */ injectionTokens = new WeakMap();
         injectionTokens.set(MatBottomSheetRef, bottomSheetRef);
         injectionTokens.set(MAT_BOTTOM_SHEET_DATA, config.data);
-        if (!userInjector || !userInjector.get(Directionality, null)) {
-            injectionTokens.set(Directionality, {
-                value: config.direction,
-                change: of()
-            });
-        }
         return new PortalInjector(userInjector || this._injector, injectionTokens);
     };
     MatBottomSheet.decorators = [
