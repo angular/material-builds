@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { EventEmitter } from '@angular/core';
+import { ElementRef, EventEmitter, NgZone } from '@angular/core';
 /**
  * An internal class that represents the data corresponding to a single calendar cell.
  * @docs-private
@@ -22,6 +22,8 @@ export declare class MatCalendarCell {
  * @docs-private
  */
 export declare class MatCalendarBody {
+    private _elementRef;
+    private _ngZone;
     /** The label for the table. (e.g. "Jan 2017"). */
     label: string;
     /** The cells to display in the table. */
@@ -45,8 +47,11 @@ export declare class MatCalendarBody {
     cellAspectRatio: number;
     /** Emits when a new value is selected. */
     readonly selectedValueChange: EventEmitter<number>;
+    constructor(_elementRef: ElementRef, _ngZone: NgZone);
     _cellClicked(cell: MatCalendarCell): void;
     /** The number of blank cells to put at the beginning for the first row. */
     readonly _firstRowOffset: number;
     _isActiveCell(rowIndex: number, colIndex: number): boolean;
+    /** Focuses the active cell after the microtask queue is empty. */
+    _focusActiveCell(): void;
 }

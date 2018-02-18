@@ -5387,6 +5387,12 @@ var MatBottomSheet = /** @class */ (function () {
         var /** @type {?} */ injectionTokens = new WeakMap();
         injectionTokens.set(MatBottomSheetRef, bottomSheetRef);
         injectionTokens.set(MAT_BOTTOM_SHEET_DATA, config.data);
+        if (!userInjector || !userInjector.get(_angular_cdk_bidi.Directionality, null)) {
+            injectionTokens.set(_angular_cdk_bidi.Directionality, {
+                value: config.direction,
+                change: rxjs_observable_of.of()
+            });
+        }
         return new _angular_cdk_portal.PortalInjector(userInjector || this._injector, injectionTokens);
     };
     MatBottomSheet.decorators = [
@@ -11334,7 +11340,9 @@ var MatCalendarCell = /** @class */ (function () {
  * \@docs-private
  */
 var MatCalendarBody = /** @class */ (function () {
-    function MatCalendarBody() {
+    function MatCalendarBody(_elementRef, _ngZone) {
+        this._elementRef = _elementRef;
+        this._ngZone = _ngZone;
         /**
          * The number of columns in the table.
          */
@@ -11402,6 +11410,23 @@ var MatCalendarBody = /** @class */ (function () {
         }
         return cellNumber == this.activeCell;
     };
+    /** Focuses the active cell after the microtask queue is empty. */
+    /**
+     * Focuses the active cell after the microtask queue is empty.
+     * @return {?}
+     */
+    MatCalendarBody.prototype._focusActiveCell = /**
+     * Focuses the active cell after the microtask queue is empty.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this._ngZone.runOutsideAngular(function () {
+            _this._ngZone.onStable.asObservable().pipe(rxjs_operators_take.take(1)).subscribe(function () {
+                _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
+            });
+        });
+    };
     MatCalendarBody.decorators = [
         { type: _angular_core.Component, args: [{selector: '[mat-calendar-body]',
                     template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" (click)=\"_cellClicked(item)\" [style.width.%]=\"100 / numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
@@ -11418,7 +11443,10 @@ var MatCalendarBody = /** @class */ (function () {
                 },] },
     ];
     /** @nocollapse */
-    MatCalendarBody.ctorParameters = function () { return []; };
+    MatCalendarBody.ctorParameters = function () { return [
+        { type: _angular_core.ElementRef, },
+        { type: _angular_core.NgZone, },
+    ]; };
     MatCalendarBody.propDecorators = {
         "label": [{ type: _angular_core.Input },],
         "rows": [{ type: _angular_core.Input },],
@@ -11445,10 +11473,11 @@ var DAYS_PER_WEEK = 7;
  * \@docs-private
  */
 var MatMonthView = /** @class */ (function () {
-    function MatMonthView(_dateAdapter, _dateFormats, _changeDetectorRef) {
-        this._dateAdapter = _dateAdapter;
-        this._dateFormats = _dateFormats;
+    function MatMonthView(_changeDetectorRef, _dateFormats, _dateAdapter, _dir) {
         this._changeDetectorRef = _changeDetectorRef;
+        this._dateFormats = _dateFormats;
+        this._dateAdapter = _dateAdapter;
+        this._dir = _dir;
         /**
          * Emits when a new date is selected.
          */
@@ -11457,6 +11486,10 @@ var MatMonthView = /** @class */ (function () {
          * Emits when any date is selected.
          */
         this._userSelection = new _angular_core.EventEmitter();
+        /**
+         * Emits when any date is activated.
+         */
+        this.activeDateChange = new _angular_core.EventEmitter();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -11485,8 +11518,8 @@ var MatMonthView = /** @class */ (function () {
          */
         function (value) {
             var /** @type {?} */ oldActiveDate = this._activeDate;
-            this._activeDate =
-                this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+            var /** @type {?} */ validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+            this._activeDate = this._dateAdapter.clampDate(validDate, this.minDate, this.maxDate);
             if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
                 this._init();
             }
@@ -11551,6 +11584,7 @@ var MatMonthView = /** @class */ (function () {
      */
     function () {
         this._init();
+        this._focusActiveCell();
     };
     /** Handles when a new date is selected. */
     /**
@@ -11571,6 +11605,72 @@ var MatMonthView = /** @class */ (function () {
             this.selectedChange.emit(selectedDate);
         }
         this._userSelection.emit();
+    };
+    /** Handles keydown events on the calendar body when calendar is in month view. */
+    /**
+     * Handles keydown events on the calendar body when calendar is in month view.
+     * @param {?} event
+     * @return {?}
+     */
+    MatMonthView.prototype._handleCalendarBodyKeydown = /**
+     * Handles keydown events on the calendar body when calendar is in month view.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
+        var /** @type {?} */ oldActiveDate = this._activeDate;
+        var /** @type {?} */ isRtl = this._isRtl();
+        switch (event.keyCode) {
+            case _angular_cdk_keycodes.LEFT_ARROW:
+                this.activeDate = this._dateAdapter.addCalendarDays(this._activeDate, isRtl ? 1 : -1);
+                break;
+            case _angular_cdk_keycodes.RIGHT_ARROW:
+                this.activeDate = this._dateAdapter.addCalendarDays(this._activeDate, isRtl ? -1 : 1);
+                break;
+            case _angular_cdk_keycodes.UP_ARROW:
+                this.activeDate = this._dateAdapter.addCalendarDays(this._activeDate, -7);
+                break;
+            case _angular_cdk_keycodes.DOWN_ARROW:
+                this.activeDate = this._dateAdapter.addCalendarDays(this._activeDate, 7);
+                break;
+            case _angular_cdk_keycodes.HOME:
+                this.activeDate = this._dateAdapter.addCalendarDays(this._activeDate, 1 - this._dateAdapter.getDate(this._activeDate));
+                break;
+            case _angular_cdk_keycodes.END:
+                this.activeDate = this._dateAdapter.addCalendarDays(this._activeDate, (this._dateAdapter.getNumDaysInMonth(this._activeDate) -
+                    this._dateAdapter.getDate(this._activeDate)));
+                break;
+            case _angular_cdk_keycodes.PAGE_UP:
+                this.activeDate = event.altKey ?
+                    this._dateAdapter.addCalendarYears(this._activeDate, -1) :
+                    this._dateAdapter.addCalendarMonths(this._activeDate, -1);
+                break;
+            case _angular_cdk_keycodes.PAGE_DOWN:
+                this.activeDate = event.altKey ?
+                    this._dateAdapter.addCalendarYears(this._activeDate, 1) :
+                    this._dateAdapter.addCalendarMonths(this._activeDate, 1);
+                break;
+            case _angular_cdk_keycodes.ENTER:
+                if (!this.dateFilter || this.dateFilter(this._activeDate)) {
+                    this._dateSelected(this._dateAdapter.getDate(this._activeDate));
+                    this._userSelection.emit();
+                    // Prevent unexpected default actions such as form submission.
+                    event.preventDefault();
+                }
+                return;
+            default:
+                // Don't prevent default or focus active cell on keys that we don't explicitly handle.
+                return;
+        }
+        if (this._dateAdapter.compareDate(oldActiveDate, this.activeDate)) {
+            this.activeDateChange.emit(this.activeDate);
+        }
+        this._focusActiveCell();
+        // Prevent unexpected default actions such as form submission.
+        event.preventDefault();
     };
     /** Initializes this month view. */
     /**
@@ -11593,6 +11693,17 @@ var MatMonthView = /** @class */ (function () {
                 this._dateAdapter.getFirstDayOfWeek()) % DAYS_PER_WEEK;
         this._createWeekCells();
         this._changeDetectorRef.markForCheck();
+    };
+    /**
+     * Focuses the active cell after the microtask queue is empty.
+     * @return {?}
+     */
+    MatMonthView.prototype._focusActiveCell = /**
+     * Focuses the active cell after the microtask queue is empty.
+     * @return {?}
+     */
+    function () {
+        this._matCalendarBody._focusActiveCell();
     };
     /**
      * Creates MatCalendarCells for the dates in this month.
@@ -11677,20 +11788,32 @@ var MatMonthView = /** @class */ (function () {
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /**
+     * Determines whether the user has the RTL layout direction.
+     * @return {?}
+     */
+    MatMonthView.prototype._isRtl = /**
+     * Determines whether the user has the RTL layout direction.
+     * @return {?}
+     */
+    function () {
+        return this._dir && this._dir.value === 'rtl';
+    };
     MatMonthView.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-month-view',
-                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\"></tbody></table>",
+                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matMonthView',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
                 },] },
     ];
     /** @nocollapse */
     MatMonthView.ctorParameters = function () { return [
-        { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
         { type: _angular_core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
+        { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatMonthView.propDecorators = {
         "activeDate": [{ type: _angular_core.Input },],
@@ -11700,6 +11823,8 @@ var MatMonthView = /** @class */ (function () {
         "dateFilter": [{ type: _angular_core.Input },],
         "selectedChange": [{ type: _angular_core.Output },],
         "_userSelection": [{ type: _angular_core.Output },],
+        "activeDateChange": [{ type: _angular_core.Output },],
+        "_matCalendarBody": [{ type: _angular_core.ViewChild, args: [MatCalendarBody,] },],
     };
     return MatMonthView;
 }());
@@ -11716,11 +11841,12 @@ var yearsPerRow = 4;
  * \@docs-private
  */
 var MatMultiYearView = /** @class */ (function () {
-    function MatMultiYearView(_dateAdapter, _changeDetectorRef) {
-        this._dateAdapter = _dateAdapter;
+    function MatMultiYearView(_changeDetectorRef, _dateAdapter, _dir) {
         this._changeDetectorRef = _changeDetectorRef;
+        this._dateAdapter = _dateAdapter;
+        this._dir = _dir;
         /**
-         * Emits when a new month is selected.
+         * Emits when a new year is selected.
          */
         this.selectedChange = new _angular_core.EventEmitter();
         /**
@@ -11744,8 +11870,8 @@ var MatMultiYearView = /** @class */ (function () {
          */
         function (value) {
             var /** @type {?} */ oldActiveDate = this._activeDate;
-            this._activeDate =
-                this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+            var /** @type {?} */ validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+            this._activeDate = this._dateAdapter.clampDate(validDate, this.minDate, this.maxDate);
             if (Math.floor(this._dateAdapter.getYear(oldActiveDate) / yearsPerPage) !=
                 Math.floor(this._dateAdapter.getYear(this._activeDate) / yearsPerPage)) {
                 this._init();
@@ -11811,6 +11937,7 @@ var MatMultiYearView = /** @class */ (function () {
      */
     function () {
         this._init();
+        this._focusActiveCell();
     };
     /** Initializes this multi-year view. */
     /**
@@ -11853,6 +11980,60 @@ var MatMultiYearView = /** @class */ (function () {
         var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this._dateAdapter.createDate(year, month, 1));
         this.selectedChange.emit(this._dateAdapter.createDate(year, month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
     };
+    /** Handles keydown events on the calendar body when calendar is in multi-year view. */
+    /**
+     * Handles keydown events on the calendar body when calendar is in multi-year view.
+     * @param {?} event
+     * @return {?}
+     */
+    MatMultiYearView.prototype._handleCalendarBodyKeydown = /**
+     * Handles keydown events on the calendar body when calendar is in multi-year view.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
+        var /** @type {?} */ isRtl = this._isRtl();
+        switch (event.keyCode) {
+            case _angular_cdk_keycodes.LEFT_ARROW:
+                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, isRtl ? 1 : -1);
+                break;
+            case _angular_cdk_keycodes.RIGHT_ARROW:
+                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, isRtl ? -1 : 1);
+                break;
+            case _angular_cdk_keycodes.UP_ARROW:
+                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, -yearsPerRow);
+                break;
+            case _angular_cdk_keycodes.DOWN_ARROW:
+                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, yearsPerRow);
+                break;
+            case _angular_cdk_keycodes.HOME:
+                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, -this._dateAdapter.getYear(this._activeDate) % yearsPerPage);
+                break;
+            case _angular_cdk_keycodes.END:
+                this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, yearsPerPage - this._dateAdapter.getYear(this._activeDate) % yearsPerPage - 1);
+                break;
+            case _angular_cdk_keycodes.PAGE_UP:
+                this.activeDate =
+                    this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? -yearsPerPage * 10 : -yearsPerPage);
+                break;
+            case _angular_cdk_keycodes.PAGE_DOWN:
+                this.activeDate =
+                    this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? yearsPerPage * 10 : yearsPerPage);
+                break;
+            case _angular_cdk_keycodes.ENTER:
+                this._yearSelected(this._dateAdapter.getYear(this._activeDate));
+                break;
+            default:
+                // Don't prevent default or focus active cell on keys that we don't explicitly handle.
+                return;
+        }
+        this._focusActiveCell();
+        // Prevent unexpected default actions such as form submission.
+        event.preventDefault();
+    };
     /**
      * @return {?}
      */
@@ -11861,6 +12042,17 @@ var MatMultiYearView = /** @class */ (function () {
      */
     function () {
         return this._dateAdapter.getYear(this.activeDate) % yearsPerPage;
+    };
+    /**
+     * Focuses the active cell after the microtask queue is empty.
+     * @return {?}
+     */
+    MatMultiYearView.prototype._focusActiveCell = /**
+     * Focuses the active cell after the microtask queue is empty.
+     * @return {?}
+     */
+    function () {
+        this._matCalendarBody._focusActiveCell();
     };
     /**
      * Creates an MatCalendarCell for the given year.
@@ -11917,19 +12109,31 @@ var MatMultiYearView = /** @class */ (function () {
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /**
+     * Determines whether the user has the RTL layout direction.
+     * @return {?}
+     */
+    MatMultiYearView.prototype._isRtl = /**
+     * Determines whether the user has the RTL layout direction.
+     * @return {?}
+     */
+    function () {
+        return this._dir && this._dir.value === 'rtl';
+    };
     MatMultiYearView.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-multi-year-view',
-                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [rows]=\"_years\" [todayValue]=\"_todayYear\" [selectedValue]=\"_selectedYear\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_getActiveCell()\" (selectedValueChange)=\"_yearSelected($event)\"></tbody></table>",
+                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [rows]=\"_years\" [todayValue]=\"_todayYear\" [selectedValue]=\"_selectedYear\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_getActiveCell()\" (selectedValueChange)=\"_yearSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matMultiYearView',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
                 },] },
     ];
     /** @nocollapse */
     MatMultiYearView.ctorParameters = function () { return [
-        { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
         { type: _angular_core.ChangeDetectorRef, },
+        { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatMultiYearView.propDecorators = {
         "activeDate": [{ type: _angular_core.Input },],
@@ -11939,6 +12143,7 @@ var MatMultiYearView = /** @class */ (function () {
         "dateFilter": [{ type: _angular_core.Input },],
         "selectedChange": [{ type: _angular_core.Output },],
         "yearSelected": [{ type: _angular_core.Output },],
+        "_matCalendarBody": [{ type: _angular_core.ViewChild, args: [MatCalendarBody,] },],
     };
     return MatMultiYearView;
 }());
@@ -11953,10 +12158,11 @@ var MatMultiYearView = /** @class */ (function () {
  * \@docs-private
  */
 var MatYearView = /** @class */ (function () {
-    function MatYearView(_dateAdapter, _dateFormats, _changeDetectorRef) {
-        this._dateAdapter = _dateAdapter;
-        this._dateFormats = _dateFormats;
+    function MatYearView(_changeDetectorRef, _dateFormats, _dateAdapter, _dir) {
         this._changeDetectorRef = _changeDetectorRef;
+        this._dateFormats = _dateFormats;
+        this._dateAdapter = _dateAdapter;
+        this._dir = _dir;
         /**
          * Emits when a new month is selected.
          */
@@ -11985,9 +12191,9 @@ var MatYearView = /** @class */ (function () {
          */
         function (value) {
             var /** @type {?} */ oldActiveDate = this._activeDate;
-            this._activeDate =
-                this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
-            if (this._dateAdapter.getYear(oldActiveDate) != this._dateAdapter.getYear(this._activeDate)) {
+            var /** @type {?} */ validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+            this._activeDate = this._dateAdapter.clampDate(validDate, this.minDate, this.maxDate);
+            if (this._dateAdapter.getYear(oldActiveDate) !== this._dateAdapter.getYear(this._activeDate)) {
                 this._init();
             }
         },
@@ -12051,6 +12257,7 @@ var MatYearView = /** @class */ (function () {
      */
     function () {
         this._init();
+        this._focusActiveCell();
     };
     /** Handles when a new month is selected. */
     /**
@@ -12068,6 +12275,60 @@ var MatYearView = /** @class */ (function () {
         this.monthSelected.emit(normalizedDate);
         var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(normalizedDate);
         this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
+    };
+    /** Handles keydown events on the calendar body when calendar is in year view. */
+    /**
+     * Handles keydown events on the calendar body when calendar is in year view.
+     * @param {?} event
+     * @return {?}
+     */
+    MatYearView.prototype._handleCalendarBodyKeydown = /**
+     * Handles keydown events on the calendar body when calendar is in year view.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
+        // disabled ones from being selected. This may not be ideal, we should look into whether
+        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
+        var /** @type {?} */ isRtl = this._isRtl();
+        switch (event.keyCode) {
+            case _angular_cdk_keycodes.LEFT_ARROW:
+                this.activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, isRtl ? 1 : -1);
+                break;
+            case _angular_cdk_keycodes.RIGHT_ARROW:
+                this.activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, isRtl ? -1 : 1);
+                break;
+            case _angular_cdk_keycodes.UP_ARROW:
+                this.activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -4);
+                break;
+            case _angular_cdk_keycodes.DOWN_ARROW:
+                this.activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, 4);
+                break;
+            case _angular_cdk_keycodes.HOME:
+                this.activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -this._dateAdapter.getMonth(this._activeDate));
+                break;
+            case _angular_cdk_keycodes.END:
+                this.activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, 11 - this._dateAdapter.getMonth(this._activeDate));
+                break;
+            case _angular_cdk_keycodes.PAGE_UP:
+                this.activeDate =
+                    this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? -10 : -1);
+                break;
+            case _angular_cdk_keycodes.PAGE_DOWN:
+                this.activeDate =
+                    this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? 10 : 1);
+                break;
+            case _angular_cdk_keycodes.ENTER:
+                this._monthSelected(this._dateAdapter.getMonth(this._activeDate));
+                break;
+            default:
+                // Don't prevent default or focus active cell on keys that we don't explicitly handle.
+                return;
+        }
+        this._focusActiveCell();
+        // Prevent unexpected default actions such as form submission.
+        event.preventDefault();
     };
     /** Initializes this year view. */
     /**
@@ -12089,6 +12350,17 @@ var MatYearView = /** @class */ (function () {
             return row.map(function (month) { return _this._createCellForMonth(month, monthNames[month]); });
         });
         this._changeDetectorRef.markForCheck();
+    };
+    /**
+     * Focuses the active cell after the microtask queue is empty.
+     * @return {?}
+     */
+    MatYearView.prototype._focusActiveCell = /**
+     * Focuses the active cell after the microtask queue is empty.
+     * @return {?}
+     */
+    function () {
+        this._matCalendarBody._focusActiveCell();
     };
     /**
      * Gets the month in this year that the given Date falls on.
@@ -12206,20 +12478,32 @@ var MatYearView = /** @class */ (function () {
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
+    /**
+     * Determines whether the user has the RTL layout direction.
+     * @return {?}
+     */
+    MatYearView.prototype._isRtl = /**
+     * Determines whether the user has the RTL layout direction.
+     * @return {?}
+     */
+    function () {
+        return this._dir && this._dir.value === 'rtl';
+    };
     MatYearView.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-year-view',
-                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\"></tbody></table>",
+                    template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matYearView',
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
                 },] },
     ];
     /** @nocollapse */
     MatYearView.ctorParameters = function () { return [
-        { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
         { type: _angular_core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
+        { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
+        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatYearView.propDecorators = {
         "activeDate": [{ type: _angular_core.Input },],
@@ -12229,6 +12513,7 @@ var MatYearView = /** @class */ (function () {
         "dateFilter": [{ type: _angular_core.Input },],
         "selectedChange": [{ type: _angular_core.Output },],
         "monthSelected": [{ type: _angular_core.Output },],
+        "_matCalendarBody": [{ type: _angular_core.ViewChild, args: [MatCalendarBody,] },],
     };
     return MatYearView;
 }());
@@ -12243,13 +12528,10 @@ var MatYearView = /** @class */ (function () {
  * \@docs-private
  */
 var MatCalendar = /** @class */ (function () {
-    function MatCalendar(_elementRef, _intl, _ngZone, _dateAdapter, _dateFormats, changeDetectorRef, _dir) {
-        this._elementRef = _elementRef;
+    function MatCalendar(_intl, _dateAdapter, _dateFormats, changeDetectorRef) {
         this._intl = _intl;
-        this._ngZone = _ngZone;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
-        this._dir = _dir;
         /**
          * Whether the calendar should be started in month or year view.
          */
@@ -12438,7 +12720,6 @@ var MatCalendar = /** @class */ (function () {
      */
     function () {
         this._activeDate = this.startAt || this._dateAdapter.today();
-        this._focusActiveCell();
         this._currentView = this.startView;
     };
     /**
@@ -12520,15 +12801,15 @@ var MatCalendar = /** @class */ (function () {
     function () {
         this._userSelection.emit();
     };
-    /** Handles month selection in the multi-year view. */
+    /** Handles year/month selection in the multi-year/year views. */
     /**
-     * Handles month selection in the multi-year view.
+     * Handles year/month selection in the multi-year/year views.
      * @param {?} date
      * @param {?} view
      * @return {?}
      */
     MatCalendar.prototype._goToDateInView = /**
-     * Handles month selection in the multi-year view.
+     * Handles year/month selection in the multi-year/year views.
      * @param {?} date
      * @param {?} view
      * @return {?}
@@ -12604,48 +12885,6 @@ var MatCalendar = /** @class */ (function () {
     function () {
         return !this.maxDate || !this._isSameView(this._activeDate, this.maxDate);
     };
-    /** Handles keydown events on the calendar body. */
-    /**
-     * Handles keydown events on the calendar body.
-     * @param {?} event
-     * @return {?}
-     */
-    MatCalendar.prototype._handleCalendarBodyKeydown = /**
-     * Handles keydown events on the calendar body.
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
-        // disabled ones from being selected. This may not be ideal, we should look into whether
-        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
-        if (this._currentView == 'month') {
-            this._handleCalendarBodyKeydownInMonthView(event);
-        }
-        else if (this._currentView == 'year') {
-            this._handleCalendarBodyKeydownInYearView(event);
-        }
-        else {
-            this._handleCalendarBodyKeydownInMultiYearView(event);
-        }
-    };
-    /** Focuses the active cell after the microtask queue is empty. */
-    /**
-     * Focuses the active cell after the microtask queue is empty.
-     * @return {?}
-     */
-    MatCalendar.prototype._focusActiveCell = /**
-     * Focuses the active cell after the microtask queue is empty.
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        this._ngZone.runOutsideAngular(function () {
-            _this._ngZone.onStable.asObservable().pipe(rxjs_operators_take.take(1)).subscribe(function () {
-                _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
-            });
-        });
-    };
     /**
      * Whether the two dates represent the same view in the current view mode (month or year).
      * @param {?} date1
@@ -12671,163 +12910,6 @@ var MatCalendar = /** @class */ (function () {
             Math.floor(this._dateAdapter.getYear(date2) / yearsPerPage);
     };
     /**
-     * Handles keydown events on the calendar body when calendar is in month view.
-     * @param {?} event
-     * @return {?}
-     */
-    MatCalendar.prototype._handleCalendarBodyKeydownInMonthView = /**
-     * Handles keydown events on the calendar body when calendar is in month view.
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        var /** @type {?} */ isRtl = this._isRtl();
-        switch (event.keyCode) {
-            case _angular_cdk_keycodes.LEFT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, isRtl ? 1 : -1);
-                break;
-            case _angular_cdk_keycodes.RIGHT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, isRtl ? -1 : 1);
-                break;
-            case _angular_cdk_keycodes.UP_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, -7);
-                break;
-            case _angular_cdk_keycodes.DOWN_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, 7);
-                break;
-            case _angular_cdk_keycodes.HOME:
-                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, 1 - this._dateAdapter.getDate(this._activeDate));
-                break;
-            case _angular_cdk_keycodes.END:
-                this._activeDate = this._dateAdapter.addCalendarDays(this._activeDate, (this._dateAdapter.getNumDaysInMonth(this._activeDate) -
-                    this._dateAdapter.getDate(this._activeDate)));
-                break;
-            case _angular_cdk_keycodes.PAGE_UP:
-                this._activeDate = event.altKey ?
-                    this._dateAdapter.addCalendarYears(this._activeDate, -1) :
-                    this._dateAdapter.addCalendarMonths(this._activeDate, -1);
-                break;
-            case _angular_cdk_keycodes.PAGE_DOWN:
-                this._activeDate = event.altKey ?
-                    this._dateAdapter.addCalendarYears(this._activeDate, 1) :
-                    this._dateAdapter.addCalendarMonths(this._activeDate, 1);
-                break;
-            case _angular_cdk_keycodes.ENTER:
-                if (!this.dateFilter || this.dateFilter(this._activeDate)) {
-                    this._dateSelected(this._activeDate);
-                    this._userSelected();
-                    // Prevent unexpected default actions such as form submission.
-                    event.preventDefault();
-                }
-                return;
-            default:
-                // Don't prevent default or focus active cell on keys that we don't explicitly handle.
-                return;
-        }
-        this._focusActiveCell();
-        // Prevent unexpected default actions such as form submission.
-        event.preventDefault();
-    };
-    /**
-     * Handles keydown events on the calendar body when calendar is in year view.
-     * @param {?} event
-     * @return {?}
-     */
-    MatCalendar.prototype._handleCalendarBodyKeydownInYearView = /**
-     * Handles keydown events on the calendar body when calendar is in year view.
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        var /** @type {?} */ isRtl = this._isRtl();
-        switch (event.keyCode) {
-            case _angular_cdk_keycodes.LEFT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, isRtl ? 1 : -1);
-                break;
-            case _angular_cdk_keycodes.RIGHT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, isRtl ? -1 : 1);
-                break;
-            case _angular_cdk_keycodes.UP_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -4);
-                break;
-            case _angular_cdk_keycodes.DOWN_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, 4);
-                break;
-            case _angular_cdk_keycodes.HOME:
-                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, -this._dateAdapter.getMonth(this._activeDate));
-                break;
-            case _angular_cdk_keycodes.END:
-                this._activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, 11 - this._dateAdapter.getMonth(this._activeDate));
-                break;
-            case _angular_cdk_keycodes.PAGE_UP:
-                this._activeDate =
-                    this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? -10 : -1);
-                break;
-            case _angular_cdk_keycodes.PAGE_DOWN:
-                this._activeDate =
-                    this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? 10 : 1);
-                break;
-            case _angular_cdk_keycodes.ENTER:
-                this._goToDateInView(this._activeDate, 'month');
-                break;
-            default:
-                // Don't prevent default or focus active cell on keys that we don't explicitly handle.
-                return;
-        }
-        this._focusActiveCell();
-        // Prevent unexpected default actions such as form submission.
-        event.preventDefault();
-    };
-    /**
-     * Handles keydown events on the calendar body when calendar is in multi-year view.
-     * @param {?} event
-     * @return {?}
-     */
-    MatCalendar.prototype._handleCalendarBodyKeydownInMultiYearView = /**
-     * Handles keydown events on the calendar body when calendar is in multi-year view.
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        switch (event.keyCode) {
-            case _angular_cdk_keycodes.LEFT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarYears(this._activeDate, -1);
-                break;
-            case _angular_cdk_keycodes.RIGHT_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarYears(this._activeDate, 1);
-                break;
-            case _angular_cdk_keycodes.UP_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarYears(this._activeDate, -yearsPerRow);
-                break;
-            case _angular_cdk_keycodes.DOWN_ARROW:
-                this._activeDate = this._dateAdapter.addCalendarYears(this._activeDate, yearsPerRow);
-                break;
-            case _angular_cdk_keycodes.HOME:
-                this._activeDate = this._dateAdapter.addCalendarYears(this._activeDate, -this._dateAdapter.getYear(this._activeDate) % yearsPerPage);
-                break;
-            case _angular_cdk_keycodes.END:
-                this._activeDate = this._dateAdapter.addCalendarYears(this._activeDate, yearsPerPage - this._dateAdapter.getYear(this._activeDate) % yearsPerPage - 1);
-                break;
-            case _angular_cdk_keycodes.PAGE_UP:
-                this._activeDate =
-                    this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? -yearsPerPage * 10 : -yearsPerPage);
-                break;
-            case _angular_cdk_keycodes.PAGE_DOWN:
-                this._activeDate =
-                    this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? yearsPerPage * 10 : yearsPerPage);
-                break;
-            case _angular_cdk_keycodes.ENTER:
-                this._goToDateInView(this._activeDate, 'year');
-                break;
-            default:
-                // Don't prevent default or focus active cell on keys that we don't explicitly handle.
-                return;
-        }
-        this._focusActiveCell();
-        // Prevent unexpected default actions such as form submission.
-        event.preventDefault();
-    };
-    /**
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
@@ -12838,20 +12920,9 @@ var MatCalendar = /** @class */ (function () {
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
     };
-    /**
-     * Determines whether the user has the RTL layout direction.
-     * @return {?}
-     */
-    MatCalendar.prototype._isRtl = /**
-     * Determines whether the user has the RTL layout direction.
-     * @return {?}
-     */
-    function () {
-        return this._dir && this._dir.value === 'rtl';
-    };
     MatCalendar.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-calendar',
-                    template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"_currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" (keydown)=\"_handleCalendarBodyKeydown($event)\" [ngSwitch]=\"_currentView\" cdkMonitorSubtreeFocus tabindex=\"-1\"><mat-month-view *ngSwitchCase=\"'month'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (selectedChange)=\"_dateSelected($event)\" (_userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchCase=\"'year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (monthSelected)=\"_monthSelectedInYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view><mat-multi-year-view *ngSwitchCase=\"'multi-year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (yearSelected)=\"_yearSelectedInMultiYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view></div>",
+                    template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"_currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" [ngSwitch]=\"_currentView\" cdkMonitorSubtreeFocus tabindex=\"-1\"><mat-month-view *ngSwitchCase=\"'month'\" [(activeDate)]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (selectedChange)=\"_dateSelected($event)\" (_userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchCase=\"'year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (monthSelected)=\"_monthSelectedInYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view><mat-multi-year-view *ngSwitchCase=\"'multi-year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (yearSelected)=\"_yearSelectedInMultiYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view></div>",
                     styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:0}.mat-calendar-controls{display:flex;margin:5% calc(33% / 7 - 16px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}.mat-calendar-next-button,.mat-calendar-previous-button{position:relative}.mat-calendar-next-button::after,.mat-calendar-previous-button::after{top:0;left:0;right:0;bottom:0;position:absolute;content:'';margin:15.5px;border:0 solid currentColor;border-top-width:2px}[dir=rtl] .mat-calendar-next-button,[dir=rtl] .mat-calendar-previous-button{transform:rotate(180deg)}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:'';position:absolute;top:0;left:-8px;right:-8px;height:1px}"],
                     host: {
                         'class': 'mat-calendar',
@@ -12864,13 +12935,10 @@ var MatCalendar = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatCalendar.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
         { type: MatDatepickerIntl, },
-        { type: _angular_core.NgZone, },
         { type: DateAdapter, decorators: [{ type: _angular_core.Optional },] },
         { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_DATE_FORMATS,] },] },
         { type: _angular_core.ChangeDetectorRef, },
-        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
     ]; };
     MatCalendar.propDecorators = {
         "startAt": [{ type: _angular_core.Input },],
@@ -12938,8 +13006,10 @@ var _MatDatepickerContentMixinBase = mixinColor(MatDatepickerContentBase);
  */
 var MatDatepickerContent = /** @class */ (function (_super) {
     __extends(MatDatepickerContent, _super);
-    function MatDatepickerContent(elementRef) {
-        return _super.call(this, elementRef) || this;
+    function MatDatepickerContent(elementRef, _ngZone) {
+        var _this = _super.call(this, elementRef) || this;
+        _this._ngZone = _ngZone;
+        return _this;
     }
     /**
      * @return {?}
@@ -12948,7 +13018,23 @@ var MatDatepickerContent = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._calendar._focusActiveCell();
+        this._focusActiveCell();
+    };
+    /**
+     * Focuses the active cell after the microtask queue is empty.
+     * @return {?}
+     */
+    MatDatepickerContent.prototype._focusActiveCell = /**
+     * Focuses the active cell after the microtask queue is empty.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        this._ngZone.runOutsideAngular(function () {
+            _this._ngZone.onStable.asObservable().pipe(rxjs_operators_take.take(1)).subscribe(function () {
+                _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
+            });
+        });
     };
     MatDatepickerContent.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-datepicker-content',
@@ -12968,6 +13054,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     /** @nocollapse */
     MatDatepickerContent.ctorParameters = function () { return [
         { type: _angular_core.ElementRef, },
+        { type: _angular_core.NgZone, },
     ]; };
     MatDatepickerContent.propDecorators = {
         "_calendar": [{ type: _angular_core.ViewChild, args: [MatCalendar,] },],
@@ -13330,8 +13417,10 @@ var MatDatepicker = /** @class */ (function () {
             viewContainerRef: this._viewContainerRef,
             panelClass: 'mat-datepicker-dialog',
         });
-        this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
-        this._dialogRef.componentInstance.datepicker = this;
+        if (this._dialogRef) {
+            this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
+            this._dialogRef.componentInstance.datepicker = this;
+        }
         this._setColor();
     };
     /**
@@ -31461,7 +31550,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta-0-949a69b');
+var VERSION = new _angular_core.Version('6.0.0-beta-0-9d784a0');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

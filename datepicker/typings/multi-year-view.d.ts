@@ -1,12 +1,6 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { AfterContentInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
+import { Directionality } from '@angular/cdk/bidi';
 import { MatCalendarCell } from './calendar-body';
 export declare const yearsPerPage = 24;
 export declare const yearsPerRow = 4;
@@ -15,8 +9,9 @@ export declare const yearsPerRow = 4;
  * @docs-private
  */
 export declare class MatMultiYearView<D> implements AfterContentInit {
-    _dateAdapter: DateAdapter<D>;
     private _changeDetectorRef;
+    _dateAdapter: DateAdapter<D>;
+    private _dir;
     /** The date to display in this multi-year view (everything other than the year is ignored). */
     activeDate: D;
     private _activeDate;
@@ -31,23 +26,29 @@ export declare class MatMultiYearView<D> implements AfterContentInit {
     private _maxDate;
     /** A function used to filter which dates are selectable. */
     dateFilter: (date: D) => boolean;
-    /** Emits when a new month is selected. */
+    /** Emits when a new year is selected. */
     readonly selectedChange: EventEmitter<D>;
     /** Emits the selected year. This doesn't imply a change on the selected date */
     readonly yearSelected: EventEmitter<D>;
+    /** The body of calendar table */
+    _matCalendarBody: any;
     /** Grid of calendar cells representing the currently displayed years. */
     _years: MatCalendarCell[][];
     /** The year that today falls on. */
     _todayYear: number;
     /** The year of the selected date. Null if the selected date is null. */
     _selectedYear: number | null;
-    constructor(_dateAdapter: DateAdapter<D>, _changeDetectorRef: ChangeDetectorRef);
+    constructor(_changeDetectorRef: ChangeDetectorRef, _dateAdapter: DateAdapter<D>, _dir?: Directionality | undefined);
     ngAfterContentInit(): void;
     /** Initializes this multi-year view. */
     _init(): void;
     /** Handles when a new year is selected. */
     _yearSelected(year: number): void;
+    /** Handles keydown events on the calendar body when calendar is in multi-year view. */
+    _handleCalendarBodyKeydown(event: KeyboardEvent): void;
     _getActiveCell(): number;
+    /** Focuses the active cell after the microtask queue is empty. */
+    private _focusActiveCell();
     /** Creates an MatCalendarCell for the given year. */
     private _createCellForYear(year);
     /** Whether the given year is enabled. */
@@ -57,4 +58,6 @@ export declare class MatMultiYearView<D> implements AfterContentInit {
      * @returns The given object if it is both a date instance and valid, otherwise null.
      */
     private _getValidDateOrNull(obj);
+    /** Determines whether the user has the RTL layout direction. */
+    private _isRtl();
 }

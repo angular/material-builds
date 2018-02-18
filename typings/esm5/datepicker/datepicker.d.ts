@@ -7,13 +7,12 @@
  */
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
-import { AfterContentInit, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef, ElementRef } from '@angular/core';
-import { DateAdapter } from '@angular/material/core';
+import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
+import { CanColor, DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs/Subject';
-import { MatCalendar } from './calendar';
 import { MatDatepickerInput } from './datepicker-input';
-import { CanColor, ThemePalette } from '@angular/material/core';
+import { MatCalendar } from './calendar';
 /** Injection token that determines the scroll handling while the calendar is open. */
 export declare const MAT_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
@@ -38,10 +37,13 @@ export declare const _MatDatepickerContentMixinBase: (new (...args: any[]) => Ca
  * @docs-private
  */
 export declare class MatDatepickerContent<D> extends _MatDatepickerContentMixinBase implements AfterContentInit, CanColor {
+    private _ngZone;
     datepicker: MatDatepicker<D>;
     _calendar: MatCalendar<D>;
-    constructor(elementRef: ElementRef);
+    constructor(elementRef: ElementRef, _ngZone: NgZone);
     ngAfterContentInit(): void;
+    /** Focuses the active cell after the microtask queue is empty. */
+    private _focusActiveCell();
 }
 /** Component responsible for managing the datepicker popup/dialog. */
 export declare class MatDatepicker<D> implements OnDestroy, CanColor {
