@@ -1,5 +1,13 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { AnimationEvent } from '@angular/animations';
 import { Direction } from '@angular/cdk/bidi';
-import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, QueryList, TemplateRef, NgZone, OnInit } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, QueryList, TemplateRef, NgZone } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
@@ -17,7 +25,7 @@ export interface MatMenuDefaultOptions {
 }
 /** Injection token to be used to override the default options for `mat-menu`. */
 export declare const MAT_MENU_DEFAULT_OPTIONS: InjectionToken<MatMenuDefaultOptions>;
-export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, OnDestroy {
+export declare class MatMenu implements AfterContentInit, MatMenuPanel, OnDestroy {
     private _elementRef;
     private _ngZone;
     private _defaultOptions;
@@ -32,7 +40,7 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
         [key: string]: boolean;
     };
     /** Current state of the panel animation. */
-    _panelAnimationState: 'void' | 'enter';
+    _panelAnimationState: 'void' | 'enter-start' | 'enter';
     /** Parent menu of the current menu panel. */
     parentMenu: MatMenuPanel | undefined;
     /** Layout direction of the menu. */
@@ -77,7 +85,6 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
      */
     close: EventEmitter<void | "click" | "keydown">;
     constructor(_elementRef: ElementRef, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
-    ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Stream that emits whenever the hovered menu item changes. */
@@ -109,5 +116,5 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
     /** Resets the panel animation to its initial state. */
     _resetAnimation(): void;
     /** Callback that is invoked when the panel animation completes. */
-    _onAnimationDone(_event: AnimationEvent): void;
+    _onAnimationDone(event: AnimationEvent): void;
 }

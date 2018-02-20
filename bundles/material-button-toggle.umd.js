@@ -359,72 +359,59 @@ var MatButtonToggleGroupMultiple = /** @class */ (function (_super) {
     return MatButtonToggleGroupMultiple;
 }(_MatButtonToggleGroupMixinBase));
 /**
- * \@docs-private
- */
-var MatButtonToggleBase = /** @class */ (function () {
-    function MatButtonToggleBase() {
-    }
-    return MatButtonToggleBase;
-}());
-var _MatButtonToggleMixinBase = _angular_material_core.mixinDisableRipple(MatButtonToggleBase);
-/**
  * Single button inside of a toggle group.
  */
-var MatButtonToggle = /** @class */ (function (_super) {
-    __extends(MatButtonToggle, _super);
+var MatButtonToggle = /** @class */ (function () {
     function MatButtonToggle(toggleGroup, toggleGroupMultiple, _changeDetectorRef, _buttonToggleDispatcher, _elementRef, _focusMonitor) {
-        var _this = _super.call(this) || this;
-        _this._changeDetectorRef = _changeDetectorRef;
-        _this._buttonToggleDispatcher = _buttonToggleDispatcher;
-        _this._elementRef = _elementRef;
-        _this._focusMonitor = _focusMonitor;
+        var _this = this;
+        this._changeDetectorRef = _changeDetectorRef;
+        this._buttonToggleDispatcher = _buttonToggleDispatcher;
+        this._elementRef = _elementRef;
+        this._focusMonitor = _focusMonitor;
         /**
          * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
          * take precedence so this may be omitted.
          */
-        _this.ariaLabel = '';
+        this.ariaLabel = '';
         /**
          * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
          */
-        _this.ariaLabelledby = null;
+        this.ariaLabelledby = null;
         /**
          * Whether or not the button toggle is a single selection.
          */
-        _this._isSingleSelector = false;
+        this._isSingleSelector = false;
         /**
          * Unregister function for _buttonToggleDispatcher
          */
-        _this._removeUniqueSelectionListener = function () { };
-        _this._checked = false;
-        _this._value = null;
-        _this._disabled = false;
+        this._removeUniqueSelectionListener = function () { };
+        this._checked = false;
+        this._value = null;
+        this._disabled = false;
         /**
          * Event emitted when the group value changes.
          */
-        _this.change = new _angular_core.EventEmitter();
-        _this.buttonToggleGroup = toggleGroup;
-        _this.buttonToggleGroupMultiple = toggleGroupMultiple;
-        if (_this.buttonToggleGroup) {
-            _this._removeUniqueSelectionListener =
+        this.change = new _angular_core.EventEmitter();
+        this.buttonToggleGroup = toggleGroup;
+        this.buttonToggleGroupMultiple = toggleGroupMultiple;
+        if (this.buttonToggleGroup) {
+            this._removeUniqueSelectionListener =
                 _buttonToggleDispatcher.listen(function (id, name) {
                     if (id != _this.id && name == _this.name) {
                         _this.checked = false;
                         _this._changeDetectorRef.markForCheck();
                     }
                 });
-            _this._type = 'radio';
-            _this.name = _this.buttonToggleGroup.name;
-            _this._isSingleSelector = true;
+            this._type = 'radio';
+            this.name = this.buttonToggleGroup.name;
+            this._isSingleSelector = true;
         }
         else {
             // Even if there is no group at all, treat the button toggle as a checkbox so it can be
             // toggled on or off.
-            // Even if there is no group at all, treat the button toggle as a checkbox so it can be
-            // toggled on or off.
-            _this._type = 'checkbox';
-            _this._isSingleSelector = false;
+            this._type = 'checkbox';
+            this._isSingleSelector = false;
         }
-        return _this;
     }
     Object.defineProperty(MatButtonToggle.prototype, "inputId", {
         /** Unique ID for the underlying `input` element. */
@@ -632,13 +619,12 @@ var MatButtonToggle = /** @class */ (function (_super) {
     };
     MatButtonToggle.decorators = [
         { type: _angular_core.Component, args: [{selector: 'mat-button-toggle',
-                    template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\" #label><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled || null\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div><div class=\"mat-button-toggle-ripple\" matRipple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"this.disableRipple || this.disabled\"></div>",
-                    styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap;overflow:hidden}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}.mat-button-toggle-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
+                    template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\"><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled || null\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div>",
+                    styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap;overflow:hidden}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay,.mat-button-toggle.cdk-program-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}"],
                     encapsulation: _angular_core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     exportAs: 'matButtonToggle',
                     changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    inputs: ['disableRipple'],
                     host: {
                         '[class.mat-button-toggle-standalone]': '!buttonToggleGroup && !buttonToggleGroupMultiple',
                         '[class.mat-button-toggle-checked]': 'checked',
@@ -669,7 +655,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
         "change": [{ type: _angular_core.Output },],
     };
     return MatButtonToggle;
-}(_MatButtonToggleMixinBase));
+}());
 
 /**
  * @fileoverview added by tsickle
@@ -681,7 +667,7 @@ var MatButtonToggleModule = /** @class */ (function () {
     }
     MatButtonToggleModule.decorators = [
         { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_material_core.MatCommonModule, _angular_material_core.MatRippleModule, _angular_cdk_a11y.A11yModule],
+                    imports: [_angular_material_core.MatCommonModule, _angular_cdk_a11y.A11yModule],
                     exports: [
                         MatButtonToggleGroup,
                         MatButtonToggleGroupMultiple,
@@ -703,8 +689,6 @@ exports.MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = MAT_BUTTON_TOGGLE_GROUP_VALUE_A
 exports.MatButtonToggleChange = MatButtonToggleChange;
 exports.MatButtonToggleGroup = MatButtonToggleGroup;
 exports.MatButtonToggleGroupMultiple = MatButtonToggleGroupMultiple;
-exports.MatButtonToggleBase = MatButtonToggleBase;
-exports._MatButtonToggleMixinBase = _MatButtonToggleMixinBase;
 exports.MatButtonToggle = MatButtonToggle;
 exports.MatButtonToggleModule = MatButtonToggleModule;
 

@@ -74,6 +74,10 @@ class MatDialogConfig {
          */
         this.data = null;
         /**
+         * Layout direction for the dialog's content.
+         */
+        this.direction = 'ltr';
+        /**
          * ID of the element that describes the dialog.
          */
         this.ariaDescribedBy = null;

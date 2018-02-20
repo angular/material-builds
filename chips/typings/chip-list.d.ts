@@ -10,7 +10,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanUpdateErrorState, ErrorStateMatcher } from '@angular/material/core';
+import { ErrorStateMatcher, CanUpdateErrorState } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs/Observable';
 import { MatChip, MatChipEvent, MatChipSelectionChange } from './chip';
@@ -150,8 +150,8 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     /** Orientation of the chip list. */
     ariaOrientation: 'horizontal' | 'vertical';
     /**
-     * Whether or not this chip list is selectable. When a chip list is not selectable,
-     * the selected states for all the chips inside the chip list are always ignored.
+     * Whether or not this chip is selectable. When a chip is not selectable,
+     * its selected state is always ignored.
      */
     selectable: boolean;
     protected _selectable: boolean;

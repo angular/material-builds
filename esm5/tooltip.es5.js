@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { A11yModule, ARIA_DESCRIBER_PROVIDER, AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
-import { Overlay, OverlayModule, ScrollDispatcher } from '@angular/cdk/overlay';
+import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgModule, NgZone, Optional, ViewContainerRef, ViewEncapsulation } from '@angular/core';
@@ -17,8 +17,8 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { take } from 'rxjs/operators/take';
-import { takeUntil } from 'rxjs/operators/takeUntil';
-import { filter } from 'rxjs/operators/filter';
+import { merge } from 'rxjs/observable/merge';
+import { ScrollDispatcher } from '@angular/cdk/scrolling';
 import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
@@ -122,10 +122,6 @@ var MatTooltip = /** @class */ (function () {
         this.hideDelay = this._defaultOptions ? this._defaultOptions.hideDelay : 0;
         this._message = '';
         this._manualListeners = new Map();
-        /**
-         * Emits when the component is destroyed.
-         */
-        this._destroyed = new Subject();
         var /** @type {?} */ element = _elementRef.nativeElement;
         // The mouse events shouldn't be bound on iOS devices, because
         // they can prevent the first tap from firing its click event.
@@ -143,7 +139,7 @@ var MatTooltip = /** @class */ (function () {
             // the `user-select` to avoid these issues.
             element.style.webkitUserSelect = element.style.userSelect = '';
         }
-        _focusMonitor.monitor(element).pipe(takeUntil(this._destroyed)).subscribe(function (origin) {
+        _focusMonitor.monitor(element).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
                 _ngZone.run(function () { return _this.hide(0); });
@@ -166,11 +162,10 @@ var MatTooltip = /** @class */ (function () {
         function (value) {
             if (value !== this._position) {
                 this._position = value;
-                if (this._overlayRef) {
-                    // TODO(andrewjs): When the overlay's position can be
-                    // dynamically changed, do not destroy the tooltip.
-                    this._detach();
-                    this._updatePosition();
+                // TODO(andrewjs): When the overlay's position can be dynamically changed, do not destroy
+                // the tooltip.
+                if (this._tooltipInstance) {
+                    this._disposeTooltip();
                 }
             }
         },
@@ -269,19 +264,16 @@ var MatTooltip = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        if (this._overlayRef) {
-            this._overlayRef.dispose();
-            this._tooltipInstance = null;
+        if (this._tooltipInstance) {
+            this._disposeTooltip();
         }
         // Clean up the event listeners set in the constructor
         if (!this._platform.IOS) {
             this._manualListeners.forEach(function (listener, event) {
-                return _this._elementRef.nativeElement.removeEventListener(event, listener);
+                _this._elementRef.nativeElement.removeEventListener(event, listener);
             });
             this._manualListeners.clear();
         }
-        this._destroyed.next();
-        this._destroyed.complete();
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
         this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
     };
@@ -297,18 +289,13 @@ var MatTooltip = /** @class */ (function () {
      * @return {?}
      */
     function (delay) {
-        var _this = this;
         if (delay === void 0) { delay = this.showDelay; }
         if (this.disabled || !this.message) {
             return;
         }
-        var /** @type {?} */ overlayRef = this._createOverlay();
-        this._detach();
-        this._portal = this._portal || new ComponentPortal(TooltipComponent, this._viewContainerRef);
-        this._tooltipInstance = overlayRef.attach(this._portal).instance;
-        this._tooltipInstance.afterHidden()
-            .pipe(takeUntil(this._destroyed))
-            .subscribe(function () { return _this._detach(); });
+        if (!this._tooltipInstance) {
+            this._createTooltip();
+        }
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage(); /** @type {?} */
         ((this._tooltipInstance)).show(this._position, delay);
@@ -384,6 +371,27 @@ var MatTooltip = /** @class */ (function () {
         this.hide(this._defaultOptions ? this._defaultOptions.touchendHideDelay : 1500);
     };
     /**
+     * Create the tooltip to display
+     * @return {?}
+     */
+    MatTooltip.prototype._createTooltip = /**
+     * Create the tooltip to display
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        var /** @type {?} */ overlayRef = this._createOverlay();
+        var /** @type {?} */ portal = new ComponentPortal(TooltipComponent, this._viewContainerRef);
+        this._tooltipInstance = overlayRef.attach(portal).instance;
+        // Dispose of the tooltip when the overlay is detached.
+        merge(/** @type {?} */ ((this._tooltipInstance)).afterHidden(), overlayRef.detachments()).subscribe(function () {
+            // Check first if the tooltip has already been removed through this components destroy.
+            if (_this._tooltipInstance) {
+                _this._disposeTooltip();
+            }
+        });
+    };
+    /**
      * Create the overlay config and position strategy
      * @return {?}
      */
@@ -393,73 +401,55 @@ var MatTooltip = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        if (this._overlayRef) {
-            return this._overlayRef;
-        }
         var /** @type {?} */ origin = this._getOrigin();
         var /** @type {?} */ overlay = this._getOverlayPosition();
         // Create connected position strategy that listens for scroll events to reposition.
         var /** @type {?} */ strategy = this._overlay
             .position()
             .connectedTo(this._elementRef, origin.main, overlay.main)
-            .withFallbackPosition(origin.fallback, overlay.fallback)
-            .withScrollableContainers(this._scrollDispatcher.getAncestorScrollContainers(this._elementRef));
-        strategy.onPositionChange.pipe(filter(function () { return !!_this._tooltipInstance; }), takeUntil(this._destroyed)).subscribe(function (change) {
-            if (change.scrollableViewProperties.isOverlayClipped && /** @type {?} */ ((_this._tooltipInstance)).isVisible()) {
-                // After position changes occur and the overlay is clipped by
-                // a parent scrollable then close the tooltip.
-                // After position changes occur and the overlay is clipped by
-                // a parent scrollable then close the tooltip.
-                _this._ngZone.run(function () { return _this.hide(0); });
-            }
-            else {
-                /** @type {?} */ ((
-                // Otherwise recalculate the origin based on the new position.
-                // Otherwise recalculate the origin based on the new position.
-                _this._tooltipInstance))._setTransformOrigin(change.connectionPair);
+            .withFallbackPosition(origin.fallback, overlay.fallback);
+        var /** @type {?} */ scrollableAncestors = this._scrollDispatcher
+            .getAncestorScrollContainers(this._elementRef);
+        strategy.withScrollableContainers(scrollableAncestors);
+        strategy.onPositionChange.subscribe(function (change) {
+            if (_this._tooltipInstance) {
+                if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {
+                    // After position changes occur and the overlay is clipped by
+                    // a parent scrollable then close the tooltip.
+                    // After position changes occur and the overlay is clipped by
+                    // a parent scrollable then close the tooltip.
+                    _this._ngZone.run(function () { return _this.hide(0); });
+                }
+                else {
+                    // Otherwise recalculate the origin based on the new position.
+                    // Otherwise recalculate the origin based on the new position.
+                    _this._tooltipInstance._setTransformOrigin(change.connectionPair);
+                }
             }
         });
-        this._overlayRef = this._overlay.create({
+        var /** @type {?} */ config = new OverlayConfig({
             direction: this._dir ? this._dir.value : 'ltr',
             positionStrategy: strategy,
             panelClass: TOOLTIP_PANEL_CLASS,
             scrollStrategy: this._scrollStrategy()
         });
-        this._overlayRef.detachments()
-            .pipe(takeUntil(this._destroyed))
-            .subscribe(function () { return _this._detach(); });
+        this._overlayRef = this._overlay.create(config);
         return this._overlayRef;
     };
     /**
-     * Detaches the currently-attached tooltip.
+     * Disposes the current tooltip and the overlay it is attached to
      * @return {?}
      */
-    MatTooltip.prototype._detach = /**
-     * Detaches the currently-attached tooltip.
+    MatTooltip.prototype._disposeTooltip = /**
+     * Disposes the current tooltip and the overlay it is attached to
      * @return {?}
      */
     function () {
-        if (this._overlayRef && this._overlayRef.hasAttached()) {
-            this._overlayRef.detach();
+        if (this._overlayRef) {
+            this._overlayRef.dispose();
+            this._overlayRef = null;
         }
         this._tooltipInstance = null;
-    };
-    /**
-     * Updates the position of the current tooltip.
-     * @return {?}
-     */
-    MatTooltip.prototype._updatePosition = /**
-     * Updates the position of the current tooltip.
-     * @return {?}
-     */
-    function () {
-        var /** @type {?} */ position = /** @type {?} */ (((this._overlayRef)).getConfig().positionStrategy);
-        var /** @type {?} */ origin = this._getOrigin();
-        var /** @type {?} */ overlay = this._getOverlayPosition();
-        position
-            .withPositions([])
-            .withFallbackPosition(origin.main, overlay.main)
-            .withFallbackPosition(origin.fallback, overlay.fallback);
     };
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
@@ -552,7 +542,7 @@ var MatTooltip = /** @class */ (function () {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = this.message;
             this._tooltipInstance._markForCheck();
-            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1), takeUntil(this._destroyed)).subscribe(function () {
+            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take(1)).subscribe(function () {
                 if (_this._tooltipInstance) {
                     /** @type {?} */ ((_this._overlayRef)).updatePosition();
                 }

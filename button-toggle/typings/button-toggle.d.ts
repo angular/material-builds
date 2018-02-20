@@ -9,7 +9,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanDisable, CanDisableRipple } from '@angular/material/core';
+import { CanDisable } from '@angular/material/core';
 /** Acceptable types for a button toggle. */
 export declare type ToggleType = 'checkbox' | 'radio';
 /** @docs-private */
@@ -78,12 +78,8 @@ export declare class MatButtonToggleGroupMultiple extends _MatButtonToggleGroupM
     vertical: boolean;
     private _vertical;
 }
-/** @docs-private */
-export declare class MatButtonToggleBase {
-}
-export declare const _MatButtonToggleMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatButtonToggleBase;
 /** Single button inside of a toggle group. */
-export declare class MatButtonToggle extends _MatButtonToggleMixinBase implements OnInit, OnDestroy, CanDisableRipple {
+export declare class MatButtonToggle implements OnInit, OnDestroy {
     private _changeDetectorRef;
     private _buttonToggleDispatcher;
     private _elementRef;

@@ -1,24 +1,21 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { MatDatepickerIntl } from './datepicker-intl';
 import { MatMonthView } from './month-view';
 import { MatMultiYearView } from './multi-year-view';
 import { MatYearView } from './year-view';
+import { Directionality } from '@angular/cdk/bidi';
 /**
  * A calendar that is used as part of the datepicker.
  * @docs-private
  */
 export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnChanges {
+    private _elementRef;
     private _intl;
+    private _ngZone;
     private _dateAdapter;
     private _dateFormats;
+    private _dir;
     private _intlChanges;
     /** A date representing the period (month or year) to start the calendar in. */
     startAt: D | null;
@@ -38,16 +35,6 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     dateFilter: (date: D) => boolean;
     /** Emits when the currently selected date changes. */
     readonly selectedChange: EventEmitter<D>;
-    /**
-     * Emits the year chosen in multiyear view.
-     * This doesn't imply a change on the selected date.
-     */
-    readonly yearSelected: EventEmitter<D>;
-    /**
-     * Emits the month chosen in year view.
-     * This doesn't imply a change on the selected date.
-     */
-    readonly monthSelected: EventEmitter<D>;
     /** Emits when any date is selected. */
     readonly _userSelection: EventEmitter<void>;
     /** Reference to the current month view component. */
@@ -71,18 +58,14 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     readonly _prevButtonLabel: string;
     /** The label for the the next button. */
     readonly _nextButtonLabel: string;
-    constructor(_intl: MatDatepickerIntl, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, changeDetectorRef: ChangeDetectorRef);
+    constructor(_elementRef: ElementRef, _intl: MatDatepickerIntl, _ngZone: NgZone, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, changeDetectorRef: ChangeDetectorRef, _dir?: Directionality | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     ngOnChanges(changes: SimpleChanges): void;
     /** Handles date selection in the month view. */
     _dateSelected(date: D): void;
-    /** Handles year selection in the multiyear view. */
-    _yearSelectedInMultiYearView(normalizedYear: D): void;
-    /** Handles month selection in the year view. */
-    _monthSelectedInYearView(normalizedMonth: D): void;
     _userSelected(): void;
-    /** Handles year/month selection in the multi-year/year views. */
+    /** Handles month selection in the multi-year view. */
     _goToDateInView(date: D, view: 'month' | 'year' | 'multi-year'): void;
     /** Handles user clicks on the period label. */
     _currentPeriodClicked(): void;
@@ -94,11 +77,23 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     _previousEnabled(): boolean;
     /** Whether the next period button is enabled. */
     _nextEnabled(): boolean;
+    /** Handles keydown events on the calendar body. */
+    _handleCalendarBodyKeydown(event: KeyboardEvent): void;
+    /** Focuses the active cell after the microtask queue is empty. */
+    _focusActiveCell(): void;
     /** Whether the two dates represent the same view in the current view mode (month or year). */
     private _isSameView(date1, date2);
+    /** Handles keydown events on the calendar body when calendar is in month view. */
+    private _handleCalendarBodyKeydownInMonthView(event);
+    /** Handles keydown events on the calendar body when calendar is in year view. */
+    private _handleCalendarBodyKeydownInYearView(event);
+    /** Handles keydown events on the calendar body when calendar is in multi-year view. */
+    private _handleCalendarBodyKeydownInMultiYearView(event);
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.
      */
     private _getValidDateOrNull(obj);
+    /** Determines whether the user has the RTL layout direction. */
+    private _isRtl();
 }

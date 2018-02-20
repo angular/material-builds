@@ -6,9 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusableOption } from '@angular/cdk/a11y';
-import { Platform } from '@angular/cdk/platform';
-import { ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
-import { CanColor, CanDisable, CanDisableRipple, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
+import { ElementRef, EventEmitter, OnDestroy } from '@angular/core';
+import { CanColor, CanDisable } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 /** Represents an event fired on an individual `mat-chip`. */
 export interface MatChipEvent {
@@ -36,46 +35,20 @@ export declare class MatChipBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatChipMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatChipBase;
+export declare const _MatChipMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MatChipBase;
 /**
- * Dummy directive to add CSS class to chip avatar.
+ * Dummy directive to add CSS class to basic chips.
  * @docs-private
  */
-export declare class MatChipAvatar {
-}
-/**
- * Dummy directive to add CSS class to chip trailing icon.
- * @docs-private
- */
-export declare class MatChipTrailingIcon {
+export declare class MatBasicChip {
 }
 /**
  * Material design styled Chip component. Used inside the MatChipList component.
  */
-export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisable, CanDisableRipple, RippleTarget {
+export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisable {
     _elementRef: ElementRef;
-    /**
-     * Ripple configuration for ripples that are launched on pointer down.
-     * @docs-private
-     */
-    rippleConfig: RippleConfig;
-    /** Reference to the RippleRenderer for the chip. */
-    private _chipRipple;
-    /**
-     * Whether ripples are disabled on interaction
-     * @docs-private
-     */
-    readonly rippleDisabled: boolean;
     /** Whether the chip has focus. */
     _hasFocus: boolean;
-    /** Whether the chip list is selectable */
-    chipListSelectable: boolean;
-    /** The chip avatar */
-    avatar: MatChipAvatar;
-    /** The chip's trailing icon. */
-    trailingIcon: MatChipTrailingIcon;
-    /** The chip's remove toggler. */
-    removeIcon: MatChipRemove;
     /** Whether the chip is selected. */
     selected: boolean;
     protected _selected: boolean;
@@ -83,10 +56,8 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     value: any;
     protected _value: any;
     /**
-     * Whether or not the chip is selectable. When a chip is not selectable,
-     * changes to it's selected state are always ignored. By default a chip is
-     * selectable, and it becomes non-selectable if it's parent chip list is
-     * not selectable.
+     * Whether or not the chips are selectable. When a chip is not selectable,
+     * changes to it's selected state are always ignored.
      */
     selectable: boolean;
     protected _selectable: boolean;
@@ -119,8 +90,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     onRemove: EventEmitter<MatChipEvent>;
     /** The ARIA selected applied to the chip. */
     readonly ariaSelected: string | null;
-    constructor(_elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions);
-    _addHostClassName(): void;
+    constructor(_elementRef: ElementRef);
     ngOnDestroy(): void;
     /** Selects the chip. */
     select(): void;

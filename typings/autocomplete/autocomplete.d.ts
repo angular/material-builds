@@ -59,10 +59,6 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     private _autoActiveFirstOption;
     /** Event that is emitted whenever an option from the list is selected. */
     readonly optionSelected: EventEmitter<MatAutocompleteSelectedEvent>;
-    /** Event that is emitted when the autocomplete panel is opened. */
-    readonly opened: EventEmitter<void>;
-    /** Event that is emitted when the autocomplete panel is closed. */
-    readonly closed: EventEmitter<void>;
     /**
      * Takes classes set on the host mat-autocomplete element and applies them to the panel
      * inside the overlay container to allow for easy styling.

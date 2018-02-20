@@ -81,15 +81,15 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     /** @docs-private */
     validate(c: AbstractControl): ValidationErrors | null;
     /**
-     * @deprecated
-     * @deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
-     */
-    getPopupConnectionElementRef(): ElementRef;
-    /**
      * Gets the element that the datepicker popup should be connected to.
      * @return The element to connect the popup to.
      */
-    getConnectedOverlayOrigin(): ElementRef;
+    getPopupConnectionElementRef(): ElementRef;
+    /**
+     * Determines the offset to be used when the calendar goes into a fallback position.
+     * Primarily used to prevent the calendar from overlapping the input.
+     */
+    _getPopupFallbackOffset(): number;
     writeValue(value: D): void;
     registerOnChange(fn: (value: any) => void): void;
     registerOnTouched(fn: () => void): void;
@@ -97,8 +97,6 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     _onKeydown(event: KeyboardEvent): void;
     _onInput(value: string): void;
     _onChange(): void;
-    /** Returns the palette used by the input's form field, if any. */
-    _getThemePalette(): "primary" | "accent" | "warn" | undefined;
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.

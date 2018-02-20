@@ -12,9 +12,9 @@ import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 
 /**
@@ -801,20 +801,16 @@ function range(length, valueFunction) {
  */
 var NativeDateAdapter = /** @class */ (function (_super) {
     __extends(NativeDateAdapter, _super);
-    function NativeDateAdapter(matDateLocale, platform) {
+    function NativeDateAdapter(matDateLocale) {
         var _this = _super.call(this) || this;
-        /**
-         * Whether to use `timeZone: 'utc'` with `Intl.DateTimeFormat` when formatting dates.
-         * Without this `Intl.DateTimeFormat` sometimes chooses the wrong timeZone, which can throw off
-         * the result. (e.g. in the en-US locale `new Date(1800, 7, 14).toLocaleDateString()`
-         * will produce `'8/13/1800'`.
-         */
-        _this.useUtcForDisplay = true;
         _super.prototype.setLocale.call(_this, matDateLocale);
         // IE does its own time zone correction, so we disable this on IE.
-        // IE does its own time zone correction, so we disable this on IE.
-        _this.useUtcForDisplay = !platform.TRIDENT;
-        _this._clampDate = platform.TRIDENT || platform.EDGE;
+        // TODO(mmalerba): replace with checks from PLATFORM, logic currently duplicated to avoid
+        // breaking change from injecting the Platform.
+        var /** @type {?} */ isBrowser = typeof document === 'object' && !!document;
+        var /** @type {?} */ isIE = isBrowser && /(msie|trident)/i.test(navigator.userAgent);
+        _this.useUtcForDisplay = !isIE;
+        _this._clampDate = isIE || (isBrowser && /(edge)/i.test(navigator.userAgent));
         return _this;
     }
     /**
@@ -1228,7 +1224,6 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     /** @nocollapse */
     NativeDateAdapter.ctorParameters = function () { return [
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_LOCALE,] },] },
-        { type: Platform, },
     ]; };
     return NativeDateAdapter;
 }(DateAdapter));
@@ -1260,7 +1255,6 @@ var NativeDateModule = /** @class */ (function () {
     }
     NativeDateModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [PlatformModule],
                     providers: [
                         { provide: DateAdapter, useClass: NativeDateAdapter },
                         MAT_DATE_LOCALE_PROVIDER

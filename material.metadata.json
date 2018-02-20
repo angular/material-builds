@@ -4,19 +4,13 @@
   "metadata": {},
   "exports": [
     {
-      "from": "./expansion"
-    },
-    {
       "from": "./core"
     },
     {
-      "from": "./grid-list"
+      "from": "./expansion"
     },
     {
-      "from": "./toolbar"
-    },
-    {
-      "from": "./bottom-sheet"
+      "from": "./sort"
     },
     {
       "from": "./button"
@@ -31,52 +25,52 @@
       "from": "./checkbox"
     },
     {
-      "from": "./sort"
+      "from": "./snack-bar"
     },
     {
       "from": "./icon"
     },
     {
-      "from": "./snack-bar"
+      "from": "./slider"
     },
     {
       "from": "./tabs"
     },
     {
-      "from": "./slider"
+      "from": "./slide-toggle"
     },
     {
       "from": "./dialog"
     },
     {
-      "from": "./slide-toggle"
+      "from": "./sidenav"
     },
     {
       "from": "./divider"
     },
     {
+      "from": "./toolbar"
+    },
+    {
       "from": "./form-field"
-    },
-    {
-      "from": "./badge"
-    },
-    {
-      "from": "./sidenav"
-    },
-    {
-      "from": "./menu"
     },
     {
       "from": "./radio"
     },
     {
-      "from": "./tooltip"
+      "from": "./menu"
     },
     {
       "from": "./progress-spinner"
     },
     {
+      "from": "./tooltip"
+    },
+    {
       "from": "./progress-bar"
+    },
+    {
+      "from": "./grid-list"
     },
     {
       "from": "./select"

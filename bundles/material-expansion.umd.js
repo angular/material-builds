@@ -53,7 +53,7 @@ var MatAccordion = /** @class */ (function (_super) {
         /**
          * The display mode used for all expansion panels in the accordion. Currently two display
          * modes exist:
-         *  default - a gutter-like spacing is placed around any expanded panel, placing the expanded
+         *   default - a gutter-like spacing is placed around any expanded panel, placing the expanded
          *     panel at a different elevation from the reset of the accordion.
          *  flat - no spacing is placed around expanded panels, showing all panels at the same
          *     elevation.
@@ -148,10 +148,7 @@ var matExpansionAnimations = {
         }), {
             params: { expandedHeight: '64px' }
         }),
-        _angular_animations.transition('expanded <=> collapsed', _angular_animations.group([
-            _angular_animations.query('@indicatorRotate', _angular_animations.animateChild(), { optional: true }),
-            _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING),
-        ])),
+        _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ]),
     /** Animation that expands and collapses the panel content. */
     bodyExpansion: _angular_animations.trigger('bodyExpansion', [

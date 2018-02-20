@@ -5,172 +5,19 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Platform, PlatformModule, getSupportedInputTypes, supportsPassiveEventListeners } from '@angular/cdk/platform';
-import { Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, NgModule, NgZone, Optional, Output, Self } from '@angular/core';
-import { empty } from 'rxjs/observable/empty';
-import { Subject } from 'rxjs/Subject';
+import { Platform, PlatformModule, getSupportedInputTypes } from '@angular/cdk/platform';
+import { CommonModule } from '@angular/common';
+import { Directive, ElementRef, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Self } from '@angular/core';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { auditTime } from 'rxjs/operators/auditTime';
 import { takeUntil } from 'rxjs/operators/takeUntil';
+import { Subject } from 'rxjs/Subject';
 import { __extends } from 'tslib';
 import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
-import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * Options to pass to the animationstart listener.
- */
-var listenerOptions = supportsPassiveEventListeners() ? { passive: true } : false;
-/**
- * An injectable service that can be used to monitor the autofill state of an input.
- * Based on the following blog post:
- * https://medium.com/\@brunn/detecting-autofilled-fields-in-javascript-aed598d25da7
- */
-var AutofillMonitor = /** @class */ (function () {
-    function AutofillMonitor(_platform) {
-        this._platform = _platform;
-        this._monitoredElements = new Map();
-    }
-    /**
-     * Monitor for changes in the autofill state of the given input element.
-     * @param element The element to monitor.
-     * @return A stream of autofill state changes.
-     */
-    /**
-     * Monitor for changes in the autofill state of the given input element.
-     * @param {?} element The element to monitor.
-     * @return {?} A stream of autofill state changes.
-     */
-    AutofillMonitor.prototype.monitor = /**
-     * Monitor for changes in the autofill state of the given input element.
-     * @param {?} element The element to monitor.
-     * @return {?} A stream of autofill state changes.
-     */
-    function (element) {
-        if (!this._platform.isBrowser) {
-            return empty();
-        }
-        var /** @type {?} */ info = this._monitoredElements.get(element);
-        if (info) {
-            return info.subject.asObservable();
-        }
-        var /** @type {?} */ result = new Subject();
-        var /** @type {?} */ listener = function (event) {
-            if (event.animationName === 'mat-input-autofill-start') {
-                element.classList.add('mat-input-autofilled');
-                result.next({ target: /** @type {?} */ (event.target), isAutofilled: true });
-            }
-            else if (event.animationName === 'mat-input-autofill-end') {
-                element.classList.remove('mat-input-autofilled');
-                result.next({ target: /** @type {?} */ (event.target), isAutofilled: false });
-            }
-        };
-        element.addEventListener('animationstart', listener, listenerOptions);
-        element.classList.add('mat-input-autofill-monitored');
-        this._monitoredElements.set(element, {
-            subject: result,
-            unlisten: function () {
-                element.removeEventListener('animationstart', listener, listenerOptions);
-            }
-        });
-        return result.asObservable();
-    };
-    /**
-     * Stop monitoring the autofill state of the given input element.
-     * @param element The element to stop monitoring.
-     */
-    /**
-     * Stop monitoring the autofill state of the given input element.
-     * @param {?} element The element to stop monitoring.
-     * @return {?}
-     */
-    AutofillMonitor.prototype.stopMonitoring = /**
-     * Stop monitoring the autofill state of the given input element.
-     * @param {?} element The element to stop monitoring.
-     * @return {?}
-     */
-    function (element) {
-        var /** @type {?} */ info = this._monitoredElements.get(element);
-        if (info) {
-            info.unlisten();
-            info.subject.complete();
-            element.classList.remove('mat-input-autofill-monitored');
-            element.classList.remove('mat-input-autofilled');
-            this._monitoredElements.delete(element);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    AutofillMonitor.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        this._monitoredElements.forEach(function (_info, element) { return _this.stopMonitoring(element); });
-    };
-    AutofillMonitor.decorators = [
-        { type: Injectable },
-    ];
-    /** @nocollapse */
-    AutofillMonitor.ctorParameters = function () { return [
-        { type: Platform, },
-    ]; };
-    return AutofillMonitor;
-}());
-/**
- * A directive that can be used to monitor the autofill state of an input.
- */
-var MatAutofill = /** @class */ (function () {
-    function MatAutofill(_elementRef, _autofillMonitor) {
-        this._elementRef = _elementRef;
-        this._autofillMonitor = _autofillMonitor;
-        this.matAutofill = new EventEmitter();
-    }
-    /**
-     * @return {?}
-     */
-    MatAutofill.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        this._autofillMonitor
-            .monitor(this._elementRef.nativeElement)
-            .subscribe(function (event) { return _this.matAutofill.emit(event); });
-    };
-    /**
-     * @return {?}
-     */
-    MatAutofill.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
-    };
-    MatAutofill.decorators = [
-        { type: Directive, args: [{
-                    selector: '[matAutofill]',
-                },] },
-    ];
-    /** @nocollapse */
-    MatAutofill.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: AutofillMonitor, },
-    ]; };
-    MatAutofill.propDecorators = {
-        "matAutofill": [{ type: Output },],
-    };
-    return MatAutofill;
-}());
 
 /**
  * @fileoverview added by tsickle
@@ -492,12 +339,11 @@ var _MatInputMixinBase = mixinErrorState(MatInputBase);
 var MatInput = /** @class */ (function (_super) {
     __extends(MatInput, _super);
     function MatInput(_elementRef, _platform, /** @docs-private */
-        ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor) {
+        ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._elementRef = _elementRef;
         _this._platform = _platform;
         _this.ngControl = ngControl;
-        _this._autofillMonitor = _autofillMonitor;
         _this._uid = "mat-input-" + nextUniqueId++;
         /**
          * Whether the component is being rendered on the server.
@@ -518,11 +364,6 @@ var MatInput = /** @class */ (function (_super) {
          * \@docs-private
          */
         _this.controlType = 'mat-input';
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         */
-        _this.autofilled = false;
         _this._disabled = false;
         /**
          * Implemented as part of MatFormFieldControl.
@@ -685,19 +526,6 @@ var MatInput = /** @class */ (function (_super) {
     /**
      * @return {?}
      */
-    MatInput.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(function (event) {
-            _this.autofilled = event.isAutofilled;
-            _this.stateChanges.next();
-        });
-    };
-    /**
-     * @return {?}
-     */
     MatInput.prototype.ngOnChanges = /**
      * @return {?}
      */
@@ -712,7 +540,6 @@ var MatInput = /** @class */ (function (_super) {
      */
     function () {
         this.stateChanges.complete();
-        this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
     };
     /**
      * @return {?}
@@ -858,8 +685,7 @@ var MatInput = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return !this._isNeverEmpty() && !this._elementRef.nativeElement.value && !this._isBadInput() &&
-                !this.autofilled;
+            return !this._isNeverEmpty() && !this._elementRef.nativeElement.value && !this._isBadInput();
         },
         enumerable: true,
         configurable: true
@@ -915,9 +741,6 @@ var MatInput = /** @class */ (function (_super) {
                     selector: "input[matInput], textarea[matInput]",
                     exportAs: 'matInput',
                     host: {
-                        /**
-                             * @deletion-target 7.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
-                             */
                         'class': 'mat-input-element mat-form-field-autofill-control',
                         '[class.mat-input-server]': '_isServer',
                         // Native input properties that are overwritten by Angular inputs need to be synced with
@@ -946,7 +769,6 @@ var MatInput = /** @class */ (function (_super) {
         { type: FormGroupDirective, decorators: [{ type: Optional },] },
         { type: ErrorStateMatcher, },
         { type: undefined, decorators: [{ type: Optional }, { type: Self }, { type: Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] },] },
-        { type: AutofillMonitor, },
     ]; };
     MatInput.propDecorators = {
         "disabled": [{ type: Input },],
@@ -972,7 +794,6 @@ var MatInputModule = /** @class */ (function () {
     MatInputModule.decorators = [
         { type: NgModule, args: [{
                     declarations: [
-                        MatAutofill,
                         MatInput,
                         MatTextareaAutosize,
                     ],
@@ -982,12 +803,11 @@ var MatInputModule = /** @class */ (function () {
                         PlatformModule,
                     ],
                     exports: [
-                        MatAutofill,
                         MatFormFieldModule,
                         MatInput,
                         MatTextareaAutosize,
                     ],
-                    providers: [ErrorStateMatcher, AutofillMonitor],
+                    providers: [ErrorStateMatcher],
                 },] },
     ];
     /** @nocollapse */
@@ -1008,5 +828,5 @@ var MatInputModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { AutofillMonitor, MatAutofill, MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };
+export { MatInputModule, MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MAT_INPUT_VALUE_ACCESSOR };
 //# sourceMappingURL=input.es5.js.map
