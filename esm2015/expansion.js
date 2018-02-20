@@ -16,7 +16,7 @@ import { Subject } from 'rxjs/Subject';
 import { take } from 'rxjs/operators/take';
 import { filter } from 'rxjs/operators/filter';
 import { startWith } from 'rxjs/operators/startWith';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, animateChild, group, query, state, style, transition, trigger } from '@angular/animations';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
@@ -127,7 +127,10 @@ const matExpansionAnimations = {
         }), {
             params: { expandedHeight: '64px' }
         }),
-        transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+        transition('expanded <=> collapsed', group([
+            query('@indicatorRotate', animateChild(), { optional: true }),
+            animate(EXPANSION_PANEL_ANIMATION_TIMING),
+        ])),
     ]),
     /** Animation that expands and collapses the panel content. */
     bodyExpansion: trigger('bodyExpansion', [

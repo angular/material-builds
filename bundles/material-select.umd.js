@@ -71,14 +71,15 @@ var matSelectAnimations = {
             // 64px = 48px padding on the left + 16px padding on the right
             transform: 'scaleY(1)'
         })),
-        _angular_animations.transition('void => *', [
+        _angular_animations.transition('void => *', _angular_animations.group([
+            _angular_animations.query('@fadeInContent', _angular_animations.animateChild()),
             _angular_animations.style({
                 opacity: 0,
                 minWidth: '100%',
                 transform: 'scaleY(0)'
             }),
             _angular_animations.animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)')
-        ]),
+        ])),
         _angular_animations.transition('* => void', [
             _angular_animations.animate('250ms 100ms linear', _angular_animations.style({ opacity: 0 }))
         ])

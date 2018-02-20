@@ -17,7 +17,7 @@ import { switchMap } from 'rxjs/operators/switchMap';
 import { take } from 'rxjs/operators/take';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { animate, group, query, sequence, state, style, transition, trigger } from '@angular/animations';
 import { Subject } from 'rxjs/Subject';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Directionality } from '@angular/cdk/bidi';
@@ -44,22 +44,20 @@ const matMenuAnimations = {
        * delay to display the ripple.
        */
     transformMenu: trigger('transformMenu', [
-        // TODO(kara): switch to :enter and :leave once Mobile Safari is sorted out.
         state('void', style({
             opacity: 0,
             // This starts off from 0.01, instead of 0, because there's an issue in the Angular animations
             // as of 4.2, which causes the animation to be skipped if it starts from 0.
             transform: 'scale(0.01, 0.01)'
         })),
-        state('enter-start', style({
-            opacity: 1,
-            transform: 'scale(1, 0.5)'
-        })),
-        state('enter', style({
-            transform: 'scale(1, 1)'
-        })),
-        transition('void => enter-start', animate('100ms linear')),
-        transition('enter-start => enter', animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+        transition('void => enter', sequence([
+            query('.mat-menu-content', style({ opacity: 0 })),
+            animate('100ms linear', style({ opacity: 1, transform: 'scale(1, 0.5)' })),
+            group([
+                query('.mat-menu-content', animate('400ms cubic-bezier(0.55, 0, 0.55, 0.2)', style({ opacity: 1 }))),
+                animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ transform: 'scale(1, 1)' })),
+            ])
+        ])),
         transition('* => void', animate('150ms 50ms linear', style({ opacity: 0 })))
     ]),
     /**
@@ -67,6 +65,8 @@ const matMenuAnimations = {
        * after its containing element is scaled in.
        */
     fadeInItems: trigger('fadeInItems', [
+        // TODO(crisbeto): this is inside the `transformMenu`
+        // now. Remove next time we do breaking changes.
         state('showing', style({ opacity: 1 })),
         transition('void => *', [
             style({ opacity: 0 }),
@@ -481,6 +481,12 @@ class MatMenu {
     /**
      * @return {?}
      */
+    ngOnInit() {
+        this.setPositionClasses();
+    }
+    /**
+     * @return {?}
+     */
     ngAfterContentInit() {
         this._keyManager = new FocusKeyManager(this.items).withWrap().withTypeAhead();
         this._tabSubscription = this._keyManager.tabOut.subscribe(() => this.close.emit('keydown'));
@@ -588,31 +594,30 @@ class MatMenu {
      * @return {?}
      */
     _startAnimation() {
-        this._panelAnimationState = 'enter-start';
+        // @deletion-target 6.0.0 Combine with _resetAnimation.
+        this._panelAnimationState = 'enter';
     }
     /**
      * Resets the panel animation to its initial state.
      * @return {?}
      */
     _resetAnimation() {
+        // @deletion-target 6.0.0 Combine with _startAnimation.
         this._panelAnimationState = 'void';
     }
     /**
      * Callback that is invoked when the panel animation completes.
-     * @param {?} event
+     * @param {?} _event
      * @return {?}
      */
-    _onAnimationDone(event) {
-        // After the initial expansion is done, trigger the second phase of the enter animation.
-        if (event.toState === 'enter-start') {
-            this._panelAnimationState = 'enter';
-        }
+    _onAnimationDone(_event) {
+        // @deletion-target 6.0.0 Not being used anymore. To be removed.
     }
 }
 MatMenu.decorators = [
     { type: Component, args: [{selector: 'mat-menu',
-                template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\" [@fadeInItems]=\"'showing'\"><ng-content></ng-content></div></div></ng-template>",
-                styles: [".mat-menu-panel{-webkit-backface-visibility:hidden;backface-visibility:hidden;min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.ng-animating{pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
+                template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\"><ng-content></ng-content></div></div></ng-template>",
+                styles: [".mat-menu-panel{-webkit-backface-visibility:hidden;backface-visibility:hidden;min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}.mat-menu-panel.ng-animating .mat-menu-item-submenu-trigger{pointer-events:none}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
@@ -1140,5 +1145,5 @@ MatMenuModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa18, _MatMenuItemMixinBase as ɵb18, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd18, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc18 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa24, _MatMenuItemMixinBase as ɵb24, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd24, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc24 };
 //# sourceMappingURL=menu.js.map
