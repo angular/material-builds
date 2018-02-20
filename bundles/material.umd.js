@@ -31602,7 +31602,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta.1-1e2b79a');
+var VERSION = new _angular_core.Version('6.0.0-beta.1-af26b01');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -31974,16 +31974,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe21 = MatTabBase;
-exports.ɵf21 = _MatTabMixinBase;
-exports.ɵa21 = MatTabHeaderBase;
-exports.ɵb21 = _MatTabHeaderMixinBase;
-exports.ɵc21 = MatTabLabelWrapperBase;
-exports.ɵd21 = _MatTabLabelWrapperMixinBase;
-exports.ɵi21 = MatTabLinkBase;
-exports.ɵg21 = MatTabNavBase;
-exports.ɵj21 = _MatTabLinkMixinBase;
-exports.ɵh21 = _MatTabNavMixinBase;
+exports.ɵe5 = MatTabBase;
+exports.ɵf5 = _MatTabMixinBase;
+exports.ɵa5 = MatTabHeaderBase;
+exports.ɵb5 = _MatTabHeaderMixinBase;
+exports.ɵc5 = MatTabLabelWrapperBase;
+exports.ɵd5 = _MatTabLabelWrapperMixinBase;
+exports.ɵi5 = MatTabLinkBase;
+exports.ɵg5 = MatTabNavBase;
+exports.ɵj5 = _MatTabLinkMixinBase;
+exports.ɵh5 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
