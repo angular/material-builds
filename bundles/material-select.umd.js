@@ -356,7 +356,7 @@ var MatSelect = /** @class */ (function (_super) {
                 .pipe(rxjs_operators_take.take(1), rxjs_operators_switchMap.switchMap(function () { return _this.optionSelectionChanges; }));
         });
         /**
-         * Event emitted when the select has been opened.
+         * Event emitted when the select panel has been toggled.
          */
         _this.openedChange = new _angular_core.EventEmitter();
         /**

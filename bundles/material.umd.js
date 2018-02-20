@@ -19614,7 +19614,7 @@ var MatSelect = /** @class */ (function (_super) {
                 .pipe(rxjs_operators_take.take(1), rxjs_operators_switchMap.switchMap(function () { return _this.optionSelectionChanges; }));
         });
         /**
-         * Event emitted when the select has been opened.
+         * Event emitted when the select panel has been toggled.
          */
         _this.openedChange = new _angular_core.EventEmitter();
         /**
@@ -31590,7 +31590,7 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta.1-2abdb65');
+var VERSION = new _angular_core.Version('6.0.0-beta.1-959804b');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -31836,10 +31836,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa15 = MatMenuItemBase;
-exports.ɵb15 = _MatMenuItemMixinBase;
-exports.ɵd15 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc15 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa18 = MatMenuItemBase;
+exports.ɵb18 = _MatMenuItemMixinBase;
+exports.ɵd18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc18 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -31962,16 +31962,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

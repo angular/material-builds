@@ -349,7 +349,7 @@ var MatSelect = /** @class */ (function (_super) {
                 .pipe(take(1), switchMap(function () { return _this.optionSelectionChanges; }));
         });
         /**
-         * Event emitted when the select has been opened.
+         * Event emitted when the select panel has been toggled.
          */
         _this.openedChange = new EventEmitter();
         /**

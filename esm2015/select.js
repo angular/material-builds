@@ -366,7 +366,7 @@ class MatSelect extends _MatSelectMixinBase {
                 .pipe(take(1), switchMap(() => this.optionSelectionChanges));
         });
         /**
-         * Event emitted when the select has been opened.
+         * Event emitted when the select panel has been toggled.
          */
         this.openedChange = new EventEmitter();
         /**

@@ -192,7 +192,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _id;
     /** Combined stream of all of the child options' change events. */
     readonly optionSelectionChanges: Observable<MatOptionSelectionChange>;
-    /** Event emitted when the select has been opened. */
+    /** Event emitted when the select panel has been toggled. */
     readonly openedChange: EventEmitter<boolean>;
     /** Event emitted when the select has been opened. */
     readonly _openedStream: Observable<void>;
