@@ -638,7 +638,7 @@ MatMenu.propDecorators = {
     "xPosition": [{ type: Input },],
     "yPosition": [{ type: Input },],
     "templateRef": [{ type: ViewChild, args: [TemplateRef,] },],
-    "items": [{ type: ContentChildren, args: [MatMenuItem, { descendants: true },] },],
+    "items": [{ type: ContentChildren, args: [MatMenuItem,] },],
     "lazyContent": [{ type: ContentChild, args: [MatMenuContent,] },],
     "overlapTrigger": [{ type: Input },],
     "panelClass": [{ type: Input, args: ['class',] },],
@@ -1145,5 +1145,5 @@ MatMenuModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa23, _MatMenuItemMixinBase as ɵb23, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd23, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc23 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa25, _MatMenuItemMixinBase as ɵb25, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd25, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc25 };
 //# sourceMappingURL=menu.js.map

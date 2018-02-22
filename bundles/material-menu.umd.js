@@ -784,7 +784,7 @@ var MatMenu = /** @class */ (function () {
         "xPosition": [{ type: _angular_core.Input },],
         "yPosition": [{ type: _angular_core.Input },],
         "templateRef": [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
-        "items": [{ type: _angular_core.ContentChildren, args: [MatMenuItem, { descendants: true },] },],
+        "items": [{ type: _angular_core.ContentChildren, args: [MatMenuItem,] },],
         "lazyContent": [{ type: _angular_core.ContentChild, args: [MatMenuContent,] },],
         "overlapTrigger": [{ type: _angular_core.Input },],
         "panelClass": [{ type: _angular_core.Input, args: ['class',] },],
@@ -1407,10 +1407,10 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa25 = MatMenuItemBase;
+exports.ɵb25 = _MatMenuItemMixinBase;
+exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
