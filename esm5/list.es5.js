@@ -173,7 +173,9 @@ var MatListItem = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._lineSetter = new MatLineSetter(this._lines, this._element);
+        // TODO: consider turning the setter into a function, it doesn't do anything as a class.
+        // tslint:disable-next-line:no-unused-expression
+        new MatLineSetter(this._lines, this._element);
     };
     /** Whether this list item should show a ripple effect when clicked. */
     /**
@@ -392,7 +394,9 @@ var MatListOption = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._lineSetter = new MatLineSetter(this._lines, this._element);
+        // TODO: consider turning the setter into a function, it doesn't do anything as a class.
+        // tslint:disable-next-line:no-unused-expression
+        new MatLineSetter(this._lines, this._element);
     };
     /**
      * @return {?}

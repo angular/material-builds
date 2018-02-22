@@ -41,7 +41,6 @@ export declare class MatListSubheaderCssMatStyler {
 export declare class MatListItem extends _MatListItemMixinBase implements AfterContentInit, CanDisableRipple {
     private _element;
     private _navList;
-    private _lineSetter;
     private _isNavList;
     _lines: QueryList<MatLine>;
     _hasAvatar: MatListAvatarCssMatStyler;

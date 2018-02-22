@@ -815,6 +815,9 @@ class MatChipList extends _MatChipListMixinBase {
         if (this._changeSubscription) {
             this._changeSubscription.unsubscribe();
         }
+        if (this._chipRemoveSubscription) {
+            this._chipRemoveSubscription.unsubscribe();
+        }
         this._dropSubscriptions();
         this.stateChanges.complete();
     }

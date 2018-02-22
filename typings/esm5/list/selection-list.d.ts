@@ -58,7 +58,6 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     private _changeDetector;
     /** @docs-private */
     selectionList: MatSelectionList;
-    private _lineSetter;
     private _selected;
     private _disabled;
     /** Whether the option has focus. */

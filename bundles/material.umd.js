@@ -8272,6 +8272,9 @@ var MatChipList = /** @class */ (function (_super) {
         if (this._changeSubscription) {
             this._changeSubscription.unsubscribe();
         }
+        if (this._chipRemoveSubscription) {
+            this._chipRemoveSubscription.unsubscribe();
+        }
         this._dropSubscriptions();
         this.stateChanges.complete();
     };
@@ -17106,7 +17109,9 @@ var MatListItem = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._lineSetter = new MatLineSetter(this._lines, this._element);
+        // TODO: consider turning the setter into a function, it doesn't do anything as a class.
+        // tslint:disable-next-line:no-unused-expression
+        new MatLineSetter(this._lines, this._element);
     };
     /** Whether this list item should show a ripple effect when clicked. */
     /**
@@ -17325,7 +17330,9 @@ var MatListOption = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._lineSetter = new MatLineSetter(this._lines, this._element);
+        // TODO: consider turning the setter into a function, it doesn't do anything as a class.
+        // tslint:disable-next-line:no-unused-expression
+        new MatLineSetter(this._lines, this._element);
     };
     /**
      * @return {?}
@@ -32128,7 +32135,7 @@ var MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta.2-c975ca8');
+var VERSION = new _angular_core.Version('6.0.0-beta.2-a25786d');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32374,10 +32381,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa25 = MatMenuItemBase;
-exports.ɵb25 = _MatMenuItemMixinBase;
-exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa23 = MatMenuItemBase;
+exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32543,7 +32550,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa12 = MatTreeNodeOutlet;
+exports.ɵa11 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
