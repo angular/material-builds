@@ -13,7 +13,7 @@
       "from": "./grid-list"
     },
     {
-      "from": "./toolbar"
+      "from": "./tree"
     },
     {
       "from": "./bottom-sheet"
@@ -31,25 +31,25 @@
       "from": "./checkbox"
     },
     {
-      "from": "./sort"
+      "from": "./toolbar"
     },
     {
       "from": "./icon"
     },
     {
-      "from": "./snack-bar"
+      "from": "./sort"
     },
     {
       "from": "./tabs"
     },
     {
-      "from": "./slider"
+      "from": "./snack-bar"
     },
     {
       "from": "./dialog"
     },
     {
-      "from": "./slide-toggle"
+      "from": "./slider"
     },
     {
       "from": "./divider"
@@ -61,22 +61,25 @@
       "from": "./badge"
     },
     {
-      "from": "./sidenav"
+      "from": "./slide-toggle"
     },
     {
       "from": "./menu"
     },
     {
-      "from": "./radio"
+      "from": "./sidenav"
     },
     {
       "from": "./tooltip"
     },
     {
-      "from": "./progress-spinner"
+      "from": "./radio"
     },
     {
       "from": "./progress-bar"
+    },
+    {
+      "from": "./progress-spinner"
     },
     {
       "from": "./select"
