@@ -391,6 +391,10 @@ class MatMenu {
          * Current state of the panel animation.
          */
         this._panelAnimationState = 'void';
+        /**
+         * Class to be added to the backdrop element.
+         */
+        this.backdropClass = this._defaultOptions.backdropClass;
         this._overlapTrigger = this._defaultOptions.overlapTrigger;
         /**
          * Event emitted when the menu is closed.
@@ -635,6 +639,7 @@ MatMenu.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
 ];
 MatMenu.propDecorators = {
+    "backdropClass": [{ type: Input },],
     "xPosition": [{ type: Input },],
     "yPosition": [{ type: Input },],
     "templateRef": [{ type: ViewChild, args: [TemplateRef,] },],
@@ -946,7 +951,7 @@ class MatMenuTrigger {
         return new OverlayConfig({
             positionStrategy: this._getPosition(),
             hasBackdrop: !this.triggersSubmenu(),
-            backdropClass: 'cdk-overlay-transparent-backdrop',
+            backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
             direction: this.dir,
             scrollStrategy: this._scrollStrategy()
         });
@@ -1100,6 +1105,7 @@ const ɵ0 = {
     overlapTrigger: true,
     xPosition: 'after',
     yPosition: 'below',
+    backdropClass: 'cdk-overlay-transparent-backdrop'
 };
 class MatMenuModule {
 }

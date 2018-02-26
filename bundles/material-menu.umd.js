@@ -438,6 +438,10 @@ var MatMenu = /** @class */ (function () {
          * Current state of the panel animation.
          */
         this._panelAnimationState = 'void';
+        /**
+         * Class to be added to the backdrop element.
+         */
+        this.backdropClass = this._defaultOptions.backdropClass;
         this._overlapTrigger = this._defaultOptions.overlapTrigger;
         /**
          * Event emitted when the menu is closed.
@@ -781,6 +785,7 @@ var MatMenu = /** @class */ (function () {
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
     ]; };
     MatMenu.propDecorators = {
+        "backdropClass": [{ type: _angular_core.Input },],
         "xPosition": [{ type: _angular_core.Input },],
         "yPosition": [{ type: _angular_core.Input },],
         "templateRef": [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
@@ -1172,7 +1177,7 @@ var MatMenuTrigger = /** @class */ (function () {
         return new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._getPosition(),
             hasBackdrop: !this.triggersSubmenu(),
-            backdropClass: 'cdk-overlay-transparent-backdrop',
+            backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
             direction: this.dir,
             scrollStrategy: this._scrollStrategy()
         });
@@ -1367,6 +1372,7 @@ var ɵ0 = {
     overlapTrigger: true,
     xPosition: 'after',
     yPosition: 'below',
+    backdropClass: 'cdk-overlay-transparent-backdrop'
 };
 var MatMenuModule = /** @class */ (function () {
     function MatMenuModule() {

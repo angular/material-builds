@@ -17314,14 +17314,18 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        if (this._selected) {
-            // List options that are selected at initialization can't be reported properly to the form
-            // control. This is because it takes some time until the selection-list knows about all
-            // available options. Also it can happen that the ControlValueAccessor has an initial value
-            // that should be used instead. Deferring the value change report to the next tick ensures
-            // that the form control value is not being overwritten.
-            Promise.resolve().then(function () { return _this.selected = true; });
-        }
+        // List options that are selected at initialization can't be reported properly to the form
+        // control. This is because it takes some time until the selection-list knows about all
+        // available options. Also it can happen that the ControlValueAccessor has an initial value
+        // that should be used instead. Deferring the value change report to the next tick ensures
+        // that the form control value is not being overwritten.
+        var /** @type {?} */ wasSelected = this._selected;
+        Promise.resolve().then(function () {
+            if (_this._selected || wasSelected) {
+                _this.selected = true;
+                _this._changeDetector.markForCheck();
+            }
+        });
     };
     /**
      * @return {?}
@@ -18354,6 +18358,10 @@ var MatMenu = /** @class */ (function () {
          * Current state of the panel animation.
          */
         this._panelAnimationState = 'void';
+        /**
+         * Class to be added to the backdrop element.
+         */
+        this.backdropClass = this._defaultOptions.backdropClass;
         this._overlapTrigger = this._defaultOptions.overlapTrigger;
         /**
          * Event emitted when the menu is closed.
@@ -18697,6 +18705,7 @@ var MatMenu = /** @class */ (function () {
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
     ]; };
     MatMenu.propDecorators = {
+        "backdropClass": [{ type: _angular_core.Input },],
         "xPosition": [{ type: _angular_core.Input },],
         "yPosition": [{ type: _angular_core.Input },],
         "templateRef": [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
@@ -19088,7 +19097,7 @@ var MatMenuTrigger = /** @class */ (function () {
         return new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._getPosition(),
             hasBackdrop: !this.triggersSubmenu(),
-            backdropClass: 'cdk-overlay-transparent-backdrop',
+            backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
             direction: this.dir,
             scrollStrategy: this._scrollStrategy()
         });
@@ -19283,6 +19292,7 @@ var ɵ0 = {
     overlapTrigger: true,
     xPosition: 'after',
     yPosition: 'below',
+    backdropClass: 'cdk-overlay-transparent-backdrop'
 };
 var MatMenuModule = /** @class */ (function () {
     function MatMenuModule() {
@@ -32135,7 +32145,7 @@ var MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta.2-a27d9df');
+var VERSION = new _angular_core.Version('6.0.0-beta.2-2ece035');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32550,7 +32560,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa11 = MatTreeNodeOutlet;
+exports.ɵa13 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
