@@ -483,5 +483,5 @@ class MatTreeNestedDataSource extends DataSource {
  * Generated bundle index. Do not edit.
  */
 
-export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa16 };
+export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa10 };
 //# sourceMappingURL=tree.js.map

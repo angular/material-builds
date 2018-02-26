@@ -27,4 +27,5 @@ export interface MatMenuPanel {
     setPositionClasses: (x: MenuPositionX, y: MenuPositionY) => void;
     setElevation?(depth: number): void;
     lazyContent?: MatMenuContent;
+    backdropClass?: string;
 }

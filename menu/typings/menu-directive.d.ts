@@ -14,6 +14,8 @@ export interface MatMenuDefaultOptions {
     yPosition: MenuPositionY;
     /** Whether the menu should overlap the menu trigger. */
     overlapTrigger: boolean;
+    /** Class to be applied to the menu's backdrop. */
+    backdropClass: string;
 }
 /** Injection token to be used to override the default options for `mat-menu`. */
 export declare const MAT_MENU_DEFAULT_OPTIONS: InjectionToken<MatMenuDefaultOptions>;
@@ -37,6 +39,8 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
     parentMenu: MatMenuPanel | undefined;
     /** Layout direction of the menu. */
     direction: Direction;
+    /** Class to be added to the backdrop element. */
+    backdropClass: string;
     /** Position of the menu in the X axis. */
     xPosition: MenuPositionX;
     /** Position of the menu in the Y axis. */
