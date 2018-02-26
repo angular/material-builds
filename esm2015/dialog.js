@@ -269,7 +269,7 @@ class MatDialogContainer extends BasePortalOutlet {
 MatDialogContainer.decorators = [
     { type: Component, args: [{selector: 'mat-dialog-container',
                 template: "<ng-template cdkPortalOutlet></ng-template>",
-                styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch;-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap}.mat-dialog-actions:last-child{margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
+                styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap;margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
                 encapsulation: ViewEncapsulation.None,
                 preserveWhitespaces: false,
                 // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
@@ -691,17 +691,20 @@ class MatDialog {
     _createInjector(config, dialogRef, dialogContainer) {
         const /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const /** @type {?} */ injectionTokens = new WeakMap();
-        injectionTokens.set(MatDialogRef, dialogRef);
         // The MatDialogContainer is injected in the portal as the MatDialogContainer and the dialog's
         // content are created out of the same ViewContainerRef and as such, are siblings for injector
-        // purposes.  To allow the hierarchy that is expected, the MatDialogContainer is explicitly
+        // purposes. To allow the hierarchy that is expected, the MatDialogContainer is explicitly
         // added to the injection tokens.
-        injectionTokens.set(MatDialogContainer, dialogContainer);
-        injectionTokens.set(MAT_DIALOG_DATA, config.data);
-        injectionTokens.set(Directionality, {
-            value: config.direction,
-            change: of()
-        });
+        injectionTokens
+            .set(MatDialogContainer, dialogContainer)
+            .set(MAT_DIALOG_DATA, config.data)
+            .set(MatDialogRef, dialogRef);
+        if (!userInjector || !userInjector.get(Directionality, null)) {
+            injectionTokens.set(Directionality, {
+                value: config.direction,
+                change: of()
+            });
+        }
         return new PortalInjector(userInjector || this._injector, injectionTokens);
     }
     /**
