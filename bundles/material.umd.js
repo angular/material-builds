@@ -836,6 +836,11 @@ var NativeDateAdapter = /** @class */ (function (_super) {
          * Without this `Intl.DateTimeFormat` sometimes chooses the wrong timeZone, which can throw off
          * the result. (e.g. in the en-US locale `new Date(1800, 7, 14).toLocaleDateString()`
          * will produce `'8/13/1800'`.
+         *
+         * TODO(mmalerba): drop this variable. It's not being used in the code right now. We're now
+         * getting the string representation of a Date object from it's utc representation. We're keeping
+         * it here for sometime, just for precaution, in case we decide to revert some of these changes
+         * though.
          */
         _this.useUtcForDisplay = true;
         _super.prototype.setLocale.call(_this, matDateLocale);
@@ -900,8 +905,10 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     function (style$$1) {
         var _this = this;
         if (SUPPORTS_INTL_API) {
-            var /** @type {?} */ dtf_1 = new Intl.DateTimeFormat(this.locale, { month: style$$1 });
-            return range(12, function (i) { return _this._stripDirectionalityCharacters(dtf_1.format(new Date(2017, i, 1))); });
+            var /** @type {?} */ dtf_1 = new Intl.DateTimeFormat(this.locale, { month: style$$1, timeZone: 'utc' });
+            return range(12, function (i) {
+                return _this._stripDirectionalityCharacters(_this._format(dtf_1, new Date(2017, i, 1)));
+            });
         }
         return DEFAULT_MONTH_NAMES[style$$1];
     };
@@ -914,9 +921,9 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     function () {
         var _this = this;
         if (SUPPORTS_INTL_API) {
-            var /** @type {?} */ dtf_2 = new Intl.DateTimeFormat(this.locale, { day: 'numeric' });
+            var /** @type {?} */ dtf_2 = new Intl.DateTimeFormat(this.locale, { day: 'numeric', timeZone: 'utc' });
             return range(31, function (i) {
-                return _this._stripDirectionalityCharacters(dtf_2.format(new Date(2017, 0, i + 1)));
+                return _this._stripDirectionalityCharacters(_this._format(dtf_2, new Date(2017, 0, i + 1)));
             });
         }
         return DEFAULT_DATE_NAMES;
@@ -932,9 +939,9 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     function (style$$1) {
         var _this = this;
         if (SUPPORTS_INTL_API) {
-            var /** @type {?} */ dtf_3 = new Intl.DateTimeFormat(this.locale, { weekday: style$$1 });
+            var /** @type {?} */ dtf_3 = new Intl.DateTimeFormat(this.locale, { weekday: style$$1, timeZone: 'utc' });
             return range(7, function (i) {
-                return _this._stripDirectionalityCharacters(dtf_3.format(new Date(2017, 0, i + 1)));
+                return _this._stripDirectionalityCharacters(_this._format(dtf_3, new Date(2017, 0, i + 1)));
             });
         }
         return DEFAULT_DAY_OF_WEEK_NAMES[style$$1];
@@ -949,8 +956,8 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      */
     function (date) {
         if (SUPPORTS_INTL_API) {
-            var /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric' });
-            return this._stripDirectionalityCharacters(dtf.format(date));
+            var /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric', timeZone: 'utc' });
+            return this._stripDirectionalityCharacters(this._format(dtf, date));
         }
         return String(this.getYear(date));
     };
@@ -1060,12 +1067,9 @@ var NativeDateAdapter = /** @class */ (function (_super) {
                 date = this.clone(date);
                 date.setFullYear(Math.max(1, Math.min(9999, date.getFullYear())));
             }
-            if (this.useUtcForDisplay) {
-                date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
-                displayFormat = __assign({}, displayFormat, { timeZone: 'utc' });
-            }
+            displayFormat = __assign({}, displayFormat, { timeZone: 'utc' });
             var /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
-            return this._stripDirectionalityCharacters(dtf.format(date));
+            return this._stripDirectionalityCharacters(this._format(dtf, date));
         }
         return this._stripDirectionalityCharacters(date.toDateString());
     };
@@ -1249,6 +1253,32 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      */
     function (str) {
         return str.replace(/[\u200e\u200f]/g, '');
+    };
+    /**
+     * When converting Date object to string, javascript built-in functions may return wrong
+     * results because it applies its internal DST rules. The DST rules around the world change
+     * very frequently, and the current valid rule is not always valid in previous years though.
+     * We work around this problem building a new Date object which has its internal UTC
+     * representation with the local date and time.
+     * @param {?} dtf Intl.DateTimeFormat object, containg the desired string format. It must have
+     *    timeZone set to 'utc' to work fine.
+     * @param {?} date Date from which we want to get the string representation according to dtf
+     * @return {?} A Date object with its UTC representation based on the passed in date info
+     */
+    NativeDateAdapter.prototype._format = /**
+     * When converting Date object to string, javascript built-in functions may return wrong
+     * results because it applies its internal DST rules. The DST rules around the world change
+     * very frequently, and the current valid rule is not always valid in previous years though.
+     * We work around this problem building a new Date object which has its internal UTC
+     * representation with the local date and time.
+     * @param {?} dtf Intl.DateTimeFormat object, containg the desired string format. It must have
+     *    timeZone set to 'utc' to work fine.
+     * @param {?} date Date from which we want to get the string representation according to dtf
+     * @return {?} A Date object with its UTC representation based on the passed in date info
+     */
+    function (dtf, date) {
+        var /** @type {?} */ d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
+        return dtf.format(d);
     };
     NativeDateAdapter.decorators = [
         { type: _angular_core.Injectable },
@@ -19345,6 +19375,11 @@ var matSelectAnimations = {
        * When the panel is removed from the DOM, it simply fades out linearly.
        */
     transformPanel: _angular_animations.trigger('transformPanel', [
+        _angular_animations.state('void', _angular_animations.style({
+            transform: 'scaleY(0)',
+            minWidth: '100%',
+            opacity: 0
+        })),
         _angular_animations.state('showing', _angular_animations.style({
             opacity: 1,
             minWidth: 'calc(100% + 32px)',
@@ -19359,11 +19394,6 @@ var matSelectAnimations = {
         })),
         _angular_animations.transition('void => *', _angular_animations.group([
             _angular_animations.query('@fadeInContent', _angular_animations.animateChild()),
-            _angular_animations.style({
-                opacity: 0,
-                minWidth: '100%',
-                transform: 'scaleY(0)'
-            }),
             _angular_animations.animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)')
         ])),
         _angular_animations.transition('* => void', [
@@ -32145,7 +32175,7 @@ var MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta.2-ffbb425');
+var VERSION = new _angular_core.Version('6.0.0-beta.2-77c8d8f');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32517,16 +32547,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
@@ -32560,7 +32590,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa10 = MatTreeNodeOutlet;
+exports.ɵa13 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

@@ -808,6 +808,11 @@ var NativeDateAdapter = /** @class */ (function (_super) {
          * Without this `Intl.DateTimeFormat` sometimes chooses the wrong timeZone, which can throw off
          * the result. (e.g. in the en-US locale `new Date(1800, 7, 14).toLocaleDateString()`
          * will produce `'8/13/1800'`.
+         *
+         * TODO(mmalerba): drop this variable. It's not being used in the code right now. We're now
+         * getting the string representation of a Date object from it's utc representation. We're keeping
+         * it here for sometime, just for precaution, in case we decide to revert some of these changes
+         * though.
          */
         _this.useUtcForDisplay = true;
         _super.prototype.setLocale.call(_this, matDateLocale);
@@ -872,8 +877,10 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     function (style) {
         var _this = this;
         if (SUPPORTS_INTL_API) {
-            var /** @type {?} */ dtf_1 = new Intl.DateTimeFormat(this.locale, { month: style });
-            return range(12, function (i) { return _this._stripDirectionalityCharacters(dtf_1.format(new Date(2017, i, 1))); });
+            var /** @type {?} */ dtf_1 = new Intl.DateTimeFormat(this.locale, { month: style, timeZone: 'utc' });
+            return range(12, function (i) {
+                return _this._stripDirectionalityCharacters(_this._format(dtf_1, new Date(2017, i, 1)));
+            });
         }
         return DEFAULT_MONTH_NAMES[style];
     };
@@ -886,9 +893,9 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     function () {
         var _this = this;
         if (SUPPORTS_INTL_API) {
-            var /** @type {?} */ dtf_2 = new Intl.DateTimeFormat(this.locale, { day: 'numeric' });
+            var /** @type {?} */ dtf_2 = new Intl.DateTimeFormat(this.locale, { day: 'numeric', timeZone: 'utc' });
             return range(31, function (i) {
-                return _this._stripDirectionalityCharacters(dtf_2.format(new Date(2017, 0, i + 1)));
+                return _this._stripDirectionalityCharacters(_this._format(dtf_2, new Date(2017, 0, i + 1)));
             });
         }
         return DEFAULT_DATE_NAMES;
@@ -904,9 +911,9 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     function (style) {
         var _this = this;
         if (SUPPORTS_INTL_API) {
-            var /** @type {?} */ dtf_3 = new Intl.DateTimeFormat(this.locale, { weekday: style });
+            var /** @type {?} */ dtf_3 = new Intl.DateTimeFormat(this.locale, { weekday: style, timeZone: 'utc' });
             return range(7, function (i) {
-                return _this._stripDirectionalityCharacters(dtf_3.format(new Date(2017, 0, i + 1)));
+                return _this._stripDirectionalityCharacters(_this._format(dtf_3, new Date(2017, 0, i + 1)));
             });
         }
         return DEFAULT_DAY_OF_WEEK_NAMES[style];
@@ -921,8 +928,8 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      */
     function (date) {
         if (SUPPORTS_INTL_API) {
-            var /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric' });
-            return this._stripDirectionalityCharacters(dtf.format(date));
+            var /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric', timeZone: 'utc' });
+            return this._stripDirectionalityCharacters(this._format(dtf, date));
         }
         return String(this.getYear(date));
     };
@@ -1032,12 +1039,9 @@ var NativeDateAdapter = /** @class */ (function (_super) {
                 date = this.clone(date);
                 date.setFullYear(Math.max(1, Math.min(9999, date.getFullYear())));
             }
-            if (this.useUtcForDisplay) {
-                date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
-                displayFormat = __assign({}, displayFormat, { timeZone: 'utc' });
-            }
+            displayFormat = __assign({}, displayFormat, { timeZone: 'utc' });
             var /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
-            return this._stripDirectionalityCharacters(dtf.format(date));
+            return this._stripDirectionalityCharacters(this._format(dtf, date));
         }
         return this._stripDirectionalityCharacters(date.toDateString());
     };
@@ -1221,6 +1225,32 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      */
     function (str) {
         return str.replace(/[\u200e\u200f]/g, '');
+    };
+    /**
+     * When converting Date object to string, javascript built-in functions may return wrong
+     * results because it applies its internal DST rules. The DST rules around the world change
+     * very frequently, and the current valid rule is not always valid in previous years though.
+     * We work around this problem building a new Date object which has its internal UTC
+     * representation with the local date and time.
+     * @param {?} dtf Intl.DateTimeFormat object, containg the desired string format. It must have
+     *    timeZone set to 'utc' to work fine.
+     * @param {?} date Date from which we want to get the string representation according to dtf
+     * @return {?} A Date object with its UTC representation based on the passed in date info
+     */
+    NativeDateAdapter.prototype._format = /**
+     * When converting Date object to string, javascript built-in functions may return wrong
+     * results because it applies its internal DST rules. The DST rules around the world change
+     * very frequently, and the current valid rule is not always valid in previous years though.
+     * We work around this problem building a new Date object which has its internal UTC
+     * representation with the local date and time.
+     * @param {?} dtf Intl.DateTimeFormat object, containg the desired string format. It must have
+     *    timeZone set to 'utc' to work fine.
+     * @param {?} date Date from which we want to get the string representation according to dtf
+     * @return {?} A Date object with its UTC representation based on the passed in date info
+     */
+    function (dtf, date) {
+        var /** @type {?} */ d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
+        return dtf.format(d);
     };
     NativeDateAdapter.decorators = [
         { type: Injectable },

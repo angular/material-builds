@@ -16,6 +16,11 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * Without this `Intl.DateTimeFormat` sometimes chooses the wrong timeZone, which can throw off
      * the result. (e.g. in the en-US locale `new Date(1800, 7, 14).toLocaleDateString()`
      * will produce `'8/13/1800'`.
+     *
+     * TODO(mmalerba): drop this variable. It's not being used in the code right now. We're now
+     * getting the string representation of a Date object from it's utc representation. We're keeping
+     * it here for sometime, just for precaution, in case we decide to revert some of these changes
+     * though.
      */
     useUtcForDisplay: boolean;
     constructor(matDateLocale: string, platform: Platform);
@@ -63,4 +68,16 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * @returns The stripped string.
      */
     private _stripDirectionalityCharacters(str);
+    /**
+     * When converting Date object to string, javascript built-in functions may return wrong
+     * results because it applies its internal DST rules. The DST rules around the world change
+     * very frequently, and the current valid rule is not always valid in previous years though.
+     * We work around this problem building a new Date object which has its internal UTC
+     * representation with the local date and time.
+     * @param dtf Intl.DateTimeFormat object, containg the desired string format. It must have
+     *    timeZone set to 'utc' to work fine.
+     * @param date Date from which we want to get the string representation according to dtf
+     * @returns A Date object with its UTC representation based on the passed in date info
+     */
+    private _format(dtf, date);
 }
