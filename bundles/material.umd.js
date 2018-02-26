@@ -18358,10 +18358,6 @@ var MatMenu = /** @class */ (function () {
          * Current state of the panel animation.
          */
         this._panelAnimationState = 'void';
-        /**
-         * Class to be added to the backdrop element.
-         */
-        this.backdropClass = this._defaultOptions.backdropClass;
         this._overlapTrigger = this._defaultOptions.overlapTrigger;
         /**
          * Event emitted when the menu is closed.
@@ -18705,7 +18701,6 @@ var MatMenu = /** @class */ (function () {
         { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
     ]; };
     MatMenu.propDecorators = {
-        "backdropClass": [{ type: _angular_core.Input },],
         "xPosition": [{ type: _angular_core.Input },],
         "yPosition": [{ type: _angular_core.Input },],
         "templateRef": [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
@@ -19097,7 +19092,7 @@ var MatMenuTrigger = /** @class */ (function () {
         return new _angular_cdk_overlay.OverlayConfig({
             positionStrategy: this._getPosition(),
             hasBackdrop: !this.triggersSubmenu(),
-            backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
+            backdropClass: 'cdk-overlay-transparent-backdrop',
             direction: this.dir,
             scrollStrategy: this._scrollStrategy()
         });
@@ -19292,7 +19287,6 @@ var ɵ0 = {
     overlapTrigger: true,
     xPosition: 'after',
     yPosition: 'below',
-    backdropClass: 'cdk-overlay-transparent-backdrop'
 };
 var MatMenuModule = /** @class */ (function () {
     function MatMenuModule() {
@@ -32145,7 +32139,7 @@ var MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var VERSION = new _angular_core.Version('6.0.0-beta.2-2ece035');
+var VERSION = new _angular_core.Version('6.0.0-beta.2-cdd224a');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32391,10 +32385,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MatMenuItemBase;
-exports.ɵb24 = _MatMenuItemMixinBase;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa20 = MatMenuItemBase;
+exports.ɵb20 = _MatMenuItemMixinBase;
+exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32517,16 +32511,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe25 = MatTabBase;
-exports.ɵf25 = _MatTabMixinBase;
-exports.ɵa25 = MatTabHeaderBase;
-exports.ɵb25 = _MatTabHeaderMixinBase;
-exports.ɵc25 = MatTabLabelWrapperBase;
-exports.ɵd25 = _MatTabLabelWrapperMixinBase;
-exports.ɵi25 = MatTabLinkBase;
-exports.ɵg25 = MatTabNavBase;
-exports.ɵj25 = _MatTabLinkMixinBase;
-exports.ɵh25 = _MatTabNavMixinBase;
+exports.ɵe18 = MatTabBase;
+exports.ɵf18 = _MatTabMixinBase;
+exports.ɵa18 = MatTabHeaderBase;
+exports.ɵb18 = _MatTabHeaderMixinBase;
+exports.ɵc18 = MatTabLabelWrapperBase;
+exports.ɵd18 = _MatTabLabelWrapperMixinBase;
+exports.ɵi18 = MatTabLinkBase;
+exports.ɵg18 = MatTabNavBase;
+exports.ɵj18 = _MatTabLinkMixinBase;
+exports.ɵh18 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
@@ -32560,7 +32554,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa13 = MatTreeNodeOutlet;
+exports.ɵa16 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

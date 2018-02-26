@@ -427,10 +427,6 @@ var MatMenu = /** @class */ (function () {
          * Current state of the panel animation.
          */
         this._panelAnimationState = 'void';
-        /**
-         * Class to be added to the backdrop element.
-         */
-        this.backdropClass = this._defaultOptions.backdropClass;
         this._overlapTrigger = this._defaultOptions.overlapTrigger;
         /**
          * Event emitted when the menu is closed.
@@ -774,7 +770,6 @@ var MatMenu = /** @class */ (function () {
         { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
     ]; };
     MatMenu.propDecorators = {
-        "backdropClass": [{ type: Input },],
         "xPosition": [{ type: Input },],
         "yPosition": [{ type: Input },],
         "templateRef": [{ type: ViewChild, args: [TemplateRef,] },],
@@ -1166,7 +1161,7 @@ var MatMenuTrigger = /** @class */ (function () {
         return new OverlayConfig({
             positionStrategy: this._getPosition(),
             hasBackdrop: !this.triggersSubmenu(),
-            backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
+            backdropClass: 'cdk-overlay-transparent-backdrop',
             direction: this.dir,
             scrollStrategy: this._scrollStrategy()
         });
@@ -1361,7 +1356,6 @@ var ɵ0 = {
     overlapTrigger: true,
     xPosition: 'after',
     yPosition: 'below',
-    backdropClass: 'cdk-overlay-transparent-backdrop'
 };
 var MatMenuModule = /** @class */ (function () {
     function MatMenuModule() {
@@ -1410,5 +1404,5 @@ var MatMenuModule = /** @class */ (function () {
  * Generated bundle index. Do not edit.
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa24, _MatMenuItemMixinBase as ɵb24, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd24, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc24 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa20, _MatMenuItemMixinBase as ɵb20, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd20, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc20 };
 //# sourceMappingURL=menu.es5.js.map
