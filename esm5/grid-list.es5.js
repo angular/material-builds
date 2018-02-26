@@ -730,8 +730,8 @@ var RatioTileStyler = /** @class */ (function (_super) {
         // Use padding-top and margin-top to maintain the given aspect ratio, as
         // a percentage-based value for these properties is applied versus the *width* of the
         // containing block. See http://www.w3.org/TR/CSS2/box.html#margin-properties
-        tile._setStyle('margin-top', this.getTilePosition(this.baseTileHeight, rowIndex));
-        tile._setStyle('padding-top', calc(this.getTileSize(this.baseTileHeight, tile.rowspan)));
+        tile._setStyle('marginTop', this.getTilePosition(this.baseTileHeight, rowIndex));
+        tile._setStyle('paddingTop', calc(this.getTileSize(this.baseTileHeight, tile.rowspan)));
     };
     /**
      * @return {?}
@@ -741,7 +741,7 @@ var RatioTileStyler = /** @class */ (function (_super) {
      */
     function () {
         return [
-            'padding-bottom', calc(this.getTileSpan(this.baseTileHeight) + " + " + this.getGutterSpan())
+            'paddingBottom', calc(this.getTileSpan(this.baseTileHeight) + " + " + this.getGutterSpan())
         ];
     };
     /**
@@ -753,10 +753,10 @@ var RatioTileStyler = /** @class */ (function (_super) {
      * @return {?}
      */
     function (list) {
-        list._setListStyle(['padding-bottom', null]);
+        list._setListStyle(['paddingBottom', null]);
         list._tiles.forEach(function (tile) {
-            tile._setStyle('margin-top', null);
-            tile._setStyle('padding-top', null);
+            tile._setStyle('marginTop', null);
+            tile._setStyle('paddingTop', null);
         });
     };
     /**
