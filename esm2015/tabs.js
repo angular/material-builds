@@ -1662,5 +1662,5 @@ MatTabsModule.ctorParameters = () => [];
  * Generated bundle index. Do not edit.
  */
 
-export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe14, _MatTabMixinBase as ɵf14, MatTabHeaderBase as ɵa14, _MatTabHeaderMixinBase as ɵb14, MatTabLabelWrapperBase as ɵc14, _MatTabLabelWrapperMixinBase as ɵd14, MatTabLinkBase as ɵi14, MatTabNavBase as ɵg14, _MatTabLinkMixinBase as ɵj14, _MatTabNavMixinBase as ɵh14 };
+export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe25, _MatTabMixinBase as ɵf25, MatTabHeaderBase as ɵa25, _MatTabHeaderMixinBase as ɵb25, MatTabLabelWrapperBase as ɵc25, _MatTabLabelWrapperMixinBase as ɵd25, MatTabLinkBase as ɵi25, MatTabNavBase as ɵg25, _MatTabLinkMixinBase as ɵj25, _MatTabNavMixinBase as ɵh25 };
 //# sourceMappingURL=tabs.js.map
