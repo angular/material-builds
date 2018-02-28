@@ -5,22 +5,22 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule, ARIA_DESCRIBER_PROVIDER, AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
-import { Overlay, OverlayModule, ScrollDispatcher } from '@angular/cdk/overlay';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgModule, NgZone, Optional, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
-import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AriaDescriber, FocusMonitor, A11yModule, ARIA_DESCRIBER_PROVIDER } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
+import { Overlay, ScrollDispatcher, OverlayModule } from '@angular/cdk/overlay';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { take } from 'rxjs/operators/take';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { filter } from 'rxjs/operators/filter';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgZone, Optional, ViewContainerRef, ViewEncapsulation, NgModule } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
+import { MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
@@ -29,7 +29,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 /**
  * Animations used by MatTooltip.
  */
-var matTooltipAnimations = {
+var /** @type {?} */ matTooltipAnimations = {
     /** Animation that transitions a tooltip in and out. */
     tooltipState: trigger('state', [
         state('initial, void, hidden', style({ transform: 'scale(0)' })),
@@ -46,11 +46,11 @@ var matTooltipAnimations = {
 /**
  * Time in ms to throttle repositioning after scroll events.
  */
-var SCROLL_THROTTLE_MS = 20;
+var /** @type {?} */ SCROLL_THROTTLE_MS = 20;
 /**
  * CSS class that will be attached to the overlay panel.
  */
-var TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
+var /** @type {?} */ TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
 /**
  * Creates an error to be thrown if the user supplied an invalid tooltip position.
  * @param {?} position
@@ -62,7 +62,7 @@ function getMatTooltipInvalidPositionError(position) {
 /**
  * Injection token that determines the scroll handling while a tooltip is visible.
  */
-var MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strategy');
+var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -74,20 +74,15 @@ function MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
 /**
  * \@docs-private
  */
-var MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
+var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_TOOLTIP_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY
 };
 /**
- * Default `matTooltip` options that can be overridden.
- * @record
- */
-
-/**
  * Injection token to be used to override the default options for `matTooltip`.
  */
-var MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-options');
+var /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-options');
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -883,7 +878,6 @@ var TooltipComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var ɵ0 = {
     showDelay: 0,
     hideDelay: 0,
@@ -928,9 +922,6 @@ var MatTooltipModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltip, TooltipComponent, matTooltipAnimations };

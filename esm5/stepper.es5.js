@@ -5,27 +5,25 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
-import { PortalModule } from '@angular/cdk/portal';
-import { CdkStep, CdkStepLabel, CdkStepper, CdkStepperModule, CdkStepperNext, CdkStepperPrevious } from '@angular/cdk/stepper';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, Inject, Injectable, Input, NgModule, Optional, SkipSelf, TemplateRef, ViewChildren, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
-import { MatIconModule } from '@angular/material/icon';
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
+import { Directive, TemplateRef, Injectable, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, forwardRef, Inject, SkipSelf, ViewChildren, Optional, NgModule } from '@angular/core';
+import { CdkStepLabel, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import { Subject } from 'rxjs/Subject';
-import { Directionality } from '@angular/cdk/bidi';
-import { takeUntil } from 'rxjs/operators/takeUntil';
+import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
+import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Directionality } from '@angular/cdk/bidi';
+import { ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { takeUntil } from 'rxjs/operators/takeUntil';
+import { PortalModule } from '@angular/cdk/portal';
+import { CommonModule } from '@angular/common';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatStepLabel = /** @class */ (function (_super) {
     __extends(MatStepLabel, _super);
     function MatStepLabel(template) {
@@ -47,7 +45,6 @@ var MatStepLabel = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Stepper data that is required for internationalization.
  */
@@ -75,7 +72,6 @@ var MatStepperIntl = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatStepHeader = /** @class */ (function () {
     function MatStepHeader(_intl, _focusMonitor, _element, changeDetectorRef) {
         this._intl = _intl;
@@ -225,7 +221,7 @@ var MatStepHeader = /** @class */ (function () {
 /**
  * Animations used by the Material steppers.
  */
-var matStepperAnimations = {
+var /** @type {?} */ matStepperAnimations = {
     /** Animation that transitions the step along the X axis in a horizontal stepper. */
     horizontalStepTransition: trigger('stepTransition', [
         state('previous', style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
@@ -246,7 +242,6 @@ var matStepperAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Template to be used to override the icons inside the step header.
  */
@@ -273,12 +268,11 @@ var MatStepperIcon = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Workaround for https://github.com/angular/angular/issues/17849
  */
-var _MatStep = CdkStep;
-var _MatStepper = CdkStepper;
+var /** @type {?} */ _MatStep = CdkStep;
+var /** @type {?} */ _MatStepper = CdkStepper;
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper, _errorStateMatcher) {
@@ -435,7 +429,6 @@ var MatVerticalStepper = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Button that moves to the next step in a stepper workflow.
  */
@@ -487,7 +480,6 @@ var MatStepperPrevious = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatStepperModule = /** @class */ (function () {
     function MatStepperModule() {
     }
@@ -542,9 +534,6 @@ var MatStepperModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatStepperModule, MatStepLabel, _MatStep, _MatStepper, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl, matStepperAnimations, MatStepperIcon };

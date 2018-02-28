@@ -6,17 +6,16 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.badge = global.ng.material.badge || {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.common));
-}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_a11y,_angular_cdk_coercion,_angular_common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/common'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/badge', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/common', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.badge = {}),global.ng.core,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.common,global.ng.material.core));
+}(this, (function (exports,core,coercion,a11y,common,core$1) { 'use strict';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-var nextId = 0;
+var /** @type {?} */ nextId = 0;
 /**
  * Directive to display a text badge.
  */
@@ -70,7 +69,7 @@ var MatBadge = /** @class */ (function () {
          * @return {?}
          */
         function (val) {
-            this._overlap = _angular_cdk_coercion.coerceBooleanProperty(val);
+            this._overlap = coercion.coerceBooleanProperty(val);
         },
         enumerable: true,
         configurable: true
@@ -122,7 +121,7 @@ var MatBadge = /** @class */ (function () {
          * @return {?}
          */
         function (val) {
-            this._hidden = _angular_cdk_coercion.coerceBooleanProperty(val);
+            this._hidden = coercion.coerceBooleanProperty(val);
         },
         enumerable: true,
         configurable: true
@@ -253,7 +252,7 @@ var MatBadge = /** @class */ (function () {
         }
     };
     MatBadge.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matBadge]',
                     host: {
                         'class': 'mat-badge',
@@ -271,19 +270,19 @@ var MatBadge = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatBadge.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
-        { type: _angular_core.NgZone, },
-        { type: _angular_core.ElementRef, },
-        { type: _angular_cdk_a11y.AriaDescriber, },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: core.NgZone, },
+        { type: core.ElementRef, },
+        { type: a11y.AriaDescriber, },
     ]; };
     MatBadge.propDecorators = {
-        "color": [{ type: _angular_core.Input, args: ['matBadgeColor',] },],
-        "overlap": [{ type: _angular_core.Input, args: ['matBadgeOverlap',] },],
-        "position": [{ type: _angular_core.Input, args: ['matBadgePosition',] },],
-        "content": [{ type: _angular_core.Input, args: ['matBadge',] },],
-        "description": [{ type: _angular_core.Input, args: ['matBadgeDescription',] },],
-        "size": [{ type: _angular_core.Input, args: ['matBadgeSize',] },],
-        "hidden": [{ type: _angular_core.Input, args: ['matBadgeHidden',] },],
+        "color": [{ type: core.Input, args: ['matBadgeColor',] },],
+        "overlap": [{ type: core.Input, args: ['matBadgeOverlap',] },],
+        "position": [{ type: core.Input, args: ['matBadgePosition',] },],
+        "content": [{ type: core.Input, args: ['matBadge',] },],
+        "description": [{ type: core.Input, args: ['matBadgeDescription',] },],
+        "size": [{ type: core.Input, args: ['matBadgeSize',] },],
+        "hidden": [{ type: core.Input, args: ['matBadgeHidden',] },],
     };
     return MatBadge;
 }());
@@ -292,15 +291,14 @@ var MatBadge = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatBadgeModule = /** @class */ (function () {
     function MatBadgeModule() {
     }
     MatBadgeModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
+        { type: core.NgModule, args: [{
                     imports: [
-                        _angular_material_core.MatCommonModule,
-                        _angular_cdk_a11y.A11yModule,
+                        core$1.MatCommonModule,
+                        a11y.A11yModule,
                     ],
                     exports: [
                         MatBadge,

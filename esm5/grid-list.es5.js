@@ -5,10 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Input, NgModule, Optional, ViewEncapsulation } from '@angular/core';
-import { MatCommonModule, MatLine, MatLineModule, MatLineSetter } from '@angular/material/core';
+import { Component, ViewEncapsulation, ElementRef, Input, ContentChildren, Directive, ChangeDetectionStrategy, Optional, NgModule } from '@angular/core';
+import { MatLine, MatLineSetter, MatLineModule, MatCommonModule } from '@angular/material/core';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
 import { Directionality } from '@angular/cdk/bidi';
 
 /**
@@ -39,7 +38,6 @@ function coerceToNumber(value) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatGridTile = /** @class */ (function () {
     function MatGridTile(_element) {
         this._element = _element;
@@ -222,7 +220,24 @@ var MatGridTileFooterCssMatStyler = /** @class */ (function () {
  *
  * \@docs-private
  */
-var TileCoordinator = /** @class */ (function () {
+var /**
+ * Class for determining, from a list of tiles, the (row, col) position of each of those tiles
+ * in the grid. This is necessary (rather than just rendering the tiles in normal document flow)
+ * because the tiles can have a rowspan.
+ *
+ * The positioning algorithm greedily places each tile as soon as it encounters a gap in the grid
+ * large enough to accommodate it so that the tiles still render in the same order in which they
+ * are given.
+ *
+ * The basis of the algorithm is the use of an array to track the already placed tiles. Each
+ * element of the array corresponds to a column, and the value indicates how many cells in that
+ * column are already occupied; zero indicates an empty cell. Moving "down" to the next row
+ * decrements each value in the tracking array (indicating that the column is one cell closer to
+ * being free).
+ *
+ * \@docs-private
+ */
+TileCoordinator = /** @class */ (function () {
     function TileCoordinator(numColumns, tiles) {
         var _this = this;
         /**
@@ -387,7 +402,11 @@ var TileCoordinator = /** @class */ (function () {
  * Simple data structure for tile position (row, col).
  * \@docs-private
  */
-var TilePosition = /** @class */ (function () {
+var /**
+ * Simple data structure for tile position (row, col).
+ * \@docs-private
+ */
+TilePosition = /** @class */ (function () {
     function TilePosition(row, col) {
         this.row = row;
         this.col = col;
@@ -399,14 +418,19 @@ var TilePosition = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Sets the style properties for an individual tile, given the position calculated by the
  * Tile Coordinator.
  * \@docs-private
  * @abstract
  */
-var TileStyler = /** @class */ (function () {
+var /**
+ * Sets the style properties for an individual tile, given the position calculated by the
+ * Tile Coordinator.
+ * \@docs-private
+ * @abstract
+ */
+TileStyler = /** @class */ (function () {
     function TileStyler() {
         this._rows = 0;
         this._rowspan = 0;
@@ -631,7 +655,12 @@ var TileStyler = /** @class */ (function () {
  * Example `<mat-grid-list cols="3" rowHeight="100px">`
  * \@docs-private
  */
-var FixedTileStyler = /** @class */ (function (_super) {
+var /**
+ * This type of styler is instantiated when the user passes in a fixed row height.
+ * Example `<mat-grid-list cols="3" rowHeight="100px">`
+ * \@docs-private
+ */
+FixedTileStyler = /** @class */ (function (_super) {
     __extends(FixedTileStyler, _super);
     function FixedTileStyler(fixedRowHeight) {
         var _this = _super.call(this) || this;
@@ -703,7 +732,12 @@ var FixedTileStyler = /** @class */ (function (_super) {
  * for the row height.  Example `<mat-grid-list cols="3" rowHeight="3:1">`
  * \@docs-private
  */
-var RatioTileStyler = /** @class */ (function (_super) {
+var /**
+ * This type of styler is instantiated when the user passes in a width:height ratio
+ * for the row height.  Example `<mat-grid-list cols="3" rowHeight="3:1">`
+ * \@docs-private
+ */
+RatioTileStyler = /** @class */ (function (_super) {
     __extends(RatioTileStyler, _super);
     function RatioTileStyler(value) {
         var _this = _super.call(this) || this;
@@ -783,7 +817,14 @@ var RatioTileStyler = /** @class */ (function (_super) {
  *
  * \@docs-private
  */
-var FitTileStyler = /** @class */ (function (_super) {
+var /**
+ * This type of styler is instantiated when the user selects a "fit" row height mode.
+ * In other words, the row height will reflect the total height of the container divided
+ * by the number of rows.  Example `<mat-grid-list cols="3" rowHeight="fit">`
+ *
+ * \@docs-private
+ */
+FitTileStyler = /** @class */ (function (_super) {
     __extends(FitTileStyler, _super);
     function FitTileStyler() {
         return _super !== null && _super.apply(this, arguments) || this;
@@ -843,11 +884,10 @@ function normalizeUnits(value) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 // TODO(kara): Conditional (responsive) column count / row size.
 // TODO(kara): Re-layout on window resize / media change (debounced).
 // TODO(kara): gridTileHeader and gridTileFooter.
-var MAT_FIT_MODE = 'fit';
+var /** @type {?} */ MAT_FIT_MODE = 'fit';
 var MatGridList = /** @class */ (function () {
     function MatGridList(_element, _dir) {
         this._element = _element;
@@ -1045,7 +1085,6 @@ var MatGridList = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatGridListModule = /** @class */ (function () {
     function MatGridListModule() {
     }
@@ -1085,9 +1124,6 @@ var MatGridListModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler };

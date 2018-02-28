@@ -7,9 +7,9 @@
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/tree'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/collections'), require('rxjs/observable/merge'), require('rxjs/operators/map'), require('rxjs/operators/take'), require('rxjs/BehaviorSubject')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/tree', '@angular/material/core', '@angular/common', '@angular/cdk/collections', 'rxjs/observable/merge', 'rxjs/operators/map', 'rxjs/operators/take', 'rxjs/BehaviorSubject'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = global.ng.material.tree || {}),global.ng.core,global.ng.cdk.tree,global.ng.material.core,global.ng.common,global.ng.cdk.collections,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx));
-}(this, (function (exports,_angular_core,_angular_cdk_tree,_angular_material_core,_angular_common,_angular_cdk_collections,rxjs_observable_merge,rxjs_operators_map,rxjs_operators_take,rxjs_BehaviorSubject) { 'use strict';
+	typeof define === 'function' && define.amd ? define('@angular/material/tree', ['exports', '@angular/core', '@angular/cdk/tree', '@angular/material/core', '@angular/common', '@angular/cdk/collections', 'rxjs/observable/merge', 'rxjs/operators/map', 'rxjs/operators/take', 'rxjs/BehaviorSubject'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = {}),global.ng.core,global.ng.cdk.tree,global.ng.material.core,global.ng.common,global.ng.cdk.collections,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx));
+}(this, (function (exports,core,tree,core$1,common,collections,merge,map,take,BehaviorSubject) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -50,13 +50,13 @@ var MatTreeNodeOutlet = /** @class */ (function () {
         this.viewContainer = viewContainer;
     }
     MatTreeNodeOutlet.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matTreeNodeOutlet]'
                 },] },
     ];
     /** @nocollapse */
     MatTreeNodeOutlet.ctorParameters = function () { return [
-        { type: _angular_core.ViewContainerRef, },
+        { type: core.ViewContainerRef, },
     ]; };
     return MatTreeNodeOutlet;
 }());
@@ -65,9 +65,8 @@ var MatTreeNodeOutlet = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-var _MatTreeNodeMixinBase = _angular_material_core.mixinTabIndex(_angular_material_core.mixinDisabled(_angular_cdk_tree.CdkTreeNode));
-var _MatNestedTreeNodeMixinBase = _angular_material_core.mixinTabIndex(_angular_material_core.mixinDisabled(_angular_cdk_tree.CdkNestedTreeNode));
+var /** @type {?} */ _MatTreeNodeMixinBase = core$1.mixinTabIndex(core$1.mixinDisabled(tree.CdkTreeNode));
+var /** @type {?} */ _MatNestedTreeNodeMixinBase = core$1.mixinTabIndex(core$1.mixinDisabled(tree.CdkNestedTreeNode));
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */
@@ -82,7 +81,7 @@ var MatTreeNode = /** @class */ (function (_super) {
         return _this;
     }
     MatTreeNode.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-tree-node',
                     exportAs: 'matTreeNode',
                     inputs: ['disabled', 'tabIndex'],
@@ -92,17 +91,17 @@ var MatTreeNode = /** @class */ (function (_super) {
                         '[attr.role]': 'role',
                         'class': 'mat-tree-node'
                     },
-                    providers: [{ provide: _angular_cdk_tree.CdkTreeNode, useExisting: MatTreeNode }]
+                    providers: [{ provide: tree.CdkTreeNode, useExisting: MatTreeNode }]
                 },] },
     ];
     /** @nocollapse */
     MatTreeNode.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_cdk_tree.CdkTree, },
-        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
+        { type: core.ElementRef, },
+        { type: tree.CdkTree, },
+        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
     ]; };
     MatTreeNode.propDecorators = {
-        "role": [{ type: _angular_core.Input },],
+        "role": [{ type: core.Input },],
     };
     return MatTreeNode;
 }(_MatTreeNodeMixinBase));
@@ -115,21 +114,21 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTreeNodeDef.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matTreeNodeDef]',
                     inputs: [
                         'when: matTreeNodeDefWhen'
                     ],
-                    providers: [{ provide: _angular_cdk_tree.CdkTreeNodeDef, useExisting: MatTreeNodeDef }]
+                    providers: [{ provide: tree.CdkTreeNodeDef, useExisting: MatTreeNodeDef }]
                 },] },
     ];
     /** @nocollapse */
     MatTreeNodeDef.ctorParameters = function () { return []; };
     MatTreeNodeDef.propDecorators = {
-        "data": [{ type: _angular_core.Input, args: ['matTreeNode',] },],
+        "data": [{ type: core.Input, args: ['matTreeNode',] },],
     };
     return MatTreeNodeDef;
-}(_angular_cdk_tree.CdkTreeNodeDef));
+}(tree.CdkTreeNodeDef));
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  */
@@ -143,7 +142,7 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
         return _this;
     }
     MatNestedTreeNode.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-nested-tree-node',
                     exportAs: 'matNestedTreeNode',
                     host: {
@@ -153,20 +152,20 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
                     },
                     inputs: ['disabled', 'tabIndex'],
                     providers: [
-                        { provide: _angular_cdk_tree.CdkNestedTreeNode, useExisting: MatNestedTreeNode },
-                        { provide: _angular_cdk_tree.CdkTreeNode, useExisting: MatNestedTreeNode }
+                        { provide: tree.CdkNestedTreeNode, useExisting: MatNestedTreeNode },
+                        { provide: tree.CdkTreeNode, useExisting: MatNestedTreeNode }
                     ]
                 },] },
     ];
     /** @nocollapse */
     MatNestedTreeNode.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_cdk_tree.CdkTree, },
-        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
+        { type: core.ElementRef, },
+        { type: tree.CdkTree, },
+        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
     ]; };
     MatNestedTreeNode.propDecorators = {
-        "node": [{ type: _angular_core.Input, args: ['matNestedTreeNode',] },],
-        "nodeOutlet": [{ type: _angular_core.ContentChildren, args: [MatTreeNodeOutlet,] },],
+        "node": [{ type: core.Input, args: ['matNestedTreeNode',] },],
+        "nodeOutlet": [{ type: core.ContentChildren, args: [MatTreeNodeOutlet,] },],
     };
     return MatNestedTreeNode;
 }(_MatNestedTreeNodeMixinBase));
@@ -184,25 +183,24 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTreeNodePadding.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matTreeNodePadding]',
-                    providers: [{ provide: _angular_cdk_tree.CdkTreeNodePadding, useExisting: MatTreeNodePadding }]
+                    providers: [{ provide: tree.CdkTreeNodePadding, useExisting: MatTreeNodePadding }]
                 },] },
     ];
     /** @nocollapse */
     MatTreeNodePadding.ctorParameters = function () { return []; };
     MatTreeNodePadding.propDecorators = {
-        "level": [{ type: _angular_core.Input, args: ['matTreeNodePadding',] },],
-        "indent": [{ type: _angular_core.Input, args: ['matTreeNodePaddingIndent',] },],
+        "level": [{ type: core.Input, args: ['matTreeNodePadding',] },],
+        "indent": [{ type: core.Input, args: ['matTreeNodePaddingIndent',] },],
     };
     return MatTreeNodePadding;
-}(_angular_cdk_tree.CdkTreeNodePadding));
+}(tree.CdkTreeNodePadding));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Wrapper for the CdkTable with Material design styles.
  */
@@ -212,7 +210,7 @@ var MatTree = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTree.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-tree',
+        { type: core.Component, args: [{selector: 'mat-tree',
                     exportAs: 'matTree',
                     template: "<ng-container matTreeNodeOutlet></ng-container>",
                     host: {
@@ -220,25 +218,24 @@ var MatTree = /** @class */ (function (_super) {
                         'role': 'tree',
                     },
                     styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;min-height:48px;padding:0 24px;flex:1;overflow:hidden;word-wrap:break-word}.mat-nested-tree-ndoe{border-bottom-width:0}"],
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    providers: [{ provide: _angular_cdk_tree.CdkTree, useExisting: MatTree }]
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    providers: [{ provide: tree.CdkTree, useExisting: MatTree }]
                 },] },
     ];
     /** @nocollapse */
     MatTree.ctorParameters = function () { return []; };
     MatTree.propDecorators = {
-        "_nodeOutlet": [{ type: _angular_core.ViewChild, args: [MatTreeNodeOutlet,] },],
+        "_nodeOutlet": [{ type: core.ViewChild, args: [MatTreeNodeOutlet,] },],
     };
     return MatTree;
-}(_angular_cdk_tree.CdkTree));
+}(tree.CdkTree));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  */
@@ -250,28 +247,27 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
         return _this;
     }
     MatTreeNodeToggle.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matTreeNodeToggle]',
                     host: {
                         '(click)': '_toggle($event)',
                     },
-                    providers: [{ provide: _angular_cdk_tree.CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }]
+                    providers: [{ provide: tree.CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }]
                 },] },
     ];
     /** @nocollapse */
     MatTreeNodeToggle.ctorParameters = function () { return []; };
     MatTreeNodeToggle.propDecorators = {
-        "recursive": [{ type: _angular_core.Input, args: ['matTreeNodeToggleRecursive',] },],
+        "recursive": [{ type: core.Input, args: ['matTreeNodeToggleRecursive',] },],
     };
     return MatTreeNodeToggle;
-}(_angular_cdk_tree.CdkTreeNodeToggle));
+}(tree.CdkTreeNodeToggle));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-var MAT_TREE_DIRECTIVES = [
+var /** @type {?} */ MAT_TREE_DIRECTIVES = [
     MatNestedTreeNode,
     MatTreeNodeDef,
     MatTreeNodePadding,
@@ -284,8 +280,8 @@ var MatTreeModule = /** @class */ (function () {
     function MatTreeModule() {
     }
     MatTreeModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_cdk_tree.CdkTreeModule, _angular_common.CommonModule, _angular_material_core.MatCommonModule],
+        { type: core.NgModule, args: [{
+                    imports: [tree.CdkTreeModule, common.CommonModule, core$1.MatCommonModule],
                     exports: MAT_TREE_DIRECTIVES,
                     declarations: MAT_TREE_DIRECTIVES,
                 },] },
@@ -299,7 +295,6 @@ var MatTreeModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Tree flattener to convert a normal type of node to node with children & level information.
  * Transform nested nodes of type `T` to flattened nodes of type `F`.
@@ -334,7 +329,41 @@ var MatTreeModule = /** @class */ (function () {
  * }
  * and the output flattened type is `F` with additional information.
  */
-var MatTreeFlattener = /** @class */ (function () {
+var   /**
+ * Tree flattener to convert a normal type of node to node with children & level information.
+ * Transform nested nodes of type `T` to flattened nodes of type `F`.
+ *
+ * For example, the input data of type `T` is nested, and contains its children data:
+ *   SomeNode: {
+ *     key: 'Fruits',
+ *     children: [
+ *       NodeOne: {
+ *         key: 'Apple',
+ *       },
+ *       NodeTwo: {
+ *        key: 'Pear',
+ *      }
+ *    ]
+ *  }
+ *  After flattener flatten the tree, the structure will become
+ *  SomeNode: {
+ *    key: 'Fruits',
+ *    expandable: true,
+ *    level: 1
+ *  },
+ *  NodeOne: {
+ *    key: 'Apple',
+ *    expandable: false,
+ *    level: 2
+ *  },
+ *  NodeTwo: {
+ *   key: 'Pear',
+ *   expandable: false,
+ *   level: 2
+ * }
+ * and the output flattened type is `F` with additional information.
+ */
+MatTreeFlattener = /** @class */ (function () {
     function MatTreeFlattener(transformFunction, getLevel, isExpandable, getChildren) {
         this.transformFunction = transformFunction;
         this.getLevel = getLevel;
@@ -360,7 +389,7 @@ var MatTreeFlattener = /** @class */ (function () {
         var /** @type {?} */ flatNode = this.transformFunction(node, level);
         resultNodes.push(flatNode);
         if (this.isExpandable(flatNode)) {
-            this.getChildren(node).pipe(rxjs_operators_take.take(1)).subscribe(function (children) {
+            this.getChildren(node).pipe(take.take(1)).subscribe(function (children) {
                 children.forEach(function (child, index) {
                     var /** @type {?} */ childParentMap = parentMap.slice();
                     childParentMap.push(index != children.length - 1);
@@ -441,16 +470,23 @@ var MatTreeFlattener = /** @class */ (function () {
  * The nested tree nodes of type `T` are flattened through `MatTreeFlattener`, and converted
  * to type `F` for `MatTree` to consume.
  */
-var MatTreeFlatDataSource = /** @class */ (function (_super) {
+var   /**
+ * Data source for flat tree.
+ * The data source need to handle expansion/collapsion of the tree node and change the data feed
+ * to `MatTree`.
+ * The nested tree nodes of type `T` are flattened through `MatTreeFlattener`, and converted
+ * to type `F` for `MatTree` to consume.
+ */
+MatTreeFlatDataSource = /** @class */ (function (_super) {
     __extends(MatTreeFlatDataSource, _super);
     function MatTreeFlatDataSource(treeControl, treeFlattener, initialData) {
         if (initialData === void 0) { initialData = []; }
         var _this = _super.call(this) || this;
         _this.treeControl = treeControl;
         _this.treeFlattener = treeFlattener;
-        _this._flattenedData = new rxjs_BehaviorSubject.BehaviorSubject([]);
-        _this._expandedData = new rxjs_BehaviorSubject.BehaviorSubject([]);
-        _this._data = new rxjs_BehaviorSubject.BehaviorSubject(initialData);
+        _this._flattenedData = new BehaviorSubject.BehaviorSubject([]);
+        _this._expandedData = new BehaviorSubject.BehaviorSubject([]);
+        _this._data = new BehaviorSubject.BehaviorSubject(initialData);
         return _this;
     }
     Object.defineProperty(MatTreeFlatDataSource.prototype, "data", {
@@ -485,7 +521,7 @@ var MatTreeFlatDataSource = /** @class */ (function (_super) {
             /** @type {?} */ ((this.treeControl.expansionModel.onChange)),
             this._flattenedData
         ];
-        return rxjs_observable_merge.merge.apply(void 0, changes).pipe(rxjs_operators_map.map(function () {
+        return merge.merge.apply(void 0, changes).pipe(map.map(function () {
             _this._expandedData.next(_this.treeFlattener.expandFlattenedNodes(_this._flattenedData.value, _this.treeControl));
             return _this._expandedData.value;
         }));
@@ -500,24 +536,29 @@ var MatTreeFlatDataSource = /** @class */ (function (_super) {
         // no op
     };
     return MatTreeFlatDataSource;
-}(_angular_cdk_collections.DataSource));
+}(collections.DataSource));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Data source for nested tree.
  *
  * The data source for nested tree doesn't have to consider node flattener, or the way to expand
  * or collapse. The expansion/collapsion will be handled by TreeControl and each non-leaf node.
  */
-var MatTreeNestedDataSource = /** @class */ (function (_super) {
+var   /**
+ * Data source for nested tree.
+ *
+ * The data source for nested tree doesn't have to consider node flattener, or the way to expand
+ * or collapse. The expansion/collapsion will be handled by TreeControl and each non-leaf node.
+ */
+MatTreeNestedDataSource = /** @class */ (function (_super) {
     __extends(MatTreeNestedDataSource, _super);
     function MatTreeNestedDataSource() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this._data = new rxjs_BehaviorSubject.BehaviorSubject([]);
+        _this._data = new BehaviorSubject.BehaviorSubject([]);
         return _this;
     }
     Object.defineProperty(MatTreeNestedDataSource.prototype, "data", {
@@ -547,7 +588,7 @@ var MatTreeNestedDataSource = /** @class */ (function (_super) {
      */
     function (collectionViewer) {
         var _this = this;
-        return rxjs_observable_merge.merge.apply(void 0, [collectionViewer.viewChange, this._data]).pipe(rxjs_operators_map.map(function () {
+        return merge.merge.apply(void 0, [collectionViewer.viewChange, this._data]).pipe(map.map(function () {
             return _this.data;
         }));
     };
@@ -561,7 +602,7 @@ var MatTreeNestedDataSource = /** @class */ (function (_super) {
         // no op
     };
     return MatTreeNestedDataSource;
-}(_angular_cdk_collections.DataSource));
+}(collections.DataSource));
 
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
@@ -575,7 +616,7 @@ exports.MatTreeNodeToggle = MatTreeNodeToggle;
 exports.MatTreeFlattener = MatTreeFlattener;
 exports.MatTreeFlatDataSource = MatTreeFlatDataSource;
 exports.MatTreeNestedDataSource = MatTreeNestedDataSource;
-exports.ɵa14 = MatTreeNodeOutlet;
+exports.ɵa13 = MatTreeNodeOutlet;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

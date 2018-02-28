@@ -5,15 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Platform, PlatformModule, getSupportedInputTypes, supportsPassiveEventListeners } from '@angular/cdk/platform';
-import { Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, NgModule, NgZone, Optional, Output, Self } from '@angular/core';
+import { Platform, supportsPassiveEventListeners, getSupportedInputTypes, PlatformModule } from '@angular/cdk/platform';
+import { Directive, ElementRef, EventEmitter, Injectable, Output, Input, NgZone, InjectionToken, Inject, Optional, Self, NgModule } from '@angular/core';
 import { empty } from 'rxjs/observable/empty';
 import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { auditTime } from 'rxjs/operators/auditTime';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
@@ -24,11 +23,10 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Options to pass to the animationstart listener.
  */
-var listenerOptions = supportsPassiveEventListeners() ? { passive: true } : false;
+var /** @type {?} */ listenerOptions = supportsPassiveEventListeners() ? { passive: true } : false;
 /**
  * An injectable service that can be used to monitor the autofill state of an input.
  * Based on the following blog post:
@@ -176,7 +174,6 @@ var MatAutofill = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Directive to automatically resize a textarea to fit its content.
  */
@@ -446,22 +443,20 @@ function getMatInputUnsupportedTypeError(type) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
  * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
  * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
  * value to them.
  */
-var MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
+var /** @type {?} */ MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
-var MAT_INPUT_INVALID_TYPES = [
+var /** @type {?} */ MAT_INPUT_INVALID_TYPES = [
     'button',
     'checkbox',
     'file',
@@ -472,11 +467,14 @@ var MAT_INPUT_INVALID_TYPES = [
     'reset',
     'submit'
 ];
-var nextUniqueId = 0;
+var /** @type {?} */ nextUniqueId = 0;
 /**
  * \@docs-private
  */
-var MatInputBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatInputBase = /** @class */ (function () {
     function MatInputBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._parentForm = _parentForm;
@@ -485,7 +483,7 @@ var MatInputBase = /** @class */ (function () {
     }
     return MatInputBase;
 }());
-var _MatInputMixinBase = mixinErrorState(MatInputBase);
+var /** @type {?} */ _MatInputMixinBase = mixinErrorState(MatInputBase);
 /**
  * Directive that allows a native input to work inside a `MatFormField`.
  */
@@ -965,7 +963,6 @@ var MatInput = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatInputModule = /** @class */ (function () {
     function MatInputModule() {
     }
@@ -1003,9 +1000,6 @@ var MatInputModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { AutofillMonitor, MatAutofill, MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };

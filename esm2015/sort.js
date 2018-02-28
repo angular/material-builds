@@ -5,13 +5,13 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, EventEmitter, Injectable, Input, NgModule, Optional, Output, SkipSelf, ViewEncapsulation, isDevMode } from '@angular/core';
+import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { mixinDisabled, AnimationCurves, AnimationDurations } from '@angular/material/core';
+import { Subject } from 'rxjs/Subject';
+import { animate, state, style, transition, trigger, keyframes, query, animateChild } from '@angular/animations';
 import { CdkColumnDef } from '@angular/cdk/table';
 import { merge } from 'rxjs/observable/merge';
-import { AnimationCurves, AnimationDurations, mixinDisabled } from '@angular/material/core';
-import { Subject } from 'rxjs/Subject';
-import { animate, animateChild, keyframes, query, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -54,23 +54,12 @@ function getSortInvalidDirectionError(direction) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Interface for a directive that holds sorting state consumed by `MatSortHeader`.
- * @record
- */
-
-/**
- * The current sort state.
- * @record
- */
-
 /**
  * \@docs-private
  */
 class MatSortBase {
 }
-const _MatSortMixinBase = mixinDisabled(MatSortBase);
+const /** @type {?} */ _MatSortMixinBase = mixinDisabled(MatSortBase);
 /**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
@@ -230,7 +219,6 @@ function getSortDirectionCycle(start, disableClear) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
  * include it in a custom provider.
@@ -272,7 +260,7 @@ function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
 /**
  * \@docs-private
  */
-const MAT_SORT_HEADER_INTL_PROVIDER = {
+const /** @type {?} */ MAT_SORT_HEADER_INTL_PROVIDER = {
     // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
     provide: MatSortHeaderIntl,
     deps: [[new Optional(), new SkipSelf(), MatSortHeaderIntl]],
@@ -283,12 +271,12 @@ const MAT_SORT_HEADER_INTL_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-const SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
+const /** @type {?} */ SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
     AnimationCurves.STANDARD_CURVE;
 /**
  * Animations used by MatSort.
  */
-const matSortAnimations = {
+const /** @type {?} */ matSortAnimations = {
     /** Animation that moves the sort indicator. */
     indicator: trigger('indicator', [
         state('active-asc, asc', style({ transform: 'translateY(0px)' })),
@@ -361,20 +349,12 @@ const matSortAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
 class MatSortHeaderBase {
 }
-const _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
-/**
- * States describing the arrow's animated position (animating fromState to toState).
- * If the fromState is not defined, there will be no animated transition to the toState.
- * \@docs-private
- * @record
- */
-
+const /** @type {?} */ _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -606,7 +586,6 @@ MatSortHeader.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatSortModule {
 }
 MatSortModule.decorators = [
@@ -628,9 +607,6 @@ MatSortModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatSortModule, MatSortHeaderBase, _MatSortHeaderMixinBase, MatSortHeader, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MAT_SORT_HEADER_INTL_PROVIDER, MatSortBase, _MatSortMixinBase, MatSort, matSortAnimations };

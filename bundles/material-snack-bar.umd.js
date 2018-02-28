@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/material/core'), require('rxjs/operators/take'), require('rxjs/operators/takeUntil'), require('rxjs/Subject'), require('@angular/animations')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/material/core', 'rxjs/operators/take', 'rxjs/operators/takeUntil', 'rxjs/Subject', '@angular/animations'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = global.ng.material.snackBar || {}),global.ng.core,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.material.core,global.Rx.operators,global.Rx.operators,global.Rx,global.ng.animations));
-}(this, (function (exports,_angular_core,_angular_common,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_a11y,_angular_cdk_layout,_angular_material_core,rxjs_operators_take,rxjs_operators_takeUntil,rxjs_Subject,_angular_animations) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs/Subject'), require('@angular/core'), require('@angular/animations'), require('@angular/material/core'), require('@angular/cdk/portal'), require('rxjs/operators/take'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/cdk/overlay'), require('rxjs/operators/takeUntil'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/snackBar', ['exports', 'rxjs/Subject', '@angular/core', '@angular/animations', '@angular/material/core', '@angular/cdk/portal', 'rxjs/operators/take', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/cdk/overlay', 'rxjs/operators/takeUntil', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = {}),global.Rx,global.ng.core,global.ng.animations,global.ng.material.core,global.ng.cdk.portal,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.cdk.overlay,global.Rx.operators,global.ng.common));
+}(this, (function (exports,Subject,core,animations,core$1,portal,take,a11y,layout,overlay,takeUntil,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -49,31 +49,28 @@ var __assign = Object.assign || function __assign(t) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Event that is emitted when a snack bar is dismissed.
- * @record
- */
-
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */
-var MatSnackBarRef = /** @class */ (function () {
+var   /**
+ * Reference to a snack bar dispatched from the snack bar service.
+ */
+MatSnackBarRef = /** @class */ (function () {
     function MatSnackBarRef(containerInstance, _overlayRef) {
         var _this = this;
         this._overlayRef = _overlayRef;
         /**
          * Subject for notifying the user that the snack bar has been dismissed.
          */
-        this._afterDismissed = new rxjs_Subject.Subject();
+        this._afterDismissed = new Subject.Subject();
         /**
          * Subject for notifying the user that the snack bar has opened and appeared.
          */
-        this._afterOpened = new rxjs_Subject.Subject();
+        this._afterOpened = new Subject.Subject();
         /**
          * Subject for notifying the user that the snack bar action was called.
          */
-        this._onAction = new rxjs_Subject.Subject();
+        this._onAction = new Subject.Subject();
         /**
          * Whether the snack bar was dismissed using the action button.
          */
@@ -224,15 +221,17 @@ var MatSnackBarRef = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Injection token that can be used to access the data that was passed in to a snack bar.
  */
-var MAT_SNACK_BAR_DATA = new _angular_core.InjectionToken('MatSnackBarData');
+var /** @type {?} */ MAT_SNACK_BAR_DATA = new core.InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
  */
-var MatSnackBarConfig = /** @class */ (function () {
+var   /**
+ * Configuration used when opening a snack-bar.
+ */
+MatSnackBarConfig = /** @class */ (function () {
     function MatSnackBarConfig() {
         /**
          * The politeness level for the MatAriaLiveAnnouncer announcement.
@@ -269,27 +268,27 @@ var MatSnackBarConfig = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var SHOW_ANIMATION = _angular_material_core.AnimationDurations.ENTERING + " " + _angular_material_core.AnimationCurves.DECELERATION_CURVE;
+var /** @type {?} */ SHOW_ANIMATION = core$1.AnimationDurations.ENTERING + " " + core$1.AnimationCurves.DECELERATION_CURVE;
 /**
  * \@docs-private
  */
-var HIDE_ANIMATION = _angular_material_core.AnimationDurations.EXITING + " " + _angular_material_core.AnimationCurves.ACCELERATION_CURVE;
+var /** @type {?} */ HIDE_ANIMATION = core$1.AnimationDurations.EXITING + " " + core$1.AnimationCurves.ACCELERATION_CURVE;
 /**
  * Animations used by the Material snack bar.
  */
-var matSnackBarAnimations = {
+var /** @type {?} */ matSnackBarAnimations = {
     /** Animation that slides the dialog in and out of view and fades the opacity. */
-    contentFade: _angular_animations.trigger('contentFade', [
-        _angular_animations.transition(':enter', [
-            _angular_animations.style({ opacity: '0' }),
-            _angular_animations.animate(_angular_material_core.AnimationDurations.COMPLEX + " " + _angular_material_core.AnimationCurves.STANDARD_CURVE)
+    contentFade: animations.trigger('contentFade', [
+        animations.transition(':enter', [
+            animations.style({ opacity: '0' }),
+            animations.animate(core$1.AnimationDurations.COMPLEX + " " + core$1.AnimationCurves.STANDARD_CURVE)
         ])
     ]),
     /** Animation that shows and hides a snack bar. */
-    snackBarState: _angular_animations.trigger('state', [
-        _angular_animations.state('visible-top, visible-bottom', _angular_animations.style({ transform: 'translateY(0%)' })),
-        _angular_animations.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', _angular_animations.animate(HIDE_ANIMATION)),
-        _angular_animations.transition('void => visible-top, void => visible-bottom', _angular_animations.animate(SHOW_ANIMATION)),
+    snackBarState: animations.trigger('state', [
+        animations.state('visible-top, visible-bottom', animations.style({ transform: 'translateY(0%)' })),
+        animations.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animations.animate(HIDE_ANIMATION)),
+        animations.transition('void => visible-top, void => visible-bottom', animations.animate(SHOW_ANIMATION)),
     ])
 };
 
@@ -297,7 +296,6 @@ var matSnackBarAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
@@ -332,12 +330,12 @@ var SimpleSnackBar = /** @class */ (function () {
         configurable: true
     });
     SimpleSnackBar.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'simple-snack-bar',
+        { type: core.Component, args: [{selector: 'simple-snack-bar',
                     template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
                     styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px;opacity:1}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
                     animations: [matSnackBarAnimations.contentFade],
                     host: {
                         '[@contentFade]': '',
@@ -348,7 +346,7 @@ var SimpleSnackBar = /** @class */ (function () {
     /** @nocollapse */
     SimpleSnackBar.ctorParameters = function () { return [
         { type: MatSnackBarRef, },
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_SNACK_BAR_DATA,] },] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SNACK_BAR_DATA,] },] },
     ]; };
     return SimpleSnackBar;
 }());
@@ -357,7 +355,6 @@ var SimpleSnackBar = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Internal component that wraps user-provided snack bar content.
  * \@docs-private
@@ -376,11 +373,11 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
         /**
          * Subject for notifying that the snack bar has exited from view.
          */
-        _this._onExit = new rxjs_Subject.Subject();
+        _this._onExit = new Subject.Subject();
         /**
          * Subject for notifying that the snack bar has finished entering the view.
          */
-        _this._onEnter = new rxjs_Subject.Subject();
+        _this._onEnter = new Subject.Subject();
         /**
          * The state of the snack bar animations.
          */
@@ -400,7 +397,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      * @param {?} portal
      * @return {?}
      */
-    function (portal) {
+    function (portal$$1) {
         if (this._portalOutlet.hasAttached()) {
             throw Error('Attempting to attach snack bar content after content is already attached');
         }
@@ -415,7 +412,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
         if (this.snackBarConfig.verticalPosition === 'top') {
             element.classList.add('mat-snack-bar-top');
         }
-        return this._portalOutlet.attachComponentPortal(portal);
+        return this._portalOutlet.attachComponentPortal(portal$$1);
     };
     /** Attach a template portal as content to this snack bar container. */
     /**
@@ -508,7 +505,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._ngZone.onMicrotaskEmpty.asObservable().pipe(rxjs_operators_take.take(1)).subscribe(function () {
+        this._ngZone.onMicrotaskEmpty.asObservable().pipe(take.take(1)).subscribe(function () {
             _this._onExit.next();
             _this._onExit.complete();
         });
@@ -537,11 +534,11 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
         }
     };
     MatSnackBarContainer.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'snack-bar-container',
+        { type: core.Component, args: [{selector: 'snack-bar-container',
                     template: "<ng-template cdkPortalOutlet></ng-template>",
                     styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:border-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:0;max-width:inherit;width:100%}"],
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     animations: [matSnackBarAnimations.snackBarState],
                     host: {
@@ -554,21 +551,20 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSnackBarContainer.ctorParameters = function () { return [
-        { type: _angular_core.NgZone, },
-        { type: _angular_core.ElementRef, },
-        { type: _angular_core.ChangeDetectorRef, },
+        { type: core.NgZone, },
+        { type: core.ElementRef, },
+        { type: core.ChangeDetectorRef, },
     ]; };
     MatSnackBarContainer.propDecorators = {
-        "_portalOutlet": [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.CdkPortalOutlet,] },],
+        "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],
     };
     return MatSnackBarContainer;
-}(_angular_cdk_portal.BasePortalOutlet));
+}(portal.BasePortalOutlet));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -727,7 +723,7 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (overlayRef, config) {
-        var /** @type {?} */ containerPortal = new _angular_cdk_portal.ComponentPortal(MatSnackBarContainer, config.viewContainerRef);
+        var /** @type {?} */ containerPortal = new portal.ComponentPortal(MatSnackBarContainer, config.viewContainerRef);
         var /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
         containerRef.instance.snackBarConfig = config;
         return containerRef.instance;
@@ -751,14 +747,14 @@ var MatSnackBar = /** @class */ (function () {
         var /** @type {?} */ container = this._attachSnackBarContainer(overlayRef, config);
         var /** @type {?} */ snackBarRef = new MatSnackBarRef(container, overlayRef);
         var /** @type {?} */ injector = this._createInjector(config, snackBarRef);
-        var /** @type {?} */ portal = new _angular_cdk_portal.ComponentPortal(component, undefined, injector);
-        var /** @type {?} */ contentRef = container.attachComponentPortal(portal);
+        var /** @type {?} */ portal$$1 = new portal.ComponentPortal(component, undefined, injector);
+        var /** @type {?} */ contentRef = container.attachComponentPortal(portal$$1);
         // We can't pass this via the injector, because the injector is created earlier.
         snackBarRef.instance = contentRef.instance;
         // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
         // appropriate. This class is applied to the overlay element because the overlay must expand to
         // fill the width of the screen for full width snackbars.
-        this._breakpointObserver.observe(_angular_cdk_layout.Breakpoints.Handset).pipe(rxjs_operators_takeUntil.takeUntil(overlayRef.detachments().pipe(rxjs_operators_take.take(1)))).subscribe(function (state$$1) {
+        this._breakpointObserver.observe(layout.Breakpoints.Handset).pipe(takeUntil.takeUntil(overlayRef.detachments().pipe(take.take(1)))).subscribe(function (state$$1) {
             if (state$$1.matches) {
                 overlayRef.overlayElement.classList.add('mat-snack-bar-handset');
             }
@@ -779,7 +775,7 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (config) {
-        var /** @type {?} */ overlayConfig = new _angular_cdk_overlay.OverlayConfig();
+        var /** @type {?} */ overlayConfig = new overlay.OverlayConfig();
         overlayConfig.direction = config.direction;
         var /** @type {?} */ positionStrategy = this._overlay.position().global();
         // Set horizontal position.
@@ -826,18 +822,18 @@ var MatSnackBar = /** @class */ (function () {
         var /** @type {?} */ injectionTokens = new WeakMap();
         injectionTokens.set(MatSnackBarRef, snackBarRef);
         injectionTokens.set(MAT_SNACK_BAR_DATA, config.data);
-        return new _angular_cdk_portal.PortalInjector(userInjector || this._injector, injectionTokens);
+        return new portal.PortalInjector(userInjector || this._injector, injectionTokens);
     };
     MatSnackBar.decorators = [
-        { type: _angular_core.Injectable },
+        { type: core.Injectable },
     ];
     /** @nocollapse */
     MatSnackBar.ctorParameters = function () { return [
-        { type: _angular_cdk_overlay.Overlay, },
-        { type: _angular_cdk_a11y.LiveAnnouncer, },
-        { type: _angular_core.Injector, },
-        { type: _angular_cdk_layout.BreakpointObserver, },
-        { type: MatSnackBar, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
+        { type: overlay.Overlay, },
+        { type: a11y.LiveAnnouncer, },
+        { type: core.Injector, },
+        { type: layout.BreakpointObserver, },
+        { type: MatSnackBar, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
     ]; };
     return MatSnackBar;
 }());
@@ -854,23 +850,22 @@ function _applyConfigDefaults(config) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatSnackBarModule = /** @class */ (function () {
     function MatSnackBarModule() {
     }
     MatSnackBarModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
+        { type: core.NgModule, args: [{
                     imports: [
-                        _angular_cdk_overlay.OverlayModule,
-                        _angular_cdk_portal.PortalModule,
-                        _angular_common.CommonModule,
-                        _angular_material_core.MatCommonModule,
-                        _angular_cdk_layout.LayoutModule,
+                        overlay.OverlayModule,
+                        portal.PortalModule,
+                        common.CommonModule,
+                        core$1.MatCommonModule,
+                        layout.LayoutModule,
                     ],
-                    exports: [MatSnackBarContainer, _angular_material_core.MatCommonModule],
+                    exports: [MatSnackBarContainer, core$1.MatCommonModule],
                     declarations: [MatSnackBarContainer, SimpleSnackBar],
                     entryComponents: [MatSnackBarContainer, SimpleSnackBar],
-                    providers: [MatSnackBar, _angular_cdk_a11y.LIVE_ANNOUNCER_PROVIDER]
+                    providers: [MatSnackBar, a11y.LIVE_ANNOUNCER_PROVIDER]
                 },] },
     ];
     /** @nocollapse */

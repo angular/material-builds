@@ -5,30 +5,29 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ElementRef, NgModule, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
+import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
  */
-const DEFAULT_ROUND_BUTTON_COLOR = 'accent';
+const /** @type {?} */ DEFAULT_ROUND_BUTTON_COLOR = 'accent';
 /**
  * Default color palette for flat buttons (mat-flat-button)
  */
-const DEFAULT_FLAT_BUTTON_COLOR = 'primary';
+const /** @type {?} */ DEFAULT_FLAT_BUTTON_COLOR = 'primary';
 /**
  * List of classes to add to MatButton instances based on host attributes to
  * style as different variants.
  */
-const BUTTON_HOST_ATTRIBUTES = [
+const /** @type {?} */ BUTTON_HOST_ATTRIBUTES = [
     'mat-button',
     'mat-flat-button',
     'mat-icon-button',
@@ -48,7 +47,7 @@ class MatButtonBase {
         this._elementRef = _elementRef;
     }
 }
-const _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonBase)));
+const /** @type {?} */ _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonBase)));
 /**
  * Material design button.
  */
@@ -203,7 +202,6 @@ MatAnchor.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatButtonModule {
 }
 MatButtonModule.decorators = [
@@ -236,9 +234,6 @@ MatButtonModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatButtonModule, MatButtonBase, _MatButtonMixinBase, MatButton, MatAnchor };

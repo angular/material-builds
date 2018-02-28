@@ -5,29 +5,27 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Directive, ElementRef, Host, Input, NgModule, Optional, TemplateRef, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
-import { PortalModule, TemplatePortal } from '@angular/cdk/portal';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
+import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, Host, Optional, ViewEncapsulation, ViewContainerRef, ContentChild, ElementRef, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
+import { animate, animateChild, group, state, style, transition, trigger, query } from '@angular/animations';
+import { UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from '@angular/cdk/collections';
+import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { Subject } from 'rxjs/Subject';
 import { take } from 'rxjs/operators/take';
 import { filter } from 'rxjs/operators/filter';
 import { startWith } from 'rxjs/operators/startWith';
-import { animate, animateChild, group, query, state, style, transition, trigger } from '@angular/animations';
+import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
+import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Directive for a Material Design Accordion.
  */
@@ -83,7 +81,6 @@ var MatAccordion = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Expansion panel content that will be rendered lazily
  * after the panel is opened for the first time.
@@ -111,11 +108,11 @@ var MatExpansionPanelContent = /** @class */ (function () {
 /**
  * Time and timing curve for expansion panel animations.
  */
-var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
+var /** @type {?} */ EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 /**
  * Animations used by the Material expansion panel.
  */
-var matExpansionAnimations = {
+var /** @type {?} */ matExpansionAnimations = {
     /** Animation that rotates the indicator arrow. */
     indicatorRotate: trigger('indicatorRotate', [
         state('collapsed', style({ transform: 'rotate(0deg)' })),
@@ -151,11 +148,10 @@ var matExpansionAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Counter for generating unique element ids.
  */
-var uniqueId = 0;
+var /** @type {?} */ uniqueId = 0;
 /**
  * `<mat-expansion-panel>`
  *
@@ -347,7 +343,6 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * `<mat-expansion-panel-header>`
  *
@@ -544,7 +539,6 @@ var MatExpansionPanelTitle = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatExpansionModule = /** @class */ (function () {
     function MatExpansionModule() {
     }
@@ -585,9 +579,6 @@ var MatExpansionModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatExpansionModule, MatAccordion, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };

@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ElementRef, Inject, Input, NgModule, Optional, ViewEncapsulation } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, ElementRef, ViewEncapsulation, Optional, Inject, NgModule } from '@angular/core';
+import { mixinColor, MatCommonModule } from '@angular/material/core';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { DOCUMENT } from '@angular/common';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
@@ -15,17 +15,16 @@ import { coerceNumberProperty } from '@angular/cdk/coercion';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Base reference size of the spinner.
  * \@docs-private
  */
-const BASE_SIZE = 100;
+const /** @type {?} */ BASE_SIZE = 100;
 /**
  * Base reference stroke width of the spinner.
  * \@docs-private
  */
-const BASE_STROKE_WIDTH = 10;
+const /** @type {?} */ BASE_STROKE_WIDTH = 10;
 /**
  * \@docs-private
  */
@@ -37,12 +36,12 @@ class MatProgressSpinnerBase {
         this._elementRef = _elementRef;
     }
 }
-const _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
+const /** @type {?} */ _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
 // .0001 percentage difference is necessary in order to avoid unwanted animation frames
 // for example because the animation duration is 4 seconds, .1% accounts to 4ms
 // which are enough to see the flicker described in
 // https://github.com/angular/material2/issues/8984
-const INDETERMINATE_ANIMATION_TEMPLATE = `
+const /** @type {?} */ INDETERMINATE_ANIMATION_TEMPLATE = `
  @keyframes mat-progress-spinner-stroke-rotate-DIAMETER {
     0%      { stroke-dashoffset: START_VALUE;  transform: rotate(0); }
     12.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(0); }
@@ -339,9 +338,6 @@ MatProgressSpinnerModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatProgressSpinnerModule, MatProgressSpinnerBase, _MatProgressSpinnerMixinBase, MatProgressSpinner, MatSpinner };

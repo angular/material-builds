@@ -5,43 +5,41 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, Self, ViewChild, ViewEncapsulation, isDevMode } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { animate, state, style, transition, trigger, query, animateChild, group } from '@angular/animations';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
-import { CdkConnectedOverlay, Overlay, OverlayModule, ViewportRuler } from '@angular/cdk/overlay';
+import { DOWN_ARROW, END, ENTER, HOME, SPACE, UP_ARROW, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
+import { CdkConnectedOverlay, Overlay, ViewportRuler, OverlayModule } from '@angular/cdk/overlay';
 import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
 import { map } from 'rxjs/operators/map';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, isDevMode, NgZone, Optional, Output, Self, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatCommonModule, MatOptgroup, MatOption, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, mixinDisableRipple, mixinDisabled, mixinErrorState, mixinTabIndex } from '@angular/material/core';
+import { ErrorStateMatcher, mixinErrorState, MatOptgroup, MatOption, mixinDisabled, mixinTabIndex, MAT_OPTION_PARENT_COMPONENT, mixinDisableRipple, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatCommonModule, MatOptionModule } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import 'rxjs/Observable';
 import { merge } from 'rxjs/observable/merge';
 import { Subject } from 'rxjs/Subject';
 import { defer } from 'rxjs/observable/defer';
-import { animate, animateChild, group, query, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * The following are all the animations for the mat-select component, with each
  * const containing the metadata for one animation.
  *
  * The values below match the implementation of the AngularJS Material mat-select animation.
  */
-var matSelectAnimations = {
+var /** @type {?} */ matSelectAnimations = {
     /**
        * This animation transforms the select's overlay panel on and off the page.
        *
@@ -94,12 +92,12 @@ var matSelectAnimations = {
  * @deprecated
  * \@deletion-target 7.0.0
  */
-var transformPanel = matSelectAnimations.transformPanel;
+var /** @type {?} */ transformPanel = matSelectAnimations.transformPanel;
 /**
  * @deprecated
  * \@deletion-target 7.0.0
  */
-var fadeInContent = matSelectAnimations.fadeInContent;
+var /** @type {?} */ fadeInContent = matSelectAnimations.fadeInContent;
 
 /**
  * @fileoverview added by tsickle
@@ -139,23 +137,23 @@ function getMatSelectNonFunctionValueError() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var nextUniqueId = 0;
+var /** @type {?} */ nextUniqueId = 0;
 /**
  * The max height of the select's overlay panel
  */
-var SELECT_PANEL_MAX_HEIGHT = 256;
+var /** @type {?} */ SELECT_PANEL_MAX_HEIGHT = 256;
 /**
  * The panel's padding on the x-axis
  */
-var SELECT_PANEL_PADDING_X = 16;
+var /** @type {?} */ SELECT_PANEL_PADDING_X = 16;
 /**
  * The panel's x axis padding if it is indented (e.g. there is an option group).
  */
-var SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_PADDING_X * 2;
+var /** @type {?} */ SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_PADDING_X * 2;
 /**
  * The height of the select items in `em` units.
  */
-var SELECT_ITEM_HEIGHT_EM = 3;
+var /** @type {?} */ SELECT_ITEM_HEIGHT_EM = 3;
 /**
  * Distance between the panel edge and the option text in
  * multi-selection mode.
@@ -164,16 +162,16 @@ var SELECT_ITEM_HEIGHT_EM = 3;
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 20px.
  */
-var SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + 20;
+var /** @type {?} */ SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + 20;
 /**
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
  */
-var SELECT_PANEL_VIEWPORT_PADDING = 8;
+var /** @type {?} */ SELECT_PANEL_VIEWPORT_PADDING = 8;
 /**
  * Injection token that determines the scroll handling while a select is open.
  */
-var MAT_SELECT_SCROLL_STRATEGY = new InjectionToken('mat-select-scroll-strategy');
+var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new InjectionToken('mat-select-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -185,7 +183,7 @@ function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
 /**
  * \@docs-private
  */
-var MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
+var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_SELECT_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
@@ -193,7 +191,10 @@ var MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
 /**
  * Change event object that is emitted when the select value has changed.
  */
-var MatSelectChange = /** @class */ (function () {
+var  /**
+ * Change event object that is emitted when the select value has changed.
+ */
+MatSelectChange = /** @class */ (function () {
     function MatSelectChange(source, value) {
         this.source = source;
         this.value = value;
@@ -203,7 +204,10 @@ var MatSelectChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var MatSelectBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatSelectBase = /** @class */ (function () {
     function MatSelectBase(_elementRef, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
         this._elementRef = _elementRef;
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
@@ -213,7 +217,7 @@ var MatSelectBase = /** @class */ (function () {
     }
     return MatSelectBase;
 }());
-var _MatSelectMixinBase = mixinDisableRipple(mixinTabIndex(mixinDisabled(mixinErrorState(MatSelectBase))));
+var /** @type {?} */ _MatSelectMixinBase = mixinDisableRipple(mixinTabIndex(mixinDisabled(mixinErrorState(MatSelectBase))));
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
@@ -1833,9 +1837,6 @@ var MatSelectModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatSelectModule, SELECT_PANEL_MAX_HEIGHT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_ITEM_HEIGHT_EM, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_VIEWPORT_PADDING, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MatSelectChange, MatSelectBase, _MatSelectMixinBase, MatSelectTrigger, MatSelect, matSelectAnimations, transformPanel, fadeInContent };

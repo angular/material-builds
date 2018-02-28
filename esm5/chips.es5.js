@@ -5,13 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Self, ViewEncapsulation, forwardRef } from '@angular/core';
-import { ErrorStateMatcher, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState } from '@angular/material/core';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { BACKSPACE, DELETE, ENTER, SPACE } from '@angular/cdk/keycodes';
+import { BACKSPACE, DELETE, SPACE, ENTER } from '@angular/cdk/keycodes';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
+import { MAT_RIPPLE_GLOBAL_OPTIONS, mixinColor, mixinDisabled, mixinDisableRipple, RippleRenderer, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
@@ -26,16 +25,13 @@ import { Subscription } from 'rxjs/Subscription';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Represents an event fired on an individual `mat-chip`.
- * @record
- */
-
 /**
  * Event object emitted by MatChip when selected or deselected.
  */
-var MatChipSelectionChange = /** @class */ (function () {
+var  /**
+ * Event object emitted by MatChip when selected or deselected.
+ */
+MatChipSelectionChange = /** @class */ (function () {
     function MatChipSelectionChange(source, selected, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
@@ -47,14 +43,17 @@ var MatChipSelectionChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var MatChipBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatChipBase = /** @class */ (function () {
     function MatChipBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatChipBase;
 }());
-var _MatChipMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary');
-var CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
+var /** @type {?} */ _MatChipMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary');
+var /** @type {?} */ CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
 /**
  * Dummy directive to add CSS class to chip avatar.
  * \@docs-private
@@ -558,11 +557,13 @@ var MatChipRemove = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
-var MatChipListBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatChipListBase = /** @class */ (function () {
     function MatChipListBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._parentForm = _parentForm;
@@ -571,13 +572,16 @@ var MatChipListBase = /** @class */ (function () {
     }
     return MatChipListBase;
 }());
-var _MatChipListMixinBase = mixinErrorState(MatChipListBase);
+var /** @type {?} */ _MatChipListMixinBase = mixinErrorState(MatChipListBase);
 // Increasing integer for generating unique ids for chip-list components.
-var nextUniqueId = 0;
+var /** @type {?} */ nextUniqueId = 0;
 /**
  * Change event object that is emitted when the chip list value has changed.
  */
-var MatChipListChange = /** @class */ (function () {
+var  /**
+ * Change event object that is emitted when the chip list value has changed.
+ */
+MatChipListChange = /** @class */ (function () {
     function MatChipListChange(source, value) {
         this.source = source;
         this.value = value;
@@ -1620,12 +1624,6 @@ var MatChipList = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Represents an input event on a `matChipInput`.
- * @record
- */
-
 /**
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
@@ -1810,8 +1808,7 @@ var MatChipInput = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-var CHIP_DECLARATIONS = [
+var /** @type {?} */ CHIP_DECLARATIONS = [
     MatChipList,
     MatChip,
     MatChipInput,
@@ -1843,9 +1840,6 @@ var MatChipsModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatChipsModule, MatChipListBase, _MatChipListMixinBase, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipBase, _MatChipMixinBase, MatChipAvatar, MatChipTrailingIcon, MatChip, MatChipRemove, MatChipInput };

@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Platform, PlatformModule, getSupportedInputTypes, supportsPassiveEventListeners } from '@angular/cdk/platform';
-import { Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, NgModule, NgZone, Optional, Output, Self } from '@angular/core';
+import { Platform, supportsPassiveEventListeners, getSupportedInputTypes, PlatformModule } from '@angular/cdk/platform';
+import { Directive, ElementRef, EventEmitter, Injectable, Output, Input, NgZone, InjectionToken, Inject, Optional, Self, NgModule } from '@angular/core';
 import { empty } from 'rxjs/observable/empty';
 import { Subject } from 'rxjs/Subject';
 import { fromEvent } from 'rxjs/observable/fromEvent';
@@ -22,11 +22,10 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Options to pass to the animationstart listener.
  */
-const listenerOptions = supportsPassiveEventListeners() ? { passive: true } : false;
+const /** @type {?} */ listenerOptions = supportsPassiveEventListeners() ? { passive: true } : false;
 /**
  * An injectable service that can be used to monitor the autofill state of an input.
  * Based on the following blog post:
@@ -149,7 +148,6 @@ MatAutofill.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Directive to automatically resize a textarea to fit its content.
  */
@@ -368,22 +366,20 @@ function getMatInputUnsupportedTypeError(type) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
  * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
  * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
  * value to them.
  */
-const MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
+const /** @type {?} */ MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
-const MAT_INPUT_INVALID_TYPES = [
+const /** @type {?} */ MAT_INPUT_INVALID_TYPES = [
     'button',
     'checkbox',
     'file',
@@ -394,7 +390,7 @@ const MAT_INPUT_INVALID_TYPES = [
     'reset',
     'submit'
 ];
-let nextUniqueId = 0;
+let /** @type {?} */ nextUniqueId = 0;
 /**
  * \@docs-private
  */
@@ -412,7 +408,7 @@ class MatInputBase {
         this.ngControl = ngControl;
     }
 }
-const _MatInputMixinBase = mixinErrorState(MatInputBase);
+const /** @type {?} */ _MatInputMixinBase = mixinErrorState(MatInputBase);
 /**
  * Directive that allows a native input to work inside a `MatFormField`.
  */
@@ -785,7 +781,6 @@ MatInput.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatInputModule {
 }
 MatInputModule.decorators = [
@@ -820,9 +815,6 @@ MatInputModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { AutofillMonitor, MatAutofill, MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };

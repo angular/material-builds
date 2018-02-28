@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/common'), require('@angular/cdk/overlay'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/Subject'), require('rxjs/observable/defer'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/common', '@angular/cdk/overlay', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', '@angular/material/form-field', 'rxjs/Subject', 'rxjs/observable/defer', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = global.ng.material.autocomplete || {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.common,global.ng.cdk.overlay,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.ng.material.formField,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_a11y,_angular_cdk_coercion,_angular_common,_angular_cdk_overlay,_angular_cdk_bidi,_angular_cdk_keycodes,_angular_cdk_portal,rxjs_operators_filter,rxjs_operators_take,rxjs_operators_switchMap,rxjs_operators_tap,rxjs_operators_delay,_angular_forms,_angular_material_formField,rxjs_Subject,rxjs_observable_defer,rxjs_observable_fromEvent,rxjs_observable_merge,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/common'), require('rxjs/Subject'), require('rxjs/observable/defer'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/autocomplete', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', '@angular/material/form-field', '@angular/common', 'rxjs/Subject', 'rxjs/observable/defer', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.ng.material.formField,global.ng.common,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
+}(this, (function (exports,core,core$1,a11y,coercion,bidi,keycodes,overlay,portal,filter,take,switchMap,tap,delay,forms,formField,common,Subject,defer,fromEvent,merge,of) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -45,11 +45,14 @@ function __extends(d, b) {
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
  * the component definition.
  */
-var _uniqueAutocompleteIdCounter = 0;
+var /** @type {?} */ _uniqueAutocompleteIdCounter = 0;
 /**
  * Event object that is emitted when an autocomplete option is selected.
  */
-var MatAutocompleteSelectedEvent = /** @class */ (function () {
+var   /**
+ * Event object that is emitted when an autocomplete option is selected.
+ */
+MatAutocompleteSelectedEvent = /** @class */ (function () {
     function MatAutocompleteSelectedEvent(source, option) {
         this.source = source;
         this.option = option;
@@ -59,21 +62,19 @@ var MatAutocompleteSelectedEvent = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var MatAutocompleteBase = /** @class */ (function () {
+var   /**
+ * \@docs-private
+ */
+MatAutocompleteBase = /** @class */ (function () {
     function MatAutocompleteBase() {
     }
     return MatAutocompleteBase;
 }());
-var _MatAutocompleteMixinBase = _angular_material_core.mixinDisableRipple(MatAutocompleteBase);
-/**
- * Default `mat-autocomplete` options that can be overridden.
- * @record
- */
-
+var /** @type {?} */ _MatAutocompleteMixinBase = core$1.mixinDisableRipple(MatAutocompleteBase);
 /**
  * Injection token to be used to override the default options for `mat-autocomplete`.
  */
-var MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new _angular_core.InjectionToken('mat-autocomplete-default-options');
+var /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new core.InjectionToken('mat-autocomplete-default-options');
 var MatAutocomplete = /** @class */ (function (_super) {
     __extends(MatAutocomplete, _super);
     function MatAutocomplete(_changeDetectorRef, _elementRef, 
@@ -94,15 +95,15 @@ var MatAutocomplete = /** @class */ (function (_super) {
         /**
          * Event that is emitted whenever an option from the list is selected.
          */
-        _this.optionSelected = new _angular_core.EventEmitter();
+        _this.optionSelected = new core.EventEmitter();
         /**
          * Event that is emitted when the autocomplete panel is opened.
          */
-        _this.opened = new _angular_core.EventEmitter();
+        _this.opened = new core.EventEmitter();
         /**
          * Event that is emitted when the autocomplete panel is closed.
          */
-        _this.closed = new _angular_core.EventEmitter();
+        _this.closed = new core.EventEmitter();
         _this._classList = {};
         /**
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
@@ -136,7 +137,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._autoActiveFirstOption = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._autoActiveFirstOption = coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -165,7 +166,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._keyManager = new _angular_cdk_a11y.ActiveDescendantKeyManager(this.options).withWrap();
+        this._keyManager = new a11y.ActiveDescendantKeyManager(this.options).withWrap();
         // Set the initial visibility state.
         this._setVisibility();
     };
@@ -233,39 +234,39 @@ var MatAutocomplete = /** @class */ (function (_super) {
         this.optionSelected.emit(event);
     };
     MatAutocomplete.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-autocomplete',
+        { type: core.Component, args: [{selector: 'mat-autocomplete',
                     template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
                     styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
                     exportAs: 'matAutocomplete',
                     inputs: ['disableRipple'],
                     host: {
                         'class': 'mat-autocomplete'
                     },
                     providers: [
-                        { provide: _angular_material_core.MAT_OPTION_PARENT_COMPONENT, useExisting: MatAutocomplete }
+                        { provide: core$1.MAT_OPTION_PARENT_COMPONENT, useExisting: MatAutocomplete }
                     ]
                 },] },
     ];
     /** @nocollapse */
     MatAutocomplete.ctorParameters = function () { return [
-        { type: _angular_core.ChangeDetectorRef, },
-        { type: _angular_core.ElementRef, },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] },] },
+        { type: core.ChangeDetectorRef, },
+        { type: core.ElementRef, },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] },] },
     ]; };
     MatAutocomplete.propDecorators = {
-        "template": [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
-        "panel": [{ type: _angular_core.ViewChild, args: ['panel',] },],
-        "options": [{ type: _angular_core.ContentChildren, args: [_angular_material_core.MatOption, { descendants: true },] },],
-        "optionGroups": [{ type: _angular_core.ContentChildren, args: [_angular_material_core.MatOptgroup,] },],
-        "displayWith": [{ type: _angular_core.Input },],
-        "autoActiveFirstOption": [{ type: _angular_core.Input },],
-        "optionSelected": [{ type: _angular_core.Output },],
-        "opened": [{ type: _angular_core.Output },],
-        "closed": [{ type: _angular_core.Output },],
-        "classList": [{ type: _angular_core.Input, args: ['class',] },],
+        "template": [{ type: core.ViewChild, args: [core.TemplateRef,] },],
+        "panel": [{ type: core.ViewChild, args: ['panel',] },],
+        "options": [{ type: core.ContentChildren, args: [core$1.MatOption, { descendants: true },] },],
+        "optionGroups": [{ type: core.ContentChildren, args: [core$1.MatOptgroup,] },],
+        "displayWith": [{ type: core.Input },],
+        "autoActiveFirstOption": [{ type: core.Input },],
+        "optionSelected": [{ type: core.Output },],
+        "opened": [{ type: core.Output },],
+        "closed": [{ type: core.Output },],
+        "classList": [{ type: core.Input, args: ['class',] },],
     };
     return MatAutocomplete;
 }(_MatAutocompleteMixinBase));
@@ -277,38 +278,38 @@ var MatAutocomplete = /** @class */ (function (_super) {
 /**
  * The height of each autocomplete option.
  */
-var AUTOCOMPLETE_OPTION_HEIGHT = 48;
+var /** @type {?} */ AUTOCOMPLETE_OPTION_HEIGHT = 48;
 /**
  * The total height of the autocomplete panel.
  */
-var AUTOCOMPLETE_PANEL_HEIGHT = 256;
+var /** @type {?} */ AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /**
  * Injection token that determines the scroll handling while the autocomplete panel is open.
  */
-var MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new _angular_core.InjectionToken('mat-autocomplete-scroll-strategy');
+var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
  * @return {?}
  */
-function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return function () { return overlay.scrollStrategies.reposition(); };
+function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
+    return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
 /**
  * \@docs-private
  */
-var MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = {
+var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
-    deps: [_angular_cdk_overlay.Overlay],
+    deps: [overlay.Overlay],
     useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * \@docs-private
  */
-var MAT_AUTOCOMPLETE_VALUE_ACCESSOR = {
-    provide: _angular_forms.NG_VALUE_ACCESSOR,
-    useExisting: _angular_core.forwardRef(function () { return MatAutocompleteTrigger; }),
+var /** @type {?} */ MAT_AUTOCOMPLETE_VALUE_ACCESSOR = {
+    provide: forms.NG_VALUE_ACCESSOR,
+    useExisting: core.forwardRef(function () { return MatAutocompleteTrigger; }),
     multi: true
 };
 /**
@@ -340,7 +341,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         /**
          * Stream of keyboard events that can close the panel.
          */
-        this._closeKeyEventStream = new rxjs_Subject.Subject();
+        this._closeKeyEventStream = new Subject.Subject();
         /**
          * `View -> model callback called when value changes`
          */
@@ -353,15 +354,15 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         /**
          * Stream of autocomplete option selections.
          */
-        this.optionSelections = rxjs_observable_defer.defer(function () {
+        this.optionSelections = defer.defer(function () {
             if (_this.autocomplete && _this.autocomplete.options) {
-                return rxjs_observable_merge.merge.apply(void 0, _this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
+                return merge.merge.apply(void 0, _this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
             }
             // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
             // Return a stream that we'll replace with the real one once everything is in place.
             return _this._zone.onStable
                 .asObservable()
-                .pipe(rxjs_operators_take.take(1), rxjs_operators_switchMap.switchMap(function () { return _this.optionSelections; }));
+                .pipe(take.take(1), switchMap.switchMap(function () { return _this.optionSelections; }));
         });
     }
     /**
@@ -439,9 +440,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () {
             var _this = this;
-            return rxjs_observable_merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(rxjs_operators_filter.filter(function () { return _this._panelOpen; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
-                this._overlayRef.detachments().pipe(rxjs_operators_filter.filter(function () { return _this._panelOpen; })) :
-                rxjs_observable_of.of());
+            return merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter.filter(function () { return _this._panelOpen; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
+                this._overlayRef.detachments().pipe(filter.filter(function () { return _this._panelOpen; })) :
+                of.of());
         },
         enumerable: true,
         configurable: true
@@ -469,16 +470,16 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         function () {
             var _this = this;
             if (!this._document) {
-                return rxjs_observable_of.of(null);
+                return of.of(null);
             }
-            return rxjs_observable_merge.merge(rxjs_observable_fromEvent.fromEvent(this._document, 'click'), rxjs_observable_fromEvent.fromEvent(this._document, 'touchend'))
-                .pipe(rxjs_operators_filter.filter(function (event) {
+            return merge.merge(fromEvent.fromEvent(this._document, 'click'), fromEvent.fromEvent(this._document, 'touchend'))
+                .pipe(filter.filter(function (event) {
                 var /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
-                var /** @type {?} */ formField = _this._formField ?
+                var /** @type {?} */ formField$$1 = _this._formField ?
                     _this._formField._elementRef.nativeElement : null;
                 return _this._panelOpen &&
                     clickTarget !== _this._element.nativeElement &&
-                    (!formField || !formField.contains(clickTarget)) &&
+                    (!formField$$1 || !formField$$1.contains(clickTarget)) &&
                     (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
             }));
         },
@@ -548,25 +549,25 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         // in line with other browsers. By default, pressing escape on IE will cause it to revert
         // the input value to the one that it had on focus, however it won't dispatch any events
         // which means that the model value will be out of sync with the view.
-        if (keyCode === _angular_cdk_keycodes.ESCAPE) {
+        if (keyCode === keycodes.ESCAPE) {
             event.preventDefault();
         }
         // Close when pressing ESCAPE or ALT + UP_ARROW, based on the a11y guidelines.
         // See: https://www.w3.org/TR/wai-aria-practices-1.1/#textbox-keyboard-interaction
-        if (this.panelOpen && (keyCode === _angular_cdk_keycodes.ESCAPE || (keyCode === _angular_cdk_keycodes.UP_ARROW && event.altKey))) {
+        if (this.panelOpen && (keyCode === keycodes.ESCAPE || (keyCode === keycodes.UP_ARROW && event.altKey))) {
             this._resetActiveItem();
             this._closeKeyEventStream.next();
             event.stopPropagation();
         }
-        else if (this.activeOption && keyCode === _angular_cdk_keycodes.ENTER && this.panelOpen) {
+        else if (this.activeOption && keyCode === keycodes.ENTER && this.panelOpen) {
             this.activeOption._selectViaInteraction();
             this._resetActiveItem();
             event.preventDefault();
         }
         else {
             var /** @type {?} */ prevActiveItem = this.autocomplete._keyManager.activeItem;
-            var /** @type {?} */ isArrowKey = keyCode === _angular_cdk_keycodes.UP_ARROW || keyCode === _angular_cdk_keycodes.DOWN_ARROW;
-            if (this.panelOpen || keyCode === _angular_cdk_keycodes.TAB) {
+            var /** @type {?} */ isArrowKey = keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW;
+            if (this.panelOpen || keyCode === keycodes.TAB) {
                 this.autocomplete._keyManager.onKeydown(event);
             }
             else if (isArrowKey && this._canOpen()) {
@@ -679,8 +680,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         var /** @type {?} */ index = this.autocomplete._keyManager.activeItemIndex || 0;
-        var /** @type {?} */ labelCount = _angular_material_core._countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
-        var /** @type {?} */ newScrollPosition = _angular_material_core._getOptionScrollPosition(index + labelCount, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
+        var /** @type {?} */ labelCount = core$1._countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
+        var /** @type {?} */ newScrollPosition = core$1._getOptionScrollPosition(index + labelCount, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
         this.autocomplete._setScrollTop(newScrollPosition);
     };
     /**
@@ -695,23 +696,23 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ firstStable = this._zone.onStable.asObservable().pipe(rxjs_operators_take.take(1));
-        var /** @type {?} */ optionChanges = this.autocomplete.options.changes.pipe(rxjs_operators_tap.tap(function () { return _this._positionStrategy.recalculateLastPosition(); }), 
+        var /** @type {?} */ firstStable = this._zone.onStable.asObservable().pipe(take.take(1));
+        var /** @type {?} */ optionChanges = this.autocomplete.options.changes.pipe(tap.tap(function () { return _this._positionStrategy.recalculateLastPosition(); }), 
         // Defer emitting to the stream until the next tick, because changing
         // bindings in here will cause "changed after checked" errors.
-        rxjs_operators_delay.delay(0));
+        delay.delay(0));
         // When the zone is stable initially, and when the option list changes...
-        return rxjs_observable_merge.merge(firstStable, optionChanges)
+        return merge.merge(firstStable, optionChanges)
             .pipe(
         // create a new stream of panelClosingActions, replacing any previous streams
         // that were created, and flatten it so our stream only emits closing events...
-        rxjs_operators_switchMap.switchMap(function () {
+        switchMap.switchMap(function () {
             _this._resetActiveItem();
             _this.autocomplete._setVisibility();
             return _this.panelClosingActions;
         }), 
         // when the first closing event occurs...
-        rxjs_operators_take.take(1))
+        take.take(1))
             .subscribe(function (event) { return _this._setValueAndClose(event); });
     };
     /**
@@ -805,7 +806,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             throw getMatAutocompleteMissingPanelError();
         }
         if (!this._overlayRef) {
-            this._portal = new _angular_cdk_portal.TemplatePortal(this.autocomplete.template, this._viewContainerRef);
+            this._portal = new portal.TemplatePortal(this.autocomplete.template, this._viewContainerRef);
             this._overlayRef = this._overlay.create(this._getOverlayConfig());
         }
         else {
@@ -832,7 +833,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return new _angular_cdk_overlay.OverlayConfig({
+        return new overlay.OverlayConfig({
             positionStrategy: this._getOverlayPosition(),
             scrollStrategy: this._scrollStrategy(),
             width: this._getHostWidth(),
@@ -896,7 +897,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         return !element.readOnly && !element.disabled;
     };
     MatAutocompleteTrigger.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: "input[matAutocomplete], textarea[matAutocomplete]",
                     host: {
                         'role': 'combobox',
@@ -918,18 +919,18 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatAutocompleteTrigger.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_cdk_overlay.Overlay, },
-        { type: _angular_core.ViewContainerRef, },
-        { type: _angular_core.NgZone, },
-        { type: _angular_core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
-        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
-        { type: _angular_material_formField.MatFormField, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Host },] },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
+        { type: core.ElementRef, },
+        { type: overlay.Overlay, },
+        { type: core.ViewContainerRef, },
+        { type: core.NgZone, },
+        { type: core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: formField.MatFormField, decorators: [{ type: core.Optional }, { type: core.Host },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatAutocompleteTrigger.propDecorators = {
-        "autocomplete": [{ type: _angular_core.Input, args: ['matAutocomplete',] },],
+        "autocomplete": [{ type: core.Input, args: ['matAutocomplete',] },],
     };
     return MatAutocompleteTrigger;
 }());
@@ -938,14 +939,13 @@ var MatAutocompleteTrigger = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatAutocompleteModule = /** @class */ (function () {
     function MatAutocompleteModule() {
     }
     MatAutocompleteModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_material_core.MatOptionModule, _angular_cdk_overlay.OverlayModule, _angular_material_core.MatCommonModule, _angular_common.CommonModule],
-                    exports: [MatAutocomplete, _angular_material_core.MatOptionModule, MatAutocompleteTrigger, _angular_material_core.MatCommonModule],
+        { type: core.NgModule, args: [{
+                    imports: [core$1.MatOptionModule, overlay.OverlayModule, core$1.MatCommonModule, common.CommonModule],
+                    exports: [MatAutocomplete, core$1.MatOptionModule, MatAutocompleteTrigger, core$1.MatCommonModule],
                     declarations: [MatAutocomplete, MatAutocompleteTrigger],
                     providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
                 },] },

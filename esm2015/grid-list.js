@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Input, NgModule, Optional, ViewEncapsulation } from '@angular/core';
-import { MatCommonModule, MatLine, MatLineModule, MatLineSetter } from '@angular/material/core';
+import { Component, ViewEncapsulation, ElementRef, Input, ContentChildren, Directive, ChangeDetectionStrategy, Optional, NgModule } from '@angular/core';
+import { MatLine, MatLineSetter, MatLineModule, MatCommonModule } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 
 /**
@@ -37,7 +37,6 @@ function coerceToNumber(value) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatGridTile {
     /**
      * @param {?} _element
@@ -622,11 +621,10 @@ function normalizeUnits(value) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 // TODO(kara): Conditional (responsive) column count / row size.
 // TODO(kara): Re-layout on window resize / media change (debounced).
 // TODO(kara): gridTileHeader and gridTileFooter.
-const MAT_FIT_MODE = 'fit';
+const /** @type {?} */ MAT_FIT_MODE = 'fit';
 class MatGridList {
     /**
      * @param {?} _element
@@ -779,7 +777,6 @@ MatGridList.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatGridListModule {
 }
 MatGridListModule.decorators = [
@@ -816,9 +813,6 @@ MatGridListModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAvatarCssMatStyler, MatGridTileHeaderCssMatStyler, MatGridTileFooterCssMatStyler };

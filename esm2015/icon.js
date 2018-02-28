@@ -5,26 +5,25 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Attribute, ChangeDetectionStrategy, Component, ElementRef, Inject, Injectable, Input, NgModule, Optional, SecurityContext, SkipSelf, ViewEncapsulation } from '@angular/core';
-import { MatCommonModule, mixinColor } from '@angular/material/core';
-import { take } from 'rxjs/operators/take';
 import { catchError } from 'rxjs/operators/catchError';
 import { tap } from 'rxjs/operators/tap';
 import { finalize } from 'rxjs/operators/finalize';
 import { map } from 'rxjs/operators/map';
 import { share } from 'rxjs/operators/share';
+import { Injectable, Inject, Optional, SecurityContext, SkipSelf, Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation, NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin } from 'rxjs/observable/forkJoin';
 import { of } from 'rxjs/observable/of';
 import { _throw } from 'rxjs/observable/throw';
 import { DOCUMENT } from '@angular/common';
+import { take } from 'rxjs/operators/take';
+import { mixinColor, MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Returns an exception to be thrown in the case when attempting to
  * load an icon with a name that cannot be found.
@@ -501,7 +500,7 @@ function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, d
 /**
  * \@docs-private
  */
-const ICON_REGISTRY_PROVIDER = {
+const /** @type {?} */ ICON_REGISTRY_PROVIDER = {
     // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
     provide: MatIconRegistry,
     deps: [
@@ -534,7 +533,6 @@ function iconKey(namespace, name) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
@@ -546,7 +544,7 @@ class MatIconBase {
         this._elementRef = _elementRef;
     }
 }
-const _MatIconMixinBase = mixinColor(MatIconBase);
+const /** @type {?} */ _MatIconMixinBase = mixinColor(MatIconBase);
 /**
  * Component to display an icon. It can be used in the following ways:
  *
@@ -766,7 +764,6 @@ MatIcon.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatIconModule {
 }
 MatIconModule.decorators = [
@@ -788,9 +785,6 @@ MatIconModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatIconModule, MatIconBase, _MatIconMixinBase, MatIcon, getMatIconNameNotFoundError, getMatIconNoHttpProviderError, getMatIconFailedToSanitizeError, MatIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER };

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/collections'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/forms')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/collections', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/forms'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.radio = global.ng.material.radio || {}),global.ng.cdk.a11y,global.ng.cdk.collections,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.coercion,global.ng.forms));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_collections,_angular_common,_angular_core,_angular_material_core,_angular_cdk_coercion,_angular_forms) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/radio', ['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.radio = {}),global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.core,global.ng.forms,global.ng.material.core,global.ng.common));
+}(this, (function (exports,a11y,coercion,collections,core,forms,core$1,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -41,23 +41,25 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 // Increasing integer for generating unique ids for radio components.
-var nextUniqueId = 0;
+var /** @type {?} */ nextUniqueId = 0;
 /**
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
  * \@docs-private
  */
-var MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
-    provide: _angular_forms.NG_VALUE_ACCESSOR,
-    useExisting: _angular_core.forwardRef(function () { return MatRadioGroup; }),
+var /** @type {?} */ MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
+    provide: forms.NG_VALUE_ACCESSOR,
+    useExisting: core.forwardRef(function () { return MatRadioGroup; }),
     multi: true
 };
 /**
  * Change event object emitted by MatRadio and MatRadioGroup.
  */
-var MatRadioChange = /** @class */ (function () {
+var   /**
+ * Change event object emitted by MatRadio and MatRadioGroup.
+ */
+MatRadioChange = /** @class */ (function () {
     function MatRadioChange(source, value) {
         this.source = source;
         this.value = value;
@@ -67,12 +69,15 @@ var MatRadioChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var MatRadioGroupBase = /** @class */ (function () {
+var   /**
+ * \@docs-private
+ */
+MatRadioGroupBase = /** @class */ (function () {
     function MatRadioGroupBase() {
     }
     return MatRadioGroupBase;
 }());
-var _MatRadioGroupMixinBase = _angular_material_core.mixinDisabled(MatRadioGroupBase);
+var /** @type {?} */ _MatRadioGroupMixinBase = core$1.mixinDisabled(MatRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
@@ -126,7 +131,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
          * Change events are only emitted when the value changes due to user interaction with
          * a radio button (the same behavior as `<input type-"radio">`).
          */
-        _this.change = new _angular_core.EventEmitter();
+        _this.change = new core.EventEmitter();
         return _this;
     }
     Object.defineProperty(MatRadioGroup.prototype, "name", {
@@ -248,7 +253,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._disabled = coercion.coerceBooleanProperty(value);
             this._markRadiosForCheck();
         },
         enumerable: true,
@@ -265,7 +270,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._required = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._required = coercion.coerceBooleanProperty(value);
             this._markRadiosForCheck();
         },
         enumerable: true,
@@ -448,7 +453,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         this._changeDetector.markForCheck();
     };
     MatRadioGroup.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-radio-group',
                     exportAs: 'matRadioGroup',
                     providers: [MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR],
@@ -461,25 +466,28 @@ var MatRadioGroup = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatRadioGroup.ctorParameters = function () { return [
-        { type: _angular_core.ChangeDetectorRef, },
+        { type: core.ChangeDetectorRef, },
     ]; };
     MatRadioGroup.propDecorators = {
-        "change": [{ type: _angular_core.Output },],
-        "_radios": [{ type: _angular_core.ContentChildren, args: [_angular_core.forwardRef(function () { return MatRadioButton; }), { descendants: true },] },],
-        "name": [{ type: _angular_core.Input },],
-        "align": [{ type: _angular_core.Input },],
-        "labelPosition": [{ type: _angular_core.Input },],
-        "value": [{ type: _angular_core.Input },],
-        "selected": [{ type: _angular_core.Input },],
-        "disabled": [{ type: _angular_core.Input },],
-        "required": [{ type: _angular_core.Input },],
+        "change": [{ type: core.Output },],
+        "_radios": [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatRadioButton; }), { descendants: true },] },],
+        "name": [{ type: core.Input },],
+        "align": [{ type: core.Input },],
+        "labelPosition": [{ type: core.Input },],
+        "value": [{ type: core.Input },],
+        "selected": [{ type: core.Input },],
+        "disabled": [{ type: core.Input },],
+        "required": [{ type: core.Input },],
     };
     return MatRadioGroup;
 }(_MatRadioGroupMixinBase));
 /**
  * \@docs-private
  */
-var MatRadioButtonBase = /** @class */ (function () {
+var   /**
+ * \@docs-private
+ */
+MatRadioButtonBase = /** @class */ (function () {
     function MatRadioButtonBase(_elementRef) {
         this._elementRef = _elementRef;
     }
@@ -487,7 +495,7 @@ var MatRadioButtonBase = /** @class */ (function () {
 }());
 // As per Material design specifications the selection control radio should use the accent color
 // palette by default. https://material.io/guidelines/components/selection-controls.html
-var _MatRadioButtonMixinBase = _angular_material_core.mixinColor(_angular_material_core.mixinDisableRipple(_angular_material_core.mixinTabIndex(MatRadioButtonBase)), 'accent');
+var /** @type {?} */ _MatRadioButtonMixinBase = core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinTabIndex(MatRadioButtonBase)), 'accent');
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
@@ -508,7 +516,7 @@ var MatRadioButton = /** @class */ (function (_super) {
          * Change events are only emitted when the value changes due to user interaction with
          * the radio button (the same behavior as `<input type-"radio">`).
          */
-        _this.change = new _angular_core.EventEmitter();
+        _this.change = new core.EventEmitter();
         /**
          * Whether this radio is checked.
          */
@@ -545,7 +553,7 @@ var MatRadioButton = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newCheckedState = _angular_cdk_coercion.coerceBooleanProperty(value);
+            var /** @type {?} */ newCheckedState = coercion.coerceBooleanProperty(value);
             if (this._checked != newCheckedState) {
                 this._checked = newCheckedState;
                 if (newCheckedState && this.radioGroup && this.radioGroup.value != this.value) {
@@ -646,7 +654,7 @@ var MatRadioButton = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._disabled = coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -664,7 +672,7 @@ var MatRadioButton = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._required = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._required = coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -845,11 +853,11 @@ var MatRadioButton = /** @class */ (function (_super) {
         }
     };
     MatRadioButton.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-radio-button',
+        { type: core.Component, args: [{selector: 'mat-radio-button',
                     template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div mat-ripple class=\"mat-radio-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\" [matRippleRadius]=\"23\" [matRippleAnimation]=\"{enterDuration: 150}\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [tabIndex]=\"tabIndex\" [attr.name]=\"name\" [required]=\"required\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" [attr.aria-describedby]=\"ariaDescribedby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
                     styles: [".mat-radio-button{display:inline-block}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(.001)}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:calc(50% - 25px);top:calc(50% - 25px);height:50px;width:50px;z-index:1;pointer-events:none}"],
                     inputs: ['color', 'disableRipple', 'tabIndex'],
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     exportAs: 'matRadioButton',
                     host: {
@@ -862,32 +870,32 @@ var MatRadioButton = /** @class */ (function (_super) {
                         // the focus to the native element.
                         '(focus)': '_inputElement.nativeElement.focus()',
                     },
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
     /** @nocollapse */
     MatRadioButton.ctorParameters = function () { return [
-        { type: MatRadioGroup, decorators: [{ type: _angular_core.Optional },] },
-        { type: _angular_core.ElementRef, },
-        { type: _angular_core.ChangeDetectorRef, },
-        { type: _angular_cdk_a11y.FocusMonitor, },
-        { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
+        { type: MatRadioGroup, decorators: [{ type: core.Optional },] },
+        { type: core.ElementRef, },
+        { type: core.ChangeDetectorRef, },
+        { type: a11y.FocusMonitor, },
+        { type: collections.UniqueSelectionDispatcher, },
     ]; };
     MatRadioButton.propDecorators = {
-        "id": [{ type: _angular_core.Input },],
-        "name": [{ type: _angular_core.Input },],
-        "ariaLabel": [{ type: _angular_core.Input, args: ['aria-label',] },],
-        "ariaLabelledby": [{ type: _angular_core.Input, args: ['aria-labelledby',] },],
-        "ariaDescribedby": [{ type: _angular_core.Input, args: ['aria-describedby',] },],
-        "checked": [{ type: _angular_core.Input },],
-        "value": [{ type: _angular_core.Input },],
-        "align": [{ type: _angular_core.Input },],
-        "labelPosition": [{ type: _angular_core.Input },],
-        "disabled": [{ type: _angular_core.Input },],
-        "required": [{ type: _angular_core.Input },],
-        "change": [{ type: _angular_core.Output },],
-        "_ripple": [{ type: _angular_core.ViewChild, args: [_angular_material_core.MatRipple,] },],
-        "_inputElement": [{ type: _angular_core.ViewChild, args: ['input',] },],
+        "id": [{ type: core.Input },],
+        "name": [{ type: core.Input },],
+        "ariaLabel": [{ type: core.Input, args: ['aria-label',] },],
+        "ariaLabelledby": [{ type: core.Input, args: ['aria-labelledby',] },],
+        "ariaDescribedby": [{ type: core.Input, args: ['aria-describedby',] },],
+        "checked": [{ type: core.Input },],
+        "value": [{ type: core.Input },],
+        "align": [{ type: core.Input },],
+        "labelPosition": [{ type: core.Input },],
+        "disabled": [{ type: core.Input },],
+        "required": [{ type: core.Input },],
+        "change": [{ type: core.Output },],
+        "_ripple": [{ type: core.ViewChild, args: [core$1.MatRipple,] },],
+        "_inputElement": [{ type: core.ViewChild, args: ['input',] },],
     };
     return MatRadioButton;
 }(_MatRadioButtonMixinBase));
@@ -896,15 +904,14 @@ var MatRadioButton = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatRadioModule = /** @class */ (function () {
     function MatRadioModule() {
     }
     MatRadioModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_common.CommonModule, _angular_material_core.MatRippleModule, _angular_material_core.MatCommonModule, _angular_cdk_a11y.A11yModule],
-                    exports: [MatRadioGroup, MatRadioButton, _angular_material_core.MatCommonModule],
-                    providers: [_angular_cdk_collections.UNIQUE_SELECTION_DISPATCHER_PROVIDER],
+        { type: core.NgModule, args: [{
+                    imports: [common.CommonModule, core$1.MatRippleModule, core$1.MatCommonModule, a11y.A11yModule],
+                    exports: [MatRadioGroup, MatRadioButton, core$1.MatCommonModule],
+                    providers: [collections.UNIQUE_SELECTION_DISPATCHER_PROVIDER],
                     declarations: [MatRadioGroup, MatRadioButton],
                 },] },
     ];

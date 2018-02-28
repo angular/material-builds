@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/layout'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/portal'), require('rxjs/operators/take'), require('rxjs/operators/takeUntil'), require('rxjs/operators/filter'), require('rxjs/Subject'), require('@angular/animations')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/layout', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/portal', 'rxjs/operators/take', 'rxjs/operators/takeUntil', 'rxjs/operators/filter', 'rxjs/Subject', '@angular/animations'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = global.ng.material.tooltip || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.layout,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx,global.ng.animations));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_platform,_angular_common,_angular_core,_angular_material_core,_angular_cdk_layout,_angular_cdk_bidi,_angular_cdk_coercion,_angular_cdk_keycodes,_angular_cdk_portal,rxjs_operators_take,rxjs_operators_takeUntil,rxjs_operators_filter,rxjs_Subject,_angular_animations) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('rxjs/operators/take'), require('rxjs/operators/takeUntil'), require('rxjs/operators/filter'), require('@angular/core'), require('rxjs/Subject'), require('@angular/cdk/layout'), require('@angular/common'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/cdk/portal', 'rxjs/operators/take', 'rxjs/operators/takeUntil', 'rxjs/operators/filter', '@angular/core', 'rxjs/Subject', '@angular/cdk/layout', '@angular/common', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.core,global.Rx,global.ng.cdk.layout,global.ng.common,global.ng.material.core));
+}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,overlay,platform,portal,take,takeUntil,filter,core,Subject,layout,common,core$1) { 'use strict';
 
 /**
  * @fileoverview added by tsickle
@@ -18,13 +18,13 @@
 /**
  * Animations used by MatTooltip.
  */
-var matTooltipAnimations = {
+var /** @type {?} */ matTooltipAnimations = {
     /** Animation that transitions a tooltip in and out. */
-    tooltipState: _angular_animations.trigger('state', [
-        _angular_animations.state('initial, void, hidden', _angular_animations.style({ transform: 'scale(0)' })),
-        _angular_animations.state('visible', _angular_animations.style({ transform: 'scale(1)' })),
-        _angular_animations.transition('* => visible', _angular_animations.animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
-        _angular_animations.transition('* => hidden', _angular_animations.animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
+    tooltipState: animations.trigger('state', [
+        animations.state('initial, void, hidden', animations.style({ transform: 'scale(0)' })),
+        animations.state('visible', animations.style({ transform: 'scale(1)' })),
+        animations.transition('* => visible', animations.animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
+        animations.transition('* => hidden', animations.animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
     ])
 };
 
@@ -35,11 +35,11 @@ var matTooltipAnimations = {
 /**
  * Time in ms to throttle repositioning after scroll events.
  */
-var SCROLL_THROTTLE_MS = 20;
+var /** @type {?} */ SCROLL_THROTTLE_MS = 20;
 /**
  * CSS class that will be attached to the overlay panel.
  */
-var TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
+var /** @type {?} */ TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
 /**
  * Creates an error to be thrown if the user supplied an invalid tooltip position.
  * @param {?} position
@@ -51,32 +51,27 @@ function getMatTooltipInvalidPositionError(position) {
 /**
  * Injection token that determines the scroll handling while a tooltip is visible.
  */
-var MAT_TOOLTIP_SCROLL_STRATEGY = new _angular_core.InjectionToken('mat-tooltip-scroll-strategy');
+var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
  * @return {?}
  */
-function MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return function () { return overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
+function MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
+    return function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
 }
 /**
  * \@docs-private
  */
-var MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
+var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_TOOLTIP_SCROLL_STRATEGY,
-    deps: [_angular_cdk_overlay.Overlay],
+    deps: [overlay.Overlay],
     useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY
 };
 /**
- * Default `matTooltip` options that can be overridden.
- * @record
- */
-
-/**
  * Injection token to be used to override the default options for `matTooltip`.
  */
-var MAT_TOOLTIP_DEFAULT_OPTIONS = new _angular_core.InjectionToken('mat-tooltip-default-options');
+var /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new core.InjectionToken('mat-tooltip-default-options');
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -114,7 +109,7 @@ var MatTooltip = /** @class */ (function () {
         /**
          * Emits when the component is destroyed.
          */
-        this._destroyed = new rxjs_Subject.Subject();
+        this._destroyed = new Subject.Subject();
         var /** @type {?} */ element = _elementRef.nativeElement;
         // The mouse events shouldn't be bound on iOS devices, because
         // they can prevent the first tap from firing its click event.
@@ -132,7 +127,7 @@ var MatTooltip = /** @class */ (function () {
             // the `user-select` to avoid these issues.
             element.style.webkitUserSelect = element.style.userSelect = '';
         }
-        _focusMonitor.monitor(element).pipe(rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function (origin) {
+        _focusMonitor.monitor(element).pipe(takeUntil.takeUntil(this._destroyed)).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
                 _ngZone.run(function () { return _this.hide(0); });
@@ -177,7 +172,7 @@ var MatTooltip = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._disabled = coercion.coerceBooleanProperty(value);
             // If tooltip is disabled, hide immediately.
             if (this._disabled) {
                 this.hide(0);
@@ -293,10 +288,10 @@ var MatTooltip = /** @class */ (function () {
         }
         var /** @type {?} */ overlayRef = this._createOverlay();
         this._detach();
-        this._portal = this._portal || new _angular_cdk_portal.ComponentPortal(TooltipComponent, this._viewContainerRef);
+        this._portal = this._portal || new portal.ComponentPortal(TooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
         this._tooltipInstance.afterHidden()
-            .pipe(rxjs_operators_takeUntil.takeUntil(this._destroyed))
+            .pipe(takeUntil.takeUntil(this._destroyed))
             .subscribe(function () { return _this._detach(); });
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage(); /** @type {?} */
@@ -355,7 +350,7 @@ var MatTooltip = /** @class */ (function () {
      * @return {?}
      */
     function (e) {
-        if (this._isTooltipVisible() && e.keyCode === _angular_cdk_keycodes.ESCAPE) {
+        if (this._isTooltipVisible() && e.keyCode === keycodes.ESCAPE) {
             e.stopPropagation();
             this.hide(0);
         }
@@ -386,14 +381,14 @@ var MatTooltip = /** @class */ (function () {
             return this._overlayRef;
         }
         var /** @type {?} */ origin = this._getOrigin();
-        var /** @type {?} */ overlay = this._getOverlayPosition();
+        var /** @type {?} */ overlay$$1 = this._getOverlayPosition();
         // Create connected position strategy that listens for scroll events to reposition.
         var /** @type {?} */ strategy = this._overlay
             .position()
-            .connectedTo(this._elementRef, origin.main, overlay.main)
-            .withFallbackPosition(origin.fallback, overlay.fallback)
+            .connectedTo(this._elementRef, origin.main, overlay$$1.main)
+            .withFallbackPosition(origin.fallback, overlay$$1.fallback)
             .withScrollableContainers(this._scrollDispatcher.getAncestorScrollContainers(this._elementRef));
-        strategy.onPositionChange.pipe(rxjs_operators_filter.filter(function () { return !!_this._tooltipInstance; }), rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function (change) {
+        strategy.onPositionChange.pipe(filter.filter(function () { return !!_this._tooltipInstance; }), takeUntil.takeUntil(this._destroyed)).subscribe(function (change) {
             if (change.scrollableViewProperties.isOverlayClipped && /** @type {?} */ ((_this._tooltipInstance)).isVisible()) {
                 // After position changes occur and the overlay is clipped by
                 // a parent scrollable then close the tooltip.
@@ -415,7 +410,7 @@ var MatTooltip = /** @class */ (function () {
             scrollStrategy: this._scrollStrategy()
         });
         this._overlayRef.detachments()
-            .pipe(rxjs_operators_takeUntil.takeUntil(this._destroyed))
+            .pipe(takeUntil.takeUntil(this._destroyed))
             .subscribe(function () { return _this._detach(); });
         return this._overlayRef;
     };
@@ -444,11 +439,11 @@ var MatTooltip = /** @class */ (function () {
     function () {
         var /** @type {?} */ position = /** @type {?} */ (((this._overlayRef)).getConfig().positionStrategy);
         var /** @type {?} */ origin = this._getOrigin();
-        var /** @type {?} */ overlay = this._getOverlayPosition();
+        var /** @type {?} */ overlay$$1 = this._getOverlayPosition();
         position
             .withPositions([])
-            .withFallbackPosition(origin.main, overlay.main)
-            .withFallbackPosition(origin.fallback, overlay.fallback);
+            .withFallbackPosition(origin.main, overlay$$1.main)
+            .withFallbackPosition(origin.fallback, overlay$$1.fallback);
     };
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
@@ -541,7 +536,7 @@ var MatTooltip = /** @class */ (function () {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = this.message;
             this._tooltipInstance._markForCheck();
-            this._ngZone.onMicrotaskEmpty.asObservable().pipe(rxjs_operators_take.take(1), rxjs_operators_takeUntil.takeUntil(this._destroyed)).subscribe(function () {
+            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take.take(1), takeUntil.takeUntil(this._destroyed)).subscribe(function () {
                 if (_this._tooltipInstance) {
                     /** @type {?} */ ((_this._overlayRef)).updatePosition();
                 }
@@ -596,7 +591,7 @@ var MatTooltip = /** @class */ (function () {
         return { x: x, y: y };
     };
     MatTooltip.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matTooltip]',
                     exportAs: 'matTooltip',
                     host: {
@@ -608,26 +603,26 @@ var MatTooltip = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatTooltip.ctorParameters = function () { return [
-        { type: _angular_cdk_overlay.Overlay, },
-        { type: _angular_core.ElementRef, },
-        { type: _angular_cdk_overlay.ScrollDispatcher, },
-        { type: _angular_core.ViewContainerRef, },
-        { type: _angular_core.NgZone, },
-        { type: _angular_cdk_platform.Platform, },
-        { type: _angular_cdk_a11y.AriaDescriber, },
-        { type: _angular_cdk_a11y.FocusMonitor, },
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] },] },
-        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] },] },
+        { type: overlay.Overlay, },
+        { type: core.ElementRef, },
+        { type: overlay.ScrollDispatcher, },
+        { type: core.ViewContainerRef, },
+        { type: core.NgZone, },
+        { type: platform.Platform, },
+        { type: a11y.AriaDescriber, },
+        { type: a11y.FocusMonitor, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] },] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] },] },
     ]; };
     MatTooltip.propDecorators = {
-        "position": [{ type: _angular_core.Input, args: ['matTooltipPosition',] },],
-        "disabled": [{ type: _angular_core.Input, args: ['matTooltipDisabled',] },],
-        "_positionDeprecated": [{ type: _angular_core.Input, args: ['tooltip-position',] },],
-        "showDelay": [{ type: _angular_core.Input, args: ['matTooltipShowDelay',] },],
-        "hideDelay": [{ type: _angular_core.Input, args: ['matTooltipHideDelay',] },],
-        "message": [{ type: _angular_core.Input, args: ['matTooltip',] },],
-        "tooltipClass": [{ type: _angular_core.Input, args: ['matTooltipClass',] },],
+        "position": [{ type: core.Input, args: ['matTooltipPosition',] },],
+        "disabled": [{ type: core.Input, args: ['matTooltipDisabled',] },],
+        "_positionDeprecated": [{ type: core.Input, args: ['tooltip-position',] },],
+        "showDelay": [{ type: core.Input, args: ['matTooltipShowDelay',] },],
+        "hideDelay": [{ type: core.Input, args: ['matTooltipHideDelay',] },],
+        "message": [{ type: core.Input, args: ['matTooltip',] },],
+        "tooltipClass": [{ type: core.Input, args: ['matTooltipClass',] },],
     };
     return MatTooltip;
 }());
@@ -654,11 +649,11 @@ var TooltipComponent = /** @class */ (function () {
         /**
          * Subject for notifying that the tooltip has been hidden from the view
          */
-        this._onHide = new rxjs_Subject.Subject();
+        this._onHide = new Subject.Subject();
         /**
          * Stream that emits whether the user has a handset-sized display.
          */
-        this._isHandset = this._breakpointObserver.observe(_angular_cdk_layout.Breakpoints.Handset);
+        this._isHandset = this._breakpointObserver.observe(layout.Breakpoints.Handset);
     }
     /**
      * Shows the tooltip with an animation originating from the provided origin
@@ -844,12 +839,12 @@ var TooltipComponent = /** @class */ (function () {
         this._changeDetectorRef.markForCheck();
     };
     TooltipComponent.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-tooltip-component',
+        { type: core.Component, args: [{selector: 'mat-tooltip-component',
                     template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)!.matches\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
                     styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}"],
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
                     animations: [matTooltipAnimations.tooltipState],
                     host: {
                         // Forces the element to have a layout in IE and Edge. This fixes issues where the element
@@ -862,8 +857,8 @@ var TooltipComponent = /** @class */ (function () {
     ];
     /** @nocollapse */
     TooltipComponent.ctorParameters = function () { return [
-        { type: _angular_core.ChangeDetectorRef, },
-        { type: _angular_cdk_layout.BreakpointObserver, },
+        { type: core.ChangeDetectorRef, },
+        { type: layout.BreakpointObserver, },
     ]; };
     return TooltipComponent;
 }());
@@ -872,7 +867,6 @@ var TooltipComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var ɵ0 = {
     showDelay: 0,
     hideDelay: 0,
@@ -882,21 +876,21 @@ var MatTooltipModule = /** @class */ (function () {
     function MatTooltipModule() {
     }
     MatTooltipModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
+        { type: core.NgModule, args: [{
                     imports: [
-                        _angular_common.CommonModule,
-                        _angular_cdk_overlay.OverlayModule,
-                        _angular_material_core.MatCommonModule,
-                        _angular_cdk_platform.PlatformModule,
-                        _angular_cdk_a11y.A11yModule,
-                        _angular_cdk_layout.LayoutModule,
+                        common.CommonModule,
+                        overlay.OverlayModule,
+                        core$1.MatCommonModule,
+                        platform.PlatformModule,
+                        a11y.A11yModule,
+                        layout.LayoutModule,
                     ],
-                    exports: [MatTooltip, TooltipComponent, _angular_material_core.MatCommonModule],
+                    exports: [MatTooltip, TooltipComponent, core$1.MatCommonModule],
                     declarations: [MatTooltip, TooltipComponent],
                     entryComponents: [TooltipComponent],
                     providers: [
                         MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER,
-                        _angular_cdk_a11y.ARIA_DESCRIBER_PROVIDER,
+                        a11y.ARIA_DESCRIBER_PROVIDER,
                         {
                             provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
                             useValue: ɵ0

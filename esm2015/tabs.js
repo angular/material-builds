@@ -5,28 +5,27 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ObserversModule } from '@angular/cdk/observers';
-import { CdkPortal, CdkPortalOutlet, PortalHostDirective, PortalModule, TemplatePortal } from '@angular/cdk/portal';
-import { ScrollDispatchModule, VIEWPORT_RULER_PROVIDER, ViewportRuler } from '@angular/cdk/scrolling';
-import { CommonModule } from '@angular/common';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MAT_RIPPLE_GLOBAL_OPTIONS, MatCommonModule, MatRippleModule, RippleRenderer, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { Directive, ElementRef, NgZone, TemplateRef, ViewContainerRef, ChangeDetectionStrategy, Component, ContentChild, Input, ViewChild, ViewEncapsulation, Inject, Output, EventEmitter, Optional, ComponentFactoryResolver, forwardRef, ChangeDetectorRef, ContentChildren, Attribute, NgModule } from '@angular/core';
+import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
+import { mixinDisabled, mixinColor, mixinDisableRipple, MAT_RIPPLE_GLOBAL_OPTIONS, mixinTabIndex, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
-import { Directionality } from '@angular/cdk/bidi';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
-import { END, ENTER, HOME, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
+import { ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE, HOME, END } from '@angular/cdk/keycodes';
 import { of } from 'rxjs/observable/of';
+import { ViewportRuler, ScrollDispatchModule, VIEWPORT_RULER_PROVIDER } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
 import { takeUntil } from 'rxjs/operators/takeUntil';
+import { ObserversModule } from '@angular/cdk/observers';
+import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * \@docs-private
@@ -100,7 +99,6 @@ MatInkBar.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Used to flag tab labels for use with the portal directive
  */
@@ -128,7 +126,6 @@ MatTabLabel.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Decorates the `ng-template` tags and reads out the template from it.
  */
@@ -152,13 +149,12 @@ MatTabContent.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
 class MatTabBase {
 }
-const _MatTabMixinBase = mixinDisabled(MatTabBase);
+const /** @type {?} */ _MatTabMixinBase = mixinDisabled(MatTabBase);
 class MatTab extends _MatTabMixinBase {
     /**
      * @param {?} _viewContainerRef
@@ -258,7 +254,7 @@ MatTab.propDecorators = {
 /**
  * Animations used by the Material tabs.
  */
-const matTabsAnimations = {
+const /** @type {?} */ matTabsAnimations = {
     /** Animation translates a tab along the X axis. */
     translateTab: trigger('translateTab', [
         // Note: transitions to `none` instead of 0, because some browsers might blur the content.
@@ -281,7 +277,6 @@ const matTabsAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * The portal host directive for the contents of the tab.
  * \@docs-private
@@ -486,11 +481,10 @@ MatTabBody.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Used to generate unique ID's for each tab component
  */
-let nextId = 0;
+let /** @type {?} */ nextId = 0;
 /**
  * A simple change event emitted on focus or selection changes.
  */
@@ -507,7 +501,7 @@ class MatTabGroupBase {
         this._elementRef = _elementRef;
     }
 }
-const _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupBase), 'primary');
+const /** @type {?} */ _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupBase), 'primary');
 /**
  * Material design tab-group component.  Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
@@ -816,13 +810,12 @@ MatTabGroup.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
 class MatTabLabelWrapperBase {
 }
-const _MatTabLabelWrapperMixinBase = mixinDisabled(MatTabLabelWrapperBase);
+const /** @type {?} */ _MatTabLabelWrapperMixinBase = mixinDisabled(MatTabLabelWrapperBase);
 /**
  * Used in the `mat-tab-group` view to display tab labels.
  * \@docs-private
@@ -873,18 +866,17 @@ MatTabLabelWrapper.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
  * provide a small affordance to the label next to it.
  */
-const EXAGGERATED_OVERSCROLL = 60;
+const /** @type {?} */ EXAGGERATED_OVERSCROLL = 60;
 /**
  * \@docs-private
  */
 class MatTabHeaderBase {
 }
-const _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
+const /** @type {?} */ _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
 /**
  * The header of the tab group which displays a list of all the tabs in the tab group. Includes
  * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the
@@ -1351,7 +1343,7 @@ class MatTabNavBase {
         this._elementRef = _elementRef;
     }
 }
-const _MatTabNavMixinBase = mixinColor(MatTabNavBase, 'primary');
+const /** @type {?} */ _MatTabNavMixinBase = mixinColor(MatTabNavBase, 'primary');
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -1493,7 +1485,7 @@ MatTabNav.propDecorators = {
 };
 class MatTabLinkBase {
 }
-const _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatTabLinkBase)));
+const /** @type {?} */ _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatTabLinkBase)));
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
@@ -1602,7 +1594,6 @@ MatTabLink.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatTabsModule {
 }
 MatTabsModule.decorators = [
@@ -1657,9 +1648,6 @@ MatTabsModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe25, _MatTabMixinBase as ɵf25, MatTabHeaderBase as ɵa25, _MatTabHeaderMixinBase as ɵb25, MatTabLabelWrapperBase as ɵc25, _MatTabLabelWrapperMixinBase as ɵd25, MatTabLinkBase as ɵi25, MatTabNavBase as ɵg25, _MatTabLinkMixinBase as ɵj25, _MatTabNavMixinBase as ɵh25 };

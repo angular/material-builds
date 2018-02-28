@@ -5,27 +5,26 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
-import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from '@angular/cdk/collections';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, forwardRef, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 // Increasing integer for generating unique ids for radio components.
-let nextUniqueId = 0;
+let /** @type {?} */ nextUniqueId = 0;
 /**
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
  * \@docs-private
  */
-const MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
+const /** @type {?} */ MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatRadioGroup),
     multi: true
@@ -48,7 +47,7 @@ class MatRadioChange {
  */
 class MatRadioGroupBase {
 }
-const _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
+const /** @type {?} */ _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
@@ -359,7 +358,7 @@ class MatRadioButtonBase {
 }
 // As per Material design specifications the selection control radio should use the accent color
 // palette by default. https://material.io/guidelines/components/selection-controls.html
-const _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(mixinTabIndex(MatRadioButtonBase)), 'accent');
+const /** @type {?} */ _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(mixinTabIndex(MatRadioButtonBase)), 'accent');
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
@@ -689,7 +688,6 @@ MatRadioButton.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatRadioModule {
 }
 MatRadioModule.decorators = [
@@ -711,9 +709,6 @@ MatRadioModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatRadioModule, MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR, MatRadioChange, MatRadioGroupBase, _MatRadioGroupMixinBase, MatRadioGroup, MatRadioButtonBase, _MatRadioButtonMixinBase, MatRadioButton };

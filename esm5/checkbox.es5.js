@@ -5,13 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { InjectionToken, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, Directive, NgModule } from '@angular/core';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
+import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { CheckboxRequiredValidator, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { NG_VALUE_ACCESSOR, CheckboxRequiredValidator, NG_VALIDATORS } from '@angular/forms';
+import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, MatRippleModule, MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { ObserversModule } from '@angular/cdk/observers';
 
@@ -22,21 +21,20 @@ import { ObserversModule } from '@angular/cdk/observers';
 /**
  * Injection token that can be used to specify the checkbox click behavior.
  */
-var MAT_CHECKBOX_CLICK_ACTION = new InjectionToken('mat-checkbox-click-action');
+var /** @type {?} */ MAT_CHECKBOX_CLICK_ACTION = new InjectionToken('mat-checkbox-click-action');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 // Increasing integer for generating unique ids for checkbox components.
-var nextUniqueId = 0;
+var /** @type {?} */ nextUniqueId = 0;
 /**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
  */
-var MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
+var /** @type {?} */ MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MatCheckbox; }),
     multi: true
@@ -59,7 +57,10 @@ TransitionCheckState[TransitionCheckState.Indeterminate] = "Indeterminate";
 /**
  * Change event object emitted by MatCheckbox.
  */
-var MatCheckboxChange = /** @class */ (function () {
+var  /**
+ * Change event object emitted by MatCheckbox.
+ */
+MatCheckboxChange = /** @class */ (function () {
     function MatCheckboxChange() {
     }
     return MatCheckboxChange;
@@ -67,13 +68,16 @@ var MatCheckboxChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var MatCheckboxBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatCheckboxBase = /** @class */ (function () {
     function MatCheckboxBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatCheckboxBase;
 }());
-var _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatCheckboxBase)), 'accent'));
+var /** @type {?} */ _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatCheckboxBase)), 'accent'));
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MatCheckbox can be either checked, unchecked, indeterminate, or
@@ -585,8 +589,7 @@ var MatCheckbox = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
+var /** @type {?} */ MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(function () { return MatCheckboxRequiredValidator; }),
     multi: true
@@ -617,7 +620,6 @@ var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatCheckboxModule = /** @class */ (function () {
     function MatCheckboxModule() {
     }
@@ -641,9 +643,6 @@ var MatCheckboxModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MAT_CHECKBOX_CLICK_ACTION, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };

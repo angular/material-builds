@@ -5,10 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, Input, NgModule, ViewEncapsulation } from '@angular/core';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
-import { CDK_ROW_TEMPLATE, CDK_TABLE_TEMPLATE, CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTable, CdkTableModule, DataSource } from '@angular/cdk/table';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, Directive, ElementRef, Input, NgModule } from '@angular/core';
+import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -22,7 +21,6 @@ import { _isNumberValue } from '@angular/cdk/coercion';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Wrapper for the CdkTable with Material design styles.
  */
@@ -53,7 +51,6 @@ var MatTable = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -171,7 +168,6 @@ var MatCell = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
@@ -268,7 +264,6 @@ var MatRow = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatTableModule = /** @class */ (function () {
     function MatTableModule() {
     }
@@ -292,7 +287,6 @@ var MatTableModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
  * sorting (using MatSort), and pagination (using MatPaginator).
@@ -301,7 +295,15 @@ var MatTableModule = /** @class */ (function () {
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
  * which defines how row data is converted to a string for filter matching.
  */
-var MatTableDataSource = /** @class */ (function (_super) {
+var  /**
+ * Data source that accepts a client-side data array and includes native support of filtering,
+ * sorting (using MatSort), and pagination (using MatPaginator).
+ *
+ * Allows for sort customization by overriding sortingDataAccessor, which defines how data
+ * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
+ * which defines how row data is converted to a string for filter matching.
+ */
+MatTableDataSource = /** @class */ (function (_super) {
     __extends(MatTableDataSource, _super);
     function MatTableDataSource(initialData) {
         if (initialData === void 0) { initialData = []; }
@@ -677,9 +679,6 @@ var MatTableDataSource = /** @class */ (function (_super) {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatTableModule, MatCellDef, MatHeaderCellDef, MatColumnDef, MatHeaderCell, MatCell, MatTable, MatHeaderRowDef, MatRowDef, MatHeaderRow, MatRow, MatTableDataSource };

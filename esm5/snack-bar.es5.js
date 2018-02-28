@@ -5,34 +5,30 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Inject, Injectable, InjectionToken, Injector, NgModule, NgZone, Optional, SkipSelf, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, PortalModule } from '@angular/cdk/portal';
-import { LIVE_ANNOUNCER_PROVIDER, LiveAnnouncer } from '@angular/cdk/a11y';
-import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
+import { Subject } from 'rxjs/Subject';
+import { InjectionToken, Component, ViewEncapsulation, Inject, ChangeDetectionStrategy, ViewChild, NgZone, ElementRef, ChangeDetectorRef, Injectable, Injector, Optional, SkipSelf, NgModule } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
 import { __assign, __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
+import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, PortalModule } from '@angular/cdk/portal';
 import { take } from 'rxjs/operators/take';
+import { LiveAnnouncer, LIVE_ANNOUNCER_PROVIDER } from '@angular/cdk/a11y';
+import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
+import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs/operators/takeUntil';
-import { Subject } from 'rxjs/Subject';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Event that is emitted when a snack bar is dismissed.
- * @record
- */
-
 /**
  * Reference to a snack bar dispatched from the snack bar service.
  */
-var MatSnackBarRef = /** @class */ (function () {
+var  /**
+ * Reference to a snack bar dispatched from the snack bar service.
+ */
+MatSnackBarRef = /** @class */ (function () {
     function MatSnackBarRef(containerInstance, _overlayRef) {
         var _this = this;
         this._overlayRef = _overlayRef;
@@ -198,15 +194,17 @@ var MatSnackBarRef = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Injection token that can be used to access the data that was passed in to a snack bar.
  */
-var MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
+var /** @type {?} */ MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
  */
-var MatSnackBarConfig = /** @class */ (function () {
+var  /**
+ * Configuration used when opening a snack-bar.
+ */
+MatSnackBarConfig = /** @class */ (function () {
     function MatSnackBarConfig() {
         /**
          * The politeness level for the MatAriaLiveAnnouncer announcement.
@@ -243,15 +241,15 @@ var MatSnackBarConfig = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var SHOW_ANIMATION = AnimationDurations.ENTERING + " " + AnimationCurves.DECELERATION_CURVE;
+var /** @type {?} */ SHOW_ANIMATION = AnimationDurations.ENTERING + " " + AnimationCurves.DECELERATION_CURVE;
 /**
  * \@docs-private
  */
-var HIDE_ANIMATION = AnimationDurations.EXITING + " " + AnimationCurves.ACCELERATION_CURVE;
+var /** @type {?} */ HIDE_ANIMATION = AnimationDurations.EXITING + " " + AnimationCurves.ACCELERATION_CURVE;
 /**
  * Animations used by the Material snack bar.
  */
-var matSnackBarAnimations = {
+var /** @type {?} */ matSnackBarAnimations = {
     /** Animation that slides the dialog in and out of view and fades the opacity. */
     contentFade: trigger('contentFade', [
         transition(':enter', [
@@ -271,7 +269,6 @@ var matSnackBarAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
@@ -331,7 +328,6 @@ var SimpleSnackBar = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Internal component that wraps user-provided snack bar content.
  * \@docs-private
@@ -542,7 +538,6 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -828,7 +823,6 @@ function _applyConfigDefaults(config) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatSnackBarModule = /** @class */ (function () {
     function MatSnackBarModule() {
     }
@@ -860,9 +854,6 @@ var MatSnackBarModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatSnackBarModule, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, matSnackBarAnimations };

@@ -5,23 +5,22 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, Inject, Input, NgModule, Optional, ViewChild, ViewEncapsulation } from '@angular/core';
-import { PlatformModule } from '@angular/cdk/platform';
+import { Directive, Input, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, Inject, Optional, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MAT_LABEL_GLOBAL_OPTIONS, mixinColor } from '@angular/material/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { startWith } from 'rxjs/operators/startWith';
 import { take } from 'rxjs/operators/take';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
+import { CommonModule } from '@angular/common';
+import { PlatformModule } from '@angular/cdk/platform';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-let nextUniqueId = 0;
+let /** @type {?} */ nextUniqueId = 0;
 /**
  * Single error message to be shown underneath the form field.
  */
@@ -53,7 +52,7 @@ MatError.propDecorators = {
 /**
  * Animations used by the MatFormField.
  */
-const matFormFieldAnimations = {
+const /** @type {?} */ matFormFieldAnimations = {
     /** Animation that transitions the form field's error and hint messages. */
     transitionMessages: trigger('transitionMessages', [
         // TODO(mmalerba): Use angular animations for label animation as well.
@@ -109,8 +108,7 @@ function getMatFormFieldMissingControlError() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-let nextUniqueId$2 = 0;
+let /** @type {?} */ nextUniqueId$1 = 0;
 /**
  * Hint text to be shown underneath the form field control.
  */
@@ -123,7 +121,7 @@ class MatHint {
         /**
          * Unique ID for the hint. Used for the aria-describedby on the form field control.
          */
-        this.id = `mat-hint-${nextUniqueId$2++}`;
+        this.id = `mat-hint-${nextUniqueId$1++}`;
     }
 }
 MatHint.decorators = [
@@ -149,7 +147,6 @@ MatHint.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * The floating label for a `mat-form-field`.
  */
@@ -167,7 +164,6 @@ MatLabel.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * The placeholder text for an `MatFormField`.
  */
@@ -185,7 +181,6 @@ MatPlaceholder.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Prefix to be placed the the front of the form field.
  */
@@ -203,7 +198,6 @@ MatPrefix.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Suffix to be placed at the end of the form field.
  */
@@ -221,10 +215,9 @@ MatSuffix.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-let nextUniqueId$1 = 0;
-const floatingLabelScale = 0.75;
-const outlineGapPadding = 5;
+let /** @type {?} */ nextUniqueId$2 = 0;
+const /** @type {?} */ floatingLabelScale = 0.75;
+const /** @type {?} */ outlineGapPadding = 5;
 /**
  * \@docs-private
  */
@@ -236,7 +229,7 @@ class MatFormFieldBase {
         this._elementRef = _elementRef;
     }
 }
-const _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
+const /** @type {?} */ _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
@@ -266,7 +259,7 @@ class MatFormField extends _MatFormFieldMixinBase {
         this._subscriptAnimationState = '';
         this._hintLabel = '';
         // Unique id for the hint label.
-        this._hintLabelId = `mat-hint-${nextUniqueId$1++}`;
+        this._hintLabelId = `mat-hint-${nextUniqueId$2++}`;
         this._outlineGapWidth = 0;
         this._outlineGapStart = 0;
         this._labelOptions = labelOptions ? labelOptions : {};
@@ -660,7 +653,6 @@ MatFormField.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatFormFieldModule {
 }
 MatFormFieldModule.decorators = [
@@ -700,9 +692,6 @@ MatFormFieldModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatFormFieldModule, MatError, MatFormFieldBase, _MatFormFieldMixinBase, MatFormField, MatFormFieldControl, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations };

@@ -5,42 +5,46 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { CommonModule } from '@angular/common';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MatCommonModule, MatLine, MatLineModule, MatLineSetter, MatPseudoCheckboxModule, MatRippleModule, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, Optional, ViewEncapsulation, Attribute, ChangeDetectorRef, EventEmitter, forwardRef, Inject, Input, Output, ViewChild, NgModule } from '@angular/core';
+import { MatLine, MatLineSetter, mixinDisableRipple, mixinDisabled, mixinTabIndex, MatCommonModule, MatLineModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { END, ENTER, HOME, SPACE } from '@angular/cdk/keycodes';
+import { SPACE, ENTER, HOME, END } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
-var MatListBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatListBase = /** @class */ (function () {
     function MatListBase() {
     }
     return MatListBase;
 }());
-var _MatListMixinBase = mixinDisableRipple(MatListBase);
+var /** @type {?} */ _MatListMixinBase = mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
-var MatListItemBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatListItemBase = /** @class */ (function () {
     function MatListItemBase() {
     }
     return MatListItemBase;
 }());
-var _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
+var /** @type {?} */ _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
 var MatNavList = /** @class */ (function (_super) {
     __extends(MatNavList, _super);
     function MatNavList() {
@@ -237,29 +241,34 @@ var MatListItem = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
-var MatSelectionListBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatSelectionListBase = /** @class */ (function () {
     function MatSelectionListBase() {
     }
     return MatSelectionListBase;
 }());
-var _MatSelectionListMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatSelectionListBase)));
+var /** @type {?} */ _MatSelectionListMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatSelectionListBase)));
 /**
  * \@docs-private
  */
-var MatListOptionBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatListOptionBase = /** @class */ (function () {
     function MatListOptionBase() {
     }
     return MatListOptionBase;
 }());
-var _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
+var /** @type {?} */ _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
 /**
  * \@docs-private
  */
-var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
+var /** @type {?} */ MAT_SELECTION_LIST_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MatSelectionList; }),
     multi: true
@@ -269,7 +278,12 @@ var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
  * @deprecated Use the `MatSelectionListChange` event on the selection list instead.
  * \@deletion-target 6.0.0
  */
-var MatListOptionChange = /** @class */ (function () {
+var  /**
+ * Change event object emitted by MatListOption whenever the selected state changes.
+ * @deprecated Use the `MatSelectionListChange` event on the selection list instead.
+ * \@deletion-target 6.0.0
+ */
+MatListOptionChange = /** @class */ (function () {
     function MatListOptionChange(source, selected) {
         this.source = source;
         this.selected = selected;
@@ -279,7 +293,10 @@ var MatListOptionChange = /** @class */ (function () {
 /**
  * Change event that is being fired whenever the selected state of an option changes.
  */
-var MatSelectionListChange = /** @class */ (function () {
+var  /**
+ * Change event that is being fired whenever the selected state of an option changes.
+ */
+MatSelectionListChange = /** @class */ (function () {
     function MatSelectionListChange(source, option) {
         this.source = source;
         this.option = option;
@@ -970,7 +987,6 @@ var MatSelectionList = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatListModule = /** @class */ (function () {
     function MatListModule() {
     }
@@ -1016,9 +1032,6 @@ var MatListModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatNavList, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatListOptionChange, MatSelectionListChange, MatListOption, MatSelectionList };

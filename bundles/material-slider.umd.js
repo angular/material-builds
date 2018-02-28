@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/platform-browser'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/forms'), require('rxjs/Subscription')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/common', '@angular/core', '@angular/material/core', '@angular/platform-browser', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/forms', 'rxjs/Subscription'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slider = global.ng.material.slider || {}),global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.common,global.ng.core,global.ng.material.core,global.ng.platformBrowser,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.forms,global.Rx));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_bidi,_angular_common,_angular_core,_angular_material_core,_angular_platformBrowser,_angular_cdk_coercion,_angular_cdk_keycodes,_angular_forms,rxjs_Subscription) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('rxjs/Subscription'), require('@angular/common'), require('@angular/platform-browser')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/slider', ['exports', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/core', '@angular/forms', '@angular/material/core', 'rxjs/Subscription', '@angular/common', '@angular/platform-browser'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slider = {}),global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.core,global.ng.forms,global.ng.material.core,global.Rx,global.ng.common,global.ng.platformBrowser));
+}(this, (function (exports,a11y,bidi,coercion,keycodes,core,forms,core$1,Subscription,common,platformBrowser) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -41,37 +41,39 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
  * the default separation we chose.
  */
-var MIN_AUTO_TICK_SEPARATION = 30;
+var /** @type {?} */ MIN_AUTO_TICK_SEPARATION = 30;
 /**
  * The thumb gap size for a disabled slider.
  */
-var DISABLED_THUMB_GAP = 7;
+var /** @type {?} */ DISABLED_THUMB_GAP = 7;
 /**
  * The thumb gap size for a non-active slider at its minimum value.
  */
-var MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
+var /** @type {?} */ MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
 /**
  * The thumb gap size for an active slider at its minimum value.
  */
-var MIN_VALUE_ACTIVE_THUMB_GAP = 10;
+var /** @type {?} */ MIN_VALUE_ACTIVE_THUMB_GAP = 10;
 /**
  * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
  */
-var MAT_SLIDER_VALUE_ACCESSOR = {
-    provide: _angular_forms.NG_VALUE_ACCESSOR,
-    useExisting: _angular_core.forwardRef(function () { return MatSlider; }),
+var /** @type {?} */ MAT_SLIDER_VALUE_ACCESSOR = {
+    provide: forms.NG_VALUE_ACCESSOR,
+    useExisting: core.forwardRef(function () { return MatSlider; }),
     multi: true
 };
 /**
  * A simple change event emitted by the MatSlider component.
  */
-var MatSliderChange = /** @class */ (function () {
+var   /**
+ * A simple change event emitted by the MatSlider component.
+ */
+MatSliderChange = /** @class */ (function () {
     function MatSliderChange() {
     }
     return MatSliderChange;
@@ -79,13 +81,16 @@ var MatSliderChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var MatSliderBase = /** @class */ (function () {
+var   /**
+ * \@docs-private
+ */
+MatSliderBase = /** @class */ (function () {
     function MatSliderBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatSliderBase;
 }());
-var _MatSliderMixinBase = _angular_material_core.mixinTabIndex(_angular_material_core.mixinColor(_angular_material_core.mixinDisabled(MatSliderBase), 'accent'));
+var /** @type {?} */ _MatSliderMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisabled(MatSliderBase), 'accent'));
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
@@ -108,11 +113,11 @@ var MatSlider = /** @class */ (function (_super) {
         /**
          * Event emitted when the slider value has changed.
          */
-        _this.change = new _angular_core.EventEmitter();
+        _this.change = new core.EventEmitter();
         /**
          * Event emitted when the slider thumb moves.
          */
-        _this.input = new _angular_core.EventEmitter();
+        _this.input = new core.EventEmitter();
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
@@ -140,7 +145,7 @@ var MatSlider = /** @class */ (function (_super) {
         /**
          * Subscription to the Directionality change EventEmitter.
          */
-        _this._dirChangeSubscription = rxjs_Subscription.Subscription.EMPTY;
+        _this._dirChangeSubscription = Subscription.Subscription.EMPTY;
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -155,7 +160,7 @@ var MatSlider = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._invert = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._invert = coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -171,7 +176,7 @@ var MatSlider = /** @class */ (function (_super) {
          * @return {?}
          */
         function (v) {
-            this._max = _angular_cdk_coercion.coerceNumberProperty(v, this._max);
+            this._max = coercion.coerceNumberProperty(v, this._max);
             this._percent = this._calculatePercentage(this._value);
             // Since this also modifies the percentage, we need to let the change detection know.
             this._changeDetectorRef.markForCheck();
@@ -190,7 +195,7 @@ var MatSlider = /** @class */ (function (_super) {
          * @return {?}
          */
         function (v) {
-            this._min = _angular_cdk_coercion.coerceNumberProperty(v, this._min);
+            this._min = coercion.coerceNumberProperty(v, this._min);
             // If the value wasn't explicitly set by the user, set it to the min.
             if (this._value === null) {
                 this.value = this._min;
@@ -213,7 +218,7 @@ var MatSlider = /** @class */ (function (_super) {
          * @return {?}
          */
         function (v) {
-            this._step = _angular_cdk_coercion.coerceNumberProperty(v, this._step);
+            this._step = coercion.coerceNumberProperty(v, this._step);
             if (this._step % 1 !== 0) {
                 this._roundLabelTo = /** @type {?} */ ((this._step.toString().split('.').pop())).length;
             }
@@ -233,7 +238,7 @@ var MatSlider = /** @class */ (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._thumbLabel = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        function (value) { this._thumbLabel = coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -268,7 +273,7 @@ var MatSlider = /** @class */ (function (_super) {
                 this._tickInterval = 'auto';
             }
             else if (typeof value === 'number' || typeof value === 'string') {
-                this._tickInterval = _angular_cdk_coercion.coerceNumberProperty(value, /** @type {?} */ (this._tickInterval));
+                this._tickInterval = coercion.coerceNumberProperty(value, /** @type {?} */ (this._tickInterval));
             }
             else {
                 this._tickInterval = 0;
@@ -310,7 +315,7 @@ var MatSlider = /** @class */ (function (_super) {
          */
         function (v) {
             if (v !== this._value) {
-                this._value = _angular_cdk_coercion.coerceNumberProperty(v);
+                this._value = coercion.coerceNumberProperty(v);
                 this._percent = this._calculatePercentage(this._value);
                 // Since this also modifies the percentage, we need to let the change detection know.
                 this._changeDetectorRef.markForCheck();
@@ -330,7 +335,7 @@ var MatSlider = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._vertical = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._vertical = coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -724,19 +729,19 @@ var MatSlider = /** @class */ (function (_super) {
         }
         var /** @type {?} */ oldValue = this.value;
         switch (event.keyCode) {
-            case _angular_cdk_keycodes.PAGE_UP:
+            case keycodes.PAGE_UP:
                 this._increment(10);
                 break;
-            case _angular_cdk_keycodes.PAGE_DOWN:
+            case keycodes.PAGE_DOWN:
                 this._increment(-10);
                 break;
-            case _angular_cdk_keycodes.END:
+            case keycodes.END:
                 this.value = this.max;
                 break;
-            case _angular_cdk_keycodes.HOME:
+            case keycodes.HOME:
                 this.value = this.min;
                 break;
-            case _angular_cdk_keycodes.LEFT_ARROW:
+            case keycodes.LEFT_ARROW:
                 // NOTE: For a sighted user it would make more sense that when they press an arrow key on an
                 // inverted slider the thumb moves in that direction. However for a blind user, nothing
                 // about the slider indicates that it is inverted. They will expect left to be decrement,
@@ -746,14 +751,14 @@ var MatSlider = /** @class */ (function (_super) {
                 // sighted users, therefore we do not swap the meaning.
                 this._increment(this._direction == 'rtl' ? 1 : -1);
                 break;
-            case _angular_cdk_keycodes.UP_ARROW:
+            case keycodes.UP_ARROW:
                 this._increment(1);
                 break;
-            case _angular_cdk_keycodes.RIGHT_ARROW:
+            case keycodes.RIGHT_ARROW:
                 // See comment on LEFT_ARROW about the conditions under which we flip the meaning.
                 this._increment(this._direction == 'rtl' ? -1 : 1);
                 break;
-            case _angular_cdk_keycodes.DOWN_ARROW:
+            case keycodes.DOWN_ARROW:
                 this._increment(-1);
                 break;
             default:
@@ -1044,7 +1049,7 @@ var MatSlider = /** @class */ (function (_super) {
         this.disabled = isDisabled;
     };
     MatSlider.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-slider',
+        { type: core.Component, args: [{selector: 'mat-slider',
                     exportAs: 'matSlider',
                     providers: [MAT_SLIDER_VALUE_ACCESSOR],
                     host: {
@@ -1078,33 +1083,33 @@ var MatSlider = /** @class */ (function (_super) {
                     template: "<div class=\"mat-slider-wrapper\" #sliderWrapper><div class=\"mat-slider-track-wrapper\"><div class=\"mat-slider-track-background\" [ngStyle]=\"_trackBackgroundStyles\"></div><div class=\"mat-slider-track-fill\" [ngStyle]=\"_trackFillStyles\"></div></div><div class=\"mat-slider-ticks-container\" [ngStyle]=\"_ticksContainerStyles\"><div class=\"mat-slider-ticks\" [ngStyle]=\"_ticksStyles\"></div></div><div class=\"mat-slider-thumb-container\" [ngStyle]=\"_thumbContainerStyles\"><div class=\"mat-slider-focus-ring\"></div><div class=\"mat-slider-thumb\"></div><div class=\"mat-slider-thumb-label\"><span class=\"mat-slider-thumb-label-text\">{{displayValue}}</span></div></div></div>",
                     styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:0;vertical-align:middle}.mat-slider-wrapper{position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{background-repeat:repeat;background-clip:content-box;box-sizing:border-box;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.cdk-keyboard-focused .mat-slider-focus-ring,.cdk-program-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label{cursor:-webkit-grab;cursor:grab}.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb-label,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label:active,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb:active{cursor:-webkit-grabbing;cursor:grabbing}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid transparent;border-radius:50%;transform:scale(.7);transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),border-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform .4s cubic-bezier(.25,.8,.25,1),border-radius .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label-text{z-index:1;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-sliding .mat-slider-thumb-container,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-track-fill{transition-duration:0s}.mat-slider-has-ticks .mat-slider-wrapper::after{content:'';position:absolute;border-width:0;border-style:solid;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.mat-slider:not(.mat-slider-disabled).cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label-text{opacity:1}.mat-slider:not(.mat-slider-disabled).cdk-mouse-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-touch-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}@media screen and (-ms-high-contrast:active){.mat-slider-horizontal .mat-slider-ticks-container{height:0;outline:solid 2px;top:1px}}.mat-slider-horizontal .mat-slider-ticks{height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}@media screen and (-ms-high-contrast:active){.mat-slider-vertical .mat-slider-ticks-container{width:0;outline:solid 2px;left:1px}}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb{-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%}"],
                     inputs: ['disabled', 'color', 'tabIndex'],
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
     /** @nocollapse */
     MatSlider.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_cdk_a11y.FocusMonitor, },
-        { type: _angular_core.ChangeDetectorRef, },
-        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
-        { type: undefined, decorators: [{ type: _angular_core.Attribute, args: ['tabindex',] },] },
+        { type: core.ElementRef, },
+        { type: a11y.FocusMonitor, },
+        { type: core.ChangeDetectorRef, },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
     ]; };
     MatSlider.propDecorators = {
-        "invert": [{ type: _angular_core.Input },],
-        "max": [{ type: _angular_core.Input },],
-        "min": [{ type: _angular_core.Input },],
-        "step": [{ type: _angular_core.Input },],
-        "thumbLabel": [{ type: _angular_core.Input },],
-        "_thumbLabelDeprecated": [{ type: _angular_core.Input, args: ['thumb-label',] },],
-        "tickInterval": [{ type: _angular_core.Input },],
-        "_tickIntervalDeprecated": [{ type: _angular_core.Input, args: ['tick-interval',] },],
-        "value": [{ type: _angular_core.Input },],
-        "vertical": [{ type: _angular_core.Input },],
-        "change": [{ type: _angular_core.Output },],
-        "input": [{ type: _angular_core.Output },],
-        "_sliderWrapper": [{ type: _angular_core.ViewChild, args: ['sliderWrapper',] },],
+        "invert": [{ type: core.Input },],
+        "max": [{ type: core.Input },],
+        "min": [{ type: core.Input },],
+        "step": [{ type: core.Input },],
+        "thumbLabel": [{ type: core.Input },],
+        "_thumbLabelDeprecated": [{ type: core.Input, args: ['thumb-label',] },],
+        "tickInterval": [{ type: core.Input },],
+        "_tickIntervalDeprecated": [{ type: core.Input, args: ['tick-interval',] },],
+        "value": [{ type: core.Input },],
+        "vertical": [{ type: core.Input },],
+        "change": [{ type: core.Output },],
+        "input": [{ type: core.Output },],
+        "_sliderWrapper": [{ type: core.ViewChild, args: ['sliderWrapper',] },],
     };
     return MatSlider;
 }(_MatSliderMixinBase));
@@ -1113,16 +1118,15 @@ var MatSlider = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatSliderModule = /** @class */ (function () {
     function MatSliderModule() {
     }
     MatSliderModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_common.CommonModule, _angular_material_core.MatCommonModule, _angular_cdk_bidi.BidiModule, _angular_cdk_a11y.A11yModule],
-                    exports: [MatSlider, _angular_material_core.MatCommonModule],
+        { type: core.NgModule, args: [{
+                    imports: [common.CommonModule, core$1.MatCommonModule, bidi.BidiModule, a11y.A11yModule],
+                    exports: [MatSlider, core$1.MatCommonModule],
                     declarations: [MatSlider],
-                    providers: [{ provide: _angular_platformBrowser.HAMMER_GESTURE_CONFIG, useClass: _angular_material_core.GestureConfig }]
+                    providers: [{ provide: platformBrowser.HAMMER_GESTURE_CONFIG, useClass: core$1.GestureConfig }]
                 },] },
     ];
     /** @nocollapse */

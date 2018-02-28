@@ -5,32 +5,30 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ElementRef, NgModule, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
+import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
  */
-var DEFAULT_ROUND_BUTTON_COLOR = 'accent';
+var /** @type {?} */ DEFAULT_ROUND_BUTTON_COLOR = 'accent';
 /**
  * Default color palette for flat buttons (mat-flat-button)
  */
-var DEFAULT_FLAT_BUTTON_COLOR = 'primary';
+var /** @type {?} */ DEFAULT_FLAT_BUTTON_COLOR = 'primary';
 /**
  * List of classes to add to MatButton instances based on host attributes to
  * style as different variants.
  */
-var BUTTON_HOST_ATTRIBUTES = [
+var /** @type {?} */ BUTTON_HOST_ATTRIBUTES = [
     'mat-button',
     'mat-flat-button',
     'mat-icon-button',
@@ -42,13 +40,16 @@ var BUTTON_HOST_ATTRIBUTES = [
 /**
  * \@docs-private
  */
-var MatButtonBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatButtonBase = /** @class */ (function () {
     function MatButtonBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatButtonBase;
 }());
-var _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonBase)));
+var /** @type {?} */ _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonBase)));
 /**
  * Material design button.
  */
@@ -225,7 +226,6 @@ var MatAnchor = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatButtonModule = /** @class */ (function () {
     function MatButtonModule() {
     }
@@ -261,9 +261,6 @@ var MatButtonModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatButtonModule, MatButtonBase, _MatButtonMixinBase, MatButton, MatAnchor };

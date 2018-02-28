@@ -7,9 +7,9 @@
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/platform'), require('@angular/core'), require('rxjs/observable/empty'), require('rxjs/Subject'), require('rxjs/observable/fromEvent'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('@angular/cdk/coercion'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/platform', '@angular/core', 'rxjs/observable/empty', 'rxjs/Subject', 'rxjs/observable/fromEvent', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/coercion', '@angular/forms', '@angular/material/core', '@angular/material/form-field', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.input = global.ng.material.input || {}),global.ng.cdk.platform,global.ng.core,global.Rx.Observable,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.coercion,global.ng.forms,global.ng.material.core,global.ng.material.formField,global.ng.common));
-}(this, (function (exports,_angular_cdk_platform,_angular_core,rxjs_observable_empty,rxjs_Subject,rxjs_observable_fromEvent,rxjs_operators_auditTime,rxjs_operators_takeUntil,_angular_cdk_coercion,_angular_forms,_angular_material_core,_angular_material_formField,_angular_common) { 'use strict';
+	typeof define === 'function' && define.amd ? define('@angular/material/input', ['exports', '@angular/cdk/platform', '@angular/core', 'rxjs/observable/empty', 'rxjs/Subject', 'rxjs/observable/fromEvent', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/coercion', '@angular/forms', '@angular/material/core', '@angular/material/form-field', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.input = {}),global.ng.cdk.platform,global.ng.core,global.Rx.Observable,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.coercion,global.ng.forms,global.ng.material.core,global.ng.material.formField,global.ng.common));
+}(this, (function (exports,platform,core,empty,Subject,fromEvent,auditTime,takeUntil,coercion,forms,core$1,formField,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -41,11 +41,10 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Options to pass to the animationstart listener.
  */
-var listenerOptions = _angular_cdk_platform.supportsPassiveEventListeners() ? { passive: true } : false;
+var /** @type {?} */ listenerOptions = platform.supportsPassiveEventListeners() ? { passive: true } : false;
 /**
  * An injectable service that can be used to monitor the autofill state of an input.
  * Based on the following blog post:
@@ -73,13 +72,13 @@ var AutofillMonitor = /** @class */ (function () {
      */
     function (element) {
         if (!this._platform.isBrowser) {
-            return rxjs_observable_empty.empty();
+            return empty.empty();
         }
         var /** @type {?} */ info = this._monitoredElements.get(element);
         if (info) {
             return info.subject.asObservable();
         }
-        var /** @type {?} */ result = new rxjs_Subject.Subject();
+        var /** @type {?} */ result = new Subject.Subject();
         var /** @type {?} */ listener = function (event) {
             if (event.animationName === 'mat-input-autofill-start') {
                 element.classList.add('mat-input-autofilled');
@@ -135,11 +134,11 @@ var AutofillMonitor = /** @class */ (function () {
         this._monitoredElements.forEach(function (_info, element) { return _this.stopMonitoring(element); });
     };
     AutofillMonitor.decorators = [
-        { type: _angular_core.Injectable },
+        { type: core.Injectable },
     ];
     /** @nocollapse */
     AutofillMonitor.ctorParameters = function () { return [
-        { type: _angular_cdk_platform.Platform, },
+        { type: platform.Platform, },
     ]; };
     return AutofillMonitor;
 }());
@@ -150,7 +149,7 @@ var MatAutofill = /** @class */ (function () {
     function MatAutofill(_elementRef, _autofillMonitor) {
         this._elementRef = _elementRef;
         this._autofillMonitor = _autofillMonitor;
-        this.matAutofill = new _angular_core.EventEmitter();
+        this.matAutofill = new core.EventEmitter();
     }
     /**
      * @return {?}
@@ -174,17 +173,17 @@ var MatAutofill = /** @class */ (function () {
         this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
     };
     MatAutofill.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matAutofill]',
                 },] },
     ];
     /** @nocollapse */
     MatAutofill.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
+        { type: core.ElementRef, },
         { type: AutofillMonitor, },
     ]; };
     MatAutofill.propDecorators = {
-        "matAutofill": [{ type: _angular_core.Output },],
+        "matAutofill": [{ type: core.Output },],
     };
     return MatAutofill;
 }());
@@ -193,7 +192,6 @@ var MatAutofill = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Directive to automatically resize a textarea to fit its content.
  */
@@ -202,7 +200,7 @@ var MatTextareaAutosize = /** @class */ (function () {
         this._elementRef = _elementRef;
         this._platform = _platform;
         this._ngZone = _ngZone;
-        this._destroyed = new rxjs_Subject.Subject();
+        this._destroyed = new Subject.Subject();
     }
     Object.defineProperty(MatTextareaAutosize.prototype, "minRows", {
         get: /**
@@ -283,8 +281,8 @@ var MatTextareaAutosize = /** @class */ (function () {
             this.resizeToFitContent();
             if (this._ngZone) {
                 this._ngZone.runOutsideAngular(function () {
-                    rxjs_observable_fromEvent.fromEvent(window, 'resize')
-                        .pipe(rxjs_operators_auditTime.auditTime(16), rxjs_operators_takeUntil.takeUntil(_this._destroyed))
+                    fromEvent.fromEvent(window, 'resize')
+                        .pipe(auditTime.auditTime(16), takeUntil.takeUntil(_this._destroyed))
                         .subscribe(function () { return _this.resizeToFitContent(true); });
                 });
             }
@@ -421,7 +419,7 @@ var MatTextareaAutosize = /** @class */ (function () {
         this._previousValue = value;
     };
     MatTextareaAutosize.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: "textarea[mat-autosize], textarea[matTextareaAutosize]",
                     exportAs: 'matTextareaAutosize',
                     host: {
@@ -434,13 +432,13 @@ var MatTextareaAutosize = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatTextareaAutosize.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_cdk_platform.Platform, },
-        { type: _angular_core.NgZone, },
+        { type: core.ElementRef, },
+        { type: platform.Platform, },
+        { type: core.NgZone, },
     ]; };
     MatTextareaAutosize.propDecorators = {
-        "minRows": [{ type: _angular_core.Input, args: ['matAutosizeMinRows',] },],
-        "maxRows": [{ type: _angular_core.Input, args: ['matAutosizeMaxRows',] },],
+        "minRows": [{ type: core.Input, args: ['matAutosizeMinRows',] },],
+        "maxRows": [{ type: core.Input, args: ['matAutosizeMaxRows',] },],
     };
     return MatTextareaAutosize;
 }());
@@ -463,22 +461,20 @@ function getMatInputUnsupportedTypeError(type) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
  * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
  * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
  * value to them.
  */
-var MAT_INPUT_VALUE_ACCESSOR = new _angular_core.InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
+var /** @type {?} */ MAT_INPUT_VALUE_ACCESSOR = new core.InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 // Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
-var MAT_INPUT_INVALID_TYPES = [
+var /** @type {?} */ MAT_INPUT_INVALID_TYPES = [
     'button',
     'checkbox',
     'file',
@@ -489,11 +485,14 @@ var MAT_INPUT_INVALID_TYPES = [
     'reset',
     'submit'
 ];
-var nextUniqueId = 0;
+var /** @type {?} */ nextUniqueId = 0;
 /**
  * \@docs-private
  */
-var MatInputBase = /** @class */ (function () {
+var   /**
+ * \@docs-private
+ */
+MatInputBase = /** @class */ (function () {
     function MatInputBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._parentForm = _parentForm;
@@ -502,7 +501,7 @@ var MatInputBase = /** @class */ (function () {
     }
     return MatInputBase;
 }());
-var _MatInputMixinBase = _angular_material_core.mixinErrorState(MatInputBase);
+var /** @type {?} */ _MatInputMixinBase = core$1.mixinErrorState(MatInputBase);
 /**
  * Directive that allows a native input to work inside a `MatFormField`.
  */
@@ -529,7 +528,7 @@ var MatInput = /** @class */ (function (_super) {
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
          */
-        _this.stateChanges = new rxjs_Subject.Subject();
+        _this.stateChanges = new Subject.Subject();
         /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -556,7 +555,7 @@ var MatInput = /** @class */ (function (_super) {
             'month',
             'time',
             'week'
-        ].filter(function (t) { return _angular_cdk_platform.getSupportedInputTypes().has(t); });
+        ].filter(function (t) { return platform.getSupportedInputTypes().has(t); });
         // If no input value accessor was explicitly specified, use the element as the input value
         // accessor.
         // If no input value accessor was explicitly specified, use the element as the input value
@@ -601,7 +600,7 @@ var MatInput = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._disabled = coercion.coerceBooleanProperty(value);
             // Browsers may not fire the blur event if the input is disabled too quickly.
             // Reset from here to ensure that the element doesn't become stuck.
             if (this.focused) {
@@ -638,7 +637,7 @@ var MatInput = /** @class */ (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._required = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        function (value) { this._required = coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -658,7 +657,7 @@ var MatInput = /** @class */ (function (_super) {
             // When using Angular inputs, developers are no longer able to set the properties on the native
             // input element. To ensure that bindings for `type` work, we need to sync the setter
             // with the native property. Textarea elements don't support the type property or attribute.
-            if (!this._isTextarea() && _angular_cdk_platform.getSupportedInputTypes().has(this._type)) {
+            if (!this._isTextarea() && platform.getSupportedInputTypes().has(this._type)) {
                 this._elementRef.nativeElement.type = this._type;
             }
         },
@@ -695,7 +694,7 @@ var MatInput = /** @class */ (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._readonly = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        function (value) { this._readonly = coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -928,7 +927,7 @@ var MatInput = /** @class */ (function (_super) {
      */
     function () { this.focus(); };
     MatInput.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: "input[matInput], textarea[matInput]",
                     exportAs: 'matInput',
                     host: {
@@ -951,29 +950,29 @@ var MatInput = /** @class */ (function (_super) {
                         '(focus)': '_focusChanged(true)',
                         '(input)': '_onInput()',
                     },
-                    providers: [{ provide: _angular_material_formField.MatFormFieldControl, useExisting: MatInput }],
+                    providers: [{ provide: formField.MatFormFieldControl, useExisting: MatInput }],
                 },] },
     ];
     /** @nocollapse */
     MatInput.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_cdk_platform.Platform, },
-        { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
-        { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
-        { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
-        { type: _angular_material_core.ErrorStateMatcher, },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self }, { type: _angular_core.Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] },] },
+        { type: core.ElementRef, },
+        { type: platform.Platform, },
+        { type: forms.NgControl, decorators: [{ type: core.Optional }, { type: core.Self },] },
+        { type: forms.NgForm, decorators: [{ type: core.Optional },] },
+        { type: forms.FormGroupDirective, decorators: [{ type: core.Optional },] },
+        { type: core$1.ErrorStateMatcher, },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Self }, { type: core.Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] },] },
         { type: AutofillMonitor, },
     ]; };
     MatInput.propDecorators = {
-        "disabled": [{ type: _angular_core.Input },],
-        "id": [{ type: _angular_core.Input },],
-        "placeholder": [{ type: _angular_core.Input },],
-        "required": [{ type: _angular_core.Input },],
-        "type": [{ type: _angular_core.Input },],
-        "errorStateMatcher": [{ type: _angular_core.Input },],
-        "value": [{ type: _angular_core.Input },],
-        "readonly": [{ type: _angular_core.Input },],
+        "disabled": [{ type: core.Input },],
+        "id": [{ type: core.Input },],
+        "placeholder": [{ type: core.Input },],
+        "required": [{ type: core.Input },],
+        "type": [{ type: core.Input },],
+        "errorStateMatcher": [{ type: core.Input },],
+        "value": [{ type: core.Input },],
+        "readonly": [{ type: core.Input },],
     };
     return MatInput;
 }(_MatInputMixinBase));
@@ -982,29 +981,28 @@ var MatInput = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatInputModule = /** @class */ (function () {
     function MatInputModule() {
     }
     MatInputModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
+        { type: core.NgModule, args: [{
                     declarations: [
                         MatAutofill,
                         MatInput,
                         MatTextareaAutosize,
                     ],
                     imports: [
-                        _angular_common.CommonModule,
-                        _angular_material_formField.MatFormFieldModule,
-                        _angular_cdk_platform.PlatformModule,
+                        common.CommonModule,
+                        formField.MatFormFieldModule,
+                        platform.PlatformModule,
                     ],
                     exports: [
                         MatAutofill,
-                        _angular_material_formField.MatFormFieldModule,
+                        formField.MatFormFieldModule,
                         MatInput,
                         MatTextareaAutosize,
                     ],
-                    providers: [_angular_material_core.ErrorStateMatcher, AutofillMonitor],
+                    providers: [core$1.ErrorStateMatcher, AutofillMonitor],
                 },] },
     ];
     /** @nocollapse */

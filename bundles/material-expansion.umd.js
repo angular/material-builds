@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/collections'), require('@angular/cdk/accordion'), require('@angular/cdk/a11y'), require('@angular/cdk/portal'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/operators/take'), require('rxjs/operators/filter'), require('rxjs/operators/startWith'), require('@angular/animations'), require('@angular/cdk/keycodes'), require('rxjs/observable/merge'), require('rxjs/Subscription')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/collections', '@angular/cdk/accordion', '@angular/cdk/a11y', '@angular/cdk/portal', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/operators/take', 'rxjs/operators/filter', 'rxjs/operators/startWith', '@angular/animations', '@angular/cdk/keycodes', 'rxjs/observable/merge', 'rxjs/Subscription'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = global.ng.material.expansion || {}),global.ng.common,global.ng.core,global.ng.cdk.collections,global.ng.cdk.accordion,global.ng.cdk.a11y,global.ng.cdk.portal,global.ng.cdk.coercion,global.Rx,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.animations,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx));
-}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_collections,_angular_cdk_accordion,_angular_cdk_a11y,_angular_cdk_portal,_angular_cdk_coercion,rxjs_Subject,rxjs_operators_take,rxjs_operators_filter,rxjs_operators_startWith,_angular_animations,_angular_cdk_keycodes,rxjs_observable_merge,rxjs_Subscription) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/accordion'), require('@angular/animations'), require('@angular/cdk/collections'), require('@angular/cdk/portal'), require('rxjs/Subject'), require('rxjs/operators/take'), require('rxjs/operators/filter'), require('rxjs/operators/startWith'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/expansion', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/accordion', '@angular/animations', '@angular/cdk/collections', '@angular/cdk/portal', 'rxjs/Subject', 'rxjs/operators/take', 'rxjs/operators/filter', 'rxjs/operators/startWith', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = {}),global.ng.core,global.ng.cdk.coercion,global.ng.cdk.accordion,global.ng.animations,global.ng.cdk.collections,global.ng.cdk.portal,global.Rx,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx,global.ng.common));
+}(this, (function (exports,core,coercion,accordion,animations,collections,portal,Subject,take,filter,startWith,a11y,keycodes,merge,Subscription,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -41,7 +41,6 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Directive for a Material Design Accordion.
  */
@@ -71,12 +70,12 @@ var MatAccordion = /** @class */ (function (_super) {
          * @param {?} show
          * @return {?}
          */
-        function (show) { this._hideToggle = _angular_cdk_coercion.coerceBooleanProperty(show); },
+        function (show) { this._hideToggle = coercion.coerceBooleanProperty(show); },
         enumerable: true,
         configurable: true
     });
     MatAccordion.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-accordion',
                     exportAs: 'matAccordion',
                     host: {
@@ -87,17 +86,16 @@ var MatAccordion = /** @class */ (function (_super) {
     /** @nocollapse */
     MatAccordion.ctorParameters = function () { return []; };
     MatAccordion.propDecorators = {
-        "hideToggle": [{ type: _angular_core.Input },],
-        "displayMode": [{ type: _angular_core.Input },],
+        "hideToggle": [{ type: core.Input },],
+        "displayMode": [{ type: core.Input },],
     };
     return MatAccordion;
-}(_angular_cdk_accordion.CdkAccordion));
+}(accordion.CdkAccordion));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Expansion panel content that will be rendered lazily
  * after the panel is opened for the first time.
@@ -107,13 +105,13 @@ var MatExpansionPanelContent = /** @class */ (function () {
         this._template = _template;
     }
     MatExpansionPanelContent.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'ng-template[matExpansionPanelContent]'
                 },] },
     ];
     /** @nocollapse */
     MatExpansionPanelContent.ctorParameters = function () { return [
-        { type: _angular_core.TemplateRef, },
+        { type: core.TemplateRef, },
     ]; };
     return MatExpansionPanelContent;
 }());
@@ -125,39 +123,39 @@ var MatExpansionPanelContent = /** @class */ (function () {
 /**
  * Time and timing curve for expansion panel animations.
  */
-var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
+var /** @type {?} */ EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
 /**
  * Animations used by the Material expansion panel.
  */
-var matExpansionAnimations = {
+var /** @type {?} */ matExpansionAnimations = {
     /** Animation that rotates the indicator arrow. */
-    indicatorRotate: _angular_animations.trigger('indicatorRotate', [
-        _angular_animations.state('collapsed', _angular_animations.style({ transform: 'rotate(0deg)' })),
-        _angular_animations.state('expanded', _angular_animations.style({ transform: 'rotate(180deg)' })),
-        _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    indicatorRotate: animations.trigger('indicatorRotate', [
+        animations.state('collapsed', animations.style({ transform: 'rotate(0deg)' })),
+        animations.state('expanded', animations.style({ transform: 'rotate(180deg)' })),
+        animations.transition('expanded <=> collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ]),
     /** Animation that expands and collapses the panel header height. */
-    expansionHeaderHeight: _angular_animations.trigger('expansionHeight', [
-        _angular_animations.state('collapsed', _angular_animations.style({
+    expansionHeaderHeight: animations.trigger('expansionHeight', [
+        animations.state('collapsed', animations.style({
             height: '{{collapsedHeight}}',
         }), {
             params: { collapsedHeight: '48px' },
         }),
-        _angular_animations.state('expanded', _angular_animations.style({
+        animations.state('expanded', animations.style({
             height: '{{expandedHeight}}'
         }), {
             params: { expandedHeight: '64px' }
         }),
-        _angular_animations.transition('expanded <=> collapsed', _angular_animations.group([
-            _angular_animations.query('@indicatorRotate', _angular_animations.animateChild(), { optional: true }),
-            _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING),
+        animations.transition('expanded <=> collapsed', animations.group([
+            animations.query('@indicatorRotate', animations.animateChild(), { optional: true }),
+            animations.animate(EXPANSION_PANEL_ANIMATION_TIMING),
         ])),
     ]),
     /** Animation that expands and collapses the panel content. */
-    bodyExpansion: _angular_animations.trigger('bodyExpansion', [
-        _angular_animations.state('collapsed', _angular_animations.style({ height: '0px', visibility: 'hidden' })),
-        _angular_animations.state('expanded', _angular_animations.style({ height: '*', visibility: 'visible' })),
-        _angular_animations.transition('expanded <=> collapsed', _angular_animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    bodyExpansion: animations.trigger('bodyExpansion', [
+        animations.state('collapsed', animations.style({ height: '0px', visibility: 'hidden' })),
+        animations.state('expanded', animations.style({ height: '*', visibility: 'visible' })),
+        animations.transition('expanded <=> collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ])
 };
 
@@ -165,11 +163,10 @@ var matExpansionAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Counter for generating unique element ids.
  */
-var uniqueId = 0;
+var /** @type {?} */ uniqueId = 0;
 /**
  * `<mat-expansion-panel>`
  *
@@ -178,19 +175,19 @@ var uniqueId = 0;
  */
 var MatExpansionPanel = /** @class */ (function (_super) {
     __extends(MatExpansionPanel, _super);
-    function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef) {
-        var _this = _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
+    function MatExpansionPanel(accordion$$1, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef) {
+        var _this = _super.call(this, accordion$$1, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
         _this._viewContainerRef = _viewContainerRef;
         _this._hideToggle = false;
         /**
          * Stream that emits for changes in `\@Input` properties.
          */
-        _this._inputChanges = new rxjs_Subject.Subject();
+        _this._inputChanges = new Subject.Subject();
         /**
          * ID for the associated header element. Used for a11y labelling.
          */
         _this._headerId = "mat-expansion-panel-header-" + uniqueId++;
-        _this.accordion = accordion;
+        _this.accordion = accordion$$1;
         return _this;
     }
     Object.defineProperty(MatExpansionPanel.prototype, "hideToggle", {
@@ -204,7 +201,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._hideToggle = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._hideToggle = coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -261,8 +258,8 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         var _this = this;
         if (this._lazyContent) {
             // Render the content as soon as the panel becomes open.
-            this.opened.pipe(rxjs_operators_startWith.startWith(/** @type {?} */ ((null))), rxjs_operators_filter.filter(function () { return _this.expanded && !_this._portal; }), rxjs_operators_take.take(1)).subscribe(function () {
-                _this._portal = new _angular_cdk_portal.TemplatePortal(_this._lazyContent._template, _this._viewContainerRef);
+            this.opened.pipe(startWith.startWith(/** @type {?} */ ((null))), filter.filter(function () { return _this.expanded && !_this._portal; }), take.take(1)).subscribe(function () {
+                _this._portal = new portal.TemplatePortal(_this._lazyContent._template, _this._viewContainerRef);
             });
         }
     };
@@ -311,13 +308,13 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         }
     };
     MatExpansionPanel.decorators = [
-        { type: _angular_core.Component, args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expansion-panel-content{overflow:hidden}.mat-expansion-panel-content.mat-expanded{overflow:visible}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion .mat-expansion-panel-spacing:first-child{margin-top:0}.mat-accordion .mat-expansion-panel-spacing:last-child{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
+        { type: core.Component, args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-expansion-panel-content{overflow:hidden}.mat-expansion-panel-content.mat-expanded{overflow:visible}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion .mat-expansion-panel-spacing:first-child{margin-top:0}.mat-accordion .mat-expansion-panel-spacing:last-child{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
                     selector: 'mat-expansion-panel',
                     exportAs: 'matExpansionPanel',
                     template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" role=\"region\" [@bodyExpansion]=\"_getExpandedState()\" (@bodyExpansion.done)=\"_bodyAnimation($event)\" (@bodyExpansion.start)=\"_bodyAnimation($event)\" [class.mat-expanded]=\"expanded\" [attr.aria-labelledby]=\"_headerId\" [id]=\"id\" #body><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled', 'expanded'],
                     outputs: ['opened', 'closed', 'expandedChange'],
                     animations: [matExpansionAnimations.bodyExpansion],
@@ -330,22 +327,22 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatExpansionPanel.ctorParameters = function () { return [
-        { type: MatAccordion, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Host },] },
-        { type: _angular_core.ChangeDetectorRef, },
-        { type: _angular_cdk_collections.UniqueSelectionDispatcher, },
-        { type: _angular_core.ViewContainerRef, },
+        { type: MatAccordion, decorators: [{ type: core.Optional }, { type: core.Host },] },
+        { type: core.ChangeDetectorRef, },
+        { type: collections.UniqueSelectionDispatcher, },
+        { type: core.ViewContainerRef, },
     ]; };
     MatExpansionPanel.propDecorators = {
-        "hideToggle": [{ type: _angular_core.Input },],
-        "_lazyContent": [{ type: _angular_core.ContentChild, args: [MatExpansionPanelContent,] },],
+        "hideToggle": [{ type: core.Input },],
+        "_lazyContent": [{ type: core.ContentChild, args: [MatExpansionPanelContent,] },],
     };
     return MatExpansionPanel;
-}(_angular_cdk_accordion.CdkAccordionItem));
+}(accordion.CdkAccordionItem));
 var MatExpansionPanelActionRow = /** @class */ (function () {
     function MatExpansionPanelActionRow() {
     }
     MatExpansionPanelActionRow.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-action-row',
                     host: {
                         class: 'mat-action-row'
@@ -361,7 +358,6 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * `<mat-expansion-panel-header>`
  *
@@ -374,10 +370,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._element = _element;
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
-        this._parentChangeSubscription = rxjs_Subscription.Subscription.EMPTY;
+        this._parentChangeSubscription = Subscription.Subscription.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to  subscribe and trigger change detection manually.
-        this._parentChangeSubscription = rxjs_observable_merge.merge(panel.opened, panel.closed, panel._inputChanges.pipe(rxjs_operators_filter.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
+        this._parentChangeSubscription = merge.merge(panel.opened, panel.closed, panel._inputChanges.pipe(filter.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         _focusMonitor.monitor(_element.nativeElement);
     }
@@ -455,8 +451,8 @@ var MatExpansionPanelHeader = /** @class */ (function () {
     function (event) {
         switch (event.keyCode) {
             // Toggle for space and enter keys.
-            case _angular_cdk_keycodes.SPACE:
-            case _angular_cdk_keycodes.ENTER:
+            case keycodes.SPACE:
+            case keycodes.ENTER:
                 event.preventDefault();
                 this._toggle();
                 break;
@@ -475,12 +471,12 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._focusMonitor.stopMonitoring(this._element.nativeElement);
     };
     MatExpansionPanelHeader.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-expansion-panel-header',
+        { type: core.Component, args: [{selector: 'mat-expansion-panel-header',
                     styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
                     template: "<span class=\"mat-content\"><ng-content select=\"mat-panel-title\"></ng-content><ng-content select=\"mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\" class=\"mat-expansion-indicator\"></span>",
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
                     animations: [
                         matExpansionAnimations.indicatorRotate,
                         matExpansionAnimations.expansionHeaderHeight
@@ -502,14 +498,14 @@ var MatExpansionPanelHeader = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatExpansionPanelHeader.ctorParameters = function () { return [
-        { type: MatExpansionPanel, decorators: [{ type: _angular_core.Host },] },
-        { type: _angular_core.ElementRef, },
-        { type: _angular_cdk_a11y.FocusMonitor, },
-        { type: _angular_core.ChangeDetectorRef, },
+        { type: MatExpansionPanel, decorators: [{ type: core.Host },] },
+        { type: core.ElementRef, },
+        { type: a11y.FocusMonitor, },
+        { type: core.ChangeDetectorRef, },
     ]; };
     MatExpansionPanelHeader.propDecorators = {
-        "expandedHeight": [{ type: _angular_core.Input },],
-        "collapsedHeight": [{ type: _angular_core.Input },],
+        "expandedHeight": [{ type: core.Input },],
+        "collapsedHeight": [{ type: core.Input },],
     };
     return MatExpansionPanelHeader;
 }());
@@ -522,7 +518,7 @@ var MatExpansionPanelDescription = /** @class */ (function () {
     function MatExpansionPanelDescription() {
     }
     MatExpansionPanelDescription.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-panel-description',
                     host: {
                         class: 'mat-expansion-panel-header-description'
@@ -542,7 +538,7 @@ var MatExpansionPanelTitle = /** @class */ (function () {
     function MatExpansionPanelTitle() {
     }
     MatExpansionPanelTitle.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-panel-title',
                     host: {
                         class: 'mat-expansion-panel-header-title'
@@ -558,13 +554,12 @@ var MatExpansionPanelTitle = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatExpansionModule = /** @class */ (function () {
     function MatExpansionModule() {
     }
     MatExpansionModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_common.CommonModule, _angular_cdk_a11y.A11yModule, _angular_cdk_accordion.CdkAccordionModule, _angular_cdk_portal.PortalModule],
+        { type: core.NgModule, args: [{
+                    imports: [common.CommonModule, a11y.A11yModule, accordion.CdkAccordionModule, portal.PortalModule],
                     exports: [
                         MatAccordion,
                         MatExpansionPanel,
@@ -583,7 +578,7 @@ var MatExpansionModule = /** @class */ (function () {
                         MatExpansionPanelDescription,
                         MatExpansionPanelContent,
                     ],
-                    providers: [_angular_cdk_collections.UNIQUE_SELECTION_DISPATCHER_PROVIDER]
+                    providers: [collections.UNIQUE_SELECTION_DISPATCHER_PROVIDER]
                 },] },
     ];
     /** @nocollapse */

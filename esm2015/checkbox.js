@@ -5,11 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
+import { InjectionToken, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, Directive, NgModule } from '@angular/core';
+import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { CheckboxRequiredValidator, NG_VALIDATORS, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { NG_VALUE_ACCESSOR, CheckboxRequiredValidator, NG_VALIDATORS } from '@angular/forms';
+import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, MatRippleModule, MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { ObserversModule } from '@angular/cdk/observers';
 
@@ -20,21 +20,20 @@ import { ObserversModule } from '@angular/cdk/observers';
 /**
  * Injection token that can be used to specify the checkbox click behavior.
  */
-const MAT_CHECKBOX_CLICK_ACTION = new InjectionToken('mat-checkbox-click-action');
+const /** @type {?} */ MAT_CHECKBOX_CLICK_ACTION = new InjectionToken('mat-checkbox-click-action');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 // Increasing integer for generating unique ids for checkbox components.
-let nextUniqueId = 0;
+let /** @type {?} */ nextUniqueId = 0;
 /**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
  */
-const MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
+const /** @type {?} */ MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatCheckbox),
     multi: true
@@ -70,7 +69,7 @@ class MatCheckboxBase {
         this._elementRef = _elementRef;
     }
 }
-const _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatCheckboxBase)), 'accent'));
+const /** @type {?} */ _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatCheckboxBase)), 'accent'));
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MatCheckbox can be either checked, unchecked, indeterminate, or
@@ -476,8 +475,7 @@ MatCheckbox.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-const MAT_CHECKBOX_REQUIRED_VALIDATOR = {
+const /** @type {?} */ MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => MatCheckboxRequiredValidator),
     multi: true
@@ -504,7 +502,6 @@ MatCheckboxRequiredValidator.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatCheckboxModule {
 }
 MatCheckboxModule.decorators = [
@@ -525,9 +522,6 @@ MatCheckboxModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MAT_CHECKBOX_CLICK_ACTION, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator };

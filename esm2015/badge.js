@@ -5,18 +5,17 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, ElementRef, Inject, Input, NgModule, NgZone, Optional } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
-import { A11yModule, AriaDescriber } from '@angular/cdk/a11y';
+import { Directive, Input, ElementRef, Inject, Optional, NgZone, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { AriaDescriber, A11yModule } from '@angular/cdk/a11y';
 import { DOCUMENT } from '@angular/common';
+import { MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-let nextId = 0;
+let /** @type {?} */ nextId = 0;
 /**
  * Directive to display a text badge.
  */
@@ -245,7 +244,6 @@ MatBadge.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatBadgeModule {
 }
 MatBadgeModule.decorators = [
@@ -273,9 +271,6 @@ MatBadgeModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatBadgeModule, MatBadge };

@@ -5,24 +5,23 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule, FocusKeyManager, FocusMonitor, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
-import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { ApplicationRef, ChangeDetectionStrategy, Component, ComponentFactoryResolver, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Injector, Input, NgModule, NgZone, Optional, Output, Self, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { MatCommonModule, MatRippleModule, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
-import { DomPortalOutlet, PortalModule, TemplatePortal } from '@angular/cdk/portal';
+import { trigger, state, style, animate, transition, query, group, sequence } from '@angular/animations';
+import { __extends } from 'tslib';
+import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader, A11yModule } from '@angular/cdk/a11y';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Inject, Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, ContentChild, ContentChildren, EventEmitter, InjectionToken, Input, Output, ViewChild, NgZone, Optional, Self, NgModule } from '@angular/core';
+import { mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { Subject } from 'rxjs/Subject';
+import { DOCUMENT, CommonModule } from '@angular/common';
+import { TemplatePortal, DomPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { take } from 'rxjs/operators/take';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
-import { animate, group, query, sequence, state, style, transition, trigger } from '@angular/animations';
-import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
-import { Subject } from 'rxjs/Subject';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Directionality } from '@angular/cdk/bidi';
+import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { filter } from 'rxjs/operators/filter';
 import { of } from 'rxjs/observable/of';
 
@@ -30,13 +29,12 @@ import { of } from 'rxjs/observable/of';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by the mat-menu component.
  * Animation duration and timing values are based on:
  * https://material.io/guidelines/components/menus.html#menus-usage
  */
-var matMenuAnimations = {
+var /** @type {?} */ matMenuAnimations = {
     /**
        * This animation controls the menu panel's entry and exit from the page.
        *
@@ -80,12 +78,12 @@ var matMenuAnimations = {
  * @deprecated
  * \@deletion-target 7.0.0
  */
-var fadeInItems = matMenuAnimations.fadeInItems;
+var /** @type {?} */ fadeInItems = matMenuAnimations.fadeInItems;
 /**
  * @deprecated
  * \@deletion-target 7.0.0
  */
-var transformMenu = matMenuAnimations.transformMenu;
+var /** @type {?} */ transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
@@ -123,16 +121,18 @@ function throwMatMenuInvalidPositionY() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
-var MatMenuItemBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatMenuItemBase = /** @class */ (function () {
     function MatMenuItemBase() {
     }
     return MatMenuItemBase;
 }());
-var _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase));
+var /** @type {?} */ _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase));
 /**
  * This directive is intended to be used inside an mat-menu tag.
  * It exists mostly to set the role attribute.
@@ -313,7 +313,6 @@ var MatMenuItem = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Menu content that will be rendered lazily once the menu is opened.
  */
@@ -393,21 +392,15 @@ var MatMenuContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Default `mat-menu` options that can be overridden.
- * @record
- */
-
 /**
  * Injection token to be used to override the default options for `mat-menu`.
  */
-var MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options');
+var /** @type {?} */ MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options');
 /**
  * Start elevation for the menu panel.
  * \@docs-private
  */
-var MAT_MENU_BASE_ELEVATION = 2;
+var /** @type {?} */ MAT_MENU_BASE_ELEVATION = 2;
 var MatMenu = /** @class */ (function () {
     function MatMenu(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
@@ -793,11 +786,10 @@ var MatMenu = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Injection token that determines the scroll handling while the menu is open.
  */
-var MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy');
+var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -809,7 +801,7 @@ function MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
 /**
  * \@docs-private
  */
-var MAT_MENU_SCROLL_STRATEGY_PROVIDER = {
+var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_MENU_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY,
@@ -817,7 +809,7 @@ var MAT_MENU_SCROLL_STRATEGY_PROVIDER = {
 /**
  * Default top padding of the menu panel.
  */
-var MENU_PANEL_TOP_PADDING = 8;
+var /** @type {?} */ MENU_PANEL_TOP_PADDING = 8;
 /**
  * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
@@ -1356,7 +1348,6 @@ var MatMenuTrigger = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var ɵ0 = {
     overlapTrigger: true,
     xPosition: 'after',
@@ -1406,9 +1397,6 @@ var MatMenuModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Generated bundle index. Do not edit.
- */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa24, _MatMenuItemMixinBase as ɵb24, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd24, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc24 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa23, _MatMenuItemMixinBase as ɵb23, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd23, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc23 };
 //# sourceMappingURL=menu.es5.js.map

@@ -5,15 +5,15 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, LOCALE_ID, NgModule, NgZone, Optional, Output, ViewEncapsulation, isDevMode } from '@angular/core';
+import { NgModule, InjectionToken, Optional, Inject, isDevMode, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
 import { BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
 import { HammerGestureConfig } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
+import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -42,11 +42,10 @@ AnimationDurations.EXITING = '195ms';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
-const MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks');
+const /** @type {?} */ MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks');
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, etc.
@@ -156,12 +155,6 @@ MatCommonModule.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * \@docs-private
- * @record
- */
-
 /**
  * Mixin to augment a directive with a `disabled` property.
  * @template T
@@ -193,17 +186,6 @@ function mixinDisabled(base) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * \@docs-private
- * @record
- */
-
-/**
- * \@docs-private
- * @record
- */
-
 /**
  * Mixin to augment a directive with a `color` property.
  * @template T
@@ -248,12 +230,6 @@ function mixinColor(base, defaultColor) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * \@docs-private
- * @record
- */
-
 /**
  * Mixin to augment a directive with a `disableRipple` property.
  * @template T
@@ -286,12 +262,6 @@ function mixinDisableRipple(base) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * \@docs-private
- * @record
- */
-
 /**
  * Mixin to augment a directive with a `tabIndex` property.
  * @template T
@@ -327,17 +297,6 @@ function mixinTabIndex(base, defaultTabIndex = 0) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * \@docs-private
- * @record
- */
-
-/**
- * \@docs-private
- * @record
- */
-
 /**
  * Mixin to augment a directive with updateErrorState method.
  * For component with `errorState` and need to update `errorState`.
@@ -383,16 +342,6 @@ function mixinErrorState(base) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Mixin that adds an initialized property to a directive which, when subscribed to, will emit a
- * value once markInitialized has been called, which should be done during the ngOnInit function.
- * If the subscription is made after it has already been marked as initialized, then it will trigger
- * an emit immediately.
- * \@docs-private
- * @record
- */
-
 /**
  * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
  * @template T
@@ -467,15 +416,14 @@ function mixinInitialized(base) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
  */
-const MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE');
+const /** @type {?} */ MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE');
 /**
  * Provider for MAT_DATE_LOCALE injection token.
  */
-const MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID };
+const /** @type {?} */ MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID };
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
@@ -569,22 +517,20 @@ class DateAdapter {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
+const /** @type {?} */ MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Whether the browser supports the Intl API.
  */
-const SUPPORTS_INTL_API = typeof Intl != 'undefined';
+const /** @type {?} */ SUPPORTS_INTL_API = typeof Intl != 'undefined';
 /**
  * The default month names to use if Intl API is not available.
  */
-const DEFAULT_MONTH_NAMES = {
+const /** @type {?} */ DEFAULT_MONTH_NAMES = {
     'long': [
         'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
         'October', 'November', 'December'
@@ -592,15 +538,15 @@ const DEFAULT_MONTH_NAMES = {
     'short': ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 };
-const ɵ0$1 = i => String(i + 1);
+const ɵ0 = i => String(i + 1);
 /**
  * The default date names to use if Intl API is not available.
  */
-const DEFAULT_DATE_NAMES = range(31, ɵ0$1);
+const /** @type {?} */ DEFAULT_DATE_NAMES = range(31, ɵ0);
 /**
  * The default day of the week names to use if Intl API is not available.
  */
-const DEFAULT_DAY_OF_WEEK_NAMES = {
+const /** @type {?} */ DEFAULT_DAY_OF_WEEK_NAMES = {
     'long': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     'short': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     'narrow': ['S', 'M', 'T', 'W', 'T', 'F', 'S']
@@ -610,7 +556,7 @@ const DEFAULT_DAY_OF_WEEK_NAMES = {
  * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
  * because the regex will match strings an with out of bounds month, date, etc.
  */
-const ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
+const /** @type {?} */ ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 /**
  * Creates an array and fills it with values.
  * @template T
@@ -956,7 +902,7 @@ NativeDateAdapter.ctorParameters = () => [
  * @suppress {checkTypes} checked by tsc
  */
 
-const MAT_NATIVE_DATE_FORMATS = {
+const /** @type {?} */ MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
     },
@@ -972,7 +918,6 @@ const MAT_NATIVE_DATE_FORMATS = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class NativeDateModule {
 }
 NativeDateModule.decorators = [
@@ -986,13 +931,13 @@ NativeDateModule.decorators = [
 ];
 /** @nocollapse */
 NativeDateModule.ctorParameters = () => [];
-const ɵ0$$1 = MAT_NATIVE_DATE_FORMATS;
+const ɵ0$1 = MAT_NATIVE_DATE_FORMATS;
 class MatNativeDateModule {
 }
 MatNativeDateModule.decorators = [
     { type: NgModule, args: [{
                 imports: [NativeDateModule],
-                providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$$1 }],
+                providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$1 }],
             },] },
 ];
 /** @nocollapse */
@@ -1002,7 +947,6 @@ MatNativeDateModule.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Error state matcher that matches when a control is invalid and dirty.
  */
@@ -1044,12 +988,11 @@ ErrorStateMatcher.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Injection token that can be used to provide options to the Hammerjs instance.
  * More info at http://hammerjs.github.io/api/.
  */
-const MAT_HAMMER_OPTIONS = new InjectionToken('MAT_HAMMER_OPTIONS');
+const /** @type {?} */ MAT_HAMMER_OPTIONS = new InjectionToken('MAT_HAMMER_OPTIONS');
 /**
  * Adjusts configuration of our gesture library, Hammer.
  */
@@ -1134,7 +1077,6 @@ GestureConfig.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Shared directive to count lines inside a text area, such as a list item.
  * Line elements can be extracted with a \@ContentChildren(MatLine) query, then
@@ -1262,23 +1204,10 @@ class RippleRef {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Interface that describes the configuration for the animation of a ripple.
- * There are two animation phases with different durations for the ripples.
- * @record
- */
-
-/**
- * Interface that describes the target for launching ripples.
- * It defines the ripple configuration and disabled state for interaction ripples.
- * \@docs-private
- * @record
- */
-
-/**
  * Default ripple animation configuration for ripples without an explicit
  * animation config specified.
  */
-const defaultRippleAnimationConfig = {
+const /** @type {?} */ defaultRippleAnimationConfig = {
     enterDuration: 450,
     exitDuration: 400
 };
@@ -1286,7 +1215,7 @@ const defaultRippleAnimationConfig = {
  * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
  * events to avoid synthetic mouse events.
  */
-const ignoreMouseEventsTimeout = 800;
+const /** @type {?} */ ignoreMouseEventsTimeout = 800;
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
@@ -1514,16 +1443,10 @@ function distanceToFurthestCorner(x, y, rect) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Configurable options for `matRipple`.
- * @record
- */
-
 /**
  * Injection token that can be used to specify the global ripple options.
  */
-const MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('mat-ripple-global-options');
+const /** @type {?} */ MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('mat-ripple-global-options');
 class MatRipple {
     /**
      * @param {?} _elementRef
@@ -1681,7 +1604,6 @@ MatRipple.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatRippleModule {
 }
 MatRippleModule.decorators = [
@@ -1698,7 +1620,6 @@ MatRippleModule.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
  * Meant to be used when the checkbox is purely decorative and a large number of them will be
@@ -1750,7 +1671,6 @@ MatPseudoCheckbox.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatPseudoCheckboxModule {
 }
 MatPseudoCheckboxModule.decorators = [
@@ -1766,15 +1686,14 @@ MatPseudoCheckboxModule.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
 class MatOptgroupBase {
 }
-const _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
+const /** @type {?} */ _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
 // Counter for unique group ids.
-let _uniqueOptgroupIdCounter = 0;
+let /** @type {?} */ _uniqueOptgroupIdCounter = 0;
 /**
  * Component that is used to group instances of `mat-option`.
  */
@@ -1815,12 +1734,11 @@ MatOptgroup.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Option IDs need to be unique across components, so this counter exists outside of
  * the component definition.
  */
-let _uniqueIdCounter = 0;
+let /** @type {?} */ _uniqueIdCounter = 0;
 /**
  * Event object emitted by MatOption when selected or deselected.
  */
@@ -1835,16 +1753,9 @@ class MatOptionSelectionChange {
     }
 }
 /**
- * Describes a parent component that manages a list of options.
- * Contains properties that the options can inherit.
- * \@docs-private
- * @record
- */
-
-/**
  * Injection token used to provide the parent component to options.
  */
-const MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPONENT');
+const /** @type {?} */ MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPONENT');
 /**
  * Single option inside of a `<mat-select>` element.
  */
@@ -2128,7 +2039,6 @@ function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPositi
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatOptionModule {
 }
 MatOptionModule.decorators = [
@@ -2145,15 +2055,10 @@ MatOptionModule.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * InjectionToken that can be used to specify the global label options.
  */
-const MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
-/**
- * Configurable options for floating labels.
- * @record
- */
+const /** @type {?} */ MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
 
 /**
  * @fileoverview added by tsickle
@@ -2164,18 +2069,8 @@ const MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
  */
-const JAN = 0;
-const FEB = 1;
-const MAR = 2;
-const APR = 3;
-const MAY = 4;
-const JUN = 5;
-const JUL = 6;
-const AUG = 7;
-const SEP = 8;
-const OCT = 9;
-const NOV = 10;
-const DEC = 11;
+const /** @type {?} */ JAN = 0, /** @type {?} */ FEB = 1, /** @type {?} */ MAR = 2, /** @type {?} */ APR = 3, /** @type {?} */ MAY = 4, /** @type {?} */ JUN = 5, /** @type {?} */ JUL = 6, /** @type {?} */ AUG = 7, /** @type {?} */ SEP = 8, /** @type {?} */
+OCT = 9, /** @type {?} */ NOV = 10, /** @type {?} */ DEC = 11;
 
 /**
  * @fileoverview added by tsickle
@@ -2185,9 +2080,6 @@ const DEC = 11;
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MAT_LABEL_GLOBAL_OPTIONS as MAT_PLACEHOLDER_GLOBAL_OPTIONS, AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC };

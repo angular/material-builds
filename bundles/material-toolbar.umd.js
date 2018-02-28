@@ -7,9 +7,9 @@
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/platform'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core', '@angular/cdk/platform', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = global.ng.material.toolbar || {}),global.ng.core,global.ng.material.core,global.ng.cdk.platform,global.ng.common));
-}(this, (function (exports,_angular_core,_angular_material_core,_angular_cdk_platform,_angular_common) { 'use strict';
+	typeof define === 'function' && define.amd ? define('@angular/material/toolbar', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/platform', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.toolbar = {}),global.ng.core,global.ng.material.core,global.ng.cdk.platform,global.ng.common));
+}(this, (function (exports,core,core$1,platform,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -41,22 +41,24 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
-var MatToolbarBase = /** @class */ (function () {
+var   /**
+ * \@docs-private
+ */
+MatToolbarBase = /** @class */ (function () {
     function MatToolbarBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatToolbarBase;
 }());
-var _MatToolbarMixinBase = _angular_material_core.mixinColor(MatToolbarBase);
+var /** @type {?} */ _MatToolbarMixinBase = core$1.mixinColor(MatToolbarBase);
 var MatToolbarRow = /** @class */ (function () {
     function MatToolbarRow() {
     }
     MatToolbarRow.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-toolbar-row',
                     exportAs: 'matToolbarRow',
                     host: { 'class': 'mat-toolbar-row' },
@@ -84,7 +86,7 @@ var MatToolbar = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        if (!_angular_core.isDevMode() || !this._platform.isBrowser) {
+        if (!core.isDevMode() || !this._platform.isBrowser) {
             return;
         }
         this._checkToolbarMixedModes();
@@ -114,7 +116,7 @@ var MatToolbar = /** @class */ (function (_super) {
         }
     };
     MatToolbar.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-toolbar',
+        { type: core.Component, args: [{selector: 'mat-toolbar',
                     exportAs: 'matToolbar',
                     template: "<ng-content></ng-content><ng-content select=\"mat-toolbar-row\"></ng-content>",
                     styles: [".mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}.mat-toolbar-multiple-rows{min-height:64px}.mat-toolbar-row,.mat-toolbar-single-row{height:64px}@media (max-width:599px){.mat-toolbar-multiple-rows{min-height:56px}.mat-toolbar-row,.mat-toolbar-single-row{height:56px}}"],
@@ -124,19 +126,19 @@ var MatToolbar = /** @class */ (function (_super) {
                         '[class.mat-toolbar-multiple-rows]': 'this._toolbarRows.length',
                         '[class.mat-toolbar-single-row]': '!this._toolbarRows.length'
                     },
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
     MatToolbar.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_cdk_platform.Platform, },
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
+        { type: core.ElementRef, },
+        { type: platform.Platform, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatToolbar.propDecorators = {
-        "_toolbarRows": [{ type: _angular_core.ContentChildren, args: [MatToolbarRow,] },],
+        "_toolbarRows": [{ type: core.ContentChildren, args: [MatToolbarRow,] },],
     };
     return MatToolbar;
 }(_MatToolbarMixinBase));
@@ -155,14 +157,13 @@ function throwToolbarMixedModesError() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatToolbarModule = /** @class */ (function () {
     function MatToolbarModule() {
     }
     MatToolbarModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_material_core.MatCommonModule, _angular_cdk_platform.PlatformModule],
-                    exports: [MatToolbar, MatToolbarRow, _angular_material_core.MatCommonModule],
+        { type: core.NgModule, args: [{
+                    imports: [core$1.MatCommonModule, platform.PlatformModule],
+                    exports: [MatToolbar, MatToolbarRow, core$1.MatCommonModule],
                     declarations: [MatToolbar, MatToolbarRow],
                 },] },
     ];

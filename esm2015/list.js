@@ -5,34 +5,33 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { CommonModule } from '@angular/common';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MatCommonModule, MatLine, MatLineModule, MatLineSetter, MatPseudoCheckboxModule, MatRippleModule, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, Optional, ViewEncapsulation, Attribute, ChangeDetectorRef, EventEmitter, forwardRef, Inject, Input, Output, ViewChild, NgModule } from '@angular/core';
+import { MatLine, MatLineSetter, mixinDisableRipple, mixinDisabled, mixinTabIndex, MatCommonModule, MatLineModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { END, ENTER, HOME, SPACE } from '@angular/cdk/keycodes';
+import { SPACE, ENTER, HOME, END } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { CommonModule } from '@angular/common';
 import { MatDividerModule } from '@angular/material/divider';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
 class MatListBase {
 }
-const _MatListMixinBase = mixinDisableRipple(MatListBase);
+const /** @type {?} */ _MatListMixinBase = mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
 class MatListItemBase {
 }
-const _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
+const /** @type {?} */ _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
 class MatNavList extends _MatListMixinBase {
 }
 MatNavList.decorators = [
@@ -192,23 +191,22 @@ MatListItem.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
 class MatSelectionListBase {
 }
-const _MatSelectionListMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatSelectionListBase)));
+const /** @type {?} */ _MatSelectionListMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatSelectionListBase)));
 /**
  * \@docs-private
  */
 class MatListOptionBase {
 }
-const _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
+const /** @type {?} */ _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
 /**
  * \@docs-private
  */
-const MAT_SELECTION_LIST_VALUE_ACCESSOR = {
+const /** @type {?} */ MAT_SELECTION_LIST_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatSelectionList),
     multi: true
@@ -755,7 +753,6 @@ MatSelectionList.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatListModule {
 }
 MatListModule.decorators = [
@@ -798,9 +795,6 @@ MatListModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatNavList, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatListOptionChange, MatSelectionListChange, MatListOption, MatSelectionList };

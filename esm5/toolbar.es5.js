@@ -5,28 +5,29 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Inject, NgModule, ViewEncapsulation, isDevMode } from '@angular/core';
-import { MatCommonModule, mixinColor } from '@angular/material/core';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
+import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, isDevMode, ViewEncapsulation, Inject, NgModule } from '@angular/core';
+import { mixinColor, MatCommonModule } from '@angular/material/core';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
-var MatToolbarBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatToolbarBase = /** @class */ (function () {
     function MatToolbarBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatToolbarBase;
 }());
-var _MatToolbarMixinBase = mixinColor(MatToolbarBase);
+var /** @type {?} */ _MatToolbarMixinBase = mixinColor(MatToolbarBase);
 var MatToolbarRow = /** @class */ (function () {
     function MatToolbarRow() {
     }
@@ -130,7 +131,6 @@ function throwToolbarMixedModesError() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatToolbarModule = /** @class */ (function () {
     function MatToolbarModule() {
     }
@@ -154,9 +154,6 @@ var MatToolbarModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatToolbarModule, MatToolbarBase, _MatToolbarMixinBase, MatToolbarRow, MatToolbar, throwToolbarMixedModesError };

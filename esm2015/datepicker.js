@@ -5,26 +5,26 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule } from '@angular/cdk/a11y';
-import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Input, NgModule, NgZone, Optional, Output, ViewChild, ViewContainerRef, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { DateAdapter, MAT_DATE_FORMATS, mixinColor } from '@angular/material/core';
+import { Injectable, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewEncapsulation, NgZone, ChangeDetectorRef, Inject, Optional, ViewChild, InjectionToken, ViewContainerRef, Directive, forwardRef, ContentChild, NgModule } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { DOWN_ARROW, END, ENTER, ESCAPE, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
-import { Directionality } from '@angular/cdk/bidi';
 import { take } from 'rxjs/operators/take';
+import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, ESCAPE } from '@angular/cdk/keycodes';
+import { DateAdapter, MAT_DATE_FORMATS, mixinColor } from '@angular/material/core';
+import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { filter } from 'rxjs/operators/filter';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs/Subscription';
 import { merge } from 'rxjs/observable/merge';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 import { of } from 'rxjs/observable/of';
+import { A11yModule } from '@angular/cdk/a11y';
+import { MatButtonModule } from '@angular/material/button';
 
 /**
  * @fileoverview added by tsickle
@@ -46,7 +46,6 @@ function createMissingDateImplError(provider) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Datepicker data that requires internationalization.
  */
@@ -109,7 +108,6 @@ MatDatepickerIntl.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * An internal class that represents the data corresponding to a single calendar cell.
  * \@docs-private
@@ -242,8 +240,7 @@ MatCalendarBody.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-const DAYS_PER_WEEK = 7;
+const /** @type {?} */ DAYS_PER_WEEK = 7;
 /**
  * An internal component used to display a single month in the datepicker.
  * \@docs-private
@@ -545,9 +542,8 @@ MatMonthView.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-const yearsPerPage = 24;
-const yearsPerRow = 4;
+const /** @type {?} */ yearsPerPage = 24;
+const /** @type {?} */ yearsPerRow = 4;
 /**
  * An internal component used to display a year selector in the datepicker.
  * \@docs-private
@@ -806,7 +802,6 @@ MatMultiYearView.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * An internal component used to display a single year in the datepicker.
  * \@docs-private
@@ -1099,7 +1094,6 @@ MatYearView.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * A calendar that is used as part of the datepicker.
  * \@docs-private
@@ -1428,15 +1422,14 @@ MatCalendar.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Used to generate a unique ID for each datepicker instance.
  */
-let datepickerUid = 0;
+let /** @type {?} */ datepickerUid = 0;
 /**
  * Injection token that determines the scroll handling while the calendar is open.
  */
-const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy');
+const /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -1448,7 +1441,7 @@ function MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
 /**
  * \@docs-private
  */
-const MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = {
+const /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_DATEPICKER_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY,
@@ -1464,7 +1457,7 @@ class MatDatepickerContentBase {
         this._elementRef = _elementRef;
     }
 }
-const _MatDatepickerContentMixinBase = mixinColor(MatDatepickerContentBase);
+const /** @type {?} */ _MatDatepickerContentMixinBase = mixinColor(MatDatepickerContentBase);
 /**
  * Component used as the content for the datepicker dialog and popup. We use this instead of using
  * MatCalendar directly as the content so we can control the initial focus. This also gives us a
@@ -1921,13 +1914,12 @@ MatDatepicker.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-const MAT_DATEPICKER_VALUE_ACCESSOR = {
+const /** @type {?} */ MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatDatepickerInput),
     multi: true
 };
-const MAT_DATEPICKER_VALIDATORS = {
+const /** @type {?} */ MAT_DATEPICKER_VALIDATORS = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => MatDatepickerInput),
     multi: true
@@ -2303,7 +2295,6 @@ MatDatepickerInput.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Can be used to override the icon of a `matDatepickerToggle`.
  */
@@ -2416,7 +2407,6 @@ MatDatepickerToggle.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatDatepickerModule {
 }
 MatDatepickerModule.decorators = [
@@ -2472,9 +2462,6 @@ MatDatepickerModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatDatepickerModule, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MatDatepickerContentBase, _MatDatepickerContentMixinBase, MatDatepickerContent, MatDatepicker, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };

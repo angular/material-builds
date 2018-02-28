@@ -5,11 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { Directive, ViewContainerRef, Attribute, ContentChildren, ElementRef, Input, ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
-import { Attribute, ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Input, NgModule, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { CdkNestedTreeNode, CdkTree, CdkTreeModule, CdkTreeNode, CdkTreeNodeDef, CdkTreeNodePadding, CdkTreeNodeToggle } from '@angular/cdk/tree';
-import { MatCommonModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { CdkNestedTreeNode, CdkTree, CdkTreeNodeDef, CdkTreeNode, CdkTreeNodePadding, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
+import { mixinTabIndex, mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { DataSource } from '@angular/cdk/collections';
 import { merge } from 'rxjs/observable/merge';
@@ -45,9 +44,8 @@ var MatTreeNodeOutlet = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-var _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
-var _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkNestedTreeNode));
+var /** @type {?} */ _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
+var /** @type {?} */ _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkNestedTreeNode));
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */
@@ -182,7 +180,6 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Wrapper for the CdkTable with Material design styles.
  */
@@ -218,7 +215,6 @@ var MatTree = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  */
@@ -250,8 +246,7 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-var MAT_TREE_DIRECTIVES = [
+var /** @type {?} */ MAT_TREE_DIRECTIVES = [
     MatNestedTreeNode,
     MatTreeNodeDef,
     MatTreeNodePadding,
@@ -279,7 +274,6 @@ var MatTreeModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Tree flattener to convert a normal type of node to node with children & level information.
  * Transform nested nodes of type `T` to flattened nodes of type `F`.
@@ -314,7 +308,41 @@ var MatTreeModule = /** @class */ (function () {
  * }
  * and the output flattened type is `F` with additional information.
  */
-var MatTreeFlattener = /** @class */ (function () {
+var  /**
+ * Tree flattener to convert a normal type of node to node with children & level information.
+ * Transform nested nodes of type `T` to flattened nodes of type `F`.
+ *
+ * For example, the input data of type `T` is nested, and contains its children data:
+ *   SomeNode: {
+ *     key: 'Fruits',
+ *     children: [
+ *       NodeOne: {
+ *         key: 'Apple',
+ *       },
+ *       NodeTwo: {
+ *        key: 'Pear',
+ *      }
+ *    ]
+ *  }
+ *  After flattener flatten the tree, the structure will become
+ *  SomeNode: {
+ *    key: 'Fruits',
+ *    expandable: true,
+ *    level: 1
+ *  },
+ *  NodeOne: {
+ *    key: 'Apple',
+ *    expandable: false,
+ *    level: 2
+ *  },
+ *  NodeTwo: {
+ *   key: 'Pear',
+ *   expandable: false,
+ *   level: 2
+ * }
+ * and the output flattened type is `F` with additional information.
+ */
+MatTreeFlattener = /** @class */ (function () {
     function MatTreeFlattener(transformFunction, getLevel, isExpandable, getChildren) {
         this.transformFunction = transformFunction;
         this.getLevel = getLevel;
@@ -421,7 +449,14 @@ var MatTreeFlattener = /** @class */ (function () {
  * The nested tree nodes of type `T` are flattened through `MatTreeFlattener`, and converted
  * to type `F` for `MatTree` to consume.
  */
-var MatTreeFlatDataSource = /** @class */ (function (_super) {
+var  /**
+ * Data source for flat tree.
+ * The data source need to handle expansion/collapsion of the tree node and change the data feed
+ * to `MatTree`.
+ * The nested tree nodes of type `T` are flattened through `MatTreeFlattener`, and converted
+ * to type `F` for `MatTree` to consume.
+ */
+MatTreeFlatDataSource = /** @class */ (function (_super) {
     __extends(MatTreeFlatDataSource, _super);
     function MatTreeFlatDataSource(treeControl, treeFlattener, initialData) {
         if (initialData === void 0) { initialData = []; }
@@ -486,14 +521,19 @@ var MatTreeFlatDataSource = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Data source for nested tree.
  *
  * The data source for nested tree doesn't have to consider node flattener, or the way to expand
  * or collapse. The expansion/collapsion will be handled by TreeControl and each non-leaf node.
  */
-var MatTreeNestedDataSource = /** @class */ (function (_super) {
+var  /**
+ * Data source for nested tree.
+ *
+ * The data source for nested tree doesn't have to consider node flattener, or the way to expand
+ * or collapse. The expansion/collapsion will be handled by TreeControl and each non-leaf node.
+ */
+MatTreeNestedDataSource = /** @class */ (function (_super) {
     __extends(MatTreeNestedDataSource, _super);
     function MatTreeNestedDataSource() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
@@ -552,9 +592,6 @@ var MatTreeNestedDataSource = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Generated bundle index. Do not edit.
- */
 
-export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa14 };
+export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa13 };
 //# sourceMappingURL=tree.es5.js.map

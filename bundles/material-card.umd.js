@@ -7,15 +7,14 @@
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.card = global.ng.material.card || {}),global.ng.core,global.ng.material.core));
-}(this, (function (exports,_angular_core,_angular_material_core) { 'use strict';
+	typeof define === 'function' && define.amd ? define('@angular/material/card', ['exports', '@angular/core', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.card = {}),global.ng.core,global.ng.material.core));
+}(this, (function (exports,core,core$1) { 'use strict';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Content of a card, needed as it's used as a selector in the API.
  * \@docs-private
@@ -24,7 +23,7 @@ var MatCardContent = /** @class */ (function () {
     function MatCardContent() {
     }
     MatCardContent.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-card-content',
                     host: { 'class': 'mat-card-content' }
                 },] },
@@ -41,7 +40,7 @@ var MatCardTitle = /** @class */ (function () {
     function MatCardTitle() {
     }
     MatCardTitle.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: "mat-card-title, [mat-card-title], [matCardTitle]",
                     host: {
                         'class': 'mat-card-title'
@@ -60,7 +59,7 @@ var MatCardSubtitle = /** @class */ (function () {
     function MatCardSubtitle() {
     }
     MatCardSubtitle.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: "mat-card-subtitle, [mat-card-subtitle], [matCardSubtitle]",
                     host: {
                         'class': 'mat-card-subtitle'
@@ -83,7 +82,7 @@ var MatCardActions = /** @class */ (function () {
         this.align = 'start';
     }
     MatCardActions.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-card-actions',
                     exportAs: 'matCardActions',
                     host: {
@@ -95,7 +94,7 @@ var MatCardActions = /** @class */ (function () {
     /** @nocollapse */
     MatCardActions.ctorParameters = function () { return []; };
     MatCardActions.propDecorators = {
-        "align": [{ type: _angular_core.Input },],
+        "align": [{ type: core.Input },],
     };
     return MatCardActions;
 }());
@@ -107,7 +106,7 @@ var MatCardFooter = /** @class */ (function () {
     function MatCardFooter() {
     }
     MatCardFooter.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-card-footer',
                     host: { 'class': 'mat-card-footer' }
                 },] },
@@ -124,7 +123,7 @@ var MatCardImage = /** @class */ (function () {
     function MatCardImage() {
     }
     MatCardImage.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[mat-card-image], [matCardImage]',
                     host: { 'class': 'mat-card-image' }
                 },] },
@@ -141,7 +140,7 @@ var MatCardSmImage = /** @class */ (function () {
     function MatCardSmImage() {
     }
     MatCardSmImage.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[mat-card-sm-image], [matCardImageSmall]',
                     host: { 'class': 'mat-card-sm-image' }
                 },] },
@@ -158,7 +157,7 @@ var MatCardMdImage = /** @class */ (function () {
     function MatCardMdImage() {
     }
     MatCardMdImage.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[mat-card-md-image], [matCardImageMedium]',
                     host: { 'class': 'mat-card-md-image' }
                 },] },
@@ -175,7 +174,7 @@ var MatCardLgImage = /** @class */ (function () {
     function MatCardLgImage() {
     }
     MatCardLgImage.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[mat-card-lg-image], [matCardImageLarge]',
                     host: { 'class': 'mat-card-lg-image' }
                 },] },
@@ -192,7 +191,7 @@ var MatCardXlImage = /** @class */ (function () {
     function MatCardXlImage() {
     }
     MatCardXlImage.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[mat-card-xl-image], [matCardImageXLarge]',
                     host: { 'class': 'mat-card-xl-image' }
                 },] },
@@ -209,7 +208,7 @@ var MatCardAvatar = /** @class */ (function () {
     function MatCardAvatar() {
     }
     MatCardAvatar.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[mat-card-avatar], [matCardAvatar]',
                     host: { 'class': 'mat-card-avatar' }
                 },] },
@@ -233,13 +232,13 @@ var MatCard = /** @class */ (function () {
     function MatCard() {
     }
     MatCard.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-card',
+        { type: core.Component, args: [{selector: 'mat-card',
                     exportAs: 'matCard',
                     template: "<ng-content></ng-content><ng-content select=\"mat-card-footer\"></ng-content>",
                     styles: [".mat-card{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:block;position:relative;padding:24px;border-radius:2px}.mat-card:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-card .mat-divider{position:absolute;left:0;width:100%}[dir=rtl] .mat-card .mat-divider{left:auto;right:0}.mat-card .mat-divider.mat-divider-inset{position:static;margin:0}@media screen and (-ms-high-contrast:active){.mat-card{outline:solid 1px}}.mat-card-flat{box-shadow:none}.mat-card-actions,.mat-card-content,.mat-card-subtitle,.mat-card-title{display:block;margin-bottom:16px}.mat-card-actions{margin-left:-16px;margin-right:-16px;padding:8px 0}.mat-card-actions-align-end{display:flex;justify-content:flex-end}.mat-card-image{width:calc(100% + 48px);margin:0 -24px 16px -24px}.mat-card-xl-image{width:240px;height:240px;margin:-8px}.mat-card-footer{display:block;margin:0 -24px -24px -24px}.mat-card-actions .mat-button,.mat-card-actions .mat-raised-button{margin:0 4px}.mat-card-header{display:flex;flex-direction:row}.mat-card-header-text{margin:0 8px}.mat-card-avatar{height:40px;width:40px;border-radius:50%;flex-shrink:0}.mat-card-lg-image,.mat-card-md-image,.mat-card-sm-image{margin:-8px 0}.mat-card-title-group{display:flex;justify-content:space-between;margin:0 -8px}.mat-card-sm-image{width:80px;height:80px}.mat-card-md-image{width:112px;height:112px}.mat-card-lg-image{width:152px;height:152px}@media (max-width:599px){.mat-card{padding:24px 16px}.mat-card-actions{margin-left:-8px;margin-right:-8px}.mat-card-image{width:calc(100% + 32px);margin:16px -16px}.mat-card-title-group{margin:0}.mat-card-xl-image{margin-left:0;margin-right:0}.mat-card-header{margin:-8px 0 0 0}.mat-card-footer{margin-left:-16px;margin-right:-16px}}.mat-card-content>:first-child,.mat-card>:first-child{margin-top:0}.mat-card-content>:last-child:not(.mat-card-footer),.mat-card>:last-child:not(.mat-card-footer){margin-bottom:0}.mat-card-image:first-child{margin-top:-24px}.mat-card>.mat-card-actions:last-child{margin-bottom:-16px;padding-bottom:0}.mat-card-actions .mat-button:first-child,.mat-card-actions .mat-raised-button:first-child{margin-left:0;margin-right:0}.mat-card-subtitle:not(:first-child),.mat-card-title:not(:first-child){margin-top:-4px}.mat-card-header .mat-card-subtitle:not(:first-child){margin-top:-8px}.mat-card>.mat-card-xl-image:first-child{margin-top:-8px}.mat-card>.mat-card-xl-image:last-child{margin-bottom:-8px}"],
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
                     host: { 'class': 'mat-card' }
                 },] },
     ];
@@ -256,11 +255,11 @@ var MatCardHeader = /** @class */ (function () {
     function MatCardHeader() {
     }
     MatCardHeader.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-card-header',
+        { type: core.Component, args: [{selector: 'mat-card-header',
                     template: "<ng-content select=\"[mat-card-avatar], [matCardAvatar]\"></ng-content><div class=\"mat-card-header-text\"><ng-content select=\"mat-card-title, mat-card-subtitle, [mat-card-title], [mat-card-subtitle], [matCardTitle], [matCardSubtitle]\"></ng-content></div><ng-content></ng-content>",
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
                     host: { 'class': 'mat-card-header' }
                 },] },
     ];
@@ -277,11 +276,11 @@ var MatCardTitleGroup = /** @class */ (function () {
     function MatCardTitleGroup() {
     }
     MatCardTitleGroup.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-card-title-group',
+        { type: core.Component, args: [{selector: 'mat-card-title-group',
                     template: "<div><ng-content select=\"mat-card-title, mat-card-subtitle, [mat-card-title], [mat-card-subtitle], [matCardTitle], [matCardSubtitle]\"></ng-content></div><ng-content select=\"img\"></ng-content><ng-content></ng-content>",
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
                     host: { 'class': 'mat-card-title-group' }
                 },] },
     ];
@@ -294,13 +293,12 @@ var MatCardTitleGroup = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatCardModule = /** @class */ (function () {
     function MatCardModule() {
     }
     MatCardModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_material_core.MatCommonModule],
+        { type: core.NgModule, args: [{
+                    imports: [core$1.MatCommonModule],
                     exports: [
                         MatCard,
                         MatCardHeader,
@@ -316,7 +314,7 @@ var MatCardModule = /** @class */ (function () {
                         MatCardImage,
                         MatCardXlImage,
                         MatCardAvatar,
-                        _angular_material_core.MatCommonModule,
+                        core$1.MatCommonModule,
                     ],
                     declarations: [
                         MatCard, MatCardHeader, MatCardTitleGroup, MatCardContent, MatCardTitle, MatCardSubtitle,

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/table'), require('rxjs/observable/merge'), require('@angular/material/core'), require('rxjs/Subject'), require('@angular/animations'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/table', 'rxjs/observable/merge', '@angular/material/core', 'rxjs/Subject', '@angular/animations', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = global.ng.material.sort || {}),global.ng.core,global.ng.cdk.coercion,global.ng.cdk.table,global.Rx.Observable,global.ng.material.core,global.Rx,global.ng.animations,global.ng.common));
-}(this, (function (exports,_angular_core,_angular_cdk_coercion,_angular_cdk_table,rxjs_observable_merge,_angular_material_core,rxjs_Subject,_angular_animations,_angular_common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs/Subject'), require('@angular/animations'), require('@angular/cdk/table'), require('rxjs/observable/merge'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/material/core', 'rxjs/Subject', '@angular/animations', '@angular/cdk/table', 'rxjs/observable/merge', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}),global.ng.core,global.ng.cdk.coercion,global.ng.material.core,global.Rx,global.ng.animations,global.ng.cdk.table,global.Rx.Observable,global.ng.common));
+}(this, (function (exports,core,coercion,core$1,Subject,animations,table,merge,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -77,26 +77,18 @@ function getSortInvalidDirectionError(direction) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Interface for a directive that holds sorting state consumed by `MatSortHeader`.
- * @record
- */
-
-/**
- * The current sort state.
- * @record
- */
-
 /**
  * \@docs-private
  */
-var MatSortBase = /** @class */ (function () {
+var   /**
+ * \@docs-private
+ */
+MatSortBase = /** @class */ (function () {
     function MatSortBase() {
     }
     return MatSortBase;
 }());
-var _MatSortMixinBase = _angular_material_core.mixinDisabled(MatSortBase);
+var /** @type {?} */ _MatSortMixinBase = core$1.mixinDisabled(MatSortBase);
 /**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
@@ -111,7 +103,7 @@ var MatSort = /** @class */ (function (_super) {
         /**
          * Used to notify any child components listening to state changes.
          */
-        _this._stateChanges = new rxjs_Subject.Subject();
+        _this._stateChanges = new Subject.Subject();
         /**
          * The direction to set when an MatSortable is initially sorted.
          * May be overriden by the MatSortable's sort start.
@@ -121,7 +113,7 @@ var MatSort = /** @class */ (function (_super) {
         /**
          * Event emitted when the user changes either the active sort or sort direction.
          */
-        _this.sortChange = new _angular_core.EventEmitter();
+        _this.sortChange = new core.EventEmitter();
         return _this;
     }
     Object.defineProperty(MatSort.prototype, "direction", {
@@ -135,7 +127,7 @@ var MatSort = /** @class */ (function (_super) {
          * @return {?}
          */
         function (direction) {
-            if (_angular_core.isDevMode() && direction && direction !== 'asc' && direction !== 'desc') {
+            if (core.isDevMode() && direction && direction !== 'asc' && direction !== 'desc') {
                 throw getSortInvalidDirectionError(direction);
             }
             this._direction = direction;
@@ -154,7 +146,7 @@ var MatSort = /** @class */ (function (_super) {
          * @param {?} v
          * @return {?}
          */
-        function (v) { this._disableClear = _angular_cdk_coercion.coerceBooleanProperty(v); },
+        function (v) { this._disableClear = coercion.coerceBooleanProperty(v); },
         enumerable: true,
         configurable: true
     });
@@ -267,7 +259,7 @@ var MatSort = /** @class */ (function (_super) {
         this._stateChanges.complete();
     };
     MatSort.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matSort]',
                     exportAs: 'matSort',
                     inputs: ['disabled: matSortDisabled']
@@ -276,11 +268,11 @@ var MatSort = /** @class */ (function (_super) {
     /** @nocollapse */
     MatSort.ctorParameters = function () { return []; };
     MatSort.propDecorators = {
-        "active": [{ type: _angular_core.Input, args: ['matSortActive',] },],
-        "start": [{ type: _angular_core.Input, args: ['matSortStart',] },],
-        "direction": [{ type: _angular_core.Input, args: ['matSortDirection',] },],
-        "disableClear": [{ type: _angular_core.Input, args: ['matSortDisableClear',] },],
-        "sortChange": [{ type: _angular_core.Output, args: ['matSortChange',] },],
+        "active": [{ type: core.Input, args: ['matSortActive',] },],
+        "start": [{ type: core.Input, args: ['matSortStart',] },],
+        "direction": [{ type: core.Input, args: ['matSortDirection',] },],
+        "disableClear": [{ type: core.Input, args: ['matSortDisableClear',] },],
+        "sortChange": [{ type: core.Output, args: ['matSortChange',] },],
     };
     return MatSort;
 }(_MatSortMixinBase));
@@ -305,7 +297,6 @@ function getSortDirectionCycle(start, disableClear) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
  * include it in a custom provider.
@@ -316,7 +307,7 @@ var MatSortHeaderIntl = /** @class */ (function () {
          * Stream that emits whenever the labels here are changed. Use this to notify
          * components if the labels have changed after initialization.
          */
-        this.changes = new rxjs_Subject.Subject();
+        this.changes = new Subject.Subject();
         /**
          * ARIA label for the sorting button.
          */
@@ -331,7 +322,7 @@ var MatSortHeaderIntl = /** @class */ (function () {
         };
     }
     MatSortHeaderIntl.decorators = [
-        { type: _angular_core.Injectable },
+        { type: core.Injectable },
     ];
     /** @nocollapse */
     MatSortHeaderIntl.ctorParameters = function () { return []; };
@@ -348,10 +339,10 @@ function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
 /**
  * \@docs-private
  */
-var MAT_SORT_HEADER_INTL_PROVIDER = {
+var /** @type {?} */ MAT_SORT_HEADER_INTL_PROVIDER = {
     // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
     provide: MatSortHeaderIntl,
-    deps: [[new _angular_core.Optional(), new _angular_core.SkipSelf(), MatSortHeaderIntl]],
+    deps: [[new core.Optional(), new core.SkipSelf(), MatSortHeaderIntl]],
     useFactory: MAT_SORT_HEADER_INTL_PROVIDER_FACTORY
 };
 
@@ -359,39 +350,39 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var SORT_ANIMATION_TRANSITION = _angular_material_core.AnimationDurations.ENTERING + ' ' +
-    _angular_material_core.AnimationCurves.STANDARD_CURVE;
+var /** @type {?} */ SORT_ANIMATION_TRANSITION = core$1.AnimationDurations.ENTERING + ' ' +
+    core$1.AnimationCurves.STANDARD_CURVE;
 /**
  * Animations used by MatSort.
  */
-var matSortAnimations = {
+var /** @type {?} */ matSortAnimations = {
     /** Animation that moves the sort indicator. */
-    indicator: _angular_animations.trigger('indicator', [
-        _angular_animations.state('active-asc, asc', _angular_animations.style({ transform: 'translateY(0px)' })),
+    indicator: animations.trigger('indicator', [
+        animations.state('active-asc, asc', animations.style({ transform: 'translateY(0px)' })),
         // 10px is the height of the sort indicator, minus the width of the pointers
-        _angular_animations.state('active-desc, desc', _angular_animations.style({ transform: 'translateY(10px)' })),
-        _angular_animations.transition('active-asc <=> active-desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+        animations.state('active-desc, desc', animations.style({ transform: 'translateY(10px)' })),
+        animations.transition('active-asc <=> active-desc', animations.animate(SORT_ANIMATION_TRANSITION))
     ]),
     /** Animation that rotates the left pointer of the indicator based on the sorting direction. */
-    leftPointer: _angular_animations.trigger('leftPointer', [
-        _angular_animations.state('active-asc, asc', _angular_animations.style({ transform: 'rotate(-45deg)' })),
-        _angular_animations.state('active-desc, desc', _angular_animations.style({ transform: 'rotate(45deg)' })),
-        _angular_animations.transition('active-asc <=> active-desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+    leftPointer: animations.trigger('leftPointer', [
+        animations.state('active-asc, asc', animations.style({ transform: 'rotate(-45deg)' })),
+        animations.state('active-desc, desc', animations.style({ transform: 'rotate(45deg)' })),
+        animations.transition('active-asc <=> active-desc', animations.animate(SORT_ANIMATION_TRANSITION))
     ]),
     /** Animation that rotates the right pointer of the indicator based on the sorting direction. */
-    rightPointer: _angular_animations.trigger('rightPointer', [
-        _angular_animations.state('active-asc, asc', _angular_animations.style({ transform: 'rotate(45deg)' })),
-        _angular_animations.state('active-desc, desc', _angular_animations.style({ transform: 'rotate(-45deg)' })),
-        _angular_animations.transition('active-asc <=> active-desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+    rightPointer: animations.trigger('rightPointer', [
+        animations.state('active-asc, asc', animations.style({ transform: 'rotate(45deg)' })),
+        animations.state('active-desc, desc', animations.style({ transform: 'rotate(-45deg)' })),
+        animations.transition('active-asc <=> active-desc', animations.animate(SORT_ANIMATION_TRANSITION))
     ]),
     /** Animation that controls the arrow opacity. */
-    arrowOpacity: _angular_animations.trigger('arrowOpacity', [
-        _angular_animations.state('desc-to-active, asc-to-active, active', _angular_animations.style({ opacity: 1 })),
-        _angular_animations.state('desc-to-hint, asc-to-hint, hint', _angular_animations.style({ opacity: .54 })),
-        _angular_animations.state('hint-to-desc, active-to-desc, desc, hint-to-asc, active-to-asc, asc', _angular_animations.style({ opacity: 0 })),
+    arrowOpacity: animations.trigger('arrowOpacity', [
+        animations.state('desc-to-active, asc-to-active, active', animations.style({ opacity: 1 })),
+        animations.state('desc-to-hint, asc-to-hint, hint', animations.style({ opacity: .54 })),
+        animations.state('hint-to-desc, active-to-desc, desc, hint-to-asc, active-to-asc, asc', animations.style({ opacity: 0 })),
         // Transition between all states except for immediate transitions
-        _angular_animations.transition('* => asc, * => desc, * => active, * => hint', _angular_animations.animate('0ms')),
-        _angular_animations.transition('* <=> *', _angular_animations.animate(SORT_ANIMATION_TRANSITION))
+        animations.transition('* => asc, * => desc, * => active, * => hint', animations.animate('0ms')),
+        animations.transition('* <=> *', animations.animate(SORT_ANIMATION_TRANSITION))
     ]),
     /**
        * Animation for the translation of the arrow as a whole. States are separated into two
@@ -400,35 +391,35 @@ var matSortAnimations = {
        * and are determined as a function of their prev user-perceived state and what the next state
        * should be.
        */
-    arrowPosition: _angular_animations.trigger('arrowPosition', [
+    arrowPosition: animations.trigger('arrowPosition', [
         // Hidden Above => Hint Center
-        _angular_animations.transition('* => desc-to-hint, * => desc-to-active', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
-            _angular_animations.style({ transform: 'translateY(-25%)' }),
-            _angular_animations.style({ transform: 'translateY(0)' })
+        animations.transition('* => desc-to-hint, * => desc-to-active', animations.animate(SORT_ANIMATION_TRANSITION, animations.keyframes([
+            animations.style({ transform: 'translateY(-25%)' }),
+            animations.style({ transform: 'translateY(0)' })
         ]))),
         // Hint Center => Hidden Below
-        _angular_animations.transition('* => hint-to-desc, * => active-to-desc', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
-            _angular_animations.style({ transform: 'translateY(0)' }),
-            _angular_animations.style({ transform: 'translateY(25%)' })
+        animations.transition('* => hint-to-desc, * => active-to-desc', animations.animate(SORT_ANIMATION_TRANSITION, animations.keyframes([
+            animations.style({ transform: 'translateY(0)' }),
+            animations.style({ transform: 'translateY(25%)' })
         ]))),
         // Hidden Below => Hint Center
-        _angular_animations.transition('* => asc-to-hint, * => asc-to-active', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
-            _angular_animations.style({ transform: 'translateY(25%)' }),
-            _angular_animations.style({ transform: 'translateY(0)' })
+        animations.transition('* => asc-to-hint, * => asc-to-active', animations.animate(SORT_ANIMATION_TRANSITION, animations.keyframes([
+            animations.style({ transform: 'translateY(25%)' }),
+            animations.style({ transform: 'translateY(0)' })
         ]))),
         // Hint Center => Hidden Above
-        _angular_animations.transition('* => hint-to-asc, * => active-to-asc', _angular_animations.animate(SORT_ANIMATION_TRANSITION, _angular_animations.keyframes([
-            _angular_animations.style({ transform: 'translateY(0)' }),
-            _angular_animations.style({ transform: 'translateY(-25%)' })
+        animations.transition('* => hint-to-asc, * => active-to-asc', animations.animate(SORT_ANIMATION_TRANSITION, animations.keyframes([
+            animations.style({ transform: 'translateY(0)' }),
+            animations.style({ transform: 'translateY(-25%)' })
         ]))),
-        _angular_animations.state('desc-to-hint, asc-to-hint, hint, desc-to-active, asc-to-active, active', _angular_animations.style({ transform: 'translateY(0)' })),
-        _angular_animations.state('hint-to-desc, active-to-desc, desc', _angular_animations.style({ transform: 'translateY(-25%)' })),
-        _angular_animations.state('hint-to-asc, active-to-asc, asc', _angular_animations.style({ transform: 'translateY(25%)' })),
+        animations.state('desc-to-hint, asc-to-hint, hint, desc-to-active, asc-to-active, active', animations.style({ transform: 'translateY(0)' })),
+        animations.state('hint-to-desc, active-to-desc, desc', animations.style({ transform: 'translateY(-25%)' })),
+        animations.state('hint-to-asc, active-to-asc, asc', animations.style({ transform: 'translateY(25%)' })),
     ]),
     /** Necessary trigger that calls animate on children animations. */
-    allowChildren: _angular_animations.trigger('allowChildren', [
-        _angular_animations.transition('* <=> *', [
-            _angular_animations.query('@*', _angular_animations.animateChild(), { optional: true })
+    allowChildren: animations.trigger('allowChildren', [
+        animations.transition('* <=> *', [
+            animations.query('@*', animations.animateChild(), { optional: true })
         ])
     ]),
 };
@@ -437,23 +428,18 @@ var matSortAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
-var MatSortHeaderBase = /** @class */ (function () {
+var   /**
+ * \@docs-private
+ */
+MatSortHeaderBase = /** @class */ (function () {
     function MatSortHeaderBase() {
     }
     return MatSortHeaderBase;
 }());
-var _MatSortHeaderMixinBase = _angular_material_core.mixinDisabled(MatSortHeaderBase);
-/**
- * States describing the arrow's animated position (animating fromState to toState).
- * If the fromState is not defined, there will be no animated transition to the toState.
- * \@docs-private
- * @record
- */
-
+var /** @type {?} */ _MatSortHeaderMixinBase = core$1.mixinDisabled(MatSortHeaderBase);
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -490,7 +476,7 @@ var MatSortHeader = /** @class */ (function (_super) {
         if (!_sort) {
             throw getSortHeaderNotContainedWithinSortError();
         }
-        _this._rerenderSubscription = rxjs_observable_merge.merge(_sort.sortChange, _sort._stateChanges, _intl.changes)
+        _this._rerenderSubscription = merge.merge(_sort.sortChange, _sort._stateChanges, _intl.changes)
             .subscribe(function () {
             if (_this._isSorted()) {
                 _this._updateArrowDirection();
@@ -514,7 +500,7 @@ var MatSortHeader = /** @class */ (function (_super) {
          * @param {?} v
          * @return {?}
          */
-        function (v) { this._disableClear = _angular_cdk_coercion.coerceBooleanProperty(v); },
+        function (v) { this._disableClear = coercion.coerceBooleanProperty(v); },
         enumerable: true,
         configurable: true
     });
@@ -713,7 +699,7 @@ var MatSortHeader = /** @class */ (function (_super) {
         return this._sort.disabled || this.disabled;
     };
     MatSortHeader.decorators = [
-        { type: _angular_core.Component, args: [{selector: '[mat-sort-header]',
+        { type: core.Component, args: [{selector: '[mat-sort-header]',
                     exportAs: 'matSortHeader',
                     template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-sorted]=\"_isSorted()\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.disabled]=\"_isDisabled() || null\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\" (focus)=\"_setIndicatorHintVisible(true)\" (blur)=\"_setIndicatorHintVisible(false)\"><ng-content></ng-content></button><div class=\"mat-sort-header-arrow\" [@arrowOpacity]=\"_getArrowViewState()\" [@arrowPosition]=\"_getArrowViewState()\" [@allowChildren]=\"_getArrowDirectionState()\" (@arrowPosition.start)=\"_disableViewStateAnimation = true\" (@arrowPosition.done)=\"_disableViewStateAnimation = false\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_getArrowDirectionState()\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">&nbsp;{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
                     styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:inherit;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;margin:0 0 0 6px;position:relative;display:flex}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;position:absolute;top:0}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
@@ -724,9 +710,9 @@ var MatSortHeader = /** @class */ (function (_super) {
                         '(mouseleave)': '_setIndicatorHintVisible(false)',
                         '[class.mat-sort-header-disabled]': '_isDisabled()',
                     },
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled'],
                     animations: [
                         matSortAnimations.indicator,
@@ -741,15 +727,15 @@ var MatSortHeader = /** @class */ (function (_super) {
     /** @nocollapse */
     MatSortHeader.ctorParameters = function () { return [
         { type: MatSortHeaderIntl, },
-        { type: _angular_core.ChangeDetectorRef, },
-        { type: MatSort, decorators: [{ type: _angular_core.Optional },] },
-        { type: _angular_cdk_table.CdkColumnDef, decorators: [{ type: _angular_core.Optional },] },
+        { type: core.ChangeDetectorRef, },
+        { type: MatSort, decorators: [{ type: core.Optional },] },
+        { type: table.CdkColumnDef, decorators: [{ type: core.Optional },] },
     ]; };
     MatSortHeader.propDecorators = {
-        "id": [{ type: _angular_core.Input, args: ['mat-sort-header',] },],
-        "arrowPosition": [{ type: _angular_core.Input },],
-        "start": [{ type: _angular_core.Input },],
-        "disableClear": [{ type: _angular_core.Input },],
+        "id": [{ type: core.Input, args: ['mat-sort-header',] },],
+        "arrowPosition": [{ type: core.Input },],
+        "start": [{ type: core.Input },],
+        "disableClear": [{ type: core.Input },],
     };
     return MatSortHeader;
 }(_MatSortHeaderMixinBase));
@@ -758,13 +744,12 @@ var MatSortHeader = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatSortModule = /** @class */ (function () {
     function MatSortModule() {
     }
     MatSortModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_common.CommonModule],
+        { type: core.NgModule, args: [{
+                    imports: [common.CommonModule],
                     exports: [MatSort, MatSortHeader],
                     declarations: [MatSort, MatSortHeader],
                     providers: [MAT_SORT_HEADER_INTL_PROVIDER]

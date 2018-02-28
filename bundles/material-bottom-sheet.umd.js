@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/layout'), require('@angular/animations'), require('@angular/cdk/keycodes'), require('rxjs/Subject'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/observable/of'), require('@angular/cdk/bidi')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/common', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/layout', '@angular/animations', '@angular/cdk/keycodes', 'rxjs/Subject', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/observable/of', '@angular/cdk/bidi'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = global.ng.material.bottomSheet || {}),global.ng.core,global.ng.common,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.layout,global.ng.animations,global.ng.cdk.keycodes,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.ng.cdk.bidi));
-}(this, (function (exports,_angular_core,_angular_common,_angular_material_core,_angular_cdk_a11y,_angular_cdk_overlay,_angular_cdk_portal,_angular_cdk_layout,_angular_animations,_angular_cdk_keycodes,rxjs_Subject,rxjs_observable_merge,rxjs_operators_filter,rxjs_operators_take,rxjs_observable_of,_angular_cdk_bidi) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/material/core'), require('@angular/core'), require('@angular/cdk/portal'), require('@angular/cdk/layout'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs/Subject'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('@angular/cdk/overlay'), require('rxjs/observable/of'), require('@angular/cdk/bidi')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/bottomSheet', ['exports', '@angular/animations', '@angular/material/core', '@angular/core', '@angular/cdk/portal', '@angular/cdk/layout', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs/Subject', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take', '@angular/cdk/overlay', 'rxjs/observable/of', '@angular/cdk/bidi'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = {}),global.ng.animations,global.ng.material.core,global.ng.core,global.ng.cdk.portal,global.ng.cdk.layout,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.keycodes,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.overlay,global.Rx.Observable,global.ng.cdk.bidi));
+}(this, (function (exports,animations,core,core$1,portal,layout,common,a11y,keycodes,Subject,merge,filter,take,overlay,of,bidi) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -52,13 +52,13 @@ var __assign = Object.assign || function __assign(t) {
 /**
  * Animations used by the Material bottom sheet.
  */
-var matBottomSheetAnimations = {
+var /** @type {?} */ matBottomSheetAnimations = {
     /** Animation that shows and hides a bottom sheet. */
-    bottomSheetState: _angular_animations.trigger('state', [
-        _angular_animations.state('void, hidden', _angular_animations.style({ transform: 'translateY(100%)' })),
-        _angular_animations.state('visible', _angular_animations.style({ transform: 'translateY(0%)' })),
-        _angular_animations.transition('visible => void, visible => hidden', _angular_animations.animate(_angular_material_core.AnimationDurations.COMPLEX + " " + _angular_material_core.AnimationCurves.ACCELERATION_CURVE)),
-        _angular_animations.transition('void => visible', _angular_animations.animate(_angular_material_core.AnimationDurations.EXITING + " " + _angular_material_core.AnimationCurves.DECELERATION_CURVE)),
+    bottomSheetState: animations.trigger('state', [
+        animations.state('void, hidden', animations.style({ transform: 'translateY(100%)' })),
+        animations.state('visible', animations.style({ transform: 'translateY(0%)' })),
+        animations.transition('visible => void, visible => hidden', animations.animate(core.AnimationDurations.COMPLEX + " " + core.AnimationCurves.ACCELERATION_CURVE)),
+        animations.transition('void => visible', animations.animate(core.AnimationDurations.EXITING + " " + core.AnimationCurves.DECELERATION_CURVE)),
     ])
 };
 
@@ -66,7 +66,6 @@ var matBottomSheetAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Internal component that wraps user-provided bottom sheet content.
  * \@docs-private
@@ -85,18 +84,18 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         /**
          * Emits whenever the state of the animation changes.
          */
-        _this._animationStateChanged = new _angular_core.EventEmitter();
+        _this._animationStateChanged = new core$1.EventEmitter();
         /**
          * Element that was focused before the bottom sheet was opened.
          */
         _this._elementFocusedBeforeOpened = null;
         _this._document = document;
         _this._breakpointSubscription = breakpointObserver
-            .observe([_angular_cdk_layout.Breakpoints.Medium, _angular_cdk_layout.Breakpoints.Large, _angular_cdk_layout.Breakpoints.XLarge])
+            .observe([layout.Breakpoints.Medium, layout.Breakpoints.Large, layout.Breakpoints.XLarge])
             .subscribe(function () {
-            _this._toggleClass('mat-bottom-sheet-container-medium', breakpointObserver.isMatched(_angular_cdk_layout.Breakpoints.Medium));
-            _this._toggleClass('mat-bottom-sheet-container-large', breakpointObserver.isMatched(_angular_cdk_layout.Breakpoints.Large));
-            _this._toggleClass('mat-bottom-sheet-container-xlarge', breakpointObserver.isMatched(_angular_cdk_layout.Breakpoints.XLarge));
+            _this._toggleClass('mat-bottom-sheet-container-medium', breakpointObserver.isMatched(layout.Breakpoints.Medium));
+            _this._toggleClass('mat-bottom-sheet-container-large', breakpointObserver.isMatched(layout.Breakpoints.Large));
+            _this._toggleClass('mat-bottom-sheet-container-xlarge', breakpointObserver.isMatched(layout.Breakpoints.XLarge));
         });
         return _this;
     }
@@ -113,11 +112,11 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @param {?} portal
      * @return {?}
      */
-    function (portal) {
+    function (portal$$1) {
         this._validatePortalAttached();
         this._setPanelClass();
         this._savePreviouslyFocusedElement();
-        return this._portalOutlet.attachComponentPortal(portal);
+        return this._portalOutlet.attachComponentPortal(portal$$1);
     };
     /** Attach a template portal as content to this bottom sheet container. */
     /**
@@ -132,11 +131,11 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @param {?} portal
      * @return {?}
      */
-    function (portal) {
+    function (portal$$1) {
         this._validatePortalAttached();
         this._setPanelClass();
         this._savePreviouslyFocusedElement();
-        return this._portalOutlet.attachTemplatePortal(portal);
+        return this._portalOutlet.attachTemplatePortal(portal$$1);
     };
     /** Begin animation of bottom sheet entrance into view. */
     /**
@@ -289,11 +288,11 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
     };
     MatBottomSheetContainer.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-bottom-sheet-container',
+        { type: core$1.Component, args: [{selector: 'mat-bottom-sheet-container',
                     template: "<ng-template cdkPortalOutlet></ng-template>",
                     styles: [".mat-bottom-sheet-container{box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12);padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0}.mat-bottom-sheet-container-medium{min-width:384px}.mat-bottom-sheet-container-large{min-width:512px}.mat-bottom-sheet-container-xlarge{min-width:576px}"],
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    changeDetection: core$1.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core$1.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     animations: [matBottomSheetAnimations.bottomSheetState],
                     host: {
@@ -309,31 +308,33 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatBottomSheetContainer.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_core.ChangeDetectorRef, },
-        { type: _angular_cdk_a11y.FocusTrapFactory, },
-        { type: _angular_cdk_layout.BreakpointObserver, },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
+        { type: core$1.ElementRef, },
+        { type: core$1.ChangeDetectorRef, },
+        { type: a11y.FocusTrapFactory, },
+        { type: layout.BreakpointObserver, },
+        { type: undefined, decorators: [{ type: core$1.Optional }, { type: core$1.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatBottomSheetContainer.propDecorators = {
-        "_portalOutlet": [{ type: _angular_core.ViewChild, args: [_angular_cdk_portal.CdkPortalOutlet,] },],
+        "_portalOutlet": [{ type: core$1.ViewChild, args: [portal.CdkPortalOutlet,] },],
     };
     return MatBottomSheetContainer;
-}(_angular_cdk_portal.BasePortalOutlet));
+}(portal.BasePortalOutlet));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Injection token that can be used to access the data that was passed in to a bottom sheet.
  */
-var MAT_BOTTOM_SHEET_DATA = new _angular_core.InjectionToken('MatBottomSheetData');
+var /** @type {?} */ MAT_BOTTOM_SHEET_DATA = new core$1.InjectionToken('MatBottomSheetData');
 /**
  * Configuration used when opening a bottom sheet.
  */
-var MatBottomSheetConfig = /** @class */ (function () {
+var   /**
+ * Configuration used when opening a bottom sheet.
+ */
+MatBottomSheetConfig = /** @class */ (function () {
     function MatBottomSheetConfig() {
         /**
          * Data being injected into the child component.
@@ -359,38 +360,40 @@ var MatBottomSheetConfig = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
  */
-var MatBottomSheetRef = /** @class */ (function () {
+var   /**
+ * Reference to a bottom sheet dispatched from the bottom sheet service.
+ */
+MatBottomSheetRef = /** @class */ (function () {
     function MatBottomSheetRef(containerInstance, _overlayRef) {
         var _this = this;
         this._overlayRef = _overlayRef;
         /**
          * Subject for notifying the user that the bottom sheet has been dismissed.
          */
-        this._afterDismissed = new rxjs_Subject.Subject();
+        this._afterDismissed = new Subject.Subject();
         /**
          * Subject for notifying the user that the bottom sheet has opened and appeared.
          */
-        this._afterOpened = new rxjs_Subject.Subject();
+        this._afterOpened = new Subject.Subject();
         this.containerInstance = containerInstance;
         // Emit when opening animation completes
-        containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), rxjs_operators_take.take(1))
+        containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), take.take(1))
             .subscribe(function () {
             _this._afterOpened.next();
             _this._afterOpened.complete();
         });
         // Dispose overlay when closing animation is complete
-        containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), rxjs_operators_take.take(1))
+        containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), take.take(1))
             .subscribe(function () {
             _this._overlayRef.dispose();
             _this._afterDismissed.next(_this._result);
             _this._afterDismissed.complete();
         });
         if (!containerInstance.bottomSheetConfig.disableClose) {
-            rxjs_observable_merge.merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(rxjs_operators_filter.filter(function (event) { return event.keyCode === _angular_cdk_keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
+            merge.merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(filter.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
         }
     }
     /**
@@ -411,7 +414,7 @@ var MatBottomSheetRef = /** @class */ (function () {
         var _this = this;
         if (!this._afterDismissed.closed) {
             // Transition the backdrop in parallel to the bottom sheet.
-            this.containerInstance._animationStateChanged.pipe(rxjs_operators_filter.filter(function (event) { return event.phaseName === 'start'; }), rxjs_operators_take.take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
+            this.containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'start'; }), take.take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
             this._result = result;
             this.containerInstance.exit();
         }
@@ -475,7 +478,6 @@ var MatBottomSheetRef = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Service to trigger Material Design bottom sheets.
  */
@@ -529,15 +531,15 @@ var MatBottomSheet = /** @class */ (function () {
         var /** @type {?} */ overlayRef = this._createOverlay(_config);
         var /** @type {?} */ container = this._attachContainer(overlayRef, _config);
         var /** @type {?} */ ref = new MatBottomSheetRef(container, overlayRef);
-        if (componentOrTemplateRef instanceof _angular_core.TemplateRef) {
-            container.attachTemplatePortal(new _angular_cdk_portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({
+        if (componentOrTemplateRef instanceof core$1.TemplateRef) {
+            container.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({
                 $implicit: _config.data,
                 bottomSheetRef: ref
             })));
         }
         else {
-            var /** @type {?} */ portal = new _angular_cdk_portal.ComponentPortal(componentOrTemplateRef, undefined, this._createInjector(_config, ref));
-            var /** @type {?} */ contentRef = container.attachComponentPortal(portal);
+            var /** @type {?} */ portal$$1 = new portal.ComponentPortal(componentOrTemplateRef, undefined, this._createInjector(_config, ref));
+            var /** @type {?} */ contentRef = container.attachComponentPortal(portal$$1);
             ref.instance = contentRef.instance;
         }
         // When the bottom sheet is dismissed, clear the reference to it.
@@ -589,7 +591,7 @@ var MatBottomSheet = /** @class */ (function () {
      * @return {?}
      */
     function (overlayRef, config) {
-        var /** @type {?} */ containerPortal = new _angular_cdk_portal.ComponentPortal(MatBottomSheetContainer, config.viewContainerRef);
+        var /** @type {?} */ containerPortal = new portal.ComponentPortal(MatBottomSheetContainer, config.viewContainerRef);
         var /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
         containerRef.instance.bottomSheetConfig = config;
         return containerRef.instance;
@@ -605,7 +607,7 @@ var MatBottomSheet = /** @class */ (function () {
      * @return {?}
      */
     function (config) {
-        var /** @type {?} */ overlayConfig = new _angular_cdk_overlay.OverlayConfig({
+        var /** @type {?} */ overlayConfig = new overlay.OverlayConfig({
             direction: config.direction,
             hasBackdrop: config.hasBackdrop,
             maxWidth: '100%',
@@ -639,22 +641,22 @@ var MatBottomSheet = /** @class */ (function () {
         var /** @type {?} */ injectionTokens = new WeakMap();
         injectionTokens.set(MatBottomSheetRef, bottomSheetRef);
         injectionTokens.set(MAT_BOTTOM_SHEET_DATA, config.data);
-        if (!userInjector || !userInjector.get(_angular_cdk_bidi.Directionality, null)) {
-            injectionTokens.set(_angular_cdk_bidi.Directionality, {
+        if (!userInjector || !userInjector.get(bidi.Directionality, null)) {
+            injectionTokens.set(bidi.Directionality, {
                 value: config.direction,
-                change: rxjs_observable_of.of()
+                change: of.of()
             });
         }
-        return new _angular_cdk_portal.PortalInjector(userInjector || this._injector, injectionTokens);
+        return new portal.PortalInjector(userInjector || this._injector, injectionTokens);
     };
     MatBottomSheet.decorators = [
-        { type: _angular_core.Injectable },
+        { type: core$1.Injectable },
     ];
     /** @nocollapse */
     MatBottomSheet.ctorParameters = function () { return [
-        { type: _angular_cdk_overlay.Overlay, },
-        { type: _angular_core.Injector, },
-        { type: MatBottomSheet, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.SkipSelf },] },
+        { type: overlay.Overlay, },
+        { type: core$1.Injector, },
+        { type: MatBottomSheet, decorators: [{ type: core$1.Optional }, { type: core$1.SkipSelf },] },
     ]; };
     return MatBottomSheet;
 }());
@@ -671,21 +673,20 @@ function _applyConfigDefaults(config) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatBottomSheetModule = /** @class */ (function () {
     function MatBottomSheetModule() {
     }
     MatBottomSheetModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
+        { type: core$1.NgModule, args: [{
                     imports: [
-                        _angular_cdk_a11y.A11yModule,
-                        _angular_common.CommonModule,
-                        _angular_cdk_overlay.OverlayModule,
-                        _angular_material_core.MatCommonModule,
-                        _angular_cdk_portal.PortalModule,
-                        _angular_cdk_layout.LayoutModule,
+                        a11y.A11yModule,
+                        common.CommonModule,
+                        overlay.OverlayModule,
+                        core.MatCommonModule,
+                        portal.PortalModule,
+                        layout.LayoutModule,
                     ],
-                    exports: [MatBottomSheetContainer, _angular_material_core.MatCommonModule],
+                    exports: [MatBottomSheetContainer, core.MatCommonModule],
                     declarations: [MatBottomSheetContainer],
                     entryComponents: [MatBottomSheetContainer],
                     providers: [MatBottomSheet],

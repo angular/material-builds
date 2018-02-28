@@ -5,46 +5,44 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
-import { BidiModule, Directionality } from '@angular/cdk/bidi';
-import { CommonModule } from '@angular/common';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { GestureConfig, MatCommonModule, mixinColor, mixinDisabled, mixinTabIndex } from '@angular/material/core';
-import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
+import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
+import { Directionality, BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, END, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { mixinColor, mixinDisabled, mixinTabIndex, GestureConfig, MatCommonModule } from '@angular/material/core';
 import { Subscription } from 'rxjs/Subscription';
+import { CommonModule } from '@angular/common';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
  * the default separation we chose.
  */
-var MIN_AUTO_TICK_SEPARATION = 30;
+var /** @type {?} */ MIN_AUTO_TICK_SEPARATION = 30;
 /**
  * The thumb gap size for a disabled slider.
  */
-var DISABLED_THUMB_GAP = 7;
+var /** @type {?} */ DISABLED_THUMB_GAP = 7;
 /**
  * The thumb gap size for a non-active slider at its minimum value.
  */
-var MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
+var /** @type {?} */ MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
 /**
  * The thumb gap size for an active slider at its minimum value.
  */
-var MIN_VALUE_ACTIVE_THUMB_GAP = 10;
+var /** @type {?} */ MIN_VALUE_ACTIVE_THUMB_GAP = 10;
 /**
  * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
  */
-var MAT_SLIDER_VALUE_ACCESSOR = {
+var /** @type {?} */ MAT_SLIDER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MatSlider; }),
     multi: true
@@ -52,7 +50,10 @@ var MAT_SLIDER_VALUE_ACCESSOR = {
 /**
  * A simple change event emitted by the MatSlider component.
  */
-var MatSliderChange = /** @class */ (function () {
+var  /**
+ * A simple change event emitted by the MatSlider component.
+ */
+MatSliderChange = /** @class */ (function () {
     function MatSliderChange() {
     }
     return MatSliderChange;
@@ -60,13 +61,16 @@ var MatSliderChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var MatSliderBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatSliderBase = /** @class */ (function () {
     function MatSliderBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatSliderBase;
 }());
-var _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisabled(MatSliderBase), 'accent'));
+var /** @type {?} */ _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisabled(MatSliderBase), 'accent'));
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
@@ -1094,7 +1098,6 @@ var MatSlider = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatSliderModule = /** @class */ (function () {
     function MatSliderModule() {
     }
@@ -1119,9 +1122,6 @@ var MatSliderModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatSliderModule, MAT_SLIDER_VALUE_ACCESSOR, MatSliderChange, MatSliderBase, _MatSliderMixinBase, MatSlider };

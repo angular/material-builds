@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/portal'), require('@angular/cdk/keycodes'), require('rxjs/operators/startWith'), require('rxjs/operators/switchMap'), require('rxjs/operators/take'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/animations'), require('rxjs/Subject'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('rxjs/operators/filter'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/common', '@angular/core', '@angular/material/core', '@angular/cdk/portal', '@angular/cdk/keycodes', 'rxjs/operators/startWith', 'rxjs/operators/switchMap', 'rxjs/operators/take', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/animations', 'rxjs/Subject', '@angular/cdk/coercion', '@angular/cdk/bidi', 'rxjs/operators/filter', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = global.ng.material.menu || {}),global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.common,global.ng.core,global.ng.material.core,global.ng.cdk.portal,global.ng.cdk.keycodes,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.Rx,global.ng.animations,global.Rx,global.ng.cdk.coercion,global.ng.cdk.bidi,global.Rx.operators,global.Rx.Observable));
-}(this, (function (exports,_angular_cdk_a11y,_angular_cdk_overlay,_angular_common,_angular_core,_angular_material_core,_angular_cdk_portal,_angular_cdk_keycodes,rxjs_operators_startWith,rxjs_operators_switchMap,rxjs_operators_take,rxjs_observable_merge,rxjs_Subscription,_angular_animations,rxjs_Subject,_angular_cdk_coercion,_angular_cdk_bidi,rxjs_operators_filter,rxjs_observable_of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/core'), require('@angular/material/core'), require('rxjs/Subject'), require('@angular/common'), require('@angular/cdk/portal'), require('@angular/cdk/keycodes'), require('rxjs/operators/startWith'), require('rxjs/operators/switchMap'), require('rxjs/operators/take'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('rxjs/operators/filter'), require('rxjs/observable/of')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/core', '@angular/material/core', 'rxjs/Subject', '@angular/common', '@angular/cdk/portal', '@angular/cdk/keycodes', 'rxjs/operators/startWith', 'rxjs/operators/switchMap', 'rxjs/operators/take', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/cdk/coercion', '@angular/cdk/bidi', '@angular/cdk/overlay', 'rxjs/operators/filter', 'rxjs/observable/of'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.core,global.ng.material.core,global.Rx,global.ng.common,global.ng.cdk.portal,global.ng.cdk.keycodes,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.Rx,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.overlay,global.Rx.operators,global.Rx.Observable));
+}(this, (function (exports,animations,a11y,core,core$1,Subject,common,portal,keycodes,startWith,switchMap,take,merge,Subscription,coercion,bidi,overlay,filter,of) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -41,13 +41,12 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Animations used by the mat-menu component.
  * Animation duration and timing values are based on:
  * https://material.io/guidelines/components/menus.html#menus-usage
  */
-var matMenuAnimations = {
+var /** @type {?} */ matMenuAnimations = {
     /**
        * This animation controls the menu panel's entry and exit from the page.
        *
@@ -56,34 +55,34 @@ var matMenuAnimations = {
        * When the menu panel is removed from the DOM, it simply fades out after a brief
        * delay to display the ripple.
        */
-    transformMenu: _angular_animations.trigger('transformMenu', [
-        _angular_animations.state('void', _angular_animations.style({
+    transformMenu: animations.trigger('transformMenu', [
+        animations.state('void', animations.style({
             opacity: 0,
             // This starts off from 0.01, instead of 0, because there's an issue in the Angular animations
             // as of 4.2, which causes the animation to be skipped if it starts from 0.
             transform: 'scale(0.01, 0.01)'
         })),
-        _angular_animations.transition('void => enter', _angular_animations.sequence([
-            _angular_animations.query('.mat-menu-content', _angular_animations.style({ opacity: 0 })),
-            _angular_animations.animate('100ms linear', _angular_animations.style({ opacity: 1, transform: 'scale(1, 0.5)' })),
-            _angular_animations.group([
-                _angular_animations.query('.mat-menu-content', _angular_animations.animate('400ms cubic-bezier(0.55, 0, 0.55, 0.2)', _angular_animations.style({ opacity: 1 }))),
-                _angular_animations.animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)', _angular_animations.style({ transform: 'scale(1, 1)' })),
+        animations.transition('void => enter', animations.sequence([
+            animations.query('.mat-menu-content', animations.style({ opacity: 0 })),
+            animations.animate('100ms linear', animations.style({ opacity: 1, transform: 'scale(1, 0.5)' })),
+            animations.group([
+                animations.query('.mat-menu-content', animations.animate('400ms cubic-bezier(0.55, 0, 0.55, 0.2)', animations.style({ opacity: 1 }))),
+                animations.animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)', animations.style({ transform: 'scale(1, 1)' })),
             ])
         ])),
-        _angular_animations.transition('* => void', _angular_animations.animate('150ms 50ms linear', _angular_animations.style({ opacity: 0 })))
+        animations.transition('* => void', animations.animate('150ms 50ms linear', animations.style({ opacity: 0 })))
     ]),
     /**
        * This animation fades in the background color and content of the menu panel
        * after its containing element is scaled in.
        */
-    fadeInItems: _angular_animations.trigger('fadeInItems', [
+    fadeInItems: animations.trigger('fadeInItems', [
         // TODO(crisbeto): this is inside the `transformMenu`
         // now. Remove next time we do breaking changes.
-        _angular_animations.state('showing', _angular_animations.style({ opacity: 1 })),
-        _angular_animations.transition('void => *', [
-            _angular_animations.style({ opacity: 0 }),
-            _angular_animations.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+        animations.state('showing', animations.style({ opacity: 1 })),
+        animations.transition('void => *', [
+            animations.style({ opacity: 0 }),
+            animations.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
         ])
     ])
 };
@@ -91,12 +90,12 @@ var matMenuAnimations = {
  * @deprecated
  * \@deletion-target 7.0.0
  */
-var fadeInItems = matMenuAnimations.fadeInItems;
+var /** @type {?} */ fadeInItems = matMenuAnimations.fadeInItems;
 /**
  * @deprecated
  * \@deletion-target 7.0.0
  */
-var transformMenu = matMenuAnimations.transformMenu;
+var /** @type {?} */ transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
@@ -134,16 +133,18 @@ function throwMatMenuInvalidPositionY() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
-var MatMenuItemBase = /** @class */ (function () {
+var   /**
+ * \@docs-private
+ */
+MatMenuItemBase = /** @class */ (function () {
     function MatMenuItemBase() {
     }
     return MatMenuItemBase;
 }());
-var _MatMenuItemMixinBase = _angular_material_core.mixinDisableRipple(_angular_material_core.mixinDisabled(MatMenuItemBase));
+var /** @type {?} */ _MatMenuItemMixinBase = core$1.mixinDisableRipple(core$1.mixinDisabled(MatMenuItemBase));
 /**
  * This directive is intended to be used inside an mat-menu tag.
  * It exists mostly to set the role attribute.
@@ -159,7 +160,7 @@ var MatMenuItem = /** @class */ (function (_super) {
         /**
          * Stream that emits when the menu item is hovered.
          */
-        _this._hovered = new rxjs_Subject.Subject();
+        _this._hovered = new Subject.Subject();
         /**
          * Whether the menu item is highlighted.
          */
@@ -291,7 +292,7 @@ var MatMenuItem = /** @class */ (function (_super) {
         return output.trim();
     };
     MatMenuItem.decorators = [
-        { type: _angular_core.Component, args: [{selector: '[mat-menu-item]',
+        { type: core.Component, args: [{selector: '[mat-menu-item]',
                     exportAs: 'matMenuItem',
                     inputs: ['disabled', 'disableRipple'],
                     host: {
@@ -305,17 +306,17 @@ var MatMenuItem = /** @class */ (function (_super) {
                         '(click)': '_checkDisabled($event)',
                         '(mouseenter)': '_emitHoverEvent()',
                     },
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" matRipple [matRippleDisabled]=\"disableRipple || disabled\" [matRippleTrigger]=\"_getHostElement()\"></div>",
                 },] },
     ];
     /** @nocollapse */
     MatMenuItem.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
-        { type: _angular_cdk_a11y.FocusMonitor, },
+        { type: core.ElementRef, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: a11y.FocusMonitor, },
     ]; };
     return MatMenuItem;
 }(_MatMenuItemMixinBase));
@@ -324,7 +325,6 @@ var MatMenuItem = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Menu content that will be rendered lazily once the menu is opened.
  */
@@ -356,13 +356,13 @@ var MatMenuContent = /** @class */ (function () {
     function (context) {
         if (context === void 0) { context = {}; }
         if (!this._portal) {
-            this._portal = new _angular_cdk_portal.TemplatePortal(this._template, this._viewContainerRef);
+            this._portal = new portal.TemplatePortal(this._template, this._viewContainerRef);
         }
         else if (this._portal.isAttached) {
             this._portal.detach();
         }
         if (!this._outlet) {
-            this._outlet = new _angular_cdk_portal.DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
+            this._outlet = new portal.DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
         }
         var /** @type {?} */ element = this._template.elementRef.nativeElement; /** @type {?} */
         ((
@@ -384,18 +384,18 @@ var MatMenuContent = /** @class */ (function () {
         }
     };
     MatMenuContent.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'ng-template[matMenuContent]'
                 },] },
     ];
     /** @nocollapse */
     MatMenuContent.ctorParameters = function () { return [
-        { type: _angular_core.TemplateRef, },
-        { type: _angular_core.ComponentFactoryResolver, },
-        { type: _angular_core.ApplicationRef, },
-        { type: _angular_core.Injector, },
-        { type: _angular_core.ViewContainerRef, },
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [_angular_common.DOCUMENT,] },] },
+        { type: core.TemplateRef, },
+        { type: core.ComponentFactoryResolver, },
+        { type: core.ApplicationRef, },
+        { type: core.Injector, },
+        { type: core.ViewContainerRef, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     return MatMenuContent;
 }());
@@ -404,21 +404,15 @@ var MatMenuContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Default `mat-menu` options that can be overridden.
- * @record
- */
-
 /**
  * Injection token to be used to override the default options for `mat-menu`.
  */
-var MAT_MENU_DEFAULT_OPTIONS = new _angular_core.InjectionToken('mat-menu-default-options');
+var /** @type {?} */ MAT_MENU_DEFAULT_OPTIONS = new core.InjectionToken('mat-menu-default-options');
 /**
  * Start elevation for the menu panel.
  * \@docs-private
  */
-var MAT_MENU_BASE_ELEVATION = 2;
+var /** @type {?} */ MAT_MENU_BASE_ELEVATION = 2;
 var MatMenu = /** @class */ (function () {
     function MatMenu(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
@@ -429,7 +423,7 @@ var MatMenu = /** @class */ (function () {
         /**
          * Subscription to tab events on the menu panel
          */
-        this._tabSubscription = rxjs_Subscription.Subscription.EMPTY;
+        this._tabSubscription = Subscription.Subscription.EMPTY;
         /**
          * Config object to be passed into the menu's ngClass
          */
@@ -446,7 +440,7 @@ var MatMenu = /** @class */ (function () {
         /**
          * Event emitted when the menu is closed.
          */
-        this.closed = new _angular_core.EventEmitter();
+        this.closed = new core.EventEmitter();
         /**
          * Event emitted when the menu is closed.
          * @deprecated Switch to `closed` instead
@@ -505,7 +499,7 @@ var MatMenu = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            this._overlapTrigger = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._overlapTrigger = coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -566,7 +560,7 @@ var MatMenu = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.items).withWrap().withTypeAhead();
+        this._keyManager = new a11y.FocusKeyManager(this.items).withWrap().withTypeAhead();
         this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close.emit('keydown'); });
     };
     /**
@@ -591,11 +585,11 @@ var MatMenu = /** @class */ (function () {
     function () {
         var _this = this;
         if (this.items) {
-            return this.items.changes.pipe(rxjs_operators_startWith.startWith(this.items), rxjs_operators_switchMap.switchMap(function (items) { return rxjs_observable_merge.merge.apply(void 0, items.map(function (item) { return item._hovered; })); }));
+            return this.items.changes.pipe(startWith.startWith(this.items), switchMap.switchMap(function (items) { return merge.merge.apply(void 0, items.map(function (item) { return item._hovered; })); }));
         }
         return this._ngZone.onStable
             .asObservable()
-            .pipe(rxjs_operators_take.take(1), rxjs_operators_switchMap.switchMap(function () { return _this._hovered(); }));
+            .pipe(take.take(1), switchMap.switchMap(function () { return _this._hovered(); }));
     };
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
     /**
@@ -610,16 +604,16 @@ var MatMenu = /** @class */ (function () {
      */
     function (event) {
         switch (event.keyCode) {
-            case _angular_cdk_keycodes.ESCAPE:
+            case keycodes.ESCAPE:
                 this.closed.emit('keydown');
                 event.stopPropagation();
                 break;
-            case _angular_cdk_keycodes.LEFT_ARROW:
+            case keycodes.LEFT_ARROW:
                 if (this.parentMenu && this.direction === 'ltr') {
                     this.closed.emit('keydown');
                 }
                 break;
-            case _angular_cdk_keycodes.RIGHT_ARROW:
+            case keycodes.RIGHT_ARROW:
                 if (this.parentMenu && this.direction === 'rtl') {
                     this.closed.emit('keydown');
                 }
@@ -648,7 +642,7 @@ var MatMenu = /** @class */ (function () {
         // When the content is rendered lazily, it takes a bit before the items are inside the DOM.
         if (this.lazyContent) {
             this._ngZone.onStable.asObservable()
-                .pipe(rxjs_operators_take.take(1))
+                .pipe(take.take(1))
                 .subscribe(function () { return _this._keyManager.setFocusOrigin(origin).setFirstItemActive(); });
         }
         else {
@@ -765,11 +759,11 @@ var MatMenu = /** @class */ (function () {
         // @deletion-target 6.0.0 Not being used anymore. To be removed.
     };
     MatMenu.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-menu',
+        { type: core.Component, args: [{selector: 'mat-menu',
                     template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\"><ng-content></ng-content></div></div></ng-template>",
                     styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}.mat-menu-panel.ng-animating .mat-menu-item-submenu-trigger{pointer-events:none}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
                     animations: [
                         matMenuAnimations.transformMenu,
@@ -780,22 +774,22 @@ var MatMenu = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatMenu.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_core.NgZone, },
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
+        { type: core.ElementRef, },
+        { type: core.NgZone, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
     ]; };
     MatMenu.propDecorators = {
-        "backdropClass": [{ type: _angular_core.Input },],
-        "xPosition": [{ type: _angular_core.Input },],
-        "yPosition": [{ type: _angular_core.Input },],
-        "templateRef": [{ type: _angular_core.ViewChild, args: [_angular_core.TemplateRef,] },],
-        "items": [{ type: _angular_core.ContentChildren, args: [MatMenuItem,] },],
-        "lazyContent": [{ type: _angular_core.ContentChild, args: [MatMenuContent,] },],
-        "overlapTrigger": [{ type: _angular_core.Input },],
-        "panelClass": [{ type: _angular_core.Input, args: ['class',] },],
-        "classList": [{ type: _angular_core.Input },],
-        "closed": [{ type: _angular_core.Output },],
-        "close": [{ type: _angular_core.Output },],
+        "backdropClass": [{ type: core.Input },],
+        "xPosition": [{ type: core.Input },],
+        "yPosition": [{ type: core.Input },],
+        "templateRef": [{ type: core.ViewChild, args: [core.TemplateRef,] },],
+        "items": [{ type: core.ContentChildren, args: [MatMenuItem,] },],
+        "lazyContent": [{ type: core.ContentChild, args: [MatMenuContent,] },],
+        "overlapTrigger": [{ type: core.Input },],
+        "panelClass": [{ type: core.Input, args: ['class',] },],
+        "classList": [{ type: core.Input },],
+        "closed": [{ type: core.Output },],
+        "close": [{ type: core.Output },],
     };
     return MatMenu;
 }());
@@ -804,31 +798,30 @@ var MatMenu = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Injection token that determines the scroll handling while the menu is open.
  */
-var MAT_MENU_SCROLL_STRATEGY = new _angular_core.InjectionToken('mat-menu-scroll-strategy');
+var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
  * @return {?}
  */
-function MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return function () { return overlay.scrollStrategies.reposition(); };
+function MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
+    return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
 /**
  * \@docs-private
  */
-var MAT_MENU_SCROLL_STRATEGY_PROVIDER = {
+var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_MENU_SCROLL_STRATEGY,
-    deps: [_angular_cdk_overlay.Overlay],
+    deps: [overlay.Overlay],
     useFactory: MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY,
 };
 /**
  * Default top padding of the menu panel.
  */
-var MENU_PANEL_TOP_PADDING = 8;
+var /** @type {?} */ MENU_PANEL_TOP_PADDING = 8;
 /**
  * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
@@ -845,13 +838,13 @@ var MatMenuTrigger = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._overlayRef = null;
         this._menuOpen = false;
-        this._closeSubscription = rxjs_Subscription.Subscription.EMPTY;
-        this._hoverSubscription = rxjs_Subscription.Subscription.EMPTY;
+        this._closeSubscription = Subscription.Subscription.EMPTY;
+        this._hoverSubscription = Subscription.Subscription.EMPTY;
         this._openedByMouse = false;
         /**
          * Event emitted when the associated menu is opened.
          */
-        this.menuOpened = new _angular_core.EventEmitter();
+        this.menuOpened = new core.EventEmitter();
         /**
          * Event emitted when the associated menu is opened.
          * @deprecated Switch to `menuOpened` instead
@@ -861,7 +854,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is closed.
          */
-        this.menuClosed = new _angular_core.EventEmitter();
+        this.menuClosed = new core.EventEmitter();
         /**
          * Event emitted when the associated menu is closed.
          * @deprecated Switch to `menuClosed` instead
@@ -910,7 +903,7 @@ var MatMenuTrigger = /** @class */ (function () {
         if (this.triggersSubmenu()) {
             // Subscribe to changes in the hovered item in order to toggle the panel.
             this._hoverSubscription = this._parentMenu._hovered()
-                .pipe(rxjs_operators_filter.filter(function (active) { return active === _this._menuItemInstance; }))
+                .pipe(filter.filter(function (active) { return active === _this._menuItemInstance; }))
                 .subscribe(function () {
                 _this._openedByMouse = true;
                 _this.openMenu();
@@ -1158,7 +1151,7 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function () {
         if (!this._overlayRef) {
-            this._portal = new _angular_cdk_portal.TemplatePortal(this.menu.templateRef, this._viewContainerRef);
+            this._portal = new portal.TemplatePortal(this.menu.templateRef, this._viewContainerRef);
             var /** @type {?} */ config = this._getOverlayConfig();
             this._subscribeToPositions(/** @type {?} */ (config.positionStrategy));
             this._overlayRef = this._overlay.create(config);
@@ -1174,7 +1167,7 @@ var MatMenuTrigger = /** @class */ (function () {
      * @return {?} OverlayConfig
      */
     function () {
-        return new _angular_cdk_overlay.OverlayConfig({
+        return new overlay.OverlayConfig({
             positionStrategy: this._getPosition(),
             hasBackdrop: !this.triggersSubmenu(),
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
@@ -1263,9 +1256,9 @@ var MatMenuTrigger = /** @class */ (function () {
         var _this = this;
         var /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
         var /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
-        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs_observable_of.of();
-        var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(rxjs_operators_filter.filter(function (active) { return active !== _this._menuItemInstance; }), rxjs_operators_filter.filter(function () { return _this._menuOpen; })) : rxjs_observable_of.of();
-        return rxjs_observable_merge.merge(backdrop, parentClose, hover, detachments);
+        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of.of();
+        var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter.filter(function (active) { return active !== _this._menuItemInstance; }), filter.filter(function () { return _this._menuOpen; })) : of.of();
+        return merge.merge(backdrop, parentClose, hover, detachments);
     };
     /** Handles mouse presses on the trigger. */
     /**
@@ -1279,7 +1272,7 @@ var MatMenuTrigger = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        if (!_angular_cdk_a11y.isFakeMousedownFromScreenReader(event)) {
+        if (!a11y.isFakeMousedownFromScreenReader(event)) {
             this._openedByMouse = true;
             // Since clicking on the trigger won't close the menu if it opens a sub-menu,
             // we should prevent focus from moving onto it via click to avoid the
@@ -1302,8 +1295,8 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function (event) {
         var /** @type {?} */ keyCode = event.keyCode;
-        if (this.triggersSubmenu() && ((keyCode === _angular_cdk_keycodes.RIGHT_ARROW && this.dir === 'ltr') ||
-            (keyCode === _angular_cdk_keycodes.LEFT_ARROW && this.dir === 'rtl'))) {
+        if (this.triggersSubmenu() && ((keyCode === keycodes.RIGHT_ARROW && this.dir === 'ltr') ||
+            (keyCode === keycodes.LEFT_ARROW && this.dir === 'rtl'))) {
             this.openMenu();
         }
     };
@@ -1329,7 +1322,7 @@ var MatMenuTrigger = /** @class */ (function () {
         }
     };
     MatMenuTrigger.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: "[mat-menu-trigger-for], [matMenuTriggerFor]",
                     host: {
                         'aria-haspopup': 'true',
@@ -1342,23 +1335,23 @@ var MatMenuTrigger = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatMenuTrigger.ctorParameters = function () { return [
-        { type: _angular_cdk_overlay.Overlay, },
-        { type: _angular_core.ElementRef, },
-        { type: _angular_core.ViewContainerRef, },
-        { type: undefined, decorators: [{ type: _angular_core.Inject, args: [MAT_MENU_SCROLL_STRATEGY,] },] },
-        { type: MatMenu, decorators: [{ type: _angular_core.Optional },] },
-        { type: MatMenuItem, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
-        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
-        { type: _angular_cdk_a11y.FocusMonitor, },
+        { type: overlay.Overlay, },
+        { type: core.ElementRef, },
+        { type: core.ViewContainerRef, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_SCROLL_STRATEGY,] },] },
+        { type: MatMenu, decorators: [{ type: core.Optional },] },
+        { type: MatMenuItem, decorators: [{ type: core.Optional }, { type: core.Self },] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: a11y.FocusMonitor, },
     ]; };
     MatMenuTrigger.propDecorators = {
-        "_deprecatedMatMenuTriggerFor": [{ type: _angular_core.Input, args: ['mat-menu-trigger-for',] },],
-        "menu": [{ type: _angular_core.Input, args: ['matMenuTriggerFor',] },],
-        "menuData": [{ type: _angular_core.Input, args: ['matMenuTriggerData',] },],
-        "menuOpened": [{ type: _angular_core.Output },],
-        "onMenuOpen": [{ type: _angular_core.Output },],
-        "menuClosed": [{ type: _angular_core.Output },],
-        "onMenuClose": [{ type: _angular_core.Output },],
+        "_deprecatedMatMenuTriggerFor": [{ type: core.Input, args: ['mat-menu-trigger-for',] },],
+        "menu": [{ type: core.Input, args: ['matMenuTriggerFor',] },],
+        "menuData": [{ type: core.Input, args: ['matMenuTriggerData',] },],
+        "menuOpened": [{ type: core.Output },],
+        "onMenuOpen": [{ type: core.Output },],
+        "menuClosed": [{ type: core.Output },],
+        "onMenuClose": [{ type: core.Output },],
     };
     return MatMenuTrigger;
 }());
@@ -1367,7 +1360,6 @@ var MatMenuTrigger = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var ɵ0 = {
     overlapTrigger: true,
     xPosition: 'after',
@@ -1378,16 +1370,16 @@ var MatMenuModule = /** @class */ (function () {
     function MatMenuModule() {
     }
     MatMenuModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
+        { type: core.NgModule, args: [{
                     imports: [
-                        _angular_cdk_a11y.A11yModule,
-                        _angular_common.CommonModule,
-                        _angular_material_core.MatCommonModule,
-                        _angular_material_core.MatRippleModule,
-                        _angular_cdk_overlay.OverlayModule,
-                        _angular_cdk_portal.PortalModule,
+                        a11y.A11yModule,
+                        common.CommonModule,
+                        core$1.MatCommonModule,
+                        core$1.MatRippleModule,
+                        overlay.OverlayModule,
+                        portal.PortalModule,
                     ],
-                    exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent, _angular_material_core.MatCommonModule],
+                    exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent, core$1.MatCommonModule],
                     declarations: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent],
                     providers: [
                         MAT_MENU_SCROLL_STRATEGY_PROVIDER,
@@ -1413,10 +1405,10 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa24 = MatMenuItemBase;
-exports.ɵb24 = _MatMenuItemMixinBase;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa23 = MatMenuItemBase;
+exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

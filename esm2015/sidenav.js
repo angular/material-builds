@@ -5,16 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule, FocusMonitor, FocusTrapFactory } from '@angular/cdk/a11y';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
-import { CdkScrollable, ScrollDispatchModule } from '@angular/cdk/scrolling';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { FocusTrapFactory, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, ViewEncapsulation, InjectionToken, ViewChild, NgModule } from '@angular/core';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { merge } from 'rxjs/observable/merge';
 import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
@@ -24,7 +22,9 @@ import { debounceTime } from 'rxjs/operators/debounceTime';
 import { map } from 'rxjs/operators/map';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/Observable';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CdkScrollable, ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
@@ -33,7 +33,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 /**
  * Animations used by the Material drawers.
  */
-const matDrawerAnimations = {
+const /** @type {?} */ matDrawerAnimations = {
     /** Animation that slides a drawer in and out. */
     transformDrawer: trigger('transform', [
         state('open, open-instant', style({
@@ -78,7 +78,7 @@ class MatDrawerToggleResult {
 /**
  * Configures whether drawers should use auto sizing by default.
  */
-const MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
+const /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
 class MatDrawerContent {
     /**
      * @param {?} _changeDetectorRef
@@ -835,7 +835,6 @@ MatDrawerContainer.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatSidenavContent extends MatDrawerContent {
     /**
      * @param {?} changeDetectorRef
@@ -963,7 +962,6 @@ MatSidenavContainer.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatSidenavModule {
 }
 MatSidenavModule.decorators = [
@@ -1009,9 +1007,6 @@ MatSidenavModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatSidenavModule, throwMatDuplicatedDrawerError, MatDrawerToggleResult, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };

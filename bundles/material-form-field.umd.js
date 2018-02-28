@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/core'), require('@angular/cdk/platform'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('@angular/animations'), require('@angular/cdk/bidi')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/common', '@angular/core', '@angular/cdk/platform', '@angular/cdk/coercion', '@angular/material/core', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', 'rxjs/operators/take', '@angular/animations', '@angular/cdk/bidi'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = global.ng.material.formField || {}),global.ng.common,global.ng.core,global.ng.cdk.platform,global.ng.cdk.coercion,global.ng.material.core,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.animations,global.ng.cdk.bidi));
-}(this, (function (exports,_angular_common,_angular_core,_angular_cdk_platform,_angular_cdk_coercion,_angular_material_core,rxjs_observable_fromEvent,rxjs_operators_startWith,rxjs_operators_take,_angular_animations,_angular_cdk_bidi) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/animations'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('@angular/cdk/bidi'), require('@angular/common'), require('@angular/cdk/platform')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/formField', ['exports', '@angular/core', '@angular/animations', '@angular/cdk/coercion', '@angular/material/core', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', 'rxjs/operators/take', '@angular/cdk/bidi', '@angular/common', '@angular/cdk/platform'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}),global.ng.core,global.ng.animations,global.ng.cdk.coercion,global.ng.material.core,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.bidi,global.ng.common,global.ng.cdk.platform));
+}(this, (function (exports,core,animations,coercion,core$1,fromEvent,startWith,take,bidi,common,platform) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -41,8 +41,7 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-var nextUniqueId = 0;
+var /** @type {?} */ nextUniqueId = 0;
 /**
  * Single error message to be shown underneath the form field.
  */
@@ -51,7 +50,7 @@ var MatError = /** @class */ (function () {
         this.id = "mat-error-" + nextUniqueId++;
     }
     MatError.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-error',
                     host: {
                         'class': 'mat-error',
@@ -63,7 +62,7 @@ var MatError = /** @class */ (function () {
     /** @nocollapse */
     MatError.ctorParameters = function () { return []; };
     MatError.propDecorators = {
-        "id": [{ type: _angular_core.Input },],
+        "id": [{ type: core.Input },],
     };
     return MatError;
 }());
@@ -75,14 +74,14 @@ var MatError = /** @class */ (function () {
 /**
  * Animations used by the MatFormField.
  */
-var matFormFieldAnimations = {
+var /** @type {?} */ matFormFieldAnimations = {
     /** Animation that transitions the form field's error and hint messages. */
-    transitionMessages: _angular_animations.trigger('transitionMessages', [
+    transitionMessages: animations.trigger('transitionMessages', [
         // TODO(mmalerba): Use angular animations for label animation as well.
-        _angular_animations.state('enter', _angular_animations.style({ opacity: 1, transform: 'translateY(0%)' })),
-        _angular_animations.transition('void => enter', [
-            _angular_animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
-            _angular_animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+        animations.state('enter', animations.style({ opacity: 1, transform: 'translateY(0%)' })),
+        animations.transition('void => enter', [
+            animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
+            animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
         ]),
     ])
 };
@@ -96,7 +95,11 @@ var matFormFieldAnimations = {
  * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
  */
-var MatFormFieldControl = /** @class */ (function () {
+var   /**
+ * An interface which allows a control to work inside of a `MatFormField`.
+ * @abstract
+ */
+MatFormFieldControl = /** @class */ (function () {
     function MatFormFieldControl() {
     }
     return MatFormFieldControl;
@@ -134,8 +137,7 @@ function getMatFormFieldMissingControlError() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-var nextUniqueId$2 = 0;
+var /** @type {?} */ nextUniqueId$1 = 0;
 /**
  * Hint text to be shown underneath the form field control.
  */
@@ -148,10 +150,10 @@ var MatHint = /** @class */ (function () {
         /**
          * Unique ID for the hint. Used for the aria-describedby on the form field control.
          */
-        this.id = "mat-hint-" + nextUniqueId$2++;
+        this.id = "mat-hint-" + nextUniqueId$1++;
     }
     MatHint.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-hint',
                     host: {
                         'class': 'mat-hint',
@@ -165,8 +167,8 @@ var MatHint = /** @class */ (function () {
     /** @nocollapse */
     MatHint.ctorParameters = function () { return []; };
     MatHint.propDecorators = {
-        "align": [{ type: _angular_core.Input },],
-        "id": [{ type: _angular_core.Input },],
+        "align": [{ type: core.Input },],
+        "id": [{ type: core.Input },],
     };
     return MatHint;
 }());
@@ -175,7 +177,6 @@ var MatHint = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * The floating label for a `mat-form-field`.
  */
@@ -183,7 +184,7 @@ var MatLabel = /** @class */ (function () {
     function MatLabel() {
     }
     MatLabel.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-label'
                 },] },
     ];
@@ -196,7 +197,6 @@ var MatLabel = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * The placeholder text for an `MatFormField`.
  */
@@ -204,7 +204,7 @@ var MatPlaceholder = /** @class */ (function () {
     function MatPlaceholder() {
     }
     MatPlaceholder.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-placeholder'
                 },] },
     ];
@@ -217,7 +217,6 @@ var MatPlaceholder = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Prefix to be placed the the front of the form field.
  */
@@ -225,7 +224,7 @@ var MatPrefix = /** @class */ (function () {
     function MatPrefix() {
     }
     MatPrefix.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matPrefix]',
                 },] },
     ];
@@ -238,7 +237,6 @@ var MatPrefix = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Suffix to be placed at the end of the form field.
  */
@@ -246,7 +244,7 @@ var MatSuffix = /** @class */ (function () {
     function MatSuffix() {
     }
     MatSuffix.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matSuffix]',
                 },] },
     ];
@@ -259,20 +257,22 @@ var MatSuffix = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-var nextUniqueId$1 = 0;
-var floatingLabelScale = 0.75;
-var outlineGapPadding = 5;
+var /** @type {?} */ nextUniqueId$2 = 0;
+var /** @type {?} */ floatingLabelScale = 0.75;
+var /** @type {?} */ outlineGapPadding = 5;
 /**
  * \@docs-private
  */
-var MatFormFieldBase = /** @class */ (function () {
+var   /**
+ * \@docs-private
+ */
+MatFormFieldBase = /** @class */ (function () {
     function MatFormFieldBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatFormFieldBase;
 }());
-var _MatFormFieldMixinBase = _angular_material_core.mixinColor(MatFormFieldBase, 'primary');
+var /** @type {?} */ _MatFormFieldMixinBase = core$1.mixinColor(MatFormFieldBase, 'primary');
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
@@ -297,7 +297,7 @@ var MatFormField = /** @class */ (function (_super) {
         _this._subscriptAnimationState = '';
         _this._hintLabel = '';
         // Unique id for the hint label.
-        _this._hintLabelId = "mat-hint-" + nextUniqueId$1++;
+        _this._hintLabelId = "mat-hint-" + nextUniqueId$2++;
         _this._outlineGapWidth = 0;
         _this._outlineGapStart = 0;
         _this._labelOptions = labelOptions ? labelOptions : {};
@@ -330,7 +330,7 @@ var MatFormField = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._hideRequiredMarker = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._hideRequiredMarker = coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -447,7 +447,7 @@ var MatFormField = /** @class */ (function (_super) {
                 .add("mat-form-field-type-" + this._control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        this._control.stateChanges.pipe(rxjs_operators_startWith.startWith(/** @type {?} */ ((null)))).subscribe(function () {
+        this._control.stateChanges.pipe(startWith.startWith(/** @type {?} */ ((null)))).subscribe(function () {
             _this._validatePlaceholders();
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
@@ -459,12 +459,12 @@ var MatFormField = /** @class */ (function (_super) {
             });
         }
         // Re-validate when the number of hints changes.
-        this._hintChildren.changes.pipe(rxjs_operators_startWith.startWith(null)).subscribe(function () {
+        this._hintChildren.changes.pipe(startWith.startWith(null)).subscribe(function () {
             _this._processHints();
             _this._changeDetectorRef.markForCheck();
         });
         // Update the aria-described by when the number of errors changes.
-        this._errorChildren.changes.pipe(rxjs_operators_startWith.startWith(null)).subscribe(function () {
+        this._errorChildren.changes.pipe(startWith.startWith(null)).subscribe(function () {
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
         });
@@ -584,7 +584,7 @@ var MatFormField = /** @class */ (function (_super) {
         if (this._hasFloatingLabel() && this._canLabelFloat) {
             this._showAlwaysAnimate = true;
             this.floatLabel = 'always';
-            rxjs_observable_fromEvent.fromEvent(this._label.nativeElement, 'transitionend').pipe(rxjs_operators_take.take(1)).subscribe(function () {
+            fromEvent.fromEvent(this._label.nativeElement, 'transitionend').pipe(take.take(1)).subscribe(function () {
                 _this._showAlwaysAnimate = false;
             });
             this._changeDetectorRef.markForCheck();
@@ -742,7 +742,7 @@ var MatFormField = /** @class */ (function (_super) {
         return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
     };
     MatFormField.decorators = [
-        { type: _angular_core.Component, args: [{// TODO(mmalerba): the input-container selectors and classes are deprecated and will be removed.
+        { type: core.Component, args: [{// TODO(mmalerba): the input-container selectors and classes are deprecated and will be removed.
                     selector: 'mat-input-container, mat-form-field',
                     exportAs: 'matFormField',
                     template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\" #inputContainer><ng-content></ng-content><span class=\"mat-form-field-label-wrapper mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-form-field-label mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #label *ngIf=\"_hasFloatingLabel()\" [ngSwitch]=\"_hasLabel()\"><ng-container *ngSwitchCase=\"false\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}}</ng-container><ng-content select=\"mat-label\" *ngSwitchCase=\"true\"></ng-content><span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required && !_control.disabled\">&nbsp;*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline *ngIf=\"appearance != 'outline'\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><ng-container *ngIf=\"appearance == 'outline'\"><div class=\"mat-form-field-outline\"><div class=\"mat-form-field-outline-start\" [style.width.px]=\"_outlineGapStart\"></div><div class=\"mat-form-field-outline-gap\" [style.width.px]=\"_outlineGapWidth\"></div><div class=\"mat-form-field-outline-end\"></div></div><div class=\"mat-form-field-outline mat-form-field-outline-thick\"><div class=\"mat-form-field-outline-start\" [style.width.px]=\"_outlineGapStart\"></div><div class=\"mat-form-field-outline-gap\" [style.width.px]=\"_outlineGapWidth\"></div><div class=\"mat-form-field-outline-end\"></div></div></ng-container><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
@@ -776,36 +776,36 @@ var MatFormField = /** @class */ (function (_super) {
                         '[class.ng-pending]': '_shouldForward("pending")',
                     },
                     inputs: ['color'],
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
     /** @nocollapse */
     MatFormField.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_material_core.MAT_LABEL_GLOBAL_OPTIONS,] },] },
-        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
+        { type: core.ElementRef, },
+        { type: core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_LABEL_GLOBAL_OPTIONS,] },] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
     ]; };
     MatFormField.propDecorators = {
-        "appearance": [{ type: _angular_core.Input },],
-        "dividerColor": [{ type: _angular_core.Input },],
-        "hideRequiredMarker": [{ type: _angular_core.Input },],
-        "hintLabel": [{ type: _angular_core.Input },],
-        "floatPlaceholder": [{ type: _angular_core.Input },],
-        "floatLabel": [{ type: _angular_core.Input },],
-        "underlineRef": [{ type: _angular_core.ViewChild, args: ['underline',] },],
-        "_connectionContainerRef": [{ type: _angular_core.ViewChild, args: ['connectionContainer',] },],
-        "_inputContainerRef": [{ type: _angular_core.ViewChild, args: ['inputContainer',] },],
-        "_label": [{ type: _angular_core.ViewChild, args: ['label',] },],
-        "_control": [{ type: _angular_core.ContentChild, args: [MatFormFieldControl,] },],
-        "_placeholderChild": [{ type: _angular_core.ContentChild, args: [MatPlaceholder,] },],
-        "_labelChild": [{ type: _angular_core.ContentChild, args: [MatLabel,] },],
-        "_errorChildren": [{ type: _angular_core.ContentChildren, args: [MatError,] },],
-        "_hintChildren": [{ type: _angular_core.ContentChildren, args: [MatHint,] },],
-        "_prefixChildren": [{ type: _angular_core.ContentChildren, args: [MatPrefix,] },],
-        "_suffixChildren": [{ type: _angular_core.ContentChildren, args: [MatSuffix,] },],
+        "appearance": [{ type: core.Input },],
+        "dividerColor": [{ type: core.Input },],
+        "hideRequiredMarker": [{ type: core.Input },],
+        "hintLabel": [{ type: core.Input },],
+        "floatPlaceholder": [{ type: core.Input },],
+        "floatLabel": [{ type: core.Input },],
+        "underlineRef": [{ type: core.ViewChild, args: ['underline',] },],
+        "_connectionContainerRef": [{ type: core.ViewChild, args: ['connectionContainer',] },],
+        "_inputContainerRef": [{ type: core.ViewChild, args: ['inputContainer',] },],
+        "_label": [{ type: core.ViewChild, args: ['label',] },],
+        "_control": [{ type: core.ContentChild, args: [MatFormFieldControl,] },],
+        "_placeholderChild": [{ type: core.ContentChild, args: [MatPlaceholder,] },],
+        "_labelChild": [{ type: core.ContentChild, args: [MatLabel,] },],
+        "_errorChildren": [{ type: core.ContentChildren, args: [MatError,] },],
+        "_hintChildren": [{ type: core.ContentChildren, args: [MatHint,] },],
+        "_prefixChildren": [{ type: core.ContentChildren, args: [MatPrefix,] },],
+        "_suffixChildren": [{ type: core.ContentChildren, args: [MatSuffix,] },],
     };
     return MatFormField;
 }(_MatFormFieldMixinBase));
@@ -814,12 +814,11 @@ var MatFormField = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatFormFieldModule = /** @class */ (function () {
     function MatFormFieldModule() {
     }
     MatFormFieldModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
+        { type: core.NgModule, args: [{
                     declarations: [
                         MatError,
                         MatHint,
@@ -830,8 +829,8 @@ var MatFormFieldModule = /** @class */ (function () {
                         MatLabel,
                     ],
                     imports: [
-                        _angular_common.CommonModule,
-                        _angular_cdk_platform.PlatformModule,
+                        common.CommonModule,
+                        platform.PlatformModule,
                     ],
                     exports: [
                         MatError,

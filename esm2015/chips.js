@@ -5,11 +5,11 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, Input, NgModule, NgZone, Optional, Output, Self, ViewEncapsulation, forwardRef } from '@angular/core';
-import { ErrorStateMatcher, MAT_RIPPLE_GLOBAL_OPTIONS, RippleRenderer, mixinColor, mixinDisableRipple, mixinDisabled, mixinErrorState } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { BACKSPACE, DELETE, ENTER, SPACE } from '@angular/cdk/keycodes';
+import { BACKSPACE, DELETE, SPACE, ENTER } from '@angular/cdk/keycodes';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
+import { MAT_RIPPLE_GLOBAL_OPTIONS, mixinColor, mixinDisabled, mixinDisableRipple, RippleRenderer, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
@@ -24,12 +24,6 @@ import { Subscription } from 'rxjs/Subscription';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Represents an event fired on an individual `mat-chip`.
- * @record
- */
-
 /**
  * Event object emitted by MatChip when selected or deselected.
  */
@@ -56,8 +50,8 @@ class MatChipBase {
         this._elementRef = _elementRef;
     }
 }
-const _MatChipMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary');
-const CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
+const /** @type {?} */ _MatChipMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary');
+const /** @type {?} */ CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
 /**
  * Dummy directive to add CSS class to chip avatar.
  * \@docs-private
@@ -464,7 +458,6 @@ MatChipRemove.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
@@ -482,9 +475,9 @@ class MatChipListBase {
         this.ngControl = ngControl;
     }
 }
-const _MatChipListMixinBase = mixinErrorState(MatChipListBase);
+const /** @type {?} */ _MatChipListMixinBase = mixinErrorState(MatChipListBase);
 // Increasing integer for generating unique ids for chip-list components.
-let nextUniqueId = 0;
+let /** @type {?} */ nextUniqueId = 0;
 /**
  * Change event object that is emitted when the chip list value has changed.
  */
@@ -1263,12 +1256,6 @@ MatChipList.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Represents an input event on a `matChipInput`.
- * @record
- */
-
 /**
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
@@ -1414,8 +1401,7 @@ MatChipInput.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-const CHIP_DECLARATIONS = [
+const /** @type {?} */ CHIP_DECLARATIONS = [
     MatChipList,
     MatChip,
     MatChipInput,
@@ -1444,9 +1430,6 @@ MatChipsModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatChipsModule, MatChipListBase, _MatChipListMixinBase, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipBase, _MatChipMixinBase, MatChipAvatar, MatChipTrailingIcon, MatChip, MatChipRemove, MatChipInput };

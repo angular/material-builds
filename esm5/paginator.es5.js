@@ -5,19 +5,18 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { Injectable, SkipSelf, Optional, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation, NgModule } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Injectable, Input, NgModule, Optional, Output, SkipSelf, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { Subject } from 'rxjs/Subject';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
  * include it in a custom provider
@@ -83,7 +82,7 @@ function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl) {
 /**
  * \@docs-private
  */
-var MAT_PAGINATOR_INTL_PROVIDER = {
+var /** @type {?} */ MAT_PAGINATOR_INTL_PROVIDER = {
     // If there is already an MatPaginatorIntl available, use that. Otherwise, provide a new one.
     provide: MatPaginatorIntl,
     deps: [[new Optional(), new SkipSelf(), MatPaginatorIntl]],
@@ -94,16 +93,19 @@ var MAT_PAGINATOR_INTL_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * The default page size if there is no page size and there are no provided page size options.
  */
-var DEFAULT_PAGE_SIZE = 50;
+var /** @type {?} */ DEFAULT_PAGE_SIZE = 50;
 /**
  * Change event object that is emitted when the user selects a
  * different page size or navigates to another page.
  */
-var PageEvent = /** @class */ (function () {
+var  /**
+ * Change event object that is emitted when the user selects a
+ * different page size or navigates to another page.
+ */
+PageEvent = /** @class */ (function () {
     function PageEvent() {
     }
     return PageEvent;
@@ -464,7 +466,6 @@ var MatPaginator = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatPaginatorModule = /** @class */ (function () {
     function MatPaginatorModule() {
     }
@@ -494,9 +495,6 @@ var MatPaginatorModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatPaginatorModule, PageEvent, MatPaginator, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MAT_PAGINATOR_INTL_PROVIDER };

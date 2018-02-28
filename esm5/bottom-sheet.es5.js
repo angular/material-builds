@@ -5,21 +5,20 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Injector, NgModule, Optional, SkipSelf, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
-import { A11yModule, FocusTrapFactory } from '@angular/cdk/a11y';
-import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, PortalModule, TemplatePortal } from '@angular/cdk/portal';
-import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
-import { __assign, __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
+import { __extends, __assign } from 'tslib';
+import { Component, ViewChild, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, EventEmitter, Inject, Optional, InjectionToken, TemplateRef, Injectable, Injector, SkipSelf, NgModule } from '@angular/core';
+import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalInjector, PortalModule } from '@angular/cdk/portal';
+import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
+import { DOCUMENT, CommonModule } from '@angular/common';
+import { FocusTrapFactory, A11yModule } from '@angular/cdk/a11y';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { Subject } from 'rxjs/Subject';
 import { merge } from 'rxjs/observable/merge';
 import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
+import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { of } from 'rxjs/observable/of';
 import { Directionality } from '@angular/cdk/bidi';
 
@@ -30,7 +29,7 @@ import { Directionality } from '@angular/cdk/bidi';
 /**
  * Animations used by the Material bottom sheet.
  */
-var matBottomSheetAnimations = {
+var /** @type {?} */ matBottomSheetAnimations = {
     /** Animation that shows and hides a bottom sheet. */
     bottomSheetState: trigger('state', [
         state('void, hidden', style({ transform: 'translateY(100%)' })),
@@ -44,7 +43,6 @@ var matBottomSheetAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Internal component that wraps user-provided bottom sheet content.
  * \@docs-private
@@ -303,15 +301,17 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Injection token that can be used to access the data that was passed in to a bottom sheet.
  */
-var MAT_BOTTOM_SHEET_DATA = new InjectionToken('MatBottomSheetData');
+var /** @type {?} */ MAT_BOTTOM_SHEET_DATA = new InjectionToken('MatBottomSheetData');
 /**
  * Configuration used when opening a bottom sheet.
  */
-var MatBottomSheetConfig = /** @class */ (function () {
+var  /**
+ * Configuration used when opening a bottom sheet.
+ */
+MatBottomSheetConfig = /** @class */ (function () {
     function MatBottomSheetConfig() {
         /**
          * Data being injected into the child component.
@@ -337,11 +337,13 @@ var MatBottomSheetConfig = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
  */
-var MatBottomSheetRef = /** @class */ (function () {
+var  /**
+ * Reference to a bottom sheet dispatched from the bottom sheet service.
+ */
+MatBottomSheetRef = /** @class */ (function () {
     function MatBottomSheetRef(containerInstance, _overlayRef) {
         var _this = this;
         this._overlayRef = _overlayRef;
@@ -453,7 +455,6 @@ var MatBottomSheetRef = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Service to trigger Material Design bottom sheets.
  */
@@ -649,7 +650,6 @@ function _applyConfigDefaults(config) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatBottomSheetModule = /** @class */ (function () {
     function MatBottomSheetModule() {
     }
@@ -682,9 +682,6 @@ var MatBottomSheetModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatBottomSheetModule, MatBottomSheet, MAT_BOTTOM_SHEET_DATA, MatBottomSheetConfig, MatBottomSheetContainer, matBottomSheetAnimations, MatBottomSheetRef };

@@ -5,11 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ElementRef, Input, NgModule, ViewEncapsulation } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatCommonModule, mixinColor } from '@angular/material/core';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
+import { Component, ChangeDetectionStrategy, ElementRef, Input, ViewEncapsulation, NgModule } from '@angular/core';
+import { mixinColor, MatCommonModule } from '@angular/material/core';
+import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -18,17 +17,20 @@ import * as tslib_1 from 'tslib';
 /**
  * \@docs-private
  */
-var MatProgressBarBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatProgressBarBase = /** @class */ (function () {
     function MatProgressBarBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatProgressBarBase;
 }());
-var _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
+var /** @type {?} */ _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
 /**
  * Counter used to generate unique IDs for progress bars.
  */
-var progressbarId = 0;
+var /** @type {?} */ progressbarId = 0;
 /**
  * `<mat-progress-bar>` component.
  */
@@ -161,7 +163,6 @@ function clamp(v, min, max) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatProgressBarModule = /** @class */ (function () {
     function MatProgressBarModule() {
     }
@@ -185,9 +186,6 @@ var MatProgressBarModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatProgressBarModule, MatProgressBarBase, _MatProgressBarMixinBase, MatProgressBar };

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/platform'), require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/Subject'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/operators/startWith'), require('rxjs/Subscription')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/cdk/platform', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/Subject', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/operators/startWith', 'rxjs/Subscription'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = global.ng.material.chips || {}),global.ng.cdk.platform,global.ng.core,global.ng.material.core,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.Rx,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.collections,global.ng.forms,global.ng.material.formField,global.Rx.Observable,global.Rx.operators,global.Rx));
-}(this, (function (exports,_angular_cdk_platform,_angular_core,_angular_material_core,_angular_cdk_coercion,_angular_cdk_keycodes,rxjs_Subject,_angular_cdk_a11y,_angular_cdk_bidi,_angular_cdk_collections,_angular_forms,_angular_material_formField,rxjs_observable_merge,rxjs_operators_startWith,rxjs_Subscription) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/core'), require('@angular/material/core'), require('rxjs/Subject'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/operators/startWith'), require('rxjs/Subscription')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/chips', ['exports', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/core', '@angular/material/core', 'rxjs/Subject', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/operators/startWith', 'rxjs/Subscription'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = {}),global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.core,global.ng.material.core,global.Rx,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.collections,global.ng.forms,global.ng.material.formField,global.Rx.Observable,global.Rx.operators,global.Rx));
+}(this, (function (exports,coercion,keycodes,platform,core,core$1,Subject,a11y,bidi,collections,forms,formField,merge,startWith,Subscription) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -41,16 +41,13 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Represents an event fired on an individual `mat-chip`.
- * @record
- */
-
 /**
  * Event object emitted by MatChip when selected or deselected.
  */
-var MatChipSelectionChange = /** @class */ (function () {
+var   /**
+ * Event object emitted by MatChip when selected or deselected.
+ */
+MatChipSelectionChange = /** @class */ (function () {
     function MatChipSelectionChange(source, selected, isUserInput) {
         if (isUserInput === void 0) { isUserInput = false; }
         this.source = source;
@@ -62,14 +59,17 @@ var MatChipSelectionChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var MatChipBase = /** @class */ (function () {
+var   /**
+ * \@docs-private
+ */
+MatChipBase = /** @class */ (function () {
     function MatChipBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatChipBase;
 }());
-var _MatChipMixinBase = _angular_material_core.mixinColor(_angular_material_core.mixinDisableRipple(_angular_material_core.mixinDisabled(MatChipBase)), 'primary');
-var CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
+var /** @type {?} */ _MatChipMixinBase = core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(MatChipBase)), 'primary');
+var /** @type {?} */ CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
 /**
  * Dummy directive to add CSS class to chip avatar.
  * \@docs-private
@@ -78,7 +78,7 @@ var MatChipAvatar = /** @class */ (function () {
     function MatChipAvatar() {
     }
     MatChipAvatar.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-chip-avatar, [matChipAvatar]',
                     host: { 'class': 'mat-chip-avatar' }
                 },] },
@@ -95,7 +95,7 @@ var MatChipTrailingIcon = /** @class */ (function () {
     function MatChipTrailingIcon() {
     }
     MatChipTrailingIcon.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-chip-trailing-icon, [matChipTrailingIcon]',
                     host: { 'class': 'mat-chip-trailing-icon' }
                 },] },
@@ -109,7 +109,7 @@ var MatChipTrailingIcon = /** @class */ (function () {
  */
 var MatChip = /** @class */ (function (_super) {
     __extends(MatChip, _super);
-    function MatChip(_elementRef, ngZone, platform, globalOptions) {
+    function MatChip(_elementRef, ngZone, platform$$1, globalOptions) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         /**
@@ -131,19 +131,19 @@ var MatChip = /** @class */ (function (_super) {
         /**
          * Emits when the chip is focused.
          */
-        _this._onFocus = new rxjs_Subject.Subject();
+        _this._onFocus = new Subject.Subject();
         /**
          * Emits when the chip is blured.
          */
-        _this._onBlur = new rxjs_Subject.Subject();
+        _this._onBlur = new Subject.Subject();
         /**
          * Emitted when the chip is selected or deselected.
          */
-        _this.selectionChange = new _angular_core.EventEmitter();
+        _this.selectionChange = new core.EventEmitter();
         /**
          * Emitted when the chip is destroyed.
          */
-        _this.destroyed = new _angular_core.EventEmitter();
+        _this.destroyed = new core.EventEmitter();
         /**
          * Emitted when the chip is destroyed.
          * @deprecated Use 'destroyed' instead.
@@ -153,7 +153,7 @@ var MatChip = /** @class */ (function (_super) {
         /**
          * Emitted when a chip is to be removed.
          */
-        _this.removed = new _angular_core.EventEmitter();
+        _this.removed = new core.EventEmitter();
         /**
          * Emitted when a chip is to be removed.
          * @deprecated Use `removed` instead.
@@ -161,7 +161,7 @@ var MatChip = /** @class */ (function (_super) {
          */
         _this.onRemove = _this.removed;
         _this._addHostClassName();
-        _this._chipRipple = new _angular_material_core.RippleRenderer(_this, ngZone, _elementRef, platform);
+        _this._chipRipple = new core$1.RippleRenderer(_this, ngZone, _elementRef, platform$$1);
         _this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
         if (globalOptions) {
             _this.rippleConfig = {
@@ -199,7 +199,7 @@ var MatChip = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._selected = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._selected = coercion.coerceBooleanProperty(value);
             this.selectionChange.emit({
                 source: this,
                 isUserInput: false,
@@ -241,7 +241,7 @@ var MatChip = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._selectable = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._selectable = coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -257,7 +257,7 @@ var MatChip = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._removable = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._removable = coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -449,14 +449,14 @@ var MatChip = /** @class */ (function (_super) {
             return;
         }
         switch (event.keyCode) {
-            case _angular_cdk_keycodes.DELETE:
-            case _angular_cdk_keycodes.BACKSPACE:
+            case keycodes.DELETE:
+            case keycodes.BACKSPACE:
                 // If we are removable, remove the focused chip
                 this.remove();
                 // Always prevent so page navigation does not occur
                 event.preventDefault();
                 break;
-            case _angular_cdk_keycodes.SPACE:
+            case keycodes.SPACE:
                 // If we are selectable, toggle the focused chip
                 if (this.selectable) {
                     this.toggleSelected(true);
@@ -477,7 +477,7 @@ var MatChip = /** @class */ (function (_super) {
         this._onBlur.next({ chip: this });
     };
     MatChip.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: "mat-basic-chip, [mat-basic-chip], mat-chip, [mat-chip]",
                     inputs: ['color', 'disabled', 'disableRipple'],
                     exportAs: 'matChip',
@@ -501,24 +501,24 @@ var MatChip = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatChip.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_core.NgZone, },
-        { type: _angular_cdk_platform.Platform, },
-        { type: undefined, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Inject, args: [_angular_material_core.MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
+        { type: core.ElementRef, },
+        { type: core.NgZone, },
+        { type: platform.Platform, },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
     ]; };
     MatChip.propDecorators = {
-        "avatar": [{ type: _angular_core.ContentChild, args: [MatChipAvatar,] },],
-        "trailingIcon": [{ type: _angular_core.ContentChild, args: [MatChipTrailingIcon,] },],
-        "removeIcon": [{ type: _angular_core.ContentChild, args: [_angular_core.forwardRef(function () { return MatChipRemove; }),] },],
-        "selected": [{ type: _angular_core.Input },],
-        "value": [{ type: _angular_core.Input },],
-        "selectable": [{ type: _angular_core.Input },],
-        "removable": [{ type: _angular_core.Input },],
-        "selectionChange": [{ type: _angular_core.Output },],
-        "destroyed": [{ type: _angular_core.Output },],
-        "destroy": [{ type: _angular_core.Output },],
-        "removed": [{ type: _angular_core.Output },],
-        "onRemove": [{ type: _angular_core.Output, args: ['remove',] },],
+        "avatar": [{ type: core.ContentChild, args: [MatChipAvatar,] },],
+        "trailingIcon": [{ type: core.ContentChild, args: [MatChipTrailingIcon,] },],
+        "removeIcon": [{ type: core.ContentChild, args: [core.forwardRef(function () { return MatChipRemove; }),] },],
+        "selected": [{ type: core.Input },],
+        "value": [{ type: core.Input },],
+        "selectable": [{ type: core.Input },],
+        "removable": [{ type: core.Input },],
+        "selectionChange": [{ type: core.Output },],
+        "destroyed": [{ type: core.Output },],
+        "destroy": [{ type: core.Output },],
+        "removed": [{ type: core.Output },],
+        "onRemove": [{ type: core.Output, args: ['remove',] },],
     };
     return MatChip;
 }(_MatChipMixinBase));
@@ -554,7 +554,7 @@ var MatChipRemove = /** @class */ (function () {
         }
     };
     MatChipRemove.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matChipRemove]',
                     host: {
                         'class': 'mat-chip-remove mat-chip-trailing-icon',
@@ -573,11 +573,13 @@ var MatChipRemove = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
-var MatChipListBase = /** @class */ (function () {
+var   /**
+ * \@docs-private
+ */
+MatChipListBase = /** @class */ (function () {
     function MatChipListBase(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) {
         this._defaultErrorStateMatcher = _defaultErrorStateMatcher;
         this._parentForm = _parentForm;
@@ -586,13 +588,16 @@ var MatChipListBase = /** @class */ (function () {
     }
     return MatChipListBase;
 }());
-var _MatChipListMixinBase = _angular_material_core.mixinErrorState(MatChipListBase);
+var /** @type {?} */ _MatChipListMixinBase = core$1.mixinErrorState(MatChipListBase);
 // Increasing integer for generating unique ids for chip-list components.
-var nextUniqueId = 0;
+var /** @type {?} */ nextUniqueId = 0;
 /**
  * Change event object that is emitted when the chip list value has changed.
  */
-var MatChipListChange = /** @class */ (function () {
+var   /**
+ * Change event object that is emitted when the chip list value has changed.
+ */
+MatChipListChange = /** @class */ (function () {
     function MatChipListChange(source, value) {
         this.source = source;
         this.value = value;
@@ -627,7 +632,7 @@ var MatChipList = /** @class */ (function (_super) {
         /**
          * Subscription to tabbing out from the chip list.
          */
-        _this._tabOutSubscription = rxjs_Subscription.Subscription.EMPTY;
+        _this._tabOutSubscription = Subscription.Subscription.EMPTY;
         /**
          * Uid of the chip list
          */
@@ -661,13 +666,13 @@ var MatChipList = /** @class */ (function (_super) {
         /**
          * Event emitted when the selected chip list value has been changed by the user.
          */
-        _this.change = new _angular_core.EventEmitter();
+        _this.change = new core.EventEmitter();
         /**
          * Event that emits whenever the raw value of the chip-list changes. This is here primarily
          * to facilitate the two-way binding for the `value` input.
          * \@docs-private
          */
-        _this.valueChange = new _angular_core.EventEmitter();
+        _this.valueChange = new core.EventEmitter();
         if (_this.ngControl) {
             _this.ngControl.valueAccessor = _this;
         }
@@ -706,7 +711,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._multiple = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._multiple = coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -781,7 +786,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._required = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._required = coercion.coerceBooleanProperty(value);
             this.stateChanges.next();
         },
         enumerable: true,
@@ -861,7 +866,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._disabled = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        function (value) { this._disabled = coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -878,7 +883,7 @@ var MatChipList = /** @class */ (function (_super) {
          */
         function (value) {
             var _this = this;
-            this._selectable = _angular_cdk_coercion.coerceBooleanProperty(value);
+            this._selectable = coercion.coerceBooleanProperty(value);
             if (this.chips) {
                 this.chips.forEach(function (chip) { return chip.chipListSelectable = _this._selectable; });
             }
@@ -905,7 +910,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return rxjs_observable_merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.selectionChange; }));
+            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.selectionChange; }));
         },
         enumerable: true,
         configurable: true
@@ -917,7 +922,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return rxjs_observable_merge.merge.apply(void 0, this.chips.map(function (chip) { return chip._onFocus; }));
+            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip._onFocus; }));
         },
         enumerable: true,
         configurable: true
@@ -929,7 +934,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return rxjs_observable_merge.merge.apply(void 0, this.chips.map(function (chip) { return chip._onBlur; }));
+            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip._onBlur; }));
         },
         enumerable: true,
         configurable: true
@@ -941,7 +946,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return rxjs_observable_merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.destroy; }));
+            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.destroy; }));
         },
         enumerable: true,
         configurable: true
@@ -954,7 +959,7 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._keyManager = new _angular_cdk_a11y.FocusKeyManager(this.chips)
+        this._keyManager = new a11y.FocusKeyManager(this.chips)
             .withWrap()
             .withVerticalOrientation()
             .withHorizontalOrientation(this._dir ? this._dir.value : 'ltr');
@@ -965,7 +970,7 @@ var MatChipList = /** @class */ (function (_super) {
             setTimeout(function () { return _this._tabIndex = _this._userTabIndex || 0; });
         });
         // When the list changes, re-subscribe
-        this._changeSubscription = this.chips.changes.pipe(rxjs_operators_startWith.startWith(null)).subscribe(function () {
+        this._changeSubscription = this.chips.changes.pipe(startWith.startWith(null)).subscribe(function () {
             _this._resetChips();
             // Reset chips selected/deselected status
             // Reset chips selected/deselected status
@@ -985,7 +990,7 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._selectionModel = new _angular_cdk_collections.SelectionModel(this.multiple, undefined, false);
+        this._selectionModel = new collections.SelectionModel(this.multiple, undefined, false);
         this.stateChanges.next();
     };
     /**
@@ -1176,7 +1181,7 @@ var MatChipList = /** @class */ (function (_super) {
     function (event) {
         var /** @type {?} */ target = /** @type {?} */ (event.target);
         // If they are on an empty input and hit backspace, focus the last chip
-        if (event.keyCode === _angular_cdk_keycodes.BACKSPACE && this._isInputEmpty(target)) {
+        if (event.keyCode === keycodes.BACKSPACE && this._isInputEmpty(target)) {
             this._keyManager.setLastItemActive();
             event.preventDefault();
         }
@@ -1575,7 +1580,7 @@ var MatChipList = /** @class */ (function (_super) {
         });
     };
     MatChipList.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-chip-list',
+        { type: core.Component, args: [{selector: 'mat-chip-list',
                     template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
                     exportAs: 'matChipList',
                     host: {
@@ -1595,38 +1600,38 @@ var MatChipList = /** @class */ (function (_super) {
                         '(blur)': '_blur()',
                         '(keydown)': '_keydown($event)'
                     },
-                    providers: [{ provide: _angular_material_formField.MatFormFieldControl, useExisting: MatChipList }],
+                    providers: [{ provide: formField.MatFormFieldControl, useExisting: MatChipList }],
                     styles: [".mat-chip{position:relative;overflow:hidden}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip:focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-standard-chip{outline:solid 1px}}.mat-standard-chip.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:7px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:7px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:7px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:7px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:32px;height:32px;margin-right:8px;margin-left:0}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:0}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:7px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:7px;margin-left:0}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper .mat-standard-chip,.mat-chip-list-wrapper input.mat-input-element{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden}input.mat-chip-input{width:150px;margin:3px;flex:1 0 150px}"],
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush
+                    changeDetection: core.ChangeDetectionStrategy.OnPush
                 },] },
     ];
     /** @nocollapse */
     MatChipList.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
-        { type: _angular_core.ChangeDetectorRef, },
-        { type: _angular_cdk_bidi.Directionality, decorators: [{ type: _angular_core.Optional },] },
-        { type: _angular_forms.NgForm, decorators: [{ type: _angular_core.Optional },] },
-        { type: _angular_forms.FormGroupDirective, decorators: [{ type: _angular_core.Optional },] },
-        { type: _angular_material_core.ErrorStateMatcher, },
-        { type: _angular_forms.NgControl, decorators: [{ type: _angular_core.Optional }, { type: _angular_core.Self },] },
+        { type: core.ElementRef, },
+        { type: core.ChangeDetectorRef, },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: forms.NgForm, decorators: [{ type: core.Optional },] },
+        { type: forms.FormGroupDirective, decorators: [{ type: core.Optional },] },
+        { type: core$1.ErrorStateMatcher, },
+        { type: forms.NgControl, decorators: [{ type: core.Optional }, { type: core.Self },] },
     ]; };
     MatChipList.propDecorators = {
-        "errorStateMatcher": [{ type: _angular_core.Input },],
-        "multiple": [{ type: _angular_core.Input },],
-        "compareWith": [{ type: _angular_core.Input },],
-        "value": [{ type: _angular_core.Input },],
-        "id": [{ type: _angular_core.Input },],
-        "required": [{ type: _angular_core.Input },],
-        "placeholder": [{ type: _angular_core.Input },],
-        "disabled": [{ type: _angular_core.Input },],
-        "ariaOrientation": [{ type: _angular_core.Input, args: ['aria-orientation',] },],
-        "selectable": [{ type: _angular_core.Input },],
-        "tabIndex": [{ type: _angular_core.Input },],
-        "change": [{ type: _angular_core.Output },],
-        "valueChange": [{ type: _angular_core.Output },],
-        "chips": [{ type: _angular_core.ContentChildren, args: [MatChip,] },],
+        "errorStateMatcher": [{ type: core.Input },],
+        "multiple": [{ type: core.Input },],
+        "compareWith": [{ type: core.Input },],
+        "value": [{ type: core.Input },],
+        "id": [{ type: core.Input },],
+        "required": [{ type: core.Input },],
+        "placeholder": [{ type: core.Input },],
+        "disabled": [{ type: core.Input },],
+        "ariaOrientation": [{ type: core.Input, args: ['aria-orientation',] },],
+        "selectable": [{ type: core.Input },],
+        "tabIndex": [{ type: core.Input },],
+        "change": [{ type: core.Output },],
+        "valueChange": [{ type: core.Output },],
+        "chips": [{ type: core.ContentChildren, args: [MatChip,] },],
     };
     return MatChipList;
 }(_MatChipListMixinBase));
@@ -1635,12 +1640,6 @@ var MatChipList = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Represents an input event on a `matChipInput`.
- * @record
- */
-
 /**
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
@@ -1658,11 +1657,11 @@ var MatChipInput = /** @class */ (function () {
          *
          * Defaults to `[ENTER]`.
          */
-        this.separatorKeyCodes = [_angular_cdk_keycodes.ENTER];
+        this.separatorKeyCodes = [keycodes.ENTER];
         /**
          * Emitted when a chip is to be added.
          */
-        this.chipEnd = new _angular_core.EventEmitter();
+        this.chipEnd = new core.EventEmitter();
         /**
          * The input's placeholder text.
          */
@@ -1694,7 +1693,7 @@ var MatChipInput = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._addOnBlur = _angular_cdk_coercion.coerceBooleanProperty(value); },
+        function (value) { this._addOnBlur = coercion.coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -1795,7 +1794,7 @@ var MatChipInput = /** @class */ (function () {
      */
     function () { this._inputElement.focus(); };
     MatChipInput.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'input[matChipInputFor]',
                     exportAs: 'matChipInput, matChipInputFor',
                     host: {
@@ -1809,14 +1808,14 @@ var MatChipInput = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatChipInput.ctorParameters = function () { return [
-        { type: _angular_core.ElementRef, },
+        { type: core.ElementRef, },
     ]; };
     MatChipInput.propDecorators = {
-        "chipList": [{ type: _angular_core.Input, args: ['matChipInputFor',] },],
-        "addOnBlur": [{ type: _angular_core.Input, args: ['matChipInputAddOnBlur',] },],
-        "separatorKeyCodes": [{ type: _angular_core.Input, args: ['matChipInputSeparatorKeyCodes',] },],
-        "chipEnd": [{ type: _angular_core.Output, args: ['matChipInputTokenEnd',] },],
-        "placeholder": [{ type: _angular_core.Input },],
+        "chipList": [{ type: core.Input, args: ['matChipInputFor',] },],
+        "addOnBlur": [{ type: core.Input, args: ['matChipInputAddOnBlur',] },],
+        "separatorKeyCodes": [{ type: core.Input, args: ['matChipInputSeparatorKeyCodes',] },],
+        "chipEnd": [{ type: core.Output, args: ['matChipInputTokenEnd',] },],
+        "placeholder": [{ type: core.Input },],
     };
     return MatChipInput;
 }());
@@ -1825,8 +1824,7 @@ var MatChipInput = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-var CHIP_DECLARATIONS = [
+var /** @type {?} */ CHIP_DECLARATIONS = [
     MatChipList,
     MatChip,
     MatChipInput,
@@ -1838,11 +1836,11 @@ var MatChipsModule = /** @class */ (function () {
     function MatChipsModule() {
     }
     MatChipsModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_cdk_platform.PlatformModule],
+        { type: core.NgModule, args: [{
+                    imports: [platform.PlatformModule],
                     exports: CHIP_DECLARATIONS,
                     declarations: CHIP_DECLARATIONS,
-                    providers: [_angular_material_core.ErrorStateMatcher]
+                    providers: [core$1.ErrorStateMatcher]
                 },] },
     ];
     /** @nocollapse */

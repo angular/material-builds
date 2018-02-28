@@ -5,18 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { A11yModule, FocusMonitor, FocusTrapFactory } from '@angular/cdk/a11y';
-import { OverlayModule } from '@angular/cdk/overlay';
-import { CommonModule, DOCUMENT } from '@angular/common';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, Inject, InjectionToken, Input, NgModule, NgZone, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { MatCommonModule } from '@angular/material/core';
-import { CdkScrollable, ScrollDispatchModule } from '@angular/cdk/scrolling';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { FocusTrapFactory, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, ViewEncapsulation, InjectionToken, ViewChild, NgModule } from '@angular/core';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { merge } from 'rxjs/observable/merge';
 import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
@@ -26,7 +22,10 @@ import { debounceTime } from 'rxjs/operators/debounceTime';
 import { map } from 'rxjs/operators/map';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/Observable';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { CdkScrollable, ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { __extends } from 'tslib';
+import { OverlayModule } from '@angular/cdk/overlay';
+import { MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
@@ -35,7 +34,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 /**
  * Animations used by the Material drawers.
  */
-var matDrawerAnimations = {
+var /** @type {?} */ matDrawerAnimations = {
     /** Animation that slides a drawer in and out. */
     transformDrawer: trigger('transform', [
         state('open, open-instant', style({
@@ -67,7 +66,12 @@ function throwMatDuplicatedDrawerError(position) {
  * @deprecated
  * \@deletion-target 6.0.0
  */
-var MatDrawerToggleResult = /** @class */ (function () {
+var  /**
+ * Drawer toggle promise result.
+ * @deprecated
+ * \@deletion-target 6.0.0
+ */
+MatDrawerToggleResult = /** @class */ (function () {
     function MatDrawerToggleResult(type, animationFinished) {
         this.type = type;
         this.animationFinished = animationFinished;
@@ -77,7 +81,7 @@ var MatDrawerToggleResult = /** @class */ (function () {
 /**
  * Configures whether drawers should use auto sizing by default.
  */
-var MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
+var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
 var MatDrawerContent = /** @class */ (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
@@ -1034,7 +1038,6 @@ var MatDrawerContainer = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatSidenavContent = /** @class */ (function (_super) {
     __extends(MatSidenavContent, _super);
     function MatSidenavContent(changeDetectorRef, container) {
@@ -1180,7 +1183,6 @@ var MatSidenavContainer = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatSidenavModule = /** @class */ (function () {
     function MatSidenavModule() {
     }
@@ -1229,9 +1231,6 @@ var MatSidenavModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatSidenavModule, throwMatDuplicatedDrawerError, MatDrawerToggleResult, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };

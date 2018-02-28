@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Attribute, ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, Input, NgModule, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { CdkNestedTreeNode, CdkTree, CdkTreeModule, CdkTreeNode, CdkTreeNodeDef, CdkTreeNodePadding, CdkTreeNodeToggle } from '@angular/cdk/tree';
-import { MatCommonModule, mixinDisabled, mixinTabIndex } from '@angular/material/core';
+import { Directive, ViewContainerRef, Attribute, ContentChildren, ElementRef, Input, ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { CdkNestedTreeNode, CdkTree, CdkTreeNodeDef, CdkTreeNode, CdkTreeNodePadding, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
+import { mixinTabIndex, mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { DataSource } from '@angular/cdk/collections';
 import { merge } from 'rxjs/observable/merge';
@@ -45,9 +45,8 @@ MatTreeNodeOutlet.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-const _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
-const _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkNestedTreeNode));
+const /** @type {?} */ _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
+const /** @type {?} */ _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkNestedTreeNode));
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */
@@ -176,7 +175,6 @@ MatTreeNodePadding.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Wrapper for the CdkTable with Material design styles.
  */
@@ -207,7 +205,6 @@ MatTree.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  */
@@ -236,8 +233,7 @@ MatTreeNodeToggle.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-const MAT_TREE_DIRECTIVES = [
+const /** @type {?} */ MAT_TREE_DIRECTIVES = [
     MatNestedTreeNode,
     MatTreeNodeDef,
     MatTreeNodePadding,
@@ -262,7 +258,6 @@ MatTreeModule.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Tree flattener to convert a normal type of node to node with children & level information.
  * Transform nested nodes of type `T` to flattened nodes of type `F`.
@@ -430,7 +425,6 @@ class MatTreeFlatDataSource extends DataSource {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Data source for nested tree.
  *
@@ -479,9 +473,6 @@ class MatTreeNestedDataSource extends DataSource {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Generated bundle index. Do not edit.
- */
 
-export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa14 };
+export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa13 };
 //# sourceMappingURL=tree.js.map

@@ -6,43 +6,47 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
+import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { UNIQUE_SELECTION_DISPATCHER_PROVIDER, UniqueSelectionDispatcher } from '@angular/cdk/collections';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, Input, NgModule, Optional, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
+import { UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from '@angular/cdk/collections';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, forwardRef, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatCommonModule, MatRippleModule, mixinDisableRipple, mixinDisabled } from '@angular/material/core';
+import { mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * \@docs-private
  */
-var MatButtonToggleGroupBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatButtonToggleGroupBase = /** @class */ (function () {
     function MatButtonToggleGroupBase() {
     }
     return MatButtonToggleGroupBase;
 }());
-var _MatButtonToggleGroupMixinBase = mixinDisabled(MatButtonToggleGroupBase);
+var /** @type {?} */ _MatButtonToggleGroupMixinBase = mixinDisabled(MatButtonToggleGroupBase);
 /**
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
  */
-var MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
+var /** @type {?} */ MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MatButtonToggleGroup; }),
     multi: true
 };
-var _uniqueIdCounter = 0;
+var /** @type {?} */ _uniqueIdCounter = 0;
 /**
  * Change event object emitted by MatButtonToggle.
  */
-var MatButtonToggleChange = /** @class */ (function () {
+var  /**
+ * Change event object emitted by MatButtonToggle.
+ */
+MatButtonToggleChange = /** @class */ (function () {
     function MatButtonToggleChange() {
     }
     return MatButtonToggleChange;
@@ -338,12 +342,15 @@ var MatButtonToggleGroupMultiple = /** @class */ (function (_super) {
 /**
  * \@docs-private
  */
-var MatButtonToggleBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatButtonToggleBase = /** @class */ (function () {
     function MatButtonToggleBase() {
     }
     return MatButtonToggleBase;
 }());
-var _MatButtonToggleMixinBase = mixinDisableRipple(MatButtonToggleBase);
+var /** @type {?} */ _MatButtonToggleMixinBase = mixinDisableRipple(MatButtonToggleBase);
 /**
  * Single button inside of a toggle group.
  */
@@ -652,7 +659,6 @@ var MatButtonToggle = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatButtonToggleModule = /** @class */ (function () {
     function MatButtonToggleModule() {
     }
@@ -682,9 +688,6 @@ var MatButtonToggleModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatButtonToggleGroupBase, _MatButtonToggleGroupMixinBase, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleGroupMultiple, MatButtonToggleBase, _MatButtonToggleMixinBase, MatButtonToggle, MatButtonToggleModule };

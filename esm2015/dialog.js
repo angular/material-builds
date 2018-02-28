@@ -5,33 +5,27 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, EventEmitter, Inject, Injectable, InjectionToken, Injector, Input, NgModule, Optional, SkipSelf, TemplateRef, ViewChild, ViewEncapsulation } from '@angular/core';
-import { CommonModule, DOCUMENT, Location } from '@angular/common';
-import { Overlay, OverlayConfig, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
-import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, PortalModule, TemplatePortal } from '@angular/cdk/portal';
-import { A11yModule, FocusTrapFactory } from '@angular/cdk/a11y';
-import { MatCommonModule } from '@angular/material/core';
-import { Directionality } from '@angular/cdk/bidi';
-import { defer } from 'rxjs/observable/defer';
-import { of } from 'rxjs/observable/of';
-import { startWith } from 'rxjs/operators/startWith';
-import { Subject } from 'rxjs/Subject';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, ElementRef, EventEmitter, Inject, Optional, ChangeDetectorRef, ViewChild, ViewEncapsulation, ChangeDetectionStrategy, Injectable, InjectionToken, Injector, SkipSelf, TemplateRef, Directive, Input, NgModule } from '@angular/core';
+import { DOCUMENT, Location, CommonModule } from '@angular/common';
+import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, TemplatePortal, PortalModule } from '@angular/cdk/portal';
+import { FocusTrapFactory, A11yModule } from '@angular/cdk/a11y';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
+import { Subject } from 'rxjs/Subject';
 import { Subscription } from 'rxjs/Subscription';
+import { Directionality } from '@angular/cdk/bidi';
+import { Overlay, OverlayConfig, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
+import { defer } from 'rxjs/observable/defer';
+import { of } from 'rxjs/observable/of';
+import { startWith } from 'rxjs/operators/startWith';
+import { MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Possible overrides for a dialog's position.
- * @record
- */
-
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
  */
@@ -99,7 +93,7 @@ class MatDialogConfig {
 /**
  * Animations used by MatDialog.
  */
-const matDialogAnimations = {
+const /** @type {?} */ matDialogAnimations = {
     /** Animation that slides the dialog in and out of view and fades the opacity. */
     slideDialog: trigger('slideDialog', [
         // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
@@ -117,7 +111,6 @@ const matDialogAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Throws an exception for the case when a ComponentPortal is
  * attached to a DomPortalOutlet without an origin.
@@ -305,10 +298,9 @@ MatDialogContainer.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 // TODO(jelbourn): resizing
 // Counter for unique dialog ids.
-let uniqueId = 0;
+let /** @type {?} */ uniqueId = 0;
 /**
  * Reference to a dialog opened via the MatDialog service.
  */
@@ -471,19 +463,18 @@ class MatDialogRef {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Injection token that can be used to access the data that was passed in to a dialog.
  */
-const MAT_DIALOG_DATA = new InjectionToken('MatDialogData');
+const /** @type {?} */ MAT_DIALOG_DATA = new InjectionToken('MatDialogData');
 /**
  * Injection token that can be used to specify default dialog options.
  */
-const MAT_DIALOG_DEFAULT_OPTIONS = new InjectionToken('mat-dialog-default-options');
+const /** @type {?} */ MAT_DIALOG_DEFAULT_OPTIONS = new InjectionToken('mat-dialog-default-options');
 /**
  * Injection token that determines the scroll handling while the dialog is open.
  */
-const MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy');
+const /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -495,7 +486,7 @@ function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
 /**
  * \@docs-private
  */
-const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
+const /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_DIALOG_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
@@ -781,11 +772,10 @@ function _applyConfigDefaults(config, defaultOptions) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Counter used to generate unique IDs for dialog elements.
  */
-let dialogElementUid = 0;
+let /** @type {?} */ dialogElementUid = 0;
 /**
  * Button that will close the current dialog.
  */
@@ -946,7 +936,6 @@ function getClosestDialog(element, openDialogs) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 class MatDialogModule {
 }
 MatDialogModule.decorators = [
@@ -991,9 +980,6 @@ MatDialogModule.ctorParameters = () => [];
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatDialogModule, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, throwMatDialogContentAlreadyAttachedError, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogConfig, MatDialogRef, matDialogAnimations };

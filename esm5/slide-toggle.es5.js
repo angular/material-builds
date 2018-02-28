@@ -5,25 +5,23 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ObserversModule } from '@angular/cdk/observers';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, NgModule, Output, ViewChild, ViewEncapsulation, forwardRef } from '@angular/core';
-import { GestureConfig, MatCommonModule, MatRipple, MatRippleModule, mixinColor, mixinDisableRipple, mixinDisabled, mixinTabIndex } from '@angular/material/core';
-import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { A11yModule, FocusMonitor } from '@angular/cdk/a11y';
 import { __extends } from 'tslib';
-import * as tslib_1 from 'tslib';
+import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, GestureConfig, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { ObserversModule } from '@angular/cdk/observers';
+import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 // Increasing integer for generating unique ids for slide-toggle components.
-var nextUniqueId = 0;
-var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
+var /** @type {?} */ nextUniqueId = 0;
+var /** @type {?} */ MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MatSlideToggle; }),
     multi: true
@@ -31,7 +29,10 @@ var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
 /**
  * Change event object emitted by a MatSlideToggle.
  */
-var MatSlideToggleChange = /** @class */ (function () {
+var  /**
+ * Change event object emitted by a MatSlideToggle.
+ */
+MatSlideToggleChange = /** @class */ (function () {
     function MatSlideToggleChange(source, checked) {
         this.source = source;
         this.checked = checked;
@@ -41,13 +42,16 @@ var MatSlideToggleChange = /** @class */ (function () {
 /**
  * \@docs-private
  */
-var MatSlideToggleBase = /** @class */ (function () {
+var  /**
+ * \@docs-private
+ */
+MatSlideToggleBase = /** @class */ (function () {
     function MatSlideToggleBase(_elementRef) {
         this._elementRef = _elementRef;
     }
     return MatSlideToggleBase;
 }());
-var _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatSlideToggleBase)), 'accent'));
+var /** @type {?} */ _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatSlideToggleBase)), 'accent'));
 /**
  * Represents a slidable "switch" toggle that can be moved between on and off.
  */
@@ -423,7 +427,10 @@ var MatSlideToggle = /** @class */ (function (_super) {
 /**
  * Renderer for the Slide Toggle component, which separates DOM modification in its own class
  */
-var SlideToggleRenderer = /** @class */ (function () {
+var /**
+ * Renderer for the Slide Toggle component, which separates DOM modification in its own class
+ */
+SlideToggleRenderer = /** @class */ (function () {
     function SlideToggleRenderer(elementRef, platform) {
         /**
          * Whether the thumb is currently being dragged.
@@ -517,7 +524,6 @@ var SlideToggleRenderer = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatSlideToggleModule = /** @class */ (function () {
     function MatSlideToggleModule() {
     }
@@ -544,9 +550,6 @@ var MatSlideToggleModule = /** @class */ (function () {
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
- */
-/**
- * Generated bundle index. Do not edit.
  */
 
 export { MatSlideToggleModule, MAT_SLIDE_TOGGLE_VALUE_ACCESSOR, MatSlideToggleChange, MatSlideToggleBase, _MatSlideToggleMixinBase, MatSlideToggle };

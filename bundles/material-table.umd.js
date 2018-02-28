@@ -7,9 +7,9 @@
  */
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/table'), require('@angular/common'), require('@angular/material/core'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/operators/map'), require('rxjs/operators/startWith'), require('rxjs/observable/empty'), require('@angular/cdk/coercion')) :
-	typeof define === 'function' && define.amd ? define(['exports', '@angular/core', '@angular/cdk/table', '@angular/common', '@angular/material/core', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/operators/map', 'rxjs/operators/startWith', 'rxjs/observable/empty', '@angular/cdk/coercion'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = global.ng.material.table || {}),global.ng.core,global.ng.cdk.table,global.ng.common,global.ng.material.core,global.Rx,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.ng.cdk.coercion));
-}(this, (function (exports,_angular_core,_angular_cdk_table,_angular_common,_angular_material_core,rxjs_BehaviorSubject,rxjs_operators_combineLatest,rxjs_operators_map,rxjs_operators_startWith,rxjs_observable_empty,_angular_cdk_coercion) { 'use strict';
+	typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/core', '@angular/cdk/table', '@angular/common', '@angular/material/core', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/operators/map', 'rxjs/operators/startWith', 'rxjs/observable/empty', '@angular/cdk/coercion'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}),global.ng.core,global.ng.cdk.table,global.ng.common,global.ng.material.core,global.Rx,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.ng.cdk.coercion));
+}(this, (function (exports,core,table,common,core$1,BehaviorSubject,combineLatest,map,startWith,empty,coercion) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -41,7 +41,6 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Wrapper for the CdkTable with Material design styles.
  */
@@ -51,28 +50,27 @@ var MatTable = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTable.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-table',
+        { type: core.Component, args: [{selector: 'mat-table',
                     exportAs: 'matTable',
-                    template: _angular_cdk_table.CDK_TABLE_TEMPLATE,
+                    template: table.CDK_TABLE_TEMPLATE,
                     styles: [".mat-table{display:block}.mat-header-row{min-height:56px}.mat-row{min-height:48px}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;padding:0 24px;box-sizing:border-box}.mat-header-row::after,.mat-row::after{display:inline-block;min-height:inherit;content:''}.mat-cell,.mat-header-cell{flex:1;overflow:hidden;word-wrap:break-word}"],
                     host: {
                         'class': 'mat-table',
                     },
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
     /** @nocollapse */
     MatTable.ctorParameters = function () { return []; };
     return MatTable;
-}(_angular_cdk_table.CdkTable));
+}(table.CdkTable));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -83,15 +81,15 @@ var MatCellDef = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatCellDef.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matCellDef]',
-                    providers: [{ provide: _angular_cdk_table.CdkCellDef, useExisting: MatCellDef }]
+                    providers: [{ provide: table.CdkCellDef, useExisting: MatCellDef }]
                 },] },
     ];
     /** @nocollapse */
     MatCellDef.ctorParameters = function () { return []; };
     return MatCellDef;
-}(_angular_cdk_table.CdkCellDef));
+}(table.CdkCellDef));
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
@@ -102,15 +100,15 @@ var MatHeaderCellDef = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatHeaderCellDef.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matHeaderCellDef]',
-                    providers: [{ provide: _angular_cdk_table.CdkHeaderCellDef, useExisting: MatHeaderCellDef }]
+                    providers: [{ provide: table.CdkHeaderCellDef, useExisting: MatHeaderCellDef }]
                 },] },
     ];
     /** @nocollapse */
     MatHeaderCellDef.ctorParameters = function () { return []; };
     return MatHeaderCellDef;
-}(_angular_cdk_table.CdkHeaderCellDef));
+}(table.CdkHeaderCellDef));
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -121,18 +119,18 @@ var MatColumnDef = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatColumnDef.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matColumnDef]',
-                    providers: [{ provide: _angular_cdk_table.CdkColumnDef, useExisting: MatColumnDef }],
+                    providers: [{ provide: table.CdkColumnDef, useExisting: MatColumnDef }],
                 },] },
     ];
     /** @nocollapse */
     MatColumnDef.ctorParameters = function () { return []; };
     MatColumnDef.propDecorators = {
-        "name": [{ type: _angular_core.Input, args: ['matColumnDef',] },],
+        "name": [{ type: core.Input, args: ['matColumnDef',] },],
     };
     return MatColumnDef;
-}(_angular_cdk_table.CdkColumnDef));
+}(table.CdkColumnDef));
 /**
  * Header cell template container that adds the right classes and role.
  */
@@ -144,7 +142,7 @@ var MatHeaderCell = /** @class */ (function (_super) {
         return _this;
     }
     MatHeaderCell.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-header-cell',
                     host: {
                         'class': 'mat-header-cell',
@@ -154,11 +152,11 @@ var MatHeaderCell = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatHeaderCell.ctorParameters = function () { return [
-        { type: _angular_cdk_table.CdkColumnDef, },
-        { type: _angular_core.ElementRef, },
+        { type: table.CdkColumnDef, },
+        { type: core.ElementRef, },
     ]; };
     return MatHeaderCell;
-}(_angular_cdk_table.CdkHeaderCell));
+}(table.CdkHeaderCell));
 /**
  * Cell template container that adds the right classes and role.
  */
@@ -170,7 +168,7 @@ var MatCell = /** @class */ (function (_super) {
         return _this;
     }
     MatCell.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: 'mat-cell',
                     host: {
                         'class': 'mat-cell',
@@ -180,17 +178,16 @@ var MatCell = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatCell.ctorParameters = function () { return [
-        { type: _angular_cdk_table.CdkColumnDef, },
-        { type: _angular_core.ElementRef, },
+        { type: table.CdkColumnDef, },
+        { type: core.ElementRef, },
     ]; };
     return MatCell;
-}(_angular_cdk_table.CdkCell));
+}(table.CdkCell));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
@@ -201,16 +198,16 @@ var MatHeaderRowDef = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatHeaderRowDef.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matHeaderRowDef]',
-                    providers: [{ provide: _angular_cdk_table.CdkHeaderRowDef, useExisting: MatHeaderRowDef }],
+                    providers: [{ provide: table.CdkHeaderRowDef, useExisting: MatHeaderRowDef }],
                     inputs: ['columns: matHeaderRowDef'],
                 },] },
     ];
     /** @nocollapse */
     MatHeaderRowDef.ctorParameters = function () { return []; };
     return MatHeaderRowDef;
-}(_angular_cdk_table.CdkHeaderRowDef));
+}(table.CdkHeaderRowDef));
 /**
  * Data row definition for the mat-table.
  * Captures the header row's template and other row properties such as the columns to display and
@@ -222,16 +219,16 @@ var MatRowDef = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatRowDef.decorators = [
-        { type: _angular_core.Directive, args: [{
+        { type: core.Directive, args: [{
                     selector: '[matRowDef]',
-                    providers: [{ provide: _angular_cdk_table.CdkRowDef, useExisting: MatRowDef }],
+                    providers: [{ provide: table.CdkRowDef, useExisting: MatRowDef }],
                     inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
                 },] },
     ];
     /** @nocollapse */
     MatRowDef.ctorParameters = function () { return []; };
     return MatRowDef;
-}(_angular_cdk_table.CdkRowDef));
+}(table.CdkRowDef));
 /**
  * Header template container that contains the cell outlet. Adds the right class and role.
  */
@@ -241,14 +238,14 @@ var MatHeaderRow = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatHeaderRow.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-header-row',
-                    template: _angular_cdk_table.CDK_ROW_TEMPLATE,
+        { type: core.Component, args: [{selector: 'mat-header-row',
+                    template: table.CDK_ROW_TEMPLATE,
                     host: {
                         'class': 'mat-header-row',
                         'role': 'row',
                     },
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matHeaderRow',
                     preserveWhitespaces: false,
                 },] },
@@ -256,7 +253,7 @@ var MatHeaderRow = /** @class */ (function (_super) {
     /** @nocollapse */
     MatHeaderRow.ctorParameters = function () { return []; };
     return MatHeaderRow;
-}(_angular_cdk_table.CdkHeaderRow));
+}(table.CdkHeaderRow));
 /**
  * Data row template container that contains the cell outlet. Adds the right class and role.
  */
@@ -266,14 +263,14 @@ var MatRow = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatRow.decorators = [
-        { type: _angular_core.Component, args: [{selector: 'mat-row',
-                    template: _angular_cdk_table.CDK_ROW_TEMPLATE,
+        { type: core.Component, args: [{selector: 'mat-row',
+                    template: table.CDK_ROW_TEMPLATE,
                     host: {
                         'class': 'mat-row',
                         'role': 'row',
                     },
-                    changeDetection: _angular_core.ChangeDetectionStrategy.OnPush,
-                    encapsulation: _angular_core.ViewEncapsulation.None,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                    encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matRow',
                     preserveWhitespaces: false,
                 },] },
@@ -281,19 +278,18 @@ var MatRow = /** @class */ (function (_super) {
     /** @nocollapse */
     MatRow.ctorParameters = function () { return []; };
     return MatRow;
-}(_angular_cdk_table.CdkRow));
+}(table.CdkRow));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 var MatTableModule = /** @class */ (function () {
     function MatTableModule() {
     }
     MatTableModule.decorators = [
-        { type: _angular_core.NgModule, args: [{
-                    imports: [_angular_cdk_table.CdkTableModule, _angular_common.CommonModule, _angular_material_core.MatCommonModule],
+        { type: core.NgModule, args: [{
+                    imports: [table.CdkTableModule, common.CommonModule, core$1.MatCommonModule],
                     exports: [MatTable, MatCellDef, MatHeaderCellDef, MatColumnDef,
                         MatHeaderCell, MatCell, MatHeaderRow, MatRow,
                         MatHeaderRowDef, MatRowDef],
@@ -311,7 +307,6 @@ var MatTableModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
  * sorting (using MatSort), and pagination (using MatPaginator).
@@ -320,7 +315,15 @@ var MatTableModule = /** @class */ (function () {
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
  * which defines how row data is converted to a string for filter matching.
  */
-var MatTableDataSource = /** @class */ (function (_super) {
+var   /**
+ * Data source that accepts a client-side data array and includes native support of filtering,
+ * sorting (using MatSort), and pagination (using MatPaginator).
+ *
+ * Allows for sort customization by overriding sortingDataAccessor, which defines how data
+ * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
+ * which defines how row data is converted to a string for filter matching.
+ */
+MatTableDataSource = /** @class */ (function (_super) {
     __extends(MatTableDataSource, _super);
     function MatTableDataSource(initialData) {
         if (initialData === void 0) { initialData = []; }
@@ -328,11 +331,11 @@ var MatTableDataSource = /** @class */ (function (_super) {
         /**
          * Stream emitting render data to the table (depends on ordered data changes).
          */
-        _this._renderData = new rxjs_BehaviorSubject.BehaviorSubject([]);
+        _this._renderData = new BehaviorSubject.BehaviorSubject([]);
         /**
          * Stream that emits when a new filter string is set on the data source.
          */
-        _this._filter = new rxjs_BehaviorSubject.BehaviorSubject('');
+        _this._filter = new BehaviorSubject.BehaviorSubject('');
         /**
          * Data accessor function that is used for accessing data properties for sorting through
          * the default sortData function.
@@ -344,7 +347,7 @@ var MatTableDataSource = /** @class */ (function (_super) {
          */
         _this.sortingDataAccessor = function (data, sortHeaderId) {
             var /** @type {?} */ value = data[sortHeaderId];
-            return _angular_cdk_coercion._isNumberValue(value) ? Number(value) : value;
+            return coercion._isNumberValue(value) ? Number(value) : value;
         };
         /**
          * Gets a sorted copy of the data array based on the state of the MatSort. Called
@@ -405,7 +408,7 @@ var MatTableDataSource = /** @class */ (function (_super) {
             var /** @type {?} */ transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
         };
-        _this._data = new rxjs_BehaviorSubject.BehaviorSubject(initialData);
+        _this._data = new BehaviorSubject.BehaviorSubject(initialData);
         _this._updateChangeSubscription();
         return _this;
     }
@@ -520,23 +523,23 @@ var MatTableDataSource = /** @class */ (function (_super) {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // Otherwise, use an empty observable stream to take their place.
-        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : rxjs_observable_empty.empty();
-        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : rxjs_observable_empty.empty();
+        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : empty.empty();
+        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : empty.empty();
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }
         // Watch for base data or filter changes to provide a filtered set of data.
-        this._renderChangesSubscription = this._data.pipe(rxjs_operators_combineLatest.combineLatest(this._filter), rxjs_operators_map.map(function (_a) {
+        this._renderChangesSubscription = this._data.pipe(combineLatest.combineLatest(this._filter), map.map(function (_a) {
             var data = _a[0];
             return _this._filterData(data);
         }), 
         // Watch for filtered data or sort changes to provide an ordered set of data.
-        rxjs_operators_combineLatest.combineLatest(sortChange.pipe(rxjs_operators_startWith.startWith(/** @type {?} */ ((null))))), rxjs_operators_map.map(function (_a) {
+        combineLatest.combineLatest(sortChange.pipe(startWith.startWith(/** @type {?} */ ((null))))), map.map(function (_a) {
             var data = _a[0];
             return _this._orderData(data);
         }), 
         // Watch for ordered data or page changes to provide a paged set of data.
-        rxjs_operators_combineLatest.combineLatest(pageChange.pipe(rxjs_operators_startWith.startWith(/** @type {?} */ ((null))))), rxjs_operators_map.map(function (_a) {
+        combineLatest.combineLatest(pageChange.pipe(startWith.startWith(/** @type {?} */ ((null))))), map.map(function (_a) {
             var data = _a[0];
             return _this._pageData(data);
         }))
@@ -686,7 +689,7 @@ var MatTableDataSource = /** @class */ (function (_super) {
      */
     function () { };
     return MatTableDataSource;
-}(_angular_cdk_table.DataSource));
+}(table.DataSource));
 
 exports.MatTableModule = MatTableModule;
 exports.MatCellDef = MatCellDef;
