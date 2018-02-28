@@ -28,4 +28,5 @@ export interface MatMenuPanel {
     setElevation?(depth: number): void;
     lazyContent?: MatMenuContent;
     backdropClass?: string;
+    hasBackdrop?: boolean;
 }

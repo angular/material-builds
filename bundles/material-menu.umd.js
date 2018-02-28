@@ -437,6 +437,7 @@ var MatMenu = /** @class */ (function () {
          */
         this.backdropClass = this._defaultOptions.backdropClass;
         this._overlapTrigger = this._defaultOptions.overlapTrigger;
+        this._hasBackdrop = this._defaultOptions.hasBackdrop;
         /**
          * Event emitted when the menu is closed.
          */
@@ -500,6 +501,22 @@ var MatMenu = /** @class */ (function () {
          */
         function (value) {
             this._overlapTrigger = coercion.coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatMenu.prototype, "hasBackdrop", {
+        get: /**
+         * Whether the menu has a backdrop.
+         * @return {?}
+         */
+        function () { return this._hasBackdrop; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._hasBackdrop = coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -786,6 +803,7 @@ var MatMenu = /** @class */ (function () {
         "items": [{ type: core.ContentChildren, args: [MatMenuItem,] },],
         "lazyContent": [{ type: core.ContentChild, args: [MatMenuContent,] },],
         "overlapTrigger": [{ type: core.Input },],
+        "hasBackdrop": [{ type: core.Input },],
         "panelClass": [{ type: core.Input, args: ['class',] },],
         "classList": [{ type: core.Input },],
         "closed": [{ type: core.Output },],
@@ -1169,7 +1187,7 @@ var MatMenuTrigger = /** @class */ (function () {
     function () {
         return new overlay.OverlayConfig({
             positionStrategy: this._getPosition(),
-            hasBackdrop: !this.triggersSubmenu(),
+            hasBackdrop: this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop,
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
             direction: this.dir,
             scrollStrategy: this._scrollStrategy()
@@ -1405,10 +1423,10 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

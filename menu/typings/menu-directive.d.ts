@@ -16,6 +16,8 @@ export interface MatMenuDefaultOptions {
     overlapTrigger: boolean;
     /** Class to be applied to the menu's backdrop. */
     backdropClass: string;
+    /** Whether the menu has a backdrop. */
+    hasBackdrop: boolean;
 }
 /** Injection token to be used to override the default options for `mat-menu`. */
 export declare const MAT_MENU_DEFAULT_OPTIONS: InjectionToken<MatMenuDefaultOptions>;
@@ -57,6 +59,9 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
     /** Whether the menu should overlap its trigger. */
     overlapTrigger: boolean;
     private _overlapTrigger;
+    /** Whether the menu has a backdrop. */
+    hasBackdrop: boolean;
+    private _hasBackdrop;
     /**
      * This method takes classes set on the host mat-menu element and applies them on the
      * menu template that displays in the overlay container.  Otherwise, it's difficult

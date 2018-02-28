@@ -32,6 +32,12 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
   .cdk-overlay-container {
     position: fixed;
     z-index: $cdk-z-index-overlay-container;
+
+    &:empty {
+      // Hide the element when it doesn't have any child nodes. This doesn't
+      // include overlays that have been detached, rather than disposed.
+      display: none;
+    }
   }
 
   // We use an extra wrapper element in order to use make the overlay itself a flex item.
@@ -2545,17 +2551,8 @@ $mat-calendar-weekday-table-font-size: 11px !default;
     background-color: mat-color($background, disabled-list-option);
   }
 
+  .mat-list-option,
   .mat-nav-list .mat-list-item {
-    outline: none;
-
-    &:hover, &.mat-list-item-focus {
-      background: mat-color($background, 'hover');
-    }
-  }
-
-  .mat-list-option {
-    outline: none;
-
     &:hover, &.mat-list-item-focus {
       background: mat-color($background, 'hover');
     }

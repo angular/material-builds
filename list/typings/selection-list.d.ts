@@ -8,12 +8,12 @@
 import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
-import { CanDisable, CanDisableRipple, HasTabIndex, MatLine } from '@angular/material/core';
+import { CanDisable, CanDisableRipple, MatLine } from '@angular/material/core';
 import { ControlValueAccessor } from '@angular/forms';
 /** @docs-private */
 export declare class MatSelectionListBase {
 }
-export declare const _MatSelectionListMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatSelectionListBase;
+export declare const _MatSelectionListMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatSelectionListBase;
 /** @docs-private */
 export declare class MatListOptionBase {
 }
@@ -109,7 +109,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-export declare class MatSelectionList extends _MatSelectionListMixinBase implements FocusableOption, CanDisable, CanDisableRipple, HasTabIndex, AfterContentInit, ControlValueAccessor, OnDestroy {
+export declare class MatSelectionList extends _MatSelectionListMixinBase implements FocusableOption, CanDisable, CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy {
     private _element;
     /** The FocusKeyManager which handles focus. */
     _keyManager: FocusKeyManager<MatListOption>;
@@ -117,6 +117,8 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     options: QueryList<MatListOption>;
     /** Emits a change event whenever the selected state of an option changes. */
     readonly selectionChange: EventEmitter<MatSelectionListChange>;
+    /** Tabindex of the selection list. */
+    tabIndex: number;
     /** The currently selected options. */
     selectedOptions: SelectionModel<MatListOption>;
     /** View to model callback that should be called whenever the selected options change. */
@@ -129,7 +131,7 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     constructor(_element: ElementRef, tabIndex: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
-    /** Focus the selection-list. */
+    /** Focuses the last active list option. */
     focus(): void;
     /** Selects all of the options. */
     selectAll(): void;

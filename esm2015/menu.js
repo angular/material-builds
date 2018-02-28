@@ -387,6 +387,7 @@ class MatMenu {
          */
         this.backdropClass = this._defaultOptions.backdropClass;
         this._overlapTrigger = this._defaultOptions.overlapTrigger;
+        this._hasBackdrop = this._defaultOptions.hasBackdrop;
         /**
          * Event emitted when the menu is closed.
          */
@@ -441,6 +442,18 @@ class MatMenu {
      */
     set overlapTrigger(value) {
         this._overlapTrigger = coerceBooleanProperty(value);
+    }
+    /**
+     * Whether the menu has a backdrop.
+     * @return {?}
+     */
+    get hasBackdrop() { return this._hasBackdrop; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set hasBackdrop(value) {
+        this._hasBackdrop = coerceBooleanProperty(value);
     }
     /**
      * This method takes classes set on the host mat-menu element and applies them on the
@@ -637,6 +650,7 @@ MatMenu.propDecorators = {
     "items": [{ type: ContentChildren, args: [MatMenuItem,] },],
     "lazyContent": [{ type: ContentChild, args: [MatMenuContent,] },],
     "overlapTrigger": [{ type: Input },],
+    "hasBackdrop": [{ type: Input },],
     "panelClass": [{ type: Input, args: ['class',] },],
     "classList": [{ type: Input },],
     "closed": [{ type: Output },],
@@ -940,7 +954,7 @@ class MatMenuTrigger {
     _getOverlayConfig() {
         return new OverlayConfig({
             positionStrategy: this._getPosition(),
-            hasBackdrop: !this.triggersSubmenu(),
+            hasBackdrop: this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop,
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
             direction: this.dir,
             scrollStrategy: this._scrollStrategy()
@@ -1137,5 +1151,5 @@ MatMenuModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa23, _MatMenuItemMixinBase as ɵb23, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd23, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc23 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa24, _MatMenuItemMixinBase as ɵb24, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd24, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc24 };
 //# sourceMappingURL=menu.js.map
