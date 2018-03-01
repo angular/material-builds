@@ -1074,7 +1074,7 @@ var MatSelect = /** @class */ (function (_super) {
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what option the user interacted with last.
             if (correspondingOption) {
-                this._keyManager.setActiveItem(this.options.toArray().indexOf(correspondingOption));
+                this._keyManager.setActiveItem(correspondingOption);
             }
         }
         this._changeDetectorRef.markForCheck();
@@ -1203,7 +1203,7 @@ var MatSelect = /** @class */ (function (_super) {
             this._selectionModel.toggle(option);
             this.stateChanges.next();
             wasSelected ? option.deselect() : option.select();
-            this._keyManager.setActiveItem(/** @type {?} */ ((this._getOptionIndex(option))));
+            this._keyManager.setActiveItem(option);
             this._sortValues();
         }
         else {
@@ -1293,7 +1293,7 @@ var MatSelect = /** @class */ (function (_super) {
                 this._keyManager.setFirstItemActive();
             }
             else {
-                this._keyManager.setActiveItem(/** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0]))));
+                this._keyManager.setActiveItem(this._selectionModel.selected[0]);
             }
         }
     };
