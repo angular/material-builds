@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/core'), require('@angular/common'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('rxjs/operators/debounceTime'), require('rxjs/operators/map'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/cdk/scrolling'), require('@angular/cdk/overlay'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/sidenav', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/core', '@angular/common', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', 'rxjs/operators/debounceTime', 'rxjs/operators/map', 'rxjs/Subject', 'rxjs/Observable', '@angular/cdk/scrolling', '@angular/cdk/overlay', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.core,global.ng.common,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx,global.Rx,global.ng.cdk.scrolling,global.ng.cdk.overlay,global.ng.material.core));
-}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,platform,core,common,merge,filter,take,startWith,takeUntil,debounceTime,map,Subject,Observable,scrolling,overlay,core$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/core'), require('@angular/common'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('rxjs/operators/debounceTime'), require('rxjs/operators/map'), require('rxjs/observable/fromEvent'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/cdk/scrolling'), require('@angular/cdk/overlay'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/sidenav', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/core', '@angular/common', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', 'rxjs/operators/debounceTime', 'rxjs/operators/map', 'rxjs/observable/fromEvent', 'rxjs/Subject', 'rxjs/Observable', '@angular/cdk/scrolling', '@angular/cdk/overlay', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.core,global.ng.common,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.Rx,global.Rx,global.ng.cdk.scrolling,global.ng.cdk.overlay,global.ng.material.core));
+}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,platform,core,common,merge,filter,take,startWith,takeUntil,debounceTime,map,fromEvent,Subject,Observable,scrolling,overlay,core$1) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -140,12 +140,13 @@ var MatDrawerContent = /** @class */ (function () {
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
 var MatDrawer = /** @class */ (function () {
-    function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _doc) {
+    function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _ngZone, _doc) {
         var _this = this;
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
         this._focusMonitor = _focusMonitor;
         this._platform = _platform;
+        this._ngZone = _ngZone;
         this._doc = _doc;
         this._elementFocusedBeforeDrawerWasOpened = null;
         /**
@@ -208,6 +209,19 @@ var MatDrawer = /** @class */ (function () {
             else {
                 _this._restoreFocus();
             }
+        });
+        /**
+             * Listen to `keydown` events outside the zone so that change detection is not run every
+             * time a key is pressed. Instead we re-enter the zone only if the `ESC` key is pressed
+             * and we don't have close disabled.
+             */
+        this._ngZone.runOutsideAngular(function () {
+            fromEvent.fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(filter.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; })).subscribe(function (event) {
+                return _this._ngZone.run(function () {
+                    _this.close();
+                    event.stopPropagation();
+                });
+            });
         });
     }
     Object.defineProperty(MatDrawer.prototype, "position", {
@@ -503,28 +517,6 @@ var MatDrawer = /** @class */ (function () {
         });
     };
     /**
-     * Handles the keyboard events.
-     * @docs-private
-     */
-    /**
-     * Handles the keyboard events.
-     * \@docs-private
-     * @param {?} event
-     * @return {?}
-     */
-    MatDrawer.prototype.handleKeydown = /**
-     * Handles the keyboard events.
-     * \@docs-private
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        if (event.keyCode === keycodes.ESCAPE && !this.disableClose) {
-            this.close();
-            event.stopPropagation();
-        }
-    };
-    /**
      * @param {?} event
      * @return {?}
      */
@@ -570,7 +562,6 @@ var MatDrawer = /** @class */ (function () {
                         '[@transform]': '_animationState',
                         '(@transform.start)': '_onAnimationStart($event)',
                         '(@transform.done)': '_onAnimationEnd($event)',
-                        '(keydown)': 'handleKeydown($event)',
                         // must prevent the browser from aligning text based on value
                         '[attr.align]': 'null',
                         '[class.mat-drawer-end]': 'position === "end"',
@@ -590,6 +581,7 @@ var MatDrawer = /** @class */ (function () {
         { type: a11y.FocusTrapFactory, },
         { type: a11y.FocusMonitor, },
         { type: platform.Platform, },
+        { type: core.NgZone, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatDrawer.propDecorators = {
@@ -1137,7 +1129,6 @@ var MatSidenav = /** @class */ (function (_super) {
                         '[@transform]': '_animationState',
                         '(@transform.start)': '_onAnimationStart($event)',
                         '(@transform.done)': '_onAnimationEnd($event)',
-                        '(keydown)': 'handleKeydown($event)',
                         // must prevent the browser from aligning text based on value
                         '[attr.align]': 'null',
                         '[class.mat-drawer-end]': 'position === "end"',

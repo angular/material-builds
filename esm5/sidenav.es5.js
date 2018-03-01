@@ -20,6 +20,7 @@ import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { debounceTime } from 'rxjs/operators/debounceTime';
 import { map } from 'rxjs/operators/map';
+import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/Observable';
 import { CdkScrollable, ScrollDispatchModule } from '@angular/cdk/scrolling';
@@ -130,12 +131,13 @@ var MatDrawerContent = /** @class */ (function () {
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
 var MatDrawer = /** @class */ (function () {
-    function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _doc) {
+    function MatDrawer(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _ngZone, _doc) {
         var _this = this;
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
         this._focusMonitor = _focusMonitor;
         this._platform = _platform;
+        this._ngZone = _ngZone;
         this._doc = _doc;
         this._elementFocusedBeforeDrawerWasOpened = null;
         /**
@@ -198,6 +200,19 @@ var MatDrawer = /** @class */ (function () {
             else {
                 _this._restoreFocus();
             }
+        });
+        /**
+             * Listen to `keydown` events outside the zone so that change detection is not run every
+             * time a key is pressed. Instead we re-enter the zone only if the `ESC` key is pressed
+             * and we don't have close disabled.
+             */
+        this._ngZone.runOutsideAngular(function () {
+            fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(filter(function (event) { return event.keyCode === ESCAPE && !_this.disableClose; })).subscribe(function (event) {
+                return _this._ngZone.run(function () {
+                    _this.close();
+                    event.stopPropagation();
+                });
+            });
         });
     }
     Object.defineProperty(MatDrawer.prototype, "position", {
@@ -493,28 +508,6 @@ var MatDrawer = /** @class */ (function () {
         });
     };
     /**
-     * Handles the keyboard events.
-     * @docs-private
-     */
-    /**
-     * Handles the keyboard events.
-     * \@docs-private
-     * @param {?} event
-     * @return {?}
-     */
-    MatDrawer.prototype.handleKeydown = /**
-     * Handles the keyboard events.
-     * \@docs-private
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        if (event.keyCode === ESCAPE && !this.disableClose) {
-            this.close();
-            event.stopPropagation();
-        }
-    };
-    /**
      * @param {?} event
      * @return {?}
      */
@@ -560,7 +553,6 @@ var MatDrawer = /** @class */ (function () {
                         '[@transform]': '_animationState',
                         '(@transform.start)': '_onAnimationStart($event)',
                         '(@transform.done)': '_onAnimationEnd($event)',
-                        '(keydown)': 'handleKeydown($event)',
                         // must prevent the browser from aligning text based on value
                         '[attr.align]': 'null',
                         '[class.mat-drawer-end]': 'position === "end"',
@@ -580,6 +572,7 @@ var MatDrawer = /** @class */ (function () {
         { type: FocusTrapFactory, },
         { type: FocusMonitor, },
         { type: Platform, },
+        { type: NgZone, },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
     ]; };
     MatDrawer.propDecorators = {
@@ -1127,7 +1120,6 @@ var MatSidenav = /** @class */ (function (_super) {
                         '[@transform]': '_animationState',
                         '(@transform.start)': '_onAnimationStart($event)',
                         '(@transform.done)': '_onAnimationEnd($event)',
-                        '(keydown)': 'handleKeydown($event)',
                         // must prevent the browser from aligning text based on value
                         '[attr.align]': 'null',
                         '[class.mat-drawer-end]': 'position === "end"',

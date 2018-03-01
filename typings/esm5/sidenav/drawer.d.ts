@@ -56,6 +56,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     private _focusTrapFactory;
     private _focusMonitor;
     private _platform;
+    private _ngZone;
     private _doc;
     private _focusTrap;
     private _elementFocusedBeforeDrawerWasOpened;
@@ -116,7 +117,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      */
     readonly _modeChanged: Subject<{}>;
     readonly _isFocusTrapEnabled: boolean;
-    constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _doc: any);
+    constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _doc: any);
     /** Traps focus inside the drawer. */
     private _trapFocus();
     /**
@@ -148,11 +149,6 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      * Used for focus management after the sidenav is closed.
      */
     toggle(isOpen?: boolean, openedVia?: FocusOrigin): Promise<void>;
-    /**
-     * Handles the keyboard events.
-     * @docs-private
-     */
-    handleKeydown(event: KeyboardEvent): void;
     _onAnimationStart(event: AnimationEvent): void;
     _onAnimationEnd(event: AnimationEvent): void;
     readonly _width: number;

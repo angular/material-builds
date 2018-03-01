@@ -20,6 +20,7 @@ import { startWith } from 'rxjs/operators/startWith';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { debounceTime } from 'rxjs/operators/debounceTime';
 import { map } from 'rxjs/operators/map';
+import { fromEvent } from 'rxjs/observable/fromEvent';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/Observable';
 import { CdkScrollable, ScrollDispatchModule } from '@angular/cdk/scrolling';
@@ -131,13 +132,15 @@ class MatDrawer {
      * @param {?} _focusTrapFactory
      * @param {?} _focusMonitor
      * @param {?} _platform
+     * @param {?} _ngZone
      * @param {?} _doc
      */
-    constructor(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _doc) {
+    constructor(_elementRef, _focusTrapFactory, _focusMonitor, _platform, _ngZone, _doc) {
         this._elementRef = _elementRef;
         this._focusTrapFactory = _focusTrapFactory;
         this._focusMonitor = _focusMonitor;
         this._platform = _platform;
+        this._ngZone = _ngZone;
         this._doc = _doc;
         this._elementFocusedBeforeDrawerWasOpened = null;
         /**
@@ -200,6 +203,17 @@ class MatDrawer {
             else {
                 this._restoreFocus();
             }
+        });
+        /**
+             * Listen to `keydown` events outside the zone so that change detection is not run every
+             * time a key is pressed. Instead we re-enter the zone only if the `ESC` key is pressed
+             * and we don't have close disabled.
+             */
+        this._ngZone.runOutsideAngular(() => {
+            fromEvent(this._elementRef.nativeElement, 'keydown').pipe(filter((event) => event.keyCode === ESCAPE && !this.disableClose)).subscribe((event) => this._ngZone.run(() => {
+                this.close();
+                event.stopPropagation();
+            }));
         });
     }
     /**
@@ -404,18 +418,6 @@ class MatDrawer {
         });
     }
     /**
-     * Handles the keyboard events.
-     * \@docs-private
-     * @param {?} event
-     * @return {?}
-     */
-    handleKeydown(event) {
-        if (event.keyCode === ESCAPE && !this.disableClose) {
-            this.close();
-            event.stopPropagation();
-        }
-    }
-    /**
      * @param {?} event
      * @return {?}
      */
@@ -450,7 +452,6 @@ MatDrawer.decorators = [
                     '[@transform]': '_animationState',
                     '(@transform.start)': '_onAnimationStart($event)',
                     '(@transform.done)': '_onAnimationEnd($event)',
-                    '(keydown)': 'handleKeydown($event)',
                     // must prevent the browser from aligning text based on value
                     '[attr.align]': 'null',
                     '[class.mat-drawer-end]': 'position === "end"',
@@ -470,6 +471,7 @@ MatDrawer.ctorParameters = () => [
     { type: FocusTrapFactory, },
     { type: FocusMonitor, },
     { type: Platform, },
+    { type: NgZone, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MatDrawer.propDecorators = {
@@ -913,7 +915,6 @@ MatSidenav.decorators = [
                     '[@transform]': '_animationState',
                     '(@transform.start)': '_onAnimationStart($event)',
                     '(@transform.done)': '_onAnimationEnd($event)',
-                    '(keydown)': 'handleKeydown($event)',
                     // must prevent the browser from aligning text based on value
                     '[attr.align]': 'null',
                     '[class.mat-drawer-end]': 'position === "end"',
