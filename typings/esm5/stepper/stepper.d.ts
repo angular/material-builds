@@ -7,9 +7,10 @@
  */
 import { CdkStep, CdkStepper } from '@angular/cdk/stepper';
 import { Directionality } from '@angular/cdk/bidi';
-import { AfterContentInit, ElementRef, QueryList, ChangeDetectorRef, TemplateRef } from '@angular/core';
+import { AfterContentInit, QueryList, ChangeDetectorRef, TemplateRef } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { MatStepHeader } from './step-header';
 import { MatStepLabel } from './step-label';
 import { MatStepperIcon } from './stepper-icon';
 /** Workaround for https://github.com/angular/angular/issues/17849 */
@@ -25,7 +26,7 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher {
 }
 export declare class MatStepper extends CdkStepper implements AfterContentInit {
     /** The list of step headers of the steps in the stepper. */
-    _stepHeader: QueryList<ElementRef>;
+    _stepHeader: QueryList<MatStepHeader>;
     /** Steps that the stepper holds. */
     _steps: QueryList<MatStep>;
     /** Custom icon overrides passed in by the consumer. */

@@ -42,4 +42,5 @@ export declare class MatStepHeader implements OnDestroy {
     _templateLabel(): MatStepLabel | null;
     /** Returns the host HTML element. */
     _getHostElement(): any;
+    focus(): void;
 }

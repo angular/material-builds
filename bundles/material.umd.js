@@ -27262,15 +27262,20 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Injection token that can be used to specify default snack bar.
+ */
+var /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new core.InjectionToken('mat-snack-bar-default-options');
+/**
  * Service to dispatch Material Design snack bar messages.
  */
 var MatSnackBar = /** @class */ (function () {
-    function MatSnackBar(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar) {
+    function MatSnackBar(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar, _defaultConfig) {
         this._overlay = _overlay;
         this._live = _live;
         this._injector = _injector;
         this._breakpointObserver = _breakpointObserver;
         this._parentSnackBar = _parentSnackBar;
+        this._defaultConfig = _defaultConfig;
         /**
          * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
          * If there is a parent snack-bar service, all operations should delegate to that parent
@@ -27330,7 +27335,7 @@ var MatSnackBar = /** @class */ (function () {
      */
     function (component, config) {
         var _this = this;
-        var /** @type {?} */ _config = _applyConfigDefaults$2(config);
+        var /** @type {?} */ _config = __assign({}, this._defaultConfig, config);
         var /** @type {?} */ snackBarRef = this._attach(component, _config);
         // When the snackbar is dismissed, clear the reference to it.
         snackBarRef.afterDismissed().subscribe(function () {
@@ -27383,7 +27388,7 @@ var MatSnackBar = /** @class */ (function () {
      */
     function (message, action, config) {
         if (action === void 0) { action = ''; }
-        var /** @type {?} */ _config = _applyConfigDefaults$2(config);
+        var /** @type {?} */ _config = __assign({}, this._defaultConfig, config);
         // Since the user doesn't have access to the component, we can
         // override the data to pass in our own message and action.
         _config.data = { message: message, action: action };
@@ -27530,22 +27535,22 @@ var MatSnackBar = /** @class */ (function () {
         { type: core.Injector, },
         { type: layout.BreakpointObserver, },
         { type: MatSnackBar, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
+        { type: MatSnackBarConfig, decorators: [{ type: core.Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] },] },
     ]; };
     return MatSnackBar;
 }());
-/**
- * Applies default options to the snackbar config.
- * @param {?=} config The configuration to which the defaults will be applied.
- * @return {?} The new configuration object with defaults applied.
- */
-function _applyConfigDefaults$2(config) {
-    return __assign({}, new MatSnackBarConfig(), config);
-}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY() {
+    return new MatSnackBarConfig();
+}
 var MatSnackBarModule = /** @class */ (function () {
     function MatSnackBarModule() {
     }
@@ -27561,7 +27566,14 @@ var MatSnackBarModule = /** @class */ (function () {
                     exports: [MatSnackBarContainer, MatCommonModule],
                     declarations: [MatSnackBarContainer, SimpleSnackBar],
                     entryComponents: [MatSnackBarContainer, SimpleSnackBar],
-                    providers: [MatSnackBar, a11y.LIVE_ANNOUNCER_PROVIDER]
+                    providers: [
+                        MatSnackBar,
+                        a11y.LIVE_ANNOUNCER_PROVIDER,
+                        {
+                            provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+                            useFactory: MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY
+                        },
+                    ]
                 },] },
     ];
     /** @nocollapse */
@@ -28454,6 +28466,15 @@ var MatStepHeader = /** @class */ (function () {
     function () {
         return this._element.nativeElement;
     };
+    /**
+     * @return {?}
+     */
+    MatStepHeader.prototype.focus = /**
+     * @return {?}
+     */
+    function () {
+        this._getHostElement().focus();
+    };
     MatStepHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-step-header',
                     template: "<div class=\"mat-step-header-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div><div [class.mat-step-icon]=\"state !== 'number' || selected\" [class.mat-step-icon-not-touched]=\"state == 'number' && !selected\" [ngSwitch]=\"state\"><span *ngSwitchCase=\"'number'\">{{index + 1}}</span><ng-container *ngSwitchCase=\"'edit'\" [ngSwitch]=\"!!(iconOverrides && iconOverrides.edit)\"><ng-container *ngSwitchCase=\"true\" [ngTemplateOutlet]=\"iconOverrides.edit\"></ng-container><mat-icon *ngSwitchDefault>create</mat-icon></ng-container><ng-container *ngSwitchCase=\"'done'\" [ngSwitch]=\"!!(iconOverrides && iconOverrides.done)\"><ng-container *ngSwitchCase=\"true\" [ngTemplateOutlet]=\"iconOverrides.done\"></ng-container><mat-icon *ngSwitchDefault>done</mat-icon></ng-container></div><div class=\"mat-step-label\" [class.mat-step-label-active]=\"active\" [class.mat-step-label-selected]=\"selected\"><ng-container *ngIf=\"_templateLabel()\" [ngTemplateOutlet]=\"_templateLabel()!.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel()\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">{{_intl.optionalLabel}}</div></div>",
@@ -28631,7 +28652,7 @@ var MatStepper = /** @class */ (function (_super) {
     /** @nocollapse */
     MatStepper.ctorParameters = function () { return []; };
     MatStepper.propDecorators = {
-        "_stepHeader": [{ type: core.ViewChildren, args: [MatStepHeader, { read: core.ElementRef },] },],
+        "_stepHeader": [{ type: core.ViewChildren, args: [MatStepHeader,] },],
         "_steps": [{ type: core.ContentChildren, args: [MatStep,] },],
         "_icons": [{ type: core.ContentChildren, args: [MatStepperIcon,] },],
     };
@@ -28645,7 +28666,7 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
     MatHorizontalStepper.decorators = [
         { type: core.Component, args: [{selector: 'mat-horizontal-stepper',
                     exportAs: 'matHorizontalStepper',
-                    template: "<div class=\"mat-horizontal-stepper-header-container\"><ng-container *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-horizontal-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_focusIndex === i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [index]=\"i\" [state]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div *ngIf=\"!isLast\" class=\"mat-stepper-horizontal-line\"></div></ng-container></div><div class=\"mat-horizontal-content-container\"><div *ngFor=\"let step of _steps; let i = index\" class=\"mat-horizontal-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div>",
+                    template: "<div class=\"mat-horizontal-stepper-header-container\"><ng-container *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-horizontal-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_getFocusIndex() === i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [index]=\"i\" [state]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div *ngIf=\"!isLast\" class=\"mat-stepper-horizontal-line\"></div></ng-container></div><div class=\"mat-horizontal-content-container\"><div *ngFor=\"let step of _steps; let i = index\" class=\"mat-horizontal-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div>",
                     styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{overflow:hidden}.mat-horizontal-stepper-content[aria-expanded=false]{height:0}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
                     inputs: ['selectedIndex'],
                     host: {
@@ -28674,7 +28695,7 @@ var MatVerticalStepper = /** @class */ (function (_super) {
     MatVerticalStepper.decorators = [
         { type: core.Component, args: [{selector: 'mat-vertical-stepper',
                     exportAs: 'matVerticalStepper',
-                    template: "<div class=\"mat-step\" *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-vertical-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_focusIndex == i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex === i\" [index]=\"i\" [state]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div class=\"mat-vertical-content-container\" [class.mat-stepper-vertical-line]=\"!isLast\"><div class=\"mat-vertical-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><div class=\"mat-vertical-content\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div></div></div>",
+                    template: "<div class=\"mat-step\" *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-vertical-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_getFocusIndex() == i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex === i\" [index]=\"i\" [state]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div class=\"mat-vertical-content-container\" [class.mat-stepper-vertical-line]=\"!isLast\"><div class=\"mat-vertical-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><div class=\"mat-vertical-content\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div></div></div>",
                     styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content{overflow:hidden}.mat-horizontal-stepper-content[aria-expanded=false]{height:0}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
                     inputs: ['selectedIndex'],
                     host: {
@@ -32227,7 +32248,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.3-bb1803d');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.3-a943b36');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32473,10 +32494,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa25 = MatMenuItemBase;
-exports.ɵb25 = _MatMenuItemMixinBase;
-exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa9 = MatMenuItemBase;
+exports.ɵb9 = _MatMenuItemMixinBase;
+exports.ɵd9 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc9 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32552,7 +32573,9 @@ exports.MatSliderChange = MatSliderChange;
 exports.MatSliderBase = MatSliderBase;
 exports._MatSliderMixinBase = _MatSliderMixinBase;
 exports.MatSlider = MatSlider;
+exports.MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY = MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY;
 exports.MatSnackBarModule = MatSnackBarModule;
+exports.MAT_SNACK_BAR_DEFAULT_OPTIONS = MAT_SNACK_BAR_DEFAULT_OPTIONS;
 exports.MatSnackBar = MatSnackBar;
 exports.MatSnackBarContainer = MatSnackBarContainer;
 exports.MAT_SNACK_BAR_DATA = MAT_SNACK_BAR_DATA;
@@ -32599,16 +32622,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe2 = MatTabBase;
+exports.ɵf2 = _MatTabMixinBase;
+exports.ɵa2 = MatTabHeaderBase;
+exports.ɵb2 = _MatTabHeaderMixinBase;
+exports.ɵc2 = MatTabLabelWrapperBase;
+exports.ɵd2 = _MatTabLabelWrapperMixinBase;
+exports.ɵi2 = MatTabLinkBase;
+exports.ɵg2 = MatTabNavBase;
+exports.ɵj2 = _MatTabLinkMixinBase;
+exports.ɵh2 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
@@ -32642,7 +32665,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa19 = MatTreeNodeOutlet;
+exports.ɵa17 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
