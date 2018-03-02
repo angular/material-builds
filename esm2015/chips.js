@@ -780,6 +780,7 @@ class MatChipList extends _MatChipListMixinBase {
             this._updateTabIndex();
             // Check to see if we have a destroyed chip and need to refocus
             this._updateFocusForDestroyedChips();
+            this.stateChanges.next();
         });
     }
     /**

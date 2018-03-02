@@ -981,6 +981,7 @@ var MatChipList = /** @class */ (function (_super) {
             // Check to see if we have a destroyed chip and need to refocus
             // Check to see if we have a destroyed chip and need to refocus
             _this._updateFocusForDestroyedChips();
+            _this.stateChanges.next();
         });
     };
     /**

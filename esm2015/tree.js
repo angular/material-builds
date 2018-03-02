@@ -474,5 +474,5 @@ class MatTreeNestedDataSource extends DataSource {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa12 };
+export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa19 };
 //# sourceMappingURL=tree.js.map
