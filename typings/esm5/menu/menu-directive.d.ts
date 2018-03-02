@@ -1,6 +1,7 @@
 import { Direction } from '@angular/cdk/bidi';
 import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, QueryList, TemplateRef, NgZone, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
 import { MatMenuContent } from './menu-content';
@@ -37,6 +38,8 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
     };
     /** Current state of the panel animation. */
     _panelAnimationState: 'void' | 'enter';
+    /** Emits whenever an animation on the menu completes. */
+    _animationDone: Subject<void>;
     /** Parent menu of the current menu panel. */
     parentMenu: MatMenuPanel | undefined;
     /** Layout direction of the menu. */
@@ -118,5 +121,5 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
     /** Resets the panel animation to its initial state. */
     _resetAnimation(): void;
     /** Callback that is invoked when the panel animation completes. */
-    _onAnimationDone(_event: AnimationEvent): void;
+    _onAnimationDone(): void;
 }

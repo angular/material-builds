@@ -24,5 +24,10 @@ export declare class MatMenuContent implements OnDestroy {
      * @docs-private
      */
     attach(context?: any): void;
+    /**
+     * Detaches the content.
+     * @docs-private
+     */
+    detach(): void;
     ngOnDestroy(): void;
 }

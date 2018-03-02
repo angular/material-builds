@@ -358,9 +358,7 @@ var MatMenuContent = /** @class */ (function () {
         if (!this._portal) {
             this._portal = new portal.TemplatePortal(this._template, this._viewContainerRef);
         }
-        else if (this._portal.isAttached) {
-            this._portal.detach();
-        }
+        this.detach();
         if (!this._outlet) {
             this._outlet = new portal.DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
         }
@@ -371,6 +369,25 @@ var MatMenuContent = /** @class */ (function () {
         // risk it staying attached to a pane that's no longer in the DOM.
         element.parentNode)).insertBefore(this._outlet.outletElement, element);
         this._portal.attach(this._outlet, context);
+    };
+    /**
+     * Detaches the content.
+     * @docs-private
+     */
+    /**
+     * Detaches the content.
+     * \@docs-private
+     * @return {?}
+     */
+    MatMenuContent.prototype.detach = /**
+     * Detaches the content.
+     * \@docs-private
+     * @return {?}
+     */
+    function () {
+        if (this._portal.isAttached) {
+            this._portal.detach();
+        }
     };
     /**
      * @return {?}
@@ -432,6 +449,10 @@ var MatMenu = /** @class */ (function () {
          * Current state of the panel animation.
          */
         this._panelAnimationState = 'void';
+        /**
+         * Emits whenever an animation on the menu completes.
+         */
+        this._animationDone = new Subject.Subject();
         /**
          * Class to be added to the backdrop element.
          */
@@ -764,20 +785,18 @@ var MatMenu = /** @class */ (function () {
     /** Callback that is invoked when the panel animation completes. */
     /**
      * Callback that is invoked when the panel animation completes.
-     * @param {?} _event
      * @return {?}
      */
     MatMenu.prototype._onAnimationDone = /**
      * Callback that is invoked when the panel animation completes.
-     * @param {?} _event
      * @return {?}
      */
-    function (_event) {
-        // @deletion-target 6.0.0 Not being used anymore. To be removed.
+    function () {
+        this._animationDone.next();
     };
     MatMenu.decorators = [
         { type: core.Component, args: [{selector: 'mat-menu',
-                    template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\"><ng-content></ng-content></div></div></ng-template>",
+                    template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.done)=\"_onAnimationDone()\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\"><ng-content></ng-content></div></div></ng-template>",
                     styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}.mat-menu-panel.ng-animating .mat-menu-item-submenu-trigger{pointer-events:none}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
@@ -1057,13 +1076,24 @@ var MatMenuTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (this._overlayRef && this.menuOpen) {
-            this._resetMenu();
-            this._closeSubscription.unsubscribe();
-            this._overlayRef.detach();
-            if (this.menu instanceof MatMenu) {
-                this.menu._resetAnimation();
+        if (!this._overlayRef || !this.menuOpen) {
+            return;
+        }
+        var /** @type {?} */ menu = this.menu;
+        this._resetMenu();
+        this._closeSubscription.unsubscribe();
+        this._overlayRef.detach();
+        if (menu instanceof MatMenu) {
+            menu._resetAnimation();
+            if (menu.lazyContent) {
+                // Wait for the exit animation to finish before detaching the content.
+                menu._animationDone
+                    .pipe(take.take(1))
+                    .subscribe(function () { return ((menu.lazyContent)).detach(); });
             }
+        }
+        else if (menu.lazyContent) {
+            menu.lazyContent.detach();
         }
     };
     /**
@@ -1423,10 +1453,10 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa25 = MatMenuItemBase;
+exports.ɵb25 = _MatMenuItemMixinBase;
+exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
