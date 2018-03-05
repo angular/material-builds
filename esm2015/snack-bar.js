@@ -432,10 +432,6 @@ MatSnackBarContainer.propDecorators = {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Injection token that can be used to specify default snack bar.
- */
-const /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new InjectionToken('mat-snack-bar-default-options');
-/**
  * Service to dispatch Material Design snack bar messages.
  */
 class MatSnackBar {
@@ -445,15 +441,13 @@ class MatSnackBar {
      * @param {?} _injector
      * @param {?} _breakpointObserver
      * @param {?} _parentSnackBar
-     * @param {?} _defaultConfig
      */
-    constructor(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar, _defaultConfig) {
+    constructor(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar) {
         this._overlay = _overlay;
         this._live = _live;
         this._injector = _injector;
         this._breakpointObserver = _breakpointObserver;
         this._parentSnackBar = _parentSnackBar;
-        this._defaultConfig = _defaultConfig;
         /**
          * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
          * If there is a parent snack-bar service, all operations should delegate to that parent
@@ -491,7 +485,7 @@ class MatSnackBar {
      * @return {?}
      */
     openFromComponent(component, config) {
-        const /** @type {?} */ _config = Object.assign({}, this._defaultConfig, config);
+        const /** @type {?} */ _config = _applyConfigDefaults(config);
         const /** @type {?} */ snackBarRef = this._attach(component, _config);
         // When the snackbar is dismissed, clear the reference to it.
         snackBarRef.afterDismissed().subscribe(() => {
@@ -530,7 +524,7 @@ class MatSnackBar {
      * @return {?}
      */
     open(message, action = '', config) {
-        const /** @type {?} */ _config = Object.assign({}, this._defaultConfig, config);
+        const /** @type {?} */ _config = _applyConfigDefaults(config);
         // Since the user doesn't have access to the component, we can
         // override the data to pass in our own message and action.
         _config.data = { message, action };
@@ -646,20 +640,20 @@ MatSnackBar.ctorParameters = () => [
     { type: Injector, },
     { type: BreakpointObserver, },
     { type: MatSnackBar, decorators: [{ type: Optional }, { type: SkipSelf },] },
-    { type: MatSnackBarConfig, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] },] },
 ];
+/**
+ * Applies default options to the snackbar config.
+ * @param {?=} config The configuration to which the defaults will be applied.
+ * @return {?} The new configuration object with defaults applied.
+ */
+function _applyConfigDefaults(config) {
+    return Object.assign({}, new MatSnackBarConfig(), config);
+}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * \@docs-private
- * @return {?}
- */
-function MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY() {
-    return new MatSnackBarConfig();
-}
 class MatSnackBarModule {
 }
 MatSnackBarModule.decorators = [
@@ -674,14 +668,7 @@ MatSnackBarModule.decorators = [
                 exports: [MatSnackBarContainer, MatCommonModule],
                 declarations: [MatSnackBarContainer, SimpleSnackBar],
                 entryComponents: [MatSnackBarContainer, SimpleSnackBar],
-                providers: [
-                    MatSnackBar,
-                    LIVE_ANNOUNCER_PROVIDER,
-                    {
-                        provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-                        useFactory: MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY
-                    },
-                ]
+                providers: [MatSnackBar, LIVE_ANNOUNCER_PROVIDER]
             },] },
 ];
 /** @nocollapse */
@@ -697,5 +684,5 @@ MatSnackBarModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, matSnackBarAnimations };
+export { MatSnackBarModule, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, matSnackBarAnimations };
 //# sourceMappingURL=snack-bar.js.map
