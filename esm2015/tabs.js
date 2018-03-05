@@ -300,10 +300,8 @@ class MatTabBodyPortal extends CdkPortalOutlet {
             this.attach(this._host._content);
         }
         this._centeringSub = this._host._beforeCentering.subscribe((isCentering) => {
-            if (isCentering) {
-                if (!this.hasAttached()) {
-                    this.attach(this._host._content);
-                }
+            if (isCentering && !this.hasAttached()) {
+                this.attach(this._host._content);
             }
         });
         this._leavingSub = this._host._afterLeavingCenter.subscribe(() => {

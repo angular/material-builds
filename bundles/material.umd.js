@@ -27262,15 +27262,20 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Injection token that can be used to specify default snack bar.
+ */
+var /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new core.InjectionToken('mat-snack-bar-default-options');
+/**
  * Service to dispatch Material Design snack bar messages.
  */
 var MatSnackBar = /** @class */ (function () {
-    function MatSnackBar(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar) {
+    function MatSnackBar(_overlay, _live, _injector, _breakpointObserver, _parentSnackBar, _defaultConfig) {
         this._overlay = _overlay;
         this._live = _live;
         this._injector = _injector;
         this._breakpointObserver = _breakpointObserver;
         this._parentSnackBar = _parentSnackBar;
+        this._defaultConfig = _defaultConfig;
         /**
          * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
          * If there is a parent snack-bar service, all operations should delegate to that parent
@@ -27330,7 +27335,7 @@ var MatSnackBar = /** @class */ (function () {
      */
     function (component, config) {
         var _this = this;
-        var /** @type {?} */ _config = _applyConfigDefaults$2(config);
+        var /** @type {?} */ _config = __assign({}, this._defaultConfig, config);
         var /** @type {?} */ snackBarRef = this._attach(component, _config);
         // When the snackbar is dismissed, clear the reference to it.
         snackBarRef.afterDismissed().subscribe(function () {
@@ -27383,7 +27388,7 @@ var MatSnackBar = /** @class */ (function () {
      */
     function (message, action, config) {
         if (action === void 0) { action = ''; }
-        var /** @type {?} */ _config = _applyConfigDefaults$2(config);
+        var /** @type {?} */ _config = __assign({}, this._defaultConfig, config);
         // Since the user doesn't have access to the component, we can
         // override the data to pass in our own message and action.
         _config.data = { message: message, action: action };
@@ -27530,22 +27535,22 @@ var MatSnackBar = /** @class */ (function () {
         { type: core.Injector, },
         { type: layout.BreakpointObserver, },
         { type: MatSnackBar, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
+        { type: MatSnackBarConfig, decorators: [{ type: core.Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] },] },
     ]; };
     return MatSnackBar;
 }());
-/**
- * Applies default options to the snackbar config.
- * @param {?=} config The configuration to which the defaults will be applied.
- * @return {?} The new configuration object with defaults applied.
- */
-function _applyConfigDefaults$2(config) {
-    return __assign({}, new MatSnackBarConfig(), config);
-}
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY() {
+    return new MatSnackBarConfig();
+}
 var MatSnackBarModule = /** @class */ (function () {
     function MatSnackBarModule() {
     }
@@ -27561,7 +27566,14 @@ var MatSnackBarModule = /** @class */ (function () {
                     exports: [MatSnackBarContainer, MatCommonModule],
                     declarations: [MatSnackBarContainer, SimpleSnackBar],
                     entryComponents: [MatSnackBarContainer, SimpleSnackBar],
-                    providers: [MatSnackBar, a11y.LIVE_ANNOUNCER_PROVIDER]
+                    providers: [
+                        MatSnackBar,
+                        a11y.LIVE_ANNOUNCER_PROVIDER,
+                        {
+                            provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+                            useFactory: MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY
+                        },
+                    ]
                 },] },
     ];
     /** @nocollapse */
@@ -29783,10 +29795,8 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
             this.attach(this._host._content);
         }
         this._centeringSub = this._host._beforeCentering.subscribe(function (isCentering) {
-            if (isCentering) {
-                if (!_this.hasAttached()) {
-                    _this.attach(_this._host._content);
-                }
+            if (isCentering && !_this.hasAttached()) {
+                _this.attach(_this._host._content);
             }
         });
         this._leavingSub = this._host._afterLeavingCenter.subscribe(function () {
@@ -32236,7 +32246,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.3-ccbab87');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.3-8228c5f');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32482,10 +32492,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa9 = MatMenuItemBase;
-exports.ɵb9 = _MatMenuItemMixinBase;
-exports.ɵd9 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc9 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa23 = MatMenuItemBase;
+exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32561,7 +32571,9 @@ exports.MatSliderChange = MatSliderChange;
 exports.MatSliderBase = MatSliderBase;
 exports._MatSliderMixinBase = _MatSliderMixinBase;
 exports.MatSlider = MatSlider;
+exports.MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY = MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY;
 exports.MatSnackBarModule = MatSnackBarModule;
+exports.MAT_SNACK_BAR_DEFAULT_OPTIONS = MAT_SNACK_BAR_DEFAULT_OPTIONS;
 exports.MatSnackBar = MatSnackBar;
 exports.MatSnackBarContainer = MatSnackBarContainer;
 exports.MAT_SNACK_BAR_DATA = MAT_SNACK_BAR_DATA;
@@ -32651,7 +32663,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa18 = MatTreeNodeOutlet;
+exports.ɵa12 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

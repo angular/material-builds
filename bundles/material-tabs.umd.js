@@ -359,10 +359,8 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
             this.attach(this._host._content);
         }
         this._centeringSub = this._host._beforeCentering.subscribe(function (isCentering) {
-            if (isCentering) {
-                if (!_this.hasAttached()) {
-                    _this.attach(_this._host._content);
-                }
+            if (isCentering && !_this.hasAttached()) {
+                _this.attach(_this._host._content);
             }
         });
         this._leavingSub = this._host._afterLeavingCenter.subscribe(function () {

@@ -9,10 +9,12 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
-import { Injector } from '@angular/core';
+import { Injector, InjectionToken } from '@angular/core';
 import { SimpleSnackBar } from './simple-snack-bar';
 import { MatSnackBarConfig } from './snack-bar-config';
 import { MatSnackBarRef } from './snack-bar-ref';
+/** Injection token that can be used to specify default snack bar. */
+export declare const MAT_SNACK_BAR_DEFAULT_OPTIONS: InjectionToken<MatSnackBarConfig<any>>;
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -22,6 +24,7 @@ export declare class MatSnackBar {
     private _injector;
     private _breakpointObserver;
     private _parentSnackBar;
+    private _defaultConfig;
     /**
      * Reference to the current snack bar in the view *at this level* (in the Angular injector tree).
      * If there is a parent snack-bar service, all operations should delegate to that parent
@@ -30,7 +33,7 @@ export declare class MatSnackBar {
     private _snackBarRefAtThisLevel;
     /** Reference to the currently opened snackbar at *any* level. */
     _openedSnackBarRef: MatSnackBarRef<any> | null;
-    constructor(_overlay: Overlay, _live: LiveAnnouncer, _injector: Injector, _breakpointObserver: BreakpointObserver, _parentSnackBar: MatSnackBar);
+    constructor(_overlay: Overlay, _live: LiveAnnouncer, _injector: Injector, _breakpointObserver: BreakpointObserver, _parentSnackBar: MatSnackBar, _defaultConfig: MatSnackBarConfig);
     /**
      * Creates and dispatches a snack bar with a custom component for the content, removing any
      * currently opened snack bars.
