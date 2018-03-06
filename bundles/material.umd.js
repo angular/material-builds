@@ -543,10 +543,12 @@ var /** @type {?} */ MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useE
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
+ * @template D
  */
 var   /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
+ * @template D
  */
 DateAdapter = /** @class */ (function () {
     function DateAdapter() {
@@ -2173,7 +2175,6 @@ var MatPseudoCheckbox = /** @class */ (function () {
     }
     MatPseudoCheckbox.decorators = [
         { type: core.Component, args: [{encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     selector: 'mat-pseudo-checkbox',
                     styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:9px;left:2px;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:5px;left:3px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
@@ -2249,7 +2250,6 @@ var MatOptgroup = /** @class */ (function (_super) {
                     exportAs: 'matOptgroup',
                     template: "<label class=\"mat-optgroup-label\" [id]=\"_labelId\">{{ label }}</label><ng-content select=\"mat-option, ng-container\"></ng-content>",
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled'],
                     styles: [".mat-optgroup-label{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup-label[disabled]{cursor:default}[dir=rtl] .mat-optgroup-label{text-align:right}.mat-optgroup-label .mat-icon{margin-right:16px;vertical-align:middle}[dir=rtl] .mat-optgroup-label .mat-icon{margin-left:16px;margin-right:0}"],
@@ -2629,7 +2629,6 @@ var MatOption = /** @class */ (function () {
                     styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative;cursor:pointer;outline:0;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}@media screen and (-ms-high-contrast:active){.mat-option{margin:0 1px}.mat-option.mat-active{border:solid 1px currentColor;margin:0}}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-option-ripple{opacity:.5}}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}"],
                     template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -2786,10 +2785,12 @@ var /** @type {?} */ matFormFieldAnimations = {
 /**
  * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
+ * @template T
  */
 var   /**
  * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
+ * @template T
  */
 MatFormFieldControl = /** @class */ (function () {
     function MatFormFieldControl() {
@@ -3469,7 +3470,6 @@ var MatFormField = /** @class */ (function (_super) {
                     },
                     inputs: ['color'],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -3741,7 +3741,6 @@ var MatAutocomplete = /** @class */ (function (_super) {
                     template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
                     styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     exportAs: 'matAutocomplete',
                     inputs: ['disableRipple'],
@@ -5011,10 +5010,9 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
     MatBottomSheetContainer.decorators = [
         { type: core.Component, args: [{selector: 'mat-bottom-sheet-container',
                     template: "<ng-template cdkPortalOutlet></ng-template>",
-                    styles: [".mat-bottom-sheet-container{box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12);padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0}.mat-bottom-sheet-container-medium{min-width:384px}.mat-bottom-sheet-container-large{min-width:512px}.mat-bottom-sheet-container-xlarge{min-width:576px}"],
+                    styles: [".mat-bottom-sheet-container{box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12);padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0}@media screen and (-ms-high-contrast:active){.mat-bottom-sheet-container{outline:1px solid}}.mat-bottom-sheet-container-medium{min-width:384px}.mat-bottom-sheet-container-large{min-width:512px}.mat-bottom-sheet-container-xlarge{min-width:576px}"],
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     animations: [matBottomSheetAnimations.bottomSheetState],
                     host: {
                         'class': 'mat-bottom-sheet-container',
@@ -5051,9 +5049,11 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
 var /** @type {?} */ MAT_BOTTOM_SHEET_DATA = new core.InjectionToken('MatBottomSheetData');
 /**
  * Configuration used when opening a bottom sheet.
+ * @template D
  */
 var   /**
  * Configuration used when opening a bottom sheet.
+ * @template D
  */
 MatBottomSheetConfig = /** @class */ (function () {
     function MatBottomSheetConfig() {
@@ -5083,9 +5083,11 @@ MatBottomSheetConfig = /** @class */ (function () {
  */
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
+ * @template T, R
  */
 var   /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
+ * @template T, R
  */
 MatBottomSheetRef = /** @class */ (function () {
     function MatBottomSheetRef(containerInstance, _overlayRef) {
@@ -5564,7 +5566,6 @@ var MatButton = /** @class */ (function (_super) {
                     styles: [".mat-button,.mat-flat-button,.mat-icon-button,.mat-stroked-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible}.mat-button[disabled],.mat-flat-button[disabled],.mat-icon-button[disabled],.mat-stroked-button[disabled]{cursor:default}.mat-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-button.cdk-program-focused .mat-button-focus-overlay,.mat-flat-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-flat-button.cdk-program-focused .mat-button-focus-overlay,.mat-icon-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-icon-button.cdk-program-focused .mat-button-focus-overlay,.mat-stroked-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-stroked-button.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-flat-button::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-stroked-button::-moz-focus-inner{border:0}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay,.mat-stroked-button:hover .mat-button-focus-overlay{opacity:1}.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible;transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-raised-button[disabled]{cursor:default}.mat-raised-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-raised-button.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-raised-button::-moz-focus-inner{border:0}.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-raised-button[disabled]{box-shadow:none}.mat-stroked-button{border:1px solid currentColor;padding:0 15px;line-height:34px}.mat-stroked-button:not([class*=mat-elevation-z]){box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)}.mat-flat-button:not([class*=mat-elevation-z]){box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)}.mat-fab{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible;transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab[disabled]{cursor:default}.mat-fab.cdk-keyboard-focused .mat-button-focus-overlay,.mat-fab.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-fab::-moz-focus-inner{border:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-fab[disabled]{box-shadow:none}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible;transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab[disabled]{cursor:default}.mat-mini-fab.cdk-keyboard-focused .mat-button-focus-overlay,.mat-mini-fab.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-mini-fab::-moz-focus-inner{border:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-mini-fab[disabled]{box-shadow:none}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button{display:block;font-size:inherit;width:2.5em;height:2.5em}.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-fab .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-mini-fab .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-flat-button,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
                     inputs: ['disabled', 'disableRipple', 'color'],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -5615,7 +5616,6 @@ var MatAnchor = /** @class */ (function (_super) {
                     template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
                     styles: [".mat-button,.mat-flat-button,.mat-icon-button,.mat-stroked-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible}.mat-button[disabled],.mat-flat-button[disabled],.mat-icon-button[disabled],.mat-stroked-button[disabled]{cursor:default}.mat-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-button.cdk-program-focused .mat-button-focus-overlay,.mat-flat-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-flat-button.cdk-program-focused .mat-button-focus-overlay,.mat-icon-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-icon-button.cdk-program-focused .mat-button-focus-overlay,.mat-stroked-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-stroked-button.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-flat-button::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-stroked-button::-moz-focus-inner{border:0}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay,.mat-stroked-button:hover .mat-button-focus-overlay{opacity:1}.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible;transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-raised-button[disabled]{cursor:default}.mat-raised-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-raised-button.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-raised-button::-moz-focus-inner{border:0}.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-raised-button[disabled]{box-shadow:none}.mat-stroked-button{border:1px solid currentColor;padding:0 15px;line-height:34px}.mat-stroked-button:not([class*=mat-elevation-z]){box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)}.mat-flat-button:not([class*=mat-elevation-z]){box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)}.mat-fab{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible;transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab[disabled]{cursor:default}.mat-fab.cdk-keyboard-focused .mat-button-focus-overlay,.mat-fab.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-fab::-moz-focus-inner{border:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-fab[disabled]{box-shadow:none}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible;transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab[disabled]{cursor:default}.mat-mini-fab.cdk-keyboard-focused .mat-button-focus-overlay,.mat-mini-fab.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-mini-fab::-moz-focus-inner{border:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-mini-fab[disabled]{box-shadow:none}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button{display:block;font-size:inherit;width:2.5em;height:2.5em}.mat-button,.mat-fab,.mat-icon-button,.mat-mini-fab,.mat-raised-button{color:currentColor}.mat-button .mat-button-wrapper>*,.mat-fab .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-mini-fab .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*{vertical-align:middle}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-flat-button,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -6265,7 +6265,6 @@ var MatButtonToggle = /** @class */ (function (_super) {
                     template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\" #label><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled || null\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div><div class=\"mat-button-toggle-ripple\" matRipple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"this.disableRipple || this.disabled\"></div>",
                     styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap;overflow:hidden}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}.mat-button-toggle-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     exportAs: 'matButtonToggle',
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disableRipple'],
@@ -6552,7 +6551,6 @@ var MatCard = /** @class */ (function () {
                     template: "<ng-content></ng-content><ng-content select=\"mat-card-footer\"></ng-content>",
                     styles: [".mat-card{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:block;position:relative;padding:24px;border-radius:2px}.mat-card:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-card .mat-divider{position:absolute;left:0;width:100%}[dir=rtl] .mat-card .mat-divider{left:auto;right:0}.mat-card .mat-divider.mat-divider-inset{position:static;margin:0}@media screen and (-ms-high-contrast:active){.mat-card{outline:solid 1px}}.mat-card-flat{box-shadow:none}.mat-card-actions,.mat-card-content,.mat-card-subtitle,.mat-card-title{display:block;margin-bottom:16px}.mat-card-actions{margin-left:-16px;margin-right:-16px;padding:8px 0}.mat-card-actions-align-end{display:flex;justify-content:flex-end}.mat-card-image{width:calc(100% + 48px);margin:0 -24px 16px -24px}.mat-card-xl-image{width:240px;height:240px;margin:-8px}.mat-card-footer{display:block;margin:0 -24px -24px -24px}.mat-card-actions .mat-button,.mat-card-actions .mat-raised-button{margin:0 4px}.mat-card-header{display:flex;flex-direction:row}.mat-card-header-text{margin:0 8px}.mat-card-avatar{height:40px;width:40px;border-radius:50%;flex-shrink:0}.mat-card-lg-image,.mat-card-md-image,.mat-card-sm-image{margin:-8px 0}.mat-card-title-group{display:flex;justify-content:space-between;margin:0 -8px}.mat-card-sm-image{width:80px;height:80px}.mat-card-md-image{width:112px;height:112px}.mat-card-lg-image{width:152px;height:152px}@media (max-width:599px){.mat-card{padding:24px 16px}.mat-card-actions{margin-left:-8px;margin-right:-8px}.mat-card-image{width:calc(100% + 32px);margin:16px -16px}.mat-card-title-group{margin:0}.mat-card-xl-image{margin-left:0;margin-right:0}.mat-card-header{margin:-8px 0 0 0}.mat-card-footer{margin-left:-16px;margin-right:-16px}}.mat-card-content>:first-child,.mat-card>:first-child{margin-top:0}.mat-card-content>:last-child:not(.mat-card-footer),.mat-card>:last-child:not(.mat-card-footer){margin-bottom:0}.mat-card-image:first-child{margin-top:-24px}.mat-card>.mat-card-actions:last-child{margin-bottom:-16px;padding-bottom:0}.mat-card-actions .mat-button:first-child,.mat-card-actions .mat-raised-button:first-child{margin-left:0;margin-right:0}.mat-card-subtitle:not(:first-child),.mat-card-title:not(:first-child){margin-top:-4px}.mat-card-header .mat-card-subtitle:not(:first-child){margin-top:-8px}.mat-card>.mat-card-xl-image:first-child{margin-top:-8px}.mat-card>.mat-card-xl-image:last-child{margin-bottom:-8px}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     host: { 'class': 'mat-card' }
                 },] },
@@ -6573,7 +6571,6 @@ var MatCardHeader = /** @class */ (function () {
         { type: core.Component, args: [{selector: 'mat-card-header',
                     template: "<ng-content select=\"[mat-card-avatar], [matCardAvatar]\"></ng-content><div class=\"mat-card-header-text\"><ng-content select=\"mat-card-title, mat-card-subtitle, [mat-card-title], [mat-card-subtitle], [matCardTitle], [matCardSubtitle]\"></ng-content></div><ng-content></ng-content>",
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     host: { 'class': 'mat-card-header' }
                 },] },
@@ -6594,7 +6591,6 @@ var MatCardTitleGroup = /** @class */ (function () {
         { type: core.Component, args: [{selector: 'mat-card-title-group',
                     template: "<div><ng-content select=\"mat-card-title, mat-card-subtitle, [mat-card-title], [mat-card-subtitle], [matCardTitle], [matCardSubtitle]\"></ng-content></div><ng-content select=\"img\"></ng-content><ng-content></ng-content>",
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     host: { 'class': 'mat-card-title-group' }
                 },] },
@@ -7183,7 +7179,6 @@ var MatCheckbox = /** @class */ (function (_super) {
                     providers: [MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR],
                     inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
                 },] },
     ];
@@ -8830,7 +8825,6 @@ var MatChipList = /** @class */ (function (_super) {
                     providers: [{ provide: MatFormFieldControl, useExisting: MatChipList }],
                     styles: [".mat-chip{position:relative;overflow:hidden}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip:focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-standard-chip{outline:solid 1px}}.mat-standard-chip.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:7px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:7px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:7px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:7px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:32px;height:32px;margin-right:8px;margin-left:0}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:0}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:7px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:7px;margin-left:0}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper .mat-standard-chip,.mat-chip-list-wrapper input.mat-input-element{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden}input.mat-chip-input{width:150px;margin:3px;flex:1 0 150px}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
                 },] },
     ];
@@ -9081,9 +9075,11 @@ var MatChipsModule = /** @class */ (function () {
  */
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
+ * @template D
  */
 var   /**
  * Configuration for opening a modal dialog with the MatDialog service.
+ * @template D
  */
 MatDialogConfig = /** @class */ (function () {
     function MatDialogConfig() {
@@ -9366,7 +9362,6 @@ var MatDialogContainer = /** @class */ (function (_super) {
                     template: "<ng-template cdkPortalOutlet></ng-template>",
                     styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap;margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
                     // tslint:disable-next-line:validate-decorators
                     changeDetection: core.ChangeDetectionStrategy.Default,
@@ -9407,9 +9402,11 @@ var MatDialogContainer = /** @class */ (function (_super) {
 var /** @type {?} */ uniqueId = 0;
 /**
  * Reference to a dialog opened via the MatDialog service.
+ * @template T, R
  */
 var   /**
  * Reference to a dialog opened via the MatDialog service.
+ * @template T, R
  */
 MatDialogRef = /** @class */ (function () {
     function MatDialogRef(_overlayRef, _containerInstance, location, id) {
@@ -11420,7 +11417,6 @@ var MatCalendarBody = /** @class */ (function () {
                     },
                     exportAs: 'matCalendarBody',
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -11452,6 +11448,7 @@ var /** @type {?} */ DAYS_PER_WEEK = 7;
 /**
  * An internal component used to display a single month in the datepicker.
  * \@docs-private
+ * @template D
  */
 var MatMonthView = /** @class */ (function () {
     function MatMonthView(_changeDetectorRef, _dateFormats, _dateAdapter, _dir) {
@@ -11785,7 +11782,6 @@ var MatMonthView = /** @class */ (function () {
                     template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matMonthView',
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
                 },] },
     ];
@@ -11819,6 +11815,7 @@ var /** @type {?} */ yearsPerRow = 4;
 /**
  * An internal component used to display a year selector in the datepicker.
  * \@docs-private
+ * @template D
  */
 var MatMultiYearView = /** @class */ (function () {
     function MatMultiYearView(_changeDetectorRef, _dateAdapter, _dir) {
@@ -12105,7 +12102,6 @@ var MatMultiYearView = /** @class */ (function () {
                     template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [rows]=\"_years\" [todayValue]=\"_todayYear\" [selectedValue]=\"_selectedYear\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_getActiveCell()\" (selectedValueChange)=\"_yearSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matMultiYearView',
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
                 },] },
     ];
@@ -12135,6 +12131,7 @@ var MatMultiYearView = /** @class */ (function () {
 /**
  * An internal component used to display a single year in the datepicker.
  * \@docs-private
+ * @template D
  */
 var MatYearView = /** @class */ (function () {
     function MatYearView(_changeDetectorRef, _dateFormats, _dateAdapter, _dir) {
@@ -12473,7 +12470,6 @@ var MatYearView = /** @class */ (function () {
                     template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matYearView',
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
                 },] },
     ];
@@ -12504,6 +12500,7 @@ var MatYearView = /** @class */ (function () {
 /**
  * A calendar that is used as part of the datepicker.
  * \@docs-private
+ * @template D
  */
 var MatCalendar = /** @class */ (function () {
     function MatCalendar(_intl, _dateAdapter, _dateFormats, changeDetectorRef) {
@@ -12907,7 +12904,6 @@ var MatCalendar = /** @class */ (function () {
                     },
                     exportAs: 'matCalendar',
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -12983,6 +12979,7 @@ var /** @type {?} */ _MatDatepickerContentMixinBase = mixinColor(MatDatepickerCo
  * place to put additional features of the popup that are not part of the calendar itself in the
  * future. (e.g. confirmation buttons).
  * \@docs-private
+ * @template D
  */
 var MatDatepickerContent = /** @class */ (function (_super) {
     __extends(MatDatepickerContent, _super);
@@ -13026,7 +13023,6 @@ var MatDatepickerContent = /** @class */ (function (_super) {
                     },
                     exportAs: 'matDatepickerContent',
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     inputs: ['color'],
                 },] },
@@ -13043,6 +13039,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
 }(_MatDatepickerContentMixinBase));
 /**
  * Component responsible for managing the datepicker popup/dialog.
+ * @template D
  */
 var MatDatepicker = /** @class */ (function () {
     function MatDatepicker(_dialog, _overlay, _ngZone, _viewContainerRef, _scrollStrategy, _dateAdapter, _dir, _document) {
@@ -13518,7 +13515,6 @@ var MatDatepicker = /** @class */ (function () {
                     exportAs: 'matDatepicker',
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -13567,11 +13563,13 @@ var /** @type {?} */ MAT_DATEPICKER_VALIDATORS = {
  * An event used for datepicker input and change events. We don't always have access to a native
  * input or change event because the event may have been triggered by the user clicking on the
  * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
+ * @template D
  */
 var   /**
  * An event used for datepicker input and change events. We don't always have access to a native
  * input or change event because the event may have been triggered by the user clicking on the
  * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
+ * @template D
  */
 MatDatepickerInputEvent = /** @class */ (function () {
     function MatDatepickerInputEvent(target, targetElement) {
@@ -13583,6 +13581,7 @@ MatDatepickerInputEvent = /** @class */ (function () {
 }());
 /**
  * Directive used to connect an input to a MatDatepicker.
+ * @template D
  */
 var MatDatepickerInput = /** @class */ (function () {
     function MatDatepickerInput(_elementRef, _dateAdapter, _dateFormats, _formField) {
@@ -14051,6 +14050,9 @@ var MatDatepickerToggleIcon = /** @class */ (function () {
     MatDatepickerToggleIcon.ctorParameters = function () { return []; };
     return MatDatepickerToggleIcon;
 }());
+/**
+ * @template D
+ */
 var MatDatepickerToggle = /** @class */ (function () {
     function MatDatepickerToggle(_intl, _changeDetectorRef) {
         this._intl = _intl;
@@ -14149,7 +14151,6 @@ var MatDatepickerToggle = /** @class */ (function () {
                     },
                     exportAs: 'matDatepickerToggle',
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -14270,7 +14271,6 @@ var MatDivider = /** @class */ (function () {
                     styles: [".mat-divider{display:block;margin:0;border-top-width:1px;border-top-style:solid}.mat-divider.mat-divider-vertical{border-top:0;border-right-width:1px;border-right-style:solid}.mat-divider.mat-divider-inset{margin-left:80px}[dir=rtl] .mat-divider.mat-divider-inset{margin-left:auto;margin-right:80px}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -14582,7 +14582,6 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     exportAs: 'matExpansionPanel',
                     template: "<ng-content select=\"mat-expansion-panel-header\"></ng-content><div class=\"mat-expansion-panel-content\" role=\"region\" [@bodyExpansion]=\"_getExpandedState()\" (@bodyExpansion.done)=\"_bodyAnimation($event)\" (@bodyExpansion.start)=\"_bodyAnimation($event)\" [attr.aria-labelledby]=\"_headerId\" [id]=\"id\" #body><div class=\"mat-expansion-panel-body\"><ng-content></ng-content><ng-template [cdkPortalOutlet]=\"_portal\"></ng-template></div><ng-content select=\"mat-action-row\"></ng-content></div>",
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled', 'expanded'],
                     outputs: ['opened', 'closed', 'expandedChange'],
@@ -14744,7 +14743,6 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                     styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
                     template: "<span class=\"mat-content\"><ng-content select=\"mat-panel-title\"></ng-content><ng-content select=\"mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\" class=\"mat-expansion-indicator\"></span>",
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     animations: [
                         matExpansionAnimations.indicatorRotate,
@@ -14947,7 +14945,6 @@ var MatGridTile = /** @class */ (function () {
                     template: "<figure class=\"mat-figure\"><ng-content></ng-content></figure>",
                     styles: [".mat-grid-list{display:block;position:relative}.mat-grid-tile{display:block;position:absolute;overflow:hidden}.mat-grid-tile .mat-figure{top:0;left:0;right:0;bottom:0;position:absolute;display:flex;align-items:center;justify-content:center;height:100%;padding:0;margin:0}.mat-grid-tile .mat-grid-tile-footer,.mat-grid-tile .mat-grid-tile-header{display:flex;align-items:center;height:48px;color:#fff;background:rgba(0,0,0,.38);overflow:hidden;padding:0 16px;position:absolute;left:0;right:0}.mat-grid-tile .mat-grid-tile-footer>*,.mat-grid-tile .mat-grid-tile-header>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-tile-footer.mat-2-line,.mat-grid-tile .mat-grid-tile-header.mat-2-line{height:68px}.mat-grid-tile .mat-grid-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden}.mat-grid-tile .mat-grid-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-grid-tile .mat-grid-list-text:empty{display:none}.mat-grid-tile .mat-grid-tile-header{top:0}.mat-grid-tile .mat-grid-tile-footer{bottom:0}.mat-grid-tile .mat-grid-avatar{padding-right:16px}[dir=rtl] .mat-grid-tile .mat-grid-avatar{padding-right:0;padding-left:16px}.mat-grid-tile .mat-grid-avatar:empty{display:none}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -14979,7 +14976,6 @@ var MatGridTileText = /** @class */ (function () {
                     template: "<ng-content select=\"[mat-grid-avatar], [matGridAvatar]\"></ng-content><div class=\"mat-grid-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div><ng-content></ng-content>",
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -15909,7 +15905,6 @@ var MatGridList = /** @class */ (function () {
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -16935,7 +16930,6 @@ var MatIcon = /** @class */ (function (_super) {
                         'class': 'mat-icon',
                     },
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -17017,7 +17011,6 @@ var MatNavList = /** @class */ (function (_super) {
                     styles: [".mat-divider{display:block;margin:0;border-top-width:1px;border-top-style:solid}.mat-divider.mat-divider-vertical{border-top:0;border-right-width:1px;border-right-style:solid}.mat-divider.mat-divider-inset{margin-left:80px}[dir=rtl] .mat-divider.mat-divider-inset{margin-left:auto;margin-right:80px}.mat-subheader{display:flex;box-sizing:border-box;padding:16px;align-items:center}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{margin:0}.mat-list,.mat-nav-list,.mat-selection-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{height:48px;line-height:16px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child,.mat-selection-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-list .mat-list-option,.mat-nav-list .mat-list-item,.mat-nav-list .mat-list-option,.mat-selection-list .mat-list-item,.mat-selection-list .mat-list-option{display:block;height:48px}.mat-list .mat-list-item .mat-list-item-content,.mat-list .mat-list-option .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-option .mat-list-item-content,.mat-selection-list .mat-list-item .mat-list-item-content,.mat-selection-list .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list .mat-list-item .mat-list-item-content-reverse,.mat-list .mat-list-option .mat-list-item-content-reverse,.mat-nav-list .mat-list-item .mat-list-item-content-reverse,.mat-nav-list .mat-list-option .mat-list-item-content-reverse,.mat-selection-list .mat-list-item .mat-list-item-content-reverse,.mat-selection-list .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-item .mat-list-item-ripple,.mat-list .mat-list-option .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-option .mat-list-item-ripple,.mat-selection-list .mat-list-item .mat-list-item-ripple,.mat-selection-list .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-item.mat-list-item-with-avatar,.mat-list .mat-list-option.mat-list-item-with-avatar,.mat-nav-list .mat-list-item.mat-list-item-with-avatar,.mat-nav-list .mat-list-option.mat-list-item-with-avatar,.mat-selection-list .mat-list-item.mat-list-item-with-avatar,.mat-selection-list .mat-list-option.mat-list-item-with-avatar{height:56px}.mat-list .mat-list-item.mat-2-line,.mat-list .mat-list-option.mat-2-line,.mat-nav-list .mat-list-item.mat-2-line,.mat-nav-list .mat-list-option.mat-2-line,.mat-selection-list .mat-list-item.mat-2-line,.mat-selection-list .mat-list-option.mat-2-line{height:72px}.mat-list .mat-list-item.mat-3-line,.mat-list .mat-list-option.mat-3-line,.mat-nav-list .mat-list-item.mat-3-line,.mat-nav-list .mat-list-option.mat-3-line,.mat-selection-list .mat-list-item.mat-3-line,.mat-selection-list .mat-list-option.mat-3-line{height:88px}.mat-list .mat-list-item.mat-multi-line,.mat-list .mat-list-option.mat-multi-line,.mat-nav-list .mat-list-item.mat-multi-line,.mat-nav-list .mat-list-option.mat-multi-line,.mat-selection-list .mat-list-item.mat-multi-line,.mat-selection-list .mat-list-option.mat-multi-line{height:auto}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list .mat-list-item .mat-list-text,.mat-list .mat-list-option .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-option .mat-list-text,.mat-selection-list .mat-list-item .mat-list-text,.mat-selection-list .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0}.mat-list .mat-list-item .mat-list-text>*,.mat-list .mat-list-option .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-option .mat-list-text>*,.mat-selection-list .mat-list-item .mat-list-text>*,.mat-selection-list .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-list .mat-list-option .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-option .mat-list-text:empty,.mat-selection-list .mat-list-item .mat-list-text:empty,.mat-selection-list .mat-list-option .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-nav-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-nav-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-selection-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-selection-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)){padding-right:0;padding-left:16px}[dir=rtl] .mat-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)){padding-right:16px;padding-left:0}.mat-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-nav-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-nav-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-selection-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-selection-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)){padding-left:0;padding-right:16px}[dir=rtl] .mat-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)){padding-right:0;padding-left:16px}.mat-list .mat-list-item .mat-list-avatar,.mat-list .mat-list-option .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-option .mat-list-avatar,.mat-selection-list .mat-list-item .mat-list-avatar,.mat-selection-list .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list .mat-list-option .mat-list-avatar~.mat-divider-inset,.mat-nav-list .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-nav-list .mat-list-option .mat-list-avatar~.mat-divider-inset,.mat-selection-list .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-selection-list .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:72px;width:calc(100% - 72px)}[dir=rtl] .mat-list .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list .mat-list-option .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-nav-list .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-nav-list .mat-list-option .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-selection-list .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-selection-list .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:72px}.mat-list .mat-list-item .mat-list-icon,.mat-list .mat-list-option .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-option .mat-list-icon,.mat-selection-list .mat-list-item .mat-list-icon,.mat-selection-list .mat-list-option .mat-list-icon{flex-shrink:0;width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list .mat-list-option .mat-list-icon~.mat-divider-inset,.mat-nav-list .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-nav-list .mat-list-option .mat-list-icon~.mat-divider-inset,.mat-selection-list .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-selection-list .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:64px;width:calc(100% - 64px)}[dir=rtl] .mat-list .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list .mat-list-option .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-nav-list .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-nav-list .mat-list-option .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-selection-list .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-selection-list .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:64px}.mat-list .mat-list-item .mat-divider,.mat-list .mat-list-option .mat-divider,.mat-nav-list .mat-list-item .mat-divider,.mat-nav-list .mat-list-option .mat-divider,.mat-selection-list .mat-list-item .mat-divider,.mat-selection-list .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list .mat-list-item .mat-divider,[dir=rtl] .mat-list .mat-list-option .mat-divider,[dir=rtl] .mat-nav-list .mat-list-item .mat-divider,[dir=rtl] .mat-nav-list .mat-list-option .mat-divider,[dir=rtl] .mat-selection-list .mat-list-item .mat-divider,[dir=rtl] .mat-selection-list .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list .mat-list-item .mat-divider.mat-divider-inset,.mat-list .mat-list-option .mat-divider.mat-divider-inset,.mat-nav-list .mat-list-item .mat-divider.mat-divider-inset,.mat-nav-list .mat-list-option .mat-divider.mat-divider-inset,.mat-selection-list .mat-list-item .mat-divider.mat-divider-inset,.mat-selection-list .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-list[dense],.mat-nav-list[dense],.mat-selection-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader,.mat-selection-list[dense] .mat-subheader{height:40px;line-height:8px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child,.mat-selection-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-list[dense] .mat-list-option,.mat-nav-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-option,.mat-selection-list[dense] .mat-list-item,.mat-selection-list[dense] .mat-list-option{display:block;height:40px}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-list[dense] .mat-list-option .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-option .mat-list-item-content,.mat-selection-list[dense] .mat-list-item .mat-list-item-content,.mat-selection-list[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-list[dense] .mat-list-option .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-option .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-item .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-with-avatar,.mat-list[dense] .mat-list-option.mat-list-item-with-avatar,.mat-nav-list[dense] .mat-list-item.mat-list-item-with-avatar,.mat-nav-list[dense] .mat-list-option.mat-list-item-with-avatar,.mat-selection-list[dense] .mat-list-item.mat-list-item-with-avatar,.mat-selection-list[dense] .mat-list-option.mat-list-item-with-avatar{height:48px}.mat-list[dense] .mat-list-item.mat-2-line,.mat-list[dense] .mat-list-option.mat-2-line,.mat-nav-list[dense] .mat-list-item.mat-2-line,.mat-nav-list[dense] .mat-list-option.mat-2-line,.mat-selection-list[dense] .mat-list-item.mat-2-line,.mat-selection-list[dense] .mat-list-option.mat-2-line{height:60px}.mat-list[dense] .mat-list-item.mat-3-line,.mat-list[dense] .mat-list-option.mat-3-line,.mat-nav-list[dense] .mat-list-item.mat-3-line,.mat-nav-list[dense] .mat-list-option.mat-3-line,.mat-selection-list[dense] .mat-list-item.mat-3-line,.mat-selection-list[dense] .mat-list-option.mat-3-line{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line,.mat-list[dense] .mat-list-option.mat-multi-line,.mat-nav-list[dense] .mat-list-item.mat-multi-line,.mat-nav-list[dense] .mat-list-option.mat-multi-line,.mat-selection-list[dense] .mat-list-item.mat-multi-line,.mat-selection-list[dense] .mat-list-option.mat-multi-line{height:auto}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-list[dense] .mat-list-option .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-option .mat-list-text,.mat-selection-list[dense] .mat-list-item .mat-list-text,.mat-selection-list[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-list[dense] .mat-list-option .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-option .mat-list-text>*,.mat-selection-list[dense] .mat-list-item .mat-list-text>*,.mat-selection-list[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-list[dense] .mat-list-option .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-option .mat-list-text:empty,.mat-selection-list[dense] .mat-list-item .mat-list-text:empty,.mat-selection-list[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-nav-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-nav-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-selection-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-selection-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)){padding-right:0;padding-left:16px}[dir=rtl] .mat-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)){padding-right:16px;padding-left:0}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)){padding-left:0;padding-right:16px}[dir=rtl] .mat-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)){padding-right:0;padding-left:16px}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-list[dense] .mat-list-option .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-option .mat-list-avatar,.mat-selection-list[dense] .mat-list-item .mat-list-avatar,.mat-selection-list[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:36px;height:36px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset,.mat-nav-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-nav-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset,.mat-selection-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-selection-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:68px;width:calc(100% - 68px)}[dir=rtl] .mat-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:68px}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-list[dense] .mat-list-option .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-option .mat-list-icon,.mat-selection-list[dense] .mat-list-item .mat-list-icon,.mat-selection-list[dense] .mat-list-option .mat-list-icon{flex-shrink:0;width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset,.mat-nav-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-nav-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset,.mat-selection-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-selection-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:60px;width:calc(100% - 60px)}[dir=rtl] .mat-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:60px}.mat-list[dense] .mat-list-item .mat-divider,.mat-list[dense] .mat-list-option .mat-divider,.mat-nav-list[dense] .mat-list-item .mat-divider,.mat-nav-list[dense] .mat-list-option .mat-divider,.mat-selection-list[dense] .mat-list-item .mat-divider,.mat-selection-list[dense] .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list[dense] .mat-list-item .mat-divider,[dir=rtl] .mat-list[dense] .mat-list-option .mat-divider,[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-divider,[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-divider,[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-divider,[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list[dense] .mat-list-item .mat-divider.mat-divider-inset,.mat-list[dense] .mat-list-option .mat-divider.mat-divider-inset,.mat-nav-list[dense] .mat-list-item .mat-divider.mat-divider-inset,.mat-nav-list[dense] .mat-list-option .mat-divider.mat-divider-inset,.mat-selection-list[dense] .mat-list-item .mat-divider.mat-divider-inset,.mat-selection-list[dense] .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item{cursor:pointer;outline:0}.mat-list-option:not(.mat-list-item-disabled){cursor:pointer;outline:0}"],
                     inputs: ['disableRipple'],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -17038,7 +17031,6 @@ var MatList = /** @class */ (function (_super) {
                     styles: [".mat-divider{display:block;margin:0;border-top-width:1px;border-top-style:solid}.mat-divider.mat-divider-vertical{border-top:0;border-right-width:1px;border-right-style:solid}.mat-divider.mat-divider-inset{margin-left:80px}[dir=rtl] .mat-divider.mat-divider-inset{margin-left:auto;margin-right:80px}.mat-subheader{display:flex;box-sizing:border-box;padding:16px;align-items:center}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{margin:0}.mat-list,.mat-nav-list,.mat-selection-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{height:48px;line-height:16px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child,.mat-selection-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-list .mat-list-option,.mat-nav-list .mat-list-item,.mat-nav-list .mat-list-option,.mat-selection-list .mat-list-item,.mat-selection-list .mat-list-option{display:block;height:48px}.mat-list .mat-list-item .mat-list-item-content,.mat-list .mat-list-option .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-option .mat-list-item-content,.mat-selection-list .mat-list-item .mat-list-item-content,.mat-selection-list .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list .mat-list-item .mat-list-item-content-reverse,.mat-list .mat-list-option .mat-list-item-content-reverse,.mat-nav-list .mat-list-item .mat-list-item-content-reverse,.mat-nav-list .mat-list-option .mat-list-item-content-reverse,.mat-selection-list .mat-list-item .mat-list-item-content-reverse,.mat-selection-list .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-item .mat-list-item-ripple,.mat-list .mat-list-option .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-option .mat-list-item-ripple,.mat-selection-list .mat-list-item .mat-list-item-ripple,.mat-selection-list .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-item.mat-list-item-with-avatar,.mat-list .mat-list-option.mat-list-item-with-avatar,.mat-nav-list .mat-list-item.mat-list-item-with-avatar,.mat-nav-list .mat-list-option.mat-list-item-with-avatar,.mat-selection-list .mat-list-item.mat-list-item-with-avatar,.mat-selection-list .mat-list-option.mat-list-item-with-avatar{height:56px}.mat-list .mat-list-item.mat-2-line,.mat-list .mat-list-option.mat-2-line,.mat-nav-list .mat-list-item.mat-2-line,.mat-nav-list .mat-list-option.mat-2-line,.mat-selection-list .mat-list-item.mat-2-line,.mat-selection-list .mat-list-option.mat-2-line{height:72px}.mat-list .mat-list-item.mat-3-line,.mat-list .mat-list-option.mat-3-line,.mat-nav-list .mat-list-item.mat-3-line,.mat-nav-list .mat-list-option.mat-3-line,.mat-selection-list .mat-list-item.mat-3-line,.mat-selection-list .mat-list-option.mat-3-line{height:88px}.mat-list .mat-list-item.mat-multi-line,.mat-list .mat-list-option.mat-multi-line,.mat-nav-list .mat-list-item.mat-multi-line,.mat-nav-list .mat-list-option.mat-multi-line,.mat-selection-list .mat-list-item.mat-multi-line,.mat-selection-list .mat-list-option.mat-multi-line{height:auto}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list .mat-list-item .mat-list-text,.mat-list .mat-list-option .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-option .mat-list-text,.mat-selection-list .mat-list-item .mat-list-text,.mat-selection-list .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0}.mat-list .mat-list-item .mat-list-text>*,.mat-list .mat-list-option .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-option .mat-list-text>*,.mat-selection-list .mat-list-item .mat-list-text>*,.mat-selection-list .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-list .mat-list-option .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-option .mat-list-text:empty,.mat-selection-list .mat-list-item .mat-list-text:empty,.mat-selection-list .mat-list-option .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-nav-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-nav-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-selection-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-selection-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)){padding-right:0;padding-left:16px}[dir=rtl] .mat-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)){padding-right:16px;padding-left:0}.mat-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-nav-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-nav-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-selection-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-selection-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)){padding-left:0;padding-right:16px}[dir=rtl] .mat-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)){padding-right:0;padding-left:16px}.mat-list .mat-list-item .mat-list-avatar,.mat-list .mat-list-option .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-option .mat-list-avatar,.mat-selection-list .mat-list-item .mat-list-avatar,.mat-selection-list .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list .mat-list-option .mat-list-avatar~.mat-divider-inset,.mat-nav-list .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-nav-list .mat-list-option .mat-list-avatar~.mat-divider-inset,.mat-selection-list .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-selection-list .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:72px;width:calc(100% - 72px)}[dir=rtl] .mat-list .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list .mat-list-option .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-nav-list .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-nav-list .mat-list-option .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-selection-list .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-selection-list .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:72px}.mat-list .mat-list-item .mat-list-icon,.mat-list .mat-list-option .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-option .mat-list-icon,.mat-selection-list .mat-list-item .mat-list-icon,.mat-selection-list .mat-list-option .mat-list-icon{flex-shrink:0;width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list .mat-list-option .mat-list-icon~.mat-divider-inset,.mat-nav-list .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-nav-list .mat-list-option .mat-list-icon~.mat-divider-inset,.mat-selection-list .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-selection-list .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:64px;width:calc(100% - 64px)}[dir=rtl] .mat-list .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list .mat-list-option .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-nav-list .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-nav-list .mat-list-option .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-selection-list .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-selection-list .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:64px}.mat-list .mat-list-item .mat-divider,.mat-list .mat-list-option .mat-divider,.mat-nav-list .mat-list-item .mat-divider,.mat-nav-list .mat-list-option .mat-divider,.mat-selection-list .mat-list-item .mat-divider,.mat-selection-list .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list .mat-list-item .mat-divider,[dir=rtl] .mat-list .mat-list-option .mat-divider,[dir=rtl] .mat-nav-list .mat-list-item .mat-divider,[dir=rtl] .mat-nav-list .mat-list-option .mat-divider,[dir=rtl] .mat-selection-list .mat-list-item .mat-divider,[dir=rtl] .mat-selection-list .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list .mat-list-item .mat-divider.mat-divider-inset,.mat-list .mat-list-option .mat-divider.mat-divider-inset,.mat-nav-list .mat-list-item .mat-divider.mat-divider-inset,.mat-nav-list .mat-list-option .mat-divider.mat-divider-inset,.mat-selection-list .mat-list-item .mat-divider.mat-divider-inset,.mat-selection-list .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-list[dense],.mat-nav-list[dense],.mat-selection-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader,.mat-selection-list[dense] .mat-subheader{height:40px;line-height:8px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child,.mat-selection-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-list[dense] .mat-list-option,.mat-nav-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-option,.mat-selection-list[dense] .mat-list-item,.mat-selection-list[dense] .mat-list-option{display:block;height:40px}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-list[dense] .mat-list-option .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-option .mat-list-item-content,.mat-selection-list[dense] .mat-list-item .mat-list-item-content,.mat-selection-list[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-list[dense] .mat-list-option .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-option .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-item .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-with-avatar,.mat-list[dense] .mat-list-option.mat-list-item-with-avatar,.mat-nav-list[dense] .mat-list-item.mat-list-item-with-avatar,.mat-nav-list[dense] .mat-list-option.mat-list-item-with-avatar,.mat-selection-list[dense] .mat-list-item.mat-list-item-with-avatar,.mat-selection-list[dense] .mat-list-option.mat-list-item-with-avatar{height:48px}.mat-list[dense] .mat-list-item.mat-2-line,.mat-list[dense] .mat-list-option.mat-2-line,.mat-nav-list[dense] .mat-list-item.mat-2-line,.mat-nav-list[dense] .mat-list-option.mat-2-line,.mat-selection-list[dense] .mat-list-item.mat-2-line,.mat-selection-list[dense] .mat-list-option.mat-2-line{height:60px}.mat-list[dense] .mat-list-item.mat-3-line,.mat-list[dense] .mat-list-option.mat-3-line,.mat-nav-list[dense] .mat-list-item.mat-3-line,.mat-nav-list[dense] .mat-list-option.mat-3-line,.mat-selection-list[dense] .mat-list-item.mat-3-line,.mat-selection-list[dense] .mat-list-option.mat-3-line{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line,.mat-list[dense] .mat-list-option.mat-multi-line,.mat-nav-list[dense] .mat-list-item.mat-multi-line,.mat-nav-list[dense] .mat-list-option.mat-multi-line,.mat-selection-list[dense] .mat-list-item.mat-multi-line,.mat-selection-list[dense] .mat-list-option.mat-multi-line{height:auto}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-list[dense] .mat-list-option .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-option .mat-list-text,.mat-selection-list[dense] .mat-list-item .mat-list-text,.mat-selection-list[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-list[dense] .mat-list-option .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-option .mat-list-text>*,.mat-selection-list[dense] .mat-list-item .mat-list-text>*,.mat-selection-list[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-list[dense] .mat-list-option .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-option .mat-list-text:empty,.mat-selection-list[dense] .mat-list-item .mat-list-text:empty,.mat-selection-list[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-nav-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-nav-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-selection-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-selection-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)){padding-right:0;padding-left:16px}[dir=rtl] .mat-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)){padding-right:16px;padding-left:0}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)){padding-left:0;padding-right:16px}[dir=rtl] .mat-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)){padding-right:0;padding-left:16px}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-list[dense] .mat-list-option .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-option .mat-list-avatar,.mat-selection-list[dense] .mat-list-item .mat-list-avatar,.mat-selection-list[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:36px;height:36px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset,.mat-nav-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-nav-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset,.mat-selection-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-selection-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:68px;width:calc(100% - 68px)}[dir=rtl] .mat-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:68px}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-list[dense] .mat-list-option .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-option .mat-list-icon,.mat-selection-list[dense] .mat-list-item .mat-list-icon,.mat-selection-list[dense] .mat-list-option .mat-list-icon{flex-shrink:0;width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset,.mat-nav-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-nav-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset,.mat-selection-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-selection-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:60px;width:calc(100% - 60px)}[dir=rtl] .mat-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:60px}.mat-list[dense] .mat-list-item .mat-divider,.mat-list[dense] .mat-list-option .mat-divider,.mat-nav-list[dense] .mat-list-item .mat-divider,.mat-nav-list[dense] .mat-list-option .mat-divider,.mat-selection-list[dense] .mat-list-item .mat-divider,.mat-selection-list[dense] .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list[dense] .mat-list-item .mat-divider,[dir=rtl] .mat-list[dense] .mat-list-option .mat-divider,[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-divider,[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-divider,[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-divider,[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list[dense] .mat-list-item .mat-divider.mat-divider-inset,.mat-list[dense] .mat-list-option .mat-divider.mat-divider-inset,.mat-nav-list[dense] .mat-list-item .mat-divider.mat-divider-inset,.mat-nav-list[dense] .mat-list-option .mat-divider.mat-divider-inset,.mat-selection-list[dense] .mat-list-item .mat-divider.mat-divider-inset,.mat-selection-list[dense] .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item{cursor:pointer;outline:0}.mat-list-option:not(.mat-list-item-disabled){cursor:pointer;outline:0}"],
                     inputs: ['disableRipple'],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -17177,7 +17169,6 @@ var MatListItem = /** @class */ (function (_super) {
                     inputs: ['disableRipple'],
                     template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div><ng-content></ng-content></div>",
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -17532,7 +17523,6 @@ var MatListOption = /** @class */ (function (_super) {
                     },
                     template: "<div class=\"mat-list-item-content\" [class.mat-list-item-content-reverse]=\"checkboxPosition == 'after'\"><div mat-ripple class=\"mat-list-item-ripple\" [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><mat-pseudo-checkbox [state]=\"selected ? 'checked' : 'unchecked'\" [disabled]=\"disabled\"></mat-pseudo-checkbox><div class=\"mat-list-text\" #text><ng-content></ng-content></div></div>",
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -17929,7 +17919,6 @@ var MatSelectionList = /** @class */ (function (_super) {
                     styles: [".mat-divider{display:block;margin:0;border-top-width:1px;border-top-style:solid}.mat-divider.mat-divider-vertical{border-top:0;border-right-width:1px;border-right-style:solid}.mat-divider.mat-divider-inset{margin-left:80px}[dir=rtl] .mat-divider.mat-divider-inset{margin-left:auto;margin-right:80px}.mat-subheader{display:flex;box-sizing:border-box;padding:16px;align-items:center}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{margin:0}.mat-list,.mat-nav-list,.mat-selection-list{padding-top:8px;display:block}.mat-list .mat-subheader,.mat-nav-list .mat-subheader,.mat-selection-list .mat-subheader{height:48px;line-height:16px}.mat-list .mat-subheader:first-child,.mat-nav-list .mat-subheader:first-child,.mat-selection-list .mat-subheader:first-child{margin-top:-8px}.mat-list .mat-list-item,.mat-list .mat-list-option,.mat-nav-list .mat-list-item,.mat-nav-list .mat-list-option,.mat-selection-list .mat-list-item,.mat-selection-list .mat-list-option{display:block;height:48px}.mat-list .mat-list-item .mat-list-item-content,.mat-list .mat-list-option .mat-list-item-content,.mat-nav-list .mat-list-item .mat-list-item-content,.mat-nav-list .mat-list-option .mat-list-item-content,.mat-selection-list .mat-list-item .mat-list-item-content,.mat-selection-list .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list .mat-list-item .mat-list-item-content-reverse,.mat-list .mat-list-option .mat-list-item-content-reverse,.mat-nav-list .mat-list-item .mat-list-item-content-reverse,.mat-nav-list .mat-list-option .mat-list-item-content-reverse,.mat-selection-list .mat-list-item .mat-list-item-content-reverse,.mat-selection-list .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list .mat-list-item .mat-list-item-ripple,.mat-list .mat-list-option .mat-list-item-ripple,.mat-nav-list .mat-list-item .mat-list-item-ripple,.mat-nav-list .mat-list-option .mat-list-item-ripple,.mat-selection-list .mat-list-item .mat-list-item-ripple,.mat-selection-list .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list .mat-list-item.mat-list-item-with-avatar,.mat-list .mat-list-option.mat-list-item-with-avatar,.mat-nav-list .mat-list-item.mat-list-item-with-avatar,.mat-nav-list .mat-list-option.mat-list-item-with-avatar,.mat-selection-list .mat-list-item.mat-list-item-with-avatar,.mat-selection-list .mat-list-option.mat-list-item-with-avatar{height:56px}.mat-list .mat-list-item.mat-2-line,.mat-list .mat-list-option.mat-2-line,.mat-nav-list .mat-list-item.mat-2-line,.mat-nav-list .mat-list-option.mat-2-line,.mat-selection-list .mat-list-item.mat-2-line,.mat-selection-list .mat-list-option.mat-2-line{height:72px}.mat-list .mat-list-item.mat-3-line,.mat-list .mat-list-option.mat-3-line,.mat-nav-list .mat-list-item.mat-3-line,.mat-nav-list .mat-list-option.mat-3-line,.mat-selection-list .mat-list-item.mat-3-line,.mat-selection-list .mat-list-option.mat-3-line{height:88px}.mat-list .mat-list-item.mat-multi-line,.mat-list .mat-list-option.mat-multi-line,.mat-nav-list .mat-list-item.mat-multi-line,.mat-nav-list .mat-list-option.mat-multi-line,.mat-selection-list .mat-list-item.mat-multi-line,.mat-selection-list .mat-list-option.mat-multi-line{height:auto}.mat-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list .mat-list-item .mat-list-text,.mat-list .mat-list-option .mat-list-text,.mat-nav-list .mat-list-item .mat-list-text,.mat-nav-list .mat-list-option .mat-list-text,.mat-selection-list .mat-list-item .mat-list-text,.mat-selection-list .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0}.mat-list .mat-list-item .mat-list-text>*,.mat-list .mat-list-option .mat-list-text>*,.mat-nav-list .mat-list-item .mat-list-text>*,.mat-nav-list .mat-list-option .mat-list-text>*,.mat-selection-list .mat-list-item .mat-list-text>*,.mat-selection-list .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list .mat-list-item .mat-list-text:empty,.mat-list .mat-list-option .mat-list-text:empty,.mat-nav-list .mat-list-item .mat-list-text:empty,.mat-nav-list .mat-list-option .mat-list-text:empty,.mat-selection-list .mat-list-item .mat-list-text:empty,.mat-selection-list .mat-list-option .mat-list-text:empty{display:none}.mat-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-nav-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-nav-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-selection-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-selection-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)){padding-right:0;padding-left:16px}[dir=rtl] .mat-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)){padding-right:16px;padding-left:0}.mat-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-nav-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-nav-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-selection-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-selection-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)){padding-left:0;padding-right:16px}[dir=rtl] .mat-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)){padding-right:0;padding-left:16px}.mat-list .mat-list-item .mat-list-avatar,.mat-list .mat-list-option .mat-list-avatar,.mat-nav-list .mat-list-item .mat-list-avatar,.mat-nav-list .mat-list-option .mat-list-avatar,.mat-selection-list .mat-list-item .mat-list-avatar,.mat-selection-list .mat-list-option .mat-list-avatar{flex-shrink:0;width:40px;height:40px;border-radius:50%}.mat-list .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list .mat-list-option .mat-list-avatar~.mat-divider-inset,.mat-nav-list .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-nav-list .mat-list-option .mat-list-avatar~.mat-divider-inset,.mat-selection-list .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-selection-list .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:72px;width:calc(100% - 72px)}[dir=rtl] .mat-list .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list .mat-list-option .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-nav-list .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-nav-list .mat-list-option .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-selection-list .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-selection-list .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:72px}.mat-list .mat-list-item .mat-list-icon,.mat-list .mat-list-option .mat-list-icon,.mat-nav-list .mat-list-item .mat-list-icon,.mat-nav-list .mat-list-option .mat-list-icon,.mat-selection-list .mat-list-item .mat-list-icon,.mat-selection-list .mat-list-option .mat-list-icon{flex-shrink:0;width:24px;height:24px;font-size:24px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list .mat-list-option .mat-list-icon~.mat-divider-inset,.mat-nav-list .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-nav-list .mat-list-option .mat-list-icon~.mat-divider-inset,.mat-selection-list .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-selection-list .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:64px;width:calc(100% - 64px)}[dir=rtl] .mat-list .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list .mat-list-option .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-nav-list .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-nav-list .mat-list-option .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-selection-list .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-selection-list .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:64px}.mat-list .mat-list-item .mat-divider,.mat-list .mat-list-option .mat-divider,.mat-nav-list .mat-list-item .mat-divider,.mat-nav-list .mat-list-option .mat-divider,.mat-selection-list .mat-list-item .mat-divider,.mat-selection-list .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list .mat-list-item .mat-divider,[dir=rtl] .mat-list .mat-list-option .mat-divider,[dir=rtl] .mat-nav-list .mat-list-item .mat-divider,[dir=rtl] .mat-nav-list .mat-list-option .mat-divider,[dir=rtl] .mat-selection-list .mat-list-item .mat-divider,[dir=rtl] .mat-selection-list .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list .mat-list-item .mat-divider.mat-divider-inset,.mat-list .mat-list-option .mat-divider.mat-divider-inset,.mat-nav-list .mat-list-item .mat-divider.mat-divider-inset,.mat-nav-list .mat-list-option .mat-divider.mat-divider-inset,.mat-selection-list .mat-list-item .mat-divider.mat-divider-inset,.mat-selection-list .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-list[dense],.mat-nav-list[dense],.mat-selection-list[dense]{padding-top:4px;display:block}.mat-list[dense] .mat-subheader,.mat-nav-list[dense] .mat-subheader,.mat-selection-list[dense] .mat-subheader{height:40px;line-height:8px}.mat-list[dense] .mat-subheader:first-child,.mat-nav-list[dense] .mat-subheader:first-child,.mat-selection-list[dense] .mat-subheader:first-child{margin-top:-4px}.mat-list[dense] .mat-list-item,.mat-list[dense] .mat-list-option,.mat-nav-list[dense] .mat-list-item,.mat-nav-list[dense] .mat-list-option,.mat-selection-list[dense] .mat-list-item,.mat-selection-list[dense] .mat-list-option{display:block;height:40px}.mat-list[dense] .mat-list-item .mat-list-item-content,.mat-list[dense] .mat-list-option .mat-list-item-content,.mat-nav-list[dense] .mat-list-item .mat-list-item-content,.mat-nav-list[dense] .mat-list-option .mat-list-item-content,.mat-selection-list[dense] .mat-list-item .mat-list-item-content,.mat-selection-list[dense] .mat-list-option .mat-list-item-content{display:flex;flex-direction:row;align-items:center;box-sizing:border-box;padding:0 16px;position:relative;height:inherit}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse,.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse{display:flex;align-items:center;padding:0 16px;flex-direction:row-reverse;justify-content:space-around}.mat-list[dense] .mat-list-item .mat-list-item-ripple,.mat-list[dense] .mat-list-option .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-item .mat-list-item-ripple,.mat-nav-list[dense] .mat-list-option .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-item .mat-list-item-ripple,.mat-selection-list[dense] .mat-list-option .mat-list-item-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-list[dense] .mat-list-item.mat-list-item-with-avatar,.mat-list[dense] .mat-list-option.mat-list-item-with-avatar,.mat-nav-list[dense] .mat-list-item.mat-list-item-with-avatar,.mat-nav-list[dense] .mat-list-option.mat-list-item-with-avatar,.mat-selection-list[dense] .mat-list-item.mat-list-item-with-avatar,.mat-selection-list[dense] .mat-list-option.mat-list-item-with-avatar{height:48px}.mat-list[dense] .mat-list-item.mat-2-line,.mat-list[dense] .mat-list-option.mat-2-line,.mat-nav-list[dense] .mat-list-item.mat-2-line,.mat-nav-list[dense] .mat-list-option.mat-2-line,.mat-selection-list[dense] .mat-list-item.mat-2-line,.mat-selection-list[dense] .mat-list-option.mat-2-line{height:60px}.mat-list[dense] .mat-list-item.mat-3-line,.mat-list[dense] .mat-list-option.mat-3-line,.mat-nav-list[dense] .mat-list-item.mat-3-line,.mat-nav-list[dense] .mat-list-option.mat-3-line,.mat-selection-list[dense] .mat-list-item.mat-3-line,.mat-selection-list[dense] .mat-list-option.mat-3-line{height:76px}.mat-list[dense] .mat-list-item.mat-multi-line,.mat-list[dense] .mat-list-option.mat-multi-line,.mat-nav-list[dense] .mat-list-item.mat-multi-line,.mat-nav-list[dense] .mat-list-option.mat-multi-line,.mat-selection-list[dense] .mat-list-item.mat-multi-line,.mat-selection-list[dense] .mat-list-option.mat-multi-line{height:auto}.mat-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-nav-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-item.mat-multi-line .mat-list-item-content,.mat-selection-list[dense] .mat-list-option.mat-multi-line .mat-list-item-content{padding-top:16px;padding-bottom:16px}.mat-list[dense] .mat-list-item .mat-list-text,.mat-list[dense] .mat-list-option .mat-list-text,.mat-nav-list[dense] .mat-list-item .mat-list-text,.mat-nav-list[dense] .mat-list-option .mat-list-text,.mat-selection-list[dense] .mat-list-item .mat-list-text,.mat-selection-list[dense] .mat-list-option .mat-list-text{display:flex;flex-direction:column;width:100%;box-sizing:border-box;overflow:hidden;padding:0}.mat-list[dense] .mat-list-item .mat-list-text>*,.mat-list[dense] .mat-list-option .mat-list-text>*,.mat-nav-list[dense] .mat-list-item .mat-list-text>*,.mat-nav-list[dense] .mat-list-option .mat-list-text>*,.mat-selection-list[dense] .mat-list-item .mat-list-text>*,.mat-selection-list[dense] .mat-list-option .mat-list-text>*{margin:0;padding:0;font-weight:400;font-size:inherit}.mat-list[dense] .mat-list-item .mat-list-text:empty,.mat-list[dense] .mat-list-option .mat-list-text:empty,.mat-nav-list[dense] .mat-list-item .mat-list-text:empty,.mat-nav-list[dense] .mat-list-option .mat-list-text:empty,.mat-selection-list[dense] .mat-list-item .mat-list-text:empty,.mat-selection-list[dense] .mat-list-option .mat-list-text:empty{display:none}.mat-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-nav-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-nav-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-selection-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),.mat-selection-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)){padding-right:0;padding-left:16px}[dir=rtl] .mat-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-list-item-content .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-list-item-content .mat-list-text:not(:nth-child(2)){padding-right:16px;padding-left:0}.mat-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),.mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)){padding-left:0;padding-right:16px}[dir=rtl] .mat-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)),[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-list-item-content-reverse .mat-list-text:not(:nth-child(2)){padding-right:0;padding-left:16px}.mat-list[dense] .mat-list-item .mat-list-avatar,.mat-list[dense] .mat-list-option .mat-list-avatar,.mat-nav-list[dense] .mat-list-item .mat-list-avatar,.mat-nav-list[dense] .mat-list-option .mat-list-avatar,.mat-selection-list[dense] .mat-list-item .mat-list-avatar,.mat-selection-list[dense] .mat-list-option .mat-list-avatar{flex-shrink:0;width:36px;height:36px;border-radius:50%}.mat-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset,.mat-nav-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-nav-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset,.mat-selection-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,.mat-selection-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:68px;width:calc(100% - 68px)}[dir=rtl] .mat-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-list-avatar~.mat-divider-inset,[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-list-avatar~.mat-divider-inset{margin-left:auto;margin-right:68px}.mat-list[dense] .mat-list-item .mat-list-icon,.mat-list[dense] .mat-list-option .mat-list-icon,.mat-nav-list[dense] .mat-list-item .mat-list-icon,.mat-nav-list[dense] .mat-list-option .mat-list-icon,.mat-selection-list[dense] .mat-list-item .mat-list-icon,.mat-selection-list[dense] .mat-list-option .mat-list-icon{flex-shrink:0;width:20px;height:20px;font-size:20px;box-sizing:content-box;border-radius:50%;padding:4px}.mat-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset,.mat-nav-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-nav-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset,.mat-selection-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,.mat-selection-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:60px;width:calc(100% - 60px)}[dir=rtl] .mat-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-list-icon~.mat-divider-inset,[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-list-icon~.mat-divider-inset{margin-left:auto;margin-right:60px}.mat-list[dense] .mat-list-item .mat-divider,.mat-list[dense] .mat-list-option .mat-divider,.mat-nav-list[dense] .mat-list-item .mat-divider,.mat-nav-list[dense] .mat-list-option .mat-divider,.mat-selection-list[dense] .mat-list-item .mat-divider,.mat-selection-list[dense] .mat-list-option .mat-divider{position:absolute;bottom:0;left:0;width:100%;margin:0}[dir=rtl] .mat-list[dense] .mat-list-item .mat-divider,[dir=rtl] .mat-list[dense] .mat-list-option .mat-divider,[dir=rtl] .mat-nav-list[dense] .mat-list-item .mat-divider,[dir=rtl] .mat-nav-list[dense] .mat-list-option .mat-divider,[dir=rtl] .mat-selection-list[dense] .mat-list-item .mat-divider,[dir=rtl] .mat-selection-list[dense] .mat-list-option .mat-divider{margin-left:auto;margin-right:0}.mat-list[dense] .mat-list-item .mat-divider.mat-divider-inset,.mat-list[dense] .mat-list-option .mat-divider.mat-divider-inset,.mat-nav-list[dense] .mat-list-item .mat-divider.mat-divider-inset,.mat-nav-list[dense] .mat-list-option .mat-divider.mat-divider-inset,.mat-selection-list[dense] .mat-list-item .mat-divider.mat-divider-inset,.mat-selection-list[dense] .mat-list-option .mat-divider.mat-divider-inset{position:absolute}.mat-nav-list a{text-decoration:none;color:inherit}.mat-nav-list .mat-list-item{cursor:pointer;outline:0}.mat-list-option:not(.mat-list-item-disabled){cursor:pointer;outline:0}"],
                     encapsulation: core.ViewEncapsulation.None,
                     providers: [MAT_SELECTION_LIST_VALUE_ACCESSOR],
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
                 },] },
     ];
@@ -18258,7 +18247,6 @@ var MatMenuItem = /** @class */ (function (_super) {
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     template: "<ng-content></ng-content><div class=\"mat-menu-ripple\" matRipple [matRippleDisabled]=\"disableRipple || disabled\" [matRippleTrigger]=\"_getHostElement()\"></div>",
                 },] },
     ];
@@ -18549,7 +18537,7 @@ var MatMenu = /** @class */ (function () {
     function () {
         var _this = this;
         this._keyManager = new a11y.FocusKeyManager(this.items).withWrap().withTypeAhead();
-        this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close.emit('keydown'); });
+        this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close.emit('tab'); });
     };
     /**
      * @return {?}
@@ -18750,7 +18738,6 @@ var MatMenu = /** @class */ (function () {
                     styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}.mat-menu-panel.ng-animating .mat-menu-item-submenu-trigger{pointer-events:none}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     animations: [
                         matMenuAnimations.transformMenu,
                         matMenuAnimations.fadeInItems
@@ -18883,7 +18870,7 @@ var MatMenuTrigger = /** @class */ (function () {
         this.menu.close.subscribe(function (reason) {
             _this._destroyMenu();
             // If a click closed the menu, we should close the entire chain of nested menus.
-            if (reason === 'click' && _this._parentMenu) {
+            if ((reason === 'click' || reason === 'tab') && _this._parentMenu) {
                 _this._parentMenu.closed.emit(reason);
             }
         });
@@ -21090,7 +21077,6 @@ var MatSelect = /** @class */ (function (_super) {
                     styles: [".mat-select{display:inline-block;width:100%;outline:0}.mat-select-trigger{display:inline-table;cursor:pointer;position:relative;box-sizing:border-box}.mat-select-disabled .mat-select-trigger{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-select-value{display:table-cell;max-width:0;width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.mat-select-value-text{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-select-arrow-wrapper{display:table-cell;vertical-align:middle}.mat-form-field-appearance-fill .mat-select-arrow-wrapper,.mat-form-field-appearance-standard .mat-select-arrow-wrapper{transform:translateY(-50%)}.mat-form-field-appearance-outline .mat-select-arrow-wrapper{transform:translateY(-25%)}.mat-select-arrow{width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top:5px solid;margin:0 4px}.mat-select-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;padding-top:0;padding-bottom:0;max-height:256px;min-width:100%}.mat-select-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-select-panel{outline:solid 1px}}.mat-select-panel .mat-optgroup-label,.mat-select-panel .mat-option{font-size:inherit;line-height:3em;height:3em}.mat-form-field-type-mat-select:not(.mat-form-field-disabled) .mat-form-field-flex{cursor:pointer}.mat-form-field-type-mat-select .mat-form-field-label{width:calc(100% - 18px)}.mat-select-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-form-field-hide-placeholder .mat-select-placeholder{color:transparent;transition:none;display:block}"],
                     inputs: ['disabled', 'disableRipple', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     host: {
                         'role': 'listbox',
@@ -22025,7 +22011,6 @@ var TooltipComponent = /** @class */ (function () {
                     template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)!.matches\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
                     styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     animations: [matTooltipAnimations.tooltipState],
                     host: {
@@ -22514,7 +22499,6 @@ var MatPaginator = /** @class */ (function () {
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -22681,7 +22665,6 @@ var MatProgressBar = /** @class */ (function (_super) {
                     styles: [".mat-progress-bar{display:block;height:5px;overflow:hidden;position:relative;transition:opacity 250ms linear;width:100%}.mat-progress-bar .mat-progress-bar-element,.mat-progress-bar .mat-progress-bar-fill::after{height:100%;position:absolute;width:100%}.mat-progress-bar .mat-progress-bar-background{width:calc(100% + 10px)}.mat-progress-bar .mat-progress-bar-buffer{transform-origin:top left;transition:transform 250ms ease}.mat-progress-bar .mat-progress-bar-secondary{display:none}.mat-progress-bar .mat-progress-bar-fill{animation:none;transform-origin:top left;transition:transform 250ms ease}.mat-progress-bar .mat-progress-bar-fill::after{animation:none;content:'';display:inline-block;left:0}.mat-progress-bar[dir=rtl],[dir=rtl] .mat-progress-bar{transform:rotateY(180deg)}.mat-progress-bar[mode=query]{transform:rotateZ(180deg)}.mat-progress-bar[mode=query][dir=rtl],[dir=rtl] .mat-progress-bar[mode=query]{transform:rotateZ(180deg) rotateY(180deg)}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-fill,.mat-progress-bar[mode=query] .mat-progress-bar-fill{transition:none}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-primary,.mat-progress-bar[mode=query] .mat-progress-bar-primary{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-primary-indeterminate-translate 2s infinite linear;left:-145.166611%}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-primary.mat-progress-bar-fill::after,.mat-progress-bar[mode=query] .mat-progress-bar-primary.mat-progress-bar-fill::after{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-primary-indeterminate-scale 2s infinite linear}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-secondary,.mat-progress-bar[mode=query] .mat-progress-bar-secondary{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-secondary-indeterminate-translate 2s infinite linear;left:-54.888891%;display:block}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-secondary.mat-progress-bar-fill::after,.mat-progress-bar[mode=query] .mat-progress-bar-secondary.mat-progress-bar-fill::after{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-secondary-indeterminate-scale 2s infinite linear}.mat-progress-bar[mode=buffer] .mat-progress-bar-background{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-background-scroll 250ms infinite linear}@keyframes mat-progress-bar-primary-indeterminate-translate{0%{transform:translateX(0)}20%{animation-timing-function:cubic-bezier(.5,0,.70173,.49582);transform:translateX(0)}59.15%{animation-timing-function:cubic-bezier(.30244,.38135,.55,.95635);transform:translateX(83.67142%)}100%{transform:translateX(200.61106%)}}@keyframes mat-progress-bar-primary-indeterminate-scale{0%{transform:scaleX(.08)}36.65%{animation-timing-function:cubic-bezier(.33473,.12482,.78584,1);transform:scaleX(.08)}69.15%{animation-timing-function:cubic-bezier(.06,.11,.6,1);transform:scaleX(.66148)}100%{transform:scaleX(.08)}}@keyframes mat-progress-bar-secondary-indeterminate-translate{0%{animation-timing-function:cubic-bezier(.15,0,.51506,.40969);transform:translateX(0)}25%{animation-timing-function:cubic-bezier(.31033,.28406,.8,.73371);transform:translateX(37.65191%)}48.35%{animation-timing-function:cubic-bezier(.4,.62704,.6,.90203);transform:translateX(84.38617%)}100%{transform:translateX(160.27778%)}}@keyframes mat-progress-bar-secondary-indeterminate-scale{0%{animation-timing-function:cubic-bezier(.15,0,.51506,.40969);transform:scaleX(.08)}19.15%{animation-timing-function:cubic-bezier(.31033,.28406,.8,.73371);transform:scaleX(.4571)}44.15%{animation-timing-function:cubic-bezier(.4,.62704,.6,.90203);transform:scaleX(.72796)}100%{transform:scaleX(.08)}}@keyframes mat-progress-bar-background-scroll{to{transform:translateX(-10px)}}"],
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -22995,7 +22978,6 @@ var MatProgressSpinner = /** @class */ (function (_super) {
                     styles: [".mat-progress-spinner{display:block;position:relative}.mat-progress-spinner svg{position:absolute;transform:rotate(-90deg);top:0;left:0;transform-origin:center;overflow:visible}.mat-progress-spinner circle{fill:transparent;transform-origin:center;transition:stroke-dashoffset 225ms linear}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate]{animation:mat-progress-spinner-linear-rotate 2s linear infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate] circle{transition-property:stroke;animation-duration:4s;animation-timing-function:cubic-bezier(.35,0,.25,1);animation-iteration-count:infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate]{animation:mat-progress-spinner-stroke-rotate-fallback 10s cubic-bezier(.87,.03,.33,1) infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate] circle{transition-property:stroke}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-stroke-rotate-100{0%{stroke-dashoffset:268.60617px;transform:rotate(0)}12.5%{stroke-dashoffset:56.54867px;transform:rotate(0)}12.5001%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(72.5deg)}25%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(72.5deg)}25.0001%{stroke-dashoffset:268.60617px;transform:rotate(270deg)}37.5%{stroke-dashoffset:56.54867px;transform:rotate(270deg)}37.5001%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(161.5deg)}50%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(161.5deg)}50.0001%{stroke-dashoffset:268.60617px;transform:rotate(180deg)}62.5%{stroke-dashoffset:56.54867px;transform:rotate(180deg)}62.5001%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(251.5deg)}75%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(251.5deg)}75.0001%{stroke-dashoffset:268.60617px;transform:rotate(90deg)}87.5%{stroke-dashoffset:56.54867px;transform:rotate(90deg)}87.5001%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(341.5deg)}100%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(341.5deg)}}@keyframes mat-progress-spinner-stroke-rotate-fallback{0%{transform:rotate(0)}25%{transform:rotate(1170deg)}50%{transform:rotate(2340deg)}75%{transform:rotate(3510deg)}100%{transform:rotate(4680deg)}}"],
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -23039,7 +23021,6 @@ var MatSpinner = /** @class */ (function (_super) {
                     styles: [".mat-progress-spinner{display:block;position:relative}.mat-progress-spinner svg{position:absolute;transform:rotate(-90deg);top:0;left:0;transform-origin:center;overflow:visible}.mat-progress-spinner circle{fill:transparent;transform-origin:center;transition:stroke-dashoffset 225ms linear}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate]{animation:mat-progress-spinner-linear-rotate 2s linear infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-animation[mode=indeterminate] circle{transition-property:stroke;animation-duration:4s;animation-timing-function:cubic-bezier(.35,0,.25,1);animation-iteration-count:infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate]{animation:mat-progress-spinner-stroke-rotate-fallback 10s cubic-bezier(.87,.03,.33,1) infinite}.mat-progress-spinner.mat-progress-spinner-indeterminate-fallback-animation[mode=indeterminate] circle{transition-property:stroke}@keyframes mat-progress-spinner-linear-rotate{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}@keyframes mat-progress-spinner-stroke-rotate-100{0%{stroke-dashoffset:268.60617px;transform:rotate(0)}12.5%{stroke-dashoffset:56.54867px;transform:rotate(0)}12.5001%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(72.5deg)}25%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(72.5deg)}25.0001%{stroke-dashoffset:268.60617px;transform:rotate(270deg)}37.5%{stroke-dashoffset:56.54867px;transform:rotate(270deg)}37.5001%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(161.5deg)}50%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(161.5deg)}50.0001%{stroke-dashoffset:268.60617px;transform:rotate(180deg)}62.5%{stroke-dashoffset:56.54867px;transform:rotate(180deg)}62.5001%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(251.5deg)}75%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(251.5deg)}75.0001%{stroke-dashoffset:268.60617px;transform:rotate(90deg)}87.5%{stroke-dashoffset:56.54867px;transform:rotate(90deg)}87.5001%{stroke-dashoffset:56.54867px;transform:rotateX(180deg) rotate(341.5deg)}100%{stroke-dashoffset:268.60617px;transform:rotateX(180deg) rotate(341.5deg)}}@keyframes mat-progress-spinner-stroke-rotate-fallback{0%{transform:rotate(0)}25%{transform:rotate(1170deg)}50%{transform:rotate(2340deg)}75%{transform:rotate(3510deg)}100%{transform:rotate(4680deg)}}"],
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -23853,7 +23834,6 @@ var MatRadioButton = /** @class */ (function (_super) {
                     styles: [".mat-radio-button{display:inline-block}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(.001)}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-ripple{position:absolute;left:calc(50% - 25px);top:calc(50% - 25px);height:50px;width:50px;z-index:1;pointer-events:none}"],
                     inputs: ['color', 'disableRipple', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     exportAs: 'matRadioButton',
                     host: {
                         'class': 'mat-radio-button',
@@ -24003,7 +23983,6 @@ var MatDrawerContent = /** @class */ (function () {
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -24449,7 +24428,6 @@ var MatDrawer = /** @class */ (function () {
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -24558,20 +24536,22 @@ var MatDrawerContainer = /** @class */ (function () {
     Object.defineProperty(MatDrawerContainer.prototype, "hasBackdrop", {
         get: /**
          * Whether the drawer container should have a backdrop while one of the sidenavs is open.
+         * If explicitly set to `true`, the backdrop will be enabled for drawers in the `side`
+         * mode as well.
          * @return {?}
          */
         function () {
-            if (this._hasBackdrop == null) {
+            if (this._backdropOverride == null) {
                 return !this._start || this._start.mode !== 'side' || !this._end || this._end.mode !== 'side';
             }
-            return this._hasBackdrop;
+            return this._backdropOverride;
         },
         set: /**
          * @param {?} value
          * @return {?}
          */
         function (value) {
-            this._hasBackdrop = value == null ? null : coercion.coerceBooleanProperty(value);
+            this._backdropOverride = value == null ? null : coercion.coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
@@ -24792,8 +24772,8 @@ var MatDrawerContainer = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return (this._isDrawerOpen(this._start) && /** @type {?} */ ((this._start)).mode != 'over') ||
-            (this._isDrawerOpen(this._end) && /** @type {?} */ ((this._end)).mode != 'over');
+        return (this._isDrawerOpen(this._start) && this._start.mode != 'over') ||
+            (this._isDrawerOpen(this._end) && this._end.mode != 'over');
     };
     /**
      * @return {?}
@@ -24812,9 +24792,10 @@ var MatDrawerContainer = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        var _this = this;
         // Close all open drawers where closing is not disabled and the mode is not `side`.
         [this._start, this._end]
-            .filter(function (drawer) { return drawer && !drawer.disableClose && drawer.mode !== 'side'; })
+            .filter(function (drawer) { return drawer && !drawer.disableClose && _this._canHaveBackdrop(drawer); })
             .forEach(function (drawer) { return ((drawer)).close(); });
     };
     /**
@@ -24824,8 +24805,19 @@ var MatDrawerContainer = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        return (this._isDrawerOpen(this._start) && /** @type {?} */ ((this._start)).mode != 'side')
-            || (this._isDrawerOpen(this._end) && /** @type {?} */ ((this._end)).mode != 'side');
+        return (this._isDrawerOpen(this._start) && this._canHaveBackdrop(this._start)) ||
+            (this._isDrawerOpen(this._end) && this._canHaveBackdrop(this._end));
+    };
+    /**
+     * @param {?} drawer
+     * @return {?}
+     */
+    MatDrawerContainer.prototype._canHaveBackdrop = /**
+     * @param {?} drawer
+     * @return {?}
+     */
+    function (drawer) {
+        return drawer.mode !== 'side' || !!this._backdropOverride;
     };
     /**
      * @param {?} drawer
@@ -24885,13 +24877,13 @@ var MatDrawerContainer = /** @class */ (function () {
         { type: core.Component, args: [{selector: 'mat-drawer-container',
                     exportAs: 'matDrawerContainer',
                     template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" *ngIf=\"hasBackdrop\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-drawer\"></ng-content><ng-content select=\"mat-drawer-content\"></ng-content><mat-drawer-content *ngIf=\"!_content\" cdkScrollable><ng-content></ng-content></mat-drawer-content>",
-                    styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
+                    styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-container.mat-drawer-container-explicit-backdrop .mat-drawer-side{z-index:3}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
                     host: {
                         'class': 'mat-drawer-container',
+                        '[class.mat-drawer-container-explicit-backdrop]': '_backdropOverride',
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -24932,7 +24924,6 @@ var MatSidenavContent = /** @class */ (function (_super) {
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -25018,7 +25009,6 @@ var MatSidenav = /** @class */ (function (_super) {
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -25039,13 +25029,13 @@ var MatSidenavContainer = /** @class */ (function (_super) {
         { type: core.Component, args: [{selector: 'mat-sidenav-container',
                     exportAs: 'matSidenavContainer',
                     template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" *ngIf=\"hasBackdrop\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-sidenav\"></ng-content><ng-content select=\"mat-sidenav-content\"></ng-content><mat-sidenav-content *ngIf=\"!_content\" cdkScrollable><ng-content></ng-content></mat-sidenav-content>",
-                    styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
+                    styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-container.mat-drawer-container-explicit-backdrop .mat-drawer-side{z-index:3}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
                     host: {
                         'class': 'mat-drawer-container mat-sidenav-container',
+                        '[class.mat-drawer-container-explicit-backdrop]': '_backdropOverride',
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -25484,7 +25474,6 @@ var MatSlideToggle = /** @class */ (function (_super) {
                     providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
                     inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -25938,6 +25927,9 @@ var MatSlider = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
+            if (this.displayWith) {
+                return this.displayWith(this.value);
+            }
             // Note that this could be improved further by rounding something like 0.999 to 1 or
             // 0.899 to 0.9, however it is very performance sensitive, because it gets called on
             // every change detection cycle.
@@ -26675,7 +26667,6 @@ var MatSlider = /** @class */ (function (_super) {
                     styles: [".mat-slider{display:inline-block;position:relative;box-sizing:border-box;padding:8px;outline:0;vertical-align:middle}.mat-slider-wrapper{position:absolute}.mat-slider-track-wrapper{position:absolute;top:0;left:0;overflow:hidden}.mat-slider-track-fill{position:absolute;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-track-background{position:absolute;transform-origin:100% 100%;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-ticks-container{position:absolute;left:0;top:0;overflow:hidden}.mat-slider-ticks{background-repeat:repeat;background-clip:content-box;box-sizing:border-box;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-container{position:absolute;z-index:1;transition:transform .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-focus-ring{position:absolute;width:30px;height:30px;border-radius:50%;transform:scale(0);opacity:0;transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),opacity .4s cubic-bezier(.25,.8,.25,1)}.cdk-keyboard-focused .mat-slider-focus-ring,.cdk-program-focused .mat-slider-focus-ring{transform:scale(1);opacity:1}.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label{cursor:-webkit-grab;cursor:grab}.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb,.mat-slider-sliding:not(.mat-slider-disabled) .mat-slider-thumb-label,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb-label:active,.mat-slider:not(.mat-slider-disabled) .mat-slider-thumb:active{cursor:-webkit-grabbing;cursor:grabbing}.mat-slider-thumb{position:absolute;right:-10px;bottom:-10px;box-sizing:border-box;width:20px;height:20px;border:3px solid transparent;border-radius:50%;transform:scale(.7);transition:transform .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1),border-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label{display:none;align-items:center;justify-content:center;position:absolute;width:28px;height:28px;border-radius:50%;transition:transform .4s cubic-bezier(.25,.8,.25,1),border-radius .4s cubic-bezier(.25,.8,.25,1),background-color .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-thumb-label-text{z-index:1;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-sliding .mat-slider-thumb-container,.mat-slider-sliding .mat-slider-track-background,.mat-slider-sliding .mat-slider-track-fill{transition-duration:0s}.mat-slider-has-ticks .mat-slider-wrapper::after{content:'';position:absolute;border-width:0;border-style:solid;opacity:0;transition:opacity .4s cubic-bezier(.25,.8,.25,1)}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after,.mat-slider-has-ticks:hover:not(.mat-slider-hide-last-tick) .mat-slider-wrapper::after{opacity:1}.mat-slider-has-ticks.cdk-focused:not(.mat-slider-disabled) .mat-slider-ticks,.mat-slider-has-ticks:hover:not(.mat-slider-disabled) .mat-slider-ticks{opacity:1}.mat-slider-thumb-label-showing .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-thumb-label-showing .mat-slider-thumb-label{display:flex}.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:100% 100%}.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:0 0}.mat-slider:not(.mat-slider-disabled).cdk-focused.mat-slider-thumb-label-showing .mat-slider-thumb{transform:scale(0)}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label{border-radius:50% 50% 0}.mat-slider:not(.mat-slider-disabled).cdk-focused .mat-slider-thumb-label-text{opacity:1}.mat-slider:not(.mat-slider-disabled).cdk-mouse-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-program-focused .mat-slider-thumb,.mat-slider:not(.mat-slider-disabled).cdk-touch-focused .mat-slider-thumb{border-width:2px;transform:scale(1)}.mat-slider-disabled .mat-slider-focus-ring{transform:scale(0);opacity:0}.mat-slider-disabled .mat-slider-thumb{border-width:4px;transform:scale(.5)}.mat-slider-disabled .mat-slider-thumb-label{display:none}.mat-slider-horizontal{height:48px;min-width:128px}.mat-slider-horizontal .mat-slider-wrapper{height:2px;top:23px;left:8px;right:8px}.mat-slider-horizontal .mat-slider-wrapper::after{height:2px;border-left-width:2px;right:0;top:0}.mat-slider-horizontal .mat-slider-track-wrapper{height:2px;width:100%}.mat-slider-horizontal .mat-slider-track-fill{height:2px;width:100%;transform:scaleX(0)}.mat-slider-horizontal .mat-slider-track-background{height:2px;width:100%;transform:scaleX(1)}.mat-slider-horizontal .mat-slider-ticks-container{height:2px;width:100%}@media screen and (-ms-high-contrast:active){.mat-slider-horizontal .mat-slider-ticks-container{height:0;outline:solid 2px;top:1px}}.mat-slider-horizontal .mat-slider-ticks{height:2px;width:100%}.mat-slider-horizontal .mat-slider-thumb-container{width:100%;height:0;top:50%}.mat-slider-horizontal .mat-slider-focus-ring{top:-15px;right:-15px}.mat-slider-horizontal .mat-slider-thumb-label{right:-14px;top:-40px;transform:translateY(26px) scale(.01) rotate(45deg)}.mat-slider-horizontal .mat-slider-thumb-label-text{transform:rotate(-45deg)}.mat-slider-horizontal.cdk-focused .mat-slider-thumb-label{transform:rotate(45deg)}.mat-slider-vertical{width:48px;min-height:128px}.mat-slider-vertical .mat-slider-wrapper{width:2px;top:8px;bottom:8px;left:23px}.mat-slider-vertical .mat-slider-wrapper::after{width:2px;border-top-width:2px;bottom:0;left:0}.mat-slider-vertical .mat-slider-track-wrapper{height:100%;width:2px}.mat-slider-vertical .mat-slider-track-fill{height:100%;width:2px;transform:scaleY(0)}.mat-slider-vertical .mat-slider-track-background{height:100%;width:2px;transform:scaleY(1)}.mat-slider-vertical .mat-slider-ticks-container{width:2px;height:100%}@media screen and (-ms-high-contrast:active){.mat-slider-vertical .mat-slider-ticks-container{width:0;outline:solid 2px;left:1px}}.mat-slider-vertical .mat-slider-focus-ring{bottom:-15px;left:-15px}.mat-slider-vertical .mat-slider-ticks{width:2px;height:100%}.mat-slider-vertical .mat-slider-thumb-container{height:100%;width:0;left:50%}.mat-slider-vertical .mat-slider-thumb{-webkit-backface-visibility:hidden;backface-visibility:hidden}.mat-slider-vertical .mat-slider-thumb-label{bottom:-14px;left:-40px;transform:translateX(26px) scale(.01) rotate(-45deg)}.mat-slider-vertical .mat-slider-thumb-label-text{transform:rotate(45deg)}.mat-slider-vertical.cdk-focused .mat-slider-thumb-label{transform:rotate(-45deg)}[dir=rtl] .mat-slider-wrapper::after{left:0;right:auto}[dir=rtl] .mat-slider-horizontal .mat-slider-track-fill{transform-origin:100% 100%}[dir=rtl] .mat-slider-horizontal .mat-slider-track-background{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-fill{transform-origin:0 0}[dir=rtl] .mat-slider-horizontal.mat-slider-axis-inverted .mat-slider-track-background{transform-origin:100% 100%}"],
                     inputs: ['disabled', 'color', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -26697,6 +26688,7 @@ var MatSlider = /** @class */ (function (_super) {
         "tickInterval": [{ type: core.Input },],
         "_tickIntervalDeprecated": [{ type: core.Input, args: ['tick-interval',] },],
         "value": [{ type: core.Input },],
+        "displayWith": [{ type: core.Input },],
         "vertical": [{ type: core.Input },],
         "change": [{ type: core.Output },],
         "input": [{ type: core.Output },],
@@ -26731,9 +26723,11 @@ var MatSliderModule = /** @class */ (function () {
  */
 /**
  * Reference to a snack bar dispatched from the snack bar service.
+ * @template T
  */
 var   /**
  * Reference to a snack bar dispatched from the snack bar service.
+ * @template T
  */
 MatSnackBarRef = /** @class */ (function () {
     function MatSnackBarRef(containerInstance, _overlayRef) {
@@ -26907,9 +26901,11 @@ MatSnackBarRef = /** @class */ (function () {
 var /** @type {?} */ MAT_SNACK_BAR_DATA = new core.InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
+ * @template D
  */
 var   /**
  * Configuration used when opening a snack-bar.
+ * @template D
  */
 MatSnackBarConfig = /** @class */ (function () {
     function MatSnackBarConfig() {
@@ -27014,7 +27010,6 @@ var SimpleSnackBar = /** @class */ (function () {
                     template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
                     styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px;opacity:1}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     animations: [matSnackBarAnimations.contentFade],
                     host: {
@@ -27247,7 +27242,6 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
                     styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:border-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:0;max-width:inherit;width:100%}"],
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     animations: [matSnackBarAnimations.snackBarState],
                     host: {
                         'role': 'alert',
@@ -28316,7 +28310,6 @@ var MatSortHeader = /** @class */ (function (_super) {
                         '[class.mat-sort-header-disabled]': '_isDisabled()',
                     },
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled'],
                     animations: [
@@ -28545,7 +28538,6 @@ var MatStepHeader = /** @class */ (function () {
                         'role': 'tab',
                     },
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -28661,7 +28653,6 @@ var MatStep = /** @class */ (function (_super) {
                     providers: [{ provide: ErrorStateMatcher, useExisting: MatStep }],
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matStep',
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -28738,7 +28729,6 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
                     animations: [matStepperAnimations.horizontalStepTransition],
                     providers: [{ provide: MatStepper, useExisting: MatHorizontalStepper }],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -28767,7 +28757,6 @@ var MatVerticalStepper = /** @class */ (function (_super) {
                     animations: [matStepperAnimations.verticalStepTransition],
                     providers: [{ provide: MatStepper, useExisting: MatVerticalStepper }],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -28886,6 +28875,7 @@ var MatStepperModule = /** @class */ (function () {
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
+ * @template T
  */
 var MatTable = /** @class */ (function (_super) {
     __extends(MatTable, _super);
@@ -28901,7 +28891,6 @@ var MatTable = /** @class */ (function (_super) {
                         'class': 'mat-table',
                     },
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -29055,6 +29044,7 @@ var MatHeaderRowDef = /** @class */ (function (_super) {
  * Data row definition for the mat-table.
  * Captures the header row's template and other row properties such as the columns to display and
  * a when predicate that describes when this row should be used.
+ * @template T
  */
 var MatRowDef = /** @class */ (function (_super) {
     __extends(MatRowDef, _super);
@@ -29090,7 +29080,6 @@ var MatHeaderRow = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matHeaderRow',
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -29115,7 +29104,6 @@ var MatRow = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matRow',
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -29157,6 +29145,7 @@ var MatTableModule = /** @class */ (function () {
  * Allows for sort customization by overriding sortingDataAccessor, which defines how data
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
  * which defines how row data is converted to a string for filter matching.
+ * @template T
  */
 var   /**
  * Data source that accepts a client-side data array and includes native support of filtering,
@@ -29165,6 +29154,7 @@ var   /**
  * Allows for sort customization by overriding sortingDataAccessor, which defines how data
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
  * which defines how row data is converted to a string for filter matching.
+ * @template T
  */
 MatTableDataSource = /** @class */ (function (_super) {
     __extends(MatTableDataSource, _super);
@@ -29783,7 +29773,6 @@ var MatTab = /** @class */ (function (_super) {
                     inputs: ['disabled'],
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     exportAs: 'matTab',
                 },] },
     ];
@@ -30044,7 +30033,6 @@ var MatTabBody = /** @class */ (function () {
                     template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template matTabBodyHost></ng-template></div>",
                     styles: [".mat-tab-body-content{height:100%;overflow:auto}.mat-tab-group-dynamic-height .mat-tab-body-content{overflow:hidden}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     animations: [matTabsAnimations.translateTab],
                     host: {
@@ -30468,7 +30456,6 @@ var MatTabGroup = /** @class */ (function (_super) {
                     template: "<mat-tab-header #tabHeader [selectedIndex]=\"selectedIndex\" [disableRipple]=\"disableRipple\" (indexFocused)=\"_focusChanged($event)\" (selectFocusedIndex)=\"selectedIndex = $event\"><div class=\"mat-tab-label\" role=\"tab\" matTabLabelWrapper mat-ripple *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabLabelId(i)\" [attr.tabIndex]=\"_getTabIndex(tab, i)\" [attr.aria-controls]=\"_getTabContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [class.mat-tab-label-active]=\"selectedIndex == i\" [disabled]=\"tab.disabled\" [matRippleDisabled]=\"tab.disabled || disableRipple\" (click)=\"_handleClick(tab, tabHeader, i)\"><div class=\"mat-tab-label-content\"><ng-template [ngIf]=\"tab.templateLabel\"><ng-template [cdkPortalOutlet]=\"tab.templateLabel\"></ng-template></ng-template><ng-template [ngIf]=\"!tab.templateLabel\">{{tab.textLabel}}</ng-template></div></div></mat-tab-header><div class=\"mat-tab-body-wrapper\" #tabBodyWrapper><mat-tab-body role=\"tabpanel\" *ngFor=\"let tab of _tabs; let i = index\" [id]=\"_getTabContentId(i)\" [attr.aria-labelledby]=\"_getTabLabelId(i)\" [class.mat-tab-body-active]=\"selectedIndex == i\" [content]=\"tab.content\" [position]=\"tab.position\" [origin]=\"tab.origin\" (_onCentered)=\"_removeTabBodyWrapperHeight()\" (_onCentering)=\"_setTabBodyWrapperHeight($event)\"></mat-tab-body></div>",
                     styles: [".mat-tab-group{display:flex;flex-direction:column}.mat-tab-group.mat-tab-group-inverted-header{flex-direction:column-reverse}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default}.mat-tab-label.mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (max-width:599px){.mat-tab-label{padding:0 12px}}@media (max-width:959px){.mat-tab-label{padding:0 12px}}.mat-tab-group[mat-stretch-tabs] .mat-tab-label{flex-basis:0;flex-grow:1}.mat-tab-body-wrapper{position:relative;overflow:hidden;display:flex;transition:height .5s cubic-bezier(.35,0,.25,1)}.mat-tab-body{top:0;left:0;right:0;bottom:0;position:absolute;display:block;overflow:hidden}.mat-tab-body.mat-tab-body-active{position:relative;overflow-x:hidden;overflow-y:auto;z-index:1;flex-grow:1}.mat-tab-group.mat-tab-group-dynamic-height .mat-tab-body.mat-tab-body-active{overflow-y:hidden}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     inputs: ['color', 'disableRipple'],
                     host: {
@@ -31206,7 +31193,6 @@ var MatTabHeader = /** @class */ (function (_super) {
                     styles: [".mat-tab-header{display:flex;overflow:hidden;position:relative;flex-shrink:0}.mat-tab-label{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;position:relative}.mat-tab-label:focus{outline:0}.mat-tab-label:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-label.mat-tab-disabled{cursor:default}.mat-tab-label.mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (max-width:599px){.mat-tab-label{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media screen and (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}.mat-tab-header-pagination{position:relative;display:none;justify-content:center;align-items:center;min-width:32px;cursor:pointer;z-index:2}.mat-tab-header-pagination-controls-enabled .mat-tab-header-pagination{display:flex}.mat-tab-header-pagination-before,.mat-tab-header-rtl .mat-tab-header-pagination-after{padding-left:4px}.mat-tab-header-pagination-before .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-after .mat-tab-header-pagination-chevron{transform:rotate(-135deg)}.mat-tab-header-pagination-after,.mat-tab-header-rtl .mat-tab-header-pagination-before{padding-right:4px}.mat-tab-header-pagination-after .mat-tab-header-pagination-chevron,.mat-tab-header-rtl .mat-tab-header-pagination-before .mat-tab-header-pagination-chevron{transform:rotate(45deg)}.mat-tab-header-pagination-chevron{border-style:solid;border-width:2px 2px 0 0;content:'';height:8px;width:8px}.mat-tab-header-pagination-disabled{box-shadow:none;cursor:default}.mat-tab-label-container{display:flex;flex-grow:1;overflow:hidden;z-index:1}.mat-tab-list{flex-grow:1;position:relative;transition:transform .5s cubic-bezier(.35,0,.25,1)}.mat-tab-labels{display:flex}"],
                     inputs: ['disableRipple'],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     host: {
                         'class': 'mat-tab-header',
@@ -31402,7 +31388,6 @@ var MatTabNav = /** @class */ (function (_super) {
                     styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default}.mat-tab-link.mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media screen and (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}"],
                     host: { 'class': 'mat-tab-nav-bar' },
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -31689,7 +31674,6 @@ var MatToolbar = /** @class */ (function (_super) {
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -31765,6 +31749,7 @@ var /** @type {?} */ _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(tree.Cd
 var /** @type {?} */ _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(tree.CdkNestedTreeNode));
 /**
  * Wrapper for the CdkTree node with Material design styles.
+ * @template T
  */
 var MatTreeNode = /** @class */ (function (_super) {
     __extends(MatTreeNode, _super);
@@ -31803,6 +31788,7 @@ var MatTreeNode = /** @class */ (function (_super) {
 }(_MatTreeNodeMixinBase));
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
+ * @template T
  */
 var MatTreeNodeDef = /** @class */ (function (_super) {
     __extends(MatTreeNodeDef, _super);
@@ -31827,6 +31813,7 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
 }(tree.CdkTreeNodeDef));
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
+ * @template T
  */
 var MatNestedTreeNode = /** @class */ (function (_super) {
     __extends(MatNestedTreeNode, _super);
@@ -31872,6 +31859,7 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
  */
 /**
  * Wrapper for the CdkTree padding with Material design styles.
+ * @template T
  */
 var MatTreeNodePadding = /** @class */ (function (_super) {
     __extends(MatTreeNodePadding, _super);
@@ -31899,6 +31887,7 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
+ * @template T
  */
 var MatTree = /** @class */ (function (_super) {
     __extends(MatTree, _super);
@@ -31915,7 +31904,6 @@ var MatTree = /** @class */ (function (_super) {
                     },
                     styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;min-height:48px;padding:0 24px;flex:1;overflow:hidden;word-wrap:break-word}.mat-nested-tree-ndoe{border-bottom-width:0}"],
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     providers: [{ provide: tree.CdkTree, useExisting: MatTree }]
                 },] },
@@ -31934,6 +31922,7 @@ var MatTree = /** @class */ (function (_super) {
  */
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
+ * @template T
  */
 var MatTreeNodeToggle = /** @class */ (function (_super) {
     __extends(MatTreeNodeToggle, _super);
@@ -32024,6 +32013,7 @@ var MatTreeModule = /** @class */ (function () {
  *   level: 2
  * }
  * and the output flattened type is `F` with additional information.
+ * @template T, F
  */
 var   /**
  * Tree flattener to convert a normal type of node to node with children & level information.
@@ -32058,6 +32048,7 @@ var   /**
  *   level: 2
  * }
  * and the output flattened type is `F` with additional information.
+ * @template T, F
  */
 MatTreeFlattener = /** @class */ (function () {
     function MatTreeFlattener(transformFunction, getLevel, isExpandable, getChildren) {
@@ -32165,6 +32156,7 @@ MatTreeFlattener = /** @class */ (function () {
  * to `MatTree`.
  * The nested tree nodes of type `T` are flattened through `MatTreeFlattener`, and converted
  * to type `F` for `MatTree` to consume.
+ * @template T, F
  */
 var   /**
  * Data source for flat tree.
@@ -32172,6 +32164,7 @@ var   /**
  * to `MatTree`.
  * The nested tree nodes of type `T` are flattened through `MatTreeFlattener`, and converted
  * to type `F` for `MatTree` to consume.
+ * @template T, F
  */
 MatTreeFlatDataSource = /** @class */ (function (_super) {
     __extends(MatTreeFlatDataSource, _super);
@@ -32243,12 +32236,14 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
  *
  * The data source for nested tree doesn't have to consider node flattener, or the way to expand
  * or collapse. The expansion/collapsion will be handled by TreeControl and each non-leaf node.
+ * @template T
  */
 var   /**
  * Data source for nested tree.
  *
  * The data source for nested tree doesn't have to consider node flattener, or the way to expand
  * or collapse. The expansion/collapsion will be handled by TreeControl and each non-leaf node.
+ * @template T
  */
 MatTreeNestedDataSource = /** @class */ (function (_super) {
     __extends(MatTreeNestedDataSource, _super);
@@ -32307,7 +32302,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-c44e253');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-7ff086a');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32553,10 +32548,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa25 = MatMenuItemBase;
+exports.ɵb25 = _MatMenuItemMixinBase;
+exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32681,16 +32676,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵe24 = MatTabBase;
+exports.ɵf24 = _MatTabMixinBase;
+exports.ɵa24 = MatTabHeaderBase;
+exports.ɵb24 = _MatTabHeaderMixinBase;
+exports.ɵc24 = MatTabLabelWrapperBase;
+exports.ɵd24 = _MatTabLabelWrapperMixinBase;
+exports.ɵi24 = MatTabLinkBase;
+exports.ɵg24 = MatTabNavBase;
+exports.ɵj24 = _MatTabLinkMixinBase;
+exports.ɵh24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
@@ -32724,7 +32719,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa16 = MatTreeNodeOutlet;
+exports.ɵa12 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

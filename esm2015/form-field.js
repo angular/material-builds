@@ -72,6 +72,7 @@ const /** @type {?} */ matFormFieldAnimations = {
 /**
  * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
+ * @template T
  */
 class MatFormFieldControl {
 }
@@ -618,7 +619,6 @@ MatFormField.decorators = [
                 },
                 inputs: ['color'],
                 encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];

@@ -102,7 +102,6 @@ var MatToolbar = /** @class */ (function (_super) {
                     },
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */

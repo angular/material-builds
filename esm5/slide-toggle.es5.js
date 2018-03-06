@@ -398,7 +398,6 @@ var MatSlideToggle = /** @class */ (function (_super) {
                     providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
                     inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];

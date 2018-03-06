@@ -200,7 +200,6 @@ var MatStepHeader = /** @class */ (function () {
                         'role': 'tab',
                     },
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -316,7 +315,6 @@ var MatStep = /** @class */ (function (_super) {
                     providers: [{ provide: ErrorStateMatcher, useExisting: MatStep }],
                     encapsulation: ViewEncapsulation.None,
                     exportAs: 'matStep',
-                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -393,7 +391,6 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
                     animations: [matStepperAnimations.horizontalStepTransition],
                     providers: [{ provide: MatStepper, useExisting: MatHorizontalStepper }],
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -422,7 +419,6 @@ var MatVerticalStepper = /** @class */ (function (_super) {
                     animations: [matStepperAnimations.verticalStepTransition],
                     providers: [{ provide: MatStepper, useExisting: MatVerticalStepper }],
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];

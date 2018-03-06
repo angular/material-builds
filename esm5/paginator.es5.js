@@ -442,7 +442,6 @@ var MatPaginator = /** @class */ (function () {
                     },
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */

@@ -214,7 +214,6 @@ MatCalendarBody.decorators = [
                 },
                 exportAs: 'matCalendarBody',
                 encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
@@ -244,6 +243,7 @@ const /** @type {?} */ DAYS_PER_WEEK = 7;
 /**
  * An internal component used to display a single month in the datepicker.
  * \@docs-private
+ * @template D
  */
 class MatMonthView {
     /**
@@ -515,7 +515,6 @@ MatMonthView.decorators = [
                 template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                 exportAs: 'matMonthView',
                 encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
 ];
@@ -547,6 +546,7 @@ const /** @type {?} */ yearsPerRow = 4;
 /**
  * An internal component used to display a year selector in the datepicker.
  * \@docs-private
+ * @template D
  */
 class MatMultiYearView {
     /**
@@ -777,7 +777,6 @@ MatMultiYearView.decorators = [
                 template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [rows]=\"_years\" [todayValue]=\"_todayYear\" [selectedValue]=\"_selectedYear\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_getActiveCell()\" (selectedValueChange)=\"_yearSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                 exportAs: 'matMultiYearView',
                 encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
 ];
@@ -805,6 +804,7 @@ MatMultiYearView.propDecorators = {
 /**
  * An internal component used to display a single year in the datepicker.
  * \@docs-private
+ * @template D
  */
 class MatYearView {
     /**
@@ -1068,7 +1068,6 @@ MatYearView.decorators = [
                 template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                 exportAs: 'matYearView',
                 encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
 ];
@@ -1097,6 +1096,7 @@ MatYearView.propDecorators = {
 /**
  * A calendar that is used as part of the datepicker.
  * \@docs-private
+ * @template D
  */
 class MatCalendar {
     /**
@@ -1391,7 +1391,6 @@ MatCalendar.decorators = [
                 },
                 exportAs: 'matCalendar',
                 encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
@@ -1464,6 +1463,7 @@ const /** @type {?} */ _MatDatepickerContentMixinBase = mixinColor(MatDatepicker
  * place to put additional features of the popup that are not part of the calendar itself in the
  * future. (e.g. confirmation buttons).
  * \@docs-private
+ * @template D
  */
 class MatDatepickerContent extends _MatDatepickerContentMixinBase {
     /**
@@ -1502,7 +1502,6 @@ MatDatepickerContent.decorators = [
                 },
                 exportAs: 'matDatepickerContent',
                 encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 inputs: ['color'],
             },] },
@@ -1517,6 +1516,7 @@ MatDatepickerContent.propDecorators = {
 };
 /**
  * Component responsible for managing the datepicker popup/dialog.
+ * @template D
  */
 class MatDatepicker {
     /**
@@ -1895,7 +1895,6 @@ MatDatepicker.decorators = [
                 exportAs: 'matDatepicker',
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
             },] },
 ];
 /** @nocollapse */
@@ -1942,6 +1941,7 @@ const /** @type {?} */ MAT_DATEPICKER_VALIDATORS = {
  * An event used for datepicker input and change events. We don't always have access to a native
  * input or change event because the event may have been triggered by the user clicking on the
  * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
+ * @template D
  */
 class MatDatepickerInputEvent {
     /**
@@ -1956,6 +1956,7 @@ class MatDatepickerInputEvent {
 }
 /**
  * Directive used to connect an input to a MatDatepicker.
+ * @template D
  */
 class MatDatepickerInput {
     /**
@@ -2321,6 +2322,9 @@ MatDatepickerToggleIcon.decorators = [
 ];
 /** @nocollapse */
 MatDatepickerToggleIcon.ctorParameters = () => [];
+/**
+ * @template D
+ */
 class MatDatepickerToggle {
     /**
      * @param {?} _intl
@@ -2402,7 +2406,6 @@ MatDatepickerToggle.decorators = [
                 },
                 exportAs: 'matDatepickerToggle',
                 encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];

@@ -74,10 +74,12 @@ var /** @type {?} */ matFormFieldAnimations = {
 /**
  * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
+ * @template T
  */
 var  /**
  * An interface which allows a control to work inside of a `MatFormField`.
  * @abstract
+ * @template T
  */
 MatFormFieldControl = /** @class */ (function () {
     function MatFormFieldControl() {
@@ -757,7 +759,6 @@ var MatFormField = /** @class */ (function (_super) {
                     },
                     inputs: ['color'],
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
