@@ -49,7 +49,6 @@ const /** @type {?} */ _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTr
 const /** @type {?} */ _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkNestedTreeNode));
 /**
  * Wrapper for the CdkTree node with Material design styles.
- * @template T
  */
 class MatTreeNode extends _MatTreeNodeMixinBase {
     /**
@@ -90,7 +89,6 @@ MatTreeNode.propDecorators = {
 };
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
- * @template T
  */
 class MatTreeNodeDef extends CdkTreeNodeDef {
 }
@@ -110,7 +108,6 @@ MatTreeNodeDef.propDecorators = {
 };
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
- * @template T
  */
 class MatNestedTreeNode extends _MatNestedTreeNodeMixinBase {
     /**
@@ -158,7 +155,6 @@ MatNestedTreeNode.propDecorators = {
  */
 /**
  * Wrapper for the CdkTree padding with Material design styles.
- * @template T
  */
 class MatTreeNodePadding extends CdkTreeNodePadding {
 }
@@ -181,7 +177,6 @@ MatTreeNodePadding.propDecorators = {
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
- * @template T
  */
 class MatTree extends CdkTree {
 }
@@ -195,6 +190,7 @@ MatTree.decorators = [
                 },
                 styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;min-height:48px;padding:0 24px;flex:1;overflow:hidden;word-wrap:break-word}.mat-nested-tree-ndoe{border-bottom-width:0}"],
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 providers: [{ provide: CdkTree, useExisting: MatTree }]
             },] },
@@ -211,7 +207,6 @@ MatTree.propDecorators = {
  */
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
- * @template T
  */
 class MatTreeNodeToggle extends CdkTreeNodeToggle {
     constructor() {
@@ -296,7 +291,6 @@ MatTreeModule.ctorParameters = () => [];
  *   level: 2
  * }
  * and the output flattened type is `F` with additional information.
- * @template T, F
  */
 class MatTreeFlattener {
     /**
@@ -376,7 +370,6 @@ class MatTreeFlattener {
  * to `MatTree`.
  * The nested tree nodes of type `T` are flattened through `MatTreeFlattener`, and converted
  * to type `F` for `MatTree` to consume.
- * @template T, F
  */
 class MatTreeFlatDataSource extends DataSource {
     /**
@@ -437,7 +430,6 @@ class MatTreeFlatDataSource extends DataSource {
  *
  * The data source for nested tree doesn't have to consider node flattener, or the way to expand
  * or collapse. The expansion/collapsion will be handled by TreeControl and each non-leaf node.
- * @template T
  */
 class MatTreeNestedDataSource extends DataSource {
     constructor() {
@@ -482,5 +474,5 @@ class MatTreeNestedDataSource extends DataSource {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa13 };
+export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa16 };
 //# sourceMappingURL=tree.js.map

@@ -81,13 +81,13 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
      */
     classList: string;
     /** Event emitted when the menu is closed. */
-    readonly closed: EventEmitter<void | 'click' | 'keydown' | 'tab'>;
+    readonly closed: EventEmitter<void | 'click' | 'keydown'>;
     /**
      * Event emitted when the menu is closed.
      * @deprecated Switch to `closed` instead
      * @deletion-target 6.0.0
      */
-    close: EventEmitter<void | "click" | "keydown" | "tab">;
+    close: EventEmitter<void | "click" | "keydown">;
     constructor(_elementRef: ElementRef, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
     ngOnInit(): void;
     ngAfterContentInit(): void;

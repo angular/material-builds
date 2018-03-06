@@ -51,11 +51,9 @@ var __assign = Object.assign || function __assign(t) {
  */
 /**
  * Configuration for opening a modal dialog with the MatDialog service.
- * @template D
  */
 var   /**
  * Configuration for opening a modal dialog with the MatDialog service.
- * @template D
  */
 MatDialogConfig = /** @class */ (function () {
     function MatDialogConfig() {
@@ -338,6 +336,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
                     template: "<ng-template cdkPortalOutlet></ng-template>",
                     styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap;margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
                     encapsulation: core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
                     // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
                     // tslint:disable-next-line:validate-decorators
                     changeDetection: core.ChangeDetectionStrategy.Default,
@@ -378,11 +377,9 @@ var MatDialogContainer = /** @class */ (function (_super) {
 var /** @type {?} */ uniqueId = 0;
 /**
  * Reference to a dialog opened via the MatDialog service.
- * @template T, R
  */
 var   /**
  * Reference to a dialog opened via the MatDialog service.
- * @template T, R
  */
 MatDialogRef = /** @class */ (function () {
     function MatDialogRef(_overlayRef, _containerInstance, location, id) {

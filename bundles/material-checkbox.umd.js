@@ -577,6 +577,7 @@ var MatCheckbox = /** @class */ (function (_super) {
                     providers: [MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR],
                     inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
                 },] },
     ];

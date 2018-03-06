@@ -169,6 +169,7 @@ MatStepHeader.decorators = [
                     'role': 'tab',
                 },
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
@@ -280,6 +281,7 @@ MatStep.decorators = [
                 providers: [{ provide: ErrorStateMatcher, useExisting: MatStep }],
                 encapsulation: ViewEncapsulation.None,
                 exportAs: 'matStep',
+                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
@@ -344,6 +346,7 @@ MatHorizontalStepper.decorators = [
                 animations: [matStepperAnimations.horizontalStepTransition],
                 providers: [{ provide: MatStepper, useExisting: MatHorizontalStepper }],
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
@@ -373,6 +376,7 @@ MatVerticalStepper.decorators = [
                 animations: [matStepperAnimations.verticalStepTransition],
                 providers: [{ provide: MatStepper, useExisting: MatVerticalStepper }],
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];

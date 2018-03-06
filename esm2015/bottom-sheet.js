@@ -213,9 +213,10 @@ class MatBottomSheetContainer extends BasePortalOutlet {
 MatBottomSheetContainer.decorators = [
     { type: Component, args: [{selector: 'mat-bottom-sheet-container',
                 template: "<ng-template cdkPortalOutlet></ng-template>",
-                styles: [".mat-bottom-sheet-container{box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12);padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0}@media screen and (-ms-high-contrast:active){.mat-bottom-sheet-container{outline:1px solid}}.mat-bottom-sheet-container-medium{min-width:384px}.mat-bottom-sheet-container-large{min-width:512px}.mat-bottom-sheet-container-xlarge{min-width:576px}"],
+                styles: [".mat-bottom-sheet-container{box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12);padding:8px 16px;min-width:100vw;box-sizing:border-box;display:block;outline:0}.mat-bottom-sheet-container-medium{min-width:384px}.mat-bottom-sheet-container-large{min-width:512px}.mat-bottom-sheet-container-xlarge{min-width:576px}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
                 animations: [matBottomSheetAnimations.bottomSheetState],
                 host: {
                     'class': 'mat-bottom-sheet-container',
@@ -250,7 +251,6 @@ MatBottomSheetContainer.propDecorators = {
 const /** @type {?} */ MAT_BOTTOM_SHEET_DATA = new InjectionToken('MatBottomSheetData');
 /**
  * Configuration used when opening a bottom sheet.
- * @template D
  */
 class MatBottomSheetConfig {
     constructor() {
@@ -279,7 +279,6 @@ class MatBottomSheetConfig {
  */
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
- * @template T, R
  */
 class MatBottomSheetRef {
     /**

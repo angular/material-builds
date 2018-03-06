@@ -43,7 +43,6 @@ function __extends(d, b) {
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
- * @template T
  */
 var MatTable = /** @class */ (function (_super) {
     __extends(MatTable, _super);
@@ -59,6 +58,7 @@ var MatTable = /** @class */ (function (_super) {
                         'class': 'mat-table',
                     },
                     encapsulation: core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -212,7 +212,6 @@ var MatHeaderRowDef = /** @class */ (function (_super) {
  * Data row definition for the mat-table.
  * Captures the header row's template and other row properties such as the columns to display and
  * a when predicate that describes when this row should be used.
- * @template T
  */
 var MatRowDef = /** @class */ (function (_super) {
     __extends(MatRowDef, _super);
@@ -248,6 +247,7 @@ var MatHeaderRow = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matHeaderRow',
+                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -272,6 +272,7 @@ var MatRow = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matRow',
+                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -313,7 +314,6 @@ var MatTableModule = /** @class */ (function () {
  * Allows for sort customization by overriding sortingDataAccessor, which defines how data
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
  * which defines how row data is converted to a string for filter matching.
- * @template T
  */
 var   /**
  * Data source that accepts a client-side data array and includes native support of filtering,
@@ -322,7 +322,6 @@ var   /**
  * Allows for sort customization by overriding sortingDataAccessor, which defines how data
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
  * which defines how row data is converted to a string for filter matching.
- * @template T
  */
 MatTableDataSource = /** @class */ (function (_super) {
     __extends(MatTableDataSource, _super);

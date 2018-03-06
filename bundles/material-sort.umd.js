@@ -711,6 +711,7 @@ var MatSortHeader = /** @class */ (function (_super) {
                         '[class.mat-sort-header-disabled]': '_isDisabled()',
                     },
                     encapsulation: core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     inputs: ['disabled'],
                     animations: [

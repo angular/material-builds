@@ -48,7 +48,6 @@ var /** @type {?} */ _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTree
 var /** @type {?} */ _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkNestedTreeNode));
 /**
  * Wrapper for the CdkTree node with Material design styles.
- * @template T
  */
 var MatTreeNode = /** @class */ (function (_super) {
     __extends(MatTreeNode, _super);
@@ -87,7 +86,6 @@ var MatTreeNode = /** @class */ (function (_super) {
 }(_MatTreeNodeMixinBase));
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
- * @template T
  */
 var MatTreeNodeDef = /** @class */ (function (_super) {
     __extends(MatTreeNodeDef, _super);
@@ -112,7 +110,6 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
 }(CdkTreeNodeDef));
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
- * @template T
  */
 var MatNestedTreeNode = /** @class */ (function (_super) {
     __extends(MatNestedTreeNode, _super);
@@ -158,7 +155,6 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
  */
 /**
  * Wrapper for the CdkTree padding with Material design styles.
- * @template T
  */
 var MatTreeNodePadding = /** @class */ (function (_super) {
     __extends(MatTreeNodePadding, _super);
@@ -186,7 +182,6 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
- * @template T
  */
 var MatTree = /** @class */ (function (_super) {
     __extends(MatTree, _super);
@@ -203,6 +198,7 @@ var MatTree = /** @class */ (function (_super) {
                     },
                     styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;min-height:48px;padding:0 24px;flex:1;overflow:hidden;word-wrap:break-word}.mat-nested-tree-ndoe{border-bottom-width:0}"],
                     encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     providers: [{ provide: CdkTree, useExisting: MatTree }]
                 },] },
@@ -221,7 +217,6 @@ var MatTree = /** @class */ (function (_super) {
  */
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
- * @template T
  */
 var MatTreeNodeToggle = /** @class */ (function (_super) {
     __extends(MatTreeNodeToggle, _super);
@@ -312,7 +307,6 @@ var MatTreeModule = /** @class */ (function () {
  *   level: 2
  * }
  * and the output flattened type is `F` with additional information.
- * @template T, F
  */
 var  /**
  * Tree flattener to convert a normal type of node to node with children & level information.
@@ -347,7 +341,6 @@ var  /**
  *   level: 2
  * }
  * and the output flattened type is `F` with additional information.
- * @template T, F
  */
 MatTreeFlattener = /** @class */ (function () {
     function MatTreeFlattener(transformFunction, getLevel, isExpandable, getChildren) {
@@ -455,7 +448,6 @@ MatTreeFlattener = /** @class */ (function () {
  * to `MatTree`.
  * The nested tree nodes of type `T` are flattened through `MatTreeFlattener`, and converted
  * to type `F` for `MatTree` to consume.
- * @template T, F
  */
 var  /**
  * Data source for flat tree.
@@ -463,7 +455,6 @@ var  /**
  * to `MatTree`.
  * The nested tree nodes of type `T` are flattened through `MatTreeFlattener`, and converted
  * to type `F` for `MatTree` to consume.
- * @template T, F
  */
 MatTreeFlatDataSource = /** @class */ (function (_super) {
     __extends(MatTreeFlatDataSource, _super);
@@ -535,14 +526,12 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
  *
  * The data source for nested tree doesn't have to consider node flattener, or the way to expand
  * or collapse. The expansion/collapsion will be handled by TreeControl and each non-leaf node.
- * @template T
  */
 var  /**
  * Data source for nested tree.
  *
  * The data source for nested tree doesn't have to consider node flattener, or the way to expand
  * or collapse. The expansion/collapsion will be handled by TreeControl and each non-leaf node.
- * @template T
  */
 MatTreeNestedDataSource = /** @class */ (function (_super) {
     __extends(MatTreeNestedDataSource, _super);
@@ -604,5 +593,5 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa13 };
+export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa16 };
 //# sourceMappingURL=tree.es5.js.map

@@ -1011,6 +1011,7 @@ var MatIcon = /** @class */ (function (_super) {
                         'class': 'mat-icon',
                     },
                     encapsulation: core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];

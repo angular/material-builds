@@ -24,11 +24,9 @@ import { CommonModule } from '@angular/common';
  */
 /**
  * Reference to a snack bar dispatched from the snack bar service.
- * @template T
  */
 var  /**
  * Reference to a snack bar dispatched from the snack bar service.
- * @template T
  */
 MatSnackBarRef = /** @class */ (function () {
     function MatSnackBarRef(containerInstance, _overlayRef) {
@@ -202,11 +200,9 @@ MatSnackBarRef = /** @class */ (function () {
 var /** @type {?} */ MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
- * @template D
  */
 var  /**
  * Configuration used when opening a snack-bar.
- * @template D
  */
 MatSnackBarConfig = /** @class */ (function () {
     function MatSnackBarConfig() {
@@ -311,6 +307,7 @@ var SimpleSnackBar = /** @class */ (function () {
                     template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
                     styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px;opacity:1}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
                     encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     animations: [matSnackBarAnimations.contentFade],
                     host: {
@@ -543,6 +540,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
                     styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:border-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:0;max-width:inherit;width:100%}"],
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
+                    preserveWhitespaces: false,
                     animations: [matSnackBarAnimations.snackBarState],
                     host: {
                         'role': 'alert',
