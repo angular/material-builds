@@ -74,7 +74,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     ngOnDestroy(): void;
     /** Whether or not the autocomplete panel is open. */
     readonly panelOpen: boolean;
-    private _panelOpen;
+    private _overlayAttached;
     /** Opens the autocomplete suggestion panel. */
     openPanel(): void;
     /** Closes the autocomplete suggestion panel. */

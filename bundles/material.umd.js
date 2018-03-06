@@ -1758,7 +1758,8 @@ RippleRenderer = /** @class */ (function () {
     function (x, y, config) {
         var _this = this;
         if (config === void 0) { config = {}; }
-        var /** @type {?} */ containerRect = this._containerElement.getBoundingClientRect();
+        var /** @type {?} */ containerRect = this._containerRect =
+            this._containerRect || this._containerElement.getBoundingClientRect();
         var /** @type {?} */ animationConfig = __assign({}, defaultRippleAnimationConfig, config.animation);
         if (config.centered) {
             x = containerRect.left + containerRect.width / 2;
@@ -1809,8 +1810,13 @@ RippleRenderer = /** @class */ (function () {
      * @return {?}
      */
     function (rippleRef) {
+        var /** @type {?} */ wasActive = this._activeRipples.delete(rippleRef);
+        // Clear out the cached bounding rect if we have no more ripples.
+        if (!this._activeRipples.size) {
+            this._containerRect = null;
+        }
         // For ripples that are not active anymore, don't re-un the fade-out animation.
-        if (!this._activeRipples.delete(rippleRef)) {
+        if (!wasActive) {
             return;
         }
         var /** @type {?} */ rippleEl = rippleRef.element;
@@ -2620,7 +2626,7 @@ var MatOption = /** @class */ (function () {
                         '(keydown)': '_handleKeydown($event)',
                         'class': 'mat-option',
                     },
-                    styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative;cursor:pointer;outline:0;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-option-ripple{opacity:.5}}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}"],
+                    styles: [".mat-option{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative;cursor:pointer;outline:0;display:flex;flex-direction:row;max-width:100%;box-sizing:border-box;align-items:center}.mat-option[disabled]{cursor:default}[dir=rtl] .mat-option{text-align:right}.mat-option .mat-icon{margin-right:16px;vertical-align:middle}[dir=rtl] .mat-option .mat-icon{margin-left:16px;margin-right:0}.mat-option[aria-disabled=true]{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:default}.mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:32px}[dir=rtl] .mat-optgroup .mat-option:not(.mat-option-multiple){padding-left:16px;padding-right:32px}@media screen and (-ms-high-contrast:active){.mat-option{margin:0 1px}.mat-option.mat-active{border:solid 1px currentColor;margin:0}}.mat-option-text{display:inline-block;flex-grow:1;overflow:hidden;text-overflow:ellipsis}.mat-option-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}@media screen and (-ms-high-contrast:active){.mat-option-ripple{opacity:.5}}.mat-option-pseudo-checkbox{margin-right:8px}[dir=rtl] .mat-option-pseudo-checkbox{margin-left:8px;margin-right:0}"],
                     template: "<mat-pseudo-checkbox *ngIf=\"multiple\" class=\"mat-option-pseudo-checkbox\" [state]=\"selected ? 'checked' : ''\" [disabled]=\"disabled\"></mat-pseudo-checkbox><span class=\"mat-option-text\"><ng-content></ng-content></span><div class=\"mat-option-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"disabled || disableRipple\"></div>",
                     encapsulation: core.ViewEncapsulation.None,
                     preserveWhitespaces: false,
@@ -3847,7 +3853,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * `View -> model callback called when autocomplete has been touched`
          */
         this._onTouched = function () { };
-        this._panelOpen = false;
+        this._overlayAttached = false;
         /**
          * Stream of autocomplete option selections.
          */
@@ -3879,7 +3885,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * Whether or not the autocomplete panel is open.
          * @return {?}
          */
-        function () { return this._panelOpen && this.autocomplete.showPanel; },
+        function () {
+            return this._overlayAttached && this.autocomplete.showPanel;
+        },
         enumerable: true,
         configurable: true
     });
@@ -3907,22 +3915,26 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         this._resetLabel();
-        if (this._panelOpen) {
-            this.autocomplete._isOpen = this._panelOpen = false;
+        if (!this._overlayAttached) {
+            return;
+        }
+        if (this.panelOpen) {
+            // Only emit if the panel was visible.
             this.autocomplete.closed.emit();
-            if (this._overlayRef && this._overlayRef.hasAttached()) {
-                this._overlayRef.detach();
-                this._closingActionsSubscription.unsubscribe();
-            }
-            // Note that in some cases this can end up being called after the component is destroyed.
-            // Add a check to ensure that we don't try to run change detection on a destroyed view.
-            if (!this._componentDestroyed) {
-                // We need to trigger change detection manually, because
-                // `fromEvent` doesn't seem to do it at the proper time.
-                // This ensures that the label is reset when the
-                // user clicks outside.
-                this._changeDetectorRef.detectChanges();
-            }
+        }
+        this.autocomplete._isOpen = this._overlayAttached = false;
+        if (this._overlayRef && this._overlayRef.hasAttached()) {
+            this._overlayRef.detach();
+            this._closingActionsSubscription.unsubscribe();
+        }
+        // Note that in some cases this can end up being called after the component is destroyed.
+        // Add a check to ensure that we don't try to run change detection on a destroyed view.
+        if (!this._componentDestroyed) {
+            // We need to trigger change detection manually, because
+            // `fromEvent` doesn't seem to do it at the proper time.
+            // This ensures that the label is reset when the
+            // user clicks outside.
+            this._changeDetectorRef.detectChanges();
         }
     };
     Object.defineProperty(MatAutocompleteTrigger.prototype, "panelClosingActions", {
@@ -3937,8 +3949,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () {
             var _this = this;
-            return merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter.filter(function () { return _this._panelOpen; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
-                this._overlayRef.detachments().pipe(filter.filter(function () { return _this._panelOpen; })) :
+            return merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter.filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
+                this._overlayRef.detachments().pipe(filter.filter(function () { return _this._overlayAttached; })) :
                 of.of());
         },
         enumerable: true,
@@ -3974,7 +3986,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
                 var /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
                 var /** @type {?} */ formField = _this._formField ?
                     _this._formField._elementRef.nativeElement : null;
-                return _this._panelOpen &&
+                return _this._overlayAttached &&
                     clickTarget !== _this._element.nativeElement &&
                     (!formField || !formField.contains(clickTarget)) &&
                     (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
@@ -4316,7 +4328,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         }
         var /** @type {?} */ wasOpen = this.panelOpen;
         this.autocomplete._setVisibility();
-        this.autocomplete._isOpen = this._panelOpen = true;
+        this.autocomplete._isOpen = this._overlayAttached = true;
         // We need to do an extra `panelOpen` check in here, because the
         // autocomplete won't be shown if there are no options.
         if (this.panelOpen && wasOpen !== this.panelOpen) {
@@ -13113,6 +13125,25 @@ var MatDatepicker = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatDatepicker.prototype, "color", {
+        get: /**
+         * Color palette to use on the datepicker's calendar.
+         * @return {?}
+         */
+        function () {
+            return this._color ||
+                (this._datepickerInput ? this._datepickerInput._getThemePalette() : undefined);
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._color = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatDatepicker.prototype, "touchUi", {
         get: /**
          * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
@@ -13473,8 +13504,7 @@ var MatDatepicker = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ input = this._datepickerInput;
-        var /** @type {?} */ color = this.color || (input ? input._getThemePalette() : undefined);
+        var /** @type {?} */ color = this.color;
         if (this._popupComponentRef) {
             this._popupComponentRef.instance.color = color;
         }
@@ -23161,28 +23191,6 @@ var MatRadioGroup = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatRadioGroup.prototype, "align", {
-        get: /**
-         * Alignment of the radio-buttons relative to their labels. Can be 'before' or 'after'.
-         * @deprecated
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () {
-            // align refers to the checkbox relative to the label, while labelPosition refers to the
-            // label relative to the checkbox. As such, they are inverted.
-            return this.labelPosition == 'after' ? 'start' : 'end';
-        },
-        set: /**
-         * @param {?} v
-         * @return {?}
-         */
-        function (v) {
-            this.labelPosition = (v == 'start') ? 'after' : 'before';
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MatRadioGroup.prototype, "labelPosition", {
         get: /**
          * Whether the labels should appear after or before the radio-buttons. Defaults to 'after'
@@ -23196,7 +23204,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
          * @return {?}
          */
         function (v) {
-            this._labelPosition = (v == 'before') ? 'before' : 'after';
+            this._labelPosition = v === 'before' ? 'before' : 'after';
             this._markRadiosForCheck();
         },
         enumerable: true,
@@ -23482,7 +23490,6 @@ var MatRadioGroup = /** @class */ (function (_super) {
         "change": [{ type: core.Output },],
         "_radios": [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatRadioButton; }), { descendants: true },] },],
         "name": [{ type: core.Input },],
-        "align": [{ type: core.Input },],
         "labelPosition": [{ type: core.Input },],
         "value": [{ type: core.Input },],
         "selected": [{ type: core.Input },],
@@ -23607,28 +23614,6 @@ var MatRadioButton = /** @class */ (function (_super) {
                     }
                 }
             }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatRadioButton.prototype, "align", {
-        get: /**
-         * Whether or not the radio-button should appear before or after the label.
-         * @deprecated
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () {
-            // align refers to the checkbox relative to the label, while labelPosition refers to the
-            // label relative to the checkbox. As such, they are inverted.
-            return this.labelPosition == 'after' ? 'start' : 'end';
-        },
-        set: /**
-         * @param {?} v
-         * @return {?}
-         */
-        function (v) {
-            this.labelPosition = (v == 'start') ? 'after' : 'before';
         },
         enumerable: true,
         configurable: true
@@ -23899,7 +23884,6 @@ var MatRadioButton = /** @class */ (function (_super) {
         "ariaDescribedby": [{ type: core.Input, args: ['aria-describedby',] },],
         "checked": [{ type: core.Input },],
         "value": [{ type: core.Input },],
-        "align": [{ type: core.Input },],
         "labelPosition": [{ type: core.Input },],
         "disabled": [{ type: core.Input },],
         "required": [{ type: core.Input },],
@@ -32246,7 +32230,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-44637f3');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-749f2a0');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32492,10 +32476,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa25 = MatMenuItemBase;
-exports.ɵb25 = _MatMenuItemMixinBase;
-exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32620,16 +32604,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵe25 = MatTabBase;
+exports.ɵf25 = _MatTabMixinBase;
+exports.ɵa25 = MatTabHeaderBase;
+exports.ɵb25 = _MatTabHeaderMixinBase;
+exports.ɵc25 = MatTabLabelWrapperBase;
+exports.ɵd25 = _MatTabLabelWrapperMixinBase;
+exports.ɵi25 = MatTabLinkBase;
+exports.ɵg25 = MatTabNavBase;
+exports.ɵj25 = _MatTabLinkMixinBase;
+exports.ɵh25 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

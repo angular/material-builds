@@ -73,12 +73,6 @@ export declare class MatRadioGroup extends _MatRadioGroupMixinBase implements Af
     _radios: QueryList<MatRadioButton>;
     /** Name of the radio button group. All radio buttons inside this group will use this name. */
     name: string;
-    /**
-     * Alignment of the radio-buttons relative to their labels. Can be 'before' or 'after'.
-     * @deprecated
-     * @deletion-target 6.0.0
-     */
-    align: 'start' | 'end';
     /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
     labelPosition: 'before' | 'after';
     /** Value of the radio button. */
@@ -159,15 +153,9 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     checked: boolean;
     /** The value of this radio button. */
     value: any;
-    /**
-     * Whether or not the radio-button should appear before or after the label.
-     * @deprecated
-     * @deletion-target 6.0.0
-     */
-    align: 'start' | 'end';
-    private _labelPosition;
     /** Whether the label should appear after or before the radio button. Defaults to 'after' */
     labelPosition: 'before' | 'after';
+    private _labelPosition;
     /** Whether the radio button is disabled. */
     disabled: boolean;
     /** Whether the radio button is required. */

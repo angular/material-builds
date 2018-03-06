@@ -350,7 +350,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * `View -> model callback called when autocomplete has been touched`
          */
         this._onTouched = function () { };
-        this._panelOpen = false;
+        this._overlayAttached = false;
         /**
          * Stream of autocomplete option selections.
          */
@@ -382,7 +382,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * Whether or not the autocomplete panel is open.
          * @return {?}
          */
-        function () { return this._panelOpen && this.autocomplete.showPanel; },
+        function () {
+            return this._overlayAttached && this.autocomplete.showPanel;
+        },
         enumerable: true,
         configurable: true
     });
@@ -410,22 +412,26 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         this._resetLabel();
-        if (this._panelOpen) {
-            this.autocomplete._isOpen = this._panelOpen = false;
+        if (!this._overlayAttached) {
+            return;
+        }
+        if (this.panelOpen) {
+            // Only emit if the panel was visible.
             this.autocomplete.closed.emit();
-            if (this._overlayRef && this._overlayRef.hasAttached()) {
-                this._overlayRef.detach();
-                this._closingActionsSubscription.unsubscribe();
-            }
-            // Note that in some cases this can end up being called after the component is destroyed.
-            // Add a check to ensure that we don't try to run change detection on a destroyed view.
-            if (!this._componentDestroyed) {
-                // We need to trigger change detection manually, because
-                // `fromEvent` doesn't seem to do it at the proper time.
-                // This ensures that the label is reset when the
-                // user clicks outside.
-                this._changeDetectorRef.detectChanges();
-            }
+        }
+        this.autocomplete._isOpen = this._overlayAttached = false;
+        if (this._overlayRef && this._overlayRef.hasAttached()) {
+            this._overlayRef.detach();
+            this._closingActionsSubscription.unsubscribe();
+        }
+        // Note that in some cases this can end up being called after the component is destroyed.
+        // Add a check to ensure that we don't try to run change detection on a destroyed view.
+        if (!this._componentDestroyed) {
+            // We need to trigger change detection manually, because
+            // `fromEvent` doesn't seem to do it at the proper time.
+            // This ensures that the label is reset when the
+            // user clicks outside.
+            this._changeDetectorRef.detectChanges();
         }
     };
     Object.defineProperty(MatAutocompleteTrigger.prototype, "panelClosingActions", {
@@ -440,8 +446,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () {
             var _this = this;
-            return merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter.filter(function () { return _this._panelOpen; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
-                this._overlayRef.detachments().pipe(filter.filter(function () { return _this._panelOpen; })) :
+            return merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter.filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
+                this._overlayRef.detachments().pipe(filter.filter(function () { return _this._overlayAttached; })) :
                 of.of());
         },
         enumerable: true,
@@ -477,7 +483,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
                 var /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
                 var /** @type {?} */ formField$$1 = _this._formField ?
                     _this._formField._elementRef.nativeElement : null;
-                return _this._panelOpen &&
+                return _this._overlayAttached &&
                     clickTarget !== _this._element.nativeElement &&
                     (!formField$$1 || !formField$$1.contains(clickTarget)) &&
                     (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
@@ -819,7 +825,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         }
         var /** @type {?} */ wasOpen = this.panelOpen;
         this.autocomplete._setVisibility();
-        this.autocomplete._isOpen = this._panelOpen = true;
+        this.autocomplete._isOpen = this._overlayAttached = true;
         // We need to do an extra `panelOpen` check in here, because the
         // autocomplete won't be shown if there are no options.
         if (this.panelOpen && wasOpen !== this.panelOpen) {

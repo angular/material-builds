@@ -62,6 +62,7 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     startView: 'month' | 'year';
     /** Color palette to use on the datepicker's calendar. */
     color: ThemePalette;
+    _color: ThemePalette;
     /**
      * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
      * than a popup and elements have more padding to allow for bigger touch targets.

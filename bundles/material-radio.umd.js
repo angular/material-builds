@@ -151,28 +151,6 @@ var MatRadioGroup = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatRadioGroup.prototype, "align", {
-        get: /**
-         * Alignment of the radio-buttons relative to their labels. Can be 'before' or 'after'.
-         * @deprecated
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () {
-            // align refers to the checkbox relative to the label, while labelPosition refers to the
-            // label relative to the checkbox. As such, they are inverted.
-            return this.labelPosition == 'after' ? 'start' : 'end';
-        },
-        set: /**
-         * @param {?} v
-         * @return {?}
-         */
-        function (v) {
-            this.labelPosition = (v == 'start') ? 'after' : 'before';
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MatRadioGroup.prototype, "labelPosition", {
         get: /**
          * Whether the labels should appear after or before the radio-buttons. Defaults to 'after'
@@ -186,7 +164,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
          * @return {?}
          */
         function (v) {
-            this._labelPosition = (v == 'before') ? 'before' : 'after';
+            this._labelPosition = v === 'before' ? 'before' : 'after';
             this._markRadiosForCheck();
         },
         enumerable: true,
@@ -472,7 +450,6 @@ var MatRadioGroup = /** @class */ (function (_super) {
         "change": [{ type: core.Output },],
         "_radios": [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatRadioButton; }), { descendants: true },] },],
         "name": [{ type: core.Input },],
-        "align": [{ type: core.Input },],
         "labelPosition": [{ type: core.Input },],
         "value": [{ type: core.Input },],
         "selected": [{ type: core.Input },],
@@ -597,28 +574,6 @@ var MatRadioButton = /** @class */ (function (_super) {
                     }
                 }
             }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatRadioButton.prototype, "align", {
-        get: /**
-         * Whether or not the radio-button should appear before or after the label.
-         * @deprecated
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () {
-            // align refers to the checkbox relative to the label, while labelPosition refers to the
-            // label relative to the checkbox. As such, they are inverted.
-            return this.labelPosition == 'after' ? 'start' : 'end';
-        },
-        set: /**
-         * @param {?} v
-         * @return {?}
-         */
-        function (v) {
-            this.labelPosition = (v == 'start') ? 'after' : 'before';
         },
         enumerable: true,
         configurable: true
@@ -889,7 +844,6 @@ var MatRadioButton = /** @class */ (function (_super) {
         "ariaDescribedby": [{ type: core.Input, args: ['aria-describedby',] },],
         "checked": [{ type: core.Input },],
         "value": [{ type: core.Input },],
-        "align": [{ type: core.Input },],
         "labelPosition": [{ type: core.Input },],
         "disabled": [{ type: core.Input },],
         "required": [{ type: core.Input },],
