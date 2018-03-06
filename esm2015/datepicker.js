@@ -1606,21 +1606,6 @@ class MatDatepicker {
         this._startAt = this._getValidDateOrNull(this._dateAdapter.deserialize(value));
     }
     /**
-     * Color palette to use on the datepicker's calendar.
-     * @return {?}
-     */
-    get color() {
-        return this._color ||
-            (this._datepickerInput ? this._datepickerInput._getThemePalette() : undefined);
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set color(value) {
-        this._color = value;
-    }
-    /**
      * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
      * than a popup and elements have more padding to allow for bigger touch targets.
      * @return {?}
@@ -1880,7 +1865,8 @@ class MatDatepicker {
      * @return {?}
      */
     _setColor() {
-        const /** @type {?} */ color = this.color;
+        const /** @type {?} */ input = this._datepickerInput;
+        const /** @type {?} */ color = this.color || (input ? input._getThemePalette() : undefined);
         if (this._popupComponentRef) {
             this._popupComponentRef.instance.color = color;
         }
