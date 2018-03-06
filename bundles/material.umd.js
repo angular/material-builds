@@ -13125,6 +13125,25 @@ var MatDatepicker = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatDatepicker.prototype, "color", {
+        get: /**
+         * Color palette to use on the datepicker's calendar.
+         * @return {?}
+         */
+        function () {
+            return this._color ||
+                (this._datepickerInput ? this._datepickerInput._getThemePalette() : undefined);
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._color = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatDatepicker.prototype, "touchUi", {
         get: /**
          * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
@@ -13485,8 +13504,7 @@ var MatDatepicker = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ input = this._datepickerInput;
-        var /** @type {?} */ color = this.color || (input ? input._getThemePalette() : undefined);
+        var /** @type {?} */ color = this.color;
         if (this._popupComponentRef) {
             this._popupComponentRef.instance.color = color;
         }
@@ -27060,33 +27078,27 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function (portal$$1) {
-        if (this._portalOutlet.hasAttached()) {
-            throw Error('Attempting to attach snack bar content after content is already attached');
-        }
-        var /** @type {?} */ element = this._elementRef.nativeElement;
-        if (this.snackBarConfig.panelClass || this.snackBarConfig.extraClasses) {
-            this._setCssClasses(this.snackBarConfig.panelClass);
-            this._setCssClasses(this.snackBarConfig.extraClasses);
-        }
-        if (this.snackBarConfig.horizontalPosition === 'center') {
-            element.classList.add('mat-snack-bar-center');
-        }
-        if (this.snackBarConfig.verticalPosition === 'top') {
-            element.classList.add('mat-snack-bar-top');
-        }
+        this._assertNotAttached();
+        this._applySnackBarClasses();
         return this._portalOutlet.attachComponentPortal(portal$$1);
     };
     /** Attach a template portal as content to this snack bar container. */
     /**
      * Attach a template portal as content to this snack bar container.
+     * @template C
+     * @param {?} portal
      * @return {?}
      */
     MatSnackBarContainer.prototype.attachTemplatePortal = /**
      * Attach a template portal as content to this snack bar container.
+     * @template C
+     * @param {?} portal
      * @return {?}
      */
-    function () {
-        throw Error('Not yet implemented');
+    function (portal$$1) {
+        this._assertNotAttached();
+        this._applySnackBarClasses();
+        return this._portalOutlet.attachTemplatePortal(portal$$1);
     };
     /** Handle end of animations, updating the state of the snackbar. */
     /**
@@ -27195,6 +27207,40 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
             element.classList.add(classList);
         }
     };
+    /**
+     * Applies the various positioning and user-configured CSS classes to the snack bar.
+     * @return {?}
+     */
+    MatSnackBarContainer.prototype._applySnackBarClasses = /**
+     * Applies the various positioning and user-configured CSS classes to the snack bar.
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ element = this._elementRef.nativeElement;
+        if (this.snackBarConfig.panelClass || this.snackBarConfig.extraClasses) {
+            this._setCssClasses(this.snackBarConfig.panelClass);
+            this._setCssClasses(this.snackBarConfig.extraClasses);
+        }
+        if (this.snackBarConfig.horizontalPosition === 'center') {
+            element.classList.add('mat-snack-bar-center');
+        }
+        if (this.snackBarConfig.verticalPosition === 'top') {
+            element.classList.add('mat-snack-bar-top');
+        }
+    };
+    /**
+     * Asserts that no content is already attached to the container.
+     * @return {?}
+     */
+    MatSnackBarContainer.prototype._assertNotAttached = /**
+     * Asserts that no content is already attached to the container.
+     * @return {?}
+     */
+    function () {
+        if (this._portalOutlet.hasAttached()) {
+            throw Error('Attempting to attach snack bar content after content is already attached');
+        }
+    };
     MatSnackBarContainer.decorators = [
         { type: core.Component, args: [{selector: 'snack-bar-container',
                     template: "<ng-template cdkPortalOutlet></ng-template>",
@@ -27300,37 +27346,33 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (component, config) {
-        var _this = this;
-        var /** @type {?} */ _config = __assign({}, this._defaultConfig, config);
-        var /** @type {?} */ snackBarRef = this._attach(component, _config);
-        // When the snackbar is dismissed, clear the reference to it.
-        snackBarRef.afterDismissed().subscribe(function () {
-            // Clear the snackbar ref if it hasn't already been replaced by a newer snackbar.
-            if (_this._openedSnackBarRef == snackBarRef) {
-                _this._openedSnackBarRef = null;
-            }
-        });
-        if (this._openedSnackBarRef) {
-            // If a snack bar is already in view, dismiss it and enter the
-            // new snack bar after exit animation is complete.
-            this._openedSnackBarRef.afterDismissed().subscribe(function () {
-                snackBarRef.containerInstance.enter();
-            });
-            this._openedSnackBarRef.dismiss();
-        }
-        else {
-            // If no snack bar is in view, enter the new snack bar.
-            snackBarRef.containerInstance.enter();
-        }
-        // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
-        if (_config.duration && _config.duration > 0) {
-            snackBarRef.afterOpened().subscribe(function () { return snackBarRef._dismissAfter(/** @type {?} */ ((/** @type {?} */ ((_config)).duration))); });
-        }
-        if (_config.announcementMessage) {
-            this._live.announce(_config.announcementMessage, _config.politeness);
-        }
-        this._openedSnackBarRef = snackBarRef;
-        return this._openedSnackBarRef;
+        return /** @type {?} */ (this._attach(component, config));
+    };
+    /**
+     * Creates and dispatches a snack bar with a custom template for the content, removing any
+     * currently opened snack bars.
+     *
+     * @param template Template to be instantiated.
+     * @param config Extra configuration for the snack bar.
+     */
+    /**
+     * Creates and dispatches a snack bar with a custom template for the content, removing any
+     * currently opened snack bars.
+     *
+     * @param {?} template Template to be instantiated.
+     * @param {?=} config Extra configuration for the snack bar.
+     * @return {?}
+     */
+    MatSnackBar.prototype.openFromTemplate = /**
+     * Creates and dispatches a snack bar with a custom template for the content, removing any
+     * currently opened snack bars.
+     *
+     * @param {?} template Template to be instantiated.
+     * @param {?=} config Extra configuration for the snack bar.
+     * @return {?}
+     */
+    function (template, config) {
+        return this._attach(template, config);
     };
     /**
      * Opens a snackbar with a message and an optional action.
@@ -27396,28 +27438,38 @@ var MatSnackBar = /** @class */ (function () {
         return containerRef.instance;
     };
     /**
-     * Places a new component as the content of the snack bar container.
+     * Places a new component or a template as the content of the snack bar container.
      * @template T
-     * @param {?} component
-     * @param {?} config
+     * @param {?} content
+     * @param {?=} userConfig
      * @return {?}
      */
     MatSnackBar.prototype._attach = /**
-     * Places a new component as the content of the snack bar container.
+     * Places a new component or a template as the content of the snack bar container.
      * @template T
-     * @param {?} component
-     * @param {?} config
+     * @param {?} content
+     * @param {?=} userConfig
      * @return {?}
      */
-    function (component, config) {
+    function (content, userConfig) {
+        var /** @type {?} */ config = __assign({}, this._defaultConfig, userConfig);
         var /** @type {?} */ overlayRef = this._createOverlay(config);
         var /** @type {?} */ container = this._attachSnackBarContainer(overlayRef, config);
         var /** @type {?} */ snackBarRef = new MatSnackBarRef(container, overlayRef);
-        var /** @type {?} */ injector = this._createInjector(config, snackBarRef);
-        var /** @type {?} */ portal$$1 = new portal.ComponentPortal(component, undefined, injector);
-        var /** @type {?} */ contentRef = container.attachComponentPortal(portal$$1);
-        // We can't pass this via the injector, because the injector is created earlier.
-        snackBarRef.instance = contentRef.instance;
+        if (content instanceof core.TemplateRef) {
+            var /** @type {?} */ portal$$1 = new portal.TemplatePortal(content, /** @type {?} */ ((null)), /** @type {?} */ ({
+                $implicit: config.data,
+                snackBarRef: snackBarRef
+            }));
+            snackBarRef.instance = container.attachTemplatePortal(portal$$1);
+        }
+        else {
+            var /** @type {?} */ injector = this._createInjector(config, snackBarRef);
+            var /** @type {?} */ portal$$1 = new portal.ComponentPortal(content, undefined, injector);
+            var /** @type {?} */ contentRef = container.attachComponentPortal(portal$$1);
+            // We can't pass this via the injector, because the injector is created earlier.
+            snackBarRef.instance = contentRef.instance;
+        }
         // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
         // appropriate. This class is applied to the overlay element because the overlay must expand to
         // fill the width of the screen for full width snackbars.
@@ -27429,7 +27481,50 @@ var MatSnackBar = /** @class */ (function () {
                 overlayRef.overlayElement.classList.remove('mat-snack-bar-handset');
             }
         });
-        return snackBarRef;
+        this._animateSnackBar(snackBarRef, config);
+        this._openedSnackBarRef = snackBarRef;
+        return this._openedSnackBarRef;
+    };
+    /**
+     * Animates the old snack bar out and the new one in.
+     * @param {?} snackBarRef
+     * @param {?} config
+     * @return {?}
+     */
+    MatSnackBar.prototype._animateSnackBar = /**
+     * Animates the old snack bar out and the new one in.
+     * @param {?} snackBarRef
+     * @param {?} config
+     * @return {?}
+     */
+    function (snackBarRef, config) {
+        var _this = this;
+        // When the snackbar is dismissed, clear the reference to it.
+        snackBarRef.afterDismissed().subscribe(function () {
+            // Clear the snackbar ref if it hasn't already been replaced by a newer snackbar.
+            if (_this._openedSnackBarRef == snackBarRef) {
+                _this._openedSnackBarRef = null;
+            }
+        });
+        if (this._openedSnackBarRef) {
+            // If a snack bar is already in view, dismiss it and enter the
+            // new snack bar after exit animation is complete.
+            this._openedSnackBarRef.afterDismissed().subscribe(function () {
+                snackBarRef.containerInstance.enter();
+            });
+            this._openedSnackBarRef.dismiss();
+        }
+        else {
+            // If no snack bar is in view, enter the new snack bar.
+            snackBarRef.containerInstance.enter();
+        }
+        // If a dismiss timeout is provided, set up dismiss based on after the snackbar is opened.
+        if (config.duration && config.duration > 0) {
+            snackBarRef.afterOpened().subscribe(function () { return snackBarRef._dismissAfter(/** @type {?} */ ((config.duration))); });
+        }
+        if (config.announcementMessage) {
+            this._live.announce(config.announcementMessage, config.politeness);
+        }
     };
     /**
      * Creates a new overlay and places it in the correct location.
@@ -32212,7 +32307,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-be0f17e');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-f91334a');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32458,10 +32553,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa25 = MatMenuItemBase;
-exports.ɵb25 = _MatMenuItemMixinBase;
-exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32629,7 +32724,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa5 = MatTreeNodeOutlet;
+exports.ɵa12 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

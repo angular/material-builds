@@ -9,7 +9,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
-import { Injector, InjectionToken } from '@angular/core';
+import { EmbeddedViewRef, Injector, InjectionToken, TemplateRef } from '@angular/core';
 import { SimpleSnackBar } from './simple-snack-bar';
 import { MatSnackBarConfig } from './snack-bar-config';
 import { MatSnackBarRef } from './snack-bar-ref';
@@ -43,6 +43,14 @@ export declare class MatSnackBar {
      */
     openFromComponent<T>(component: ComponentType<T>, config?: MatSnackBarConfig): MatSnackBarRef<T>;
     /**
+     * Creates and dispatches a snack bar with a custom template for the content, removing any
+     * currently opened snack bars.
+     *
+     * @param template Template to be instantiated.
+     * @param config Extra configuration for the snack bar.
+     */
+    openFromTemplate(template: TemplateRef<any>, config?: MatSnackBarConfig): MatSnackBarRef<EmbeddedViewRef<any>>;
+    /**
      * Opens a snackbar with a message and an optional action.
      * @param message The message to show in the snackbar.
      * @param action The label for the snackbar action.
@@ -58,9 +66,11 @@ export declare class MatSnackBar {
      */
     private _attachSnackBarContainer(overlayRef, config);
     /**
-     * Places a new component as the content of the snack bar container.
+     * Places a new component or a template as the content of the snack bar container.
      */
-    private _attach<T>(component, config);
+    private _attach<T>(content, userConfig?);
+    /** Animates the old snack bar out and the new one in. */
+    private _animateSnackBar(snackBarRef, config);
     /**
      * Creates a new overlay and places it in the correct location.
      * @param config The user-specified snack bar config.

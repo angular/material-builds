@@ -7,7 +7,7 @@
  */
 import { ComponentRef, EmbeddedViewRef, NgZone, OnDestroy, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
-import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet } from '@angular/cdk/portal';
+import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { MatSnackBarConfig } from './snack-bar-config';
@@ -35,7 +35,7 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     /** Attach a component portal as content to this snack bar container. */
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
     /** Attach a template portal as content to this snack bar container. */
-    attachTemplatePortal(): EmbeddedViewRef<any>;
+    attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C>;
     /** Handle end of animations, updating the state of the snackbar. */
     onAnimationEnd(event: AnimationEvent): void;
     /** Begin animation of snack bar entrance into view. */
@@ -51,4 +51,8 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     private _completeExit();
     /** Applies the user-specified list of CSS classes to the element. */
     private _setCssClasses(classList);
+    /** Applies the various positioning and user-configured CSS classes to the snack bar. */
+    private _applySnackBarClasses();
+    /** Asserts that no content is already attached to the container. */
+    private _assertNotAttached();
 }

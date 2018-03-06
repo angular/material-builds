@@ -1935,6 +1935,25 @@ var MatDatepicker = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatDatepicker.prototype, "color", {
+        get: /**
+         * Color palette to use on the datepicker's calendar.
+         * @return {?}
+         */
+        function () {
+            return this._color ||
+                (this._datepickerInput ? this._datepickerInput._getThemePalette() : undefined);
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._color = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatDatepicker.prototype, "touchUi", {
         get: /**
          * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
@@ -2295,8 +2314,7 @@ var MatDatepicker = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ input = this._datepickerInput;
-        var /** @type {?} */ color = this.color || (input ? input._getThemePalette() : undefined);
+        var /** @type {?} */ color = this.color;
         if (this._popupComponentRef) {
             this._popupComponentRef.instance.color = color;
         }
