@@ -91,7 +91,6 @@ MatToolbar.decorators = [
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
             },] },
 ];
 /** @nocollapse */

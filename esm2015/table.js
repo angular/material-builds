@@ -22,6 +22,7 @@ import { _isNumberValue } from '@angular/cdk/coercion';
  */
 /**
  * Wrapper for the CdkTable with Material design styles.
+ * @template T
  */
 class MatTable extends CdkTable {
 }
@@ -34,7 +35,6 @@ MatTable.decorators = [
                     'class': 'mat-table',
                 },
                 encapsulation: ViewEncapsulation.None,
-                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
@@ -168,6 +168,7 @@ MatHeaderRowDef.ctorParameters = () => [];
  * Data row definition for the mat-table.
  * Captures the header row's template and other row properties such as the columns to display and
  * a when predicate that describes when this row should be used.
+ * @template T
  */
 class MatRowDef extends CdkRowDef {
 }
@@ -195,7 +196,6 @@ MatHeaderRow.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 exportAs: 'matHeaderRow',
-                preserveWhitespaces: false,
             },] },
 ];
 /** @nocollapse */
@@ -215,7 +215,6 @@ MatRow.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 exportAs: 'matRow',
-                preserveWhitespaces: false,
             },] },
 ];
 /** @nocollapse */
@@ -252,6 +251,7 @@ MatTableModule.ctorParameters = () => [];
  * Allows for sort customization by overriding sortingDataAccessor, which defines how data
  * properties are accessed. Also allows for filter customization by overriding filterTermAccessor,
  * which defines how row data is converted to a string for filter matching.
+ * @template T
  */
 class MatTableDataSource extends DataSource {
     /**

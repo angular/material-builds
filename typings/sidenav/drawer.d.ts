@@ -180,9 +180,13 @@ export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
      */
     autosize: boolean;
     private _autosize;
-    /** Whether the drawer container should have a backdrop while one of the sidenavs is open. */
+    /**
+     * Whether the drawer container should have a backdrop while one of the sidenavs is open.
+     * If explicitly set to `true`, the backdrop will be enabled for drawers in the `side`
+     * mode as well.
+     */
     hasBackdrop: any;
-    private _hasBackdrop;
+    _backdropOverride: boolean | null;
     /** Event emitted when the drawer backdrop is clicked. */
     readonly backdropClick: EventEmitter<void>;
     /** The drawer at the start/end position, independent of direction. */
@@ -236,6 +240,7 @@ export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
     _onBackdropClicked(): void;
     _closeModalDrawer(): void;
     _isShowingBackdrop(): boolean;
+    private _canHaveBackdrop(drawer);
     private _isDrawerOpen(drawer);
     /**
      * Recalculates and updates the inline styles for the content. Note that this should be used

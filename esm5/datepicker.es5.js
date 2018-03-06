@@ -230,7 +230,6 @@ var MatCalendarBody = /** @class */ (function () {
                     },
                     exportAs: 'matCalendarBody',
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -262,6 +261,7 @@ var /** @type {?} */ DAYS_PER_WEEK = 7;
 /**
  * An internal component used to display a single month in the datepicker.
  * \@docs-private
+ * @template D
  */
 var MatMonthView = /** @class */ (function () {
     function MatMonthView(_changeDetectorRef, _dateFormats, _dateAdapter, _dir) {
@@ -595,7 +595,6 @@ var MatMonthView = /** @class */ (function () {
                     template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th *ngFor=\"let day of _weekdays\" [attr.aria-label]=\"day.long\">{{day.narrow}}</th></tr><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"7\" aria-hidden=\"true\"></th></tr></thead><tbody mat-calendar-body [label]=\"_monthLabel\" [rows]=\"_weeks\" [todayValue]=\"_todayDate\" [selectedValue]=\"_selectedDate\" [labelMinRequiredCells]=\"3\" [activeCell]=\"_dateAdapter.getDate(activeDate) - 1\" (selectedValueChange)=\"_dateSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matMonthView',
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush
                 },] },
     ];
@@ -629,6 +628,7 @@ var /** @type {?} */ yearsPerRow = 4;
 /**
  * An internal component used to display a year selector in the datepicker.
  * \@docs-private
+ * @template D
  */
 var MatMultiYearView = /** @class */ (function () {
     function MatMultiYearView(_changeDetectorRef, _dateAdapter, _dir) {
@@ -915,7 +915,6 @@ var MatMultiYearView = /** @class */ (function () {
                     template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [rows]=\"_years\" [todayValue]=\"_todayYear\" [selectedValue]=\"_selectedYear\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_getActiveCell()\" (selectedValueChange)=\"_yearSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matMultiYearView',
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush
                 },] },
     ];
@@ -945,6 +944,7 @@ var MatMultiYearView = /** @class */ (function () {
 /**
  * An internal component used to display a single year in the datepicker.
  * \@docs-private
+ * @template D
  */
 var MatYearView = /** @class */ (function () {
     function MatYearView(_changeDetectorRef, _dateFormats, _dateAdapter, _dir) {
@@ -1283,7 +1283,6 @@ var MatYearView = /** @class */ (function () {
                     template: "<table class=\"mat-calendar-table\"><thead class=\"mat-calendar-table-header\"><tr><th class=\"mat-calendar-table-header-divider\" colspan=\"4\"></th></tr></thead><tbody mat-calendar-body allowDisabledSelection=\"true\" [label]=\"_yearLabel\" [rows]=\"_months\" [todayValue]=\"_todayMonth\" [selectedValue]=\"_selectedMonth\" [labelMinRequiredCells]=\"2\" [numCols]=\"4\" [cellAspectRatio]=\"4 / 7\" [activeCell]=\"_dateAdapter.getMonth(activeDate)\" (selectedValueChange)=\"_monthSelected($event)\" (keydown)=\"_handleCalendarBodyKeydown($event)\"></tbody></table>",
                     exportAs: 'matYearView',
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush
                 },] },
     ];
@@ -1314,6 +1313,7 @@ var MatYearView = /** @class */ (function () {
 /**
  * A calendar that is used as part of the datepicker.
  * \@docs-private
+ * @template D
  */
 var MatCalendar = /** @class */ (function () {
     function MatCalendar(_intl, _dateAdapter, _dateFormats, changeDetectorRef) {
@@ -1717,7 +1717,6 @@ var MatCalendar = /** @class */ (function () {
                     },
                     exportAs: 'matCalendar',
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -1793,6 +1792,7 @@ var /** @type {?} */ _MatDatepickerContentMixinBase = mixinColor(MatDatepickerCo
  * place to put additional features of the popup that are not part of the calendar itself in the
  * future. (e.g. confirmation buttons).
  * \@docs-private
+ * @template D
  */
 var MatDatepickerContent = /** @class */ (function (_super) {
     __extends(MatDatepickerContent, _super);
@@ -1836,7 +1836,6 @@ var MatDatepickerContent = /** @class */ (function (_super) {
                     },
                     exportAs: 'matDatepickerContent',
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     inputs: ['color'],
                 },] },
@@ -1853,6 +1852,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
 }(_MatDatepickerContentMixinBase));
 /**
  * Component responsible for managing the datepicker popup/dialog.
+ * @template D
  */
 var MatDatepicker = /** @class */ (function () {
     function MatDatepicker(_dialog, _overlay, _ngZone, _viewContainerRef, _scrollStrategy, _dateAdapter, _dir, _document) {
@@ -2328,7 +2328,6 @@ var MatDatepicker = /** @class */ (function () {
                     exportAs: 'matDatepicker',
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                 },] },
     ];
     /** @nocollapse */
@@ -2377,11 +2376,13 @@ var /** @type {?} */ MAT_DATEPICKER_VALIDATORS = {
  * An event used for datepicker input and change events. We don't always have access to a native
  * input or change event because the event may have been triggered by the user clicking on the
  * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
+ * @template D
  */
 var  /**
  * An event used for datepicker input and change events. We don't always have access to a native
  * input or change event because the event may have been triggered by the user clicking on the
  * calendar popup. For consistency, we always use MatDatepickerInputEvent instead.
+ * @template D
  */
 MatDatepickerInputEvent = /** @class */ (function () {
     function MatDatepickerInputEvent(target, targetElement) {
@@ -2393,6 +2394,7 @@ MatDatepickerInputEvent = /** @class */ (function () {
 }());
 /**
  * Directive used to connect an input to a MatDatepicker.
+ * @template D
  */
 var MatDatepickerInput = /** @class */ (function () {
     function MatDatepickerInput(_elementRef, _dateAdapter, _dateFormats, _formField) {
@@ -2861,6 +2863,9 @@ var MatDatepickerToggleIcon = /** @class */ (function () {
     MatDatepickerToggleIcon.ctorParameters = function () { return []; };
     return MatDatepickerToggleIcon;
 }());
+/**
+ * @template D
+ */
 var MatDatepickerToggle = /** @class */ (function () {
     function MatDatepickerToggle(_intl, _changeDetectorRef) {
         this._intl = _intl;
@@ -2959,7 +2964,6 @@ var MatDatepickerToggle = /** @class */ (function () {
                     },
                     exportAs: 'matDatepickerToggle',
                     encapsulation: ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
