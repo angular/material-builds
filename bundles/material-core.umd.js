@@ -2728,7 +2728,6 @@ var /** @type {?} */ MAT_LABEL_GLOBAL_OPTIONS = new core.InjectionToken('mat-lab
 var /** @type {?} */ JAN = 0, /** @type {?} */ FEB = 1, /** @type {?} */ MAR = 2, /** @type {?} */ APR = 3, /** @type {?} */ MAY = 4, /** @type {?} */ JUN = 5, /** @type {?} */ JUL = 6, /** @type {?} */ AUG = 7, /** @type {?} */ SEP = 8, /** @type {?} */
 OCT = 9, /** @type {?} */ NOV = 10, /** @type {?} */ DEC = 11;
 
-exports.MAT_PLACEHOLDER_GLOBAL_OPTIONS = MAT_LABEL_GLOBAL_OPTIONS;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MatCommonModule = MatCommonModule;
