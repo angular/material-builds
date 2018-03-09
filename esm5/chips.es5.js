@@ -369,8 +369,11 @@ var MatChip = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._elementRef.nativeElement.focus();
-        this._onFocus.next({ chip: this });
+        if (!this._hasFocus) {
+            this._elementRef.nativeElement.focus();
+            this._onFocus.next({ chip: this });
+        }
+        this._hasFocus = true;
     };
     /**
      * Allows for programmatic removal of the chip. Called by the MatChipList when the DELETE or
@@ -415,7 +418,6 @@ var MatChip = /** @class */ (function (_super) {
         }
         event.preventDefault();
         event.stopPropagation();
-        this.focus();
     };
     /** Handle custom key presses. */
     /**
@@ -478,7 +480,7 @@ var MatChip = /** @class */ (function (_super) {
                         '[attr.aria-selected]': 'ariaSelected',
                         '(click)': '_handleClick($event)',
                         '(keydown)': '_handleKeydown($event)',
-                        '(focus)': '_hasFocus = true',
+                        '(focus)': 'focus()',
                         '(blur)': '_blur()',
                     },
                 },] },
@@ -1243,7 +1245,7 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         var /** @type {?} */ chipsArray = this.chips;
-        if (this._lastDestroyedIndex != null && chipsArray.length > 0) {
+        if (this._lastDestroyedIndex != null && chipsArray.length > 0 && this.focused) {
             // Check whether the destroyed chip was the last item
             var /** @type {?} */ newFocusIndex = Math.min(this._lastDestroyedIndex, chipsArray.length - 1);
             this._keyManager.setActiveItem(newFocusIndex);
@@ -1312,9 +1314,6 @@ var MatChipList = /** @class */ (function (_super) {
             if (correspondingChip) {
                 if (isUserInput) {
                     this._keyManager.setActiveItem(correspondingChip);
-                }
-                else {
-                    this._keyManager.updateActiveItem(correspondingChip);
                 }
             }
         }
@@ -1436,6 +1435,7 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
+        this._keyManager.setActiveItem(-1);
         if (!this.disabled) {
             if (this._chipInput) {
                 // If there's a chip input, we should check whether the focus moved to chip input.

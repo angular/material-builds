@@ -3595,9 +3595,7 @@ var /** @type {?} */ _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompl
 var /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new core.InjectionToken('mat-autocomplete-default-options');
 var MatAutocomplete = /** @class */ (function (_super) {
     __extends(MatAutocomplete, _super);
-    function MatAutocomplete(_changeDetectorRef, _elementRef, 
-        // @deletion-target Turn into required param in 6.0.0
-        defaults) {
+    function MatAutocomplete(_changeDetectorRef, _elementRef, defaults) {
         var _this = _super.call(this) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._elementRef = _elementRef;
@@ -3627,10 +3625,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
         _this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
-        _this._autoActiveFirstOption = defaults &&
-            typeof defaults.autoActiveFirstOption !== 'undefined' ?
-            defaults.autoActiveFirstOption :
-            false;
+        _this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
         return _this;
     }
     Object.defineProperty(MatAutocomplete.prototype, "isOpen", {
@@ -3771,7 +3766,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
     MatAutocomplete.ctorParameters = function () { return [
         { type: core.ChangeDetectorRef, },
         { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] },] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] },] },
     ]; };
     MatAutocomplete.propDecorators = {
         "template": [{ type: core.ViewChild, args: [core.TemplateRef,] },],
@@ -4470,7 +4465,10 @@ var MatAutocompleteModule = /** @class */ (function () {
                     imports: [MatOptionModule, overlay.OverlayModule, MatCommonModule, common.CommonModule],
                     exports: [MatAutocomplete, MatOptionModule, MatAutocompleteTrigger, MatCommonModule],
                     declarations: [MatAutocomplete, MatAutocompleteTrigger],
-                    providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
+                    providers: [
+                        MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER,
+                        { provide: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, useValue: false }
+                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -7627,8 +7625,11 @@ var MatChip = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._elementRef.nativeElement.focus();
-        this._onFocus.next({ chip: this });
+        if (!this._hasFocus) {
+            this._elementRef.nativeElement.focus();
+            this._onFocus.next({ chip: this });
+        }
+        this._hasFocus = true;
     };
     /**
      * Allows for programmatic removal of the chip. Called by the MatChipList when the DELETE or
@@ -7673,7 +7674,6 @@ var MatChip = /** @class */ (function (_super) {
         }
         event.preventDefault();
         event.stopPropagation();
-        this.focus();
     };
     /** Handle custom key presses. */
     /**
@@ -7736,7 +7736,7 @@ var MatChip = /** @class */ (function (_super) {
                         '[attr.aria-selected]': 'ariaSelected',
                         '(click)': '_handleClick($event)',
                         '(keydown)': '_handleKeydown($event)',
-                        '(focus)': '_hasFocus = true',
+                        '(focus)': 'focus()',
                         '(blur)': '_blur()',
                     },
                 },] },
@@ -8501,7 +8501,7 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         var /** @type {?} */ chipsArray = this.chips;
-        if (this._lastDestroyedIndex != null && chipsArray.length > 0) {
+        if (this._lastDestroyedIndex != null && chipsArray.length > 0 && this.focused) {
             // Check whether the destroyed chip was the last item
             var /** @type {?} */ newFocusIndex = Math.min(this._lastDestroyedIndex, chipsArray.length - 1);
             this._keyManager.setActiveItem(newFocusIndex);
@@ -8570,9 +8570,6 @@ var MatChipList = /** @class */ (function (_super) {
             if (correspondingChip) {
                 if (isUserInput) {
                     this._keyManager.setActiveItem(correspondingChip);
-                }
-                else {
-                    this._keyManager.updateActiveItem(correspondingChip);
                 }
             }
         }
@@ -8694,6 +8691,7 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
+        this._keyManager.setActiveItem(-1);
         if (!this.disabled) {
             if (this._chipInput) {
                 // If there's a chip input, we should check whether the focus moved to chip input.
@@ -10770,11 +10768,6 @@ var MatInput = /** @class */ (function (_super) {
          */
         _this.autofilled = false;
         _this._disabled = false;
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         */
-        _this.placeholder = '';
         _this._required = false;
         _this._type = 'text';
         _this._readonly = false;
@@ -11169,7 +11162,7 @@ var MatInput = /** @class */ (function (_super) {
                         // Native input properties that are overwritten by Angular inputs need to be synced with
                         // the native input element. Otherwise property bindings for those don't work.
                         '[attr.id]': 'id',
-                        '[placeholder]': 'placeholder',
+                        '[attr.placeholder]': 'placeholder',
                         '[disabled]': 'disabled',
                         '[required]': 'required',
                         '[readonly]': 'readonly',
@@ -13864,15 +13857,17 @@ var MatDatepickerInput = /** @class */ (function () {
          */
         function (value) {
             var /** @type {?} */ newValue = coercion.coerceBooleanProperty(value);
+            var /** @type {?} */ element = this._elementRef.nativeElement;
             if (this._disabled !== newValue) {
                 this._disabled = newValue;
                 this._disabledChange.emit(newValue);
             }
-            if (newValue) {
+            // We need to null check the `blur` method, because it's undefined during SSR.
+            if (newValue && element.blur) {
                 // Normally, native input elements automatically blur if they turn disabled. This behavior
                 // is problematic, because it would mean that it triggers another change detection cycle,
                 // which then causes a changed after checked error if the input element was focused before.
-                this._elementRef.nativeElement.blur();
+                element.blur();
             }
         },
         enumerable: true,
@@ -16804,6 +16799,7 @@ var MatIcon = /** @class */ (function (_super) {
     function MatIcon(elementRef, _iconRegistry, ariaHidden) {
         var _this = _super.call(this, elementRef) || this;
         _this._iconRegistry = _iconRegistry;
+        _this._inline = false;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
         if (!ariaHidden) {
@@ -16811,6 +16807,25 @@ var MatIcon = /** @class */ (function (_super) {
         }
         return _this;
     }
+    Object.defineProperty(MatIcon.prototype, "inline", {
+        get: /**
+         * Whether the icon should be inlined, automatically sizing the icon to match the font size of
+         * the element the icon is contained in.
+         * @return {?}
+         */
+        function () {
+            return this._inline;
+        },
+        set: /**
+         * @param {?} inline
+         * @return {?}
+         */
+        function (inline) {
+            this._inline = coercion.coerceBooleanProperty(inline);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatIcon.prototype, "fontSet", {
         get: /**
          * Font set that the icon is a part of.
@@ -17011,11 +17026,12 @@ var MatIcon = /** @class */ (function (_super) {
         { type: core.Component, args: [{template: '<ng-content></ng-content>',
                     selector: 'mat-icon',
                     exportAs: 'matIcon',
-                    styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"],
+                    styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"],
                     inputs: ['color'],
                     host: {
                         'role': 'img',
                         'class': 'mat-icon',
+                        '[class.mat-icon-inline]': 'inline',
                     },
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -17028,6 +17044,7 @@ var MatIcon = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: core.Attribute, args: ['aria-hidden',] },] },
     ]; };
     MatIcon.propDecorators = {
+        "inline": [{ type: core.Input },],
         "svgIcon": [{ type: core.Input },],
         "fontSet": [{ type: core.Input },],
         "fontIcon": [{ type: core.Input },],
@@ -28489,62 +28506,6 @@ var MatStepHeader = /** @class */ (function () {
         _focusMonitor.monitor(_element.nativeElement, true);
         this._intlSubscription = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
-    Object.defineProperty(MatStepHeader.prototype, "index", {
-        get: /**
-         * Index of the given step.
-         * @return {?}
-         */
-        function () { return this._index; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._index = coercion.coerceNumberProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatStepHeader.prototype, "selected", {
-        get: /**
-         * Whether the given step is selected.
-         * @return {?}
-         */
-        function () { return this._selected; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._selected = coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatStepHeader.prototype, "active", {
-        get: /**
-         * Whether the given step label is active.
-         * @return {?}
-         */
-        function () { return this._active; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._active = coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatStepHeader.prototype, "optional", {
-        get: /**
-         * Whether the given step is optional.
-         * @return {?}
-         */
-        function () { return this._optional; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._optional = coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -32373,7 +32334,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-c12d7c4');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-b10fff4');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32620,10 +32581,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa25 = MatMenuItemBase;
-exports.ɵb25 = _MatMenuItemMixinBase;
-exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32748,16 +32709,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe25 = MatTabBase;
+exports.ɵf25 = _MatTabMixinBase;
+exports.ɵa25 = MatTabHeaderBase;
+exports.ɵb25 = _MatTabHeaderMixinBase;
+exports.ɵc25 = MatTabLabelWrapperBase;
+exports.ɵd25 = _MatTabLabelWrapperMixinBase;
+exports.ɵi25 = MatTabLinkBase;
+exports.ɵg25 = MatTabNavBase;
+exports.ɵj25 = _MatTabLinkMixinBase;
+exports.ɵh25 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;

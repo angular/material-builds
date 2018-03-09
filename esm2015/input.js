@@ -456,11 +456,6 @@ class MatInput extends _MatInputMixinBase {
          */
         this.autofilled = false;
         this._disabled = false;
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         */
-        this.placeholder = '';
         this._required = false;
         this._type = 'text';
         this._readonly = false;
@@ -741,7 +736,7 @@ MatInput.decorators = [
                     // Native input properties that are overwritten by Angular inputs need to be synced with
                     // the native input element. Otherwise property bindings for those don't work.
                     '[attr.id]': 'id',
-                    '[placeholder]': 'placeholder',
+                    '[attr.placeholder]': 'placeholder',
                     '[disabled]': 'disabled',
                     '[required]': 'required',
                     '[readonly]': 'readonly',

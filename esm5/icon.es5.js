@@ -20,6 +20,7 @@ import { DOCUMENT } from '@angular/common';
 import { __extends } from 'tslib';
 import { take } from 'rxjs/operators/take';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
 /**
  * @fileoverview added by tsickle
@@ -778,6 +779,7 @@ var MatIcon = /** @class */ (function (_super) {
     function MatIcon(elementRef, _iconRegistry, ariaHidden) {
         var _this = _super.call(this, elementRef) || this;
         _this._iconRegistry = _iconRegistry;
+        _this._inline = false;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
         if (!ariaHidden) {
@@ -785,6 +787,25 @@ var MatIcon = /** @class */ (function (_super) {
         }
         return _this;
     }
+    Object.defineProperty(MatIcon.prototype, "inline", {
+        get: /**
+         * Whether the icon should be inlined, automatically sizing the icon to match the font size of
+         * the element the icon is contained in.
+         * @return {?}
+         */
+        function () {
+            return this._inline;
+        },
+        set: /**
+         * @param {?} inline
+         * @return {?}
+         */
+        function (inline) {
+            this._inline = coerceBooleanProperty(inline);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatIcon.prototype, "fontSet", {
         get: /**
          * Font set that the icon is a part of.
@@ -985,11 +1006,12 @@ var MatIcon = /** @class */ (function (_super) {
         { type: Component, args: [{template: '<ng-content></ng-content>',
                     selector: 'mat-icon',
                     exportAs: 'matIcon',
-                    styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"],
+                    styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"],
                     inputs: ['color'],
                     host: {
                         'role': 'img',
                         'class': 'mat-icon',
+                        '[class.mat-icon-inline]': 'inline',
                     },
                     encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -1002,6 +1024,7 @@ var MatIcon = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: Attribute, args: ['aria-hidden',] },] },
     ]; };
     MatIcon.propDecorators = {
+        "inline": [{ type: Input },],
         "svgIcon": [{ type: Input },],
         "fontSet": [{ type: Input },],
         "fontIcon": [{ type: Input },],

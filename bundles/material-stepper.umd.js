@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/stepper'), require('rxjs/Subject'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/material/core'), require('rxjs/operators/takeUntil'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/material/button'), require('@angular/material/icon')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/stepper', ['exports', '@angular/core', '@angular/cdk/stepper', 'rxjs/Subject', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/animations', '@angular/cdk/bidi', '@angular/material/core', 'rxjs/operators/takeUntil', '@angular/cdk/portal', '@angular/common', '@angular/material/button', '@angular/material/icon'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.stepper = {}),global.ng.core,global.ng.cdk.stepper,global.Rx,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.animations,global.ng.cdk.bidi,global.ng.material.core,global.Rx.operators,global.ng.cdk.portal,global.ng.common,global.ng.material.button,global.ng.material.icon));
-}(this, (function (exports,core,stepper,Subject,a11y,coercion,animations,bidi,core$1,takeUntil,portal,common,button,icon) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/stepper'), require('rxjs/Subject'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/material/core'), require('rxjs/operators/takeUntil'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/material/button'), require('@angular/material/icon')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/stepper', ['exports', '@angular/core', '@angular/cdk/stepper', 'rxjs/Subject', '@angular/cdk/a11y', '@angular/animations', '@angular/cdk/bidi', '@angular/material/core', 'rxjs/operators/takeUntil', '@angular/cdk/portal', '@angular/common', '@angular/material/button', '@angular/material/icon'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.stepper = {}),global.ng.core,global.ng.cdk.stepper,global.Rx,global.ng.cdk.a11y,global.ng.animations,global.ng.cdk.bidi,global.ng.material.core,global.Rx.operators,global.ng.cdk.portal,global.ng.common,global.ng.material.button,global.ng.material.icon));
+}(this, (function (exports,core,stepper,Subject,a11y,animations,bidi,core$1,takeUntil,portal,common,button,icon) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -97,62 +97,6 @@ var MatStepHeader = /** @class */ (function () {
         _focusMonitor.monitor(_element.nativeElement, true);
         this._intlSubscription = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
-    Object.defineProperty(MatStepHeader.prototype, "index", {
-        get: /**
-         * Index of the given step.
-         * @return {?}
-         */
-        function () { return this._index; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._index = coercion.coerceNumberProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatStepHeader.prototype, "selected", {
-        get: /**
-         * Whether the given step is selected.
-         * @return {?}
-         */
-        function () { return this._selected; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._selected = coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatStepHeader.prototype, "active", {
-        get: /**
-         * Whether the given step label is active.
-         * @return {?}
-         */
-        function () { return this._active; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._active = coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatStepHeader.prototype, "optional", {
-        get: /**
-         * Whether the given step is optional.
-         * @return {?}
-         */
-        function () { return this._optional; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._optional = coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs/operators/catchError'), require('rxjs/operators/tap'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/core'), require('@angular/common/http'), require('@angular/platform-browser'), require('rxjs/observable/forkJoin'), require('rxjs/observable/of'), require('rxjs/observable/throw'), require('@angular/common'), require('rxjs/operators/take'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/icon', ['exports', 'rxjs/operators/catchError', 'rxjs/operators/tap', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/core', '@angular/common/http', '@angular/platform-browser', 'rxjs/observable/forkJoin', 'rxjs/observable/of', 'rxjs/observable/throw', '@angular/common', 'rxjs/operators/take', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = {}),global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.core,global.ng.common.http,global.ng.platformBrowser,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.common,global.Rx.operators,global.ng.material.core));
-}(this, (function (exports,catchError,tap,finalize,map,share,core,http,platformBrowser,forkJoin,of,_throw,common,take,core$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs/operators/catchError'), require('rxjs/operators/tap'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/core'), require('@angular/common/http'), require('@angular/platform-browser'), require('rxjs/observable/forkJoin'), require('rxjs/observable/of'), require('rxjs/observable/throw'), require('@angular/common'), require('rxjs/operators/take'), require('@angular/material/core'), require('@angular/cdk/coercion')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/icon', ['exports', 'rxjs/operators/catchError', 'rxjs/operators/tap', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/core', '@angular/common/http', '@angular/platform-browser', 'rxjs/observable/forkJoin', 'rxjs/observable/of', 'rxjs/observable/throw', '@angular/common', 'rxjs/operators/take', '@angular/material/core', '@angular/cdk/coercion'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = {}),global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.core,global.ng.common.http,global.ng.platformBrowser,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.common,global.Rx.operators,global.ng.material.core,global.ng.cdk.coercion));
+}(this, (function (exports,catchError,tap,finalize,map,share,core,http,platformBrowser,forkJoin,of,_throw,common,take,core$1,coercion) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -794,6 +794,7 @@ var MatIcon = /** @class */ (function (_super) {
     function MatIcon(elementRef, _iconRegistry, ariaHidden) {
         var _this = _super.call(this, elementRef) || this;
         _this._iconRegistry = _iconRegistry;
+        _this._inline = false;
         // If the user has not explicitly set aria-hidden, mark the icon as hidden, as this is
         // the right thing to do for the majority of icon use-cases.
         if (!ariaHidden) {
@@ -801,6 +802,25 @@ var MatIcon = /** @class */ (function (_super) {
         }
         return _this;
     }
+    Object.defineProperty(MatIcon.prototype, "inline", {
+        get: /**
+         * Whether the icon should be inlined, automatically sizing the icon to match the font size of
+         * the element the icon is contained in.
+         * @return {?}
+         */
+        function () {
+            return this._inline;
+        },
+        set: /**
+         * @param {?} inline
+         * @return {?}
+         */
+        function (inline) {
+            this._inline = coercion.coerceBooleanProperty(inline);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatIcon.prototype, "fontSet", {
         get: /**
          * Font set that the icon is a part of.
@@ -1001,11 +1021,12 @@ var MatIcon = /** @class */ (function (_super) {
         { type: core.Component, args: [{template: '<ng-content></ng-content>',
                     selector: 'mat-icon',
                     exportAs: 'matIcon',
-                    styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"],
+                    styles: [".mat-icon{background-repeat:no-repeat;display:inline-block;fill:currentColor;height:24px;width:24px}.mat-icon.mat-icon-inline{font-size:inherit;height:inherit;line-height:inherit;width:inherit}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon{display:block}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-icon{margin:auto}"],
                     inputs: ['color'],
                     host: {
                         'role': 'img',
                         'class': 'mat-icon',
+                        '[class.mat-icon-inline]': 'inline',
                     },
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -1018,6 +1039,7 @@ var MatIcon = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: core.Attribute, args: ['aria-hidden',] },] },
     ]; };
     MatIcon.propDecorators = {
+        "inline": [{ type: core.Input },],
         "svgIcon": [{ type: core.Input },],
         "fontSet": [{ type: core.Input },],
         "fontIcon": [{ type: core.Input },],

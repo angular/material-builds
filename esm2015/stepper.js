@@ -9,7 +9,6 @@ import { Directive, TemplateRef, Injectable, ChangeDetectionStrategy, ChangeDete
 import { CdkStepLabel, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import { Subject } from 'rxjs/Subject';
 import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
-import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
 import { ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
@@ -85,46 +84,6 @@ class MatStepHeader {
         _focusMonitor.monitor(_element.nativeElement, true);
         this._intlSubscription = _intl.changes.subscribe(() => changeDetectorRef.markForCheck());
     }
-    /**
-     * Index of the given step.
-     * @return {?}
-     */
-    get index() { return this._index; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set index(value) { this._index = coerceNumberProperty(value); }
-    /**
-     * Whether the given step is selected.
-     * @return {?}
-     */
-    get selected() { return this._selected; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set selected(value) { this._selected = coerceBooleanProperty(value); }
-    /**
-     * Whether the given step label is active.
-     * @return {?}
-     */
-    get active() { return this._active; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set active(value) { this._active = coerceBooleanProperty(value); }
-    /**
-     * Whether the given step is optional.
-     * @return {?}
-     */
-    get optional() { return this._optional; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set optional(value) { this._optional = coerceBooleanProperty(value); }
     /**
      * @return {?}
      */

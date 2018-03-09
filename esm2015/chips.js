@@ -302,8 +302,11 @@ class MatChip extends _MatChipMixinBase {
      * @return {?}
      */
     focus() {
-        this._elementRef.nativeElement.focus();
-        this._onFocus.next({ chip: this });
+        if (!this._hasFocus) {
+            this._elementRef.nativeElement.focus();
+            this._onFocus.next({ chip: this });
+        }
+        this._hasFocus = true;
     }
     /**
      * Allows for programmatic removal of the chip. Called by the MatChipList when the DELETE or
@@ -329,7 +332,6 @@ class MatChip extends _MatChipMixinBase {
         }
         event.preventDefault();
         event.stopPropagation();
-        this.focus();
     }
     /**
      * Handle custom key presses.
@@ -384,7 +386,7 @@ MatChip.decorators = [
                     '[attr.aria-selected]': 'ariaSelected',
                     '(click)': '_handleClick($event)',
                     '(keydown)': '_handleKeydown($event)',
-                    '(focus)': '_hasFocus = true',
+                    '(focus)': 'focus()',
                     '(blur)': '_blur()',
                 },
             },] },
@@ -948,7 +950,7 @@ class MatChipList extends _MatChipListMixinBase {
      */
     _updateFocusForDestroyedChips() {
         let /** @type {?} */ chipsArray = this.chips;
-        if (this._lastDestroyedIndex != null && chipsArray.length > 0) {
+        if (this._lastDestroyedIndex != null && chipsArray.length > 0 && this.focused) {
             // Check whether the destroyed chip was the last item
             const /** @type {?} */ newFocusIndex = Math.min(this._lastDestroyedIndex, chipsArray.length - 1);
             this._keyManager.setActiveItem(newFocusIndex);
@@ -1000,9 +1002,6 @@ class MatChipList extends _MatChipListMixinBase {
             if (correspondingChip) {
                 if (isUserInput) {
                     this._keyManager.setActiveItem(correspondingChip);
-                }
-                else {
-                    this._keyManager.updateActiveItem(correspondingChip);
                 }
             }
         }
@@ -1090,6 +1089,7 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     _blur() {
+        this._keyManager.setActiveItem(-1);
         if (!this.disabled) {
             if (this._chipInput) {
                 // If there's a chip input, we should check whether the focus moved to chip input.

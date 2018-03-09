@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { Component, ContentChildren, ElementRef, Input, TemplateRef, ViewChild, ViewEncapsulation, ChangeDetectorRef, ChangeDetectionStrategy, EventEmitter, Output, InjectionToken, Inject, Optional, Directive, forwardRef, Host, NgZone, ViewContainerRef, NgModule } from '@angular/core';
+import { Component, ContentChildren, ElementRef, Input, TemplateRef, ViewChild, ViewEncapsulation, ChangeDetectorRef, ChangeDetectionStrategy, EventEmitter, Output, InjectionToken, Inject, Directive, forwardRef, Host, NgZone, Optional, ViewContainerRef, NgModule } from '@angular/core';
 import { MatOption, MatOptgroup, MAT_OPTION_PARENT_COMPONENT, mixinDisableRipple, _getOptionScrollPosition, _countGroupLabelsBeforeOption, MatOptionModule, MatCommonModule } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -68,9 +68,7 @@ var /** @type {?} */ _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompl
 var /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken('mat-autocomplete-default-options');
 var MatAutocomplete = /** @class */ (function (_super) {
     __extends(MatAutocomplete, _super);
-    function MatAutocomplete(_changeDetectorRef, _elementRef, 
-        // @deletion-target Turn into required param in 6.0.0
-        defaults) {
+    function MatAutocomplete(_changeDetectorRef, _elementRef, defaults) {
         var _this = _super.call(this) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._elementRef = _elementRef;
@@ -100,10 +98,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
         _this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
-        _this._autoActiveFirstOption = defaults &&
-            typeof defaults.autoActiveFirstOption !== 'undefined' ?
-            defaults.autoActiveFirstOption :
-            false;
+        _this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
         return _this;
     }
     Object.defineProperty(MatAutocomplete.prototype, "isOpen", {
@@ -244,7 +239,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
     MatAutocomplete.ctorParameters = function () { return [
         { type: ChangeDetectorRef, },
         { type: ElementRef, },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] },] },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] },] },
     ]; };
     MatAutocomplete.propDecorators = {
         "template": [{ type: ViewChild, args: [TemplateRef,] },],
@@ -943,7 +938,10 @@ var MatAutocompleteModule = /** @class */ (function () {
                     imports: [MatOptionModule, OverlayModule, MatCommonModule, CommonModule],
                     exports: [MatAutocomplete, MatOptionModule, MatAutocompleteTrigger, MatCommonModule],
                     declarations: [MatAutocomplete, MatAutocompleteTrigger],
-                    providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
+                    providers: [
+                        MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER,
+                        { provide: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, useValue: false }
+                    ],
                 },] },
     ];
     /** @nocollapse */

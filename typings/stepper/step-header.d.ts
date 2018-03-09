@@ -24,16 +24,12 @@ export declare class MatStepHeader implements OnDestroy {
     };
     /** Index of the given step. */
     index: number;
-    private _index;
     /** Whether the given step is selected. */
     selected: boolean;
-    private _selected;
     /** Whether the given step label is active. */
     active: boolean;
-    private _active;
     /** Whether the given step is optional. */
     optional: boolean;
-    private _optional;
     constructor(_intl: MatStepperIntl, _focusMonitor: FocusMonitor, _element: ElementRef, changeDetectorRef: ChangeDetectorRef);
     ngOnDestroy(): void;
     /** Returns string label of given step if it is a text label. */

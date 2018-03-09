@@ -522,11 +522,6 @@ var MatInput = /** @class */ (function (_super) {
          */
         _this.autofilled = false;
         _this._disabled = false;
-        /**
-         * Implemented as part of MatFormFieldControl.
-         * \@docs-private
-         */
-        _this.placeholder = '';
         _this._required = false;
         _this._type = 'text';
         _this._readonly = false;
@@ -921,7 +916,7 @@ var MatInput = /** @class */ (function (_super) {
                         // Native input properties that are overwritten by Angular inputs need to be synced with
                         // the native input element. Otherwise property bindings for those don't work.
                         '[attr.id]': 'id',
-                        '[placeholder]': 'placeholder',
+                        '[attr.placeholder]': 'placeholder',
                         '[disabled]': 'disabled',
                         '[required]': 'required',
                         '[readonly]': 'readonly',

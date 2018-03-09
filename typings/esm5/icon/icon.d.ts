@@ -36,6 +36,12 @@ export declare const _MatIconMixinBase: (new (...args: any[]) => CanColor) & typ
  */
 export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnInit, CanColor {
     private _iconRegistry;
+    /**
+     * Whether the icon should be inlined, automatically sizing the icon to match the font size of
+     * the element the icon is contained in.
+     */
+    inline: boolean;
+    private _inline;
     /** Name of the icon in the SVG icon set. */
     svgIcon: string;
     /** Font set that the icon is a part of. */

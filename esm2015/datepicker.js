@@ -2188,15 +2188,17 @@ class MatDatepickerInput {
      */
     set disabled(value) {
         const /** @type {?} */ newValue = coerceBooleanProperty(value);
+        const /** @type {?} */ element = this._elementRef.nativeElement;
         if (this._disabled !== newValue) {
             this._disabled = newValue;
             this._disabledChange.emit(newValue);
         }
-        if (newValue) {
+        // We need to null check the `blur` method, because it's undefined during SSR.
+        if (newValue && element.blur) {
             // Normally, native input elements automatically blur if they turn disabled. This behavior
             // is problematic, because it would mean that it triggers another change detection cycle,
             // which then causes a changed after checked error if the input element was focused before.
-            this._elementRef.nativeElement.blur();
+            element.blur();
         }
     }
     /**

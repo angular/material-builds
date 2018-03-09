@@ -77,9 +77,7 @@ var /** @type {?} */ _MatAutocompleteMixinBase = core$1.mixinDisableRipple(MatAu
 var /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new core.InjectionToken('mat-autocomplete-default-options');
 var MatAutocomplete = /** @class */ (function (_super) {
     __extends(MatAutocomplete, _super);
-    function MatAutocomplete(_changeDetectorRef, _elementRef, 
-        // @deletion-target Turn into required param in 6.0.0
-        defaults) {
+    function MatAutocomplete(_changeDetectorRef, _elementRef, defaults) {
         var _this = _super.call(this) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._elementRef = _elementRef;
@@ -109,10 +107,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
          * Unique ID to be used by autocomplete trigger's "aria-owns" property.
          */
         _this.id = "mat-autocomplete-" + _uniqueAutocompleteIdCounter++;
-        _this._autoActiveFirstOption = defaults &&
-            typeof defaults.autoActiveFirstOption !== 'undefined' ?
-            defaults.autoActiveFirstOption :
-            false;
+        _this._autoActiveFirstOption = !!defaults.autoActiveFirstOption;
         return _this;
     }
     Object.defineProperty(MatAutocomplete.prototype, "isOpen", {
@@ -253,7 +248,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
     MatAutocomplete.ctorParameters = function () { return [
         { type: core.ChangeDetectorRef, },
         { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] },] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] },] },
     ]; };
     MatAutocomplete.propDecorators = {
         "template": [{ type: core.ViewChild, args: [core.TemplateRef,] },],
@@ -952,7 +947,10 @@ var MatAutocompleteModule = /** @class */ (function () {
                     imports: [core$1.MatOptionModule, overlay.OverlayModule, core$1.MatCommonModule, common.CommonModule],
                     exports: [MatAutocomplete, core$1.MatOptionModule, MatAutocompleteTrigger, core$1.MatCommonModule],
                     declarations: [MatAutocomplete, MatAutocompleteTrigger],
-                    providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER],
+                    providers: [
+                        MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER,
+                        { provide: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, useValue: false }
+                    ],
                 },] },
     ];
     /** @nocollapse */
