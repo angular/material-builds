@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs/Subject'), require('rxjs/operators/take'), require('@angular/cdk/keycodes'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('@angular/material/dialog'), require('@angular/common'), require('rxjs/Subscription'), require('rxjs/observable/merge'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input'), require('rxjs/observable/of'), require('@angular/cdk/a11y'), require('@angular/material/button')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/core', 'rxjs/Subject', 'rxjs/operators/take', '@angular/cdk/keycodes', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', '@angular/material/dialog', '@angular/common', 'rxjs/Subscription', 'rxjs/observable/merge', '@angular/forms', '@angular/material/form-field', '@angular/material/input', 'rxjs/observable/of', '@angular/cdk/a11y', '@angular/material/button'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}),global.ng.core,global.Rx,global.Rx.operators,global.ng.cdk.keycodes,global.ng.material.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.ng.material.dialog,global.ng.common,global.Rx,global.Rx.Observable,global.ng.forms,global.ng.material.formField,global.ng.material.input,global.Rx.Observable,global.ng.cdk.a11y,global.ng.material.button));
-}(this, (function (exports,core,Subject,take,keycodes,core$1,bidi,coercion,overlay,portal,filter,dialog,common,Subscription,merge,forms,formField,input,of,a11y,button) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs/Subject'), require('rxjs/operators/take'), require('@angular/cdk/keycodes'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/animations'), require('@angular/cdk/coercion'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('@angular/material/dialog'), require('@angular/common'), require('rxjs/Subscription'), require('rxjs/observable/merge'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input'), require('rxjs/observable/of'), require('@angular/cdk/a11y'), require('@angular/material/button')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/core', 'rxjs/Subject', 'rxjs/operators/take', '@angular/cdk/keycodes', '@angular/material/core', '@angular/cdk/bidi', '@angular/animations', '@angular/cdk/coercion', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', '@angular/material/dialog', '@angular/common', 'rxjs/Subscription', 'rxjs/observable/merge', '@angular/forms', '@angular/material/form-field', '@angular/material/input', 'rxjs/observable/of', '@angular/cdk/a11y', '@angular/material/button'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}),global.ng.core,global.Rx,global.Rx.operators,global.ng.cdk.keycodes,global.ng.material.core,global.ng.cdk.bidi,global.ng.animations,global.ng.cdk.coercion,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.ng.material.dialog,global.ng.common,global.Rx,global.Rx.Observable,global.ng.forms,global.ng.material.formField,global.ng.material.input,global.Rx.Observable,global.ng.cdk.a11y,global.ng.material.button));
+}(this, (function (exports,core,Subject,take,keycodes,core$1,bidi,animations,coercion,overlay,portal,filter,dialog,common,Subscription,merge,forms,formField,input,of,a11y,button) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1760,6 +1760,29 @@ var MatCalendar = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Animations used by the Material datepicker.
+ */
+var /** @type {?} */ matDatepickerAnimations = {
+    /** Transforms the height of the datepicker's calendar. */
+    transformPanel: animations.trigger('transformPanel', [
+        animations.state('void', animations.style({ opacity: 0, transform: 'scale(1, 0)' })),
+        animations.state('enter', animations.style({ opacity: 1, transform: 'scale(1, 1)' })),
+        animations.transition('void => enter', animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+        animations.transition('* => void', animations.animate('100ms linear', animations.style({ opacity: 0 })))
+    ]),
+    /** Fades in the content of the calendar. */
+    fadeInCalendar: animations.trigger('fadeInCalendar', [
+        animations.state('void', animations.style({ opacity: 0 })),
+        animations.state('enter', animations.style({ opacity: 1 })),
+        animations.transition('void => *', animations.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)'))
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Used to generate a unique ID for each datepicker instance.
  */
 var /** @type {?} */ datepickerUid = 0;
@@ -1806,11 +1829,34 @@ var /** @type {?} */ _MatDatepickerContentMixinBase = core$1.mixinColor(MatDatep
  */
 var MatDatepickerContent = /** @class */ (function (_super) {
     __extends(MatDatepickerContent, _super);
-    function MatDatepickerContent(elementRef, _ngZone) {
+    function MatDatepickerContent(elementRef, _changeDetectorRef, _ngZone) {
         var _this = _super.call(this, elementRef) || this;
+        _this._changeDetectorRef = _changeDetectorRef;
         _this._ngZone = _ngZone;
         return _this;
     }
+    /**
+     * @return {?}
+     */
+    MatDatepickerContent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (!this.datepicker._popupRef || this._positionChange) {
+            return;
+        }
+        var /** @type {?} */ positionStrategy = /** @type {?} */ (((this.datepicker._popupRef.getConfig().positionStrategy)));
+        this._positionChange = positionStrategy.onPositionChange.subscribe(function (change) {
+            var /** @type {?} */ isAbove = change.connectionPair.overlayY === 'bottom';
+            if (isAbove !== _this._isAbove) {
+                _this._ngZone.run(function () {
+                    _this._isAbove = isAbove;
+                    _this._changeDetectorRef.markForCheck();
+                });
+            }
+        });
+    };
     /**
      * @return {?}
      */
@@ -1836,14 +1882,32 @@ var MatDatepickerContent = /** @class */ (function (_super) {
             });
         });
     };
+    /**
+     * @return {?}
+     */
+    MatDatepickerContent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        if (this._positionChange) {
+            this._positionChange.unsubscribe();
+            this._positionChange = null;
+        }
+    };
     MatDatepickerContent.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-content',
-                    template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (yearSelected)=\"datepicker._selectYear($event)\" (monthSelected)=\"datepicker._selectMonth($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
-                    styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block;border-radius:2px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
+                    template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" [@fadeInCalendar]=\"'enter'\" (selectedChange)=\"datepicker._select($event)\" (yearSelected)=\"datepicker._selectYear($event)\" (monthSelected)=\"datepicker._selectMonth($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
+                    styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block;border-radius:2px;transform-origin:top center}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-above{transform-origin:bottom center}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
                     host: {
                         'class': 'mat-datepicker-content',
+                        '[@transformPanel]': '"enter"',
                         '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
+                        '[class.mat-datepicker-content-above]': '_isAbove',
                     },
+                    animations: [
+                        matDatepickerAnimations.transformPanel,
+                        matDatepickerAnimations.fadeInCalendar,
+                    ],
                     exportAs: 'matDatepickerContent',
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -1853,6 +1917,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     /** @nocollapse */
     MatDatepickerContent.ctorParameters = function () { return [
         { type: core.ElementRef, },
+        { type: core.ChangeDetectorRef, },
         { type: core.NgZone, },
     ]; };
     MatDatepickerContent.propDecorators = {
@@ -3055,6 +3120,7 @@ exports.MatDatepickerContentBase = MatDatepickerContentBase;
 exports._MatDatepickerContentMixinBase = _MatDatepickerContentMixinBase;
 exports.MatDatepickerContent = MatDatepickerContent;
 exports.MatDatepicker = MatDatepicker;
+exports.matDatepickerAnimations = matDatepickerAnimations;
 exports.MAT_DATEPICKER_VALUE_ACCESSOR = MAT_DATEPICKER_VALUE_ACCESSOR;
 exports.MAT_DATEPICKER_VALIDATORS = MAT_DATEPICKER_VALIDATORS;
 exports.MatDatepickerInputEvent = MatDatepickerInputEvent;

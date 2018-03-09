@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directionality } from '@angular/cdk/bidi';
-import { Overlay, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
-import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
+import { Overlay, OverlayRef, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
+import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef, ChangeDetectorRef, OnInit } from '@angular/core';
 import { CanColor, DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs/Subject';
@@ -36,14 +36,23 @@ export declare const _MatDatepickerContentMixinBase: (new (...args: any[]) => Ca
  * future. (e.g. confirmation buttons).
  * @docs-private
  */
-export declare class MatDatepickerContent<D> extends _MatDatepickerContentMixinBase implements AfterContentInit, CanColor {
+export declare class MatDatepickerContent<D> extends _MatDatepickerContentMixinBase implements AfterContentInit, CanColor, OnInit, OnDestroy {
+    private _changeDetectorRef;
     private _ngZone;
-    datepicker: MatDatepicker<D>;
+    /** Subscription to changes in the overlay's position. */
+    private _positionChange;
+    /** Reference to the internal calendar component. */
     _calendar: MatCalendar<D>;
-    constructor(elementRef: ElementRef, _ngZone: NgZone);
+    /** Reference to the datepicker that created the overlay. */
+    datepicker: MatDatepicker<D>;
+    /** Whether the datepicker is above or below the input. */
+    _isAbove: boolean;
+    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone);
+    ngOnInit(): void;
     ngAfterContentInit(): void;
     /** Focuses the active cell after the microtask queue is empty. */
     private _focusActiveCell();
+    ngOnDestroy(): void;
 }
 /** Component responsible for managing the datepicker popup/dialog. */
 export declare class MatDatepicker<D> implements OnDestroy, CanColor {
@@ -108,7 +117,7 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     readonly _maxDate: D | null;
     readonly _dateFilter: (date: D | null) => boolean;
     /** A reference to the overlay when the calendar is opened as a popup. */
-    private _popupRef;
+    _popupRef: OverlayRef;
     /** A reference to the dialog when the calendar is opened as a dialog. */
     private _dialogRef;
     /** A portal containing the calendar for this datepicker. */

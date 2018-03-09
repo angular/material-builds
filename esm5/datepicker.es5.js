@@ -11,6 +11,7 @@ import { take } from 'rxjs/operators/take';
 import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, ESCAPE } from '@angular/cdk/keycodes';
 import { DateAdapter, MAT_DATE_FORMATS, mixinColor } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { __extends } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
@@ -1750,6 +1751,29 @@ var MatCalendar = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Animations used by the Material datepicker.
+ */
+var /** @type {?} */ matDatepickerAnimations = {
+    /** Transforms the height of the datepicker's calendar. */
+    transformPanel: trigger('transformPanel', [
+        state('void', style({ opacity: 0, transform: 'scale(1, 0)' })),
+        state('enter', style({ opacity: 1, transform: 'scale(1, 1)' })),
+        transition('void => enter', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+        transition('* => void', animate('100ms linear', style({ opacity: 0 })))
+    ]),
+    /** Fades in the content of the calendar. */
+    fadeInCalendar: trigger('fadeInCalendar', [
+        state('void', style({ opacity: 0 })),
+        state('enter', style({ opacity: 1 })),
+        transition('void => *', animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)'))
+    ])
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Used to generate a unique ID for each datepicker instance.
  */
 var /** @type {?} */ datepickerUid = 0;
@@ -1796,11 +1820,34 @@ var /** @type {?} */ _MatDatepickerContentMixinBase = mixinColor(MatDatepickerCo
  */
 var MatDatepickerContent = /** @class */ (function (_super) {
     __extends(MatDatepickerContent, _super);
-    function MatDatepickerContent(elementRef, _ngZone) {
+    function MatDatepickerContent(elementRef, _changeDetectorRef, _ngZone) {
         var _this = _super.call(this, elementRef) || this;
+        _this._changeDetectorRef = _changeDetectorRef;
         _this._ngZone = _ngZone;
         return _this;
     }
+    /**
+     * @return {?}
+     */
+    MatDatepickerContent.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (!this.datepicker._popupRef || this._positionChange) {
+            return;
+        }
+        var /** @type {?} */ positionStrategy = /** @type {?} */ (((this.datepicker._popupRef.getConfig().positionStrategy)));
+        this._positionChange = positionStrategy.onPositionChange.subscribe(function (change) {
+            var /** @type {?} */ isAbove = change.connectionPair.overlayY === 'bottom';
+            if (isAbove !== _this._isAbove) {
+                _this._ngZone.run(function () {
+                    _this._isAbove = isAbove;
+                    _this._changeDetectorRef.markForCheck();
+                });
+            }
+        });
+    };
     /**
      * @return {?}
      */
@@ -1826,14 +1873,32 @@ var MatDatepickerContent = /** @class */ (function (_super) {
             });
         });
     };
+    /**
+     * @return {?}
+     */
+    MatDatepickerContent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        if (this._positionChange) {
+            this._positionChange.unsubscribe();
+            this._positionChange = null;
+        }
+    };
     MatDatepickerContent.decorators = [
         { type: Component, args: [{selector: 'mat-datepicker-content',
-                    template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" (selectedChange)=\"datepicker._select($event)\" (yearSelected)=\"datepicker._selectYear($event)\" (monthSelected)=\"datepicker._selectMonth($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
-                    styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block;border-radius:2px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
+                    template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" [@fadeInCalendar]=\"'enter'\" (selectedChange)=\"datepicker._select($event)\" (yearSelected)=\"datepicker._selectYear($event)\" (monthSelected)=\"datepicker._selectMonth($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
+                    styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block;border-radius:2px;transform-origin:top center}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-above{transform-origin:bottom center}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
                     host: {
                         'class': 'mat-datepicker-content',
+                        '[@transformPanel]': '"enter"',
                         '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
+                        '[class.mat-datepicker-content-above]': '_isAbove',
                     },
+                    animations: [
+                        matDatepickerAnimations.transformPanel,
+                        matDatepickerAnimations.fadeInCalendar,
+                    ],
                     exportAs: 'matDatepickerContent',
                     encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -1843,6 +1908,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     /** @nocollapse */
     MatDatepickerContent.ctorParameters = function () { return [
         { type: ElementRef, },
+        { type: ChangeDetectorRef, },
         { type: NgZone, },
     ]; };
     MatDatepickerContent.propDecorators = {
@@ -3044,5 +3110,5 @@ var MatDatepickerModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatDatepickerModule, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MatDatepickerContentBase, _MatDatepickerContentMixinBase, MatDatepickerContent, MatDatepicker, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };
+export { MatDatepickerModule, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MatDatepickerContentBase, _MatDatepickerContentMixinBase, MatDatepickerContent, MatDatepicker, matDatepickerAnimations, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };
 //# sourceMappingURL=datepicker.es5.js.map
