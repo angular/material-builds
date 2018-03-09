@@ -72,7 +72,7 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     /** The chip input to add more chips */
     protected _chipInput: MatChipInput;
     /** Uid of the chip list */
-    protected _uid: string;
+    _uid: string;
     /** The aria-describedby attribute on the chip list for improved a11y. */
     _ariaDescribedby: string;
     /** Tab index for the chip list. */
@@ -115,8 +115,7 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    id: string;
-    protected _id: string;
+    readonly id: string;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private

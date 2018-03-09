@@ -7979,19 +7979,17 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "id", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
          * @return {?}
          */
-        function () { return this._id || this._uid; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._id = value;
-            this.stateChanges.next();
+        function () {
+            return this._chipInput ? this._chipInput.id : this._uid;
         },
         enumerable: true,
         configurable: true
@@ -8820,7 +8818,8 @@ var MatChipList = /** @class */ (function (_super) {
                         'class': 'mat-chip-list',
                         '(focus)': 'focus()',
                         '(blur)': '_blur()',
-                        '(keydown)': '_keydown($event)'
+                        '(keydown)': '_keydown($event)',
+                        '[id]': '_uid',
                     },
                     providers: [{ provide: MatFormFieldControl, useExisting: MatChipList }],
                     styles: [".mat-chip{position:relative;overflow:hidden}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip:focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-standard-chip{outline:solid 1px}}.mat-standard-chip.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:7px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:7px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:7px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:7px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:32px;height:32px;margin-right:8px;margin-left:0}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:0}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:7px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:7px;margin-left:0}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper .mat-standard-chip,.mat-chip-list-wrapper input.mat-input-element{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden}input.mat-chip-input{width:150px;margin:3px;flex:1 0 150px}"],
@@ -8843,7 +8842,6 @@ var MatChipList = /** @class */ (function (_super) {
         "multiple": [{ type: core.Input },],
         "compareWith": [{ type: core.Input },],
         "value": [{ type: core.Input },],
-        "id": [{ type: core.Input },],
         "required": [{ type: core.Input },],
         "placeholder": [{ type: core.Input },],
         "disabled": [{ type: core.Input },],
@@ -8861,6 +8859,8 @@ var MatChipList = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// Increasing integer for generating unique ids.
+var /** @type {?} */ nextUniqueId$1$1 = 0;
 /**
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
@@ -8887,6 +8887,10 @@ var MatChipInput = /** @class */ (function () {
          * The input's placeholder text.
          */
         this.placeholder = '';
+        /**
+         * Unique id for the input.
+         */
+        this.id = "mat-chip-list-input-" + nextUniqueId$1$1++;
         this._inputElement = /** @type {?} */ (this._elementRef.nativeElement);
     }
     Object.defineProperty(MatChipInput.prototype, "chipList", {
@@ -9024,6 +9028,7 @@ var MatChipInput = /** @class */ (function () {
                         '(blur)': '_blur()',
                         '(focus)': '_focus()',
                         '(input)': '_onInput()',
+                        '[id]': 'id',
                     }
                 },] },
     ];
@@ -9037,6 +9042,7 @@ var MatChipInput = /** @class */ (function () {
         "separatorKeyCodes": [{ type: core.Input, args: ['matChipInputSeparatorKeyCodes',] },],
         "chipEnd": [{ type: core.Output, args: ['matChipInputTokenEnd',] },],
         "placeholder": [{ type: core.Input },],
+        "id": [{ type: core.Input },],
     };
     return MatChipInput;
 }());
@@ -32367,7 +32373,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-c42549e');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-9337ae1');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32614,10 +32620,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MatMenuItemBase;
-exports.ɵb24 = _MatMenuItemMixinBase;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa25 = MatMenuItemBase;
+exports.ɵb25 = _MatMenuItemMixinBase;
+exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32742,16 +32748,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe25 = MatTabBase;
-exports.ɵf25 = _MatTabMixinBase;
-exports.ɵa25 = MatTabHeaderBase;
-exports.ɵb25 = _MatTabHeaderMixinBase;
-exports.ɵc25 = MatTabLabelWrapperBase;
-exports.ɵd25 = _MatTabLabelWrapperMixinBase;
-exports.ɵi25 = MatTabLinkBase;
-exports.ɵg25 = MatTabNavBase;
-exports.ɵj25 = _MatTabLinkMixinBase;
-exports.ɵh25 = _MatTabNavMixinBase;
+exports.ɵe24 = MatTabBase;
+exports.ɵf24 = _MatTabMixinBase;
+exports.ɵa24 = MatTabHeaderBase;
+exports.ɵb24 = _MatTabHeaderMixinBase;
+exports.ɵc24 = MatTabLabelWrapperBase;
+exports.ɵd24 = _MatTabLabelWrapperMixinBase;
+exports.ɵi24 = MatTabLinkBase;
+exports.ɵg24 = MatTabNavBase;
+exports.ɵj24 = _MatTabLinkMixinBase;
+exports.ɵh24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
@@ -32785,7 +32791,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa11 = MatTreeNodeOutlet;
+exports.ɵa9 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

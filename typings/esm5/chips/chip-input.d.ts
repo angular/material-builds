@@ -33,6 +33,8 @@ export declare class MatChipInput {
     chipEnd: EventEmitter<MatChipInputEvent>;
     /** The input's placeholder text. */
     placeholder: string;
+    /** Unique id for the input. */
+    id: string;
     /** Whether the input is empty. */
     readonly empty: boolean;
     /** The native input element to which this directive is attached. */
