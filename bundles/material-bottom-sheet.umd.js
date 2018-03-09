@@ -147,8 +147,10 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._animationState = 'visible';
-        this._changeDetectorRef.detectChanges();
+        if (!this._destroyed) {
+            this._animationState = 'visible';
+            this._changeDetectorRef.detectChanges();
+        }
     };
     /** Begin animation of the bottom sheet exiting from view. */
     /**
@@ -160,8 +162,10 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._animationState = 'hidden';
-        this._changeDetectorRef.markForCheck();
+        if (!this._destroyed) {
+            this._animationState = 'hidden';
+            this._changeDetectorRef.markForCheck();
+        }
     };
     /**
      * @return {?}
@@ -171,6 +175,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      */
     function () {
         this._breakpointSubscription.unsubscribe();
+        this._destroyed = true;
     };
     /**
      * @param {?} event

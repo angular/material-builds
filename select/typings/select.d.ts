@@ -405,5 +405,5 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    readonly shouldPlaceholderFloat: boolean;
+    readonly shouldLabelFloat: boolean;
 }

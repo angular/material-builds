@@ -49,8 +49,6 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
      * errors where we end up removing an element which is in the middle of an animation.
      */
     private _completeExit();
-    /** Applies the user-specified list of CSS classes to the element. */
-    private _setCssClasses(classList);
     /** Applies the various positioning and user-configured CSS classes to the snack bar. */
     private _applySnackBarClasses();
     /** Asserts that no content is already attached to the container. */

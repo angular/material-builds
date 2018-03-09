@@ -109,22 +109,27 @@ class MatBottomSheetContainer extends BasePortalOutlet {
      * @return {?}
      */
     enter() {
-        this._animationState = 'visible';
-        this._changeDetectorRef.detectChanges();
+        if (!this._destroyed) {
+            this._animationState = 'visible';
+            this._changeDetectorRef.detectChanges();
+        }
     }
     /**
      * Begin animation of the bottom sheet exiting from view.
      * @return {?}
      */
     exit() {
-        this._animationState = 'hidden';
-        this._changeDetectorRef.markForCheck();
+        if (!this._destroyed) {
+            this._animationState = 'hidden';
+            this._changeDetectorRef.markForCheck();
+        }
     }
     /**
      * @return {?}
      */
     ngOnDestroy() {
         this._breakpointSubscription.unsubscribe();
+        this._destroyed = true;
     }
     /**
      * @param {?} event

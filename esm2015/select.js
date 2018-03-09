@@ -1332,7 +1332,7 @@ class MatSelect extends _MatSelectMixinBase {
      * \@docs-private
      * @return {?}
      */
-    get shouldPlaceholderFloat() {
+    get shouldLabelFloat() {
         return this._panelOpen || !this.empty;
     }
 }

@@ -5,15 +5,15 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, Input, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, Inject, Optional, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { Directive, Input, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, Inject, InjectionToken, Optional, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { __extends } from 'tslib';
+import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MAT_LABEL_GLOBAL_OPTIONS, mixinColor } from '@angular/material/core';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { startWith } from 'rxjs/operators/startWith';
 import { take } from 'rxjs/operators/take';
-import { Directionality } from '@angular/cdk/bidi';
 import { CommonModule } from '@angular/common';
 import { PlatformModule } from '@angular/cdk/platform';
 
@@ -255,20 +255,18 @@ MatFormFieldBase = /** @class */ (function () {
     return MatFormFieldBase;
 }());
 var /** @type {?} */ _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
+var /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
 var MatFormField = /** @class */ (function (_super) {
     __extends(MatFormField, _super);
-    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir) {
+    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
-        /**
-         * The form-field appearance style.
-         */
-        _this.appearance = 'legacy';
+        _this._defaultOptions = _defaultOptions;
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
@@ -286,6 +284,24 @@ var MatFormField = /** @class */ (function (_super) {
         _this.floatLabel = _this._labelOptions.float || 'auto';
         return _this;
     }
+    Object.defineProperty(MatFormField.prototype, "appearance", {
+        get: /**
+         * The form-field appearance style.
+         * @return {?}
+         */
+        function () {
+            return this._appearance || this._defaultOptions && this._defaultOptions.appearance || 'legacy';
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._appearance = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatFormField.prototype, "dividerColor", {
         get: /**
          * @deprecated Use `color` instead.
@@ -515,8 +531,7 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        return this._canLabelFloat && (this._control.shouldLabelFloat ||
-            this._control.shouldPlaceholderFloat || this._shouldAlwaysFloat);
+        return this._canLabelFloat && (this._control.shouldLabelFloat || this._shouldAlwaysFloat);
     };
     /**
      * @return {?}
@@ -724,8 +739,7 @@ var MatFormField = /** @class */ (function (_super) {
         return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
     };
     MatFormField.decorators = [
-        { type: Component, args: [{// TODO(mmalerba): the input-container selectors and classes are deprecated and will be removed.
-                    selector: 'mat-input-container, mat-form-field',
+        { type: Component, args: [{selector: 'mat-form-field',
                     exportAs: 'matFormField',
                     template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\" #inputContainer><ng-content></ng-content><span class=\"mat-form-field-label-wrapper mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-form-field-label mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #label *ngIf=\"_hasFloatingLabel()\" [ngSwitch]=\"_hasLabel()\"><ng-container *ngSwitchCase=\"false\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}}</ng-container><ng-content select=\"mat-label\" *ngSwitchCase=\"true\"></ng-content><span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required && !_control.disabled\">&nbsp;*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline *ngIf=\"appearance != 'outline'\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><ng-container *ngIf=\"appearance == 'outline'\"><div class=\"mat-form-field-outline\"><div class=\"mat-form-field-outline-start\" [style.width.px]=\"_outlineGapStart\"></div><div class=\"mat-form-field-outline-gap\" [style.width.px]=\"_outlineGapWidth\"></div><div class=\"mat-form-field-outline-end\"></div></div><div class=\"mat-form-field-outline mat-form-field-outline-thick\"><div class=\"mat-form-field-outline-start\" [style.width.px]=\"_outlineGapStart\"></div><div class=\"mat-form-field-outline-gap\" [style.width.px]=\"_outlineGapWidth\"></div><div class=\"mat-form-field-outline-end\"></div></div></ng-container><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
                     // MatInput is a directive and can't have styles, so we need to include its styles here.
@@ -768,6 +782,7 @@ var MatFormField = /** @class */ (function (_super) {
         { type: ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_LABEL_GLOBAL_OPTIONS,] },] },
         { type: Directionality, decorators: [{ type: Optional },] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] },] },
     ]; };
     MatFormField.propDecorators = {
         "appearance": [{ type: Input },],
@@ -839,5 +854,5 @@ var MatFormFieldModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatFormFieldModule, MatError, MatFormFieldBase, _MatFormFieldMixinBase, MatFormField, MatFormFieldControl, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations };
+export { MatFormFieldModule, MatError, MatFormFieldBase, _MatFormFieldMixinBase, MAT_FORM_FIELD_DEFAULT_OPTIONS, MatFormField, MatFormFieldControl, getMatFormFieldPlaceholderConflictError, getMatFormFieldDuplicatedHintError, getMatFormFieldMissingControlError, MatHint, MatPlaceholder, MatPrefix, MatSuffix, MatLabel, matFormFieldAnimations };
 //# sourceMappingURL=form-field.es5.js.map

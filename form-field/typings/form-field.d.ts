@@ -1,4 +1,12 @@
-import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, QueryList } from '@angular/core';
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { Directionality } from '@angular/cdk/bidi';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, QueryList } from '@angular/core';
 import { CanColor, FloatLabelType, LabelOptions, ThemePalette } from '@angular/material/core';
 import { MatError } from './error';
 import { MatFormFieldControl } from './form-field-control';
@@ -7,7 +15,6 @@ import { MatLabel } from './label';
 import { MatPlaceholder } from './placeholder';
 import { MatPrefix } from './prefix';
 import { MatSuffix } from './suffix';
-import { Directionality } from '@angular/cdk/bidi';
 /** @docs-private */
 export declare class MatFormFieldBase {
     _elementRef: ElementRef;
@@ -15,14 +22,20 @@ export declare class MatFormFieldBase {
 }
 export declare const _MatFormFieldMixinBase: (new (...args: any[]) => CanColor) & typeof MatFormFieldBase;
 export declare type MatFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
+export interface MatFormFieldDefaultOptions {
+    appearance?: MatFormFieldAppearance;
+}
+export declare const MAT_FORM_FIELD_DEFAULT_OPTIONS: InjectionToken<MatFormFieldDefaultOptions>;
 /** Container for form controls that applies Material Design styling and behavior. */
 export declare class MatFormField extends _MatFormFieldMixinBase implements AfterContentInit, AfterContentChecked, AfterViewInit, CanColor {
     _elementRef: ElementRef;
     private _changeDetectorRef;
     private _dir;
+    private _defaultOptions;
     private _labelOptions;
     /** The form-field appearance style. */
     appearance: MatFormFieldAppearance;
+    _appearance: MatFormFieldAppearance;
     /**
      * @deprecated Use `color` instead.
      * @deletion-target 6.0.0
@@ -76,7 +89,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     _hintChildren: QueryList<MatHint>;
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions, _dir: Directionality);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions, _dir: Directionality, _defaultOptions: MatFormFieldDefaultOptions);
     /**
      * Gets an ElementRef for the element that a overlay attached to the form-field should be
      * positioned relative to.

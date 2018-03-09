@@ -376,32 +376,20 @@ class MatSnackBarContainer extends BasePortalOutlet {
         });
     }
     /**
-     * Applies the user-specified list of CSS classes to the element.
-     * @param {?} classList
-     * @return {?}
-     */
-    _setCssClasses(classList) {
-        if (!classList) {
-            return;
-        }
-        const /** @type {?} */ element = this._elementRef.nativeElement;
-        if (Array.isArray(classList)) {
-            // Note that we can't use a spread here, because IE doesn't support multiple arguments.
-            classList.forEach(cssClass => element.classList.add(cssClass));
-        }
-        else {
-            element.classList.add(classList);
-        }
-    }
-    /**
      * Applies the various positioning and user-configured CSS classes to the snack bar.
      * @return {?}
      */
     _applySnackBarClasses() {
         const /** @type {?} */ element = this._elementRef.nativeElement;
-        if (this.snackBarConfig.panelClass || this.snackBarConfig.extraClasses) {
-            this._setCssClasses(this.snackBarConfig.panelClass);
-            this._setCssClasses(this.snackBarConfig.extraClasses);
+        const /** @type {?} */ panelClasses = this.snackBarConfig.panelClass;
+        if (panelClasses) {
+            if (Array.isArray(panelClasses)) {
+                // Note that we can't use a spread here, because IE doesn't support multiple arguments.
+                panelClasses.forEach(cssClass => element.classList.add(cssClass));
+            }
+            else {
+                element.classList.add(panelClasses);
+            }
         }
         if (this.snackBarConfig.horizontalPosition === 'center') {
             element.classList.add('mat-snack-bar-center');

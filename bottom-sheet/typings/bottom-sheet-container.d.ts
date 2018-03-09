@@ -34,6 +34,8 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     private _elementFocusedBeforeOpened;
     /** Server-side rendering-compatible reference to the global document object. */
     private _document;
+    /** Whether the component has been destroyed. */
+    private _destroyed;
     constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusTrapFactory: FocusTrapFactory, breakpointObserver: BreakpointObserver, document: any);
     /** Attach a component portal as content to this bottom sheet container. */
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;

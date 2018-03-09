@@ -2966,20 +2966,18 @@ MatFormFieldBase = /** @class */ (function () {
     return MatFormFieldBase;
 }());
 var /** @type {?} */ _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
+var /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new core.InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
 var MatFormField = /** @class */ (function (_super) {
     __extends(MatFormField, _super);
-    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir) {
+    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
-        /**
-         * The form-field appearance style.
-         */
-        _this.appearance = 'legacy';
+        _this._defaultOptions = _defaultOptions;
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
@@ -2997,6 +2995,24 @@ var MatFormField = /** @class */ (function (_super) {
         _this.floatLabel = _this._labelOptions.float || 'auto';
         return _this;
     }
+    Object.defineProperty(MatFormField.prototype, "appearance", {
+        get: /**
+         * The form-field appearance style.
+         * @return {?}
+         */
+        function () {
+            return this._appearance || this._defaultOptions && this._defaultOptions.appearance || 'legacy';
+        },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._appearance = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatFormField.prototype, "dividerColor", {
         get: /**
          * @deprecated Use `color` instead.
@@ -3226,8 +3242,7 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        return this._canLabelFloat && (this._control.shouldLabelFloat ||
-            this._control.shouldPlaceholderFloat || this._shouldAlwaysFloat);
+        return this._canLabelFloat && (this._control.shouldLabelFloat || this._shouldAlwaysFloat);
     };
     /**
      * @return {?}
@@ -3435,8 +3450,7 @@ var MatFormField = /** @class */ (function (_super) {
         return this._dir && this._dir.value === 'rtl' ? rect.right : rect.left;
     };
     MatFormField.decorators = [
-        { type: core.Component, args: [{// TODO(mmalerba): the input-container selectors and classes are deprecated and will be removed.
-                    selector: 'mat-input-container, mat-form-field',
+        { type: core.Component, args: [{selector: 'mat-form-field',
                     exportAs: 'matFormField',
                     template: "<div class=\"mat-input-wrapper mat-form-field-wrapper\"><div class=\"mat-input-flex mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><div class=\"mat-input-prefix mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-input-infix mat-form-field-infix\" #inputContainer><ng-content></ng-content><span class=\"mat-form-field-label-wrapper mat-input-placeholder-wrapper mat-form-field-placeholder-wrapper\"><label class=\"mat-form-field-label mat-input-placeholder mat-form-field-placeholder\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #label *ngIf=\"_hasFloatingLabel()\" [ngSwitch]=\"_hasLabel()\"><ng-container *ngSwitchCase=\"false\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}}</ng-container><ng-content select=\"mat-label\" *ngSwitchCase=\"true\"></ng-content><span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required && !_control.disabled\">&nbsp;*</span></label></span></div><div class=\"mat-input-suffix mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-input-underline mat-form-field-underline\" #underline *ngIf=\"appearance != 'outline'\"><span class=\"mat-input-ripple mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><ng-container *ngIf=\"appearance == 'outline'\"><div class=\"mat-form-field-outline\"><div class=\"mat-form-field-outline-start\" [style.width.px]=\"_outlineGapStart\"></div><div class=\"mat-form-field-outline-gap\" [style.width.px]=\"_outlineGapWidth\"></div><div class=\"mat-form-field-outline-end\"></div></div><div class=\"mat-form-field-outline mat-form-field-outline-thick\"><div class=\"mat-form-field-outline-start\" [style.width.px]=\"_outlineGapStart\"></div><div class=\"mat-form-field-outline-gap\" [style.width.px]=\"_outlineGapWidth\"></div><div class=\"mat-form-field-outline-end\"></div></div></ng-container><div class=\"mat-input-subscript-wrapper mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-input-hint-wrapper mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-input-hint-spacer mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
                     // MatInput is a directive and can't have styles, so we need to include its styles here.
@@ -3479,6 +3493,7 @@ var MatFormField = /** @class */ (function (_super) {
         { type: core.ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_LABEL_GLOBAL_OPTIONS,] },] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] },] },
     ]; };
     MatFormField.propDecorators = {
         "appearance": [{ type: core.Input },],
@@ -4867,8 +4882,10 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._animationState = 'visible';
-        this._changeDetectorRef.detectChanges();
+        if (!this._destroyed) {
+            this._animationState = 'visible';
+            this._changeDetectorRef.detectChanges();
+        }
     };
     /** Begin animation of the bottom sheet exiting from view. */
     /**
@@ -4880,8 +4897,10 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._animationState = 'hidden';
-        this._changeDetectorRef.markForCheck();
+        if (!this._destroyed) {
+            this._animationState = 'hidden';
+            this._changeDetectorRef.markForCheck();
+        }
     };
     /**
      * @return {?}
@@ -4891,6 +4910,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      */
     function () {
         this._breakpointSubscription.unsubscribe();
+        this._destroyed = true;
     };
     /**
      * @param {?} event
@@ -16640,9 +16660,6 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (svg) {
-        if (!svg.getAttribute('xmlns')) {
-            svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        }
         svg.setAttribute('fit', '');
         svg.setAttribute('height', '100%');
         svg.setAttribute('width', '100%');
@@ -21125,7 +21142,7 @@ var MatSelect = /** @class */ (function (_super) {
         this.focus();
         this.open();
     };
-    Object.defineProperty(MatSelect.prototype, "shouldPlaceholderFloat", {
+    Object.defineProperty(MatSelect.prototype, "shouldLabelFloat", {
         /**
          * Implemented as part of MatFormFieldControl.
          * @docs-private
@@ -27251,29 +27268,6 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
         });
     };
     /**
-     * Applies the user-specified list of CSS classes to the element.
-     * @param {?} classList
-     * @return {?}
-     */
-    MatSnackBarContainer.prototype._setCssClasses = /**
-     * Applies the user-specified list of CSS classes to the element.
-     * @param {?} classList
-     * @return {?}
-     */
-    function (classList) {
-        if (!classList) {
-            return;
-        }
-        var /** @type {?} */ element = this._elementRef.nativeElement;
-        if (Array.isArray(classList)) {
-            // Note that we can't use a spread here, because IE doesn't support multiple arguments.
-            classList.forEach(function (cssClass) { return element.classList.add(cssClass); });
-        }
-        else {
-            element.classList.add(classList);
-        }
-    };
-    /**
      * Applies the various positioning and user-configured CSS classes to the snack bar.
      * @return {?}
      */
@@ -27283,9 +27277,15 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      */
     function () {
         var /** @type {?} */ element = this._elementRef.nativeElement;
-        if (this.snackBarConfig.panelClass || this.snackBarConfig.extraClasses) {
-            this._setCssClasses(this.snackBarConfig.panelClass);
-            this._setCssClasses(this.snackBarConfig.extraClasses);
+        var /** @type {?} */ panelClasses = this.snackBarConfig.panelClass;
+        if (panelClasses) {
+            if (Array.isArray(panelClasses)) {
+                // Note that we can't use a spread here, because IE doesn't support multiple arguments.
+                panelClasses.forEach(function (cssClass) { return element.classList.add(cssClass); });
+            }
+            else {
+                element.classList.add(panelClasses);
+            }
         }
         if (this.snackBarConfig.horizontalPosition === 'center') {
             element.classList.add('mat-snack-bar-center');
@@ -32373,7 +32373,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-9337ae1');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-4a84a67');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32563,6 +32563,7 @@ exports.MatFormFieldModule = MatFormFieldModule;
 exports.MatError = MatError;
 exports.MatFormFieldBase = MatFormFieldBase;
 exports._MatFormFieldMixinBase = _MatFormFieldMixinBase;
+exports.MAT_FORM_FIELD_DEFAULT_OPTIONS = MAT_FORM_FIELD_DEFAULT_OPTIONS;
 exports.MatFormField = MatFormField;
 exports.MatFormFieldControl = MatFormFieldControl;
 exports.getMatFormFieldPlaceholderConflictError = getMatFormFieldPlaceholderConflictError;
@@ -32791,7 +32792,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa9 = MatTreeNodeOutlet;
+exports.ɵa11 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

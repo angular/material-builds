@@ -1703,7 +1703,7 @@ var MatSelect = /** @class */ (function (_super) {
         this.focus();
         this.open();
     };
-    Object.defineProperty(MatSelect.prototype, "shouldPlaceholderFloat", {
+    Object.defineProperty(MatSelect.prototype, "shouldLabelFloat", {
         /**
          * Implemented as part of MatFormFieldControl.
          * @docs-private

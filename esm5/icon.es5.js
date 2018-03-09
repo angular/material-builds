@@ -634,9 +634,6 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (svg) {
-        if (!svg.getAttribute('xmlns')) {
-            svg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        }
         svg.setAttribute('fit', '');
         svg.setAttribute('height', '100%');
         svg.setAttribute('width', '100%');
