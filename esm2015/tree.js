@@ -193,7 +193,7 @@ MatTree.decorators = [
                     'class': 'mat-tree',
                     'role': 'tree',
                 },
-                styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;min-height:48px;padding:0 24px;flex:1;overflow:hidden;word-wrap:break-word}.mat-nested-tree-ndoe{border-bottom-width:0}"],
+                styles: [".mat-tree{display:block}.mat-tree-node{display:flex;align-items:center;min-height:48px;flex:1;overflow:hidden;word-wrap:break-word}.mat-nested-tree-ndoe{border-bottom-width:0}"],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 providers: [{ provide: CdkTree, useExisting: MatTree }]
