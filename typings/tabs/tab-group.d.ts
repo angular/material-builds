@@ -44,11 +44,6 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     /** Whether the tab group should grow to the size of the active tab. */
     dynamicHeight: boolean;
     private _dynamicHeight;
-    /**
-     * @deprecated
-     * @deletion-target 6.0.0
-     */
-    _dynamicHeightDeprecated: boolean;
     /** The index of the active tab. */
     selectedIndex: number | null;
     private _selectedIndex;
@@ -65,12 +60,6 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     readonly animationDone: EventEmitter<void>;
     /** Event emitted when the tab selection has changed. */
     readonly selectedTabChange: EventEmitter<MatTabChangeEvent>;
-    /**
-     * Event emitted when the tab selection has changed.
-     * @deprecated Use `selectedTabChange` instead.
-     * @deletion-target 6.0.0
-     */
-    readonly selectChange: EventEmitter<MatTabChangeEvent>;
     private _groupId;
     constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef);
     /**

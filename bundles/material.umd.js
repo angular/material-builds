@@ -30146,12 +30146,6 @@ var MatTabGroup = /** @class */ (function (_super) {
          * Event emitted when the tab selection has changed.
          */
         _this.selectedTabChange = new core.EventEmitter(true);
-        /**
-         * Event emitted when the tab selection has changed.
-         * @deprecated Use `selectedTabChange` instead.
-         * \@deletion-target 6.0.0
-         */
-        _this.selectChange = _this.selectedTabChange;
         _this._groupId = nextId$1++;
         return _this;
     }
@@ -30166,21 +30160,6 @@ var MatTabGroup = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) { this._dynamicHeight = coercion.coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatTabGroup.prototype, "_dynamicHeightDeprecated", {
-        get: /**
-         * @deprecated
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () { return this._dynamicHeight; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._dynamicHeight = value; },
         enumerable: true,
         configurable: true
     });
@@ -30482,7 +30461,6 @@ var MatTabGroup = /** @class */ (function (_super) {
         "_tabs": [{ type: core.ContentChildren, args: [MatTab,] },],
         "_tabBodyWrapper": [{ type: core.ViewChild, args: ['tabBodyWrapper',] },],
         "dynamicHeight": [{ type: core.Input },],
-        "_dynamicHeightDeprecated": [{ type: core.Input, args: ['mat-dynamic-height',] },],
         "selectedIndex": [{ type: core.Input },],
         "headerPosition": [{ type: core.Input },],
         "backgroundColor": [{ type: core.Input },],
@@ -30490,7 +30468,6 @@ var MatTabGroup = /** @class */ (function (_super) {
         "focusChange": [{ type: core.Output },],
         "animationDone": [{ type: core.Output },],
         "selectedTabChange": [{ type: core.Output },],
-        "selectChange": [{ type: core.Output },],
     };
     return MatTabGroup;
 }(_MatTabGroupMixinBase));
@@ -32310,7 +32287,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-9f8eec1');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-4d05cda');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32557,10 +32534,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa25 = MatMenuItemBase;
-exports.ɵb25 = _MatMenuItemMixinBase;
-exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32685,16 +32662,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe25 = MatTabBase;
+exports.ɵf25 = _MatTabMixinBase;
+exports.ɵa25 = MatTabHeaderBase;
+exports.ɵb25 = _MatTabHeaderMixinBase;
+exports.ɵc25 = MatTabLabelWrapperBase;
+exports.ɵd25 = _MatTabLabelWrapperMixinBase;
+exports.ɵi25 = MatTabLinkBase;
+exports.ɵg25 = MatTabNavBase;
+exports.ɵj25 = _MatTabLinkMixinBase;
+exports.ɵh25 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
@@ -32728,7 +32705,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa15 = MatTreeNodeOutlet;
+exports.ɵa14 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

@@ -549,12 +549,6 @@ class MatTabGroup extends _MatTabGroupMixinBase {
          * Event emitted when the tab selection has changed.
          */
         this.selectedTabChange = new EventEmitter(true);
-        /**
-         * Event emitted when the tab selection has changed.
-         * @deprecated Use `selectedTabChange` instead.
-         * \@deletion-target 6.0.0
-         */
-        this.selectChange = this.selectedTabChange;
         this._groupId = nextId++;
     }
     /**
@@ -567,17 +561,6 @@ class MatTabGroup extends _MatTabGroupMixinBase {
      * @return {?}
      */
     set dynamicHeight(value) { this._dynamicHeight = coerceBooleanProperty(value); }
-    /**
-     * @deprecated
-     * \@deletion-target 6.0.0
-     * @return {?}
-     */
-    get _dynamicHeightDeprecated() { return this._dynamicHeight; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set _dynamicHeightDeprecated(value) { this._dynamicHeight = value; }
     /**
      * The index of the active tab.
      * @return {?}
@@ -790,7 +773,6 @@ MatTabGroup.propDecorators = {
     "_tabs": [{ type: ContentChildren, args: [MatTab,] },],
     "_tabBodyWrapper": [{ type: ViewChild, args: ['tabBodyWrapper',] },],
     "dynamicHeight": [{ type: Input },],
-    "_dynamicHeightDeprecated": [{ type: Input, args: ['mat-dynamic-height',] },],
     "selectedIndex": [{ type: Input },],
     "headerPosition": [{ type: Input },],
     "backgroundColor": [{ type: Input },],
@@ -798,7 +780,6 @@ MatTabGroup.propDecorators = {
     "focusChange": [{ type: Output },],
     "animationDone": [{ type: Output },],
     "selectedTabChange": [{ type: Output },],
-    "selectChange": [{ type: Output },],
 };
 
 /**
@@ -1643,5 +1624,5 @@ MatTabsModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe24, _MatTabMixinBase as ɵf24, MatTabHeaderBase as ɵa24, _MatTabHeaderMixinBase as ɵb24, MatTabLabelWrapperBase as ɵc24, _MatTabLabelWrapperMixinBase as ɵd24, MatTabLinkBase as ɵi24, MatTabNavBase as ɵg24, _MatTabLinkMixinBase as ɵj24, _MatTabNavMixinBase as ɵh24 };
+export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe25, _MatTabMixinBase as ɵf25, MatTabHeaderBase as ɵa25, _MatTabHeaderMixinBase as ɵb25, MatTabLabelWrapperBase as ɵc25, _MatTabLabelWrapperMixinBase as ɵd25, MatTabLinkBase as ɵi25, MatTabNavBase as ɵg25, _MatTabLinkMixinBase as ɵj25, _MatTabNavMixinBase as ɵh25 };
 //# sourceMappingURL=tabs.js.map

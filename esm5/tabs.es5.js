@@ -637,12 +637,6 @@ var MatTabGroup = /** @class */ (function (_super) {
          * Event emitted when the tab selection has changed.
          */
         _this.selectedTabChange = new EventEmitter(true);
-        /**
-         * Event emitted when the tab selection has changed.
-         * @deprecated Use `selectedTabChange` instead.
-         * \@deletion-target 6.0.0
-         */
-        _this.selectChange = _this.selectedTabChange;
         _this._groupId = nextId++;
         return _this;
     }
@@ -657,21 +651,6 @@ var MatTabGroup = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) { this._dynamicHeight = coerceBooleanProperty(value); },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatTabGroup.prototype, "_dynamicHeightDeprecated", {
-        get: /**
-         * @deprecated
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () { return this._dynamicHeight; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._dynamicHeight = value; },
         enumerable: true,
         configurable: true
     });
@@ -973,7 +952,6 @@ var MatTabGroup = /** @class */ (function (_super) {
         "_tabs": [{ type: ContentChildren, args: [MatTab,] },],
         "_tabBodyWrapper": [{ type: ViewChild, args: ['tabBodyWrapper',] },],
         "dynamicHeight": [{ type: Input },],
-        "_dynamicHeightDeprecated": [{ type: Input, args: ['mat-dynamic-height',] },],
         "selectedIndex": [{ type: Input },],
         "headerPosition": [{ type: Input },],
         "backgroundColor": [{ type: Input },],
@@ -981,7 +959,6 @@ var MatTabGroup = /** @class */ (function (_super) {
         "focusChange": [{ type: Output },],
         "animationDone": [{ type: Output },],
         "selectedTabChange": [{ type: Output },],
-        "selectChange": [{ type: Output },],
     };
     return MatTabGroup;
 }(_MatTabGroupMixinBase));
@@ -2097,5 +2074,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe24, _MatTabMixinBase as ɵf24, MatTabHeaderBase as ɵa24, _MatTabHeaderMixinBase as ɵb24, MatTabLabelWrapperBase as ɵc24, _MatTabLabelWrapperMixinBase as ɵd24, MatTabLinkBase as ɵi24, MatTabNavBase as ɵg24, _MatTabLinkMixinBase as ɵj24, _MatTabNavMixinBase as ɵh24 };
+export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe25, _MatTabMixinBase as ɵf25, MatTabHeaderBase as ɵa25, _MatTabHeaderMixinBase as ɵb25, MatTabLabelWrapperBase as ɵc25, _MatTabLabelWrapperMixinBase as ɵd25, MatTabLinkBase as ɵi25, MatTabNavBase as ɵg25, _MatTabLinkMixinBase as ɵj25, _MatTabNavMixinBase as ɵh25 };
 //# sourceMappingURL=tabs.es5.js.map
