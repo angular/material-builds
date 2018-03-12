@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/a11y'), require('@angular/common'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/badge', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/a11y', '@angular/common', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.badge = {}),global.ng.core,global.ng.cdk.coercion,global.ng.cdk.a11y,global.ng.common,global.ng.material.core));
-}(this, (function (exports,core,coercion,a11y,common,core$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/common'), require('@angular/core'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/badge', ['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/common', '@angular/core', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.badge = {}),global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.common,global.ng.core,global.ng.material.core));
+}(this, (function (exports,a11y,coercion,common,core,core$1) { 'use strict';
 
 /**
  * @fileoverview added by tsickle

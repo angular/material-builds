@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, Input, ElementRef, Inject, Optional, NgZone, NgModule } from '@angular/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { AriaDescriber, A11yModule } from '@angular/cdk/a11y';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
+import { Directive, ElementRef, Inject, Input, NgZone, Optional, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 
 /**

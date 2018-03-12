@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { AriaDescriber } from '@angular/cdk/a11y';
 import { ElementRef, NgZone, OnDestroy } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
-import { AriaDescriber } from '@angular/cdk/a11y';
 export declare type MatBadgePosition = 'above after' | 'above before' | 'below before' | 'below after';
 export declare type MatBadgeSize = 'small' | 'medium' | 'large';
 /** Directive to display a text badge. */
