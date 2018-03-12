@@ -160,28 +160,6 @@ var MatCheckbox = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatCheckbox.prototype, "align", {
-        get: /**
-         * Whether or not the checkbox should appear before or after the label.
-         * @deprecated
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () {
-            // align refers to the checkbox relative to the label, while labelPosition refers to the
-            // label relative to the checkbox. As such, they are inverted.
-            return this.labelPosition == 'after' ? 'start' : 'end';
-        },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this.labelPosition = (value == 'start') ? 'after' : 'before';
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * @return {?}
      */
@@ -570,7 +548,6 @@ var MatCheckbox = /** @class */ (function (_super) {
         "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
         "id": [{ type: Input },],
         "required": [{ type: Input },],
-        "align": [{ type: Input },],
         "labelPosition": [{ type: Input },],
         "name": [{ type: Input },],
         "change": [{ type: Output },],

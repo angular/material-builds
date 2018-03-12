@@ -149,24 +149,6 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      */
     set required(value) { this._required = coerceBooleanProperty(value); }
     /**
-     * Whether or not the checkbox should appear before or after the label.
-     * @deprecated
-     * \@deletion-target 6.0.0
-     * @return {?}
-     */
-    get align() {
-        // align refers to the checkbox relative to the label, while labelPosition refers to the
-        // label relative to the checkbox. As such, they are inverted.
-        return this.labelPosition == 'after' ? 'start' : 'end';
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set align(value) {
-        this.labelPosition = (value == 'start') ? 'after' : 'before';
-    }
-    /**
      * @return {?}
      */
     ngAfterViewInit() {
@@ -458,7 +440,6 @@ MatCheckbox.propDecorators = {
     "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
     "id": [{ type: Input },],
     "required": [{ type: Input },],
-    "align": [{ type: Input },],
     "labelPosition": [{ type: Input },],
     "name": [{ type: Input },],
     "change": [{ type: Output },],

@@ -72,12 +72,6 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     /** Whether the checkbox is required. */
     required: boolean;
     private _required;
-    /**
-     * Whether or not the checkbox should appear before or after the label.
-     * @deprecated
-     * @deletion-target 6.0.0
-     */
-    align: 'start' | 'end';
     /** Whether the label should appear after or before the checkbox. Defaults to 'after' */
     labelPosition: 'before' | 'after';
     /** Name value will be applied to the input element if present */
