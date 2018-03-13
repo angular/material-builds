@@ -10,7 +10,7 @@ export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixi
 export { MatBadgeModule, MatBadge } from '@angular/material/badge';
 export { MatBottomSheetModule, MatBottomSheet, MAT_BOTTOM_SHEET_DATA, MatBottomSheetConfig, MatBottomSheetContainer, matBottomSheetAnimations, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 export { MatButtonModule, MatButtonBase, _MatButtonMixinBase, MatButton, MatAnchor } from '@angular/material/button';
-export { MatButtonToggleGroupBase, _MatButtonToggleGroupMixinBase, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleGroupMultiple, MatButtonToggleBase, _MatButtonToggleMixinBase, MatButtonToggle, MatButtonToggleModule } from '@angular/material/button-toggle';
+export { MatButtonToggleGroupBase, _MatButtonToggleGroupMixinBase, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggleGroupMultiple, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleBase, _MatButtonToggleMixinBase, MatButtonToggle, MatButtonToggleModule } from '@angular/material/button-toggle';
 export { MatCardContent, MatCardTitle, MatCardSubtitle, MatCardActions, MatCardFooter, MatCardImage, MatCardSmImage, MatCardMdImage, MatCardLgImage, MatCardXlImage, MatCardAvatar, MatCard, MatCardHeader, MatCardTitleGroup, MatCardModule } from '@angular/material/card';
 export { MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR, TransitionCheckState, MatCheckboxChange, MatCheckboxBase, _MatCheckboxMixinBase, MatCheckbox, MAT_CHECKBOX_CLICK_ACTION, MatCheckboxModule, MAT_CHECKBOX_REQUIRED_VALIDATOR, MatCheckboxRequiredValidator } from '@angular/material/checkbox';
 export { MatChipsModule, MatChipListBase, _MatChipListMixinBase, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipBase, _MatChipMixinBase, MatChipAvatar, MatChipTrailingIcon, MatChip, MatChipRemove, MatChipInput } from '@angular/material/chips';
@@ -24,7 +24,7 @@ export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAv
 export { MatIconModule, MatIconBase, _MatIconMixinBase, MatIcon, getMatIconNameNotFoundError, getMatIconNoHttpProviderError, getMatIconFailedToSanitizeError, MatIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER } from '@angular/material/icon';
 export { MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatNavList, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatListOptionChange, MatSelectionListChange, MatListOption, MatSelectionList } from '@angular/material/list';
-export { ɵa24, ɵb24, ɵd24, ɵc24, MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent } from '@angular/material/menu';
+export { ɵa25, ɵb25, ɵd25, ɵc25, MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent } from '@angular/material/menu';
 export { MatPaginatorModule, PageEvent, MatPaginator, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MAT_PAGINATOR_INTL_PROVIDER } from '@angular/material/paginator';
 export { MatProgressBarModule, MatProgressBarBase, _MatProgressBarMixinBase, MatProgressBar } from '@angular/material/progress-bar';
 export { MatProgressSpinnerModule, MatProgressSpinnerBase, _MatProgressSpinnerMixinBase, MatProgressSpinner, MatSpinner } from '@angular/material/progress-spinner';
@@ -37,10 +37,10 @@ export { MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY, MatSnackBarModule, MAT_
 export { MatSortModule, MatSortHeaderBase, _MatSortHeaderMixinBase, MatSortHeader, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MAT_SORT_HEADER_INTL_PROVIDER, MatSortBase, _MatSortMixinBase, MatSort, matSortAnimations } from '@angular/material/sort';
 export { MatStepperModule, MatStepLabel, _MatStep, _MatStepper, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl, matStepperAnimations, MatStepperIcon } from '@angular/material/stepper';
 export { MatTableModule, MatCellDef, MatHeaderCellDef, MatColumnDef, MatHeaderCell, MatCell, MatTable, MatHeaderRowDef, MatRowDef, MatHeaderRow, MatRow, MatTableDataSource } from '@angular/material/table';
-export { ɵe25, ɵf25, ɵa25, ɵb25, ɵc25, ɵd25, ɵi25, ɵg25, ɵj25, ɵh25, MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations } from '@angular/material/tabs';
+export { ɵe21, ɵf21, ɵa21, ɵb21, ɵc21, ɵd21, ɵi21, ɵg21, ɵj21, ɵh21, MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations } from '@angular/material/tabs';
 export { MatToolbarModule, MatToolbarBase, _MatToolbarMixinBase, MatToolbarRow, MatToolbar, throwToolbarMixedModesError } from '@angular/material/toolbar';
 export { MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltip, TooltipComponent, matTooltipAnimations } from '@angular/material/tooltip';
-export { ɵa5, _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource } from '@angular/material/tree';
+export { ɵa18, _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource } from '@angular/material/tree';
 
 /**
  * @fileoverview added by tsickle
@@ -49,7 +49,7 @@ export { ɵa5, _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, 
 /**
  * Current version of Angular Material.
  */
-const /** @type {?} */ VERSION = new Version('6.0.0-beta.4-2b745c4');
+const /** @type {?} */ VERSION = new Version('6.0.0-beta.4-a403bac');
 
 /**
  * @fileoverview added by tsickle

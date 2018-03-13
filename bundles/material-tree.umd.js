@@ -627,7 +627,7 @@ exports.MatTreeNodeToggle = MatTreeNodeToggle;
 exports.MatTreeFlattener = MatTreeFlattener;
 exports.MatTreeFlatDataSource = MatTreeFlatDataSource;
 exports.MatTreeNestedDataSource = MatTreeNestedDataSource;
-exports.ɵa5 = MatTreeNodeOutlet;
+exports.ɵa18 = MatTreeNodeOutlet;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

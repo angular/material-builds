@@ -1624,5 +1624,5 @@ MatTabsModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe25, _MatTabMixinBase as ɵf25, MatTabHeaderBase as ɵa25, _MatTabHeaderMixinBase as ɵb25, MatTabLabelWrapperBase as ɵc25, _MatTabLabelWrapperMixinBase as ɵd25, MatTabLinkBase as ɵi25, MatTabNavBase as ɵg25, _MatTabLinkMixinBase as ɵj25, _MatTabNavMixinBase as ɵh25 };
+export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe21, _MatTabMixinBase as ɵf21, MatTabHeaderBase as ɵa21, _MatTabHeaderMixinBase as ɵb21, MatTabLabelWrapperBase as ɵc21, _MatTabLabelWrapperMixinBase as ɵd21, MatTabLinkBase as ɵi21, MatTabNavBase as ɵg21, _MatTabLinkMixinBase as ɵj21, _MatTabNavMixinBase as ɵh21 };
 //# sourceMappingURL=tabs.js.map
