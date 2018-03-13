@@ -7,7 +7,7 @@
  */
 import { Directionality } from '@angular/cdk/bidi';
 import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, QueryList } from '@angular/core';
-import { CanColor, FloatLabelType, LabelOptions, ThemePalette } from '@angular/material/core';
+import { CanColor, FloatLabelType, LabelOptions } from '@angular/material/core';
 import { MatError } from './error';
 import { MatFormFieldControl } from './form-field-control';
 import { MatHint } from './hint';
@@ -36,11 +36,6 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     /** The form-field appearance style. */
     appearance: MatFormFieldAppearance;
     _appearance: MatFormFieldAppearance;
-    /**
-     * @deprecated Use `color` instead.
-     * @deletion-target 6.0.0
-     */
-    dividerColor: ThemePalette;
     /** Whether the required marker should be hidden. */
     hideRequiredMarker: boolean;
     private _hideRequiredMarker;
@@ -56,12 +51,6 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     hintLabel: string;
     private _hintLabel;
     _hintLabelId: string;
-    /**
-     * Whether the placeholder should always float, never float or float as the user types.
-     * @deprecated Use floatLabel instead.
-     * @deletion-target 6.0.0
-     */
-    floatPlaceholder: FloatLabelType;
     /**
      * Whether the label should always float, never float or float as the user types.
      *

@@ -4,7 +4,7 @@ import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanUpdateErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs/Subject';
-import { AutofillMonitor } from './autofill';
+import { AutofillMonitor } from '@angular/cdk/text-field';
 /** @docs-private */
 export declare class MatInputBase {
     _defaultErrorStateMatcher: ErrorStateMatcher;

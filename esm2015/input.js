@@ -5,17 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Platform, supportsPassiveEventListeners, getSupportedInputTypes, PlatformModule } from '@angular/cdk/platform';
-import { Directive, ElementRef, EventEmitter, Injectable, Output, Input, NgZone, InjectionToken, Inject, Optional, Self, NgModule } from '@angular/core';
-import { empty } from 'rxjs/observable/empty';
-import { Subject } from 'rxjs/Subject';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { auditTime } from 'rxjs/operators/auditTime';
-import { takeUntil } from 'rxjs/operators/takeUntil';
+import { CdkTextareaAutosize, AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
+import { Directive, Input, InjectionToken, ElementRef, Inject, Optional, Self, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { getSupportedInputTypes, Platform, PlatformModule } from '@angular/cdk/platform';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { Subject } from 'rxjs/Subject';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -23,329 +20,48 @@ import { CommonModule } from '@angular/common';
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Options to pass to the animationstart listener.
- */
-const /** @type {?} */ listenerOptions = supportsPassiveEventListeners() ? { passive: true } : false;
-/**
- * An injectable service that can be used to monitor the autofill state of an input.
- * Based on the following blog post:
- * https://medium.com/\@brunn/detecting-autofilled-fields-in-javascript-aed598d25da7
- */
-class AutofillMonitor {
-    /**
-     * @param {?} _platform
-     */
-    constructor(_platform) {
-        this._platform = _platform;
-        this._monitoredElements = new Map();
-    }
-    /**
-     * Monitor for changes in the autofill state of the given input element.
-     * @param {?} element The element to monitor.
-     * @return {?} A stream of autofill state changes.
-     */
-    monitor(element) {
-        if (!this._platform.isBrowser) {
-            return empty();
-        }
-        const /** @type {?} */ info = this._monitoredElements.get(element);
-        if (info) {
-            return info.subject.asObservable();
-        }
-        const /** @type {?} */ result = new Subject();
-        const /** @type {?} */ listener = (event) => {
-            if (event.animationName === 'mat-input-autofill-start') {
-                element.classList.add('mat-input-autofilled');
-                result.next({ target: /** @type {?} */ (event.target), isAutofilled: true });
-            }
-            else if (event.animationName === 'mat-input-autofill-end') {
-                element.classList.remove('mat-input-autofilled');
-                result.next({ target: /** @type {?} */ (event.target), isAutofilled: false });
-            }
-        };
-        element.addEventListener('animationstart', listener, listenerOptions);
-        element.classList.add('mat-input-autofill-monitored');
-        this._monitoredElements.set(element, {
-            subject: result,
-            unlisten: () => {
-                element.removeEventListener('animationstart', listener, listenerOptions);
-            }
-        });
-        return result.asObservable();
-    }
-    /**
-     * Stop monitoring the autofill state of the given input element.
-     * @param {?} element The element to stop monitoring.
-     * @return {?}
-     */
-    stopMonitoring(element) {
-        const /** @type {?} */ info = this._monitoredElements.get(element);
-        if (info) {
-            info.unlisten();
-            info.subject.complete();
-            element.classList.remove('mat-input-autofill-monitored');
-            element.classList.remove('mat-input-autofilled');
-            this._monitoredElements.delete(element);
-        }
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._monitoredElements.forEach((_info, element) => this.stopMonitoring(element));
-    }
-}
-AutofillMonitor.decorators = [
-    { type: Injectable },
-];
-/** @nocollapse */
-AutofillMonitor.ctorParameters = () => [
-    { type: Platform, },
-];
-/**
- * A directive that can be used to monitor the autofill state of an input.
- */
-class MatAutofill {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _autofillMonitor
-     */
-    constructor(_elementRef, _autofillMonitor) {
-        this._elementRef = _elementRef;
-        this._autofillMonitor = _autofillMonitor;
-        this.matAutofill = new EventEmitter();
-    }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this._autofillMonitor
-            .monitor(this._elementRef.nativeElement)
-            .subscribe(event => this.matAutofill.emit(event));
-    }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
-    }
-}
-MatAutofill.decorators = [
-    { type: Directive, args: [{
-                selector: '[matAutofill]',
-            },] },
-];
-/** @nocollapse */
-MatAutofill.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: AutofillMonitor, },
-];
-MatAutofill.propDecorators = {
-    "matAutofill": [{ type: Output },],
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * Directive to automatically resize a textarea to fit its content.
+ * \@deletion-target 7.0.0 deprecate in favor of `cdkTextareaAutosize`.
  */
-class MatTextareaAutosize {
-    /**
-     * @param {?} _elementRef
-     * @param {?} _platform
-     * @param {?=} _ngZone
-     */
-    constructor(_elementRef, _platform, _ngZone) {
-        this._elementRef = _elementRef;
-        this._platform = _platform;
-        this._ngZone = _ngZone;
-        this._destroyed = new Subject();
-    }
-    /**
-     * Minimum amount of rows in the textarea.
-     * @param {?} value
-     * @return {?}
-     */
-    set minRows(value) {
-        this._minRows = value;
-        this._setMinHeight();
-    }
+class MatTextareaAutosize extends CdkTextareaAutosize {
     /**
      * @return {?}
      */
-    get minRows() { return this._minRows; }
-    /**
-     * Maximum amount of rows in the textarea.
-     * @return {?}
-     */
-    get maxRows() { return this._maxRows; }
+    get matAutosizeMinRows() { return this.minRows; }
     /**
      * @param {?} value
      * @return {?}
      */
-    set maxRows(value) {
-        this._maxRows = value;
-        this._setMaxHeight();
-    }
-    /**
-     * Sets the minimum height of the textarea as determined by minRows.
-     * @return {?}
-     */
-    _setMinHeight() {
-        const /** @type {?} */ minHeight = this.minRows && this._cachedLineHeight ?
-            `${this.minRows * this._cachedLineHeight}px` : null;
-        if (minHeight) {
-            this._setTextareaStyle('minHeight', minHeight);
-        }
-    }
-    /**
-     * Sets the maximum height of the textarea as determined by maxRows.
-     * @return {?}
-     */
-    _setMaxHeight() {
-        const /** @type {?} */ maxHeight = this.maxRows && this._cachedLineHeight ?
-            `${this.maxRows * this._cachedLineHeight}px` : null;
-        if (maxHeight) {
-            this._setTextareaStyle('maxHeight', maxHeight);
-        }
-    }
+    set matAutosizeMinRows(value) { this.minRows = value; }
     /**
      * @return {?}
      */
-    ngAfterViewInit() {
-        if (this._platform.isBrowser) {
-            this.resizeToFitContent();
-            if (this._ngZone) {
-                this._ngZone.runOutsideAngular(() => {
-                    fromEvent(window, 'resize')
-                        .pipe(auditTime(16), takeUntil(this._destroyed))
-                        .subscribe(() => this.resizeToFitContent(true));
-                });
-            }
-        }
-    }
+    get matAutosizeMaxRows() { return this.maxRows; }
     /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._destroyed.next();
-        this._destroyed.complete();
-    }
-    /**
-     * Sets a style property on the textarea element.
-     * @param {?} property
      * @param {?} value
      * @return {?}
      */
-    _setTextareaStyle(property, value) {
-        const /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
-        textarea.style[property] = value;
-    }
-    /**
-     * Cache the height of a single-row textarea if it has not already been cached.
-     *
-     * We need to know how large a single "row" of a textarea is in order to apply minRows and
-     * maxRows. For the initial version, we will assume that the height of a single line in the
-     * textarea does not ever change.
-     * @return {?}
-     */
-    _cacheTextareaLineHeight() {
-        if (this._cachedLineHeight) {
-            return;
-        }
-        let /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
-        // Use a clone element because we have to override some styles.
-        let /** @type {?} */ textareaClone = /** @type {?} */ (textarea.cloneNode(false));
-        textareaClone.rows = 1;
-        // Use `position: absolute` so that this doesn't cause a browser layout and use
-        // `visibility: hidden` so that nothing is rendered. Clear any other styles that
-        // would affect the height.
-        textareaClone.style.position = 'absolute';
-        textareaClone.style.visibility = 'hidden';
-        textareaClone.style.border = 'none';
-        textareaClone.style.padding = '0';
-        textareaClone.style.height = '';
-        textareaClone.style.minHeight = '';
-        textareaClone.style.maxHeight = '';
-        // In Firefox it happens that textarea elements are always bigger than the specified amount
-        // of rows. This is because Firefox tries to add extra space for the horizontal scrollbar.
-        // As a workaround that removes the extra space for the scrollbar, we can just set overflow
-        // to hidden. This ensures that there is no invalid calculation of the line height.
-        // See Firefox bug report: https://bugzilla.mozilla.org/show_bug.cgi?id=33654
-        textareaClone.style.overflow = 'hidden'; /** @type {?} */
-        ((textarea.parentNode)).appendChild(textareaClone);
-        this._cachedLineHeight = textareaClone.clientHeight; /** @type {?} */
-        ((textarea.parentNode)).removeChild(textareaClone);
-        // Min and max heights have to be re-calculated if the cached line height changes
-        this._setMinHeight();
-        this._setMaxHeight();
-    }
-    /**
-     * @return {?}
-     */
-    ngDoCheck() {
-        if (this._platform.isBrowser) {
-            this.resizeToFitContent();
-        }
-    }
-    /**
-     * Resize the textarea to fit its content.
-     * @param {?=} force Whether to force a height recalculation. By default the height will be
-     *    recalculated only if the value changed since the last call.
-     * @return {?}
-     */
-    resizeToFitContent(force = false) {
-        this._cacheTextareaLineHeight();
-        // If we haven't determined the line-height yet, we know we're still hidden and there's no point
-        // in checking the height of the textarea.
-        if (!this._cachedLineHeight) {
-            return;
-        }
-        const /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
-        const /** @type {?} */ value = textarea.value;
-        // Only resize of the value changed since these calculations can be expensive.
-        if (value === this._previousValue && !force) {
-            return;
-        }
-        const /** @type {?} */ placeholderText = textarea.placeholder;
-        // Reset the textarea height to auto in order to shrink back to its default size.
-        // Also temporarily force overflow:hidden, so scroll bars do not interfere with calculations.
-        // Long placeholders that are wider than the textarea width may lead to a bigger scrollHeight
-        // value. To ensure that the scrollHeight is not bigger than the content, the placeholders
-        // need to be removed temporarily.
-        textarea.style.height = 'auto';
-        textarea.style.overflow = 'hidden';
-        textarea.placeholder = '';
-        // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
-        textarea.style.height = `${textarea.scrollHeight}px`;
-        textarea.style.overflow = '';
-        textarea.placeholder = placeholderText;
-        this._previousValue = value;
-    }
+    set matAutosizeMaxRows(value) { this.maxRows = value; }
 }
 MatTextareaAutosize.decorators = [
     { type: Directive, args: [{
-                selector: `textarea[mat-autosize], textarea[matTextareaAutosize]`,
+                selector: 'textarea[mat-autosize], textarea[matTextareaAutosize]',
                 exportAs: 'matTextareaAutosize',
+                inputs: ['cdkAutosizeMinRows', 'cdkAutosizeMaxRows'],
                 host: {
-                    'class': 'mat-autosize',
+                    'class': 'cdk-textarea-autosize mat-autosize',
                     // Textarea elements that have the directive applied should have a single row by default.
                     // Browsers normally show two rows by default and therefore this limits the minRows binding.
                     'rows': '1',
+                    '(input)': '_noopInputHandler()',
                 },
             },] },
 ];
 /** @nocollapse */
-MatTextareaAutosize.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: Platform, },
-    { type: NgZone, },
-];
+MatTextareaAutosize.ctorParameters = () => [];
 MatTextareaAutosize.propDecorators = {
-    "minRows": [{ type: Input, args: ['matAutosizeMinRows',] },],
-    "maxRows": [{ type: Input, args: ['matAutosizeMaxRows',] },],
+    "matAutosizeMinRows": [{ type: Input },],
+    "matAutosizeMaxRows": [{ type: Input },],
 };
 
 /**
@@ -780,23 +496,20 @@ class MatInputModule {
 }
 MatInputModule.decorators = [
     { type: NgModule, args: [{
-                declarations: [
-                    MatAutofill,
-                    MatInput,
-                    MatTextareaAutosize,
-                ],
+                declarations: [MatInput, MatTextareaAutosize],
                 imports: [
                     CommonModule,
+                    TextFieldModule,
                     MatFormFieldModule,
                     PlatformModule,
                 ],
                 exports: [
-                    MatAutofill,
+                    TextFieldModule,
                     MatFormFieldModule,
                     MatInput,
                     MatTextareaAutosize,
                 ],
-                providers: [ErrorStateMatcher, AutofillMonitor],
+                providers: [ErrorStateMatcher],
             },] },
 ];
 /** @nocollapse */
@@ -812,5 +525,5 @@ MatInputModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { AutofillMonitor, MatAutofill, MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };
+export { MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };
 //# sourceMappingURL=input.js.map

@@ -15,22 +15,8 @@ import { Observable } from 'rxjs/Observable';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 /** Throws an exception when two MatDrawer are matching the same position. */
 export declare function throwMatDuplicatedDrawerError(position: string): void;
-/**
- * Drawer toggle promise result.
- * @deprecated
- * @deletion-target 6.0.0
- */
-export declare class MatDrawerToggleResult {
-    /** Whether the drawer is opened or closed. */
-    type: 'open' | 'close';
-    /** Whether the drawer animation is finished. */
-    animationFinished: boolean;
-    constructor(
-        /** Whether the drawer is opened or closed. */
-        type: 'open' | 'close', 
-        /** Whether the drawer animation is finished. */
-        animationFinished: boolean);
-}
+/** Result of the toggle promise that indicates the state of the drawer. */
+export declare type MatDrawerToggleResult = 'open' | 'close';
 /** Configures whether drawers should use auto sizing by default. */
 export declare const MAT_DRAWER_DEFAULT_AUTOSIZE: InjectionToken<boolean>;
 export declare class MatDrawerContent implements AfterContentInit {
@@ -65,11 +51,6 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     /** The side that the drawer is attached to. */
     position: 'start' | 'end';
     private _position;
-    /**
-     * @deprecated
-     * @deletion-target 6.0.0
-     */
-    align: 'start' | 'end';
     /** Mode of the drawer; one of 'over', 'push' or 'side'. */
     mode: 'over' | 'push' | 'side';
     private _mode;
@@ -92,25 +73,8 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     readonly _closedStream: Observable<void>;
     /** Event emitted when the drawer has started closing. */
     readonly closedStart: Observable<void>;
-    /**
-     * Event emitted when the drawer is fully opened.
-     * @deprecated Use `opened` instead.
-     * @deletion-target 6.0.0
-     */
-    readonly onOpen: Observable<void>;
-    /**
-     * Event emitted when the drawer is fully closed.
-     * @deprecated Use `closed` instead.
-     * @deletion-target 6.0.0
-     */
-    readonly onClose: Observable<void>;
     /** Event emitted when the drawer's position changes. */
     onPositionChanged: EventEmitter<void>;
-    /**
-     * @deprecated
-     * @deletion-target 6.0.0
-     */
-    onAlignChanged: EventEmitter<void>;
     /**
      * An observable that emits when the drawer mode changes. This is used by the drawer container to
      * to know when to when the mode changes so it can adapt the margins on the content.
@@ -139,16 +103,16 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      * @param openedVia Whether the drawer was opened by a key press, mouse click or programmatically.
      * Used for focus management after the sidenav is closed.
      */
-    open(openedVia?: FocusOrigin): Promise<void>;
+    open(openedVia?: FocusOrigin): Promise<MatDrawerToggleResult>;
     /** Close the drawer. */
-    close(): Promise<void>;
+    close(): Promise<MatDrawerToggleResult>;
     /**
      * Toggle this drawer.
      * @param isOpen Whether the drawer should be open.
      * @param openedVia Whether the drawer was opened by a key press, mouse click or programmatically.
      * Used for focus management after the sidenav is closed.
      */
-    toggle(isOpen?: boolean, openedVia?: FocusOrigin): Promise<void>;
+    toggle(isOpen?: boolean, openedVia?: FocusOrigin): Promise<MatDrawerToggleResult>;
     _onAnimationStart(event: AnimationEvent): void;
     _onAnimationEnd(event: AnimationEvent): void;
     readonly _width: number;

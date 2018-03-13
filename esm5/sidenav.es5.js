@@ -63,23 +63,6 @@ function throwMatDuplicatedDrawerError(position) {
     throw Error("A drawer was already declared for 'position=\"" + position + "\"'");
 }
 /**
- * Drawer toggle promise result.
- * @deprecated
- * \@deletion-target 6.0.0
- */
-var  /**
- * Drawer toggle promise result.
- * @deprecated
- * \@deletion-target 6.0.0
- */
-MatDrawerToggleResult = /** @class */ (function () {
-    function MatDrawerToggleResult(type, animationFinished) {
-        this.type = type;
-        this.animationFinished = animationFinished;
-    }
-    return MatDrawerToggleResult;
-}());
-/**
  * Configures whether drawers should use auto sizing by default.
  */
 var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
@@ -161,26 +144,9 @@ var MatDrawer = /** @class */ (function () {
         // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
         new EventEmitter(/* isAsync */ /* isAsync */ true);
         /**
-         * Event emitted when the drawer is fully opened.
-         * @deprecated Use `opened` instead.
-         * \@deletion-target 6.0.0
-         */
-        this.onOpen = this._openedStream;
-        /**
-         * Event emitted when the drawer is fully closed.
-         * @deprecated Use `closed` instead.
-         * \@deletion-target 6.0.0
-         */
-        this.onClose = this._closedStream;
-        /**
          * Event emitted when the drawer's position changes.
          */
         this.onPositionChanged = new EventEmitter();
-        /**
-         * @deprecated
-         * \@deletion-target 6.0.0
-         */
-        this.onAlignChanged = new EventEmitter();
         /**
          * An observable that emits when the drawer mode changes. This is used by the drawer container to
          * to know when to when the mode changes so it can adapt the margins on the content.
@@ -229,25 +195,9 @@ var MatDrawer = /** @class */ (function () {
             value = value === 'end' ? 'end' : 'start';
             if (value != this._position) {
                 this._position = value;
-                this.onAlignChanged.emit();
                 this.onPositionChanged.emit();
             }
         },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatDrawer.prototype, "align", {
-        get: /**
-         * @deprecated
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () { return this.position; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this.position = value; },
         enumerable: true,
         configurable: true
     });
@@ -497,13 +447,8 @@ var MatDrawer = /** @class */ (function () {
         if (this._focusTrap) {
             this._focusTrap.enabled = this._isFocusTrapEnabled;
         }
-        // TODO(crisbeto): This promise is here for backwards-compatibility.
-        // It should be removed next time we do breaking changes in the drawer.
-        // @deletion-target 6.0.0
         return new Promise(function (resolve) {
-            _this.openedChange.pipe(take(1)).subscribe(function (open) {
-                resolve(new MatDrawerToggleResult(open ? 'open' : 'close', true));
-            });
+            _this.openedChange.pipe(take(1)).subscribe(function (open) { return resolve(open ? 'open' : 'close'); });
         });
     };
     /**
@@ -575,7 +520,6 @@ var MatDrawer = /** @class */ (function () {
     ]; };
     MatDrawer.propDecorators = {
         "position": [{ type: Input },],
-        "align": [{ type: Input },],
         "mode": [{ type: Input },],
         "disableClose": [{ type: Input },],
         "openedChange": [{ type: Output },],
@@ -583,10 +527,7 @@ var MatDrawer = /** @class */ (function () {
         "openedStart": [{ type: Output },],
         "_closedStream": [{ type: Output, args: ['closed',] },],
         "closedStart": [{ type: Output },],
-        "onOpen": [{ type: Output, args: ['open',] },],
-        "onClose": [{ type: Output, args: ['close',] },],
         "onPositionChanged": [{ type: Output, args: ['positionChanged',] },],
-        "onAlignChanged": [{ type: Output, args: ['align-changed',] },],
         "opened": [{ type: Input },],
     };
     return MatDrawer;
@@ -1235,5 +1176,5 @@ var MatSidenavModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatSidenavModule, throwMatDuplicatedDrawerError, MatDrawerToggleResult, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
+export { MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
 //# sourceMappingURL=sidenav.es5.js.map

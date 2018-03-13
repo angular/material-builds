@@ -72,23 +72,6 @@ function throwMatDuplicatedDrawerError(position) {
     throw Error("A drawer was already declared for 'position=\"" + position + "\"'");
 }
 /**
- * Drawer toggle promise result.
- * @deprecated
- * \@deletion-target 6.0.0
- */
-var   /**
- * Drawer toggle promise result.
- * @deprecated
- * \@deletion-target 6.0.0
- */
-MatDrawerToggleResult = /** @class */ (function () {
-    function MatDrawerToggleResult(type, animationFinished) {
-        this.type = type;
-        this.animationFinished = animationFinished;
-    }
-    return MatDrawerToggleResult;
-}());
-/**
  * Configures whether drawers should use auto sizing by default.
  */
 var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
@@ -170,26 +153,9 @@ var MatDrawer = /** @class */ (function () {
         // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
         new core.EventEmitter(/* isAsync */ /* isAsync */ true);
         /**
-         * Event emitted when the drawer is fully opened.
-         * @deprecated Use `opened` instead.
-         * \@deletion-target 6.0.0
-         */
-        this.onOpen = this._openedStream;
-        /**
-         * Event emitted when the drawer is fully closed.
-         * @deprecated Use `closed` instead.
-         * \@deletion-target 6.0.0
-         */
-        this.onClose = this._closedStream;
-        /**
          * Event emitted when the drawer's position changes.
          */
         this.onPositionChanged = new core.EventEmitter();
-        /**
-         * @deprecated
-         * \@deletion-target 6.0.0
-         */
-        this.onAlignChanged = new core.EventEmitter();
         /**
          * An observable that emits when the drawer mode changes. This is used by the drawer container to
          * to know when to when the mode changes so it can adapt the margins on the content.
@@ -238,25 +204,9 @@ var MatDrawer = /** @class */ (function () {
             value = value === 'end' ? 'end' : 'start';
             if (value != this._position) {
                 this._position = value;
-                this.onAlignChanged.emit();
                 this.onPositionChanged.emit();
             }
         },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatDrawer.prototype, "align", {
-        get: /**
-         * @deprecated
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () { return this.position; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this.position = value; },
         enumerable: true,
         configurable: true
     });
@@ -506,13 +456,8 @@ var MatDrawer = /** @class */ (function () {
         if (this._focusTrap) {
             this._focusTrap.enabled = this._isFocusTrapEnabled;
         }
-        // TODO(crisbeto): This promise is here for backwards-compatibility.
-        // It should be removed next time we do breaking changes in the drawer.
-        // @deletion-target 6.0.0
         return new Promise(function (resolve) {
-            _this.openedChange.pipe(take.take(1)).subscribe(function (open) {
-                resolve(new MatDrawerToggleResult(open ? 'open' : 'close', true));
-            });
+            _this.openedChange.pipe(take.take(1)).subscribe(function (open) { return resolve(open ? 'open' : 'close'); });
         });
     };
     /**
@@ -584,7 +529,6 @@ var MatDrawer = /** @class */ (function () {
     ]; };
     MatDrawer.propDecorators = {
         "position": [{ type: core.Input },],
-        "align": [{ type: core.Input },],
         "mode": [{ type: core.Input },],
         "disableClose": [{ type: core.Input },],
         "openedChange": [{ type: core.Output },],
@@ -592,10 +536,7 @@ var MatDrawer = /** @class */ (function () {
         "openedStart": [{ type: core.Output },],
         "_closedStream": [{ type: core.Output, args: ['closed',] },],
         "closedStart": [{ type: core.Output },],
-        "onOpen": [{ type: core.Output, args: ['open',] },],
-        "onClose": [{ type: core.Output, args: ['close',] },],
         "onPositionChanged": [{ type: core.Output, args: ['positionChanged',] },],
-        "onAlignChanged": [{ type: core.Output, args: ['align-changed',] },],
         "opened": [{ type: core.Input },],
     };
     return MatDrawer;
@@ -1236,7 +1177,6 @@ var MatSidenavModule = /** @class */ (function () {
 
 exports.MatSidenavModule = MatSidenavModule;
 exports.throwMatDuplicatedDrawerError = throwMatDuplicatedDrawerError;
-exports.MatDrawerToggleResult = MatDrawerToggleResult;
 exports.MAT_DRAWER_DEFAULT_AUTOSIZE = MAT_DRAWER_DEFAULT_AUTOSIZE;
 exports.MatDrawerContent = MatDrawerContent;
 exports.MatDrawer = MatDrawer;

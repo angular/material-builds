@@ -62,21 +62,6 @@ function throwMatDuplicatedDrawerError(position) {
     throw Error(`A drawer was already declared for 'position="${position}"'`);
 }
 /**
- * Drawer toggle promise result.
- * @deprecated
- * \@deletion-target 6.0.0
- */
-class MatDrawerToggleResult {
-    /**
-     * @param {?} type
-     * @param {?} animationFinished
-     */
-    constructor(type, animationFinished) {
-        this.type = type;
-        this.animationFinished = animationFinished;
-    }
-}
-/**
  * Configures whether drawers should use auto sizing by default.
  */
 const /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
@@ -164,26 +149,9 @@ class MatDrawer {
         // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
         new EventEmitter(/* isAsync */ /* isAsync */ true);
         /**
-         * Event emitted when the drawer is fully opened.
-         * @deprecated Use `opened` instead.
-         * \@deletion-target 6.0.0
-         */
-        this.onOpen = this._openedStream;
-        /**
-         * Event emitted when the drawer is fully closed.
-         * @deprecated Use `closed` instead.
-         * \@deletion-target 6.0.0
-         */
-        this.onClose = this._closedStream;
-        /**
          * Event emitted when the drawer's position changes.
          */
         this.onPositionChanged = new EventEmitter();
-        /**
-         * @deprecated
-         * \@deletion-target 6.0.0
-         */
-        this.onAlignChanged = new EventEmitter();
         /**
          * An observable that emits when the drawer mode changes. This is used by the drawer container to
          * to know when to when the mode changes so it can adapt the margins on the content.
@@ -229,21 +197,9 @@ class MatDrawer {
         value = value === 'end' ? 'end' : 'start';
         if (value != this._position) {
             this._position = value;
-            this.onAlignChanged.emit();
             this.onPositionChanged.emit();
         }
     }
-    /**
-     * @deprecated
-     * \@deletion-target 6.0.0
-     * @return {?}
-     */
-    get align() { return this.position; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set align(value) { this.position = value; }
     /**
      * Mode of the drawer; one of 'over', 'push' or 'side'.
      * @return {?}
@@ -407,13 +363,8 @@ class MatDrawer {
         if (this._focusTrap) {
             this._focusTrap.enabled = this._isFocusTrapEnabled;
         }
-        // TODO(crisbeto): This promise is here for backwards-compatibility.
-        // It should be removed next time we do breaking changes in the drawer.
-        // @deletion-target 6.0.0
         return new Promise(resolve => {
-            this.openedChange.pipe(take(1)).subscribe(open => {
-                resolve(new MatDrawerToggleResult(open ? 'open' : 'close', true));
-            });
+            this.openedChange.pipe(take(1)).subscribe(open => resolve(open ? 'open' : 'close'));
         });
     }
     /**
@@ -474,7 +425,6 @@ MatDrawer.ctorParameters = () => [
 ];
 MatDrawer.propDecorators = {
     "position": [{ type: Input },],
-    "align": [{ type: Input },],
     "mode": [{ type: Input },],
     "disableClose": [{ type: Input },],
     "openedChange": [{ type: Output },],
@@ -482,10 +432,7 @@ MatDrawer.propDecorators = {
     "openedStart": [{ type: Output },],
     "_closedStream": [{ type: Output, args: ['closed',] },],
     "closedStart": [{ type: Output },],
-    "onOpen": [{ type: Output, args: ['open',] },],
-    "onClose": [{ type: Output, args: ['close',] },],
     "onPositionChanged": [{ type: Output, args: ['positionChanged',] },],
-    "onAlignChanged": [{ type: Output, args: ['align-changed',] },],
     "opened": [{ type: Input },],
 };
 /**
@@ -1015,5 +962,5 @@ MatSidenavModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatSidenavModule, throwMatDuplicatedDrawerError, MatDrawerToggleResult, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
+export { MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
 //# sourceMappingURL=sidenav.js.map

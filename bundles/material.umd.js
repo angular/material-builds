@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('rxjs/observable/empty'), require('rxjs/operators/auditTime'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operators/debounceTime'), require('@angular/cdk/scrolling'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('@angular/cdk/tree')) :
-	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', 'rxjs/operators/take', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', 'rxjs/observable/empty', 'rxjs/operators/auditTime', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operators/debounceTime', '@angular/cdk/scrolling', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', '@angular/cdk/tree'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.accordion,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.ng.cdk.scrolling,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.ng.cdk.tree));
-}(this, (function (exports,core,bidi,coercion,Subject,Observable,platform,platformBrowser,keycodes,common,animations,fromEvent,startWith,take,a11y,overlay,portal,filter,switchMap,tap,delay,forms,defer,merge,of,layout,collections,observers,Subscription,empty,auditTime,takeUntil,accordion,catchError,finalize,map,share,http,forkJoin,_throw,debounceTime,scrolling,table,stepper,BehaviorSubject,combineLatest,tree) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operators/takeUntil'), require('rxjs/operators/debounceTime'), require('@angular/cdk/scrolling'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty'), require('@angular/cdk/tree')) :
+	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', 'rxjs/operators/take', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', '@angular/cdk/text-field', '@angular/cdk/accordion', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operators/takeUntil', 'rxjs/operators/debounceTime', '@angular/cdk/scrolling', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty', '@angular/cdk/tree'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.ng.cdk.textField,global.ng.cdk.accordion,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.scrolling,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable,global.ng.cdk.tree));
+}(this, (function (exports,core,bidi,coercion,Subject,Observable,platform,platformBrowser,keycodes,common,animations,fromEvent,startWith,take,a11y,overlay,portal,filter,switchMap,tap,delay,forms,defer,merge,of,layout,collections,observers,Subscription,textField,accordion,catchError,finalize,map,share,http,forkJoin,_throw,takeUntil,debounceTime,scrolling,table,stepper,BehaviorSubject,combineLatest,empty,tree) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -3013,21 +3013,6 @@ var MatFormField = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatFormField.prototype, "dividerColor", {
-        get: /**
-         * @deprecated Use `color` instead.
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () { return this.color; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this.color = value; },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MatFormField.prototype, "hideRequiredMarker", {
         get: /**
          * Whether the required marker should be hidden.
@@ -3080,22 +3065,6 @@ var MatFormField = /** @class */ (function (_super) {
             this._hintLabel = value;
             this._processHints();
         },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatFormField.prototype, "floatPlaceholder", {
-        get: /**
-         * Whether the placeholder should always float, never float or float as the user types.
-         * @deprecated Use floatLabel instead.
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () { return this.floatLabel; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this.floatLabel = value; },
         enumerable: true,
         configurable: true
     });
@@ -3456,7 +3425,7 @@ var MatFormField = /** @class */ (function (_super) {
                     // MatInput is a directive and can't have styles, so we need to include its styles here.
                     // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
                     // aren't using MatInput.
-                    styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;box-sizing:border-box;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none;position:relative}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0;width:180px}.mat-form-field-label-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-label{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-label{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-empty.mat-form-field-label{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:block;transition:none}.mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label,.mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-label-wrapper .mat-form-field-label{display:none}.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label,.mat-form-field-can-float .mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-label-wrapper .mat-form-field-label{display:block}.mat-form-field-label:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;width:100%;pointer-events:none}.mat-form-field-ripple{position:absolute;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);opacity:0;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field.mat-focused .mat-form-field-ripple,.mat-form-field.mat-form-field-invalid .mat-form-field-ripple{opacity:1;transform:scaleX(1);transition:transform .3s cubic-bezier(.25,.8,.25,1),opacity .1s cubic-bezier(.25,.8,.25,1),background-color .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-subscript-wrapper{position:absolute;box-sizing:border-box;width:100%;overflow:hidden}.mat-form-field-label-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-form-field-appearance-fill .mat-form-field-flex{border-radius:4px 4px 0 0;padding:.75em .75em 0 .75em}.mat-form-field-appearance-fill .mat-form-field-underline::before{content:'';display:block;position:absolute;bottom:0;height:1px;width:100%}.mat-form-field-appearance-fill .mat-form-field-ripple{bottom:0;height:2px}.mat-form-field-appearance-fill:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-underline .mat-form-field-ripple{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-fill .mat-form-field-subscript-wrapper{padding:0 1em} .mat-form-field-appearance-legacy .mat-form-field-label{transform:perspective(100px);-ms-transform:none}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon-button,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-appearance-legacy .mat-form-field-underline{height:1px}.mat-form-field-appearance-legacy .mat-form-field-ripple{top:0;height:2px}.mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-appearance-legacy.mat-form-field-invalid:not(.mat-focused) .mat-form-field-ripple{height:1px} .mat-form-field-appearance-outline .mat-form-field-wrapper{margin:.25em 0}.mat-form-field-appearance-outline .mat-form-field-flex{padding:0 .75em 0 .75em;margin-top:-.25em}.mat-form-field-appearance-outline .mat-form-field-prefix,.mat-form-field-appearance-outline .mat-form-field-suffix{top:.25em}.mat-form-field-appearance-outline .mat-form-field-outline{display:flex;position:absolute;top:0;left:0;right:0;pointer-events:none}.mat-form-field-appearance-outline .mat-form-field-outline-end,.mat-form-field-appearance-outline .mat-form-field-outline-start{border:1px solid currentColor;min-width:5px}.mat-form-field-appearance-outline .mat-form-field-outline-start{border-radius:5px 0 0 5px;border-right-style:none}[dir=rtl] .mat-form-field-appearance-outline .mat-form-field-outline-start{border-right-style:solid;border-left-style:none;border-radius:0 5px 5px 0}.mat-form-field-appearance-outline .mat-form-field-outline-end{border-radius:0 5px 5px 0;border-left-style:none;flex-grow:1}[dir=rtl] .mat-form-field-appearance-outline .mat-form-field-outline-end{border-left-style:solid;border-right-style:none;border-radius:5px 0 0 5px}.mat-form-field-appearance-outline .mat-form-field-outline-gap{border-bottom:1px solid currentColor}.mat-form-field-appearance-outline .mat-form-field-outline-gap::before{content:'';display:block;width:100%;border-top:1px solid currentColor;opacity:1;transition:opacity .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-outline-gap::before{opacity:0}.mat-form-field-appearance-outline .mat-form-field-outline-thick{opacity:0}.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap::before,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start{border-width:2px;transition:border-color .3s cubic-bezier(.25,.8,.25,1),opacity .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline,.mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline{opacity:0;transition:opacity .1s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick,.mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline-thick{opacity:1}.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-outline{opacity:0;transition:opacity .6s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-outline-thick{opacity:1}.mat-form-field-appearance-outline .mat-form-field-subscript-wrapper{padding:0 1em} .mat-form-field-appearance-standard .mat-form-field-flex{padding-top:.75em}.mat-form-field-appearance-standard .mat-form-field-underline{height:1px}.mat-form-field-appearance-standard .mat-form-field-ripple{bottom:0;height:2px}.mat-form-field-appearance-standard.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-appearance-standard:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-underline .mat-form-field-ripple{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.25,.8,.25,1)} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom;text-align:inherit}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::-ms-clear,.mat-input-element::-ms-reveal{display:none}.mat-input-element[type=date]::after,.mat-input-element[type=datetime-local]::after,.mat-input-element[type=datetime]::after,.mat-input-element[type=month]::after,.mat-input-element[type=time]::after,.mat-input-element[type=week]::after{content:' ';white-space:pre;width:1px}.mat-input-element::placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-moz-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-webkit-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element:-ms-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-form-field-hide-placeholder .mat-input-element::placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-moz-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-webkit-input-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element:-ms-input-placeholder{color:transparent!important;transition:none}textarea.mat-input-element{resize:vertical;overflow:auto}textarea.mat-autosize{resize:none}"],
+                    styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;box-sizing:border-box;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none;position:relative}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0;width:180px}.mat-form-field-label-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-label{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-label{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-empty.mat-form-field-label{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:block;transition:none}.mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label,.mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-label-wrapper .mat-form-field-label{display:none}.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label,.mat-form-field-can-float .mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-label-wrapper .mat-form-field-label{display:block}.mat-form-field-label:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;width:100%;pointer-events:none}.mat-form-field-ripple{position:absolute;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);opacity:0;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field.mat-focused .mat-form-field-ripple,.mat-form-field.mat-form-field-invalid .mat-form-field-ripple{opacity:1;transform:scaleX(1);transition:transform .3s cubic-bezier(.25,.8,.25,1),opacity .1s cubic-bezier(.25,.8,.25,1),background-color .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-subscript-wrapper{position:absolute;box-sizing:border-box;width:100%;overflow:hidden}.mat-form-field-label-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-form-field-appearance-fill .mat-form-field-flex{border-radius:4px 4px 0 0;padding:.75em .75em 0 .75em}.mat-form-field-appearance-fill .mat-form-field-underline::before{content:'';display:block;position:absolute;bottom:0;height:1px;width:100%}.mat-form-field-appearance-fill .mat-form-field-ripple{bottom:0;height:2px}.mat-form-field-appearance-fill:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-underline .mat-form-field-ripple{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-fill .mat-form-field-subscript-wrapper{padding:0 1em} .mat-form-field-appearance-legacy .mat-form-field-label{transform:perspective(100px);-ms-transform:none}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon-button,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-appearance-legacy .mat-form-field-underline{height:1px}.mat-form-field-appearance-legacy .mat-form-field-ripple{top:0;height:2px}.mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-appearance-legacy.mat-form-field-invalid:not(.mat-focused) .mat-form-field-ripple{height:1px} .mat-form-field-appearance-outline .mat-form-field-wrapper{margin:.25em 0}.mat-form-field-appearance-outline .mat-form-field-flex{padding:0 .75em 0 .75em;margin-top:-.25em}.mat-form-field-appearance-outline .mat-form-field-prefix,.mat-form-field-appearance-outline .mat-form-field-suffix{top:.25em}.mat-form-field-appearance-outline .mat-form-field-outline{display:flex;position:absolute;top:0;left:0;right:0;pointer-events:none}.mat-form-field-appearance-outline .mat-form-field-outline-end,.mat-form-field-appearance-outline .mat-form-field-outline-start{border:1px solid currentColor;min-width:5px}.mat-form-field-appearance-outline .mat-form-field-outline-start{border-radius:5px 0 0 5px;border-right-style:none}[dir=rtl] .mat-form-field-appearance-outline .mat-form-field-outline-start{border-right-style:solid;border-left-style:none;border-radius:0 5px 5px 0}.mat-form-field-appearance-outline .mat-form-field-outline-end{border-radius:0 5px 5px 0;border-left-style:none;flex-grow:1}[dir=rtl] .mat-form-field-appearance-outline .mat-form-field-outline-end{border-left-style:solid;border-right-style:none;border-radius:5px 0 0 5px}.mat-form-field-appearance-outline .mat-form-field-outline-gap{border-bottom:1px solid currentColor}.mat-form-field-appearance-outline .mat-form-field-outline-gap::before{content:'';display:block;width:100%;border-top:1px solid currentColor;opacity:1;transition:opacity .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-outline-gap::before{opacity:0}.mat-form-field-appearance-outline .mat-form-field-outline-thick{opacity:0}.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap::before,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start{border-width:2px;transition:border-color .3s cubic-bezier(.25,.8,.25,1),opacity .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline,.mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline{opacity:0;transition:opacity .1s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick,.mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline-thick{opacity:1}.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-outline{opacity:0;transition:opacity .6s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-outline-thick{opacity:1}.mat-form-field-appearance-outline .mat-form-field-subscript-wrapper{padding:0 1em} .mat-form-field-appearance-standard .mat-form-field-flex{padding-top:.75em}.mat-form-field-appearance-standard .mat-form-field-underline{height:1px}.mat-form-field-appearance-standard .mat-form-field-ripple{bottom:0;height:2px}.mat-form-field-appearance-standard.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-appearance-standard:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-underline .mat-form-field-ripple{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.25,.8,.25,1)} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom;text-align:inherit}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::-ms-clear,.mat-input-element::-ms-reveal{display:none}.mat-input-element[type=date]::after,.mat-input-element[type=datetime-local]::after,.mat-input-element[type=datetime]::after,.mat-input-element[type=month]::after,.mat-input-element[type=time]::after,.mat-input-element[type=week]::after{content:' ';white-space:pre;width:1px}.mat-input-element::placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-moz-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-webkit-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element:-ms-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-form-field-hide-placeholder .mat-input-element::placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-moz-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-webkit-input-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element:-ms-input-placeholder{color:transparent!important;transition:none}textarea.mat-input-element{resize:vertical;overflow:auto}textarea.mat-input-element.cdk-textarea-autosize{resize:none}"],
                     animations: [matFormFieldAnimations.transitionMessages],
                     host: {
                         'class': 'mat-form-field',
@@ -3496,10 +3465,8 @@ var MatFormField = /** @class */ (function (_super) {
     ]; };
     MatFormField.propDecorators = {
         "appearance": [{ type: core.Input },],
-        "dividerColor": [{ type: core.Input },],
         "hideRequiredMarker": [{ type: core.Input },],
         "hintLabel": [{ type: core.Input },],
-        "floatPlaceholder": [{ type: core.Input },],
         "floatLabel": [{ type: core.Input },],
         "underlineRef": [{ type: core.ViewChild, args: ['underline',] },],
         "_connectionContainerRef": [{ type: core.ViewChild, args: ['connectionContainer',] },],
@@ -10246,406 +10213,62 @@ var MatDialogModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Options to pass to the animationstart listener.
- */
-var /** @type {?} */ listenerOptions = platform.supportsPassiveEventListeners() ? { passive: true } : false;
-/**
- * An injectable service that can be used to monitor the autofill state of an input.
- * Based on the following blog post:
- * https://medium.com/\@brunn/detecting-autofilled-fields-in-javascript-aed598d25da7
- */
-var AutofillMonitor = /** @class */ (function () {
-    function AutofillMonitor(_platform) {
-        this._platform = _platform;
-        this._monitoredElements = new Map();
-    }
-    /**
-     * Monitor for changes in the autofill state of the given input element.
-     * @param element The element to monitor.
-     * @return A stream of autofill state changes.
-     */
-    /**
-     * Monitor for changes in the autofill state of the given input element.
-     * @param {?} element The element to monitor.
-     * @return {?} A stream of autofill state changes.
-     */
-    AutofillMonitor.prototype.monitor = /**
-     * Monitor for changes in the autofill state of the given input element.
-     * @param {?} element The element to monitor.
-     * @return {?} A stream of autofill state changes.
-     */
-    function (element) {
-        if (!this._platform.isBrowser) {
-            return empty.empty();
-        }
-        var /** @type {?} */ info = this._monitoredElements.get(element);
-        if (info) {
-            return info.subject.asObservable();
-        }
-        var /** @type {?} */ result = new Subject.Subject();
-        var /** @type {?} */ listener = function (event) {
-            if (event.animationName === 'mat-input-autofill-start') {
-                element.classList.add('mat-input-autofilled');
-                result.next({ target: /** @type {?} */ (event.target), isAutofilled: true });
-            }
-            else if (event.animationName === 'mat-input-autofill-end') {
-                element.classList.remove('mat-input-autofilled');
-                result.next({ target: /** @type {?} */ (event.target), isAutofilled: false });
-            }
-        };
-        element.addEventListener('animationstart', listener, listenerOptions);
-        element.classList.add('mat-input-autofill-monitored');
-        this._monitoredElements.set(element, {
-            subject: result,
-            unlisten: function () {
-                element.removeEventListener('animationstart', listener, listenerOptions);
-            }
-        });
-        return result.asObservable();
-    };
-    /**
-     * Stop monitoring the autofill state of the given input element.
-     * @param element The element to stop monitoring.
-     */
-    /**
-     * Stop monitoring the autofill state of the given input element.
-     * @param {?} element The element to stop monitoring.
-     * @return {?}
-     */
-    AutofillMonitor.prototype.stopMonitoring = /**
-     * Stop monitoring the autofill state of the given input element.
-     * @param {?} element The element to stop monitoring.
-     * @return {?}
-     */
-    function (element) {
-        var /** @type {?} */ info = this._monitoredElements.get(element);
-        if (info) {
-            info.unlisten();
-            info.subject.complete();
-            element.classList.remove('mat-input-autofill-monitored');
-            element.classList.remove('mat-input-autofilled');
-            this._monitoredElements.delete(element);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    AutofillMonitor.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        this._monitoredElements.forEach(function (_info, element) { return _this.stopMonitoring(element); });
-    };
-    AutofillMonitor.decorators = [
-        { type: core.Injectable },
-    ];
-    /** @nocollapse */
-    AutofillMonitor.ctorParameters = function () { return [
-        { type: platform.Platform, },
-    ]; };
-    return AutofillMonitor;
-}());
-/**
- * A directive that can be used to monitor the autofill state of an input.
- */
-var MatAutofill = /** @class */ (function () {
-    function MatAutofill(_elementRef, _autofillMonitor) {
-        this._elementRef = _elementRef;
-        this._autofillMonitor = _autofillMonitor;
-        this.matAutofill = new core.EventEmitter();
-    }
-    /**
-     * @return {?}
-     */
-    MatAutofill.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        this._autofillMonitor
-            .monitor(this._elementRef.nativeElement)
-            .subscribe(function (event) { return _this.matAutofill.emit(event); });
-    };
-    /**
-     * @return {?}
-     */
-    MatAutofill.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
-    };
-    MatAutofill.decorators = [
-        { type: core.Directive, args: [{
-                    selector: '[matAutofill]',
-                },] },
-    ];
-    /** @nocollapse */
-    MatAutofill.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: AutofillMonitor, },
-    ]; };
-    MatAutofill.propDecorators = {
-        "matAutofill": [{ type: core.Output },],
-    };
-    return MatAutofill;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * Directive to automatically resize a textarea to fit its content.
+ * \@deletion-target 7.0.0 deprecate in favor of `cdkTextareaAutosize`.
  */
-var MatTextareaAutosize = /** @class */ (function () {
-    function MatTextareaAutosize(_elementRef, _platform, _ngZone) {
-        this._elementRef = _elementRef;
-        this._platform = _platform;
-        this._ngZone = _ngZone;
-        this._destroyed = new Subject.Subject();
+var MatTextareaAutosize = /** @class */ (function (_super) {
+    __extends(MatTextareaAutosize, _super);
+    function MatTextareaAutosize() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
-    Object.defineProperty(MatTextareaAutosize.prototype, "minRows", {
+    Object.defineProperty(MatTextareaAutosize.prototype, "matAutosizeMinRows", {
         get: /**
          * @return {?}
          */
-        function () { return this._minRows; },
-        set: /**
-         * Minimum amount of rows in the textarea.
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._minRows = value;
-            this._setMinHeight();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatTextareaAutosize.prototype, "maxRows", {
-        get: /**
-         * Maximum amount of rows in the textarea.
-         * @return {?}
-         */
-        function () { return this._maxRows; },
+        function () { return this.minRows; },
         set: /**
          * @param {?} value
          * @return {?}
          */
-        function (value) {
-            this._maxRows = value;
-            this._setMaxHeight();
-        },
+        function (value) { this.minRows = value; },
         enumerable: true,
         configurable: true
     });
-    // TODO(crisbeto): make the `_ngZone` a required param in the next major version.
-    /** Sets the minimum height of the textarea as determined by minRows. */
-    /**
-     * Sets the minimum height of the textarea as determined by minRows.
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype._setMinHeight = /**
-     * Sets the minimum height of the textarea as determined by minRows.
-     * @return {?}
-     */
-    function () {
-        var /** @type {?} */ minHeight = this.minRows && this._cachedLineHeight ?
-            this.minRows * this._cachedLineHeight + "px" : null;
-        if (minHeight) {
-            this._setTextareaStyle('minHeight', minHeight);
-        }
-    };
-    /** Sets the maximum height of the textarea as determined by maxRows. */
-    /**
-     * Sets the maximum height of the textarea as determined by maxRows.
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype._setMaxHeight = /**
-     * Sets the maximum height of the textarea as determined by maxRows.
-     * @return {?}
-     */
-    function () {
-        var /** @type {?} */ maxHeight = this.maxRows && this._cachedLineHeight ?
-            this.maxRows * this._cachedLineHeight + "px" : null;
-        if (maxHeight) {
-            this._setTextareaStyle('maxHeight', maxHeight);
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype.ngAfterViewInit = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        if (this._platform.isBrowser) {
-            this.resizeToFitContent();
-            if (this._ngZone) {
-                this._ngZone.runOutsideAngular(function () {
-                    fromEvent.fromEvent(window, 'resize')
-                        .pipe(auditTime.auditTime(16), takeUntil.takeUntil(_this._destroyed))
-                        .subscribe(function () { return _this.resizeToFitContent(true); });
-                });
-            }
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this._destroyed.next();
-        this._destroyed.complete();
-    };
-    /**
-     * Sets a style property on the textarea element.
-     * @param {?} property
-     * @param {?} value
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype._setTextareaStyle = /**
-     * Sets a style property on the textarea element.
-     * @param {?} property
-     * @param {?} value
-     * @return {?}
-     */
-    function (property, value) {
-        var /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
-        textarea.style[property] = value;
-    };
-    /**
-     * Cache the height of a single-row textarea if it has not already been cached.
-     *
-     * We need to know how large a single "row" of a textarea is in order to apply minRows and
-     * maxRows. For the initial version, we will assume that the height of a single line in the
-     * textarea does not ever change.
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype._cacheTextareaLineHeight = /**
-     * Cache the height of a single-row textarea if it has not already been cached.
-     *
-     * We need to know how large a single "row" of a textarea is in order to apply minRows and
-     * maxRows. For the initial version, we will assume that the height of a single line in the
-     * textarea does not ever change.
-     * @return {?}
-     */
-    function () {
-        if (this._cachedLineHeight) {
-            return;
-        }
-        var /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
-        // Use a clone element because we have to override some styles.
-        var /** @type {?} */ textareaClone = /** @type {?} */ (textarea.cloneNode(false));
-        textareaClone.rows = 1;
-        // Use `position: absolute` so that this doesn't cause a browser layout and use
-        // `visibility: hidden` so that nothing is rendered. Clear any other styles that
-        // would affect the height.
-        textareaClone.style.position = 'absolute';
-        textareaClone.style.visibility = 'hidden';
-        textareaClone.style.border = 'none';
-        textareaClone.style.padding = '0';
-        textareaClone.style.height = '';
-        textareaClone.style.minHeight = '';
-        textareaClone.style.maxHeight = '';
-        // In Firefox it happens that textarea elements are always bigger than the specified amount
-        // of rows. This is because Firefox tries to add extra space for the horizontal scrollbar.
-        // As a workaround that removes the extra space for the scrollbar, we can just set overflow
-        // to hidden. This ensures that there is no invalid calculation of the line height.
-        // See Firefox bug report: https://bugzilla.mozilla.org/show_bug.cgi?id=33654
-        textareaClone.style.overflow = 'hidden'; /** @type {?} */
-        ((textarea.parentNode)).appendChild(textareaClone);
-        this._cachedLineHeight = textareaClone.clientHeight; /** @type {?} */
-        ((textarea.parentNode)).removeChild(textareaClone);
-        // Min and max heights have to be re-calculated if the cached line height changes
-        this._setMinHeight();
-        this._setMaxHeight();
-    };
-    /**
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype.ngDoCheck = /**
-     * @return {?}
-     */
-    function () {
-        if (this._platform.isBrowser) {
-            this.resizeToFitContent();
-        }
-    };
-    /**
-     * Resize the textarea to fit its content.
-     * @param force Whether to force a height recalculation. By default the height will be
-     *    recalculated only if the value changed since the last call.
-     */
-    /**
-     * Resize the textarea to fit its content.
-     * @param {?=} force Whether to force a height recalculation. By default the height will be
-     *    recalculated only if the value changed since the last call.
-     * @return {?}
-     */
-    MatTextareaAutosize.prototype.resizeToFitContent = /**
-     * Resize the textarea to fit its content.
-     * @param {?=} force Whether to force a height recalculation. By default the height will be
-     *    recalculated only if the value changed since the last call.
-     * @return {?}
-     */
-    function (force) {
-        if (force === void 0) { force = false; }
-        this._cacheTextareaLineHeight();
-        // If we haven't determined the line-height yet, we know we're still hidden and there's no point
-        // in checking the height of the textarea.
-        if (!this._cachedLineHeight) {
-            return;
-        }
-        var /** @type {?} */ textarea = /** @type {?} */ (this._elementRef.nativeElement);
-        var /** @type {?} */ value = textarea.value;
-        // Only resize of the value changed since these calculations can be expensive.
-        if (value === this._previousValue && !force) {
-            return;
-        }
-        var /** @type {?} */ placeholderText = textarea.placeholder;
-        // Reset the textarea height to auto in order to shrink back to its default size.
-        // Also temporarily force overflow:hidden, so scroll bars do not interfere with calculations.
-        // Long placeholders that are wider than the textarea width may lead to a bigger scrollHeight
-        // value. To ensure that the scrollHeight is not bigger than the content, the placeholders
-        // need to be removed temporarily.
-        textarea.style.height = 'auto';
-        textarea.style.overflow = 'hidden';
-        textarea.placeholder = '';
-        // Use the scrollHeight to know how large the textarea *would* be if fit its entire value.
-        textarea.style.height = textarea.scrollHeight + "px";
-        textarea.style.overflow = '';
-        textarea.placeholder = placeholderText;
-        this._previousValue = value;
-    };
+    Object.defineProperty(MatTextareaAutosize.prototype, "matAutosizeMaxRows", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this.maxRows; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this.maxRows = value; },
+        enumerable: true,
+        configurable: true
+    });
     MatTextareaAutosize.decorators = [
         { type: core.Directive, args: [{
-                    selector: "textarea[mat-autosize], textarea[matTextareaAutosize]",
+                    selector: 'textarea[mat-autosize], textarea[matTextareaAutosize]',
                     exportAs: 'matTextareaAutosize',
+                    inputs: ['cdkAutosizeMinRows', 'cdkAutosizeMaxRows'],
                     host: {
-                        'class': 'mat-autosize',
+                        'class': 'cdk-textarea-autosize mat-autosize',
                         // Textarea elements that have the directive applied should have a single row by default.
                         // Browsers normally show two rows by default and therefore this limits the minRows binding.
                         'rows': '1',
+                        '(input)': '_noopInputHandler()',
                     },
                 },] },
     ];
     /** @nocollapse */
-    MatTextareaAutosize.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: platform.Platform, },
-        { type: core.NgZone, },
-    ]; };
+    MatTextareaAutosize.ctorParameters = function () { return []; };
     MatTextareaAutosize.propDecorators = {
-        "minRows": [{ type: core.Input, args: ['matAutosizeMinRows',] },],
-        "maxRows": [{ type: core.Input, args: ['matAutosizeMaxRows',] },],
+        "matAutosizeMinRows": [{ type: core.Input },],
+        "matAutosizeMaxRows": [{ type: core.Input },],
     };
     return MatTextareaAutosize;
-}());
+}(textField.CdkTextareaAutosize));
 
 /**
  * @fileoverview added by tsickle
@@ -11161,7 +10784,7 @@ var MatInput = /** @class */ (function (_super) {
         { type: forms.FormGroupDirective, decorators: [{ type: core.Optional },] },
         { type: ErrorStateMatcher, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Self }, { type: core.Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] },] },
-        { type: AutofillMonitor, },
+        { type: textField.AutofillMonitor, },
     ]; };
     MatInput.propDecorators = {
         "disabled": [{ type: core.Input },],
@@ -11185,23 +10808,20 @@ var MatInputModule = /** @class */ (function () {
     }
     MatInputModule.decorators = [
         { type: core.NgModule, args: [{
-                    declarations: [
-                        MatAutofill,
-                        MatInput,
-                        MatTextareaAutosize,
-                    ],
+                    declarations: [MatInput, MatTextareaAutosize],
                     imports: [
                         common.CommonModule,
+                        textField.TextFieldModule,
                         MatFormFieldModule,
                         platform.PlatformModule,
                     ],
                     exports: [
-                        MatAutofill,
+                        textField.TextFieldModule,
                         MatFormFieldModule,
                         MatInput,
                         MatTextareaAutosize,
                     ],
-                    providers: [ErrorStateMatcher, AutofillMonitor],
+                    providers: [ErrorStateMatcher],
                 },] },
     ];
     /** @nocollapse */
@@ -24010,23 +23630,6 @@ function throwMatDuplicatedDrawerError(position) {
     throw Error("A drawer was already declared for 'position=\"" + position + "\"'");
 }
 /**
- * Drawer toggle promise result.
- * @deprecated
- * \@deletion-target 6.0.0
- */
-var   /**
- * Drawer toggle promise result.
- * @deprecated
- * \@deletion-target 6.0.0
- */
-MatDrawerToggleResult = /** @class */ (function () {
-    function MatDrawerToggleResult(type, animationFinished) {
-        this.type = type;
-        this.animationFinished = animationFinished;
-    }
-    return MatDrawerToggleResult;
-}());
-/**
  * Configures whether drawers should use auto sizing by default.
  */
 var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
@@ -24108,26 +23711,9 @@ var MatDrawer = /** @class */ (function () {
         // Note this has to be async in order to avoid some issues with two-bindings (see #8872).
         new core.EventEmitter(/* isAsync */ /* isAsync */ true);
         /**
-         * Event emitted when the drawer is fully opened.
-         * @deprecated Use `opened` instead.
-         * \@deletion-target 6.0.0
-         */
-        this.onOpen = this._openedStream;
-        /**
-         * Event emitted when the drawer is fully closed.
-         * @deprecated Use `closed` instead.
-         * \@deletion-target 6.0.0
-         */
-        this.onClose = this._closedStream;
-        /**
          * Event emitted when the drawer's position changes.
          */
         this.onPositionChanged = new core.EventEmitter();
-        /**
-         * @deprecated
-         * \@deletion-target 6.0.0
-         */
-        this.onAlignChanged = new core.EventEmitter();
         /**
          * An observable that emits when the drawer mode changes. This is used by the drawer container to
          * to know when to when the mode changes so it can adapt the margins on the content.
@@ -24176,25 +23762,9 @@ var MatDrawer = /** @class */ (function () {
             value = value === 'end' ? 'end' : 'start';
             if (value != this._position) {
                 this._position = value;
-                this.onAlignChanged.emit();
                 this.onPositionChanged.emit();
             }
         },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatDrawer.prototype, "align", {
-        get: /**
-         * @deprecated
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () { return this.position; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this.position = value; },
         enumerable: true,
         configurable: true
     });
@@ -24444,13 +24014,8 @@ var MatDrawer = /** @class */ (function () {
         if (this._focusTrap) {
             this._focusTrap.enabled = this._isFocusTrapEnabled;
         }
-        // TODO(crisbeto): This promise is here for backwards-compatibility.
-        // It should be removed next time we do breaking changes in the drawer.
-        // @deletion-target 6.0.0
         return new Promise(function (resolve) {
-            _this.openedChange.pipe(take.take(1)).subscribe(function (open) {
-                resolve(new MatDrawerToggleResult(open ? 'open' : 'close', true));
-            });
+            _this.openedChange.pipe(take.take(1)).subscribe(function (open) { return resolve(open ? 'open' : 'close'); });
         });
     };
     /**
@@ -24522,7 +24087,6 @@ var MatDrawer = /** @class */ (function () {
     ]; };
     MatDrawer.propDecorators = {
         "position": [{ type: core.Input },],
-        "align": [{ type: core.Input },],
         "mode": [{ type: core.Input },],
         "disableClose": [{ type: core.Input },],
         "openedChange": [{ type: core.Output },],
@@ -24530,10 +24094,7 @@ var MatDrawer = /** @class */ (function () {
         "openedStart": [{ type: core.Output },],
         "_closedStream": [{ type: core.Output, args: ['closed',] },],
         "closedStart": [{ type: core.Output },],
-        "onOpen": [{ type: core.Output, args: ['open',] },],
-        "onClose": [{ type: core.Output, args: ['close',] },],
         "onPositionChanged": [{ type: core.Output, args: ['positionChanged',] },],
-        "onAlignChanged": [{ type: core.Output, args: ['align-changed',] },],
         "opened": [{ type: core.Input },],
     };
     return MatDrawer;
@@ -32287,7 +31848,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-54252d5');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-c1d4666');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32505,8 +32066,6 @@ exports.getMatIconFailedToSanitizeError = getMatIconFailedToSanitizeError;
 exports.MatIconRegistry = MatIconRegistry;
 exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
 exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
-exports.AutofillMonitor = AutofillMonitor;
-exports.MatAutofill = MatAutofill;
 exports.MatTextareaAutosize = MatTextareaAutosize;
 exports.MatInputBase = MatInputBase;
 exports._MatInputMixinBase = _MatInputMixinBase;
@@ -32534,10 +32093,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa25 = MatMenuItemBase;
-exports.ɵb25 = _MatMenuItemMixinBase;
-exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa23 = MatMenuItemBase;
+exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc23 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32592,7 +32151,6 @@ exports.transformPanel = transformPanel;
 exports.fadeInContent = fadeInContent;
 exports.MatSidenavModule = MatSidenavModule;
 exports.throwMatDuplicatedDrawerError = throwMatDuplicatedDrawerError;
-exports.MatDrawerToggleResult = MatDrawerToggleResult;
 exports.MAT_DRAWER_DEFAULT_AUTOSIZE = MAT_DRAWER_DEFAULT_AUTOSIZE;
 exports.MatDrawerContent = MatDrawerContent;
 exports.MatDrawer = MatDrawer;
@@ -32705,7 +32263,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa14 = MatTreeNodeOutlet;
+exports.ɵa17 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
