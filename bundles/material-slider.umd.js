@@ -242,21 +242,6 @@ var MatSlider = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatSlider.prototype, "_thumbLabelDeprecated", {
-        get: /**
-         * @deprecated
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () { return this._thumbLabel; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._thumbLabel = value; },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(MatSlider.prototype, "tickInterval", {
         get: /**
          * How often to show ticks. Relative to the step so that a tick always appears on a step.
@@ -279,21 +264,6 @@ var MatSlider = /** @class */ (function (_super) {
                 this._tickInterval = 0;
             }
         },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatSlider.prototype, "_tickIntervalDeprecated", {
-        get: /**
-         * @deprecated
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () { return this.tickInterval; },
-        set: /**
-         * @param {?} v
-         * @return {?}
-         */
-        function (v) { this.tickInterval = v; },
         enumerable: true,
         configurable: true
     });
@@ -1104,9 +1074,7 @@ var MatSlider = /** @class */ (function (_super) {
         "min": [{ type: core.Input },],
         "step": [{ type: core.Input },],
         "thumbLabel": [{ type: core.Input },],
-        "_thumbLabelDeprecated": [{ type: core.Input, args: ['thumb-label',] },],
         "tickInterval": [{ type: core.Input },],
-        "_tickIntervalDeprecated": [{ type: core.Input, args: ['tick-interval',] },],
         "value": [{ type: core.Input },],
         "displayWith": [{ type: core.Input },],
         "vertical": [{ type: core.Input },],

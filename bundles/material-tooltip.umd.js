@@ -80,8 +80,6 @@ var /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new core.InjectionToken('mat-
  */
 var MatTooltip = /** @class */ (function () {
     function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir, _defaultOptions) {
-        // TODO(crisbeto): make the `_defaultOptions` a required param next time we do breaking changes.
-        // @deletion-target 6.0.0
         var _this = this;
         this._overlay = _overlay;
         this._elementRef = _elementRef;
@@ -99,11 +97,11 @@ var MatTooltip = /** @class */ (function () {
         /**
          * The default delay in ms before showing the tooltip after show is called
          */
-        this.showDelay = this._defaultOptions ? this._defaultOptions.showDelay : 0;
+        this.showDelay = this._defaultOptions.showDelay;
         /**
          * The default delay in ms before hiding the tooltip after hide is called
          */
-        this.hideDelay = this._defaultOptions ? this._defaultOptions.hideDelay : 0;
+        this.hideDelay = this._defaultOptions.hideDelay;
         this._message = '';
         this._manualListeners = new Map();
         /**
@@ -178,21 +176,6 @@ var MatTooltip = /** @class */ (function () {
                 this.hide(0);
             }
         },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatTooltip.prototype, "_positionDeprecated", {
-        get: /**
-         * @deprecated
-         * \@deletion-target 6.0.0
-         * @return {?}
-         */
-        function () { return this._position; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) { this._position = value; },
         enumerable: true,
         configurable: true
     });
@@ -365,7 +348,7 @@ var MatTooltip = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this.hide(this._defaultOptions ? this._defaultOptions.touchendHideDelay : 1500);
+        this.hide(this._defaultOptions.touchendHideDelay);
     };
     /**
      * Create the overlay config and position strategy
@@ -618,7 +601,6 @@ var MatTooltip = /** @class */ (function () {
     MatTooltip.propDecorators = {
         "position": [{ type: core.Input, args: ['matTooltipPosition',] },],
         "disabled": [{ type: core.Input, args: ['matTooltipDisabled',] },],
-        "_positionDeprecated": [{ type: core.Input, args: ['tooltip-position',] },],
         "showDelay": [{ type: core.Input, args: ['matTooltipShowDelay',] },],
         "hideDelay": [{ type: core.Input, args: ['matTooltipHideDelay',] },],
         "message": [{ type: core.Input, args: ['matTooltip',] },],

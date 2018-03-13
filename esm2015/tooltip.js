@@ -101,11 +101,9 @@ class MatTooltip {
      * @param {?} _focusMonitor
      * @param {?} _scrollStrategy
      * @param {?} _dir
-     * @param {?=} _defaultOptions
+     * @param {?} _defaultOptions
      */
     constructor(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir, _defaultOptions) {
-        // TODO(crisbeto): make the `_defaultOptions` a required param next time we do breaking changes.
-        // @deletion-target 6.0.0
         this._overlay = _overlay;
         this._elementRef = _elementRef;
         this._scrollDispatcher = _scrollDispatcher;
@@ -122,11 +120,11 @@ class MatTooltip {
         /**
          * The default delay in ms before showing the tooltip after show is called
          */
-        this.showDelay = this._defaultOptions ? this._defaultOptions.showDelay : 0;
+        this.showDelay = this._defaultOptions.showDelay;
         /**
          * The default delay in ms before hiding the tooltip after hide is called
          */
-        this.hideDelay = this._defaultOptions ? this._defaultOptions.hideDelay : 0;
+        this.hideDelay = this._defaultOptions.hideDelay;
         this._message = '';
         this._manualListeners = new Map();
         /**
@@ -196,17 +194,6 @@ class MatTooltip {
             this.hide(0);
         }
     }
-    /**
-     * @deprecated
-     * \@deletion-target 6.0.0
-     * @return {?}
-     */
-    get _positionDeprecated() { return this._position; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set _positionDeprecated(value) { this._position = value; }
     /**
      * The message to be displayed in the tooltip
      * @return {?}
@@ -322,7 +309,7 @@ class MatTooltip {
      * @return {?}
      */
     _handleTouchend() {
-        this.hide(this._defaultOptions ? this._defaultOptions.touchendHideDelay : 1500);
+        this.hide(this._defaultOptions.touchendHideDelay);
     }
     /**
      * Create the overlay config and position strategy
@@ -530,7 +517,6 @@ MatTooltip.ctorParameters = () => [
 MatTooltip.propDecorators = {
     "position": [{ type: Input, args: ['matTooltipPosition',] },],
     "disabled": [{ type: Input, args: ['matTooltipDisabled',] },],
-    "_positionDeprecated": [{ type: Input, args: ['tooltip-position',] },],
     "showDelay": [{ type: Input, args: ['matTooltipShowDelay',] },],
     "hideDelay": [{ type: Input, args: ['matTooltipHideDelay',] },],
     "message": [{ type: Input, args: ['matTooltip',] },],

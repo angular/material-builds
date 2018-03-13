@@ -52,21 +52,11 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     thumbLabel: boolean;
     private _thumbLabel;
     /**
-     * @deprecated
-     * @deletion-target 6.0.0
-     */
-    _thumbLabelDeprecated: boolean;
-    /**
      * How often to show ticks. Relative to the step so that a tick always appears on a step.
      * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
      */
     tickInterval: 'auto' | number;
     private _tickInterval;
-    /**
-     * @deprecated
-     * @deletion-target 6.0.0
-     */
-    _tickIntervalDeprecated: number | "auto";
     /** Value of the slider. */
     value: number | null;
     private _value;

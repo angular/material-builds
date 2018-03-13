@@ -200,17 +200,6 @@ class MatSlider extends _MatSliderMixinBase {
      */
     set thumbLabel(value) { this._thumbLabel = coerceBooleanProperty(value); }
     /**
-     * @deprecated
-     * \@deletion-target 6.0.0
-     * @return {?}
-     */
-    get _thumbLabelDeprecated() { return this._thumbLabel; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set _thumbLabelDeprecated(value) { this._thumbLabel = value; }
-    /**
      * How often to show ticks. Relative to the step so that a tick always appears on a step.
      * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
      * @return {?}
@@ -231,17 +220,6 @@ class MatSlider extends _MatSliderMixinBase {
             this._tickInterval = 0;
         }
     }
-    /**
-     * @deprecated
-     * \@deletion-target 6.0.0
-     * @return {?}
-     */
-    get _tickIntervalDeprecated() { return this.tickInterval; }
-    /**
-     * @param {?} v
-     * @return {?}
-     */
-    set _tickIntervalDeprecated(v) { this.tickInterval = v; }
     /**
      * Value of the slider.
      * @return {?}
@@ -827,9 +805,7 @@ MatSlider.propDecorators = {
     "min": [{ type: Input },],
     "step": [{ type: Input },],
     "thumbLabel": [{ type: Input },],
-    "_thumbLabelDeprecated": [{ type: Input, args: ['thumb-label',] },],
     "tickInterval": [{ type: Input },],
-    "_tickIntervalDeprecated": [{ type: Input, args: ['tick-interval',] },],
     "value": [{ type: Input },],
     "displayWith": [{ type: Input },],
     "vertical": [{ type: Input },],

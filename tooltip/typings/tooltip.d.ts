@@ -66,11 +66,6 @@ export declare class MatTooltip implements OnDestroy {
     position: TooltipPosition;
     /** Disables the display of the tooltip. */
     disabled: boolean;
-    /**
-     * @deprecated
-     * @deletion-target 6.0.0
-     */
-    _positionDeprecated: TooltipPosition;
     /** The default delay in ms before showing the tooltip after show is called */
     showDelay: number;
     /** The default delay in ms before hiding the tooltip after hide is called */
@@ -85,7 +80,7 @@ export declare class MatTooltip implements OnDestroy {
     private _manualListeners;
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
-    constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, _scrollStrategy: any, _dir: Directionality, _defaultOptions?: MatTooltipDefaultOptions | undefined);
+    constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, _scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions);
     /**
      * Dispose the tooltip when destroyed.
      */
