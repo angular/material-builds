@@ -126,21 +126,9 @@ class MatChip extends _MatChipMixinBase {
          */
         this.destroyed = new EventEmitter();
         /**
-         * Emitted when the chip is destroyed.
-         * @deprecated Use 'destroyed' instead.
-         * \@deletion-target 6.0.0
-         */
-        this.destroy = this.destroyed;
-        /**
          * Emitted when a chip is to be removed.
          */
         this.removed = new EventEmitter();
-        /**
-         * Emitted when a chip is to be removed.
-         * @deprecated Use `removed` instead.
-         * \@deletion-target 6.0.0
-         */
-        this.onRemove = this.removed;
         this._addHostClassName();
         this._chipRipple = new RippleRenderer(this, ngZone, _elementRef, platform);
         this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
@@ -207,7 +195,7 @@ class MatChip extends _MatChipMixinBase {
         this._selectable = coerceBooleanProperty(value);
     }
     /**
-     * Determines whether or not the chip displays the remove styling and emits (remove) events.
+     * Determines whether or not the chip displays the remove styling and emits (removed) events.
      * @return {?}
      */
     get removable() { return this._removable; }
@@ -408,9 +396,7 @@ MatChip.propDecorators = {
     "removable": [{ type: Input },],
     "selectionChange": [{ type: Output },],
     "destroyed": [{ type: Output },],
-    "destroy": [{ type: Output },],
     "removed": [{ type: Output },],
-    "onRemove": [{ type: Output, args: ['remove',] },],
 };
 /**
  * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon
@@ -751,7 +737,7 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     get chipRemoveChanges() {
-        return merge(...this.chips.map(chip => chip.destroy));
+        return merge(...this.chips.map(chip => chip.destroyed));
     }
     /**
      * @return {?}

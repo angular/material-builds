@@ -145,21 +145,9 @@ var MatChip = /** @class */ (function (_super) {
          */
         _this.destroyed = new core.EventEmitter();
         /**
-         * Emitted when the chip is destroyed.
-         * @deprecated Use 'destroyed' instead.
-         * \@deletion-target 6.0.0
-         */
-        _this.destroy = _this.destroyed;
-        /**
          * Emitted when a chip is to be removed.
          */
         _this.removed = new core.EventEmitter();
-        /**
-         * Emitted when a chip is to be removed.
-         * @deprecated Use `removed` instead.
-         * \@deletion-target 6.0.0
-         */
-        _this.onRemove = _this.removed;
         _this._addHostClassName();
         _this._chipRipple = new core$1.RippleRenderer(_this, ngZone, _elementRef, platform$$1);
         _this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
@@ -248,7 +236,7 @@ var MatChip = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatChip.prototype, "removable", {
         get: /**
-         * Determines whether or not the chip displays the remove styling and emits (remove) events.
+         * Determines whether or not the chip displays the remove styling and emits (removed) events.
          * @return {?}
          */
         function () { return this._removable; },
@@ -518,9 +506,7 @@ var MatChip = /** @class */ (function (_super) {
         "removable": [{ type: core.Input },],
         "selectionChange": [{ type: core.Output },],
         "destroyed": [{ type: core.Output },],
-        "destroy": [{ type: core.Output },],
         "removed": [{ type: core.Output },],
-        "onRemove": [{ type: core.Output, args: ['remove',] },],
     };
     return MatChip;
 }(_MatChipMixinBase));
@@ -946,7 +932,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.destroy; }));
+            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.destroyed; }));
         },
         enumerable: true,
         configurable: true

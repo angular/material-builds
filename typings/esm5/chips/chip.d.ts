@@ -91,7 +91,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     selectable: boolean;
     protected _selectable: boolean;
     /**
-     * Determines whether or not the chip displays the remove styling and emits (remove) events.
+     * Determines whether or not the chip displays the remove styling and emits (removed) events.
      */
     removable: boolean;
     protected _removable: boolean;
@@ -103,20 +103,8 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     readonly selectionChange: EventEmitter<MatChipSelectionChange>;
     /** Emitted when the chip is destroyed. */
     readonly destroyed: EventEmitter<MatChipEvent>;
-    /**
-     * Emitted when the chip is destroyed.
-     * @deprecated Use 'destroyed' instead.
-     * @deletion-target 6.0.0
-     */
-    readonly destroy: EventEmitter<MatChipEvent>;
     /** Emitted when a chip is to be removed. */
     readonly removed: EventEmitter<MatChipEvent>;
-    /**
-     * Emitted when a chip is to be removed.
-     * @deprecated Use `removed` instead.
-     * @deletion-target 6.0.0
-     */
-    onRemove: EventEmitter<MatChipEvent>;
     /** The ARIA selected applied to the chip. */
     readonly ariaSelected: string | null;
     constructor(_elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions);
