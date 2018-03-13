@@ -198,26 +198,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     readonly _openedStream: Observable<void>;
     /** Event emitted when the select has been closed. */
     readonly _closedStream: Observable<void>;
-    /**
-     * Event emitted when the select has been opened.
-     * @deprecated Use `openedChange` instead.
-     * @deletion-target 6.0.0
-     */
-    readonly onOpen: Observable<void>;
-    /**
-     * Event emitted when the select has been closed.
-     * @deprecated Use `openedChange` instead.
-     * @deletion-target 6.0.0
-     */
-    readonly onClose: Observable<void>;
     /** Event emitted when the selected value has been changed by the user. */
     readonly selectionChange: EventEmitter<MatSelectChange>;
-    /**
-     * Event emitted when the selected value has been changed by the user.
-     * @deprecated Use `selectionChange` instead.
-     * @deletion-target 6.0.0
-     */
-    readonly change: EventEmitter<MatSelectChange>;
     /**
      * Event that emits whenever the raw value of the select changes. This is here primarily
      * to facilitate the two-way binding for the `value` input.

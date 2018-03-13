@@ -371,26 +371,16 @@ class MatSelect extends _MatSelectMixinBase {
         this.openedChange = new EventEmitter();
         /**
          * Event emitted when the select has been opened.
-         * @deprecated Use `openedChange` instead.
-         * \@deletion-target 6.0.0
          */
-        this.onOpen = this._openedStream;
+        this._openedStream = this.openedChange.pipe(filter(o => o), map(() => { }));
         /**
          * Event emitted when the select has been closed.
-         * @deprecated Use `openedChange` instead.
-         * \@deletion-target 6.0.0
          */
-        this.onClose = this._closedStream;
+        this._closedStream = this.openedChange.pipe(filter(o => !o), map(() => { }));
         /**
          * Event emitted when the selected value has been changed by the user.
          */
         this.selectionChange = new EventEmitter();
-        /**
-         * Event emitted when the selected value has been changed by the user.
-         * @deprecated Use `selectionChange` instead.
-         * \@deletion-target 6.0.0
-         */
-        this.change = this.selectionChange;
         /**
          * Event that emits whenever the raw value of the select changes. This is here primarily
          * to facilitate the two-way binding for the `value` input.
@@ -507,20 +497,6 @@ class MatSelect extends _MatSelectMixinBase {
     set id(value) {
         this._id = value || this._uid;
         this.stateChanges.next();
-    }
-    /**
-     * Event emitted when the select has been opened.
-     * @return {?}
-     */
-    get _openedStream() {
-        return this.openedChange.pipe(filter(o => o), map(() => { }));
-    }
-    /**
-     * Event emitted when the select has been closed.
-     * @return {?}
-     */
-    get _closedStream() {
-        return this.openedChange.pipe(filter(o => !o), map(() => { }));
     }
     /**
      * @return {?}
@@ -1411,10 +1387,7 @@ MatSelect.propDecorators = {
     "openedChange": [{ type: Output },],
     "_openedStream": [{ type: Output, args: ['opened',] },],
     "_closedStream": [{ type: Output, args: ['closed',] },],
-    "onOpen": [{ type: Output },],
-    "onClose": [{ type: Output },],
     "selectionChange": [{ type: Output },],
-    "change": [{ type: Output },],
     "valueChange": [{ type: Output },],
 };
 

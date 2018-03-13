@@ -359,26 +359,16 @@ var MatSelect = /** @class */ (function (_super) {
         _this.openedChange = new EventEmitter();
         /**
          * Event emitted when the select has been opened.
-         * @deprecated Use `openedChange` instead.
-         * \@deletion-target 6.0.0
          */
-        _this.onOpen = _this._openedStream;
+        _this._openedStream = _this.openedChange.pipe(filter(function (o) { return o; }), map(function () { }));
         /**
          * Event emitted when the select has been closed.
-         * @deprecated Use `openedChange` instead.
-         * \@deletion-target 6.0.0
          */
-        _this.onClose = _this._closedStream;
+        _this._closedStream = _this.openedChange.pipe(filter(function (o) { return !o; }), map(function () { }));
         /**
          * Event emitted when the selected value has been changed by the user.
          */
         _this.selectionChange = new EventEmitter();
-        /**
-         * Event emitted when the selected value has been changed by the user.
-         * @deprecated Use `selectionChange` instead.
-         * \@deletion-target 6.0.0
-         */
-        _this.change = _this.selectionChange;
         /**
          * Event that emits whenever the raw value of the select changes. This is here primarily
          * to facilitate the two-way binding for the `value` input.
@@ -524,28 +514,6 @@ var MatSelect = /** @class */ (function (_super) {
         function (value) {
             this._id = value || this._uid;
             this.stateChanges.next();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatSelect.prototype, "_openedStream", {
-        get: /**
-         * Event emitted when the select has been opened.
-         * @return {?}
-         */
-        function () {
-            return this.openedChange.pipe(filter(function (o) { return o; }), map(function () { }));
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatSelect.prototype, "_closedStream", {
-        get: /**
-         * Event emitted when the select has been closed.
-         * @return {?}
-         */
-        function () {
-            return this.openedChange.pipe(filter(function (o) { return !o; }), map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -1794,10 +1762,7 @@ var MatSelect = /** @class */ (function (_super) {
         "openedChange": [{ type: Output },],
         "_openedStream": [{ type: Output, args: ['opened',] },],
         "_closedStream": [{ type: Output, args: ['closed',] },],
-        "onOpen": [{ type: Output },],
-        "onClose": [{ type: Output },],
         "selectionChange": [{ type: Output },],
-        "change": [{ type: Output },],
         "valueChange": [{ type: Output },],
     };
     return MatSelect;
