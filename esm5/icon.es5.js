@@ -110,7 +110,6 @@ var MatIconRegistry = /** @class */ (function () {
          * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
          */
         this._defaultFontSetClass = 'material-icons';
-        // TODO(crisbeto): make _document required next major release.
         this._document = document;
     }
     /**
@@ -594,16 +593,13 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (str) {
-        if (this._document || typeof document !== 'undefined') {
-            var /** @type {?} */ div = (this._document || document).createElement('DIV');
-            div.innerHTML = str;
-            var /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
-            if (!svg) {
-                throw Error('<svg> tag not found');
-            }
-            return svg;
+        var /** @type {?} */ div = this._document.createElement('DIV');
+        div.innerHTML = str;
+        var /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
+        if (!svg) {
+            throw Error('<svg> tag not found');
         }
-        throw new Error('MatIconRegistry could not resolve document.');
+        return svg;
     };
     /**
      * Converts an element into an SVG node by cloning all of its children.

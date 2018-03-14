@@ -52,7 +52,7 @@ export declare class MatIconRegistry {
      * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
      */
     private _defaultFontSetClass;
-    constructor(_httpClient: HttpClient, _sanitizer: DomSanitizer, document?: any);
+    constructor(_httpClient: HttpClient, _sanitizer: DomSanitizer, document: any);
     /**
      * Registers an icon by URL in the default namespace.
      * @param iconName Name under which the icon should be registered.

@@ -15749,7 +15749,6 @@ var MatIconRegistry = /** @class */ (function () {
          * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
          */
         this._defaultFontSetClass = 'material-icons';
-        // TODO(crisbeto): make _document required next major release.
         this._document = document;
     }
     /**
@@ -16233,16 +16232,13 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (str) {
-        if (this._document || typeof document !== 'undefined') {
-            var /** @type {?} */ div = (this._document || document).createElement('DIV');
-            div.innerHTML = str;
-            var /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
-            if (!svg) {
-                throw Error('<svg> tag not found');
-            }
-            return svg;
+        var /** @type {?} */ div = this._document.createElement('DIV');
+        div.innerHTML = str;
+        var /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
+        if (!svg) {
+            throw Error('<svg> tag not found');
         }
-        throw new Error('MatIconRegistry could not resolve document.');
+        return svg;
     };
     /**
      * Converts an element into an SVG node by cloning all of its children.
@@ -31772,7 +31768,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-d8a365e');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-e8af5ae');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32016,10 +32012,10 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa16 = MatMenuItemBase;
-exports.ɵb16 = _MatMenuItemMixinBase;
-exports.ɵd16 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc16 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa17 = MatMenuItemBase;
+exports.ɵb17 = _MatMenuItemMixinBase;
+exports.ɵd17 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc17 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32143,16 +32139,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe18 = MatTabBase;
-exports.ɵf18 = _MatTabMixinBase;
-exports.ɵa18 = MatTabHeaderBase;
-exports.ɵb18 = _MatTabHeaderMixinBase;
-exports.ɵc18 = MatTabLabelWrapperBase;
-exports.ɵd18 = _MatTabLabelWrapperMixinBase;
-exports.ɵi18 = MatTabLinkBase;
-exports.ɵg18 = MatTabNavBase;
-exports.ɵj18 = _MatTabLinkMixinBase;
-exports.ɵh18 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
@@ -32186,7 +32182,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa23 = MatTreeNodeOutlet;
+exports.ɵa15 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
