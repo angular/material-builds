@@ -209,21 +209,6 @@ const /** @type {?} */ MAT_SELECTION_LIST_VALUE_ACCESSOR = {
     multi: true
 };
 /**
- * Change event object emitted by MatListOption whenever the selected state changes.
- * @deprecated Use the `MatSelectionListChange` event on the selection list instead.
- * \@deletion-target 6.0.0
- */
-class MatListOptionChange {
-    /**
-     * @param {?} source
-     * @param {?} selected
-     */
-    constructor(source, selected) {
-        this.source = source;
-        this.selected = selected;
-    }
-}
-/**
  * Change event that is being fired whenever the selected state of an option changes.
  */
 class MatSelectionListChange {
@@ -263,12 +248,6 @@ class MatListOption extends _MatListOptionMixinBase {
          * Whether the label should appear before or after the checkbox. Defaults to 'after'
          */
         this.checkboxPosition = 'after';
-        /**
-         * Emits a change event whenever the selected state of an option changes.
-         * @deprecated Use the `selectionChange` event on the `<mat-selection-list>` instead.
-         * \@deletion-target 6.0.0
-         */
-        this.selectionChange = new EventEmitter();
     }
     /**
      * Whether the option is disabled.
@@ -375,8 +354,6 @@ class MatListOption extends _MatListOptionMixinBase {
             this.toggle();
             // Emit a change event if the selected state of the option changed through user interaction.
             this.selectionList._emitChangeEvent(this);
-            // TODO: the `selectionChange` event on the option is deprecated. Remove that in the future.
-            this._emitDeprecatedChangeEvent();
         }
     }
     /**
@@ -418,14 +395,6 @@ class MatListOption extends _MatListOptionMixinBase {
         }
         this._changeDetector.markForCheck();
     }
-    /**
-     * Emits a selectionChange event for this option.
-     * @return {?}
-     */
-    _emitDeprecatedChangeEvent() {
-        // TODO: the `selectionChange` event on the option is deprecated. Remove that in the future.
-        this.selectionChange.emit(new MatListOptionChange(this, this.selected));
-    }
 }
 MatListOption.decorators = [
     { type: Component, args: [{selector: 'mat-list-option',
@@ -461,7 +430,6 @@ MatListOption.propDecorators = {
     "value": [{ type: Input },],
     "disabled": [{ type: Input },],
     "selected": [{ type: Input },],
-    "selectionChange": [{ type: Output },],
 };
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
@@ -698,8 +666,6 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                 // Emit a change event because the focused option changed its state through user
                 // interaction.
                 this._emitChangeEvent(focusedOption);
-                // TODO: the `selectionChange` event on the option is deprecated. Remove that in the future.
-                focusedOption._emitDeprecatedChangeEvent();
             }
         }
     }
@@ -799,5 +765,5 @@ MatListModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatNavList, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatListOptionChange, MatSelectionListChange, MatListOption, MatSelectionList };
+export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatNavList, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatSelectionListChange, MatListOption, MatSelectionList };
 //# sourceMappingURL=list.js.map

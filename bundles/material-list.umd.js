@@ -291,23 +291,6 @@ var /** @type {?} */ MAT_SELECTION_LIST_VALUE_ACCESSOR = {
     multi: true
 };
 /**
- * Change event object emitted by MatListOption whenever the selected state changes.
- * @deprecated Use the `MatSelectionListChange` event on the selection list instead.
- * \@deletion-target 6.0.0
- */
-var   /**
- * Change event object emitted by MatListOption whenever the selected state changes.
- * @deprecated Use the `MatSelectionListChange` event on the selection list instead.
- * \@deletion-target 6.0.0
- */
-MatListOptionChange = /** @class */ (function () {
-    function MatListOptionChange(source, selected) {
-        this.source = source;
-        this.selected = selected;
-    }
-    return MatListOptionChange;
-}());
-/**
  * Change event that is being fired whenever the selected state of an option changes.
  */
 var   /**
@@ -343,12 +326,6 @@ var MatListOption = /** @class */ (function (_super) {
          * Whether the label should appear before or after the checkbox. Defaults to 'after'
          */
         _this.checkboxPosition = 'after';
-        /**
-         * Emits a change event whenever the selected state of an option changes.
-         * @deprecated Use the `selectionChange` event on the `<mat-selection-list>` instead.
-         * \@deletion-target 6.0.0
-         */
-        _this.selectionChange = new core.EventEmitter();
         return _this;
     }
     Object.defineProperty(MatListOption.prototype, "disabled", {
@@ -502,8 +479,6 @@ var MatListOption = /** @class */ (function (_super) {
             this.toggle();
             // Emit a change event if the selected state of the option changed through user interaction.
             this.selectionList._emitChangeEvent(this);
-            // TODO: the `selectionChange` event on the option is deprecated. Remove that in the future.
-            this._emitDeprecatedChangeEvent();
         }
     };
     /**
@@ -562,19 +537,6 @@ var MatListOption = /** @class */ (function (_super) {
         }
         this._changeDetector.markForCheck();
     };
-    /** Emits a selectionChange event for this option. */
-    /**
-     * Emits a selectionChange event for this option.
-     * @return {?}
-     */
-    MatListOption.prototype._emitDeprecatedChangeEvent = /**
-     * Emits a selectionChange event for this option.
-     * @return {?}
-     */
-    function () {
-        // TODO: the `selectionChange` event on the option is deprecated. Remove that in the future.
-        this.selectionChange.emit(new MatListOptionChange(this, this.selected));
-    };
     MatListOption.decorators = [
         { type: core.Component, args: [{selector: 'mat-list-option',
                     exportAs: 'matListOption',
@@ -609,7 +571,6 @@ var MatListOption = /** @class */ (function (_super) {
         "value": [{ type: core.Input },],
         "disabled": [{ type: core.Input },],
         "selected": [{ type: core.Input },],
-        "selectionChange": [{ type: core.Output },],
     };
     return MatListOption;
 }(_MatListOptionMixinBase));
@@ -941,8 +902,6 @@ var MatSelectionList = /** @class */ (function (_super) {
                 // Emit a change event because the focused option changed its state through user
                 // interaction.
                 this._emitChangeEvent(focusedOption);
-                // TODO: the `selectionChange` event on the option is deprecated. Remove that in the future.
-                focusedOption._emitDeprecatedChangeEvent();
             }
         }
     };
@@ -1062,7 +1021,6 @@ exports._MatSelectionListMixinBase = _MatSelectionListMixinBase;
 exports.MatListOptionBase = MatListOptionBase;
 exports._MatListOptionMixinBase = _MatListOptionMixinBase;
 exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
-exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;

@@ -20,22 +20,6 @@ export declare class MatListOptionBase {
 export declare const _MatListOptionMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatListOptionBase;
 /** @docs-private */
 export declare const MAT_SELECTION_LIST_VALUE_ACCESSOR: any;
-/**
- * Change event object emitted by MatListOption whenever the selected state changes.
- * @deprecated Use the `MatSelectionListChange` event on the selection list instead.
- * @deletion-target 6.0.0
- */
-export declare class MatListOptionChange {
-    /** Reference to the list option that changed. */
-    source: MatListOption;
-    /** The new selected state of the option. */
-    selected: boolean;
-    constructor(
-        /** Reference to the list option that changed. */
-        source: MatListOption, 
-        /** The new selected state of the option. */
-        selected: boolean);
-}
 /** Change event that is being fired whenever the selected state of an option changes. */
 export declare class MatSelectionListChange {
     /** Reference to the selection list that emitted the event. */
@@ -73,12 +57,6 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     disabled: any;
     /** Whether the option is selected. */
     selected: boolean;
-    /**
-     * Emits a change event whenever the selected state of an option changes.
-     * @deprecated Use the `selectionChange` event on the `<mat-selection-list>` instead.
-     * @deletion-target 6.0.0
-     */
-    readonly selectionChange: EventEmitter<MatListOptionChange>;
     constructor(_element: ElementRef, _changeDetector: ChangeDetectorRef, 
         /** @docs-private */
         selectionList: MatSelectionList);
@@ -103,8 +81,6 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     _getHostElement(): HTMLElement;
     /** Sets the selected state of the option. */
     _setSelected(selected: boolean): void;
-    /** Emits a selectionChange event for this option. */
-    _emitDeprecatedChangeEvent(): void;
 }
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
