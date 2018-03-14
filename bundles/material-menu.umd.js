@@ -1237,7 +1237,7 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function (position) {
         var _this = this;
-        position.onPositionChange.subscribe(function (change) {
+        position.positionChanges.subscribe(function (change) {
             var /** @type {?} */ posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
             var /** @type {?} */ posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above';
             _this.menu.setPositionClasses(posX, posY);
@@ -1271,12 +1271,25 @@ var MatMenuTrigger = /** @class */ (function () {
             originFallbackY = overlayFallbackY === 'top' ? 'bottom' : 'top';
         }
         return this._overlay.position()
-            .connectedTo(this._element, { originX: originX, originY: originY }, { overlayX: overlayX, overlayY: overlayY })
-            .withDirection(this.dir)
-            .withOffsetY(offsetY)
-            .withFallbackPosition({ originX: originFallbackX, originY: originY }, { overlayX: overlayFallbackX, overlayY: overlayY })
-            .withFallbackPosition({ originX: originX, originY: originFallbackY }, { overlayX: overlayX, overlayY: overlayFallbackY }, undefined, -offsetY)
-            .withFallbackPosition({ originX: originFallbackX, originY: originFallbackY }, { overlayX: overlayFallbackX, overlayY: overlayFallbackY }, undefined, -offsetY);
+            .flexibleConnectedTo(this._element)
+            .withPositions([
+            { originX: originX, originY: originY, overlayX: overlayX, overlayY: overlayY, offsetY: offsetY },
+            { originX: originFallbackX, originY: originY, overlayX: overlayFallbackX, overlayY: overlayY, offsetY: offsetY },
+            {
+                originX: originX,
+                originY: originFallbackY,
+                overlayX: overlayX,
+                overlayY: overlayFallbackY,
+                offsetY: -offsetY
+            },
+            {
+                originX: originFallbackX,
+                originY: originFallbackY,
+                overlayX: overlayFallbackX,
+                overlayY: overlayFallbackY,
+                offsetY: -offsetY
+            }
+        ]);
     };
     /**
      * Cleans up the active subscriptions.
@@ -1451,10 +1464,10 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa25 = MatMenuItemBase;
-exports.ɵb25 = _MatMenuItemMixinBase;
-exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa20 = MatMenuItemBase;
+exports.ɵb20 = _MatMenuItemMixinBase;
+exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

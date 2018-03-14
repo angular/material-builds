@@ -1838,7 +1838,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
             return;
         }
         var /** @type {?} */ positionStrategy = /** @type {?} */ (((this.datepicker._popupRef.getConfig().positionStrategy)));
-        this._positionChange = positionStrategy.onPositionChange.subscribe(function (change) {
+        this._positionChange = positionStrategy.positionChanges.subscribe(function (change) {
             var /** @type {?} */ isAbove = change.connectionPair.overlayY === 'bottom';
             if (isAbove !== _this._isAbove) {
                 _this._ngZone.run(function () {
@@ -2355,10 +2355,36 @@ var MatDatepicker = /** @class */ (function () {
      */
     function () {
         return this._overlay.position()
-            .connectedTo(this._datepickerInput.getConnectedOverlayOrigin(), { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
-            .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' })
-            .withFallbackPosition({ originX: 'end', originY: 'bottom' }, { overlayX: 'end', overlayY: 'top' })
-            .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' });
+            .flexibleConnectedTo(this._datepickerInput.getPopupConnectionElementRef())
+            .withFlexibleHeight(false)
+            .withFlexibleWidth(false)
+            .withViewportMargin(8)
+            .withPositions([
+            {
+                originX: 'start',
+                originY: 'bottom',
+                overlayX: 'start',
+                overlayY: 'top'
+            },
+            {
+                originX: 'start',
+                originY: 'top',
+                overlayX: 'start',
+                overlayY: 'bottom'
+            },
+            {
+                originX: 'end',
+                originY: 'bottom',
+                overlayX: 'end',
+                overlayY: 'top'
+            },
+            {
+                originX: 'end',
+                originY: 'top',
+                overlayX: 'end',
+                overlayY: 'bottom'
+            }
+        ]);
     };
     /**
      * @param {?} obj The object to check.

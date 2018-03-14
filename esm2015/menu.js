@@ -988,7 +988,7 @@ class MatMenuTrigger {
      * @return {?}
      */
     _subscribeToPositions(position) {
-        position.onPositionChange.subscribe(change => {
+        position.positionChanges.subscribe(change => {
             const /** @type {?} */ posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
             const /** @type {?} */ posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above';
             this.menu.setPositionClasses(posX, posY);
@@ -1017,12 +1017,25 @@ class MatMenuTrigger {
             originFallbackY = overlayFallbackY === 'top' ? 'bottom' : 'top';
         }
         return this._overlay.position()
-            .connectedTo(this._element, { originX, originY }, { overlayX, overlayY })
-            .withDirection(this.dir)
-            .withOffsetY(offsetY)
-            .withFallbackPosition({ originX: originFallbackX, originY }, { overlayX: overlayFallbackX, overlayY })
-            .withFallbackPosition({ originX, originY: originFallbackY }, { overlayX, overlayY: overlayFallbackY }, undefined, -offsetY)
-            .withFallbackPosition({ originX: originFallbackX, originY: originFallbackY }, { overlayX: overlayFallbackX, overlayY: overlayFallbackY }, undefined, -offsetY);
+            .flexibleConnectedTo(this._element)
+            .withPositions([
+            { originX, originY, overlayX, overlayY, offsetY },
+            { originX: originFallbackX, originY, overlayX: overlayFallbackX, overlayY, offsetY },
+            {
+                originX,
+                originY: originFallbackY,
+                overlayX,
+                overlayY: overlayFallbackY,
+                offsetY: -offsetY
+            },
+            {
+                originX: originFallbackX,
+                originY: originFallbackY,
+                overlayX: overlayFallbackX,
+                overlayY: overlayFallbackY,
+                offsetY: -offsetY
+            }
+        ]);
     }
     /**
      * Cleans up the active subscriptions.
@@ -1171,5 +1184,5 @@ MatMenuModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa25, _MatMenuItemMixinBase as ɵb25, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd25, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc25 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa20, _MatMenuItemMixinBase as ɵb20, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd20, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc20 };
 //# sourceMappingURL=menu.js.map

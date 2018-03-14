@@ -3715,7 +3715,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
     MatAutocomplete.decorators = [
         { type: core.Component, args: [{selector: 'mat-autocomplete',
                     template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
-                    styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
+                    styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative;width:100%}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     exportAs: 'matAutocomplete',
@@ -4181,7 +4181,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     function () {
         var _this = this;
         var /** @type {?} */ firstStable = this._zone.onStable.asObservable().pipe(take.take(1));
-        var /** @type {?} */ optionChanges = this.autocomplete.options.changes.pipe(tap.tap(function () { return _this._positionStrategy.recalculateLastPosition(); }), 
+        var /** @type {?} */ optionChanges = this.autocomplete.options.changes.pipe(tap.tap(function () { return _this._positionStrategy.reapplyLastPosition(); }), 
         // Defer emitting to the stream until the next tick, because changing
         // bindings in here will cause "changed after checked" errors.
         delay.delay(0));
@@ -4331,8 +4331,12 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._positionStrategy = this._overlay.position().connectedTo(this._getConnectedElement(), { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
-            .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' });
+        this._positionStrategy = this._overlay.position()
+            .flexibleConnectedTo(this._getConnectedElement())
+            .withPositions([
+            { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
+            { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom' }
+        ]);
         return this._positionStrategy;
     };
     /**
@@ -12632,7 +12636,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
             return;
         }
         var /** @type {?} */ positionStrategy = /** @type {?} */ (((this.datepicker._popupRef.getConfig().positionStrategy)));
-        this._positionChange = positionStrategy.onPositionChange.subscribe(function (change) {
+        this._positionChange = positionStrategy.positionChanges.subscribe(function (change) {
             var /** @type {?} */ isAbove = change.connectionPair.overlayY === 'bottom';
             if (isAbove !== _this._isAbove) {
                 _this._ngZone.run(function () {
@@ -13149,10 +13153,36 @@ var MatDatepicker = /** @class */ (function () {
      */
     function () {
         return this._overlay.position()
-            .connectedTo(this._datepickerInput.getConnectedOverlayOrigin(), { originX: 'start', originY: 'bottom' }, { overlayX: 'start', overlayY: 'top' })
-            .withFallbackPosition({ originX: 'start', originY: 'top' }, { overlayX: 'start', overlayY: 'bottom' })
-            .withFallbackPosition({ originX: 'end', originY: 'bottom' }, { overlayX: 'end', overlayY: 'top' })
-            .withFallbackPosition({ originX: 'end', originY: 'top' }, { overlayX: 'end', overlayY: 'bottom' });
+            .flexibleConnectedTo(this._datepickerInput.getPopupConnectionElementRef())
+            .withFlexibleHeight(false)
+            .withFlexibleWidth(false)
+            .withViewportMargin(8)
+            .withPositions([
+            {
+                originX: 'start',
+                originY: 'bottom',
+                overlayX: 'start',
+                overlayY: 'top'
+            },
+            {
+                originX: 'start',
+                originY: 'top',
+                overlayX: 'start',
+                overlayY: 'bottom'
+            },
+            {
+                originX: 'end',
+                originY: 'bottom',
+                overlayX: 'end',
+                overlayY: 'top'
+            },
+            {
+                originX: 'end',
+                originY: 'top',
+                overlayX: 'end',
+                overlayY: 'bottom'
+            }
+        ]);
     };
     /**
      * @param {?} obj The object to check.
@@ -18870,7 +18900,7 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function (position) {
         var _this = this;
-        position.onPositionChange.subscribe(function (change) {
+        position.positionChanges.subscribe(function (change) {
             var /** @type {?} */ posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
             var /** @type {?} */ posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above';
             _this.menu.setPositionClasses(posX, posY);
@@ -18904,12 +18934,25 @@ var MatMenuTrigger = /** @class */ (function () {
             originFallbackY = overlayFallbackY === 'top' ? 'bottom' : 'top';
         }
         return this._overlay.position()
-            .connectedTo(this._element, { originX: originX, originY: originY }, { overlayX: overlayX, overlayY: overlayY })
-            .withDirection(this.dir)
-            .withOffsetY(offsetY)
-            .withFallbackPosition({ originX: originFallbackX, originY: originY }, { overlayX: overlayFallbackX, overlayY: overlayY })
-            .withFallbackPosition({ originX: originX, originY: originFallbackY }, { overlayX: overlayX, overlayY: overlayFallbackY }, undefined, -offsetY)
-            .withFallbackPosition({ originX: originFallbackX, originY: originFallbackY }, { overlayX: overlayFallbackX, overlayY: overlayFallbackY }, undefined, -offsetY);
+            .flexibleConnectedTo(this._element)
+            .withPositions([
+            { originX: originX, originY: originY, overlayX: overlayX, overlayY: overlayY, offsetY: offsetY },
+            { originX: originFallbackX, originY: originY, overlayX: overlayFallbackX, overlayY: overlayY, offsetY: offsetY },
+            {
+                originX: originX,
+                originY: originFallbackY,
+                overlayX: overlayX,
+                overlayY: overlayFallbackY,
+                offsetY: -offsetY
+            },
+            {
+                originX: originFallbackX,
+                originY: originFallbackY,
+                overlayX: overlayFallbackX,
+                overlayY: overlayFallbackY,
+                offsetY: -offsetY
+            }
+        ]);
     };
     /**
      * Cleans up the active subscriptions.
@@ -21192,29 +21235,38 @@ var MatTooltip = /** @class */ (function () {
         }
         var /** @type {?} */ origin = this._getOrigin();
         var /** @type {?} */ overlay$$1 = this._getOverlayPosition();
+        var /** @type {?} */ direction = this._dir ? this._dir.value : 'ltr';
         // Create connected position strategy that listens for scroll events to reposition.
-        var /** @type {?} */ strategy = this._overlay
-            .position()
-            .connectedTo(this._elementRef, origin.main, overlay$$1.main)
-            .withFallbackPosition(origin.fallback, overlay$$1.fallback)
-            .withScrollableContainers(this._scrollDispatcher.getAncestorScrollContainers(this._elementRef));
-        strategy.onPositionChange.pipe(filter.filter(function () { return !!_this._tooltipInstance; }), takeUntil.takeUntil(this._destroyed)).subscribe(function (change) {
-            if (change.scrollableViewProperties.isOverlayClipped && /** @type {?} */ ((_this._tooltipInstance)).isVisible()) {
-                // After position changes occur and the overlay is clipped by
-                // a parent scrollable then close the tooltip.
-                // After position changes occur and the overlay is clipped by
-                // a parent scrollable then close the tooltip.
-                _this._ngZone.run(function () { return _this.hide(0); });
-            }
-            else {
-                /** @type {?} */ ((
-                // Otherwise recalculate the origin based on the new position.
-                // Otherwise recalculate the origin based on the new position.
-                _this._tooltipInstance))._setTransformOrigin(change.connectionPair);
+        var /** @type {?} */ strategy = this._overlay.position()
+            .flexibleConnectedTo(this._elementRef)
+            .withFlexibleHeight(false)
+            .withFlexibleWidth(false)
+            .withViewportMargin(8)
+            .withPositions([
+            __assign({}, origin.main, overlay$$1.main),
+            __assign({}, origin.fallback, overlay$$1.fallback)
+        ]);
+        var /** @type {?} */ scrollableAncestors = this._scrollDispatcher
+            .getAncestorScrollContainers(this._elementRef);
+        strategy.withScrollableContainers(scrollableAncestors);
+        strategy.positionChanges.pipe(takeUntil.takeUntil(this._destroyed)).subscribe(function (change) {
+            if (_this._tooltipInstance) {
+                if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {
+                    // After position changes occur and the overlay is clipped by
+                    // a parent scrollable then close the tooltip.
+                    // After position changes occur and the overlay is clipped by
+                    // a parent scrollable then close the tooltip.
+                    _this._ngZone.run(function () { return _this.hide(0); });
+                }
+                else {
+                    // Otherwise recalculate the origin based on the new position.
+                    // Otherwise recalculate the origin based on the new position.
+                    _this._tooltipInstance._setTransformOrigin(change.connectionPair, direction);
+                }
             }
         });
         this._overlayRef = this._overlay.create({
-            direction: this._dir ? this._dir.value : 'ltr',
+            direction: direction,
             positionStrategy: strategy,
             panelClass: TOOLTIP_PANEL_CLASS,
             scrollStrategy: this._scrollStrategy()
@@ -21251,9 +21303,10 @@ var MatTooltip = /** @class */ (function () {
         var /** @type {?} */ origin = this._getOrigin();
         var /** @type {?} */ overlay$$1 = this._getOverlayPosition();
         position
-            .withPositions([])
-            .withFallbackPosition(origin.main, overlay$$1.main)
-            .withFallbackPosition(origin.fallback, overlay$$1.fallback);
+            .withPositions([
+            __assign({}, origin.main, overlay$$1.main),
+            __assign({}, origin.fallback, overlay$$1.fallback)
+        ]);
     };
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
@@ -21270,27 +21323,28 @@ var MatTooltip = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ isDirectionLtr = !this._dir || this._dir.value == 'ltr';
-        var /** @type {?} */ position;
-        if (this.position == 'above' || this.position == 'below') {
-            position = { originX: 'center', originY: this.position == 'above' ? 'top' : 'bottom' };
+        var /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
+        var /** @type {?} */ position = this.position;
+        var /** @type {?} */ originPosition;
+        if (position == 'above' || position == 'below') {
+            originPosition = { originX: 'center', originY: position == 'above' ? 'top' : 'bottom' };
         }
-        else if (this.position == 'left' ||
-            this.position == 'before' && isDirectionLtr ||
-            this.position == 'after' && !isDirectionLtr) {
-            position = { originX: 'start', originY: 'center' };
+        else if (position == 'before' ||
+            (position == 'left' && isLtr) ||
+            (position == 'right' && !isLtr)) {
+            originPosition = { originX: 'start', originY: 'center' };
         }
-        else if (this.position == 'right' ||
-            this.position == 'after' && isDirectionLtr ||
-            this.position == 'before' && !isDirectionLtr) {
-            position = { originX: 'end', originY: 'center' };
+        else if (position == 'after' ||
+            (position == 'right' && isLtr) ||
+            (position == 'left' && !isLtr)) {
+            originPosition = { originX: 'end', originY: 'center' };
         }
         else {
-            throw getMatTooltipInvalidPositionError(this.position);
+            throw getMatTooltipInvalidPositionError(position);
         }
-        var _a = this._invertPosition(position.originX, position.originY), x = _a.x, y = _a.y;
+        var _a = this._invertPosition(originPosition.originX, originPosition.originY), x = _a.x, y = _a.y;
         return {
-            main: position,
+            main: originPosition,
             fallback: { originX: x, originY: y }
         };
     };
@@ -21305,29 +21359,30 @@ var MatTooltip = /** @class */ (function () {
      */
     function () {
         var /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
-        var /** @type {?} */ position;
-        if (this.position == 'above') {
-            position = { overlayX: 'center', overlayY: 'bottom' };
+        var /** @type {?} */ position = this.position;
+        var /** @type {?} */ overlayPosition;
+        if (position == 'above') {
+            overlayPosition = { overlayX: 'center', overlayY: 'bottom' };
         }
-        else if (this.position == 'below') {
-            position = { overlayX: 'center', overlayY: 'top' };
+        else if (position == 'below') {
+            overlayPosition = { overlayX: 'center', overlayY: 'top' };
         }
-        else if (this.position == 'left' ||
-            this.position == 'before' && isLtr ||
-            this.position == 'after' && !isLtr) {
-            position = { overlayX: 'end', overlayY: 'center' };
+        else if (position == 'before' ||
+            (position == 'left' && isLtr) ||
+            (position == 'right' && !isLtr)) {
+            overlayPosition = { overlayX: 'end', overlayY: 'center' };
         }
-        else if (this.position == 'right' ||
-            this.position == 'after' && isLtr ||
-            this.position == 'before' && !isLtr) {
-            position = { overlayX: 'start', overlayY: 'center' };
+        else if (position == 'after' ||
+            (position == 'right' && isLtr) ||
+            (position == 'left' && !isLtr)) {
+            overlayPosition = { overlayX: 'start', overlayY: 'center' };
         }
         else {
-            throw getMatTooltipInvalidPositionError(this.position);
+            throw getMatTooltipInvalidPositionError(position);
         }
-        var _a = this._invertPosition(position.overlayX, position.overlayY), x = _a.x, y = _a.y;
+        var _a = this._invertPosition(overlayPosition.overlayX, overlayPosition.overlayY), x = _a.x, y = _a.y;
         return {
-            main: position,
+            main: overlayPosition,
             fallback: { overlayX: x, overlayY: y }
         };
     };
@@ -21556,24 +21611,26 @@ var TooltipComponent = /** @class */ (function () {
     /**
      * Sets the tooltip transform origin according to the position of the tooltip overlay.
      * @param {?} overlayPosition
+     * @param {?} direction
      * @return {?}
      */
     TooltipComponent.prototype._setTransformOrigin = /**
      * Sets the tooltip transform origin according to the position of the tooltip overlay.
      * @param {?} overlayPosition
+     * @param {?} direction
      * @return {?}
      */
-    function (overlayPosition) {
+    function (overlayPosition, direction) {
         var /** @type {?} */ axis = (this._position === 'above' || this._position === 'below') ? 'Y' : 'X';
         var /** @type {?} */ position = axis == 'X' ? overlayPosition.overlayX : overlayPosition.overlayY;
         if (position === 'top' || position === 'bottom') {
             this._transformOrigin = position;
         }
         else if (position === 'start') {
-            this._transformOrigin = 'left';
+            this._transformOrigin = direction === 'ltr' ? 'left' : 'right';
         }
         else if (position === 'end') {
-            this._transformOrigin = 'right';
+            this._transformOrigin = direction === 'ltr' ? 'right' : 'left';
         }
         else {
             throw getMatTooltipInvalidPositionError(this._position);
@@ -31756,7 +31813,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-57a5db6');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-27e5f6e');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32001,10 +32058,10 @@ exports.MatListOptionChange = MatListOptionChange;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa25 = MatMenuItemBase;
-exports.ɵb25 = _MatMenuItemMixinBase;
-exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa20 = MatMenuItemBase;
+exports.ɵb20 = _MatMenuItemMixinBase;
+exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc20 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32128,16 +32185,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe25 = MatTabBase;
+exports.ɵf25 = _MatTabMixinBase;
+exports.ɵa25 = MatTabHeaderBase;
+exports.ɵb25 = _MatTabHeaderMixinBase;
+exports.ɵc25 = MatTabLabelWrapperBase;
+exports.ɵd25 = _MatTabLabelWrapperMixinBase;
+exports.ɵi25 = MatTabLinkBase;
+exports.ɵg25 = MatTabNavBase;
+exports.ɵj25 = _MatTabLinkMixinBase;
+exports.ɵh25 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
@@ -32171,7 +32228,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa14 = MatTreeNodeOutlet;
+exports.ɵa13 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

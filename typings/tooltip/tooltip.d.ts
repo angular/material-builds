@@ -7,7 +7,7 @@
  */
 import { AnimationEvent } from '@angular/animations';
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
-import { Directionality } from '@angular/cdk/bidi';
+import { Directionality, Direction } from '@angular/cdk/bidi';
 import { ConnectionPositionPair, OriginConnectionPosition, Overlay, ScrollDispatcher, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
@@ -170,7 +170,7 @@ export declare class TooltipComponent {
     /** Whether the tooltip is being displayed. */
     isVisible(): boolean;
     /** Sets the tooltip transform origin according to the position of the tooltip overlay. */
-    _setTransformOrigin(overlayPosition: ConnectionPositionPair): void;
+    _setTransformOrigin(overlayPosition: ConnectionPositionPair, direction: Direction): void;
     _animationStart(): void;
     _animationDone(event: AnimationEvent): void;
     /**

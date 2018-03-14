@@ -15,7 +15,6 @@ import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { take } from 'rxjs/operators/take';
 import { takeUntil } from 'rxjs/operators/takeUntil';
-import { filter } from 'rxjs/operators/filter';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgZone, Optional, ViewContainerRef, ViewEncapsulation, NgModule } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
@@ -321,26 +320,35 @@ class MatTooltip {
         }
         const /** @type {?} */ origin = this._getOrigin();
         const /** @type {?} */ overlay = this._getOverlayPosition();
+        const /** @type {?} */ direction = this._dir ? this._dir.value : 'ltr';
         // Create connected position strategy that listens for scroll events to reposition.
-        const /** @type {?} */ strategy = this._overlay
-            .position()
-            .connectedTo(this._elementRef, origin.main, overlay.main)
-            .withFallbackPosition(origin.fallback, overlay.fallback)
-            .withScrollableContainers(this._scrollDispatcher.getAncestorScrollContainers(this._elementRef));
-        strategy.onPositionChange.pipe(filter(() => !!this._tooltipInstance), takeUntil(this._destroyed)).subscribe(change => {
-            if (change.scrollableViewProperties.isOverlayClipped && /** @type {?} */ ((this._tooltipInstance)).isVisible()) {
-                // After position changes occur and the overlay is clipped by
-                // a parent scrollable then close the tooltip.
-                this._ngZone.run(() => this.hide(0));
-            }
-            else {
-                /** @type {?} */ ((
-                // Otherwise recalculate the origin based on the new position.
-                this._tooltipInstance))._setTransformOrigin(change.connectionPair);
+        const /** @type {?} */ strategy = this._overlay.position()
+            .flexibleConnectedTo(this._elementRef)
+            .withFlexibleHeight(false)
+            .withFlexibleWidth(false)
+            .withViewportMargin(8)
+            .withPositions([
+            Object.assign({}, origin.main, overlay.main),
+            Object.assign({}, origin.fallback, overlay.fallback)
+        ]);
+        const /** @type {?} */ scrollableAncestors = this._scrollDispatcher
+            .getAncestorScrollContainers(this._elementRef);
+        strategy.withScrollableContainers(scrollableAncestors);
+        strategy.positionChanges.pipe(takeUntil(this._destroyed)).subscribe(change => {
+            if (this._tooltipInstance) {
+                if (change.scrollableViewProperties.isOverlayClipped && this._tooltipInstance.isVisible()) {
+                    // After position changes occur and the overlay is clipped by
+                    // a parent scrollable then close the tooltip.
+                    this._ngZone.run(() => this.hide(0));
+                }
+                else {
+                    // Otherwise recalculate the origin based on the new position.
+                    this._tooltipInstance._setTransformOrigin(change.connectionPair, direction);
+                }
             }
         });
         this._overlayRef = this._overlay.create({
-            direction: this._dir ? this._dir.value : 'ltr',
+            direction,
             positionStrategy: strategy,
             panelClass: TOOLTIP_PANEL_CLASS,
             scrollStrategy: this._scrollStrategy()
@@ -369,9 +377,10 @@ class MatTooltip {
         const /** @type {?} */ origin = this._getOrigin();
         const /** @type {?} */ overlay = this._getOverlayPosition();
         position
-            .withPositions([])
-            .withFallbackPosition(origin.main, overlay.main)
-            .withFallbackPosition(origin.fallback, overlay.fallback);
+            .withPositions([
+            Object.assign({}, origin.main, overlay.main),
+            Object.assign({}, origin.fallback, overlay.fallback)
+        ]);
     }
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
@@ -379,27 +388,28 @@ class MatTooltip {
      * @return {?}
      */
     _getOrigin() {
-        const /** @type {?} */ isDirectionLtr = !this._dir || this._dir.value == 'ltr';
-        let /** @type {?} */ position;
-        if (this.position == 'above' || this.position == 'below') {
-            position = { originX: 'center', originY: this.position == 'above' ? 'top' : 'bottom' };
+        const /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
+        const /** @type {?} */ position = this.position;
+        let /** @type {?} */ originPosition;
+        if (position == 'above' || position == 'below') {
+            originPosition = { originX: 'center', originY: position == 'above' ? 'top' : 'bottom' };
         }
-        else if (this.position == 'left' ||
-            this.position == 'before' && isDirectionLtr ||
-            this.position == 'after' && !isDirectionLtr) {
-            position = { originX: 'start', originY: 'center' };
+        else if (position == 'before' ||
+            (position == 'left' && isLtr) ||
+            (position == 'right' && !isLtr)) {
+            originPosition = { originX: 'start', originY: 'center' };
         }
-        else if (this.position == 'right' ||
-            this.position == 'after' && isDirectionLtr ||
-            this.position == 'before' && !isDirectionLtr) {
-            position = { originX: 'end', originY: 'center' };
+        else if (position == 'after' ||
+            (position == 'right' && isLtr) ||
+            (position == 'left' && !isLtr)) {
+            originPosition = { originX: 'end', originY: 'center' };
         }
         else {
-            throw getMatTooltipInvalidPositionError(this.position);
+            throw getMatTooltipInvalidPositionError(position);
         }
-        const { x, y } = this._invertPosition(position.originX, position.originY);
+        const { x, y } = this._invertPosition(originPosition.originX, originPosition.originY);
         return {
-            main: position,
+            main: originPosition,
             fallback: { originX: x, originY: y }
         };
     }
@@ -409,29 +419,30 @@ class MatTooltip {
      */
     _getOverlayPosition() {
         const /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
-        let /** @type {?} */ position;
-        if (this.position == 'above') {
-            position = { overlayX: 'center', overlayY: 'bottom' };
+        const /** @type {?} */ position = this.position;
+        let /** @type {?} */ overlayPosition;
+        if (position == 'above') {
+            overlayPosition = { overlayX: 'center', overlayY: 'bottom' };
         }
-        else if (this.position == 'below') {
-            position = { overlayX: 'center', overlayY: 'top' };
+        else if (position == 'below') {
+            overlayPosition = { overlayX: 'center', overlayY: 'top' };
         }
-        else if (this.position == 'left' ||
-            this.position == 'before' && isLtr ||
-            this.position == 'after' && !isLtr) {
-            position = { overlayX: 'end', overlayY: 'center' };
+        else if (position == 'before' ||
+            (position == 'left' && isLtr) ||
+            (position == 'right' && !isLtr)) {
+            overlayPosition = { overlayX: 'end', overlayY: 'center' };
         }
-        else if (this.position == 'right' ||
-            this.position == 'after' && isLtr ||
-            this.position == 'before' && !isLtr) {
-            position = { overlayX: 'start', overlayY: 'center' };
+        else if (position == 'after' ||
+            (position == 'right' && isLtr) ||
+            (position == 'left' && !isLtr)) {
+            overlayPosition = { overlayX: 'start', overlayY: 'center' };
         }
         else {
-            throw getMatTooltipInvalidPositionError(this.position);
+            throw getMatTooltipInvalidPositionError(position);
         }
-        const { x, y } = this._invertPosition(position.overlayX, position.overlayY);
+        const { x, y } = this._invertPosition(overlayPosition.overlayX, overlayPosition.overlayY);
         return {
-            main: position,
+            main: overlayPosition,
             fallback: { overlayX: x, overlayY: y }
         };
     }
@@ -610,19 +621,20 @@ class TooltipComponent {
     /**
      * Sets the tooltip transform origin according to the position of the tooltip overlay.
      * @param {?} overlayPosition
+     * @param {?} direction
      * @return {?}
      */
-    _setTransformOrigin(overlayPosition) {
+    _setTransformOrigin(overlayPosition, direction) {
         const /** @type {?} */ axis = (this._position === 'above' || this._position === 'below') ? 'Y' : 'X';
         const /** @type {?} */ position = axis == 'X' ? overlayPosition.overlayX : overlayPosition.overlayY;
         if (position === 'top' || position === 'bottom') {
             this._transformOrigin = position;
         }
         else if (position === 'start') {
-            this._transformOrigin = 'left';
+            this._transformOrigin = direction === 'ltr' ? 'left' : 'right';
         }
         else if (position === 'end') {
-            this._transformOrigin = 'right';
+            this._transformOrigin = direction === 'ltr' ? 'right' : 'left';
         }
         else {
             throw getMatTooltipInvalidPositionError(this._position);
