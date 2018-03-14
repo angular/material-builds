@@ -58,4 +58,19 @@ function getIndexHtmlPath(host) {
     return core_1.normalize(`/${app.root}/${app.index}`);
 }
 exports.getIndexHtmlPath = getIndexHtmlPath;
+/**
+ * Get the root stylesheet file.
+ */
+function getStylesPath(host) {
+    const config = config_1.getConfig(host);
+    const app = config_1.getAppFromConfig(config, '0');
+    const styles = app.styles.find(s => /styles\.(c|le|sc)ss/.test(s.toString()));
+    if (styles) {
+        return core_1.normalize(`/${app.root}/${styles}`);
+    }
+    else {
+        console.warn(`Could not find global styles.ext file.`);
+    }
+}
+exports.getStylesPath = getStylesPath;
 //# sourceMappingURL=ast.js.map

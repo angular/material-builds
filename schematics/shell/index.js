@@ -20,7 +20,8 @@ function default_1(options) {
         options && options.skipPackageJson ? schematics_1.noop() : addMaterialToPackageJson(options),
         addThemeToAppStyles(options),
         addAnimationRootConfig(),
-        addFontsToIndex()
+        addFontsToIndex(),
+        addBodyMarginToStyles()
     ]);
 }
 exports.default = default_1;
@@ -58,14 +59,16 @@ function addThemeToAppStyles(options) {
 function insertCustomTheme(app, host) {
     const stylesPath = core_1.normalize(`/${app.root}/styles.scss`);
     const buffer = host.read(stylesPath);
-    if (!buffer) {
-        throw new schematics_1.SchematicsException(`Could not find file for path: ${stylesPath}`);
+    if (buffer) {
+        const src = buffer.toString();
+        const insertion = new change_1.InsertChange(stylesPath, 0, custom_theme_1.createCustomTheme(app));
+        const recorder = host.beginUpdate(stylesPath);
+        recorder.insertLeft(insertion.pos, insertion.toAdd);
+        host.commitUpdate(recorder);
     }
-    const src = buffer.toString();
-    const insertion = new change_1.InsertChange(stylesPath, 0, custom_theme_1.createCustomTheme(app));
-    const recorder = host.beginUpdate(stylesPath);
-    recorder.insertLeft(insertion.pos, insertion.toAdd);
-    host.commitUpdate(recorder);
+    else {
+        console.warn(`Skipped custom theme; could not find file: ${stylesPath}`);
+    }
 }
 /**
  * Insert a pre-built theme to .angular-cli.json file.
@@ -78,9 +81,11 @@ function insertPrebuiltTheme(app, host, themeName, config) {
         app.styles.splice(0, 0, themeSrc);
     }
     if (hasOtherTheme) {
-        throw new schematics_1.SchematicsException(`Another theme is already defined.`);
+        console.warn(`Skipped theme insertion; another theme is already defined.`);
     }
-    host.overwrite('.angular-cli.json', JSON.stringify(config, null, 2));
+    else {
+        host.overwrite('.angular-cli.json', JSON.stringify(config, null, 2));
+    }
 }
 /**
  * Add browser animation module to app.module
@@ -96,9 +101,32 @@ function addAnimationRootConfig() {
  */
 function addFontsToIndex() {
     return (host) => {
-        html_1.addHeadLink(host, `<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">`);
-        html_1.addHeadLink(host, `<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`);
+        html_1.addHeadLink(host, 
+        // tslint:disable-next-line
+        `\n<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">`);
+        html_1.addHeadLink(host, 
+        // tslint:disable-next-line
+        `\n<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">`);
         return host;
+    };
+}
+/**
+ * Add 0 margin to body in styles.ext
+ */
+function addBodyMarginToStyles() {
+    return (host) => {
+        const stylesPath = ast_1.getStylesPath(host);
+        const buffer = host.read(stylesPath);
+        if (buffer) {
+            const src = buffer.toString();
+            const insertion = new change_1.InsertChange(stylesPath, src.length, `\nbody { margin: 0; }\n`);
+            const recorder = host.beginUpdate(stylesPath);
+            recorder.insertLeft(insertion.pos, insertion.toAdd);
+            host.commitUpdate(recorder);
+        }
+        else {
+            console.warn(`Skipped body reset; could not find file: ${stylesPath}`);
+        }
     };
 }
 //# sourceMappingURL=index.js.map

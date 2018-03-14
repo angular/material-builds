@@ -183,14 +183,6 @@ class MatSnackBarConfig {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * \@docs-private
- */
-const /** @type {?} */ SHOW_ANIMATION = `${AnimationDurations.ENTERING} ${AnimationCurves.DECELERATION_CURVE}`;
-/**
- * \@docs-private
- */
-const /** @type {?} */ HIDE_ANIMATION = `${AnimationDurations.EXITING} ${AnimationCurves.ACCELERATION_CURVE}`;
-/**
  * Animations used by the Material snack bar.
  */
 const /** @type {?} */ matSnackBarAnimations = {
@@ -204,8 +196,8 @@ const /** @type {?} */ matSnackBarAnimations = {
     /** Animation that shows and hides a snack bar. */
     snackBarState: trigger('state', [
         state('visible-top, visible-bottom', style({ transform: 'translateY(0%)' })),
-        transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animate(HIDE_ANIMATION)),
-        transition('void => visible-top, void => visible-bottom', animate(SHOW_ANIMATION)),
+        transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animate(`${AnimationDurations.EXITING} ${AnimationCurves.ACCELERATION_CURVE}`)),
+        transition('void => visible-top, void => visible-bottom', animate(`${AnimationDurations.ENTERING} ${AnimationCurves.DECELERATION_CURVE}`)),
     ])
 };
 
@@ -731,5 +723,5 @@ MatSnackBarModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, SHOW_ANIMATION, HIDE_ANIMATION, matSnackBarAnimations };
+export { MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
 //# sourceMappingURL=snack-bar.js.map

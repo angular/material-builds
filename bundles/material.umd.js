@@ -26504,14 +26504,6 @@ MatSnackBarConfig = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * \@docs-private
- */
-var /** @type {?} */ SHOW_ANIMATION = AnimationDurations.ENTERING + " " + AnimationCurves.DECELERATION_CURVE;
-/**
- * \@docs-private
- */
-var /** @type {?} */ HIDE_ANIMATION = AnimationDurations.EXITING + " " + AnimationCurves.ACCELERATION_CURVE;
-/**
  * Animations used by the Material snack bar.
  */
 var /** @type {?} */ matSnackBarAnimations = {
@@ -26525,8 +26517,8 @@ var /** @type {?} */ matSnackBarAnimations = {
     /** Animation that shows and hides a snack bar. */
     snackBarState: animations.trigger('state', [
         animations.state('visible-top, visible-bottom', animations.style({ transform: 'translateY(0%)' })),
-        animations.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animations.animate(HIDE_ANIMATION)),
-        animations.transition('void => visible-top, void => visible-bottom', animations.animate(SHOW_ANIMATION)),
+        animations.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animations.animate(AnimationDurations.EXITING + " " + AnimationCurves.ACCELERATION_CURVE)),
+        animations.transition('void => visible-top, void => visible-bottom', animations.animate(AnimationDurations.ENTERING + " " + AnimationCurves.DECELERATION_CURVE)),
     ])
 };
 
@@ -31768,7 +31760,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-e8af5ae');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-e3d2e14');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32012,10 +32004,10 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa17 = MatMenuItemBase;
-exports.ɵb17 = _MatMenuItemMixinBase;
-exports.ɵd17 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc17 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32099,8 +32091,6 @@ exports.MAT_SNACK_BAR_DATA = MAT_SNACK_BAR_DATA;
 exports.MatSnackBarConfig = MatSnackBarConfig;
 exports.MatSnackBarRef = MatSnackBarRef;
 exports.SimpleSnackBar = SimpleSnackBar;
-exports.SHOW_ANIMATION = SHOW_ANIMATION;
-exports.HIDE_ANIMATION = HIDE_ANIMATION;
 exports.matSnackBarAnimations = matSnackBarAnimations;
 exports.MatSortModule = MatSortModule;
 exports.MatSortHeaderBase = MatSortHeaderBase;
@@ -32139,16 +32129,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe22 = MatTabBase;
-exports.ɵf22 = _MatTabMixinBase;
-exports.ɵa22 = MatTabHeaderBase;
-exports.ɵb22 = _MatTabHeaderMixinBase;
-exports.ɵc22 = MatTabLabelWrapperBase;
-exports.ɵd22 = _MatTabLabelWrapperMixinBase;
-exports.ɵi22 = MatTabLinkBase;
-exports.ɵg22 = MatTabNavBase;
-exports.ɵj22 = _MatTabLinkMixinBase;
-exports.ɵh22 = _MatTabNavMixinBase;
+exports.ɵe25 = MatTabBase;
+exports.ɵf25 = _MatTabMixinBase;
+exports.ɵa25 = MatTabHeaderBase;
+exports.ɵb25 = _MatTabHeaderMixinBase;
+exports.ɵc25 = MatTabLabelWrapperBase;
+exports.ɵd25 = _MatTabLabelWrapperMixinBase;
+exports.ɵi25 = MatTabLinkBase;
+exports.ɵg25 = MatTabNavBase;
+exports.ɵj25 = _MatTabLinkMixinBase;
+exports.ɵh25 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
@@ -32182,7 +32172,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa15 = MatTreeNodeOutlet;
+exports.ɵa9 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

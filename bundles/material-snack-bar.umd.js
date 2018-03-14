@@ -270,14 +270,6 @@ MatSnackBarConfig = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * \@docs-private
- */
-var /** @type {?} */ SHOW_ANIMATION = core$1.AnimationDurations.ENTERING + " " + core$1.AnimationCurves.DECELERATION_CURVE;
-/**
- * \@docs-private
- */
-var /** @type {?} */ HIDE_ANIMATION = core$1.AnimationDurations.EXITING + " " + core$1.AnimationCurves.ACCELERATION_CURVE;
-/**
  * Animations used by the Material snack bar.
  */
 var /** @type {?} */ matSnackBarAnimations = {
@@ -291,8 +283,8 @@ var /** @type {?} */ matSnackBarAnimations = {
     /** Animation that shows and hides a snack bar. */
     snackBarState: animations.trigger('state', [
         animations.state('visible-top, visible-bottom', animations.style({ transform: 'translateY(0%)' })),
-        animations.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animations.animate(HIDE_ANIMATION)),
-        animations.transition('void => visible-top, void => visible-bottom', animations.animate(SHOW_ANIMATION)),
+        animations.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animations.animate(core$1.AnimationDurations.EXITING + " " + core$1.AnimationCurves.ACCELERATION_CURVE)),
+        animations.transition('void => visible-top, void => visible-bottom', animations.animate(core$1.AnimationDurations.ENTERING + " " + core$1.AnimationCurves.DECELERATION_CURVE)),
     ])
 };
 
@@ -956,8 +948,6 @@ exports.MAT_SNACK_BAR_DATA = MAT_SNACK_BAR_DATA;
 exports.MatSnackBarConfig = MatSnackBarConfig;
 exports.MatSnackBarRef = MatSnackBarRef;
 exports.SimpleSnackBar = SimpleSnackBar;
-exports.SHOW_ANIMATION = SHOW_ANIMATION;
-exports.HIDE_ANIMATION = HIDE_ANIMATION;
 exports.matSnackBarAnimations = matSnackBarAnimations;
 
 Object.defineProperty(exports, '__esModule', { value: true });
