@@ -171,7 +171,7 @@ var /** @type {?} */ uniqueId = 0;
  * `<mat-expansion-panel>`
  *
  * This component can be used as a single element to show expandable content, or as one of
- * multiple children of an element with the MdAccordion directive attached.
+ * multiple children of an element with the MatAccordion directive attached.
  */
 var MatExpansionPanel = /** @class */ (function (_super) {
     __extends(MatExpansionPanel, _super);
