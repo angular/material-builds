@@ -29,5 +29,5 @@ export declare function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl: MatSor
 export declare const MAT_SORT_HEADER_INTL_PROVIDER: {
     provide: typeof MatSortHeaderIntl;
     deps: Optional[][];
-    useFactory: (parentIntl: MatSortHeaderIntl) => MatSortHeaderIntl;
+    useFactory: typeof MAT_SORT_HEADER_INTL_PROVIDER_FACTORY;
 };

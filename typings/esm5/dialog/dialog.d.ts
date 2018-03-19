@@ -18,7 +18,7 @@ export declare function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Ove
 export declare const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];
-    useFactory: (overlay: Overlay) => () => ScrollStrategy;
+    useFactory: typeof MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
 };
 /**
  * Service to open Material Design modal dialogs.

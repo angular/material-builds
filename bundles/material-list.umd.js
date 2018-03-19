@@ -311,7 +311,7 @@ MatSelectionListChange = /** @class */ (function () {
 var MatListOption = /** @class */ (function (_super) {
     __extends(MatListOption, _super);
     function MatListOption(_element, _changeDetector, /** @docs-private */
-        selectionList) {
+    selectionList) {
         var _this = _super.call(this) || this;
         _this._element = _element;
         _this._changeDetector = _changeDetector;

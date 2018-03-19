@@ -504,8 +504,8 @@ MatTableDataSource = /** @class */ (function (_super) {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // Otherwise, use an empty observable stream to take their place.
-        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : empty();
-        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : empty();
+        var /** @type {?} */ sortChange = /** @type {?} */ ((this._sort ? this._sort.sortChange : empty()));
+        var /** @type {?} */ pageChange = /** @type {?} */ ((this._paginator ? this._paginator.page : empty()));
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }
@@ -515,12 +515,12 @@ MatTableDataSource = /** @class */ (function (_super) {
             return _this._filterData(data);
         }), 
         // Watch for filtered data or sort changes to provide an ordered set of data.
-        combineLatest(sortChange.pipe(startWith(/** @type {?} */ ((null))))), map(function (_a) {
+        combineLatest(sortChange.pipe(startWith(null))), map(function (_a) {
             var data = _a[0];
             return _this._orderData(data);
         }), 
         // Watch for ordered data or page changes to provide a paged set of data.
-        combineLatest(pageChange.pipe(startWith(/** @type {?} */ ((null))))), map(function (_a) {
+        combineLatest(pageChange.pipe(startWith(null))), map(function (_a) {
             var data = _a[0];
             return _this._pageData(data);
         }))

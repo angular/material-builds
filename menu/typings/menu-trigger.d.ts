@@ -13,7 +13,7 @@ export declare function MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overl
 export declare const MAT_MENU_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];
-    useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
+    useFactory: typeof MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 };
 /** Default top padding of the menu panel. */
 export declare const MENU_PANEL_TOP_PADDING = 8;

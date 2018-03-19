@@ -7792,7 +7792,7 @@ MatChipListChange = /** @class */ (function () {
 var MatChipList = /** @class */ (function (_super) {
     __extends(MatChipList, _super);
     function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, /** @docs-private */
-        ngControl) {
+    ngControl) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
@@ -10332,7 +10332,7 @@ var /** @type {?} */ _MatInputMixinBase = mixinErrorState(MatInputBase);
 var MatInput = /** @class */ (function (_super) {
     __extends(MatInput, _super);
     function MatInput(_elementRef, _platform, /** @docs-private */
-        ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor) {
+    ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._elementRef = _elementRef;
         _this._platform = _platform;
@@ -14550,7 +14550,6 @@ var MatExpansionModule = /** @class */ (function () {
                         MatExpansionPanelDescription,
                         MatExpansionPanelContent,
                     ],
-                    providers: [collections.UNIQUE_SELECTION_DISPATCHER_PROVIDER]
                 },] },
     ];
     /** @nocollapse */
@@ -16961,7 +16960,7 @@ MatSelectionListChange = /** @class */ (function () {
 var MatListOption = /** @class */ (function (_super) {
     __extends(MatListOption, _super);
     function MatListOption(_element, _changeDetector, /** @docs-private */
-        selectionList) {
+    selectionList) {
         var _this = _super.call(this) || this;
         _this._element = _element;
         _this._changeDetector = _changeDetector;
@@ -21710,7 +21709,6 @@ var MatTooltipModule = /** @class */ (function () {
                     entryComponents: [TooltipComponent],
                     providers: [
                         MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER,
-                        a11y.ARIA_DESCRIBER_PROVIDER,
                         {
                             provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
                             useValue: ɵ0$3
@@ -23538,7 +23536,6 @@ var MatRadioModule = /** @class */ (function () {
         { type: core.NgModule, args: [{
                     imports: [common.CommonModule, MatRippleModule, MatCommonModule, a11y.A11yModule],
                     exports: [MatRadioGroup, MatRadioButton, MatCommonModule],
-                    providers: [collections.UNIQUE_SELECTION_DISPATCHER_PROVIDER],
                     declarations: [MatRadioGroup, MatRadioButton],
                 },] },
     ];
@@ -27160,7 +27157,6 @@ var MatSnackBarModule = /** @class */ (function () {
                     entryComponents: [MatSnackBarContainer, SimpleSnackBar],
                     providers: [
                         MatSnackBar,
-                        a11y.LIVE_ANNOUNCER_PROVIDER,
                         {
                             provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
                             useFactory: MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY
@@ -28837,8 +28833,8 @@ MatTableDataSource = /** @class */ (function (_super) {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // Otherwise, use an empty observable stream to take their place.
-        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : empty.empty();
-        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : empty.empty();
+        var /** @type {?} */ sortChange = /** @type {?} */ ((this._sort ? this._sort.sortChange : empty.empty()));
+        var /** @type {?} */ pageChange = /** @type {?} */ ((this._paginator ? this._paginator.page : empty.empty()));
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }
@@ -28848,12 +28844,12 @@ MatTableDataSource = /** @class */ (function (_super) {
             return _this._filterData(data);
         }), 
         // Watch for filtered data or sort changes to provide an ordered set of data.
-        combineLatest.combineLatest(sortChange.pipe(startWith.startWith(/** @type {?} */ ((null))))), map.map(function (_a) {
+        combineLatest.combineLatest(sortChange.pipe(startWith.startWith(null))), map.map(function (_a) {
             var data = _a[0];
             return _this._orderData(data);
         }), 
         // Watch for ordered data or page changes to provide a paged set of data.
-        combineLatest.combineLatest(pageChange.pipe(startWith.startWith(/** @type {?} */ ((null))))), map.map(function (_a) {
+        combineLatest.combineLatest(pageChange.pipe(startWith.startWith(null))), map.map(function (_a) {
             var data = _a[0];
             return _this._pageData(data);
         }))
@@ -31033,7 +31029,6 @@ var MatTabsModule = /** @class */ (function () {
                         MatTabHeader,
                         MatTabContent,
                     ],
-                    providers: [scrolling.VIEWPORT_RULER_PROVIDER],
                 },] },
     ];
     /** @nocollapse */
@@ -31760,7 +31755,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-c28549d');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-6405da9');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32004,10 +31999,10 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc22 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
+exports.ɵc24 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32129,16 +32124,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe25 = MatTabBase;
+exports.ɵf25 = _MatTabMixinBase;
+exports.ɵa25 = MatTabHeaderBase;
+exports.ɵb25 = _MatTabHeaderMixinBase;
+exports.ɵc25 = MatTabLabelWrapperBase;
+exports.ɵd25 = _MatTabLabelWrapperMixinBase;
+exports.ɵi25 = MatTabLinkBase;
+exports.ɵg25 = MatTabNavBase;
+exports.ɵj25 = _MatTabLinkMixinBase;
+exports.ɵh25 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
@@ -32172,7 +32167,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa13 = MatTreeNodeOutlet;
+exports.ɵa14 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

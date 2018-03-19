@@ -576,7 +576,6 @@ var MatExpansionModule = /** @class */ (function () {
                         MatExpansionPanelDescription,
                         MatExpansionPanelContent,
                     ],
-                    providers: [collections.UNIQUE_SELECTION_DISPATCHER_PROVIDER]
                 },] },
     ];
     /** @nocollapse */

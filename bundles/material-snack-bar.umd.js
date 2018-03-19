@@ -926,7 +926,6 @@ var MatSnackBarModule = /** @class */ (function () {
                     entryComponents: [MatSnackBarContainer, SimpleSnackBar],
                     providers: [
                         MatSnackBar,
-                        a11y.LIVE_ANNOUNCER_PROVIDER,
                         {
                             provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
                             useFactory: MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY

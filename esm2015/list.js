@@ -233,7 +233,7 @@ class MatListOption extends _MatListOptionMixinBase {
      * @param {?} selectionList
      */
     constructor(_element, _changeDetector, /** @docs-private */
-        selectionList) {
+    selectionList) {
         super();
         this._element = _element;
         this._changeDetector = _changeDetector;

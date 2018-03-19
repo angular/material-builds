@@ -493,7 +493,7 @@ class MatChipList extends _MatChipListMixinBase {
      * @param {?} ngControl
      */
     constructor(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, /** @docs-private */
-        ngControl) {
+    ngControl) {
         super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;

@@ -21,7 +21,7 @@ export declare function MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay:
 export declare const MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];
-    useFactory: (overlay: Overlay) => () => RepositionScrollStrategy;
+    useFactory: typeof MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY;
 };
 /** @docs-private */
 export declare class MatDatepickerContentBase {

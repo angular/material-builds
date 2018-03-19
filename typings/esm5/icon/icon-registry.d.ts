@@ -184,5 +184,5 @@ export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRe
 export declare const ICON_REGISTRY_PROVIDER: {
     provide: typeof MatIconRegistry;
     deps: (Optional[] | typeof DomSanitizer)[];
-    useFactory: (parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, document?: any) => MatIconRegistry;
+    useFactory: typeof ICON_REGISTRY_PROVIDER_FACTORY;
 };

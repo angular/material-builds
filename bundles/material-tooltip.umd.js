@@ -908,7 +908,6 @@ var MatTooltipModule = /** @class */ (function () {
                     entryComponents: [TooltipComponent],
                     providers: [
                         MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER,
-                        a11y.ARIA_DESCRIBER_PROVIDER,
                         {
                             provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
                             useValue: ɵ0

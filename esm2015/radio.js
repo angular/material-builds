@@ -7,7 +7,7 @@
  */
 import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from '@angular/cdk/collections';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, forwardRef, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, MatCommonModule, MatRippleModule } from '@angular/material/core';
@@ -655,7 +655,6 @@ MatRadioModule.decorators = [
     { type: NgModule, args: [{
                 imports: [CommonModule, MatRippleModule, MatCommonModule, A11yModule],
                 exports: [MatRadioGroup, MatRadioButton, MatCommonModule],
-                providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER],
                 declarations: [MatRadioGroup, MatRadioButton],
             },] },
 ];

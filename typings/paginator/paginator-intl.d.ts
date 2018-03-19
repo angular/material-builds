@@ -36,5 +36,5 @@ export declare function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl: MatPagin
 export declare const MAT_PAGINATOR_INTL_PROVIDER: {
     provide: typeof MatPaginatorIntl;
     deps: Optional[][];
-    useFactory: (parentIntl: MatPaginatorIntl) => MatPaginatorIntl;
+    useFactory: typeof MAT_PAGINATOR_INTL_PROVIDER_FACTORY;
 };

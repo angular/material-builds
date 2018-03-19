@@ -864,7 +864,6 @@ var MatRadioModule = /** @class */ (function () {
         { type: core.NgModule, args: [{
                     imports: [common.CommonModule, core$1.MatRippleModule, core$1.MatCommonModule, a11y.A11yModule],
                     exports: [MatRadioGroup, MatRadioButton, core$1.MatCommonModule],
-                    providers: [collections.UNIQUE_SELECTION_DISPATCHER_PROVIDER],
                     declarations: [MatRadioGroup, MatRadioButton],
                 },] },
     ];

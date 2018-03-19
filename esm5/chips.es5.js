@@ -582,7 +582,7 @@ MatChipListChange = /** @class */ (function () {
 var MatChipList = /** @class */ (function (_super) {
     __extends(MatChipList, _super);
     function MatChipList(_elementRef, _changeDetectorRef, _dir, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, /** @docs-private */
-        ngControl) {
+    ngControl) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;

@@ -12,7 +12,7 @@ import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/m
 import { __assign, __extends } from 'tslib';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalInjector, PortalModule } from '@angular/cdk/portal';
 import { take } from 'rxjs/operators/take';
-import { LiveAnnouncer, LIVE_ANNOUNCER_PROVIDER } from '@angular/cdk/a11y';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs/operators/takeUntil';
@@ -899,7 +899,6 @@ var MatSnackBarModule = /** @class */ (function () {
                     entryComponents: [MatSnackBarContainer, SimpleSnackBar],
                     providers: [
                         MatSnackBar,
-                        LIVE_ANNOUNCER_PROVIDER,
                         {
                             provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
                             useFactory: MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY

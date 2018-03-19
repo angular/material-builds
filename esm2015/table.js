@@ -406,17 +406,17 @@ class MatTableDataSource extends DataSource {
     _updateChangeSubscription() {
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // Otherwise, use an empty observable stream to take their place.
-        const /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : empty();
-        const /** @type {?} */ pageChange = this._paginator ? this._paginator.page : empty();
+        const /** @type {?} */ sortChange = /** @type {?} */ ((this._sort ? this._sort.sortChange : empty()));
+        const /** @type {?} */ pageChange = /** @type {?} */ ((this._paginator ? this._paginator.page : empty()));
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }
         // Watch for base data or filter changes to provide a filtered set of data.
         this._renderChangesSubscription = this._data.pipe(combineLatest(this._filter), map(([data]) => this._filterData(data)), 
         // Watch for filtered data or sort changes to provide an ordered set of data.
-        combineLatest(sortChange.pipe(startWith(/** @type {?} */ ((null))))), map(([data]) => this._orderData(data)), 
+        combineLatest(sortChange.pipe(startWith(null))), map(([data]) => this._orderData(data)), 
         // Watch for ordered data or page changes to provide a paged set of data.
-        combineLatest(pageChange.pipe(startWith(/** @type {?} */ ((null))))), map(([data]) => this._pageData(data)))
+        combineLatest(pageChange.pipe(startWith(null))), map(([data]) => this._pageData(data)))
             .subscribe(data => this._renderData.next(data));
     }
     /**

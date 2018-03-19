@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { CdkStep, CdkStepper } from '@angular/cdk/stepper';
 import { Directionality } from '@angular/cdk/bidi';
-import { AfterContentInit, QueryList, ChangeDetectorRef, TemplateRef } from '@angular/core';
+import { CdkStep, CdkStepper } from '@angular/cdk/stepper';
+import { AfterContentInit, ChangeDetectorRef, QueryList, TemplateRef } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatStepHeader } from './step-header';

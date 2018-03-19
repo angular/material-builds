@@ -10,7 +10,7 @@ import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorR
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
 import { animate, animateChild, group, state, style, transition, trigger, query } from '@angular/animations';
-import { UniqueSelectionDispatcher, UNIQUE_SELECTION_DISPATCHER_PROVIDER } from '@angular/cdk/collections';
+import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { Subject } from 'rxjs/Subject';
 import { take } from 'rxjs/operators/take';
@@ -561,7 +561,6 @@ var MatExpansionModule = /** @class */ (function () {
                         MatExpansionPanelDescription,
                         MatExpansionPanelContent,
                     ],
-                    providers: [UNIQUE_SELECTION_DISPATCHER_PROVIDER]
                 },] },
     ];
     /** @nocollapse */

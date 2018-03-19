@@ -7,7 +7,7 @@
  */
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { __assign } from 'tslib';
-import { AriaDescriber, FocusMonitor, A11yModule, ARIA_DESCRIBER_PROVIDER } from '@angular/cdk/a11y';
+import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
@@ -896,7 +896,6 @@ var MatTooltipModule = /** @class */ (function () {
                     entryComponents: [TooltipComponent],
                     providers: [
                         MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER,
-                        ARIA_DESCRIBER_PROVIDER,
                         {
                             provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
                             useValue: ɵ0

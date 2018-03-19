@@ -140,7 +140,7 @@ class MatInput extends _MatInputMixinBase {
      * @param {?} _autofillMonitor
      */
     constructor(_elementRef, _platform, /** @docs-private */
-        ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor) {
+    ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor) {
         super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._elementRef = _elementRef;
         this._platform = _platform;

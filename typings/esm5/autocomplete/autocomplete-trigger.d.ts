@@ -30,7 +30,7 @@ export declare function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overla
 export declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER: {
     provide: InjectionToken<() => ScrollStrategy>;
     deps: (typeof Overlay)[];
-    useFactory: (overlay: Overlay) => () => ScrollStrategy;
+    useFactory: typeof MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY;
 };
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
