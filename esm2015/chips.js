@@ -8,7 +8,7 @@
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { BACKSPACE, DELETE, SPACE, ENTER } from '@angular/cdk/keycodes';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
+import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, InjectionToken, NgModule } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, mixinColor, mixinDisabled, mixinDisableRipple, RippleRenderer, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { FocusKeyManager } from '@angular/cdk/a11y';
@@ -1235,6 +1235,15 @@ MatChipList.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * Injection token to be used to override the default options for the chips module.
+ */
+const /** @type {?} */ MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 // Increasing integer for generating unique ids.
 let /** @type {?} */ nextUniqueId$1 = 0;
 /**
@@ -1244,9 +1253,11 @@ let /** @type {?} */ nextUniqueId$1 = 0;
 class MatChipInput {
     /**
      * @param {?} _elementRef
+     * @param {?} _defaultOptions
      */
-    constructor(_elementRef) {
+    constructor(_elementRef, _defaultOptions) {
         this._elementRef = _elementRef;
+        this._defaultOptions = _defaultOptions;
         /**
          * Whether the control is focused.
          */
@@ -1257,7 +1268,7 @@ class MatChipInput {
          *
          * Defaults to `[ENTER]`.
          */
-        this.separatorKeyCodes = [ENTER];
+        this.separatorKeyCodes = this._defaultOptions.separatorKeyCodes;
         /**
          * Emitted when a chip is to be added.
          */
@@ -1374,6 +1385,7 @@ MatChipInput.decorators = [
 /** @nocollapse */
 MatChipInput.ctorParameters = () => [
     { type: ElementRef, },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_CHIPS_DEFAULT_OPTIONS,] },] },
 ];
 MatChipInput.propDecorators = {
     "chipList": [{ type: Input, args: ['matChipInputFor',] },],
@@ -1396,6 +1408,9 @@ const /** @type {?} */ CHIP_DECLARATIONS = [
     MatChipAvatar,
     MatChipTrailingIcon,
 ];
+const ɵ0 = {
+    separatorKeyCodes: [ENTER]
+};
 class MatChipsModule {
 }
 MatChipsModule.decorators = [
@@ -1403,7 +1418,13 @@ MatChipsModule.decorators = [
                 imports: [PlatformModule],
                 exports: CHIP_DECLARATIONS,
                 declarations: CHIP_DECLARATIONS,
-                providers: [ErrorStateMatcher]
+                providers: [
+                    ErrorStateMatcher,
+                    {
+                        provide: MAT_CHIPS_DEFAULT_OPTIONS,
+                        useValue: /** @type {?} */ ((ɵ0))
+                    }
+                ]
             },] },
 ];
 /** @nocollapse */
@@ -1419,5 +1440,5 @@ MatChipsModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatChipsModule, MatChipListBase, _MatChipListMixinBase, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipBase, _MatChipMixinBase, MatChipAvatar, MatChipTrailingIcon, MatChip, MatChipRemove, MatChipInput };
+export { MatChipsModule, MatChipListBase, _MatChipListMixinBase, MatChipListChange, MatChipList, MatChipSelectionChange, MatChipBase, _MatChipMixinBase, MatChipAvatar, MatChipTrailingIcon, MatChip, MatChipRemove, MatChipInput, MAT_CHIPS_DEFAULT_OPTIONS };
 //# sourceMappingURL=chips.js.map

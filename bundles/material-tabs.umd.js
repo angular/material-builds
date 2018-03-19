@@ -1875,7 +1875,7 @@ var MatTabNav = /** @class */ (function (_super) {
                     exportAs: 'matTabNavBar, matTabNav',
                     inputs: ['color'],
                     template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
-                    styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default}.mat-tab-link.mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media screen and (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}"],
+                    styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative;display:flex}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default}.mat-tab-link.mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media screen and (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}"],
                     host: { 'class': 'mat-tab-nav-bar' },
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -2088,16 +2088,16 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe25 = MatTabBase;
+exports.ɵf25 = _MatTabMixinBase;
+exports.ɵa25 = MatTabHeaderBase;
+exports.ɵb25 = _MatTabHeaderMixinBase;
+exports.ɵc25 = MatTabLabelWrapperBase;
+exports.ɵd25 = _MatTabLabelWrapperMixinBase;
+exports.ɵi25 = MatTabLinkBase;
+exports.ɵg25 = MatTabNavBase;
+exports.ɵj25 = _MatTabLinkMixinBase;
+exports.ɵh25 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

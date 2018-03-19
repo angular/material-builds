@@ -1,5 +1,6 @@
 import { ElementRef, EventEmitter } from '@angular/core';
 import { MatChipList } from './chip-list';
+import { MatChipsDefaultOptions } from './chip-default-options';
 /** Represents an input event on a `matChipInput`. */
 export interface MatChipInputEvent {
     /** The native `<input>` element that the event is being fired for. */
@@ -13,6 +14,7 @@ export interface MatChipInputEvent {
  */
 export declare class MatChipInput {
     protected _elementRef: ElementRef;
+    private _defaultOptions;
     /** Whether the control is focused. */
     focused: boolean;
     _chipList: MatChipList;
@@ -39,7 +41,7 @@ export declare class MatChipInput {
     readonly empty: boolean;
     /** The native input element to which this directive is attached. */
     protected _inputElement: HTMLInputElement;
-    constructor(_elementRef: ElementRef);
+    constructor(_elementRef: ElementRef, _defaultOptions: MatChipsDefaultOptions);
     /** Utility method to make host definition/tests more clear. */
     _keydown(event?: KeyboardEvent): void;
     /** Checks to see if the blur should emit the (chipEnd) event. */

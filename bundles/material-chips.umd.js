@@ -1623,6 +1623,15 @@ var MatChipList = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * Injection token to be used to override the default options for the chips module.
+ */
+var /** @type {?} */ MAT_CHIPS_DEFAULT_OPTIONS = new core.InjectionToken('mat-chips-default-options');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 // Increasing integer for generating unique ids.
 var /** @type {?} */ nextUniqueId$1 = 0;
 /**
@@ -1630,8 +1639,9 @@ var /** @type {?} */ nextUniqueId$1 = 0;
  * May be placed inside or outside of an `<mat-chip-list>`.
  */
 var MatChipInput = /** @class */ (function () {
-    function MatChipInput(_elementRef) {
+    function MatChipInput(_elementRef, _defaultOptions) {
         this._elementRef = _elementRef;
+        this._defaultOptions = _defaultOptions;
         /**
          * Whether the control is focused.
          */
@@ -1642,7 +1652,7 @@ var MatChipInput = /** @class */ (function () {
          *
          * Defaults to `[ENTER]`.
          */
-        this.separatorKeyCodes = [keycodes.ENTER];
+        this.separatorKeyCodes = this._defaultOptions.separatorKeyCodes;
         /**
          * Emitted when a chip is to be added.
          */
@@ -1799,6 +1809,7 @@ var MatChipInput = /** @class */ (function () {
     /** @nocollapse */
     MatChipInput.ctorParameters = function () { return [
         { type: core.ElementRef, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_CHIPS_DEFAULT_OPTIONS,] },] },
     ]; };
     MatChipInput.propDecorators = {
         "chipList": [{ type: core.Input, args: ['matChipInputFor',] },],
@@ -1823,6 +1834,9 @@ var /** @type {?} */ CHIP_DECLARATIONS = [
     MatChipAvatar,
     MatChipTrailingIcon,
 ];
+var ɵ0 = {
+    separatorKeyCodes: [keycodes.ENTER]
+};
 var MatChipsModule = /** @class */ (function () {
     function MatChipsModule() {
     }
@@ -1831,7 +1845,13 @@ var MatChipsModule = /** @class */ (function () {
                     imports: [platform.PlatformModule],
                     exports: CHIP_DECLARATIONS,
                     declarations: CHIP_DECLARATIONS,
-                    providers: [core$1.ErrorStateMatcher]
+                    providers: [
+                        core$1.ErrorStateMatcher,
+                        {
+                            provide: MAT_CHIPS_DEFAULT_OPTIONS,
+                            useValue: /** @type {?} */ ((ɵ0))
+                        }
+                    ]
                 },] },
     ];
     /** @nocollapse */
@@ -1852,6 +1872,7 @@ exports.MatChipTrailingIcon = MatChipTrailingIcon;
 exports.MatChip = MatChip;
 exports.MatChipRemove = MatChipRemove;
 exports.MatChipInput = MatChipInput;
+exports.MAT_CHIPS_DEFAULT_OPTIONS = MAT_CHIPS_DEFAULT_OPTIONS;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
