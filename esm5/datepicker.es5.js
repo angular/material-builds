@@ -1936,6 +1936,12 @@ var MatDatepicker = /** @class */ (function () {
         this.startView = 'month';
         this._touchUi = false;
         /**
+         * Emits new selected date when selected date changes.
+         * @deprecated Switch to the `dateChange` and `dateInput` binding on the input element.
+         * \@deletion-target 6.0.0
+         */
+        this.selectedChanged = new EventEmitter();
+        /**
          * Emits selected year in multiyear view.
          * This doesn't imply a change on the selected date.
          */
@@ -1971,10 +1977,6 @@ var MatDatepicker = /** @class */ (function () {
          * Emits when the datepicker is disabled.
          */
         this._disabledChange = new Subject();
-        /**
-         * Emits new selected date when selected date changes.
-         */
-        this._selectedChanged = new Subject();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -2151,7 +2153,7 @@ var MatDatepicker = /** @class */ (function () {
         var /** @type {?} */ oldValue = this._selected;
         this._selected = date;
         if (!this._dateAdapter.sameDate(oldValue, this._selected)) {
-            this._selectedChanged.next(date);
+            this.selectedChanged.emit(date);
         }
     };
     /** Emits the selected year in multiyear view */
@@ -2437,6 +2439,7 @@ var MatDatepicker = /** @class */ (function () {
         "color": [{ type: Input },],
         "touchUi": [{ type: Input },],
         "disabled": [{ type: Input },],
+        "selectedChanged": [{ type: Output },],
         "yearSelected": [{ type: Output },],
         "monthSelected": [{ type: Output },],
         "panelClass": [{ type: Input },],
@@ -2700,13 +2703,14 @@ var MatDatepickerInput = /** @class */ (function () {
     function () {
         var _this = this;
         if (this._datepicker) {
-            this._datepickerSubscription = this._datepicker._selectedChanged.subscribe(function (selected) {
-                _this.value = selected;
-                _this._cvaOnChange(selected);
-                _this._onTouched();
-                _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
-                _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
-            });
+            this._datepickerSubscription =
+                this._datepicker.selectedChanged.subscribe(function (selected) {
+                    _this.value = selected;
+                    _this._cvaOnChange(selected);
+                    _this._onTouched();
+                    _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                    _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                });
         }
     };
     /**

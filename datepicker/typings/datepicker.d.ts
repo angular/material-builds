@@ -82,6 +82,12 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     disabled: boolean;
     private _disabled;
     /**
+     * Emits new selected date when selected date changes.
+     * @deprecated Switch to the `dateChange` and `dateInput` binding on the input element.
+     * @deletion-target 6.0.0
+     */
+    readonly selectedChanged: EventEmitter<D>;
+    /**
      * Emits selected year in multiyear view.
      * This doesn't imply a change on the selected date.
      */
@@ -126,8 +132,6 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     _datepickerInput: MatDatepickerInput<D>;
     /** Emits when the datepicker is disabled. */
     readonly _disabledChange: Subject<boolean>;
-    /** Emits new selected date when selected date changes. */
-    readonly _selectedChanged: Subject<D>;
     constructor(_dialog: MatDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any);
     ngOnDestroy(): void;
     /** Selects the given date */
