@@ -12717,12 +12717,6 @@ var MatDatepicker = /** @class */ (function () {
         this.startView = 'month';
         this._touchUi = false;
         /**
-         * Emits new selected date when selected date changes.
-         * @deprecated Switch to the `dateChange` and `dateInput` binding on the input element.
-         * \@deletion-target 6.0.0
-         */
-        this.selectedChanged = new core.EventEmitter();
-        /**
          * Emits selected year in multiyear view.
          * This doesn't imply a change on the selected date.
          */
@@ -12758,6 +12752,10 @@ var MatDatepicker = /** @class */ (function () {
          * Emits when the datepicker is disabled.
          */
         this._disabledChange = new Subject.Subject();
+        /**
+         * Emits new selected date when selected date changes.
+         */
+        this._selectedChanged = new Subject.Subject();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -12934,7 +12932,7 @@ var MatDatepicker = /** @class */ (function () {
         var /** @type {?} */ oldValue = this._selected;
         this._selected = date;
         if (!this._dateAdapter.sameDate(oldValue, this._selected)) {
-            this.selectedChanged.emit(date);
+            this._selectedChanged.next(date);
         }
     };
     /** Emits the selected year in multiyear view */
@@ -13220,7 +13218,6 @@ var MatDatepicker = /** @class */ (function () {
         "color": [{ type: core.Input },],
         "touchUi": [{ type: core.Input },],
         "disabled": [{ type: core.Input },],
-        "selectedChanged": [{ type: core.Output },],
         "yearSelected": [{ type: core.Output },],
         "monthSelected": [{ type: core.Output },],
         "panelClass": [{ type: core.Input },],
@@ -13484,14 +13481,13 @@ var MatDatepickerInput = /** @class */ (function () {
     function () {
         var _this = this;
         if (this._datepicker) {
-            this._datepickerSubscription =
-                this._datepicker.selectedChanged.subscribe(function (selected) {
-                    _this.value = selected;
-                    _this._cvaOnChange(selected);
-                    _this._onTouched();
-                    _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
-                    _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
-                });
+            this._datepickerSubscription = this._datepicker._selectedChanged.subscribe(function (selected) {
+                _this.value = selected;
+                _this._cvaOnChange(selected);
+                _this._onTouched();
+                _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+            });
         }
     };
     /**
@@ -31738,7 +31734,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-f0bf6e7');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-c14cf7c');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32107,16 +32103,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵe24 = MatTabBase;
+exports.ɵf24 = _MatTabMixinBase;
+exports.ɵa24 = MatTabHeaderBase;
+exports.ɵb24 = _MatTabHeaderMixinBase;
+exports.ɵc24 = MatTabLabelWrapperBase;
+exports.ɵd24 = _MatTabLabelWrapperMixinBase;
+exports.ɵi24 = MatTabLinkBase;
+exports.ɵg24 = MatTabNavBase;
+exports.ɵj24 = _MatTabLinkMixinBase;
+exports.ɵh24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
@@ -32150,7 +32146,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa15 = MatTreeNodeOutlet;
+exports.ɵa11 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
