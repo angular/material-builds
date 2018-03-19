@@ -72,12 +72,8 @@ export declare class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase
      * @docs-private
      */
     readonly valueChange: EventEmitter<any>;
-    /**
-     * Selected button toggles in the group.
-     * @deprecated
-     * @deletion-target 6.0.0
-     */
-    selected: MatButtonToggle | MatButtonToggle[] | null;
+    /** Selected button toggles in the group. */
+    readonly selected: MatButtonToggle | MatButtonToggle[];
     /** Whether multiple button toggles can be selected. */
     multiple: boolean;
     /** Event emitted when the group's value changes. */

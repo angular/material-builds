@@ -133,28 +133,11 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
     }
     /**
      * Selected button toggles in the group.
-     * @deprecated
-     * \@deletion-target 6.0.0
      * @return {?}
      */
     get selected() {
         const /** @type {?} */ selected = this._selectionModel.selected;
         return this.multiple ? selected : (selected[0] || null);
-    }
-    /**
-     * @param {?} selected
-     * @return {?}
-     */
-    set selected(selected) {
-        if (this._buttonToggles) {
-            this._clearSelection();
-            if (Array.isArray(selected)) {
-                selected.forEach(toggle => toggle.checked = true);
-            }
-            else if (selected) {
-                selected.checked = true;
-            }
-        }
     }
     /**
      * Whether multiple button toggles can be selected.
@@ -339,7 +322,6 @@ MatButtonToggleGroup.propDecorators = {
     "vertical": [{ type: Input },],
     "value": [{ type: Input },],
     "valueChange": [{ type: Output },],
-    "selected": [{ type: Input },],
     "multiple": [{ type: Input },],
     "change": [{ type: Output },],
 };

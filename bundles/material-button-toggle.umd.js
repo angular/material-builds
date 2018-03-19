@@ -182,30 +182,14 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatButtonToggleGroup.prototype, "selected", {
+        /** Selected button toggles in the group. */
         get: /**
          * Selected button toggles in the group.
-         * @deprecated
-         * \@deletion-target 6.0.0
          * @return {?}
          */
         function () {
             var /** @type {?} */ selected = this._selectionModel.selected;
             return this.multiple ? selected : (selected[0] || null);
-        },
-        set: /**
-         * @param {?} selected
-         * @return {?}
-         */
-        function (selected) {
-            if (this._buttonToggles) {
-                this._clearSelection();
-                if (Array.isArray(selected)) {
-                    selected.forEach(function (toggle) { return toggle.checked = true; });
-                }
-                else if (selected) {
-                    selected.checked = true;
-                }
-            }
         },
         enumerable: true,
         configurable: true
@@ -467,7 +451,6 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
         "vertical": [{ type: core.Input },],
         "value": [{ type: core.Input },],
         "valueChange": [{ type: core.Output },],
-        "selected": [{ type: core.Input },],
         "multiple": [{ type: core.Input },],
         "change": [{ type: core.Output },],
     };
