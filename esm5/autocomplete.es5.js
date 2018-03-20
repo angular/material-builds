@@ -840,6 +840,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     function () {
         this._positionStrategy = this._overlay.position()
             .flexibleConnectedTo(this._getConnectedElement())
+            .withFlexibleHeight(false)
+            .withFlexibleWidth(false)
+            .withPush(false)
             .withPositions([
             { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
             { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom' }

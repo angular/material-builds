@@ -54,7 +54,7 @@ var MatTable = /** @class */ (function (_super) {
         { type: core.Component, args: [{selector: 'mat-table',
                     exportAs: 'matTable',
                     template: table.CDK_TABLE_TEMPLATE,
-                    styles: [".mat-table{display:block}.mat-header-row{min-height:56px}.mat-row{min-height:48px}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;padding:0 24px;box-sizing:border-box}.mat-header-row::after,.mat-row::after{display:inline-block;min-height:inherit;content:''}.mat-cell,.mat-header-cell{flex:1;overflow:hidden;word-wrap:break-word}"],
+                    styles: [".mat-table{display:block}.mat-header-row{min-height:56px}.mat-row{min-height:48px}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;box-sizing:border-box}.mat-header-row::after,.mat-row::after{display:inline-block;min-height:inherit;content:''}.mat-cell:first-child,.mat-header-cell:first-child{padding-left:24px}.mat-cell:last-child,.mat-header-cell:last-child{padding-right:24px}.mat-cell,.mat-header-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}"],
                     host: {
                         'class': 'mat-table',
                     },
