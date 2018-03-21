@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { Platform } from '@angular/cdk/platform';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, GestureConfig, MatCommonModule, MatRippleModule } from '@angular/material/core';
@@ -528,7 +528,7 @@ var MatSlideToggleModule = /** @class */ (function () {
     }
     MatSlideToggleModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [MatRippleModule, MatCommonModule, PlatformModule, ObserversModule, A11yModule],
+                    imports: [MatRippleModule, MatCommonModule, ObserversModule],
                     exports: [MatSlideToggle, MatCommonModule],
                     declarations: [MatSlideToggle],
                     providers: [

@@ -78,10 +78,11 @@ var MatStepperIntl = /** @class */ (function () {
         this.optionalLabel = 'Optional';
     }
     MatStepperIntl.decorators = [
-        { type: core.Injectable },
+        { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
     /** @nocollapse */
     MatStepperIntl.ctorParameters = function () { return []; };
+    /** @nocollapse */ MatStepperIntl.ngInjectableDef = core.defineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
     return MatStepperIntl;
 }());
 
@@ -458,7 +459,6 @@ var MatStepperModule = /** @class */ (function () {
                         button.MatButtonModule,
                         stepper.CdkStepperModule,
                         icon.MatIconModule,
-                        a11y.A11yModule,
                         core$1.MatRippleModule,
                     ],
                     exports: [

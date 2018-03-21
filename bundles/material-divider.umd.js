@@ -82,13 +82,8 @@ var MatDividerModule = /** @class */ (function () {
     MatDividerModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [core$1.MatCommonModule, common.CommonModule],
-                    exports: [
-                        MatDivider,
-                        core$1.MatCommonModule,
-                    ],
-                    declarations: [
-                        MatDivider,
-                    ],
+                    exports: [MatDivider, core$1.MatCommonModule],
+                    declarations: [MatDivider],
                 },] },
     ];
     /** @nocollapse */

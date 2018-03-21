@@ -252,7 +252,6 @@ var MatButtonModule = /** @class */ (function () {
                         common.CommonModule,
                         core$1.MatRippleModule,
                         core$1.MatCommonModule,
-                        a11y.A11yModule,
                     ],
                     exports: [
                         MatButton,

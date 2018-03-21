@@ -642,7 +642,6 @@ var MatInputModule = /** @class */ (function () {
                         common.CommonModule,
                         textField.TextFieldModule,
                         formField.MatFormFieldModule,
-                        platform.PlatformModule,
                     ],
                     exports: [
                         textField.TextFieldModule,

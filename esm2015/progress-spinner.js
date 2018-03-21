@@ -7,7 +7,7 @@
  */
 import { Component, ChangeDetectionStrategy, Input, ElementRef, ViewEncapsulation, Optional, Inject, NgModule } from '@angular/core';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
@@ -313,7 +313,7 @@ class MatProgressSpinnerModule {
 }
 MatProgressSpinnerModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MatCommonModule, PlatformModule],
+                imports: [MatCommonModule],
                 exports: [
                     MatProgressSpinner,
                     MatSpinner,

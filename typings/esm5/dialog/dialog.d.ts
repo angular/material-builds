@@ -1,4 +1,4 @@
-import { Overlay, ScrollStrategy, OverlayContainer } from '@angular/cdk/overlay';
+import { Overlay, OverlayContainer, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
 import { Location } from '@angular/common';
 import { InjectionToken, Injector, TemplateRef } from '@angular/core';

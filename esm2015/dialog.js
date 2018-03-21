@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, ElementRef, EventEmitter, Inject, Optional, ChangeDetectorRef, ViewChild, ViewEncapsulation, ChangeDetectionStrategy, Injectable, InjectionToken, Injector, SkipSelf, TemplateRef, Directive, Input, NgModule } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Optional, ChangeDetectorRef, ViewChild, ViewEncapsulation, ChangeDetectionStrategy, inject, Injectable, InjectionToken, Injector, SkipSelf, TemplateRef, Directive, Input, NgModule } from '@angular/core';
 import { DOCUMENT, Location, CommonModule } from '@angular/common';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { FocusTrapFactory, A11yModule } from '@angular/cdk/a11y';
+import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { filter } from 'rxjs/operators/filter';
 import { take } from 'rxjs/operators/take';
@@ -475,7 +475,13 @@ const /** @type {?} */ MAT_DIALOG_DEFAULT_OPTIONS = new InjectionToken('mat-dial
 /**
  * Injection token that determines the scroll handling while the dialog is open.
  */
-const /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy');
+const /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy', {
+    providedIn: 'root',
+    factory: () => {
+        const /** @type {?} */ overlay = inject(Overlay);
+        return () => overlay.scrollStrategies.block();
+    }
+});
 /**
  * \@docs-private
  * @param {?} overlay
@@ -945,7 +951,6 @@ MatDialogModule.decorators = [
                     CommonModule,
                     OverlayModule,
                     PortalModule,
-                    A11yModule,
                     MatCommonModule,
                 ],
                 exports: [

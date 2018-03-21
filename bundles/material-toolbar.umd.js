@@ -161,7 +161,7 @@ var MatToolbarModule = /** @class */ (function () {
     }
     MatToolbarModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [core$1.MatCommonModule, platform.PlatformModule],
+                    imports: [core$1.MatCommonModule],
                     exports: [MatToolbar, MatToolbarRow, core$1.MatCommonModule],
                     declarations: [MatToolbar, MatToolbarRow],
                 },] },

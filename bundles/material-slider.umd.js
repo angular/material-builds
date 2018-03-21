@@ -1094,7 +1094,7 @@ var MatSliderModule = /** @class */ (function () {
     }
     MatSliderModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [common.CommonModule, core$1.MatCommonModule, bidi.BidiModule, a11y.A11yModule],
+                    imports: [common.CommonModule, core$1.MatCommonModule],
                     exports: [MatSlider, core$1.MatCommonModule],
                     declarations: [MatSlider],
                     providers: [{ provide: platformBrowser.HAMMER_GESTURE_CONFIG, useClass: core$1.GestureConfig }]

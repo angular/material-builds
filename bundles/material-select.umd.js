@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/map'), require('rxjs/operators/switchMap'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs/Observable'), require('rxjs/observable/merge'), require('rxjs/Subject'), require('rxjs/observable/defer'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/select', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/map', 'rxjs/operators/switchMap', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs/Observable', 'rxjs/observable/merge', 'rxjs/Subject', 'rxjs/observable/defer', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.core,global.ng.forms,global.ng.material.core,global.ng.material.formField,global.Rx,global.Rx.Observable,global.Rx,global.Rx.Observable,global.ng.common));
-}(this, (function (exports,animations,a11y,bidi,coercion,collections,keycodes,overlay,filter,take,map,switchMap,startWith,takeUntil,core,forms,core$1,formField,Observable,merge,Subject,defer,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs/Observable'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/map'), require('rxjs/operators/startWith'), require('rxjs/operators/switchMap'), require('rxjs/operators/take'), require('rxjs/operators/takeUntil'), require('rxjs/Subject'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/select', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs/Observable', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/map', 'rxjs/operators/startWith', 'rxjs/operators/switchMap', 'rxjs/operators/take', 'rxjs/operators/takeUntil', 'rxjs/Subject', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.core,global.ng.forms,global.ng.material.core,global.ng.material.formField,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx,global.ng.common));
+}(this, (function (exports,animations,a11y,bidi,coercion,collections,keycodes,overlay,core,forms,core$1,formField,Observable,defer,merge,filter,map,startWith,switchMap,take,takeUntil,Subject,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -179,23 +179,13 @@ var /** @type {?} */ SELECT_PANEL_VIEWPORT_PADDING = 8;
 /**
  * Injection token that determines the scroll handling while a select is open.
  */
-var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
-}
-/**
- * \@docs-private
- */
-var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_SELECT_SCROLL_STRATEGY,
-    deps: [overlay.Overlay],
-    useFactory: MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
+var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy', {
+    providedIn: 'root',
+    factory: function () {
+        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+        return function () { return overlay$$1.scrollStrategies.reposition(); };
+    }
+});
 /**
  * Change event object that is emitted when the select value has changed.
  */
@@ -1793,7 +1783,6 @@ var MatSelectModule = /** @class */ (function () {
                     ],
                     exports: [formField.MatFormFieldModule, MatSelect, MatSelectTrigger, core$1.MatOptionModule, core$1.MatCommonModule],
                     declarations: [MatSelect, MatSelectTrigger],
-                    providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER, core$1.ErrorStateMatcher]
                 },] },
     ];
     /** @nocollapse */
@@ -1809,8 +1798,6 @@ exports.SELECT_ITEM_HEIGHT_EM = SELECT_ITEM_HEIGHT_EM;
 exports.SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_MULTIPLE_PANEL_PADDING_X;
 exports.SELECT_PANEL_VIEWPORT_PADDING = SELECT_PANEL_VIEWPORT_PADDING;
 exports.MAT_SELECT_SCROLL_STRATEGY = MAT_SELECT_SCROLL_STRATEGY;
-exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
-exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER = MAT_SELECT_SCROLL_STRATEGY_PROVIDER;
 exports.MatSelectChange = MatSelectChange;
 exports.MatSelectBase = MatSelectBase;
 exports._MatSelectMixinBase = _MatSelectMixinBase;

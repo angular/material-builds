@@ -368,7 +368,7 @@ var MatProgressSpinnerModule = /** @class */ (function () {
     }
     MatProgressSpinnerModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [core$1.MatCommonModule, platform.PlatformModule],
+                    imports: [core$1.MatCommonModule],
                     exports: [
                         MatProgressSpinner,
                         MatSpinner,

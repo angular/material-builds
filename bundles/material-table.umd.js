@@ -289,12 +289,30 @@ var MatTableModule = /** @class */ (function () {
     MatTableModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [table.CdkTableModule, common.CommonModule, core$1.MatCommonModule],
-                    exports: [MatTable, MatCellDef, MatHeaderCellDef, MatColumnDef,
-                        MatHeaderCell, MatCell, MatHeaderRow, MatRow,
-                        MatHeaderRowDef, MatRowDef],
-                    declarations: [MatTable, MatCellDef, MatHeaderCellDef, MatColumnDef,
-                        MatHeaderCell, MatCell, MatHeaderRow, MatRow,
-                        MatHeaderRowDef, MatRowDef],
+                    exports: [
+                        MatCell,
+                        MatCellDef,
+                        MatColumnDef,
+                        MatHeaderCell,
+                        MatHeaderCellDef,
+                        MatHeaderRow,
+                        MatHeaderRowDef,
+                        MatRow,
+                        MatRowDef,
+                        MatTable,
+                    ],
+                    declarations: [
+                        MatCell,
+                        MatCellDef,
+                        MatColumnDef,
+                        MatHeaderCell,
+                        MatHeaderCellDef,
+                        MatHeaderRow,
+                        MatHeaderRowDef,
+                        MatRow,
+                        MatRowDef,
+                        MatTable,
+                    ],
                 },] },
     ];
     /** @nocollapse */

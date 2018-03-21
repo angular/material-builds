@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/core'), require('@angular/common'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/startWith'), require('rxjs/operators/takeUntil'), require('rxjs/operators/debounceTime'), require('rxjs/operators/map'), require('rxjs/observable/fromEvent'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/cdk/scrolling'), require('@angular/cdk/overlay'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/sidenav', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/core', '@angular/common', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/startWith', 'rxjs/operators/takeUntil', 'rxjs/operators/debounceTime', 'rxjs/operators/map', 'rxjs/observable/fromEvent', 'rxjs/Subject', 'rxjs/Observable', '@angular/cdk/scrolling', '@angular/cdk/overlay', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.core,global.ng.common,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.Rx,global.Rx,global.ng.cdk.scrolling,global.ng.cdk.overlay,global.ng.material.core));
-}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,platform,core,common,merge,filter,take,startWith,takeUntil,debounceTime,map,fromEvent,Subject,Observable,scrolling,overlay,core$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/cdk/scrolling'), require('@angular/common'), require('@angular/core'), require('rxjs/Observable'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/operators/debounceTime'), require('rxjs/operators/filter'), require('rxjs/operators/map'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('rxjs/operators/takeUntil'), require('rxjs/Subject'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/sidenav', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/cdk/scrolling', '@angular/common', '@angular/core', 'rxjs/Observable', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/operators/debounceTime', 'rxjs/operators/filter', 'rxjs/operators/map', 'rxjs/operators/startWith', 'rxjs/operators/take', 'rxjs/operators/takeUntil', 'rxjs/Subject', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.cdk.scrolling,global.ng.common,global.ng.core,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx,global.ng.material.core));
+}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,platform,scrolling,common,core,Observable,fromEvent,merge,debounceTime,filter,map,startWith,take,takeUntil,Subject,core$1) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -74,7 +74,10 @@ function throwMatDuplicatedDrawerError(position) {
 /**
  * Configures whether drawers should use auto sizing by default.
  */
-var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
+var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
+    providedIn: 'root',
+    factory: function () { return false; },
+});
 var MatDrawerContent = /** @class */ (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
@@ -1143,8 +1146,6 @@ var MatSidenavModule = /** @class */ (function () {
                     imports: [
                         common.CommonModule,
                         core$1.MatCommonModule,
-                        a11y.A11yModule,
-                        overlay.OverlayModule,
                         scrolling.ScrollDispatchModule,
                         platform.PlatformModule,
                     ],
@@ -1165,9 +1166,6 @@ var MatSidenavModule = /** @class */ (function () {
                         MatSidenavContainer,
                         MatSidenavContent,
                     ],
-                    providers: [
-                        { provide: MAT_DRAWER_DEFAULT_AUTOSIZE, useValue: false }
-                    ]
                 },] },
     ];
     /** @nocollapse */

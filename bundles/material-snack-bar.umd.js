@@ -573,7 +573,10 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
 /**
  * Injection token that can be used to specify default snack bar.
  */
-var /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new core.InjectionToken('mat-snack-bar-default-options');
+var /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new core.InjectionToken('mat-snack-bar-default-options', {
+    providedIn: 'root',
+    factory: function () { return new MatSnackBarConfig(); },
+});
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -902,13 +905,6 @@ var MatSnackBar = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * \@docs-private
- * @return {?}
- */
-function MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY() {
-    return new MatSnackBarConfig();
-}
 var MatSnackBarModule = /** @class */ (function () {
     function MatSnackBarModule() {
     }
@@ -919,18 +915,11 @@ var MatSnackBarModule = /** @class */ (function () {
                         portal.PortalModule,
                         common.CommonModule,
                         core$1.MatCommonModule,
-                        layout.LayoutModule,
                     ],
                     exports: [MatSnackBarContainer, core$1.MatCommonModule],
                     declarations: [MatSnackBarContainer, SimpleSnackBar],
                     entryComponents: [MatSnackBarContainer, SimpleSnackBar],
-                    providers: [
-                        MatSnackBar,
-                        {
-                            provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-                            useFactory: MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY
-                        },
-                    ]
+                    providers: [MatSnackBar]
                 },] },
     ];
     /** @nocollapse */
@@ -938,7 +927,6 @@ var MatSnackBarModule = /** @class */ (function () {
     return MatSnackBarModule;
 }());
 
-exports.MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY = MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY;
 exports.MatSnackBarModule = MatSnackBarModule;
 exports.MAT_SNACK_BAR_DEFAULT_OPTIONS = MAT_SNACK_BAR_DEFAULT_OPTIONS;
 exports.MatSnackBar = MatSnackBar;

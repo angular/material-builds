@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
@@ -202,7 +202,6 @@ MatButtonModule.decorators = [
                     CommonModule,
                     MatRippleModule,
                     MatCommonModule,
-                    A11yModule,
                 ],
                 exports: [
                     MatButton,

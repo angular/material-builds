@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { NgModule, InjectionToken, Optional, Inject, isDevMode, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output } from '@angular/core';
+import { NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, defineInjectable } from '@angular/core';
 import { BidiModule } from '@angular/cdk/bidi';
 import { __extends, __assign } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -52,7 +52,10 @@ var AnimationDurations = /** @class */ (function () {
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
-var /** @type {?} */ MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks');
+var /** @type {?} */ MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks', {
+    providedIn: 'root',
+    factory: function () { return true; },
+});
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, etc.
@@ -163,9 +166,6 @@ var MatCommonModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     imports: [BidiModule],
                     exports: [BidiModule],
-                    providers: [{
-                            provide: MATERIAL_SANITY_CHECKS, useValue: true,
-                        }],
                 },] },
     ];
     /** @nocollapse */
@@ -506,11 +506,10 @@ function mixinInitialized(base) {
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
  */
-var /** @type {?} */ MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE');
-/**
- * Provider for MAT_DATE_LOCALE injection token.
- */
-var /** @type {?} */ MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID };
+var /** @type {?} */ MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE', {
+    providedIn: 'root',
+    factory: function () { return inject(LOCALE_ID); }
+});
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
@@ -1243,7 +1242,6 @@ var NativeDateModule = /** @class */ (function () {
                     imports: [PlatformModule],
                     providers: [
                         { provide: DateAdapter, useClass: NativeDateAdapter },
-                        MAT_DATE_LOCALE_PROVIDER
                     ],
                 },] },
     ];
@@ -1316,10 +1314,11 @@ var ErrorStateMatcher = /** @class */ (function () {
         return !!(control && control.invalid && (control.touched || (form && form.submitted)));
     };
     ErrorStateMatcher.decorators = [
-        { type: Injectable },
+        { type: Injectable, args: [{ providedIn: 'root' },] },
     ];
     /** @nocollapse */
     ErrorStateMatcher.ctorParameters = function () { return []; };
+    /** @nocollapse */ ErrorStateMatcher.ngInjectableDef = defineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
     return ErrorStateMatcher;
 }());
 
@@ -2709,5 +2708,5 @@ OCT = 9, /** @type {?} */ NOV = 10, /** @type {?} */ DEC = 11;
  * @suppress {checkTypes} checked by tsc
  */
 
-export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC };
+export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC };
 //# sourceMappingURL=core.es5.js.map

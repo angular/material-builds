@@ -1,20 +1,19 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { Direction, Directionality } from '@angular/cdk/bidi';
-import { Overlay, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
+import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, ViewContainerRef } from '@angular/core';
 import { MatMenu } from './menu-directive';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
-import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 /** Injection token that determines the scroll handling while the menu is open. */
 export declare const MAT_MENU_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-/** @docs-private */
-export declare function MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
-/** @docs-private */
-export declare const MAT_MENU_SCROLL_STRATEGY_PROVIDER: {
-    provide: InjectionToken<() => ScrollStrategy>;
-    deps: (typeof Overlay)[];
-    useFactory: typeof MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
-};
 /** Default top padding of the menu panel. */
 export declare const MENU_PANEL_TOP_PADDING = 8;
 /**

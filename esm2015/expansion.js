@@ -15,7 +15,7 @@ import { Subject } from 'rxjs/Subject';
 import { take } from 'rxjs/operators/take';
 import { filter } from 'rxjs/operators/filter';
 import { startWith } from 'rxjs/operators/startWith';
-import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { merge } from 'rxjs/observable/merge';
 import { Subscription } from 'rxjs/Subscription';
@@ -471,7 +471,7 @@ class MatExpansionModule {
 }
 MatExpansionModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, A11yModule, CdkAccordionModule, PortalModule],
+                imports: [CommonModule, CdkAccordionModule, PortalModule],
                 exports: [
                     MatAccordion,
                     MatExpansionPanel,

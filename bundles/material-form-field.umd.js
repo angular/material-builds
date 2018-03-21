@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('@angular/common'), require('@angular/cdk/platform')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/formField', ['exports', '@angular/core', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/material/core', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', 'rxjs/operators/take', '@angular/common', '@angular/cdk/platform'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}),global.ng.core,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.material.core,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.common,global.ng.cdk.platform));
-}(this, (function (exports,core,animations,bidi,coercion,core$1,fromEvent,startWith,take,common,platform) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/formField', ['exports', '@angular/core', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/material/core', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', 'rxjs/operators/take', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}),global.ng.core,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.material.core,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.common));
+}(this, (function (exports,core,animations,bidi,coercion,core$1,fromEvent,startWith,take,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -803,25 +803,22 @@ var MatFormFieldModule = /** @class */ (function () {
         { type: core.NgModule, args: [{
                     declarations: [
                         MatError,
-                        MatHint,
                         MatFormField,
+                        MatHint,
+                        MatLabel,
                         MatPlaceholder,
                         MatPrefix,
                         MatSuffix,
-                        MatLabel,
                     ],
-                    imports: [
-                        common.CommonModule,
-                        platform.PlatformModule,
-                    ],
+                    imports: [common.CommonModule],
                     exports: [
                         MatError,
-                        MatHint,
                         MatFormField,
+                        MatHint,
+                        MatLabel,
                         MatPlaceholder,
                         MatPrefix,
                         MatSuffix,
-                        MatLabel,
                     ],
                 },] },
     ];

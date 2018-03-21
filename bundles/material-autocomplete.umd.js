@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/common'), require('rxjs/Subject'), require('rxjs/observable/defer'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/autocomplete', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', '@angular/material/form-field', '@angular/common', 'rxjs/Subject', 'rxjs/observable/defer', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.ng.material.formField,global.ng.common,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable));
-}(this, (function (exports,core,core$1,a11y,coercion,bidi,keycodes,overlay,portal,filter,take,switchMap,tap,delay,forms,formField,common,Subject,defer,fromEvent,merge,of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/observable/defer'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('rxjs/operators/delay'), require('rxjs/operators/filter'), require('rxjs/operators/switchMap'), require('rxjs/operators/take'), require('rxjs/operators/tap'), require('rxjs/Subject')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/autocomplete', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/forms', '@angular/material/form-field', 'rxjs/observable/defer', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', 'rxjs/operators/delay', 'rxjs/operators/filter', 'rxjs/operators/switchMap', 'rxjs/operators/take', 'rxjs/operators/tap', 'rxjs/Subject'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.common,global.ng.forms,global.ng.material.formField,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx));
+}(this, (function (exports,core,core$1,a11y,coercion,bidi,keycodes,overlay,portal,common,forms,formField,defer,fromEvent,merge,of,delay,filter,switchMap,take,tap,Subject) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -74,7 +74,10 @@ var /** @type {?} */ _MatAutocompleteMixinBase = core$1.mixinDisableRipple(MatAu
 /**
  * Injection token to be used to override the default options for `mat-autocomplete`.
  */
-var /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new core.InjectionToken('mat-autocomplete-default-options');
+var /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new core.InjectionToken('mat-autocomplete-default-options', {
+    providedIn: 'root',
+    factory: function () { return ({ autoActiveFirstOption: false }); },
+});
 var MatAutocomplete = /** @class */ (function (_super) {
     __extends(MatAutocomplete, _super);
     function MatAutocomplete(_changeDetectorRef, _elementRef, defaults) {
@@ -280,23 +283,13 @@ var /** @type {?} */ AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /**
  * Injection token that determines the scroll handling while the autocomplete panel is open.
  */
-var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
-}
-/**
- * \@docs-private
- */
-var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
-    deps: [overlay.Overlay],
-    useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
+var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete-scroll-strategy', {
+    providedIn: 'root',
+    factory: function () {
+        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+        return function () { return overlay$$1.scrollStrategies.reposition(); };
+    }
+});
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * \@docs-private
@@ -954,10 +947,6 @@ var MatAutocompleteModule = /** @class */ (function () {
                     imports: [core$1.MatOptionModule, overlay.OverlayModule, core$1.MatCommonModule, common.CommonModule],
                     exports: [MatAutocomplete, core$1.MatOptionModule, MatAutocompleteTrigger, core$1.MatCommonModule],
                     declarations: [MatAutocomplete, MatAutocompleteTrigger],
-                    providers: [
-                        MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER,
-                        { provide: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, useValue: false }
-                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -974,8 +963,6 @@ exports.MatAutocompleteModule = MatAutocompleteModule;
 exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;
 exports.AUTOCOMPLETE_PANEL_HEIGHT = AUTOCOMPLETE_PANEL_HEIGHT;
 exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY;
-exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY;
-exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER;
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;

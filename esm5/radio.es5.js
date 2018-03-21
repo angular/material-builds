@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, forwardRef, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
@@ -839,7 +839,7 @@ var MatRadioModule = /** @class */ (function () {
     }
     MatRadioModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [CommonModule, MatRippleModule, MatCommonModule, A11yModule],
+                    imports: [CommonModule, MatRippleModule, MatCommonModule],
                     exports: [MatRadioGroup, MatRadioButton, MatCommonModule],
                     declarations: [MatRadioGroup, MatRadioButton],
                 },] },

@@ -15,7 +15,6 @@ import { fromEvent } from 'rxjs/observable/fromEvent';
 import { startWith } from 'rxjs/operators/startWith';
 import { take } from 'rxjs/operators/take';
 import { CommonModule } from '@angular/common';
-import { PlatformModule } from '@angular/cdk/platform';
 
 /**
  * @fileoverview added by tsickle
@@ -783,25 +782,22 @@ var MatFormFieldModule = /** @class */ (function () {
         { type: NgModule, args: [{
                     declarations: [
                         MatError,
-                        MatHint,
                         MatFormField,
+                        MatHint,
+                        MatLabel,
                         MatPlaceholder,
                         MatPrefix,
                         MatSuffix,
-                        MatLabel,
                     ],
-                    imports: [
-                        CommonModule,
-                        PlatformModule,
-                    ],
+                    imports: [CommonModule],
                     exports: [
                         MatError,
-                        MatHint,
                         MatFormField,
+                        MatHint,
+                        MatLabel,
                         MatPlaceholder,
                         MatPrefix,
                         MatSuffix,
-                        MatLabel,
                     ],
                 },] },
     ];

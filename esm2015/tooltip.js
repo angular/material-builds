@@ -6,18 +6,18 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
+import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Overlay, ScrollDispatcher, OverlayModule } from '@angular/cdk/overlay';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, inject, InjectionToken, Input, NgZone, Optional, ViewContainerRef, ViewEncapsulation, NgModule } from '@angular/core';
 import { take } from 'rxjs/operators/take';
 import { takeUntil } from 'rxjs/operators/takeUntil';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgZone, Optional, ViewContainerRef, ViewEncapsulation, NgModule } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
-import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 
@@ -61,27 +61,24 @@ function getMatTooltipInvalidPositionError(position) {
 /**
  * Injection token that determines the scroll handling while a tooltip is visible.
  */
-const /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS });
-}
-/**
- * \@docs-private
- */
-const /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_TOOLTIP_SCROLL_STRATEGY,
-    deps: [Overlay],
-    useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY
-};
+const /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strategy', {
+    providedIn: 'root',
+    factory: () => {
+        const /** @type {?} */ overlay = inject(Overlay);
+        return () => overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS });
+    }
+});
 /**
  * Injection token to be used to override the default options for `matTooltip`.
  */
-const /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-options');
+const /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-options', {
+    providedIn: 'root',
+    factory: () => ({
+        showDelay: 0,
+        hideDelay: 0,
+        touchendHideDelay: 1500,
+    })
+});
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -706,11 +703,6 @@ TooltipComponent.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-const ɵ0 = {
-    showDelay: 0,
-    hideDelay: 0,
-    touchendHideDelay: 1500
-};
 class MatTooltipModule {
 }
 MatTooltipModule.decorators = [
@@ -719,20 +711,10 @@ MatTooltipModule.decorators = [
                     CommonModule,
                     OverlayModule,
                     MatCommonModule,
-                    PlatformModule,
-                    A11yModule,
-                    LayoutModule,
                 ],
                 exports: [MatTooltip, TooltipComponent, MatCommonModule],
                 declarations: [MatTooltip, TooltipComponent],
                 entryComponents: [TooltipComponent],
-                providers: [
-                    MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER,
-                    {
-                        provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
-                        useValue: ɵ0
-                    }
-                ],
             },] },
 ];
 /** @nocollapse */
@@ -748,5 +730,5 @@ MatTooltipModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltip, TooltipComponent, matTooltipAnimations };
+export { MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltip, TooltipComponent, matTooltipAnimations };
 //# sourceMappingURL=tooltip.js.map

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('rxjs/operators/take'), require('rxjs/operators/takeUntil'), require('@angular/core'), require('rxjs/Subject'), require('@angular/cdk/layout'), require('@angular/common'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/cdk/portal', 'rxjs/operators/take', 'rxjs/operators/takeUntil', '@angular/core', 'rxjs/Subject', '@angular/cdk/layout', '@angular/common', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.ng.core,global.Rx,global.ng.cdk.layout,global.ng.common,global.ng.material.core));
-}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,overlay,platform,portal,take,takeUntil,core,Subject,layout,common,core$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/core'), require('rxjs/operators/take'), require('rxjs/operators/takeUntil'), require('rxjs/Subject'), require('@angular/common'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/core', 'rxjs/operators/take', 'rxjs/operators/takeUntil', 'rxjs/Subject', '@angular/common', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.layout,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.cdk.portal,global.ng.core,global.Rx.operators,global.Rx.operators,global.Rx,global.ng.common,global.ng.material.core));
+}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,layout,overlay,platform,portal,core,take,takeUntil,Subject,common,core$1) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -74,27 +74,26 @@ function getMatTooltipInvalidPositionError(position) {
 /**
  * Injection token that determines the scroll handling while a tooltip is visible.
  */
-var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
-}
-/**
- * \@docs-private
- */
-var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_TOOLTIP_SCROLL_STRATEGY,
-    deps: [overlay.Overlay],
-    useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY
-};
+var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-strategy', {
+    providedIn: 'root',
+    factory: function () {
+        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+        return function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
+    }
+});
 /**
  * Injection token to be used to override the default options for `matTooltip`.
  */
-var /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new core.InjectionToken('mat-tooltip-default-options');
+var /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new core.InjectionToken('mat-tooltip-default-options', {
+    providedIn: 'root',
+    factory: function () {
+        return ({
+            showDelay: 0,
+            hideDelay: 0,
+            touchendHideDelay: 1500,
+        });
+    }
+});
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -885,11 +884,6 @@ var TooltipComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var ɵ0 = {
-    showDelay: 0,
-    hideDelay: 0,
-    touchendHideDelay: 1500
-};
 var MatTooltipModule = /** @class */ (function () {
     function MatTooltipModule() {
     }
@@ -899,20 +893,10 @@ var MatTooltipModule = /** @class */ (function () {
                         common.CommonModule,
                         overlay.OverlayModule,
                         core$1.MatCommonModule,
-                        platform.PlatformModule,
-                        a11y.A11yModule,
-                        layout.LayoutModule,
                     ],
                     exports: [MatTooltip, TooltipComponent, core$1.MatCommonModule],
                     declarations: [MatTooltip, TooltipComponent],
                     entryComponents: [TooltipComponent],
-                    providers: [
-                        MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER,
-                        {
-                            provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
-                            useValue: ɵ0
-                        }
-                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -925,8 +909,6 @@ exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
 exports.TOOLTIP_PANEL_CLASS = TOOLTIP_PANEL_CLASS;
 exports.getMatTooltipInvalidPositionError = getMatTooltipInvalidPositionError;
 exports.MAT_TOOLTIP_SCROLL_STRATEGY = MAT_TOOLTIP_SCROLL_STRATEGY;
-exports.MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY;
-exports.MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER;
 exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;

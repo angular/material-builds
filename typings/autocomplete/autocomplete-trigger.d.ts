@@ -24,14 +24,6 @@ export declare const AUTOCOMPLETE_OPTION_HEIGHT = 48;
 export declare const AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /** Injection token that determines the scroll handling while the autocomplete panel is open. */
 export declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-/** @docs-private */
-export declare function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => ScrollStrategy;
-/** @docs-private */
-export declare const MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER: {
-    provide: InjectionToken<() => ScrollStrategy>;
-    deps: (typeof Overlay)[];
-    useFactory: typeof MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY;
-};
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * @docs-private

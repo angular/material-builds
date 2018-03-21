@@ -688,7 +688,7 @@ var MatIconRegistry = /** @class */ (function () {
         return req;
     };
     MatIconRegistry.decorators = [
-        { type: core.Injectable },
+        { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
     /** @nocollapse */
     MatIconRegistry.ctorParameters = function () { return [
@@ -696,6 +696,7 @@ var MatIconRegistry = /** @class */ (function () {
         { type: platformBrowser.DomSanitizer, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
+    /** @nocollapse */ MatIconRegistry.ngInjectableDef = core.defineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(core.inject(http.HttpClient, null, 0), core.inject(platformBrowser.DomSanitizer), core.inject(common.DOCUMENT, null, 0)); }, token: MatIconRegistry, providedIn: "root" });
     return MatIconRegistry;
 }());
 /**

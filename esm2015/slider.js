@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
-import { Directionality, BidiModule } from '@angular/cdk/bidi';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { DOWN_ARROW, END, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
@@ -822,7 +822,7 @@ class MatSliderModule {
 }
 MatSliderModule.decorators = [
     { type: NgModule, args: [{
-                imports: [CommonModule, MatCommonModule, BidiModule, A11yModule],
+                imports: [CommonModule, MatCommonModule],
                 exports: [MatSlider, MatCommonModule],
                 declarations: [MatSlider],
                 providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]

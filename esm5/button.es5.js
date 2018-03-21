@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
@@ -227,7 +227,6 @@ var MatButtonModule = /** @class */ (function () {
                         CommonModule,
                         MatRippleModule,
                         MatCommonModule,
-                        A11yModule,
                     ],
                     exports: [
                         MatButton,

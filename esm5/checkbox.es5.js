@@ -7,12 +7,12 @@
  */
 import { InjectionToken, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, Directive, NgModule } from '@angular/core';
 import { __extends } from 'tslib';
-import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NG_VALUE_ACCESSOR, CheckboxRequiredValidator, NG_VALIDATORS } from '@angular/forms';
-import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, MatRippleModule, MatCommonModule } from '@angular/material/core';
-import { CommonModule } from '@angular/common';
+import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ObserversModule } from '@angular/cdk/observers';
+import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -601,7 +601,7 @@ var MatCheckboxModule = /** @class */ (function () {
     }
     MatCheckboxModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [CommonModule, MatRippleModule, MatCommonModule, ObserversModule, A11yModule],
+                    imports: [CommonModule, MatRippleModule, MatCommonModule, ObserversModule],
                     exports: [MatCheckbox, MatCheckboxRequiredValidator, MatCommonModule],
                     declarations: [MatCheckbox, MatCheckboxRequiredValidator],
                 },] },

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/core'), require('@angular/material/core'), require('rxjs/Subject'), require('@angular/common'), require('@angular/cdk/portal'), require('@angular/cdk/keycodes'), require('rxjs/operators/startWith'), require('rxjs/operators/switchMap'), require('rxjs/operators/take'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('rxjs/operators/filter'), require('rxjs/observable/of')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/core', '@angular/material/core', 'rxjs/Subject', '@angular/common', '@angular/cdk/portal', '@angular/cdk/keycodes', 'rxjs/operators/startWith', 'rxjs/operators/switchMap', 'rxjs/operators/take', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/cdk/coercion', '@angular/cdk/bidi', '@angular/cdk/overlay', 'rxjs/operators/filter', 'rxjs/observable/of'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.core,global.ng.material.core,global.Rx,global.ng.common,global.ng.cdk.portal,global.ng.cdk.keycodes,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.Rx,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.overlay,global.Rx.operators,global.Rx.Observable));
-}(this, (function (exports,animations,a11y,core,core$1,Subject,common,portal,keycodes,startWith,switchMap,take,merge,Subscription,coercion,bidi,overlay,filter,of) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('rxjs/Subject'), require('@angular/cdk/keycodes'), require('rxjs/operators/startWith'), require('rxjs/operators/switchMap'), require('rxjs/operators/take'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('rxjs/observable/of'), require('rxjs/operators/filter')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/common', '@angular/animations', '@angular/cdk/a11y', '@angular/material/core', 'rxjs/Subject', '@angular/cdk/keycodes', 'rxjs/operators/startWith', 'rxjs/operators/switchMap', 'rxjs/operators/take', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/cdk/coercion', '@angular/cdk/bidi', '@angular/cdk/overlay', 'rxjs/observable/of', 'rxjs/operators/filter'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.core,global.ng.cdk.portal,global.ng.common,global.ng.animations,global.ng.cdk.a11y,global.ng.material.core,global.Rx,global.ng.cdk.keycodes,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.Rx,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.overlay,global.Rx.Observable,global.Rx.operators));
+}(this, (function (exports,core,portal,common,animations,a11y,core$1,Subject,keycodes,startWith,switchMap,take,merge,Subscription,coercion,bidi,overlay,of,filter) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -36,6 +36,102 @@ function __extends(d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Menu content that will be rendered lazily once the menu is opened.
+ */
+var MatMenuContent = /** @class */ (function () {
+    function MatMenuContent(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document) {
+        this._template = _template;
+        this._componentFactoryResolver = _componentFactoryResolver;
+        this._appRef = _appRef;
+        this._injector = _injector;
+        this._viewContainerRef = _viewContainerRef;
+        this._document = _document;
+    }
+    /**
+     * Attaches the content with a particular context.
+     * @docs-private
+     */
+    /**
+     * Attaches the content with a particular context.
+     * \@docs-private
+     * @param {?=} context
+     * @return {?}
+     */
+    MatMenuContent.prototype.attach = /**
+     * Attaches the content with a particular context.
+     * \@docs-private
+     * @param {?=} context
+     * @return {?}
+     */
+    function (context) {
+        if (context === void 0) { context = {}; }
+        if (!this._portal) {
+            this._portal = new portal.TemplatePortal(this._template, this._viewContainerRef);
+        }
+        this.detach();
+        if (!this._outlet) {
+            this._outlet = new portal.DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
+        }
+        var /** @type {?} */ element = this._template.elementRef.nativeElement; /** @type {?} */
+        ((
+        // Because we support opening the same menu from different triggers (which in turn have their
+        // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
+        // risk it staying attached to a pane that's no longer in the DOM.
+        element.parentNode)).insertBefore(this._outlet.outletElement, element);
+        this._portal.attach(this._outlet, context);
+    };
+    /**
+     * Detaches the content.
+     * @docs-private
+     */
+    /**
+     * Detaches the content.
+     * \@docs-private
+     * @return {?}
+     */
+    MatMenuContent.prototype.detach = /**
+     * Detaches the content.
+     * \@docs-private
+     * @return {?}
+     */
+    function () {
+        if (this._portal.isAttached) {
+            this._portal.detach();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MatMenuContent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        if (this._outlet) {
+            this._outlet.dispose();
+        }
+    };
+    MatMenuContent.decorators = [
+        { type: core.Directive, args: [{
+                    selector: 'ng-template[matMenuContent]'
+                },] },
+    ];
+    /** @nocollapse */
+    MatMenuContent.ctorParameters = function () { return [
+        { type: core.TemplateRef, },
+        { type: core.ComponentFactoryResolver, },
+        { type: core.ApplicationRef, },
+        { type: core.Injector, },
+        { type: core.ViewContainerRef, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
+    ]; };
+    return MatMenuContent;
+}());
 
 /**
  * @fileoverview added by tsickle
@@ -325,105 +421,19 @@ var MatMenuItem = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Menu content that will be rendered lazily once the menu is opened.
- */
-var MatMenuContent = /** @class */ (function () {
-    function MatMenuContent(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document) {
-        this._template = _template;
-        this._componentFactoryResolver = _componentFactoryResolver;
-        this._appRef = _appRef;
-        this._injector = _injector;
-        this._viewContainerRef = _viewContainerRef;
-        this._document = _document;
-    }
-    /**
-     * Attaches the content with a particular context.
-     * @docs-private
-     */
-    /**
-     * Attaches the content with a particular context.
-     * \@docs-private
-     * @param {?=} context
-     * @return {?}
-     */
-    MatMenuContent.prototype.attach = /**
-     * Attaches the content with a particular context.
-     * \@docs-private
-     * @param {?=} context
-     * @return {?}
-     */
-    function (context) {
-        if (context === void 0) { context = {}; }
-        if (!this._portal) {
-            this._portal = new portal.TemplatePortal(this._template, this._viewContainerRef);
-        }
-        this.detach();
-        if (!this._outlet) {
-            this._outlet = new portal.DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
-        }
-        var /** @type {?} */ element = this._template.elementRef.nativeElement; /** @type {?} */
-        ((
-        // Because we support opening the same menu from different triggers (which in turn have their
-        // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
-        // risk it staying attached to a pane that's no longer in the DOM.
-        element.parentNode)).insertBefore(this._outlet.outletElement, element);
-        this._portal.attach(this._outlet, context);
-    };
-    /**
-     * Detaches the content.
-     * @docs-private
-     */
-    /**
-     * Detaches the content.
-     * \@docs-private
-     * @return {?}
-     */
-    MatMenuContent.prototype.detach = /**
-     * Detaches the content.
-     * \@docs-private
-     * @return {?}
-     */
-    function () {
-        if (this._portal.isAttached) {
-            this._portal.detach();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatMenuContent.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        if (this._outlet) {
-            this._outlet.dispose();
-        }
-    };
-    MatMenuContent.decorators = [
-        { type: core.Directive, args: [{
-                    selector: 'ng-template[matMenuContent]'
-                },] },
-    ];
-    /** @nocollapse */
-    MatMenuContent.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
-        { type: core.ComponentFactoryResolver, },
-        { type: core.ApplicationRef, },
-        { type: core.Injector, },
-        { type: core.ViewContainerRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
-    ]; };
-    return MatMenuContent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * Injection token to be used to override the default options for `mat-menu`.
  */
-var /** @type {?} */ MAT_MENU_DEFAULT_OPTIONS = new core.InjectionToken('mat-menu-default-options');
+var /** @type {?} */ MAT_MENU_DEFAULT_OPTIONS = new core.InjectionToken('mat-menu-default-options', {
+    providedIn: 'root',
+    factory: function () {
+        return ({
+            overlapTrigger: true,
+            xPosition: 'after',
+            yPosition: 'below',
+            backdropClass: 'cdk-overlay-transparent-backdrop',
+        });
+    }
+});
 /**
  * Start elevation for the menu panel.
  * \@docs-private
@@ -836,23 +846,13 @@ var MatMenu = /** @class */ (function () {
 /**
  * Injection token that determines the scroll handling while the menu is open.
  */
-var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
-}
-/**
- * \@docs-private
- */
-var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_MENU_SCROLL_STRATEGY,
-    deps: [overlay.Overlay],
-    useFactory: MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
+var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy', {
+    providedIn: 'root',
+    factory: function () {
+        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+        return function () { return overlay$$1.scrollStrategies.reposition(); };
+    }
+});
 /**
  * Default top padding of the menu panel.
  */
@@ -1419,34 +1419,19 @@ var MatMenuTrigger = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var ɵ0 = {
-    overlapTrigger: true,
-    xPosition: 'after',
-    yPosition: 'below',
-    backdropClass: 'cdk-overlay-transparent-backdrop'
-};
 var MatMenuModule = /** @class */ (function () {
     function MatMenuModule() {
     }
     MatMenuModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [
-                        a11y.A11yModule,
                         common.CommonModule,
                         core$1.MatCommonModule,
                         core$1.MatRippleModule,
                         overlay.OverlayModule,
-                        portal.PortalModule,
                     ],
                     exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent, core$1.MatCommonModule],
                     declarations: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent],
-                    providers: [
-                        MAT_MENU_SCROLL_STRATEGY_PROVIDER,
-                        {
-                            provide: MAT_MENU_DEFAULT_OPTIONS,
-                            useValue: ɵ0,
-                        }
-                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -1464,10 +1449,8 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa25 = MatMenuItemBase;
-exports.ɵb25 = _MatMenuItemMixinBase;
-exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

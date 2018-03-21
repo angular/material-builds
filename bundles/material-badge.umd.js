@@ -296,16 +296,9 @@ var MatBadgeModule = /** @class */ (function () {
     }
     MatBadgeModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [
-                        core$1.MatCommonModule,
-                        a11y.A11yModule,
-                    ],
-                    exports: [
-                        MatBadge,
-                    ],
-                    declarations: [
-                        MatBadge,
-                    ],
+                    imports: [core$1.MatCommonModule],
+                    exports: [MatBadge],
+                    declarations: [MatBadge],
                 },] },
     ];
     /** @nocollapse */

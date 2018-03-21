@@ -13,7 +13,7 @@ import { __assign, __extends } from 'tslib';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalInjector, PortalModule } from '@angular/cdk/portal';
 import { take } from 'rxjs/operators/take';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { CommonModule } from '@angular/common';
@@ -546,7 +546,10 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
 /**
  * Injection token that can be used to specify default snack bar.
  */
-var /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new InjectionToken('mat-snack-bar-default-options');
+var /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new InjectionToken('mat-snack-bar-default-options', {
+    providedIn: 'root',
+    factory: function () { return new MatSnackBarConfig(); },
+});
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -875,13 +878,6 @@ var MatSnackBar = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * \@docs-private
- * @return {?}
- */
-function MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY() {
-    return new MatSnackBarConfig();
-}
 var MatSnackBarModule = /** @class */ (function () {
     function MatSnackBarModule() {
     }
@@ -892,18 +888,11 @@ var MatSnackBarModule = /** @class */ (function () {
                         PortalModule,
                         CommonModule,
                         MatCommonModule,
-                        LayoutModule,
                     ],
                     exports: [MatSnackBarContainer, MatCommonModule],
                     declarations: [MatSnackBarContainer, SimpleSnackBar],
                     entryComponents: [MatSnackBarContainer, SimpleSnackBar],
-                    providers: [
-                        MatSnackBar,
-                        {
-                            provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-                            useFactory: MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY
-                        },
-                    ]
+                    providers: [MatSnackBar]
                 },] },
     ];
     /** @nocollapse */
@@ -921,5 +910,5 @@ var MatSnackBarModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY, MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
+export { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
 //# sourceMappingURL=snack-bar.es5.js.map

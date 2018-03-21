@@ -550,7 +550,7 @@ var MatSlideToggleModule = /** @class */ (function () {
     }
     MatSlideToggleModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [core$1.MatRippleModule, core$1.MatCommonModule, platform.PlatformModule, observers.ObserversModule, a11y.A11yModule],
+                    imports: [core$1.MatRippleModule, core$1.MatCommonModule, observers.ObserversModule],
                     exports: [MatSlideToggle, core$1.MatCommonModule],
                     declarations: [MatSlideToggle],
                     providers: [

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, NgModule } from '@angular/core';
+import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, defineInjectable } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { mixinDisabled, AnimationCurves, AnimationDurations } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
@@ -300,10 +300,11 @@ var MatSortHeaderIntl = /** @class */ (function () {
         };
     }
     MatSortHeaderIntl.decorators = [
-        { type: Injectable },
+        { type: Injectable, args: [{ providedIn: 'root' },] },
     ];
     /** @nocollapse */
     MatSortHeaderIntl.ctorParameters = function () { return []; };
+    /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = defineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
     return MatSortHeaderIntl;
 }());
 /**

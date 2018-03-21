@@ -7,12 +7,12 @@
  */
 import { AnimationEvent } from '@angular/animations';
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
-import { Directionality, Direction } from '@angular/cdk/bidi';
-import { ConnectionPositionPair, OriginConnectionPosition, Overlay, ScrollDispatcher, OverlayConnectionPosition, OverlayRef, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
+import { Direction, Directionality } from '@angular/cdk/bidi';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
+import { ConnectionPositionPair, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollDispatcher, ScrollStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 /** Time in ms to throttle repositioning after scroll events. */
 export declare const SCROLL_THROTTLE_MS = 20;
@@ -22,14 +22,6 @@ export declare const TOOLTIP_PANEL_CLASS = "mat-tooltip-panel";
 export declare function getMatTooltipInvalidPositionError(position: string): Error;
 /** Injection token that determines the scroll handling while a tooltip is visible. */
 export declare const MAT_TOOLTIP_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-/** @docs-private */
-export declare function MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
-/** @docs-private */
-export declare const MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER: {
-    provide: InjectionToken<() => ScrollStrategy>;
-    deps: (typeof Overlay)[];
-    useFactory: typeof MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY;
-};
 /** Default `matTooltip` options that can be overridden. */
 export interface MatTooltipDefaultOptions {
     showDelay: number;

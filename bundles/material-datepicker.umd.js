@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs/Subject'), require('rxjs/operators/take'), require('@angular/cdk/keycodes'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/animations'), require('@angular/cdk/coercion'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('@angular/material/dialog'), require('@angular/common'), require('rxjs/Subscription'), require('rxjs/observable/merge'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input'), require('rxjs/observable/of'), require('@angular/cdk/a11y'), require('@angular/material/button')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/core', 'rxjs/Subject', 'rxjs/operators/take', '@angular/cdk/keycodes', '@angular/material/core', '@angular/cdk/bidi', '@angular/animations', '@angular/cdk/coercion', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', '@angular/material/dialog', '@angular/common', 'rxjs/Subscription', 'rxjs/observable/merge', '@angular/forms', '@angular/material/form-field', '@angular/material/input', 'rxjs/observable/of', '@angular/cdk/a11y', '@angular/material/button'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}),global.ng.core,global.Rx,global.Rx.operators,global.ng.cdk.keycodes,global.ng.material.core,global.ng.cdk.bidi,global.ng.animations,global.ng.cdk.coercion,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.ng.material.dialog,global.ng.common,global.Rx,global.Rx.Observable,global.ng.forms,global.ng.material.formField,global.ng.material.input,global.Rx.Observable,global.ng.cdk.a11y,global.ng.material.button));
-}(this, (function (exports,core,Subject,take,keycodes,core$1,bidi,animations,coercion,overlay,portal,filter,dialog,common,Subscription,merge,forms,formField,input,of,a11y,button) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs/Subject'), require('rxjs/operators/take'), require('@angular/cdk/keycodes'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/animations'), require('@angular/cdk/coercion'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/material/dialog'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/Subscription'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input'), require('rxjs/observable/of'), require('@angular/cdk/a11y'), require('@angular/material/button')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/core', 'rxjs/Subject', 'rxjs/operators/take', '@angular/cdk/keycodes', '@angular/material/core', '@angular/cdk/bidi', '@angular/animations', '@angular/cdk/coercion', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/material/dialog', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/Subscription', '@angular/forms', '@angular/material/form-field', '@angular/material/input', 'rxjs/observable/of', '@angular/cdk/a11y', '@angular/material/button'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}),global.ng.core,global.Rx,global.Rx.operators,global.ng.cdk.keycodes,global.ng.material.core,global.ng.cdk.bidi,global.ng.animations,global.ng.cdk.coercion,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.common,global.ng.material.dialog,global.Rx.Observable,global.Rx.operators,global.Rx,global.ng.forms,global.ng.material.formField,global.ng.material.input,global.Rx.Observable,global.ng.cdk.a11y,global.ng.material.button));
+}(this, (function (exports,core,Subject,take,keycodes,core$1,bidi,animations,coercion,overlay,portal,common,dialog,merge,filter,Subscription,forms,formField,input,of,a11y,button) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -109,10 +109,11 @@ var MatDatepickerIntl = /** @class */ (function () {
         this.switchToMultiYearViewLabel = 'Choose month and year';
     }
     MatDatepickerIntl.decorators = [
-        { type: core.Injectable },
+        { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
     /** @nocollapse */
     MatDatepickerIntl.ctorParameters = function () { return []; };
+    /** @nocollapse */ MatDatepickerIntl.ngInjectableDef = core.defineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
     return MatDatepickerIntl;
 }());
 
@@ -1789,23 +1790,13 @@ var /** @type {?} */ datepickerUid = 0;
 /**
  * Injection token that determines the scroll handling while the calendar is open.
  */
-var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
-}
-/**
- * \@docs-private
- */
-var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_DATEPICKER_SCROLL_STRATEGY,
-    deps: [overlay.Overlay],
-    useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
+var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scroll-strategy', {
+    providedIn: 'root',
+    factory: function () {
+        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+        return function () { return overlay$$1.scrollStrategies.reposition(); };
+    }
+});
 /**
  * \@docs-private
  */
@@ -3089,11 +3080,11 @@ var MatDatepickerModule = /** @class */ (function () {
     MatDatepickerModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [
+                        a11y.A11yModule,
                         common.CommonModule,
                         button.MatButtonModule,
                         dialog.MatDialogModule,
                         overlay.OverlayModule,
-                        a11y.A11yModule,
                     ],
                     exports: [
                         MatCalendar,
@@ -3121,7 +3112,6 @@ var MatDatepickerModule = /** @class */ (function () {
                     ],
                     providers: [
                         MatDatepickerIntl,
-                        MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER,
                     ],
                     entryComponents: [
                         MatDatepickerContent,
@@ -3138,8 +3128,6 @@ exports.MatCalendar = MatCalendar;
 exports.MatCalendarCell = MatCalendarCell;
 exports.MatCalendarBody = MatCalendarBody;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY = MAT_DATEPICKER_SCROLL_STRATEGY;
-exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY;
-exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER;
 exports.MatDatepickerContentBase = MatDatepickerContentBase;
 exports._MatDatepickerContentMixinBase = _MatDatepickerContentMixinBase;
 exports.MatDatepickerContent = MatDatepickerContent;

@@ -557,7 +557,7 @@ var MatExpansionModule = /** @class */ (function () {
     }
     MatExpansionModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [common.CommonModule, a11y.A11yModule, accordion.CdkAccordionModule, portal.PortalModule],
+                    imports: [common.CommonModule, accordion.CdkAccordionModule, portal.PortalModule],
                     exports: [
                         MatAccordion,
                         MatExpansionPanel,

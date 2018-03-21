@@ -683,7 +683,7 @@ var MatButtonToggleModule = /** @class */ (function () {
     }
     MatButtonToggleModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [core$1.MatCommonModule, core$1.MatRippleModule, a11y.A11yModule],
+                    imports: [core$1.MatCommonModule, core$1.MatRippleModule],
                     exports: [core$1.MatCommonModule, MatButtonToggleGroup, MatButtonToggle],
                     declarations: [MatButtonToggleGroup, MatButtonToggle],
                 },] },

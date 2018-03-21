@@ -5,14 +5,14 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, ContentChild, ContentChildren, EventEmitter, InjectionToken, Input, Output, ViewChild, NgZone, inject, Optional, Self, NgModule } from '@angular/core';
+import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { trigger, state, style, animate, transition, query, group, sequence } from '@angular/animations';
 import { __extends } from 'tslib';
-import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader, A11yModule } from '@angular/cdk/a11y';
-import { ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Inject, Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, ContentChild, ContentChildren, EventEmitter, InjectionToken, Input, Output, ViewChild, NgZone, Optional, Self, NgModule } from '@angular/core';
+import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
-import { DOCUMENT, CommonModule } from '@angular/common';
-import { TemplatePortal, DomPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
@@ -22,8 +22,104 @@ import { Subscription } from 'rxjs/Subscription';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { filter } from 'rxjs/operators/filter';
 import { of } from 'rxjs/observable/of';
+import { filter } from 'rxjs/operators/filter';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Menu content that will be rendered lazily once the menu is opened.
+ */
+var MatMenuContent = /** @class */ (function () {
+    function MatMenuContent(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document) {
+        this._template = _template;
+        this._componentFactoryResolver = _componentFactoryResolver;
+        this._appRef = _appRef;
+        this._injector = _injector;
+        this._viewContainerRef = _viewContainerRef;
+        this._document = _document;
+    }
+    /**
+     * Attaches the content with a particular context.
+     * @docs-private
+     */
+    /**
+     * Attaches the content with a particular context.
+     * \@docs-private
+     * @param {?=} context
+     * @return {?}
+     */
+    MatMenuContent.prototype.attach = /**
+     * Attaches the content with a particular context.
+     * \@docs-private
+     * @param {?=} context
+     * @return {?}
+     */
+    function (context) {
+        if (context === void 0) { context = {}; }
+        if (!this._portal) {
+            this._portal = new TemplatePortal(this._template, this._viewContainerRef);
+        }
+        this.detach();
+        if (!this._outlet) {
+            this._outlet = new DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
+        }
+        var /** @type {?} */ element = this._template.elementRef.nativeElement; /** @type {?} */
+        ((
+        // Because we support opening the same menu from different triggers (which in turn have their
+        // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
+        // risk it staying attached to a pane that's no longer in the DOM.
+        element.parentNode)).insertBefore(this._outlet.outletElement, element);
+        this._portal.attach(this._outlet, context);
+    };
+    /**
+     * Detaches the content.
+     * @docs-private
+     */
+    /**
+     * Detaches the content.
+     * \@docs-private
+     * @return {?}
+     */
+    MatMenuContent.prototype.detach = /**
+     * Detaches the content.
+     * \@docs-private
+     * @return {?}
+     */
+    function () {
+        if (this._portal.isAttached) {
+            this._portal.detach();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MatMenuContent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        if (this._outlet) {
+            this._outlet.dispose();
+        }
+    };
+    MatMenuContent.decorators = [
+        { type: Directive, args: [{
+                    selector: 'ng-template[matMenuContent]'
+                },] },
+    ];
+    /** @nocollapse */
+    MatMenuContent.ctorParameters = function () { return [
+        { type: TemplateRef, },
+        { type: ComponentFactoryResolver, },
+        { type: ApplicationRef, },
+        { type: Injector, },
+        { type: ViewContainerRef, },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    ]; };
+    return MatMenuContent;
+}());
 
 /**
  * @fileoverview added by tsickle
@@ -313,105 +409,19 @@ var MatMenuItem = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Menu content that will be rendered lazily once the menu is opened.
- */
-var MatMenuContent = /** @class */ (function () {
-    function MatMenuContent(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document) {
-        this._template = _template;
-        this._componentFactoryResolver = _componentFactoryResolver;
-        this._appRef = _appRef;
-        this._injector = _injector;
-        this._viewContainerRef = _viewContainerRef;
-        this._document = _document;
-    }
-    /**
-     * Attaches the content with a particular context.
-     * @docs-private
-     */
-    /**
-     * Attaches the content with a particular context.
-     * \@docs-private
-     * @param {?=} context
-     * @return {?}
-     */
-    MatMenuContent.prototype.attach = /**
-     * Attaches the content with a particular context.
-     * \@docs-private
-     * @param {?=} context
-     * @return {?}
-     */
-    function (context) {
-        if (context === void 0) { context = {}; }
-        if (!this._portal) {
-            this._portal = new TemplatePortal(this._template, this._viewContainerRef);
-        }
-        this.detach();
-        if (!this._outlet) {
-            this._outlet = new DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
-        }
-        var /** @type {?} */ element = this._template.elementRef.nativeElement; /** @type {?} */
-        ((
-        // Because we support opening the same menu from different triggers (which in turn have their
-        // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
-        // risk it staying attached to a pane that's no longer in the DOM.
-        element.parentNode)).insertBefore(this._outlet.outletElement, element);
-        this._portal.attach(this._outlet, context);
-    };
-    /**
-     * Detaches the content.
-     * @docs-private
-     */
-    /**
-     * Detaches the content.
-     * \@docs-private
-     * @return {?}
-     */
-    MatMenuContent.prototype.detach = /**
-     * Detaches the content.
-     * \@docs-private
-     * @return {?}
-     */
-    function () {
-        if (this._portal.isAttached) {
-            this._portal.detach();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatMenuContent.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        if (this._outlet) {
-            this._outlet.dispose();
-        }
-    };
-    MatMenuContent.decorators = [
-        { type: Directive, args: [{
-                    selector: 'ng-template[matMenuContent]'
-                },] },
-    ];
-    /** @nocollapse */
-    MatMenuContent.ctorParameters = function () { return [
-        { type: TemplateRef, },
-        { type: ComponentFactoryResolver, },
-        { type: ApplicationRef, },
-        { type: Injector, },
-        { type: ViewContainerRef, },
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    ]; };
-    return MatMenuContent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * Injection token to be used to override the default options for `mat-menu`.
  */
-var /** @type {?} */ MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options');
+var /** @type {?} */ MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options', {
+    providedIn: 'root',
+    factory: function () {
+        return ({
+            overlapTrigger: true,
+            xPosition: 'after',
+            yPosition: 'below',
+            backdropClass: 'cdk-overlay-transparent-backdrop',
+        });
+    }
+});
 /**
  * Start elevation for the menu panel.
  * \@docs-private
@@ -824,23 +834,13 @@ var MatMenu = /** @class */ (function () {
 /**
  * Injection token that determines the scroll handling while the menu is open.
  */
-var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return function () { return overlay.scrollStrategies.reposition(); };
-}
-/**
- * \@docs-private
- */
-var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_MENU_SCROLL_STRATEGY,
-    deps: [Overlay],
-    useFactory: MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
+var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy', {
+    providedIn: 'root',
+    factory: function () {
+        var /** @type {?} */ overlay = inject(Overlay);
+        return function () { return overlay.scrollStrategies.reposition(); };
+    }
+});
 /**
  * Default top padding of the menu panel.
  */
@@ -1407,34 +1407,19 @@ var MatMenuTrigger = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var ɵ0 = {
-    overlapTrigger: true,
-    xPosition: 'after',
-    yPosition: 'below',
-    backdropClass: 'cdk-overlay-transparent-backdrop'
-};
 var MatMenuModule = /** @class */ (function () {
     function MatMenuModule() {
     }
     MatMenuModule.decorators = [
         { type: NgModule, args: [{
                     imports: [
-                        A11yModule,
                         CommonModule,
                         MatCommonModule,
                         MatRippleModule,
                         OverlayModule,
-                        PortalModule,
                     ],
                     exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent, MatCommonModule],
                     declarations: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent],
-                    providers: [
-                        MAT_MENU_SCROLL_STRATEGY_PROVIDER,
-                        {
-                            provide: MAT_MENU_DEFAULT_OPTIONS,
-                            useValue: ɵ0,
-                        }
-                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -1457,5 +1442,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa25, _MatMenuItemMixinBase as ɵb25, MAT_MENU_SCROLL_STRATEGY_PROVIDER as ɵd25, MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY as ɵc25 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa24, _MatMenuItemMixinBase as ɵb24 };
 //# sourceMappingURL=menu.es5.js.map

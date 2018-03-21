@@ -7,7 +7,7 @@
  */
 import { ChangeDetectionStrategy, Component, ContentChildren, Directive, ElementRef, isDevMode, ViewEncapsulation, Inject, NgModule } from '@angular/core';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
+import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 
 /**
@@ -121,7 +121,7 @@ class MatToolbarModule {
 }
 MatToolbarModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MatCommonModule, PlatformModule],
+                imports: [MatCommonModule],
                 exports: [MatToolbar, MatToolbarRow, MatCommonModule],
                 declarations: [MatToolbar, MatToolbarRow],
             },] },

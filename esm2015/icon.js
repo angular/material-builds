@@ -10,7 +10,7 @@ import { tap } from 'rxjs/operators/tap';
 import { finalize } from 'rxjs/operators/finalize';
 import { map } from 'rxjs/operators/map';
 import { share } from 'rxjs/operators/share';
-import { Injectable, Inject, Optional, SecurityContext, SkipSelf, Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation, NgModule } from '@angular/core';
+import { Injectable, Inject, Optional, SecurityContext, SkipSelf, NgModule, Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation, defineInjectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin } from 'rxjs/observable/forkJoin';
@@ -472,7 +472,7 @@ class MatIconRegistry {
     }
 }
 MatIconRegistry.decorators = [
-    { type: Injectable },
+    { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
 /** @nocollapse */
 MatIconRegistry.ctorParameters = () => [
@@ -480,6 +480,7 @@ MatIconRegistry.ctorParameters = () => [
     { type: DomSanitizer, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
+/** @nocollapse */ MatIconRegistry.ngInjectableDef = defineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(inject(HttpClient, null, 0), inject(DomSanitizer), inject(DOCUMENT, null, 0)); }, token: MatIconRegistry, providedIn: "root" });
 /**
  * \@docs-private
  * @param {?} parentRegistry

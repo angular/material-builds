@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, Output, ViewEncapsulation, NgZone, ChangeDetectorRef, Inject, Optional, ViewChild, InjectionToken, ViewContainerRef, Directive, forwardRef, ContentChild, NgModule } from '@angular/core';
+import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, inject, InjectionToken, ViewContainerRef, Directive, forwardRef, ContentChild, defineInjectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { take } from 'rxjs/operators/take';
 import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, ESCAPE } from '@angular/cdk/keycodes';
@@ -15,11 +15,11 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { filter } from 'rxjs/operators/filter';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DOCUMENT, CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs/Subscription';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { merge } from 'rxjs/observable/merge';
+import { filter } from 'rxjs/operators/filter';
+import { Subscription } from 'rxjs/Subscription';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
@@ -100,10 +100,11 @@ class MatDatepickerIntl {
     }
 }
 MatDatepickerIntl.decorators = [
-    { type: Injectable },
+    { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
 /** @nocollapse */
 MatDatepickerIntl.ctorParameters = () => [];
+/** @nocollapse */ MatDatepickerIntl.ngInjectableDef = defineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
 
 /**
  * @fileoverview added by tsickle
@@ -1452,23 +1453,13 @@ let /** @type {?} */ datepickerUid = 0;
 /**
  * Injection token that determines the scroll handling while the calendar is open.
  */
-const /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.reposition();
-}
-/**
- * \@docs-private
- */
-const /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_DATEPICKER_SCROLL_STRATEGY,
-    deps: [Overlay],
-    useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
+const /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy', {
+    providedIn: 'root',
+    factory: () => {
+        const /** @type {?} */ overlay = inject(Overlay);
+        return () => overlay.scrollStrategies.reposition();
+    }
+});
 /**
  * \@docs-private
  */
@@ -2513,11 +2504,11 @@ class MatDatepickerModule {
 MatDatepickerModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
+                    A11yModule,
                     CommonModule,
                     MatButtonModule,
                     MatDialogModule,
                     OverlayModule,
-                    A11yModule,
                 ],
                 exports: [
                     MatCalendar,
@@ -2545,7 +2536,6 @@ MatDatepickerModule.decorators = [
                 ],
                 providers: [
                     MatDatepickerIntl,
-                    MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER,
                 ],
                 entryComponents: [
                     MatDatepickerContent,
@@ -2565,5 +2555,5 @@ MatDatepickerModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatDatepickerModule, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER, MatDatepickerContentBase, _MatDatepickerContentMixinBase, MatDatepickerContent, MatDatepicker, matDatepickerAnimations, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };
+export { MatDatepickerModule, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY, MatDatepickerContentBase, _MatDatepickerContentMixinBase, MatDatepickerContent, MatDatepicker, matDatepickerAnimations, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };
 //# sourceMappingURL=datepicker.js.map

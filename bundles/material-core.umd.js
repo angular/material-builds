@@ -81,7 +81,10 @@ var AnimationDurations = /** @class */ (function () {
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
-var /** @type {?} */ MATERIAL_SANITY_CHECKS = new core.InjectionToken('mat-sanity-checks');
+var /** @type {?} */ MATERIAL_SANITY_CHECKS = new core.InjectionToken('mat-sanity-checks', {
+    providedIn: 'root',
+    factory: function () { return true; },
+});
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, etc.
@@ -192,9 +195,6 @@ var MatCommonModule = /** @class */ (function () {
         { type: core.NgModule, args: [{
                     imports: [bidi.BidiModule],
                     exports: [bidi.BidiModule],
-                    providers: [{
-                            provide: MATERIAL_SANITY_CHECKS, useValue: true,
-                        }],
                 },] },
     ];
     /** @nocollapse */
@@ -535,11 +535,10 @@ function mixinInitialized(base) {
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
  */
-var /** @type {?} */ MAT_DATE_LOCALE = new core.InjectionToken('MAT_DATE_LOCALE');
-/**
- * Provider for MAT_DATE_LOCALE injection token.
- */
-var /** @type {?} */ MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: core.LOCALE_ID };
+var /** @type {?} */ MAT_DATE_LOCALE = new core.InjectionToken('MAT_DATE_LOCALE', {
+    providedIn: 'root',
+    factory: function () { return core.inject(core.LOCALE_ID); }
+});
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
@@ -1272,7 +1271,6 @@ var NativeDateModule = /** @class */ (function () {
                     imports: [platform.PlatformModule],
                     providers: [
                         { provide: DateAdapter, useClass: NativeDateAdapter },
-                        MAT_DATE_LOCALE_PROVIDER
                     ],
                 },] },
     ];
@@ -1345,10 +1343,11 @@ var ErrorStateMatcher = /** @class */ (function () {
         return !!(control && control.invalid && (control.touched || (form && form.submitted)));
     };
     ErrorStateMatcher.decorators = [
-        { type: core.Injectable },
+        { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
     /** @nocollapse */
     ErrorStateMatcher.ctorParameters = function () { return []; };
+    /** @nocollapse */ ErrorStateMatcher.ngInjectableDef = core.defineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
     return ErrorStateMatcher;
 }());
 
@@ -2741,7 +2740,6 @@ exports.mixinInitialized = mixinInitialized;
 exports.NativeDateModule = NativeDateModule;
 exports.MatNativeDateModule = MatNativeDateModule;
 exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;
-exports.MAT_DATE_LOCALE_PROVIDER = MAT_DATE_LOCALE_PROVIDER;
 exports.DateAdapter = DateAdapter;
 exports.MAT_DATE_FORMATS = MAT_DATE_FORMATS;
 exports.NativeDateAdapter = NativeDateAdapter;

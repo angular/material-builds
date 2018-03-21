@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, TemplateRef, Injectable, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, forwardRef, Inject, Optional, SkipSelf, ViewChildren, NgModule } from '@angular/core';
+import { Directive, TemplateRef, Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, forwardRef, Inject, Optional, SkipSelf, ViewChildren, defineInjectable } from '@angular/core';
 import { CdkStepLabel, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import { Subject } from 'rxjs/Subject';
-import { FocusMonitor, A11yModule } from '@angular/cdk/a11y';
+import { FocusMonitor } from '@angular/cdk/a11y';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
 import { ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
@@ -61,10 +61,11 @@ class MatStepperIntl {
     }
 }
 MatStepperIntl.decorators = [
-    { type: Injectable },
+    { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
 /** @nocollapse */
 MatStepperIntl.ctorParameters = () => [];
+/** @nocollapse */ MatStepperIntl.ngInjectableDef = defineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
 
 /**
  * @fileoverview added by tsickle
@@ -397,7 +398,6 @@ MatStepperModule.decorators = [
                     MatButtonModule,
                     CdkStepperModule,
                     MatIconModule,
-                    A11yModule,
                     MatRippleModule,
                 ],
                 exports: [

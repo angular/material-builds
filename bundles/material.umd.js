@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('rxjs/operators/filter'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('rxjs/operators/delay'), require('@angular/forms'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operators/takeUntil'), require('rxjs/operators/debounceTime'), require('@angular/cdk/scrolling'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty'), require('@angular/cdk/tree')) :
-	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', 'rxjs/operators/take', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', 'rxjs/operators/filter', 'rxjs/operators/switchMap', 'rxjs/operators/tap', 'rxjs/operators/delay', '@angular/forms', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', '@angular/cdk/text-field', '@angular/cdk/accordion', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operators/takeUntil', 'rxjs/operators/debounceTime', '@angular/cdk/scrolling', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty', '@angular/cdk/tree'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.forms,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.ng.cdk.textField,global.ng.cdk.accordion,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.scrolling,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable,global.ng.cdk.tree));
-}(this, (function (exports,core,bidi,coercion,Subject,Observable,platform,platformBrowser,keycodes,common,animations,fromEvent,startWith,take,a11y,overlay,portal,filter,switchMap,tap,delay,forms,defer,merge,of,layout,collections,observers,Subscription,textField,accordion,catchError,finalize,map,share,http,forkJoin,_throw,takeUntil,debounceTime,scrolling,table,stepper,BehaviorSubject,combineLatest,empty,tree) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/forms'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('rxjs/operators/delay'), require('rxjs/operators/filter'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operators/takeUntil'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty'), require('@angular/cdk/tree')) :
+	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', 'rxjs/operators/take', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/forms', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', 'rxjs/operators/delay', 'rxjs/operators/filter', 'rxjs/operators/switchMap', 'rxjs/operators/tap', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', '@angular/cdk/text-field', '@angular/cdk/accordion', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operators/takeUntil', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty', '@angular/cdk/tree'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.forms,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.ng.cdk.textField,global.ng.cdk.accordion,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable,global.ng.cdk.tree));
+}(this, (function (exports,core,bidi,coercion,Subject,Observable,platform,platformBrowser,keycodes,common,animations,fromEvent,startWith,take,a11y,overlay,portal,forms,defer,merge,of,delay,filter,switchMap,tap,layout,collections,observers,Subscription,textField,accordion,catchError,finalize,map,share,http,forkJoin,_throw,takeUntil,scrolling,debounceTime,table,stepper,BehaviorSubject,combineLatest,empty,tree) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -81,7 +81,10 @@ var AnimationDurations = /** @class */ (function () {
 /**
  * Injection token that configures whether the Material sanity checks are enabled.
  */
-var /** @type {?} */ MATERIAL_SANITY_CHECKS = new core.InjectionToken('mat-sanity-checks');
+var /** @type {?} */ MATERIAL_SANITY_CHECKS = new core.InjectionToken('mat-sanity-checks', {
+    providedIn: 'root',
+    factory: function () { return true; },
+});
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, etc.
@@ -192,9 +195,6 @@ var MatCommonModule = /** @class */ (function () {
         { type: core.NgModule, args: [{
                     imports: [bidi.BidiModule],
                     exports: [bidi.BidiModule],
-                    providers: [{
-                            provide: MATERIAL_SANITY_CHECKS, useValue: true,
-                        }],
                 },] },
     ];
     /** @nocollapse */
@@ -535,11 +535,10 @@ function mixinInitialized(base) {
 /**
  * InjectionToken for datepicker that can be used to override default locale code.
  */
-var /** @type {?} */ MAT_DATE_LOCALE = new core.InjectionToken('MAT_DATE_LOCALE');
-/**
- * Provider for MAT_DATE_LOCALE injection token.
- */
-var /** @type {?} */ MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: core.LOCALE_ID };
+var /** @type {?} */ MAT_DATE_LOCALE = new core.InjectionToken('MAT_DATE_LOCALE', {
+    providedIn: 'root',
+    factory: function () { return core.inject(core.LOCALE_ID); }
+});
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
@@ -1272,7 +1271,6 @@ var NativeDateModule = /** @class */ (function () {
                     imports: [platform.PlatformModule],
                     providers: [
                         { provide: DateAdapter, useClass: NativeDateAdapter },
-                        MAT_DATE_LOCALE_PROVIDER
                     ],
                 },] },
     ];
@@ -1345,10 +1343,11 @@ var ErrorStateMatcher = /** @class */ (function () {
         return !!(control && control.invalid && (control.touched || (form && form.submitted)));
     };
     ErrorStateMatcher.decorators = [
-        { type: core.Injectable },
+        { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
     /** @nocollapse */
     ErrorStateMatcher.ctorParameters = function () { return []; };
+    /** @nocollapse */ ErrorStateMatcher.ngInjectableDef = core.defineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
     return ErrorStateMatcher;
 }());
 
@@ -3494,25 +3493,22 @@ var MatFormFieldModule = /** @class */ (function () {
         { type: core.NgModule, args: [{
                     declarations: [
                         MatError,
-                        MatHint,
                         MatFormField,
+                        MatHint,
+                        MatLabel,
                         MatPlaceholder,
                         MatPrefix,
                         MatSuffix,
-                        MatLabel,
                     ],
-                    imports: [
-                        common.CommonModule,
-                        platform.PlatformModule,
-                    ],
+                    imports: [common.CommonModule],
                     exports: [
                         MatError,
-                        MatHint,
                         MatFormField,
+                        MatHint,
+                        MatLabel,
                         MatPlaceholder,
                         MatPrefix,
                         MatSuffix,
-                        MatLabel,
                     ],
                 },] },
     ];
@@ -3558,7 +3554,10 @@ var /** @type {?} */ _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompl
 /**
  * Injection token to be used to override the default options for `mat-autocomplete`.
  */
-var /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new core.InjectionToken('mat-autocomplete-default-options');
+var /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new core.InjectionToken('mat-autocomplete-default-options', {
+    providedIn: 'root',
+    factory: function () { return ({ autoActiveFirstOption: false }); },
+});
 var MatAutocomplete = /** @class */ (function (_super) {
     __extends(MatAutocomplete, _super);
     function MatAutocomplete(_changeDetectorRef, _elementRef, defaults) {
@@ -3764,23 +3763,13 @@ var /** @type {?} */ AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /**
  * Injection token that determines the scroll handling while the autocomplete panel is open.
  */
-var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
-}
-/**
- * \@docs-private
- */
-var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
-    deps: [overlay.Overlay],
-    useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
+var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete-scroll-strategy', {
+    providedIn: 'root',
+    factory: function () {
+        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+        return function () { return overlay$$1.scrollStrategies.reposition(); };
+    }
+});
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * \@docs-private
@@ -4438,10 +4427,6 @@ var MatAutocompleteModule = /** @class */ (function () {
                     imports: [MatOptionModule, overlay.OverlayModule, MatCommonModule, common.CommonModule],
                     exports: [MatAutocomplete, MatOptionModule, MatAutocompleteTrigger, MatCommonModule],
                     declarations: [MatAutocomplete, MatAutocompleteTrigger],
-                    providers: [
-                        MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER,
-                        { provide: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, useValue: false }
-                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -4734,21 +4719,172 @@ var MatBadgeModule = /** @class */ (function () {
     }
     MatBadgeModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [
-                        MatCommonModule,
-                        a11y.A11yModule,
-                    ],
-                    exports: [
-                        MatBadge,
-                    ],
-                    declarations: [
-                        MatBadge,
-                    ],
+                    imports: [MatCommonModule],
+                    exports: [MatBadge],
+                    declarations: [MatBadge],
                 },] },
     ];
     /** @nocollapse */
     MatBadgeModule.ctorParameters = function () { return []; };
     return MatBadgeModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Injection token that can be used to access the data that was passed in to a bottom sheet.
+ */
+var /** @type {?} */ MAT_BOTTOM_SHEET_DATA = new core.InjectionToken('MatBottomSheetData');
+/**
+ * Configuration used when opening a bottom sheet.
+ * @template D
+ */
+var   /**
+ * Configuration used when opening a bottom sheet.
+ * @template D
+ */
+MatBottomSheetConfig = /** @class */ (function () {
+    function MatBottomSheetConfig() {
+        /**
+         * Data being injected into the child component.
+         */
+        this.data = null;
+        /**
+         * Whether the bottom sheet has a backdrop.
+         */
+        this.hasBackdrop = true;
+        /**
+         * Whether the user can use escape or clicking outside to close the bottom sheet.
+         */
+        this.disableClose = false;
+        /**
+         * Aria label to assign to the bottom sheet element.
+         */
+        this.ariaLabel = null;
+    }
+    return MatBottomSheetConfig;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Reference to a bottom sheet dispatched from the bottom sheet service.
+ * @template T, R
+ */
+var   /**
+ * Reference to a bottom sheet dispatched from the bottom sheet service.
+ * @template T, R
+ */
+MatBottomSheetRef = /** @class */ (function () {
+    function MatBottomSheetRef(containerInstance, _overlayRef) {
+        var _this = this;
+        this._overlayRef = _overlayRef;
+        /**
+         * Subject for notifying the user that the bottom sheet has been dismissed.
+         */
+        this._afterDismissed = new Subject.Subject();
+        /**
+         * Subject for notifying the user that the bottom sheet has opened and appeared.
+         */
+        this._afterOpened = new Subject.Subject();
+        this.containerInstance = containerInstance;
+        // Emit when opening animation completes
+        containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), take.take(1))
+            .subscribe(function () {
+            _this._afterOpened.next();
+            _this._afterOpened.complete();
+        });
+        // Dispose overlay when closing animation is complete
+        containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), take.take(1))
+            .subscribe(function () {
+            _this._overlayRef.dispose();
+            _this._afterDismissed.next(_this._result);
+            _this._afterDismissed.complete();
+        });
+        if (!containerInstance.bottomSheetConfig.disableClose) {
+            merge.merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(filter.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
+        }
+    }
+    /**
+     * Dismisses the bottom sheet.
+     * @param result Data to be passed back to the bottom sheet opener.
+     */
+    /**
+     * Dismisses the bottom sheet.
+     * @param {?=} result Data to be passed back to the bottom sheet opener.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.dismiss = /**
+     * Dismisses the bottom sheet.
+     * @param {?=} result Data to be passed back to the bottom sheet opener.
+     * @return {?}
+     */
+    function (result) {
+        var _this = this;
+        if (!this._afterDismissed.closed) {
+            // Transition the backdrop in parallel to the bottom sheet.
+            this.containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'start'; }), take.take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
+            this._result = result;
+            this.containerInstance.exit();
+        }
+    };
+    /** Gets an observable that is notified when the bottom sheet is finished closing. */
+    /**
+     * Gets an observable that is notified when the bottom sheet is finished closing.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.afterDismissed = /**
+     * Gets an observable that is notified when the bottom sheet is finished closing.
+     * @return {?}
+     */
+    function () {
+        return this._afterDismissed.asObservable();
+    };
+    /** Gets an observable that is notified when the bottom sheet has opened and appeared. */
+    /**
+     * Gets an observable that is notified when the bottom sheet has opened and appeared.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.afterOpened = /**
+     * Gets an observable that is notified when the bottom sheet has opened and appeared.
+     * @return {?}
+     */
+    function () {
+        return this._afterOpened.asObservable();
+    };
+    /**
+     * Gets an observable that emits when the overlay's backdrop has been clicked.
+     */
+    /**
+     * Gets an observable that emits when the overlay's backdrop has been clicked.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.backdropClick = /**
+     * Gets an observable that emits when the overlay's backdrop has been clicked.
+     * @return {?}
+     */
+    function () {
+        return this._overlayRef.backdropClick();
+    };
+    /**
+     * Gets an observable that emits when keydown events are targeted on the overlay.
+     */
+    /**
+     * Gets an observable that emits when keydown events are targeted on the overlay.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.keydownEvents = /**
+     * Gets an observable that emits when keydown events are targeted on the overlay.
+     * @return {?}
+     */
+    function () {
+        return this._overlayRef.keydownEvents();
+    };
+    return MatBottomSheetRef;
 }());
 
 /**
@@ -5035,164 +5171,6 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Injection token that can be used to access the data that was passed in to a bottom sheet.
- */
-var /** @type {?} */ MAT_BOTTOM_SHEET_DATA = new core.InjectionToken('MatBottomSheetData');
-/**
- * Configuration used when opening a bottom sheet.
- * @template D
- */
-var   /**
- * Configuration used when opening a bottom sheet.
- * @template D
- */
-MatBottomSheetConfig = /** @class */ (function () {
-    function MatBottomSheetConfig() {
-        /**
-         * Data being injected into the child component.
-         */
-        this.data = null;
-        /**
-         * Whether the bottom sheet has a backdrop.
-         */
-        this.hasBackdrop = true;
-        /**
-         * Whether the user can use escape or clicking outside to close the bottom sheet.
-         */
-        this.disableClose = false;
-        /**
-         * Aria label to assign to the bottom sheet element.
-         */
-        this.ariaLabel = null;
-    }
-    return MatBottomSheetConfig;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * Reference to a bottom sheet dispatched from the bottom sheet service.
- * @template T, R
- */
-var   /**
- * Reference to a bottom sheet dispatched from the bottom sheet service.
- * @template T, R
- */
-MatBottomSheetRef = /** @class */ (function () {
-    function MatBottomSheetRef(containerInstance, _overlayRef) {
-        var _this = this;
-        this._overlayRef = _overlayRef;
-        /**
-         * Subject for notifying the user that the bottom sheet has been dismissed.
-         */
-        this._afterDismissed = new Subject.Subject();
-        /**
-         * Subject for notifying the user that the bottom sheet has opened and appeared.
-         */
-        this._afterOpened = new Subject.Subject();
-        this.containerInstance = containerInstance;
-        // Emit when opening animation completes
-        containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), take.take(1))
-            .subscribe(function () {
-            _this._afterOpened.next();
-            _this._afterOpened.complete();
-        });
-        // Dispose overlay when closing animation is complete
-        containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), take.take(1))
-            .subscribe(function () {
-            _this._overlayRef.dispose();
-            _this._afterDismissed.next(_this._result);
-            _this._afterDismissed.complete();
-        });
-        if (!containerInstance.bottomSheetConfig.disableClose) {
-            merge.merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(filter.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
-        }
-    }
-    /**
-     * Dismisses the bottom sheet.
-     * @param result Data to be passed back to the bottom sheet opener.
-     */
-    /**
-     * Dismisses the bottom sheet.
-     * @param {?=} result Data to be passed back to the bottom sheet opener.
-     * @return {?}
-     */
-    MatBottomSheetRef.prototype.dismiss = /**
-     * Dismisses the bottom sheet.
-     * @param {?=} result Data to be passed back to the bottom sheet opener.
-     * @return {?}
-     */
-    function (result) {
-        var _this = this;
-        if (!this._afterDismissed.closed) {
-            // Transition the backdrop in parallel to the bottom sheet.
-            this.containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'start'; }), take.take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
-            this._result = result;
-            this.containerInstance.exit();
-        }
-    };
-    /** Gets an observable that is notified when the bottom sheet is finished closing. */
-    /**
-     * Gets an observable that is notified when the bottom sheet is finished closing.
-     * @return {?}
-     */
-    MatBottomSheetRef.prototype.afterDismissed = /**
-     * Gets an observable that is notified when the bottom sheet is finished closing.
-     * @return {?}
-     */
-    function () {
-        return this._afterDismissed.asObservable();
-    };
-    /** Gets an observable that is notified when the bottom sheet has opened and appeared. */
-    /**
-     * Gets an observable that is notified when the bottom sheet has opened and appeared.
-     * @return {?}
-     */
-    MatBottomSheetRef.prototype.afterOpened = /**
-     * Gets an observable that is notified when the bottom sheet has opened and appeared.
-     * @return {?}
-     */
-    function () {
-        return this._afterOpened.asObservable();
-    };
-    /**
-     * Gets an observable that emits when the overlay's backdrop has been clicked.
-     */
-    /**
-     * Gets an observable that emits when the overlay's backdrop has been clicked.
-     * @return {?}
-     */
-    MatBottomSheetRef.prototype.backdropClick = /**
-     * Gets an observable that emits when the overlay's backdrop has been clicked.
-     * @return {?}
-     */
-    function () {
-        return this._overlayRef.backdropClick();
-    };
-    /**
-     * Gets an observable that emits when keydown events are targeted on the overlay.
-     */
-    /**
-     * Gets an observable that emits when keydown events are targeted on the overlay.
-     * @return {?}
-     */
-    MatBottomSheetRef.prototype.keydownEvents = /**
-     * Gets an observable that emits when keydown events are targeted on the overlay.
-     * @return {?}
-     */
-    function () {
-        return this._overlayRef.keydownEvents();
-    };
-    return MatBottomSheetRef;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * Service to trigger Material Design bottom sheets.
  */
 var MatBottomSheet = /** @class */ (function () {
@@ -5393,12 +5371,10 @@ var MatBottomSheetModule = /** @class */ (function () {
     MatBottomSheetModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [
-                        a11y.A11yModule,
                         common.CommonModule,
                         overlay.OverlayModule,
                         MatCommonModule,
                         portal.PortalModule,
-                        layout.LayoutModule,
                     ],
                     exports: [MatBottomSheetContainer, MatCommonModule],
                     declarations: [MatBottomSheetContainer],
@@ -5626,7 +5602,6 @@ var MatButtonModule = /** @class */ (function () {
                         common.CommonModule,
                         MatRippleModule,
                         MatCommonModule,
-                        a11y.A11yModule,
                     ],
                     exports: [
                         MatButton,
@@ -6290,7 +6265,7 @@ var MatButtonToggleModule = /** @class */ (function () {
     }
     MatButtonToggleModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [MatCommonModule, MatRippleModule, a11y.A11yModule],
+                    imports: [MatCommonModule, MatRippleModule],
                     exports: [MatCommonModule, MatButtonToggleGroup, MatButtonToggle],
                     declarations: [MatButtonToggleGroup, MatButtonToggle],
                 },] },
@@ -7201,7 +7176,7 @@ var MatCheckboxModule = /** @class */ (function () {
     }
     MatCheckboxModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [common.CommonModule, MatRippleModule, MatCommonModule, observers.ObserversModule, a11y.A11yModule],
+                    imports: [common.CommonModule, MatRippleModule, MatCommonModule, observers.ObserversModule],
                     exports: [MatCheckbox, MatCheckboxRequiredValidator, MatCommonModule],
                     declarations: [MatCheckbox, MatCheckboxRequiredValidator],
                 },] },
@@ -7730,6 +7705,15 @@ var MatChipRemove = /** @class */ (function () {
     ]; };
     return MatChipRemove;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Injection token to be used to override the default options for the chips module.
+ */
+var /** @type {?} */ MAT_CHIPS_DEFAULT_OPTIONS = new core.InjectionToken('mat-chips-default-options');
 
 /**
  * @fileoverview added by tsickle
@@ -8797,15 +8781,6 @@ var MatChipList = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Injection token to be used to override the default options for the chips module.
- */
-var /** @type {?} */ MAT_CHIPS_DEFAULT_OPTIONS = new core.InjectionToken('mat-chips-default-options');
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 // Increasing integer for generating unique ids.
 var /** @type {?} */ nextUniqueId$1$1 = 0;
 /**
@@ -9016,7 +8991,6 @@ var MatChipsModule = /** @class */ (function () {
     }
     MatChipsModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [platform.PlatformModule],
                     exports: CHIP_DECLARATIONS,
                     declarations: CHIP_DECLARATIONS,
                     providers: [
@@ -9610,7 +9584,13 @@ var /** @type {?} */ MAT_DIALOG_DEFAULT_OPTIONS = new core.InjectionToken('mat-d
 /**
  * Injection token that determines the scroll handling while the dialog is open.
  */
-var /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new core.InjectionToken('mat-dialog-scroll-strategy');
+var /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new core.InjectionToken('mat-dialog-scroll-strategy', {
+    providedIn: 'root',
+    factory: function () {
+        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+        return function () { return overlay$$1.scrollStrategies.block(); };
+    }
+});
 /**
  * \@docs-private
  * @param {?} overlay
@@ -10175,7 +10155,6 @@ var MatDialogModule = /** @class */ (function () {
                         common.CommonModule,
                         overlay.OverlayModule,
                         portal.PortalModule,
-                        a11y.A11yModule,
                         MatCommonModule,
                     ],
                     exports: [
@@ -10810,7 +10789,6 @@ var MatInputModule = /** @class */ (function () {
                         common.CommonModule,
                         textField.TextFieldModule,
                         MatFormFieldModule,
-                        platform.PlatformModule,
                     ],
                     exports: [
                         textField.TextFieldModule,
@@ -10898,10 +10876,11 @@ var MatDatepickerIntl = /** @class */ (function () {
         this.switchToMultiYearViewLabel = 'Choose month and year';
     }
     MatDatepickerIntl.decorators = [
-        { type: core.Injectable },
+        { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
     /** @nocollapse */
     MatDatepickerIntl.ctorParameters = function () { return []; };
+    /** @nocollapse */ MatDatepickerIntl.ngInjectableDef = core.defineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
     return MatDatepickerIntl;
 }());
 
@@ -12578,23 +12557,13 @@ var /** @type {?} */ datepickerUid = 0;
 /**
  * Injection token that determines the scroll handling while the calendar is open.
  */
-var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
-}
-/**
- * \@docs-private
- */
-var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_DATEPICKER_SCROLL_STRATEGY,
-    deps: [overlay.Overlay],
-    useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
+var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scroll-strategy', {
+    providedIn: 'root',
+    factory: function () {
+        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+        return function () { return overlay$$1.scrollStrategies.reposition(); };
+    }
+});
 /**
  * \@docs-private
  */
@@ -13878,11 +13847,11 @@ var MatDatepickerModule = /** @class */ (function () {
     MatDatepickerModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [
+                        a11y.A11yModule,
                         common.CommonModule,
                         MatButtonModule,
                         MatDialogModule,
                         overlay.OverlayModule,
-                        a11y.A11yModule,
                     ],
                     exports: [
                         MatCalendar,
@@ -13910,7 +13879,6 @@ var MatDatepickerModule = /** @class */ (function () {
                     ],
                     providers: [
                         MatDatepickerIntl,
-                        MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER,
                     ],
                     entryComponents: [
                         MatDatepickerContent,
@@ -13993,13 +13961,8 @@ var MatDividerModule = /** @class */ (function () {
     MatDividerModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [MatCommonModule, common.CommonModule],
-                    exports: [
-                        MatDivider,
-                        MatCommonModule,
-                    ],
-                    declarations: [
-                        MatDivider,
-                    ],
+                    exports: [MatDivider, MatCommonModule],
+                    declarations: [MatDivider],
                 },] },
     ];
     /** @nocollapse */
@@ -14527,7 +14490,7 @@ var MatExpansionModule = /** @class */ (function () {
     }
     MatExpansionModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [common.CommonModule, a11y.A11yModule, accordion.CdkAccordionModule, portal.PortalModule],
+                    imports: [common.CommonModule, accordion.CdkAccordionModule, portal.PortalModule],
                     exports: [
                         MatAccordion,
                         MatExpansionPanel,
@@ -16307,7 +16270,7 @@ var MatIconRegistry = /** @class */ (function () {
         return req;
     };
     MatIconRegistry.decorators = [
-        { type: core.Injectable },
+        { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
     /** @nocollapse */
     MatIconRegistry.ctorParameters = function () { return [
@@ -16315,6 +16278,7 @@ var MatIconRegistry = /** @class */ (function () {
         { type: platformBrowser.DomSanitizer, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
+    /** @nocollapse */ MatIconRegistry.ngInjectableDef = core.defineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(core.inject(http.HttpClient, null, 0), core.inject(platformBrowser.DomSanitizer), core.inject(common.DOCUMENT, null, 0)); }, token: MatIconRegistry, providedIn: "root" });
     return MatIconRegistry;
 }());
 /**
@@ -17655,6 +17619,102 @@ var MatListModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Menu content that will be rendered lazily once the menu is opened.
+ */
+var MatMenuContent = /** @class */ (function () {
+    function MatMenuContent(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document) {
+        this._template = _template;
+        this._componentFactoryResolver = _componentFactoryResolver;
+        this._appRef = _appRef;
+        this._injector = _injector;
+        this._viewContainerRef = _viewContainerRef;
+        this._document = _document;
+    }
+    /**
+     * Attaches the content with a particular context.
+     * @docs-private
+     */
+    /**
+     * Attaches the content with a particular context.
+     * \@docs-private
+     * @param {?=} context
+     * @return {?}
+     */
+    MatMenuContent.prototype.attach = /**
+     * Attaches the content with a particular context.
+     * \@docs-private
+     * @param {?=} context
+     * @return {?}
+     */
+    function (context) {
+        if (context === void 0) { context = {}; }
+        if (!this._portal) {
+            this._portal = new portal.TemplatePortal(this._template, this._viewContainerRef);
+        }
+        this.detach();
+        if (!this._outlet) {
+            this._outlet = new portal.DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
+        }
+        var /** @type {?} */ element = this._template.elementRef.nativeElement; /** @type {?} */
+        ((
+        // Because we support opening the same menu from different triggers (which in turn have their
+        // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
+        // risk it staying attached to a pane that's no longer in the DOM.
+        element.parentNode)).insertBefore(this._outlet.outletElement, element);
+        this._portal.attach(this._outlet, context);
+    };
+    /**
+     * Detaches the content.
+     * @docs-private
+     */
+    /**
+     * Detaches the content.
+     * \@docs-private
+     * @return {?}
+     */
+    MatMenuContent.prototype.detach = /**
+     * Detaches the content.
+     * \@docs-private
+     * @return {?}
+     */
+    function () {
+        if (this._portal.isAttached) {
+            this._portal.detach();
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MatMenuContent.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        if (this._outlet) {
+            this._outlet.dispose();
+        }
+    };
+    MatMenuContent.decorators = [
+        { type: core.Directive, args: [{
+                    selector: 'ng-template[matMenuContent]'
+                },] },
+    ];
+    /** @nocollapse */
+    MatMenuContent.ctorParameters = function () { return [
+        { type: core.TemplateRef, },
+        { type: core.ComponentFactoryResolver, },
+        { type: core.ApplicationRef, },
+        { type: core.Injector, },
+        { type: core.ViewContainerRef, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
+    ]; };
+    return MatMenuContent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * Animations used by the mat-menu component.
  * Animation duration and timing values are based on:
  * https://material.io/guidelines/components/menus.html#menus-usage
@@ -17938,105 +17998,19 @@ var MatMenuItem = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Menu content that will be rendered lazily once the menu is opened.
- */
-var MatMenuContent = /** @class */ (function () {
-    function MatMenuContent(_template, _componentFactoryResolver, _appRef, _injector, _viewContainerRef, _document) {
-        this._template = _template;
-        this._componentFactoryResolver = _componentFactoryResolver;
-        this._appRef = _appRef;
-        this._injector = _injector;
-        this._viewContainerRef = _viewContainerRef;
-        this._document = _document;
-    }
-    /**
-     * Attaches the content with a particular context.
-     * @docs-private
-     */
-    /**
-     * Attaches the content with a particular context.
-     * \@docs-private
-     * @param {?=} context
-     * @return {?}
-     */
-    MatMenuContent.prototype.attach = /**
-     * Attaches the content with a particular context.
-     * \@docs-private
-     * @param {?=} context
-     * @return {?}
-     */
-    function (context) {
-        if (context === void 0) { context = {}; }
-        if (!this._portal) {
-            this._portal = new portal.TemplatePortal(this._template, this._viewContainerRef);
-        }
-        this.detach();
-        if (!this._outlet) {
-            this._outlet = new portal.DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
-        }
-        var /** @type {?} */ element = this._template.elementRef.nativeElement; /** @type {?} */
-        ((
-        // Because we support opening the same menu from different triggers (which in turn have their
-        // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
-        // risk it staying attached to a pane that's no longer in the DOM.
-        element.parentNode)).insertBefore(this._outlet.outletElement, element);
-        this._portal.attach(this._outlet, context);
-    };
-    /**
-     * Detaches the content.
-     * @docs-private
-     */
-    /**
-     * Detaches the content.
-     * \@docs-private
-     * @return {?}
-     */
-    MatMenuContent.prototype.detach = /**
-     * Detaches the content.
-     * \@docs-private
-     * @return {?}
-     */
-    function () {
-        if (this._portal.isAttached) {
-            this._portal.detach();
-        }
-    };
-    /**
-     * @return {?}
-     */
-    MatMenuContent.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        if (this._outlet) {
-            this._outlet.dispose();
-        }
-    };
-    MatMenuContent.decorators = [
-        { type: core.Directive, args: [{
-                    selector: 'ng-template[matMenuContent]'
-                },] },
-    ];
-    /** @nocollapse */
-    MatMenuContent.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
-        { type: core.ComponentFactoryResolver, },
-        { type: core.ApplicationRef, },
-        { type: core.Injector, },
-        { type: core.ViewContainerRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
-    ]; };
-    return MatMenuContent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * Injection token to be used to override the default options for `mat-menu`.
  */
-var /** @type {?} */ MAT_MENU_DEFAULT_OPTIONS = new core.InjectionToken('mat-menu-default-options');
+var /** @type {?} */ MAT_MENU_DEFAULT_OPTIONS = new core.InjectionToken('mat-menu-default-options', {
+    providedIn: 'root',
+    factory: function () {
+        return ({
+            overlapTrigger: true,
+            xPosition: 'after',
+            yPosition: 'below',
+            backdropClass: 'cdk-overlay-transparent-backdrop',
+        });
+    }
+});
 /**
  * Start elevation for the menu panel.
  * \@docs-private
@@ -18449,23 +18423,13 @@ var MatMenu = /** @class */ (function () {
 /**
  * Injection token that determines the scroll handling while the menu is open.
  */
-var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
-}
-/**
- * \@docs-private
- */
-var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_MENU_SCROLL_STRATEGY,
-    deps: [overlay.Overlay],
-    useFactory: MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
+var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy', {
+    providedIn: 'root',
+    factory: function () {
+        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+        return function () { return overlay$$1.scrollStrategies.reposition(); };
+    }
+});
 /**
  * Default top padding of the menu panel.
  */
@@ -19032,34 +18996,19 @@ var MatMenuTrigger = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var ɵ0$3 = {
-    overlapTrigger: true,
-    xPosition: 'after',
-    yPosition: 'below',
-    backdropClass: 'cdk-overlay-transparent-backdrop'
-};
 var MatMenuModule = /** @class */ (function () {
     function MatMenuModule() {
     }
     MatMenuModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [
-                        a11y.A11yModule,
                         common.CommonModule,
                         MatCommonModule,
                         MatRippleModule,
                         overlay.OverlayModule,
-                        portal.PortalModule,
                     ],
                     exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent, MatCommonModule],
                     declarations: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent],
-                    providers: [
-                        MAT_MENU_SCROLL_STRATEGY_PROVIDER,
-                        {
-                            provide: MAT_MENU_DEFAULT_OPTIONS,
-                            useValue: ɵ0$3,
-                        }
-                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -19209,23 +19158,13 @@ var /** @type {?} */ SELECT_PANEL_VIEWPORT_PADDING = 8;
 /**
  * Injection token that determines the scroll handling while a select is open.
  */
-var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition(); };
-}
-/**
- * \@docs-private
- */
-var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_SELECT_SCROLL_STRATEGY,
-    deps: [overlay.Overlay],
-    useFactory: MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
+var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy', {
+    providedIn: 'root',
+    factory: function () {
+        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+        return function () { return overlay$$1.scrollStrategies.reposition(); };
+    }
+});
 /**
  * Change event object that is emitted when the select value has changed.
  */
@@ -20823,7 +20762,6 @@ var MatSelectModule = /** @class */ (function () {
                     ],
                     exports: [MatFormFieldModule, MatSelect, MatSelectTrigger, MatOptionModule, MatCommonModule],
                     declarations: [MatSelect, MatSelectTrigger],
-                    providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER, ErrorStateMatcher]
                 },] },
     ];
     /** @nocollapse */
@@ -20871,27 +20809,26 @@ function getMatTooltipInvalidPositionError(position) {
 /**
  * Injection token that determines the scroll handling while a tooltip is visible.
  */
-var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
-    return function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
-}
-/**
- * \@docs-private
- */
-var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_TOOLTIP_SCROLL_STRATEGY,
-    deps: [overlay.Overlay],
-    useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY
-};
+var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-strategy', {
+    providedIn: 'root',
+    factory: function () {
+        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+        return function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
+    }
+});
 /**
  * Injection token to be used to override the default options for `matTooltip`.
  */
-var /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new core.InjectionToken('mat-tooltip-default-options');
+var /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new core.InjectionToken('mat-tooltip-default-options', {
+    providedIn: 'root',
+    factory: function () {
+        return ({
+            showDelay: 0,
+            hideDelay: 0,
+            touchendHideDelay: 1500,
+        });
+    }
+});
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -21682,11 +21619,6 @@ var TooltipComponent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var ɵ0$4 = {
-    showDelay: 0,
-    hideDelay: 0,
-    touchendHideDelay: 1500
-};
 var MatTooltipModule = /** @class */ (function () {
     function MatTooltipModule() {
     }
@@ -21696,20 +21628,10 @@ var MatTooltipModule = /** @class */ (function () {
                         common.CommonModule,
                         overlay.OverlayModule,
                         MatCommonModule,
-                        platform.PlatformModule,
-                        a11y.A11yModule,
-                        layout.LayoutModule,
                     ],
                     exports: [MatTooltip, TooltipComponent, MatCommonModule],
                     declarations: [MatTooltip, TooltipComponent],
                     entryComponents: [TooltipComponent],
-                    providers: [
-                        MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER,
-                        {
-                            provide: MAT_TOOLTIP_DEFAULT_OPTIONS,
-                            useValue: ɵ0$4
-                        }
-                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -21769,10 +21691,11 @@ var MatPaginatorIntl = /** @class */ (function () {
         };
     }
     MatPaginatorIntl.decorators = [
-        { type: core.Injectable },
+        { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
     /** @nocollapse */
     MatPaginatorIntl.ctorParameters = function () { return []; };
+    /** @nocollapse */ MatPaginatorIntl.ngInjectableDef = core.defineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
     return MatPaginatorIntl;
 }());
 /**
@@ -22688,7 +22611,7 @@ var MatProgressSpinnerModule = /** @class */ (function () {
     }
     MatProgressSpinnerModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [MatCommonModule, platform.PlatformModule],
+                    imports: [MatCommonModule],
                     exports: [
                         MatProgressSpinner,
                         MatSpinner,
@@ -23530,7 +23453,7 @@ var MatRadioModule = /** @class */ (function () {
     }
     MatRadioModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [common.CommonModule, MatRippleModule, MatCommonModule, a11y.A11yModule],
+                    imports: [common.CommonModule, MatRippleModule, MatCommonModule],
                     exports: [MatRadioGroup, MatRadioButton, MatCommonModule],
                     declarations: [MatRadioGroup, MatRadioButton],
                 },] },
@@ -23577,7 +23500,10 @@ function throwMatDuplicatedDrawerError(position) {
 /**
  * Configures whether drawers should use auto sizing by default.
  */
-var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE');
+var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
+    providedIn: 'root',
+    factory: function () { return false; },
+});
 var MatDrawerContent = /** @class */ (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
@@ -24646,8 +24572,6 @@ var MatSidenavModule = /** @class */ (function () {
                     imports: [
                         common.CommonModule,
                         MatCommonModule,
-                        a11y.A11yModule,
-                        overlay.OverlayModule,
                         scrolling.ScrollDispatchModule,
                         platform.PlatformModule,
                     ],
@@ -24668,9 +24592,6 @@ var MatSidenavModule = /** @class */ (function () {
                         MatSidenavContainer,
                         MatSidenavContent,
                     ],
-                    providers: [
-                        { provide: MAT_DRAWER_DEFAULT_AUTOSIZE, useValue: false }
-                    ]
                 },] },
     ];
     /** @nocollapse */
@@ -25191,7 +25112,7 @@ var MatSlideToggleModule = /** @class */ (function () {
     }
     MatSlideToggleModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [MatRippleModule, MatCommonModule, platform.PlatformModule, observers.ObserversModule, a11y.A11yModule],
+                    imports: [MatRippleModule, MatCommonModule, observers.ObserversModule],
                     exports: [MatSlideToggle, MatCommonModule],
                     declarations: [MatSlideToggle],
                     providers: [
@@ -26261,7 +26182,7 @@ var MatSliderModule = /** @class */ (function () {
     }
     MatSliderModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [common.CommonModule, MatCommonModule, bidi.BidiModule, a11y.A11yModule],
+                    imports: [common.CommonModule, MatCommonModule],
                     exports: [MatSlider, MatCommonModule],
                     declarations: [MatSlider],
                     providers: [{ provide: platformBrowser.HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
@@ -26800,7 +26721,10 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
 /**
  * Injection token that can be used to specify default snack bar.
  */
-var /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new core.InjectionToken('mat-snack-bar-default-options');
+var /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new core.InjectionToken('mat-snack-bar-default-options', {
+    providedIn: 'root',
+    factory: function () { return new MatSnackBarConfig(); },
+});
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -27129,13 +27053,6 @@ var MatSnackBar = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * \@docs-private
- * @return {?}
- */
-function MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY() {
-    return new MatSnackBarConfig();
-}
 var MatSnackBarModule = /** @class */ (function () {
     function MatSnackBarModule() {
     }
@@ -27146,18 +27063,11 @@ var MatSnackBarModule = /** @class */ (function () {
                         portal.PortalModule,
                         common.CommonModule,
                         MatCommonModule,
-                        layout.LayoutModule,
                     ],
                     exports: [MatSnackBarContainer, MatCommonModule],
                     declarations: [MatSnackBarContainer, SimpleSnackBar],
                     entryComponents: [MatSnackBarContainer, SimpleSnackBar],
-                    providers: [
-                        MatSnackBar,
-                        {
-                            provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
-                            useFactory: MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY
-                        },
-                    ]
+                    providers: [MatSnackBar]
                 },] },
     ];
     /** @nocollapse */
@@ -27450,10 +27360,11 @@ var MatSortHeaderIntl = /** @class */ (function () {
         };
     }
     MatSortHeaderIntl.decorators = [
-        { type: core.Injectable },
+        { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
     /** @nocollapse */
     MatSortHeaderIntl.ctorParameters = function () { return []; };
+    /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = core.defineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
     return MatSortHeaderIntl;
 }());
 /**
@@ -27928,10 +27839,11 @@ var MatStepperIntl = /** @class */ (function () {
         this.optionalLabel = 'Optional';
     }
     MatStepperIntl.decorators = [
-        { type: core.Injectable },
+        { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
     /** @nocollapse */
     MatStepperIntl.ctorParameters = function () { return []; };
+    /** @nocollapse */ MatStepperIntl.ngInjectableDef = core.defineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
     return MatStepperIntl;
 }());
 
@@ -28308,7 +28220,6 @@ var MatStepperModule = /** @class */ (function () {
                         MatButtonModule,
                         stepper.CdkStepperModule,
                         MatIconModule,
-                        a11y.A11yModule,
                         MatRippleModule,
                     ],
                     exports: [
@@ -28594,12 +28505,30 @@ var MatTableModule = /** @class */ (function () {
     MatTableModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [table.CdkTableModule, common.CommonModule, MatCommonModule],
-                    exports: [MatTable, MatCellDef, MatHeaderCellDef, MatColumnDef,
-                        MatHeaderCell, MatCell, MatHeaderRow, MatRow,
-                        MatHeaderRowDef, MatRowDef],
-                    declarations: [MatTable, MatCellDef, MatHeaderCellDef, MatColumnDef,
-                        MatHeaderCell, MatCell, MatHeaderRow, MatRow,
-                        MatHeaderRowDef, MatRowDef],
+                    exports: [
+                        MatCell,
+                        MatCellDef,
+                        MatColumnDef,
+                        MatHeaderCell,
+                        MatHeaderCellDef,
+                        MatHeaderRow,
+                        MatHeaderRowDef,
+                        MatRow,
+                        MatRowDef,
+                        MatTable,
+                    ],
+                    declarations: [
+                        MatCell,
+                        MatCellDef,
+                        MatColumnDef,
+                        MatHeaderCell,
+                        MatHeaderCellDef,
+                        MatHeaderRow,
+                        MatHeaderRowDef,
+                        MatRow,
+                        MatRowDef,
+                        MatTable,
+                    ],
                 },] },
     ];
     /** @nocollapse */
@@ -31000,7 +30929,6 @@ var MatTabsModule = /** @class */ (function () {
                         portal.PortalModule,
                         MatRippleModule,
                         observers.ObserversModule,
-                        scrolling.ScrollDispatchModule,
                     ],
                     // Don't export all components because some are only to be used internally.
                     exports: [
@@ -31156,7 +31084,7 @@ var MatToolbarModule = /** @class */ (function () {
     }
     MatToolbarModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [MatCommonModule, platform.PlatformModule],
+                    imports: [MatCommonModule],
                     exports: [MatToolbar, MatToolbarRow, MatCommonModule],
                     declarations: [MatToolbar, MatToolbarRow],
                 },] },
@@ -31751,7 +31679,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-f882243');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-f7b5d34');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -31763,8 +31691,6 @@ exports.MatAutocompleteModule = MatAutocompleteModule;
 exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;
 exports.AUTOCOMPLETE_PANEL_HEIGHT = AUTOCOMPLETE_PANEL_HEIGHT;
 exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY;
-exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY;
-exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER;
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
@@ -31844,7 +31770,6 @@ exports.mixinInitialized = mixinInitialized;
 exports.NativeDateModule = NativeDateModule;
 exports.MatNativeDateModule = MatNativeDateModule;
 exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;
-exports.MAT_DATE_LOCALE_PROVIDER = MAT_DATE_LOCALE_PROVIDER;
 exports.DateAdapter = DateAdapter;
 exports.MAT_DATE_FORMATS = MAT_DATE_FORMATS;
 exports.NativeDateAdapter = NativeDateAdapter;
@@ -31893,8 +31818,6 @@ exports.MatCalendar = MatCalendar;
 exports.MatCalendarCell = MatCalendarCell;
 exports.MatCalendarBody = MatCalendarBody;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY = MAT_DATEPICKER_SCROLL_STRATEGY;
-exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY;
-exports.MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER = MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER;
 exports.MatDatepickerContentBase = MatDatepickerContentBase;
 exports._MatDatepickerContentMixinBase = _MatDatepickerContentMixinBase;
 exports.MatDatepickerContent = MatDatepickerContent;
@@ -31996,10 +31919,8 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa25 = MatMenuItemBase;
-exports.ɵb25 = _MatMenuItemMixinBase;
-exports.ɵd25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER;
-exports.ɵc25 = MAT_MENU_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32042,8 +31963,6 @@ exports.SELECT_ITEM_HEIGHT_EM = SELECT_ITEM_HEIGHT_EM;
 exports.SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_MULTIPLE_PANEL_PADDING_X;
 exports.SELECT_PANEL_VIEWPORT_PADDING = SELECT_PANEL_VIEWPORT_PADDING;
 exports.MAT_SELECT_SCROLL_STRATEGY = MAT_SELECT_SCROLL_STRATEGY;
-exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
-exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER = MAT_SELECT_SCROLL_STRATEGY_PROVIDER;
 exports.MatSelectChange = MatSelectChange;
 exports.MatSelectBase = MatSelectBase;
 exports._MatSelectMixinBase = _MatSelectMixinBase;
@@ -32074,7 +31993,6 @@ exports.MatSliderChange = MatSliderChange;
 exports.MatSliderBase = MatSliderBase;
 exports._MatSliderMixinBase = _MatSliderMixinBase;
 exports.MatSlider = MatSlider;
-exports.MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY = MAT_SNACK_BAR_DEFAULT_OPTIONS_PROVIDER_FACTORY;
 exports.MatSnackBarModule = MatSnackBarModule;
 exports.MAT_SNACK_BAR_DEFAULT_OPTIONS = MAT_SNACK_BAR_DEFAULT_OPTIONS;
 exports.MatSnackBar = MatSnackBar;
@@ -32121,16 +32039,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe25 = MatTabBase;
+exports.ɵf25 = _MatTabMixinBase;
+exports.ɵa25 = MatTabHeaderBase;
+exports.ɵb25 = _MatTabHeaderMixinBase;
+exports.ɵc25 = MatTabLabelWrapperBase;
+exports.ɵd25 = _MatTabLabelWrapperMixinBase;
+exports.ɵi25 = MatTabLinkBase;
+exports.ɵg25 = MatTabNavBase;
+exports.ɵj25 = _MatTabLinkMixinBase;
+exports.ɵh25 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
@@ -32158,13 +32076,11 @@ exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
 exports.TOOLTIP_PANEL_CLASS = TOOLTIP_PANEL_CLASS;
 exports.getMatTooltipInvalidPositionError = getMatTooltipInvalidPositionError;
 exports.MAT_TOOLTIP_SCROLL_STRATEGY = MAT_TOOLTIP_SCROLL_STRATEGY;
-exports.MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER_FACTORY;
-exports.MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER = MAT_TOOLTIP_SCROLL_STRATEGY_PROVIDER;
 exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa14 = MatTreeNodeOutlet;
+exports.ɵa13 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

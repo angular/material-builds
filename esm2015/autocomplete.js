@@ -5,27 +5,27 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Component, ContentChildren, ElementRef, Input, TemplateRef, ViewChild, ViewEncapsulation, ChangeDetectorRef, ChangeDetectionStrategy, EventEmitter, Output, InjectionToken, Inject, Directive, forwardRef, Host, NgZone, Optional, ViewContainerRef, NgModule } from '@angular/core';
-import { MatOption, MatOptgroup, MAT_OPTION_PARENT_COMPONENT, mixinDisableRipple, _getOptionScrollPosition, _countGroupLabelsBeforeOption, MatOptionModule, MatCommonModule } from '@angular/material/core';
+import { Component, ContentChildren, ElementRef, Input, TemplateRef, ViewChild, ViewEncapsulation, ChangeDetectorRef, ChangeDetectionStrategy, EventEmitter, Output, InjectionToken, Inject, Directive, forwardRef, Host, inject, NgZone, Optional, ViewContainerRef, NgModule } from '@angular/core';
+import { MatOption, MatOptgroup, MAT_OPTION_PARENT_COMPONENT, mixinDisableRipple, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionModule, MatCommonModule } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Directionality } from '@angular/cdk/bidi';
-import { DOWN_ARROW, ENTER, ESCAPE, UP_ARROW, TAB } from '@angular/cdk/keycodes';
+import { DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW } from '@angular/cdk/keycodes';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { filter } from 'rxjs/operators/filter';
-import { take } from 'rxjs/operators/take';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { tap } from 'rxjs/operators/tap';
-import { delay } from 'rxjs/operators/delay';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
-import { DOCUMENT, CommonModule } from '@angular/common';
-import { Subject } from 'rxjs/Subject';
 import { defer } from 'rxjs/observable/defer';
 import { fromEvent } from 'rxjs/observable/fromEvent';
 import { merge } from 'rxjs/observable/merge';
 import { of } from 'rxjs/observable/of';
+import { delay } from 'rxjs/operators/delay';
+import { filter } from 'rxjs/operators/filter';
+import { switchMap } from 'rxjs/operators/switchMap';
+import { take } from 'rxjs/operators/take';
+import { tap } from 'rxjs/operators/tap';
+import { Subject } from 'rxjs/Subject';
 
 /**
  * @fileoverview added by tsickle
@@ -58,7 +58,10 @@ const /** @type {?} */ _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocom
 /**
  * Injection token to be used to override the default options for `mat-autocomplete`.
  */
-const /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken('mat-autocomplete-default-options');
+const /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken('mat-autocomplete-default-options', {
+    providedIn: 'root',
+    factory: () => ({ autoActiveFirstOption: false }),
+});
 class MatAutocomplete extends _MatAutocompleteMixinBase {
     /**
      * @param {?} _changeDetectorRef
@@ -223,23 +226,13 @@ const /** @type {?} */ AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /**
  * Injection token that determines the scroll handling while the autocomplete panel is open.
  */
-const /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-scroll-strategy');
-/**
- * \@docs-private
- * @param {?} overlay
- * @return {?}
- */
-function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
-    return () => overlay.scrollStrategies.reposition();
-}
-/**
- * \@docs-private
- */
-const /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER = {
-    provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
-    deps: [Overlay],
-    useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY,
-};
+const /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-scroll-strategy', {
+    providedIn: 'root',
+    factory: () => {
+        const /** @type {?} */ overlay = inject(Overlay);
+        return () => overlay.scrollStrategies.reposition();
+    }
+});
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * \@docs-private
@@ -763,10 +756,6 @@ MatAutocompleteModule.decorators = [
                 imports: [MatOptionModule, OverlayModule, MatCommonModule, CommonModule],
                 exports: [MatAutocomplete, MatOptionModule, MatAutocompleteTrigger, MatCommonModule],
                 declarations: [MatAutocomplete, MatAutocompleteTrigger],
-                providers: [
-                    MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER,
-                    { provide: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, useValue: false }
-                ],
             },] },
 ];
 /** @nocollapse */
@@ -782,5 +771,5 @@ MatAutocompleteModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger };
 //# sourceMappingURL=autocomplete.js.map

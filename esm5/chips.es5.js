@@ -8,8 +8,8 @@
 import { __extends } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { BACKSPACE, DELETE, SPACE, ENTER } from '@angular/cdk/keycodes';
-import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, InjectionToken, NgModule } from '@angular/core';
+import { Platform } from '@angular/cdk/platform';
+import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, InjectionToken, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, mixinColor, mixinDisabled, mixinDisableRipple, RippleRenderer, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { Subject } from 'rxjs/Subject';
 import { FocusKeyManager } from '@angular/cdk/a11y';
@@ -540,6 +540,15 @@ var MatChipRemove = /** @class */ (function () {
     ]; };
     return MatChipRemove;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Injection token to be used to override the default options for the chips module.
+ */
+var /** @type {?} */ MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options');
 
 /**
  * @fileoverview added by tsickle
@@ -1607,15 +1616,6 @@ var MatChipList = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Injection token to be used to override the default options for the chips module.
- */
-var /** @type {?} */ MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options');
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 // Increasing integer for generating unique ids.
 var /** @type {?} */ nextUniqueId$1 = 0;
 /**
@@ -1826,7 +1826,6 @@ var MatChipsModule = /** @class */ (function () {
     }
     MatChipsModule.decorators = [
         { type: NgModule, args: [{
-                    imports: [PlatformModule],
                     exports: CHIP_DECLARATIONS,
                     declarations: CHIP_DECLARATIONS,
                     providers: [

@@ -6,23 +6,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directionality } from '@angular/cdk/bidi';
-import { Overlay, OverlayRef, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
-import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef, ChangeDetectorRef, OnInit } from '@angular/core';
+import { Overlay, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { CanColor, DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs/Subject';
-import { MatDatepickerInput } from './datepicker-input';
 import { MatCalendar } from './calendar';
+import { MatDatepickerInput } from './datepicker-input';
 /** Injection token that determines the scroll handling while the calendar is open. */
 export declare const MAT_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
-/** @docs-private */
-export declare function MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => RepositionScrollStrategy;
-/** @docs-private */
-export declare const MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER: {
-    provide: InjectionToken<() => ScrollStrategy>;
-    deps: (typeof Overlay)[];
-    useFactory: typeof MAT_DATEPICKER_SCROLL_STRATEGY_PROVIDER_FACTORY;
-};
 /** @docs-private */
 export declare class MatDatepickerContentBase {
     _elementRef: ElementRef;

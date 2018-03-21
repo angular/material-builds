@@ -562,6 +562,15 @@ var MatChipRemove = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Injection token to be used to override the default options for the chips module.
+ */
+var /** @type {?} */ MAT_CHIPS_DEFAULT_OPTIONS = new core.InjectionToken('mat-chips-default-options');
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * \@docs-private
  */
 var   /**
@@ -1623,15 +1632,6 @@ var MatChipList = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Injection token to be used to override the default options for the chips module.
- */
-var /** @type {?} */ MAT_CHIPS_DEFAULT_OPTIONS = new core.InjectionToken('mat-chips-default-options');
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 // Increasing integer for generating unique ids.
 var /** @type {?} */ nextUniqueId$1 = 0;
 /**
@@ -1842,7 +1842,6 @@ var MatChipsModule = /** @class */ (function () {
     }
     MatChipsModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [platform.PlatformModule],
                     exports: CHIP_DECLARATIONS,
                     declarations: CHIP_DECLARATIONS,
                     providers: [

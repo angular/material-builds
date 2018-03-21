@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/forms'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/observers')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/checkbox', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/forms', '@angular/material/core', '@angular/common', '@angular/cdk/observers'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.forms,global.ng.material.core,global.ng.common,global.ng.cdk.observers));
-}(this, (function (exports,core,a11y,coercion,forms,core$1,common,observers) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/forms'), require('@angular/material/core'), require('@angular/cdk/observers'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/checkbox', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/forms', '@angular/material/core', '@angular/cdk/observers', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.checkbox = {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.forms,global.ng.material.core,global.ng.cdk.observers,global.ng.common));
+}(this, (function (exports,core,a11y,coercion,forms,core$1,observers,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -624,7 +624,7 @@ var MatCheckboxModule = /** @class */ (function () {
     }
     MatCheckboxModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [common.CommonModule, core$1.MatRippleModule, core$1.MatCommonModule, observers.ObserversModule, a11y.A11yModule],
+                    imports: [common.CommonModule, core$1.MatRippleModule, core$1.MatCommonModule, observers.ObserversModule],
                     exports: [MatCheckbox, MatCheckboxRequiredValidator, core$1.MatCommonModule],
                     declarations: [MatCheckbox, MatCheckboxRequiredValidator],
                 },] },

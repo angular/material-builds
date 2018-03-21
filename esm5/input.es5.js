@@ -9,7 +9,7 @@ import { __extends } from 'tslib';
 import { CdkTextareaAutosize, AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
 import { Directive, Input, InjectionToken, ElementRef, Inject, Optional, Self, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { getSupportedInputTypes, Platform, PlatformModule } from '@angular/cdk/platform';
+import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
@@ -621,7 +621,6 @@ var MatInputModule = /** @class */ (function () {
                         CommonModule,
                         TextFieldModule,
                         MatFormFieldModule,
-                        PlatformModule,
                     ],
                     exports: [
                         TextFieldModule,
