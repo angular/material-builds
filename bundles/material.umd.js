@@ -31751,7 +31751,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-69217c4');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-f882243');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32164,7 +32164,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa11 = MatTreeNodeOutlet;
+exports.ɵa14 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
