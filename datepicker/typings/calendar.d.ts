@@ -5,20 +5,55 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { ComponentType, Portal } from '@angular/cdk/portal';
 import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
+import { Observable } from 'rxjs/Observable';
 import { MatDatepickerIntl } from './datepicker-intl';
 import { MatMonthView } from './month-view';
 import { MatMultiYearView } from './multi-year-view';
 import { MatYearView } from './year-view';
+/** Default header for MatCalendar */
+export declare class MatCalendarHeader<D> implements OnDestroy {
+    private _intl;
+    calendar: MatCalendar<D>;
+    private _dateAdapter;
+    private _dateFormats;
+    /** Subject that emits when the component has been destroyed. */
+    private _destroyed;
+    constructor(_intl: MatDatepickerIntl, calendar: MatCalendar<D>, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, changeDetectorRef: ChangeDetectorRef);
+    /** The label for the current calendar view. */
+    readonly periodButtonText: string;
+    readonly periodButtonLabel: string;
+    /** The label for the the previous button. */
+    readonly prevButtonLabel: string;
+    /** The label for the the next button. */
+    readonly nextButtonLabel: string;
+    /** Handles user clicks on the period label. */
+    currentPeriodClicked(): void;
+    /** Handles user clicks on the previous button. */
+    previousClicked(): void;
+    /** Handles user clicks on the next button. */
+    nextClicked(): void;
+    /** Whether the previous period button is enabled. */
+    previousEnabled(): boolean;
+    /** Whether the next period button is enabled. */
+    nextEnabled(): boolean;
+    /** Whether the two dates represent the same view in the current view mode (month or year). */
+    private _isSameView(date1, date2);
+    ngOnDestroy(): void;
+}
 /**
  * A calendar that is used as part of the datepicker.
  * @docs-private
  */
 export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnChanges {
-    private _intl;
     private _dateAdapter;
     private _dateFormats;
+    /** An input indicating the type of the header component, if set. */
+    headerComponent: ComponentType<any>;
+    /** A portal containing the header component type for this calendar. */
+    _calendarHeaderPortal: Portal<any>;
     private _intlChanges;
     /** A date representing the period (month or year) to start the calendar in. */
     startAt: D | null;
@@ -60,17 +95,16 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
      * The current active date. This determines which time period is shown and which date is
      * highlighted when using keyboard navigation.
      */
-    _activeDate: D;
+    activeDate: D;
     private _clampedActiveDate;
     /** Whether the calendar is in month view. */
-    _currentView: 'month' | 'year' | 'multi-year';
-    /** The label for the current calendar view. */
-    readonly _periodButtonText: string;
-    readonly _periodButtonLabel: string;
-    /** The label for the the previous button. */
-    readonly _prevButtonLabel: string;
-    /** The label for the the next button. */
-    readonly _nextButtonLabel: string;
+    currentView: 'month' | 'year' | 'multi-year';
+    /**
+     * An observable that emits whenever there is a state change that the header may need to respond
+     * to.
+     */
+    readonly stateChanges: Observable<void>;
+    private _stateChanges;
     constructor(_intl: MatDatepickerIntl, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -84,18 +118,6 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     _userSelected(): void;
     /** Handles year/month selection in the multi-year/year views. */
     _goToDateInView(date: D, view: 'month' | 'year' | 'multi-year'): void;
-    /** Handles user clicks on the period label. */
-    _currentPeriodClicked(): void;
-    /** Handles user clicks on the previous button. */
-    _previousClicked(): void;
-    /** Handles user clicks on the next button. */
-    _nextClicked(): void;
-    /** Whether the previous period button is enabled. */
-    _previousEnabled(): boolean;
-    /** Whether the next period button is enabled. */
-    _nextEnabled(): boolean;
-    /** Whether the two dates represent the same view in the current view mode (month or year). */
-    private _isSameView(date1, date2);
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.

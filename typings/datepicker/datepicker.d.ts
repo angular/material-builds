@@ -7,6 +7,7 @@
  */
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
+import { ComponentType } from '@angular/cdk/portal';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { CanColor, DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -56,6 +57,8 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     private _dateAdapter;
     private _dir;
     private _document;
+    /** An input indicating the type of the custom header component for the calendar, if set. */
+    calendarHeaderComponent: ComponentType<any>;
     /** The date to open the calendar to initially. */
     startAt: D | null;
     private _startAt;

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/forms'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('rxjs/operators/delay'), require('rxjs/operators/filter'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('rxjs/operators/takeUntil'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty'), require('@angular/cdk/tree')) :
-	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', 'rxjs/operators/take', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/forms', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', 'rxjs/operators/delay', 'rxjs/operators/filter', 'rxjs/operators/switchMap', 'rxjs/operators/tap', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', '@angular/cdk/text-field', '@angular/cdk/accordion', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', 'rxjs/operators/takeUntil', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty', '@angular/cdk/tree'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.forms,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.ng.cdk.textField,global.ng.cdk.accordion,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable,global.ng.cdk.tree));
-}(this, (function (exports,core,bidi,coercion,Subject,Observable,platform,platformBrowser,keycodes,common,animations,fromEvent,startWith,take,a11y,overlay,portal,forms,defer,merge,of,delay,filter,switchMap,tap,layout,collections,observers,Subscription,textField,accordion,catchError,finalize,map,share,http,forkJoin,_throw,takeUntil,scrolling,debounceTime,table,stepper,BehaviorSubject,combineLatest,empty,tree) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/forms'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('rxjs/operators/delay'), require('rxjs/operators/filter'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('@angular/cdk/text-field'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty'), require('@angular/cdk/tree')) :
+	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', 'rxjs/operators/take', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/forms', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', 'rxjs/operators/delay', 'rxjs/operators/filter', 'rxjs/operators/switchMap', 'rxjs/operators/tap', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', '@angular/cdk/text-field', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty', '@angular/cdk/tree'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.forms,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.ng.cdk.textField,global.Rx.operators,global.ng.cdk.accordion,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable,global.ng.cdk.tree));
+}(this, (function (exports,core,bidi,coercion,Subject,Observable,platform,platformBrowser,keycodes,common,animations,fromEvent,startWith,take,a11y,overlay,portal,forms,defer,merge,of,delay,filter,switchMap,tap,layout,collections,observers,Subscription,textField,takeUntil,accordion,catchError,finalize,map,share,http,forkJoin,_throw,scrolling,debounceTime,table,stepper,BehaviorSubject,combineLatest,empty,tree) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -12089,13 +12089,217 @@ var MatYearView = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Default header for MatCalendar
+ * @template D
+ */
+var MatCalendarHeader = /** @class */ (function () {
+    function MatCalendarHeader(_intl, calendar, _dateAdapter, _dateFormats, changeDetectorRef) {
+        this._intl = _intl;
+        this.calendar = calendar;
+        this._dateAdapter = _dateAdapter;
+        this._dateFormats = _dateFormats;
+        /**
+         * Subject that emits when the component has been destroyed.
+         */
+        this._destroyed = new Subject.Subject();
+        this.calendar.stateChanges.pipe(takeUntil.takeUntil(this._destroyed))
+            .subscribe(function () { return changeDetectorRef.markForCheck(); });
+    }
+    Object.defineProperty(MatCalendarHeader.prototype, "periodButtonText", {
+        /** The label for the current calendar view. */
+        get: /**
+         * The label for the current calendar view.
+         * @return {?}
+         */
+        function () {
+            if (this.calendar.currentView == 'month') {
+                return this._dateAdapter
+                    .format(this.calendar.activeDate, this._dateFormats.display.monthYearLabel)
+                    .toLocaleUpperCase();
+            }
+            if (this.calendar.currentView == 'year') {
+                return this._dateAdapter.getYearName(this.calendar.activeDate);
+            }
+            var /** @type {?} */ activeYear = this._dateAdapter.getYear(this.calendar.activeDate);
+            var /** @type {?} */ firstYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear - activeYear % 24, 0, 1));
+            var /** @type {?} */ lastYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear + yearsPerPage - 1 - activeYear % 24, 0, 1));
+            return firstYearInView + " \u2013 " + lastYearInView;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatCalendarHeader.prototype, "periodButtonLabel", {
+        get: /**
+         * @return {?}
+         */
+        function () {
+            return this.calendar.currentView == 'month' ?
+                this._intl.switchToMultiYearViewLabel : this._intl.switchToMonthViewLabel;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatCalendarHeader.prototype, "prevButtonLabel", {
+        /** The label for the the previous button. */
+        get: /**
+         * The label for the the previous button.
+         * @return {?}
+         */
+        function () {
+            return {
+                'month': this._intl.prevMonthLabel,
+                'year': this._intl.prevYearLabel,
+                'multi-year': this._intl.prevMultiYearLabel
+            }[this.calendar.currentView];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatCalendarHeader.prototype, "nextButtonLabel", {
+        /** The label for the the next button. */
+        get: /**
+         * The label for the the next button.
+         * @return {?}
+         */
+        function () {
+            return {
+                'month': this._intl.nextMonthLabel,
+                'year': this._intl.nextYearLabel,
+                'multi-year': this._intl.nextMultiYearLabel
+            }[this.calendar.currentView];
+        },
+        enumerable: true,
+        configurable: true
+    });
+    /** Handles user clicks on the period label. */
+    /**
+     * Handles user clicks on the period label.
+     * @return {?}
+     */
+    MatCalendarHeader.prototype.currentPeriodClicked = /**
+     * Handles user clicks on the period label.
+     * @return {?}
+     */
+    function () {
+        this.calendar.currentView = this.calendar.currentView == 'month' ? 'multi-year' : 'month';
+    };
+    /** Handles user clicks on the previous button. */
+    /**
+     * Handles user clicks on the previous button.
+     * @return {?}
+     */
+    MatCalendarHeader.prototype.previousClicked = /**
+     * Handles user clicks on the previous button.
+     * @return {?}
+     */
+    function () {
+        this.calendar.activeDate = this.calendar.currentView == 'month' ?
+            this._dateAdapter.addCalendarMonths(this.calendar.activeDate, -1) :
+            this._dateAdapter.addCalendarYears(this.calendar.activeDate, this.calendar.currentView == 'year' ? -1 : -yearsPerPage);
+    };
+    /** Handles user clicks on the next button. */
+    /**
+     * Handles user clicks on the next button.
+     * @return {?}
+     */
+    MatCalendarHeader.prototype.nextClicked = /**
+     * Handles user clicks on the next button.
+     * @return {?}
+     */
+    function () {
+        this.calendar.activeDate = this.calendar.currentView == 'month' ?
+            this._dateAdapter.addCalendarMonths(this.calendar.activeDate, 1) :
+            this._dateAdapter.addCalendarYears(this.calendar.activeDate, this.calendar.currentView == 'year' ? 1 : yearsPerPage);
+    };
+    /** Whether the previous period button is enabled. */
+    /**
+     * Whether the previous period button is enabled.
+     * @return {?}
+     */
+    MatCalendarHeader.prototype.previousEnabled = /**
+     * Whether the previous period button is enabled.
+     * @return {?}
+     */
+    function () {
+        if (!this.calendar.minDate) {
+            return true;
+        }
+        return !this.calendar.minDate ||
+            !this._isSameView(this.calendar.activeDate, this.calendar.minDate);
+    };
+    /** Whether the next period button is enabled. */
+    /**
+     * Whether the next period button is enabled.
+     * @return {?}
+     */
+    MatCalendarHeader.prototype.nextEnabled = /**
+     * Whether the next period button is enabled.
+     * @return {?}
+     */
+    function () {
+        return !this.calendar.maxDate ||
+            !this._isSameView(this.calendar.activeDate, this.calendar.maxDate);
+    };
+    /**
+     * Whether the two dates represent the same view in the current view mode (month or year).
+     * @param {?} date1
+     * @param {?} date2
+     * @return {?}
+     */
+    MatCalendarHeader.prototype._isSameView = /**
+     * Whether the two dates represent the same view in the current view mode (month or year).
+     * @param {?} date1
+     * @param {?} date2
+     * @return {?}
+     */
+    function (date1, date2) {
+        if (this.calendar.currentView == 'month') {
+            return this._dateAdapter.getYear(date1) == this._dateAdapter.getYear(date2) &&
+                this._dateAdapter.getMonth(date1) == this._dateAdapter.getMonth(date2);
+        }
+        if (this.calendar.currentView == 'year') {
+            return this._dateAdapter.getYear(date1) == this._dateAdapter.getYear(date2);
+        }
+        // Otherwise we are in 'multi-year' view.
+        return Math.floor(this._dateAdapter.getYear(date1) / yearsPerPage) ==
+            Math.floor(this._dateAdapter.getYear(date2) / yearsPerPage);
+    };
+    /**
+     * @return {?}
+     */
+    MatCalendarHeader.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._destroyed.next();
+        this._destroyed.complete();
+    };
+    MatCalendarHeader.decorators = [
+        { type: core.Component, args: [{selector: 'mat-calendar-header',
+                    template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"currentPeriodClicked()\" [attr.aria-label]=\"periodButtonLabel\">{{periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"calendar.currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!previousEnabled()\" (click)=\"previousClicked()\" [attr.aria-label]=\"prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!nextEnabled()\" (click)=\"nextClicked()\" [attr.aria-label]=\"nextButtonLabel\"></button></div></div>",
+                    encapsulation: core.ViewEncapsulation.None,
+                    preserveWhitespaces: false,
+                    changeDetection: core.ChangeDetectionStrategy.OnPush,
+                },] },
+    ];
+    /** @nocollapse */
+    MatCalendarHeader.ctorParameters = function () { return [
+        { type: MatDatepickerIntl, },
+        { type: MatCalendar, decorators: [{ type: core.Host }, { type: core.Inject, args: [core.forwardRef(function () { return MatCalendar; }),] },] },
+        { type: DateAdapter, decorators: [{ type: core.Optional },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_FORMATS,] },] },
+        { type: core.ChangeDetectorRef, },
+    ]; };
+    return MatCalendarHeader;
+}());
+/**
  * A calendar that is used as part of the datepicker.
  * \@docs-private
  * @template D
  */
 var MatCalendar = /** @class */ (function () {
     function MatCalendar(_intl, _dateAdapter, _dateFormats, changeDetectorRef) {
-        this._intl = _intl;
+        var _this = this;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
         /**
@@ -12120,13 +12324,17 @@ var MatCalendar = /** @class */ (function () {
          * Emits when any date is selected.
          */
         this._userSelection = new core.EventEmitter();
+        this._stateChanges = new Subject.Subject();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
         if (!this._dateFormats) {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
-        this._intlChanges = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
+        this._intlChanges = _intl.changes.subscribe(function () {
+            changeDetectorRef.markForCheck();
+            _this._stateChanges.next();
+        });
     }
     Object.defineProperty(MatCalendar.prototype, "startAt", {
         get: /**
@@ -12192,7 +12400,7 @@ var MatCalendar = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatCalendar.prototype, "_activeDate", {
+    Object.defineProperty(MatCalendar.prototype, "activeDate", {
         /**
          * The current active date. This determines which time period is shown and which date is
          * highlighted when using keyboard navigation.
@@ -12209,71 +12417,23 @@ var MatCalendar = /** @class */ (function () {
          */
         function (value) {
             this._clampedActiveDate = this._dateAdapter.clampDate(value, this.minDate, this.maxDate);
+            this._stateChanges.next();
         },
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatCalendar.prototype, "_periodButtonText", {
-        /** The label for the current calendar view. */
+    Object.defineProperty(MatCalendar.prototype, "stateChanges", {
+        /**
+         * An observable that emits whenever there is a state change that the header may need to respond
+         * to.
+         */
         get: /**
-         * The label for the current calendar view.
+         * An observable that emits whenever there is a state change that the header may need to respond
+         * to.
          * @return {?}
          */
         function () {
-            if (this._currentView == 'month') {
-                return this._dateAdapter.format(this._activeDate, this._dateFormats.display.monthYearLabel)
-                    .toLocaleUpperCase();
-            }
-            if (this._currentView == 'year') {
-                return this._dateAdapter.getYearName(this._activeDate);
-            }
-            var /** @type {?} */ activeYear = this._dateAdapter.getYear(this._activeDate);
-            var /** @type {?} */ firstYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear - activeYear % 24, 0, 1));
-            var /** @type {?} */ lastYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear + yearsPerPage - 1 - activeYear % 24, 0, 1));
-            return firstYearInView + " \u2013 " + lastYearInView;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatCalendar.prototype, "_periodButtonLabel", {
-        get: /**
-         * @return {?}
-         */
-        function () {
-            return this._currentView == 'month' ?
-                this._intl.switchToMultiYearViewLabel : this._intl.switchToMonthViewLabel;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatCalendar.prototype, "_prevButtonLabel", {
-        /** The label for the the previous button. */
-        get: /**
-         * The label for the the previous button.
-         * @return {?}
-         */
-        function () {
-            return {
-                'month': this._intl.prevMonthLabel,
-                'year': this._intl.prevYearLabel,
-                'multi-year': this._intl.prevMultiYearLabel
-            }[this._currentView];
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatCalendar.prototype, "_nextButtonLabel", {
-        /** The label for the the next button. */
-        get: /**
-         * The label for the the next button.
-         * @return {?}
-         */
-        function () {
-            return {
-                'month': this._intl.nextMonthLabel,
-                'year': this._intl.nextYearLabel,
-                'multi-year': this._intl.nextMultiYearLabel
-            }[this._currentView];
+            return this._stateChanges.asObservable();
         },
         enumerable: true,
         configurable: true
@@ -12285,8 +12445,9 @@ var MatCalendar = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._activeDate = this.startAt || this._dateAdapter.today();
-        this._currentView = this.startView;
+        this._calendarHeaderPortal = new portal.ComponentPortal(this.headerComponent || MatCalendarHeader);
+        this.activeDate = this.startAt || this._dateAdapter.today();
+        this.currentView = this.startView;
     };
     /**
      * @return {?}
@@ -12313,6 +12474,7 @@ var MatCalendar = /** @class */ (function () {
                 view._init();
             }
         }
+        this._stateChanges.next();
     };
     /** Handles date selection in the month view. */
     /**
@@ -12381,99 +12543,8 @@ var MatCalendar = /** @class */ (function () {
      * @return {?}
      */
     function (date, view) {
-        this._activeDate = date;
-        this._currentView = view;
-    };
-    /** Handles user clicks on the period label. */
-    /**
-     * Handles user clicks on the period label.
-     * @return {?}
-     */
-    MatCalendar.prototype._currentPeriodClicked = /**
-     * Handles user clicks on the period label.
-     * @return {?}
-     */
-    function () {
-        this._currentView = this._currentView == 'month' ? 'multi-year' : 'month';
-    };
-    /** Handles user clicks on the previous button. */
-    /**
-     * Handles user clicks on the previous button.
-     * @return {?}
-     */
-    MatCalendar.prototype._previousClicked = /**
-     * Handles user clicks on the previous button.
-     * @return {?}
-     */
-    function () {
-        this._activeDate = this._currentView == 'month' ?
-            this._dateAdapter.addCalendarMonths(this._activeDate, -1) :
-            this._dateAdapter.addCalendarYears(this._activeDate, this._currentView == 'year' ? -1 : -yearsPerPage);
-    };
-    /** Handles user clicks on the next button. */
-    /**
-     * Handles user clicks on the next button.
-     * @return {?}
-     */
-    MatCalendar.prototype._nextClicked = /**
-     * Handles user clicks on the next button.
-     * @return {?}
-     */
-    function () {
-        this._activeDate = this._currentView == 'month' ?
-            this._dateAdapter.addCalendarMonths(this._activeDate, 1) :
-            this._dateAdapter.addCalendarYears(this._activeDate, this._currentView == 'year' ? 1 : yearsPerPage);
-    };
-    /** Whether the previous period button is enabled. */
-    /**
-     * Whether the previous period button is enabled.
-     * @return {?}
-     */
-    MatCalendar.prototype._previousEnabled = /**
-     * Whether the previous period button is enabled.
-     * @return {?}
-     */
-    function () {
-        if (!this.minDate) {
-            return true;
-        }
-        return !this.minDate || !this._isSameView(this._activeDate, this.minDate);
-    };
-    /** Whether the next period button is enabled. */
-    /**
-     * Whether the next period button is enabled.
-     * @return {?}
-     */
-    MatCalendar.prototype._nextEnabled = /**
-     * Whether the next period button is enabled.
-     * @return {?}
-     */
-    function () {
-        return !this.maxDate || !this._isSameView(this._activeDate, this.maxDate);
-    };
-    /**
-     * Whether the two dates represent the same view in the current view mode (month or year).
-     * @param {?} date1
-     * @param {?} date2
-     * @return {?}
-     */
-    MatCalendar.prototype._isSameView = /**
-     * Whether the two dates represent the same view in the current view mode (month or year).
-     * @param {?} date1
-     * @param {?} date2
-     * @return {?}
-     */
-    function (date1, date2) {
-        if (this._currentView == 'month') {
-            return this._dateAdapter.getYear(date1) == this._dateAdapter.getYear(date2) &&
-                this._dateAdapter.getMonth(date1) == this._dateAdapter.getMonth(date2);
-        }
-        if (this._currentView == 'year') {
-            return this._dateAdapter.getYear(date1) == this._dateAdapter.getYear(date2);
-        }
-        // Otherwise we are in 'multi-year' view.
-        return Math.floor(this._dateAdapter.getYear(date1) / yearsPerPage) ==
-            Math.floor(this._dateAdapter.getYear(date2) / yearsPerPage);
+        this.activeDate = date;
+        this.currentView = view;
     };
     /**
      * @param {?} obj The object to check.
@@ -12488,7 +12559,7 @@ var MatCalendar = /** @class */ (function () {
     };
     MatCalendar.decorators = [
         { type: core.Component, args: [{selector: 'mat-calendar',
-                    template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button class=\"mat-calendar-period-button\" (click)=\"_currentPeriodClicked()\" [attr.aria-label]=\"_periodButtonLabel\">{{_periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"_currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button class=\"mat-calendar-previous-button\" [disabled]=\"!_previousEnabled()\" (click)=\"_previousClicked()\" [attr.aria-label]=\"_prevButtonLabel\"></button> <button mat-icon-button class=\"mat-calendar-next-button\" [disabled]=\"!_nextEnabled()\" (click)=\"_nextClicked()\" [attr.aria-label]=\"_nextButtonLabel\"></button></div></div><div class=\"mat-calendar-content\" [ngSwitch]=\"_currentView\" cdkMonitorSubtreeFocus tabindex=\"-1\"><mat-month-view *ngSwitchCase=\"'month'\" [(activeDate)]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (selectedChange)=\"_dateSelected($event)\" (_userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchCase=\"'year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (monthSelected)=\"_monthSelectedInYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view><mat-multi-year-view *ngSwitchCase=\"'multi-year'\" [activeDate]=\"_activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (yearSelected)=\"_yearSelectedInMultiYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view></div>",
+                    template: "<ng-template [cdkPortalOutlet]=\"_calendarHeaderPortal\"></ng-template><div class=\"mat-calendar-content\" [ngSwitch]=\"currentView\" cdkMonitorSubtreeFocus tabindex=\"-1\"><mat-month-view *ngSwitchCase=\"'month'\" [(activeDate)]=\"activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (selectedChange)=\"_dateSelected($event)\" (_userSelection)=\"_userSelected()\"></mat-month-view><mat-year-view *ngSwitchCase=\"'year'\" [activeDate]=\"activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (monthSelected)=\"_monthSelectedInYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'month')\"></mat-year-view><mat-multi-year-view *ngSwitchCase=\"'multi-year'\" [activeDate]=\"activeDate\" [selected]=\"selected\" [dateFilter]=\"dateFilter\" [maxDate]=\"maxDate\" [minDate]=\"minDate\" (yearSelected)=\"_yearSelectedInMultiYearView($event)\" (selectedChange)=\"_goToDateInView($event, 'year')\"></mat-multi-year-view></div>",
                     styles: [".mat-calendar{display:block}.mat-calendar-header{padding:8px 8px 0 8px}.mat-calendar-content{padding:0 8px 8px 8px;outline:0}.mat-calendar-controls{display:flex;margin:5% calc(33% / 7 - 16px)}.mat-calendar-spacer{flex:1 1 auto}.mat-calendar-period-button{min-width:0}.mat-calendar-arrow{display:inline-block;width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;border-top-width:5px;border-top-style:solid;margin:0 0 0 5px;vertical-align:middle}.mat-calendar-arrow.mat-calendar-invert{transform:rotate(180deg)}[dir=rtl] .mat-calendar-arrow{margin:0 5px 0 0}.mat-calendar-next-button,.mat-calendar-previous-button{position:relative}.mat-calendar-next-button::after,.mat-calendar-previous-button::after{top:0;left:0;right:0;bottom:0;position:absolute;content:'';margin:15.5px;border:0 solid currentColor;border-top-width:2px}[dir=rtl] .mat-calendar-next-button,[dir=rtl] .mat-calendar-previous-button{transform:rotate(180deg)}.mat-calendar-previous-button::after{border-left-width:2px;transform:translateX(2px) rotate(-45deg)}.mat-calendar-next-button::after{border-right-width:2px;transform:translateX(-2px) rotate(45deg)}.mat-calendar-table{border-spacing:0;border-collapse:collapse;width:100%}.mat-calendar-table-header th{text-align:center;padding:0 0 8px 0}.mat-calendar-table-header-divider{position:relative;height:1px}.mat-calendar-table-header-divider::after{content:'';position:absolute;top:0;left:-8px;right:-8px;height:1px}"],
                     host: {
                         'class': 'mat-calendar',
@@ -12506,6 +12577,7 @@ var MatCalendar = /** @class */ (function () {
         { type: core.ChangeDetectorRef, },
     ]; };
     MatCalendar.propDecorators = {
+        "headerComponent": [{ type: core.Input },],
         "startAt": [{ type: core.Input },],
         "startView": [{ type: core.Input },],
         "selected": [{ type: core.Input },],
@@ -12654,7 +12726,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     };
     MatDatepickerContent.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-content',
-                    template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [selected]=\"datepicker._selected\" [@fadeInCalendar]=\"'enter'\" (selectedChange)=\"datepicker._select($event)\" (yearSelected)=\"datepicker._selectYear($event)\" (monthSelected)=\"datepicker._selectMonth($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
+                    template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [headerComponent]=\"datepicker.calendarHeaderComponent\" [selected]=\"datepicker._selected\" [@fadeInCalendar]=\"'enter'\" (selectedChange)=\"datepicker._select($event)\" (yearSelected)=\"datepicker._selectYear($event)\" (monthSelected)=\"datepicker._selectMonth($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
                     styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block;border-radius:2px;transform-origin:top center}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-above{transform-origin:bottom center}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
                     host: {
                         'class': 'mat-datepicker-content',
@@ -13199,6 +13271,7 @@ var MatDatepicker = /** @class */ (function () {
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatDatepicker.propDecorators = {
+        "calendarHeaderComponent": [{ type: core.Input },],
         "startAt": [{ type: core.Input },],
         "startView": [{ type: core.Input },],
         "color": [{ type: core.Input },],
@@ -13847,11 +13920,12 @@ var MatDatepickerModule = /** @class */ (function () {
     MatDatepickerModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [
-                        a11y.A11yModule,
                         common.CommonModule,
                         MatButtonModule,
                         MatDialogModule,
                         overlay.OverlayModule,
+                        a11y.A11yModule,
+                        portal.PortalModule,
                     ],
                     exports: [
                         MatCalendar,
@@ -13876,12 +13950,14 @@ var MatDatepickerModule = /** @class */ (function () {
                         MatMonthView,
                         MatYearView,
                         MatMultiYearView,
+                        MatCalendarHeader
                     ],
                     providers: [
                         MatDatepickerIntl,
                     ],
                     entryComponents: [
                         MatDatepickerContent,
+                        MatCalendarHeader,
                     ]
                 },] },
     ];
@@ -31679,7 +31755,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-f7b5d34');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-4e1bb26');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -31814,6 +31890,7 @@ exports.NOV = NOV;
 exports.DEC = DEC;
 exports.ɵa34 = MatMultiYearView;
 exports.MatDatepickerModule = MatDatepickerModule;
+exports.MatCalendarHeader = MatCalendarHeader;
 exports.MatCalendar = MatCalendar;
 exports.MatCalendarCell = MatCalendarCell;
 exports.MatCalendarBody = MatCalendarBody;
@@ -31919,8 +31996,8 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MatMenuItemBase;
-exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵa13 = MatMenuItemBase;
+exports.ɵb13 = _MatMenuItemMixinBase;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32080,7 +32157,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa13 = MatTreeNodeOutlet;
+exports.ɵa21 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
