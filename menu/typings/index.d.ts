@@ -2,4 +2,4 @@
  * Generated bundle index. Do not edit.
  */
 export * from './public-api';
-export { MatMenuItemBase as ɵa25, _MatMenuItemMixinBase as ɵb25 } from './menu-item';
+export { MatMenuItemBase as ɵa24, _MatMenuItemMixinBase as ɵb24 } from './menu-item';
