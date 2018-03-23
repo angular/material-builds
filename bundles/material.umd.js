@@ -19234,13 +19234,23 @@ var /** @type {?} */ SELECT_PANEL_VIEWPORT_PADDING = 8;
 /**
  * Injection token that determines the scroll handling while a select is open.
  */
-var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy', {
-    providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
-        return function () { return overlay$$1.scrollStrategies.reposition(); };
-    }
-});
+var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy');
+/**
+ * \@docs-private
+ * @param {?} overlay
+ * @return {?}
+ */
+function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
+    return function () { return overlay$$1.scrollStrategies.reposition(); };
+}
+/**
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
+    provide: MAT_SELECT_SCROLL_STRATEGY,
+    deps: [overlay.Overlay],
+    useFactory: MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
+};
 /**
  * Change event object that is emitted when the select value has changed.
  */
@@ -20838,6 +20848,7 @@ var MatSelectModule = /** @class */ (function () {
                     ],
                     exports: [MatFormFieldModule, MatSelect, MatSelectTrigger, MatOptionModule, MatCommonModule],
                     declarations: [MatSelect, MatSelectTrigger],
+                    providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER]
                 },] },
     ];
     /** @nocollapse */
@@ -31760,7 +31771,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-c05005a');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-3eb71c2');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32045,6 +32056,8 @@ exports.SELECT_ITEM_HEIGHT_EM = SELECT_ITEM_HEIGHT_EM;
 exports.SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_MULTIPLE_PANEL_PADDING_X;
 exports.SELECT_PANEL_VIEWPORT_PADDING = SELECT_PANEL_VIEWPORT_PADDING;
 exports.MAT_SELECT_SCROLL_STRATEGY = MAT_SELECT_SCROLL_STRATEGY;
+exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER = MAT_SELECT_SCROLL_STRATEGY_PROVIDER;
 exports.MatSelectChange = MatSelectChange;
 exports.MatSelectBase = MatSelectBase;
 exports._MatSelectMixinBase = _MatSelectMixinBase;
@@ -32162,7 +32175,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa17 = MatTreeNodeOutlet;
+exports.ɵa15 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

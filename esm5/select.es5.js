@@ -13,12 +13,12 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay, Overlay, ViewportRuler, OverlayModule } from '@angular/cdk/overlay';
-import { filter, take, map, switchMap, takeUntil, startWith } from 'rxjs/operators';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, inject, InjectionToken, Input, isDevMode, NgZone, Optional, Output, Self, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, isDevMode, NgZone, Optional, Output, Self, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { _countGroupLabelsBeforeOption, _getOptionScrollPosition, ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatOptgroup, MatOption, mixinDisabled, mixinDisableRipple, mixinErrorState, mixinTabIndex, MatCommonModule, MatOptionModule } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
-import { defer, Subject, merge } from 'rxjs';
+import { defer, merge, Subject } from 'rxjs';
+import { filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -163,13 +163,23 @@ var /** @type {?} */ SELECT_PANEL_VIEWPORT_PADDING = 8;
 /**
  * Injection token that determines the scroll handling while a select is open.
  */
-var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new InjectionToken('mat-select-scroll-strategy', {
-    providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay = inject(Overlay);
-        return function () { return overlay.scrollStrategies.reposition(); };
-    }
-});
+var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new InjectionToken('mat-select-scroll-strategy');
+/**
+ * \@docs-private
+ * @param {?} overlay
+ * @return {?}
+ */
+function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
+    return function () { return overlay.scrollStrategies.reposition(); };
+}
+/**
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
+    provide: MAT_SELECT_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
+};
 /**
  * Change event object that is emitted when the select value has changed.
  */
@@ -1767,6 +1777,7 @@ var MatSelectModule = /** @class */ (function () {
                     ],
                     exports: [MatFormFieldModule, MatSelect, MatSelectTrigger, MatOptionModule, MatCommonModule],
                     declarations: [MatSelect, MatSelectTrigger],
+                    providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER]
                 },] },
     ];
     /** @nocollapse */
@@ -1784,5 +1795,5 @@ var MatSelectModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatSelectModule, SELECT_PANEL_MAX_HEIGHT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_ITEM_HEIGHT_EM, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_VIEWPORT_PADDING, MAT_SELECT_SCROLL_STRATEGY, MatSelectChange, MatSelectBase, _MatSelectMixinBase, MatSelectTrigger, MatSelect, matSelectAnimations, transformPanel, fadeInContent };
+export { MatSelectModule, SELECT_PANEL_MAX_HEIGHT, SELECT_PANEL_PADDING_X, SELECT_PANEL_INDENT_PADDING_X, SELECT_ITEM_HEIGHT_EM, SELECT_MULTIPLE_PANEL_PADDING_X, SELECT_PANEL_VIEWPORT_PADDING, MAT_SELECT_SCROLL_STRATEGY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_SELECT_SCROLL_STRATEGY_PROVIDER, MatSelectChange, MatSelectBase, _MatSelectMixinBase, MatSelectTrigger, MatSelect, matSelectAnimations, transformPanel, fadeInContent };
 //# sourceMappingURL=select.es5.js.map

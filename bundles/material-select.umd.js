@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('rxjs/operators'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/select', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', 'rxjs/operators', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.Rx.operators,global.ng.core,global.ng.forms,global.ng.material.core,global.ng.material.formField,global.Rx,global.ng.common));
-}(this, (function (exports,animations,a11y,bidi,coercion,collections,keycodes,overlay,operators,core,forms,core$1,formField,rxjs,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs'), require('rxjs/operators'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/select', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs', 'rxjs/operators', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.core,global.ng.forms,global.ng.material.core,global.ng.material.formField,global.Rx,global.Rx.operators,global.ng.common));
+}(this, (function (exports,animations,a11y,bidi,coercion,collections,keycodes,overlay,core,forms,core$1,formField,rxjs,operators,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -179,13 +179,23 @@ var /** @type {?} */ SELECT_PANEL_VIEWPORT_PADDING = 8;
 /**
  * Injection token that determines the scroll handling while a select is open.
  */
-var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy', {
-    providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
-        return function () { return overlay$$1.scrollStrategies.reposition(); };
-    }
-});
+var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy');
+/**
+ * \@docs-private
+ * @param {?} overlay
+ * @return {?}
+ */
+function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
+    return function () { return overlay$$1.scrollStrategies.reposition(); };
+}
+/**
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
+    provide: MAT_SELECT_SCROLL_STRATEGY,
+    deps: [overlay.Overlay],
+    useFactory: MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
+};
 /**
  * Change event object that is emitted when the select value has changed.
  */
@@ -1783,6 +1793,7 @@ var MatSelectModule = /** @class */ (function () {
                     ],
                     exports: [formField.MatFormFieldModule, MatSelect, MatSelectTrigger, core$1.MatOptionModule, core$1.MatCommonModule],
                     declarations: [MatSelect, MatSelectTrigger],
+                    providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER]
                 },] },
     ];
     /** @nocollapse */
@@ -1798,6 +1809,8 @@ exports.SELECT_ITEM_HEIGHT_EM = SELECT_ITEM_HEIGHT_EM;
 exports.SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_MULTIPLE_PANEL_PADDING_X;
 exports.SELECT_PANEL_VIEWPORT_PADDING = SELECT_PANEL_VIEWPORT_PADDING;
 exports.MAT_SELECT_SCROLL_STRATEGY = MAT_SELECT_SCROLL_STRATEGY;
+exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
+exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER = MAT_SELECT_SCROLL_STRATEGY_PROVIDER;
 exports.MatSelectChange = MatSelectChange;
 exports.MatSelectBase = MatSelectBase;
 exports._MatSelectMixinBase = _MatSelectMixinBase;
