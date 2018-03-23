@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('@angular/core'), require('rxjs/operators/take'), require('rxjs/operators/takeUntil'), require('rxjs/Subject'), require('@angular/common'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/cdk/portal', '@angular/core', 'rxjs/operators/take', 'rxjs/operators/takeUntil', 'rxjs/Subject', '@angular/common', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.layout,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.cdk.portal,global.ng.core,global.Rx.operators,global.Rx.operators,global.Rx,global.ng.common,global.ng.material.core));
-}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,layout,overlay,platform,portal,core,take,takeUntil,Subject,common,core$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('rxjs/operators'), require('@angular/core'), require('rxjs'), require('@angular/common'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/cdk/portal', 'rxjs/operators', '@angular/core', 'rxjs', '@angular/common', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.layout,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.cdk.portal,global.Rx.operators,global.ng.core,global.Rx,global.ng.common,global.ng.material.core));
+}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,layout,overlay,platform,portal,operators,core,rxjs,common,core$1) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -129,7 +129,7 @@ var MatTooltip = /** @class */ (function () {
         /**
          * Emits when the component is destroyed.
          */
-        this._destroyed = new Subject.Subject();
+        this._destroyed = new rxjs.Subject();
         var /** @type {?} */ element = _elementRef.nativeElement;
         // The mouse events shouldn't be bound on iOS devices, because
         // they can prevent the first tap from firing its click event.
@@ -147,7 +147,7 @@ var MatTooltip = /** @class */ (function () {
             // the `user-select` to avoid these issues.
             element.style.webkitUserSelect = element.style.userSelect = '';
         }
-        _focusMonitor.monitor(element).pipe(takeUntil.takeUntil(this._destroyed)).subscribe(function (origin) {
+        _focusMonitor.monitor(element).pipe(operators.takeUntil(this._destroyed)).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
                 _ngZone.run(function () { return _this.hide(0); });
@@ -296,7 +296,7 @@ var MatTooltip = /** @class */ (function () {
         this._portal = this._portal || new portal.ComponentPortal(TooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
         this._tooltipInstance.afterHidden()
-            .pipe(takeUntil.takeUntil(this._destroyed))
+            .pipe(operators.takeUntil(this._destroyed))
             .subscribe(function () { return _this._detach(); });
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage(); /** @type {?} */
@@ -401,7 +401,7 @@ var MatTooltip = /** @class */ (function () {
         var /** @type {?} */ scrollableAncestors = this._scrollDispatcher
             .getAncestorScrollContainers(this._elementRef);
         strategy.withScrollableContainers(scrollableAncestors);
-        strategy.positionChanges.pipe(takeUntil.takeUntil(this._destroyed)).subscribe(function (change) {
+        strategy.positionChanges.pipe(operators.takeUntil(this._destroyed)).subscribe(function (change) {
             if (_this._tooltipInstance) {
                 if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {
                     // After position changes occur and the overlay is clipped by
@@ -424,7 +424,7 @@ var MatTooltip = /** @class */ (function () {
             scrollStrategy: this._scrollStrategy()
         });
         this._overlayRef.detachments()
-            .pipe(takeUntil.takeUntil(this._destroyed))
+            .pipe(operators.takeUntil(this._destroyed))
             .subscribe(function () { return _this._detach(); });
         return this._overlayRef;
     };
@@ -553,7 +553,7 @@ var MatTooltip = /** @class */ (function () {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = this.message;
             this._tooltipInstance._markForCheck();
-            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take.take(1), takeUntil.takeUntil(this._destroyed)).subscribe(function () {
+            this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1), operators.takeUntil(this._destroyed)).subscribe(function () {
                 if (_this._tooltipInstance) {
                     /** @type {?} */ ((_this._overlayRef)).updatePosition();
                 }
@@ -665,7 +665,7 @@ var TooltipComponent = /** @class */ (function () {
         /**
          * Subject for notifying that the tooltip has been hidden from the view
          */
-        this._onHide = new Subject.Subject();
+        this._onHide = new rxjs.Subject();
         /**
          * Stream that emits whether the user has a handset-sized display.
          */

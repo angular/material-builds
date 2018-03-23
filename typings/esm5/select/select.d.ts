@@ -13,7 +13,7 @@ import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter,
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanDisable, CanDisableRipple, CanUpdateErrorState, ErrorStateMatcher, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the alignment of the selected option over

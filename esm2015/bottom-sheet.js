@@ -7,10 +7,8 @@
  */
 import { InjectionToken, Component, ViewChild, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, EventEmitter, Inject, Optional, TemplateRef, Injectable, Injector, SkipSelf, NgModule } from '@angular/core';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { Subject } from 'rxjs/Subject';
-import { merge } from 'rxjs/observable/merge';
-import { filter } from 'rxjs/operators/filter';
-import { take } from 'rxjs/operators/take';
+import { Subject, merge, of } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalInjector, PortalModule } from '@angular/cdk/portal';
@@ -18,7 +16,6 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { of } from 'rxjs/observable/of';
 import { Directionality } from '@angular/cdk/bidi';
 
 /**

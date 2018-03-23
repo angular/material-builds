@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs/Subject'), require('@angular/core'), require('@angular/animations'), require('@angular/material/core'), require('@angular/cdk/portal'), require('rxjs/operators/take'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/cdk/overlay'), require('rxjs/operators/takeUntil'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/snackBar', ['exports', 'rxjs/Subject', '@angular/core', '@angular/animations', '@angular/material/core', '@angular/cdk/portal', 'rxjs/operators/take', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/cdk/overlay', 'rxjs/operators/takeUntil', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = {}),global.Rx,global.ng.core,global.ng.animations,global.ng.material.core,global.ng.cdk.portal,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.cdk.overlay,global.Rx.operators,global.ng.common));
-}(this, (function (exports,Subject,core,animations,core$1,portal,take,a11y,layout,overlay,takeUntil,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs'), require('@angular/core'), require('@angular/animations'), require('@angular/material/core'), require('@angular/cdk/portal'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/cdk/overlay'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/snackBar', ['exports', 'rxjs', '@angular/core', '@angular/animations', '@angular/material/core', '@angular/cdk/portal', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/cdk/overlay', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = {}),global.Rx,global.ng.core,global.ng.animations,global.ng.material.core,global.ng.cdk.portal,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.cdk.overlay,global.ng.common));
+}(this, (function (exports,rxjs,core,animations,core$1,portal,operators,a11y,layout,overlay,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -64,15 +64,15 @@ MatSnackBarRef = /** @class */ (function () {
         /**
          * Subject for notifying the user that the snack bar has been dismissed.
          */
-        this._afterDismissed = new Subject.Subject();
+        this._afterDismissed = new rxjs.Subject();
         /**
          * Subject for notifying the user that the snack bar has opened and appeared.
          */
-        this._afterOpened = new Subject.Subject();
+        this._afterOpened = new rxjs.Subject();
         /**
          * Subject for notifying the user that the snack bar action was called.
          */
-        this._onAction = new Subject.Subject();
+        this._onAction = new rxjs.Subject();
         /**
          * Whether the snack bar was dismissed using the action button.
          */
@@ -368,11 +368,11 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
         /**
          * Subject for notifying that the snack bar has exited from view.
          */
-        _this._onExit = new Subject.Subject();
+        _this._onExit = new rxjs.Subject();
         /**
          * Subject for notifying that the snack bar has finished entering the view.
          */
-        _this._onEnter = new Subject.Subject();
+        _this._onEnter = new rxjs.Subject();
         /**
          * The state of the snack bar animations.
          */
@@ -494,7 +494,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._ngZone.onMicrotaskEmpty.asObservable().pipe(take.take(1)).subscribe(function () {
+        this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1)).subscribe(function () {
             _this._onExit.next();
             _this._onExit.complete();
         });
@@ -773,7 +773,7 @@ var MatSnackBar = /** @class */ (function () {
         // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
         // appropriate. This class is applied to the overlay element because the overlay must expand to
         // fill the width of the screen for full width snackbars.
-        this._breakpointObserver.observe(layout.Breakpoints.Handset).pipe(takeUntil.takeUntil(overlayRef.detachments().pipe(take.take(1)))).subscribe(function (state$$1) {
+        this._breakpointObserver.observe(layout.Breakpoints.Handset).pipe(operators.takeUntil(overlayRef.detachments().pipe(operators.take(1)))).subscribe(function (state$$1) {
             if (state$$1.matches) {
                 overlayRef.overlayElement.classList.add('mat-snack-bar-handset');
             }

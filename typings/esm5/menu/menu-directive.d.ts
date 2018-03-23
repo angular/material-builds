@@ -1,7 +1,7 @@
 import { Direction } from '@angular/cdk/bidi';
 import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, OnDestroy, QueryList, TemplateRef, NgZone, OnInit } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
 import { MatMenuContent } from './menu-content';

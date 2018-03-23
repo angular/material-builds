@@ -9,7 +9,7 @@ import { FocusableOption } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 /** Represents an event fired on an individual `mat-chip`. */
 export interface MatChipEvent {
     /** The chip the event was fired on. */

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs/Subject'), require('@angular/cdk/coercion'), require('@angular/common'), require('@angular/material/button'), require('@angular/material/select'), require('@angular/material/tooltip')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/paginator', ['exports', '@angular/core', 'rxjs/Subject', '@angular/cdk/coercion', '@angular/common', '@angular/material/button', '@angular/material/select', '@angular/material/tooltip'], factory) :
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('@angular/cdk/coercion'), require('@angular/common'), require('@angular/material/button'), require('@angular/material/select'), require('@angular/material/tooltip')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/paginator', ['exports', '@angular/core', 'rxjs', '@angular/cdk/coercion', '@angular/common', '@angular/material/button', '@angular/material/select', '@angular/material/tooltip'], factory) :
 	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = {}),global.ng.core,global.Rx,global.ng.cdk.coercion,global.ng.common,global.ng.material.button,global.ng.material.select,global.ng.material.tooltip));
-}(this, (function (exports,core,Subject,coercion,common,button,select,tooltip) { 'use strict';
+}(this, (function (exports,core,rxjs,coercion,common,button,select,tooltip) { 'use strict';
 
 /**
  * @fileoverview added by tsickle
@@ -25,7 +25,7 @@ var MatPaginatorIntl = /** @class */ (function () {
          * Stream that emits whenever the labels here are changed. Use this to notify
          * components if the labels have changed after initialization.
          */
-        this.changes = new Subject.Subject();
+        this.changes = new rxjs.Subject();
         /**
          * A label for the page size selector.
          */

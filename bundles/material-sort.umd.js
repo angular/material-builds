@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs/Subject'), require('@angular/animations'), require('@angular/cdk/table'), require('rxjs/observable/merge'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/material/core', 'rxjs/Subject', '@angular/animations', '@angular/cdk/table', 'rxjs/observable/merge', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}),global.ng.core,global.ng.cdk.coercion,global.ng.material.core,global.Rx,global.ng.animations,global.ng.cdk.table,global.Rx.Observable,global.ng.common));
-}(this, (function (exports,core,coercion,core$1,Subject,animations,table,merge,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/table'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/cdk/table', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}),global.ng.core,global.ng.cdk.coercion,global.ng.material.core,global.Rx,global.ng.animations,global.ng.cdk.table,global.ng.common));
+}(this, (function (exports,core,coercion,core$1,rxjs,animations,table,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -103,7 +103,7 @@ var MatSort = /** @class */ (function (_super) {
         /**
          * Used to notify any child components listening to state changes.
          */
-        _this._stateChanges = new Subject.Subject();
+        _this._stateChanges = new rxjs.Subject();
         /**
          * The direction to set when an MatSortable is initially sorted.
          * May be overriden by the MatSortable's sort start.
@@ -307,7 +307,7 @@ var MatSortHeaderIntl = /** @class */ (function () {
          * Stream that emits whenever the labels here are changed. Use this to notify
          * components if the labels have changed after initialization.
          */
-        this.changes = new Subject.Subject();
+        this.changes = new rxjs.Subject();
         /**
          * ARIA label for the sorting button.
          */
@@ -477,7 +477,7 @@ var MatSortHeader = /** @class */ (function (_super) {
         if (!_sort) {
             throw getSortHeaderNotContainedWithinSortError();
         }
-        _this._rerenderSubscription = merge.merge(_sort.sortChange, _sort._stateChanges, _intl.changes)
+        _this._rerenderSubscription = rxjs.merge(_sort.sortChange, _sort._stateChanges, _intl.changes)
             .subscribe(function () {
             if (_this._isSorted()) {
                 _this._updateArrowDirection();

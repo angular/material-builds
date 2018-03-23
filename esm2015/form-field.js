@@ -10,9 +10,8 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MAT_LABEL_GLOBAL_OPTIONS, mixinColor } from '@angular/material/core';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { startWith } from 'rxjs/operators/startWith';
-import { take } from 'rxjs/operators/take';
+import { fromEvent } from 'rxjs';
+import { startWith, take } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 
 /**

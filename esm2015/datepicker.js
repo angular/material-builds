@@ -6,25 +6,20 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Host, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, inject, InjectionToken, ViewContainerRef, Directive, ContentChild, defineInjectable } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
-import { take } from 'rxjs/operators/take';
+import { Subject, merge, Subscription, of } from 'rxjs';
+import { take, takeUntil, filter } from 'rxjs/operators';
 import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, ESCAPE } from '@angular/cdk/keycodes';
 import { DateAdapter, MAT_DATE_FORMATS, mixinColor } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { ComponentPortal, PortalModule } from '@angular/cdk/portal';
-import { takeUntil } from 'rxjs/operators/takeUntil';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { merge } from 'rxjs/observable/merge';
-import { filter } from 'rxjs/operators/filter';
-import { Subscription } from 'rxjs/Subscription';
 import { NG_VALIDATORS, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
 import { MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
-import { of } from 'rxjs/observable/of';
 import { A11yModule } from '@angular/cdk/a11y';
 import { MatButtonModule } from '@angular/material/button';
 

@@ -8,7 +8,7 @@
 import { ComponentType, Portal } from '@angular/cdk/portal';
 import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { MatDatepickerIntl } from './datepicker-intl';
 import { MatMonthView } from './month-view';
 import { MatMultiYearView } from './multi-year-view';

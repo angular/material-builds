@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/accordion'), require('@angular/animations'), require('@angular/cdk/collections'), require('@angular/cdk/portal'), require('rxjs/Subject'), require('rxjs/operators/take'), require('rxjs/operators/filter'), require('rxjs/operators/startWith'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/expansion', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/accordion', '@angular/animations', '@angular/cdk/collections', '@angular/cdk/portal', 'rxjs/Subject', 'rxjs/operators/take', 'rxjs/operators/filter', 'rxjs/operators/startWith', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = {}),global.ng.core,global.ng.cdk.coercion,global.ng.cdk.accordion,global.ng.animations,global.ng.cdk.collections,global.ng.cdk.portal,global.Rx,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.keycodes,global.Rx.Observable,global.Rx,global.ng.common));
-}(this, (function (exports,core,coercion,accordion,animations,collections,portal,Subject,take,filter,startWith,a11y,keycodes,merge,Subscription,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/accordion'), require('@angular/animations'), require('@angular/cdk/collections'), require('@angular/cdk/portal'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/expansion', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/accordion', '@angular/animations', '@angular/cdk/collections', '@angular/cdk/portal', 'rxjs', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/keycodes', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = {}),global.ng.core,global.ng.cdk.coercion,global.ng.cdk.accordion,global.ng.animations,global.ng.cdk.collections,global.ng.cdk.portal,global.Rx,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.keycodes,global.ng.common));
+}(this, (function (exports,core,coercion,accordion,animations,collections,portal,rxjs,operators,a11y,keycodes,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -182,7 +182,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         /**
          * Stream that emits for changes in `\@Input` properties.
          */
-        _this._inputChanges = new Subject.Subject();
+        _this._inputChanges = new rxjs.Subject();
         /**
          * ID for the associated header element. Used for a11y labelling.
          */
@@ -258,7 +258,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         var _this = this;
         if (this._lazyContent) {
             // Render the content as soon as the panel becomes open.
-            this.opened.pipe(startWith.startWith(/** @type {?} */ ((null))), filter.filter(function () { return _this.expanded && !_this._portal; }), take.take(1)).subscribe(function () {
+            this.opened.pipe(operators.startWith(/** @type {?} */ ((null))), operators.filter(function () { return _this.expanded && !_this._portal; }), operators.take(1)).subscribe(function () {
                 _this._portal = new portal.TemplatePortal(_this._lazyContent._template, _this._viewContainerRef);
             });
         }
@@ -369,10 +369,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._element = _element;
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
-        this._parentChangeSubscription = Subscription.Subscription.EMPTY;
+        this._parentChangeSubscription = rxjs.Subscription.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to  subscribe and trigger change detection manually.
-        this._parentChangeSubscription = merge.merge(panel.opened, panel.closed, panel._inputChanges.pipe(filter.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
+        this._parentChangeSubscription = rxjs.merge(panel.opened, panel.closed, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         _focusMonitor.monitor(_element.nativeElement);
     }

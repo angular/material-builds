@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/keycodes'), require('rxjs/Subject'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('@angular/animations'), require('@angular/material/core'), require('@angular/cdk/portal'), require('@angular/cdk/layout'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('rxjs/observable/of'), require('@angular/cdk/bidi')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/bottomSheet', ['exports', '@angular/core', '@angular/cdk/keycodes', 'rxjs/Subject', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/operators/take', '@angular/animations', '@angular/material/core', '@angular/cdk/portal', '@angular/cdk/layout', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/overlay', 'rxjs/observable/of', '@angular/cdk/bidi'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = {}),global.ng.core,global.ng.cdk.keycodes,global.Rx,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.animations,global.ng.material.core,global.ng.cdk.portal,global.ng.cdk.layout,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.overlay,global.Rx.Observable,global.ng.cdk.bidi));
-}(this, (function (exports,core,keycodes,Subject,merge,filter,take,animations,core$1,portal,layout,common,a11y,overlay,of,bidi) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/keycodes'), require('rxjs'), require('rxjs/operators'), require('@angular/animations'), require('@angular/material/core'), require('@angular/cdk/portal'), require('@angular/cdk/layout'), require('@angular/common'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/bidi')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/bottomSheet', ['exports', '@angular/core', '@angular/cdk/keycodes', 'rxjs', 'rxjs/operators', '@angular/animations', '@angular/material/core', '@angular/cdk/portal', '@angular/cdk/layout', '@angular/common', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/bidi'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.bottomSheet = {}),global.ng.core,global.ng.cdk.keycodes,global.Rx,global.Rx.operators,global.ng.animations,global.ng.material.core,global.ng.cdk.portal,global.ng.cdk.layout,global.ng.common,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.bidi));
+}(this, (function (exports,core,keycodes,rxjs,operators,animations,core$1,portal,layout,common,a11y,overlay,bidi) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -102,27 +102,27 @@ MatBottomSheetRef = /** @class */ (function () {
         /**
          * Subject for notifying the user that the bottom sheet has been dismissed.
          */
-        this._afterDismissed = new Subject.Subject();
+        this._afterDismissed = new rxjs.Subject();
         /**
          * Subject for notifying the user that the bottom sheet has opened and appeared.
          */
-        this._afterOpened = new Subject.Subject();
+        this._afterOpened = new rxjs.Subject();
         this.containerInstance = containerInstance;
         // Emit when opening animation completes
-        containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), take.take(1))
+        containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), operators.take(1))
             .subscribe(function () {
             _this._afterOpened.next();
             _this._afterOpened.complete();
         });
         // Dispose overlay when closing animation is complete
-        containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), take.take(1))
+        containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), operators.take(1))
             .subscribe(function () {
             _this._overlayRef.dispose();
             _this._afterDismissed.next(_this._result);
             _this._afterDismissed.complete();
         });
         if (!containerInstance.bottomSheetConfig.disableClose) {
-            merge.merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(filter.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
+            rxjs.merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
         }
     }
     /**
@@ -143,7 +143,7 @@ MatBottomSheetRef = /** @class */ (function () {
         var _this = this;
         if (!this._afterDismissed.closed) {
             // Transition the backdrop in parallel to the bottom sheet.
-            this.containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'start'; }), take.take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
+            this.containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'start'; }), operators.take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
             this._result = result;
             this.containerInstance.exit();
         }
@@ -652,7 +652,7 @@ var MatBottomSheet = /** @class */ (function () {
         if (!userInjector || !userInjector.get(bidi.Directionality, null)) {
             injectionTokens.set(bidi.Directionality, {
                 value: config.direction,
-                change: of.of()
+                change: rxjs.of()
             });
         }
         return new portal.PortalInjector(userInjector || this._injector, injectionTokens);

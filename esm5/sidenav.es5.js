@@ -12,18 +12,10 @@ import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coerci
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
 import { CdkScrollable, ScrollDispatchModule } from '@angular/cdk/scrolling';
-import { DOCUMENT, CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, NgZone, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
-import 'rxjs/Observable';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { merge } from 'rxjs/observable/merge';
-import { debounceTime } from 'rxjs/operators/debounceTime';
-import { filter } from 'rxjs/operators/filter';
-import { map } from 'rxjs/operators/map';
-import { startWith } from 'rxjs/operators/startWith';
-import { take } from 'rxjs/operators/take';
-import { takeUntil } from 'rxjs/operators/takeUntil';
-import { Subject } from 'rxjs/Subject';
+import { DOCUMENT, CommonModule } from '@angular/common';
+import { filter, take, startWith, takeUntil, map, debounceTime } from 'rxjs/operators';
+import { merge, fromEvent, Subject } from 'rxjs';
 import { __extends } from 'tslib';
 import { MatCommonModule } from '@angular/material/core';
 

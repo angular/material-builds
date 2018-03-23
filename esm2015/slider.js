@@ -12,7 +12,7 @@ import { DOWN_ARROW, END, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { mixinColor, mixinDisabled, mixinTabIndex, GestureConfig, MatCommonModule } from '@angular/material/core';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 

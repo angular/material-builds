@@ -5,19 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { catchError } from 'rxjs/operators/catchError';
-import { tap } from 'rxjs/operators/tap';
-import { finalize } from 'rxjs/operators/finalize';
-import { map } from 'rxjs/operators/map';
-import { share } from 'rxjs/operators/share';
+import { catchError, tap, finalize, map, share, take } from 'rxjs/operators';
 import { Injectable, Inject, Optional, SecurityContext, SkipSelf, NgModule, Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation, defineInjectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer } from '@angular/platform-browser';
-import { forkJoin } from 'rxjs/observable/forkJoin';
-import { of } from 'rxjs/observable/of';
-import { _throw } from 'rxjs/observable/throw';
+import { forkJoin, of, throwError } from 'rxjs';
 import { DOCUMENT } from '@angular/common';
-import { take } from 'rxjs/operators/take';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 
@@ -242,7 +235,7 @@ class MatIconRegistry {
         if (iconSetConfigs) {
             return this._getSvgFromIconSetConfigs(name, iconSetConfigs);
         }
-        return _throw(getMatIconNameNotFoundError(key));
+        return throwError(getMatIconNameNotFoundError(key));
     }
     /**
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.

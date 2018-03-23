@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/cdk/scrolling'), require('@angular/common'), require('@angular/core'), require('rxjs/Observable'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/operators/debounceTime'), require('rxjs/operators/filter'), require('rxjs/operators/map'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('rxjs/operators/takeUntil'), require('rxjs/Subject'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/sidenav', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/cdk/scrolling', '@angular/common', '@angular/core', 'rxjs/Observable', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/operators/debounceTime', 'rxjs/operators/filter', 'rxjs/operators/map', 'rxjs/operators/startWith', 'rxjs/operators/take', 'rxjs/operators/takeUntil', 'rxjs/Subject', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.cdk.scrolling,global.ng.common,global.ng.core,global.Rx,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx,global.ng.material.core));
-}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,platform,scrolling,common,core,Observable,fromEvent,merge,debounceTime,filter,map,startWith,take,takeUntil,Subject,core$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/cdk/scrolling'), require('@angular/core'), require('@angular/common'), require('rxjs/operators'), require('rxjs'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/sidenav', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/cdk/scrolling', '@angular/core', '@angular/common', 'rxjs/operators', 'rxjs', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.cdk.scrolling,global.ng.core,global.ng.common,global.Rx.operators,global.Rx,global.ng.material.core));
+}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,platform,scrolling,core,common,operators,rxjs,core$1) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -163,7 +163,7 @@ var MatDrawer = /** @class */ (function () {
          * An observable that emits when the drawer mode changes. This is used by the drawer container to
          * to know when to when the mode changes so it can adapt the margins on the content.
          */
-        this._modeChanged = new Subject.Subject();
+        this._modeChanged = new rxjs.Subject();
         this._opened = false;
         this.openedChange.subscribe(function (opened) {
             if (opened) {
@@ -184,7 +184,7 @@ var MatDrawer = /** @class */ (function () {
              * and we don't have close disabled.
              */
         this._ngZone.runOutsideAngular(function () {
-            fromEvent.fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(filter.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; })).subscribe(function (event) {
+            rxjs.fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; })).subscribe(function (event) {
                 return _this._ngZone.run(function () {
                     _this.close();
                     event.stopPropagation();
@@ -250,7 +250,7 @@ var MatDrawer = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this.openedChange.pipe(filter.filter(function (o) { return o; }), map.map(function () { }));
+            return this.openedChange.pipe(operators.filter(function (o) { return o; }), operators.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -261,7 +261,7 @@ var MatDrawer = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this._animationStarted.pipe(filter.filter(function (e) { return e.fromState !== e.toState && e.toState.indexOf('open') === 0; }), map.map(function () { }));
+            return this._animationStarted.pipe(operators.filter(function (e) { return e.fromState !== e.toState && e.toState.indexOf('open') === 0; }), operators.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -272,7 +272,7 @@ var MatDrawer = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this.openedChange.pipe(filter.filter(function (o) { return !o; }), map.map(function () { }));
+            return this.openedChange.pipe(operators.filter(function (o) { return !o; }), operators.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -283,7 +283,7 @@ var MatDrawer = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this._animationStarted.pipe(filter.filter(function (e) { return e.fromState !== e.toState && e.toState === 'void'; }), map.map(function () { }));
+            return this._animationStarted.pipe(operators.filter(function (e) { return e.fromState !== e.toState && e.toState === 'void'; }), operators.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -460,7 +460,7 @@ var MatDrawer = /** @class */ (function () {
             this._focusTrap.enabled = this._isFocusTrapEnabled;
         }
         return new Promise(function (resolve) {
-            _this.openedChange.pipe(take.take(1)).subscribe(function (open) { return resolve(open ? 'open' : 'close'); });
+            _this.openedChange.pipe(operators.take(1)).subscribe(function (open) { return resolve(open ? 'open' : 'close'); });
         });
     };
     /**
@@ -565,16 +565,16 @@ var MatDrawerContainer = /** @class */ (function () {
         /**
          * Emits when the component is destroyed.
          */
-        this._destroyed = new Subject.Subject();
+        this._destroyed = new rxjs.Subject();
         /**
          * Emits on every ngDoCheck. Used for debouncing reflows.
          */
-        this._doCheckSubject = new Subject.Subject();
-        this._contentMargins = new Subject.Subject();
+        this._doCheckSubject = new rxjs.Subject();
+        this._contentMargins = new rxjs.Subject();
         // If a `Dir` directive exists up the tree, listen direction changes
         // and update the left/right properties to point to the proper start/end.
         if (_dir) {
-            _dir.change.pipe(takeUntil.takeUntil(this._destroyed)).subscribe(function () {
+            _dir.change.pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
                 _this._validateDrawers();
                 _this._updateContentMargins();
             });
@@ -651,7 +651,7 @@ var MatDrawerContainer = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this._drawers.changes.pipe(startWith.startWith(null)).subscribe(function () {
+        this._drawers.changes.pipe(operators.startWith(null)).subscribe(function () {
             _this._validateDrawers();
             _this._drawers.forEach(function (drawer) {
                 _this._watchDrawerToggle(drawer);
@@ -665,9 +665,9 @@ var MatDrawerContainer = /** @class */ (function () {
             }
             _this._changeDetectorRef.markForCheck();
         });
-        this._doCheckSubject.pipe(debounceTime.debounceTime(10), // Arbitrary debounce time, less than a frame at 60fps
+        this._doCheckSubject.pipe(operators.debounceTime(10), // Arbitrary debounce time, less than a frame at 60fps
         // Arbitrary debounce time, less than a frame at 60fps
-        takeUntil.takeUntil(this._destroyed)).subscribe(function () { return _this._updateContentMargins(); });
+        operators.takeUntil(this._destroyed)).subscribe(function () { return _this._updateContentMargins(); });
     };
     /**
      * @return {?}
@@ -734,7 +734,7 @@ var MatDrawerContainer = /** @class */ (function () {
      */
     function (drawer) {
         var _this = this;
-        drawer._animationStarted.pipe(takeUntil.takeUntil(this._drawers.changes), filter.filter(function (event) { return event.fromState !== event.toState; }))
+        drawer._animationStarted.pipe(operators.takeUntil(this._drawers.changes), operators.filter(function (event) { return event.fromState !== event.toState; }))
             .subscribe(function (event) {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
@@ -745,7 +745,7 @@ var MatDrawerContainer = /** @class */ (function () {
             _this._changeDetectorRef.markForCheck();
         });
         if (drawer.mode !== 'side') {
-            drawer.openedChange.pipe(takeUntil.takeUntil(this._drawers.changes)).subscribe(function () {
+            drawer.openedChange.pipe(operators.takeUntil(this._drawers.changes)).subscribe(function () {
                 return _this._setContainerClass(drawer.opened);
             });
         }
@@ -769,8 +769,8 @@ var MatDrawerContainer = /** @class */ (function () {
         }
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping positions at the same time.
-        drawer.onPositionChanged.pipe(takeUntil.takeUntil(this._drawers.changes)).subscribe(function () {
-            _this._ngZone.onMicrotaskEmpty.asObservable().pipe(take.take(1)).subscribe(function () {
+        drawer.onPositionChanged.pipe(operators.takeUntil(this._drawers.changes)).subscribe(function () {
+            _this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1)).subscribe(function () {
                 _this._validateDrawers();
             });
         });
@@ -788,7 +788,7 @@ var MatDrawerContainer = /** @class */ (function () {
     function (drawer) {
         var _this = this;
         if (drawer) {
-            drawer._modeChanged.pipe(takeUntil.takeUntil(merge.merge(this._drawers.changes, this._destroyed)))
+            drawer._modeChanged.pipe(operators.takeUntil(rxjs.merge(this._drawers.changes, this._destroyed)))
                 .subscribe(function () {
                 _this._updateContentMargins();
                 _this._changeDetectorRef.markForCheck();

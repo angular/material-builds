@@ -8,8 +8,8 @@
 import { ComponentRef, EmbeddedViewRef, NgZone, OnDestroy, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { BasePortalOutlet, ComponentPortal, CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { MatSnackBarConfig } from './snack-bar-config';
 /**
  * Internal component that wraps user-provided snack bar content.

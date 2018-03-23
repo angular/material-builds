@@ -12,7 +12,7 @@ import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter,
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanUpdateErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { MatChip, MatChipEvent, MatChipSelectionChange } from './chip';
 import { MatChipInput } from './chip-input';
 /** @docs-private */

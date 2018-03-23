@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/keycodes'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/keycodes', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.keycodes,global.ng.common));
-}(this, (function (exports,core,bidi,coercion,Subject,Observable,platform,platformBrowser,keycodes,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/keycodes'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/keycodes', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.keycodes,global.ng.common));
+}(this, (function (exports,core,bidi,coercion,rxjs,platform,platformBrowser,keycodes,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -409,7 +409,7 @@ function mixinErrorState(base) {
              * Stream that emits whenever the state of the input changes such that the wrapping
              * `MatFormField` needs to run change detection.
              */
-            _this.stateChanges = new Subject.Subject();
+            _this.stateChanges = new rxjs.Subject();
             return _this;
         }
         /**
@@ -466,7 +466,7 @@ function mixinInitialized(base) {
              * Observable stream that emits when the directive initializes. If already initialized, the
              * subscriber is stored to be notified once _markInitialized is called.
              */
-            _this.initialized = new Observable.Observable(function (subscriber) {
+            _this.initialized = new rxjs.Observable(function (subscriber) {
                 // If initialized, immediately notify the subscriber. Otherwise store the subscriber to notify
                 // when _markInitialized is called.
                 if (_this._isInitialized) {
@@ -551,7 +551,7 @@ var   /**
  */
 DateAdapter = /** @class */ (function () {
     function DateAdapter() {
-        this._localeChanges = new Subject.Subject();
+        this._localeChanges = new rxjs.Subject();
     }
     Object.defineProperty(DateAdapter.prototype, "localeChanges", {
         /** A stream that emits when the locale changes. */
@@ -2317,7 +2317,7 @@ var MatOption = /** @class */ (function () {
         /**
          * Emits when the state of the option changes and any parents have to be notified.
          */
-        this._stateChanges = new Subject.Subject();
+        this._stateChanges = new rxjs.Subject();
     }
     Object.defineProperty(MatOption.prototype, "multiple", {
         /** Whether the wrapping component is in multiple selection mode. */

@@ -1,7 +1,7 @@
 import { Optional } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 /**
  * Returns an exception to be thrown in the case when attempting to
  * load an icon with a name that cannot be found.

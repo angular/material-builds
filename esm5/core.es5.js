@@ -9,8 +9,7 @@ import { NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_I
 import { BidiModule } from '@angular/cdk/bidi';
 import { __extends, __assign } from 'tslib';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';

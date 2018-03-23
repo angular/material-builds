@@ -6,8 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { InjectionToken } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
 /** InjectionToken for datepicker that can be used to override default locale code. */
 export declare const MAT_DATE_LOCALE: InjectionToken<string>;
 /** Adapts type `D` to be usable as a date by cdk-based components that work with dates. */

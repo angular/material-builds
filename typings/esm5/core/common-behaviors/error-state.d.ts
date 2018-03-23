@@ -8,7 +8,7 @@
 import { Constructor } from './constructor';
 import { ErrorStateMatcher } from '../error/error-options';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 /** @docs-private */
 export interface CanUpdateErrorState {
     updateErrorState(): any;

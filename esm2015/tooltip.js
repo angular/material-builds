@@ -14,10 +14,9 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Overlay, ScrollDispatcher, OverlayModule } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
+import { take, takeUntil } from 'rxjs/operators';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, inject, InjectionToken, Input, NgZone, Optional, ViewContainerRef, ViewEncapsulation, NgModule } from '@angular/core';
-import { take } from 'rxjs/operators/take';
-import { takeUntil } from 'rxjs/operators/takeUntil';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 

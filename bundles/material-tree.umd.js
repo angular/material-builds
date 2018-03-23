@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/tree'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/collections'), require('rxjs/observable/merge'), require('rxjs/operators/map'), require('rxjs/operators/take'), require('rxjs/BehaviorSubject')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/tree', ['exports', '@angular/core', '@angular/cdk/tree', '@angular/material/core', '@angular/common', '@angular/cdk/collections', 'rxjs/observable/merge', 'rxjs/operators/map', 'rxjs/operators/take', 'rxjs/BehaviorSubject'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = {}),global.ng.core,global.ng.cdk.tree,global.ng.material.core,global.ng.common,global.ng.cdk.collections,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx));
-}(this, (function (exports,core,tree,core$1,common,collections,merge,map,take,BehaviorSubject) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/tree'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/collections'), require('rxjs'), require('rxjs/operators')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/tree', ['exports', '@angular/core', '@angular/cdk/tree', '@angular/material/core', '@angular/common', '@angular/cdk/collections', 'rxjs', 'rxjs/operators'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = {}),global.ng.core,global.ng.cdk.tree,global.ng.material.core,global.ng.common,global.ng.cdk.collections,global.Rx,global.Rx.operators));
+}(this, (function (exports,core,tree,core$1,common,collections,rxjs,operators) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -396,7 +396,7 @@ MatTreeFlattener = /** @class */ (function () {
         var /** @type {?} */ flatNode = this.transformFunction(node, level);
         resultNodes.push(flatNode);
         if (this.isExpandable(flatNode)) {
-            this.getChildren(node).pipe(take.take(1)).subscribe(function (children) {
+            this.getChildren(node).pipe(operators.take(1)).subscribe(function (children) {
                 children.forEach(function (child, index) {
                     var /** @type {?} */ childParentMap = parentMap.slice();
                     childParentMap.push(index != children.length - 1);
@@ -493,9 +493,9 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.treeControl = treeControl;
         _this.treeFlattener = treeFlattener;
-        _this._flattenedData = new BehaviorSubject.BehaviorSubject([]);
-        _this._expandedData = new BehaviorSubject.BehaviorSubject([]);
-        _this._data = new BehaviorSubject.BehaviorSubject(initialData);
+        _this._flattenedData = new rxjs.BehaviorSubject([]);
+        _this._expandedData = new rxjs.BehaviorSubject([]);
+        _this._data = new rxjs.BehaviorSubject(initialData);
         return _this;
     }
     Object.defineProperty(MatTreeFlatDataSource.prototype, "data", {
@@ -530,7 +530,7 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
             /** @type {?} */ ((this.treeControl.expansionModel.onChange)),
             this._flattenedData
         ];
-        return merge.merge.apply(void 0, changes).pipe(map.map(function () {
+        return rxjs.merge.apply(void 0, changes).pipe(operators.map(function () {
             _this._expandedData.next(_this.treeFlattener.expandFlattenedNodes(_this._flattenedData.value, _this.treeControl));
             return _this._expandedData.value;
         }));
@@ -569,7 +569,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
     __extends(MatTreeNestedDataSource, _super);
     function MatTreeNestedDataSource() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this._data = new BehaviorSubject.BehaviorSubject([]);
+        _this._data = new rxjs.BehaviorSubject([]);
         return _this;
     }
     Object.defineProperty(MatTreeNestedDataSource.prototype, "data", {
@@ -599,7 +599,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
      */
     function (collectionViewer) {
         var _this = this;
-        return merge.merge.apply(void 0, [collectionViewer.viewChange, this._data]).pipe(map.map(function () {
+        return rxjs.merge.apply(void 0, [collectionViewer.viewChange, this._data]).pipe(operators.map(function () {
             return _this.data;
         }));
     };
@@ -627,7 +627,7 @@ exports.MatTreeNodeToggle = MatTreeNodeToggle;
 exports.MatTreeFlattener = MatTreeFlattener;
 exports.MatTreeFlatDataSource = MatTreeFlatDataSource;
 exports.MatTreeNestedDataSource = MatTreeNestedDataSource;
-exports.ɵa13 = MatTreeNodeOutlet;
+exports.ɵa17 = MatTreeNodeOutlet;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 /** Stepper data that is required for internationalization. */
 export declare class MatStepperIntl {
     /**

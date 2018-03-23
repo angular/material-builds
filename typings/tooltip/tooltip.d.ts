@@ -12,7 +12,7 @@ import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 import { ConnectionPositionPair, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollDispatcher, ScrollStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'before' | 'after';
 /** Time in ms to throttle repositioning after scroll events. */
 export declare const SCROLL_THROTTLE_MS = 20;

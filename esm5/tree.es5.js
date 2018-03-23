@@ -11,10 +11,8 @@ import { CdkNestedTreeNode, CdkTree, CdkTreeNodeDef, CdkTreeNode, CdkTreeNodePad
 import { mixinTabIndex, mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { DataSource } from '@angular/cdk/collections';
-import { merge } from 'rxjs/observable/merge';
-import { map } from 'rxjs/operators/map';
-import { take } from 'rxjs/operators/take';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { merge, BehaviorSubject } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
@@ -604,5 +602,5 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa13 };
+export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource, MatTreeNodeOutlet as ɵa17 };
 //# sourceMappingURL=tree.es5.js.map

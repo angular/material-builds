@@ -15,18 +15,10 @@ import { DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW } from '@angular/cdk/keycodes'
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
+import { filter, take, switchMap, delay, tap } from 'rxjs/operators';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
-import { defer } from 'rxjs/observable/defer';
-import { fromEvent } from 'rxjs/observable/fromEvent';
-import { merge } from 'rxjs/observable/merge';
-import { of } from 'rxjs/observable/of';
-import { delay } from 'rxjs/operators/delay';
-import { filter } from 'rxjs/operators/filter';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { take } from 'rxjs/operators/take';
-import { tap } from 'rxjs/operators/tap';
-import { Subject } from 'rxjs/Subject';
+import { defer, fromEvent, merge, of, Subject } from 'rxjs';
 
 /**
  * @fileoverview added by tsickle

@@ -10,11 +10,8 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation, Directive, Eleme
 import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { combineLatest } from 'rxjs/operators/combineLatest';
-import { map } from 'rxjs/operators/map';
-import { startWith } from 'rxjs/operators/startWith';
-import { empty } from 'rxjs/observable/empty';
+import { BehaviorSubject, combineLatest, empty } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { _isNumberValue } from '@angular/cdk/coercion';
 
 /**
@@ -522,27 +519,32 @@ MatTableDataSource = /** @class */ (function (_super) {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // Otherwise, use an empty observable stream to take their place.
-        var /** @type {?} */ sortChange = /** @type {?} */ ((this._sort ? this._sort.sortChange : empty()));
-        var /** @type {?} */ pageChange = /** @type {?} */ ((this._paginator ? this._paginator.page : empty()));
+        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : empty();
+        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : empty();
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }
+        var /** @type {?} */ dataStream = this._data;
         // Watch for base data or filter changes to provide a filtered set of data.
-        this._renderChangesSubscription = this._data.pipe(combineLatest(this._filter), map(function (_a) {
+        var /** @type {?} */ filteredData = combineLatest(dataStream, this._filter)
+            .pipe(map(function (_a) {
             var data = _a[0];
             return _this._filterData(data);
-        }), 
+        }));
         // Watch for filtered data or sort changes to provide an ordered set of data.
-        combineLatest(sortChange.pipe(startWith(null))), map(function (_a) {
+        var /** @type {?} */ orderedData = combineLatest(filteredData, sortChange.pipe(startWith(/** @type {?} */ ((null)))))
+            .pipe(map(function (_a) {
             var data = _a[0];
             return _this._orderData(data);
-        }), 
+        }));
         // Watch for ordered data or page changes to provide a paged set of data.
-        combineLatest(pageChange.pipe(startWith(null))), map(function (_a) {
+        var /** @type {?} */ paginatedData = combineLatest(orderedData, pageChange.pipe(startWith(/** @type {?} */ ((null)))))
+            .pipe(map(function (_a) {
             var data = _a[0];
             return _this._pageData(data);
-        }))
-            .subscribe(function (data) { return _this._renderData.next(data); });
+        }));
+        // Watched for paged data changes and send the result to the table to render.
+        paginatedData.subscribe(function (data) { return _this._renderData.next(data); });
     };
     /**
      * Returns a filtered data array where each filter object contains the filter string within

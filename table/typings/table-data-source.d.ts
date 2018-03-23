@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { DataSource } from '@angular/cdk/table';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { Subscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
  * sorting (using MatSort), and pagination (using MatPaginator).

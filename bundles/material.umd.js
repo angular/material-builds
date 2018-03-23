@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subject'), require('rxjs/Observable'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/forms'), require('rxjs/observable/defer'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('rxjs/operators/delay'), require('rxjs/operators/filter'), require('rxjs/operators/switchMap'), require('rxjs/operators/tap'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('rxjs/Subscription'), require('@angular/cdk/text-field'), require('rxjs/operators/takeUntil'), require('@angular/cdk/accordion'), require('rxjs/operators/catchError'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/common/http'), require('rxjs/observable/forkJoin'), require('rxjs/observable/throw'), require('@angular/cdk/scrolling'), require('rxjs/operators/debounceTime'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/observable/empty'), require('@angular/cdk/tree')) :
-	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subject', 'rxjs/Observable', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', 'rxjs/operators/take', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/forms', 'rxjs/observable/defer', 'rxjs/observable/merge', 'rxjs/observable/of', 'rxjs/operators/delay', 'rxjs/operators/filter', 'rxjs/operators/switchMap', 'rxjs/operators/tap', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', 'rxjs/Subscription', '@angular/cdk/text-field', 'rxjs/operators/takeUntil', '@angular/cdk/accordion', 'rxjs/operators/catchError', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/common/http', 'rxjs/observable/forkJoin', 'rxjs/observable/throw', '@angular/cdk/scrolling', 'rxjs/operators/debounceTime', '@angular/cdk/table', '@angular/cdk/stepper', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/observable/empty', '@angular/cdk/tree'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.forms,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.Rx,global.ng.cdk.textField,global.Rx.operators,global.ng.cdk.accordion,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.common.http,global.Rx.Observable,global.Rx.Observable,global.ng.cdk.scrolling,global.Rx.operators,global.ng.cdk.table,global.ng.cdk.stepper,global.Rx,global.Rx.operators,global.Rx.Observable,global.ng.cdk.tree));
-}(this, (function (exports,core,bidi,coercion,Subject,Observable,platform,platformBrowser,keycodes,common,animations,fromEvent,startWith,take,a11y,overlay,portal,forms,defer,merge,of,delay,filter,switchMap,tap,layout,collections,observers,Subscription,textField,takeUntil,accordion,catchError,finalize,map,share,http,forkJoin,_throw,scrolling,debounceTime,table,stepper,BehaviorSubject,combineLatest,empty,tree) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/scrolling'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('@angular/cdk/tree')) :
+	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/scrolling', '@angular/cdk/table', '@angular/cdk/stepper', '@angular/cdk/tree'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.scrolling,global.ng.cdk.table,global.ng.cdk.stepper,global.ng.cdk.tree));
+}(this, (function (exports,core,bidi,coercion,rxjs,platform,platformBrowser,keycodes,common,animations,operators,a11y,overlay,portal,forms,layout,collections,observers,textField,accordion,http,scrolling,table,stepper,tree) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -409,7 +409,7 @@ function mixinErrorState(base) {
              * Stream that emits whenever the state of the input changes such that the wrapping
              * `MatFormField` needs to run change detection.
              */
-            _this.stateChanges = new Subject.Subject();
+            _this.stateChanges = new rxjs.Subject();
             return _this;
         }
         /**
@@ -466,7 +466,7 @@ function mixinInitialized(base) {
              * Observable stream that emits when the directive initializes. If already initialized, the
              * subscriber is stored to be notified once _markInitialized is called.
              */
-            _this.initialized = new Observable.Observable(function (subscriber) {
+            _this.initialized = new rxjs.Observable(function (subscriber) {
                 // If initialized, immediately notify the subscriber. Otherwise store the subscriber to notify
                 // when _markInitialized is called.
                 if (_this._isInitialized) {
@@ -551,7 +551,7 @@ var   /**
  */
 DateAdapter = /** @class */ (function () {
     function DateAdapter() {
-        this._localeChanges = new Subject.Subject();
+        this._localeChanges = new rxjs.Subject();
     }
     Object.defineProperty(DateAdapter.prototype, "localeChanges", {
         /** A stream that emits when the locale changes. */
@@ -1880,9 +1880,9 @@ RippleRenderer = /** @class */ (function () {
      * @param {?=} delay
      * @return {?}
      */
-    function (fn, delay$$1) {
-        if (delay$$1 === void 0) { delay$$1 = 0; }
-        this._ngZone.runOutsideAngular(function () { return setTimeout(fn, delay$$1); });
+    function (fn, delay) {
+        if (delay === void 0) { delay = 0; }
+        this._ngZone.runOutsideAngular(function () { return setTimeout(fn, delay); });
     };
     /** Removes previously registered event listeners from the trigger element. */
     /**
@@ -2317,7 +2317,7 @@ var MatOption = /** @class */ (function () {
         /**
          * Emits when the state of the option changes and any parents have to be notified.
          */
-        this._stateChanges = new Subject.Subject();
+        this._stateChanges = new rxjs.Subject();
     }
     Object.defineProperty(MatOption.prototype, "multiple", {
         /** Whether the wrapping component is in multiple selection mode. */
@@ -3124,7 +3124,7 @@ var MatFormField = /** @class */ (function (_super) {
                 .add("mat-form-field-type-" + this._control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        this._control.stateChanges.pipe(startWith.startWith(/** @type {?} */ ((null)))).subscribe(function () {
+        this._control.stateChanges.pipe(operators.startWith(/** @type {?} */ ((null)))).subscribe(function () {
             _this._validatePlaceholders();
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
@@ -3136,12 +3136,12 @@ var MatFormField = /** @class */ (function (_super) {
             });
         }
         // Re-validate when the number of hints changes.
-        this._hintChildren.changes.pipe(startWith.startWith(null)).subscribe(function () {
+        this._hintChildren.changes.pipe(operators.startWith(null)).subscribe(function () {
             _this._processHints();
             _this._changeDetectorRef.markForCheck();
         });
         // Update the aria-described by when the number of errors changes.
-        this._errorChildren.changes.pipe(startWith.startWith(null)).subscribe(function () {
+        this._errorChildren.changes.pipe(operators.startWith(null)).subscribe(function () {
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
         });
@@ -3260,7 +3260,7 @@ var MatFormField = /** @class */ (function (_super) {
         if (this._hasFloatingLabel() && this._canLabelFloat) {
             this._showAlwaysAnimate = true;
             this.floatLabel = 'always';
-            fromEvent.fromEvent(this._label.nativeElement, 'transitionend').pipe(take.take(1)).subscribe(function () {
+            rxjs.fromEvent(this._label.nativeElement, 'transitionend').pipe(operators.take(1)).subscribe(function () {
                 _this._showAlwaysAnimate = false;
             });
             this._changeDetectorRef.markForCheck();
@@ -3808,7 +3808,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         /**
          * Stream of keyboard events that can close the panel.
          */
-        this._closeKeyEventStream = new Subject.Subject();
+        this._closeKeyEventStream = new rxjs.Subject();
         /**
          * `View -> model callback called when value changes`
          */
@@ -3821,15 +3821,15 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         /**
          * Stream of autocomplete option selections.
          */
-        this.optionSelections = defer.defer(function () {
+        this.optionSelections = rxjs.defer(function () {
             if (_this.autocomplete && _this.autocomplete.options) {
-                return merge.merge.apply(void 0, _this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
+                return rxjs.merge.apply(void 0, _this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
             }
             // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
             // Return a stream that we'll replace with the real one once everything is in place.
             return _this._zone.onStable
                 .asObservable()
-                .pipe(take.take(1), switchMap.switchMap(function () { return _this.optionSelections; }));
+                .pipe(operators.take(1), operators.switchMap(function () { return _this.optionSelections; }));
         });
     }
     /**
@@ -3913,9 +3913,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () {
             var _this = this;
-            return merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter.filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
-                this._overlayRef.detachments().pipe(filter.filter(function () { return _this._overlayAttached; })) :
-                of.of());
+            return rxjs.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(operators.filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
+                this._overlayRef.detachments().pipe(operators.filter(function () { return _this._overlayAttached; })) :
+                rxjs.of());
         },
         enumerable: true,
         configurable: true
@@ -3943,10 +3943,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         function () {
             var _this = this;
             if (!this._document) {
-                return of.of(null);
+                return rxjs.of(null);
             }
-            return merge.merge(fromEvent.fromEvent(this._document, 'click'), fromEvent.fromEvent(this._document, 'touchend'))
-                .pipe(filter.filter(function (event) {
+            return rxjs.merge(rxjs.fromEvent(this._document, 'click'), rxjs.fromEvent(this._document, 'touchend'))
+                .pipe(operators.filter(function (event) {
                 var /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
                 var /** @type {?} */ formField = _this._formField ?
                     _this._formField._elementRef.nativeElement : null;
@@ -4169,23 +4169,23 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ firstStable = this._zone.onStable.asObservable().pipe(take.take(1));
-        var /** @type {?} */ optionChanges = this.autocomplete.options.changes.pipe(tap.tap(function () { return _this._positionStrategy.reapplyLastPosition(); }), 
+        var /** @type {?} */ firstStable = this._zone.onStable.asObservable().pipe(operators.take(1));
+        var /** @type {?} */ optionChanges = this.autocomplete.options.changes.pipe(operators.tap(function () { return _this._positionStrategy.reapplyLastPosition(); }), 
         // Defer emitting to the stream until the next tick, because changing
         // bindings in here will cause "changed after checked" errors.
-        delay.delay(0));
+        operators.delay(0));
         // When the zone is stable initially, and when the option list changes...
-        return merge.merge(firstStable, optionChanges)
+        return rxjs.merge(firstStable, optionChanges)
             .pipe(
         // create a new stream of panelClosingActions, replacing any previous streams
         // that were created, and flatten it so our stream only emits closing events...
-        switchMap.switchMap(function () {
+        operators.switchMap(function () {
             _this._resetActiveItem();
             _this.autocomplete._setVisibility();
             return _this.panelClosingActions;
         }), 
         // when the first closing event occurs...
-        take.take(1))
+        operators.take(1))
             .subscribe(function (event) { return _this._setValueAndClose(event); });
     };
     /**
@@ -4786,27 +4786,27 @@ MatBottomSheetRef = /** @class */ (function () {
         /**
          * Subject for notifying the user that the bottom sheet has been dismissed.
          */
-        this._afterDismissed = new Subject.Subject();
+        this._afterDismissed = new rxjs.Subject();
         /**
          * Subject for notifying the user that the bottom sheet has opened and appeared.
          */
-        this._afterOpened = new Subject.Subject();
+        this._afterOpened = new rxjs.Subject();
         this.containerInstance = containerInstance;
         // Emit when opening animation completes
-        containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), take.take(1))
+        containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), operators.take(1))
             .subscribe(function () {
             _this._afterOpened.next();
             _this._afterOpened.complete();
         });
         // Dispose overlay when closing animation is complete
-        containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), take.take(1))
+        containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), operators.take(1))
             .subscribe(function () {
             _this._overlayRef.dispose();
             _this._afterDismissed.next(_this._result);
             _this._afterDismissed.complete();
         });
         if (!containerInstance.bottomSheetConfig.disableClose) {
-            merge.merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(filter.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
+            rxjs.merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
         }
     }
     /**
@@ -4827,7 +4827,7 @@ MatBottomSheetRef = /** @class */ (function () {
         var _this = this;
         if (!this._afterDismissed.closed) {
             // Transition the backdrop in parallel to the bottom sheet.
-            this.containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'start'; }), take.take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
+            this.containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'start'; }), operators.take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
             this._result = result;
             this.containerInstance.exit();
         }
@@ -5336,7 +5336,7 @@ var MatBottomSheet = /** @class */ (function () {
         if (!userInjector || !userInjector.get(bidi.Directionality, null)) {
             injectionTokens.set(bidi.Directionality, {
                 value: config.direction,
-                change: of.of()
+                change: rxjs.of()
             });
         }
         return new portal.PortalInjector(userInjector || this._injector, injectionTokens);
@@ -7280,11 +7280,11 @@ var MatChip = /** @class */ (function (_super) {
         /**
          * Emits when the chip is focused.
          */
-        _this._onFocus = new Subject.Subject();
+        _this._onFocus = new rxjs.Subject();
         /**
          * Emits when the chip is blured.
          */
-        _this._onBlur = new Subject.Subject();
+        _this._onBlur = new rxjs.Subject();
         /**
          * Emitted when the chip is selected or deselected.
          */
@@ -7778,7 +7778,7 @@ var MatChipList = /** @class */ (function (_super) {
         /**
          * Subscription to tabbing out from the chip list.
          */
-        _this._tabOutSubscription = Subscription.Subscription.EMPTY;
+        _this._tabOutSubscription = rxjs.Subscription.EMPTY;
         /**
          * Uid of the chip list
          */
@@ -8054,7 +8054,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.selectionChange; }));
+            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip.selectionChange; }));
         },
         enumerable: true,
         configurable: true
@@ -8066,7 +8066,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip._onFocus; }));
+            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip._onFocus; }));
         },
         enumerable: true,
         configurable: true
@@ -8078,7 +8078,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip._onBlur; }));
+            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip._onBlur; }));
         },
         enumerable: true,
         configurable: true
@@ -8090,7 +8090,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.destroyed; }));
+            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip.destroyed; }));
         },
         enumerable: true,
         configurable: true
@@ -8114,7 +8114,7 @@ var MatChipList = /** @class */ (function (_super) {
             setTimeout(function () { return _this._tabIndex = _this._userTabIndex || 0; });
         });
         // When the list changes, re-subscribe
-        this._changeSubscription = this.chips.changes.pipe(startWith.startWith(null)).subscribe(function () {
+        this._changeSubscription = this.chips.changes.pipe(operators.startWith(null)).subscribe(function () {
             _this._resetChips();
             // Reset chips selected/deselected status
             // Reset chips selected/deselected status
@@ -9360,29 +9360,29 @@ MatDialogRef = /** @class */ (function () {
         /**
          * Subject for notifying the user that the dialog has finished opening.
          */
-        this._afterOpen = new Subject.Subject();
+        this._afterOpen = new rxjs.Subject();
         /**
          * Subject for notifying the user that the dialog has finished closing.
          */
-        this._afterClosed = new Subject.Subject();
+        this._afterClosed = new rxjs.Subject();
         /**
          * Subject for notifying the user that the dialog has started closing.
          */
-        this._beforeClose = new Subject.Subject();
+        this._beforeClose = new rxjs.Subject();
         /**
          * Subscription to changes in the user's location.
          */
-        this._locationChanges = Subscription.Subscription.EMPTY;
+        this._locationChanges = rxjs.Subscription.EMPTY;
         // Pass the id along to the container.
         _containerInstance._id = id;
         // Emit when opening animation completes
-        _containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), take.take(1))
+        _containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), operators.take(1))
             .subscribe(function () {
             _this._afterOpen.next();
             _this._afterOpen.complete();
         });
         // Dispose overlay when closing animation is complete
-        _containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), take.take(1))
+        _containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), operators.take(1))
             .subscribe(function () {
             _this._overlayRef.dispose();
             _this._locationChanges.unsubscribe();
@@ -9391,7 +9391,7 @@ MatDialogRef = /** @class */ (function () {
             _this.componentInstance = /** @type {?} */ ((null));
         });
         _overlayRef.keydownEvents()
-            .pipe(filter.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; }))
+            .pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; }))
             .subscribe(function () { return _this.close(); });
         if (location) {
             // Close the dialog when the user goes forwards/backwards in history or when the location
@@ -9422,7 +9422,7 @@ MatDialogRef = /** @class */ (function () {
         var _this = this;
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
-        this._containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'start'; }), take.take(1))
+        this._containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'start'; }), operators.take(1))
             .subscribe(function () {
             _this._beforeClose.next(dialogResult);
             _this._beforeClose.complete();
@@ -9621,17 +9621,17 @@ var MatDialog = /** @class */ (function () {
         this._parentDialog = _parentDialog;
         this._overlayContainer = _overlayContainer;
         this._openDialogsAtThisLevel = [];
-        this._afterAllClosedAtThisLevel = new Subject.Subject();
-        this._afterOpenAtThisLevel = new Subject.Subject();
+        this._afterAllClosedAtThisLevel = new rxjs.Subject();
+        this._afterOpenAtThisLevel = new rxjs.Subject();
         this._ariaHiddenElements = new Map();
         /**
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
          */
-        this.afterAllClosed = defer.defer(function () {
+        this.afterAllClosed = rxjs.defer(function () {
             return _this.openDialogs.length ?
                 _this._afterAllClosed :
-                _this._afterAllClosed.pipe(startWith.startWith(undefined));
+                _this._afterAllClosed.pipe(operators.startWith(undefined));
         });
     }
     Object.defineProperty(MatDialog.prototype, "openDialogs", {
@@ -9884,7 +9884,7 @@ var MatDialog = /** @class */ (function () {
         if (!userInjector || !userInjector.get(bidi.Directionality, null)) {
             injectionTokens.set(bidi.Directionality, {
                 value: config.direction,
-                change: of.of()
+                change: rxjs.of()
             });
         }
         return new portal.PortalInjector(userInjector || this._injector, injectionTokens);
@@ -10331,7 +10331,7 @@ var MatInput = /** @class */ (function (_super) {
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
          */
-        _this.stateChanges = new Subject.Subject();
+        _this.stateChanges = new rxjs.Subject();
         /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -10833,7 +10833,7 @@ var MatDatepickerIntl = /** @class */ (function () {
          * Stream that emits whenever the labels here are changed. Use this to notify
          * components if the labels have changed after initialization.
          */
-        this.changes = new Subject.Subject();
+        this.changes = new rxjs.Subject();
         /**
          * A label for the calendar popup (used by screen readers).
          */
@@ -10992,7 +10992,7 @@ var MatCalendarBody = /** @class */ (function () {
     function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
-            _this._ngZone.onStable.asObservable().pipe(take.take(1)).subscribe(function () {
+            _this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
                 _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
             });
         });
@@ -12101,8 +12101,8 @@ var MatCalendarHeader = /** @class */ (function () {
         /**
          * Subject that emits when the component has been destroyed.
          */
-        this._destroyed = new Subject.Subject();
-        this.calendar.stateChanges.pipe(takeUntil.takeUntil(this._destroyed))
+        this._destroyed = new rxjs.Subject();
+        this.calendar.stateChanges.pipe(operators.takeUntil(this._destroyed))
             .subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
     Object.defineProperty(MatCalendarHeader.prototype, "periodButtonText", {
@@ -12324,7 +12324,7 @@ var MatCalendar = /** @class */ (function () {
          * Emits when any date is selected.
          */
         this._userSelection = new core.EventEmitter();
-        this._stateChanges = new Subject.Subject();
+        this._stateChanges = new rxjs.Subject();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -12707,7 +12707,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
-            _this._ngZone.onStable.asObservable().pipe(take.take(1)).subscribe(function () {
+            _this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
                 _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
             });
         });
@@ -12805,15 +12805,15 @@ var MatDatepicker = /** @class */ (function () {
         /**
          * Subscription to value changes in the associated input element.
          */
-        this._inputSubscription = Subscription.Subscription.EMPTY;
+        this._inputSubscription = rxjs.Subscription.EMPTY;
         /**
          * Emits when the datepicker is disabled.
          */
-        this._disabledChange = new Subject.Subject();
+        this._disabledChange = new rxjs.Subject();
         /**
          * Emits new selected date when selected date changes.
          */
-        this._selectedChanged = new Subject.Subject();
+        this._selectedChanged = new rxjs.Subject();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -13156,7 +13156,7 @@ var MatDatepicker = /** @class */ (function () {
             this._popupComponentRef.instance.datepicker = this;
             this._setColor();
             // Update the position once the calendar has rendered.
-            this._ngZone.onStable.asObservable().pipe(take.take(1)).subscribe(function () {
+            this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
                 _this._popupRef.updatePosition();
             });
         }
@@ -13180,7 +13180,7 @@ var MatDatepicker = /** @class */ (function () {
             panelClass: 'mat-datepicker-popup',
         });
         this._popupRef = this._overlay.create(overlayConfig);
-        merge.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(filter.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.close(); });
+        rxjs.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.close(); });
     };
     /**
      * Create the popup PositionStrategy.
@@ -13351,8 +13351,8 @@ var MatDatepickerInput = /** @class */ (function () {
         this._onTouched = function () { };
         this._cvaOnChange = function () { };
         this._validatorOnChange = function () { };
-        this._datepickerSubscription = Subscription.Subscription.EMPTY;
-        this._localeSubscription = Subscription.Subscription.EMPTY;
+        this._datepickerSubscription = rxjs.Subscription.EMPTY;
+        this._localeSubscription = rxjs.Subscription.EMPTY;
         /**
          * The form control validator for whether the input parses.
          */
@@ -13800,7 +13800,7 @@ var MatDatepickerToggle = /** @class */ (function () {
     function MatDatepickerToggle(_intl, _changeDetectorRef) {
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
-        this._stateChanges = Subscription.Subscription.EMPTY;
+        this._stateChanges = rxjs.Subscription.EMPTY;
     }
     Object.defineProperty(MatDatepickerToggle.prototype, "disabled", {
         get: /**
@@ -13873,14 +13873,14 @@ var MatDatepickerToggle = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ datepickerDisabled = this.datepicker ? this.datepicker._disabledChange : of.of();
+        var /** @type {?} */ datepickerDisabled = this.datepicker ? this.datepicker._disabledChange : rxjs.of();
         var /** @type {?} */ inputDisabled = this.datepicker && this.datepicker._datepickerInput ?
-            this.datepicker._datepickerInput._disabledChange : of.of();
+            this.datepicker._datepickerInput._disabledChange : rxjs.of();
         var /** @type {?} */ datepickerToggled = this.datepicker ?
-            merge.merge(this.datepicker.openedStream, this.datepicker.closedStream) :
-            of.of();
+            rxjs.merge(this.datepicker.openedStream, this.datepicker.closedStream) :
+            rxjs.of();
         this._stateChanges.unsubscribe();
-        this._stateChanges = merge.merge(this._intl.changes, datepickerDisabled, inputDisabled, datepickerToggled).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        this._stateChanges = rxjs.merge(this._intl.changes, datepickerDisabled, inputDisabled, datepickerToggled).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
     };
     MatDatepickerToggle.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-toggle',
@@ -14191,7 +14191,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         /**
          * Stream that emits for changes in `\@Input` properties.
          */
-        _this._inputChanges = new Subject.Subject();
+        _this._inputChanges = new rxjs.Subject();
         /**
          * ID for the associated header element. Used for a11y labelling.
          */
@@ -14267,7 +14267,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         var _this = this;
         if (this._lazyContent) {
             // Render the content as soon as the panel becomes open.
-            this.opened.pipe(startWith.startWith(/** @type {?} */ ((null))), filter.filter(function () { return _this.expanded && !_this._portal; }), take.take(1)).subscribe(function () {
+            this.opened.pipe(operators.startWith(/** @type {?} */ ((null))), operators.filter(function () { return _this.expanded && !_this._portal; }), operators.take(1)).subscribe(function () {
                 _this._portal = new portal.TemplatePortal(_this._lazyContent._template, _this._viewContainerRef);
             });
         }
@@ -14378,10 +14378,10 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._element = _element;
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
-        this._parentChangeSubscription = Subscription.Subscription.EMPTY;
+        this._parentChangeSubscription = rxjs.Subscription.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to  subscribe and trigger change detection manually.
-        this._parentChangeSubscription = merge.merge(panel.opened, panel.closed, panel._inputChanges.pipe(filter.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
+        this._parentChangeSubscription = rxjs.merge(panel.opened, panel.closed, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         _focusMonitor.monitor(_element.nativeElement);
     }
@@ -16000,9 +16000,9 @@ var MatIconRegistry = /** @class */ (function () {
         }
         var /** @type {?} */ cachedIcon = this._cachedIconsByUrl.get(url);
         if (cachedIcon) {
-            return of.of(cloneSvg(cachedIcon));
+            return rxjs.of(cloneSvg(cachedIcon));
         }
-        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(tap.tap(function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); }), map.map(function (svg) { return cloneSvg(svg); }));
+        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(operators.tap(function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); }), operators.map(function (svg) { return cloneSvg(svg); }));
     };
     /**
      * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
@@ -16043,7 +16043,7 @@ var MatIconRegistry = /** @class */ (function () {
         if (iconSetConfigs) {
             return this._getSvgFromIconSetConfigs(name, iconSetConfigs);
         }
-        return _throw._throw(getMatIconNameNotFoundError(key));
+        return rxjs.throwError(getMatIconNameNotFoundError(key));
     };
     /**
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
@@ -16058,11 +16058,11 @@ var MatIconRegistry = /** @class */ (function () {
     function (config) {
         if (config.svgElement) {
             // We already have the SVG element for this icon, return a copy.
-            return of.of(cloneSvg(config.svgElement));
+            return rxjs.of(cloneSvg(config.svgElement));
         }
         else {
             // Fetch the icon from the config's URL, cache it, and return a copy.
-            return this._loadSvgIconFromConfig(config).pipe(tap.tap(function (svg) { return config.svgElement = svg; }), map.map(function (svg) { return cloneSvg(svg); }));
+            return this._loadSvgIconFromConfig(config).pipe(operators.tap(function (svg) { return config.svgElement = svg; }), operators.map(function (svg) { return cloneSvg(svg); }));
         }
     };
     /**
@@ -16096,24 +16096,24 @@ var MatIconRegistry = /** @class */ (function () {
             // We could cache namedIcon in _svgIconConfigs, but since we have to make a copy every
             // time anyway, there's probably not much advantage compared to just always extracting
             // it from the icon set.
-            return of.of(namedIcon);
+            return rxjs.of(namedIcon);
         }
         // Not found in any cached icon sets. If there are icon sets with URLs that we haven't
         // fetched, fetch them now and look for iconName in the results.
         var /** @type {?} */ iconSetFetchRequests = iconSetConfigs
             .filter(function (iconSetConfig) { return !iconSetConfig.svgElement; })
             .map(function (iconSetConfig) {
-            return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(catchError.catchError(function (err) {
+            return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(operators.catchError(function (err) {
                 var /** @type {?} */ url = _this._sanitizer.sanitize(core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
                 // Swallow errors fetching individual URLs so the combined Observable won't
                 // necessarily fail.
                 console.log("Loading icon set URL: " + url + " failed: " + err);
-                return of.of(null);
+                return rxjs.of(null);
             }));
         });
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
         // cached SVG element (unless the request failed), and we can check again for the icon.
-        return forkJoin.forkJoin(iconSetFetchRequests).pipe(map.map(function () {
+        return rxjs.forkJoin(iconSetFetchRequests).pipe(operators.map(function () {
             var /** @type {?} */ foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
                 throw getMatIconNameNotFoundError(name);
@@ -16165,7 +16165,7 @@ var MatIconRegistry = /** @class */ (function () {
     function (config) {
         var _this = this;
         return this._fetchUrl(config.url)
-            .pipe(map.map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText); }));
+            .pipe(operators.map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText); }));
     };
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
@@ -16183,9 +16183,9 @@ var MatIconRegistry = /** @class */ (function () {
         var _this = this;
         // If the SVG for this icon set has already been parsed, do nothing.
         if (config.svgElement) {
-            return of.of(config.svgElement);
+            return rxjs.of(config.svgElement);
         }
-        return this._fetchUrl(config.url).pipe(map.map(function (svgText) {
+        return this._fetchUrl(config.url).pipe(operators.map(function (svgText) {
             // It is possible that the icon set was parsed and cached by an earlier request, so parsing
             // only needs to occur if the cache is yet unset.
             if (!config.svgElement) {
@@ -16341,7 +16341,7 @@ var MatIconRegistry = /** @class */ (function () {
         }
         // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
-        var /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(finalize.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), share.share());
+        var /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(operators.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), operators.share());
         this._inProgressUrlFetches.set(url, req);
         return req;
     };
@@ -16563,7 +16563,7 @@ var MatIcon = /** @class */ (function (_super) {
         if (changes["svgIcon"]) {
             if (this.svgIcon) {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
-                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(take.take(1)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
+                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(operators.take(1)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
             }
             else {
                 this._clearSvgElement();
@@ -17283,7 +17283,7 @@ var MatSelectionList = /** @class */ (function (_super) {
          * View to model callback that should be called whenever the selected options change.
          */
         _this._onChange = function (_) { };
-        _this._modelChanges = Subscription.Subscription.EMPTY;
+        _this._modelChanges = rxjs.Subscription.EMPTY;
         /**
          * View to model callback that should be called if the list or its options lost focus.
          */
@@ -17909,7 +17909,7 @@ var MatMenuItem = /** @class */ (function (_super) {
         /**
          * Stream that emits when the menu item is hovered.
          */
-        _this._hovered = new Subject.Subject();
+        _this._hovered = new rxjs.Subject();
         /**
          * Whether the menu item is highlighted.
          */
@@ -18102,7 +18102,7 @@ var MatMenu = /** @class */ (function () {
         /**
          * Subscription to tab events on the menu panel
          */
-        this._tabSubscription = Subscription.Subscription.EMPTY;
+        this._tabSubscription = rxjs.Subscription.EMPTY;
         /**
          * Config object to be passed into the menu's ngClass
          */
@@ -18114,7 +18114,7 @@ var MatMenu = /** @class */ (function () {
         /**
          * Emits whenever an animation on the menu completes.
          */
-        this._animationDone = new Subject.Subject();
+        this._animationDone = new rxjs.Subject();
         /**
          * Class to be added to the backdrop element.
          */
@@ -18285,11 +18285,11 @@ var MatMenu = /** @class */ (function () {
     function () {
         var _this = this;
         if (this.items) {
-            return this.items.changes.pipe(startWith.startWith(this.items), switchMap.switchMap(function (items) { return merge.merge.apply(void 0, items.map(function (item) { return item._hovered; })); }));
+            return this.items.changes.pipe(operators.startWith(this.items), operators.switchMap(function (items) { return rxjs.merge.apply(void 0, items.map(function (item) { return item._hovered; })); }));
         }
         return this._ngZone.onStable
             .asObservable()
-            .pipe(take.take(1), switchMap.switchMap(function () { return _this._hovered(); }));
+            .pipe(operators.take(1), operators.switchMap(function () { return _this._hovered(); }));
     };
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
     /**
@@ -18342,7 +18342,7 @@ var MatMenu = /** @class */ (function () {
         // When the content is rendered lazily, it takes a bit before the items are inside the DOM.
         if (this.lazyContent) {
             this._ngZone.onStable.asObservable()
-                .pipe(take.take(1))
+                .pipe(operators.take(1))
                 .subscribe(function () { return _this._keyManager.setFocusOrigin(origin).setFirstItemActive(); });
         }
         else {
@@ -18526,8 +18526,8 @@ var MatMenuTrigger = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._overlayRef = null;
         this._menuOpen = false;
-        this._closeSubscription = Subscription.Subscription.EMPTY;
-        this._hoverSubscription = Subscription.Subscription.EMPTY;
+        this._closeSubscription = rxjs.Subscription.EMPTY;
+        this._hoverSubscription = rxjs.Subscription.EMPTY;
         this._openedByMouse = false;
         /**
          * Event emitted when the associated menu is opened.
@@ -18591,7 +18591,7 @@ var MatMenuTrigger = /** @class */ (function () {
         if (this.triggersSubmenu()) {
             // Subscribe to changes in the hovered item in order to toggle the panel.
             this._hoverSubscription = this._parentMenu._hovered()
-                .pipe(filter.filter(function (active) { return active === _this._menuItemInstance; }))
+                .pipe(operators.filter(function (active) { return active === _this._menuItemInstance; }))
                 .subscribe(function () {
                 _this._openedByMouse = true;
                 _this.openMenu();
@@ -18739,7 +18739,7 @@ var MatMenuTrigger = /** @class */ (function () {
             if (menu.lazyContent) {
                 // Wait for the exit animation to finish before detaching the content.
                 menu._animationDone
-                    .pipe(take.take(1))
+                    .pipe(operators.take(1))
                     .subscribe(function () { return ((menu.lazyContent)).detach(); });
             }
         }
@@ -18968,9 +18968,9 @@ var MatMenuTrigger = /** @class */ (function () {
         var _this = this;
         var /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
         var /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
-        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of.of();
-        var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter.filter(function (active) { return active !== _this._menuItemInstance; }), filter.filter(function () { return _this._menuOpen; })) : of.of();
-        return merge.merge(backdrop, parentClose, hover, detachments);
+        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs.of();
+        var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(operators.filter(function (active) { return active !== _this._menuItemInstance; }), operators.filter(function () { return _this._menuOpen; })) : rxjs.of();
+        return rxjs.merge(backdrop, parentClose, hover, detachments);
     };
     /** Handles mouse presses on the trigger. */
     /**
@@ -19324,7 +19324,7 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Emits whenever the component is destroyed.
          */
-        _this._destroy = new Subject.Subject();
+        _this._destroy = new rxjs.Subject();
         /**
          * The cached font-size of the trigger element.
          */
@@ -19398,13 +19398,13 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Combined stream of all of the child options' change events.
          */
-        _this.optionSelectionChanges = defer.defer(function () {
+        _this.optionSelectionChanges = rxjs.defer(function () {
             if (_this.options) {
-                return merge.merge.apply(void 0, _this.options.map(function (option) { return option.onSelectionChange; }));
+                return rxjs.merge.apply(void 0, _this.options.map(function (option) { return option.onSelectionChange; }));
             }
             return _this._ngZone.onStable
                 .asObservable()
-                .pipe(take.take(1), switchMap.switchMap(function () { return _this.optionSelectionChanges; }));
+                .pipe(operators.take(1), operators.switchMap(function () { return _this.optionSelectionChanges; }));
         });
         /**
          * Event emitted when the select panel has been toggled.
@@ -19413,11 +19413,11 @@ var MatSelect = /** @class */ (function (_super) {
         /**
          * Event emitted when the select has been opened.
          */
-        _this._openedStream = _this.openedChange.pipe(filter.filter(function (o) { return o; }), map.map(function () { }));
+        _this._openedStream = _this.openedChange.pipe(operators.filter(function (o) { return o; }), operators.map(function () { }));
         /**
          * Event emitted when the select has been closed.
          */
-        _this._closedStream = _this.openedChange.pipe(filter.filter(function (o) { return !o; }), map.map(function () { }));
+        _this._closedStream = _this.openedChange.pipe(operators.filter(function (o) { return !o; }), operators.map(function () { }));
         /**
          * Event emitted when the selected value has been changed by the user.
          */
@@ -19590,7 +19590,7 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._initKeyManager();
-        this.options.changes.pipe(startWith.startWith(null), takeUntil.takeUntil(this._destroy)).subscribe(function () {
+        this.options.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroy)).subscribe(function () {
             _this._resetOptions();
             _this._initializeSelection();
         });
@@ -19668,7 +19668,7 @@ var MatSelect = /** @class */ (function (_super) {
         this._highlightCorrectOption();
         this._changeDetectorRef.markForCheck();
         // Set the font size on the panel element once it exists.
-        this._ngZone.onStable.asObservable().pipe(take.take(1)).subscribe(function () {
+        this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
             if (_this._triggerFontSize && _this.overlayDir.overlayRef &&
                 _this.overlayDir.overlayRef.overlayElement) {
                 _this.overlayDir.overlayRef.overlayElement.style.fontSize = _this._triggerFontSize + "px";
@@ -20020,7 +20020,7 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this.overlayDir.positionChange.pipe(take.take(1)).subscribe(function () {
+        this.overlayDir.positionChange.pipe(operators.take(1)).subscribe(function () {
             _this._changeDetectorRef.detectChanges();
             _this._calculateOverlayOffsetX();
             _this.panel.nativeElement.scrollTop = _this._scrollTop;
@@ -20168,8 +20168,8 @@ var MatSelect = /** @class */ (function (_super) {
             .withTypeAhead()
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr');
-        this._keyManager.tabOut.pipe(takeUntil.takeUntil(this._destroy)).subscribe(function () { return _this.close(); });
-        this._keyManager.change.pipe(takeUntil.takeUntil(this._destroy)).subscribe(function () {
+        this._keyManager.tabOut.pipe(operators.takeUntil(this._destroy)).subscribe(function () { return _this.close(); });
+        this._keyManager.change.pipe(operators.takeUntil(this._destroy)).subscribe(function () {
             if (_this._panelOpen && _this.panel) {
                 _this._scrollActiveOptionIntoView();
             }
@@ -20188,9 +20188,9 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ changedOrDestroyed = merge.merge(this.options.changes, this._destroy);
+        var /** @type {?} */ changedOrDestroyed = rxjs.merge(this.options.changes, this._destroy);
         this.optionSelectionChanges
-            .pipe(takeUntil.takeUntil(changedOrDestroyed), filter.filter(function (event) { return event.isUserInput; }))
+            .pipe(operators.takeUntil(changedOrDestroyed), operators.filter(function (event) { return event.isUserInput; }))
             .subscribe(function (event) {
             _this._onSelect(event.source);
             if (!_this.multiple && _this._panelOpen) {
@@ -20200,7 +20200,7 @@ var MatSelect = /** @class */ (function (_super) {
         });
         // Listen to changes in the internal state of the options and react accordingly.
         // Handles cases like the labels of the selected options changing.
-        merge.merge.apply(void 0, this.options.map(function (option) { return option._stateChanges; })).pipe(takeUntil.takeUntil(changedOrDestroyed))
+        rxjs.merge.apply(void 0, this.options.map(function (option) { return option._stateChanges; })).pipe(operators.takeUntil(changedOrDestroyed))
             .subscribe(function () {
             _this._changeDetectorRef.markForCheck();
             _this.stateChanges.next();
@@ -20940,7 +20940,7 @@ var MatTooltip = /** @class */ (function () {
         /**
          * Emits when the component is destroyed.
          */
-        this._destroyed = new Subject.Subject();
+        this._destroyed = new rxjs.Subject();
         var /** @type {?} */ element = _elementRef.nativeElement;
         // The mouse events shouldn't be bound on iOS devices, because
         // they can prevent the first tap from firing its click event.
@@ -20958,7 +20958,7 @@ var MatTooltip = /** @class */ (function () {
             // the `user-select` to avoid these issues.
             element.style.webkitUserSelect = element.style.userSelect = '';
         }
-        _focusMonitor.monitor(element).pipe(takeUntil.takeUntil(this._destroyed)).subscribe(function (origin) {
+        _focusMonitor.monitor(element).pipe(operators.takeUntil(this._destroyed)).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
                 _ngZone.run(function () { return _this.hide(0); });
@@ -21096,9 +21096,9 @@ var MatTooltip = /** @class */ (function () {
      * @param {?=} delay
      * @return {?}
      */
-    function (delay$$1) {
+    function (delay) {
         var _this = this;
-        if (delay$$1 === void 0) { delay$$1 = this.showDelay; }
+        if (delay === void 0) { delay = this.showDelay; }
         if (this.disabled || !this.message) {
             return;
         }
@@ -21107,11 +21107,11 @@ var MatTooltip = /** @class */ (function () {
         this._portal = this._portal || new portal.ComponentPortal(TooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
         this._tooltipInstance.afterHidden()
-            .pipe(takeUntil.takeUntil(this._destroyed))
+            .pipe(operators.takeUntil(this._destroyed))
             .subscribe(function () { return _this._detach(); });
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage(); /** @type {?} */
-        ((this._tooltipInstance)).show(this._position, delay$$1);
+        ((this._tooltipInstance)).show(this._position, delay);
     };
     /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input */
     /**
@@ -21124,10 +21124,10 @@ var MatTooltip = /** @class */ (function () {
      * @param {?=} delay
      * @return {?}
      */
-    function (delay$$1) {
-        if (delay$$1 === void 0) { delay$$1 = this.hideDelay; }
+    function (delay) {
+        if (delay === void 0) { delay = this.hideDelay; }
         if (this._tooltipInstance) {
-            this._tooltipInstance.hide(delay$$1);
+            this._tooltipInstance.hide(delay);
         }
     };
     /** Shows/hides the tooltip */
@@ -21212,7 +21212,7 @@ var MatTooltip = /** @class */ (function () {
         var /** @type {?} */ scrollableAncestors = this._scrollDispatcher
             .getAncestorScrollContainers(this._elementRef);
         strategy.withScrollableContainers(scrollableAncestors);
-        strategy.positionChanges.pipe(takeUntil.takeUntil(this._destroyed)).subscribe(function (change) {
+        strategy.positionChanges.pipe(operators.takeUntil(this._destroyed)).subscribe(function (change) {
             if (_this._tooltipInstance) {
                 if (change.scrollableViewProperties.isOverlayClipped && _this._tooltipInstance.isVisible()) {
                     // After position changes occur and the overlay is clipped by
@@ -21235,7 +21235,7 @@ var MatTooltip = /** @class */ (function () {
             scrollStrategy: this._scrollStrategy()
         });
         this._overlayRef.detachments()
-            .pipe(takeUntil.takeUntil(this._destroyed))
+            .pipe(operators.takeUntil(this._destroyed))
             .subscribe(function () { return _this._detach(); });
         return this._overlayRef;
     };
@@ -21364,7 +21364,7 @@ var MatTooltip = /** @class */ (function () {
         if (this._tooltipInstance) {
             this._tooltipInstance.message = this.message;
             this._tooltipInstance._markForCheck();
-            this._ngZone.onMicrotaskEmpty.asObservable().pipe(take.take(1), takeUntil.takeUntil(this._destroyed)).subscribe(function () {
+            this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1), operators.takeUntil(this._destroyed)).subscribe(function () {
                 if (_this._tooltipInstance) {
                     /** @type {?} */ ((_this._overlayRef)).updatePosition();
                 }
@@ -21476,7 +21476,7 @@ var TooltipComponent = /** @class */ (function () {
         /**
          * Subject for notifying that the tooltip has been hidden from the view
          */
-        this._onHide = new Subject.Subject();
+        this._onHide = new rxjs.Subject();
         /**
          * Stream that emits whether the user has a handset-sized display.
          */
@@ -21499,7 +21499,7 @@ var TooltipComponent = /** @class */ (function () {
      * @param {?} delay Amount of milliseconds to the delay showing the tooltip.
      * @return {?}
      */
-    function (position, delay$$1) {
+    function (position, delay) {
         var _this = this;
         // Cancel the delayed hide if it is scheduled
         if (this._hideTimeoutId) {
@@ -21515,7 +21515,7 @@ var TooltipComponent = /** @class */ (function () {
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();
-        }, delay$$1);
+        }, delay);
     };
     /**
      * Begins the animation to hide the tooltip after the provided delay in ms.
@@ -21531,7 +21531,7 @@ var TooltipComponent = /** @class */ (function () {
      * @param {?} delay Amount of milliseconds to delay showing the tooltip.
      * @return {?}
      */
-    function (delay$$1) {
+    function (delay) {
         var _this = this;
         // Cancel the delayed show if it is scheduled
         if (this._showTimeoutId) {
@@ -21544,7 +21544,7 @@ var TooltipComponent = /** @class */ (function () {
             // Mark for check so if any parent component has set the
             // ChangeDetectionStrategy to OnPush it will be checked anyways
             _this._markForCheck();
-        }, delay$$1);
+        }, delay);
     };
     /** Returns an observable that notifies when the tooltip has been hidden from view. */
     /**
@@ -21729,7 +21729,7 @@ var MatPaginatorIntl = /** @class */ (function () {
          * Stream that emits whenever the labels here are changed. Use this to notify
          * components if the labels have changed after initialization.
          */
-        this.changes = new Subject.Subject();
+        this.changes = new rxjs.Subject();
         /**
          * A label for the page size selector.
          */
@@ -23665,7 +23665,7 @@ var MatDrawer = /** @class */ (function () {
          * An observable that emits when the drawer mode changes. This is used by the drawer container to
          * to know when to when the mode changes so it can adapt the margins on the content.
          */
-        this._modeChanged = new Subject.Subject();
+        this._modeChanged = new rxjs.Subject();
         this._opened = false;
         this.openedChange.subscribe(function (opened) {
             if (opened) {
@@ -23686,7 +23686,7 @@ var MatDrawer = /** @class */ (function () {
              * and we don't have close disabled.
              */
         this._ngZone.runOutsideAngular(function () {
-            fromEvent.fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(filter.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; })).subscribe(function (event) {
+            rxjs.fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; })).subscribe(function (event) {
                 return _this._ngZone.run(function () {
                     _this.close();
                     event.stopPropagation();
@@ -23752,7 +23752,7 @@ var MatDrawer = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this.openedChange.pipe(filter.filter(function (o) { return o; }), map.map(function () { }));
+            return this.openedChange.pipe(operators.filter(function (o) { return o; }), operators.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -23763,7 +23763,7 @@ var MatDrawer = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this._animationStarted.pipe(filter.filter(function (e) { return e.fromState !== e.toState && e.toState.indexOf('open') === 0; }), map.map(function () { }));
+            return this._animationStarted.pipe(operators.filter(function (e) { return e.fromState !== e.toState && e.toState.indexOf('open') === 0; }), operators.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -23774,7 +23774,7 @@ var MatDrawer = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this.openedChange.pipe(filter.filter(function (o) { return !o; }), map.map(function () { }));
+            return this.openedChange.pipe(operators.filter(function (o) { return !o; }), operators.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -23785,7 +23785,7 @@ var MatDrawer = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            return this._animationStarted.pipe(filter.filter(function (e) { return e.fromState !== e.toState && e.toState === 'void'; }), map.map(function () { }));
+            return this._animationStarted.pipe(operators.filter(function (e) { return e.fromState !== e.toState && e.toState === 'void'; }), operators.map(function () { }));
         },
         enumerable: true,
         configurable: true
@@ -23962,7 +23962,7 @@ var MatDrawer = /** @class */ (function () {
             this._focusTrap.enabled = this._isFocusTrapEnabled;
         }
         return new Promise(function (resolve) {
-            _this.openedChange.pipe(take.take(1)).subscribe(function (open) { return resolve(open ? 'open' : 'close'); });
+            _this.openedChange.pipe(operators.take(1)).subscribe(function (open) { return resolve(open ? 'open' : 'close'); });
         });
     };
     /**
@@ -24067,16 +24067,16 @@ var MatDrawerContainer = /** @class */ (function () {
         /**
          * Emits when the component is destroyed.
          */
-        this._destroyed = new Subject.Subject();
+        this._destroyed = new rxjs.Subject();
         /**
          * Emits on every ngDoCheck. Used for debouncing reflows.
          */
-        this._doCheckSubject = new Subject.Subject();
-        this._contentMargins = new Subject.Subject();
+        this._doCheckSubject = new rxjs.Subject();
+        this._contentMargins = new rxjs.Subject();
         // If a `Dir` directive exists up the tree, listen direction changes
         // and update the left/right properties to point to the proper start/end.
         if (_dir) {
-            _dir.change.pipe(takeUntil.takeUntil(this._destroyed)).subscribe(function () {
+            _dir.change.pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
                 _this._validateDrawers();
                 _this._updateContentMargins();
             });
@@ -24153,7 +24153,7 @@ var MatDrawerContainer = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this._drawers.changes.pipe(startWith.startWith(null)).subscribe(function () {
+        this._drawers.changes.pipe(operators.startWith(null)).subscribe(function () {
             _this._validateDrawers();
             _this._drawers.forEach(function (drawer) {
                 _this._watchDrawerToggle(drawer);
@@ -24167,9 +24167,9 @@ var MatDrawerContainer = /** @class */ (function () {
             }
             _this._changeDetectorRef.markForCheck();
         });
-        this._doCheckSubject.pipe(debounceTime.debounceTime(10), // Arbitrary debounce time, less than a frame at 60fps
+        this._doCheckSubject.pipe(operators.debounceTime(10), // Arbitrary debounce time, less than a frame at 60fps
         // Arbitrary debounce time, less than a frame at 60fps
-        takeUntil.takeUntil(this._destroyed)).subscribe(function () { return _this._updateContentMargins(); });
+        operators.takeUntil(this._destroyed)).subscribe(function () { return _this._updateContentMargins(); });
     };
     /**
      * @return {?}
@@ -24236,7 +24236,7 @@ var MatDrawerContainer = /** @class */ (function () {
      */
     function (drawer) {
         var _this = this;
-        drawer._animationStarted.pipe(takeUntil.takeUntil(this._drawers.changes), filter.filter(function (event) { return event.fromState !== event.toState; }))
+        drawer._animationStarted.pipe(operators.takeUntil(this._drawers.changes), operators.filter(function (event) { return event.fromState !== event.toState; }))
             .subscribe(function (event) {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
@@ -24247,7 +24247,7 @@ var MatDrawerContainer = /** @class */ (function () {
             _this._changeDetectorRef.markForCheck();
         });
         if (drawer.mode !== 'side') {
-            drawer.openedChange.pipe(takeUntil.takeUntil(this._drawers.changes)).subscribe(function () {
+            drawer.openedChange.pipe(operators.takeUntil(this._drawers.changes)).subscribe(function () {
                 return _this._setContainerClass(drawer.opened);
             });
         }
@@ -24271,8 +24271,8 @@ var MatDrawerContainer = /** @class */ (function () {
         }
         // NOTE: We need to wait for the microtask queue to be empty before validating,
         // since both drawers may be swapping positions at the same time.
-        drawer.onPositionChanged.pipe(takeUntil.takeUntil(this._drawers.changes)).subscribe(function () {
-            _this._ngZone.onMicrotaskEmpty.asObservable().pipe(take.take(1)).subscribe(function () {
+        drawer.onPositionChanged.pipe(operators.takeUntil(this._drawers.changes)).subscribe(function () {
+            _this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1)).subscribe(function () {
                 _this._validateDrawers();
             });
         });
@@ -24290,7 +24290,7 @@ var MatDrawerContainer = /** @class */ (function () {
     function (drawer) {
         var _this = this;
         if (drawer) {
-            drawer._modeChanged.pipe(takeUntil.takeUntil(merge.merge(this._drawers.changes, this._destroyed)))
+            drawer._modeChanged.pipe(operators.takeUntil(rxjs.merge(this._drawers.changes, this._destroyed)))
                 .subscribe(function () {
                 _this._updateContentMargins();
                 _this._changeDetectorRef.markForCheck();
@@ -25309,7 +25309,7 @@ var MatSlider = /** @class */ (function (_super) {
         /**
          * Subscription to the Directionality change EventEmitter.
          */
-        _this._dirChangeSubscription = Subscription.Subscription.EMPTY;
+        _this._dirChangeSubscription = rxjs.Subscription.EMPTY;
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -26288,15 +26288,15 @@ MatSnackBarRef = /** @class */ (function () {
         /**
          * Subject for notifying the user that the snack bar has been dismissed.
          */
-        this._afterDismissed = new Subject.Subject();
+        this._afterDismissed = new rxjs.Subject();
         /**
          * Subject for notifying the user that the snack bar has opened and appeared.
          */
-        this._afterOpened = new Subject.Subject();
+        this._afterOpened = new rxjs.Subject();
         /**
          * Subject for notifying the user that the snack bar action was called.
          */
-        this._onAction = new Subject.Subject();
+        this._onAction = new rxjs.Subject();
         /**
          * Whether the snack bar was dismissed using the action button.
          */
@@ -26592,11 +26592,11 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
         /**
          * Subject for notifying that the snack bar has exited from view.
          */
-        _this._onExit = new Subject.Subject();
+        _this._onExit = new rxjs.Subject();
         /**
          * Subject for notifying that the snack bar has finished entering the view.
          */
-        _this._onEnter = new Subject.Subject();
+        _this._onEnter = new rxjs.Subject();
         /**
          * The state of the snack bar animations.
          */
@@ -26718,7 +26718,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._ngZone.onMicrotaskEmpty.asObservable().pipe(take.take(1)).subscribe(function () {
+        this._ngZone.onMicrotaskEmpty.asObservable().pipe(operators.take(1)).subscribe(function () {
             _this._onExit.next();
             _this._onExit.complete();
         });
@@ -26997,7 +26997,7 @@ var MatSnackBar = /** @class */ (function () {
         // Subscribe to the breakpoint observer and attach the mat-snack-bar-handset class as
         // appropriate. This class is applied to the overlay element because the overlay must expand to
         // fill the width of the screen for full width snackbars.
-        this._breakpointObserver.observe(layout.Breakpoints.Handset).pipe(takeUntil.takeUntil(overlayRef.detachments().pipe(take.take(1)))).subscribe(function (state$$1) {
+        this._breakpointObserver.observe(layout.Breakpoints.Handset).pipe(operators.takeUntil(overlayRef.detachments().pipe(operators.take(1)))).subscribe(function (state$$1) {
             if (state$$1.matches) {
                 overlayRef.overlayElement.classList.add('mat-snack-bar-handset');
             }
@@ -27217,7 +27217,7 @@ var MatSort = /** @class */ (function (_super) {
         /**
          * Used to notify any child components listening to state changes.
          */
-        _this._stateChanges = new Subject.Subject();
+        _this._stateChanges = new rxjs.Subject();
         /**
          * The direction to set when an MatSortable is initially sorted.
          * May be overriden by the MatSortable's sort start.
@@ -27421,7 +27421,7 @@ var MatSortHeaderIntl = /** @class */ (function () {
          * Stream that emits whenever the labels here are changed. Use this to notify
          * components if the labels have changed after initialization.
          */
-        this.changes = new Subject.Subject();
+        this.changes = new rxjs.Subject();
         /**
          * ARIA label for the sorting button.
          */
@@ -27591,7 +27591,7 @@ var MatSortHeader = /** @class */ (function (_super) {
         if (!_sort) {
             throw getSortHeaderNotContainedWithinSortError();
         }
-        _this._rerenderSubscription = merge.merge(_sort.sortChange, _sort._stateChanges, _intl.changes)
+        _this._rerenderSubscription = rxjs.merge(_sort.sortChange, _sort._stateChanges, _intl.changes)
             .subscribe(function () {
             if (_this._isSorted()) {
                 _this._updateArrowDirection();
@@ -27908,7 +27908,7 @@ var MatStepperIntl = /** @class */ (function () {
          * Stream that emits whenever the labels here are changed. Use this to notify
          * components if the labels have changed after initialization.
          */
-        this.changes = new Subject.Subject();
+        this.changes = new rxjs.Subject();
         /**
          * Label that is rendered below optional steps.
          */
@@ -28155,7 +28155,7 @@ var MatStepper = /** @class */ (function (_super) {
             this._iconOverrides["done"] = doneOverride.templateRef;
         }
         // Mark the component for change detection whenever the content children query changes
-        this._steps.changes.pipe(takeUntil.takeUntil(this._destroyed)).subscribe(function () { return _this._stateChanged(); });
+        this._steps.changes.pipe(operators.takeUntil(this._destroyed)).subscribe(function () { return _this._stateChanged(); });
     };
     MatStepper.decorators = [
         { type: core.Directive, args: [{
@@ -28642,11 +28642,11 @@ MatTableDataSource = /** @class */ (function (_super) {
         /**
          * Stream emitting render data to the table (depends on ordered data changes).
          */
-        _this._renderData = new BehaviorSubject.BehaviorSubject([]);
+        _this._renderData = new rxjs.BehaviorSubject([]);
         /**
          * Stream that emits when a new filter string is set on the data source.
          */
-        _this._filter = new BehaviorSubject.BehaviorSubject('');
+        _this._filter = new rxjs.BehaviorSubject('');
         /**
          * Data accessor function that is used for accessing data properties for sorting through
          * the default sortData function.
@@ -28711,15 +28711,15 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @param filter Filter string that has been set on the data source.
          * @return Whether the filter matches against the data
          */
-        _this.filterPredicate = function (data, filter$$1) {
+        _this.filterPredicate = function (data, filter) {
             // Transform the data into a lowercase string of all property values.
             var /** @type {?} */ accumulator = function (currentTerm, key) { return currentTerm + data[key]; };
             var /** @type {?} */ dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
             // Transform the filter by converting it to lowercase and removing whitespace.
-            var /** @type {?} */ transformedFilter = filter$$1.trim().toLowerCase();
+            var /** @type {?} */ transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
         };
-        _this._data = new BehaviorSubject.BehaviorSubject(initialData);
+        _this._data = new rxjs.BehaviorSubject(initialData);
         _this._updateChangeSubscription();
         return _this;
     }
@@ -28753,7 +28753,7 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @param {?} filter
          * @return {?}
          */
-        function (filter$$1) { this._filter.next(filter$$1); },
+        function (filter) { this._filter.next(filter); },
         enumerable: true,
         configurable: true
     });
@@ -28834,27 +28834,32 @@ MatTableDataSource = /** @class */ (function (_super) {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // Otherwise, use an empty observable stream to take their place.
-        var /** @type {?} */ sortChange = /** @type {?} */ ((this._sort ? this._sort.sortChange : empty.empty()));
-        var /** @type {?} */ pageChange = /** @type {?} */ ((this._paginator ? this._paginator.page : empty.empty()));
+        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : rxjs.empty();
+        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : rxjs.empty();
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }
+        var /** @type {?} */ dataStream = this._data;
         // Watch for base data or filter changes to provide a filtered set of data.
-        this._renderChangesSubscription = this._data.pipe(combineLatest.combineLatest(this._filter), map.map(function (_a) {
+        var /** @type {?} */ filteredData = rxjs.combineLatest(dataStream, this._filter)
+            .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._filterData(data);
-        }), 
+        }));
         // Watch for filtered data or sort changes to provide an ordered set of data.
-        combineLatest.combineLatest(sortChange.pipe(startWith.startWith(null))), map.map(function (_a) {
+        var /** @type {?} */ orderedData = rxjs.combineLatest(filteredData, sortChange.pipe(operators.startWith(/** @type {?} */ ((null)))))
+            .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._orderData(data);
-        }), 
+        }));
         // Watch for ordered data or page changes to provide a paged set of data.
-        combineLatest.combineLatest(pageChange.pipe(startWith.startWith(null))), map.map(function (_a) {
+        var /** @type {?} */ paginatedData = rxjs.combineLatest(orderedData, pageChange.pipe(operators.startWith(/** @type {?} */ ((null)))))
+            .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._pageData(data);
-        }))
-            .subscribe(function (data) { return _this._renderData.next(data); });
+        }));
+        // Watched for paged data changes and send the result to the table to render.
+        paginatedData.subscribe(function (data) { return _this._renderData.next(data); });
     };
     /**
      * Returns a filtered data array where each filter object contains the filter string within
@@ -29177,11 +29182,11 @@ var MatTab = /** @class */ (function (_super) {
         /**
          * Emits whenever the label changes.
          */
-        _this._labelChange = new Subject.Subject();
+        _this._labelChange = new rxjs.Subject();
         /**
          * Emits whenever the disable changes
          */
-        _this._disableChange = new Subject.Subject();
+        _this._disableChange = new rxjs.Subject();
         /**
          * The relatively indexed position where 0 represents the center, negative is left, and positive
          * represents the right.
@@ -29589,11 +29594,11 @@ var MatTabGroup = /** @class */ (function (_super) {
         /**
          * Subscription to tabs being added/removed.
          */
-        _this._tabsSubscription = Subscription.Subscription.EMPTY;
+        _this._tabsSubscription = rxjs.Subscription.EMPTY;
         /**
          * Subscription to changes in the tab labels.
          */
-        _this._tabLabelSubscription = Subscription.Subscription.EMPTY;
+        _this._tabLabelSubscription = rxjs.Subscription.EMPTY;
         _this._dynamicHeight = false;
         _this._selectedIndex = null;
         /**
@@ -29794,7 +29799,7 @@ var MatTabGroup = /** @class */ (function (_super) {
         if (this._tabLabelSubscription) {
             this._tabLabelSubscription.unsubscribe();
         }
-        this._tabLabelSubscription = merge.merge.apply(void 0, this._tabs.map(function (tab) { return tab._disableChange; }).concat(this._tabs.map(function (tab) { return tab._labelChange; }))).subscribe(function () {
+        this._tabLabelSubscription = rxjs.merge.apply(void 0, this._tabs.map(function (tab) { return tab._disableChange; }).concat(this._tabs.map(function (tab) { return tab._labelChange; }))).subscribe(function () {
             _this._changeDetectorRef.markForCheck();
         });
     };
@@ -30066,7 +30071,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         /**
          * Combines listeners that will re-align the ink bar whenever they're invoked.
          */
-        _this._realignInkBar = Subscription.Subscription.EMPTY;
+        _this._realignInkBar = rxjs.Subscription.EMPTY;
         /**
          * Whether the controls for pagination should be displayed
          */
@@ -30183,7 +30188,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ dirChange = this._dir ? this._dir.change : of.of(null);
+        var /** @type {?} */ dirChange = this._dir ? this._dir.change : rxjs.of(null);
         var /** @type {?} */ resize = this._viewportRuler.change(150);
         var /** @type {?} */ realign = function () {
             _this._updatePagination();
@@ -30192,7 +30197,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         // Defer the first call in order to allow for slower browsers to lay out the elements.
         // This helps in cases where the user lands directly on a page with paginated tabs.
         typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
-        this._realignInkBar = merge.merge(dirChange, resize).subscribe(realign);
+        this._realignInkBar = rxjs.merge(dirChange, resize).subscribe(realign);
     };
     /**
      * @return {?}
@@ -30707,7 +30712,7 @@ var MatTabNav = /** @class */ (function (_super) {
         /**
          * Subject that emits when the component has been destroyed.
          */
-        _this._onDestroy = new Subject.Subject();
+        _this._onDestroy = new rxjs.Subject();
         _this._disableRipple = false;
         return _this;
     }
@@ -30776,8 +30781,8 @@ var MatTabNav = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
-            var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : of.of(null);
-            return merge.merge(dirChange, _this._viewportRuler.change(10)).pipe(takeUntil.takeUntil(_this._onDestroy))
+            var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs.of(null);
+            return rxjs.merge(dirChange, _this._viewportRuler.change(10)).pipe(operators.takeUntil(_this._onDestroy))
                 .subscribe(function () { return _this._alignInkBar(); });
         });
         this._setLinkDisableRipple();
@@ -31529,7 +31534,7 @@ MatTreeFlattener = /** @class */ (function () {
         var /** @type {?} */ flatNode = this.transformFunction(node, level);
         resultNodes.push(flatNode);
         if (this.isExpandable(flatNode)) {
-            this.getChildren(node).pipe(take.take(1)).subscribe(function (children) {
+            this.getChildren(node).pipe(operators.take(1)).subscribe(function (children) {
                 children.forEach(function (child, index) {
                     var /** @type {?} */ childParentMap = parentMap.slice();
                     childParentMap.push(index != children.length - 1);
@@ -31626,9 +31631,9 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this.treeControl = treeControl;
         _this.treeFlattener = treeFlattener;
-        _this._flattenedData = new BehaviorSubject.BehaviorSubject([]);
-        _this._expandedData = new BehaviorSubject.BehaviorSubject([]);
-        _this._data = new BehaviorSubject.BehaviorSubject(initialData);
+        _this._flattenedData = new rxjs.BehaviorSubject([]);
+        _this._expandedData = new rxjs.BehaviorSubject([]);
+        _this._data = new rxjs.BehaviorSubject(initialData);
         return _this;
     }
     Object.defineProperty(MatTreeFlatDataSource.prototype, "data", {
@@ -31663,7 +31668,7 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
             /** @type {?} */ ((this.treeControl.expansionModel.onChange)),
             this._flattenedData
         ];
-        return merge.merge.apply(void 0, changes).pipe(map.map(function () {
+        return rxjs.merge.apply(void 0, changes).pipe(operators.map(function () {
             _this._expandedData.next(_this.treeFlattener.expandFlattenedNodes(_this._flattenedData.value, _this.treeControl));
             return _this._expandedData.value;
         }));
@@ -31702,7 +31707,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
     __extends(MatTreeNestedDataSource, _super);
     function MatTreeNestedDataSource() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this._data = new BehaviorSubject.BehaviorSubject([]);
+        _this._data = new rxjs.BehaviorSubject([]);
         return _this;
     }
     Object.defineProperty(MatTreeNestedDataSource.prototype, "data", {
@@ -31732,7 +31737,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
      */
     function (collectionViewer) {
         var _this = this;
-        return merge.merge.apply(void 0, [collectionViewer.viewChange, this._data]).pipe(map.map(function () {
+        return rxjs.merge.apply(void 0, [collectionViewer.viewChange, this._data]).pipe(operators.map(function () {
             return _this.data;
         }));
     };
@@ -31755,7 +31760,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-d2067e7');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.4-c05005a');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32157,7 +32162,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa13 = MatTreeNodeOutlet;
+exports.ɵa17 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;

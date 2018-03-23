@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/material/core'), require('rxjs/Subject'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs/Subscription'), require('rxjs/observable/merge'), require('@angular/cdk/keycodes'), require('rxjs/observable/of'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('rxjs/operators/takeUntil'), require('@angular/cdk/observers'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/tabs', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/material/core', 'rxjs/Subject', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs/Subscription', 'rxjs/observable/merge', '@angular/cdk/keycodes', 'rxjs/observable/of', '@angular/cdk/scrolling', '@angular/cdk/platform', 'rxjs/operators/takeUntil', '@angular/cdk/observers', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = {}),global.ng.core,global.ng.cdk.portal,global.ng.material.core,global.Rx,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.Rx.Observable,global.ng.cdk.keycodes,global.Rx.Observable,global.ng.cdk.scrolling,global.ng.cdk.platform,global.Rx.operators,global.ng.cdk.observers,global.ng.common));
-}(this, (function (exports,core,portal,core$1,Subject,animations,bidi,coercion,Subscription,merge,keycodes,of,scrolling,platform,takeUntil,observers,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/cdk/observers'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/tabs', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/cdk/platform', 'rxjs/operators', '@angular/cdk/observers', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = {}),global.ng.core,global.ng.cdk.portal,global.ng.material.core,global.Rx,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.scrolling,global.ng.cdk.platform,global.Rx.operators,global.ng.cdk.observers,global.ng.common));
+}(this, (function (exports,core,portal,core$1,rxjs,animations,bidi,coercion,keycodes,scrolling,platform,operators,observers,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -212,11 +212,11 @@ var MatTab = /** @class */ (function (_super) {
         /**
          * Emits whenever the label changes.
          */
-        _this._labelChange = new Subject.Subject();
+        _this._labelChange = new rxjs.Subject();
         /**
          * Emits whenever the disable changes
          */
-        _this._disableChange = new Subject.Subject();
+        _this._disableChange = new rxjs.Subject();
         /**
          * The relatively indexed position where 0 represents the center, negative is left, and positive
          * represents the right.
@@ -624,11 +624,11 @@ var MatTabGroup = /** @class */ (function (_super) {
         /**
          * Subscription to tabs being added/removed.
          */
-        _this._tabsSubscription = Subscription.Subscription.EMPTY;
+        _this._tabsSubscription = rxjs.Subscription.EMPTY;
         /**
          * Subscription to changes in the tab labels.
          */
-        _this._tabLabelSubscription = Subscription.Subscription.EMPTY;
+        _this._tabLabelSubscription = rxjs.Subscription.EMPTY;
         _this._dynamicHeight = false;
         _this._selectedIndex = null;
         /**
@@ -829,7 +829,7 @@ var MatTabGroup = /** @class */ (function (_super) {
         if (this._tabLabelSubscription) {
             this._tabLabelSubscription.unsubscribe();
         }
-        this._tabLabelSubscription = merge.merge.apply(void 0, this._tabs.map(function (tab) { return tab._disableChange; }).concat(this._tabs.map(function (tab) { return tab._labelChange; }))).subscribe(function () {
+        this._tabLabelSubscription = rxjs.merge.apply(void 0, this._tabs.map(function (tab) { return tab._disableChange; }).concat(this._tabs.map(function (tab) { return tab._labelChange; }))).subscribe(function () {
             _this._changeDetectorRef.markForCheck();
         });
     };
@@ -1101,7 +1101,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         /**
          * Combines listeners that will re-align the ink bar whenever they're invoked.
          */
-        _this._realignInkBar = Subscription.Subscription.EMPTY;
+        _this._realignInkBar = rxjs.Subscription.EMPTY;
         /**
          * Whether the controls for pagination should be displayed
          */
@@ -1218,7 +1218,7 @@ var MatTabHeader = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ dirChange = this._dir ? this._dir.change : of.of(null);
+        var /** @type {?} */ dirChange = this._dir ? this._dir.change : rxjs.of(null);
         var /** @type {?} */ resize = this._viewportRuler.change(150);
         var /** @type {?} */ realign = function () {
             _this._updatePagination();
@@ -1227,7 +1227,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         // Defer the first call in order to allow for slower browsers to lay out the elements.
         // This helps in cases where the user lands directly on a page with paginated tabs.
         typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
-        this._realignInkBar = merge.merge(dirChange, resize).subscribe(realign);
+        this._realignInkBar = rxjs.merge(dirChange, resize).subscribe(realign);
     };
     /**
      * @return {?}
@@ -1742,7 +1742,7 @@ var MatTabNav = /** @class */ (function (_super) {
         /**
          * Subject that emits when the component has been destroyed.
          */
-        _this._onDestroy = new Subject.Subject();
+        _this._onDestroy = new rxjs.Subject();
         _this._disableRipple = false;
         return _this;
     }
@@ -1811,8 +1811,8 @@ var MatTabNav = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
-            var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : of.of(null);
-            return merge.merge(dirChange, _this._viewportRuler.change(10)).pipe(takeUntil.takeUntil(_this._onDestroy))
+            var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs.of(null);
+            return rxjs.merge(dirChange, _this._viewportRuler.change(10)).pipe(operators.takeUntil(_this._onDestroy))
                 .subscribe(function () { return _this._alignInkBar(); });
         });
         this._setLinkDisableRipple();

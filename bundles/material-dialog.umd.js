@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/core'), require('@angular/common'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs/operators/filter'), require('rxjs/operators/take'), require('rxjs/Subject'), require('rxjs/Subscription'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('rxjs/observable/defer'), require('rxjs/observable/of'), require('rxjs/operators/startWith'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/dialog', ['exports', '@angular/animations', '@angular/core', '@angular/common', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs/operators/filter', 'rxjs/operators/take', 'rxjs/Subject', 'rxjs/Subscription', '@angular/cdk/bidi', '@angular/cdk/overlay', 'rxjs/observable/defer', 'rxjs/observable/of', 'rxjs/operators/startWith', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = {}),global.ng.animations,global.ng.core,global.ng.common,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.cdk.keycodes,global.Rx.operators,global.Rx.operators,global.Rx,global.Rx,global.ng.cdk.bidi,global.ng.cdk.overlay,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.ng.material.core));
-}(this, (function (exports,animations,core,common,portal,a11y,keycodes,filter,take,Subject,Subscription,bidi,overlay,defer,of,startWith,core$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/core'), require('@angular/common'), require('@angular/cdk/portal'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('rxjs'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/dialog', ['exports', '@angular/animations', '@angular/core', '@angular/common', '@angular/cdk/portal', '@angular/cdk/a11y', '@angular/cdk/keycodes', 'rxjs/operators', 'rxjs', '@angular/cdk/bidi', '@angular/cdk/overlay', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.dialog = {}),global.ng.animations,global.ng.core,global.ng.common,global.ng.cdk.portal,global.ng.cdk.a11y,global.ng.cdk.keycodes,global.Rx.operators,global.Rx,global.ng.cdk.bidi,global.ng.cdk.overlay,global.ng.material.core));
+}(this, (function (exports,animations,core,common,portal,a11y,keycodes,operators,rxjs,bidi,overlay,core$1) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -398,29 +398,29 @@ MatDialogRef = /** @class */ (function () {
         /**
          * Subject for notifying the user that the dialog has finished opening.
          */
-        this._afterOpen = new Subject.Subject();
+        this._afterOpen = new rxjs.Subject();
         /**
          * Subject for notifying the user that the dialog has finished closing.
          */
-        this._afterClosed = new Subject.Subject();
+        this._afterClosed = new rxjs.Subject();
         /**
          * Subject for notifying the user that the dialog has started closing.
          */
-        this._beforeClose = new Subject.Subject();
+        this._beforeClose = new rxjs.Subject();
         /**
          * Subscription to changes in the user's location.
          */
-        this._locationChanges = Subscription.Subscription.EMPTY;
+        this._locationChanges = rxjs.Subscription.EMPTY;
         // Pass the id along to the container.
         _containerInstance._id = id;
         // Emit when opening animation completes
-        _containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), take.take(1))
+        _containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), operators.take(1))
             .subscribe(function () {
             _this._afterOpen.next();
             _this._afterOpen.complete();
         });
         // Dispose overlay when closing animation is complete
-        _containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), take.take(1))
+        _containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), operators.take(1))
             .subscribe(function () {
             _this._overlayRef.dispose();
             _this._locationChanges.unsubscribe();
@@ -429,7 +429,7 @@ MatDialogRef = /** @class */ (function () {
             _this.componentInstance = /** @type {?} */ ((null));
         });
         _overlayRef.keydownEvents()
-            .pipe(filter.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; }))
+            .pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; }))
             .subscribe(function () { return _this.close(); });
         if (location) {
             // Close the dialog when the user goes forwards/backwards in history or when the location
@@ -460,7 +460,7 @@ MatDialogRef = /** @class */ (function () {
         var _this = this;
         this._result = dialogResult;
         // Transition the backdrop in parallel to the dialog.
-        this._containerInstance._animationStateChanged.pipe(filter.filter(function (event) { return event.phaseName === 'start'; }), take.take(1))
+        this._containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'start'; }), operators.take(1))
             .subscribe(function () {
             _this._beforeClose.next(dialogResult);
             _this._beforeClose.complete();
@@ -659,17 +659,17 @@ var MatDialog = /** @class */ (function () {
         this._parentDialog = _parentDialog;
         this._overlayContainer = _overlayContainer;
         this._openDialogsAtThisLevel = [];
-        this._afterAllClosedAtThisLevel = new Subject.Subject();
-        this._afterOpenAtThisLevel = new Subject.Subject();
+        this._afterAllClosedAtThisLevel = new rxjs.Subject();
+        this._afterOpenAtThisLevel = new rxjs.Subject();
         this._ariaHiddenElements = new Map();
         /**
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
          */
-        this.afterAllClosed = defer.defer(function () {
+        this.afterAllClosed = rxjs.defer(function () {
             return _this.openDialogs.length ?
                 _this._afterAllClosed :
-                _this._afterAllClosed.pipe(startWith.startWith(undefined));
+                _this._afterAllClosed.pipe(operators.startWith(undefined));
         });
     }
     Object.defineProperty(MatDialog.prototype, "openDialogs", {
@@ -922,7 +922,7 @@ var MatDialog = /** @class */ (function () {
         if (!userInjector || !userInjector.get(bidi.Directionality, null)) {
             injectionTokens.set(bidi.Directionality, {
                 value: config.direction,
-                change: of.of()
+                change: rxjs.of()
             });
         }
         return new portal.PortalInjector(userInjector || this._injector, injectionTokens);

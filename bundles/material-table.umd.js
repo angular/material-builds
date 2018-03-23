@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/table'), require('@angular/common'), require('@angular/material/core'), require('rxjs/BehaviorSubject'), require('rxjs/operators/combineLatest'), require('rxjs/operators/map'), require('rxjs/operators/startWith'), require('rxjs/observable/empty'), require('@angular/cdk/coercion')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/core', '@angular/cdk/table', '@angular/common', '@angular/material/core', 'rxjs/BehaviorSubject', 'rxjs/operators/combineLatest', 'rxjs/operators/map', 'rxjs/operators/startWith', 'rxjs/observable/empty', '@angular/cdk/coercion'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}),global.ng.core,global.ng.cdk.table,global.ng.common,global.ng.material.core,global.Rx,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.ng.cdk.coercion));
-}(this, (function (exports,core,table,common,core$1,BehaviorSubject,combineLatest,map,startWith,empty,coercion) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/table'), require('@angular/common'), require('@angular/material/core'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/coercion')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/core', '@angular/cdk/table', '@angular/common', '@angular/material/core', 'rxjs', 'rxjs/operators', '@angular/cdk/coercion'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}),global.ng.core,global.ng.cdk.table,global.ng.common,global.ng.material.core,global.Rx,global.Rx.operators,global.ng.cdk.coercion));
+}(this, (function (exports,core,table,common,core$1,rxjs,operators,coercion) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -350,11 +350,11 @@ MatTableDataSource = /** @class */ (function (_super) {
         /**
          * Stream emitting render data to the table (depends on ordered data changes).
          */
-        _this._renderData = new BehaviorSubject.BehaviorSubject([]);
+        _this._renderData = new rxjs.BehaviorSubject([]);
         /**
          * Stream that emits when a new filter string is set on the data source.
          */
-        _this._filter = new BehaviorSubject.BehaviorSubject('');
+        _this._filter = new rxjs.BehaviorSubject('');
         /**
          * Data accessor function that is used for accessing data properties for sorting through
          * the default sortData function.
@@ -427,7 +427,7 @@ MatTableDataSource = /** @class */ (function (_super) {
             var /** @type {?} */ transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
         };
-        _this._data = new BehaviorSubject.BehaviorSubject(initialData);
+        _this._data = new rxjs.BehaviorSubject(initialData);
         _this._updateChangeSubscription();
         return _this;
     }
@@ -542,27 +542,32 @@ MatTableDataSource = /** @class */ (function (_super) {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // Otherwise, use an empty observable stream to take their place.
-        var /** @type {?} */ sortChange = /** @type {?} */ ((this._sort ? this._sort.sortChange : empty.empty()));
-        var /** @type {?} */ pageChange = /** @type {?} */ ((this._paginator ? this._paginator.page : empty.empty()));
+        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : rxjs.empty();
+        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : rxjs.empty();
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }
+        var /** @type {?} */ dataStream = this._data;
         // Watch for base data or filter changes to provide a filtered set of data.
-        this._renderChangesSubscription = this._data.pipe(combineLatest.combineLatest(this._filter), map.map(function (_a) {
+        var /** @type {?} */ filteredData = rxjs.combineLatest(dataStream, this._filter)
+            .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._filterData(data);
-        }), 
+        }));
         // Watch for filtered data or sort changes to provide an ordered set of data.
-        combineLatest.combineLatest(sortChange.pipe(startWith.startWith(null))), map.map(function (_a) {
+        var /** @type {?} */ orderedData = rxjs.combineLatest(filteredData, sortChange.pipe(operators.startWith(/** @type {?} */ ((null)))))
+            .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._orderData(data);
-        }), 
+        }));
         // Watch for ordered data or page changes to provide a paged set of data.
-        combineLatest.combineLatest(pageChange.pipe(startWith.startWith(null))), map.map(function (_a) {
+        var /** @type {?} */ paginatedData = rxjs.combineLatest(orderedData, pageChange.pipe(operators.startWith(/** @type {?} */ ((null)))))
+            .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._pageData(data);
-        }))
-            .subscribe(function (data) { return _this._renderData.next(data); });
+        }));
+        // Watched for paged data changes and send the result to the table to render.
+        paginatedData.subscribe(function (data) { return _this._renderData.next(data); });
     };
     /**
      * Returns a filtered data array where each filter object contains the filter string within

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs/Subject'), require('rxjs/operators/take'), require('@angular/cdk/keycodes'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/portal'), require('rxjs/operators/takeUntil'), require('@angular/animations'), require('@angular/cdk/coercion'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/material/dialog'), require('rxjs/observable/merge'), require('rxjs/operators/filter'), require('rxjs/Subscription'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input'), require('rxjs/observable/of'), require('@angular/cdk/a11y'), require('@angular/material/button')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/core', 'rxjs/Subject', 'rxjs/operators/take', '@angular/cdk/keycodes', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/portal', 'rxjs/operators/takeUntil', '@angular/animations', '@angular/cdk/coercion', '@angular/cdk/overlay', '@angular/common', '@angular/material/dialog', 'rxjs/observable/merge', 'rxjs/operators/filter', 'rxjs/Subscription', '@angular/forms', '@angular/material/form-field', '@angular/material/input', 'rxjs/observable/of', '@angular/cdk/a11y', '@angular/material/button'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}),global.ng.core,global.Rx,global.Rx.operators,global.ng.cdk.keycodes,global.ng.material.core,global.ng.cdk.bidi,global.ng.cdk.portal,global.Rx.operators,global.ng.animations,global.ng.cdk.coercion,global.ng.cdk.overlay,global.ng.common,global.ng.material.dialog,global.Rx.Observable,global.Rx.operators,global.Rx,global.ng.forms,global.ng.material.formField,global.ng.material.input,global.Rx.Observable,global.ng.cdk.a11y,global.ng.material.button));
-}(this, (function (exports,core,Subject,take,keycodes,core$1,bidi,portal,takeUntil,animations,coercion,overlay,common,dialog,merge,filter,Subscription,forms,formField,input,of,a11y,button) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/keycodes'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/cdk/portal'), require('@angular/animations'), require('@angular/cdk/coercion'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/material/dialog'), require('@angular/forms'), require('@angular/material/form-field'), require('@angular/material/input'), require('@angular/cdk/a11y'), require('@angular/material/button')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/datepicker', ['exports', '@angular/core', 'rxjs', 'rxjs/operators', '@angular/cdk/keycodes', '@angular/material/core', '@angular/cdk/bidi', '@angular/cdk/portal', '@angular/animations', '@angular/cdk/coercion', '@angular/cdk/overlay', '@angular/common', '@angular/material/dialog', '@angular/forms', '@angular/material/form-field', '@angular/material/input', '@angular/cdk/a11y', '@angular/material/button'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.datepicker = {}),global.ng.core,global.Rx,global.Rx.operators,global.ng.cdk.keycodes,global.ng.material.core,global.ng.cdk.bidi,global.ng.cdk.portal,global.ng.animations,global.ng.cdk.coercion,global.ng.cdk.overlay,global.ng.common,global.ng.material.dialog,global.ng.forms,global.ng.material.formField,global.ng.material.input,global.ng.cdk.a11y,global.ng.material.button));
+}(this, (function (exports,core,rxjs,operators,keycodes,core$1,bidi,portal,animations,coercion,overlay,common,dialog,forms,formField,input,a11y,button) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -66,7 +66,7 @@ var MatDatepickerIntl = /** @class */ (function () {
          * Stream that emits whenever the labels here are changed. Use this to notify
          * components if the labels have changed after initialization.
          */
-        this.changes = new Subject.Subject();
+        this.changes = new rxjs.Subject();
         /**
          * A label for the calendar popup (used by screen readers).
          */
@@ -225,7 +225,7 @@ var MatCalendarBody = /** @class */ (function () {
     function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
-            _this._ngZone.onStable.asObservable().pipe(take.take(1)).subscribe(function () {
+            _this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
                 _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
             });
         });
@@ -1334,8 +1334,8 @@ var MatCalendarHeader = /** @class */ (function () {
         /**
          * Subject that emits when the component has been destroyed.
          */
-        this._destroyed = new Subject.Subject();
-        this.calendar.stateChanges.pipe(takeUntil.takeUntil(this._destroyed))
+        this._destroyed = new rxjs.Subject();
+        this.calendar.stateChanges.pipe(operators.takeUntil(this._destroyed))
             .subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
     Object.defineProperty(MatCalendarHeader.prototype, "periodButtonText", {
@@ -1557,7 +1557,7 @@ var MatCalendar = /** @class */ (function () {
          * Emits when any date is selected.
          */
         this._userSelection = new core.EventEmitter();
-        this._stateChanges = new Subject.Subject();
+        this._stateChanges = new rxjs.Subject();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -1940,7 +1940,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
-            _this._ngZone.onStable.asObservable().pipe(take.take(1)).subscribe(function () {
+            _this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
                 _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
             });
         });
@@ -2038,15 +2038,15 @@ var MatDatepicker = /** @class */ (function () {
         /**
          * Subscription to value changes in the associated input element.
          */
-        this._inputSubscription = Subscription.Subscription.EMPTY;
+        this._inputSubscription = rxjs.Subscription.EMPTY;
         /**
          * Emits when the datepicker is disabled.
          */
-        this._disabledChange = new Subject.Subject();
+        this._disabledChange = new rxjs.Subject();
         /**
          * Emits new selected date when selected date changes.
          */
-        this._selectedChanged = new Subject.Subject();
+        this._selectedChanged = new rxjs.Subject();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -2389,7 +2389,7 @@ var MatDatepicker = /** @class */ (function () {
             this._popupComponentRef.instance.datepicker = this;
             this._setColor();
             // Update the position once the calendar has rendered.
-            this._ngZone.onStable.asObservable().pipe(take.take(1)).subscribe(function () {
+            this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
                 _this._popupRef.updatePosition();
             });
         }
@@ -2413,7 +2413,7 @@ var MatDatepicker = /** @class */ (function () {
             panelClass: 'mat-datepicker-popup',
         });
         this._popupRef = this._overlay.create(overlayConfig);
-        merge.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(filter.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.close(); });
+        rxjs.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.close(); });
     };
     /**
      * Create the popup PositionStrategy.
@@ -2584,8 +2584,8 @@ var MatDatepickerInput = /** @class */ (function () {
         this._onTouched = function () { };
         this._cvaOnChange = function () { };
         this._validatorOnChange = function () { };
-        this._datepickerSubscription = Subscription.Subscription.EMPTY;
-        this._localeSubscription = Subscription.Subscription.EMPTY;
+        this._datepickerSubscription = rxjs.Subscription.EMPTY;
+        this._localeSubscription = rxjs.Subscription.EMPTY;
         /**
          * The form control validator for whether the input parses.
          */
@@ -3033,7 +3033,7 @@ var MatDatepickerToggle = /** @class */ (function () {
     function MatDatepickerToggle(_intl, _changeDetectorRef) {
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
-        this._stateChanges = Subscription.Subscription.EMPTY;
+        this._stateChanges = rxjs.Subscription.EMPTY;
     }
     Object.defineProperty(MatDatepickerToggle.prototype, "disabled", {
         get: /**
@@ -3106,14 +3106,14 @@ var MatDatepickerToggle = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ datepickerDisabled = this.datepicker ? this.datepicker._disabledChange : of.of();
+        var /** @type {?} */ datepickerDisabled = this.datepicker ? this.datepicker._disabledChange : rxjs.of();
         var /** @type {?} */ inputDisabled = this.datepicker && this.datepicker._datepickerInput ?
-            this.datepicker._datepickerInput._disabledChange : of.of();
+            this.datepicker._datepickerInput._disabledChange : rxjs.of();
         var /** @type {?} */ datepickerToggled = this.datepicker ?
-            merge.merge(this.datepicker.openedStream, this.datepicker.closedStream) :
-            of.of();
+            rxjs.merge(this.datepicker.openedStream, this.datepicker.closedStream) :
+            rxjs.of();
         this._stateChanges.unsubscribe();
-        this._stateChanges = merge.merge(this._intl.changes, datepickerDisabled, inputDisabled, datepickerToggled).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        this._stateChanges = rxjs.merge(this._intl.changes, datepickerDisabled, inputDisabled, datepickerToggled).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
     };
     MatDatepickerToggle.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-toggle',

@@ -1,4 +1,4 @@
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 /** Datepicker data that requires internationalization. */
 export declare class MatDatepickerIntl {
     /**

@@ -8,7 +8,7 @@
 import { EventEmitter, OnChanges, OnDestroy } from '@angular/core';
 import { CanDisable } from '@angular/material/core';
 import { SortDirection } from './sort-direction';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 /** Interface for a directive that holds sorting state consumed by `MatSortHeader`. */
 export interface MatSortable {
     /** The id of the column being sorted. */

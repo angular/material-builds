@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs/observable/fromEvent'), require('rxjs/operators/startWith'), require('rxjs/operators/take'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/formField', ['exports', '@angular/core', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/material/core', 'rxjs/observable/fromEvent', 'rxjs/operators/startWith', 'rxjs/operators/take', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}),global.ng.core,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.material.core,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.ng.common));
-}(this, (function (exports,core,animations,bidi,coercion,core$1,fromEvent,startWith,take,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs'), require('rxjs/operators'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/formField', ['exports', '@angular/core', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', 'rxjs/operators', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}),global.ng.core,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.material.core,global.Rx,global.Rx.operators,global.ng.common));
+}(this, (function (exports,core,animations,bidi,coercion,core$1,rxjs,operators,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -434,7 +434,7 @@ var MatFormField = /** @class */ (function (_super) {
                 .add("mat-form-field-type-" + this._control.controlType);
         }
         // Subscribe to changes in the child control state in order to update the form field UI.
-        this._control.stateChanges.pipe(startWith.startWith(/** @type {?} */ ((null)))).subscribe(function () {
+        this._control.stateChanges.pipe(operators.startWith(/** @type {?} */ ((null)))).subscribe(function () {
             _this._validatePlaceholders();
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
@@ -446,12 +446,12 @@ var MatFormField = /** @class */ (function (_super) {
             });
         }
         // Re-validate when the number of hints changes.
-        this._hintChildren.changes.pipe(startWith.startWith(null)).subscribe(function () {
+        this._hintChildren.changes.pipe(operators.startWith(null)).subscribe(function () {
             _this._processHints();
             _this._changeDetectorRef.markForCheck();
         });
         // Update the aria-described by when the number of errors changes.
-        this._errorChildren.changes.pipe(startWith.startWith(null)).subscribe(function () {
+        this._errorChildren.changes.pipe(operators.startWith(null)).subscribe(function () {
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
         });
@@ -570,7 +570,7 @@ var MatFormField = /** @class */ (function (_super) {
         if (this._hasFloatingLabel() && this._canLabelFloat) {
             this._showAlwaysAnimate = true;
             this.floatLabel = 'always';
-            fromEvent.fromEvent(this._label.nativeElement, 'transitionend').pipe(take.take(1)).subscribe(function () {
+            rxjs.fromEvent(this._label.nativeElement, 'transitionend').pipe(operators.take(1)).subscribe(function () {
                 _this._showAlwaysAnimate = false;
             });
             this._changeDetectorRef.markForCheck();

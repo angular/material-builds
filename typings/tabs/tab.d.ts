@@ -8,7 +8,7 @@
 import { TemplatePortal } from '@angular/cdk/portal';
 import { OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { CanDisable } from '@angular/material/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { MatTabLabel } from './tab-label';
 /** @docs-private */
 export declare class MatTabBase {

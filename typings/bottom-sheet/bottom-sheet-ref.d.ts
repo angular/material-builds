@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { MatBottomSheetContainer } from './bottom-sheet-container';
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.

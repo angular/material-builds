@@ -10,7 +10,7 @@ import { ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges, ViewContainerRe
 import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { MatAccordion } from './accordion';
 import { MatExpansionPanelContent } from './expansion-panel-content';
 /** MatExpansionPanel's states. */

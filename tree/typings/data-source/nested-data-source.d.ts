@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 /**
  * Data source for nested tree.
  *

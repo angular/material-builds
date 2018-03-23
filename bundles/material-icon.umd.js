@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs/operators/catchError'), require('rxjs/operators/tap'), require('rxjs/operators/finalize'), require('rxjs/operators/map'), require('rxjs/operators/share'), require('@angular/core'), require('@angular/common/http'), require('@angular/platform-browser'), require('rxjs/observable/forkJoin'), require('rxjs/observable/of'), require('rxjs/observable/throw'), require('@angular/common'), require('rxjs/operators/take'), require('@angular/material/core'), require('@angular/cdk/coercion')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/icon', ['exports', 'rxjs/operators/catchError', 'rxjs/operators/tap', 'rxjs/operators/finalize', 'rxjs/operators/map', 'rxjs/operators/share', '@angular/core', '@angular/common/http', '@angular/platform-browser', 'rxjs/observable/forkJoin', 'rxjs/observable/of', 'rxjs/observable/throw', '@angular/common', 'rxjs/operators/take', '@angular/material/core', '@angular/cdk/coercion'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = {}),global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.ng.core,global.ng.common.http,global.ng.platformBrowser,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.ng.common,global.Rx.operators,global.ng.material.core,global.ng.cdk.coercion));
-}(this, (function (exports,catchError,tap,finalize,map,share,core,http,platformBrowser,forkJoin,of,_throw,common,take,core$1,coercion) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs/operators'), require('@angular/core'), require('@angular/common/http'), require('@angular/platform-browser'), require('rxjs'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/coercion')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/icon', ['exports', 'rxjs/operators', '@angular/core', '@angular/common/http', '@angular/platform-browser', 'rxjs', '@angular/common', '@angular/material/core', '@angular/cdk/coercion'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = {}),global.Rx.operators,global.ng.core,global.ng.common.http,global.ng.platformBrowser,global.Rx,global.ng.common,global.ng.material.core,global.ng.cdk.coercion));
+}(this, (function (exports,operators,core,http,platformBrowser,rxjs,common,core$1,coercion) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -342,9 +342,9 @@ var MatIconRegistry = /** @class */ (function () {
         }
         var /** @type {?} */ cachedIcon = this._cachedIconsByUrl.get(url);
         if (cachedIcon) {
-            return of.of(cloneSvg(cachedIcon));
+            return rxjs.of(cloneSvg(cachedIcon));
         }
-        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(tap.tap(function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); }), map.map(function (svg) { return cloneSvg(svg); }));
+        return this._loadSvgIconFromConfig(new SvgIconConfig(safeUrl)).pipe(operators.tap(function (svg) { return _this._cachedIconsByUrl.set(/** @type {?} */ ((url)), svg); }), operators.map(function (svg) { return cloneSvg(svg); }));
     };
     /**
      * Returns an Observable that produces the icon (as an `<svg>` DOM element) with the given name
@@ -385,7 +385,7 @@ var MatIconRegistry = /** @class */ (function () {
         if (iconSetConfigs) {
             return this._getSvgFromIconSetConfigs(name, iconSetConfigs);
         }
-        return _throw._throw(getMatIconNameNotFoundError(key));
+        return rxjs.throwError(getMatIconNameNotFoundError(key));
     };
     /**
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
@@ -400,11 +400,11 @@ var MatIconRegistry = /** @class */ (function () {
     function (config) {
         if (config.svgElement) {
             // We already have the SVG element for this icon, return a copy.
-            return of.of(cloneSvg(config.svgElement));
+            return rxjs.of(cloneSvg(config.svgElement));
         }
         else {
             // Fetch the icon from the config's URL, cache it, and return a copy.
-            return this._loadSvgIconFromConfig(config).pipe(tap.tap(function (svg) { return config.svgElement = svg; }), map.map(function (svg) { return cloneSvg(svg); }));
+            return this._loadSvgIconFromConfig(config).pipe(operators.tap(function (svg) { return config.svgElement = svg; }), operators.map(function (svg) { return cloneSvg(svg); }));
         }
     };
     /**
@@ -438,24 +438,24 @@ var MatIconRegistry = /** @class */ (function () {
             // We could cache namedIcon in _svgIconConfigs, but since we have to make a copy every
             // time anyway, there's probably not much advantage compared to just always extracting
             // it from the icon set.
-            return of.of(namedIcon);
+            return rxjs.of(namedIcon);
         }
         // Not found in any cached icon sets. If there are icon sets with URLs that we haven't
         // fetched, fetch them now and look for iconName in the results.
         var /** @type {?} */ iconSetFetchRequests = iconSetConfigs
             .filter(function (iconSetConfig) { return !iconSetConfig.svgElement; })
             .map(function (iconSetConfig) {
-            return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(catchError.catchError(function (err) {
+            return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(operators.catchError(function (err) {
                 var /** @type {?} */ url = _this._sanitizer.sanitize(core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
                 // Swallow errors fetching individual URLs so the combined Observable won't
                 // necessarily fail.
                 console.log("Loading icon set URL: " + url + " failed: " + err);
-                return of.of(null);
+                return rxjs.of(null);
             }));
         });
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
         // cached SVG element (unless the request failed), and we can check again for the icon.
-        return forkJoin.forkJoin(iconSetFetchRequests).pipe(map.map(function () {
+        return rxjs.forkJoin(iconSetFetchRequests).pipe(operators.map(function () {
             var /** @type {?} */ foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
                 throw getMatIconNameNotFoundError(name);
@@ -507,7 +507,7 @@ var MatIconRegistry = /** @class */ (function () {
     function (config) {
         var _this = this;
         return this._fetchUrl(config.url)
-            .pipe(map.map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText); }));
+            .pipe(operators.map(function (svgText) { return _this._createSvgElementForSingleIcon(svgText); }));
     };
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
@@ -525,9 +525,9 @@ var MatIconRegistry = /** @class */ (function () {
         var _this = this;
         // If the SVG for this icon set has already been parsed, do nothing.
         if (config.svgElement) {
-            return of.of(config.svgElement);
+            return rxjs.of(config.svgElement);
         }
-        return this._fetchUrl(config.url).pipe(map.map(function (svgText) {
+        return this._fetchUrl(config.url).pipe(operators.map(function (svgText) {
             // It is possible that the icon set was parsed and cached by an earlier request, so parsing
             // only needs to occur if the cache is yet unset.
             if (!config.svgElement) {
@@ -683,7 +683,7 @@ var MatIconRegistry = /** @class */ (function () {
         }
         // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
-        var /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(finalize.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), share.share());
+        var /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(operators.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), operators.share());
         this._inProgressUrlFetches.set(url, req);
         return req;
     };
@@ -905,7 +905,7 @@ var MatIcon = /** @class */ (function (_super) {
         if (changes["svgIcon"]) {
             if (this.svgIcon) {
                 var _a = this._splitIconName(this.svgIcon), namespace = _a[0], iconName = _a[1];
-                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(take.take(1)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
+                this._iconRegistry.getNamedSvgIcon(iconName, namespace).pipe(operators.take(1)).subscribe(function (svg) { return _this._setSvgElement(svg); }, function (err) { return console.log("Error retrieving icon: " + err.message); });
             }
             else {
                 this._clearSvgElement();

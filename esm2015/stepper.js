@@ -7,12 +7,12 @@
  */
 import { Directive, TemplateRef, Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, forwardRef, Inject, Optional, SkipSelf, ViewChildren, defineInjectable } from '@angular/core';
 import { CdkStepLabel, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
 import { ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
-import { takeUntil } from 'rxjs/operators/takeUntil';
+import { takeUntil } from 'rxjs/operators';
 import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';

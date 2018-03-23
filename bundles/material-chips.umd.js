@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/core'), require('@angular/material/core'), require('rxjs/Subject'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/observable/merge'), require('rxjs/operators/startWith'), require('rxjs/Subscription')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/chips', ['exports', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/core', '@angular/material/core', 'rxjs/Subject', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field', 'rxjs/observable/merge', 'rxjs/operators/startWith', 'rxjs/Subscription'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = {}),global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.core,global.ng.material.core,global.Rx,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.collections,global.ng.forms,global.ng.material.formField,global.Rx.Observable,global.Rx.operators,global.Rx));
-}(this, (function (exports,coercion,keycodes,platform,core,core$1,Subject,a11y,bidi,collections,forms,formField,merge,startWith,Subscription) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/core'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/operators')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/chips', ['exports', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/core', '@angular/material/core', 'rxjs', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field', 'rxjs/operators'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = {}),global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.core,global.ng.material.core,global.Rx,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.collections,global.ng.forms,global.ng.material.formField,global.Rx.operators));
+}(this, (function (exports,coercion,keycodes,platform,core,core$1,rxjs,a11y,bidi,collections,forms,formField,operators) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -131,11 +131,11 @@ var MatChip = /** @class */ (function (_super) {
         /**
          * Emits when the chip is focused.
          */
-        _this._onFocus = new Subject.Subject();
+        _this._onFocus = new rxjs.Subject();
         /**
          * Emits when the chip is blured.
          */
-        _this._onBlur = new Subject.Subject();
+        _this._onBlur = new rxjs.Subject();
         /**
          * Emitted when the chip is selected or deselected.
          */
@@ -629,7 +629,7 @@ var MatChipList = /** @class */ (function (_super) {
         /**
          * Subscription to tabbing out from the chip list.
          */
-        _this._tabOutSubscription = Subscription.Subscription.EMPTY;
+        _this._tabOutSubscription = rxjs.Subscription.EMPTY;
         /**
          * Uid of the chip list
          */
@@ -905,7 +905,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.selectionChange; }));
+            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip.selectionChange; }));
         },
         enumerable: true,
         configurable: true
@@ -917,7 +917,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip._onFocus; }));
+            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip._onFocus; }));
         },
         enumerable: true,
         configurable: true
@@ -929,7 +929,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip._onBlur; }));
+            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip._onBlur; }));
         },
         enumerable: true,
         configurable: true
@@ -941,7 +941,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return merge.merge.apply(void 0, this.chips.map(function (chip) { return chip.destroyed; }));
+            return rxjs.merge.apply(void 0, this.chips.map(function (chip) { return chip.destroyed; }));
         },
         enumerable: true,
         configurable: true
@@ -965,7 +965,7 @@ var MatChipList = /** @class */ (function (_super) {
             setTimeout(function () { return _this._tabIndex = _this._userTabIndex || 0; });
         });
         // When the list changes, re-subscribe
-        this._changeSubscription = this.chips.changes.pipe(startWith.startWith(null)).subscribe(function () {
+        this._changeSubscription = this.chips.changes.pipe(operators.startWith(null)).subscribe(function () {
             _this._resetChips();
             // Reset chips selected/deselected status
             // Reset chips selected/deselected status

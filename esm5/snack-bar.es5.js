@@ -5,17 +5,16 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { InjectionToken, Component, ViewEncapsulation, Inject, ChangeDetectionStrategy, ViewChild, NgZone, ElementRef, ChangeDetectorRef, Injectable, Injector, Optional, SkipSelf, TemplateRef, NgModule } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
 import { __assign, __extends } from 'tslib';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalInjector, PortalModule } from '@angular/cdk/portal';
-import { take } from 'rxjs/operators/take';
+import { take, takeUntil } from 'rxjs/operators';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
-import { takeUntil } from 'rxjs/operators/takeUntil';
 import { CommonModule } from '@angular/common';
 
 /**

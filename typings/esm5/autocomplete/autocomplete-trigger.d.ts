@@ -11,7 +11,7 @@ import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewC
 import { ControlValueAccessor } from '@angular/forms';
 import { MatOption, MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { MatAutocomplete } from './autocomplete';
 /**
  * The following style constants are necessary to save here in order

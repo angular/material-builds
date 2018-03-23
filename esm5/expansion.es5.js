@@ -12,14 +12,10 @@ import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk
 import { animate, animateChild, group, state, style, transition, trigger, query } from '@angular/animations';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { Subject } from 'rxjs/Subject';
-import { take } from 'rxjs/operators/take';
-import { filter } from 'rxjs/operators/filter';
-import { startWith } from 'rxjs/operators/startWith';
+import { Subject, merge, Subscription } from 'rxjs';
+import { take, filter, startWith } from 'rxjs/operators';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
-import { merge } from 'rxjs/observable/merge';
-import { Subscription } from 'rxjs/Subscription';
 import { CommonModule } from '@angular/common';
 
 /**

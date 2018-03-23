@@ -8,17 +8,14 @@
 import { Directive, ElementRef, NgZone, TemplateRef, ViewContainerRef, ChangeDetectionStrategy, Component, ContentChild, Input, ViewChild, ViewEncapsulation, Inject, Output, EventEmitter, Optional, ComponentFactoryResolver, forwardRef, ChangeDetectorRef, ContentChildren, Attribute, NgModule } from '@angular/core';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
 import { mixinDisabled, mixinColor, mixinDisableRipple, MAT_RIPPLE_GLOBAL_OPTIONS, mixinTabIndex, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject, Subscription, merge, of } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
-import { Subscription } from 'rxjs/Subscription';
-import { merge } from 'rxjs/observable/merge';
 import { ENTER, LEFT_ARROW, RIGHT_ARROW, SPACE, HOME, END } from '@angular/cdk/keycodes';
-import { of } from 'rxjs/observable/of';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
-import { takeUntil } from 'rxjs/operators/takeUntil';
+import { takeUntil } from 'rxjs/operators';
 import { ObserversModule } from '@angular/cdk/observers';
 import { CommonModule } from '@angular/common';
 

@@ -8,7 +8,7 @@
 import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { ElementRef, OnDestroy } from '@angular/core';
 import { CanDisable, CanDisableRipple } from '@angular/material/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 /** @docs-private */
 export declare class MatMenuItemBase {
 }

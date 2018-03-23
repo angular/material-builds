@@ -8,8 +8,7 @@
 import { NgModule, InjectionToken, Optional, Inject, isDevMode, inject, LOCALE_ID, Injectable, Directive, ElementRef, Input, NgZone, Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, EventEmitter, Output, defineInjectable } from '@angular/core';
 import { BidiModule } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
+import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
 import { HammerGestureConfig } from '@angular/platform-browser';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';

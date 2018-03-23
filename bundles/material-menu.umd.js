@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('rxjs/Subject'), require('@angular/cdk/keycodes'), require('rxjs/operators/startWith'), require('rxjs/operators/switchMap'), require('rxjs/operators/take'), require('rxjs/observable/merge'), require('rxjs/Subscription'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay'), require('rxjs/observable/of'), require('rxjs/operators/filter')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/common', '@angular/animations', '@angular/cdk/a11y', '@angular/material/core', 'rxjs/Subject', '@angular/cdk/keycodes', 'rxjs/operators/startWith', 'rxjs/operators/switchMap', 'rxjs/operators/take', 'rxjs/observable/merge', 'rxjs/Subscription', '@angular/cdk/coercion', '@angular/cdk/bidi', '@angular/cdk/overlay', 'rxjs/observable/of', 'rxjs/operators/filter'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.core,global.ng.cdk.portal,global.ng.common,global.ng.animations,global.ng.cdk.a11y,global.ng.material.core,global.Rx,global.ng.cdk.keycodes,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.Observable,global.Rx,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.overlay,global.Rx.Observable,global.Rx.operators));
-}(this, (function (exports,core,portal,common,animations,a11y,core$1,Subject,keycodes,startWith,switchMap,take,merge,Subscription,coercion,bidi,overlay,of,filter) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/common', '@angular/animations', '@angular/cdk/a11y', '@angular/material/core', 'rxjs', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/cdk/coercion', '@angular/cdk/bidi', '@angular/cdk/overlay'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.core,global.ng.cdk.portal,global.ng.common,global.ng.animations,global.ng.cdk.a11y,global.ng.material.core,global.Rx,global.ng.cdk.keycodes,global.Rx.operators,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.overlay));
+}(this, (function (exports,core,portal,common,animations,a11y,core$1,rxjs,keycodes,operators,coercion,bidi,overlay) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -256,7 +256,7 @@ var MatMenuItem = /** @class */ (function (_super) {
         /**
          * Stream that emits when the menu item is hovered.
          */
-        _this._hovered = new Subject.Subject();
+        _this._hovered = new rxjs.Subject();
         /**
          * Whether the menu item is highlighted.
          */
@@ -449,7 +449,7 @@ var MatMenu = /** @class */ (function () {
         /**
          * Subscription to tab events on the menu panel
          */
-        this._tabSubscription = Subscription.Subscription.EMPTY;
+        this._tabSubscription = rxjs.Subscription.EMPTY;
         /**
          * Config object to be passed into the menu's ngClass
          */
@@ -461,7 +461,7 @@ var MatMenu = /** @class */ (function () {
         /**
          * Emits whenever an animation on the menu completes.
          */
-        this._animationDone = new Subject.Subject();
+        this._animationDone = new rxjs.Subject();
         /**
          * Class to be added to the backdrop element.
          */
@@ -632,11 +632,11 @@ var MatMenu = /** @class */ (function () {
     function () {
         var _this = this;
         if (this.items) {
-            return this.items.changes.pipe(startWith.startWith(this.items), switchMap.switchMap(function (items) { return merge.merge.apply(void 0, items.map(function (item) { return item._hovered; })); }));
+            return this.items.changes.pipe(operators.startWith(this.items), operators.switchMap(function (items) { return rxjs.merge.apply(void 0, items.map(function (item) { return item._hovered; })); }));
         }
         return this._ngZone.onStable
             .asObservable()
-            .pipe(take.take(1), switchMap.switchMap(function () { return _this._hovered(); }));
+            .pipe(operators.take(1), operators.switchMap(function () { return _this._hovered(); }));
     };
     /** Handle a keyboard event from the menu, delegating to the appropriate action. */
     /**
@@ -689,7 +689,7 @@ var MatMenu = /** @class */ (function () {
         // When the content is rendered lazily, it takes a bit before the items are inside the DOM.
         if (this.lazyContent) {
             this._ngZone.onStable.asObservable()
-                .pipe(take.take(1))
+                .pipe(operators.take(1))
                 .subscribe(function () { return _this._keyManager.setFocusOrigin(origin).setFirstItemActive(); });
         }
         else {
@@ -873,8 +873,8 @@ var MatMenuTrigger = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._overlayRef = null;
         this._menuOpen = false;
-        this._closeSubscription = Subscription.Subscription.EMPTY;
-        this._hoverSubscription = Subscription.Subscription.EMPTY;
+        this._closeSubscription = rxjs.Subscription.EMPTY;
+        this._hoverSubscription = rxjs.Subscription.EMPTY;
         this._openedByMouse = false;
         /**
          * Event emitted when the associated menu is opened.
@@ -938,7 +938,7 @@ var MatMenuTrigger = /** @class */ (function () {
         if (this.triggersSubmenu()) {
             // Subscribe to changes in the hovered item in order to toggle the panel.
             this._hoverSubscription = this._parentMenu._hovered()
-                .pipe(filter.filter(function (active) { return active === _this._menuItemInstance; }))
+                .pipe(operators.filter(function (active) { return active === _this._menuItemInstance; }))
                 .subscribe(function () {
                 _this._openedByMouse = true;
                 _this.openMenu();
@@ -1086,7 +1086,7 @@ var MatMenuTrigger = /** @class */ (function () {
             if (menu.lazyContent) {
                 // Wait for the exit animation to finish before detaching the content.
                 menu._animationDone
-                    .pipe(take.take(1))
+                    .pipe(operators.take(1))
                     .subscribe(function () { return ((menu.lazyContent)).detach(); });
             }
         }
@@ -1315,9 +1315,9 @@ var MatMenuTrigger = /** @class */ (function () {
         var _this = this;
         var /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
         var /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
-        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of.of();
-        var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter.filter(function (active) { return active !== _this._menuItemInstance; }), filter.filter(function () { return _this._menuOpen; })) : of.of();
-        return merge.merge(backdrop, parentClose, hover, detachments);
+        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : rxjs.of();
+        var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(operators.filter(function (active) { return active !== _this._menuItemInstance; }), operators.filter(function () { return _this._menuOpen; })) : rxjs.of();
+        return rxjs.merge(backdrop, parentClose, hover, detachments);
     };
     /** Handles mouse presses on the trigger. */
     /**

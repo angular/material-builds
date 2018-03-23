@@ -3,7 +3,7 @@ import { DoCheck, ElementRef, OnChanges, OnDestroy, OnInit } from '@angular/core
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanUpdateErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { AutofillMonitor } from '@angular/cdk/text-field';
 /** @docs-private */
 export declare class MatInputBase {

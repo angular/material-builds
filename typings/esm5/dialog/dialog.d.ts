@@ -2,8 +2,8 @@ import { Overlay, OverlayContainer, ScrollStrategy } from '@angular/cdk/overlay'
 import { ComponentType } from '@angular/cdk/portal';
 import { Location } from '@angular/common';
 import { InjectionToken, Injector, TemplateRef } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { MatDialogConfig } from './dialog-config';
 import { MatDialogRef } from './dialog-ref';
 /** Injection token that can be used to access the data that was passed in to a dialog. */

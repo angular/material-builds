@@ -11,15 +11,13 @@ import { BACKSPACE, DELETE, SPACE, ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, InjectionToken, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, mixinColor, mixinDisabled, mixinDisableRipple, RippleRenderer, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject, merge, Subscription } from 'rxjs';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { merge } from 'rxjs/observable/merge';
-import { startWith } from 'rxjs/operators/startWith';
-import { Subscription } from 'rxjs/Subscription';
+import { startWith } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle

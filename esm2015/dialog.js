@@ -11,15 +11,10 @@ import { DOCUMENT, Location, CommonModule } from '@angular/common';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { filter } from 'rxjs/operators/filter';
-import { take } from 'rxjs/operators/take';
-import { Subject } from 'rxjs/Subject';
-import { Subscription } from 'rxjs/Subscription';
+import { filter, take, startWith } from 'rxjs/operators';
+import { Subject, Subscription, defer, of } from 'rxjs';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
-import { defer } from 'rxjs/observable/defer';
-import { of } from 'rxjs/observable/of';
-import { startWith } from 'rxjs/operators/startWith';
 import { MatCommonModule } from '@angular/material/core';
 
 /**

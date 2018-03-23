@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { OverlayRef } from '@angular/cdk/overlay';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { MatSnackBarContainer } from './snack-bar-container';
 /** Event that is emitted when a snack bar is dismissed. */
 export interface MatSnackBarDismiss {

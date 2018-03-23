@@ -13,20 +13,12 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay, Overlay, ViewportRuler, OverlayModule } from '@angular/cdk/overlay';
+import { filter, take, map, switchMap, takeUntil, startWith } from 'rxjs/operators';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, inject, InjectionToken, Input, isDevMode, NgZone, Optional, Output, Self, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { _countGroupLabelsBeforeOption, _getOptionScrollPosition, ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatOptgroup, MatOption, mixinDisabled, mixinDisableRipple, mixinErrorState, mixinTabIndex, MatCommonModule, MatOptionModule } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
-import 'rxjs/Observable';
-import { defer } from 'rxjs/observable/defer';
-import { merge } from 'rxjs/observable/merge';
-import { filter } from 'rxjs/operators/filter';
-import { map } from 'rxjs/operators/map';
-import { startWith } from 'rxjs/operators/startWith';
-import { switchMap } from 'rxjs/operators/switchMap';
-import { take } from 'rxjs/operators/take';
-import { takeUntil } from 'rxjs/operators/takeUntil';
-import { Subject } from 'rxjs/Subject';
+import { defer, Subject, merge } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 /**

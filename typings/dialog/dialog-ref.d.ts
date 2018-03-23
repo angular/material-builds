@@ -8,7 +8,7 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
 import { DialogPosition } from './dialog-config';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { MatDialogContainer } from './dialog-container';
 /**
  * Reference to a dialog opened via the MatDialog service.

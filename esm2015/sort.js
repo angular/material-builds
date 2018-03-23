@@ -8,10 +8,9 @@
 import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, defineInjectable } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { mixinDisabled, AnimationCurves, AnimationDurations } from '@angular/material/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject, merge } from 'rxjs';
 import { animate, state, style, transition, trigger, keyframes, query, animateChild } from '@angular/animations';
 import { CdkColumnDef } from '@angular/cdk/table';
-import { merge } from 'rxjs/observable/merge';
 import { CommonModule } from '@angular/common';
 
 /**

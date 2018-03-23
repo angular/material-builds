@@ -11,8 +11,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, QueryList } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Subject } from 'rxjs/Subject';
+import { Observable, Subject } from 'rxjs';
 /** Throws an exception when two MatDrawer are matching the same position. */
 export declare function throwMatDuplicatedDrawerError(position: string): void;
 /** Result of the toggle promise that indicates the state of the drawer. */

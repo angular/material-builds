@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/observable/defer'), require('rxjs/observable/fromEvent'), require('rxjs/observable/merge'), require('rxjs/observable/of'), require('rxjs/operators/delay'), require('rxjs/operators/filter'), require('rxjs/operators/switchMap'), require('rxjs/operators/take'), require('rxjs/operators/tap'), require('rxjs/Subject')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/autocomplete', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', '@angular/forms', '@angular/material/form-field', 'rxjs/observable/defer', 'rxjs/observable/fromEvent', 'rxjs/observable/merge', 'rxjs/observable/of', 'rxjs/operators/delay', 'rxjs/operators/filter', 'rxjs/operators/switchMap', 'rxjs/operators/take', 'rxjs/operators/tap', 'rxjs/Subject'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.common,global.ng.forms,global.ng.material.formField,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.Observable,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx.operators,global.Rx));
-}(this, (function (exports,core,core$1,a11y,coercion,bidi,keycodes,overlay,portal,common,forms,formField,defer,fromEvent,merge,of,delay,filter,switchMap,take,tap,Subject) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/common'), require('rxjs/operators'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/autocomplete', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/bidi', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/common', 'rxjs/operators', '@angular/forms', '@angular/material/form-field', 'rxjs'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.autocomplete = {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.common,global.Rx.operators,global.ng.forms,global.ng.material.formField,global.Rx));
+}(this, (function (exports,core,core$1,a11y,coercion,bidi,keycodes,overlay,portal,common,operators,forms,formField,rxjs) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -328,7 +328,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         /**
          * Stream of keyboard events that can close the panel.
          */
-        this._closeKeyEventStream = new Subject.Subject();
+        this._closeKeyEventStream = new rxjs.Subject();
         /**
          * `View -> model callback called when value changes`
          */
@@ -341,15 +341,15 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         /**
          * Stream of autocomplete option selections.
          */
-        this.optionSelections = defer.defer(function () {
+        this.optionSelections = rxjs.defer(function () {
             if (_this.autocomplete && _this.autocomplete.options) {
-                return merge.merge.apply(void 0, _this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
+                return rxjs.merge.apply(void 0, _this.autocomplete.options.map(function (option) { return option.onSelectionChange; }));
             }
             // If there are any subscribers before `ngAfterViewInit`, the `autocomplete` will be undefined.
             // Return a stream that we'll replace with the real one once everything is in place.
             return _this._zone.onStable
                 .asObservable()
-                .pipe(take.take(1), switchMap.switchMap(function () { return _this.optionSelections; }));
+                .pipe(operators.take(1), operators.switchMap(function () { return _this.optionSelections; }));
         });
     }
     /**
@@ -433,9 +433,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () {
             var _this = this;
-            return merge.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter.filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
-                this._overlayRef.detachments().pipe(filter.filter(function () { return _this._overlayAttached; })) :
-                of.of());
+            return rxjs.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(operators.filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
+                this._overlayRef.detachments().pipe(operators.filter(function () { return _this._overlayAttached; })) :
+                rxjs.of());
         },
         enumerable: true,
         configurable: true
@@ -463,10 +463,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         function () {
             var _this = this;
             if (!this._document) {
-                return of.of(null);
+                return rxjs.of(null);
             }
-            return merge.merge(fromEvent.fromEvent(this._document, 'click'), fromEvent.fromEvent(this._document, 'touchend'))
-                .pipe(filter.filter(function (event) {
+            return rxjs.merge(rxjs.fromEvent(this._document, 'click'), rxjs.fromEvent(this._document, 'touchend'))
+                .pipe(operators.filter(function (event) {
                 var /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
                 var /** @type {?} */ formField$$1 = _this._formField ?
                     _this._formField._elementRef.nativeElement : null;
@@ -689,23 +689,23 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ firstStable = this._zone.onStable.asObservable().pipe(take.take(1));
-        var /** @type {?} */ optionChanges = this.autocomplete.options.changes.pipe(tap.tap(function () { return _this._positionStrategy.reapplyLastPosition(); }), 
+        var /** @type {?} */ firstStable = this._zone.onStable.asObservable().pipe(operators.take(1));
+        var /** @type {?} */ optionChanges = this.autocomplete.options.changes.pipe(operators.tap(function () { return _this._positionStrategy.reapplyLastPosition(); }), 
         // Defer emitting to the stream until the next tick, because changing
         // bindings in here will cause "changed after checked" errors.
-        delay.delay(0));
+        operators.delay(0));
         // When the zone is stable initially, and when the option list changes...
-        return merge.merge(firstStable, optionChanges)
+        return rxjs.merge(firstStable, optionChanges)
             .pipe(
         // create a new stream of panelClosingActions, replacing any previous streams
         // that were created, and flatten it so our stream only emits closing events...
-        switchMap.switchMap(function () {
+        operators.switchMap(function () {
             _this._resetActiveItem();
             _this.autocomplete._setVisibility();
             return _this.panelClosingActions;
         }), 
         // when the first closing event occurs...
-        take.take(1))
+        operators.take(1))
             .subscribe(function (event) { return _this._setValueAndClose(event); });
     };
     /**

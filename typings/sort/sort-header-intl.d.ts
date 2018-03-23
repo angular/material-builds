@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Optional } from '@angular/core';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { SortDirection } from './sort-direction';
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and

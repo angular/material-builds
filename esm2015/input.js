@@ -12,7 +12,7 @@ import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
-import { Subject } from 'rxjs/Subject';
+import { Subject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 /**
