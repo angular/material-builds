@@ -5,7 +5,23 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, NgZone } from '@angular/core';
+import { ElementRef, InjectionToken, NgZone } from '@angular/core';
+/**
+ * Interface for a a MatInkBar positioner method, defining the positioning and width of the ink
+ * bar in a set of tabs.
+ */
+export interface _MatInkBarPositioner {
+    (element: HTMLElement): {
+        left: string;
+        width: string;
+    };
+}
+/** Injection token for the MatInkBar's Positioner. */
+export declare const _MAT_INK_BAR_POSITIONER: InjectionToken<_MatInkBarPositioner>;
+/**
+ * The default positioner function for the MatInkBar.
+ */
+export declare const _matInkBarPositioner: _MatInkBarPositioner;
 /**
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * @docs-private
@@ -13,7 +29,8 @@ import { ElementRef, NgZone } from '@angular/core';
 export declare class MatInkBar {
     private _elementRef;
     private _ngZone;
-    constructor(_elementRef: ElementRef, _ngZone: NgZone);
+    private _inkBarPositioner;
+    constructor(_elementRef: ElementRef, _ngZone: NgZone, _inkBarPositioner: _MatInkBarPositioner);
     /**
      * Calculates the styles from the provided element in order to align the ink-bar to that element.
      * Shows the ink bar if previously set as hidden.

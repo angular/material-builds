@@ -42,13 +42,30 @@ function __extends(d, b) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Injection token for the MatInkBar's Positioner.
+ */
+var /** @type {?} */ _MAT_INK_BAR_POSITIONER = new core.InjectionToken('MatInkBarPositioner', {
+    providedIn: 'root',
+    factory: function () { return _matInkBarPositioner; }
+});
+/**
+ * The default positioner function for the MatInkBar.
+ */
+var /** @type {?} */ _matInkBarPositioner = function (element) {
+    return {
+        left: element ? (element.offsetLeft || 0) + 'px' : '0',
+        width: element ? (element.offsetWidth || 0) + 'px' : '0',
+    };
+};
+/**
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * \@docs-private
  */
 var MatInkBar = /** @class */ (function () {
-    function MatInkBar(_elementRef, _ngZone) {
+    function MatInkBar(_elementRef, _ngZone, _inkBarPositioner) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
+        this._inkBarPositioner = _inkBarPositioner;
     }
     /**
      * Calculates the styles from the provided element in order to align the ink-bar to that element.
@@ -114,9 +131,10 @@ var MatInkBar = /** @class */ (function () {
      * @return {?}
      */
     function (element) {
+        var /** @type {?} */ positions = this._inkBarPositioner(element);
         var /** @type {?} */ inkBar = this._elementRef.nativeElement;
-        inkBar.style.left = element ? (element.offsetLeft || 0) + 'px' : '0';
-        inkBar.style.width = element ? (element.offsetWidth || 0) + 'px' : '0';
+        inkBar.style.left = positions.left;
+        inkBar.style.width = positions.width;
     };
     MatInkBar.decorators = [
         { type: core.Directive, args: [{
@@ -130,6 +148,7 @@ var MatInkBar = /** @class */ (function () {
     MatInkBar.ctorParameters = function () { return [
         { type: core.ElementRef, },
         { type: core.NgZone, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [_MAT_INK_BAR_POSITIONER,] },] },
     ]; };
     return MatInkBar;
 }());
@@ -2072,6 +2091,7 @@ var MatTabsModule = /** @class */ (function () {
 }());
 
 exports.MatInkBar = MatInkBar;
+exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
 exports.MatTabBodyPortal = MatTabBodyPortal;
 exports.MatTabHeader = MatTabHeader;

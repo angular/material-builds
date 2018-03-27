@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, ElementRef, NgZone, TemplateRef, ViewContainerRef, ChangeDetectionStrategy, Component, ContentChild, Input, ViewChild, ViewEncapsulation, Inject, Output, EventEmitter, Optional, ComponentFactoryResolver, forwardRef, ChangeDetectorRef, ContentChildren, Attribute, NgModule } from '@angular/core';
+import { Directive, ElementRef, Inject, InjectionToken, NgZone, TemplateRef, ViewContainerRef, ChangeDetectionStrategy, Component, ContentChild, Input, ViewChild, ViewEncapsulation, Output, EventEmitter, Optional, ComponentFactoryResolver, forwardRef, ChangeDetectorRef, ContentChildren, Attribute, NgModule } from '@angular/core';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
 import { mixinDisabled, mixinColor, mixinDisableRipple, MAT_RIPPLE_GLOBAL_OPTIONS, mixinTabIndex, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
@@ -24,6 +24,22 @@ import { CommonModule } from '@angular/common';
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Injection token for the MatInkBar's Positioner.
+ */
+const /** @type {?} */ _MAT_INK_BAR_POSITIONER = new InjectionToken('MatInkBarPositioner', {
+    providedIn: 'root',
+    factory: () => _matInkBarPositioner
+});
+/**
+ * The default positioner function for the MatInkBar.
+ */
+const /** @type {?} */ _matInkBarPositioner = (element) => {
+    return {
+        left: element ? (element.offsetLeft || 0) + 'px' : '0',
+        width: element ? (element.offsetWidth || 0) + 'px' : '0',
+    };
+};
+/**
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * \@docs-private
  */
@@ -31,10 +47,12 @@ class MatInkBar {
     /**
      * @param {?} _elementRef
      * @param {?} _ngZone
+     * @param {?} _inkBarPositioner
      */
-    constructor(_elementRef, _ngZone) {
+    constructor(_elementRef, _ngZone, _inkBarPositioner) {
         this._elementRef = _elementRef;
         this._ngZone = _ngZone;
+        this._inkBarPositioner = _inkBarPositioner;
     }
     /**
      * Calculates the styles from the provided element in order to align the ink-bar to that element.
@@ -73,9 +91,10 @@ class MatInkBar {
      * @return {?}
      */
     _setStyles(element) {
+        const /** @type {?} */ positions = this._inkBarPositioner(element);
         const /** @type {?} */ inkBar = this._elementRef.nativeElement;
-        inkBar.style.left = element ? (element.offsetLeft || 0) + 'px' : '0';
-        inkBar.style.width = element ? (element.offsetWidth || 0) + 'px' : '0';
+        inkBar.style.left = positions.left;
+        inkBar.style.width = positions.width;
     }
 }
 MatInkBar.decorators = [
@@ -90,6 +109,7 @@ MatInkBar.decorators = [
 MatInkBar.ctorParameters = () => [
     { type: ElementRef, },
     { type: NgZone, },
+    { type: undefined, decorators: [{ type: Inject, args: [_MAT_INK_BAR_POSITIONER,] },] },
 ];
 
 /**
@@ -1619,5 +1639,5 @@ MatTabsModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatInkBar, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe25, _MatTabMixinBase as ɵf25, MatTabHeaderBase as ɵa25, _MatTabHeaderMixinBase as ɵb25, MatTabLabelWrapperBase as ɵc25, _MatTabLabelWrapperMixinBase as ɵd25, MatTabLinkBase as ɵi25, MatTabNavBase as ɵg25, _MatTabLinkMixinBase as ɵj25, _MatTabNavMixinBase as ɵh25 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe25, _MatTabMixinBase as ɵf25, MatTabHeaderBase as ɵa25, _MatTabHeaderMixinBase as ɵb25, MatTabLabelWrapperBase as ɵc25, _MatTabLabelWrapperMixinBase as ɵd25, MatTabLinkBase as ɵi25, MatTabNavBase as ɵg25, _MatTabLinkMixinBase as ɵj25, _MatTabNavMixinBase as ɵh25 };
 //# sourceMappingURL=tabs.js.map
