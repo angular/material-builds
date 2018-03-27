@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import { ChangeDetectorRef, ElementRef, EventEmitter, QueryList, InjectionToken, AfterViewChecked } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, EventEmitter, QueryList, InjectionToken, AfterViewChecked, OnDestroy } from '@angular/core';
 import { MatOptgroup } from './optgroup';
 /** Event object emitted by MatOption when selected or deselected. */
 export declare class MatOptionSelectionChange {
@@ -29,7 +29,7 @@ export declare const MAT_OPTION_PARENT_COMPONENT: InjectionToken<MatOptionParent
 /**
  * Single option inside of a `<mat-select>` element.
  */
-export declare class MatOption implements AfterViewChecked {
+export declare class MatOption implements AfterViewChecked, OnDestroy {
     private _element;
     private _changeDetectorRef;
     private _parent;
@@ -100,6 +100,7 @@ export declare class MatOption implements AfterViewChecked {
     /** Gets the host DOM element. */
     _getHostElement(): HTMLElement;
     ngAfterViewChecked(): void;
+    ngOnDestroy(): void;
     /** Emits the selection change event. */
     private _emitSelectionChangeEvent(isUserInput?);
 }

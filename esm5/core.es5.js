@@ -2565,6 +2565,15 @@ var MatOption = /** @class */ (function () {
         }
     };
     /**
+     * @return {?}
+     */
+    MatOption.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._stateChanges.complete();
+    };
+    /**
      * Emits the selection change event.
      * @param {?=} isUserInput
      * @return {?}

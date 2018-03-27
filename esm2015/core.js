@@ -1952,6 +1952,12 @@ class MatOption {
         }
     }
     /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._stateChanges.complete();
+    }
+    /**
      * Emits the selection change event.
      * @param {?=} isUserInput
      * @return {?}
