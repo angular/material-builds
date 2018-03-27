@@ -614,12 +614,24 @@ class MatSlider extends _MatSliderMixinBase {
         if (this._invertMouseCoords) {
             percent = 1 - percent;
         }
-        let /** @type {?} */ exactValue = this._calculateValue(percent);
-        // This calculation finds the closest step by finding the closest whole number divisible by the
-        // step relative to the min.
-        let /** @type {?} */ closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
-        // The value needs to snap to the min and max.
-        this.value = this._clamp(closestValue, this.min, this.max);
+        // Since the steps may not divide cleanly into the max value, if the user
+        // slid to 0 or 100 percent, we jump to the min/max value. This approach
+        // is slightly more intuitive than using `Math.ceil` below, because it
+        // follows the user's pointer closer.
+        if (percent === 0) {
+            this.value = this.min;
+        }
+        else if (percent === 1) {
+            this.value = this.max;
+        }
+        else {
+            let /** @type {?} */ exactValue = this._calculateValue(percent);
+            // This calculation finds the closest step by finding the closest
+            // whole number divisible by the step relative to the min.
+            let /** @type {?} */ closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
+            // The value needs to snap to the min and max.
+            this.value = this._clamp(closestValue, this.min, this.max);
+        }
     }
     /**
      * Emits a change event if the current value is different from the last emitted value.
