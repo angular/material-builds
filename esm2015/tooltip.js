@@ -166,10 +166,9 @@ class MatTooltip {
         if (value !== this._position) {
             this._position = value;
             if (this._overlayRef) {
-                // TODO(andrewjs): When the overlay's position can be
-                // dynamically changed, do not destroy the tooltip.
-                this._detach();
-                this._updatePosition();
+                this._updatePosition(); /** @type {?} */
+                ((this._tooltipInstance)).show(value, 0);
+                this._overlayRef.updatePosition();
             }
         }
     }
