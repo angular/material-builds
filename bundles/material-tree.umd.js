@@ -137,10 +137,11 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
  */
 var MatNestedTreeNode = /** @class */ (function (_super) {
     __extends(MatNestedTreeNode, _super);
-    function MatNestedTreeNode(_elementRef, _tree, tabIndex) {
-        var _this = _super.call(this, _elementRef, _tree) || this;
+    function MatNestedTreeNode(_elementRef, _tree, _differs, tabIndex) {
+        var _this = _super.call(this, _elementRef, _tree, _differs) || this;
         _this._elementRef = _elementRef;
         _this._tree = _tree;
+        _this._differs = _differs;
         _this.tabIndex = Number(tabIndex) || 0;
         return _this;
     }
@@ -164,6 +165,7 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
     MatNestedTreeNode.ctorParameters = function () { return [
         { type: core.ElementRef, },
         { type: tree.CdkTree, },
+        { type: core.IterableDiffers, },
         { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
     ]; };
     MatNestedTreeNode.propDecorators = {

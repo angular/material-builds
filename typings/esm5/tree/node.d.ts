@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, QueryList } from '@angular/core';
+import { ElementRef, IterableDiffers, QueryList } from '@angular/core';
 import { CdkNestedTreeNode, CdkTree, CdkTreeNodeDef, CdkTreeNode } from '@angular/cdk/tree';
 import { MatTreeNodeOutlet } from './outlet';
 import { CanDisable, HasTabIndex } from '@angular/material/core';
@@ -32,7 +32,8 @@ export declare class MatTreeNodeDef<T> extends CdkTreeNodeDef<T> {
 export declare class MatNestedTreeNode<T> extends _MatNestedTreeNodeMixinBase<T> implements HasTabIndex, CanDisable {
     protected _elementRef: ElementRef;
     protected _tree: CdkTree<T>;
+    protected _differs: IterableDiffers;
     node: T;
     nodeOutlet: QueryList<MatTreeNodeOutlet>;
-    constructor(_elementRef: ElementRef, _tree: CdkTree<T>, tabIndex: string);
+    constructor(_elementRef: ElementRef, _tree: CdkTree<T>, _differs: IterableDiffers, tabIndex: string);
 }

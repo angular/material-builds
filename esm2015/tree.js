@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, ViewContainerRef, Attribute, ContentChildren, ElementRef, Input, ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { Directive, ViewContainerRef, Attribute, ContentChildren, ElementRef, Input, IterableDiffers, ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { CdkNestedTreeNode, CdkTree, CdkTreeNodeDef, CdkTreeNode, CdkTreeNodePadding, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
 import { mixinTabIndex, mixinDisabled, MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
@@ -114,12 +114,14 @@ class MatNestedTreeNode extends _MatNestedTreeNodeMixinBase {
     /**
      * @param {?} _elementRef
      * @param {?} _tree
+     * @param {?} _differs
      * @param {?} tabIndex
      */
-    constructor(_elementRef, _tree, tabIndex) {
-        super(_elementRef, _tree);
+    constructor(_elementRef, _tree, _differs, tabIndex) {
+        super(_elementRef, _tree, _differs);
         this._elementRef = _elementRef;
         this._tree = _tree;
+        this._differs = _differs;
         this.tabIndex = Number(tabIndex) || 0;
     }
 }
@@ -143,6 +145,7 @@ MatNestedTreeNode.decorators = [
 MatNestedTreeNode.ctorParameters = () => [
     { type: ElementRef, },
     { type: CdkTree, },
+    { type: IterableDiffers, },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
 ];
 MatNestedTreeNode.propDecorators = {
