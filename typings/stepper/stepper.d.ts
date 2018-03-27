@@ -12,7 +12,7 @@ import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatStepHeader } from './step-header';
 import { MatStepLabel } from './step-label';
-import { MatStepperIcon } from './stepper-icon';
+import { MatStepperIcon, MatStepperIconContext } from './stepper-icon';
 /** Workaround for https://github.com/angular/angular/issues/17849 */
 export declare const _MatStep: typeof CdkStep;
 export declare const _MatStepper: typeof CdkStepper;
@@ -33,7 +33,7 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     _icons: QueryList<MatStepperIcon>;
     /** Consumer-specified template-refs to be used to override the header icons. */
     _iconOverrides: {
-        [key: string]: TemplateRef<any>;
+        [key: string]: TemplateRef<MatStepperIconContext>;
     };
     ngAfterContentInit(): void;
 }

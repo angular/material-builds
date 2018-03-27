@@ -9,6 +9,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { ChangeDetectorRef, ElementRef, OnDestroy, TemplateRef } from '@angular/core';
 import { MatStepLabel } from './step-label';
 import { MatStepperIntl } from './stepper-intl';
+import { MatStepperIconContext } from './stepper-icon';
 export declare class MatStepHeader implements OnDestroy {
     _intl: MatStepperIntl;
     private _focusMonitor;
@@ -20,7 +21,7 @@ export declare class MatStepHeader implements OnDestroy {
     label: MatStepLabel | string;
     /** Overrides for the header icons, passed in via the stepper. */
     iconOverrides: {
-        [key: string]: TemplateRef<any>;
+        [key: string]: TemplateRef<MatStepperIconContext>;
     };
     /** Index of the given step. */
     index: number;
@@ -38,5 +39,7 @@ export declare class MatStepHeader implements OnDestroy {
     _templateLabel(): MatStepLabel | null;
     /** Returns the host HTML element. */
     _getHostElement(): any;
+    /** Template context variables that are exposed to the `matStepperIcon` instances. */
+    _getIconContext(): MatStepperIconContext;
     focus(): void;
 }
