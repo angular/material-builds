@@ -624,10 +624,10 @@ exports.MatTreeNodePadding = MatTreeNodePadding;
 exports.MatTree = MatTree;
 exports.MatTreeModule = MatTreeModule;
 exports.MatTreeNodeToggle = MatTreeNodeToggle;
+exports.MatTreeNodeOutlet = MatTreeNodeOutlet;
 exports.MatTreeFlattener = MatTreeFlattener;
 exports.MatTreeFlatDataSource = MatTreeFlatDataSource;
 exports.MatTreeNestedDataSource = MatTreeNestedDataSource;
-exports.ɵa19 = MatTreeNodeOutlet;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
