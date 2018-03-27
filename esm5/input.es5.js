@@ -476,22 +476,17 @@ var MatInput = /** @class */ (function (_super) {
         var /** @type {?} */ validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
         return validity && validity.badInput;
     };
-    /** Determines if the component host is a textarea. If not recognizable it returns false. */
+    /** Determines if the component host is a textarea. */
     /**
-     * Determines if the component host is a textarea. If not recognizable it returns false.
+     * Determines if the component host is a textarea.
      * @return {?}
      */
     MatInput.prototype._isTextarea = /**
-     * Determines if the component host is a textarea. If not recognizable it returns false.
+     * Determines if the component host is a textarea.
      * @return {?}
      */
     function () {
-        var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-        // In Universal, we don't have access to `nodeName`, but the same can be achieved with `name`.
-        // Note that this shouldn't be necessary once Angular switches to an API that resembles the
-        // DOM closer.
-        var /** @type {?} */ nodeName = this._platform.isBrowser ? nativeElement.nodeName : nativeElement.name;
-        return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
+        return this._elementRef.nativeElement.nodeName.toLowerCase() === 'textarea';
     };
     Object.defineProperty(MatInput.prototype, "empty", {
         /**

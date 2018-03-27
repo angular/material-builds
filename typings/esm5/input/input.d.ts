@@ -108,7 +108,7 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     protected _isNeverEmpty(): boolean;
     /** Checks whether the input is invalid based on the native validation. */
     protected _isBadInput(): boolean;
-    /** Determines if the component host is a textarea. If not recognizable it returns false. */
+    /** Determines if the component host is a textarea. */
     protected _isTextarea(): boolean;
     /**
      * Implemented as part of MatFormFieldControl.

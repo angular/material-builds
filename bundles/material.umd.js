@@ -10653,22 +10653,17 @@ var MatInput = /** @class */ (function (_super) {
         var /** @type {?} */ validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
         return validity && validity.badInput;
     };
-    /** Determines if the component host is a textarea. If not recognizable it returns false. */
+    /** Determines if the component host is a textarea. */
     /**
-     * Determines if the component host is a textarea. If not recognizable it returns false.
+     * Determines if the component host is a textarea.
      * @return {?}
      */
     MatInput.prototype._isTextarea = /**
-     * Determines if the component host is a textarea. If not recognizable it returns false.
+     * Determines if the component host is a textarea.
      * @return {?}
      */
     function () {
-        var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
-        // In Universal, we don't have access to `nodeName`, but the same can be achieved with `name`.
-        // Note that this shouldn't be necessary once Angular switches to an API that resembles the
-        // DOM closer.
-        var /** @type {?} */ nodeName = this._platform.isBrowser ? nativeElement.nodeName : nativeElement.name;
-        return nodeName ? nodeName.toLowerCase() === 'textarea' : false;
+        return this._elementRef.nativeElement.nodeName.toLowerCase() === 'textarea';
     };
     Object.defineProperty(MatInput.prototype, "empty", {
         /**
@@ -31825,7 +31820,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.5-946fd84');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-beta.5-dda1d04');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32230,7 +32225,7 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
-exports.ɵa14 = MatTreeNodeOutlet;
+exports.ɵa15 = MatTreeNodeOutlet;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
