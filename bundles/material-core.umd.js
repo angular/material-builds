@@ -540,6 +540,13 @@ var /** @type {?} */ MAT_DATE_LOCALE = new core.InjectionToken('MAT_DATE_LOCALE'
     factory: function () { return core.inject(core.LOCALE_ID); }
 });
 /**
+ * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
+ * If you are importing and providing this in your code you can simply remove it.
+ * @deprecated
+ * \@deletion-target 7.0.0
+ */
+var /** @type {?} */ MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: core.LOCALE_ID };
+/**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
  * @template D
@@ -2749,6 +2756,7 @@ exports.mixinInitialized = mixinInitialized;
 exports.NativeDateModule = NativeDateModule;
 exports.MatNativeDateModule = MatNativeDateModule;
 exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;
+exports.MAT_DATE_LOCALE_PROVIDER = MAT_DATE_LOCALE_PROVIDER;
 exports.DateAdapter = DateAdapter;
 exports.MAT_DATE_FORMATS = MAT_DATE_FORMATS;
 exports.NativeDateAdapter = NativeDateAdapter;
