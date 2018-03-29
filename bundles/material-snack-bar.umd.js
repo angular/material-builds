@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs'), require('@angular/core'), require('@angular/animations'), require('@angular/material/core'), require('@angular/cdk/portal'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/cdk/overlay'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/snackBar', ['exports', 'rxjs', '@angular/core', '@angular/animations', '@angular/material/core', '@angular/cdk/portal', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/cdk/overlay', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = {}),global.Rx,global.ng.core,global.ng.animations,global.ng.material.core,global.ng.cdk.portal,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.cdk.overlay,global.ng.common));
-}(this, (function (exports,rxjs,core,animations,core$1,portal,operators,a11y,layout,overlay,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs'), require('@angular/core'), require('@angular/animations'), require('@angular/material/core'), require('@angular/cdk/portal'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/material/button')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/snackBar', ['exports', 'rxjs', '@angular/core', '@angular/animations', '@angular/material/core', '@angular/cdk/portal', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/cdk/overlay', '@angular/common', '@angular/material/button'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = {}),global.Rx,global.ng.core,global.ng.animations,global.ng.material.core,global.ng.cdk.portal,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.cdk.overlay,global.ng.common,global.ng.material.button));
+}(this, (function (exports,rxjs,core,animations,core$1,portal,operators,a11y,layout,overlay,common,button) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -327,8 +327,8 @@ var SimpleSnackBar = /** @class */ (function () {
     });
     SimpleSnackBar.decorators = [
         { type: core.Component, args: [{selector: 'simple-snack-bar',
-                    template: "{{data.message}} <button class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\" (click)=\"action()\">{{data.action}}</button>",
-                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px;opacity:1}.mat-simple-snackbar-action{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;background:0 0;flex-shrink:0;margin-left:48px}[dir=rtl] .mat-simple-snackbar-action{margin-right:48px;margin-left:0}"],
+                    template: "{{data.message}}<div class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\"><button mat-button (click)=\"action()\">{{data.action}}</button></div>",
+                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px;opacity:1}.mat-simple-snackbar-action{display:flex;flex-direction:column;flex-shrink:0;justify-content:space-around;margin:-8px 0 -8px 8px}.mat-simple-snackbar-action button{flex:1;max-height:36px}[dir=rtl] .mat-simple-snackbar-action{margin-left:0;margin-right:8px}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     animations: [matSnackBarAnimations.contentFade],
@@ -914,6 +914,7 @@ var MatSnackBarModule = /** @class */ (function () {
                         overlay.OverlayModule,
                         portal.PortalModule,
                         common.CommonModule,
+                        button.MatButtonModule,
                         core$1.MatCommonModule,
                     ],
                     exports: [MatSnackBarContainer, core$1.MatCommonModule],

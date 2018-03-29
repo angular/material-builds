@@ -43,13 +43,13 @@
       "from": "./tabs"
     },
     {
-      "from": "./snack-bar"
+      "from": "./slider"
     },
     {
       "from": "./dialog"
     },
     {
-      "from": "./slider"
+      "from": "./slide-toggle"
     },
     {
       "from": "./divider"
@@ -61,31 +61,31 @@
       "from": "./badge"
     },
     {
-      "from": "./slide-toggle"
+      "from": "./sidenav"
     },
     {
       "from": "./menu"
     },
     {
-      "from": "./sidenav"
+      "from": "./radio"
     },
     {
       "from": "./tooltip"
     },
     {
-      "from": "./radio"
+      "from": "./progress-spinner"
     },
     {
       "from": "./progress-bar"
-    },
-    {
-      "from": "./progress-spinner"
     },
     {
       "from": "./select"
     },
     {
       "from": "./list"
+    },
+    {
+      "from": "./snack-bar"
     },
     {
       "from": "./stepper"
