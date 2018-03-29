@@ -2416,6 +2416,7 @@ var MatDatepicker = /** @class */ (function () {
             .withFlexibleHeight(false)
             .withFlexibleWidth(false)
             .withViewportMargin(8)
+            .withPush(false)
             .withPositions([
             {
                 originX: 'start',
