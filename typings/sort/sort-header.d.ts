@@ -110,4 +110,11 @@ export declare class MatSortHeader extends _MatSortHeaderMixinBase implements Ma
      */
     _updateArrowDirection(): void;
     _isDisabled(): boolean;
+    /**
+     * Gets the aria-sort attribute that should be applied to this sort header. If this header
+     * is not sorted, returns null so that the attribute is removed from the host element. Aria spec
+     * says that the aria-sort property should only be present on one header at a time, so removing
+     * ensures this is true.
+     */
+    _getAriaSortAttribute(): "ascending" | "descending" | null;
 }

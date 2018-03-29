@@ -314,12 +314,6 @@ var MatSortHeaderIntl = /** @class */ (function () {
         this.sortButtonLabel = function (id) {
             return "Change sorting for " + id;
         };
-        /**
-         * A label to describe the current sort (visible only to screenreaders).
-         */
-        this.sortDescriptionLabel = function (id, direction) {
-            return "Sorted by " + id + " " + (direction == 'asc' ? 'ascending' : 'descending');
-        };
     }
     MatSortHeaderIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
@@ -699,16 +693,43 @@ var MatSortHeader = /** @class */ (function (_super) {
     function () {
         return this._sort.disabled || this.disabled;
     };
+    /**
+     * Gets the aria-sort attribute that should be applied to this sort header. If this header
+     * is not sorted, returns null so that the attribute is removed from the host element. Aria spec
+     * says that the aria-sort property should only be present on one header at a time, so removing
+     * ensures this is true.
+     */
+    /**
+     * Gets the aria-sort attribute that should be applied to this sort header. If this header
+     * is not sorted, returns null so that the attribute is removed from the host element. Aria spec
+     * says that the aria-sort property should only be present on one header at a time, so removing
+     * ensures this is true.
+     * @return {?}
+     */
+    MatSortHeader.prototype._getAriaSortAttribute = /**
+     * Gets the aria-sort attribute that should be applied to this sort header. If this header
+     * is not sorted, returns null so that the attribute is removed from the host element. Aria spec
+     * says that the aria-sort property should only be present on one header at a time, so removing
+     * ensures this is true.
+     * @return {?}
+     */
+    function () {
+        if (!this._isSorted()) {
+            return null;
+        }
+        return this._sort.direction == 'asc' ? 'ascending' : 'descending';
+    };
     MatSortHeader.decorators = [
         { type: core.Component, args: [{selector: '[mat-sort-header]',
                     exportAs: 'matSortHeader',
-                    template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-sorted]=\"_isSorted()\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.disabled]=\"_isDisabled() || null\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\" (focus)=\"_setIndicatorHintVisible(true)\" (blur)=\"_setIndicatorHintVisible(false)\"><ng-content></ng-content></button><div class=\"mat-sort-header-arrow\" [@arrowOpacity]=\"_getArrowViewState()\" [@arrowPosition]=\"_getArrowViewState()\" [@allowChildren]=\"_getArrowDirectionState()\" (@arrowPosition.start)=\"_disableViewStateAnimation = true\" (@arrowPosition.done)=\"_disableViewStateAnimation = false\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_getArrowDirectionState()\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div><span class=\"cdk-visually-hidden\" *ngIf=\"_isSorted()\">&nbsp;{{_intl.sortDescriptionLabel(id, _sort.direction)}}</span>",
+                    template: "<div class=\"mat-sort-header-container\" [class.mat-sort-header-sorted]=\"_isSorted()\" [class.mat-sort-header-position-before]=\"arrowPosition == 'before'\"><button class=\"mat-sort-header-button\" type=\"button\" [attr.disabled]=\"_isDisabled() || null\" [attr.aria-label]=\"_intl.sortButtonLabel(id)\" (focus)=\"_setIndicatorHintVisible(true)\" (blur)=\"_setIndicatorHintVisible(false)\"><ng-content></ng-content></button><div class=\"mat-sort-header-arrow\" [@arrowOpacity]=\"_getArrowViewState()\" [@arrowPosition]=\"_getArrowViewState()\" [@allowChildren]=\"_getArrowDirectionState()\" (@arrowPosition.start)=\"_disableViewStateAnimation = true\" (@arrowPosition.done)=\"_disableViewStateAnimation = false\"><div class=\"mat-sort-header-stem\"></div><div class=\"mat-sort-header-indicator\" [@indicator]=\"_getArrowDirectionState()\"><div class=\"mat-sort-header-pointer-left\" [@leftPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-right\" [@rightPointer]=\"_getArrowDirectionState()\"></div><div class=\"mat-sort-header-pointer-middle\"></div></div></div></div>",
                     styles: [".mat-sort-header-container{display:flex;cursor:pointer}.mat-sort-header-disabled .mat-sort-header-container{cursor:default}.mat-sort-header-position-before{flex-direction:row-reverse}.mat-sort-header-button{border:none;background:0 0;display:flex;align-items:center;padding:0;cursor:inherit;outline:0;font:inherit;color:currentColor}.mat-sort-header-arrow{height:12px;width:12px;min-width:12px;margin:0 0 0 6px;position:relative;display:flex}.mat-sort-header-position-before .mat-sort-header-arrow{margin:0 6px 0 0}.mat-sort-header-stem{background:currentColor;height:10px;width:2px;margin:auto;display:flex;align-items:center}.mat-sort-header-indicator{width:100%;height:2px;display:flex;align-items:center;position:absolute;top:0;left:0}.mat-sort-header-pointer-middle{margin:auto;height:2px;width:2px;background:currentColor;transform:rotate(45deg)}.mat-sort-header-pointer-left,.mat-sort-header-pointer-right{background:currentColor;width:6px;height:2px;position:absolute;top:0}.mat-sort-header-pointer-left{transform-origin:right;left:0}.mat-sort-header-pointer-right{transform-origin:left;right:0}"],
                     host: {
                         '(click)': '_handleClick()',
                         '(mouseenter)': '_setIndicatorHintVisible(true)',
                         '(longpress)': '_setIndicatorHintVisible(true)',
                         '(mouseleave)': '_setIndicatorHintVisible(false)',
+                        '[attr.aria-sort]': '_getAriaSortAttribute()',
                         '[class.mat-sort-header-disabled]': '_isDisabled()',
                     },
                     encapsulation: core.ViewEncapsulation.None,

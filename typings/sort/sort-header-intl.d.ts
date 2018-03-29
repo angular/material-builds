@@ -7,7 +7,6 @@
  */
 import { Optional } from '@angular/core';
 import { Subject } from 'rxjs';
-import { SortDirection } from './sort-direction';
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
  * include it in a custom provider.
@@ -20,8 +19,6 @@ export declare class MatSortHeaderIntl {
     readonly changes: Subject<void>;
     /** ARIA label for the sorting button. */
     sortButtonLabel: (id: string) => string;
-    /** A label to describe the current sort (visible only to screenreaders). */
-    sortDescriptionLabel: (id: string, direction: SortDirection) => string;
 }
 /** @docs-private */
 export declare function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl: MatSortHeaderIntl): MatSortHeaderIntl;
