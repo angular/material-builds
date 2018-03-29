@@ -5824,15 +5824,8 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // If there was an attempt to assign a value before init, use it to set the
-        // initial selection, otherwise check the `checked` state of the toggles.
-        if (typeof this._tempValue !== 'undefined') {
-            this._setSelectionByValue(this._tempValue);
-            this._tempValue = undefined;
-        }
-        else {
-            (_a = this._selectionModel).select.apply(_a, this._buttonToggles.filter(function (toggle) { return toggle.checked; }));
-        }
+        (_a = this._selectionModel).select.apply(_a, this._buttonToggles.filter(function (toggle) { return toggle.checked; }));
+        this._tempValue = undefined;
         var _a;
     };
     /**
@@ -5962,6 +5955,26 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
      */
     function (toggle) {
         return this._selectionModel.isSelected(toggle);
+    };
+    /** Determines whether a button toggle should be checked on init. */
+    /**
+     * Determines whether a button toggle should be checked on init.
+     * @param {?} toggle
+     * @return {?}
+     */
+    MatButtonToggleGroup.prototype._isPrechecked = /**
+     * Determines whether a button toggle should be checked on init.
+     * @param {?} toggle
+     * @return {?}
+     */
+    function (toggle) {
+        if (typeof this._tempValue === 'undefined') {
+            return false;
+        }
+        if (this.multiple && Array.isArray(this._tempValue)) {
+            return !!this._tempValue.find(function (value) { return toggle.value != null && value === toggle.value; });
+        }
+        return toggle.value === this._tempValue;
     };
     /**
      * Updates the selection state of the toggles in the group based on a value.
@@ -6159,6 +6172,9 @@ var MatButtonToggle = /** @class */ (function (_super) {
         if (this._isSingleSelector) {
             this.name = this.buttonToggleGroup.name;
         }
+        if (this.buttonToggleGroup && this.buttonToggleGroup._isPrechecked(this)) {
+            this.checked = true;
+        }
         this._focusMonitor.monitor(this._elementRef.nativeElement, true);
     };
     /** Focuses the button. */
@@ -6230,8 +6246,8 @@ var MatButtonToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // When group value changes, the button will not be notified. Use `markForCheck` to explicit
-        // update button toggle's status
+        // When the group value changes, the button will not be notified.
+        // Use `markForCheck` to explicit update button toggle's status.
         this._changeDetectorRef.markForCheck();
     };
     MatButtonToggle.decorators = [
@@ -31850,7 +31866,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.0-1d4f1d3');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.0-52493d1');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

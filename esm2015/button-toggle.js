@@ -161,15 +161,8 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      * @return {?}
      */
     ngAfterContentInit() {
-        // If there was an attempt to assign a value before init, use it to set the
-        // initial selection, otherwise check the `checked` state of the toggles.
-        if (typeof this._tempValue !== 'undefined') {
-            this._setSelectionByValue(this._tempValue);
-            this._tempValue = undefined;
-        }
-        else {
-            this._selectionModel.select(...this._buttonToggles.filter(toggle => toggle.checked));
-        }
+        this._selectionModel.select(...this._buttonToggles.filter(toggle => toggle.checked));
+        this._tempValue = undefined;
     }
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
@@ -249,6 +242,20 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      */
     _isSelected(toggle) {
         return this._selectionModel.isSelected(toggle);
+    }
+    /**
+     * Determines whether a button toggle should be checked on init.
+     * @param {?} toggle
+     * @return {?}
+     */
+    _isPrechecked(toggle) {
+        if (typeof this._tempValue === 'undefined') {
+            return false;
+        }
+        if (this.multiple && Array.isArray(this._tempValue)) {
+            return !!this._tempValue.find(value => toggle.value != null && value === toggle.value);
+        }
+        return toggle.value === this._tempValue;
     }
     /**
      * Updates the selection state of the toggles in the group based on a value.
@@ -412,6 +419,9 @@ class MatButtonToggle extends _MatButtonToggleMixinBase {
         if (this._isSingleSelector) {
             this.name = this.buttonToggleGroup.name;
         }
+        if (this.buttonToggleGroup && this.buttonToggleGroup._isPrechecked(this)) {
+            this.checked = true;
+        }
         this._focusMonitor.monitor(this._elementRef.nativeElement, true);
     }
     /**
@@ -457,8 +467,8 @@ class MatButtonToggle extends _MatButtonToggleMixinBase {
      * @return {?}
      */
     _markForCheck() {
-        // When group value changes, the button will not be notified. Use `markForCheck` to explicit
-        // update button toggle's status
+        // When the group value changes, the button will not be notified.
+        // Use `markForCheck` to explicit update button toggle's status.
         this._changeDetectorRef.markForCheck();
     }
 }

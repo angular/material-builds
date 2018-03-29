@@ -100,6 +100,8 @@ export declare class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase
     _syncButtonToggle(toggle: MatButtonToggle, select: boolean, isUserInput?: boolean): void;
     /** Checks whether a button toggle is selected. */
     _isSelected(toggle: MatButtonToggle): boolean;
+    /** Determines whether a button toggle should be checked on init. */
+    _isPrechecked(toggle: MatButtonToggle): boolean;
     /** Updates the selection state of the toggles in the group based on a value. */
     private _setSelectionByValue(value);
     /** Clears the selected toggles. */
