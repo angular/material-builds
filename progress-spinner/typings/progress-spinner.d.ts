@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, SimpleChanges, OnChanges } from '@angular/core';
+import { ElementRef } from '@angular/core';
 import { CanColor } from '@angular/material/core';
 import { Platform } from '@angular/cdk/platform';
 /** Possible mode for a progress spinner. */
@@ -19,14 +19,12 @@ export declare const _MatProgressSpinnerMixinBase: (new (...args: any[]) => CanC
 /**
  * `<mat-progress-spinner>` component.
  */
-export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase implements CanColor, OnChanges {
+export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase implements CanColor {
     _elementRef: ElementRef;
     private _document;
     private _value;
     private _strokeWidth;
     private _fallbackAnimation;
-    /** The width and height of the host element. Will grow with stroke width. */
-    _elementSize: number;
     /** Tracks diameters of existing instances to de-dupe generated styles (default d = 100) */
     private static diameters;
     /**
@@ -44,7 +42,6 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     /** Value of the progress circle. */
     value: number;
     constructor(_elementRef: ElementRef, platform: Platform, _document: any);
-    ngOnChanges(changes: SimpleChanges): void;
     /** The radius of the spinner, adjusted for stroke width. */
     readonly _circleRadius: number;
     /** The view box of the spinner's svg element. */
@@ -59,8 +56,6 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     private _attachStyleNode();
     /** Generates animation styles adjusted for the spinner's diameter. */
     private _getAnimationText();
-    /** Updates the spinner element size based on its diameter. */
-    private _updateElementSize();
 }
 /**
  * `<mat-spinner>` component.
