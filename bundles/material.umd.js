@@ -28429,10 +28429,10 @@ var MatTable = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTable.decorators = [
-        { type: core.Component, args: [{selector: 'mat-table',
+        { type: core.Component, args: [{selector: 'mat-table, table[mat-table]',
                     exportAs: 'matTable',
                     template: table.CDK_TABLE_TEMPLATE,
-                    styles: [".mat-table{display:block}.mat-header-row{min-height:56px}.mat-row{min-height:48px}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;box-sizing:border-box}.mat-header-row::after,.mat-row::after{display:inline-block;min-height:inherit;content:''}.mat-cell:first-child,.mat-header-cell:first-child{padding-left:24px}.mat-cell:last-child,.mat-header-cell:last-child{padding-right:24px}.mat-cell,.mat-header-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}"],
+                    styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-row{min-height:48px}mat-header-row,mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;box-sizing:border-box}mat-header-row::after,mat-row::after{display:inline-block;min-height:inherit;content:''}mat-cell:first-child,mat-header-cell:first-child{padding-left:24px}mat-cell:last-child,mat-header-cell:last-child{padding-right:24px}mat-cell,mat-header-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-row{height:48px}th.mat-header-cell{text-align:left}td.mat-cell,th.mat-header-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}td.mat-cell:first-child,th.mat-header-cell:first-child{padding-left:24px}td.mat-cell:last-child,th.mat-header-cell:last-child{padding-right:24px}"],
                     host: {
                         'class': 'mat-table',
                     },
@@ -28521,7 +28521,7 @@ var MatHeaderCell = /** @class */ (function (_super) {
     }
     MatHeaderCell.decorators = [
         { type: core.Directive, args: [{
-                    selector: 'mat-header-cell',
+                    selector: 'mat-header-cell, th[mat-header-cell]',
                     host: {
                         'class': 'mat-header-cell',
                         'role': 'columnheader',
@@ -28547,7 +28547,7 @@ var MatCell = /** @class */ (function (_super) {
     }
     MatCell.decorators = [
         { type: core.Directive, args: [{
-                    selector: 'mat-cell',
+                    selector: 'mat-cell, td[mat-cell]',
                     host: {
                         'class': 'mat-cell',
                         'role': 'gridcell',
@@ -28617,7 +28617,7 @@ var MatHeaderRow = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatHeaderRow.decorators = [
-        { type: core.Component, args: [{selector: 'mat-header-row',
+        { type: core.Component, args: [{selector: 'mat-header-row, tr[mat-header-row]',
                     template: table.CDK_ROW_TEMPLATE,
                     host: {
                         'class': 'mat-header-row',
@@ -28641,7 +28641,7 @@ var MatRow = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     MatRow.decorators = [
-        { type: core.Component, args: [{selector: 'mat-row',
+        { type: core.Component, args: [{selector: 'mat-row, tr[mat-row]',
                     template: table.CDK_ROW_TEMPLATE,
                     host: {
                         'class': 'mat-row',
@@ -28661,36 +28661,26 @@ var MatRow = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+var /** @type {?} */ EXPORTED_DECLARATIONS = [
+    MatTable,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatColumnDef,
+    MatHeaderRowDef,
+    MatRowDef,
+    MatHeaderCell,
+    MatCell,
+    MatHeaderRow,
+    MatRow,
+];
 var MatTableModule = /** @class */ (function () {
     function MatTableModule() {
     }
     MatTableModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [table.CdkTableModule, common.CommonModule, MatCommonModule],
-                    exports: [
-                        MatCell,
-                        MatCellDef,
-                        MatColumnDef,
-                        MatHeaderCell,
-                        MatHeaderCellDef,
-                        MatHeaderRow,
-                        MatHeaderRowDef,
-                        MatRow,
-                        MatRowDef,
-                        MatTable,
-                    ],
-                    declarations: [
-                        MatCell,
-                        MatCellDef,
-                        MatColumnDef,
-                        MatHeaderCell,
-                        MatHeaderCellDef,
-                        MatHeaderRow,
-                        MatHeaderRowDef,
-                        MatRow,
-                        MatRowDef,
-                        MatTable,
-                    ],
+                    exports: EXPORTED_DECLARATIONS,
+                    declarations: EXPORTED_DECLARATIONS,
                 },] },
     ];
     /** @nocollapse */
@@ -31867,7 +31857,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.0-bcff93e');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.0-7774da2');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32231,16 +32221,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵe21 = MatTabBase;
+exports.ɵf21 = _MatTabMixinBase;
+exports.ɵa21 = MatTabHeaderBase;
+exports.ɵb21 = _MatTabHeaderMixinBase;
+exports.ɵc21 = MatTabLabelWrapperBase;
+exports.ɵd21 = _MatTabLabelWrapperMixinBase;
+exports.ɵi21 = MatTabLinkBase;
+exports.ɵg21 = MatTabNavBase;
+exports.ɵj21 = _MatTabLinkMixinBase;
+exports.ɵh21 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

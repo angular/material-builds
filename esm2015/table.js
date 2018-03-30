@@ -24,10 +24,10 @@ import { _isNumberValue } from '@angular/cdk/coercion';
 class MatTable extends CdkTable {
 }
 MatTable.decorators = [
-    { type: Component, args: [{selector: 'mat-table',
+    { type: Component, args: [{selector: 'mat-table, table[mat-table]',
                 exportAs: 'matTable',
                 template: CDK_TABLE_TEMPLATE,
-                styles: [".mat-table{display:block}.mat-header-row{min-height:56px}.mat-row{min-height:48px}.mat-header-row,.mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;box-sizing:border-box}.mat-header-row::after,.mat-row::after{display:inline-block;min-height:inherit;content:''}.mat-cell:first-child,.mat-header-cell:first-child{padding-left:24px}.mat-cell:last-child,.mat-header-cell:last-child{padding-right:24px}.mat-cell,.mat-header-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}"],
+                styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-row{min-height:48px}mat-header-row,mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;box-sizing:border-box}mat-header-row::after,mat-row::after{display:inline-block;min-height:inherit;content:''}mat-cell:first-child,mat-header-cell:first-child{padding-left:24px}mat-cell:last-child,mat-header-cell:last-child{padding-right:24px}mat-cell,mat-header-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-row{height:48px}th.mat-header-cell{text-align:left}td.mat-cell,th.mat-header-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}td.mat-cell:first-child,th.mat-header-cell:first-child{padding-left:24px}td.mat-cell:last-child,th.mat-header-cell:last-child{padding-right:24px}"],
                 host: {
                     'class': 'mat-table',
                 },
@@ -102,7 +102,7 @@ class MatHeaderCell extends CdkHeaderCell {
 }
 MatHeaderCell.decorators = [
     { type: Directive, args: [{
-                selector: 'mat-header-cell',
+                selector: 'mat-header-cell, th[mat-header-cell]',
                 host: {
                     'class': 'mat-header-cell',
                     'role': 'columnheader',
@@ -129,7 +129,7 @@ class MatCell extends CdkCell {
 }
 MatCell.decorators = [
     { type: Directive, args: [{
-                selector: 'mat-cell',
+                selector: 'mat-cell, td[mat-cell]',
                 host: {
                     'class': 'mat-cell',
                     'role': 'gridcell',
@@ -184,7 +184,7 @@ MatRowDef.ctorParameters = () => [];
 class MatHeaderRow extends CdkHeaderRow {
 }
 MatHeaderRow.decorators = [
-    { type: Component, args: [{selector: 'mat-header-row',
+    { type: Component, args: [{selector: 'mat-header-row, tr[mat-header-row]',
                 template: CDK_ROW_TEMPLATE,
                 host: {
                     'class': 'mat-header-row',
@@ -203,7 +203,7 @@ MatHeaderRow.ctorParameters = () => [];
 class MatRow extends CdkRow {
 }
 MatRow.decorators = [
-    { type: Component, args: [{selector: 'mat-row',
+    { type: Component, args: [{selector: 'mat-row, tr[mat-row]',
                 template: CDK_ROW_TEMPLATE,
                 host: {
                     'class': 'mat-row',
@@ -221,35 +221,25 @@ MatRow.ctorParameters = () => [];
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+const /** @type {?} */ EXPORTED_DECLARATIONS = [
+    MatTable,
+    MatCellDef,
+    MatHeaderCellDef,
+    MatColumnDef,
+    MatHeaderRowDef,
+    MatRowDef,
+    MatHeaderCell,
+    MatCell,
+    MatHeaderRow,
+    MatRow,
+];
 class MatTableModule {
 }
 MatTableModule.decorators = [
     { type: NgModule, args: [{
                 imports: [CdkTableModule, CommonModule, MatCommonModule],
-                exports: [
-                    MatCell,
-                    MatCellDef,
-                    MatColumnDef,
-                    MatHeaderCell,
-                    MatHeaderCellDef,
-                    MatHeaderRow,
-                    MatHeaderRowDef,
-                    MatRow,
-                    MatRowDef,
-                    MatTable,
-                ],
-                declarations: [
-                    MatCell,
-                    MatCellDef,
-                    MatColumnDef,
-                    MatHeaderCell,
-                    MatHeaderCellDef,
-                    MatHeaderRow,
-                    MatHeaderRowDef,
-                    MatRow,
-                    MatRowDef,
-                    MatTable,
-                ],
+                exports: EXPORTED_DECLARATIONS,
+                declarations: EXPORTED_DECLARATIONS,
             },] },
 ];
 /** @nocollapse */
