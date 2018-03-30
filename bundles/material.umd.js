@@ -31349,6 +31349,27 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
         _this.tabIndex = Number(tabIndex) || 0;
         return _this;
     }
+    // This is a workaround for https://github.com/angular/angular/issues/23091
+    // In aot mode, the lifecycle hooks from parent class are not called.
+    // TODO(tinayuangao): Remove when the angular issue #23091 is fixed
+    /**
+     * @return {?}
+     */
+    MatNestedTreeNode.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        _super.prototype.ngAfterContentInit.call(this);
+    };
+    /**
+     * @return {?}
+     */
+    MatNestedTreeNode.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        _super.prototype.ngOnDestroy.call(this);
+    };
     MatNestedTreeNode.decorators = [
         { type: core.Directive, args: [{
                     selector: 'mat-nested-tree-node',
@@ -31828,7 +31849,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.0-a73819d');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.0-7857b92');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32070,8 +32091,8 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵa22 = MatMenuItemBase;
+exports.ɵb22 = _MatMenuItemMixinBase;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

@@ -145,6 +145,27 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
         _this.tabIndex = Number(tabIndex) || 0;
         return _this;
     }
+    // This is a workaround for https://github.com/angular/angular/issues/23091
+    // In aot mode, the lifecycle hooks from parent class are not called.
+    // TODO(tinayuangao): Remove when the angular issue #23091 is fixed
+    /**
+     * @return {?}
+     */
+    MatNestedTreeNode.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        _super.prototype.ngAfterContentInit.call(this);
+    };
+    /**
+     * @return {?}
+     */
+    MatNestedTreeNode.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        _super.prototype.ngOnDestroy.call(this);
+    };
     MatNestedTreeNode.decorators = [
         { type: core.Directive, args: [{
                     selector: 'mat-nested-tree-node',

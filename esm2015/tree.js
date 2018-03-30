@@ -124,6 +124,18 @@ class MatNestedTreeNode extends _MatNestedTreeNodeMixinBase {
         this._differs = _differs;
         this.tabIndex = Number(tabIndex) || 0;
     }
+    /**
+     * @return {?}
+     */
+    ngAfterContentInit() {
+        super.ngAfterContentInit();
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        super.ngOnDestroy();
+    }
 }
 MatNestedTreeNode.decorators = [
     { type: Directive, args: [{

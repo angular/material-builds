@@ -36,4 +36,6 @@ export declare class MatNestedTreeNode<T> extends _MatNestedTreeNodeMixinBase<T>
     node: T;
     nodeOutlet: QueryList<MatTreeNodeOutlet>;
     constructor(_elementRef: ElementRef, _tree: CdkTree<T>, _differs: IterableDiffers, tabIndex: string);
+    ngAfterContentInit(): void;
+    ngOnDestroy(): void;
 }
