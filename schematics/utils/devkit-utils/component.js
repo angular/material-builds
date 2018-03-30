@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics");
-require("rxjs/add/operator/merge");
 const ts = require("typescript");
 const ast_utils_1 = require("./ast-utils");
 const change_1 = require("./change");
