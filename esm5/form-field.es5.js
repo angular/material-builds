@@ -11,7 +11,7 @@ import { __extends } from 'tslib';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MAT_LABEL_GLOBAL_OPTIONS, mixinColor } from '@angular/material/core';
-import { fromEvent } from 'rxjs';
+import { EMPTY, fromEvent, merge } from 'rxjs';
 import { startWith, take } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 
@@ -417,12 +417,10 @@ var MatFormField = /** @class */ (function (_super) {
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
         });
-        var /** @type {?} */ ngControl = this._control.ngControl;
-        if (ngControl && ngControl.valueChanges) {
-            ngControl.valueChanges.subscribe(function () {
-                _this._changeDetectorRef.markForCheck();
-            });
-        }
+        // Run change detection if the value, prefix, or suffix changes.
+        var /** @type {?} */ valueChanges = this._control.ngControl && this._control.ngControl.valueChanges || EMPTY;
+        merge(valueChanges, this._prefixChildren.changes, this._suffixChildren.changes)
+            .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         // Re-validate when the number of hints changes.
         this._hintChildren.changes.pipe(startWith(null)).subscribe(function () {
             _this._processHints();
