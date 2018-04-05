@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/common', '@angular/animations', '@angular/cdk/a11y', '@angular/material/core', 'rxjs', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/cdk/coercion', '@angular/cdk/bidi', '@angular/cdk/overlay'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.core,global.ng.cdk.portal,global.ng.common,global.ng.animations,global.ng.cdk.a11y,global.ng.material.core,global.Rx,global.ng.cdk.keycodes,global.Rx.operators,global.ng.cdk.coercion,global.ng.cdk.bidi,global.ng.cdk.overlay));
-}(this, (function (exports,core,portal,common,animations,a11y,core$1,rxjs,keycodes,operators,coercion,bidi,overlay) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/common', '@angular/animations', '@angular/cdk/a11y', '@angular/material/core', 'rxjs', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/cdk/bidi', '@angular/cdk/overlay'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.core,global.ng.cdk.portal,global.ng.common,global.ng.animations,global.ng.cdk.a11y,global.ng.material.core,global.Rx,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.Rx.operators,global.ng.cdk.bidi,global.ng.cdk.overlay));
+}(this, (function (exports,core,portal,common,animations,a11y,core$1,rxjs,coercion,keycodes,operators,bidi,overlay) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1449,8 +1449,8 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

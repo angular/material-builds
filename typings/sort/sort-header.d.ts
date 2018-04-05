@@ -1,16 +1,9 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
-import { ChangeDetectorRef } from '@angular/core';
 import { CdkColumnDef } from '@angular/cdk/table';
+import { ChangeDetectorRef } from '@angular/core';
+import { CanDisable } from '@angular/material/core';
 import { MatSort, MatSortable } from './sort';
 import { SortDirection } from './sort-direction';
 import { MatSortHeaderIntl } from './sort-header-intl';
-import { CanDisable } from '@angular/material/core';
 /** @docs-private */
 export declare class MatSortHeaderBase {
 }

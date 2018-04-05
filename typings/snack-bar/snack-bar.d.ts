@@ -9,7 +9,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
-import { EmbeddedViewRef, Injector, InjectionToken, TemplateRef } from '@angular/core';
+import { EmbeddedViewRef, InjectionToken, Injector, TemplateRef } from '@angular/core';
 import { SimpleSnackBar } from './simple-snack-bar';
 import { MatSnackBarConfig } from './snack-bar-config';
 import { MatSnackBarRef } from './snack-bar-ref';

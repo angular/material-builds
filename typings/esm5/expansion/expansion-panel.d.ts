@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AnimationEvent } from '@angular/animations';
-import { ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef, AfterContentInit } from '@angular/core';
 import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal } from '@angular/cdk/portal';
+import { AfterContentInit, ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatAccordion } from './accordion';
 import { MatExpansionPanelContent } from './expansion-panel-content';

@@ -1,14 +1,7 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
+import { CanColor, CanDisableRipple, ThemePalette } from '@angular/material/core';
 import { MatTab } from './tab';
 import { MatTabHeader } from './tab-header';
-import { CanColor, CanDisableRipple, ThemePalette } from '@angular/material/core';
 /** A simple change event emitted on focus or selection changes. */
 export declare class MatTabChangeEvent {
     /** Index of the currently-selected tab. */

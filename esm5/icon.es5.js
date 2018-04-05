@@ -5,12 +5,12 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { catchError, tap, finalize, map, share, take } from 'rxjs/operators';
-import { Injectable, Inject, Optional, SecurityContext, SkipSelf, NgModule, Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation, defineInjectable, inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable, Optional, SecurityContext, SkipSelf, NgModule, Attribute, ChangeDetectionStrategy, Component, ElementRef, Input, ViewEncapsulation, defineInjectable, inject } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { forkJoin, of, throwError } from 'rxjs';
-import { DOCUMENT } from '@angular/common';
+import { catchError, finalize, map, share, tap, take } from 'rxjs/operators';
 import { __extends } from 'tslib';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';

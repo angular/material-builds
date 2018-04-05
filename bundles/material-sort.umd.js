@@ -297,54 +297,6 @@ function getSortDirectionCycle(start, disableClear) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
- * include it in a custom provider.
- */
-var MatSortHeaderIntl = /** @class */ (function () {
-    function MatSortHeaderIntl() {
-        /**
-         * Stream that emits whenever the labels here are changed. Use this to notify
-         * components if the labels have changed after initialization.
-         */
-        this.changes = new rxjs.Subject();
-        /**
-         * ARIA label for the sorting button.
-         */
-        this.sortButtonLabel = function (id) {
-            return "Change sorting for " + id;
-        };
-    }
-    MatSortHeaderIntl.decorators = [
-        { type: core.Injectable, args: [{ providedIn: 'root' },] },
-    ];
-    /** @nocollapse */
-    MatSortHeaderIntl.ctorParameters = function () { return []; };
-    /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = core.defineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
-    return MatSortHeaderIntl;
-}());
-/**
- * \@docs-private
- * @param {?} parentIntl
- * @return {?}
- */
-function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
-    return parentIntl || new MatSortHeaderIntl();
-}
-/**
- * \@docs-private
- */
-var /** @type {?} */ MAT_SORT_HEADER_INTL_PROVIDER = {
-    // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
-    provide: MatSortHeaderIntl,
-    deps: [[new core.Optional(), new core.SkipSelf(), MatSortHeaderIntl]],
-    useFactory: MAT_SORT_HEADER_INTL_PROVIDER_FACTORY
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 var /** @type {?} */ SORT_ANIMATION_TRANSITION = core$1.AnimationDurations.ENTERING + ' ' +
     core$1.AnimationCurves.STANDARD_CURVE;
 /**
@@ -417,6 +369,54 @@ var /** @type {?} */ matSortAnimations = {
             animations.query('@*', animations.animateChild(), { optional: true })
         ])
     ]),
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
+ * include it in a custom provider.
+ */
+var MatSortHeaderIntl = /** @class */ (function () {
+    function MatSortHeaderIntl() {
+        /**
+         * Stream that emits whenever the labels here are changed. Use this to notify
+         * components if the labels have changed after initialization.
+         */
+        this.changes = new rxjs.Subject();
+        /**
+         * ARIA label for the sorting button.
+         */
+        this.sortButtonLabel = function (id) {
+            return "Change sorting for " + id;
+        };
+    }
+    MatSortHeaderIntl.decorators = [
+        { type: core.Injectable, args: [{ providedIn: 'root' },] },
+    ];
+    /** @nocollapse */
+    MatSortHeaderIntl.ctorParameters = function () { return []; };
+    /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = core.defineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
+    return MatSortHeaderIntl;
+}());
+/**
+ * \@docs-private
+ * @param {?} parentIntl
+ * @return {?}
+ */
+function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
+    return parentIntl || new MatSortHeaderIntl();
+}
+/**
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_SORT_HEADER_INTL_PROVIDER = {
+    // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
+    provide: MatSortHeaderIntl,
+    deps: [[new core.Optional(), new core.SkipSelf(), MatSortHeaderIntl]],
+    useFactory: MAT_SORT_HEADER_INTL_PROVIDER_FACTORY
 };
 
 /**

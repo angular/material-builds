@@ -1,14 +1,7 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
-import { DialogPosition } from './dialog-config';
 import { Observable } from 'rxjs';
+import { DialogPosition } from './dialog-config';
 import { MatDialogContainer } from './dialog-container';
 /**
  * Reference to a dialog opened via the MatDialog service.

@@ -97,30 +97,6 @@ var MatAccordion = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Expansion panel content that will be rendered lazily
- * after the panel is opened for the first time.
- */
-var MatExpansionPanelContent = /** @class */ (function () {
-    function MatExpansionPanelContent(_template) {
-        this._template = _template;
-    }
-    MatExpansionPanelContent.decorators = [
-        { type: core.Directive, args: [{
-                    selector: 'ng-template[matExpansionPanelContent]'
-                },] },
-    ];
-    /** @nocollapse */
-    MatExpansionPanelContent.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
-    ]; };
-    return MatExpansionPanelContent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * Time and timing curve for expansion panel animations.
  */
 var /** @type {?} */ EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
@@ -158,6 +134,30 @@ var /** @type {?} */ matExpansionAnimations = {
         animations.transition('expanded <=> collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ])
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Expansion panel content that will be rendered lazily
+ * after the panel is opened for the first time.
+ */
+var MatExpansionPanelContent = /** @class */ (function () {
+    function MatExpansionPanelContent(_template) {
+        this._template = _template;
+    }
+    MatExpansionPanelContent.decorators = [
+        { type: core.Directive, args: [{
+                    selector: 'ng-template[matExpansionPanelContent]'
+                },] },
+    ];
+    /** @nocollapse */
+    MatExpansionPanelContent.ctorParameters = function () { return [
+        { type: core.TemplateRef, },
+    ]; };
+    return MatExpansionPanelContent;
+}());
 
 /**
  * @fileoverview added by tsickle

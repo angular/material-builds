@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs/operators'), require('@angular/core'), require('@angular/common/http'), require('@angular/platform-browser'), require('rxjs'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/coercion')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/icon', ['exports', 'rxjs/operators', '@angular/core', '@angular/common/http', '@angular/platform-browser', 'rxjs', '@angular/common', '@angular/material/core', '@angular/cdk/coercion'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = {}),global.Rx.operators,global.ng.core,global.ng.common.http,global.ng.platformBrowser,global.Rx,global.ng.common,global.ng.material.core,global.ng.cdk.coercion));
-}(this, (function (exports,operators,core,http,platformBrowser,rxjs,common,core$1,coercion) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/common/http'), require('@angular/core'), require('@angular/platform-browser'), require('rxjs'), require('rxjs/operators'), require('@angular/material/core'), require('@angular/cdk/coercion')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/icon', ['exports', '@angular/common', '@angular/common/http', '@angular/core', '@angular/platform-browser', 'rxjs', 'rxjs/operators', '@angular/material/core', '@angular/cdk/coercion'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = {}),global.ng.common,global.ng.common.http,global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.operators,global.ng.material.core,global.ng.cdk.coercion));
+}(this, (function (exports,common,http,core,platformBrowser,rxjs,operators,core$1,coercion) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.

@@ -6,14 +6,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, Host, Optional, ViewEncapsulation, ViewContainerRef, ContentChild, ElementRef, NgModule } from '@angular/core';
+import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Host, Optional, ViewContainerRef, ViewEncapsulation, ElementRef, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
 import { animate, animateChild, group, state, style, transition, trigger, query } from '@angular/animations';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { Subject, merge, Subscription } from 'rxjs';
-import { take, filter, startWith } from 'rxjs/operators';
+import { filter, startWith, take } from 'rxjs/operators';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
@@ -78,30 +78,6 @@ var MatAccordion = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Expansion panel content that will be rendered lazily
- * after the panel is opened for the first time.
- */
-var MatExpansionPanelContent = /** @class */ (function () {
-    function MatExpansionPanelContent(_template) {
-        this._template = _template;
-    }
-    MatExpansionPanelContent.decorators = [
-        { type: Directive, args: [{
-                    selector: 'ng-template[matExpansionPanelContent]'
-                },] },
-    ];
-    /** @nocollapse */
-    MatExpansionPanelContent.ctorParameters = function () { return [
-        { type: TemplateRef, },
-    ]; };
-    return MatExpansionPanelContent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * Time and timing curve for expansion panel animations.
  */
 var /** @type {?} */ EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
@@ -139,6 +115,30 @@ var /** @type {?} */ matExpansionAnimations = {
         transition('expanded <=> collapsed', animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ])
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Expansion panel content that will be rendered lazily
+ * after the panel is opened for the first time.
+ */
+var MatExpansionPanelContent = /** @class */ (function () {
+    function MatExpansionPanelContent(_template) {
+        this._template = _template;
+    }
+    MatExpansionPanelContent.decorators = [
+        { type: Directive, args: [{
+                    selector: 'ng-template[matExpansionPanelContent]'
+                },] },
+    ];
+    /** @nocollapse */
+    MatExpansionPanelContent.ctorParameters = function () { return [
+        { type: TemplateRef, },
+    ]; };
+    return MatExpansionPanelContent;
+}());
 
 /**
  * @fileoverview added by tsickle

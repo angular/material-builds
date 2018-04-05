@@ -6,11 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Direction, Directionality } from '@angular/cdk/bidi';
+import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
 import { CanDisableRipple } from '@angular/material/core';
 import { MatInkBar } from './ink-bar';
 import { MatTabLabelWrapper } from './tab-label-wrapper';
-import { ViewportRuler } from '@angular/cdk/scrolling';
 /**
  * The directions that scrolling can go in when the header's tabs exceed the header width. 'After'
  * will scroll the header towards the end of the tabs list and 'before' will scroll towards the

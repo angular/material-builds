@@ -9,9 +9,9 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation, Directive, Eleme
 import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
+import { _isNumberValue } from '@angular/cdk/coercion';
 import { BehaviorSubject, combineLatest, empty } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
-import { _isNumberValue } from '@angular/cdk/coercion';
 
 /**
  * @fileoverview added by tsickle

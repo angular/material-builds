@@ -14134,30 +14134,6 @@ var MatAccordion = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Expansion panel content that will be rendered lazily
- * after the panel is opened for the first time.
- */
-var MatExpansionPanelContent = /** @class */ (function () {
-    function MatExpansionPanelContent(_template) {
-        this._template = _template;
-    }
-    MatExpansionPanelContent.decorators = [
-        { type: core.Directive, args: [{
-                    selector: 'ng-template[matExpansionPanelContent]'
-                },] },
-    ];
-    /** @nocollapse */
-    MatExpansionPanelContent.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
-    ]; };
-    return MatExpansionPanelContent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * Time and timing curve for expansion panel animations.
  */
 var /** @type {?} */ EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
@@ -14195,6 +14171,30 @@ var /** @type {?} */ matExpansionAnimations = {
         animations.transition('expanded <=> collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ])
 };
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Expansion panel content that will be rendered lazily
+ * after the panel is opened for the first time.
+ */
+var MatExpansionPanelContent = /** @class */ (function () {
+    function MatExpansionPanelContent(_template) {
+        this._template = _template;
+    }
+    MatExpansionPanelContent.decorators = [
+        { type: core.Directive, args: [{
+                    selector: 'ng-template[matExpansionPanelContent]'
+                },] },
+    ];
+    /** @nocollapse */
+    MatExpansionPanelContent.ctorParameters = function () { return [
+        { type: core.TemplateRef, },
+    ]; };
+    return MatExpansionPanelContent;
+}());
 
 /**
  * @fileoverview added by tsickle
@@ -27435,54 +27435,6 @@ function getSortDirectionCycle(start, disableClear) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
- * include it in a custom provider.
- */
-var MatSortHeaderIntl = /** @class */ (function () {
-    function MatSortHeaderIntl() {
-        /**
-         * Stream that emits whenever the labels here are changed. Use this to notify
-         * components if the labels have changed after initialization.
-         */
-        this.changes = new rxjs.Subject();
-        /**
-         * ARIA label for the sorting button.
-         */
-        this.sortButtonLabel = function (id) {
-            return "Change sorting for " + id;
-        };
-    }
-    MatSortHeaderIntl.decorators = [
-        { type: core.Injectable, args: [{ providedIn: 'root' },] },
-    ];
-    /** @nocollapse */
-    MatSortHeaderIntl.ctorParameters = function () { return []; };
-    /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = core.defineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
-    return MatSortHeaderIntl;
-}());
-/**
- * \@docs-private
- * @param {?} parentIntl
- * @return {?}
- */
-function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
-    return parentIntl || new MatSortHeaderIntl();
-}
-/**
- * \@docs-private
- */
-var /** @type {?} */ MAT_SORT_HEADER_INTL_PROVIDER = {
-    // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
-    provide: MatSortHeaderIntl,
-    deps: [[new core.Optional(), new core.SkipSelf(), MatSortHeaderIntl]],
-    useFactory: MAT_SORT_HEADER_INTL_PROVIDER_FACTORY
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 var /** @type {?} */ SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
     AnimationCurves.STANDARD_CURVE;
 /**
@@ -27555,6 +27507,54 @@ var /** @type {?} */ matSortAnimations = {
             animations.query('@*', animations.animateChild(), { optional: true })
         ])
     ]),
+};
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
+ * include it in a custom provider.
+ */
+var MatSortHeaderIntl = /** @class */ (function () {
+    function MatSortHeaderIntl() {
+        /**
+         * Stream that emits whenever the labels here are changed. Use this to notify
+         * components if the labels have changed after initialization.
+         */
+        this.changes = new rxjs.Subject();
+        /**
+         * ARIA label for the sorting button.
+         */
+        this.sortButtonLabel = function (id) {
+            return "Change sorting for " + id;
+        };
+    }
+    MatSortHeaderIntl.decorators = [
+        { type: core.Injectable, args: [{ providedIn: 'root' },] },
+    ];
+    /** @nocollapse */
+    MatSortHeaderIntl.ctorParameters = function () { return []; };
+    /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = core.defineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
+    return MatSortHeaderIntl;
+}());
+/**
+ * \@docs-private
+ * @param {?} parentIntl
+ * @return {?}
+ */
+function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
+    return parentIntl || new MatSortHeaderIntl();
+}
+/**
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_SORT_HEADER_INTL_PROVIDER = {
+    // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
+    provide: MatSortHeaderIntl,
+    deps: [[new core.Optional(), new core.SkipSelf(), MatSortHeaderIntl]],
+    useFactory: MAT_SORT_HEADER_INTL_PROVIDER_FACTORY
 };
 
 /**
@@ -31851,7 +31851,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.0-6449ae1');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.0-b85ee8c');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32093,8 +32093,8 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32215,16 +32215,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe21 = MatTabBase;
+exports.ɵf21 = _MatTabMixinBase;
+exports.ɵa21 = MatTabHeaderBase;
+exports.ɵb21 = _MatTabHeaderMixinBase;
+exports.ɵc21 = MatTabLabelWrapperBase;
+exports.ɵd21 = _MatTabLabelWrapperMixinBase;
+exports.ɵi21 = MatTabLinkBase;
+exports.ɵg21 = MatTabNavBase;
+exports.ɵj21 = _MatTabLinkMixinBase;
+exports.ɵh21 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

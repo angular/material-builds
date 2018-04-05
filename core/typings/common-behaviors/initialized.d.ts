@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Constructor } from './constructor';
 import { Observable } from 'rxjs';
+import { Constructor } from './constructor';
 /**
  * Mixin that adds an initialized property to a directive which, when subscribed to, will emit a
  * value once markInitialized has been called, which should be done during the ngOnInit function.

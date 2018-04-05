@@ -7,7 +7,7 @@
  */
 import { InjectionToken, Component, ViewChild, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, EventEmitter, Inject, Optional, TemplateRef, Injectable, Injector, SkipSelf, NgModule } from '@angular/core';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { Subject, merge, of } from 'rxjs';
+import { merge, Subject, of } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
