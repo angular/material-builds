@@ -21021,8 +21021,10 @@ var MatTooltip = /** @class */ (function () {
             if (value !== this._position) {
                 this._position = value;
                 if (this._overlayRef) {
-                    this._updatePosition(); /** @type {?} */
-                    ((this._tooltipInstance)).show(value, 0);
+                    this._updatePosition();
+                    if (this._tooltipInstance) {
+                        /** @type {?} */ ((this._tooltipInstance)).show(value, 0);
+                    }
                     this._overlayRef.updatePosition();
                 }
             }
@@ -31849,7 +31851,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.0-b4c8443');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.0-6449ae1');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

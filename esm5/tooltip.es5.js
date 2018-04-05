@@ -158,8 +158,10 @@ var MatTooltip = /** @class */ (function () {
             if (value !== this._position) {
                 this._position = value;
                 if (this._overlayRef) {
-                    this._updatePosition(); /** @type {?} */
-                    ((this._tooltipInstance)).show(value, 0);
+                    this._updatePosition();
+                    if (this._tooltipInstance) {
+                        /** @type {?} */ ((this._tooltipInstance)).show(value, 0);
+                    }
                     this._overlayRef.updatePosition();
                 }
             }
