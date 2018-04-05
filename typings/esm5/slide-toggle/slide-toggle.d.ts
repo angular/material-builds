@@ -7,7 +7,7 @@
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, NgZone } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanDisable, CanDisableRipple, HammerInput, HasTabIndex, MatRipple } from '@angular/material/core';
 export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
@@ -34,6 +34,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     private _platform;
     private _focusMonitor;
     private _changeDetectorRef;
+    private _ngZone;
     private onChange;
     private onTouched;
     private _uniqueId;
@@ -65,7 +66,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     _inputElement: ElementRef;
     /** Reference to the ripple directive on the thumb container. */
     _ripple: MatRipple;
-    constructor(elementRef: ElementRef, _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string);
+    constructor(elementRef: ElementRef, _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Method being called whenever the underlying input emits a change event. */

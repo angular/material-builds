@@ -356,11 +356,6 @@ class MatButtonToggle extends _MatButtonToggleMixinBase {
         this._isSingleSelector = false;
         this._checked = false;
         /**
-         * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
-         * take precedence so this may be omitted.
-         */
-        this.ariaLabel = '';
-        /**
          * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
          */
         this.ariaLabelledby = null;

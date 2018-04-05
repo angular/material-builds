@@ -12,13 +12,13 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Directionality } from '@angular/cdk/bidi';
 import { DOWN_ARROW, ENTER, ESCAPE, TAB, UP_ARROW } from '@angular/cdk/keycodes';
-import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { Overlay, OverlayConfig, ViewportRuler, OverlayModule } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { filter, take, switchMap, delay, tap } from 'rxjs/operators';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatFormField } from '@angular/material/form-field';
-import { defer, fromEvent, merge, of, Subject } from 'rxjs';
+import { Subscription, defer, fromEvent, merge, of, Subject } from 'rxjs';
 
 /**
  * @fileoverview added by tsickle
@@ -292,7 +292,7 @@ function getMatAutocompleteMissingPanelError() {
         'you\'re attempting to open it after the ngAfterContentInit hook.');
 }
 var MatAutocompleteTrigger = /** @class */ (function () {
-    function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _scrollStrategy, _dir, _formField, _document) {
+    function MatAutocompleteTrigger(_element, _overlay, _viewContainerRef, _zone, _changeDetectorRef, _scrollStrategy, _dir, _formField, _document, _viewportRuler) {
         var _this = this;
         this._element = _element;
         this._overlay = _overlay;
@@ -303,11 +303,16 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         this._dir = _dir;
         this._formField = _formField;
         this._document = _document;
+        this._viewportRuler = _viewportRuler;
         this._componentDestroyed = false;
         /**
          * Whether or not the label state is being overridden.
          */
         this._manuallyFloatingLabel = false;
+        /**
+         * Subscription to viewport size changes.
+         */
+        this._viewportSubscription = Subscription.EMPTY;
         /**
          * Stream of keyboard events that can close the panel.
          */
@@ -342,6 +347,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        this._viewportSubscription.unsubscribe();
         this._componentDestroyed = true;
         this._destroyPanel();
         this._closeKeyEventStream.complete();
@@ -778,12 +784,20 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        var _this = this;
         if (!this.autocomplete) {
             throw getMatAutocompleteMissingPanelError();
         }
         if (!this._overlayRef) {
             this._portal = new TemplatePortal(this.autocomplete.template, this._viewContainerRef);
             this._overlayRef = this._overlay.create(this._getOverlayConfig());
+            if (this._viewportRuler) {
+                this._viewportSubscription = this._viewportRuler.change().subscribe(function () {
+                    if (_this.panelOpen && _this._overlayRef) {
+                        _this._overlayRef.updateSize({ width: _this._getHostWidth() });
+                    }
+                });
+            }
         }
         else {
             /** Update the panel width, in case the host width has changed */
@@ -911,6 +925,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         { type: Directionality, decorators: [{ type: Optional },] },
         { type: MatFormField, decorators: [{ type: Optional }, { type: Host },] },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+        { type: ViewportRuler, },
     ]; };
     MatAutocompleteTrigger.propDecorators = {
         "autocomplete": [{ type: Input, args: ['matAutocomplete',] },],

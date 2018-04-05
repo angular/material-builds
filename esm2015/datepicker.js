@@ -1966,7 +1966,11 @@ class MatDatepicker {
             panelClass: 'mat-datepicker-popup',
         });
         this._popupRef = this._overlay.create(overlayConfig);
-        merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(filter(event => event.keyCode === ESCAPE))).subscribe(() => this.close());
+        merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(filter(event => {
+            // Closing on alt + up is only valid when there's an input associated with the datepicker.
+            return event.keyCode === ESCAPE ||
+                (this._datepickerInput && event.altKey && event.keyCode === UP_ARROW);
+        }))).subscribe(() => this.close());
     }
     /**
      * Create the popup PositionStrategy.
@@ -2586,6 +2590,7 @@ MatDatepickerModule.decorators = [
                     MatMonthView,
                     MatYearView,
                     MatMultiYearView,
+                    MatCalendarHeader,
                 ],
                 declarations: [
                     MatCalendar,
@@ -2598,7 +2603,7 @@ MatDatepickerModule.decorators = [
                     MatMonthView,
                     MatYearView,
                     MatMultiYearView,
-                    MatCalendarHeader
+                    MatCalendarHeader,
                 ],
                 providers: [
                     MatDatepickerIntl,

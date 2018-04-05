@@ -8,7 +8,7 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild, ViewEncapsulation, NgZone, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, GestureConfig, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ObserversModule } from '@angular/cdk/observers';
@@ -60,12 +60,14 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @param {?} _focusMonitor
      * @param {?} _changeDetectorRef
      * @param {?} tabIndex
+     * @param {?} _ngZone
      */
-    constructor(elementRef, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
+    constructor(elementRef, _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone) {
         super(elementRef);
         this._platform = _platform;
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
+        this._ngZone = _ngZone;
         this.onChange = (_) => { };
         this.onTouched = () => { };
         this._uniqueId = `mat-slide-toggle-${++nextUniqueId}`;
@@ -280,9 +282,11 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
                 this.checked = newCheckedValue;
                 this._emitChangeEvent();
             }
-            // The drag should be stopped outside of the current event handler, because otherwise the
-            // click event will be fired before and will revert the drag change.
-            setTimeout(() => this._slideRenderer.stopThumbDrag());
+            // The drag should be stopped outside of the current event handler, otherwise the
+            // click event will be fired before it and will revert the drag change.
+            this._ngZone.runOutsideAngular(() => {
+                setTimeout(() => this._slideRenderer.stopThumbDrag());
+            });
         }
     }
     /**
@@ -321,6 +325,7 @@ MatSlideToggle.ctorParameters = () => [
     { type: FocusMonitor, },
     { type: ChangeDetectorRef, },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
+    { type: NgZone, },
 ];
 MatSlideToggle.propDecorators = {
     "name": [{ type: Input },],

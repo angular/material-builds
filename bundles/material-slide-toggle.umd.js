@@ -79,11 +79,12 @@ var /** @type {?} */ _MatSlideToggleMixinBase = core$1.mixinTabIndex(core$1.mixi
  */
 var MatSlideToggle = /** @class */ (function (_super) {
     __extends(MatSlideToggle, _super);
-    function MatSlideToggle(elementRef, _platform, _focusMonitor, _changeDetectorRef, tabIndex) {
+    function MatSlideToggle(elementRef, _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone) {
         var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
+        _this._ngZone = _ngZone;
         _this.onChange = function (_) { };
         _this.onTouched = function () { };
         _this._uniqueId = "mat-slide-toggle-" + ++nextUniqueId;
@@ -385,9 +386,11 @@ var MatSlideToggle = /** @class */ (function (_super) {
                 this.checked = newCheckedValue;
                 this._emitChangeEvent();
             }
-            // The drag should be stopped outside of the current event handler, because otherwise the
-            // click event will be fired before and will revert the drag change.
-            setTimeout(function () { return _this._slideRenderer.stopThumbDrag(); });
+            // The drag should be stopped outside of the current event handler, otherwise the
+            // click event will be fired before it and will revert the drag change.
+            this._ngZone.runOutsideAngular(function () {
+                setTimeout(function () { return _this._slideRenderer.stopThumbDrag(); });
+            });
         }
     };
     /** Method being called whenever the label text changes. */
@@ -430,6 +433,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         { type: a11y.FocusMonitor, },
         { type: core.ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
+        { type: core.NgZone, },
     ]; };
     MatSlideToggle.propDecorators = {
         "name": [{ type: core.Input },],

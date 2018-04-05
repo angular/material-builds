@@ -2413,7 +2413,11 @@ var MatDatepicker = /** @class */ (function () {
             panelClass: 'mat-datepicker-popup',
         });
         this._popupRef = this._overlay.create(overlayConfig);
-        rxjs.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.close(); });
+        rxjs.merge(this._popupRef.backdropClick(), this._popupRef.detachments(), this._popupRef.keydownEvents().pipe(operators.filter(function (event) {
+            // Closing on alt + up is only valid when there's an input associated with the datepicker.
+            return event.keyCode === keycodes.ESCAPE ||
+                (_this._datepickerInput && event.altKey && event.keyCode === keycodes.UP_ARROW);
+        }))).subscribe(function () { return _this.close(); });
     };
     /**
      * Create the popup PositionStrategy.
@@ -3172,6 +3176,7 @@ var MatDatepickerModule = /** @class */ (function () {
                         MatMonthView,
                         MatYearView,
                         MatMultiYearView,
+                        MatCalendarHeader,
                     ],
                     declarations: [
                         MatCalendar,
@@ -3184,7 +3189,7 @@ var MatDatepickerModule = /** @class */ (function () {
                         MatMonthView,
                         MatYearView,
                         MatMultiYearView,
-                        MatCalendarHeader
+                        MatCalendarHeader,
                     ],
                     providers: [
                         MatDatepickerIntl,

@@ -33,11 +33,11 @@ export declare type MatTabBodyOriginState = 'left' | 'right';
  */
 export declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit, OnDestroy {
     private _host;
-    /** A subscription to events for when the tab body begins centering. */
+    /** Subscription to events for when the tab body begins centering. */
     private _centeringSub;
-    /** A subscription to events for when the tab body finishes leaving from center position. */
+    /** Subscription to events for when the tab body finishes leaving from center position. */
     private _leavingSub;
-    constructor(_componentFactoryResolver: ComponentFactoryResolver, _viewContainerRef: ViewContainerRef, _host: MatTabBody);
+    constructor(componentFactoryResolver: ComponentFactoryResolver, viewContainerRef: ViewContainerRef, _host: MatTabBody);
     /** Set initial visibility or set up subscription for changing visibility. */
     ngOnInit(): void;
     /** Clean up centering subscription. */

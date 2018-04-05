@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('rxjs/operators'), require('@angular/cdk/observers'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/tabs', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/cdk/platform', 'rxjs/operators', '@angular/cdk/observers', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = {}),global.ng.core,global.ng.cdk.portal,global.ng.material.core,global.Rx,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.scrolling,global.ng.cdk.platform,global.Rx.operators,global.ng.cdk.observers,global.ng.common));
-}(this, (function (exports,core,portal,core$1,rxjs,animations,bidi,coercion,keycodes,scrolling,platform,operators,observers,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/observers'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/tabs', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/cdk/bidi', 'rxjs/operators', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/observers', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = {}),global.ng.core,global.ng.cdk.portal,global.ng.material.core,global.Rx,global.ng.animations,global.ng.cdk.bidi,global.Rx.operators,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.observers,global.ng.common));
+}(this, (function (exports,core,portal,core$1,rxjs,animations,bidi,operators,coercion,keycodes,scrolling,platform,observers,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -357,9 +357,17 @@ var /** @type {?} */ matTabsAnimations = {
  */
 var MatTabBodyPortal = /** @class */ (function (_super) {
     __extends(MatTabBodyPortal, _super);
-    function MatTabBodyPortal(_componentFactoryResolver, _viewContainerRef, _host) {
-        var _this = _super.call(this, _componentFactoryResolver, _viewContainerRef) || this;
+    function MatTabBodyPortal(componentFactoryResolver, viewContainerRef, _host) {
+        var _this = _super.call(this, componentFactoryResolver, viewContainerRef) || this;
         _this._host = _host;
+        /**
+         * Subscription to events for when the tab body begins centering.
+         */
+        _this._centeringSub = rxjs.Subscription.EMPTY;
+        /**
+         * Subscription to events for when the tab body finishes leaving from center position.
+         */
+        _this._leavingSub = rxjs.Subscription.EMPTY;
         return _this;
     }
     /** Set initial visibility or set up subscription for changing visibility. */
@@ -373,10 +381,10 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        if (this._host._isCenterPosition(this._host._position)) {
-            this.attach(this._host._content);
-        }
-        this._centeringSub = this._host._beforeCentering.subscribe(function (isCentering) {
+        _super.prototype.ngOnInit.call(this);
+        this._centeringSub = this._host._beforeCentering
+            .pipe(operators.startWith(this._host._isCenterPosition(this._host._position)))
+            .subscribe(function (isCentering) {
             if (isCentering && !_this.hasAttached()) {
                 _this.attach(_this._host._content);
             }
@@ -395,12 +403,9 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this._centeringSub && !this._centeringSub.closed) {
-            this._centeringSub.unsubscribe();
-        }
-        if (this._leavingSub && !this._leavingSub.closed) {
-            this._leavingSub.unsubscribe();
-        }
+        _super.prototype.ngOnDestroy.call(this);
+        this._centeringSub.unsubscribe();
+        this._leavingSub.unsubscribe();
     };
     MatTabBodyPortal.decorators = [
         { type: core.Directive, args: [{
@@ -2107,16 +2112,16 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵe21 = MatTabBase;
-exports.ɵf21 = _MatTabMixinBase;
-exports.ɵa21 = MatTabHeaderBase;
-exports.ɵb21 = _MatTabHeaderMixinBase;
-exports.ɵc21 = MatTabLabelWrapperBase;
-exports.ɵd21 = _MatTabLabelWrapperMixinBase;
-exports.ɵi21 = MatTabLinkBase;
-exports.ɵg21 = MatTabNavBase;
-exports.ɵj21 = _MatTabLinkMixinBase;
-exports.ɵh21 = _MatTabNavMixinBase;
+exports.ɵe24 = MatTabBase;
+exports.ɵf24 = _MatTabMixinBase;
+exports.ɵa24 = MatTabHeaderBase;
+exports.ɵb24 = _MatTabHeaderMixinBase;
+exports.ɵc24 = MatTabLabelWrapperBase;
+exports.ɵd24 = _MatTabLabelWrapperMixinBase;
+exports.ɵi24 = MatTabLinkBase;
+exports.ɵg24 = MatTabNavBase;
+exports.ɵj24 = _MatTabLinkMixinBase;
+exports.ɵh24 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

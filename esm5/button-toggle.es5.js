@@ -470,11 +470,6 @@ var MatButtonToggle = /** @class */ (function (_super) {
         _this._isSingleSelector = false;
         _this._checked = false;
         /**
-         * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
-         * take precedence so this may be omitted.
-         */
-        _this.ariaLabel = '';
-        /**
          * Users can specify the `aria-labelledby` attribute which will be forwarded to the input element
          */
         _this.ariaLabelledby = null;

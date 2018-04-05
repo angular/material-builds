@@ -9,14 +9,14 @@ import { Directive, ElementRef, Inject, InjectionToken, NgZone, TemplateRef, Vie
 import { __extends } from 'tslib';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
 import { mixinDisabled, mixinColor, mixinDisableRipple, MAT_RIPPLE_GLOBAL_OPTIONS, mixinTabIndex, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
-import { Subject, merge, Subscription, of } from 'rxjs';
+import { Subject, Subscription, merge, of } from 'rxjs';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
+import { startWith, takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { END, ENTER, HOME, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { Platform } from '@angular/cdk/platform';
-import { takeUntil } from 'rxjs/operators';
 import { ObserversModule } from '@angular/cdk/observers';
 import { CommonModule } from '@angular/common';
 
@@ -340,9 +340,17 @@ var /** @type {?} */ matTabsAnimations = {
  */
 var MatTabBodyPortal = /** @class */ (function (_super) {
     __extends(MatTabBodyPortal, _super);
-    function MatTabBodyPortal(_componentFactoryResolver, _viewContainerRef, _host) {
-        var _this = _super.call(this, _componentFactoryResolver, _viewContainerRef) || this;
+    function MatTabBodyPortal(componentFactoryResolver, viewContainerRef, _host) {
+        var _this = _super.call(this, componentFactoryResolver, viewContainerRef) || this;
         _this._host = _host;
+        /**
+         * Subscription to events for when the tab body begins centering.
+         */
+        _this._centeringSub = Subscription.EMPTY;
+        /**
+         * Subscription to events for when the tab body finishes leaving from center position.
+         */
+        _this._leavingSub = Subscription.EMPTY;
         return _this;
     }
     /** Set initial visibility or set up subscription for changing visibility. */
@@ -356,10 +364,10 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        if (this._host._isCenterPosition(this._host._position)) {
-            this.attach(this._host._content);
-        }
-        this._centeringSub = this._host._beforeCentering.subscribe(function (isCentering) {
+        _super.prototype.ngOnInit.call(this);
+        this._centeringSub = this._host._beforeCentering
+            .pipe(startWith(this._host._isCenterPosition(this._host._position)))
+            .subscribe(function (isCentering) {
             if (isCentering && !_this.hasAttached()) {
                 _this.attach(_this._host._content);
             }
@@ -378,12 +386,9 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this._centeringSub && !this._centeringSub.closed) {
-            this._centeringSub.unsubscribe();
-        }
-        if (this._leavingSub && !this._leavingSub.closed) {
-            this._leavingSub.unsubscribe();
-        }
+        _super.prototype.ngOnDestroy.call(this);
+        this._centeringSub.unsubscribe();
+        this._leavingSub.unsubscribe();
     };
     MatTabBodyPortal.decorators = [
         { type: Directive, args: [{
@@ -2088,5 +2093,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe21, _MatTabMixinBase as ɵf21, MatTabHeaderBase as ɵa21, _MatTabHeaderMixinBase as ɵb21, MatTabLabelWrapperBase as ɵc21, _MatTabLabelWrapperMixinBase as ɵd21, MatTabLinkBase as ɵi21, MatTabNavBase as ɵg21, _MatTabLinkMixinBase as ɵj21, _MatTabNavMixinBase as ɵh21 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe24, _MatTabMixinBase as ɵf24, MatTabHeaderBase as ɵa24, _MatTabHeaderMixinBase as ɵb24, MatTabLabelWrapperBase as ɵc24, _MatTabLabelWrapperMixinBase as ɵd24, MatTabLinkBase as ɵi24, MatTabNavBase as ɵg24, _MatTabLinkMixinBase as ɵj24, _MatTabNavMixinBase as ɵh24 };
 //# sourceMappingURL=tabs.es5.js.map

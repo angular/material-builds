@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directionality } from '@angular/cdk/bidi';
-import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
+import { Overlay, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { MatOption, MatOptionSelectionChange } from '@angular/material/core';
@@ -43,6 +43,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _dir;
     private _formField;
     private _document;
+    private _viewportRuler;
     private _overlayRef;
     private _portal;
     private _componentDestroyed;
@@ -54,6 +55,8 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _manuallyFloatingLabel;
     /** The subscription for closing actions (some are bound to document). */
     private _closingActionsSubscription;
+    /** Subscription to viewport size changes. */
+    private _viewportSubscription;
     /** Stream of keyboard events that can close the panel. */
     private readonly _closeKeyEventStream;
     /** `View -> model callback called when value changes` */
@@ -62,7 +65,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     _onTouched: () => void;
     /** The autocomplete panel to be attached to this trigger. */
     autocomplete: MatAutocomplete;
-    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, _scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any);
+    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, _scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler?: ViewportRuler | undefined);
     ngOnDestroy(): void;
     /** Whether or not the autocomplete panel is open. */
     readonly panelOpen: boolean;
