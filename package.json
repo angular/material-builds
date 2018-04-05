@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "6.0.0-rc.0-717dd45",
+  "version": "6.0.0-rc.0-b4c8443",
   "description": "Angular Material",
   "main": "./bundles/material.umd.js",
   "module": "./esm5/material.es5.js",
@@ -22,15 +22,12 @@
   },
   "homepage": "https://github.com/angular/material2#readme",
   "peerDependencies": {
-    "@angular/cdk": "6.0.0-rc.0-717dd45",
+    "@angular/cdk": "6.0.0-rc.0-b4c8443",
     "@angular/core": ">=6.0.0-beta.0 <7.0.0",
     "@angular/common": ">=6.0.0-beta.0 <7.0.0"
   },
   "dependencies": {
-    "tslib": "^1.7.1",
-    "@angular-devkit/core": "^0.4.5",
-    "@angular-devkit/schematics": "^0.4.5",
-    "@schematics/angular": "^0.4.5"
+    "tslib": "^1.7.1"
   },
   "schematics": "./schematics/collection.json"
 }
