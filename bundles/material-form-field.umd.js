@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs'), require('rxjs/operators'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/formField', ['exports', '@angular/core', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', 'rxjs/operators', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}),global.ng.core,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.material.core,global.Rx,global.Rx.operators,global.ng.common));
-}(this, (function (exports,core,animations,bidi,coercion,core$1,rxjs,operators,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/platform'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/formField', ['exports', '@angular/core', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', 'rxjs/operators', '@angular/cdk/platform', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}),global.ng.core,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.material.core,global.Rx,global.Rx.operators,global.ng.cdk.platform,global.ng.common));
+}(this, (function (exports,core,animations,bidi,coercion,core$1,rxjs,operators,platform,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -281,12 +281,13 @@ var /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new core.InjectionToken('M
  */
 var MatFormField = /** @class */ (function (_super) {
     __extends(MatFormField, _super);
-    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions) {
+    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions, _platform) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
         _this._defaultOptions = _defaultOptions;
+        _this._platform = _platform;
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
@@ -696,6 +697,10 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function () {
         if (this.appearance === 'outline' && this._label && this._label.nativeElement.children.length) {
+            if (this._platform && !this._platform.isBrowser) {
+                // getBoundingClientRect isn't available on the server.
+                return;
+            }
             var /** @type {?} */ containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
             var /** @type {?} */ labelStart = this._getStartEnd(this._label.nativeElement.children[0].getBoundingClientRect());
             var /** @type {?} */ labelWidth = 0;
@@ -769,6 +774,7 @@ var MatFormField = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [core$1.MAT_LABEL_GLOBAL_OPTIONS,] },] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] },] },
+        { type: platform.Platform, },
     ]; };
     MatFormField.propDecorators = {
         "appearance": [{ type: core.Input },],

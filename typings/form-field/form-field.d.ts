@@ -15,6 +15,7 @@ import { MatLabel } from './label';
 import { MatPlaceholder } from './placeholder';
 import { MatPrefix } from './prefix';
 import { MatSuffix } from './suffix';
+import { Platform } from '@angular/cdk/platform';
 /** @docs-private */
 export declare class MatFormFieldBase {
     _elementRef: ElementRef;
@@ -32,6 +33,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _changeDetectorRef;
     private _dir;
     private _defaultOptions;
+    private _platform;
     private _labelOptions;
     /** The form-field appearance style. */
     appearance: MatFormFieldAppearance;
@@ -78,7 +80,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     _hintChildren: QueryList<MatHint>;
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions, _dir: Directionality, _defaultOptions: MatFormFieldDefaultOptions);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions, _dir: Directionality, _defaultOptions: MatFormFieldDefaultOptions, _platform?: Platform | undefined);
     /**
      * Gets an ElementRef for the element that a overlay attached to the form-field should be
      * positioned relative to.

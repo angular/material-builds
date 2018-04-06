@@ -2987,12 +2987,13 @@ var /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new core.InjectionToken('M
  */
 var MatFormField = /** @class */ (function (_super) {
     __extends(MatFormField, _super);
-    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions) {
+    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions, _platform) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
         _this._defaultOptions = _defaultOptions;
+        _this._platform = _platform;
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
@@ -3402,6 +3403,10 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function () {
         if (this.appearance === 'outline' && this._label && this._label.nativeElement.children.length) {
+            if (this._platform && !this._platform.isBrowser) {
+                // getBoundingClientRect isn't available on the server.
+                return;
+            }
             var /** @type {?} */ containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
             var /** @type {?} */ labelStart = this._getStartEnd(this._label.nativeElement.children[0].getBoundingClientRect());
             var /** @type {?} */ labelWidth = 0;
@@ -3475,6 +3480,7 @@ var MatFormField = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_LABEL_GLOBAL_OPTIONS,] },] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] },] },
+        { type: platform.Platform, },
     ]; };
     MatFormField.propDecorators = {
         "appearance": [{ type: core.Input },],
@@ -31873,7 +31879,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.1-f9fa3f8');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.1-39887da');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

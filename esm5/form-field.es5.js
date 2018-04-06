@@ -13,6 +13,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { MAT_LABEL_GLOBAL_OPTIONS, mixinColor } from '@angular/material/core';
 import { EMPTY, fromEvent, merge } from 'rxjs';
 import { startWith, take } from 'rxjs/operators';
+import { Platform } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -259,12 +260,13 @@ var /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken('MAT_FO
  */
 var MatFormField = /** @class */ (function (_super) {
     __extends(MatFormField, _super);
-    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions) {
+    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions, _platform) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
         _this._defaultOptions = _defaultOptions;
+        _this._platform = _platform;
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
@@ -674,6 +676,10 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function () {
         if (this.appearance === 'outline' && this._label && this._label.nativeElement.children.length) {
+            if (this._platform && !this._platform.isBrowser) {
+                // getBoundingClientRect isn't available on the server.
+                return;
+            }
             var /** @type {?} */ containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
             var /** @type {?} */ labelStart = this._getStartEnd(this._label.nativeElement.children[0].getBoundingClientRect());
             var /** @type {?} */ labelWidth = 0;
@@ -747,6 +753,7 @@ var MatFormField = /** @class */ (function (_super) {
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_LABEL_GLOBAL_OPTIONS,] },] },
         { type: Directionality, decorators: [{ type: Optional },] },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] },] },
+        { type: Platform, },
     ]; };
     MatFormField.propDecorators = {
         "appearance": [{ type: Input },],
