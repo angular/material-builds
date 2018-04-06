@@ -28759,7 +28759,7 @@ MatTableDataSource = /** @class */ (function (_super) {
                 // This avoids inconsistent results when comparing values to undefined/null.
                 // If neither value exists, return 0 (equal).
                 var /** @type {?} */ comparatorResult = 0;
-                if (valueA && valueB) {
+                if (valueA != null && valueB != null) {
                     // Check if one value is greater than the other; if equal, comparatorResult should remain 0.
                     if (valueA > valueB) {
                         comparatorResult = 1;
@@ -28768,10 +28768,10 @@ MatTableDataSource = /** @class */ (function (_super) {
                         comparatorResult = -1;
                     }
                 }
-                else if (valueA) {
+                else if (valueA != null) {
                     comparatorResult = 1;
                 }
-                else if (valueB) {
+                else if (valueB != null) {
                     comparatorResult = -1;
                 }
                 return comparatorResult * (direction == 'asc' ? 1 : -1);
@@ -31883,7 +31883,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.1-6575d9c');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.1-bcb5697');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
