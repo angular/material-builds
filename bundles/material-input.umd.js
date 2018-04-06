@@ -164,7 +164,7 @@ var /** @type {?} */ _MatInputMixinBase = core$1.mixinErrorState(MatInputBase);
 var MatInput = /** @class */ (function (_super) {
     __extends(MatInput, _super);
     function MatInput(_elementRef, _platform, /** @docs-private */
-    ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor) {
+    ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {
         var _this = _super.call(this, _defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl) || this;
         _this._elementRef = _elementRef;
         _this._platform = _platform;
@@ -220,15 +220,18 @@ var MatInput = /** @class */ (function (_super) {
         // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
         // exists on iOS, we only bother to install the listener on iOS.
         if (_platform.IOS) {
-            _elementRef.nativeElement.addEventListener('keyup', function (event) {
-                var /** @type {?} */ el = /** @type {?} */ (event.target);
-                if (!el.value && !el.selectionStart && !el.selectionEnd) {
-                    // Note: Just setting `0, 0` doesn't fix the issue. Setting `1, 1` fixes it for the first
-                    // time that you type text and then hold delete. Toggling to `1, 1` and then back to
-                    // `0, 0` seems to completely fix it.
-                    el.setSelectionRange(1, 1);
-                    el.setSelectionRange(0, 0);
-                }
+            ngZone.runOutsideAngular(function () {
+                _elementRef.nativeElement.addEventListener('keyup', function (event) {
+                    var /** @type {?} */ el = /** @type {?} */ (event.target);
+                    if (!el.value && !el.selectionStart && !el.selectionEnd) {
+                        // Note: Just setting `0, 0` doesn't fix the issue. Setting
+                        // `1, 1` fixes it for the first time that you type text and
+                        // then hold delete. Toggling to `1, 1` and then back to
+                        // `0, 0` seems to completely fix it.
+                        el.setSelectionRange(1, 1);
+                        el.setSelectionRange(0, 0);
+                    }
+                });
             });
         }
         _this._isServer = !_this._platform.isBrowser;
@@ -609,6 +612,7 @@ var MatInput = /** @class */ (function (_super) {
         { type: core$1.ErrorStateMatcher, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Self }, { type: core.Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] },] },
         { type: textField.AutofillMonitor, },
+        { type: core.NgZone, },
     ]; };
     MatInput.propDecorators = {
         "disabled": [{ type: core.Input },],

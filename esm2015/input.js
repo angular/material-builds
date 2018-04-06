@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CdkTextareaAutosize, AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
-import { Directive, Input, InjectionToken, ElementRef, Inject, Optional, Self, NgModule } from '@angular/core';
+import { Directive, Input, InjectionToken, ElementRef, Inject, Optional, Self, NgZone, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -138,9 +138,10 @@ class MatInput extends _MatInputMixinBase {
      * @param {?} _defaultErrorStateMatcher
      * @param {?} inputValueAccessor
      * @param {?} _autofillMonitor
+     * @param {?} ngZone
      */
     constructor(_elementRef, _platform, /** @docs-private */
-    ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor) {
+    ngControl, _parentForm, _parentFormGroup, _defaultErrorStateMatcher, inputValueAccessor, _autofillMonitor, ngZone) {
         super(_defaultErrorStateMatcher, _parentForm, _parentFormGroup, ngControl);
         this._elementRef = _elementRef;
         this._platform = _platform;
@@ -193,15 +194,18 @@ class MatInput extends _MatInputMixinBase {
         // key. In order to get around this we need to "jiggle" the caret loose. Since this bug only
         // exists on iOS, we only bother to install the listener on iOS.
         if (_platform.IOS) {
-            _elementRef.nativeElement.addEventListener('keyup', (event) => {
-                let /** @type {?} */ el = /** @type {?} */ (event.target);
-                if (!el.value && !el.selectionStart && !el.selectionEnd) {
-                    // Note: Just setting `0, 0` doesn't fix the issue. Setting `1, 1` fixes it for the first
-                    // time that you type text and then hold delete. Toggling to `1, 1` and then back to
-                    // `0, 0` seems to completely fix it.
-                    el.setSelectionRange(1, 1);
-                    el.setSelectionRange(0, 0);
-                }
+            ngZone.runOutsideAngular(() => {
+                _elementRef.nativeElement.addEventListener('keyup', (event) => {
+                    let /** @type {?} */ el = /** @type {?} */ (event.target);
+                    if (!el.value && !el.selectionStart && !el.selectionEnd) {
+                        // Note: Just setting `0, 0` doesn't fix the issue. Setting
+                        // `1, 1` fixes it for the first time that you type text and
+                        // then hold delete. Toggling to `1, 1` and then back to
+                        // `0, 0` seems to completely fix it.
+                        el.setSelectionRange(1, 1);
+                        el.setSelectionRange(0, 0);
+                    }
+                });
             });
         }
         this._isServer = !this._platform.isBrowser;
@@ -471,6 +475,7 @@ MatInput.ctorParameters = () => [
     { type: ErrorStateMatcher, },
     { type: undefined, decorators: [{ type: Optional }, { type: Self }, { type: Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] },] },
     { type: AutofillMonitor, },
+    { type: NgZone, },
 ];
 MatInput.propDecorators = {
     "disabled": [{ type: Input },],

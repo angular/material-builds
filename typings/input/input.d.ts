@@ -1,5 +1,5 @@
 import { Platform } from '@angular/cdk/platform';
-import { DoCheck, ElementRef, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { DoCheck, ElementRef, OnChanges, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanUpdateErrorState, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
@@ -90,7 +90,7 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     protected _neverEmptyInputTypes: string[];
     constructor(_elementRef: ElementRef, _platform: Platform, 
         /** @docs-private */
-        ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor);
+        ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone);
     ngOnInit(): void;
     ngOnChanges(): void;
     ngOnDestroy(): void;
