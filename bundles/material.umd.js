@@ -17951,7 +17951,7 @@ var MatMenuItem = /** @class */ (function (_super) {
     __extends(MatMenuItem, _super);
     function MatMenuItem(_elementRef, document, _focusMonitor) {
         var _this = 
-        // @deletion-target 6.0.0 make `_focusMonitor` and `document` required params.
+        // @deletion-target 7.0.0 make `_focusMonitor` and `document` required params.
         _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._focusMonitor = _focusMonitor;
@@ -18177,7 +18177,7 @@ var MatMenu = /** @class */ (function () {
         /**
          * Event emitted when the menu is closed.
          * @deprecated Switch to `closed` instead
-         * \@deletion-target 6.0.0
+         * \@deletion-target 7.0.0
          */
         this.close = this.closed;
     }
@@ -18280,7 +18280,7 @@ var MatMenu = /** @class */ (function () {
          * menu template that displays in the overlay container.  Otherwise, it's difficult
          * to style the containing menu from outside the component.
          * @deprecated Use `panelClass` instead.
-         * \@deletion-target 6.0.0
+         * \@deletion-target 7.0.0
          * @return {?}
          */
         function () { return this.panelClass; },
@@ -18477,7 +18477,7 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        // @deletion-target 6.0.0 Combine with _resetAnimation.
+        // @deletion-target 7.0.0 Combine with _resetAnimation.
         this._panelAnimationState = 'enter';
     };
     /** Resets the panel animation to its initial state. */
@@ -18490,7 +18490,7 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        // @deletion-target 6.0.0 Combine with _startAnimation.
+        // @deletion-target 7.0.0 Combine with _startAnimation.
         this._panelAnimationState = 'void';
     };
     /** Callback that is invoked when the panel animation completes. */
@@ -18585,7 +18585,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is opened.
          * @deprecated Switch to `menuOpened` instead
-         * \@deletion-target 6.0.0
+         * \@deletion-target 7.0.0
          */
         this.onMenuOpen = this.menuOpened;
         /**
@@ -18595,7 +18595,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is closed.
          * @deprecated Switch to `menuClosed` instead
-         * \@deletion-target 6.0.0
+         * \@deletion-target 7.0.0
          */
         this.onMenuClose = this.menuClosed;
         if (_menuItemInstance) {
@@ -18605,7 +18605,7 @@ var MatMenuTrigger = /** @class */ (function () {
     Object.defineProperty(MatMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", {
         get: /**
          * @deprecated
-         * \@deletion-target 6.0.0
+         * \@deletion-target 7.0.0
          * @return {?}
          */
         function () {
@@ -31880,7 +31880,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.1-c147f32');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.1-be84566');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32122,8 +32122,8 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MatMenuItemBase;
-exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵa23 = MatMenuItemBase;
+exports.ɵb23 = _MatMenuItemMixinBase;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32244,16 +32244,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵe24 = MatTabBase;
+exports.ɵf24 = _MatTabMixinBase;
+exports.ɵa24 = MatTabHeaderBase;
+exports.ɵb24 = _MatTabHeaderMixinBase;
+exports.ɵc24 = MatTabLabelWrapperBase;
+exports.ɵd24 = _MatTabLabelWrapperMixinBase;
+exports.ɵi24 = MatTabLinkBase;
+exports.ɵg24 = MatTabNavBase;
+exports.ɵj24 = _MatTabLinkMixinBase;
+exports.ɵh24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

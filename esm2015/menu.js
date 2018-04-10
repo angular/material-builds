@@ -217,7 +217,7 @@ class MatMenuItem extends _MatMenuItemMixinBase {
      * @param {?=} _focusMonitor
      */
     constructor(_elementRef, document, _focusMonitor) {
-        // @deletion-target 6.0.0 make `_focusMonitor` and `document` required params.
+        // @deletion-target 7.0.0 make `_focusMonitor` and `document` required params.
         super();
         this._elementRef = _elementRef;
         this._focusMonitor = _focusMonitor;
@@ -408,7 +408,7 @@ class MatMenu {
         /**
          * Event emitted when the menu is closed.
          * @deprecated Switch to `closed` instead
-         * \@deletion-target 6.0.0
+         * \@deletion-target 7.0.0
          */
         this.close = this.closed;
     }
@@ -490,7 +490,7 @@ class MatMenu {
      * menu template that displays in the overlay container.  Otherwise, it's difficult
      * to style the containing menu from outside the component.
      * @deprecated Use `panelClass` instead.
-     * \@deletion-target 6.0.0
+     * \@deletion-target 7.0.0
      * @return {?}
      */
     get classList() { return this.panelClass; }
@@ -615,7 +615,7 @@ class MatMenu {
      * @return {?}
      */
     _startAnimation() {
-        // @deletion-target 6.0.0 Combine with _resetAnimation.
+        // @deletion-target 7.0.0 Combine with _resetAnimation.
         this._panelAnimationState = 'enter';
     }
     /**
@@ -623,7 +623,7 @@ class MatMenu {
      * @return {?}
      */
     _resetAnimation() {
-        // @deletion-target 6.0.0 Combine with _startAnimation.
+        // @deletion-target 7.0.0 Combine with _startAnimation.
         this._panelAnimationState = 'void';
     }
     /**
@@ -722,7 +722,7 @@ class MatMenuTrigger {
         /**
          * Event emitted when the associated menu is opened.
          * @deprecated Switch to `menuOpened` instead
-         * \@deletion-target 6.0.0
+         * \@deletion-target 7.0.0
          */
         this.onMenuOpen = this.menuOpened;
         /**
@@ -732,7 +732,7 @@ class MatMenuTrigger {
         /**
          * Event emitted when the associated menu is closed.
          * @deprecated Switch to `menuClosed` instead
-         * \@deletion-target 6.0.0
+         * \@deletion-target 7.0.0
          */
         this.onMenuClose = this.menuClosed;
         if (_menuItemInstance) {
@@ -741,7 +741,7 @@ class MatMenuTrigger {
     }
     /**
      * @deprecated
-     * \@deletion-target 6.0.0
+     * \@deletion-target 7.0.0
      * @return {?}
      */
     get _deprecatedMatMenuTriggerFor() {
@@ -1161,5 +1161,5 @@ MatMenuModule.ctorParameters = () => [];
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa24, _MatMenuItemMixinBase as ɵb24 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa23, _MatMenuItemMixinBase as ɵb23 };
 //# sourceMappingURL=menu.js.map

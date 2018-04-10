@@ -83,7 +83,7 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
      * menu template that displays in the overlay container.  Otherwise, it's difficult
      * to style the containing menu from outside the component.
      * @deprecated Use `panelClass` instead.
-     * @deletion-target 6.0.0
+     * @deletion-target 7.0.0
      */
     classList: string;
     /** Event emitted when the menu is closed. */
@@ -91,7 +91,7 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
     /**
      * Event emitted when the menu is closed.
      * @deprecated Switch to `closed` instead
-     * @deletion-target 6.0.0
+     * @deletion-target 7.0.0
      */
     close: EventEmitter<void | "click" | "keydown" | "tab">;
     constructor(_elementRef: ElementRef, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
