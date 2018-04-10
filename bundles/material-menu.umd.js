@@ -128,7 +128,7 @@ var MatMenuContent = /** @class */ (function () {
         { type: core.ApplicationRef, },
         { type: core.Injector, },
         { type: core.ViewContainerRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     return MatMenuContent;
 }());
@@ -1449,8 +1449,8 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵa20 = MatMenuItemBase;
+exports.ɵb20 = _MatMenuItemMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

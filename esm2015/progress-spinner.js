@@ -236,7 +236,7 @@ MatProgressSpinner.decorators = [
 MatProgressSpinner.ctorParameters = () => [
     { type: ElementRef, },
     { type: Platform, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    { type: Document, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MatProgressSpinner.propDecorators = {
     "diameter": [{ type: Input },],
@@ -281,7 +281,7 @@ MatSpinner.decorators = [
 MatSpinner.ctorParameters = () => [
     { type: ElementRef, },
     { type: Platform, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    { type: Document, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 
 /**

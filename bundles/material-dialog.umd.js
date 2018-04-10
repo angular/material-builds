@@ -361,7 +361,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
         { type: core.ElementRef, },
         { type: a11y.FocusTrapFactory, },
         { type: core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatDialogContainer.propDecorators = {
         "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],

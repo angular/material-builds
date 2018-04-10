@@ -2294,7 +2294,7 @@ var MatDatepicker = /** @class */ (function () {
             throw Error('Attempted to open an MatDatepicker with no associated input.');
         }
         if (this._document) {
-            this._focusedElementBeforeOpen = this._document.activeElement;
+            this._focusedElementBeforeOpen = /** @type {?} */ (this._document.activeElement);
         }
         this.touchUi ? this._openAsDialog() : this._openAsPopup();
         this._opened = true;
@@ -2430,8 +2430,7 @@ var MatDatepicker = /** @class */ (function () {
     function () {
         return this._overlay.position()
             .flexibleConnectedTo(this._datepickerInput.getPopupConnectionElementRef())
-            .withFlexibleHeight(false)
-            .withFlexibleWidth(false)
+            .withFlexibleDimensions(false)
             .withViewportMargin(8)
             .withPush(false)
             .withPositions([
@@ -2506,7 +2505,7 @@ var MatDatepicker = /** @class */ (function () {
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DATEPICKER_SCROLL_STRATEGY,] },] },
         { type: core$1.DateAdapter, decorators: [{ type: core.Optional },] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatDatepicker.propDecorators = {
         "calendarHeaderComponent": [{ type: core.Input },],

@@ -257,7 +257,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
     MatProgressSpinner.ctorParameters = function () { return [
         { type: ElementRef, },
         { type: Platform, },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
     ]; };
     MatProgressSpinner.propDecorators = {
         "diameter": [{ type: Input },],
@@ -300,7 +300,7 @@ var MatSpinner = /** @class */ (function (_super) {
     MatSpinner.ctorParameters = function () { return [
         { type: ElementRef, },
         { type: Platform, },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
     ]; };
     return MatSpinner;
 }(MatProgressSpinner));

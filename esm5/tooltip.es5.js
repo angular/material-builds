@@ -379,8 +379,7 @@ var MatTooltip = /** @class */ (function () {
         // Create connected position strategy that listens for scroll events to reposition.
         var /** @type {?} */ strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
-            .withFlexibleHeight(false)
-            .withFlexibleWidth(false)
+            .withFlexibleDimensions(false)
             .withViewportMargin(8)
             .withPositions([
             __assign({}, origin.main, overlay.main),

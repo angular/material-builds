@@ -42,7 +42,7 @@ export declare class MatDialogContainer extends BasePortalOutlet {
     _ariaLabelledBy: string | null;
     /** ID for the container DOM element. */
     _id: string;
-    constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _changeDetectorRef: ChangeDetectorRef, _document: any);
+    constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _changeDetectorRef: ChangeDetectorRef, _document: Document);
     /**
      * Attach a ComponentPortal as content to this dialog container.
      * @param portal Portal to be attached as the dialog content.

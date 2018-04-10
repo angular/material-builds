@@ -675,8 +675,7 @@ class MatAutocompleteTrigger {
     _getOverlayPosition() {
         this._positionStrategy = this._overlay.position()
             .flexibleConnectedTo(this._getConnectedElement())
-            .withFlexibleHeight(false)
-            .withFlexibleWidth(false)
+            .withFlexibleDimensions(false)
             .withPush(false)
             .withPositions([
             { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
@@ -745,7 +744,7 @@ MatAutocompleteTrigger.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
     { type: Directionality, decorators: [{ type: Optional },] },
     { type: MatFormField, decorators: [{ type: Optional }, { type: Host },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    { type: Document, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
     { type: ViewportRuler, },
 ];
 MatAutocompleteTrigger.propDecorators = {

@@ -270,7 +270,7 @@ var MatBadge = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatBadge.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
         { type: core.NgZone, },
         { type: core.ElementRef, },
         { type: a11y.AriaDescriber, },

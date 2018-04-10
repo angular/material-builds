@@ -4356,8 +4356,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     function () {
         this._positionStrategy = this._overlay.position()
             .flexibleConnectedTo(this._getConnectedElement())
-            .withFlexibleHeight(false)
-            .withFlexibleWidth(false)
+            .withFlexibleDimensions(false)
             .withPush(false)
             .withPositions([
             { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
@@ -4441,7 +4440,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
         { type: MatFormField, decorators: [{ type: core.Optional }, { type: core.Host },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
         { type: overlay.ViewportRuler, },
     ]; };
     MatAutocompleteTrigger.propDecorators = {
@@ -4728,7 +4727,7 @@ var MatBadge = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatBadge.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
         { type: core.NgZone, },
         { type: core.ElementRef, },
         { type: a11y.AriaDescriber, },
@@ -4949,11 +4948,12 @@ var /** @type {?} */ matBottomSheetAnimations = {
  */
 var MatBottomSheetContainer = /** @class */ (function (_super) {
     __extends(MatBottomSheetContainer, _super);
-    function MatBottomSheetContainer(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document) {
+    function MatBottomSheetContainer(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, _document) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusTrapFactory = _focusTrapFactory;
+        _this._document = _document;
         /**
          * The state of the bottom sheet animations.
          */
@@ -4966,7 +4966,6 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
          * Element that was focused before the bottom sheet was opened.
          */
         _this._elementFocusedBeforeOpened = null;
-        _this._document = document;
         _this._breakpointSubscription = breakpointObserver
             .observe([layout.Breakpoints.Medium, layout.Breakpoints.Large, layout.Breakpoints.XLarge])
             .subscribe(function () {
@@ -5193,7 +5192,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         { type: core.ChangeDetectorRef, },
         { type: a11y.FocusTrapFactory, },
         { type: layout.BreakpointObserver, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatBottomSheetContainer.propDecorators = {
         "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],
@@ -9369,7 +9368,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
         { type: core.ElementRef, },
         { type: a11y.FocusTrapFactory, },
         { type: core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatDialogContainer.propDecorators = {
         "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],
@@ -13106,7 +13105,7 @@ var MatDatepicker = /** @class */ (function () {
             throw Error('Attempted to open an MatDatepicker with no associated input.');
         }
         if (this._document) {
-            this._focusedElementBeforeOpen = this._document.activeElement;
+            this._focusedElementBeforeOpen = /** @type {?} */ (this._document.activeElement);
         }
         this.touchUi ? this._openAsDialog() : this._openAsPopup();
         this._opened = true;
@@ -13242,8 +13241,7 @@ var MatDatepicker = /** @class */ (function () {
     function () {
         return this._overlay.position()
             .flexibleConnectedTo(this._datepickerInput.getPopupConnectionElementRef())
-            .withFlexibleHeight(false)
-            .withFlexibleWidth(false)
+            .withFlexibleDimensions(false)
             .withViewportMargin(8)
             .withPush(false)
             .withPositions([
@@ -13318,7 +13316,7 @@ var MatDatepicker = /** @class */ (function () {
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DATEPICKER_SCROLL_STRATEGY,] },] },
         { type: DateAdapter, decorators: [{ type: core.Optional },] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatDatepicker.propDecorators = {
         "calendarHeaderComponent": [{ type: core.Input },],
@@ -15804,9 +15802,10 @@ SvgIconConfig = /** @class */ (function () {
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 var MatIconRegistry = /** @class */ (function () {
-    function MatIconRegistry(_httpClient, _sanitizer, document) {
+    function MatIconRegistry(_httpClient, _sanitizer, _document) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
+        this._document = _document;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
          */
@@ -15834,7 +15833,6 @@ var MatIconRegistry = /** @class */ (function () {
          * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
          */
         this._defaultFontSetClass = 'material-icons';
-        this._document = document;
     }
     /**
      * Registers an icon by URL in the default namespace.
@@ -16403,7 +16401,7 @@ var MatIconRegistry = /** @class */ (function () {
     MatIconRegistry.ctorParameters = function () { return [
         { type: http.HttpClient, decorators: [{ type: core.Optional },] },
         { type: platformBrowser.DomSanitizer, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     /** @nocollapse */ MatIconRegistry.ngInjectableDef = core.defineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(core.inject(http.HttpClient, null, 0), core.inject(platformBrowser.DomSanitizer), core.inject(common.DOCUMENT, null, 0)); }, token: MatIconRegistry, providedIn: "root" });
     return MatIconRegistry;
@@ -17832,7 +17830,7 @@ var MatMenuContent = /** @class */ (function () {
         { type: core.ApplicationRef, },
         { type: core.Injector, },
         { type: core.ViewContainerRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     return MatMenuContent;
 }());
@@ -21265,8 +21263,7 @@ var MatTooltip = /** @class */ (function () {
         // Create connected position strategy that listens for scroll events to reposition.
         var /** @type {?} */ strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
-            .withFlexibleHeight(false)
-            .withFlexibleWidth(false)
+            .withFlexibleDimensions(false)
             .withViewportMargin(8)
             .withPositions([
             __assign({}, origin.main, overlay$$1.main),
@@ -22664,7 +22661,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
     MatProgressSpinner.ctorParameters = function () { return [
         { type: core.ElementRef, },
         { type: platform.Platform, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatProgressSpinner.propDecorators = {
         "diameter": [{ type: core.Input },],
@@ -22707,7 +22704,7 @@ var MatSpinner = /** @class */ (function (_super) {
     MatSpinner.ctorParameters = function () { return [
         { type: core.ElementRef, },
         { type: platform.Platform, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     return MatSpinner;
 }(MatProgressSpinner));
@@ -31883,7 +31880,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.1-b472330');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.1-e60f5fc');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32125,8 +32122,8 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵa20 = MatMenuItemBase;
+exports.ɵb20 = _MatMenuItemMixinBase;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
