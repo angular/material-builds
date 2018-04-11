@@ -4445,7 +4445,8 @@ $mat-form-field-dedupe: 0;
 
   // Wrapper element that provides the theme background when the
   // user's content isn't inside of a `mat-sidenav-container`.
-  .mat-app-background {
+  .mat-app-background,
+  &.mat-app-background {
     $background: map-get($theme, background);
     $foreground: map-get($theme, foreground);
 
@@ -4454,8 +4455,10 @@ $mat-form-field-dedupe: 0;
   }
 
   // Marker that is used to determine whether the user has added a theme to their page.
-  .mat-theme-loaded-marker {
-    display: none;
+  @at-root {
+    .mat-theme-loaded-marker {
+      display: none;
+    }
   }
 }
 
