@@ -12558,7 +12558,10 @@ var /** @type {?} */ matDatepickerAnimations = {
     transformPanel: animations.trigger('transformPanel', [
         animations.state('void', animations.style({ opacity: 0, transform: 'scale(1, 0)' })),
         animations.state('enter', animations.style({ opacity: 1, transform: 'scale(1, 1)' })),
-        animations.transition('void => enter', animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+        animations.transition('void => enter', animations.group([
+            animations.query('@fadeInCalendar', animations.animateChild()),
+            animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')
+        ])),
         animations.transition('* => void', animations.animate('100ms linear', animations.style({ opacity: 0 })))
     ]),
     /** Fades in the content of the calendar. */
@@ -31844,7 +31847,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.1-34fe17e');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.1-9fff92f');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32087,8 +32090,8 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵa16 = MatMenuItemBase;
+exports.ɵb16 = _MatMenuItemMixinBase;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

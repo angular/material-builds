@@ -1837,7 +1837,10 @@ var /** @type {?} */ matDatepickerAnimations = {
     transformPanel: animations.trigger('transformPanel', [
         animations.state('void', animations.style({ opacity: 0, transform: 'scale(1, 0)' })),
         animations.state('enter', animations.style({ opacity: 1, transform: 'scale(1, 1)' })),
-        animations.transition('void => enter', animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+        animations.transition('void => enter', animations.group([
+            animations.query('@fadeInCalendar', animations.animateChild()),
+            animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')
+        ])),
         animations.transition('* => void', animations.animate('100ms linear', animations.style({ opacity: 0 })))
     ]),
     /** Fades in the content of the calendar. */
