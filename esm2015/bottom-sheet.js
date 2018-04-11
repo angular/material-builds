@@ -541,8 +541,6 @@ MatBottomSheetModule.decorators = [
                 providers: [MatBottomSheet],
             },] },
 ];
-/** @nocollapse */
-MatBottomSheetModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

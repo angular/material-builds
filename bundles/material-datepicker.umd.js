@@ -111,8 +111,6 @@ var MatDatepickerIntl = /** @class */ (function () {
     MatDatepickerIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */
-    MatDatepickerIntl.ctorParameters = function () { return []; };
     /** @nocollapse */ MatDatepickerIntl.ngInjectableDef = core.defineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
     return MatDatepickerIntl;
 }());
@@ -2697,8 +2695,7 @@ var MatDatepickerInput = /** @class */ (function () {
             value = this._getValidDateOrNull(value);
             var /** @type {?} */ oldDate = this.value;
             this._value = value;
-            this._elementRef.nativeElement.value =
-                value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '';
+            this._formatValue(value);
             if (!this._dateAdapter.sameDate(oldDate, value)) {
                 this._valueChange.emit(value);
             }
@@ -2958,6 +2955,36 @@ var MatDatepickerInput = /** @class */ (function () {
     function () {
         return this._formField ? this._formField.color : undefined;
     };
+    /** Handles blur events on the input. */
+    /**
+     * Handles blur events on the input.
+     * @return {?}
+     */
+    MatDatepickerInput.prototype._onBlur = /**
+     * Handles blur events on the input.
+     * @return {?}
+     */
+    function () {
+        // Reformat the input only if we have a valid value.
+        if (this.value) {
+            this._formatValue(this.value);
+        }
+        this._onTouched();
+    };
+    /**
+     * Formats a value and sets it on the input element.
+     * @param {?} value
+     * @return {?}
+     */
+    MatDatepickerInput.prototype._formatValue = /**
+     * Formats a value and sets it on the input element.
+     * @param {?} value
+     * @return {?}
+     */
+    function (value) {
+        this._elementRef.nativeElement.value =
+            value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '';
+    };
     /**
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
@@ -2985,7 +3012,7 @@ var MatDatepickerInput = /** @class */ (function () {
                         '[disabled]': 'disabled',
                         '(input)': '_onInput($event.target.value)',
                         '(change)': '_onChange()',
-                        '(blur)': '_onTouched()',
+                        '(blur)': '_onBlur()',
                         '(keydown)': '_onKeydown($event)',
                     },
                     exportAs: 'matDatepickerInput',
@@ -3026,8 +3053,6 @@ var MatDatepickerToggleIcon = /** @class */ (function () {
                     selector: '[matDatepickerToggleIcon]'
                 },] },
     ];
-    /** @nocollapse */
-    MatDatepickerToggleIcon.ctorParameters = function () { return []; };
     return MatDatepickerToggleIcon;
 }());
 /**
@@ -3199,8 +3224,6 @@ var MatDatepickerModule = /** @class */ (function () {
                     ]
                 },] },
     ];
-    /** @nocollapse */
-    MatDatepickerModule.ctorParameters = function () { return []; };
     return MatDatepickerModule;
 }());
 

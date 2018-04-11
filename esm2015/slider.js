@@ -840,8 +840,6 @@ MatSliderModule.decorators = [
                 providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
             },] },
 ];
-/** @nocollapse */
-MatSliderModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

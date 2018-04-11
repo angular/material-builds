@@ -1118,8 +1118,6 @@ var MatDialogContent = /** @class */ (function () {
                     host: { 'class': 'mat-dialog-content' }
                 },] },
     ];
-    /** @nocollapse */
-    MatDialogContent.ctorParameters = function () { return []; };
     return MatDialogContent;
 }());
 /**
@@ -1135,8 +1133,6 @@ var MatDialogActions = /** @class */ (function () {
                     host: { 'class': 'mat-dialog-actions' }
                 },] },
     ];
-    /** @nocollapse */
-    MatDialogActions.ctorParameters = function () { return []; };
     return MatDialogActions;
 }());
 /**
@@ -1190,8 +1186,6 @@ var MatDialogModule = /** @class */ (function () {
                     entryComponents: [MatDialogContainer],
                 },] },
     ];
-    /** @nocollapse */
-    MatDialogModule.ctorParameters = function () { return []; };
     return MatDialogModule;
 }());
 

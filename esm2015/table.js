@@ -35,8 +35,6 @@ MatTable.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/** @nocollapse */
-MatTable.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -54,8 +52,6 @@ MatCellDef.decorators = [
                 providers: [{ provide: CdkCellDef, useExisting: MatCellDef }]
             },] },
 ];
-/** @nocollapse */
-MatCellDef.ctorParameters = () => [];
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
@@ -68,8 +64,6 @@ MatHeaderCellDef.decorators = [
                 providers: [{ provide: CdkHeaderCellDef, useExisting: MatHeaderCellDef }]
             },] },
 ];
-/** @nocollapse */
-MatHeaderCellDef.ctorParameters = () => [];
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -83,7 +77,6 @@ MatColumnDef.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatColumnDef.ctorParameters = () => [];
 MatColumnDef.propDecorators = {
     "name": [{ type: Input, args: ['matColumnDef',] },],
 };
@@ -159,8 +152,6 @@ MatHeaderRowDef.decorators = [
                 inputs: ['columns: matHeaderRowDef'],
             },] },
 ];
-/** @nocollapse */
-MatHeaderRowDef.ctorParameters = () => [];
 /**
  * Data row definition for the mat-table.
  * Captures the header row's template and other row properties such as the columns to display and
@@ -176,8 +167,6 @@ MatRowDef.decorators = [
                 inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
             },] },
 ];
-/** @nocollapse */
-MatRowDef.ctorParameters = () => [];
 /**
  * Header template container that contains the cell outlet. Adds the right class and role.
  */
@@ -195,8 +184,6 @@ MatHeaderRow.decorators = [
                 exportAs: 'matHeaderRow',
             },] },
 ];
-/** @nocollapse */
-MatHeaderRow.ctorParameters = () => [];
 /**
  * Data row template container that contains the cell outlet. Adds the right class and role.
  */
@@ -214,8 +201,6 @@ MatRow.decorators = [
                 exportAs: 'matRow',
             },] },
 ];
-/** @nocollapse */
-MatRow.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -242,8 +227,6 @@ MatTableModule.decorators = [
                 declarations: EXPORTED_DECLARATIONS,
             },] },
 ];
-/** @nocollapse */
-MatTableModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

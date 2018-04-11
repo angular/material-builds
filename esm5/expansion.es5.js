@@ -65,7 +65,6 @@ var MatAccordion = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatAccordion.ctorParameters = function () { return []; };
     MatAccordion.propDecorators = {
         "hideToggle": [{ type: Input },],
         "displayMode": [{ type: Input },],
@@ -329,8 +328,6 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
                     }
                 },] },
     ];
-    /** @nocollapse */
-    MatExpansionPanelActionRow.ctorParameters = function () { return []; };
     return MatExpansionPanelActionRow;
 }());
 
@@ -504,8 +501,6 @@ var MatExpansionPanelDescription = /** @class */ (function () {
                     }
                 },] },
     ];
-    /** @nocollapse */
-    MatExpansionPanelDescription.ctorParameters = function () { return []; };
     return MatExpansionPanelDescription;
 }());
 /**
@@ -524,8 +519,6 @@ var MatExpansionPanelTitle = /** @class */ (function () {
                     }
                 },] },
     ];
-    /** @nocollapse */
-    MatExpansionPanelTitle.ctorParameters = function () { return []; };
     return MatExpansionPanelTitle;
 }());
 
@@ -559,8 +552,6 @@ var MatExpansionModule = /** @class */ (function () {
                     ],
                 },] },
     ];
-    /** @nocollapse */
-    MatExpansionModule.ctorParameters = function () { return []; };
     return MatExpansionModule;
 }());
 

@@ -899,8 +899,6 @@ var MatTooltipModule = /** @class */ (function () {
                     entryComponents: [TooltipComponent],
                 },] },
     ];
-    /** @nocollapse */
-    MatTooltipModule.ctorParameters = function () { return []; };
     return MatTooltipModule;
 }());
 

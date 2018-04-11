@@ -48,8 +48,6 @@ MatNavList.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/** @nocollapse */
-MatNavList.ctorParameters = () => [];
 class MatList extends _MatListMixinBase {
 }
 MatList.decorators = [
@@ -63,8 +61,6 @@ MatList.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/** @nocollapse */
-MatList.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
@@ -77,8 +73,6 @@ MatListAvatarCssMatStyler.decorators = [
                 host: { 'class': 'mat-list-avatar' }
             },] },
 ];
-/** @nocollapse */
-MatListAvatarCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
@@ -91,8 +85,6 @@ MatListIconCssMatStyler.decorators = [
                 host: { 'class': 'mat-list-icon' }
             },] },
 ];
-/** @nocollapse */
-MatListIconCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
@@ -105,8 +97,6 @@ MatListSubheaderCssMatStyler.decorators = [
                 host: { 'class': 'mat-subheader' }
             },] },
 ];
-/** @nocollapse */
-MatListSubheaderCssMatStyler.ctorParameters = () => [];
 /**
  * An item within a Material Design list.
  */
@@ -752,8 +742,6 @@ MatListModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */
-MatListModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

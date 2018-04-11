@@ -39,7 +39,6 @@ var MatError = /** @class */ (function () {
                 },] },
     ];
     /** @nocollapse */
-    MatError.ctorParameters = function () { return []; };
     MatError.propDecorators = {
         "id": [{ type: Input },],
     };
@@ -146,7 +145,6 @@ var MatHint = /** @class */ (function () {
                 },] },
     ];
     /** @nocollapse */
-    MatHint.ctorParameters = function () { return []; };
     MatHint.propDecorators = {
         "align": [{ type: Input },],
         "id": [{ type: Input },],
@@ -169,8 +167,6 @@ var MatLabel = /** @class */ (function () {
                     selector: 'mat-label'
                 },] },
     ];
-    /** @nocollapse */
-    MatLabel.ctorParameters = function () { return []; };
     return MatLabel;
 }());
 
@@ -189,8 +185,6 @@ var MatPlaceholder = /** @class */ (function () {
                     selector: 'mat-placeholder'
                 },] },
     ];
-    /** @nocollapse */
-    MatPlaceholder.ctorParameters = function () { return []; };
     return MatPlaceholder;
 }());
 
@@ -209,8 +203,6 @@ var MatPrefix = /** @class */ (function () {
                     selector: '[matPrefix]',
                 },] },
     ];
-    /** @nocollapse */
-    MatPrefix.ctorParameters = function () { return []; };
     return MatPrefix;
 }());
 
@@ -229,8 +221,6 @@ var MatSuffix = /** @class */ (function () {
                     selector: '[matSuffix]',
                 },] },
     ];
-    /** @nocollapse */
-    MatSuffix.ctorParameters = function () { return []; };
     return MatSuffix;
 }());
 
@@ -805,8 +795,6 @@ var MatFormFieldModule = /** @class */ (function () {
                     ],
                 },] },
     ];
-    /** @nocollapse */
-    MatFormFieldModule.ctorParameters = function () { return []; };
     return MatFormFieldModule;
 }());
 

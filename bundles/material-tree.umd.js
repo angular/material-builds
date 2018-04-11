@@ -125,7 +125,6 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatTreeNodeDef.ctorParameters = function () { return []; };
     MatTreeNodeDef.propDecorators = {
         "data": [{ type: core.Input, args: ['matTreeNode',] },],
     };
@@ -216,7 +215,6 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatTreeNodePadding.ctorParameters = function () { return []; };
     MatTreeNodePadding.propDecorators = {
         "level": [{ type: core.Input, args: ['matTreeNodePadding',] },],
         "indent": [{ type: core.Input, args: ['matTreeNodePaddingIndent',] },],
@@ -252,7 +250,6 @@ var MatTree = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatTree.ctorParameters = function () { return []; };
     MatTree.propDecorators = {
         "_nodeOutlet": [{ type: core.ViewChild, args: [MatTreeNodeOutlet,] },],
     };
@@ -284,7 +281,6 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatTreeNodeToggle.ctorParameters = function () { return []; };
     MatTreeNodeToggle.propDecorators = {
         "recursive": [{ type: core.Input, args: ['matTreeNodeToggleRecursive',] },],
     };
@@ -314,8 +310,6 @@ var MatTreeModule = /** @class */ (function () {
                     declarations: MAT_TREE_DIRECTIVES,
                 },] },
     ];
-    /** @nocollapse */
-    MatTreeModule.ctorParameters = function () { return []; };
     return MatTreeModule;
 }());
 

@@ -99,6 +99,10 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     _onChange(): void;
     /** Returns the palette used by the input's form field, if any. */
     _getThemePalette(): "primary" | "accent" | "warn" | undefined;
+    /** Handles blur events on the input. */
+    _onBlur(): void;
+    /** Formats a value and sets it on the input element. */
+    private _formatValue(value);
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.

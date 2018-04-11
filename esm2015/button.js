@@ -214,8 +214,6 @@ MatButtonModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */
-MatButtonModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

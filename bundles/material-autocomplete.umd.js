@@ -963,8 +963,6 @@ var MatAutocompleteModule = /** @class */ (function () {
                     declarations: [MatAutocomplete, MatAutocompleteTrigger],
                 },] },
     ];
-    /** @nocollapse */
-    MatAutocompleteModule.ctorParameters = function () { return []; };
     return MatAutocompleteModule;
 }());
 

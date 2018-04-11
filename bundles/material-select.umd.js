@@ -237,8 +237,6 @@ var MatSelectTrigger = /** @class */ (function () {
                     selector: 'mat-select-trigger'
                 },] },
     ];
-    /** @nocollapse */
-    MatSelectTrigger.ctorParameters = function () { return []; };
     return MatSelectTrigger;
 }());
 var MatSelect = /** @class */ (function (_super) {
@@ -1796,8 +1794,6 @@ var MatSelectModule = /** @class */ (function () {
                     providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER]
                 },] },
     ];
-    /** @nocollapse */
-    MatSelectModule.ctorParameters = function () { return []; };
     return MatSelectModule;
 }());
 

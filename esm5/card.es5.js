@@ -25,8 +25,6 @@ var MatCardContent = /** @class */ (function () {
                     host: { 'class': 'mat-card-content' }
                 },] },
     ];
-    /** @nocollapse */
-    MatCardContent.ctorParameters = function () { return []; };
     return MatCardContent;
 }());
 /**
@@ -44,8 +42,6 @@ var MatCardTitle = /** @class */ (function () {
                     }
                 },] },
     ];
-    /** @nocollapse */
-    MatCardTitle.ctorParameters = function () { return []; };
     return MatCardTitle;
 }());
 /**
@@ -63,8 +59,6 @@ var MatCardSubtitle = /** @class */ (function () {
                     }
                 },] },
     ];
-    /** @nocollapse */
-    MatCardSubtitle.ctorParameters = function () { return []; };
     return MatCardSubtitle;
 }());
 /**
@@ -89,7 +83,6 @@ var MatCardActions = /** @class */ (function () {
                 },] },
     ];
     /** @nocollapse */
-    MatCardActions.ctorParameters = function () { return []; };
     MatCardActions.propDecorators = {
         "align": [{ type: Input },],
     };
@@ -108,8 +101,6 @@ var MatCardFooter = /** @class */ (function () {
                     host: { 'class': 'mat-card-footer' }
                 },] },
     ];
-    /** @nocollapse */
-    MatCardFooter.ctorParameters = function () { return []; };
     return MatCardFooter;
 }());
 /**
@@ -125,8 +116,6 @@ var MatCardImage = /** @class */ (function () {
                     host: { 'class': 'mat-card-image' }
                 },] },
     ];
-    /** @nocollapse */
-    MatCardImage.ctorParameters = function () { return []; };
     return MatCardImage;
 }());
 /**
@@ -142,8 +131,6 @@ var MatCardSmImage = /** @class */ (function () {
                     host: { 'class': 'mat-card-sm-image' }
                 },] },
     ];
-    /** @nocollapse */
-    MatCardSmImage.ctorParameters = function () { return []; };
     return MatCardSmImage;
 }());
 /**
@@ -159,8 +146,6 @@ var MatCardMdImage = /** @class */ (function () {
                     host: { 'class': 'mat-card-md-image' }
                 },] },
     ];
-    /** @nocollapse */
-    MatCardMdImage.ctorParameters = function () { return []; };
     return MatCardMdImage;
 }());
 /**
@@ -176,8 +161,6 @@ var MatCardLgImage = /** @class */ (function () {
                     host: { 'class': 'mat-card-lg-image' }
                 },] },
     ];
-    /** @nocollapse */
-    MatCardLgImage.ctorParameters = function () { return []; };
     return MatCardLgImage;
 }());
 /**
@@ -193,8 +176,6 @@ var MatCardXlImage = /** @class */ (function () {
                     host: { 'class': 'mat-card-xl-image' }
                 },] },
     ];
-    /** @nocollapse */
-    MatCardXlImage.ctorParameters = function () { return []; };
     return MatCardXlImage;
 }());
 /**
@@ -210,8 +191,6 @@ var MatCardAvatar = /** @class */ (function () {
                     host: { 'class': 'mat-card-avatar' }
                 },] },
     ];
-    /** @nocollapse */
-    MatCardAvatar.ctorParameters = function () { return []; };
     return MatCardAvatar;
 }());
 /**
@@ -238,8 +217,6 @@ var MatCard = /** @class */ (function () {
                     host: { 'class': 'mat-card' }
                 },] },
     ];
-    /** @nocollapse */
-    MatCard.ctorParameters = function () { return []; };
     return MatCard;
 }());
 /**
@@ -258,8 +235,6 @@ var MatCardHeader = /** @class */ (function () {
                     host: { 'class': 'mat-card-header' }
                 },] },
     ];
-    /** @nocollapse */
-    MatCardHeader.ctorParameters = function () { return []; };
     return MatCardHeader;
 }());
 /**
@@ -278,8 +253,6 @@ var MatCardTitleGroup = /** @class */ (function () {
                     host: { 'class': 'mat-card-title-group' }
                 },] },
     ];
-    /** @nocollapse */
-    MatCardTitleGroup.ctorParameters = function () { return []; };
     return MatCardTitleGroup;
 }());
 
@@ -317,8 +290,6 @@ var MatCardModule = /** @class */ (function () {
                     ],
                 },] },
     ];
-    /** @nocollapse */
-    MatCardModule.ctorParameters = function () { return []; };
     return MatCardModule;
 }());
 

@@ -923,8 +923,6 @@ var MatSnackBarModule = /** @class */ (function () {
                     providers: [MatSnackBar]
                 },] },
     ];
-    /** @nocollapse */
-    MatSnackBarModule.ctorParameters = function () { return []; };
     return MatSnackBarModule;
 }());
 

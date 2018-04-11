@@ -475,8 +475,6 @@ MatCheckboxRequiredValidator.decorators = [
                 host: { '[attr.required]': 'required ? "" : null' }
             },] },
 ];
-/** @nocollapse */
-MatCheckboxRequiredValidator.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -491,8 +489,6 @@ MatCheckboxModule.decorators = [
                 declarations: [MatCheckbox, MatCheckboxRequiredValidator],
             },] },
 ];
-/** @nocollapse */
-MatCheckboxModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

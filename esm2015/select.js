@@ -222,8 +222,6 @@ MatSelectTrigger.decorators = [
                 selector: 'mat-select-trigger'
             },] },
 ];
-/** @nocollapse */
-MatSelectTrigger.ctorParameters = () => [];
 class MatSelect extends _MatSelectMixinBase {
     /**
      * @param {?} _viewportRuler
@@ -1402,8 +1400,6 @@ MatSelectModule.decorators = [
                 providers: [MAT_SELECT_SCROLL_STRATEGY_PROVIDER]
             },] },
 ];
-/** @nocollapse */
-MatSelectModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

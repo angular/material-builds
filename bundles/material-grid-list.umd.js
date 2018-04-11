@@ -184,8 +184,6 @@ var MatGridAvatarCssMatStyler = /** @class */ (function () {
                     host: { 'class': 'mat-grid-avatar' }
                 },] },
     ];
-    /** @nocollapse */
-    MatGridAvatarCssMatStyler.ctorParameters = function () { return []; };
     return MatGridAvatarCssMatStyler;
 }());
 /**
@@ -201,8 +199,6 @@ var MatGridTileHeaderCssMatStyler = /** @class */ (function () {
                     host: { 'class': 'mat-grid-tile-header' }
                 },] },
     ];
-    /** @nocollapse */
-    MatGridTileHeaderCssMatStyler.ctorParameters = function () { return []; };
     return MatGridTileHeaderCssMatStyler;
 }());
 /**
@@ -218,8 +214,6 @@ var MatGridTileFooterCssMatStyler = /** @class */ (function () {
                     host: { 'class': 'mat-grid-tile-footer' }
                 },] },
     ];
-    /** @nocollapse */
-    MatGridTileFooterCssMatStyler.ctorParameters = function () { return []; };
     return MatGridTileFooterCssMatStyler;
 }());
 
@@ -1135,8 +1129,6 @@ var MatGridListModule = /** @class */ (function () {
                     ],
                 },] },
     ];
-    /** @nocollapse */
-    MatGridListModule.ctorParameters = function () { return []; };
     return MatGridListModule;
 }());
 

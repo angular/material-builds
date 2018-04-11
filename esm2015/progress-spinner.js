@@ -304,8 +304,6 @@ MatProgressSpinnerModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */
-MatProgressSpinnerModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

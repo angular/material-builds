@@ -39,7 +39,6 @@ MatError.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatError.ctorParameters = () => [];
 MatError.propDecorators = {
     "id": [{ type: Input },],
 };
@@ -137,7 +136,6 @@ MatHint.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatHint.ctorParameters = () => [];
 MatHint.propDecorators = {
     "align": [{ type: Input },],
     "id": [{ type: Input },],
@@ -157,8 +155,6 @@ MatLabel.decorators = [
                 selector: 'mat-label'
             },] },
 ];
-/** @nocollapse */
-MatLabel.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -174,8 +170,6 @@ MatPlaceholder.decorators = [
                 selector: 'mat-placeholder'
             },] },
 ];
-/** @nocollapse */
-MatPlaceholder.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -191,8 +185,6 @@ MatPrefix.decorators = [
                 selector: '[matPrefix]',
             },] },
 ];
-/** @nocollapse */
-MatPrefix.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -208,8 +200,6 @@ MatSuffix.decorators = [
                 selector: '[matSuffix]',
             },] },
 ];
-/** @nocollapse */
-MatSuffix.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -668,8 +658,6 @@ MatFormFieldModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */
-MatFormFieldModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

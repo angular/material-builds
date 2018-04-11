@@ -68,8 +68,6 @@ class MatPaginatorIntl {
 MatPaginatorIntl.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
-/** @nocollapse */
-MatPaginatorIntl.ctorParameters = () => [];
 /** @nocollapse */ MatPaginatorIntl.ngInjectableDef = defineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
 /**
  * \@docs-private
@@ -383,8 +381,6 @@ MatPaginatorModule.decorators = [
                 providers: [MAT_PAGINATOR_INTL_PROVIDER],
             },] },
 ];
-/** @nocollapse */
-MatPaginatorModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

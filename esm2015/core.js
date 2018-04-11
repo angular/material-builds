@@ -934,8 +934,6 @@ NativeDateModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */
-NativeDateModule.ctorParameters = () => [];
 const ɵ0$1 = MAT_NATIVE_DATE_FORMATS;
 class MatNativeDateModule {
 }
@@ -945,8 +943,6 @@ MatNativeDateModule.decorators = [
                 providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$1 }],
             },] },
 ];
-/** @nocollapse */
-MatNativeDateModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -968,8 +964,6 @@ class ShowOnDirtyErrorStateMatcher {
 ShowOnDirtyErrorStateMatcher.decorators = [
     { type: Injectable },
 ];
-/** @nocollapse */
-ShowOnDirtyErrorStateMatcher.ctorParameters = () => [];
 /**
  * Provider that defines how form controls behave with regards to displaying error messages.
  */
@@ -986,8 +980,6 @@ class ErrorStateMatcher {
 ErrorStateMatcher.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
-/** @nocollapse */
-ErrorStateMatcher.ctorParameters = () => [];
 /** @nocollapse */ ErrorStateMatcher.ngInjectableDef = defineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
 
 /**
@@ -1096,8 +1088,6 @@ MatLine.decorators = [
                 host: { 'class': 'mat-line' }
             },] },
 ];
-/** @nocollapse */
-MatLine.ctorParameters = () => [];
 /**
  * Helper that takes a query list of lines and sets the correct class on the host.
  * \@docs-private
@@ -1159,8 +1149,6 @@ MatLineModule.decorators = [
                 declarations: [MatLine],
             },] },
 ];
-/** @nocollapse */
-MatLineModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -1625,8 +1613,6 @@ MatRippleModule.decorators = [
                 declarations: [MatRipple],
             },] },
 ];
-/** @nocollapse */
-MatRippleModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -1672,7 +1658,6 @@ MatPseudoCheckbox.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatPseudoCheckbox.ctorParameters = () => [];
 MatPseudoCheckbox.propDecorators = {
     "state": [{ type: Input },],
     "disabled": [{ type: Input },],
@@ -1690,8 +1675,6 @@ MatPseudoCheckboxModule.decorators = [
                 declarations: [MatPseudoCheckbox]
             },] },
 ];
-/** @nocollapse */
-MatPseudoCheckboxModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -1735,7 +1718,6 @@ MatOptgroup.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatOptgroup.ctorParameters = () => [];
 MatOptgroup.propDecorators = {
     "label": [{ type: Input },],
 };
@@ -2063,8 +2045,6 @@ MatOptionModule.decorators = [
                 declarations: [MatOption, MatOptgroup]
             },] },
 ];
-/** @nocollapse */
-MatOptionModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

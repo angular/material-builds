@@ -80,8 +80,6 @@ var MatStepperIntl = /** @class */ (function () {
     MatStepperIntl.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */
-    MatStepperIntl.ctorParameters = function () { return []; };
     /** @nocollapse */ MatStepperIntl.ngInjectableDef = core.defineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
     return MatStepperIntl;
 }());
@@ -340,7 +338,6 @@ var MatStepper = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatStepper.ctorParameters = function () { return []; };
     MatStepper.propDecorators = {
         "_stepHeader": [{ type: core.ViewChildren, args: [MatStepHeader,] },],
         "_steps": [{ type: core.ContentChildren, args: [MatStep,] },],
@@ -370,8 +367,6 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /** @nocollapse */
-    MatHorizontalStepper.ctorParameters = function () { return []; };
     return MatHorizontalStepper;
 }(MatStepper));
 var MatVerticalStepper = /** @class */ (function (_super) {
@@ -429,8 +424,6 @@ var MatStepperNext = /** @class */ (function (_super) {
                     providers: [{ provide: stepper.CdkStepper, useExisting: MatStepper }]
                 },] },
     ];
-    /** @nocollapse */
-    MatStepperNext.ctorParameters = function () { return []; };
     return MatStepperNext;
 }(stepper.CdkStepperNext));
 /**
@@ -452,8 +445,6 @@ var MatStepperPrevious = /** @class */ (function (_super) {
                     providers: [{ provide: stepper.CdkStepper, useExisting: MatStepper }]
                 },] },
     ];
-    /** @nocollapse */
-    MatStepperPrevious.ctorParameters = function () { return []; };
     return MatStepperPrevious;
 }(stepper.CdkStepperPrevious));
 
@@ -501,8 +492,6 @@ var MatStepperModule = /** @class */ (function () {
                     providers: [MatStepperIntl, core$1.ErrorStateMatcher],
                 },] },
     ];
-    /** @nocollapse */
-    MatStepperModule.ctorParameters = function () { return []; };
     return MatStepperModule;
 }());
 

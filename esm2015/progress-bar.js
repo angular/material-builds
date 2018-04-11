@@ -145,8 +145,6 @@ MatProgressBarModule.decorators = [
                 declarations: [MatProgressBar],
             },] },
 ];
-/** @nocollapse */
-MatProgressBarModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

@@ -516,8 +516,6 @@ MatButtonToggleModule.decorators = [
                 declarations: [MatButtonToggleGroup, MatButtonToggle],
             },] },
 ];
-/** @nocollapse */
-MatButtonToggleModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

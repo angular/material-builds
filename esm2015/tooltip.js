@@ -716,8 +716,6 @@ MatTooltipModule.decorators = [
                 entryComponents: [TooltipComponent],
             },] },
 ];
-/** @nocollapse */
-MatTooltipModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

@@ -562,8 +562,6 @@ var MatSlideToggleModule = /** @class */ (function () {
                     ],
                 },] },
     ];
-    /** @nocollapse */
-    MatSlideToggleModule.ctorParameters = function () { return []; };
     return MatSlideToggleModule;
 }());
 

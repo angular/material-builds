@@ -64,8 +64,6 @@ var MatToolbarRow = /** @class */ (function () {
                     host: { 'class': 'mat-toolbar-row' },
                 },] },
     ];
-    /** @nocollapse */
-    MatToolbarRow.ctorParameters = function () { return []; };
     return MatToolbarRow;
 }());
 var MatToolbar = /** @class */ (function (_super) {
@@ -166,8 +164,6 @@ var MatToolbarModule = /** @class */ (function () {
                     declarations: [MatToolbar, MatToolbarRow],
                 },] },
     ];
-    /** @nocollapse */
-    MatToolbarModule.ctorParameters = function () { return []; };
     return MatToolbarModule;
 }());
 

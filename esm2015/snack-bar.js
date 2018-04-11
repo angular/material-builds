@@ -699,8 +699,6 @@ MatSnackBarModule.decorators = [
                 providers: [MatSnackBar]
             },] },
 ];
-/** @nocollapse */
-MatSnackBarModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

@@ -904,8 +904,6 @@ MatDialogContent.decorators = [
                 host: { 'class': 'mat-dialog-content' }
             },] },
 ];
-/** @nocollapse */
-MatDialogContent.ctorParameters = () => [];
 /**
  * Container for the bottom action buttons in a dialog.
  * Stays fixed to the bottom when scrolling.
@@ -918,8 +916,6 @@ MatDialogActions.decorators = [
                 host: { 'class': 'mat-dialog-actions' }
             },] },
 ];
-/** @nocollapse */
-MatDialogActions.ctorParameters = () => [];
 /**
  * Finds the closest MatDialogRef to an element by looking at the DOM.
  * @param {?} element Element relative to which to look for a dialog.
@@ -970,8 +966,6 @@ MatDialogModule.decorators = [
                 entryComponents: [MatDialogContainer],
             },] },
 ];
-/** @nocollapse */
-MatDialogModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

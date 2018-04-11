@@ -1092,8 +1092,6 @@ var MatSliderModule = /** @class */ (function () {
                     providers: [{ provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig }]
                 },] },
     ];
-    /** @nocollapse */
-    MatSliderModule.ctorParameters = function () { return []; };
     return MatSliderModule;
 }());
 

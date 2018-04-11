@@ -243,7 +243,6 @@ var MatSort = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatSort.ctorParameters = function () { return []; };
     MatSort.propDecorators = {
         "active": [{ type: Input, args: ['matSortActive',] },],
         "start": [{ type: Input, args: ['matSortStart',] },],
@@ -373,8 +372,6 @@ var MatSortHeaderIntl = /** @class */ (function () {
     MatSortHeaderIntl.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */
-    MatSortHeaderIntl.ctorParameters = function () { return []; };
     /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = defineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
     return MatSortHeaderIntl;
 }());
@@ -753,8 +750,6 @@ var MatSortModule = /** @class */ (function () {
                     providers: [MAT_SORT_HEADER_INTL_PROVIDER]
                 },] },
     ];
-    /** @nocollapse */
-    MatSortModule.ctorParameters = function () { return []; };
     return MatSortModule;
 }());
 

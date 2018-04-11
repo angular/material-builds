@@ -1081,7 +1081,6 @@ var MatSidenav = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatSidenav.ctorParameters = function () { return []; };
     MatSidenav.propDecorators = {
         "fixedInViewport": [{ type: Input },],
         "fixedTopGap": [{ type: Input },],
@@ -1108,7 +1107,6 @@ var MatSidenavContainer = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatSidenavContainer.ctorParameters = function () { return []; };
     MatSidenavContainer.propDecorators = {
         "_drawers": [{ type: ContentChildren, args: [MatSidenav,] },],
         "_content": [{ type: ContentChild, args: [MatSidenavContent,] },],
@@ -1150,8 +1148,6 @@ var MatSidenavModule = /** @class */ (function () {
                     ],
                 },] },
     ];
-    /** @nocollapse */
-    MatSidenavModule.ctorParameters = function () { return []; };
     return MatSidenavModule;
 }());
 

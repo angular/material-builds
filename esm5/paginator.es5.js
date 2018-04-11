@@ -67,8 +67,6 @@ var MatPaginatorIntl = /** @class */ (function () {
     MatPaginatorIntl.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */
-    MatPaginatorIntl.ctorParameters = function () { return []; };
     /** @nocollapse */ MatPaginatorIntl.ngInjectableDef = defineInjectable({ factory: function MatPaginatorIntl_Factory() { return new MatPaginatorIntl(); }, token: MatPaginatorIntl, providedIn: "root" });
     return MatPaginatorIntl;
 }());
@@ -482,8 +480,6 @@ var MatPaginatorModule = /** @class */ (function () {
                     providers: [MAT_PAGINATOR_INTL_PROVIDER],
                 },] },
     ];
-    /** @nocollapse */
-    MatPaginatorModule.ctorParameters = function () { return []; };
     return MatPaginatorModule;
 }());
 

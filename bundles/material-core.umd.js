@@ -1281,8 +1281,6 @@ var NativeDateModule = /** @class */ (function () {
                     ],
                 },] },
     ];
-    /** @nocollapse */
-    NativeDateModule.ctorParameters = function () { return []; };
     return NativeDateModule;
 }());
 var ɵ0$1 = MAT_NATIVE_DATE_FORMATS;
@@ -1295,8 +1293,6 @@ var MatNativeDateModule = /** @class */ (function () {
                     providers: [{ provide: MAT_DATE_FORMATS, useValue: ɵ0$1 }],
                 },] },
     ];
-    /** @nocollapse */
-    MatNativeDateModule.ctorParameters = function () { return []; };
     return MatNativeDateModule;
 }());
 
@@ -1326,8 +1322,6 @@ var ShowOnDirtyErrorStateMatcher = /** @class */ (function () {
     ShowOnDirtyErrorStateMatcher.decorators = [
         { type: core.Injectable },
     ];
-    /** @nocollapse */
-    ShowOnDirtyErrorStateMatcher.ctorParameters = function () { return []; };
     return ShowOnDirtyErrorStateMatcher;
 }());
 /**
@@ -1352,8 +1346,6 @@ var ErrorStateMatcher = /** @class */ (function () {
     ErrorStateMatcher.decorators = [
         { type: core.Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */
-    ErrorStateMatcher.ctorParameters = function () { return []; };
     /** @nocollapse */ ErrorStateMatcher.ngInjectableDef = core.defineInjectable({ factory: function ErrorStateMatcher_Factory() { return new ErrorStateMatcher(); }, token: ErrorStateMatcher, providedIn: "root" });
     return ErrorStateMatcher;
 }());
@@ -1501,8 +1493,6 @@ var MatLine = /** @class */ (function () {
                     host: { 'class': 'mat-line' }
                 },] },
     ];
-    /** @nocollapse */
-    MatLine.ctorParameters = function () { return []; };
     return MatLine;
 }());
 /**
@@ -1581,8 +1571,6 @@ var MatLineModule = /** @class */ (function () {
                     declarations: [MatLine],
                 },] },
     ];
-    /** @nocollapse */
-    MatLineModule.ctorParameters = function () { return []; };
     return MatLineModule;
 }());
 
@@ -2146,8 +2134,6 @@ var MatRippleModule = /** @class */ (function () {
                     declarations: [MatRipple],
                 },] },
     ];
-    /** @nocollapse */
-    MatRippleModule.ctorParameters = function () { return []; };
     return MatRippleModule;
 }());
 
@@ -2194,7 +2180,6 @@ var MatPseudoCheckbox = /** @class */ (function () {
                 },] },
     ];
     /** @nocollapse */
-    MatPseudoCheckbox.ctorParameters = function () { return []; };
     MatPseudoCheckbox.propDecorators = {
         "state": [{ type: core.Input },],
         "disabled": [{ type: core.Input },],
@@ -2215,8 +2200,6 @@ var MatPseudoCheckboxModule = /** @class */ (function () {
                     declarations: [MatPseudoCheckbox]
                 },] },
     ];
-    /** @nocollapse */
-    MatPseudoCheckboxModule.ctorParameters = function () { return []; };
     return MatPseudoCheckboxModule;
 }());
 
@@ -2269,7 +2252,6 @@ var MatOptgroup = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatOptgroup.ctorParameters = function () { return []; };
     MatOptgroup.propDecorators = {
         "label": [{ type: core.Input },],
     };
@@ -2717,8 +2699,6 @@ var MatOptionModule = /** @class */ (function () {
                     declarations: [MatOption, MatOptgroup]
                 },] },
     ];
-    /** @nocollapse */
-    MatOptionModule.ctorParameters = function () { return []; };
     return MatOptionModule;
 }());
 

@@ -63,8 +63,6 @@ class MatStepperIntl {
 MatStepperIntl.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
-/** @nocollapse */
-MatStepperIntl.ctorParameters = () => [];
 /** @nocollapse */ MatStepperIntl.ngInjectableDef = defineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
 
 /**
@@ -291,7 +289,6 @@ MatStepper.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatStepper.ctorParameters = () => [];
 MatStepper.propDecorators = {
     "_stepHeader": [{ type: ViewChildren, args: [MatStepHeader,] },],
     "_steps": [{ type: ContentChildren, args: [MatStep,] },],
@@ -316,8 +313,6 @@ MatHorizontalStepper.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/** @nocollapse */
-MatHorizontalStepper.ctorParameters = () => [];
 class MatVerticalStepper extends MatStepper {
     /**
      * @param {?} dir
@@ -371,8 +366,6 @@ MatStepperNext.decorators = [
                 providers: [{ provide: CdkStepper, useExisting: MatStepper }]
             },] },
 ];
-/** @nocollapse */
-MatStepperNext.ctorParameters = () => [];
 /**
  * Button that moves to the previous step in a stepper workflow.
  */
@@ -389,8 +382,6 @@ MatStepperPrevious.decorators = [
                 providers: [{ provide: CdkStepper, useExisting: MatStepper }]
             },] },
 ];
-/** @nocollapse */
-MatStepperPrevious.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -435,8 +426,6 @@ MatStepperModule.decorators = [
                 providers: [MatStepperIntl, ErrorStateMatcher],
             },] },
 ];
-/** @nocollapse */
-MatStepperModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

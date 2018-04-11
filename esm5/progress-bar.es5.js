@@ -172,8 +172,6 @@ var MatProgressBarModule = /** @class */ (function () {
                     declarations: [MatProgressBar],
                 },] },
     ];
-    /** @nocollapse */
-    MatProgressBarModule.ctorParameters = function () { return []; };
     return MatProgressBarModule;
 }());
 

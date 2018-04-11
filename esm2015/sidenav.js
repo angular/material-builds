@@ -877,7 +877,6 @@ MatSidenav.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatSidenav.ctorParameters = () => [];
 MatSidenav.propDecorators = {
     "fixedInViewport": [{ type: Input },],
     "fixedTopGap": [{ type: Input },],
@@ -899,7 +898,6 @@ MatSidenavContainer.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatSidenavContainer.ctorParameters = () => [];
 MatSidenavContainer.propDecorators = {
     "_drawers": [{ type: ContentChildren, args: [MatSidenav,] },],
     "_content": [{ type: ContentChild, args: [MatSidenavContent,] },],
@@ -938,8 +936,6 @@ MatSidenavModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */
-MatSidenavModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

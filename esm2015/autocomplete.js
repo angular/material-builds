@@ -764,8 +764,6 @@ MatAutocompleteModule.decorators = [
                 declarations: [MatAutocomplete, MatAutocompleteTrigger],
             },] },
 ];
-/** @nocollapse */
-MatAutocompleteModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

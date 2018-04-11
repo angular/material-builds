@@ -63,7 +63,6 @@ var MatDivider = /** @class */ (function () {
                 },] },
     ];
     /** @nocollapse */
-    MatDivider.ctorParameters = function () { return []; };
     MatDivider.propDecorators = {
         "vertical": [{ type: Input },],
         "inset": [{ type: Input },],
@@ -85,8 +84,6 @@ var MatDividerModule = /** @class */ (function () {
                     declarations: [MatDivider],
                 },] },
     ];
-    /** @nocollapse */
-    MatDividerModule.ctorParameters = function () { return []; };
     return MatDividerModule;
 }());
 

@@ -699,8 +699,6 @@ var MatButtonToggleModule = /** @class */ (function () {
                     declarations: [MatButtonToggleGroup, MatButtonToggle],
                 },] },
     ];
-    /** @nocollapse */
-    MatButtonToggleModule.ctorParameters = function () { return []; };
     return MatButtonToggleModule;
 }());
 

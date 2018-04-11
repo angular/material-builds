@@ -98,8 +98,6 @@ class MatDatepickerIntl {
 MatDatepickerIntl.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
-/** @nocollapse */
-MatDatepickerIntl.ctorParameters = () => [];
 /** @nocollapse */ MatDatepickerIntl.ngInjectableDef = defineInjectable({ factory: function MatDatepickerIntl_Factory() { return new MatDatepickerIntl(); }, token: MatDatepickerIntl, providedIn: "root" });
 
 /**
@@ -2224,10 +2222,9 @@ class MatDatepickerInput {
         value = this._dateAdapter.deserialize(value);
         this._lastValueValid = !value || this._dateAdapter.isValid(value);
         value = this._getValidDateOrNull(value);
-        let /** @type {?} */ oldDate = this.value;
+        const /** @type {?} */ oldDate = this.value;
         this._value = value;
-        this._elementRef.nativeElement.value =
-            value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '';
+        this._formatValue(value);
         if (!this._dateAdapter.sameDate(oldDate, value)) {
             this._valueChange.emit(value);
         }
@@ -2401,6 +2398,26 @@ class MatDatepickerInput {
         return this._formField ? this._formField.color : undefined;
     }
     /**
+     * Handles blur events on the input.
+     * @return {?}
+     */
+    _onBlur() {
+        // Reformat the input only if we have a valid value.
+        if (this.value) {
+            this._formatValue(this.value);
+        }
+        this._onTouched();
+    }
+    /**
+     * Formats a value and sets it on the input element.
+     * @param {?} value
+     * @return {?}
+     */
+    _formatValue(value) {
+        this._elementRef.nativeElement.value =
+            value ? this._dateAdapter.format(value, this._dateFormats.display.dateInput) : '';
+    }
+    /**
      * @param {?} obj The object to check.
      * @return {?} The given object if it is both a date instance and valid, otherwise null.
      */
@@ -2424,7 +2441,7 @@ MatDatepickerInput.decorators = [
                     '[disabled]': 'disabled',
                     '(input)': '_onInput($event.target.value)',
                     '(change)': '_onChange()',
-                    '(blur)': '_onTouched()',
+                    '(blur)': '_onBlur()',
                     '(keydown)': '_onKeydown($event)',
                 },
                 exportAs: 'matDatepickerInput',
@@ -2462,8 +2479,6 @@ MatDatepickerToggleIcon.decorators = [
                 selector: '[matDatepickerToggleIcon]'
             },] },
 ];
-/** @nocollapse */
-MatDatepickerToggleIcon.ctorParameters = () => [];
 /**
  * @template D
  */
@@ -2613,8 +2628,6 @@ MatDatepickerModule.decorators = [
                 ]
             },] },
 ];
-/** @nocollapse */
-MatDatepickerModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

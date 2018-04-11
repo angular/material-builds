@@ -62,8 +62,6 @@ var MatStepperIntl = /** @class */ (function () {
     MatStepperIntl.decorators = [
         { type: Injectable, args: [{ providedIn: 'root' },] },
     ];
-    /** @nocollapse */
-    MatStepperIntl.ctorParameters = function () { return []; };
     /** @nocollapse */ MatStepperIntl.ngInjectableDef = defineInjectable({ factory: function MatStepperIntl_Factory() { return new MatStepperIntl(); }, token: MatStepperIntl, providedIn: "root" });
     return MatStepperIntl;
 }());
@@ -322,7 +320,6 @@ var MatStepper = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatStepper.ctorParameters = function () { return []; };
     MatStepper.propDecorators = {
         "_stepHeader": [{ type: ViewChildren, args: [MatStepHeader,] },],
         "_steps": [{ type: ContentChildren, args: [MatStep,] },],
@@ -352,8 +349,6 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /** @nocollapse */
-    MatHorizontalStepper.ctorParameters = function () { return []; };
     return MatHorizontalStepper;
 }(MatStepper));
 var MatVerticalStepper = /** @class */ (function (_super) {
@@ -411,8 +406,6 @@ var MatStepperNext = /** @class */ (function (_super) {
                     providers: [{ provide: CdkStepper, useExisting: MatStepper }]
                 },] },
     ];
-    /** @nocollapse */
-    MatStepperNext.ctorParameters = function () { return []; };
     return MatStepperNext;
 }(CdkStepperNext));
 /**
@@ -434,8 +427,6 @@ var MatStepperPrevious = /** @class */ (function (_super) {
                     providers: [{ provide: CdkStepper, useExisting: MatStepper }]
                 },] },
     ];
-    /** @nocollapse */
-    MatStepperPrevious.ctorParameters = function () { return []; };
     return MatStepperPrevious;
 }(CdkStepperPrevious));
 
@@ -483,8 +474,6 @@ var MatStepperModule = /** @class */ (function () {
                     providers: [MatStepperIntl, ErrorStateMatcher],
                 },] },
     ];
-    /** @nocollapse */
-    MatStepperModule.ctorParameters = function () { return []; };
     return MatStepperModule;
 }());
 

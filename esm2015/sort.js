@@ -189,7 +189,6 @@ MatSort.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatSort.ctorParameters = () => [];
 MatSort.propDecorators = {
     "active": [{ type: Input, args: ['matSortActive',] },],
     "start": [{ type: Input, args: ['matSortStart',] },],
@@ -318,8 +317,6 @@ class MatSortHeaderIntl {
 MatSortHeaderIntl.decorators = [
     { type: Injectable, args: [{ providedIn: 'root' },] },
 ];
-/** @nocollapse */
-MatSortHeaderIntl.ctorParameters = () => [];
 /** @nocollapse */ MatSortHeaderIntl.ngInjectableDef = defineInjectable({ factory: function MatSortHeaderIntl_Factory() { return new MatSortHeaderIntl(); }, token: MatSortHeaderIntl, providedIn: "root" });
 /**
  * \@docs-private
@@ -603,8 +600,6 @@ MatSortModule.decorators = [
                 providers: [MAT_SORT_HEADER_INTL_PROVIDER]
             },] },
 ];
-/** @nocollapse */
-MatSortModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

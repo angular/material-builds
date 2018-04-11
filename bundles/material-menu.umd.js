@@ -1434,8 +1434,6 @@ var MatMenuModule = /** @class */ (function () {
                     declarations: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent],
                 },] },
     ];
-    /** @nocollapse */
-    MatMenuModule.ctorParameters = function () { return []; };
     return MatMenuModule;
 }());
 
@@ -1449,8 +1447,8 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa24 = MatMenuItemBase;
-exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵa23 = MatMenuItemBase;
+exports.ɵb23 = _MatMenuItemMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

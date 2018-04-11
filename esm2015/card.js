@@ -24,8 +24,6 @@ MatCardContent.decorators = [
                 host: { 'class': 'mat-card-content' }
             },] },
 ];
-/** @nocollapse */
-MatCardContent.ctorParameters = () => [];
 /**
  * Title of a card, needed as it's used as a selector in the API.
  * \@docs-private
@@ -40,8 +38,6 @@ MatCardTitle.decorators = [
                 }
             },] },
 ];
-/** @nocollapse */
-MatCardTitle.ctorParameters = () => [];
 /**
  * Sub-title of a card, needed as it's used as a selector in the API.
  * \@docs-private
@@ -56,8 +52,6 @@ MatCardSubtitle.decorators = [
                 }
             },] },
 ];
-/** @nocollapse */
-MatCardSubtitle.ctorParameters = () => [];
 /**
  * Action section of a card, needed as it's used as a selector in the API.
  * \@docs-private
@@ -81,7 +75,6 @@ MatCardActions.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatCardActions.ctorParameters = () => [];
 MatCardActions.propDecorators = {
     "align": [{ type: Input },],
 };
@@ -97,8 +90,6 @@ MatCardFooter.decorators = [
                 host: { 'class': 'mat-card-footer' }
             },] },
 ];
-/** @nocollapse */
-MatCardFooter.ctorParameters = () => [];
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
@@ -111,8 +102,6 @@ MatCardImage.decorators = [
                 host: { 'class': 'mat-card-image' }
             },] },
 ];
-/** @nocollapse */
-MatCardImage.ctorParameters = () => [];
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
@@ -125,8 +114,6 @@ MatCardSmImage.decorators = [
                 host: { 'class': 'mat-card-sm-image' }
             },] },
 ];
-/** @nocollapse */
-MatCardSmImage.ctorParameters = () => [];
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
@@ -139,8 +126,6 @@ MatCardMdImage.decorators = [
                 host: { 'class': 'mat-card-md-image' }
             },] },
 ];
-/** @nocollapse */
-MatCardMdImage.ctorParameters = () => [];
 /**
  * Image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
@@ -153,8 +138,6 @@ MatCardLgImage.decorators = [
                 host: { 'class': 'mat-card-lg-image' }
             },] },
 ];
-/** @nocollapse */
-MatCardLgImage.ctorParameters = () => [];
 /**
  * Large image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
@@ -167,8 +150,6 @@ MatCardXlImage.decorators = [
                 host: { 'class': 'mat-card-xl-image' }
             },] },
 ];
-/** @nocollapse */
-MatCardXlImage.ctorParameters = () => [];
 /**
  * Avatar image used in a card, needed to add the mat- CSS styling.
  * \@docs-private
@@ -181,8 +162,6 @@ MatCardAvatar.decorators = [
                 host: { 'class': 'mat-card-avatar' }
             },] },
 ];
-/** @nocollapse */
-MatCardAvatar.ctorParameters = () => [];
 /**
  * A basic content container component that adds the styles of a Material design card.
  *
@@ -206,8 +185,6 @@ MatCard.decorators = [
                 host: { 'class': 'mat-card' }
             },] },
 ];
-/** @nocollapse */
-MatCard.ctorParameters = () => [];
 /**
  * Component intended to be used within the `<mat-card>` component. It adds styles for a
  * preset header section (i.e. a title, subtitle, and avatar layout).
@@ -223,8 +200,6 @@ MatCardHeader.decorators = [
                 host: { 'class': 'mat-card-header' }
             },] },
 ];
-/** @nocollapse */
-MatCardHeader.ctorParameters = () => [];
 /**
  * Component intended to be used within the `<mat-card>` component. It adds styles for a preset
  * layout that groups an image with a title section.
@@ -240,8 +215,6 @@ MatCardTitleGroup.decorators = [
                 host: { 'class': 'mat-card-title-group' }
             },] },
 ];
-/** @nocollapse */
-MatCardTitleGroup.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -276,8 +249,6 @@ MatCardModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */
-MatCardModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

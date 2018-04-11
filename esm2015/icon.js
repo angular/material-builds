@@ -779,8 +779,6 @@ MatIconModule.decorators = [
                 providers: [ICON_REGISTRY_PROVIDER],
             },] },
 ];
-/** @nocollapse */
-MatIconModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

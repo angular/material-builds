@@ -59,7 +59,6 @@ MatAccordion.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatAccordion.ctorParameters = () => [];
 MatAccordion.propDecorators = {
     "hideToggle": [{ type: Input },],
     "displayMode": [{ type: Input },],
@@ -291,8 +290,6 @@ MatExpansionPanelActionRow.decorators = [
                 }
             },] },
 ];
-/** @nocollapse */
-MatExpansionPanelActionRow.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -439,8 +436,6 @@ MatExpansionPanelDescription.decorators = [
                 }
             },] },
 ];
-/** @nocollapse */
-MatExpansionPanelDescription.ctorParameters = () => [];
 /**
  * `<mat-panel-title>`
  *
@@ -456,8 +451,6 @@ MatExpansionPanelTitle.decorators = [
                 }
             },] },
 ];
-/** @nocollapse */
-MatExpansionPanelTitle.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -488,8 +481,6 @@ MatExpansionModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */
-MatExpansionModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

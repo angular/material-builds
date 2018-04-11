@@ -672,8 +672,6 @@ var MatBottomSheetModule = /** @class */ (function () {
                     providers: [MatBottomSheet],
                 },] },
     ];
-    /** @nocollapse */
-    MatBottomSheetModule.ctorParameters = function () { return []; };
     return MatBottomSheetModule;
 }());
 

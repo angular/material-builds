@@ -35,8 +35,6 @@ MatToolbarRow.decorators = [
                 host: { 'class': 'mat-toolbar-row' },
             },] },
 ];
-/** @nocollapse */
-MatToolbarRow.ctorParameters = () => [];
 class MatToolbar extends _MatToolbarMixinBase {
     /**
      * @param {?} elementRef
@@ -126,8 +124,6 @@ MatToolbarModule.decorators = [
                 declarations: [MatToolbar, MatToolbarRow],
             },] },
 ];
-/** @nocollapse */
-MatToolbarModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

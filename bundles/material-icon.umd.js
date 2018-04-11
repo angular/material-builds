@@ -1059,8 +1059,6 @@ var MatIconModule = /** @class */ (function () {
                     providers: [ICON_REGISTRY_PROVIDER],
                 },] },
     ];
-    /** @nocollapse */
-    MatIconModule.ctorParameters = function () { return []; };
     return MatIconModule;
 }());
 

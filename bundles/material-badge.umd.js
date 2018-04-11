@@ -301,8 +301,6 @@ var MatBadgeModule = /** @class */ (function () {
                     declarations: [MatBadge],
                 },] },
     ];
-    /** @nocollapse */
-    MatBadgeModule.ctorParameters = function () { return []; };
     return MatBadgeModule;
 }());
 

@@ -429,8 +429,6 @@ MatSlideToggleModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */
-MatSlideToggleModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

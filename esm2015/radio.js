@@ -658,8 +658,6 @@ MatRadioModule.decorators = [
                 declarations: [MatRadioGroup, MatRadioButton],
             },] },
 ];
-/** @nocollapse */
-MatRadioModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

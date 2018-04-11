@@ -587,8 +587,6 @@ var MatCheckboxRequiredValidator = /** @class */ (function (_super) {
                     host: { '[attr.required]': 'required ? "" : null' }
                 },] },
     ];
-    /** @nocollapse */
-    MatCheckboxRequiredValidator.ctorParameters = function () { return []; };
     return MatCheckboxRequiredValidator;
 }(CheckboxRequiredValidator));
 
@@ -606,8 +604,6 @@ var MatCheckboxModule = /** @class */ (function () {
                     declarations: [MatCheckbox, MatCheckboxRequiredValidator],
                 },] },
     ];
-    /** @nocollapse */
-    MatCheckboxModule.ctorParameters = function () { return []; };
     return MatCheckboxModule;
 }());
 

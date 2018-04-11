@@ -253,8 +253,6 @@ MatBadgeModule.decorators = [
                 declarations: [MatBadge],
             },] },
 ];
-/** @nocollapse */
-MatBadgeModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

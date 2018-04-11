@@ -239,8 +239,6 @@ var MatButtonModule = /** @class */ (function () {
                     ],
                 },] },
     ];
-    /** @nocollapse */
-    MatButtonModule.ctorParameters = function () { return []; };
     return MatButtonModule;
 }());
 

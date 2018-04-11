@@ -84,8 +84,6 @@ var MatNavList = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /** @nocollapse */
-    MatNavList.ctorParameters = function () { return []; };
     return MatNavList;
 }(_MatListMixinBase));
 var MatList = /** @class */ (function (_super) {
@@ -104,8 +102,6 @@ var MatList = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /** @nocollapse */
-    MatList.ctorParameters = function () { return []; };
     return MatList;
 }(_MatListMixinBase));
 /**
@@ -121,8 +117,6 @@ var MatListAvatarCssMatStyler = /** @class */ (function () {
                     host: { 'class': 'mat-list-avatar' }
                 },] },
     ];
-    /** @nocollapse */
-    MatListAvatarCssMatStyler.ctorParameters = function () { return []; };
     return MatListAvatarCssMatStyler;
 }());
 /**
@@ -138,8 +132,6 @@ var MatListIconCssMatStyler = /** @class */ (function () {
                     host: { 'class': 'mat-list-icon' }
                 },] },
     ];
-    /** @nocollapse */
-    MatListIconCssMatStyler.ctorParameters = function () { return []; };
     return MatListIconCssMatStyler;
 }());
 /**
@@ -155,8 +147,6 @@ var MatListSubheaderCssMatStyler = /** @class */ (function () {
                     host: { 'class': 'mat-subheader' }
                 },] },
     ];
-    /** @nocollapse */
-    MatListSubheaderCssMatStyler.ctorParameters = function () { return []; };
     return MatListSubheaderCssMatStyler;
 }());
 /**
@@ -1000,8 +990,6 @@ var MatListModule = /** @class */ (function () {
                     ],
                 },] },
     ];
-    /** @nocollapse */
-    MatListModule.ctorParameters = function () { return []; };
     return MatListModule;
 }());
 

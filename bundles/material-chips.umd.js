@@ -83,8 +83,6 @@ var MatChipAvatar = /** @class */ (function () {
                     host: { 'class': 'mat-chip-avatar' }
                 },] },
     ];
-    /** @nocollapse */
-    MatChipAvatar.ctorParameters = function () { return []; };
     return MatChipAvatar;
 }());
 /**
@@ -100,8 +98,6 @@ var MatChipTrailingIcon = /** @class */ (function () {
                     host: { 'class': 'mat-chip-trailing-icon' }
                 },] },
     ];
-    /** @nocollapse */
-    MatChipTrailingIcon.ctorParameters = function () { return []; };
     return MatChipTrailingIcon;
 }());
 /**
@@ -1853,8 +1849,6 @@ var MatChipsModule = /** @class */ (function () {
                     ]
                 },] },
     ];
-    /** @nocollapse */
-    MatChipsModule.ctorParameters = function () { return []; };
     return MatChipsModule;
 }());
 

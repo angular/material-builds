@@ -39,8 +39,6 @@ var MatTable = /** @class */ (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /** @nocollapse */
-    MatTable.ctorParameters = function () { return []; };
     return MatTable;
 }(CdkTable));
 
@@ -63,8 +61,6 @@ var MatCellDef = /** @class */ (function (_super) {
                     providers: [{ provide: CdkCellDef, useExisting: MatCellDef }]
                 },] },
     ];
-    /** @nocollapse */
-    MatCellDef.ctorParameters = function () { return []; };
     return MatCellDef;
 }(CdkCellDef));
 /**
@@ -82,8 +78,6 @@ var MatHeaderCellDef = /** @class */ (function (_super) {
                     providers: [{ provide: CdkHeaderCellDef, useExisting: MatHeaderCellDef }]
                 },] },
     ];
-    /** @nocollapse */
-    MatHeaderCellDef.ctorParameters = function () { return []; };
     return MatHeaderCellDef;
 }(CdkHeaderCellDef));
 /**
@@ -102,7 +96,6 @@ var MatColumnDef = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatColumnDef.ctorParameters = function () { return []; };
     MatColumnDef.propDecorators = {
         "name": [{ type: Input, args: ['matColumnDef',] },],
     };
@@ -181,8 +174,6 @@ var MatHeaderRowDef = /** @class */ (function (_super) {
                     inputs: ['columns: matHeaderRowDef'],
                 },] },
     ];
-    /** @nocollapse */
-    MatHeaderRowDef.ctorParameters = function () { return []; };
     return MatHeaderRowDef;
 }(CdkHeaderRowDef));
 /**
@@ -203,8 +194,6 @@ var MatRowDef = /** @class */ (function (_super) {
                     inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
                 },] },
     ];
-    /** @nocollapse */
-    MatRowDef.ctorParameters = function () { return []; };
     return MatRowDef;
 }(CdkRowDef));
 /**
@@ -227,8 +216,6 @@ var MatHeaderRow = /** @class */ (function (_super) {
                     exportAs: 'matHeaderRow',
                 },] },
     ];
-    /** @nocollapse */
-    MatHeaderRow.ctorParameters = function () { return []; };
     return MatHeaderRow;
 }(CdkHeaderRow));
 /**
@@ -251,8 +238,6 @@ var MatRow = /** @class */ (function (_super) {
                     exportAs: 'matRow',
                 },] },
     ];
-    /** @nocollapse */
-    MatRow.ctorParameters = function () { return []; };
     return MatRow;
 }(CdkRow));
 
@@ -282,8 +267,6 @@ var MatTableModule = /** @class */ (function () {
                     declarations: EXPORTED_DECLARATIONS,
                 },] },
     ];
-    /** @nocollapse */
-    MatTableModule.ctorParameters = function () { return []; };
     return MatTableModule;
 }());
 

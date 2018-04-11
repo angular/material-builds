@@ -62,8 +62,6 @@ MatChipAvatar.decorators = [
                 host: { 'class': 'mat-chip-avatar' }
             },] },
 ];
-/** @nocollapse */
-MatChipAvatar.ctorParameters = () => [];
 /**
  * Dummy directive to add CSS class to chip trailing icon.
  * \@docs-private
@@ -76,8 +74,6 @@ MatChipTrailingIcon.decorators = [
                 host: { 'class': 'mat-chip-trailing-icon' }
             },] },
 ];
-/** @nocollapse */
-MatChipTrailingIcon.ctorParameters = () => [];
 /**
  * Material design styled Chip component. Used inside the MatChipList component.
  */
@@ -1424,8 +1420,6 @@ MatChipsModule.decorators = [
                 ]
             },] },
 ];
-/** @nocollapse */
-MatChipsModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

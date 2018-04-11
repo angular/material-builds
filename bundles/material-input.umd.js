@@ -91,7 +91,6 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatTextareaAutosize.ctorParameters = function () { return []; };
     MatTextareaAutosize.propDecorators = {
         "matAutosizeMinRows": [{ type: core.Input },],
         "matAutosizeMaxRows": [{ type: core.Input },],
@@ -651,8 +650,6 @@ var MatInputModule = /** @class */ (function () {
                     providers: [core$1.ErrorStateMatcher],
                 },] },
     ];
-    /** @nocollapse */
-    MatInputModule.ctorParameters = function () { return []; };
     return MatInputModule;
 }());
 

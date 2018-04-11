@@ -137,8 +137,6 @@ MatGridAvatarCssMatStyler.decorators = [
                 host: { 'class': 'mat-grid-avatar' }
             },] },
 ];
-/** @nocollapse */
-MatGridAvatarCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
@@ -151,8 +149,6 @@ MatGridTileHeaderCssMatStyler.decorators = [
                 host: { 'class': 'mat-grid-tile-header' }
             },] },
 ];
-/** @nocollapse */
-MatGridTileHeaderCssMatStyler.ctorParameters = () => [];
 /**
  * Directive whose purpose is to add the mat- CSS styling to this selector.
  * \@docs-private
@@ -165,8 +161,6 @@ MatGridTileFooterCssMatStyler.decorators = [
                 host: { 'class': 'mat-grid-tile-footer' }
             },] },
 ];
-/** @nocollapse */
-MatGridTileFooterCssMatStyler.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle
@@ -799,8 +793,6 @@ MatGridListModule.decorators = [
                 ],
             },] },
 ];
-/** @nocollapse */
-MatGridListModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

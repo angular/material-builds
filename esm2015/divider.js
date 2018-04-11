@@ -56,7 +56,6 @@ MatDivider.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatDivider.ctorParameters = () => [];
 MatDivider.propDecorators = {
     "vertical": [{ type: Input },],
     "inset": [{ type: Input },],
@@ -75,8 +74,6 @@ MatDividerModule.decorators = [
                 declarations: [MatDivider],
             },] },
 ];
-/** @nocollapse */
-MatDividerModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

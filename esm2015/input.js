@@ -58,7 +58,6 @@ MatTextareaAutosize.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatTextareaAutosize.ctorParameters = () => [];
 MatTextareaAutosize.propDecorators = {
     "matAutosizeMinRows": [{ type: Input },],
     "matAutosizeMaxRows": [{ type: Input },],
@@ -511,8 +510,6 @@ MatInputModule.decorators = [
                 providers: [ErrorStateMatcher],
             },] },
 ];
-/** @nocollapse */
-MatInputModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

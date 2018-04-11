@@ -102,7 +102,6 @@ MatTreeNodeDef.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatTreeNodeDef.ctorParameters = () => [];
 MatTreeNodeDef.propDecorators = {
     "data": [{ type: Input, args: ['matTreeNode',] },],
 };
@@ -182,7 +181,6 @@ MatTreeNodePadding.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatTreeNodePadding.ctorParameters = () => [];
 MatTreeNodePadding.propDecorators = {
     "level": [{ type: Input, args: ['matTreeNodePadding',] },],
     "indent": [{ type: Input, args: ['matTreeNodePaddingIndent',] },],
@@ -213,7 +211,6 @@ MatTree.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatTree.ctorParameters = () => [];
 MatTree.propDecorators = {
     "_nodeOutlet": [{ type: ViewChild, args: [MatTreeNodeOutlet,] },],
 };
@@ -242,7 +239,6 @@ MatTreeNodeToggle.decorators = [
             },] },
 ];
 /** @nocollapse */
-MatTreeNodeToggle.ctorParameters = () => [];
 MatTreeNodeToggle.propDecorators = {
     "recursive": [{ type: Input, args: ['matTreeNodeToggleRecursive',] },],
 };
@@ -269,8 +265,6 @@ MatTreeModule.decorators = [
                 declarations: MAT_TREE_DIRECTIVES,
             },] },
 ];
-/** @nocollapse */
-MatTreeModule.ctorParameters = () => [];
 
 /**
  * @fileoverview added by tsickle

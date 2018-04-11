@@ -844,8 +844,6 @@ var MatRadioModule = /** @class */ (function () {
                     declarations: [MatRadioGroup, MatRadioButton],
                 },] },
     ];
-    /** @nocollapse */
-    MatRadioModule.ctorParameters = function () { return []; };
     return MatRadioModule;
 }());
 
