@@ -12,7 +12,7 @@ import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARR
 import { DateAdapter, MAT_DATE_FORMATS, mixinColor } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { ComponentPortal, PortalModule } from '@angular/cdk/portal';
-import { animate, state, style, transition, trigger, group, query, animateChild } from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 import { DOCUMENT, CommonModule } from '@angular/common';
@@ -1234,6 +1234,7 @@ MatCalendarHeader.decorators = [
     { type: Component, args: [{selector: 'mat-calendar-header',
                 template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button type=\"button\" class=\"mat-calendar-period-button\" (click)=\"currentPeriodClicked()\" [attr.aria-label]=\"periodButtonLabel\">{{periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"calendar.currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button type=\"button\" class=\"mat-calendar-previous-button\" [disabled]=\"!previousEnabled()\" (click)=\"previousClicked()\" [attr.aria-label]=\"prevButtonLabel\"></button> <button mat-icon-button type=\"button\" class=\"mat-calendar-next-button\" [disabled]=\"!nextEnabled()\" (click)=\"nextClicked()\" [attr.aria-label]=\"nextButtonLabel\"></button></div></div>",
                 encapsulation: ViewEncapsulation.None,
+                preserveWhitespaces: false,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
@@ -1490,10 +1491,7 @@ const /** @type {?} */ matDatepickerAnimations = {
     transformPanel: trigger('transformPanel', [
         state('void', style({ opacity: 0, transform: 'scale(1, 0)' })),
         state('enter', style({ opacity: 1, transform: 'scale(1, 1)' })),
-        transition('void => enter', group([
-            query('@fadeInCalendar', animateChild()),
-            animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')
-        ])),
+        transition('void => enter', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
         transition('* => void', animate('100ms linear', style({ opacity: 0 })))
     ]),
     /** Fades in the content of the calendar. */

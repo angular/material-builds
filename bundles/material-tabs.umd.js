@@ -1808,26 +1808,23 @@ var MatTabNav = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    /** Notifies the component that the active link has been changed. */
     /**
      * Notifies the component that the active link has been changed.
-     * @deletion-target 7.0.0 `element` parameter to be removed.
-     */
-    /**
-     * Notifies the component that the active link has been changed.
-     * \@deletion-target 7.0.0 `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     MatTabNav.prototype.updateActiveLink = /**
      * Notifies the component that the active link has been changed.
-     * \@deletion-target 7.0.0 `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     function (element) {
-        // Note: keeping the `element` for backwards-compat, but isn't being used for anything.
-        this._activeLinkChanged = !!element;
-        this._changeDetectorRef.markForCheck();
+        this._activeLinkChanged = this._activeLinkElement != element;
+        this._activeLinkElement = element;
+        if (this._activeLinkChanged) {
+            this._changeDetectorRef.markForCheck();
+        }
     };
     /**
      * @return {?}
@@ -1839,8 +1836,7 @@ var MatTabNav = /** @class */ (function (_super) {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
             var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs.of(null);
-            return rxjs.merge(dirChange, _this._viewportRuler.change(10))
-                .pipe(operators.takeUntil(_this._onDestroy))
+            return rxjs.merge(dirChange, _this._viewportRuler.change(10)).pipe(operators.takeUntil(_this._onDestroy))
                 .subscribe(function () { return _this._alignInkBar(); });
         });
         this._setLinkDisableRipple();
@@ -1856,8 +1852,6 @@ var MatTabNav = /** @class */ (function (_super) {
      */
     function () {
         if (this._activeLinkChanged) {
-            var /** @type {?} */ activeTab = this._tabLinks.find(function (tab) { return tab.active; });
-            this._activeLinkElement = activeTab ? activeTab._elementRef : null;
             this._alignInkBar();
             this._activeLinkChanged = false;
         }
@@ -1883,11 +1877,7 @@ var MatTabNav = /** @class */ (function (_super) {
      */
     function () {
         if (this._activeLinkElement) {
-            this._inkBar.show();
             this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
-        }
-        else {
-            this._inkBar.hide();
         }
     };
     /**
@@ -1978,8 +1968,8 @@ var MatTabLink = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            if (value !== this._isActive) {
-                this._isActive = value;
+            this._isActive = value;
+            if (value) {
                 this._tabNavBar.updateActiveLink(this._elementRef);
             }
         },
@@ -2120,16 +2110,16 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe23 = MatTabBase;
+exports.ɵf23 = _MatTabMixinBase;
+exports.ɵa23 = MatTabHeaderBase;
+exports.ɵb23 = _MatTabHeaderMixinBase;
+exports.ɵc23 = MatTabLabelWrapperBase;
+exports.ɵd23 = _MatTabLabelWrapperMixinBase;
+exports.ɵi23 = MatTabLinkBase;
+exports.ɵg23 = MatTabNavBase;
+exports.ɵj23 = _MatTabLinkMixinBase;
+exports.ɵh23 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

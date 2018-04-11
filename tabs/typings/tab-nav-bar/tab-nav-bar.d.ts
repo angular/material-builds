@@ -28,8 +28,8 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
     private _viewportRuler;
     /** Subject that emits when the component has been destroyed. */
     private readonly _onDestroy;
-    private _activeLinkChanged;
-    private _activeLinkElement;
+    _activeLinkChanged: boolean;
+    _activeLinkElement: ElementRef;
     _inkBar: MatInkBar;
     /** Query list of all tab links of the tab navigation. */
     _tabLinks: QueryList<MatTabLink>;
@@ -40,10 +40,7 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
     disableRipple: boolean;
     private _disableRipple;
     constructor(elementRef: ElementRef, _dir: Directionality, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler);
-    /**
-     * Notifies the component that the active link has been changed.
-     * @deletion-target 7.0.0 `element` parameter to be removed.
-     */
+    /** Notifies the component that the active link has been changed. */
     updateActiveLink(element: ElementRef): void;
     ngAfterContentInit(): void;
     /** Checks if the active link has been changed and, if so, will update the ink bar. */
@@ -62,7 +59,7 @@ export declare const _MatTabLinkMixinBase: (new (...args: any[]) => HasTabIndex)
  */
 export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestroy, CanDisable, CanDisableRipple, HasTabIndex, RippleTarget {
     private _tabNavBar;
-    _elementRef: ElementRef;
+    private _elementRef;
     /** Whether the tab link is active or not. */
     private _isActive;
     /** Reference to the RippleRenderer for the tab-link. */
