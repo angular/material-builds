@@ -512,7 +512,7 @@ class MatIconRegistry {
         if (inProgressFetch) {
             return inProgressFetch;
         }
-        // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
+        // TODO(jelbourn): for some reason, the `finalize` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
         const /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(finalize(() => this._inProgressUrlFetches.delete(url)), share());
         this._inProgressUrlFetches.set(url, req);

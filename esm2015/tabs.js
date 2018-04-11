@@ -1397,15 +1397,14 @@ class MatTabNav extends _MatTabNavMixinBase {
     }
     /**
      * Notifies the component that the active link has been changed.
+     * \@deletion-target 7.0.0 `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     updateActiveLink(element) {
-        this._activeLinkChanged = this._activeLinkElement != element;
-        this._activeLinkElement = element;
-        if (this._activeLinkChanged) {
-            this._changeDetectorRef.markForCheck();
-        }
+        // Note: keeping the `element` for backwards-compat, but isn't being used for anything.
+        this._activeLinkChanged = !!element;
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * @return {?}
@@ -1413,7 +1412,8 @@ class MatTabNav extends _MatTabNavMixinBase {
     ngAfterContentInit() {
         this._ngZone.runOutsideAngular(() => {
             const /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
-            return merge(dirChange, this._viewportRuler.change(10)).pipe(takeUntil(this._onDestroy))
+            return merge(dirChange, this._viewportRuler.change(10))
+                .pipe(takeUntil(this._onDestroy))
                 .subscribe(() => this._alignInkBar());
         });
         this._setLinkDisableRipple();
@@ -1424,6 +1424,8 @@ class MatTabNav extends _MatTabNavMixinBase {
      */
     ngAfterContentChecked() {
         if (this._activeLinkChanged) {
+            const /** @type {?} */ activeTab = this._tabLinks.find(tab => tab.active);
+            this._activeLinkElement = activeTab ? activeTab._elementRef : null;
             this._alignInkBar();
             this._activeLinkChanged = false;
         }
@@ -1441,7 +1443,11 @@ class MatTabNav extends _MatTabNavMixinBase {
      */
     _alignInkBar() {
         if (this._activeLinkElement) {
+            this._inkBar.show();
             this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
+        }
+        else {
+            this._inkBar.hide();
         }
     }
     /**
@@ -1528,8 +1534,8 @@ class MatTabLink extends _MatTabLinkMixinBase {
      * @return {?}
      */
     set active(value) {
-        this._isActive = value;
-        if (value) {
+        if (value !== this._isActive) {
+            this._isActive = value;
             this._tabNavBar.updateActiveLink(this._elementRef);
         }
     }
@@ -1642,5 +1648,5 @@ MatTabsModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe23, _MatTabMixinBase as ɵf23, MatTabHeaderBase as ɵa23, _MatTabHeaderMixinBase as ɵb23, MatTabLabelWrapperBase as ɵc23, _MatTabLabelWrapperMixinBase as ɵd23, MatTabLinkBase as ɵi23, MatTabNavBase as ɵg23, _MatTabLinkMixinBase as ɵj23, _MatTabNavMixinBase as ɵh23 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe24, _MatTabMixinBase as ɵf24, MatTabHeaderBase as ɵa24, _MatTabHeaderMixinBase as ɵb24, MatTabLabelWrapperBase as ɵc24, _MatTabLabelWrapperMixinBase as ɵd24, MatTabLinkBase as ɵi24, MatTabNavBase as ɵg24, _MatTabLinkMixinBase as ɵj24, _MatTabNavMixinBase as ɵh24 };
 //# sourceMappingURL=tabs.js.map

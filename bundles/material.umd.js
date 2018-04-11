@@ -12230,7 +12230,6 @@ var MatCalendarHeader = /** @class */ (function () {
         { type: core.Component, args: [{selector: 'mat-calendar-header',
                     template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button type=\"button\" class=\"mat-calendar-period-button\" (click)=\"currentPeriodClicked()\" [attr.aria-label]=\"periodButtonLabel\">{{periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"calendar.currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button type=\"button\" class=\"mat-calendar-previous-button\" [disabled]=\"!previousEnabled()\" (click)=\"previousClicked()\" [attr.aria-label]=\"prevButtonLabel\"></button> <button mat-icon-button type=\"button\" class=\"mat-calendar-next-button\" [disabled]=\"!nextEnabled()\" (click)=\"nextClicked()\" [attr.aria-label]=\"nextButtonLabel\"></button></div></div>",
                     encapsulation: core.ViewEncapsulation.None,
-                    preserveWhitespaces: false,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
@@ -12559,7 +12558,10 @@ var /** @type {?} */ matDatepickerAnimations = {
     transformPanel: animations.trigger('transformPanel', [
         animations.state('void', animations.style({ opacity: 0, transform: 'scale(1, 0)' })),
         animations.state('enter', animations.style({ opacity: 1, transform: 'scale(1, 1)' })),
-        animations.transition('void => enter', animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+        animations.transition('void => enter', animations.group([
+            animations.query('@fadeInCalendar', animations.animateChild()),
+            animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')
+        ])),
         animations.transition('* => void', animations.animate('100ms linear', animations.style({ opacity: 0 })))
     ]),
     /** Fades in the content of the calendar. */
@@ -16400,7 +16402,7 @@ var MatIconRegistry = /** @class */ (function () {
         if (inProgressFetch) {
             return inProgressFetch;
         }
-        // TODO(jelbourn): for some reason, the `finally` operator "loses" the generic type on the
+        // TODO(jelbourn): for some reason, the `finalize` operator "loses" the generic type on the
         // Observable. Figure out why and fix it.
         var /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(operators.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), operators.share());
         this._inProgressUrlFetches.set(url, req);
@@ -30828,23 +30830,26 @@ var MatTabNav = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    /** Notifies the component that the active link has been changed. */
     /**
      * Notifies the component that the active link has been changed.
+     * @deletion-target 7.0.0 `element` parameter to be removed.
+     */
+    /**
+     * Notifies the component that the active link has been changed.
+     * \@deletion-target 7.0.0 `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     MatTabNav.prototype.updateActiveLink = /**
      * Notifies the component that the active link has been changed.
+     * \@deletion-target 7.0.0 `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     function (element) {
-        this._activeLinkChanged = this._activeLinkElement != element;
-        this._activeLinkElement = element;
-        if (this._activeLinkChanged) {
-            this._changeDetectorRef.markForCheck();
-        }
+        // Note: keeping the `element` for backwards-compat, but isn't being used for anything.
+        this._activeLinkChanged = !!element;
+        this._changeDetectorRef.markForCheck();
     };
     /**
      * @return {?}
@@ -30856,7 +30861,8 @@ var MatTabNav = /** @class */ (function (_super) {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
             var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs.of(null);
-            return rxjs.merge(dirChange, _this._viewportRuler.change(10)).pipe(operators.takeUntil(_this._onDestroy))
+            return rxjs.merge(dirChange, _this._viewportRuler.change(10))
+                .pipe(operators.takeUntil(_this._onDestroy))
                 .subscribe(function () { return _this._alignInkBar(); });
         });
         this._setLinkDisableRipple();
@@ -30872,6 +30878,8 @@ var MatTabNav = /** @class */ (function (_super) {
      */
     function () {
         if (this._activeLinkChanged) {
+            var /** @type {?} */ activeTab = this._tabLinks.find(function (tab) { return tab.active; });
+            this._activeLinkElement = activeTab ? activeTab._elementRef : null;
             this._alignInkBar();
             this._activeLinkChanged = false;
         }
@@ -30897,7 +30905,11 @@ var MatTabNav = /** @class */ (function (_super) {
      */
     function () {
         if (this._activeLinkElement) {
+            this._inkBar.show();
             this._inkBar.alignToElement(this._activeLinkElement.nativeElement);
+        }
+        else {
+            this._inkBar.hide();
         }
     };
     /**
@@ -30988,8 +31000,8 @@ var MatTabLink = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._isActive = value;
-            if (value) {
+            if (value !== this._isActive) {
+                this._isActive = value;
                 this._tabNavBar.updateActiveLink(this._elementRef);
             }
         },
@@ -31845,7 +31857,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.1-1acda9a');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.1-23cedc1');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32088,8 +32100,8 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MatMenuItemBase;
-exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵa23 = MatMenuItemBase;
+exports.ɵb23 = _MatMenuItemMixinBase;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32210,16 +32222,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵe24 = MatTabBase;
+exports.ɵf24 = _MatTabMixinBase;
+exports.ɵa24 = MatTabHeaderBase;
+exports.ɵb24 = _MatTabHeaderMixinBase;
+exports.ɵc24 = MatTabLabelWrapperBase;
+exports.ɵd24 = _MatTabLabelWrapperMixinBase;
+exports.ɵi24 = MatTabLinkBase;
+exports.ɵg24 = MatTabNavBase;
+exports.ɵj24 = _MatTabLinkMixinBase;
+exports.ɵh24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
