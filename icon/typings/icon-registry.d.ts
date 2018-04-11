@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Optional } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl, SafeHtml } from '@angular/platform-browser';
 import { Observable } from 'rxjs';
 /**
  * Returns an exception to be thrown in the case when attempting to
@@ -19,7 +19,13 @@ export declare function getMatIconNoHttpProviderError(): Error;
  * @param url URL that was attempted to be sanitized.
  * @docs-private
  */
-export declare function getMatIconFailedToSanitizeError(url: SafeResourceUrl): Error;
+export declare function getMatIconFailedToSanitizeUrlError(url: SafeResourceUrl): Error;
+/**
+ * Returns an exception to be thrown when a HTML string couldn't be sanitized.
+ * @param literal HTML that was attempted to be sanitized.
+ * @docs-private
+ */
+export declare function getMatIconFailedToSanitizeLiteralError(literal: SafeHtml): Error;
 /**
  * Service to register and display icons used by the `<mat-icon>` component.
  * - Registers icon URLs by namespace and name.
@@ -60,6 +66,12 @@ export declare class MatIconRegistry {
      */
     addSvgIcon(iconName: string, url: SafeResourceUrl): this;
     /**
+     * Registers an icon using an HTML string in the default namespace.
+     * @param iconName Name under which the icon should be registered.
+     * @param literal SVG source of the icon.
+     */
+    addSvgIconLiteral(iconName: string, literal: SafeHtml): this;
+    /**
      * Registers an icon by URL in the specified namespace.
      * @param namespace Namespace in which the icon should be registered.
      * @param iconName Name under which the icon should be registered.
@@ -67,16 +79,34 @@ export declare class MatIconRegistry {
      */
     addSvgIconInNamespace(namespace: string, iconName: string, url: SafeResourceUrl): this;
     /**
+     * Registers an icon using an HTML string in the specified namespace.
+     * @param namespace Namespace in which the icon should be registered.
+     * @param iconName Name under which the icon should be registered.
+     * @param literal SVG source of the icon.
+     */
+    addSvgIconLiteralInNamespace(namespace: string, iconName: string, literal: SafeHtml): this;
+    /**
      * Registers an icon set by URL in the default namespace.
      * @param url
      */
     addSvgIconSet(url: SafeResourceUrl): this;
+    /**
+     * Registers an icon set using an HTML string in the default namespace.
+     * @param literal SVG source of the icon set.
+     */
+    addSvgIconSetLiteral(literal: SafeHtml): this;
     /**
      * Registers an icon set by URL in the specified namespace.
      * @param namespace Namespace in which to register the icon set.
      * @param url
      */
     addSvgIconSetInNamespace(namespace: string, url: SafeResourceUrl): this;
+    /**
+     * Registers an icon set using an HTML string in the specified namespace.
+     * @param namespace Namespace in which to register the icon set.
+     * @param literal SVG source of the icon set.
+     */
+    addSvgIconSetLiteralInNamespace(namespace: string, literal: SafeHtml): this;
     /**
      * Defines an alias for a CSS class name to be used for icon fonts. Creating an matIcon
      * component with the alias as the fontSet input will cause the class name to be applied
@@ -177,6 +207,19 @@ export declare class MatIconRegistry {
      * cached, so future calls with the same URL may not cause another HTTP request.
      */
     private _fetchUrl(safeUrl);
+    /**
+     * Registers an icon config by name in the specified namespace.
+     * @param namespace Namespace in which to register the icon config.
+     * @param iconName Name under which to register the config.
+     * @param config Config to be registered.
+     */
+    private _addSvgIconConfig(namespace, iconName, config);
+    /**
+     * Registers an icon set config in the specified namespace.
+     * @param namespace Namespace in which to register the icon config.
+     * @param config Config to be registered.
+     */
+    private _addSvgIconSetConfig(namespace, config);
 }
 /** @docs-private */
 export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, document?: any): MatIconRegistry;
