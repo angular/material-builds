@@ -940,7 +940,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
         { type: formField.MatFormField, decorators: [{ type: core.Optional }, { type: core.Host },] },
-        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
         { type: overlay.ViewportRuler, },
     ]; };
     MatAutocompleteTrigger.propDecorators = {

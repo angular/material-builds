@@ -230,12 +230,11 @@ var /** @type {?} */ matBottomSheetAnimations = {
  */
 var MatBottomSheetContainer = /** @class */ (function (_super) {
     __extends(MatBottomSheetContainer, _super);
-    function MatBottomSheetContainer(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, _document) {
+    function MatBottomSheetContainer(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusTrapFactory = _focusTrapFactory;
-        _this._document = _document;
         /**
          * The state of the bottom sheet animations.
          */
@@ -248,6 +247,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
          * Element that was focused before the bottom sheet was opened.
          */
         _this._elementFocusedBeforeOpened = null;
+        _this._document = document;
         _this._breakpointSubscription = breakpointObserver
             .observe([layout.Breakpoints.Medium, layout.Breakpoints.Large, layout.Breakpoints.XLarge])
             .subscribe(function () {
@@ -474,7 +474,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         { type: core.ChangeDetectorRef, },
         { type: a11y.FocusTrapFactory, },
         { type: layout.BreakpointObserver, },
-        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatBottomSheetContainer.propDecorators = {
         "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],

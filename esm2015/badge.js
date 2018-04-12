@@ -225,7 +225,7 @@ MatBadge.decorators = [
 ];
 /** @nocollapse */
 MatBadge.ctorParameters = () => [
-    { type: Document, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
     { type: NgZone, },
     { type: ElementRef, },
     { type: AriaDescriber, },

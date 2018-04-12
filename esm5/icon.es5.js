@@ -89,10 +89,9 @@ SvgIconConfig = /** @class */ (function () {
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 var MatIconRegistry = /** @class */ (function () {
-    function MatIconRegistry(_httpClient, _sanitizer, _document) {
+    function MatIconRegistry(_httpClient, _sanitizer, document) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
-        this._document = _document;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
          */
@@ -120,6 +119,7 @@ var MatIconRegistry = /** @class */ (function () {
          * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
          */
         this._defaultFontSetClass = 'material-icons';
+        this._document = document;
     }
     /**
      * Registers an icon by URL in the default namespace.
@@ -811,7 +811,7 @@ var MatIconRegistry = /** @class */ (function () {
     MatIconRegistry.ctorParameters = function () { return [
         { type: HttpClient, decorators: [{ type: Optional },] },
         { type: DomSanitizer, },
-        { type: Document, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
     ]; };
     /** @nocollapse */ MatIconRegistry.ngInjectableDef = defineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(inject(HttpClient, null, 0), inject(DomSanitizer), inject(DOCUMENT, null, 0)); }, token: MatIconRegistry, providedIn: "root" });
     return MatIconRegistry;

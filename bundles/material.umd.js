@@ -4408,7 +4408,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
         { type: MatFormField, decorators: [{ type: core.Optional }, { type: core.Host },] },
-        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
         { type: overlay.ViewportRuler, },
     ]; };
     MatAutocompleteTrigger.propDecorators = {
@@ -4693,7 +4693,7 @@ var MatBadge = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatBadge.ctorParameters = function () { return [
-        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
         { type: core.NgZone, },
         { type: core.ElementRef, },
         { type: a11y.AriaDescriber, },
@@ -4912,12 +4912,11 @@ var /** @type {?} */ matBottomSheetAnimations = {
  */
 var MatBottomSheetContainer = /** @class */ (function (_super) {
     __extends(MatBottomSheetContainer, _super);
-    function MatBottomSheetContainer(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, _document) {
+    function MatBottomSheetContainer(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusTrapFactory = _focusTrapFactory;
-        _this._document = _document;
         /**
          * The state of the bottom sheet animations.
          */
@@ -4930,6 +4929,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
          * Element that was focused before the bottom sheet was opened.
          */
         _this._elementFocusedBeforeOpened = null;
+        _this._document = document;
         _this._breakpointSubscription = breakpointObserver
             .observe([layout.Breakpoints.Medium, layout.Breakpoints.Large, layout.Breakpoints.XLarge])
             .subscribe(function () {
@@ -5156,7 +5156,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         { type: core.ChangeDetectorRef, },
         { type: a11y.FocusTrapFactory, },
         { type: layout.BreakpointObserver, },
-        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatBottomSheetContainer.propDecorators = {
         "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],
@@ -9285,7 +9285,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
         { type: core.ElementRef, },
         { type: a11y.FocusTrapFactory, },
         { type: core.ChangeDetectorRef, },
-        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatDialogContainer.propDecorators = {
         "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],
@@ -13013,7 +13013,7 @@ var MatDatepicker = /** @class */ (function () {
             throw Error('Attempted to open an MatDatepicker with no associated input.');
         }
         if (this._document) {
-            this._focusedElementBeforeOpen = /** @type {?} */ (this._document.activeElement);
+            this._focusedElementBeforeOpen = this._document.activeElement;
         }
         this.touchUi ? this._openAsDialog() : this._openAsPopup();
         this._opened = true;
@@ -13224,7 +13224,7 @@ var MatDatepicker = /** @class */ (function () {
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DATEPICKER_SCROLL_STRATEGY,] },] },
         { type: DateAdapter, decorators: [{ type: core.Optional },] },
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatDatepicker.propDecorators = {
         "calendarHeaderComponent": [{ type: core.Input },],
@@ -15731,10 +15731,9 @@ SvgIconConfig = /** @class */ (function () {
  * - Loads icons from URLs and extracts individual icons from icon sets.
  */
 var MatIconRegistry = /** @class */ (function () {
-    function MatIconRegistry(_httpClient, _sanitizer, _document) {
+    function MatIconRegistry(_httpClient, _sanitizer, document) {
         this._httpClient = _httpClient;
         this._sanitizer = _sanitizer;
-        this._document = _document;
         /**
          * URLs and cached SVG elements for individual icons. Keys are of the format "[namespace]:[icon]".
          */
@@ -15762,6 +15761,7 @@ var MatIconRegistry = /** @class */ (function () {
          * described at http://google.github.io/material-design-icons/#icon-font-for-the-web
          */
         this._defaultFontSetClass = 'material-icons';
+        this._document = document;
     }
     /**
      * Registers an icon by URL in the default namespace.
@@ -16453,7 +16453,7 @@ var MatIconRegistry = /** @class */ (function () {
     MatIconRegistry.ctorParameters = function () { return [
         { type: http.HttpClient, decorators: [{ type: core.Optional },] },
         { type: platformBrowser.DomSanitizer, },
-        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     /** @nocollapse */ MatIconRegistry.ngInjectableDef = core.defineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(core.inject(http.HttpClient, null, 0), core.inject(platformBrowser.DomSanitizer), core.inject(common.DOCUMENT, null, 0)); }, token: MatIconRegistry, providedIn: "root" });
     return MatIconRegistry;
@@ -17868,7 +17868,7 @@ var MatMenuContent = /** @class */ (function () {
         { type: core.ApplicationRef, },
         { type: core.Injector, },
         { type: core.ViewContainerRef, },
-        { type: Document, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     return MatMenuContent;
 }());
@@ -22685,7 +22685,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
     MatProgressSpinner.ctorParameters = function () { return [
         { type: core.ElementRef, },
         { type: platform.Platform, },
-        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     MatProgressSpinner.propDecorators = {
         "diameter": [{ type: core.Input },],
@@ -22728,7 +22728,7 @@ var MatSpinner = /** @class */ (function (_super) {
     MatSpinner.ctorParameters = function () { return [
         { type: core.ElementRef, },
         { type: platform.Platform, },
-        { type: Document, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     return MatSpinner;
 }(MatProgressSpinner));
@@ -31855,7 +31855,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.2-f1a33e9');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.2-7f278ad');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32098,8 +32098,8 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32220,16 +32220,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe22 = MatTabBase;
+exports.ɵf22 = _MatTabMixinBase;
+exports.ɵa22 = MatTabHeaderBase;
+exports.ɵb22 = _MatTabHeaderMixinBase;
+exports.ɵc22 = MatTabLabelWrapperBase;
+exports.ɵd22 = _MatTabLabelWrapperMixinBase;
+exports.ɵi22 = MatTabLinkBase;
+exports.ɵg22 = MatTabNavBase;
+exports.ɵj22 = _MatTabLinkMixinBase;
+exports.ɵh22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

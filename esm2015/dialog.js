@@ -283,7 +283,7 @@ MatDialogContainer.ctorParameters = () => [
     { type: ElementRef, },
     { type: FocusTrapFactory, },
     { type: ChangeDetectorRef, },
-    { type: Document, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MatDialogContainer.propDecorators = {
     "_portalOutlet": [{ type: ViewChild, args: [CdkPortalOutlet,] },],

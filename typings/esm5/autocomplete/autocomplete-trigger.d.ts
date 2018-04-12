@@ -65,7 +65,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     _onTouched: () => void;
     /** The autocomplete panel to be attached to this trigger. */
     autocomplete: MatAutocomplete;
-    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, _scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: Document, _viewportRuler?: ViewportRuler | undefined);
+    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, _scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler?: ViewportRuler | undefined);
     ngOnDestroy(): void;
     /** Whether or not the autocomplete panel is open. */
     readonly panelOpen: boolean;

@@ -923,7 +923,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
         { type: Directionality, decorators: [{ type: Optional },] },
         { type: MatFormField, decorators: [{ type: Optional }, { type: Host },] },
-        { type: Document, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
         { type: ViewportRuler, },
     ]; };
     MatAutocompleteTrigger.propDecorators = {

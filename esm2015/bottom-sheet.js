@@ -166,14 +166,13 @@ class MatBottomSheetContainer extends BasePortalOutlet {
      * @param {?} _changeDetectorRef
      * @param {?} _focusTrapFactory
      * @param {?} breakpointObserver
-     * @param {?} _document
+     * @param {?} document
      */
-    constructor(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, _document) {
+    constructor(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document) {
         super();
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._focusTrapFactory = _focusTrapFactory;
-        this._document = _document;
         /**
          * The state of the bottom sheet animations.
          */
@@ -186,6 +185,7 @@ class MatBottomSheetContainer extends BasePortalOutlet {
          * Element that was focused before the bottom sheet was opened.
          */
         this._elementFocusedBeforeOpened = null;
+        this._document = document;
         this._breakpointSubscription = breakpointObserver
             .observe([Breakpoints.Medium, Breakpoints.Large, Breakpoints.XLarge])
             .subscribe(() => {
@@ -353,7 +353,7 @@ MatBottomSheetContainer.ctorParameters = () => [
     { type: ChangeDetectorRef, },
     { type: FocusTrapFactory, },
     { type: BreakpointObserver, },
-    { type: Document, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
 ];
 MatBottomSheetContainer.propDecorators = {
     "_portalOutlet": [{ type: ViewChild, args: [CdkPortalOutlet,] },],
