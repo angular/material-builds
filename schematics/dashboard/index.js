@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
 const ast_1 = require("../utils/ast");
-const find_module_1 = require("../utils/devkit-utils/find-module");
 const component_1 = require("../utils/devkit-utils/component");
 /**
  * Scaffolds a new navigation component.
@@ -20,7 +19,7 @@ exports.default = default_1;
  */
 function addNavModulesToModule(options) {
     return (host) => {
-        const modulePath = find_module_1.findModuleFromOptions(host, options);
+        const modulePath = ast_1.findModuleFromOptions(host, options);
         ast_1.addModuleImportToModule(host, modulePath, 'MatGridListModule', '@angular/material');
         ast_1.addModuleImportToModule(host, modulePath, 'MatCardModule', '@angular/material');
         ast_1.addModuleImportToModule(host, modulePath, 'MatMenuModule', '@angular/material');

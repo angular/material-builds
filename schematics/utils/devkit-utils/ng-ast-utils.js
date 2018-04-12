@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics");
+const path_1 = require("path");
 const ts = require("typescript");
 const ast_utils_1 = require("./ast-utils");
 function findBootstrapModuleCall(host, mainPath) {
@@ -63,10 +64,10 @@ function findBootstrapModulePath(host, mainPath) {
     return bootstrapModuleRelativePath;
 }
 exports.findBootstrapModulePath = findBootstrapModulePath;
-function getAppModulePath(host, app) {
-    const mainPath = core_1.normalize(`/${app.root}/${app.main}`);
+function getAppModulePath(host, mainPath) {
     const moduleRelativePath = findBootstrapModulePath(host, mainPath);
-    const modulePath = core_1.normalize(`/${app.root}/${moduleRelativePath}.ts`);
+    const mainDir = path_1.dirname(mainPath);
+    const modulePath = core_1.normalize(`/${mainDir}/${moduleRelativePath}.ts`);
     return modulePath;
 }
 exports.getAppModulePath = getAppModulePath;

@@ -162,7 +162,6 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      */
     ngAfterContentInit() {
         this._selectionModel.select(...this._buttonToggles.filter(toggle => toggle.checked));
-        this._tempValue = undefined;
     }
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
@@ -249,13 +248,13 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      * @return {?}
      */
     _isPrechecked(toggle) {
-        if (typeof this._tempValue === 'undefined') {
+        if (typeof this._rawValue === 'undefined') {
             return false;
         }
-        if (this.multiple && Array.isArray(this._tempValue)) {
-            return !!this._tempValue.find(value => toggle.value != null && value === toggle.value);
+        if (this.multiple && Array.isArray(this._rawValue)) {
+            return !!this._rawValue.find(value => toggle.value != null && value === toggle.value);
         }
-        return toggle.value === this._tempValue;
+        return toggle.value === this._rawValue;
     }
     /**
      * Updates the selection state of the toggles in the group based on a value.
@@ -263,9 +262,8 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      * @return {?}
      */
     _setSelectionByValue(value) {
-        // If the toggles haven't been initialized yet, save the value for later.
+        this._rawValue = value;
         if (!this._buttonToggles) {
-            this._tempValue = value;
             return;
         }
         if (this.multiple && value) {

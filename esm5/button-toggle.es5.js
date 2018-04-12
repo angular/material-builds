@@ -203,7 +203,6 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
      */
     function () {
         (_a = this._selectionModel).select.apply(_a, this._buttonToggles.filter(function (toggle) { return toggle.checked; }));
-        this._tempValue = undefined;
         var _a;
     };
     /**
@@ -346,13 +345,13 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
      * @return {?}
      */
     function (toggle) {
-        if (typeof this._tempValue === 'undefined') {
+        if (typeof this._rawValue === 'undefined') {
             return false;
         }
-        if (this.multiple && Array.isArray(this._tempValue)) {
-            return !!this._tempValue.find(function (value) { return toggle.value != null && value === toggle.value; });
+        if (this.multiple && Array.isArray(this._rawValue)) {
+            return !!this._rawValue.find(function (value) { return toggle.value != null && value === toggle.value; });
         }
-        return toggle.value === this._tempValue;
+        return toggle.value === this._rawValue;
     };
     /**
      * Updates the selection state of the toggles in the group based on a value.
@@ -366,9 +365,8 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
      */
     function (value) {
         var _this = this;
-        // If the toggles haven't been initialized yet, save the value for later.
+        this._rawValue = value;
         if (!this._buttonToggles) {
-            this._tempValue = value;
             return;
         }
         if (this.multiple && value) {

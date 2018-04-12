@@ -8,24 +8,43 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * found in the LICENSE file at https://angular.io/license
  */
 const schematics_1 = require("@angular-devkit/schematics");
-exports.configPath = '/.angular-cli.json';
-function getConfig(host) {
-    const configBuffer = host.read(exports.configPath);
+exports.ANGULAR_CLI_WORKSPACE_PATH = '/angular.json';
+/** Gets the Angular CLI workspace config (angular.json) */
+function getWorkspace(host) {
+    const configBuffer = host.read(exports.ANGULAR_CLI_WORKSPACE_PATH);
     if (configBuffer === null) {
-        throw new schematics_1.SchematicsException('Could not find .angular-cli.json');
+        throw new schematics_1.SchematicsException('Could not find angular.json');
     }
-    const config = JSON.parse(configBuffer.toString());
-    return config;
+    return JSON.parse(configBuffer.toString());
 }
-exports.getConfig = getConfig;
-function getAppFromConfig(config, appIndexOrName) {
-    if (!config.apps) {
-        return null;
+exports.getWorkspace = getWorkspace;
+/**
+ * Gets a project from the Angular CLI workspace. If no project name is given, the first project
+ * will be retrieved.
+ */
+function getProjectFromWorkspace(config, projectName) {
+    if (config.projects) {
+        if (projectName) {
+            const project = config.projects[projectName];
+            if (!project) {
+                throw new schematics_1.SchematicsException(`No project named "${projectName}" exists.`);
+            }
+            Object.defineProperty(project, 'name', { enumerable: false, value: projectName });
+            return project;
+        }
+        const allProjectNames = Object.keys(config.projects);
+        if (allProjectNames.length === 1) {
+            const project = config.projects[allProjectNames[0]];
+            // Set a non-enumerable project name to the project. We need the name for schematics
+            // later on, but don't want to write it back out to the config file.
+            Object.defineProperty(project, 'name', { enumerable: false, value: projectName });
+            return project;
+        }
+        else {
+            throw new schematics_1.SchematicsException('Multiple projects are defined; please specify a project name');
+        }
     }
-    if (parseInt(appIndexOrName) >= 0) {
-        return config.apps[parseInt(appIndexOrName)];
-    }
-    return config.apps.filter((app) => app.name === appIndexOrName)[0];
+    throw new schematics_1.SchematicsException('No projects are defined');
 }
-exports.getAppFromConfig = getAppFromConfig;
+exports.getProjectFromWorkspace = getProjectFromWorkspace;
 //# sourceMappingURL=config.js.map

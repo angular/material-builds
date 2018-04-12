@@ -6,6 +6,9 @@ const ts = require("typescript");
 const ast_utils_1 = require("./ast-utils");
 const change_1 = require("./change");
 const find_module_1 = require("./find-module");
+const config_1 = require("./config");
+const parse_name_1 = require("./parse-name");
+const validation_1 = require("./validation");
 function addDeclarationToNgModule(options) {
     return (host) => {
         if (options.skipImport || !options.module) {
@@ -18,7 +21,7 @@ function addDeclarationToNgModule(options) {
         }
         const sourceText = text.toString('utf-8');
         const source = ts.createSourceFile(modulePath, sourceText, ts.ScriptTarget.Latest, true);
-        const componentPath = `/${options.sourceDir}/${options.path}/`
+        const componentPath = `/${options.path}/`
             + (options.flat ? '' : core_1.strings.dasherize(options.name) + '/')
             + core_1.strings.dasherize(options.name)
             + '.component';
@@ -60,20 +63,27 @@ function buildSelector(options) {
     return selector;
 }
 function buildComponent(options) {
-    const sourceDir = options.sourceDir;
-    if (!sourceDir) {
-        throw new schematics_1.SchematicsException(`sourceDir option is required.`);
-    }
     return (host, context) => {
+        const workspace = config_1.getWorkspace(host);
+        if (!options.project) {
+            options.project = Object.keys(workspace.projects)[0];
+        }
+        const project = workspace.projects[options.project];
+        if (options.path === undefined) {
+            options.path = `/${project.root}/src/app`;
+        }
         options.selector = options.selector || buildSelector(options);
-        options.path = options.path ? core_1.normalize(options.path) : options.path;
         options.module = find_module_1.findModuleFromOptions(host, options);
+        const parsedPath = parse_name_1.parseName(options.path, options.name);
+        options.name = parsedPath.name;
+        options.path = parsedPath.path;
+        validation_1.validateName(options.name);
         const templateSource = schematics_1.apply(schematics_1.url('./files'), [
             options.spec ? schematics_1.noop() : schematics_1.filter(path => !path.endsWith('.spec.ts')),
             options.inlineStyle ? schematics_1.filter(path => !path.endsWith('.__styleext__')) : schematics_1.noop(),
             options.inlineTemplate ? schematics_1.filter(path => !path.endsWith('.html')) : schematics_1.noop(),
             schematics_1.template(Object.assign({}, core_1.strings, { 'if-flat': (s) => options.flat ? '' : s }, options)),
-            schematics_1.move(sourceDir),
+            schematics_1.move(null, parsedPath.path),
         ]);
         return schematics_1.chain([
             schematics_1.branchAndMerge(schematics_1.chain([

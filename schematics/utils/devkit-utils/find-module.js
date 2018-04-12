@@ -16,12 +16,12 @@ function findModuleFromOptions(host, options) {
         return undefined;
     }
     if (!options.module) {
-        const pathToCheck = (options.sourceDir || '') + '/' + (options.path || '')
+        const pathToCheck = (options.path || '')
             + (options.flat ? '' : '/' + core_1.strings.dasherize(options.name));
         return core_1.normalize(findModule(host, pathToCheck));
     }
     else {
-        const modulePath = core_1.normalize('/' + options.sourceDir + '/' + (options.appRoot || options.path) + '/' + options.module);
+        const modulePath = core_1.normalize('/' + (options.path) + '/' + options.module);
         const moduleBaseName = core_1.normalize(modulePath).split('/').pop();
         if (host.exists(modulePath)) {
             return core_1.normalize(modulePath);
@@ -59,8 +59,8 @@ function findModule(host, generateDir) {
         }
         dir = dir.parent;
     }
-    throw new Error('Could not find an NgModule for the new component. Use the skip-import '
-        + 'option to skip importing components in NgModule.');
+    throw new Error('Could not find an NgModule. Use the skip-import '
+        + 'option to skip importing in NgModule.');
 }
 exports.findModule = findModule;
 /**

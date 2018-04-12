@@ -79,7 +79,7 @@ exports.findNode = findNode;
  * @return function to sort nodes in increasing order of position in sourceFile
  */
 function nodesByPosition(first, second) {
-    return first.pos - second.pos;
+    return first.getStart() - second.getStart();
 }
 /**
  * Insert `toInsert` after the last occurence of `ts.SyntaxKind[nodes[i].kind]`
@@ -105,7 +105,7 @@ function insertAfterLastOccurrence(nodes, toInsert, file, fallbackPos, syntaxKin
     if (!lastItem && fallbackPos == undefined) {
         throw new Error(`tried to insert ${toInsert} as first occurence with no fallback position`);
     }
-    const lastItemPosition = lastItem ? lastItem.end : fallbackPos;
+    const lastItemPosition = lastItem ? lastItem.getEnd() : fallbackPos;
     return new change_1.InsertChange(file, lastItemPosition, toInsert);
 }
 exports.insertAfterLastOccurrence = insertAfterLastOccurrence;
@@ -204,6 +204,34 @@ function getDecoratorMetadata(source, identifier, module) {
         .map(expr => expr.arguments[0]);
 }
 exports.getDecoratorMetadata = getDecoratorMetadata;
+function findClassDeclarationParent(node) {
+    if (ts.isClassDeclaration(node)) {
+        return node;
+    }
+    return node.parent && findClassDeclarationParent(node.parent);
+}
+/**
+ * Given a source file with @NgModule class(es), find the name of the first @NgModule class.
+ *
+ * @param source source file containing one or more @NgModule
+ * @returns the name of the first @NgModule, or `undefined` if none is found
+ */
+function getFirstNgModuleName(source) {
+    // First, find the @NgModule decorators.
+    const ngModulesMetadata = getDecoratorMetadata(source, 'NgModule', '@angular/core');
+    if (ngModulesMetadata.length === 0) {
+        return undefined;
+    }
+    // Then walk parent pointers up the AST, looking for the ClassDeclaration parent of the NgModule
+    // metadata.
+    const moduleClass = findClassDeclarationParent(ngModulesMetadata[0]);
+    if (!moduleClass || !moduleClass.name) {
+        return undefined;
+    }
+    // Get the class name of the module ClassDeclaration.
+    return moduleClass.name.text;
+}
+exports.getFirstNgModuleName = getFirstNgModuleName;
 function addSymbolToNgModuleMetadata(source, ngModulePath, metadataField, symbolName, importPath = null) {
     const nodes = getDecoratorMetadata(source, 'NgModule', '@angular/core');
     let node = nodes[0]; // tslint:disable-line:no-any

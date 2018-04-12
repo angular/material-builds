@@ -37,11 +37,12 @@ exports.getHeadTag = getHeadTag;
 /**
  * Adds a link to the index.html head tag Example:
  * `<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">`
- * @param host the tree we are updating
+ * @param host The tree we are updating
+ * @param project The project we're targeting.
  * @param link html element string we are inserting.
  */
-function addHeadLink(host, link) {
-    const indexPath = ast_1.getIndexHtmlPath(host);
+function addHeadLink(host, project, link) {
+    const indexPath = ast_1.getIndexHtmlPath(host, project);
     const buffer = host.read(indexPath);
     if (!buffer) {
         throw new schematics_1.SchematicsException(`Could not find file for path: ${indexPath}`);

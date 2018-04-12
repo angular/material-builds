@@ -46,10 +46,12 @@ export declare class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase
     private _multiple;
     private _selectionModel;
     /**
-     * Used for storing a value temporarily, if it is assigned
-     * before the button toggles are initialized.
+     * Reference to the raw value that the consumer tried to assign. The real
+     * value will exaclude any values from this one that don't correspond to a
+     * toggle. Useful for the cases where the value is assigned before the toggles
+     * have been initialized or at the same that they're being swapped out.
      */
-    private _tempValue;
+    private _rawValue;
     /**
      * The method to be called in order to update ngModel.
      * Now `ngModel` binding is not supported in multiple selection mode.
