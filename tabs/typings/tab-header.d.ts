@@ -157,5 +157,5 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
      */
     _getMaxScrollDistance(): number;
     /** Tells the ink-bar to align itself to the current label wrapper */
-    private _alignInkBarToSelectedTab();
+    _alignInkBarToSelectedTab(): void;
 }

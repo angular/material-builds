@@ -26,6 +26,7 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     private _changeDetectorRef;
     _tabs: QueryList<MatTab>;
     _tabBodyWrapper: ElementRef;
+    _tabHeader: MatTabHeader;
     /** The tab index that should be selected after the content has been checked. */
     private _indexToSelect;
     /** Snapshot of the height of the tab body wrapper before another tab is activated. */
@@ -64,6 +65,8 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     ngAfterContentChecked(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
+    /** Re-aligns the ink bar to the selected tab element. */
+    realignInkBar(): void;
     _focusChanged(index: number): void;
     private _createChangeEvent(index);
     /**
