@@ -3,5 +3,6 @@
   "typings": "../radio.d.ts",
   "main": "../bundles/material-radio.umd.js",
   "module": "../esm5/radio.es5.js",
-  "es2015": "../esm2015/radio.js"
+  "es2015": "../esm2015/radio.js",
+  "sideEffects": false
 }

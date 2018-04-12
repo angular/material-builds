@@ -3,5 +3,6 @@
   "typings": "../sort.d.ts",
   "main": "../bundles/material-sort.umd.js",
   "module": "../esm5/sort.es5.js",
-  "es2015": "../esm2015/sort.js"
+  "es2015": "../esm2015/sort.js",
+  "sideEffects": false
 }

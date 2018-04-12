@@ -3,5 +3,6 @@
   "typings": "../expansion.d.ts",
   "main": "../bundles/material-expansion.umd.js",
   "module": "../esm5/expansion.es5.js",
-  "es2015": "../esm2015/expansion.js"
+  "es2015": "../esm2015/expansion.js",
+  "sideEffects": false
 }

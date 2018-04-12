@@ -3,5 +3,6 @@
   "typings": "../table.d.ts",
   "main": "../bundles/material-table.umd.js",
   "module": "../esm5/table.es5.js",
-  "es2015": "../esm2015/table.js"
+  "es2015": "../esm2015/table.js",
+  "sideEffects": false
 }

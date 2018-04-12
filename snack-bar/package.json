@@ -3,5 +3,6 @@
   "typings": "../snack-bar.d.ts",
   "main": "../bundles/material-snack-bar.umd.js",
   "module": "../esm5/snack-bar.es5.js",
-  "es2015": "../esm2015/snack-bar.js"
+  "es2015": "../esm2015/snack-bar.js",
+  "sideEffects": false
 }

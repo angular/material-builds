@@ -3,5 +3,6 @@
   "typings": "../tree.d.ts",
   "main": "../bundles/material-tree.umd.js",
   "module": "../esm5/tree.es5.js",
-  "es2015": "../esm2015/tree.js"
+  "es2015": "../esm2015/tree.js",
+  "sideEffects": false
 }

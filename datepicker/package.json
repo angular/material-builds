@@ -3,5 +3,6 @@
   "typings": "../datepicker.d.ts",
   "main": "../bundles/material-datepicker.umd.js",
   "module": "../esm5/datepicker.es5.js",
-  "es2015": "../esm2015/datepicker.js"
+  "es2015": "../esm2015/datepicker.js",
+  "sideEffects": false
 }

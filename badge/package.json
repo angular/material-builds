@@ -3,5 +3,6 @@
   "typings": "../badge.d.ts",
   "main": "../bundles/material-badge.umd.js",
   "module": "../esm5/badge.es5.js",
-  "es2015": "../esm2015/badge.js"
+  "es2015": "../esm2015/badge.js",
+  "sideEffects": false
 }

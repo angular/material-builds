@@ -3,5 +3,6 @@
   "typings": "../grid-list.d.ts",
   "main": "../bundles/material-grid-list.umd.js",
   "module": "../esm5/grid-list.es5.js",
-  "es2015": "../esm2015/grid-list.js"
+  "es2015": "../esm2015/grid-list.js",
+  "sideEffects": false
 }

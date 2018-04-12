@@ -3,5 +3,6 @@
   "typings": "../card.d.ts",
   "main": "../bundles/material-card.umd.js",
   "module": "../esm5/card.es5.js",
-  "es2015": "../esm2015/card.js"
+  "es2015": "../esm2015/card.js",
+  "sideEffects": false
 }

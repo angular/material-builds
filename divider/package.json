@@ -3,5 +3,6 @@
   "typings": "../divider.d.ts",
   "main": "../bundles/material-divider.umd.js",
   "module": "../esm5/divider.es5.js",
-  "es2015": "../esm2015/divider.js"
+  "es2015": "../esm2015/divider.js",
+  "sideEffects": false
 }
