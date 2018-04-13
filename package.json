@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "6.0.0-rc.3-c61cd69",
+  "version": "6.0.0-rc.4-0a3cfa7",
   "description": "Angular Material",
   "main": "./bundles/material.umd.js",
   "module": "./esm5/material.es5.js",
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/angular/material2#readme",
   "peerDependencies": {
-    "@angular/cdk": "6.0.0-rc.3-c61cd69",
+    "@angular/cdk": "6.0.0-rc.4-0a3cfa7",
     "@angular/core": ">=6.0.0-beta.0 <7.0.0",
     "@angular/common": ">=6.0.0-beta.0 <7.0.0"
   },
@@ -30,5 +30,15 @@
     "tslib": "^1.7.1"
   },
   "schematics": "./schematics/collection.json",
+  "ng-update": {
+    "requirements": {
+      "@angular/material": "^5",
+      "migrations": "./schematics/migration.json",
+      "packageGroup": [
+        "@angular/cdk",
+        "@angular/material-moment-adapter"
+      ]
+    }
+  },
   "sideEffects": false
 }
