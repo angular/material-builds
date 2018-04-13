@@ -572,6 +572,15 @@ var MatButtonToggle = /** @class */ (function (_super) {
         }
         this._focusMonitor.monitor(this._elementRef.nativeElement, true);
     };
+    /**
+     * @return {?}
+     */
+    MatButtonToggle.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+    };
     /** Focuses the button. */
     /**
      * Focuses the button.

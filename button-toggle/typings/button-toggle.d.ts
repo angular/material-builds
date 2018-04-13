@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnInit, QueryList } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanDisable, CanDisableRipple } from '@angular/material/core';
 /** Acceptable types for a button toggle. */
@@ -116,7 +116,7 @@ export declare class MatButtonToggleBase {
 }
 export declare const _MatButtonToggleMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatButtonToggleBase;
 /** Single button inside of a toggle group. */
-export declare class MatButtonToggle extends _MatButtonToggleMixinBase implements OnInit, CanDisableRipple {
+export declare class MatButtonToggle extends _MatButtonToggleMixinBase implements OnInit, CanDisableRipple, OnDestroy {
     private _changeDetectorRef;
     private _elementRef;
     private _focusMonitor;
@@ -133,7 +133,7 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     ariaLabelledby: string | null;
     /** Type of the button toggle. Either 'radio' or 'checkbox'. */
     _type: ToggleType;
-    _inputElement: ElementRef;
+    _inputElement: ElementRef<HTMLInputElement>;
     /** The parent button toggle group (exclusive selection). Optional. */
     buttonToggleGroup: MatButtonToggleGroup;
     /** Unique ID for the underlying `input` element. */
@@ -151,8 +151,9 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     private _disabled;
     /** Event emitted when the group value changes. */
     readonly change: EventEmitter<MatButtonToggleChange>;
-    constructor(toggleGroup: MatButtonToggleGroup, _changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef, _focusMonitor: FocusMonitor);
+    constructor(toggleGroup: MatButtonToggleGroup, _changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _focusMonitor: FocusMonitor);
     ngOnInit(): void;
+    ngOnDestroy(): void;
     /** Focuses the button. */
     focus(): void;
     /** Checks the button toggle due to an interaction with the underlying native input. */

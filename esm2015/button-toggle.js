@@ -418,6 +418,12 @@ class MatButtonToggle extends _MatButtonToggleMixinBase {
         this._focusMonitor.monitor(this._elementRef.nativeElement, true);
     }
     /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+    }
+    /**
      * Focuses the button.
      * @return {?}
      */
