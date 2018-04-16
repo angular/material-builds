@@ -544,7 +544,7 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     open() {
-        if (this.disabled || !this.options || !this.options.length) {
+        if (this.disabled || !this.options || !this.options.length || this._panelOpen) {
             return;
         }
         this._triggerRect = this.trigger.nativeElement.getBoundingClientRect();
