@@ -7,7 +7,8 @@
  */
 import { Directionality } from '@angular/cdk/bidi';
 import { CdkStep, CdkStepper } from '@angular/cdk/stepper';
-import { AfterContentInit, ChangeDetectorRef, QueryList, TemplateRef } from '@angular/core';
+import { AnimationEvent } from '@angular/animations';
+import { AfterContentInit, ChangeDetectorRef, EventEmitter, QueryList, TemplateRef } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { MatStepHeader } from './step-header';
@@ -28,11 +29,14 @@ export declare class MatStepper extends CdkStepper implements AfterContentInit {
     _steps: QueryList<MatStep>;
     /** Custom icon overrides passed in by the consumer. */
     _icons: QueryList<MatStepperIcon>;
+    /** Event emitted when the current step is done transitioning in. */
+    readonly animationDone: EventEmitter<void>;
     /** Consumer-specified template-refs to be used to override the header icons. */
     _iconOverrides: {
         [key: string]: TemplateRef<MatStepperIconContext>;
     };
     ngAfterContentInit(): void;
+    _animationDone(event: AnimationEvent): void;
 }
 export declare class MatHorizontalStepper extends MatStepper {
 }
