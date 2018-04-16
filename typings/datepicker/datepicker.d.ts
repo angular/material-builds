@@ -155,4 +155,6 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     private _getValidDateOrNull(obj);
     /** Passes the current theme color along to the calendar overlay. */
     private _setColor();
+    /** Returns the layout direction of the datepicker. */
+    private _getDirection();
 }

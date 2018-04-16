@@ -13086,14 +13086,12 @@ var MatDatepicker = /** @class */ (function () {
     function () {
         var _this = this;
         this._dialogRef = this._dialog.open(MatDatepickerContent, {
-            direction: this._dir ? this._dir.value : 'ltr',
+            direction: this._getDirection(),
             viewContainerRef: this._viewContainerRef,
             panelClass: 'mat-datepicker-dialog',
         });
-        if (this._dialogRef) {
-            this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
-            this._dialogRef.componentInstance.datepicker = this;
-        }
+        this._dialogRef.afterClosed().subscribe(function () { return _this.close(); });
+        this._dialogRef.componentInstance.datepicker = this;
         this._setColor();
     };
     /**
@@ -13113,6 +13111,7 @@ var MatDatepicker = /** @class */ (function () {
             this._createPopup();
         }
         if (!this._popupRef.hasAttached()) {
+            this._popupRef.setDirection(this._getDirection());
             this._popupComponentRef = this._popupRef.attach(this._calendarPortal);
             this._popupComponentRef.instance.datepicker = this;
             this._setColor();
@@ -13136,7 +13135,7 @@ var MatDatepicker = /** @class */ (function () {
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
             backdropClass: 'mat-overlay-transparent-backdrop',
-            direction: this._dir ? this._dir.value : 'ltr',
+            direction: this._getDirection(),
             scrollStrategy: this._scrollStrategy(),
             panelClass: 'mat-datepicker-popup',
         });
@@ -13215,6 +13214,17 @@ var MatDatepicker = /** @class */ (function () {
         if (this._dialogRef) {
             this._dialogRef.componentInstance.color = color;
         }
+    };
+    /**
+     * Returns the layout direction of the datepicker.
+     * @return {?}
+     */
+    MatDatepicker.prototype._getDirection = /**
+     * Returns the layout direction of the datepicker.
+     * @return {?}
+     */
+    function () {
+        return this._dir ? this._dir.value : 'ltr';
     };
     MatDatepicker.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker',
@@ -31880,7 +31890,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.11-5554506');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.11-4cc72b8');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32123,8 +32133,8 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MatMenuItemBase;
-exports.ɵb22 = _MatMenuItemMixinBase;
+exports.ɵa23 = MatMenuItemBase;
+exports.ɵb23 = _MatMenuItemMixinBase;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32245,16 +32255,16 @@ exports.MatRowDef = MatRowDef;
 exports.MatHeaderRow = MatHeaderRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe9 = MatTabBase;
-exports.ɵf9 = _MatTabMixinBase;
-exports.ɵa9 = MatTabHeaderBase;
-exports.ɵb9 = _MatTabHeaderMixinBase;
-exports.ɵc9 = MatTabLabelWrapperBase;
-exports.ɵd9 = _MatTabLabelWrapperMixinBase;
-exports.ɵi9 = MatTabLinkBase;
-exports.ɵg9 = MatTabNavBase;
-exports.ɵj9 = _MatTabLinkMixinBase;
-exports.ɵh9 = _MatTabNavMixinBase;
+exports.ɵe24 = MatTabBase;
+exports.ɵf24 = _MatTabMixinBase;
+exports.ɵa24 = MatTabHeaderBase;
+exports.ɵb24 = _MatTabHeaderMixinBase;
+exports.ɵc24 = MatTabLabelWrapperBase;
+exports.ɵd24 = _MatTabLabelWrapperMixinBase;
+exports.ɵi24 = MatTabLinkBase;
+exports.ɵg24 = MatTabNavBase;
+exports.ɵj24 = _MatTabLinkMixinBase;
+exports.ɵh24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
