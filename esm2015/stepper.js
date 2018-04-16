@@ -214,11 +214,6 @@ MatStepperIcon.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-const /** @type {?} */ _MatStep = CdkStep;
-const /** @type {?} */ _MatStepper = CdkStepper;
 class MatStep extends CdkStep {
     /**
      * @param {?} stepper
@@ -437,5 +432,5 @@ MatStepperModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatStepperModule, MatStepLabel, _MatStep, _MatStepper, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl, matStepperAnimations, MatStepperIcon };
+export { MatStepperModule, MatStepLabel, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl, matStepperAnimations, MatStepperIcon };
 //# sourceMappingURL=stepper.js.map

@@ -234,11 +234,6 @@ var MatStepperIcon = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var /** @type {?} */ _MatStep = CdkStep;
-var /** @type {?} */ _MatStepper = CdkStepper;
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper, _errorStateMatcher) {
@@ -487,5 +482,5 @@ var MatStepperModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatStepperModule, MatStepLabel, _MatStep, _MatStepper, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl, matStepperAnimations, MatStepperIcon };
+export { MatStepperModule, MatStepLabel, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl, matStepperAnimations, MatStepperIcon };
 //# sourceMappingURL=stepper.es5.js.map

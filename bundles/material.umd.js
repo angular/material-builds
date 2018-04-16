@@ -28182,11 +28182,6 @@ var MatStepperIcon = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
- * Workaround for https://github.com/angular/angular/issues/17849
- */
-var /** @type {?} */ _MatStep = stepper.CdkStep;
-var /** @type {?} */ _MatStepper = stepper.CdkStepper;
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper$$1, _errorStateMatcher) {
@@ -31890,7 +31885,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.11-4cc72b8');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.11-e5e7896');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32231,8 +32226,6 @@ exports.MatSort = MatSort;
 exports.matSortAnimations = matSortAnimations;
 exports.MatStepperModule = MatStepperModule;
 exports.MatStepLabel = MatStepLabel;
-exports._MatStep = _MatStep;
-exports._MatStepper = _MatStepper;
 exports.MatStep = MatStep;
 exports.MatStepper = MatStepper;
 exports.MatHorizontalStepper = MatHorizontalStepper;

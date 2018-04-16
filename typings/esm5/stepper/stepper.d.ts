@@ -13,9 +13,6 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { MatStepHeader } from './step-header';
 import { MatStepLabel } from './step-label';
 import { MatStepperIcon, MatStepperIconContext } from './stepper-icon';
-/** Workaround for https://github.com/angular/angular/issues/17849 */
-export declare const _MatStep: typeof CdkStep;
-export declare const _MatStepper: typeof CdkStepper;
 export declare class MatStep extends CdkStep implements ErrorStateMatcher {
     private _errorStateMatcher;
     /** Content for step label given by `<ng-template matStepLabel>`. */
