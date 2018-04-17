@@ -11,7 +11,7 @@ import { MatLine, MatLineSetter, mixinDisableRipple, mixinDisabled, MatCommonMod
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { SPACE, ENTER, HOME, END } from '@angular/cdk/keycodes';
+import { SPACE, ENTER, HOME, END, UP_ARROW, DOWN_ARROW } from '@angular/cdk/keycodes';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -703,7 +703,10 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        switch (event.keyCode) {
+        var /** @type {?} */ keyCode = event.keyCode;
+        var /** @type {?} */ manager = this._keyManager;
+        var /** @type {?} */ previousFocusIndex = manager.activeItemIndex;
+        switch (keyCode) {
             case SPACE:
             case ENTER:
                 if (!this.disabled) {
@@ -714,12 +717,15 @@ var MatSelectionList = /** @class */ (function (_super) {
                 break;
             case HOME:
             case END:
-                event.keyCode === HOME ? this._keyManager.setFirstItemActive() :
-                    this._keyManager.setLastItemActive();
+                keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
                 event.preventDefault();
                 break;
             default:
-                this._keyManager.onKeydown(event);
+                manager.onKeydown(event);
+        }
+        if ((keyCode === UP_ARROW || keyCode === DOWN_ARROW) && event.shiftKey &&
+            manager.activeItemIndex !== previousFocusIndex) {
+            this._toggleSelectOnFocusedOption();
         }
     };
     /** Reports a value change to the ControlValueAccessor */

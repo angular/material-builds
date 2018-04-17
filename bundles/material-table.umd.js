@@ -515,8 +515,8 @@ MatTableDataSource = /** @class */ (function (_super) {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // Otherwise, use an empty observable stream to take their place.
-        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : rxjs.empty();
-        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : rxjs.empty();
+        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : rxjs.EMPTY;
+        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : rxjs.EMPTY;
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }

@@ -723,7 +723,10 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        switch (event.keyCode) {
+        var /** @type {?} */ keyCode = event.keyCode;
+        var /** @type {?} */ manager = this._keyManager;
+        var /** @type {?} */ previousFocusIndex = manager.activeItemIndex;
+        switch (keyCode) {
             case keycodes.SPACE:
             case keycodes.ENTER:
                 if (!this.disabled) {
@@ -734,12 +737,15 @@ var MatSelectionList = /** @class */ (function (_super) {
                 break;
             case keycodes.HOME:
             case keycodes.END:
-                event.keyCode === keycodes.HOME ? this._keyManager.setFirstItemActive() :
-                    this._keyManager.setLastItemActive();
+                keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
                 event.preventDefault();
                 break;
             default:
-                this._keyManager.onKeydown(event);
+                manager.onKeydown(event);
+        }
+        if ((keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) && event.shiftKey &&
+            manager.activeItemIndex !== previousFocusIndex) {
+            this._toggleSelectOnFocusedOption();
         }
     };
     /** Reports a value change to the ControlValueAccessor */

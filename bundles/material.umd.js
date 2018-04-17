@@ -17526,7 +17526,10 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        switch (event.keyCode) {
+        var /** @type {?} */ keyCode = event.keyCode;
+        var /** @type {?} */ manager = this._keyManager;
+        var /** @type {?} */ previousFocusIndex = manager.activeItemIndex;
+        switch (keyCode) {
             case keycodes.SPACE:
             case keycodes.ENTER:
                 if (!this.disabled) {
@@ -17537,12 +17540,15 @@ var MatSelectionList = /** @class */ (function (_super) {
                 break;
             case keycodes.HOME:
             case keycodes.END:
-                event.keyCode === keycodes.HOME ? this._keyManager.setFirstItemActive() :
-                    this._keyManager.setLastItemActive();
+                keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
                 event.preventDefault();
                 break;
             default:
-                this._keyManager.onKeydown(event);
+                manager.onKeydown(event);
+        }
+        if ((keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) && event.shiftKey &&
+            manager.activeItemIndex !== previousFocusIndex) {
+            this._toggleSelectOnFocusedOption();
         }
     };
     /** Reports a value change to the ControlValueAccessor */
@@ -28916,8 +28922,8 @@ MatTableDataSource = /** @class */ (function (_super) {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // Otherwise, use an empty observable stream to take their place.
-        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : rxjs.empty();
-        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : rxjs.empty();
+        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : rxjs.EMPTY;
+        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : rxjs.EMPTY;
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }
@@ -31903,7 +31909,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.11-5920bc3');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.11-975fe7e');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
