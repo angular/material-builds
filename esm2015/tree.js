@@ -226,7 +226,7 @@ MatTree.propDecorators = {
 class MatTreeNodeToggle extends CdkTreeNodeToggle {
     constructor() {
         super(...arguments);
-        this.recursive = true;
+        this.recursive = false;
     }
 }
 MatTreeNodeToggle.decorators = [

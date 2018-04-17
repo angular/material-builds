@@ -28916,8 +28916,8 @@ MatTableDataSource = /** @class */ (function (_super) {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // Otherwise, use an empty observable stream to take their place.
-        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : rxjs.empty();
-        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : rxjs.empty();
+        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : rxjs.EMPTY;
+        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : rxjs.EMPTY;
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }
@@ -31532,7 +31532,7 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
     __extends(MatTreeNodeToggle, _super);
     function MatTreeNodeToggle() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.recursive = true;
+        _this.recursive = false;
         return _this;
     }
     MatTreeNodeToggle.decorators = [
@@ -31903,7 +31903,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.11-b057391');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.11-2ed5f7d');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

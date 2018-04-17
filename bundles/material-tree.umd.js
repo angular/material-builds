@@ -268,7 +268,7 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
     __extends(MatTreeNodeToggle, _super);
     function MatTreeNodeToggle() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.recursive = true;
+        _this.recursive = false;
         return _this;
     }
     MatTreeNodeToggle.decorators = [
