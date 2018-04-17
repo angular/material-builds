@@ -425,7 +425,7 @@ class MatIconRegistry {
         // Clone the element and remove the ID to prevent multiple elements from being added
         // to the page with the same ID.
         const /** @type {?} */ iconElement = /** @type {?} */ (iconSource.cloneNode(true));
-        iconElement.id = '';
+        iconElement.removeAttribute('id');
         // If the icon node is itself an <svg> node, clone and return it directly. If not, set it as
         // the content of a new <svg> node.
         if (iconElement.nodeName.toLowerCase() === 'svg') {

@@ -16310,7 +16310,7 @@ var MatIconRegistry = /** @class */ (function () {
         // Clone the element and remove the ID to prevent multiple elements from being added
         // to the page with the same ID.
         var /** @type {?} */ iconElement = /** @type {?} */ (iconSource.cloneNode(true));
-        iconElement.id = '';
+        iconElement.removeAttribute('id');
         // If the icon node is itself an <svg> node, clone and return it directly. If not, set it as
         // the content of a new <svg> node.
         if (iconElement.nodeName.toLowerCase() === 'svg') {
@@ -31909,7 +31909,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.11-975fe7e');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.11-1a940e0');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

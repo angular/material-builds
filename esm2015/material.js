@@ -49,7 +49,7 @@ export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTre
 /**
  * Current version of Angular Material.
  */
-const /** @type {?} */ VERSION = new Version('6.0.0-rc.11-975fe7e');
+const /** @type {?} */ VERSION = new Version('6.0.0-rc.11-1a940e0');
 
 /**
  * @fileoverview added by tsickle
