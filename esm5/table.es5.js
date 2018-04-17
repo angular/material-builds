@@ -11,7 +11,7 @@ import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkHea
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
-import { BehaviorSubject, combineLatest, EMPTY } from 'rxjs';
+import { BehaviorSubject, combineLatest, empty } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 /**
@@ -492,8 +492,8 @@ MatTableDataSource = /** @class */ (function (_super) {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // Otherwise, use an empty observable stream to take their place.
-        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : EMPTY;
-        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : EMPTY;
+        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : empty();
+        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : empty();
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }

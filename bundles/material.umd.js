@@ -28916,8 +28916,8 @@ MatTableDataSource = /** @class */ (function (_super) {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
         // Otherwise, use an empty observable stream to take their place.
-        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : rxjs.EMPTY;
-        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : rxjs.EMPTY;
+        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : rxjs.empty();
+        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : rxjs.empty();
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }
@@ -31903,7 +31903,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.11-2ed5f7d');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.11-5920bc3');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
