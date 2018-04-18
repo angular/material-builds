@@ -143,7 +143,7 @@ class MatRadioGroup extends _MatRadioGroupMixinBase {
      * @return {?}
      */
     set value(newValue) {
-        if (this._value != newValue) {
+        if (this._value !== newValue) {
             // Set this before proceeding to ensure no circular loop occurs with selection.
             this._value = newValue;
             this._updateSelectedRadioFromValue();
@@ -235,11 +235,11 @@ class MatRadioGroup extends _MatRadioGroupMixinBase {
      */
     _updateSelectedRadioFromValue() {
         // If the value already matches the selected radio, do nothing.
-        const /** @type {?} */ isAlreadySelected = this._selected != null && this._selected.value == this._value;
-        if (this._radios != null && !isAlreadySelected) {
+        const /** @type {?} */ isAlreadySelected = this._selected !== null && this._selected.value === this._value;
+        if (this._radios && !isAlreadySelected) {
             this._selected = null;
             this._radios.forEach(radio => {
-                radio.checked = this.value == radio.value;
+                radio.checked = this.value === radio.value;
                 if (radio.checked) {
                     this._selected = radio;
                 }
@@ -384,7 +384,7 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
         this.radioGroup = radioGroup;
         this._removeUniqueSelectionListener =
             _radioDispatcher.listen((id, name) => {
-                if (id != this.id && name == this.name) {
+                if (id !== this.id && name === this.name) {
                     this.checked = false;
                 }
             });
@@ -400,12 +400,12 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
      */
     set checked(value) {
         const /** @type {?} */ newCheckedState = coerceBooleanProperty(value);
-        if (this._checked != newCheckedState) {
+        if (this._checked !== newCheckedState) {
             this._checked = newCheckedState;
-            if (newCheckedState && this.radioGroup && this.radioGroup.value != this.value) {
+            if (newCheckedState && this.radioGroup && this.radioGroup.value !== this.value) {
                 this.radioGroup.selected = this;
             }
-            else if (!newCheckedState && this.radioGroup && this.radioGroup.value == this.value) {
+            else if (!newCheckedState && this.radioGroup && this.radioGroup.value === this.value) {
                 // When unchecking the selected radio button, update the selected radio
                 // property on the group.
                 this.radioGroup.selected = null;
@@ -427,12 +427,12 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
      * @return {?}
      */
     set value(value) {
-        if (this._value != value) {
+        if (this._value !== value) {
             this._value = value;
-            if (this.radioGroup != null) {
+            if (this.radioGroup !== null) {
                 if (!this.checked) {
                     // Update checked when the value changed to match the radio group's value
-                    this.checked = this.radioGroup.value == value;
+                    this.checked = this.radioGroup.value === value;
                 }
                 if (this.checked) {
                     this.radioGroup.selected = this;
@@ -459,7 +459,7 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
      * @return {?}
      */
     get disabled() {
-        return this._disabled || (this.radioGroup != null && this.radioGroup.disabled);
+        return this._disabled || (this.radioGroup !== null && this.radioGroup.disabled);
     }
     /**
      * @param {?} value
@@ -569,7 +569,7 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
         // Otherwise the change event, from the input element, will bubble up and
         // emit its event object to the `change` output.
         event.stopPropagation();
-        const /** @type {?} */ groupValueChanged = this.radioGroup && this.value != this.radioGroup.value;
+        const /** @type {?} */ groupValueChanged = this.radioGroup && this.value !== this.radioGroup.value;
         this.checked = true;
         this._emitChangeEvent();
         if (this.radioGroup) {
