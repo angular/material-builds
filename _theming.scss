@@ -1411,18 +1411,6 @@ $mat-ripple-color-opacity: 0.1;
       background: mat-color($background, hover);
     }
 
-    .mat-primary &.mat-selected:not(.mat-option-disabled) {
-      color: mat-color($primary);
-    }
-
-    .mat-accent &.mat-selected:not(.mat-option-disabled) {
-      color: mat-color($accent);
-    }
-
-    .mat-warn &.mat-selected:not(.mat-option-disabled) {
-      color: mat-color($warn);
-    }
-
     // In multiple mode there is a checkbox to show that the option is selected.
     &.mat-selected:not(.mat-option-multiple):not(.mat-option-disabled) {
       background: mat-color($background, hover);
@@ -1436,6 +1424,18 @@ $mat-ripple-color-opacity: 0.1;
     &.mat-option-disabled {
       color: mat-color($foreground, hint-text);
     }
+  }
+
+  .mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: mat-color($primary);
+  }
+
+  .mat-accent .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: mat-color($accent);
+  }
+
+  .mat-warn .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: mat-color($warn);
   }
 }
 
