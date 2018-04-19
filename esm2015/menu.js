@@ -292,10 +292,8 @@ class MatMenuItem extends _MatMenuItemMixinBase {
      * Emits to the hover stream.
      * @return {?}
      */
-    _emitHoverEvent() {
-        if (!this.disabled) {
-            this._hovered.next(this);
-        }
+    _handleMouseEnter() {
+        this._hovered.next(this);
     }
     /**
      * Gets the label to be used when determining whether the option should be focused.
@@ -332,7 +330,7 @@ MatMenuItem.decorators = [
                     '[attr.aria-disabled]': 'disabled.toString()',
                     '[attr.disabled]': 'disabled || null',
                     '(click)': '_checkDisabled($event)',
-                    '(mouseenter)': '_emitHoverEvent()',
+                    '(mouseenter)': '_handleMouseEnter()',
                 },
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
@@ -769,7 +767,7 @@ class MatMenuTrigger {
         if (this.triggersSubmenu()) {
             // Subscribe to changes in the hovered item in order to toggle the panel.
             this._hoverSubscription = this._parentMenu._hovered()
-                .pipe(filter(active => active === this._menuItemInstance))
+                .pipe(filter(active => active === this._menuItemInstance && !active.disabled))
                 .subscribe(() => {
                 this._openedByMouse = true;
                 this.openMenu();
@@ -1159,5 +1157,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa24, _MatMenuItemMixinBase as ɵb24 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa23, _MatMenuItemMixinBase as ɵb23 };
 //# sourceMappingURL=menu.js.map

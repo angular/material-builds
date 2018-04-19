@@ -352,14 +352,12 @@ var MatMenuItem = /** @class */ (function (_super) {
      * Emits to the hover stream.
      * @return {?}
      */
-    MatMenuItem.prototype._emitHoverEvent = /**
+    MatMenuItem.prototype._handleMouseEnter = /**
      * Emits to the hover stream.
      * @return {?}
      */
     function () {
-        if (!this.disabled) {
-            this._hovered.next(this);
-        }
+        this._hovered.next(this);
     };
     /** Gets the label to be used when determining whether the option should be focused. */
     /**
@@ -400,7 +398,7 @@ var MatMenuItem = /** @class */ (function (_super) {
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '[attr.disabled]': 'disabled || null',
                         '(click)': '_checkDisabled($event)',
-                        '(mouseenter)': '_emitHoverEvent()',
+                        '(mouseenter)': '_handleMouseEnter()',
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
@@ -938,7 +936,7 @@ var MatMenuTrigger = /** @class */ (function () {
         if (this.triggersSubmenu()) {
             // Subscribe to changes in the hovered item in order to toggle the panel.
             this._hoverSubscription = this._parentMenu._hovered()
-                .pipe(operators.filter(function (active) { return active === _this._menuItemInstance; }))
+                .pipe(operators.filter(function (active) { return active === _this._menuItemInstance && !active.disabled; }))
                 .subscribe(function () {
                 _this._openedByMouse = true;
                 _this.openMenu();
@@ -1447,8 +1445,8 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa24 = MatMenuItemBase;
-exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵa23 = MatMenuItemBase;
+exports.ɵb23 = _MatMenuItemMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
