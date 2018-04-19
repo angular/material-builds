@@ -7,7 +7,9 @@
  */
 import { Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation, defineInjectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { __extends } from 'tslib';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { mixinInitialized } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -110,25 +112,39 @@ PageEvent = /** @class */ (function () {
     return PageEvent;
 }());
 /**
+ * \@docs-private
+ */
+var  /**
+ * \@docs-private
+ */
+MatPaginatorBase = /** @class */ (function () {
+    function MatPaginatorBase() {
+    }
+    return MatPaginatorBase;
+}());
+var /** @type {?} */ _MatPaginatorBase = mixinInitialized(MatPaginatorBase);
+/**
  * Component to provide navigation between paged information. Displays the size of the current
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
  */
-var MatPaginator = /** @class */ (function () {
+var MatPaginator = /** @class */ (function (_super) {
+    __extends(MatPaginator, _super);
     function MatPaginator(_intl, _changeDetectorRef) {
-        var _this = this;
-        this._intl = _intl;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._pageIndex = 0;
-        this._length = 0;
-        this._pageSizeOptions = [];
-        this._hidePageSize = false;
-        this._showFirstLastButtons = false;
+        var _this = _super.call(this) || this;
+        _this._intl = _intl;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._pageIndex = 0;
+        _this._length = 0;
+        _this._pageSizeOptions = [];
+        _this._hidePageSize = false;
+        _this._showFirstLastButtons = false;
         /**
          * Event emitted when the paginator changes the page size or page index.
          */
-        this.page = new EventEmitter();
-        this._intlChanges = _intl.changes.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        _this.page = new EventEmitter();
+        _this._intlChanges = _intl.changes.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        return _this;
     }
     Object.defineProperty(MatPaginator.prototype, "pageIndex", {
         get: /**
@@ -239,6 +255,7 @@ var MatPaginator = /** @class */ (function () {
     function () {
         this._initialized = true;
         this._updateDisplayedPageSizeOptions();
+        this._markInitialized();
     };
     /**
      * @return {?}
@@ -458,7 +475,7 @@ var MatPaginator = /** @class */ (function () {
         "page": [{ type: Output },],
     };
     return MatPaginator;
-}());
+}(_MatPaginatorBase));
 
 /**
  * @fileoverview added by tsickle
@@ -493,5 +510,5 @@ var MatPaginatorModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatPaginatorModule, PageEvent, MatPaginator, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MAT_PAGINATOR_INTL_PROVIDER };
+export { MatPaginatorModule, PageEvent, MatPaginatorBase, _MatPaginatorBase, MatPaginator, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MAT_PAGINATOR_INTL_PROVIDER };
 //# sourceMappingURL=paginator.es5.js.map

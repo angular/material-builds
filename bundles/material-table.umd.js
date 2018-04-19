@@ -514,9 +514,17 @@ MatTableDataSource = /** @class */ (function (_super) {
     function () {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
-        // Otherwise, use an empty observable stream to take their place.
-        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : rxjs.EMPTY;
-        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : rxjs.EMPTY;
+        // The events should emit whenever the component emits a change or initializes, or if no
+        // component is provided, a stream with just a null event should be provided.
+        // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the
+        // pipeline can progress to the next step. Note that the value from these streams are not used,
+        // they purely act as a signal to progress in the pipeline.
+        var /** @type {?} */ sortChange = this._sort ?
+            rxjs.merge(this._sort.sortChange, this._sort.initialized) :
+            rxjs.of(null);
+        var /** @type {?} */ pageChange = this._paginator ?
+            rxjs.merge(this._paginator.page, this._paginator.initialized) :
+            rxjs.of(null);
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }
@@ -528,13 +536,13 @@ MatTableDataSource = /** @class */ (function (_super) {
             return _this._filterData(data);
         }));
         // Watch for filtered data or sort changes to provide an ordered set of data.
-        var /** @type {?} */ orderedData = rxjs.combineLatest(filteredData, sortChange.pipe(operators.startWith(/** @type {?} */ ((null)))))
+        var /** @type {?} */ orderedData = rxjs.combineLatest(filteredData, sortChange)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._orderData(data);
         }));
         // Watch for ordered data or page changes to provide a paged set of data.
-        var /** @type {?} */ paginatedData = rxjs.combineLatest(orderedData, pageChange.pipe(operators.startWith(/** @type {?} */ ((null)))))
+        var /** @type {?} */ paginatedData = rxjs.combineLatest(orderedData, pageChange)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._pageData(data);

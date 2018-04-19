@@ -8,6 +8,7 @@
 import { Injectable, Optional, SkipSelf, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, ViewEncapsulation, defineInjectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { mixinInitialized } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
@@ -102,16 +103,23 @@ const /** @type {?} */ DEFAULT_PAGE_SIZE = 50;
 class PageEvent {
 }
 /**
+ * \@docs-private
+ */
+class MatPaginatorBase {
+}
+const /** @type {?} */ _MatPaginatorBase = mixinInitialized(MatPaginatorBase);
+/**
  * Component to provide navigation between paged information. Displays the size of the current
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
  */
-class MatPaginator {
+class MatPaginator extends _MatPaginatorBase {
     /**
      * @param {?} _intl
      * @param {?} _changeDetectorRef
      */
     constructor(_intl, _changeDetectorRef) {
+        super();
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
         this._pageIndex = 0;
@@ -207,6 +215,7 @@ class MatPaginator {
     ngOnInit() {
         this._initialized = true;
         this._updateDisplayedPageSizeOptions();
+        this._markInitialized();
     }
     /**
      * @return {?}
@@ -392,5 +401,5 @@ MatPaginatorModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatPaginatorModule, PageEvent, MatPaginator, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MAT_PAGINATOR_INTL_PROVIDER };
+export { MatPaginatorModule, PageEvent, MatPaginatorBase, _MatPaginatorBase, MatPaginator, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MAT_PAGINATOR_INTL_PROVIDER };
 //# sourceMappingURL=paginator.js.map

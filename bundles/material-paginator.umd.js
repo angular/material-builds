@@ -6,10 +6,36 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('@angular/cdk/coercion'), require('@angular/common'), require('@angular/material/button'), require('@angular/material/select'), require('@angular/material/tooltip')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/paginator', ['exports', '@angular/core', 'rxjs', '@angular/cdk/coercion', '@angular/common', '@angular/material/button', '@angular/material/select', '@angular/material/tooltip'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = {}),global.ng.core,global.Rx,global.ng.cdk.coercion,global.ng.common,global.ng.material.button,global.ng.material.select,global.ng.material.tooltip));
-}(this, (function (exports,core,rxjs,coercion,common,button,select,tooltip) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('@angular/common'), require('@angular/material/button'), require('@angular/material/select'), require('@angular/material/tooltip')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/paginator', ['exports', '@angular/core', 'rxjs', '@angular/cdk/coercion', '@angular/material/core', '@angular/common', '@angular/material/button', '@angular/material/select', '@angular/material/tooltip'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = {}),global.ng.core,global.Rx,global.ng.cdk.coercion,global.ng.material.core,global.ng.common,global.ng.material.button,global.ng.material.select,global.ng.material.tooltip));
+}(this, (function (exports,core,rxjs,coercion,core$1,common,button,select,tooltip) { 'use strict';
+
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation. All rights reserved.
+Licensed under the Apache License, Version 2.0 (the "License"); you may not use
+this file except in compliance with the License. You may obtain a copy of the
+License at http://www.apache.org/licenses/LICENSE-2.0
+
+THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
+WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
+MERCHANTABLITY OR NON-INFRINGEMENT.
+
+See the Apache Version 2.0 License for specific language governing permissions
+and limitations under the License.
+***************************************************************************** */
+/* global Reflect, Promise */
+
+var extendStatics = Object.setPrototypeOf ||
+    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+
+function __extends(d, b) {
+    extendStatics(d, b);
+    function __() { this.constructor = d; }
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+}
 
 /**
  * @fileoverview added by tsickle
@@ -108,25 +134,39 @@ PageEvent = /** @class */ (function () {
     return PageEvent;
 }());
 /**
+ * \@docs-private
+ */
+var   /**
+ * \@docs-private
+ */
+MatPaginatorBase = /** @class */ (function () {
+    function MatPaginatorBase() {
+    }
+    return MatPaginatorBase;
+}());
+var /** @type {?} */ _MatPaginatorBase = core$1.mixinInitialized(MatPaginatorBase);
+/**
  * Component to provide navigation between paged information. Displays the size of the current
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
  */
-var MatPaginator = /** @class */ (function () {
+var MatPaginator = /** @class */ (function (_super) {
+    __extends(MatPaginator, _super);
     function MatPaginator(_intl, _changeDetectorRef) {
-        var _this = this;
-        this._intl = _intl;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._pageIndex = 0;
-        this._length = 0;
-        this._pageSizeOptions = [];
-        this._hidePageSize = false;
-        this._showFirstLastButtons = false;
+        var _this = _super.call(this) || this;
+        _this._intl = _intl;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._pageIndex = 0;
+        _this._length = 0;
+        _this._pageSizeOptions = [];
+        _this._hidePageSize = false;
+        _this._showFirstLastButtons = false;
         /**
          * Event emitted when the paginator changes the page size or page index.
          */
-        this.page = new core.EventEmitter();
-        this._intlChanges = _intl.changes.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        _this.page = new core.EventEmitter();
+        _this._intlChanges = _intl.changes.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        return _this;
     }
     Object.defineProperty(MatPaginator.prototype, "pageIndex", {
         get: /**
@@ -237,6 +277,7 @@ var MatPaginator = /** @class */ (function () {
     function () {
         this._initialized = true;
         this._updateDisplayedPageSizeOptions();
+        this._markInitialized();
     };
     /**
      * @return {?}
@@ -456,7 +497,7 @@ var MatPaginator = /** @class */ (function () {
         "page": [{ type: core.Output },],
     };
     return MatPaginator;
-}());
+}(_MatPaginatorBase));
 
 /**
  * @fileoverview added by tsickle
@@ -483,6 +524,8 @@ var MatPaginatorModule = /** @class */ (function () {
 
 exports.MatPaginatorModule = MatPaginatorModule;
 exports.PageEvent = PageEvent;
+exports.MatPaginatorBase = MatPaginatorBase;
+exports._MatPaginatorBase = _MatPaginatorBase;
 exports.MatPaginator = MatPaginator;
 exports.MatPaginatorIntl = MatPaginatorIntl;
 exports.MAT_PAGINATOR_INTL_PROVIDER_FACTORY = MAT_PAGINATOR_INTL_PROVIDER_FACTORY;

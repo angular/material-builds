@@ -7,7 +7,7 @@
  */
 import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, defineInjectable } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { mixinDisabled, AnimationCurves, AnimationDurations } from '@angular/material/core';
+import { mixinDisabled, mixinInitialized, AnimationCurves, AnimationDurations } from '@angular/material/core';
 import { Subject, merge } from 'rxjs';
 import { animate, state, style, transition, trigger, keyframes, query, animateChild } from '@angular/animations';
 import { CdkColumnDef } from '@angular/cdk/table';
@@ -58,7 +58,7 @@ function getSortInvalidDirectionError(direction) {
  */
 class MatSortBase {
 }
-const /** @type {?} */ _MatSortMixinBase = mixinDisabled(MatSortBase);
+const /** @type {?} */ _MatSortMixinBase = mixinInitialized(mixinDisabled(MatSortBase));
 /**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
@@ -167,6 +167,12 @@ class MatSort extends _MatSortMixinBase {
             nextDirectionIndex = 0;
         }
         return sortDirectionCycle[nextDirectionIndex];
+    }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this._markInitialized();
     }
     /**
      * @return {?}

@@ -88,7 +88,7 @@ MatSortBase = /** @class */ (function () {
     }
     return MatSortBase;
 }());
-var /** @type {?} */ _MatSortMixinBase = core$1.mixinDisabled(MatSortBase);
+var /** @type {?} */ _MatSortMixinBase = core$1.mixinInitialized(core$1.mixinDisabled(MatSortBase));
 /**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
@@ -239,6 +239,15 @@ var MatSort = /** @class */ (function (_super) {
             nextDirectionIndex = 0;
         }
         return sortDirectionCycle[nextDirectionIndex];
+    };
+    /**
+     * @return {?}
+     */
+    MatSort.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        this._markInitialized();
     };
     /**
      * @return {?}

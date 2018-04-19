@@ -5,8 +5,8 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { EventEmitter, OnChanges, OnDestroy } from '@angular/core';
-import { CanDisable } from '@angular/material/core';
+import { EventEmitter, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { CanDisable, HasInitialized } from '@angular/material/core';
 import { SortDirection } from './sort-direction';
 import { Subject } from 'rxjs';
 /** Interface for a directive that holds sorting state consumed by `MatSortHeader`. */
@@ -28,9 +28,9 @@ export interface Sort {
 /** @docs-private */
 export declare class MatSortBase {
 }
-export declare const _MatSortMixinBase: (new (...args: any[]) => CanDisable) & typeof MatSortBase;
+export declare const _MatSortMixinBase: (new (...args: any[]) => HasInitialized) & (new (...args: any[]) => CanDisable) & typeof MatSortBase;
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
-export declare class MatSort extends _MatSortMixinBase implements CanDisable, OnChanges, OnDestroy {
+export declare class MatSort extends _MatSortMixinBase implements CanDisable, HasInitialized, OnChanges, OnDestroy, OnInit {
     /** Collection of all registered sortables that this directive manages. */
     sortables: Map<string, MatSortable>;
     /** Used to notify any child components listening to state changes. */
@@ -67,6 +67,7 @@ export declare class MatSort extends _MatSortMixinBase implements CanDisable, On
     sort(sortable: MatSortable): void;
     /** Returns the next sort direction of the active sortable, checking for potential overrides. */
     getNextSortDirection(sortable: MatSortable): SortDirection;
+    ngOnInit(): void;
     ngOnChanges(): void;
     ngOnDestroy(): void;
 }

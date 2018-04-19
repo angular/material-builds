@@ -1,7 +1,7 @@
 import { DataSource } from '@angular/cdk/table';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { BehaviorSubject, Subscription } from 'rxjs';
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
  * sorting (using MatSort), and pagination (using MatPaginator).

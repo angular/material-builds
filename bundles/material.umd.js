@@ -21927,25 +21927,39 @@ PageEvent = /** @class */ (function () {
     return PageEvent;
 }());
 /**
+ * \@docs-private
+ */
+var   /**
+ * \@docs-private
+ */
+MatPaginatorBase = /** @class */ (function () {
+    function MatPaginatorBase() {
+    }
+    return MatPaginatorBase;
+}());
+var /** @type {?} */ _MatPaginatorBase = mixinInitialized(MatPaginatorBase);
+/**
  * Component to provide navigation between paged information. Displays the size of the current
  * page, user-selectable options to change that size, what items are being shown, and
  * navigational button to go to the previous or next page.
  */
-var MatPaginator = /** @class */ (function () {
+var MatPaginator = /** @class */ (function (_super) {
+    __extends(MatPaginator, _super);
     function MatPaginator(_intl, _changeDetectorRef) {
-        var _this = this;
-        this._intl = _intl;
-        this._changeDetectorRef = _changeDetectorRef;
-        this._pageIndex = 0;
-        this._length = 0;
-        this._pageSizeOptions = [];
-        this._hidePageSize = false;
-        this._showFirstLastButtons = false;
+        var _this = _super.call(this) || this;
+        _this._intl = _intl;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._pageIndex = 0;
+        _this._length = 0;
+        _this._pageSizeOptions = [];
+        _this._hidePageSize = false;
+        _this._showFirstLastButtons = false;
         /**
          * Event emitted when the paginator changes the page size or page index.
          */
-        this.page = new core.EventEmitter();
-        this._intlChanges = _intl.changes.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        _this.page = new core.EventEmitter();
+        _this._intlChanges = _intl.changes.subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
+        return _this;
     }
     Object.defineProperty(MatPaginator.prototype, "pageIndex", {
         get: /**
@@ -22056,6 +22070,7 @@ var MatPaginator = /** @class */ (function () {
     function () {
         this._initialized = true;
         this._updateDisplayedPageSizeOptions();
+        this._markInitialized();
     };
     /**
      * @return {?}
@@ -22275,7 +22290,7 @@ var MatPaginator = /** @class */ (function () {
         "page": [{ type: core.Output },],
     };
     return MatPaginator;
-}());
+}(_MatPaginatorBase));
 
 /**
  * @fileoverview added by tsickle
@@ -27285,7 +27300,7 @@ MatSortBase = /** @class */ (function () {
     }
     return MatSortBase;
 }());
-var /** @type {?} */ _MatSortMixinBase = mixinDisabled(MatSortBase);
+var /** @type {?} */ _MatSortMixinBase = mixinInitialized(mixinDisabled(MatSortBase));
 /**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
@@ -27436,6 +27451,15 @@ var MatSort = /** @class */ (function (_super) {
             nextDirectionIndex = 0;
         }
         return sortDirectionCycle[nextDirectionIndex];
+    };
+    /**
+     * @return {?}
+     */
+    MatSort.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        this._markInitialized();
     };
     /**
      * @return {?}
@@ -28921,9 +28945,17 @@ MatTableDataSource = /** @class */ (function (_super) {
     function () {
         var _this = this;
         // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
-        // Otherwise, use an empty observable stream to take their place.
-        var /** @type {?} */ sortChange = this._sort ? this._sort.sortChange : rxjs.EMPTY;
-        var /** @type {?} */ pageChange = this._paginator ? this._paginator.page : rxjs.EMPTY;
+        // The events should emit whenever the component emits a change or initializes, or if no
+        // component is provided, a stream with just a null event should be provided.
+        // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the
+        // pipeline can progress to the next step. Note that the value from these streams are not used,
+        // they purely act as a signal to progress in the pipeline.
+        var /** @type {?} */ sortChange = this._sort ?
+            rxjs.merge(this._sort.sortChange, this._sort.initialized) :
+            rxjs.of(null);
+        var /** @type {?} */ pageChange = this._paginator ?
+            rxjs.merge(this._paginator.page, this._paginator.initialized) :
+            rxjs.of(null);
         if (this._renderChangesSubscription) {
             this._renderChangesSubscription.unsubscribe();
         }
@@ -28935,13 +28967,13 @@ MatTableDataSource = /** @class */ (function (_super) {
             return _this._filterData(data);
         }));
         // Watch for filtered data or sort changes to provide an ordered set of data.
-        var /** @type {?} */ orderedData = rxjs.combineLatest(filteredData, sortChange.pipe(operators.startWith(/** @type {?} */ ((null)))))
+        var /** @type {?} */ orderedData = rxjs.combineLatest(filteredData, sortChange)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._orderData(data);
         }));
         // Watch for ordered data or page changes to provide a paged set of data.
-        var /** @type {?} */ paginatedData = rxjs.combineLatest(orderedData, pageChange.pipe(operators.startWith(/** @type {?} */ ((null)))))
+        var /** @type {?} */ paginatedData = rxjs.combineLatest(orderedData, pageChange)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._pageData(data);
@@ -31909,7 +31941,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.12-54301da');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.12-99f39ca');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32152,8 +32184,8 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵa21 = MatMenuItemBase;
+exports.ɵb21 = _MatMenuItemMixinBase;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32166,6 +32198,8 @@ exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
 exports.MatPaginatorModule = MatPaginatorModule;
 exports.PageEvent = PageEvent;
+exports.MatPaginatorBase = MatPaginatorBase;
+exports._MatPaginatorBase = _MatPaginatorBase;
 exports.MatPaginator = MatPaginator;
 exports.MatPaginatorIntl = MatPaginatorIntl;
 exports.MAT_PAGINATOR_INTL_PROVIDER_FACTORY = MAT_PAGINATOR_INTL_PROVIDER_FACTORY;
