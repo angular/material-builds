@@ -12239,6 +12239,7 @@ var MatCalendarHeader = /** @class */ (function () {
     MatCalendarHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-calendar-header',
                     template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button type=\"button\" class=\"mat-calendar-period-button\" (click)=\"currentPeriodClicked()\" [attr.aria-label]=\"periodButtonLabel\">{{periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"calendar.currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button type=\"button\" class=\"mat-calendar-previous-button\" [disabled]=\"!previousEnabled()\" (click)=\"previousClicked()\" [attr.aria-label]=\"prevButtonLabel\"></button> <button mat-icon-button type=\"button\" class=\"mat-calendar-next-button\" [disabled]=\"!nextEnabled()\" (click)=\"nextClicked()\" [attr.aria-label]=\"nextButtonLabel\"></button></div></div>",
+                    exportAs: 'matCalendarHeader',
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
@@ -12246,7 +12247,7 @@ var MatCalendarHeader = /** @class */ (function () {
     /** @nocollapse */
     MatCalendarHeader.ctorParameters = function () { return [
         { type: MatDatepickerIntl, },
-        { type: MatCalendar, decorators: [{ type: core.Host }, { type: core.Inject, args: [core.forwardRef(function () { return MatCalendar; }),] },] },
+        { type: MatCalendar, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatCalendar; }),] },] },
         { type: DateAdapter, decorators: [{ type: core.Optional },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_FORMATS,] },] },
         { type: core.ChangeDetectorRef, },
@@ -31936,7 +31937,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.12-d0a4e9f');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.12-153dfb8');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

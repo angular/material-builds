@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Host, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, inject, InjectionToken, ViewContainerRef, Directive, ContentChild, defineInjectable } from '@angular/core';
+import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, inject, InjectionToken, ViewContainerRef, Directive, ContentChild, defineInjectable } from '@angular/core';
 import { Subject, merge, Subscription, of } from 'rxjs';
 import { take, takeUntil, filter } from 'rxjs/operators';
 import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, ESCAPE } from '@angular/cdk/keycodes';
@@ -1495,6 +1495,7 @@ var MatCalendarHeader = /** @class */ (function () {
     MatCalendarHeader.decorators = [
         { type: Component, args: [{selector: 'mat-calendar-header',
                     template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button type=\"button\" class=\"mat-calendar-period-button\" (click)=\"currentPeriodClicked()\" [attr.aria-label]=\"periodButtonLabel\">{{periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"calendar.currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button type=\"button\" class=\"mat-calendar-previous-button\" [disabled]=\"!previousEnabled()\" (click)=\"previousClicked()\" [attr.aria-label]=\"prevButtonLabel\"></button> <button mat-icon-button type=\"button\" class=\"mat-calendar-next-button\" [disabled]=\"!nextEnabled()\" (click)=\"nextClicked()\" [attr.aria-label]=\"nextButtonLabel\"></button></div></div>",
+                    exportAs: 'matCalendarHeader',
                     encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
@@ -1502,7 +1503,7 @@ var MatCalendarHeader = /** @class */ (function () {
     /** @nocollapse */
     MatCalendarHeader.ctorParameters = function () { return [
         { type: MatDatepickerIntl, },
-        { type: MatCalendar, decorators: [{ type: Host }, { type: Inject, args: [forwardRef(function () { return MatCalendar; }),] },] },
+        { type: MatCalendar, decorators: [{ type: Inject, args: [forwardRef(function () { return MatCalendar; }),] },] },
         { type: DateAdapter, decorators: [{ type: Optional },] },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] },] },
         { type: ChangeDetectorRef, },
