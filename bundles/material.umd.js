@@ -5130,7 +5130,10 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._elementFocusedBeforeOpened = /** @type {?} */ (this._document.activeElement);
-        Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
+        // The `focus` method isn't available during server-side rendering.
+        if (this._elementRef.nativeElement.focus) {
+            Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
+        }
     };
     MatBottomSheetContainer.decorators = [
         { type: core.Component, args: [{selector: 'mat-bottom-sheet-container',
@@ -17643,19 +17646,6 @@ var MatSelectionList = /** @class */ (function (_super) {
         this._onTouched = fn;
     };
     /**
-     * Returns the option with the specified value.
-     * @param {?} value
-     * @return {?}
-     */
-    MatSelectionList.prototype._getOptionByValue = /**
-     * Returns the option with the specified value.
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        return this.options.find(function (option) { return option.value === value; });
-    };
-    /**
      * Sets the selected options based on the specified values.
      * @param {?} values
      * @return {?}
@@ -17669,7 +17659,11 @@ var MatSelectionList = /** @class */ (function (_super) {
         var _this = this;
         this.options.forEach(function (option) { return option._setSelected(false); });
         values
-            .map(function (value) { return _this._getOptionByValue(value); })
+            .map(function (value) {
+            return _this.options.find(function (option) {
+                return _this.compareWith ? _this.compareWith(option.value, value) : option.value === value;
+            });
+        })
             .filter(Boolean)
             .forEach(function (option) { return ((option))._setSelected(true); });
     };
@@ -17759,6 +17753,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         "options": [{ type: core.ContentChildren, args: [MatListOption,] },],
         "selectionChange": [{ type: core.Output },],
         "tabIndex": [{ type: core.Input },],
+        "compareWith": [{ type: core.Input },],
     };
     return MatSelectionList;
 }(_MatSelectionListMixinBase));
@@ -31289,7 +31284,7 @@ var MatToolbar = /** @class */ (function (_super) {
         { type: core.Component, args: [{selector: 'mat-toolbar',
                     exportAs: 'matToolbar',
                     template: "<ng-content></ng-content><ng-content select=\"mat-toolbar-row\"></ng-content>",
-                    styles: [".mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}.mat-toolbar-multiple-rows{min-height:64px}.mat-toolbar-row,.mat-toolbar-single-row{height:64px}@media (max-width:599px){.mat-toolbar-multiple-rows{min-height:56px}.mat-toolbar-row,.mat-toolbar-single-row{height:56px}}"],
+                    styles: ["@media screen and (-ms-high-contrast:active){.mat-toolbar{outline:solid 1px}}.mat-toolbar-row,.mat-toolbar-single-row{display:flex;box-sizing:border-box;padding:0 16px;width:100%;flex-direction:row;align-items:center;white-space:nowrap}.mat-toolbar-multiple-rows{display:flex;box-sizing:border-box;flex-direction:column;width:100%}.mat-toolbar-multiple-rows{min-height:64px}.mat-toolbar-row,.mat-toolbar-single-row{height:64px}@media (max-width:599px){.mat-toolbar-multiple-rows{min-height:56px}.mat-toolbar-row,.mat-toolbar-single-row{height:56px}}"],
                     inputs: ['color'],
                     host: {
                         'class': 'mat-toolbar',
@@ -31941,7 +31936,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.12-540226c');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.12-d0a4e9f');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

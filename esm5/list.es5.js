@@ -820,19 +820,6 @@ var MatSelectionList = /** @class */ (function (_super) {
         this._onTouched = fn;
     };
     /**
-     * Returns the option with the specified value.
-     * @param {?} value
-     * @return {?}
-     */
-    MatSelectionList.prototype._getOptionByValue = /**
-     * Returns the option with the specified value.
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        return this.options.find(function (option) { return option.value === value; });
-    };
-    /**
      * Sets the selected options based on the specified values.
      * @param {?} values
      * @return {?}
@@ -846,7 +833,11 @@ var MatSelectionList = /** @class */ (function (_super) {
         var _this = this;
         this.options.forEach(function (option) { return option._setSelected(false); });
         values
-            .map(function (value) { return _this._getOptionByValue(value); })
+            .map(function (value) {
+            return _this.options.find(function (option) {
+                return _this.compareWith ? _this.compareWith(option.value, value) : option.value === value;
+            });
+        })
             .filter(Boolean)
             .forEach(function (option) { return ((option))._setSelected(true); });
     };
@@ -936,6 +927,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         "options": [{ type: ContentChildren, args: [MatListOption,] },],
         "selectionChange": [{ type: Output },],
         "tabIndex": [{ type: Input },],
+        "compareWith": [{ type: Input },],
     };
     return MatSelectionList;
 }(_MatSelectionListMixinBase));

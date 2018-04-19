@@ -422,7 +422,10 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._elementFocusedBeforeOpened = /** @type {?} */ (this._document.activeElement);
-        Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
+        // The `focus` method isn't available during server-side rendering.
+        if (this._elementRef.nativeElement.focus) {
+            Promise.resolve().then(function () { return _this._elementRef.nativeElement.focus(); });
+        }
     };
     MatBottomSheetContainer.decorators = [
         { type: Component, args: [{selector: 'mat-bottom-sheet-container',

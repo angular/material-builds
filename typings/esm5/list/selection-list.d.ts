@@ -95,6 +95,12 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     readonly selectionChange: EventEmitter<MatSelectionListChange>;
     /** Tabindex of the selection list. */
     tabIndex: number;
+    /**
+     * Function used for comparing an option against the selected value when determining which
+     * options should appear as selected. The first argument is the value of an options. The second
+     * one is a value from the selected value. A boolean must be returned.
+     */
+    compareWith: (o1: any, o2: any) => boolean;
     /** The currently selected options. */
     selectedOptions: SelectionModel<MatListOption>;
     /** View to model callback that should be called whenever the selected options change. */
@@ -131,8 +137,6 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     registerOnChange(fn: (value: any) => void): void;
     /** Implemented as part of ControlValueAccessor. */
     registerOnTouched(fn: () => void): void;
-    /** Returns the option with the specified value. */
-    private _getOptionByValue(value);
     /** Sets the selected options based on the specified values. */
     private _setOptionsFromValues(values);
     /** Returns the values of the selected options. */

@@ -326,7 +326,10 @@ class MatBottomSheetContainer extends BasePortalOutlet {
      */
     _savePreviouslyFocusedElement() {
         this._elementFocusedBeforeOpened = /** @type {?} */ (this._document.activeElement);
-        Promise.resolve().then(() => this._elementRef.nativeElement.focus());
+        // The `focus` method isn't available during server-side rendering.
+        if (this._elementRef.nativeElement.focus) {
+            Promise.resolve().then(() => this._elementRef.nativeElement.focus());
+        }
     }
 }
 MatBottomSheetContainer.decorators = [

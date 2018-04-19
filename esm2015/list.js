@@ -623,14 +623,6 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         this._onTouched = fn;
     }
     /**
-     * Returns the option with the specified value.
-     * @param {?} value
-     * @return {?}
-     */
-    _getOptionByValue(value) {
-        return this.options.find(option => option.value === value);
-    }
-    /**
      * Sets the selected options based on the specified values.
      * @param {?} values
      * @return {?}
@@ -638,7 +630,9 @@ class MatSelectionList extends _MatSelectionListMixinBase {
     _setOptionsFromValues(values) {
         this.options.forEach(option => option._setSelected(false));
         values
-            .map(value => this._getOptionByValue(value))
+            .map(value => {
+            return this.options.find(option => this.compareWith ? this.compareWith(option.value, value) : option.value === value);
+        })
             .filter(Boolean)
             .forEach(option => /** @type {?} */ ((option))._setSelected(true));
     }
@@ -711,6 +705,7 @@ MatSelectionList.propDecorators = {
     "options": [{ type: ContentChildren, args: [MatListOption,] },],
     "selectionChange": [{ type: Output },],
     "tabIndex": [{ type: Input },],
+    "compareWith": [{ type: Input },],
 };
 
 /**
