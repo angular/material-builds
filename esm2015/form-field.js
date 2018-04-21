@@ -253,6 +253,7 @@ class MatFormField extends _MatFormFieldMixinBase {
         this._hintLabelId = `mat-hint-${nextUniqueId$2++}`;
         this._outlineGapWidth = 0;
         this._outlineGapStart = 0;
+        this._initialGapCalculated = false;
         this._labelOptions = labelOptions ? labelOptions : {};
         this.floatLabel = this._labelOptions.float || 'auto';
     }
@@ -366,16 +367,15 @@ class MatFormField extends _MatFormFieldMixinBase {
             this._syncDescribedByIds();
             this._changeDetectorRef.markForCheck();
         });
-        Promise.resolve().then(() => {
-            this.updateOutlineGap();
-            this._changeDetectorRef.markForCheck();
-        });
     }
     /**
      * @return {?}
      */
     ngAfterContentChecked() {
         this._validateControlChild();
+        if (!this._initialGapCalculated) {
+            Promise.resolve().then(() => this.updateOutlineGap());
+        }
     }
     /**
      * @return {?}
@@ -539,6 +539,10 @@ class MatFormField extends _MatFormFieldMixinBase {
         if (this.appearance === 'outline' && this._label && this._label.nativeElement.children.length) {
             if (this._platform && !this._platform.isBrowser) {
                 // getBoundingClientRect isn't available on the server.
+                this._initialGapCalculated = true;
+                return;
+            }
+            if (!document.contains(this._elementRef.nativeElement)) {
                 return;
             }
             const /** @type {?} */ containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
@@ -554,6 +558,7 @@ class MatFormField extends _MatFormFieldMixinBase {
             this._outlineGapStart = 0;
             this._outlineGapWidth = 0;
         }
+        this._initialGapCalculated = true;
         this._changeDetectorRef.markForCheck();
     }
     /**

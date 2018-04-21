@@ -65,6 +65,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _floatLabel;
     _outlineGapWidth: number;
     _outlineGapStart: number;
+    _initialGapCalculated: boolean;
     /**
      * @deprecated
      * @deletion-target 7.0.0

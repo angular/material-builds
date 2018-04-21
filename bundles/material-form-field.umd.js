@@ -291,6 +291,7 @@ var MatFormField = /** @class */ (function (_super) {
         _this._hintLabelId = "mat-hint-" + nextUniqueId$2++;
         _this._outlineGapWidth = 0;
         _this._outlineGapStart = 0;
+        _this._initialGapCalculated = false;
         _this._labelOptions = labelOptions ? labelOptions : {};
         _this.floatLabel = _this._labelOptions.float || 'auto';
         return _this;
@@ -444,10 +445,6 @@ var MatFormField = /** @class */ (function (_super) {
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
         });
-        Promise.resolve().then(function () {
-            _this.updateOutlineGap();
-            _this._changeDetectorRef.markForCheck();
-        });
     };
     /**
      * @return {?}
@@ -456,7 +453,11 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        var _this = this;
         this._validateControlChild();
+        if (!this._initialGapCalculated) {
+            Promise.resolve().then(function () { return _this.updateOutlineGap(); });
+        }
     };
     /**
      * @return {?}
@@ -689,6 +690,10 @@ var MatFormField = /** @class */ (function (_super) {
         if (this.appearance === 'outline' && this._label && this._label.nativeElement.children.length) {
             if (this._platform && !this._platform.isBrowser) {
                 // getBoundingClientRect isn't available on the server.
+                this._initialGapCalculated = true;
+                return;
+            }
+            if (!document.contains(this._elementRef.nativeElement)) {
                 return;
             }
             var /** @type {?} */ containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
@@ -705,6 +710,7 @@ var MatFormField = /** @class */ (function (_super) {
             this._outlineGapStart = 0;
             this._outlineGapWidth = 0;
         }
+        this._initialGapCalculated = true;
         this._changeDetectorRef.markForCheck();
     };
     /**
