@@ -7,7 +7,7 @@
  */
 import { __extends } from 'tslib';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, Directive, ElementRef, Input, NgModule } from '@angular/core';
-import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
+import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
@@ -31,7 +31,7 @@ var MatTable = /** @class */ (function (_super) {
         { type: Component, args: [{selector: 'mat-table, table[mat-table]',
                     exportAs: 'matTable',
                     template: CDK_TABLE_TEMPLATE,
-                    styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-row{min-height:48px}mat-header-row,mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;box-sizing:border-box}mat-header-row::after,mat-row::after{display:inline-block;min-height:inherit;content:''}mat-cell:first-child,mat-header-cell:first-child{padding-left:24px}[dir=rtl] mat-cell:first-child,[dir=rtl] mat-header-cell:first-child{padding-left:0;padding-right:24px}mat-cell:last-child,mat-header-cell:last-child{padding-right:24px}[dir=rtl] mat-cell:last-child,[dir=rtl] mat-header-cell:last-child{padding-right:0;padding-left:24px}mat-cell,mat-header-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-row{height:48px}th.mat-header-cell{text-align:left}td.mat-cell,th.mat-header-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}td.mat-cell:first-child,th.mat-header-cell:first-child{padding-left:24px}td.mat-cell:last-child,th.mat-header-cell:last-child{padding-right:24px}"],
+                    styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-footer-row,mat-row{min-height:48px}mat-footer-row,mat-header-row,mat-row{display:flex;border-width:0;border-bottom-width:1px;border-style:solid;align-items:center;box-sizing:border-box}mat-footer-row::after,mat-header-row::after,mat-row::after{display:inline-block;min-height:inherit;content:''}mat-cell:first-child,mat-footer-cell:first-child,mat-header-cell:first-child{padding-left:24px}[dir=rtl] mat-cell:first-child,[dir=rtl] mat-footer-cell:first-child,[dir=rtl] mat-header-cell:first-child{padding-left:0;padding-right:24px}mat-cell:last-child,mat-footer-cell:last-child,mat-header-cell:last-child{padding-right:24px}[dir=rtl] mat-cell:last-child,[dir=rtl] mat-footer-cell:last-child,[dir=rtl] mat-header-cell:last-child{padding-right:0;padding-left:24px}mat-cell,mat-footer-cell,mat-header-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-footer-row,tr.mat-row{height:48px}th.mat-header-cell{text-align:left}td.mat-cell,td.mat-footer-cell,th.mat-header-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}td.mat-cell:first-child,td.mat-footer-cell:first-child,th.mat-header-cell:first-child{padding-left:24px}td.mat-cell:last-child,td.mat-footer-cell:last-child,th.mat-header-cell:last-child{padding-right:24px}"],
                     host: {
                         'class': 'mat-table',
                     },
@@ -81,6 +81,23 @@ var MatHeaderCellDef = /** @class */ (function (_super) {
     return MatHeaderCellDef;
 }(CdkHeaderCellDef));
 /**
+ * Footer cell definition for the mat-table.
+ * Captures the template of a column's footer cell and as well as cell-specific properties.
+ */
+var MatFooterCellDef = /** @class */ (function (_super) {
+    __extends(MatFooterCellDef, _super);
+    function MatFooterCellDef() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MatFooterCellDef.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matFooterCellDef]',
+                    providers: [{ provide: CdkFooterCellDef, useExisting: MatFooterCellDef }]
+                },] },
+    ];
+    return MatFooterCellDef;
+}(CdkFooterCellDef));
+/**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
  */
@@ -127,6 +144,32 @@ var MatHeaderCell = /** @class */ (function (_super) {
     ]; };
     return MatHeaderCell;
 }(CdkHeaderCell));
+/**
+ * Footer cell template container that adds the right classes and role.
+ */
+var MatFooterCell = /** @class */ (function (_super) {
+    __extends(MatFooterCell, _super);
+    function MatFooterCell(columnDef, elementRef) {
+        var _this = _super.call(this, columnDef, elementRef) || this;
+        elementRef.nativeElement.classList.add("mat-column-" + columnDef.cssClassFriendlyName);
+        return _this;
+    }
+    MatFooterCell.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-footer-cell, td[mat-footer-cell]',
+                    host: {
+                        'class': 'mat-footer-cell',
+                        'role': 'gridcell',
+                    },
+                },] },
+    ];
+    /** @nocollapse */
+    MatFooterCell.ctorParameters = function () { return [
+        { type: CdkColumnDef, },
+        { type: ElementRef, },
+    ]; };
+    return MatFooterCell;
+}(CdkFooterCell));
 /**
  * Cell template container that adds the right classes and role.
  */
@@ -177,8 +220,26 @@ var MatHeaderRowDef = /** @class */ (function (_super) {
     return MatHeaderRowDef;
 }(CdkHeaderRowDef));
 /**
+ * Footer row definition for the mat-table.
+ * Captures the footer row's template and other footer properties such as the columns to display.
+ */
+var MatFooterRowDef = /** @class */ (function (_super) {
+    __extends(MatFooterRowDef, _super);
+    function MatFooterRowDef() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MatFooterRowDef.decorators = [
+        { type: Directive, args: [{
+                    selector: '[matFooterRowDef]',
+                    providers: [{ provide: CdkFooterRowDef, useExisting: MatFooterRowDef }],
+                    inputs: ['columns: matFooterRowDef'],
+                },] },
+    ];
+    return MatFooterRowDef;
+}(CdkFooterRowDef));
+/**
  * Data row definition for the mat-table.
- * Captures the header row's template and other row properties such as the columns to display and
+ * Captures the footer row's template and other footer properties such as the columns to display and
  * a when predicate that describes when this row should be used.
  * @template T
  */
@@ -197,7 +258,7 @@ var MatRowDef = /** @class */ (function (_super) {
     return MatRowDef;
 }(CdkRowDef));
 /**
- * Header template container that contains the cell outlet. Adds the right class and role.
+ * Footer template container that contains the cell outlet. Adds the right class and role.
  */
 var MatHeaderRow = /** @class */ (function (_super) {
     __extends(MatHeaderRow, _super);
@@ -218,6 +279,28 @@ var MatHeaderRow = /** @class */ (function (_super) {
     ];
     return MatHeaderRow;
 }(CdkHeaderRow));
+/**
+ * Footer template container that contains the cell outlet. Adds the right class and role.
+ */
+var MatFooterRow = /** @class */ (function (_super) {
+    __extends(MatFooterRow, _super);
+    function MatFooterRow() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    MatFooterRow.decorators = [
+        { type: Component, args: [{selector: 'mat-footer-row, tr[mat-footer-row]',
+                    template: CDK_ROW_TEMPLATE,
+                    host: {
+                        'class': 'mat-footer-row',
+                        'role': 'row',
+                    },
+                    changeDetection: ChangeDetectionStrategy.OnPush,
+                    encapsulation: ViewEncapsulation.None,
+                    exportAs: 'matFooterRow',
+                },] },
+    ];
+    return MatFooterRow;
+}(CdkFooterRow));
 /**
  * Data row template container that contains the cell outlet. Adds the right class and role.
  */
@@ -247,15 +330,19 @@ var MatRow = /** @class */ (function (_super) {
  */
 var /** @type {?} */ EXPORTED_DECLARATIONS = [
     MatTable,
-    MatCellDef,
     MatHeaderCellDef,
-    MatColumnDef,
     MatHeaderRowDef,
+    MatColumnDef,
+    MatCellDef,
     MatRowDef,
+    MatFooterCellDef,
+    MatFooterRowDef,
     MatHeaderCell,
     MatCell,
+    MatFooterCell,
     MatHeaderRow,
     MatRow,
+    MatFooterRow,
 ];
 var MatTableModule = /** @class */ (function () {
     function MatTableModule() {
@@ -683,5 +770,5 @@ MatTableDataSource = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatTableModule, MatCellDef, MatHeaderCellDef, MatColumnDef, MatHeaderCell, MatCell, MatTable, MatHeaderRowDef, MatRowDef, MatHeaderRow, MatRow, MatTableDataSource };
+export { MatTableModule, MatCellDef, MatHeaderCellDef, MatFooterCellDef, MatColumnDef, MatHeaderCell, MatFooterCell, MatCell, MatTable, MatHeaderRowDef, MatFooterRowDef, MatRowDef, MatHeaderRow, MatFooterRow, MatRow, MatTableDataSource };
 //# sourceMappingURL=table.es5.js.map

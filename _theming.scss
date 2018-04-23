@@ -2303,8 +2303,8 @@ $mat-chip-remove-font-size: 18px;
     background: mat-color($background, 'card');
   }
 
-
-  mat-row, mat-header-row, th.mat-header-cell, td.mat-cell {
+  mat-row, mat-header-row, mat-footer-row,
+  th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
     border-bottom-color: mat-color($foreground, divider);
   }
 
@@ -2312,7 +2312,7 @@ $mat-chip-remove-font-size: 18px;
     color: mat-color($foreground, secondary-text);
   }
 
-  .mat-cell {
+  .mat-cell, .mat-footer-cell {
     color: mat-color($foreground, text);
   }
 }
@@ -2327,7 +2327,7 @@ $mat-chip-remove-font-size: 18px;
     font-weight: mat-font-weight($config, body-2);
   }
 
-  .mat-cell {
+  .mat-cell, .mat-footer-cell {
     font-size: mat-font-size($config, body-1);
   }
 }

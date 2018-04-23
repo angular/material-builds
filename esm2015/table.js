@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectionStrategy, Component, ViewEncapsulation, Directive, ElementRef, Input, NgModule } from '@angular/core';
-import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
+import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
@@ -27,7 +27,7 @@ MatTable.decorators = [
     { type: Component, args: [{selector: 'mat-table, table[mat-table]',
                 exportAs: 'matTable',
                 template: CDK_TABLE_TEMPLATE,
-                styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-row{min-height:48px}mat-header-row,mat-row{display:flex;border-bottom-width:1px;border-bottom-style:solid;align-items:center;box-sizing:border-box}mat-header-row::after,mat-row::after{display:inline-block;min-height:inherit;content:''}mat-cell:first-child,mat-header-cell:first-child{padding-left:24px}[dir=rtl] mat-cell:first-child,[dir=rtl] mat-header-cell:first-child{padding-left:0;padding-right:24px}mat-cell:last-child,mat-header-cell:last-child{padding-right:24px}[dir=rtl] mat-cell:last-child,[dir=rtl] mat-header-cell:last-child{padding-right:0;padding-left:24px}mat-cell,mat-header-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-row{height:48px}th.mat-header-cell{text-align:left}td.mat-cell,th.mat-header-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}td.mat-cell:first-child,th.mat-header-cell:first-child{padding-left:24px}td.mat-cell:last-child,th.mat-header-cell:last-child{padding-right:24px}"],
+                styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-footer-row,mat-row{min-height:48px}mat-footer-row,mat-header-row,mat-row{display:flex;border-width:0;border-bottom-width:1px;border-style:solid;align-items:center;box-sizing:border-box}mat-footer-row::after,mat-header-row::after,mat-row::after{display:inline-block;min-height:inherit;content:''}mat-cell:first-child,mat-footer-cell:first-child,mat-header-cell:first-child{padding-left:24px}[dir=rtl] mat-cell:first-child,[dir=rtl] mat-footer-cell:first-child,[dir=rtl] mat-header-cell:first-child{padding-left:0;padding-right:24px}mat-cell:last-child,mat-footer-cell:last-child,mat-header-cell:last-child{padding-right:24px}[dir=rtl] mat-cell:last-child,[dir=rtl] mat-footer-cell:last-child,[dir=rtl] mat-header-cell:last-child{padding-right:0;padding-left:24px}mat-cell,mat-footer-cell,mat-header-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-footer-row,tr.mat-row{height:48px}th.mat-header-cell{text-align:left}td.mat-cell,td.mat-footer-cell,th.mat-header-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}td.mat-cell:first-child,td.mat-footer-cell:first-child,th.mat-header-cell:first-child{padding-left:24px}td.mat-cell:last-child,td.mat-footer-cell:last-child,th.mat-header-cell:last-child{padding-right:24px}"],
                 host: {
                     'class': 'mat-table',
                 },
@@ -62,6 +62,18 @@ MatHeaderCellDef.decorators = [
     { type: Directive, args: [{
                 selector: '[matHeaderCellDef]',
                 providers: [{ provide: CdkHeaderCellDef, useExisting: MatHeaderCellDef }]
+            },] },
+];
+/**
+ * Footer cell definition for the mat-table.
+ * Captures the template of a column's footer cell and as well as cell-specific properties.
+ */
+class MatFooterCellDef extends CdkFooterCellDef {
+}
+MatFooterCellDef.decorators = [
+    { type: Directive, args: [{
+                selector: '[matFooterCellDef]',
+                providers: [{ provide: CdkFooterCellDef, useExisting: MatFooterCellDef }]
             },] },
 ];
 /**
@@ -104,6 +116,33 @@ MatHeaderCell.decorators = [
 ];
 /** @nocollapse */
 MatHeaderCell.ctorParameters = () => [
+    { type: CdkColumnDef, },
+    { type: ElementRef, },
+];
+/**
+ * Footer cell template container that adds the right classes and role.
+ */
+class MatFooterCell extends CdkFooterCell {
+    /**
+     * @param {?} columnDef
+     * @param {?} elementRef
+     */
+    constructor(columnDef, elementRef) {
+        super(columnDef, elementRef);
+        elementRef.nativeElement.classList.add(`mat-column-${columnDef.cssClassFriendlyName}`);
+    }
+}
+MatFooterCell.decorators = [
+    { type: Directive, args: [{
+                selector: 'mat-footer-cell, td[mat-footer-cell]',
+                host: {
+                    'class': 'mat-footer-cell',
+                    'role': 'gridcell',
+                },
+            },] },
+];
+/** @nocollapse */
+MatFooterCell.ctorParameters = () => [
     { type: CdkColumnDef, },
     { type: ElementRef, },
 ];
@@ -153,8 +192,21 @@ MatHeaderRowDef.decorators = [
             },] },
 ];
 /**
+ * Footer row definition for the mat-table.
+ * Captures the footer row's template and other footer properties such as the columns to display.
+ */
+class MatFooterRowDef extends CdkFooterRowDef {
+}
+MatFooterRowDef.decorators = [
+    { type: Directive, args: [{
+                selector: '[matFooterRowDef]',
+                providers: [{ provide: CdkFooterRowDef, useExisting: MatFooterRowDef }],
+                inputs: ['columns: matFooterRowDef'],
+            },] },
+];
+/**
  * Data row definition for the mat-table.
- * Captures the header row's template and other row properties such as the columns to display and
+ * Captures the footer row's template and other footer properties such as the columns to display and
  * a when predicate that describes when this row should be used.
  * @template T
  */
@@ -168,7 +220,7 @@ MatRowDef.decorators = [
             },] },
 ];
 /**
- * Header template container that contains the cell outlet. Adds the right class and role.
+ * Footer template container that contains the cell outlet. Adds the right class and role.
  */
 class MatHeaderRow extends CdkHeaderRow {
 }
@@ -182,6 +234,23 @@ MatHeaderRow.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 exportAs: 'matHeaderRow',
+            },] },
+];
+/**
+ * Footer template container that contains the cell outlet. Adds the right class and role.
+ */
+class MatFooterRow extends CdkFooterRow {
+}
+MatFooterRow.decorators = [
+    { type: Component, args: [{selector: 'mat-footer-row, tr[mat-footer-row]',
+                template: CDK_ROW_TEMPLATE,
+                host: {
+                    'class': 'mat-footer-row',
+                    'role': 'row',
+                },
+                changeDetection: ChangeDetectionStrategy.OnPush,
+                encapsulation: ViewEncapsulation.None,
+                exportAs: 'matFooterRow',
             },] },
 ];
 /**
@@ -208,15 +277,19 @@ MatRow.decorators = [
  */
 const /** @type {?} */ EXPORTED_DECLARATIONS = [
     MatTable,
-    MatCellDef,
     MatHeaderCellDef,
-    MatColumnDef,
     MatHeaderRowDef,
+    MatColumnDef,
+    MatCellDef,
     MatRowDef,
+    MatFooterCellDef,
+    MatFooterRowDef,
     MatHeaderCell,
     MatCell,
+    MatFooterCell,
     MatHeaderRow,
     MatRow,
+    MatFooterRow,
 ];
 class MatTableModule {
 }
@@ -509,5 +582,5 @@ class MatTableDataSource extends DataSource {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatTableModule, MatCellDef, MatHeaderCellDef, MatColumnDef, MatHeaderCell, MatCell, MatTable, MatHeaderRowDef, MatRowDef, MatHeaderRow, MatRow, MatTableDataSource };
+export { MatTableModule, MatCellDef, MatHeaderCellDef, MatFooterCellDef, MatColumnDef, MatHeaderCell, MatFooterCell, MatCell, MatTable, MatHeaderRowDef, MatFooterRowDef, MatRowDef, MatHeaderRow, MatFooterRow, MatRow, MatTableDataSource };
 //# sourceMappingURL=table.js.map
