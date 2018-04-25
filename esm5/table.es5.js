@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, Directive, ElementRef, Input, NgModule } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, IterableDiffers, ViewEncapsulation, Directive, Input, NgModule } from '@angular/core';
 import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
@@ -24,8 +24,17 @@ import { map } from 'rxjs/operators';
  */
 var MatTable = /** @class */ (function (_super) {
     __extends(MatTable, _super);
-    function MatTable() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
+    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
+    // fixed bug.
+    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
+    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
+    function MatTable(_differs, _changeDetectorRef, _elementRef, role) {
+        var _this = _super.call(this, _differs, _changeDetectorRef, _elementRef, role) || this;
+        _this._differs = _differs;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._elementRef = _elementRef;
+        return _this;
     }
     MatTable.decorators = [
         { type: Component, args: [{selector: 'mat-table, table[mat-table]',
@@ -39,6 +48,13 @@ var MatTable = /** @class */ (function (_super) {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
+    /** @nocollapse */
+    MatTable.ctorParameters = function () { return [
+        { type: IterableDiffers, },
+        { type: ChangeDetectorRef, },
+        { type: ElementRef, },
+        { type: undefined, decorators: [{ type: Attribute, args: ['role',] },] },
+    ]; };
     return MatTable;
 }(CdkTable));
 

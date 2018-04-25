@@ -47,8 +47,17 @@ function __extends(d, b) {
  */
 var MatTable = /** @class */ (function (_super) {
     __extends(MatTable, _super);
-    function MatTable() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
+    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
+    // fixed bug.
+    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
+    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
+    function MatTable(_differs, _changeDetectorRef, _elementRef, role) {
+        var _this = _super.call(this, _differs, _changeDetectorRef, _elementRef, role) || this;
+        _this._differs = _differs;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._elementRef = _elementRef;
+        return _this;
     }
     MatTable.decorators = [
         { type: core.Component, args: [{selector: 'mat-table, table[mat-table]',
@@ -62,6 +71,13 @@ var MatTable = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
+    /** @nocollapse */
+    MatTable.ctorParameters = function () { return [
+        { type: core.IterableDiffers, },
+        { type: core.ChangeDetectorRef, },
+        { type: core.ElementRef, },
+        { type: undefined, decorators: [{ type: core.Attribute, args: ['role',] },] },
+    ]; };
     return MatTable;
 }(table.CdkTable));
 

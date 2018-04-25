@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, Directive, ElementRef, Input, NgModule } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, IterableDiffers, ViewEncapsulation, Directive, Input, NgModule } from '@angular/core';
 import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
@@ -22,6 +22,18 @@ import { map } from 'rxjs/operators';
  * @template T
  */
 class MatTable extends CdkTable {
+    /**
+     * @param {?} _differs
+     * @param {?} _changeDetectorRef
+     * @param {?} _elementRef
+     * @param {?} role
+     */
+    constructor(_differs, _changeDetectorRef, _elementRef, role) {
+        super(_differs, _changeDetectorRef, _elementRef, role);
+        this._differs = _differs;
+        this._changeDetectorRef = _changeDetectorRef;
+        this._elementRef = _elementRef;
+    }
 }
 MatTable.decorators = [
     { type: Component, args: [{selector: 'mat-table, table[mat-table]',
@@ -34,6 +46,13 @@ MatTable.decorators = [
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
+];
+/** @nocollapse */
+MatTable.ctorParameters = () => [
+    { type: IterableDiffers, },
+    { type: ChangeDetectorRef, },
+    { type: ElementRef, },
+    { type: undefined, decorators: [{ type: Attribute, args: ['role',] },] },
 ];
 
 /**
