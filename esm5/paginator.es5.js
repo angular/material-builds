@@ -279,8 +279,9 @@ var MatPaginator = /** @class */ (function (_super) {
         if (!this.hasNextPage()) {
             return;
         }
+        var /** @type {?} */ previousPageIndex = this.pageIndex;
         this.pageIndex++;
-        this._emitPageEvent();
+        this._emitPageEvent(previousPageIndex);
     };
     /** Move back to the previous page if it exists. */
     /**
@@ -295,8 +296,9 @@ var MatPaginator = /** @class */ (function (_super) {
         if (!this.hasPreviousPage()) {
             return;
         }
+        var /** @type {?} */ previousPageIndex = this.pageIndex;
         this.pageIndex--;
-        this._emitPageEvent();
+        this._emitPageEvent(previousPageIndex);
     };
     /** Move to the first page if not already there. */
     /**
@@ -312,8 +314,9 @@ var MatPaginator = /** @class */ (function (_super) {
         if (!this.hasPreviousPage()) {
             return;
         }
+        var /** @type {?} */ previousPageIndex = this.pageIndex;
         this.pageIndex = 0;
-        this._emitPageEvent();
+        this._emitPageEvent(previousPageIndex);
     };
     /** Move to the last page if not already there. */
     /**
@@ -329,8 +332,9 @@ var MatPaginator = /** @class */ (function (_super) {
         if (!this.hasNextPage()) {
             return;
         }
+        var /** @type {?} */ previousPageIndex = this.pageIndex;
         this.pageIndex = this.getNumberOfPages();
-        this._emitPageEvent();
+        this._emitPageEvent(previousPageIndex);
     };
     /** Whether there is a previous page. */
     /**
@@ -401,9 +405,10 @@ var MatPaginator = /** @class */ (function (_super) {
         // Current page needs to be updated to reflect the new page size. Navigate to the page
         // containing the previous page's first item.
         var /** @type {?} */ startIndex = this.pageIndex * this.pageSize;
+        var /** @type {?} */ previousPageIndex = this.pageIndex;
         this.pageIndex = Math.floor(startIndex / pageSize) || 0;
         this.pageSize = pageSize;
-        this._emitPageEvent();
+        this._emitPageEvent(previousPageIndex);
     };
     /**
      * Updates the list of page size options to display to the user. Includes making sure that
@@ -426,7 +431,7 @@ var MatPaginator = /** @class */ (function (_super) {
                 DEFAULT_PAGE_SIZE;
         }
         this._displayedPageSizeOptions = this.pageSizeOptions.slice();
-        if (this._displayedPageSizeOptions.indexOf(this.pageSize) == -1) {
+        if (this._displayedPageSizeOptions.indexOf(this.pageSize) === -1) {
             this._displayedPageSizeOptions.push(this.pageSize);
         }
         // Sort the numbers using a number-specific sort function.
@@ -435,14 +440,17 @@ var MatPaginator = /** @class */ (function (_super) {
     };
     /**
      * Emits an event notifying that a change of the paginator's properties has been triggered.
+     * @param {?} previousPageIndex
      * @return {?}
      */
     MatPaginator.prototype._emitPageEvent = /**
      * Emits an event notifying that a change of the paginator's properties has been triggered.
+     * @param {?} previousPageIndex
      * @return {?}
      */
-    function () {
+    function (previousPageIndex) {
         this.page.emit({
+            previousPageIndex: previousPageIndex,
             pageIndex: this.pageIndex,
             pageSize: this.pageSize,
             length: this.length

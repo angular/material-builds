@@ -231,8 +231,9 @@ class MatPaginator extends _MatPaginatorBase {
         if (!this.hasNextPage()) {
             return;
         }
+        const /** @type {?} */ previousPageIndex = this.pageIndex;
         this.pageIndex++;
-        this._emitPageEvent();
+        this._emitPageEvent(previousPageIndex);
     }
     /**
      * Move back to the previous page if it exists.
@@ -242,8 +243,9 @@ class MatPaginator extends _MatPaginatorBase {
         if (!this.hasPreviousPage()) {
             return;
         }
+        const /** @type {?} */ previousPageIndex = this.pageIndex;
         this.pageIndex--;
-        this._emitPageEvent();
+        this._emitPageEvent(previousPageIndex);
     }
     /**
      * Move to the first page if not already there.
@@ -254,8 +256,9 @@ class MatPaginator extends _MatPaginatorBase {
         if (!this.hasPreviousPage()) {
             return;
         }
+        const /** @type {?} */ previousPageIndex = this.pageIndex;
         this.pageIndex = 0;
-        this._emitPageEvent();
+        this._emitPageEvent(previousPageIndex);
     }
     /**
      * Move to the last page if not already there.
@@ -266,8 +269,9 @@ class MatPaginator extends _MatPaginatorBase {
         if (!this.hasNextPage()) {
             return;
         }
+        const /** @type {?} */ previousPageIndex = this.pageIndex;
         this.pageIndex = this.getNumberOfPages();
-        this._emitPageEvent();
+        this._emitPageEvent(previousPageIndex);
     }
     /**
      * Whether there is a previous page.
@@ -305,9 +309,10 @@ class MatPaginator extends _MatPaginatorBase {
         // Current page needs to be updated to reflect the new page size. Navigate to the page
         // containing the previous page's first item.
         const /** @type {?} */ startIndex = this.pageIndex * this.pageSize;
+        const /** @type {?} */ previousPageIndex = this.pageIndex;
         this.pageIndex = Math.floor(startIndex / pageSize) || 0;
         this.pageSize = pageSize;
-        this._emitPageEvent();
+        this._emitPageEvent(previousPageIndex);
     }
     /**
      * Updates the list of page size options to display to the user. Includes making sure that
@@ -325,7 +330,7 @@ class MatPaginator extends _MatPaginatorBase {
                 DEFAULT_PAGE_SIZE;
         }
         this._displayedPageSizeOptions = this.pageSizeOptions.slice();
-        if (this._displayedPageSizeOptions.indexOf(this.pageSize) == -1) {
+        if (this._displayedPageSizeOptions.indexOf(this.pageSize) === -1) {
             this._displayedPageSizeOptions.push(this.pageSize);
         }
         // Sort the numbers using a number-specific sort function.
@@ -334,10 +339,12 @@ class MatPaginator extends _MatPaginatorBase {
     }
     /**
      * Emits an event notifying that a change of the paginator's properties has been triggered.
+     * @param {?} previousPageIndex
      * @return {?}
      */
-    _emitPageEvent() {
+    _emitPageEvent(previousPageIndex) {
         this.page.emit({
+            previousPageIndex,
             pageIndex: this.pageIndex,
             pageSize: this.pageSize,
             length: this.length

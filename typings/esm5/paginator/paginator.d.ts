@@ -8,6 +8,11 @@ import { HasInitialized } from '@angular/material/core';
 export declare class PageEvent {
     /** The current page index. */
     pageIndex: number;
+    /**
+     * Index of the page that was selected previously.
+     * @deletion-target 7.0.0 To be made into a required property.
+     */
+    previousPageIndex?: number;
     /** The current page size */
     pageSize: number;
     /** The current total number of items being paged */
@@ -81,5 +86,5 @@ export declare class MatPaginator extends _MatPaginatorBase implements OnInit, O
      */
     private _updateDisplayedPageSizeOptions();
     /** Emits an event notifying that a change of the paginator's properties has been triggered. */
-    private _emitPageEvent();
+    private _emitPageEvent(previousPageIndex);
 }
