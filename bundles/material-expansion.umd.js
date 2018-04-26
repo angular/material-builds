@@ -325,7 +325,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatExpansionPanel.ctorParameters = function () { return [
-        { type: MatAccordion, decorators: [{ type: core.Optional }, { type: core.Host },] },
+        { type: MatAccordion, decorators: [{ type: core.Optional },] },
         { type: core.ChangeDetectorRef, },
         { type: collections.UniqueSelectionDispatcher, },
         { type: core.ViewContainerRef, },

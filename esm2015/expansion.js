@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Host, Optional, ViewContainerRef, ViewEncapsulation, ElementRef, NgModule } from '@angular/core';
+import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Optional, ViewContainerRef, ViewEncapsulation, ElementRef, Host, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
 import { animate, animateChild, group, state, style, transition, trigger, query } from '@angular/animations';
@@ -271,7 +271,7 @@ MatExpansionPanel.decorators = [
 ];
 /** @nocollapse */
 MatExpansionPanel.ctorParameters = () => [
-    { type: MatAccordion, decorators: [{ type: Optional }, { type: Host },] },
+    { type: MatAccordion, decorators: [{ type: Optional },] },
     { type: ChangeDetectorRef, },
     { type: UniqueSelectionDispatcher, },
     { type: ViewContainerRef, },
