@@ -648,8 +648,7 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ keyCode = event.keyCode;
-        switch (keyCode) {
+        switch (event.keyCode) {
             case keycodes.ESCAPE:
                 this.closed.emit('keydown');
                 event.stopPropagation();
@@ -665,9 +664,6 @@ var MatMenu = /** @class */ (function () {
                 }
                 break;
             default:
-                if (keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) {
-                    this._keyManager.setFocusOrigin('keyboard');
-                }
                 this._keyManager.onKeydown(event);
         }
     };

@@ -18415,8 +18415,7 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ keyCode = event.keyCode;
-        switch (keyCode) {
+        switch (event.keyCode) {
             case keycodes.ESCAPE:
                 this.closed.emit('keydown');
                 event.stopPropagation();
@@ -18432,9 +18431,6 @@ var MatMenu = /** @class */ (function () {
                 }
                 break;
             default:
-                if (keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) {
-                    this._keyManager.setFocusOrigin('keyboard');
-                }
                 this._keyManager.onKeydown(event);
         }
     };
@@ -32056,7 +32052,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.12-ec3e3e7');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.12-a292d31');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32425,16 +32421,16 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe20 = MatTabBase;
+exports.ɵf20 = _MatTabMixinBase;
+exports.ɵa20 = MatTabHeaderBase;
+exports.ɵb20 = _MatTabHeaderMixinBase;
+exports.ɵc20 = MatTabLabelWrapperBase;
+exports.ɵd20 = _MatTabLabelWrapperMixinBase;
+exports.ɵi20 = MatTabLinkBase;
+exports.ɵg20 = MatTabNavBase;
+exports.ɵj20 = _MatTabLinkMixinBase;
+exports.ɵh20 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
