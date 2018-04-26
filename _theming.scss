@@ -4377,6 +4377,34 @@ $mat-form-field-dedupe: 0;
 
 
 
+
+
+@mixin mat-tree-theme($theme) {
+  $background: map-get($theme, background);
+  $foreground: map-get($theme, foreground);
+
+  .mat-tree {
+    background: mat-color($background, 'card');
+  }
+
+  .mat-tree-node {
+    color: mat-color($foreground, text);
+  }
+}
+
+@mixin mat-tree-typography($config) {
+  .mat-tree {
+    font-family: mat-font-family($config);
+  }
+
+  .mat-tree-node {
+    font-weight: mat-font-weight($config, body-1);
+    font-size: mat-font-size($config, body-1);
+  }
+}
+
+
+
 // Includes all of the typographic styles.
 @mixin angular-material-typography($config: null) {
   @if $config == null {
@@ -4417,6 +4445,7 @@ $mat-form-field-dedupe: 0;
   @include mat-option-typography($config);
   @include mat-optgroup-typography($config);
   @include mat-snack-bar-typography($config);
+  @include mat-tree-typography($config);
 }
 
 
@@ -4513,6 +4542,7 @@ $mat-form-field-dedupe: 0;
 
 
 
+
 // Create a theme.
 @mixin angular-material-theme($theme) {
   @include mat-core-theme($theme);
@@ -4547,5 +4577,6 @@ $mat-form-field-dedupe: 0;
   @include mat-tabs-theme($theme);
   @include mat-toolbar-theme($theme);
   @include mat-tooltip-theme($theme);
+  @include mat-tree-theme($theme);
   @include mat-snack-bar-theme($theme);
 }

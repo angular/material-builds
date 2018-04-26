@@ -13,7 +13,7 @@ import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader } from '
 import { mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { Subject, merge, Subscription, of } from 'rxjs';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { ESCAPE, LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
+import { ESCAPE, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { startWith, switchMap, take, filter } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
@@ -535,7 +535,8 @@ class MatMenu {
      * @return {?}
      */
     _handleKeydown(event) {
-        switch (event.keyCode) {
+        const /** @type {?} */ keyCode = event.keyCode;
+        switch (keyCode) {
             case ESCAPE:
                 this.closed.emit('keydown');
                 event.stopPropagation();
@@ -551,6 +552,9 @@ class MatMenu {
                 }
                 break;
             default:
+                if (keyCode === UP_ARROW || keyCode === DOWN_ARROW) {
+                    this._keyManager.setFocusOrigin('keyboard');
+                }
                 this._keyManager.onKeydown(event);
         }
     }

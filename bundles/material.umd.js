@@ -18415,7 +18415,8 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        switch (event.keyCode) {
+        var /** @type {?} */ keyCode = event.keyCode;
+        switch (keyCode) {
             case keycodes.ESCAPE:
                 this.closed.emit('keydown');
                 event.stopPropagation();
@@ -18431,6 +18432,9 @@ var MatMenu = /** @class */ (function () {
                 }
                 break;
             default:
+                if (keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) {
+                    this._keyManager.setFocusOrigin('keyboard');
+                }
                 this._keyManager.onKeydown(event);
         }
     };
@@ -32052,7 +32056,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.12-85252b3');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.12-ec3e3e7');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
