@@ -3430,7 +3430,7 @@ var MatFormField = /** @class */ (function (_super) {
                     // MatInput is a directive and can't have styles, so we need to include its styles here.
                     // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
                     // aren't using MatInput.
-                    styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;box-sizing:border-box;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none;position:relative}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0;width:180px}.mat-form-field-label-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-label{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-label{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-empty.mat-form-field-label{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:block;transition:none}.mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label,.mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-label-wrapper .mat-form-field-label{display:none}.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label,.mat-form-field-can-float .mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-label-wrapper .mat-form-field-label{display:block}.mat-form-field-label:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;width:100%;pointer-events:none}.mat-form-field-ripple{position:absolute;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);opacity:0;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field.mat-focused .mat-form-field-ripple,.mat-form-field.mat-form-field-invalid .mat-form-field-ripple{opacity:1;transform:scaleX(1);transition:transform .3s cubic-bezier(.25,.8,.25,1),opacity .1s cubic-bezier(.25,.8,.25,1),background-color .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-subscript-wrapper{position:absolute;box-sizing:border-box;width:100%;overflow:hidden}.mat-form-field-label-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-form-field-appearance-fill .mat-form-field-flex{border-radius:4px 4px 0 0;padding:.75em .75em 0 .75em}.mat-form-field-appearance-fill .mat-form-field-underline::before{content:'';display:block;position:absolute;bottom:0;height:1px;width:100%}.mat-form-field-appearance-fill .mat-form-field-ripple{bottom:0;height:2px}.mat-form-field-appearance-fill:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-underline .mat-form-field-ripple{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-fill .mat-form-field-subscript-wrapper{padding:0 1em} .mat-form-field-appearance-legacy .mat-form-field-label{transform:perspective(100px);-ms-transform:none}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon-button,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-appearance-legacy .mat-form-field-underline{height:1px}.mat-form-field-appearance-legacy .mat-form-field-ripple{top:0;height:2px}.mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-appearance-legacy.mat-form-field-invalid:not(.mat-focused) .mat-form-field-ripple{height:1px} .mat-form-field-appearance-outline .mat-form-field-wrapper{margin:.25em 0}.mat-form-field-appearance-outline .mat-form-field-flex{padding:0 .75em 0 .75em;margin-top:-.25em}.mat-form-field-appearance-outline .mat-form-field-prefix,.mat-form-field-appearance-outline .mat-form-field-suffix{top:.25em}.mat-form-field-appearance-outline .mat-form-field-outline{display:flex;position:absolute;top:0;left:0;right:0;pointer-events:none}.mat-form-field-appearance-outline .mat-form-field-outline-end,.mat-form-field-appearance-outline .mat-form-field-outline-start{border:1px solid currentColor;min-width:5px}.mat-form-field-appearance-outline .mat-form-field-outline-start{border-radius:5px 0 0 5px;border-right-style:none}[dir=rtl] .mat-form-field-appearance-outline .mat-form-field-outline-start{border-right-style:solid;border-left-style:none;border-radius:0 5px 5px 0}.mat-form-field-appearance-outline .mat-form-field-outline-end{border-radius:0 5px 5px 0;border-left-style:none;flex-grow:1}[dir=rtl] .mat-form-field-appearance-outline .mat-form-field-outline-end{border-left-style:solid;border-right-style:none;border-radius:5px 0 0 5px}.mat-form-field-appearance-outline .mat-form-field-outline-gap{border-bottom:1px solid currentColor}.mat-form-field-appearance-outline .mat-form-field-outline-gap::before{content:'';display:block;width:100%;border-top:1px solid currentColor;opacity:1;transition:opacity .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-outline-gap::before{opacity:0}.mat-form-field-appearance-outline .mat-form-field-outline-thick{opacity:0}.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap::before,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start{border-width:2px;transition:border-color .3s cubic-bezier(.25,.8,.25,1),opacity .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline,.mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline{opacity:0;transition:opacity .1s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick,.mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline-thick{opacity:1}.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-outline{opacity:0;transition:opacity .6s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-outline-thick{opacity:1}.mat-form-field-appearance-outline .mat-form-field-subscript-wrapper{padding:0 1em} .mat-form-field-appearance-standard .mat-form-field-flex{padding-top:.75em}.mat-form-field-appearance-standard .mat-form-field-underline{height:1px}.mat-form-field-appearance-standard .mat-form-field-ripple{bottom:0;height:2px}.mat-form-field-appearance-standard.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-appearance-standard:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-underline .mat-form-field-ripple{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.25,.8,.25,1)} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom;text-align:inherit}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::-ms-clear,.mat-input-element::-ms-reveal{display:none}.mat-input-element[type=date]::after,.mat-input-element[type=datetime-local]::after,.mat-input-element[type=datetime]::after,.mat-input-element[type=month]::after,.mat-input-element[type=time]::after,.mat-input-element[type=week]::after{content:' ';white-space:pre;width:1px}.mat-input-element::placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-moz-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-webkit-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element:-ms-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-form-field-hide-placeholder .mat-input-element::placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-moz-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-webkit-input-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element:-ms-input-placeholder{color:transparent!important;transition:none}textarea.mat-input-element{resize:vertical;overflow:auto}textarea.mat-input-element.cdk-textarea-autosize{resize:none}"],
+                    styles: [".mat-form-field{display:inline-block;position:relative;text-align:left}[dir=rtl] .mat-form-field{text-align:right}.mat-form-field-wrapper{position:relative}.mat-form-field-flex{display:inline-flex;align-items:baseline;box-sizing:border-box;width:100%}.mat-form-field-prefix,.mat-form-field-suffix{white-space:nowrap;flex:none;position:relative}.mat-form-field-infix{display:block;position:relative;flex:auto;min-width:0;width:180px}.mat-form-field-label-wrapper{position:absolute;left:0;box-sizing:content-box;width:100%;height:100%;overflow:hidden;pointer-events:none}.mat-form-field-label{position:absolute;left:0;font:inherit;pointer-events:none;width:100%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;transform-origin:0 0;transition:transform .4s cubic-bezier(.25,.8,.25,1),color .4s cubic-bezier(.25,.8,.25,1),width .4s cubic-bezier(.25,.8,.25,1);display:none}[dir=rtl] .mat-form-field-label{transform-origin:100% 0;left:auto;right:0}.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,.mat-form-field-empty.mat-form-field-label{display:block}.mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:none}.mat-form-field-can-float .mat-form-field-autofill-control:-webkit-autofill+.mat-form-field-label-wrapper .mat-form-field-label{display:block;transition:none}.mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label,.mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-label-wrapper .mat-form-field-label{display:none}.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label,.mat-form-field-can-float .mat-input-server[placeholder]:not(:placeholder-shown)+.mat-form-field-label-wrapper .mat-form-field-label{display:block}.mat-form-field-label:not(.mat-form-field-empty){transition:none}.mat-form-field-underline{position:absolute;width:100%;pointer-events:none}.mat-form-field-ripple{position:absolute;left:0;width:100%;transform-origin:50%;transform:scaleX(.5);opacity:0;transition:background-color .3s cubic-bezier(.55,0,.55,.2)}.mat-form-field.mat-focused .mat-form-field-ripple,.mat-form-field.mat-form-field-invalid .mat-form-field-ripple{opacity:1;transform:scaleX(1);transition:transform .3s cubic-bezier(.25,.8,.25,1),opacity .1s cubic-bezier(.25,.8,.25,1),background-color .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-subscript-wrapper{position:absolute;box-sizing:border-box;width:100%;overflow:hidden}.mat-form-field-label-wrapper .mat-icon,.mat-form-field-subscript-wrapper .mat-icon{width:1em;height:1em;font-size:inherit;vertical-align:baseline}.mat-form-field-hint-wrapper{display:flex}.mat-form-field-hint-spacer{flex:1 0 1em}.mat-error{display:block} .mat-form-field-appearance-fill .mat-form-field-flex{border-radius:4px 4px 0 0;padding:.75em .75em 0 .75em}.mat-form-field-appearance-fill .mat-form-field-underline::before{content:'';display:block;position:absolute;bottom:0;height:1px;width:100%}.mat-form-field-appearance-fill .mat-form-field-ripple{bottom:0;height:2px}.mat-form-field-appearance-fill:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-underline .mat-form-field-ripple{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-fill .mat-form-field-subscript-wrapper{padding:0 1em} .mat-form-field-appearance-legacy .mat-form-field-label{transform:perspective(100px);-ms-transform:none}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon{width:1em}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon-button,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button{font:inherit;vertical-align:baseline}.mat-form-field-appearance-legacy .mat-form-field-prefix .mat-icon-button .mat-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-icon-button .mat-icon{font-size:inherit}.mat-form-field-appearance-legacy .mat-form-field-underline{height:1px}.mat-form-field-appearance-legacy .mat-form-field-ripple{top:0;height:2px}.mat-form-field-appearance-legacy.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-appearance-legacy.mat-form-field-invalid:not(.mat-focused) .mat-form-field-ripple{height:1px} .mat-form-field-appearance-outline .mat-form-field-wrapper{margin:.25em 0}.mat-form-field-appearance-outline .mat-form-field-flex{padding:0 .75em 0 .75em;margin-top:-.25em}.mat-form-field-appearance-outline .mat-form-field-prefix,.mat-form-field-appearance-outline .mat-form-field-suffix{top:.25em}.mat-form-field-appearance-outline .mat-form-field-outline{display:flex;position:absolute;top:0;left:0;right:0;pointer-events:none}.mat-form-field-appearance-outline .mat-form-field-outline-end,.mat-form-field-appearance-outline .mat-form-field-outline-start{border:1px solid currentColor;min-width:5px}.mat-form-field-appearance-outline .mat-form-field-outline-start{border-radius:5px 0 0 5px;border-right-style:none}[dir=rtl] .mat-form-field-appearance-outline .mat-form-field-outline-start{border-right-style:solid;border-left-style:none;border-radius:0 5px 5px 0}.mat-form-field-appearance-outline .mat-form-field-outline-end{border-radius:0 5px 5px 0;border-left-style:none;flex-grow:1}[dir=rtl] .mat-form-field-appearance-outline .mat-form-field-outline-end{border-left-style:solid;border-right-style:none;border-radius:5px 0 0 5px}.mat-form-field-appearance-outline .mat-form-field-outline-gap{border-radius:.000001px;border:1px solid currentColor;border-left-style:none;border-right-style:none}.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-outline-gap{border-top-color:transparent}.mat-form-field-appearance-outline .mat-form-field-outline-thick{opacity:0}.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap,.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start{border-width:2px;transition:border-color .3s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline,.mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline{opacity:0;transition:opacity .1s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick,.mat-form-field-appearance-outline.mat-form-field-invalid .mat-form-field-outline-thick{opacity:1}.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-outline{opacity:0;transition:opacity .6s cubic-bezier(.25,.8,.25,1)}.mat-form-field-appearance-outline:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-outline-thick{opacity:1}.mat-form-field-appearance-outline .mat-form-field-subscript-wrapper{padding:0 1em} .mat-form-field-appearance-standard .mat-form-field-flex{padding-top:.75em}.mat-form-field-appearance-standard .mat-form-field-underline{height:1px}.mat-form-field-appearance-standard .mat-form-field-ripple{bottom:0;height:2px}.mat-form-field-appearance-standard.mat-form-field-disabled .mat-form-field-underline{background-position:0;background-color:transparent}.mat-form-field-appearance-standard:not(.mat-form-field-disabled) .mat-form-field-flex:hover~.mat-form-field-underline .mat-form-field-ripple{opacity:1;transform:none;transition:opacity .6s cubic-bezier(.25,.8,.25,1)} .mat-input-element{font:inherit;background:0 0;color:currentColor;border:none;outline:0;padding:0;margin:0;width:100%;max-width:100%;vertical-align:bottom;text-align:inherit}.mat-input-element:-moz-ui-invalid{box-shadow:none}.mat-input-element::-ms-clear,.mat-input-element::-ms-reveal{display:none}.mat-input-element[type=date]::after,.mat-input-element[type=datetime-local]::after,.mat-input-element[type=datetime]::after,.mat-input-element[type=month]::after,.mat-input-element[type=time]::after,.mat-input-element[type=week]::after{content:' ';white-space:pre;width:1px}.mat-input-element::placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-moz-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element::-webkit-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-input-element:-ms-input-placeholder{transition:color .4s .133s cubic-bezier(.25,.8,.25,1)}.mat-form-field-hide-placeholder .mat-input-element::placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-moz-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element::-webkit-input-placeholder{color:transparent!important;transition:none}.mat-form-field-hide-placeholder .mat-input-element:-ms-input-placeholder{color:transparent!important;transition:none}textarea.mat-input-element{resize:vertical;overflow:auto}textarea.mat-input-element.cdk-textarea-autosize{resize:none}"],
                     animations: [matFormFieldAnimations.transitionMessages],
                     host: {
                         'class': 'mat-form-field',
@@ -8801,6 +8801,8 @@ var MatChipInput = /** @class */ (function () {
         this.chipEnd = new core.EventEmitter();
         /**
          * The input's placeholder text.
+         * @deprecated Bind to the `placeholder` attribute directly.
+         * \@deletion-target 7.0.0
          */
         this.placeholder = '';
         /**
@@ -8945,6 +8947,7 @@ var MatChipInput = /** @class */ (function () {
                         '(focus)': '_focus()',
                         '(input)': '_onInput()',
                         '[id]': 'id',
+                        '[attr.placeholder]': 'placeholder || null',
                     }
                 },] },
     ];
@@ -12077,12 +12080,7 @@ var MatCalendarHeader = /** @class */ (function () {
         this.calendar = calendar;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
-        /**
-         * Subject that emits when the component has been destroyed.
-         */
-        this._destroyed = new rxjs.Subject();
-        this.calendar.stateChanges.pipe(operators.takeUntil(this._destroyed))
-            .subscribe(function () { return changeDetectorRef.markForCheck(); });
+        this.calendar.stateChanges.subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
     Object.defineProperty(MatCalendarHeader.prototype, "periodButtonText", {
         /** The label for the current calendar view. */
@@ -12243,16 +12241,6 @@ var MatCalendarHeader = /** @class */ (function () {
         return Math.floor(this._dateAdapter.getYear(date1) / yearsPerPage) ==
             Math.floor(this._dateAdapter.getYear(date2) / yearsPerPage);
     };
-    /**
-     * @return {?}
-     */
-    MatCalendarHeader.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this._destroyed.next();
-        this._destroyed.complete();
-    };
     MatCalendarHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-calendar-header',
                     template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button type=\"button\" class=\"mat-calendar-period-button\" (click)=\"currentPeriodClicked()\" [attr.aria-label]=\"periodButtonLabel\">{{periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"calendar.currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button type=\"button\" class=\"mat-calendar-previous-button\" [disabled]=\"!previousEnabled()\" (click)=\"previousClicked()\" [attr.aria-label]=\"prevButtonLabel\"></button> <button mat-icon-button type=\"button\" class=\"mat-calendar-next-button\" [disabled]=\"!nextEnabled()\" (click)=\"nextClicked()\" [attr.aria-label]=\"nextButtonLabel\"></button></div></div>",
@@ -12303,7 +12291,10 @@ var MatCalendar = /** @class */ (function () {
          * Emits when any date is selected.
          */
         this._userSelection = new core.EventEmitter();
-        this._stateChanges = new rxjs.Subject();
+        /**
+         * Emits whenever there is a state change that the header may need to respond to.
+         */
+        this.stateChanges = new rxjs.Subject();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -12312,7 +12303,7 @@ var MatCalendar = /** @class */ (function () {
         }
         this._intlChanges = _intl.changes.subscribe(function () {
             changeDetectorRef.markForCheck();
-            _this._stateChanges.next();
+            _this.stateChanges.next();
         });
     }
     Object.defineProperty(MatCalendar.prototype, "startAt", {
@@ -12396,23 +12387,7 @@ var MatCalendar = /** @class */ (function () {
          */
         function (value) {
             this._clampedActiveDate = this._dateAdapter.clampDate(value, this.minDate, this.maxDate);
-            this._stateChanges.next();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatCalendar.prototype, "stateChanges", {
-        /**
-         * An observable that emits whenever there is a state change that the header may need to respond
-         * to.
-         */
-        get: /**
-         * An observable that emits whenever there is a state change that the header may need to respond
-         * to.
-         * @return {?}
-         */
-        function () {
-            return this._stateChanges.asObservable();
+            this.stateChanges.next();
         },
         enumerable: true,
         configurable: true
@@ -12436,6 +12411,7 @@ var MatCalendar = /** @class */ (function () {
      */
     function () {
         this._intlChanges.unsubscribe();
+        this.stateChanges.complete();
     };
     /**
      * @param {?} changes
@@ -12453,7 +12429,7 @@ var MatCalendar = /** @class */ (function () {
                 view._init();
             }
         }
-        this._stateChanges.next();
+        this.stateChanges.next();
     };
     /** Handles date selection in the month view. */
     /**
@@ -23757,6 +23733,7 @@ var MatDrawer = /** @class */ (function () {
         this._position = 'start';
         this._mode = 'over';
         this._disableClose = false;
+        this._autoFocus = true;
         /**
          * Emits whenever the drawer has started animating.
          */
@@ -23860,6 +23837,20 @@ var MatDrawer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatDrawer.prototype, "autoFocus", {
+        get: /**
+         * Whether the drawer should focus the first focusable element automatically when opened.
+         * @return {?}
+         */
+        function () { return this._autoFocus; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._autoFocus = coercion.coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatDrawer.prototype, "_openedStream", {
         get: /**
          * Event emitted when the drawer has been opened.
@@ -23925,6 +23916,9 @@ var MatDrawer = /** @class */ (function () {
      */
     function () {
         var _this = this;
+        if (!this.autoFocus) {
+            return;
+        }
         this._focusTrap.focusInitialElementWhenReady().then(function (hasMovedFocus) {
             // If there were no focusable elements, focus the sidenav itself so the keyboard navigation
             // still works. We need to check that `focus` is a function due to Universal.
@@ -23944,6 +23938,9 @@ var MatDrawer = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        if (!this.autoFocus) {
+            return;
+        }
         var /** @type {?} */ activeEl = this._doc && this._doc.activeElement;
         if (activeEl && this._elementRef.nativeElement.contains(activeEl)) {
             if (this._elementFocusedBeforeDrawerWasOpened instanceof HTMLElement) {
@@ -24150,6 +24147,7 @@ var MatDrawer = /** @class */ (function () {
         "position": [{ type: core.Input },],
         "mode": [{ type: core.Input },],
         "disableClose": [{ type: core.Input },],
+        "autoFocus": [{ type: core.Input },],
         "openedChange": [{ type: core.Output },],
         "_openedStream": [{ type: core.Output, args: ['opened',] },],
         "openedStart": [{ type: core.Output },],
@@ -24827,9 +24825,16 @@ var /** @type {?} */ _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDi
  */
 var MatSlideToggle = /** @class */ (function (_super) {
     __extends(MatSlideToggle, _super);
-    function MatSlideToggle(elementRef, _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone) {
+    function MatSlideToggle(elementRef, /**
+                   * @deprecated The `_platform` parameter to be removed.
+                   * @deletion-target 7.0.0
+                   */
+    /**
+     * @deprecated The `_platform` parameter to be removed.
+     * @deletion-target 7.0.0
+     */
+    _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone) {
         var _this = _super.call(this, elementRef) || this;
-        _this._platform = _platform;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._ngZone = _ngZone;
@@ -24838,6 +24843,10 @@ var MatSlideToggle = /** @class */ (function (_super) {
         _this._uniqueId = "mat-slide-toggle-" + ++nextUniqueId$8;
         _this._required = false;
         _this._checked = false;
+        /**
+         * Whether the thumb is currently being dragged.
+         */
+        _this._dragging = false;
         /**
          * Name value will be applied to the input element if present
          */
@@ -24914,7 +24923,6 @@ var MatSlideToggle = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._slideRenderer = new SlideToggleRenderer(this._elementRef, this._platform);
         this._focusMonitor
             .monitor(this._inputElement.nativeElement)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
@@ -24947,7 +24955,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         // Releasing the pointer over the `<label>` element while dragging triggers another
         // click event on the `<label>` element. This means that the checked state of the underlying
         // input changed unintentionally and needs to be changed back.
-        if (this._slideRenderer.dragging) {
+        if (this._dragging) {
             this._inputElement.nativeElement.checked = this.checked;
             return;
         }
@@ -25097,14 +25105,36 @@ var MatSlideToggle = /** @class */ (function (_super) {
         this.change.emit(new MatSlideToggleChange(this, this.checked));
     };
     /**
+     * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
+     * @param {?} distance
+     * @return {?}
+     */
+    MatSlideToggle.prototype._getDragPercentage = /**
+     * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
+     * @param {?} distance
+     * @return {?}
+     */
+    function (distance) {
+        var /** @type {?} */ percentage = (distance / this._thumbBarWidth) * 100;
+        // When the toggle was initially checked, then we have to start the drag at the end.
+        if (this._previousChecked) {
+            percentage += 100;
+        }
+        return Math.max(0, Math.min(percentage, 100));
+    };
+    /**
      * @return {?}
      */
     MatSlideToggle.prototype._onDragStart = /**
      * @return {?}
      */
     function () {
-        if (!this.disabled) {
-            this._slideRenderer.startThumbDrag(this.checked);
+        if (!this.disabled && !this._dragging) {
+            var /** @type {?} */ thumbEl = this._thumbEl.nativeElement;
+            this._thumbBarWidth = this._thumbBarEl.nativeElement.clientWidth - thumbEl.clientWidth;
+            thumbEl.classList.add('mat-dragging');
+            this._previousChecked = this.checked;
+            this._dragging = true;
         }
     };
     /**
@@ -25116,8 +25146,11 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        if (this._slideRenderer.dragging) {
-            this._slideRenderer.updateThumbPosition(event.deltaX);
+        if (this._dragging) {
+            this._dragPercentage = this._getDragPercentage(event.deltaX);
+            // Calculate the moved distance based on the thumb bar width.
+            var /** @type {?} */ dragX = (this._dragPercentage / 100) * this._thumbBarWidth;
+            this._thumbEl.nativeElement.style.transform = "translate3d(" + dragX + "px, 0, 0)";
         }
     };
     /**
@@ -25128,8 +25161,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        if (this._slideRenderer.dragging) {
-            var /** @type {?} */ newCheckedValue = this._slideRenderer.dragPercentage > 50;
+        if (this._dragging) {
+            var /** @type {?} */ newCheckedValue = this._dragPercentage > 50;
             if (newCheckedValue !== this.checked) {
                 this.checked = newCheckedValue;
                 this._emitChangeEvent();
@@ -25137,7 +25170,17 @@ var MatSlideToggle = /** @class */ (function (_super) {
             // The drag should be stopped outside of the current event handler, otherwise the
             // click event will be fired before it and will revert the drag change.
             this._ngZone.runOutsideAngular(function () {
-                setTimeout(function () { return _this._slideRenderer.stopThumbDrag(); });
+                return setTimeout(function () {
+                    if (_this._dragging) {
+                        _this._dragging = false;
+                        _this._thumbEl.nativeElement.classList.remove('mat-dragging');
+                        // Reset the transform because the component will take care
+                        // of the thumb position after drag.
+                        // Reset the transform because the component will take care
+                        // of the thumb position after drag.
+                        _this._thumbEl.nativeElement.style.transform = '';
+                    }
+                });
             });
         }
     };
@@ -25166,7 +25209,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
                         '[class.mat-disabled]': 'disabled',
                         '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
                     },
-                    template: "<label class=\"mat-slide-toggle-label\" #label><div class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"disableRipple || disabled\" [matRippleCentered]=\"true\" [matRippleRadius]=\"23\" [matRippleAnimation]=\"{enterDuration: 150}\"></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
+                    template: "<label class=\"mat-slide-toggle-label\" #label><div #toggleBar class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" #thumbContainer (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"disableRipple || disabled\" [matRippleCentered]=\"true\" [matRippleRadius]=\"23\" [matRippleAnimation]=\"{enterDuration: 150}\"></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
                     styles: [".mat-slide-toggle{display:inline-block;height:24px;max-width:100%;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;height:inherit;cursor:pointer}.mat-slide-toggle-content{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;flex-shrink:0;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:calc(50% - 23px);left:calc(50% - 23px);height:46px;width:46px;z-index:1;pointer-events:none}"],
                     providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
                     inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
@@ -25184,6 +25227,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
         { type: core.NgZone, },
     ]; };
     MatSlideToggle.propDecorators = {
+        "_thumbEl": [{ type: core.ViewChild, args: ['thumbContainer',] },],
+        "_thumbBarEl": [{ type: core.ViewChild, args: ['toggleBar',] },],
         "name": [{ type: core.Input },],
         "id": [{ type: core.Input },],
         "labelPosition": [{ type: core.Input },],
@@ -25197,101 +25242,6 @@ var MatSlideToggle = /** @class */ (function (_super) {
     };
     return MatSlideToggle;
 }(_MatSlideToggleMixinBase));
-/**
- * Renderer for the Slide Toggle component, which separates DOM modification in its own class
- */
-var /**
- * Renderer for the Slide Toggle component, which separates DOM modification in its own class
- */
-SlideToggleRenderer = /** @class */ (function () {
-    function SlideToggleRenderer(elementRef, platform$$1) {
-        /**
-         * Whether the thumb is currently being dragged.
-         */
-        this.dragging = false;
-        // We only need to interact with these elements when we're on the browser, so only grab
-        // the reference in that case.
-        if (platform$$1.isBrowser) {
-            this._thumbEl = elementRef.nativeElement.querySelector('.mat-slide-toggle-thumb-container');
-            this._thumbBarEl = elementRef.nativeElement.querySelector('.mat-slide-toggle-bar');
-        }
-    }
-    /** Initializes the drag of the slide-toggle. */
-    /**
-     * Initializes the drag of the slide-toggle.
-     * @param {?} checked
-     * @return {?}
-     */
-    SlideToggleRenderer.prototype.startThumbDrag = /**
-     * Initializes the drag of the slide-toggle.
-     * @param {?} checked
-     * @return {?}
-     */
-    function (checked) {
-        if (this.dragging) {
-            return;
-        }
-        this._thumbBarWidth = this._thumbBarEl.clientWidth - this._thumbEl.clientWidth;
-        this._thumbEl.classList.add('mat-dragging');
-        this._previousChecked = checked;
-        this.dragging = true;
-    };
-    /** Resets the current drag and returns the new checked value. */
-    /**
-     * Resets the current drag and returns the new checked value.
-     * @return {?}
-     */
-    SlideToggleRenderer.prototype.stopThumbDrag = /**
-     * Resets the current drag and returns the new checked value.
-     * @return {?}
-     */
-    function () {
-        if (!this.dragging) {
-            return false;
-        }
-        this.dragging = false;
-        this._thumbEl.classList.remove('mat-dragging');
-        // Reset the transform because the component will take care of the thumb position after drag.
-        this._thumbEl.style.transform = '';
-        return this.dragPercentage > 50;
-    };
-    /** Updates the thumb containers position from the specified distance. */
-    /**
-     * Updates the thumb containers position from the specified distance.
-     * @param {?} distance
-     * @return {?}
-     */
-    SlideToggleRenderer.prototype.updateThumbPosition = /**
-     * Updates the thumb containers position from the specified distance.
-     * @param {?} distance
-     * @return {?}
-     */
-    function (distance) {
-        this.dragPercentage = this._getDragPercentage(distance);
-        // Calculate the moved distance based on the thumb bar width.
-        var /** @type {?} */ dragX = (this.dragPercentage / 100) * this._thumbBarWidth;
-        this._thumbEl.style.transform = "translate3d(" + dragX + "px, 0, 0)";
-    };
-    /**
-     * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
-     * @param {?} distance
-     * @return {?}
-     */
-    SlideToggleRenderer.prototype._getDragPercentage = /**
-     * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
-     * @param {?} distance
-     * @return {?}
-     */
-    function (distance) {
-        var /** @type {?} */ percentage = (distance / this._thumbBarWidth) * 100;
-        // When the toggle was initially checked, then we have to start the drag at the end.
-        if (this._previousChecked) {
-            percentage += 100;
-        }
-        return Math.max(0, Math.min(percentage, 100));
-    };
-    return SlideToggleRenderer;
-}());
 
 /**
  * @fileoverview added by tsickle
@@ -25496,7 +25446,7 @@ var MatSlider = /** @class */ (function (_super) {
         function (v) {
             this._step = coercion.coerceNumberProperty(v, this._step);
             if (this._step % 1 !== 0) {
-                this._roundLabelTo = /** @type {?} */ ((this._step.toString().split('.').pop())).length;
+                this._roundToDecimal = /** @type {?} */ ((this._step.toString().split('.').pop())).length;
             }
             // Since this could modify the label, we need to notify the change detection.
             this._changeDetectorRef.markForCheck();
@@ -25599,8 +25549,8 @@ var MatSlider = /** @class */ (function (_super) {
             // Note that this could be improved further by rounding something like 0.999 to 1 or
             // 0.899 to 0.9, however it is very performance sensitive, because it gets called on
             // every change detection cycle.
-            if (this._roundLabelTo && this.value && this.value % 1 !== 0) {
-                return this.value.toFixed(this._roundLabelTo);
+            if (this._roundToDecimal && this.value && this.value % 1 !== 0) {
+                return this.value.toFixed(this._roundToDecimal);
             }
             return this.value || 0;
         },
@@ -26081,6 +26031,11 @@ var MatSlider = /** @class */ (function (_super) {
             // This calculation finds the closest step by finding the closest
             // whole number divisible by the step relative to the min.
             var /** @type {?} */ closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
+            // If we've got a step with a decimal, we may end up with something like 33.300000000000004.
+            // Truncate the value to ensure that it matches the label and to make it easier to work with.
+            if (this._roundToDecimal) {
+                closestValue = parseFloat(closestValue.toFixed(this._roundToDecimal));
+            }
             // The value needs to snap to the min and max.
             this.value = this._clamp(closestValue, this.min, this.max);
         }
@@ -30982,7 +30937,7 @@ MatTabNavBase = /** @class */ (function () {
     }
     return MatTabNavBase;
 }());
-var /** @type {?} */ _MatTabNavMixinBase = mixinColor(MatTabNavBase, 'primary');
+var /** @type {?} */ _MatTabNavMixinBase = mixinDisableRipple(mixinColor(MatTabNavBase, 'primary'));
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -30999,7 +30954,6 @@ var MatTabNav = /** @class */ (function (_super) {
          * Subject that emits when the component has been destroyed.
          */
         _this._onDestroy = new rxjs.Subject();
-        _this._disableRipple = false;
         return _this;
     }
     Object.defineProperty(MatTabNav.prototype, "backgroundColor", {
@@ -31023,23 +30977,6 @@ var MatTabNav = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatTabNav.prototype, "disableRipple", {
-        get: /**
-         * Whether ripples should be disabled for all links or not.
-         * @return {?}
-         */
-        function () { return this._disableRipple; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disableRipple = coercion.coerceBooleanProperty(value);
-            this._setLinkDisableRipple();
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * Notifies the component that the active link has been changed.
      * @deletion-target 7.0.0 `element` parameter to be removed.
@@ -31058,6 +30995,7 @@ var MatTabNav = /** @class */ (function (_super) {
      */
     function (element) {
         // Note: keeping the `element` for backwards-compat, but isn't being used for anything.
+        // @deletion-target 7.0.0
         this._activeLinkChanged = !!element;
         this._changeDetectorRef.markForCheck();
     };
@@ -31075,7 +31013,6 @@ var MatTabNav = /** @class */ (function (_super) {
                 .pipe(operators.takeUntil(_this._onDestroy))
                 .subscribe(function () { return _this._alignInkBar(); });
         });
-        this._setLinkDisableRipple();
     };
     /** Checks if the active link has been changed and, if so, will update the ink bar. */
     /**
@@ -31122,24 +31059,10 @@ var MatTabNav = /** @class */ (function (_super) {
             this._inkBar.hide();
         }
     };
-    /**
-     * Sets the `disableRipple` property on each link of the navigation bar.
-     * @return {?}
-     */
-    MatTabNav.prototype._setLinkDisableRipple = /**
-     * Sets the `disableRipple` property on each link of the navigation bar.
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        if (this._tabLinks) {
-            this._tabLinks.forEach(function (link) { return link.disableRipple = _this.disableRipple; });
-        }
-    };
     MatTabNav.decorators = [
         { type: core.Component, args: [{selector: '[mat-tab-nav-bar]',
                     exportAs: 'matTabNavBar, matTabNav',
-                    inputs: ['color'],
+                    inputs: ['color', 'disableRipple'],
                     template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
                     styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative;display:flex}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default}.mat-tab-link.mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media screen and (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}"],
                     host: { 'class': 'mat-tab-nav-bar' },
@@ -31159,7 +31082,6 @@ var MatTabNav = /** @class */ (function (_super) {
         "_inkBar": [{ type: core.ViewChild, args: [MatInkBar,] },],
         "_tabLinks": [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatTabLink; }), { descendants: true },] },],
         "backgroundColor": [{ type: core.Input },],
-        "disableRipple": [{ type: core.Input },],
     };
     return MatTabNav;
 }(_MatTabNavMixinBase));
@@ -31229,7 +31151,7 @@ var MatTabLink = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this.disabled || this.disableRipple;
+            return this.disabled || this.disableRipple || this._tabNavBar.disableRipple;
         },
         enumerable: true,
         configurable: true
@@ -31516,7 +31438,7 @@ var MatTreeNode = /** @class */ (function (_super) {
                     inputs: ['disabled', 'tabIndex'],
                     host: {
                         '[attr.aria-expanded]': 'isExpanded',
-                        '[attr.aria-level]': 'level',
+                        '[attr.aria-level]': 'role === "treeitem" ? level : null',
                         '[attr.role]': 'role',
                         'class': 'mat-tree-node'
                     },
@@ -32067,7 +31989,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.12-a8d99da');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.12-9942a3a');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

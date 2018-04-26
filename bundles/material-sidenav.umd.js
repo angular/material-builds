@@ -141,6 +141,7 @@ var MatDrawer = /** @class */ (function () {
         this._position = 'start';
         this._mode = 'over';
         this._disableClose = false;
+        this._autoFocus = true;
         /**
          * Emits whenever the drawer has started animating.
          */
@@ -244,6 +245,20 @@ var MatDrawer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatDrawer.prototype, "autoFocus", {
+        get: /**
+         * Whether the drawer should focus the first focusable element automatically when opened.
+         * @return {?}
+         */
+        function () { return this._autoFocus; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._autoFocus = coercion.coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatDrawer.prototype, "_openedStream", {
         get: /**
          * Event emitted when the drawer has been opened.
@@ -309,6 +324,9 @@ var MatDrawer = /** @class */ (function () {
      */
     function () {
         var _this = this;
+        if (!this.autoFocus) {
+            return;
+        }
         this._focusTrap.focusInitialElementWhenReady().then(function (hasMovedFocus) {
             // If there were no focusable elements, focus the sidenav itself so the keyboard navigation
             // still works. We need to check that `focus` is a function due to Universal.
@@ -328,6 +346,9 @@ var MatDrawer = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        if (!this.autoFocus) {
+            return;
+        }
         var /** @type {?} */ activeEl = this._doc && this._doc.activeElement;
         if (activeEl && this._elementRef.nativeElement.contains(activeEl)) {
             if (this._elementFocusedBeforeDrawerWasOpened instanceof HTMLElement) {
@@ -534,6 +555,7 @@ var MatDrawer = /** @class */ (function () {
         "position": [{ type: core.Input },],
         "mode": [{ type: core.Input },],
         "disableClose": [{ type: core.Input },],
+        "autoFocus": [{ type: core.Input },],
         "openedChange": [{ type: core.Output },],
         "_openedStream": [{ type: core.Output, args: ['opened',] },],
         "openedStart": [{ type: core.Output },],

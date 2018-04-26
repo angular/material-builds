@@ -1350,7 +1350,7 @@ class MatTabNavBase {
         this._elementRef = _elementRef;
     }
 }
-const /** @type {?} */ _MatTabNavMixinBase = mixinColor(MatTabNavBase, 'primary');
+const /** @type {?} */ _MatTabNavMixinBase = mixinDisableRipple(mixinColor(MatTabNavBase, 'primary'));
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -1373,7 +1373,6 @@ class MatTabNav extends _MatTabNavMixinBase {
          * Subject that emits when the component has been destroyed.
          */
         this._onDestroy = new Subject();
-        this._disableRipple = false;
     }
     /**
      * Background color of the tab nav.
@@ -1393,19 +1392,6 @@ class MatTabNav extends _MatTabNavMixinBase {
         this._backgroundColor = value;
     }
     /**
-     * Whether ripples should be disabled for all links or not.
-     * @return {?}
-     */
-    get disableRipple() { return this._disableRipple; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disableRipple(value) {
-        this._disableRipple = coerceBooleanProperty(value);
-        this._setLinkDisableRipple();
-    }
-    /**
      * Notifies the component that the active link has been changed.
      * \@deletion-target 7.0.0 `element` parameter to be removed.
      * @param {?} element
@@ -1413,6 +1399,7 @@ class MatTabNav extends _MatTabNavMixinBase {
      */
     updateActiveLink(element) {
         // Note: keeping the `element` for backwards-compat, but isn't being used for anything.
+        // @deletion-target 7.0.0
         this._activeLinkChanged = !!element;
         this._changeDetectorRef.markForCheck();
     }
@@ -1426,7 +1413,6 @@ class MatTabNav extends _MatTabNavMixinBase {
                 .pipe(takeUntil(this._onDestroy))
                 .subscribe(() => this._alignInkBar());
         });
-        this._setLinkDisableRipple();
     }
     /**
      * Checks if the active link has been changed and, if so, will update the ink bar.
@@ -1460,20 +1446,11 @@ class MatTabNav extends _MatTabNavMixinBase {
             this._inkBar.hide();
         }
     }
-    /**
-     * Sets the `disableRipple` property on each link of the navigation bar.
-     * @return {?}
-     */
-    _setLinkDisableRipple() {
-        if (this._tabLinks) {
-            this._tabLinks.forEach(link => link.disableRipple = this.disableRipple);
-        }
-    }
 }
 MatTabNav.decorators = [
     { type: Component, args: [{selector: '[mat-tab-nav-bar]',
                 exportAs: 'matTabNavBar, matTabNav',
-                inputs: ['color'],
+                inputs: ['color', 'disableRipple'],
                 template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
                 styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative;display:flex}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default}.mat-tab-link.mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media screen and (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}"],
                 host: { 'class': 'mat-tab-nav-bar' },
@@ -1493,7 +1470,6 @@ MatTabNav.propDecorators = {
     "_inkBar": [{ type: ViewChild, args: [MatInkBar,] },],
     "_tabLinks": [{ type: ContentChildren, args: [forwardRef(() => MatTabLink), { descendants: true },] },],
     "backgroundColor": [{ type: Input },],
-    "disableRipple": [{ type: Input },],
 };
 class MatTabLinkBase {
 }
@@ -1555,7 +1531,7 @@ class MatTabLink extends _MatTabLinkMixinBase {
      * @return {?}
      */
     get rippleDisabled() {
-        return this.disabled || this.disableRipple;
+        return this.disabled || this.disableRipple || this._tabNavBar.disableRipple;
     }
     /**
      * @return {?}

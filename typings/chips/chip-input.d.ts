@@ -33,7 +33,11 @@ export declare class MatChipInput {
     separatorKeyCodes: number[];
     /** Emitted when a chip is to be added. */
     chipEnd: EventEmitter<MatChipInputEvent>;
-    /** The input's placeholder text. */
+    /**
+     * The input's placeholder text.
+     * @deprecated Bind to the `placeholder` attribute directly.
+     * @deletion-target 7.0.0
+     */
     placeholder: string;
     /** Unique id for the input. */
     id: string;

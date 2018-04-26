@@ -1749,7 +1749,7 @@ MatTabNavBase = /** @class */ (function () {
     }
     return MatTabNavBase;
 }());
-var /** @type {?} */ _MatTabNavMixinBase = mixinColor(MatTabNavBase, 'primary');
+var /** @type {?} */ _MatTabNavMixinBase = mixinDisableRipple(mixinColor(MatTabNavBase, 'primary'));
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -1766,7 +1766,6 @@ var MatTabNav = /** @class */ (function (_super) {
          * Subject that emits when the component has been destroyed.
          */
         _this._onDestroy = new Subject();
-        _this._disableRipple = false;
         return _this;
     }
     Object.defineProperty(MatTabNav.prototype, "backgroundColor", {
@@ -1790,23 +1789,6 @@ var MatTabNav = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatTabNav.prototype, "disableRipple", {
-        get: /**
-         * Whether ripples should be disabled for all links or not.
-         * @return {?}
-         */
-        function () { return this._disableRipple; },
-        set: /**
-         * @param {?} value
-         * @return {?}
-         */
-        function (value) {
-            this._disableRipple = coerceBooleanProperty(value);
-            this._setLinkDisableRipple();
-        },
-        enumerable: true,
-        configurable: true
-    });
     /**
      * Notifies the component that the active link has been changed.
      * @deletion-target 7.0.0 `element` parameter to be removed.
@@ -1825,6 +1807,7 @@ var MatTabNav = /** @class */ (function (_super) {
      */
     function (element) {
         // Note: keeping the `element` for backwards-compat, but isn't being used for anything.
+        // @deletion-target 7.0.0
         this._activeLinkChanged = !!element;
         this._changeDetectorRef.markForCheck();
     };
@@ -1842,7 +1825,6 @@ var MatTabNav = /** @class */ (function (_super) {
                 .pipe(takeUntil(_this._onDestroy))
                 .subscribe(function () { return _this._alignInkBar(); });
         });
-        this._setLinkDisableRipple();
     };
     /** Checks if the active link has been changed and, if so, will update the ink bar. */
     /**
@@ -1889,24 +1871,10 @@ var MatTabNav = /** @class */ (function (_super) {
             this._inkBar.hide();
         }
     };
-    /**
-     * Sets the `disableRipple` property on each link of the navigation bar.
-     * @return {?}
-     */
-    MatTabNav.prototype._setLinkDisableRipple = /**
-     * Sets the `disableRipple` property on each link of the navigation bar.
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        if (this._tabLinks) {
-            this._tabLinks.forEach(function (link) { return link.disableRipple = _this.disableRipple; });
-        }
-    };
     MatTabNav.decorators = [
         { type: Component, args: [{selector: '[mat-tab-nav-bar]',
                     exportAs: 'matTabNavBar, matTabNav',
-                    inputs: ['color'],
+                    inputs: ['color', 'disableRipple'],
                     template: "<div class=\"mat-tab-links\" (cdkObserveContent)=\"_alignInkBar()\"><ng-content></ng-content><mat-ink-bar></mat-ink-bar></div>",
                     styles: [".mat-tab-nav-bar{overflow:hidden;position:relative;flex-shrink:0}.mat-tab-links{position:relative;display:flex}.mat-tab-link{height:48px;padding:0 24px;cursor:pointer;box-sizing:border-box;opacity:.6;min-width:160px;text-align:center;display:inline-flex;justify-content:center;align-items:center;white-space:nowrap;vertical-align:top;text-decoration:none;position:relative;overflow:hidden}.mat-tab-link:focus{outline:0}.mat-tab-link:focus:not(.mat-tab-disabled){opacity:1}.mat-tab-link.mat-tab-disabled{cursor:default}.mat-tab-link.mat-tab-label-content{display:inline-flex;justify-content:center;align-items:center;white-space:nowrap}[mat-stretch-tabs] .mat-tab-link{flex-basis:0;flex-grow:1}@media (max-width:599px){.mat-tab-link{min-width:72px}}.mat-ink-bar{position:absolute;bottom:0;height:2px;transition:.5s cubic-bezier(.35,0,.25,1)}.mat-tab-group-inverted-header .mat-ink-bar{bottom:auto;top:0}@media screen and (-ms-high-contrast:active){.mat-ink-bar{outline:solid 2px;height:0}}"],
                     host: { 'class': 'mat-tab-nav-bar' },
@@ -1926,7 +1894,6 @@ var MatTabNav = /** @class */ (function (_super) {
         "_inkBar": [{ type: ViewChild, args: [MatInkBar,] },],
         "_tabLinks": [{ type: ContentChildren, args: [forwardRef(function () { return MatTabLink; }), { descendants: true },] },],
         "backgroundColor": [{ type: Input },],
-        "disableRipple": [{ type: Input },],
     };
     return MatTabNav;
 }(_MatTabNavMixinBase));
@@ -1996,7 +1963,7 @@ var MatTabLink = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this.disabled || this.disableRipple;
+            return this.disabled || this.disableRipple || this._tabNavBar.disableRipple;
         },
         enumerable: true,
         configurable: true

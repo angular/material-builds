@@ -56,6 +56,9 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     /** Whether the drawer can be closed with the escape key or by clicking on the backdrop. */
     disableClose: boolean;
     private _disableClose;
+    /** Whether the drawer should focus the first focusable element automatically when opened. */
+    autoFocus: boolean;
+    private _autoFocus;
     /** How the sidenav was opened (keypress, mouse click etc.) */
     private _openedVia;
     /** Emits whenever the drawer has started animating. */

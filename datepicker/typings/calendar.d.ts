@@ -8,19 +8,17 @@
 import { ComponentType, Portal } from '@angular/cdk/portal';
 import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
-import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 import { MatDatepickerIntl } from './datepicker-intl';
 import { MatMonthView } from './month-view';
 import { MatMultiYearView } from './multi-year-view';
 import { MatYearView } from './year-view';
 /** Default header for MatCalendar */
-export declare class MatCalendarHeader<D> implements OnDestroy {
+export declare class MatCalendarHeader<D> {
     private _intl;
     calendar: MatCalendar<D>;
     private _dateAdapter;
     private _dateFormats;
-    /** Subject that emits when the component has been destroyed. */
-    private _destroyed;
     constructor(_intl: MatDatepickerIntl, calendar: MatCalendar<D>, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, changeDetectorRef: ChangeDetectorRef);
     /** The label for the current calendar view. */
     readonly periodButtonText: string;
@@ -41,7 +39,6 @@ export declare class MatCalendarHeader<D> implements OnDestroy {
     nextEnabled(): boolean;
     /** Whether the two dates represent the same view in the current view mode (month or year). */
     private _isSameView(date1, date2);
-    ngOnDestroy(): void;
 }
 /**
  * A calendar that is used as part of the datepicker.
@@ -100,11 +97,9 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     /** Whether the calendar is in month view. */
     currentView: 'month' | 'year' | 'multi-year';
     /**
-     * An observable that emits whenever there is a state change that the header may need to respond
-     * to.
+     * Emits whenever there is a state change that the header may need to respond to.
      */
-    readonly stateChanges: Observable<void>;
-    private _stateChanges;
+    stateChanges: Subject<void>;
     constructor(_intl: MatDatepickerIntl, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

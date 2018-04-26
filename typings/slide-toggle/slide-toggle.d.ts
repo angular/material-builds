@@ -31,18 +31,28 @@ export declare class MatSlideToggleBase {
 export declare const _MatSlideToggleMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatSlideToggleBase;
 /** Represents a slidable "switch" toggle that can be moved between on and off. */
 export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
-    private _platform;
     private _focusMonitor;
     private _changeDetectorRef;
     private _ngZone;
     private onChange;
     private onTouched;
     private _uniqueId;
-    private _slideRenderer;
     private _required;
     private _checked;
     /** Reference to the focus state ripple. */
     private _focusRipple;
+    /** Whether the thumb is currently being dragged. */
+    private _dragging;
+    /** Previous checked state before drag started. */
+    private _previousChecked;
+    /** Width of the thumb bar of the slide-toggle. */
+    private _thumbBarWidth;
+    /** Percentage of the thumb while dragging. Percentage as fraction of 100. */
+    private _dragPercentage;
+    /** Reference to the thumb HTMLElement. */
+    _thumbEl: ElementRef<HTMLElement>;
+    /** Reference to the thumb bar HTMLElement. */
+    _thumbBarEl: ElementRef<HTMLElement>;
     /** Name value will be applied to the input element if present */
     name: string | null;
     /** A unique id for the slide-toggle input. If none is supplied, it will be auto-generated. */
@@ -66,7 +76,12 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     _inputElement: ElementRef;
     /** Reference to the ripple directive on the thumb container. */
     _ripple: MatRipple;
-    constructor(elementRef: ElementRef, _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone);
+    constructor(elementRef: ElementRef, 
+        /**
+         * @deprecated The `_platform` parameter to be removed.
+         * @deletion-target 7.0.0
+         */
+        _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Method being called whenever the underlying input emits a change event. */
@@ -91,6 +106,8 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
      */
     private _emitChangeEvent();
+    /** Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100. */
+    private _getDragPercentage(distance);
     _onDragStart(): void;
     _onDrag(event: HammerInput): void;
     _onDragEnd(): void;

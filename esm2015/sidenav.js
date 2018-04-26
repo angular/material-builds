@@ -128,6 +128,7 @@ class MatDrawer {
         this._position = 'start';
         this._mode = 'over';
         this._disableClose = false;
+        this._autoFocus = true;
         /**
          * Emits whenever the drawer has started animating.
          */
@@ -218,6 +219,16 @@ class MatDrawer {
      */
     set disableClose(value) { this._disableClose = coerceBooleanProperty(value); }
     /**
+     * Whether the drawer should focus the first focusable element automatically when opened.
+     * @return {?}
+     */
+    get autoFocus() { return this._autoFocus; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set autoFocus(value) { this._autoFocus = coerceBooleanProperty(value); }
+    /**
      * Event emitted when the drawer has been opened.
      * @return {?}
      */
@@ -257,6 +268,9 @@ class MatDrawer {
      * @return {?}
      */
     _trapFocus() {
+        if (!this.autoFocus) {
+            return;
+        }
         this._focusTrap.focusInitialElementWhenReady().then(hasMovedFocus => {
             // If there were no focusable elements, focus the sidenav itself so the keyboard navigation
             // still works. We need to check that `focus` is a function due to Universal.
@@ -271,6 +285,9 @@ class MatDrawer {
      * @return {?}
      */
     _restoreFocus() {
+        if (!this.autoFocus) {
+            return;
+        }
         const /** @type {?} */ activeEl = this._doc && this._doc.activeElement;
         if (activeEl && this._elementRef.nativeElement.contains(activeEl)) {
             if (this._elementFocusedBeforeDrawerWasOpened instanceof HTMLElement) {
@@ -421,6 +438,7 @@ MatDrawer.propDecorators = {
     "position": [{ type: Input },],
     "mode": [{ type: Input },],
     "disableClose": [{ type: Input },],
+    "autoFocus": [{ type: Input },],
     "openedChange": [{ type: Output },],
     "_openedStream": [{ type: Output, args: ['opened',] },],
     "openedStart": [{ type: Output },],

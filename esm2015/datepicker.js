@@ -7,7 +7,7 @@
  */
 import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, inject, InjectionToken, ViewContainerRef, Directive, ContentChild, defineInjectable } from '@angular/core';
 import { Subject, merge, Subscription, of } from 'rxjs';
-import { take, takeUntil, filter } from 'rxjs/operators';
+import { take, filter } from 'rxjs/operators';
 import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, ESCAPE } from '@angular/cdk/keycodes';
 import { DateAdapter, MAT_DATE_FORMATS, mixinColor } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
@@ -1106,12 +1106,7 @@ class MatCalendarHeader {
         this.calendar = calendar;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
-        /**
-         * Subject that emits when the component has been destroyed.
-         */
-        this._destroyed = new Subject();
-        this.calendar.stateChanges.pipe(takeUntil(this._destroyed))
-            .subscribe(() => changeDetectorRef.markForCheck());
+        this.calendar.stateChanges.subscribe(() => changeDetectorRef.markForCheck());
     }
     /**
      * The label for the current calendar view.
@@ -1222,13 +1217,6 @@ class MatCalendarHeader {
         return Math.floor(this._dateAdapter.getYear(date1) / yearsPerPage) ==
             Math.floor(this._dateAdapter.getYear(date2) / yearsPerPage);
     }
-    /**
-     * @return {?}
-     */
-    ngOnDestroy() {
-        this._destroyed.next();
-        this._destroyed.complete();
-    }
 }
 MatCalendarHeader.decorators = [
     { type: Component, args: [{selector: 'mat-calendar-header',
@@ -1283,7 +1271,10 @@ class MatCalendar {
          * Emits when any date is selected.
          */
         this._userSelection = new EventEmitter();
-        this._stateChanges = new Subject();
+        /**
+         * Emits whenever there is a state change that the header may need to respond to.
+         */
+        this.stateChanges = new Subject();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -1292,7 +1283,7 @@ class MatCalendar {
         }
         this._intlChanges = _intl.changes.subscribe(() => {
             changeDetectorRef.markForCheck();
-            this._stateChanges.next();
+            this.stateChanges.next();
         });
     }
     /**
@@ -1355,15 +1346,7 @@ class MatCalendar {
      */
     set activeDate(value) {
         this._clampedActiveDate = this._dateAdapter.clampDate(value, this.minDate, this.maxDate);
-        this._stateChanges.next();
-    }
-    /**
-     * An observable that emits whenever there is a state change that the header may need to respond
-     * to.
-     * @return {?}
-     */
-    get stateChanges() {
-        return this._stateChanges.asObservable();
+        this.stateChanges.next();
     }
     /**
      * @return {?}
@@ -1378,6 +1361,7 @@ class MatCalendar {
      */
     ngOnDestroy() {
         this._intlChanges.unsubscribe();
+        this.stateChanges.complete();
     }
     /**
      * @param {?} changes
@@ -1391,7 +1375,7 @@ class MatCalendar {
                 view._init();
             }
         }
-        this._stateChanges.next();
+        this.stateChanges.next();
     }
     /**
      * Handles date selection in the month view.

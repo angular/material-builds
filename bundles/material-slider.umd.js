@@ -220,7 +220,7 @@ var MatSlider = /** @class */ (function (_super) {
         function (v) {
             this._step = coercion.coerceNumberProperty(v, this._step);
             if (this._step % 1 !== 0) {
-                this._roundLabelTo = /** @type {?} */ ((this._step.toString().split('.').pop())).length;
+                this._roundToDecimal = /** @type {?} */ ((this._step.toString().split('.').pop())).length;
             }
             // Since this could modify the label, we need to notify the change detection.
             this._changeDetectorRef.markForCheck();
@@ -323,8 +323,8 @@ var MatSlider = /** @class */ (function (_super) {
             // Note that this could be improved further by rounding something like 0.999 to 1 or
             // 0.899 to 0.9, however it is very performance sensitive, because it gets called on
             // every change detection cycle.
-            if (this._roundLabelTo && this.value && this.value % 1 !== 0) {
-                return this.value.toFixed(this._roundLabelTo);
+            if (this._roundToDecimal && this.value && this.value % 1 !== 0) {
+                return this.value.toFixed(this._roundToDecimal);
             }
             return this.value || 0;
         },
@@ -805,6 +805,11 @@ var MatSlider = /** @class */ (function (_super) {
             // This calculation finds the closest step by finding the closest
             // whole number divisible by the step relative to the min.
             var /** @type {?} */ closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
+            // If we've got a step with a decimal, we may end up with something like 33.300000000000004.
+            // Truncate the value to ensure that it matches the label and to make it easier to work with.
+            if (this._roundToDecimal) {
+                closestValue = parseFloat(closestValue.toFixed(this._roundToDecimal));
+            }
             // The value needs to snap to the min and max.
             this.value = this._clamp(closestValue, this.min, this.max);
         }

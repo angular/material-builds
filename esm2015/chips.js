@@ -1269,6 +1269,8 @@ class MatChipInput {
         this.chipEnd = new EventEmitter();
         /**
          * The input's placeholder text.
+         * @deprecated Bind to the `placeholder` attribute directly.
+         * \@deletion-target 7.0.0
          */
         this.placeholder = '';
         /**
@@ -1373,6 +1375,7 @@ MatChipInput.decorators = [
                     '(focus)': '_focus()',
                     '(input)': '_onInput()',
                     '[id]': 'id',
+                    '[attr.placeholder]': 'placeholder || null',
                 }
             },] },
 ];

@@ -62,9 +62,16 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @param {?} tabIndex
      * @param {?} _ngZone
      */
-    constructor(elementRef, _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone) {
+    constructor(elementRef, /**
+                   * @deprecated The `_platform` parameter to be removed.
+                   * @deletion-target 7.0.0
+                   */
+    /**
+     * @deprecated The `_platform` parameter to be removed.
+     * @deletion-target 7.0.0
+     */
+    _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone) {
         super(elementRef);
-        this._platform = _platform;
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._ngZone = _ngZone;
@@ -73,6 +80,10 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         this._uniqueId = `mat-slide-toggle-${++nextUniqueId}`;
         this._required = false;
         this._checked = false;
+        /**
+         * Whether the thumb is currently being dragged.
+         */
+        this._dragging = false;
         /**
          * Name value will be applied to the input element if present
          */
@@ -131,7 +142,6 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @return {?}
      */
     ngAfterContentInit() {
-        this._slideRenderer = new SlideToggleRenderer(this._elementRef, this._platform);
         this._focusMonitor
             .monitor(this._inputElement.nativeElement)
             .subscribe(focusOrigin => this._onInputFocusChange(focusOrigin));
@@ -155,7 +165,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         // Releasing the pointer over the `<label>` element while dragging triggers another
         // click event on the `<label>` element. This means that the checked state of the underlying
         // input changed unintentionally and needs to be changed back.
-        if (this._slideRenderer.dragging) {
+        if (this._dragging) {
             this._inputElement.nativeElement.checked = this.checked;
             return;
         }
@@ -256,11 +266,28 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         this.change.emit(new MatSlideToggleChange(this, this.checked));
     }
     /**
+     * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
+     * @param {?} distance
+     * @return {?}
+     */
+    _getDragPercentage(distance) {
+        let /** @type {?} */ percentage = (distance / this._thumbBarWidth) * 100;
+        // When the toggle was initially checked, then we have to start the drag at the end.
+        if (this._previousChecked) {
+            percentage += 100;
+        }
+        return Math.max(0, Math.min(percentage, 100));
+    }
+    /**
      * @return {?}
      */
     _onDragStart() {
-        if (!this.disabled) {
-            this._slideRenderer.startThumbDrag(this.checked);
+        if (!this.disabled && !this._dragging) {
+            const /** @type {?} */ thumbEl = this._thumbEl.nativeElement;
+            this._thumbBarWidth = this._thumbBarEl.nativeElement.clientWidth - thumbEl.clientWidth;
+            thumbEl.classList.add('mat-dragging');
+            this._previousChecked = this.checked;
+            this._dragging = true;
         }
     }
     /**
@@ -268,25 +295,34 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @return {?}
      */
     _onDrag(event) {
-        if (this._slideRenderer.dragging) {
-            this._slideRenderer.updateThumbPosition(event.deltaX);
+        if (this._dragging) {
+            this._dragPercentage = this._getDragPercentage(event.deltaX);
+            // Calculate the moved distance based on the thumb bar width.
+            const /** @type {?} */ dragX = (this._dragPercentage / 100) * this._thumbBarWidth;
+            this._thumbEl.nativeElement.style.transform = `translate3d(${dragX}px, 0, 0)`;
         }
     }
     /**
      * @return {?}
      */
     _onDragEnd() {
-        if (this._slideRenderer.dragging) {
-            const /** @type {?} */ newCheckedValue = this._slideRenderer.dragPercentage > 50;
+        if (this._dragging) {
+            const /** @type {?} */ newCheckedValue = this._dragPercentage > 50;
             if (newCheckedValue !== this.checked) {
                 this.checked = newCheckedValue;
                 this._emitChangeEvent();
             }
             // The drag should be stopped outside of the current event handler, otherwise the
             // click event will be fired before it and will revert the drag change.
-            this._ngZone.runOutsideAngular(() => {
-                setTimeout(() => this._slideRenderer.stopThumbDrag());
-            });
+            this._ngZone.runOutsideAngular(() => setTimeout(() => {
+                if (this._dragging) {
+                    this._dragging = false;
+                    this._thumbEl.nativeElement.classList.remove('mat-dragging');
+                    // Reset the transform because the component will take care
+                    // of the thumb position after drag.
+                    this._thumbEl.nativeElement.style.transform = '';
+                }
+            }));
         }
     }
     /**
@@ -310,7 +346,7 @@ MatSlideToggle.decorators = [
                     '[class.mat-disabled]': 'disabled',
                     '[class.mat-slide-toggle-label-before]': 'labelPosition == "before"',
                 },
-                template: "<label class=\"mat-slide-toggle-label\" #label><div class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"disableRipple || disabled\" [matRippleCentered]=\"true\" [matRippleRadius]=\"23\" [matRippleAnimation]=\"{enterDuration: 150}\"></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
+                template: "<label class=\"mat-slide-toggle-label\" #label><div #toggleBar class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" #thumbContainer (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"disableRipple || disabled\" [matRippleCentered]=\"true\" [matRippleRadius]=\"23\" [matRippleAnimation]=\"{enterDuration: 150}\"></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
                 styles: [".mat-slide-toggle{display:inline-block;height:24px;max-width:100%;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;height:inherit;cursor:pointer}.mat-slide-toggle-content{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:solid 1px #000}}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;flex-shrink:0;border-radius:8px}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-bar{background:#fff}}.mat-slide-toggle-input{bottom:0;left:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}.mat-slide-toggle-ripple{position:absolute;top:calc(50% - 23px);left:calc(50% - 23px);height:46px;width:46px;z-index:1;pointer-events:none}"],
                 providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
                 inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
@@ -328,6 +364,8 @@ MatSlideToggle.ctorParameters = () => [
     { type: NgZone, },
 ];
 MatSlideToggle.propDecorators = {
+    "_thumbEl": [{ type: ViewChild, args: ['thumbContainer',] },],
+    "_thumbBarEl": [{ type: ViewChild, args: ['toggleBar',] },],
     "name": [{ type: Input },],
     "id": [{ type: Input },],
     "labelPosition": [{ type: Input },],
@@ -339,79 +377,6 @@ MatSlideToggle.propDecorators = {
     "_inputElement": [{ type: ViewChild, args: ['input',] },],
     "_ripple": [{ type: ViewChild, args: [MatRipple,] },],
 };
-/**
- * Renderer for the Slide Toggle component, which separates DOM modification in its own class
- */
-class SlideToggleRenderer {
-    /**
-     * @param {?} elementRef
-     * @param {?} platform
-     */
-    constructor(elementRef, platform) {
-        /**
-         * Whether the thumb is currently being dragged.
-         */
-        this.dragging = false;
-        // We only need to interact with these elements when we're on the browser, so only grab
-        // the reference in that case.
-        if (platform.isBrowser) {
-            this._thumbEl = elementRef.nativeElement.querySelector('.mat-slide-toggle-thumb-container');
-            this._thumbBarEl = elementRef.nativeElement.querySelector('.mat-slide-toggle-bar');
-        }
-    }
-    /**
-     * Initializes the drag of the slide-toggle.
-     * @param {?} checked
-     * @return {?}
-     */
-    startThumbDrag(checked) {
-        if (this.dragging) {
-            return;
-        }
-        this._thumbBarWidth = this._thumbBarEl.clientWidth - this._thumbEl.clientWidth;
-        this._thumbEl.classList.add('mat-dragging');
-        this._previousChecked = checked;
-        this.dragging = true;
-    }
-    /**
-     * Resets the current drag and returns the new checked value.
-     * @return {?}
-     */
-    stopThumbDrag() {
-        if (!this.dragging) {
-            return false;
-        }
-        this.dragging = false;
-        this._thumbEl.classList.remove('mat-dragging');
-        // Reset the transform because the component will take care of the thumb position after drag.
-        this._thumbEl.style.transform = '';
-        return this.dragPercentage > 50;
-    }
-    /**
-     * Updates the thumb containers position from the specified distance.
-     * @param {?} distance
-     * @return {?}
-     */
-    updateThumbPosition(distance) {
-        this.dragPercentage = this._getDragPercentage(distance);
-        // Calculate the moved distance based on the thumb bar width.
-        const /** @type {?} */ dragX = (this.dragPercentage / 100) * this._thumbBarWidth;
-        this._thumbEl.style.transform = `translate3d(${dragX}px, 0, 0)`;
-    }
-    /**
-     * Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100.
-     * @param {?} distance
-     * @return {?}
-     */
-    _getDragPercentage(distance) {
-        let /** @type {?} */ percentage = (distance / this._thumbBarWidth) * 100;
-        // When the toggle was initially checked, then we have to start the drag at the end.
-        if (this._previousChecked) {
-            percentage += 100;
-        }
-        return Math.max(0, Math.min(percentage, 100));
-    }
-}
 
 /**
  * @fileoverview added by tsickle

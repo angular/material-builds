@@ -7,7 +7,7 @@
  */
 import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, inject, InjectionToken, ViewContainerRef, Directive, ContentChild, defineInjectable } from '@angular/core';
 import { Subject, merge, Subscription, of } from 'rxjs';
-import { take, takeUntil, filter } from 'rxjs/operators';
+import { take, filter } from 'rxjs/operators';
 import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, ESCAPE } from '@angular/cdk/keycodes';
 import { DateAdapter, MAT_DATE_FORMATS, mixinColor } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
@@ -1316,12 +1316,7 @@ var MatCalendarHeader = /** @class */ (function () {
         this.calendar = calendar;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
-        /**
-         * Subject that emits when the component has been destroyed.
-         */
-        this._destroyed = new Subject();
-        this.calendar.stateChanges.pipe(takeUntil(this._destroyed))
-            .subscribe(function () { return changeDetectorRef.markForCheck(); });
+        this.calendar.stateChanges.subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
     Object.defineProperty(MatCalendarHeader.prototype, "periodButtonText", {
         /** The label for the current calendar view. */
@@ -1482,16 +1477,6 @@ var MatCalendarHeader = /** @class */ (function () {
         return Math.floor(this._dateAdapter.getYear(date1) / yearsPerPage) ==
             Math.floor(this._dateAdapter.getYear(date2) / yearsPerPage);
     };
-    /**
-     * @return {?}
-     */
-    MatCalendarHeader.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        this._destroyed.next();
-        this._destroyed.complete();
-    };
     MatCalendarHeader.decorators = [
         { type: Component, args: [{selector: 'mat-calendar-header',
                     template: "<div class=\"mat-calendar-header\"><div class=\"mat-calendar-controls\"><button mat-button type=\"button\" class=\"mat-calendar-period-button\" (click)=\"currentPeriodClicked()\" [attr.aria-label]=\"periodButtonLabel\">{{periodButtonText}}<div class=\"mat-calendar-arrow\" [class.mat-calendar-invert]=\"calendar.currentView != 'month'\"></div></button><div class=\"mat-calendar-spacer\"></div><button mat-icon-button type=\"button\" class=\"mat-calendar-previous-button\" [disabled]=\"!previousEnabled()\" (click)=\"previousClicked()\" [attr.aria-label]=\"prevButtonLabel\"></button> <button mat-icon-button type=\"button\" class=\"mat-calendar-next-button\" [disabled]=\"!nextEnabled()\" (click)=\"nextClicked()\" [attr.aria-label]=\"nextButtonLabel\"></button></div></div>",
@@ -1542,7 +1527,10 @@ var MatCalendar = /** @class */ (function () {
          * Emits when any date is selected.
          */
         this._userSelection = new EventEmitter();
-        this._stateChanges = new Subject();
+        /**
+         * Emits whenever there is a state change that the header may need to respond to.
+         */
+        this.stateChanges = new Subject();
         if (!this._dateAdapter) {
             throw createMissingDateImplError('DateAdapter');
         }
@@ -1551,7 +1539,7 @@ var MatCalendar = /** @class */ (function () {
         }
         this._intlChanges = _intl.changes.subscribe(function () {
             changeDetectorRef.markForCheck();
-            _this._stateChanges.next();
+            _this.stateChanges.next();
         });
     }
     Object.defineProperty(MatCalendar.prototype, "startAt", {
@@ -1635,23 +1623,7 @@ var MatCalendar = /** @class */ (function () {
          */
         function (value) {
             this._clampedActiveDate = this._dateAdapter.clampDate(value, this.minDate, this.maxDate);
-            this._stateChanges.next();
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatCalendar.prototype, "stateChanges", {
-        /**
-         * An observable that emits whenever there is a state change that the header may need to respond
-         * to.
-         */
-        get: /**
-         * An observable that emits whenever there is a state change that the header may need to respond
-         * to.
-         * @return {?}
-         */
-        function () {
-            return this._stateChanges.asObservable();
+            this.stateChanges.next();
         },
         enumerable: true,
         configurable: true
@@ -1675,6 +1647,7 @@ var MatCalendar = /** @class */ (function () {
      */
     function () {
         this._intlChanges.unsubscribe();
+        this.stateChanges.complete();
     };
     /**
      * @param {?} changes
@@ -1692,7 +1665,7 @@ var MatCalendar = /** @class */ (function () {
                 view._init();
             }
         }
-        this._stateChanges.next();
+        this.stateChanges.next();
     };
     /** Handles date selection in the month view. */
     /**

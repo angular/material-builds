@@ -131,7 +131,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private _sliderDimensions;
     private _controlValueAccessorChangeFn;
     /** Decimal places to round to, based on the step amount. */
-    private _roundLabelTo;
+    private _roundToDecimal;
     /** Subscription to the Directionality change EventEmitter. */
     private _dirChangeSubscription;
     /** The value of the slider when the slide start event fires. */

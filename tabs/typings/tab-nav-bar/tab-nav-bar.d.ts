@@ -9,19 +9,19 @@ import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList } from '@angular/core';
-import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, RippleConfig, RippleGlobalOptions, RippleTarget, ThemePalette } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, RippleConfig, RippleGlobalOptions, RippleRenderer, RippleTarget, ThemePalette } from '@angular/material/core';
 import { MatInkBar } from '../ink-bar';
 /** @docs-private */
 export declare class MatTabNavBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatTabNavMixinBase: (new (...args: any[]) => CanColor) & typeof MatTabNavBase;
+export declare const _MatTabNavMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanColor) & typeof MatTabNavBase;
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-export declare class MatTabNav extends _MatTabNavMixinBase implements AfterContentInit, CanColor, OnDestroy {
+export declare class MatTabNav extends _MatTabNavMixinBase implements AfterContentInit, CanColor, CanDisableRipple, OnDestroy {
     private _dir;
     private _ngZone;
     private _changeDetectorRef;
@@ -36,9 +36,6 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
     /** Background color of the tab nav. */
     backgroundColor: ThemePalette;
     private _backgroundColor;
-    /** Whether ripples should be disabled for all links or not. */
-    disableRipple: boolean;
-    private _disableRipple;
     constructor(elementRef: ElementRef, _dir: Directionality, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler);
     /**
      * Notifies the component that the active link has been changed.
@@ -51,8 +48,6 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
     ngOnDestroy(): void;
     /** Aligns the ink bar to the active link. */
     _alignInkBar(): void;
-    /** Sets the `disableRipple` property on each link of the navigation bar. */
-    private _setLinkDisableRipple();
 }
 export declare class MatTabLinkBase {
 }
@@ -64,9 +59,9 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestro
     private _tabNavBar;
     _elementRef: ElementRef;
     /** Whether the tab link is active or not. */
-    private _isActive;
+    protected _isActive: boolean;
     /** Reference to the RippleRenderer for the tab-link. */
-    private _tabLinkRipple;
+    protected _tabLinkRipple: RippleRenderer;
     /** Whether the link is active. */
     active: boolean;
     /**
