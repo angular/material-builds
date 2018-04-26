@@ -70,6 +70,8 @@ export declare class RippleRenderer {
     private _triggerEvents;
     /** Set of currently active ripple references. */
     private _activeRipples;
+    /** Latest non-persistent ripple that was triggered. */
+    private _mostRecentTransientRipple;
     /** Time in milliseconds when the last touchstart event happened. */
     private _lastTouchStartEvent;
     /** Options that apply to all the event listeners that are bound by the renderer. */

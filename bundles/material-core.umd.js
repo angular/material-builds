@@ -1784,11 +1784,19 @@ RippleRenderer = /** @class */ (function () {
         rippleRef.state = RippleState.FADING_IN;
         // Add the ripple reference to the list of all active ripples.
         this._activeRipples.add(rippleRef);
+        if (!config.persistent) {
+            this._mostRecentTransientRipple = rippleRef;
+        }
         // Wait for the ripple element to be completely faded in.
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
+            var /** @type {?} */ isMostRecentTransientRipple = rippleRef === _this._mostRecentTransientRipple;
             rippleRef.state = RippleState.VISIBLE;
-            if (!config.persistent && !_this._isPointerDown) {
+            // When the timer runs out while the user has kept their pointer down, we want to
+            // keep only the persistent ripples and the latest transient ripple. We do this,
+            // because we don't want stacked transient ripples to appear after their enter
+            // animation has finished.
+            if (!config.persistent && (!isMostRecentTransientRipple || !_this._isPointerDown)) {
                 rippleRef.fadeOut();
             }
         }, duration);
@@ -1807,6 +1815,9 @@ RippleRenderer = /** @class */ (function () {
      */
     function (rippleRef) {
         var /** @type {?} */ wasActive = this._activeRipples.delete(rippleRef);
+        if (rippleRef === this._mostRecentTransientRipple) {
+            this._mostRecentTransientRipple = null;
+        }
         // Clear out the cached bounding rect if we have no more ripples.
         if (!this._activeRipples.size) {
             this._containerRect = null;
