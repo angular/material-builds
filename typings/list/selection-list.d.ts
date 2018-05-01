@@ -79,8 +79,8 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     _handleBlur(): void;
     /** Retrieves the DOM element of the component host. */
     _getHostElement(): HTMLElement;
-    /** Sets the selected state of the option. */
-    _setSelected(selected: boolean): void;
+    /** Sets the selected state of the option. Returns whether the value has changed. */
+    _setSelected(selected: boolean): boolean;
 }
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
@@ -143,6 +143,11 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     private _getSelectedOptionValues();
     /** Toggles the selected state of the currently focused option. */
     private _toggleSelectOnFocusedOption();
+    /**
+     * Sets the selected state on all of the options
+     * and emits an event if anything changed.
+     */
+    private _setAllOptionsSelected(isSelected);
     /**
      * Utility to ensure all indexes are valid.
      * @param index The index to be checked.

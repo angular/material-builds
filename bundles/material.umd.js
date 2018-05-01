@@ -17316,20 +17316,20 @@ var MatListOption = /** @class */ (function (_super) {
     function () {
         return this._element.nativeElement;
     };
-    /** Sets the selected state of the option. */
+    /** Sets the selected state of the option. Returns whether the value has changed. */
     /**
-     * Sets the selected state of the option.
+     * Sets the selected state of the option. Returns whether the value has changed.
      * @param {?} selected
      * @return {?}
      */
     MatListOption.prototype._setSelected = /**
-     * Sets the selected state of the option.
+     * Sets the selected state of the option. Returns whether the value has changed.
      * @param {?} selected
      * @return {?}
      */
     function (selected) {
         if (selected === this._selected) {
-            return;
+            return false;
         }
         this._selected = selected;
         if (selected) {
@@ -17339,6 +17339,7 @@ var MatListOption = /** @class */ (function (_super) {
             this.selectionList.selectedOptions.deselect(this);
         }
         this._changeDetector.markForCheck();
+        return true;
     };
     MatListOption.decorators = [
         { type: core.Component, args: [{selector: 'mat-list-option',
@@ -17471,8 +17472,7 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this.options.forEach(function (option) { return option._setSelected(true); });
-        this._reportValueChange();
+        this._setAllOptionsSelected(true);
     };
     /** Deselects all of the options. */
     /**
@@ -17484,8 +17484,7 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this.options.forEach(function (option) { return option._setSelected(false); });
-        this._reportValueChange();
+        this._setAllOptionsSelected(false);
     };
     /** Sets the focused option of the selection-list. */
     /**
@@ -17703,6 +17702,31 @@ var MatSelectionList = /** @class */ (function (_super) {
                 // interaction.
                 this._emitChangeEvent(focusedOption);
             }
+        }
+    };
+    /**
+     * Sets the selected state on all of the options
+     * and emits an event if anything changed.
+     * @param {?} isSelected
+     * @return {?}
+     */
+    MatSelectionList.prototype._setAllOptionsSelected = /**
+     * Sets the selected state on all of the options
+     * and emits an event if anything changed.
+     * @param {?} isSelected
+     * @return {?}
+     */
+    function (isSelected) {
+        // Keep track of whether anything changed, because we only want to
+        // emit the changed event when something actually changed.
+        var /** @type {?} */ hasChanged = false;
+        this.options.forEach(function (option) {
+            if (option._setSelected(isSelected)) {
+                hasChanged = true;
+            }
+        });
+        if (hasChanged) {
+            this._reportValueChange();
         }
     };
     /**
@@ -32010,7 +32034,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.14-385f96d');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.14-54c0b00');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;

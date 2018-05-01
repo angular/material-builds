@@ -368,13 +368,13 @@ class MatListOption extends _MatListOptionMixinBase {
         return this._element.nativeElement;
     }
     /**
-     * Sets the selected state of the option.
+     * Sets the selected state of the option. Returns whether the value has changed.
      * @param {?} selected
      * @return {?}
      */
     _setSelected(selected) {
         if (selected === this._selected) {
-            return;
+            return false;
         }
         this._selected = selected;
         if (selected) {
@@ -384,6 +384,7 @@ class MatListOption extends _MatListOptionMixinBase {
             this.selectionList.selectedOptions.deselect(this);
         }
         this._changeDetector.markForCheck();
+        return true;
     }
 }
 MatListOption.decorators = [
@@ -499,16 +500,14 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      * @return {?}
      */
     selectAll() {
-        this.options.forEach(option => option._setSelected(true));
-        this._reportValueChange();
+        this._setAllOptionsSelected(true);
     }
     /**
      * Deselects all of the options.
      * @return {?}
      */
     deselectAll() {
-        this.options.forEach(option => option._setSelected(false));
-        this._reportValueChange();
+        this._setAllOptionsSelected(false);
     }
     /**
      * Sets the focused option of the selection-list.
@@ -657,6 +656,25 @@ class MatSelectionList extends _MatSelectionListMixinBase {
                 // interaction.
                 this._emitChangeEvent(focusedOption);
             }
+        }
+    }
+    /**
+     * Sets the selected state on all of the options
+     * and emits an event if anything changed.
+     * @param {?} isSelected
+     * @return {?}
+     */
+    _setAllOptionsSelected(isSelected) {
+        // Keep track of whether anything changed, because we only want to
+        // emit the changed event when something actually changed.
+        let /** @type {?} */ hasChanged = false;
+        this.options.forEach(option => {
+            if (option._setSelected(isSelected)) {
+                hasChanged = true;
+            }
+        });
+        if (hasChanged) {
+            this._reportValueChange();
         }
     }
     /**
