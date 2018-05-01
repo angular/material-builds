@@ -1105,7 +1105,14 @@ var MatSelect = /** @class */ (function (_super) {
             .withTypeAhead()
             .withVerticalOrientation()
             .withHorizontalOrientation(this._isRtl() ? 'rtl' : 'ltr');
-        this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe(function () { return _this.close(); });
+        this._keyManager.tabOut.pipe(takeUntil(this._destroy)).subscribe(function () {
+            // Restore focus to the trigger before closing. Ensures that the focus
+            // position won't be lost if the user got focus into the overlay.
+            // Restore focus to the trigger before closing. Ensures that the focus
+            // position won't be lost if the user got focus into the overlay.
+            _this.focus();
+            _this.close();
+        });
         this._keyManager.change.pipe(takeUntil(this._destroy)).subscribe(function () {
             if (_this._panelOpen && _this.panel) {
                 _this._scrollActiveOptionIntoView();
