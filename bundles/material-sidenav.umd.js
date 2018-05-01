@@ -48,11 +48,13 @@ var /** @type {?} */ matDrawerAnimations = {
     /** Animation that slides a drawer in and out. */
     transformDrawer: animations.trigger('transform', [
         animations.state('open, open-instant', animations.style({
-            transform: 'translate3d(0, 0, 0)',
-            visibility: 'visible',
+            'transform': 'translate3d(0, 0, 0)',
+            'visibility': 'visible',
         })),
         animations.state('void', animations.style({
-            visibility: 'hidden',
+            // Avoids the shadow showing up when closed in SSR.
+            'box-shadow': 'none',
+            'visibility': 'hidden',
         })),
         animations.transition('void => open-instant', animations.animate('0ms')),
         animations.transition('void <=> open, open-instant => void', animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
