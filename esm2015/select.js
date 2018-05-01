@@ -930,11 +930,6 @@ class MatSelect extends _MatSelectMixinBase {
             wasSelected ? option.deselect() : option.select();
             this._keyManager.setActiveItem(option);
             this._sortValues();
-            // In case the user select the option with their mouse, we
-            // want to restore focus back to the trigger, in order to
-            // prevent the select keyboard controls from clashing with
-            // the ones from `mat-option`.
-            this.focus();
         }
         else {
             this._clearSelection(option.value == null ? undefined : option);

@@ -20338,11 +20338,6 @@ var MatSelect = /** @class */ (function (_super) {
             wasSelected ? option.deselect() : option.select();
             this._keyManager.setActiveItem(option);
             this._sortValues();
-            // In case the user select the option with their mouse, we
-            // want to restore focus back to the trigger, in order to
-            // prevent the select keyboard controls from clashing with
-            // the ones from `mat-option`.
-            this.focus();
         }
         else {
             this._clearSelection(option.value == null ? undefined : option);
@@ -31999,7 +31994,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.14-01d0993');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.14-bf1bdc0');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
