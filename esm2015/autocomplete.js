@@ -642,8 +642,9 @@ class MatAutocompleteTrigger {
             }
         }
         else {
-            /** Update the panel width, in case the host width has changed */
+            // Update the panel width and direction, in case anything has changed.
             this._overlayRef.updateSize({ width: this._getHostWidth() });
+            this._overlayRef.setDirection(this._getDirection());
         }
         if (this._overlayRef && !this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
@@ -666,7 +667,7 @@ class MatAutocompleteTrigger {
             positionStrategy: this._getOverlayPosition(),
             scrollStrategy: this._scrollStrategy(),
             width: this._getHostWidth(),
-            direction: this._dir ? this._dir.value : 'ltr'
+            direction: this._getDirection()
         });
     }
     /**
@@ -682,6 +683,12 @@ class MatAutocompleteTrigger {
             { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom' }
         ]);
         return this._positionStrategy;
+    }
+    /**
+     * @return {?}
+     */
+    _getDirection() {
+        return this._dir ? this._dir.value : 'ltr';
     }
     /**
      * @return {?}
