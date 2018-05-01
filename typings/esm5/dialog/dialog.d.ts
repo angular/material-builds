@@ -52,7 +52,7 @@ export declare class MatDialog {
      * @param config Extra configuration options.
      * @returns Reference to the newly-opened dialog.
      */
-    open<T, D = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>, config?: MatDialogConfig<D>): MatDialogRef<T>;
+    open<T, D = any, R = any>(componentOrTemplateRef: ComponentType<T> | TemplateRef<T>, config?: MatDialogConfig<D>): MatDialogRef<T, R>;
     /**
      * Closes all of the currently-open dialogs.
      */
@@ -90,7 +90,7 @@ export declare class MatDialog {
      * @param config The dialog configuration.
      * @returns A promise resolving to the MatDialogRef that should be returned to the user.
      */
-    private _attachDialogContent<T>(componentOrTemplateRef, dialogContainer, overlayRef, config);
+    private _attachDialogContent<T, R>(componentOrTemplateRef, dialogContainer, overlayRef, config);
     /**
      * Creates a custom injector to be used inside the dialog. This allows a component loaded inside
      * of a dialog to close itself and, optionally, to return a value.

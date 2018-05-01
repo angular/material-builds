@@ -716,7 +716,7 @@ var MatDialog = /** @class */ (function () {
      */
     /**
      * Opens a modal dialog containing the given component.
-     * @template T, D
+     * @template T, D, R
      * @param {?} componentOrTemplateRef Type of the component to load into the dialog,
      *     or a TemplateRef to instantiate as the dialog content.
      * @param {?=} config Extra configuration options.
@@ -724,7 +724,7 @@ var MatDialog = /** @class */ (function () {
      */
     MatDialog.prototype.open = /**
      * Opens a modal dialog containing the given component.
-     * @template T, D
+     * @template T, D, R
      * @param {?} componentOrTemplateRef Type of the component to load into the dialog,
      *     or a TemplateRef to instantiate as the dialog content.
      * @param {?=} config Extra configuration options.
@@ -847,7 +847,7 @@ var MatDialog = /** @class */ (function () {
     };
     /**
      * Attaches the user-provided component to the already-created MatDialogContainer.
-     * @template T
+     * @template T, R
      * @param {?} componentOrTemplateRef The type of component being loaded into the dialog,
      *     or a TemplateRef to instantiate as the content.
      * @param {?} dialogContainer Reference to the wrapping MatDialogContainer.
@@ -857,7 +857,7 @@ var MatDialog = /** @class */ (function () {
      */
     MatDialog.prototype._attachDialogContent = /**
      * Attaches the user-provided component to the already-created MatDialogContainer.
-     * @template T
+     * @template T, R
      * @param {?} componentOrTemplateRef The type of component being loaded into the dialog,
      *     or a TemplateRef to instantiate as the content.
      * @param {?} dialogContainer Reference to the wrapping MatDialogContainer.

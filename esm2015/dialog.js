@@ -549,7 +549,7 @@ class MatDialog {
     }
     /**
      * Opens a modal dialog containing the given component.
-     * @template T, D
+     * @template T, D, R
      * @param {?} componentOrTemplateRef Type of the component to load into the dialog,
      *     or a TemplateRef to instantiate as the dialog content.
      * @param {?=} config Extra configuration options.
@@ -639,7 +639,7 @@ class MatDialog {
     }
     /**
      * Attaches the user-provided component to the already-created MatDialogContainer.
-     * @template T
+     * @template T, R
      * @param {?} componentOrTemplateRef The type of component being loaded into the dialog,
      *     or a TemplateRef to instantiate as the content.
      * @param {?} dialogContainer Reference to the wrapping MatDialogContainer.
