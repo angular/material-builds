@@ -143,7 +143,7 @@ class MatPaginator extends _MatPaginatorBase {
      * @return {?}
      */
     set pageIndex(value) {
-        this._pageIndex = coerceNumberProperty(value);
+        this._pageIndex = Math.max(coerceNumberProperty(value), 0);
         this._changeDetectorRef.markForCheck();
     }
     /**
@@ -169,7 +169,7 @@ class MatPaginator extends _MatPaginatorBase {
      * @return {?}
      */
     set pageSize(value) {
-        this._pageSize = coerceNumberProperty(value);
+        this._pageSize = Math.max(coerceNumberProperty(value), 0);
         this._updateDisplayedPageSizeOptions();
     }
     /**

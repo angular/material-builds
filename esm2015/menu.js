@@ -824,7 +824,9 @@ class MatMenuTrigger {
         if (this._menuOpen) {
             return;
         }
-        this._createOverlay().attach(this._portal);
+        const /** @type {?} */ overlayRef = this._createOverlay();
+        overlayRef.setDirection(this.dir);
+        overlayRef.attach(this._portal);
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
         }
@@ -970,7 +972,6 @@ class MatMenuTrigger {
             positionStrategy: this._getPosition(),
             hasBackdrop: this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop,
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
-            direction: this.dir,
             scrollStrategy: this._scrollStrategy()
         });
     }
@@ -1161,5 +1162,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa23, _MatMenuItemMixinBase as ɵb23 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa24, _MatMenuItemMixinBase as ɵb24 };
 //# sourceMappingURL=menu.js.map

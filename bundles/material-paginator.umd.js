@@ -179,7 +179,7 @@ var MatPaginator = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._pageIndex = coercion.coerceNumberProperty(value);
+            this._pageIndex = Math.max(coercion.coerceNumberProperty(value), 0);
             this._changeDetectorRef.markForCheck();
         },
         enumerable: true,
@@ -213,7 +213,7 @@ var MatPaginator = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._pageSize = coercion.coerceNumberProperty(value);
+            this._pageSize = Math.max(coercion.coerceNumberProperty(value), 0);
             this._updateDisplayedPageSizeOptions();
         },
         enumerable: true,

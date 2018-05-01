@@ -18779,7 +18779,9 @@ var MatMenuTrigger = /** @class */ (function () {
         if (this._menuOpen) {
             return;
         }
-        this._createOverlay().attach(this._portal);
+        var /** @type {?} */ overlayRef = this._createOverlay();
+        overlayRef.setDirection(this.dir);
+        overlayRef.attach(this._portal);
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
         }
@@ -18976,7 +18978,6 @@ var MatMenuTrigger = /** @class */ (function () {
             positionStrategy: this._getPosition(),
             hasBackdrop: this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop,
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
-            direction: this.dir,
             scrollStrategy: this._scrollStrategy()
         });
     };
@@ -20338,6 +20339,11 @@ var MatSelect = /** @class */ (function (_super) {
             wasSelected ? option.deselect() : option.select();
             this._keyManager.setActiveItem(option);
             this._sortValues();
+            // In case the user select the option with their mouse, we
+            // want to restore focus back to the trigger, in order to
+            // prevent the select keyboard controls from clashing with
+            // the ones from `mat-option`.
+            this.focus();
         }
         else {
             this._clearSelection(option.value == null ? undefined : option);
@@ -21966,7 +21972,7 @@ var MatPaginator = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._pageIndex = coercion.coerceNumberProperty(value);
+            this._pageIndex = Math.max(coercion.coerceNumberProperty(value), 0);
             this._changeDetectorRef.markForCheck();
         },
         enumerable: true,
@@ -22000,7 +22006,7 @@ var MatPaginator = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            this._pageSize = coercion.coerceNumberProperty(value);
+            this._pageSize = Math.max(coercion.coerceNumberProperty(value), 0);
             this._updateDisplayedPageSizeOptions();
         },
         enumerable: true,
@@ -31994,7 +32000,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.14-bf1bdc0');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.14-422d102');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32237,8 +32243,8 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32363,16 +32369,16 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe24 = MatTabBase;
-exports.ɵf24 = _MatTabMixinBase;
-exports.ɵa24 = MatTabHeaderBase;
-exports.ɵb24 = _MatTabHeaderMixinBase;
-exports.ɵc24 = MatTabLabelWrapperBase;
-exports.ɵd24 = _MatTabLabelWrapperMixinBase;
-exports.ɵi24 = MatTabLinkBase;
-exports.ɵg24 = MatTabNavBase;
-exports.ɵj24 = _MatTabLinkMixinBase;
-exports.ɵh24 = _MatTabNavMixinBase;
+exports.ɵe23 = MatTabBase;
+exports.ɵf23 = _MatTabMixinBase;
+exports.ɵa23 = MatTabHeaderBase;
+exports.ɵb23 = _MatTabHeaderMixinBase;
+exports.ɵc23 = MatTabLabelWrapperBase;
+exports.ɵd23 = _MatTabLabelWrapperMixinBase;
+exports.ɵi23 = MatTabLinkBase;
+exports.ɵg23 = MatTabNavBase;
+exports.ɵj23 = _MatTabLinkMixinBase;
+exports.ɵh23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

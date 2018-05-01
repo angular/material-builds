@@ -1022,7 +1022,9 @@ var MatMenuTrigger = /** @class */ (function () {
         if (this._menuOpen) {
             return;
         }
-        this._createOverlay().attach(this._portal);
+        var /** @type {?} */ overlayRef = this._createOverlay();
+        overlayRef.setDirection(this.dir);
+        overlayRef.attach(this._portal);
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
         }
@@ -1219,7 +1221,6 @@ var MatMenuTrigger = /** @class */ (function () {
             positionStrategy: this._getPosition(),
             hasBackdrop: this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop,
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
-            direction: this.dir,
             scrollStrategy: this._scrollStrategy()
         });
     };
@@ -1449,8 +1450,8 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
