@@ -424,7 +424,7 @@ MatExpansionPanelHeader.propDecorators = {
 /**
  * `<mat-panel-description>`
  *
- * This direction is to be used inside of the MatExpansionPanelHeader component.
+ * This directive is to be used inside of the MatExpansionPanelHeader component.
  */
 class MatExpansionPanelDescription {
 }
@@ -439,7 +439,7 @@ MatExpansionPanelDescription.decorators = [
 /**
  * `<mat-panel-title>`
  *
- * This direction is to be used inside of the MatExpansionPanelHeader component.
+ * This directive is to be used inside of the MatExpansionPanelHeader component.
  */
 class MatExpansionPanelTitle {
 }

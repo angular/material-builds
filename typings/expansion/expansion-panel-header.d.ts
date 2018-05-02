@@ -41,14 +41,14 @@ export declare class MatExpansionPanelHeader implements OnDestroy {
 /**
  * `<mat-panel-description>`
  *
- * This direction is to be used inside of the MatExpansionPanelHeader component.
+ * This directive is to be used inside of the MatExpansionPanelHeader component.
  */
 export declare class MatExpansionPanelDescription {
 }
 /**
  * `<mat-panel-title>`
  *
- * This direction is to be used inside of the MatExpansionPanelHeader component.
+ * This directive is to be used inside of the MatExpansionPanelHeader component.
  */
 export declare class MatExpansionPanelTitle {
 }

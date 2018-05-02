@@ -507,7 +507,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
 /**
  * `<mat-panel-description>`
  *
- * This direction is to be used inside of the MatExpansionPanelHeader component.
+ * This directive is to be used inside of the MatExpansionPanelHeader component.
  */
 var MatExpansionPanelDescription = /** @class */ (function () {
     function MatExpansionPanelDescription() {
@@ -525,7 +525,7 @@ var MatExpansionPanelDescription = /** @class */ (function () {
 /**
  * `<mat-panel-title>`
  *
- * This direction is to be used inside of the MatExpansionPanelHeader component.
+ * This directive is to be used inside of the MatExpansionPanelHeader component.
  */
 var MatExpansionPanelTitle = /** @class */ (function () {
     function MatExpansionPanelTitle() {
