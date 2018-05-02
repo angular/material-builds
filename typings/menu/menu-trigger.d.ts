@@ -132,4 +132,6 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     _handleKeydown(event: KeyboardEvent): void;
     /** Handles click events on the trigger. */
     _handleClick(event: MouseEvent): void;
+    /** Handles the cases where the user hovers over the trigger. */
+    private _handleHover();
 }

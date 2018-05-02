@@ -7,7 +7,7 @@
  */
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
-import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, OnInit, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, OnInit, TemplateRef, QueryList } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { MatMenuContent } from './menu-content';
 import { MatMenuItem } from './menu-item';
@@ -28,7 +28,7 @@ export interface MatMenuDefaultOptions {
 }
 /** Injection token to be used to override the default options for `mat-menu`. */
 export declare const MAT_MENU_DEFAULT_OPTIONS: InjectionToken<MatMenuDefaultOptions>;
-export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, OnDestroy {
+export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel<MatMenuItem>, OnDestroy {
     private _elementRef;
     private _ngZone;
     private _defaultOptions;
@@ -36,6 +36,10 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
     private _xPosition;
     private _yPosition;
     private _previousElevation;
+    /** Menu items inside the current menu. */
+    private _items;
+    /** Emits whenever the amount of menu items changes. */
+    private _itemChanges;
     /** Subscription to tab events on the menu panel */
     private _tabSubscription;
     /** Config object to be passed into the menu's ngClass */
@@ -45,7 +49,9 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
     /** Current state of the panel animation. */
     _panelAnimationState: 'void' | 'enter';
     /** Emits whenever an animation on the menu completes. */
-    _animationDone: Subject<void>;
+    _animationDone: Subject<AnimationEvent>;
+    /** Whether the menu is animating. */
+    _isAnimating: boolean;
     /** Parent menu of the current menu panel. */
     parentMenu: MatMenuPanel | undefined;
     /** Layout direction of the menu. */
@@ -58,7 +64,11 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
     yPosition: MenuPositionY;
     /** @docs-private */
     templateRef: TemplateRef<any>;
-    /** List of the items inside of a menu. */
+    /**
+     * List of the items inside of a menu.
+     * @deprecated
+     * @deletion-target 7.0.0
+     */
     items: QueryList<MatMenuItem>;
     /**
      * Menu content that will be rendered lazily.
@@ -122,10 +132,20 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel, 
      * @param depth Number of parent menus that come before the menu.
      */
     setElevation(depth: number): void;
+    /**
+     * Registers a menu item with the menu.
+     * @docs-private
+     */
+    addItem(item: MatMenuItem): void;
+    /**
+     * Removes an item from the menu.
+     * @docs-private
+     */
+    removeItem(item: MatMenuItem): void;
     /** Starts the enter animation. */
     _startAnimation(): void;
     /** Resets the panel animation to its initial state. */
     _resetAnimation(): void;
     /** Callback that is invoked when the panel animation completes. */
-    _onAnimationDone(): void;
+    _onAnimationDone(event: AnimationEvent): void;
 }
