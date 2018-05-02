@@ -28,6 +28,8 @@ export interface MatMenuDefaultOptions {
 }
 /** Injection token to be used to override the default options for `mat-menu`. */
 export declare const MAT_MENU_DEFAULT_OPTIONS: InjectionToken<MatMenuDefaultOptions>;
+/** @docs-private */
+export declare function MAT_MENU_DEFAULT_OPTIONS_FACTORY(): MatMenuDefaultOptions;
 export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel<MatMenuItem>, OnDestroy {
     private _elementRef;
     private _ngZone;

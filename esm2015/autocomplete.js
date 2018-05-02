@@ -52,8 +52,15 @@ const /** @type {?} */ _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocom
  */
 const /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken('mat-autocomplete-default-options', {
     providedIn: 'root',
-    factory: () => ({ autoActiveFirstOption: false }),
+    factory: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY() {
+    return { autoActiveFirstOption: false };
+}
 class MatAutocomplete extends _MatAutocompleteMixinBase {
     /**
      * @param {?} _changeDetectorRef
@@ -220,11 +227,16 @@ const /** @type {?} */ AUTOCOMPLETE_PANEL_HEIGHT = 256;
  */
 const /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-scroll-strategy', {
     providedIn: 'root',
-    factory: () => {
-        const /** @type {?} */ overlay = inject(Overlay);
-        return () => overlay.scrollStrategies.reposition();
-    }
+    factory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY() {
+    const /** @type {?} */ overlay = inject(Overlay);
+    return () => overlay.scrollStrategies.reposition();
+}
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * \@docs-private
@@ -782,5 +794,5 @@ MatAutocompleteModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger };
 //# sourceMappingURL=autocomplete.js.map

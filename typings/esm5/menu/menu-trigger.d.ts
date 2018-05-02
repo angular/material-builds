@@ -14,6 +14,8 @@ import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
 /** Injection token that determines the scroll handling while the menu is open. */
 export declare const MAT_MENU_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+/** @docs-private */
+export declare function MAT_MENU_SCROLL_STRATEGY_FACTORY(): () => ScrollStrategy;
 /** Default top padding of the menu panel. */
 export declare const MENU_PANEL_TOP_PADDING = 8;
 /**

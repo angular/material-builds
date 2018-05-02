@@ -60,8 +60,15 @@ function throwMatDuplicatedDrawerError(position) {
  */
 var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
     providedIn: 'root',
-    factory: function () { return false; },
+    factory: MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY() {
+    return false;
+}
 var MatDrawerContent = /** @class */ (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
@@ -1185,5 +1192,5 @@ var MatSidenavModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
+export { MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
 //# sourceMappingURL=sidenav.es5.js.map

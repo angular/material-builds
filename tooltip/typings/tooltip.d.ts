@@ -22,6 +22,8 @@ export declare const TOOLTIP_PANEL_CLASS = "mat-tooltip-panel";
 export declare function getMatTooltipInvalidPositionError(position: string): Error;
 /** Injection token that determines the scroll handling while a tooltip is visible. */
 export declare const MAT_TOOLTIP_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
+/** @docs-private */
+export declare function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(): () => ScrollStrategy;
 /** Default `matTooltip` options that can be overridden. */
 export interface MatTooltipDefaultOptions {
     showDelay: number;
@@ -30,6 +32,7 @@ export interface MatTooltipDefaultOptions {
 }
 /** Injection token to be used to override the default options for `matTooltip`. */
 export declare const MAT_TOOLTIP_DEFAULT_OPTIONS: InjectionToken<MatTooltipDefaultOptions>;
+export declare function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY(): MatTooltipDefaultOptions;
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).

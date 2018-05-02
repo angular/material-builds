@@ -63,24 +63,33 @@ function getMatTooltipInvalidPositionError(position) {
  */
 var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strategy', {
     providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay = inject(Overlay);
-        return function () { return overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
-    }
+    factory: MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY() {
+    var /** @type {?} */ overlay = inject(Overlay);
+    return function () { return overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
+}
 /**
  * Injection token to be used to override the default options for `matTooltip`.
  */
 var /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-options', {
     providedIn: 'root',
-    factory: function () {
-        return ({
-            showDelay: 0,
-            hideDelay: 0,
-            touchendHideDelay: 1500,
-        });
-    }
+    factory: MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY
 });
+/**
+ * @return {?}
+ */
+function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
+    return {
+        showDelay: 0,
+        hideDelay: 0,
+        touchendHideDelay: 1500,
+    };
+}
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -899,5 +908,5 @@ var MatTooltipModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltip, TooltipComponent, matTooltipAnimations };
+export { MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MatTooltip, TooltipComponent, matTooltipAnimations };
 //# sourceMappingURL=tooltip.es5.js.map

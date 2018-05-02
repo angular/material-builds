@@ -597,11 +597,16 @@ var /** @type {?} */ MAT_DIALOG_DEFAULT_OPTIONS = new InjectionToken('mat-dialog
  */
 var /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy', {
     providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay = inject(Overlay);
-        return function () { return overlay.scrollStrategies.block(); };
-    }
+    factory: MAT_DIALOG_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_DIALOG_SCROLL_STRATEGY_FACTORY() {
+    var /** @type {?} */ overlay = inject(Overlay);
+    return function () { return overlay.scrollStrategies.block(); };
+}
 /**
  * \@docs-private
  * @param {?} overlay
@@ -1199,5 +1204,5 @@ var MatDialogModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatDialogModule, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, throwMatDialogContentAlreadyAttachedError, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogConfig, MatDialogRef, matDialogAnimations };
+export { MatDialogModule, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, throwMatDialogContentAlreadyAttachedError, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogConfig, MatDialogRef, matDialogAnimations };
 //# sourceMappingURL=dialog.es5.js.map

@@ -12,6 +12,8 @@ export declare const MAT_DIALOG_DEFAULT_OPTIONS: InjectionToken<MatDialogConfig<
 /** Injection token that determines the scroll handling while the dialog is open. */
 export declare const MAT_DIALOG_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
+export declare function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(): () => ScrollStrategy;
+/** @docs-private */
 export declare function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay: Overlay): () => ScrollStrategy;
 /** @docs-private */
 export declare const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER: {

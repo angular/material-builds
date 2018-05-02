@@ -59,8 +59,15 @@ function throwMatDuplicatedDrawerError(position) {
  */
 const /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
     providedIn: 'root',
-    factory: () => false,
+    factory: MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY() {
+    return false;
+}
 class MatDrawerContent {
     /**
      * @param {?} _changeDetectorRef
@@ -967,5 +974,5 @@ MatSidenavModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
+export { MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
 //# sourceMappingURL=sidenav.js.map

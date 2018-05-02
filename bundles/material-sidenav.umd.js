@@ -78,8 +78,15 @@ function throwMatDuplicatedDrawerError(position) {
  */
 var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
     providedIn: 'root',
-    factory: function () { return false; },
+    factory: MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY() {
+    return false;
+}
 var MatDrawerContent = /** @class */ (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
@@ -1196,6 +1203,7 @@ var MatSidenavModule = /** @class */ (function () {
 exports.MatSidenavModule = MatSidenavModule;
 exports.throwMatDuplicatedDrawerError = throwMatDuplicatedDrawerError;
 exports.MAT_DRAWER_DEFAULT_AUTOSIZE = MAT_DRAWER_DEFAULT_AUTOSIZE;
+exports.MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY = MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY;
 exports.MatDrawerContent = MatDrawerContent;
 exports.MatDrawer = MatDrawer;
 exports.MatDrawerContainer = MatDrawerContainer;

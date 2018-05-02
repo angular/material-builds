@@ -423,15 +423,20 @@ var MatMenuItem = /** @class */ (function (_super) {
  */
 var /** @type {?} */ MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options', {
     providedIn: 'root',
-    factory: function () {
-        return ({
-            overlapTrigger: true,
-            xPosition: 'after',
-            yPosition: 'below',
-            backdropClass: 'cdk-overlay-transparent-backdrop',
-        });
-    }
+    factory: MAT_MENU_DEFAULT_OPTIONS_FACTORY
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
+    return {
+        overlapTrigger: true,
+        xPosition: 'after',
+        yPosition: 'below',
+        backdropClass: 'cdk-overlay-transparent-backdrop',
+    };
+}
 /**
  * Start elevation for the menu panel.
  * \@docs-private
@@ -908,11 +913,16 @@ var MatMenu = /** @class */ (function () {
  */
 var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy', {
     providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay = inject(Overlay);
-        return function () { return overlay.scrollStrategies.reposition(); };
-    }
+    factory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_MENU_SCROLL_STRATEGY_FACTORY() {
+    var /** @type {?} */ overlay = inject(Overlay);
+    return function () { return overlay.scrollStrategies.reposition(); };
+}
 /**
  * Default top padding of the menu panel.
  */
@@ -1536,5 +1546,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MatMenuItemBase as ɵa24, _MatMenuItemMixinBase as ɵb24, MAT_MENU_PANEL as ɵc24 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵe23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23 };
 //# sourceMappingURL=menu.es5.js.map

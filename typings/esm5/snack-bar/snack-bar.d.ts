@@ -15,6 +15,8 @@ import { MatSnackBarConfig } from './snack-bar-config';
 import { MatSnackBarRef } from './snack-bar-ref';
 /** Injection token that can be used to specify default snack bar. */
 export declare const MAT_SNACK_BAR_DEFAULT_OPTIONS: InjectionToken<MatSnackBarConfig<any>>;
+/** @docs-private */
+export declare function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY(): MatSnackBarConfig;
 /**
  * Service to dispatch Material Design snack bar messages.
  */

@@ -434,8 +434,15 @@ MatSnackBarContainer.propDecorators = {
  */
 const /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new InjectionToken('mat-snack-bar-default-options', {
     providedIn: 'root',
-    factory: () => new MatSnackBarConfig(),
+    factory: MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY() {
+    return new MatSnackBarConfig();
+}
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -710,5 +717,5 @@ MatSnackBarModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
+export { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
 //# sourceMappingURL=snack-bar.js.map

@@ -83,8 +83,15 @@ var AnimationDurations = /** @class */ (function () {
  */
 var /** @type {?} */ MATERIAL_SANITY_CHECKS = new core.InjectionToken('mat-sanity-checks', {
     providedIn: 'root',
-    factory: function () { return true; },
+    factory: MATERIAL_SANITY_CHECKS_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MATERIAL_SANITY_CHECKS_FACTORY() {
+    return true;
+}
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, etc.
@@ -537,8 +544,15 @@ function mixinInitialized(base) {
  */
 var /** @type {?} */ MAT_DATE_LOCALE = new core.InjectionToken('MAT_DATE_LOCALE', {
     providedIn: 'root',
-    factory: function () { return core.inject(core.LOCALE_ID); }
+    factory: MAT_DATE_LOCALE_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_DATE_LOCALE_FACTORY() {
+    return core.inject(core.LOCALE_ID);
+}
 /**
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
@@ -3564,8 +3578,15 @@ var /** @type {?} */ _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompl
  */
 var /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new core.InjectionToken('mat-autocomplete-default-options', {
     providedIn: 'root',
-    factory: function () { return ({ autoActiveFirstOption: false }); },
+    factory: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY() {
+    return { autoActiveFirstOption: false };
+}
 var MatAutocomplete = /** @class */ (function (_super) {
     __extends(MatAutocomplete, _super);
     function MatAutocomplete(_changeDetectorRef, _elementRef, defaults) {
@@ -3773,11 +3794,16 @@ var /** @type {?} */ AUTOCOMPLETE_PANEL_HEIGHT = 256;
  */
 var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete-scroll-strategy', {
     providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
-        return function () { return overlay$$1.scrollStrategies.reposition(); };
-    }
+    factory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY() {
+    var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+    return function () { return overlay$$1.scrollStrategies.reposition(); };
+}
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * \@docs-private
@@ -9593,11 +9619,16 @@ var /** @type {?} */ MAT_DIALOG_DEFAULT_OPTIONS = new core.InjectionToken('mat-d
  */
 var /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new core.InjectionToken('mat-dialog-scroll-strategy', {
     providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
-        return function () { return overlay$$1.scrollStrategies.block(); };
-    }
+    factory: MAT_DIALOG_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_DIALOG_SCROLL_STRATEGY_FACTORY() {
+    var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+    return function () { return overlay$$1.scrollStrategies.block(); };
+}
 /**
  * \@docs-private
  * @param {?} overlay
@@ -12602,11 +12633,16 @@ var /** @type {?} */ datepickerUid = 0;
  */
 var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scroll-strategy', {
     providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
-        return function () { return overlay$$1.scrollStrategies.reposition(); };
-    }
+    factory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY() {
+    var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+    return function () { return overlay$$1.scrollStrategies.reposition(); };
+}
 /**
  * \@docs-private
  */
@@ -18232,15 +18268,20 @@ var MatMenuItem = /** @class */ (function (_super) {
  */
 var /** @type {?} */ MAT_MENU_DEFAULT_OPTIONS = new core.InjectionToken('mat-menu-default-options', {
     providedIn: 'root',
-    factory: function () {
-        return ({
-            overlapTrigger: true,
-            xPosition: 'after',
-            yPosition: 'below',
-            backdropClass: 'cdk-overlay-transparent-backdrop',
-        });
-    }
+    factory: MAT_MENU_DEFAULT_OPTIONS_FACTORY
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
+    return {
+        overlapTrigger: true,
+        xPosition: 'after',
+        yPosition: 'below',
+        backdropClass: 'cdk-overlay-transparent-backdrop',
+    };
+}
 /**
  * Start elevation for the menu panel.
  * \@docs-private
@@ -18717,11 +18758,16 @@ var MatMenu = /** @class */ (function () {
  */
 var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy', {
     providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
-        return function () { return overlay$$1.scrollStrategies.reposition(); };
-    }
+    factory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_MENU_SCROLL_STRATEGY_FACTORY() {
+    var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+    return function () { return overlay$$1.scrollStrategies.reposition(); };
+}
 /**
  * Default top padding of the menu panel.
  */
@@ -21144,24 +21190,33 @@ function getMatTooltipInvalidPositionError(position) {
  */
 var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-strategy', {
     providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
-        return function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
-    }
+    factory: MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY() {
+    var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+    return function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
+}
 /**
  * Injection token to be used to override the default options for `matTooltip`.
  */
 var /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new core.InjectionToken('mat-tooltip-default-options', {
     providedIn: 'root',
-    factory: function () {
-        return ({
-            showDelay: 0,
-            hideDelay: 0,
-            touchendHideDelay: 1500,
-        });
-    }
+    factory: MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY
 });
+/**
+ * @return {?}
+ */
+function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
+    return {
+        showDelay: 0,
+        hideDelay: 0,
+        touchendHideDelay: 1500,
+    };
+}
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -23819,8 +23874,15 @@ function throwMatDuplicatedDrawerError(position) {
  */
 var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
     providedIn: 'root',
-    factory: function () { return false; },
+    factory: MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY() {
+    return false;
+}
 var MatDrawerContent = /** @class */ (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
@@ -27027,8 +27089,15 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
  */
 var /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new core.InjectionToken('mat-snack-bar-default-options', {
     providedIn: 'root',
-    factory: function () { return new MatSnackBarConfig(); },
+    factory: MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY() {
+    return new MatSnackBarConfig();
+}
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -29368,17 +29437,22 @@ MatTableDataSource = /** @class */ (function (_super) {
  */
 var /** @type {?} */ _MAT_INK_BAR_POSITIONER = new core.InjectionToken('MatInkBarPositioner', {
     providedIn: 'root',
-    factory: function () { return _matInkBarPositioner; }
+    factory: _MAT_INK_BAR_POSITIONER_FACTORY
 });
 /**
  * The default positioner function for the MatInkBar.
+ * \@docs-private
+ * @return {?}
  */
-var /** @type {?} */ _matInkBarPositioner = function (element) {
-    return {
-        left: element ? (element.offsetLeft || 0) + 'px' : '0',
-        width: element ? (element.offsetWidth || 0) + 'px' : '0',
+function _MAT_INK_BAR_POSITIONER_FACTORY() {
+    var /** @type {?} */ method = function (element) {
+        return ({
+            left: element ? (element.offsetLeft || 0) + 'px' : '0',
+            width: element ? (element.offsetWidth || 0) + 'px' : '0',
+        });
     };
-};
+    return method;
+}
 /**
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * \@docs-private
@@ -32140,18 +32214,20 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.14-dd2f465');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-rc.14-376cb66');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS;
+exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocomplete = MatAutocomplete;
 exports.MatAutocompleteModule = MatAutocompleteModule;
 exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;
 exports.AUTOCOMPLETE_PANEL_HEIGHT = AUTOCOMPLETE_PANEL_HEIGHT;
 exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY;
+exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY;
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
@@ -32218,6 +32294,7 @@ exports.MatChip = MatChip;
 exports.MatChipRemove = MatChipRemove;
 exports.MatChipInput = MatChipInput;
 exports.MAT_CHIPS_DEFAULT_OPTIONS = MAT_CHIPS_DEFAULT_OPTIONS;
+exports.ɵa1 = MATERIAL_SANITY_CHECKS_FACTORY;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MatCommonModule = MatCommonModule;
@@ -32231,6 +32308,7 @@ exports.mixinInitialized = mixinInitialized;
 exports.NativeDateModule = NativeDateModule;
 exports.MatNativeDateModule = MatNativeDateModule;
 exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;
+exports.MAT_DATE_LOCALE_FACTORY = MAT_DATE_LOCALE_FACTORY;
 exports.MAT_DATE_LOCALE_PROVIDER = MAT_DATE_LOCALE_PROVIDER;
 exports.DateAdapter = DateAdapter;
 exports.MAT_DATE_FORMATS = MAT_DATE_FORMATS;
@@ -32281,6 +32359,7 @@ exports.MatCalendar = MatCalendar;
 exports.MatCalendarCell = MatCalendarCell;
 exports.MatCalendarBody = MatCalendarBody;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY = MAT_DATEPICKER_SCROLL_STRATEGY;
+exports.MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY = MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
 exports.MatDatepickerContentBase = MatDatepickerContentBase;
 exports._MatDatepickerContentMixinBase = _MatDatepickerContentMixinBase;
 exports.MatDatepickerContent = MatDatepickerContent;
@@ -32299,6 +32378,7 @@ exports.MatDialogModule = MatDialogModule;
 exports.MAT_DIALOG_DATA = MAT_DIALOG_DATA;
 exports.MAT_DIALOG_DEFAULT_OPTIONS = MAT_DIALOG_DEFAULT_OPTIONS;
 exports.MAT_DIALOG_SCROLL_STRATEGY = MAT_DIALOG_SCROLL_STRATEGY;
+exports.MAT_DIALOG_SCROLL_STRATEGY_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_FACTORY;
 exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER;
 exports.MatDialog = MatDialog;
@@ -32383,9 +32463,11 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MatMenuItemBase;
-exports.ɵb24 = _MatMenuItemMixinBase;
-exports.ɵc24 = MAT_MENU_PANEL;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵe23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32443,6 +32525,7 @@ exports.fadeInContent = fadeInContent;
 exports.MatSidenavModule = MatSidenavModule;
 exports.throwMatDuplicatedDrawerError = throwMatDuplicatedDrawerError;
 exports.MAT_DRAWER_DEFAULT_AUTOSIZE = MAT_DRAWER_DEFAULT_AUTOSIZE;
+exports.MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY = MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY;
 exports.MatDrawerContent = MatDrawerContent;
 exports.MatDrawer = MatDrawer;
 exports.MatDrawerContainer = MatDrawerContainer;
@@ -32464,6 +32547,7 @@ exports._MatSliderMixinBase = _MatSliderMixinBase;
 exports.MatSlider = MatSlider;
 exports.MatSnackBarModule = MatSnackBarModule;
 exports.MAT_SNACK_BAR_DEFAULT_OPTIONS = MAT_SNACK_BAR_DEFAULT_OPTIONS;
+exports.MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY = MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY;
 exports.MatSnackBar = MatSnackBar;
 exports.MatSnackBarContainer = MatSnackBarContainer;
 exports.MAT_SNACK_BAR_DATA = MAT_SNACK_BAR_DATA;
@@ -32510,16 +32594,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵa19 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf19 = MatTabBase;
+exports.ɵg19 = _MatTabMixinBase;
+exports.ɵb19 = MatTabHeaderBase;
+exports.ɵc19 = _MatTabHeaderMixinBase;
+exports.ɵd19 = MatTabLabelWrapperBase;
+exports.ɵe19 = _MatTabLabelWrapperMixinBase;
+exports.ɵj19 = MatTabLinkBase;
+exports.ɵh19 = MatTabNavBase;
+exports.ɵk19 = _MatTabLinkMixinBase;
+exports.ɵi19 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
@@ -32548,7 +32633,9 @@ exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
 exports.TOOLTIP_PANEL_CLASS = TOOLTIP_PANEL_CLASS;
 exports.getMatTooltipInvalidPositionError = getMatTooltipInvalidPositionError;
 exports.MAT_TOOLTIP_SCROLL_STRATEGY = MAT_TOOLTIP_SCROLL_STRATEGY;
+exports.MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY = MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY;
 exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
+exports.MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY = MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;

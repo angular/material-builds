@@ -83,8 +83,15 @@ var AnimationDurations = /** @class */ (function () {
  */
 var /** @type {?} */ MATERIAL_SANITY_CHECKS = new core.InjectionToken('mat-sanity-checks', {
     providedIn: 'root',
-    factory: function () { return true; },
+    factory: MATERIAL_SANITY_CHECKS_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MATERIAL_SANITY_CHECKS_FACTORY() {
+    return true;
+}
 /**
  * Module that captures anything that should be loaded and/or run for *all* Angular Material
  * components. This includes Bidi, etc.
@@ -537,8 +544,15 @@ function mixinInitialized(base) {
  */
 var /** @type {?} */ MAT_DATE_LOCALE = new core.InjectionToken('MAT_DATE_LOCALE', {
     providedIn: 'root',
-    factory: function () { return core.inject(core.LOCALE_ID); }
+    factory: MAT_DATE_LOCALE_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_DATE_LOCALE_FACTORY() {
+    return core.inject(core.LOCALE_ID);
+}
 /**
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
@@ -2747,6 +2761,7 @@ exports.mixinInitialized = mixinInitialized;
 exports.NativeDateModule = NativeDateModule;
 exports.MatNativeDateModule = MatNativeDateModule;
 exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;
+exports.MAT_DATE_LOCALE_FACTORY = MAT_DATE_LOCALE_FACTORY;
 exports.MAT_DATE_LOCALE_PROVIDER = MAT_DATE_LOCALE_PROVIDER;
 exports.DateAdapter = DateAdapter;
 exports.MAT_DATE_FORMATS = MAT_DATE_FORMATS;
@@ -2790,6 +2805,7 @@ exports.SEP = SEP;
 exports.OCT = OCT;
 exports.NOV = NOV;
 exports.DEC = DEC;
+exports.ɵa1 = MATERIAL_SANITY_CHECKS_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

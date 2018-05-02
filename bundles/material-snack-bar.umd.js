@@ -575,8 +575,15 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
  */
 var /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new core.InjectionToken('mat-snack-bar-default-options', {
     providedIn: 'root',
-    factory: function () { return new MatSnackBarConfig(); },
+    factory: MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY() {
+    return new MatSnackBarConfig();
+}
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -928,6 +935,7 @@ var MatSnackBarModule = /** @class */ (function () {
 
 exports.MatSnackBarModule = MatSnackBarModule;
 exports.MAT_SNACK_BAR_DEFAULT_OPTIONS = MAT_SNACK_BAR_DEFAULT_OPTIONS;
+exports.MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY = MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY;
 exports.MatSnackBar = MatSnackBar;
 exports.MatSnackBarContainer = MatSnackBarContainer;
 exports.MAT_SNACK_BAR_DATA = MAT_SNACK_BAR_DATA;

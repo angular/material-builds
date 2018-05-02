@@ -31,6 +31,8 @@ export interface MatAutocompleteDefaultOptions {
 }
 /** Injection token to be used to override the default options for `mat-autocomplete`. */
 export declare const MAT_AUTOCOMPLETE_DEFAULT_OPTIONS: InjectionToken<MatAutocompleteDefaultOptions>;
+/** @docs-private */
+export declare function MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY(): MatAutocompleteDefaultOptions;
 export declare class MatAutocomplete extends _MatAutocompleteMixinBase implements AfterContentInit, CanDisableRipple {
     private _changeDetectorRef;
     private _elementRef;

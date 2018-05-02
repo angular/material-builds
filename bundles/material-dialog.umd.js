@@ -624,11 +624,16 @@ var /** @type {?} */ MAT_DIALOG_DEFAULT_OPTIONS = new core.InjectionToken('mat-d
  */
 var /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new core.InjectionToken('mat-dialog-scroll-strategy', {
     providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
-        return function () { return overlay$$1.scrollStrategies.block(); };
-    }
+    factory: MAT_DIALOG_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_DIALOG_SCROLL_STRATEGY_FACTORY() {
+    var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+    return function () { return overlay$$1.scrollStrategies.block(); };
+}
 /**
  * \@docs-private
  * @param {?} overlay
@@ -1220,6 +1225,7 @@ exports.MatDialogModule = MatDialogModule;
 exports.MAT_DIALOG_DATA = MAT_DIALOG_DATA;
 exports.MAT_DIALOG_DEFAULT_OPTIONS = MAT_DIALOG_DEFAULT_OPTIONS;
 exports.MAT_DIALOG_SCROLL_STRATEGY = MAT_DIALOG_SCROLL_STRATEGY;
+exports.MAT_DIALOG_SCROLL_STRATEGY_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_FACTORY;
 exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER;
 exports.MatDialog = MatDialog;

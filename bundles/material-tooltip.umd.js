@@ -76,24 +76,33 @@ function getMatTooltipInvalidPositionError(position) {
  */
 var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-strategy', {
     providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
-        return function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
-    }
+    factory: MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY() {
+    var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+    return function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
+}
 /**
  * Injection token to be used to override the default options for `matTooltip`.
  */
 var /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new core.InjectionToken('mat-tooltip-default-options', {
     providedIn: 'root',
-    factory: function () {
-        return ({
-            showDelay: 0,
-            hideDelay: 0,
-            touchendHideDelay: 1500,
-        });
-    }
+    factory: MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY
 });
+/**
+ * @return {?}
+ */
+function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
+    return {
+        showDelay: 0,
+        hideDelay: 0,
+        touchendHideDelay: 1500,
+    };
+}
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
@@ -907,7 +916,9 @@ exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
 exports.TOOLTIP_PANEL_CLASS = TOOLTIP_PANEL_CLASS;
 exports.getMatTooltipInvalidPositionError = getMatTooltipInvalidPositionError;
 exports.MAT_TOOLTIP_SCROLL_STRATEGY = MAT_TOOLTIP_SCROLL_STRATEGY;
+exports.MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY = MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY;
 exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
+exports.MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY = MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;

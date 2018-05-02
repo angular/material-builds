@@ -9,6 +9,8 @@ import { InjectionToken } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 /** InjectionToken for datepicker that can be used to override default locale code. */
 export declare const MAT_DATE_LOCALE: InjectionToken<string>;
+/** @docs-private */
+export declare function MAT_DATE_LOCALE_FACTORY(): string;
 /**
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.

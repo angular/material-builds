@@ -1838,11 +1838,16 @@ var /** @type {?} */ datepickerUid = 0;
  */
 var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scroll-strategy', {
     providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
-        return function () { return overlay$$1.scrollStrategies.reposition(); };
-    }
+    factory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY() {
+    var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+    return function () { return overlay$$1.scrollStrategies.reposition(); };
+}
 /**
  * \@docs-private
  */
@@ -3219,6 +3224,7 @@ exports.MatCalendar = MatCalendar;
 exports.MatCalendarCell = MatCalendarCell;
 exports.MatCalendarBody = MatCalendarBody;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY = MAT_DATEPICKER_SCROLL_STRATEGY;
+exports.MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY = MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
 exports.MatDatepickerContentBase = MatDatepickerContentBase;
 exports._MatDatepickerContentMixinBase = _MatDatepickerContentMixinBase;
 exports.MatDatepickerContent = MatDatepickerContent;

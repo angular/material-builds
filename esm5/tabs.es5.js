@@ -29,17 +29,22 @@ import { CommonModule } from '@angular/common';
  */
 var /** @type {?} */ _MAT_INK_BAR_POSITIONER = new InjectionToken('MatInkBarPositioner', {
     providedIn: 'root',
-    factory: function () { return _matInkBarPositioner; }
+    factory: _MAT_INK_BAR_POSITIONER_FACTORY
 });
 /**
  * The default positioner function for the MatInkBar.
+ * \@docs-private
+ * @return {?}
  */
-var /** @type {?} */ _matInkBarPositioner = function (element) {
-    return {
-        left: element ? (element.offsetLeft || 0) + 'px' : '0',
-        width: element ? (element.offsetWidth || 0) + 'px' : '0',
+function _MAT_INK_BAR_POSITIONER_FACTORY() {
+    var /** @type {?} */ method = function (element) {
+        return ({
+            left: element ? (element.offsetLeft || 0) + 'px' : '0',
+            width: element ? (element.offsetWidth || 0) + 'px' : '0',
+        });
     };
-};
+    return method;
+}
 /**
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * \@docs-private
@@ -2084,5 +2089,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, MatTabBase as ɵe23, _MatTabMixinBase as ɵf23, MatTabHeaderBase as ɵa23, _MatTabHeaderMixinBase as ɵb23, MatTabLabelWrapperBase as ɵc23, _MatTabLabelWrapperMixinBase as ɵd23, MatTabLinkBase as ɵi23, MatTabNavBase as ɵg23, _MatTabLinkMixinBase as ɵj23, _MatTabNavMixinBase as ɵh23 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa19, MatTabBase as ɵf19, _MatTabMixinBase as ɵg19, MatTabHeaderBase as ɵb19, _MatTabHeaderMixinBase as ɵc19, MatTabLabelWrapperBase as ɵd19, _MatTabLabelWrapperMixinBase as ɵe19, MatTabLinkBase as ɵj19, MatTabNavBase as ɵh19, _MatTabLinkMixinBase as ɵk19, _MatTabNavMixinBase as ɵi19 };
 //# sourceMappingURL=tabs.es5.js.map

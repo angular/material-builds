@@ -1502,11 +1502,16 @@ let /** @type {?} */ datepickerUid = 0;
  */
 const /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy', {
     providedIn: 'root',
-    factory: () => {
-        const /** @type {?} */ overlay = inject(Overlay);
-        return () => overlay.scrollStrategies.reposition();
-    }
+    factory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY() {
+    const /** @type {?} */ overlay = inject(Overlay);
+    return () => overlay.scrollStrategies.reposition();
+}
 /**
  * \@docs-private
  */
@@ -2632,5 +2637,5 @@ MatDatepickerModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatDatepickerModule, MatCalendarHeader, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY, MatDatepickerContentBase, _MatDatepickerContentMixinBase, MatDatepickerContent, MatDatepicker, matDatepickerAnimations, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };
+export { MatDatepickerModule, MatCalendarHeader, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY, MatDatepickerContentBase, _MatDatepickerContentMixinBase, MatDatepickerContent, MatDatepicker, matDatepickerAnimations, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };
 //# sourceMappingURL=datepicker.js.map

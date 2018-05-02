@@ -18,6 +18,8 @@ export declare function throwMatDuplicatedDrawerError(position: string): void;
 export declare type MatDrawerToggleResult = 'open' | 'close';
 /** Configures whether drawers should use auto sizing by default. */
 export declare const MAT_DRAWER_DEFAULT_AUTOSIZE: InjectionToken<boolean>;
+/** @docs-private */
+export declare function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY(): boolean;
 export declare class MatDrawerContent implements AfterContentInit {
     private _changeDetectorRef;
     private _container;

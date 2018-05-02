@@ -46,17 +46,22 @@ function __extends(d, b) {
  */
 var /** @type {?} */ _MAT_INK_BAR_POSITIONER = new core.InjectionToken('MatInkBarPositioner', {
     providedIn: 'root',
-    factory: function () { return _matInkBarPositioner; }
+    factory: _MAT_INK_BAR_POSITIONER_FACTORY
 });
 /**
  * The default positioner function for the MatInkBar.
+ * \@docs-private
+ * @return {?}
  */
-var /** @type {?} */ _matInkBarPositioner = function (element) {
-    return {
-        left: element ? (element.offsetLeft || 0) + 'px' : '0',
-        width: element ? (element.offsetWidth || 0) + 'px' : '0',
+function _MAT_INK_BAR_POSITIONER_FACTORY() {
+    var /** @type {?} */ method = function (element) {
+        return ({
+            left: element ? (element.offsetLeft || 0) + 'px' : '0',
+            width: element ? (element.offsetWidth || 0) + 'px' : '0',
+        });
     };
-};
+    return method;
+}
 /**
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * \@docs-private
@@ -2103,16 +2108,17 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵe23 = MatTabBase;
-exports.ɵf23 = _MatTabMixinBase;
-exports.ɵa23 = MatTabHeaderBase;
-exports.ɵb23 = _MatTabHeaderMixinBase;
-exports.ɵc23 = MatTabLabelWrapperBase;
-exports.ɵd23 = _MatTabLabelWrapperMixinBase;
-exports.ɵi23 = MatTabLinkBase;
-exports.ɵg23 = MatTabNavBase;
-exports.ɵj23 = _MatTabLinkMixinBase;
-exports.ɵh23 = _MatTabNavMixinBase;
+exports.ɵa19 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf19 = MatTabBase;
+exports.ɵg19 = _MatTabMixinBase;
+exports.ɵb19 = MatTabHeaderBase;
+exports.ɵc19 = _MatTabHeaderMixinBase;
+exports.ɵd19 = MatTabLabelWrapperBase;
+exports.ɵe19 = _MatTabLabelWrapperMixinBase;
+exports.ɵj19 = MatTabLinkBase;
+exports.ɵh19 = MatTabNavBase;
+exports.ɵk19 = _MatTabLinkMixinBase;
+exports.ɵi19 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

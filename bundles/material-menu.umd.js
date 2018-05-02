@@ -441,15 +441,20 @@ var MatMenuItem = /** @class */ (function (_super) {
  */
 var /** @type {?} */ MAT_MENU_DEFAULT_OPTIONS = new core.InjectionToken('mat-menu-default-options', {
     providedIn: 'root',
-    factory: function () {
-        return ({
-            overlapTrigger: true,
-            xPosition: 'after',
-            yPosition: 'below',
-            backdropClass: 'cdk-overlay-transparent-backdrop',
-        });
-    }
+    factory: MAT_MENU_DEFAULT_OPTIONS_FACTORY
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
+    return {
+        overlapTrigger: true,
+        xPosition: 'after',
+        yPosition: 'below',
+        backdropClass: 'cdk-overlay-transparent-backdrop',
+    };
+}
 /**
  * Start elevation for the menu panel.
  * \@docs-private
@@ -926,11 +931,16 @@ var MatMenu = /** @class */ (function () {
  */
 var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy', {
     providedIn: 'root',
-    factory: function () {
-        var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
-        return function () { return overlay$$1.scrollStrategies.reposition(); };
-    }
+    factory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_MENU_SCROLL_STRATEGY_FACTORY() {
+    var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+    return function () { return overlay$$1.scrollStrategies.reposition(); };
+}
 /**
  * Default top padding of the menu panel.
  */
@@ -1549,9 +1559,11 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa24 = MatMenuItemBase;
-exports.ɵb24 = _MatMenuItemMixinBase;
-exports.ɵc24 = MAT_MENU_PANEL;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵe23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

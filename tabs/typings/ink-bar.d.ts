@@ -20,8 +20,9 @@ export interface _MatInkBarPositioner {
 export declare const _MAT_INK_BAR_POSITIONER: InjectionToken<_MatInkBarPositioner>;
 /**
  * The default positioner function for the MatInkBar.
+ * @docs-private
  */
-export declare const _matInkBarPositioner: _MatInkBarPositioner;
+export declare function _MAT_INK_BAR_POSITIONER_FACTORY(): _MatInkBarPositioner;
 /**
  * The ink-bar is used to display and animate the line underneath the current active tab label.
  * @docs-private

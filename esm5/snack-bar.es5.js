@@ -548,8 +548,15 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
  */
 var /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new InjectionToken('mat-snack-bar-default-options', {
     providedIn: 'root',
-    factory: function () { return new MatSnackBarConfig(); },
+    factory: MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY,
 });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY() {
+    return new MatSnackBarConfig();
+}
 /**
  * Service to dispatch Material Design snack bar messages.
  */
@@ -909,5 +916,5 @@ var MatSnackBarModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
+export { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
 //# sourceMappingURL=snack-bar.es5.js.map
