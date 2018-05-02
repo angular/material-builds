@@ -1549,9 +1549,9 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa23 = MatMenuItemBase;
-exports.ɵb23 = _MatMenuItemMixinBase;
-exports.ɵc23 = MAT_MENU_PANEL;
+exports.ɵa24 = MatMenuItemBase;
+exports.ɵb24 = _MatMenuItemMixinBase;
+exports.ɵc24 = MAT_MENU_PANEL;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
