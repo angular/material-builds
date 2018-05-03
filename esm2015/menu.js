@@ -1249,5 +1249,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa22, MatMenuItemBase as ɵb22, _MatMenuItemMixinBase as ɵc22, MAT_MENU_PANEL as ɵe22, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd22 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵe24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24 };
 //# sourceMappingURL=menu.js.map
