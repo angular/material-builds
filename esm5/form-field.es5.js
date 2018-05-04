@@ -675,7 +675,7 @@ var MatFormField = /** @class */ (function (_super) {
                 this._initialGapCalculated = true;
                 return;
             }
-            if (!document.contains(this._elementRef.nativeElement)) {
+            if (!document.documentElement.contains(this._elementRef.nativeElement)) {
                 return;
             }
             var /** @type {?} */ containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
