@@ -317,6 +317,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         this._document = _document;
         this._viewportRuler = _viewportRuler;
         this._componentDestroyed = false;
+        this._autocompleteDisabled = false;
         /**
          * Whether or not the label state is being overridden.
          */
@@ -352,6 +353,23 @@ var MatAutocompleteTrigger = /** @class */ (function () {
                 .pipe(take(1), switchMap(function () { return _this.optionSelections; }));
         });
     }
+    Object.defineProperty(MatAutocompleteTrigger.prototype, "autocompleteDisabled", {
+        get: /**
+         * Whether the autocomplete is disabled. When disabled, the element will
+         * act as a regular input and the user won't be able to open the panel.
+         * @return {?}
+         */
+        function () { return this._autocompleteDisabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._autocompleteDisabled = coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -912,18 +930,18 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         var /** @type {?} */ element = this._element.nativeElement;
-        return !element.readOnly && !element.disabled;
+        return !element.readOnly && !element.disabled && !this._autocompleteDisabled;
     };
     MatAutocompleteTrigger.decorators = [
         { type: Directive, args: [{
                     selector: "input[matAutocomplete], textarea[matAutocomplete]",
                     host: {
-                        'role': 'combobox',
                         'autocomplete': 'off',
-                        'aria-autocomplete': 'list',
+                        '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
+                        '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
                         '[attr.aria-activedescendant]': 'activeOption?.id',
-                        '[attr.aria-expanded]': 'panelOpen.toString()',
-                        '[attr.aria-owns]': 'autocomplete?.id',
+                        '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
+                        '[attr.aria-owns]': 'autocompleteDisabled ? null : autocomplete?.id',
                         // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
                         // a little earlier. This avoids issues where IE delays the focusing of the input.
                         '(focusin)': '_handleFocus()',
@@ -950,6 +968,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     ]; };
     MatAutocompleteTrigger.propDecorators = {
         "autocomplete": [{ type: Input, args: ['matAutocomplete',] },],
+        "autocompleteDisabled": [{ type: Input, args: ['matAutocompleteDisabled',] },],
     };
     return MatAutocompleteTrigger;
 }());

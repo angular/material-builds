@@ -49,6 +49,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _overlayRef;
     private _portal;
     private _componentDestroyed;
+    private _autocompleteDisabled;
     /** Old value of the native input. Used to work around issues with the `input` event on IE. */
     private _previousValue;
     /** Strategy that is used to position the panel. */
@@ -67,6 +68,11 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     _onTouched: () => void;
     /** The autocomplete panel to be attached to this trigger. */
     autocomplete: MatAutocomplete;
+    /**
+     * Whether the autocomplete is disabled. When disabled, the element will
+     * act as a regular input and the user won't be able to open the panel.
+     */
+    autocompleteDisabled: boolean;
     constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, _scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler?: ViewportRuler | undefined);
     ngOnDestroy(): void;
     /** Whether or not the autocomplete panel is open. */

@@ -3836,6 +3836,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         this._document = _document;
         this._viewportRuler = _viewportRuler;
         this._componentDestroyed = false;
+        this._autocompleteDisabled = false;
         /**
          * Whether or not the label state is being overridden.
          */
@@ -3871,6 +3872,23 @@ var MatAutocompleteTrigger = /** @class */ (function () {
                 .pipe(operators.take(1), operators.switchMap(function () { return _this.optionSelections; }));
         });
     }
+    Object.defineProperty(MatAutocompleteTrigger.prototype, "autocompleteDisabled", {
+        get: /**
+         * Whether the autocomplete is disabled. When disabled, the element will
+         * act as a regular input and the user won't be able to open the panel.
+         * @return {?}
+         */
+        function () { return this._autocompleteDisabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._autocompleteDisabled = coercion.coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -4431,18 +4449,18 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         var /** @type {?} */ element = this._element.nativeElement;
-        return !element.readOnly && !element.disabled;
+        return !element.readOnly && !element.disabled && !this._autocompleteDisabled;
     };
     MatAutocompleteTrigger.decorators = [
         { type: core.Directive, args: [{
                     selector: "input[matAutocomplete], textarea[matAutocomplete]",
                     host: {
-                        'role': 'combobox',
                         'autocomplete': 'off',
-                        'aria-autocomplete': 'list',
+                        '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
+                        '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
                         '[attr.aria-activedescendant]': 'activeOption?.id',
-                        '[attr.aria-expanded]': 'panelOpen.toString()',
-                        '[attr.aria-owns]': 'autocomplete?.id',
+                        '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
+                        '[attr.aria-owns]': 'autocompleteDisabled ? null : autocomplete?.id',
                         // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
                         // a little earlier. This avoids issues where IE delays the focusing of the input.
                         '(focusin)': '_handleFocus()',
@@ -4469,6 +4487,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     ]; };
     MatAutocompleteTrigger.propDecorators = {
         "autocomplete": [{ type: core.Input, args: ['matAutocomplete',] },],
+        "autocompleteDisabled": [{ type: core.Input, args: ['matAutocompleteDisabled',] },],
     };
     return MatAutocompleteTrigger;
 }());
@@ -32259,7 +32278,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.0-ab1204d');
+var /** @type {?} */ VERSION = new core.Version('6.0.0-e8bc0e9');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32508,11 +32527,11 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵe24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵa9 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb9 = MatMenuItemBase;
+exports.ɵc9 = _MatMenuItemMixinBase;
+exports.ɵe9 = MAT_MENU_PANEL;
+exports.ɵd9 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32639,17 +32658,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa7 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf7 = MatTabBase;
+exports.ɵg7 = _MatTabMixinBase;
+exports.ɵb7 = MatTabHeaderBase;
+exports.ɵc7 = _MatTabHeaderMixinBase;
+exports.ɵd7 = MatTabLabelWrapperBase;
+exports.ɵe7 = _MatTabLabelWrapperMixinBase;
+exports.ɵj7 = MatTabLinkBase;
+exports.ɵh7 = MatTabNavBase;
+exports.ɵk7 = _MatTabLinkMixinBase;
+exports.ɵi7 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
