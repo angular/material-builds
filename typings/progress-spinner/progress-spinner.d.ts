@@ -22,6 +22,7 @@ export declare const _MatProgressSpinnerMixinBase: (new (...args: any[]) => CanC
 export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase implements CanColor {
     _elementRef: ElementRef;
     private _document;
+    _animationMode: string | undefined;
     private _value;
     private _strokeWidth;
     private _fallbackAnimation;
@@ -41,7 +42,7 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     mode: ProgressSpinnerMode;
     /** Value of the progress circle. */
     value: number;
-    constructor(_elementRef: ElementRef, platform: Platform, _document: any);
+    constructor(_elementRef: ElementRef, platform: Platform, _document: any, _animationMode?: string | undefined);
     /** The radius of the spinner, adjusted for stroke width. */
     readonly _circleRadius: number;
     /** The view box of the spinner's svg element. */
@@ -64,5 +65,5 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
  * indeterminate `<mat-progress-spinner>` instance.
  */
 export declare class MatSpinner extends MatProgressSpinner {
-    constructor(elementRef: ElementRef, platform: Platform, document: any);
+    constructor(elementRef: ElementRef, platform: Platform, document: any, _animationMode?: string);
 }

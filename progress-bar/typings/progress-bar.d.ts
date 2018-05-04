@@ -18,7 +18,8 @@ export declare const _MatProgressBarMixinBase: (new (...args: any[]) => CanColor
  */
 export declare class MatProgressBar extends _MatProgressBarMixinBase implements CanColor {
     _elementRef: ElementRef;
-    constructor(_elementRef: ElementRef);
+    _animationMode: string | undefined;
+    constructor(_elementRef: ElementRef, _animationMode?: string | undefined);
     /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
     value: number;
     private _value;
