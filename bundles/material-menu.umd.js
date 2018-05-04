@@ -1559,11 +1559,11 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa9 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb9 = MatMenuItemBase;
-exports.ɵc9 = _MatMenuItemMixinBase;
-exports.ɵe9 = MAT_MENU_PANEL;
-exports.ɵd9 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵe23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
