@@ -3,7 +3,7 @@
   "schematics": {
     // Update from v5 to v6
     "migration-01": {
-      "version": "6.0.0-c15e307-rc.12",
+      "version": "6.0.0-01ec602-rc.12",
       "description": "Updates Angular Material from v5 to v6",
       "factory": "./update/update"
     },
