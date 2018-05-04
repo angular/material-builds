@@ -1,7 +1,7 @@
 import { AfterContentInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
-import { MatCalendarCell } from './calendar-body';
+import { MatCalendarBody, MatCalendarCell } from './calendar-body';
 /**
  * An internal component used to display a single year in the datepicker.
  * @docs-private
@@ -30,7 +30,7 @@ export declare class MatYearView<D> implements AfterContentInit {
     /** Emits the selected month. This doesn't imply a change on the selected date */
     readonly monthSelected: EventEmitter<D>;
     /** The body of calendar table */
-    _matCalendarBody: any;
+    _matCalendarBody: MatCalendarBody;
     /** Grid of calendar cells representing the months of the year. */
     _months: MatCalendarCell[][];
     /** The label for this year (e.g. "2017"). */
@@ -51,7 +51,7 @@ export declare class MatYearView<D> implements AfterContentInit {
     /** Initializes this year view. */
     _init(): void;
     /** Focuses the active cell after the microtask queue is empty. */
-    private _focusActiveCell();
+    _focusActiveCell(): void;
     /**
      * Gets the month in this year that the given Date falls on.
      * Returns null if the given Date is in another year.

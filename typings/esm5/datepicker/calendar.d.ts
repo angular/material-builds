@@ -6,13 +6,18 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ComponentType, Portal } from '@angular/cdk/portal';
-import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { MatDatepickerIntl } from './datepicker-intl';
 import { MatMonthView } from './month-view';
 import { MatMultiYearView } from './multi-year-view';
 import { MatYearView } from './year-view';
+/**
+ * Possible views for the calendar.
+ * @docs-private
+ */
+export declare type MatCalendarView = 'month' | 'year' | 'multi-year';
 /** Default header for MatCalendar */
 export declare class MatCalendarHeader<D> {
     private _intl;
@@ -44,7 +49,7 @@ export declare class MatCalendarHeader<D> {
  * A calendar that is used as part of the datepicker.
  * @docs-private
  */
-export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnChanges {
+export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
     private _dateAdapter;
     private _dateFormats;
     /** An input indicating the type of the header component, if set. */
@@ -52,11 +57,17 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     /** A portal containing the header component type for this calendar. */
     _calendarHeaderPortal: Portal<any>;
     private _intlChanges;
+    /**
+     * Used for scheduling that focus should be moved to the active cell on the next tick.
+     * We need to schedule it, rather than do it immediately, because we have to wait
+     * for Angular to re-evaluate the view children.
+     */
+    private _moveFocusOnNextTick;
     /** A date representing the period (month or year) to start the calendar in. */
     startAt: D | null;
     private _startAt;
     /** Whether the calendar should be started in month or year view. */
-    startView: 'month' | 'year' | 'multi-year';
+    startView: MatCalendarView;
     /** The currently selected date. */
     selected: D | null;
     private _selected;
@@ -95,15 +106,18 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
     activeDate: D;
     private _clampedActiveDate;
     /** Whether the calendar is in month view. */
-    currentView: 'month' | 'year' | 'multi-year';
+    currentView: MatCalendarView;
+    private _currentView;
     /**
      * Emits whenever there is a state change that the header may need to respond to.
      */
     stateChanges: Subject<void>;
     constructor(_intl: MatDatepickerIntl, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
+    ngAfterViewChecked(): void;
     ngOnDestroy(): void;
     ngOnChanges(changes: SimpleChanges): void;
+    focusActiveCell(): void;
     /** Handles date selection in the month view. */
     _dateSelected(date: D): void;
     /** Handles year selection in the multiyear view. */
@@ -118,4 +132,6 @@ export declare class MatCalendar<D> implements AfterContentInit, OnDestroy, OnCh
      * @returns The given object if it is both a date instance and valid, otherwise null.
      */
     private _getValidDateOrNull(obj);
+    /** Returns the component instance that corresponds to the current calendar view. */
+    private _getCurrentViewComponent();
 }

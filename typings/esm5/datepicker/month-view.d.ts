@@ -1,7 +1,7 @@
 import { AfterContentInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
-import { MatCalendarCell } from './calendar-body';
+import { MatCalendarBody, MatCalendarCell } from './calendar-body';
 /**
  * An internal component used to display a single month in the datepicker.
  * @docs-private
@@ -34,7 +34,7 @@ export declare class MatMonthView<D> implements AfterContentInit {
     /** Emits when any date is activated. */
     readonly activeDateChange: EventEmitter<D>;
     /** The body of calendar table */
-    _matCalendarBody: any;
+    _matCalendarBody: MatCalendarBody;
     /** The label for this month (e.g. "January 2017"). */
     _monthLabel: string;
     /** Grid of calendar cells representing the dates of the month. */
@@ -62,7 +62,7 @@ export declare class MatMonthView<D> implements AfterContentInit {
     /** Initializes this month view. */
     _init(): void;
     /** Focuses the active cell after the microtask queue is empty. */
-    private _focusActiveCell();
+    _focusActiveCell(): void;
     /** Creates MatCalendarCells for the dates in this month. */
     private _createWeekCells();
     /** Date filter for the month */

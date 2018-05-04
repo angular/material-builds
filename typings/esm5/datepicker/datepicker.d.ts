@@ -8,7 +8,7 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
 import { CanColor, DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
@@ -31,7 +31,7 @@ export declare const _MatDatepickerContentMixinBase: (new (...args: any[]) => Ca
  * future. (e.g. confirmation buttons).
  * @docs-private
  */
-export declare class MatDatepickerContent<D> extends _MatDatepickerContentMixinBase implements AfterContentInit, CanColor, OnInit, OnDestroy {
+export declare class MatDatepickerContent<D> extends _MatDatepickerContentMixinBase implements AfterViewInit, CanColor, OnInit, OnDestroy {
     private _changeDetectorRef;
     private _ngZone;
     /** Subscription to changes in the overlay's position. */
@@ -44,9 +44,7 @@ export declare class MatDatepickerContent<D> extends _MatDatepickerContentMixinB
     _isAbove: boolean;
     constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone);
     ngOnInit(): void;
-    ngAfterContentInit(): void;
-    /** Focuses the active cell after the microtask queue is empty. */
-    private _focusActiveCell();
+    ngAfterViewInit(): void;
     ngOnDestroy(): void;
 }
 /** Component responsible for managing the datepicker popup/dialog. */

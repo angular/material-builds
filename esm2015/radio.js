@@ -466,7 +466,11 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
      * @return {?}
      */
     set disabled(value) {
-        this._disabled = coerceBooleanProperty(value);
+        const /** @type {?} */ newDisabledState = coerceBooleanProperty(value);
+        if (this._disabled !== newDisabledState) {
+            this._disabled = newDisabledState;
+            this._changeDetector.markForCheck();
+        }
     }
     /**
      * Whether the radio button is required.

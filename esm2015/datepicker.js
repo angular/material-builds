@@ -340,7 +340,6 @@ class MatMonthView {
      */
     ngAfterContentInit() {
         this._init();
-        this._focusActiveCell();
     }
     /**
      * Handles when a new date is selected.
@@ -627,7 +626,6 @@ class MatMultiYearView {
      */
     ngAfterContentInit() {
         this._init();
-        this._focusActiveCell();
     }
     /**
      * Initializes this multi-year view.
@@ -889,7 +887,6 @@ class MatYearView {
      */
     ngAfterContentInit() {
         this._init();
-        this._focusActiveCell();
     }
     /**
      * Handles when a new month is selected.
@@ -1250,6 +1247,12 @@ class MatCalendar {
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
         /**
+         * Used for scheduling that focus should be moved to the active cell on the next tick.
+         * We need to schedule it, rather than do it immediately, because we have to wait
+         * for Angular to re-evaluate the view children.
+         */
+        this._moveFocusOnNextTick = false;
+        /**
          * Whether the calendar should be started in month or year view.
          */
         this.startView = 'month';
@@ -1349,12 +1352,35 @@ class MatCalendar {
         this.stateChanges.next();
     }
     /**
+     * Whether the calendar is in month view.
+     * @return {?}
+     */
+    get currentView() { return this._currentView; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set currentView(value) {
+        this._currentView = value;
+        this._moveFocusOnNextTick = true;
+    }
+    /**
      * @return {?}
      */
     ngAfterContentInit() {
         this._calendarHeaderPortal = new ComponentPortal(this.headerComponent || MatCalendarHeader);
         this.activeDate = this.startAt || this._dateAdapter.today();
-        this.currentView = this.startView;
+        // Assign to the private property since we don't want to move focus on init.
+        this._currentView = this.startView;
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewChecked() {
+        if (this._moveFocusOnNextTick) {
+            this._moveFocusOnNextTick = false;
+            this.focusActiveCell();
+        }
     }
     /**
      * @return {?}
@@ -1370,12 +1396,18 @@ class MatCalendar {
     ngOnChanges(changes) {
         const /** @type {?} */ change = changes["minDate"] || changes["maxDate"] || changes["dateFilter"];
         if (change && !change.firstChange) {
-            const /** @type {?} */ view = this.monthView || this.yearView || this.multiYearView;
+            const /** @type {?} */ view = this._getCurrentViewComponent();
             if (view) {
                 view._init();
             }
         }
         this.stateChanges.next();
+    }
+    /**
+     * @return {?}
+     */
+    focusActiveCell() {
+        this._getCurrentViewComponent()._focusActiveCell();
     }
     /**
      * Handles date selection in the month view.
@@ -1425,6 +1457,13 @@ class MatCalendar {
      */
     _getValidDateOrNull(obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
+    }
+    /**
+     * Returns the component instance that corresponds to the current calendar view.
+     * @return {?}
+     */
+    _getCurrentViewComponent() {
+        return this.monthView || this.yearView || this.multiYearView;
     }
 }
 MatCalendar.decorators = [
@@ -1564,19 +1603,8 @@ class MatDatepickerContent extends _MatDatepickerContentMixinBase {
     /**
      * @return {?}
      */
-    ngAfterContentInit() {
-        this._focusActiveCell();
-    }
-    /**
-     * Focuses the active cell after the microtask queue is empty.
-     * @return {?}
-     */
-    _focusActiveCell() {
-        this._ngZone.runOutsideAngular(() => {
-            this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
-                this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
-            });
-        });
+    ngAfterViewInit() {
+        this._calendar.focusActiveCell();
     }
     /**
      * @return {?}

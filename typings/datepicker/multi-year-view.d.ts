@@ -1,7 +1,7 @@
 import { AfterContentInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
-import { MatCalendarCell } from './calendar-body';
+import { MatCalendarBody, MatCalendarCell } from './calendar-body';
 export declare const yearsPerPage = 24;
 export declare const yearsPerRow = 4;
 /**
@@ -31,7 +31,7 @@ export declare class MatMultiYearView<D> implements AfterContentInit {
     /** Emits the selected year. This doesn't imply a change on the selected date */
     readonly yearSelected: EventEmitter<D>;
     /** The body of calendar table */
-    _matCalendarBody: any;
+    _matCalendarBody: MatCalendarBody;
     /** Grid of calendar cells representing the currently displayed years. */
     _years: MatCalendarCell[][];
     /** The year that today falls on. */
@@ -48,7 +48,7 @@ export declare class MatMultiYearView<D> implements AfterContentInit {
     _handleCalendarBodyKeydown(event: KeyboardEvent): void;
     _getActiveCell(): number;
     /** Focuses the active cell after the microtask queue is empty. */
-    private _focusActiveCell();
+    _focusActiveCell(): void;
     /** Creates an MatCalendarCell for the given year. */
     private _createCellForYear(year);
     /** Whether the given year is enabled. */

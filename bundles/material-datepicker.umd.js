@@ -384,7 +384,6 @@ var MatMonthView = /** @class */ (function () {
      */
     function () {
         this._init();
-        this._focusActiveCell();
     };
     /** Handles when a new date is selected. */
     /**
@@ -494,6 +493,7 @@ var MatMonthView = /** @class */ (function () {
         this._createWeekCells();
         this._changeDetectorRef.markForCheck();
     };
+    /** Focuses the active cell after the microtask queue is empty. */
     /**
      * Focuses the active cell after the microtask queue is empty.
      * @return {?}
@@ -736,7 +736,6 @@ var MatMultiYearView = /** @class */ (function () {
      */
     function () {
         this._init();
-        this._focusActiveCell();
     };
     /** Initializes this multi-year view. */
     /**
@@ -842,6 +841,7 @@ var MatMultiYearView = /** @class */ (function () {
     function () {
         return this._dateAdapter.getYear(this.activeDate) % yearsPerPage;
     };
+    /** Focuses the active cell after the microtask queue is empty. */
     /**
      * Focuses the active cell after the microtask queue is empty.
      * @return {?}
@@ -1055,7 +1055,6 @@ var MatYearView = /** @class */ (function () {
      */
     function () {
         this._init();
-        this._focusActiveCell();
     };
     /** Handles when a new month is selected. */
     /**
@@ -1149,6 +1148,7 @@ var MatYearView = /** @class */ (function () {
         });
         this._changeDetectorRef.markForCheck();
     };
+    /** Focuses the active cell after the microtask queue is empty. */
     /**
      * Focuses the active cell after the microtask queue is empty.
      * @return {?}
@@ -1519,6 +1519,12 @@ var MatCalendar = /** @class */ (function () {
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
         /**
+         * Used for scheduling that focus should be moved to the active cell on the next tick.
+         * We need to schedule it, rather than do it immediately, because we have to wait
+         * for Angular to re-evaluate the view children.
+         */
+        this._moveFocusOnNextTick = false;
+        /**
          * Whether the calendar should be started in month or year view.
          */
         this.startView = 'month';
@@ -1641,6 +1647,24 @@ var MatCalendar = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatCalendar.prototype, "currentView", {
+        /** Whether the calendar is in month view. */
+        get: /**
+         * Whether the calendar is in month view.
+         * @return {?}
+         */
+        function () { return this._currentView; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._currentView = value;
+            this._moveFocusOnNextTick = true;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -1650,7 +1674,20 @@ var MatCalendar = /** @class */ (function () {
     function () {
         this._calendarHeaderPortal = new portal.ComponentPortal(this.headerComponent || MatCalendarHeader);
         this.activeDate = this.startAt || this._dateAdapter.today();
-        this.currentView = this.startView;
+        // Assign to the private property since we don't want to move focus on init.
+        this._currentView = this.startView;
+    };
+    /**
+     * @return {?}
+     */
+    MatCalendar.prototype.ngAfterViewChecked = /**
+     * @return {?}
+     */
+    function () {
+        if (this._moveFocusOnNextTick) {
+            this._moveFocusOnNextTick = false;
+            this.focusActiveCell();
+        }
     };
     /**
      * @return {?}
@@ -1673,12 +1710,21 @@ var MatCalendar = /** @class */ (function () {
     function (changes) {
         var /** @type {?} */ change = changes["minDate"] || changes["maxDate"] || changes["dateFilter"];
         if (change && !change.firstChange) {
-            var /** @type {?} */ view = this.monthView || this.yearView || this.multiYearView;
+            var /** @type {?} */ view = this._getCurrentViewComponent();
             if (view) {
                 view._init();
             }
         }
         this.stateChanges.next();
+    };
+    /**
+     * @return {?}
+     */
+    MatCalendar.prototype.focusActiveCell = /**
+     * @return {?}
+     */
+    function () {
+        this._getCurrentViewComponent()._focusActiveCell();
     };
     /** Handles date selection in the month view. */
     /**
@@ -1760,6 +1806,17 @@ var MatCalendar = /** @class */ (function () {
      */
     function (obj) {
         return (this._dateAdapter.isDateInstance(obj) && this._dateAdapter.isValid(obj)) ? obj : null;
+    };
+    /**
+     * Returns the component instance that corresponds to the current calendar view.
+     * @return {?}
+     */
+    MatCalendar.prototype._getCurrentViewComponent = /**
+     * Returns the component instance that corresponds to the current calendar view.
+     * @return {?}
+     */
+    function () {
+        return this.monthView || this.yearView || this.multiYearView;
     };
     MatCalendar.decorators = [
         { type: core.Component, args: [{selector: 'mat-calendar',
@@ -1902,27 +1959,11 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     /**
      * @return {?}
      */
-    MatDatepickerContent.prototype.ngAfterContentInit = /**
+    MatDatepickerContent.prototype.ngAfterViewInit = /**
      * @return {?}
      */
     function () {
-        this._focusActiveCell();
-    };
-    /**
-     * Focuses the active cell after the microtask queue is empty.
-     * @return {?}
-     */
-    MatDatepickerContent.prototype._focusActiveCell = /**
-     * Focuses the active cell after the microtask queue is empty.
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        this._ngZone.runOutsideAngular(function () {
-            _this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
-                _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
-            });
-        });
+        this._calendar.focusActiveCell();
     };
     /**
      * @return {?}
