@@ -543,9 +543,9 @@ var MatIconRegistry = /** @class */ (function () {
             .map(function (iconSetConfig) {
             return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(operators.catchError(function (err) {
                 var /** @type {?} */ url = _this._sanitizer.sanitize(core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
-                // Swallow errors fetching individual URLs so the combined Observable won't
-                // necessarily fail.
-                console.log("Loading icon set URL: " + url + " failed: " + err);
+                // Swallow errors fetching individual URLs so the
+                // combined Observable won't necessarily fail.
+                console.error("Loading icon set URL: " + url + " failed: " + err.message);
                 return rxjs.of(null);
             }));
         });

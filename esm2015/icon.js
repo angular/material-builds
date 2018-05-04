@@ -331,10 +331,10 @@ class MatIconRegistry {
             .filter(iconSetConfig => !iconSetConfig.svgElement)
             .map(iconSetConfig => {
             return this._loadSvgIconSetFromConfig(iconSetConfig).pipe(catchError((err) => {
-                let /** @type {?} */ url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
-                // Swallow errors fetching individual URLs so the combined Observable won't
-                // necessarily fail.
-                console.log(`Loading icon set URL: ${url} failed: ${err}`);
+                const /** @type {?} */ url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
+                // Swallow errors fetching individual URLs so the
+                // combined Observable won't necessarily fail.
+                console.error(`Loading icon set URL: ${url} failed: ${err.message}`);
                 return of(null);
             }));
         });
