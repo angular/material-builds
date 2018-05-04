@@ -586,11 +586,7 @@ var MatRadioButton = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newDisabledState = coerceBooleanProperty(value);
-            if (this._disabled !== newDisabledState) {
-                this._disabled = newDisabledState;
-                this._changeDetector.markForCheck();
-            }
+            this._disabled = coerceBooleanProperty(value);
         },
         enumerable: true,
         configurable: true
