@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
+const tasks_1 = require("@angular-devkit/schematics/tasks");
 const ast_1 = require("../utils/ast");
 const change_1 = require("../utils/devkit-utils/change");
 const config_1 = require("../utils/devkit-utils/config");
@@ -26,10 +27,11 @@ function default_1(options) {
 exports.default = default_1;
 /** Add material, cdk, annimations to package.json if not already present. */
 function addMaterialToPackageJson() {
-    return (host) => {
+    return (host, context) => {
         package_1.addPackageToPackageJson(host, 'dependencies', '@angular/cdk', lib_versions_1.cdkVersion);
         package_1.addPackageToPackageJson(host, 'dependencies', '@angular/material', lib_versions_1.materialVersion);
         package_1.addPackageToPackageJson(host, 'dependencies', '@angular/animations', lib_versions_1.angularVersion);
+        context.addTask(new tasks_1.NodePackageInstallTask());
         return host;
     };
 }
