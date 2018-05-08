@@ -105,6 +105,12 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     checked: boolean;
     private _checked;
     /**
+     * Whether the checkbox is disabled. This fully overrides the implementation provided by
+     * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
+     */
+    disabled: any;
+    private _disabled;
+    /**
      * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
      * represent a checkbox with three states, e.g. a checkbox that represents a nested list of
      * checkable items. Note that whenever checkbox is manually clicked, indeterminate is immediately
@@ -112,7 +118,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
      */
     indeterminate: boolean;
     private _indeterminate;
-    _isRippleDisabled(): boolean;
+    _isRippleDisabled(): any;
     /** Method being called whenever the label text changes. */
     _onLabelTextChange(): void;
     writeValue(value: any): void;

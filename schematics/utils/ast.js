@@ -59,7 +59,7 @@ exports.getIndexHtmlPath = getIndexHtmlPath;
 function getStylesPath(host, project) {
     const buildTarget = project.architect['build'];
     if (buildTarget.options && buildTarget.options.styles && buildTarget.options.styles.length) {
-        const styles = buildTarget.options.styles.map(s => s.input);
+        const styles = buildTarget.options.styles.map(s => typeof s === 'string' ? s : s.input);
         // First, see if any of the assets is called "styles.(le|sc|c)ss", which is the default
         // "main" style sheet.
         const defaultMainStylePath = styles.find(a => /styles\.(c|le|sc)ss/.test(a));
