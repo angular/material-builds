@@ -130,7 +130,6 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         this._currentCheckState = TransitionCheckState.Init;
         this._controlValueAccessorChangeFn = () => { };
         this._checked = false;
-        this._disabled = false;
         this._indeterminate = false;
         this.tabIndex = parseInt(tabIndex) || 0;
     }
@@ -175,22 +174,6 @@ class MatCheckbox extends _MatCheckboxMixinBase {
     set checked(value) {
         if (value != this.checked) {
             this._checked = value;
-            this._changeDetectorRef.markForCheck();
-        }
-    }
-    /**
-     * Whether the checkbox is disabled. This fully overrides the implementation provided by
-     * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
-     * @return {?}
-     */
-    get disabled() { return this._disabled; }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    set disabled(value) {
-        if (value != this.disabled) {
-            this._disabled = value;
             this._changeDetectorRef.markForCheck();
         }
     }
@@ -262,6 +245,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      */
     setDisabledState(isDisabled) {
         this.disabled = isDisabled;
+        this._changeDetectorRef.markForCheck();
     }
     /**
      * @return {?}
@@ -438,7 +422,7 @@ MatCheckbox.decorators = [
                     '[class.mat-checkbox-label-before]': 'labelPosition == "before"',
                 },
                 providers: [MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR],
-                inputs: ['disableRipple', 'color', 'tabIndex'],
+                inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
@@ -464,7 +448,6 @@ MatCheckbox.propDecorators = {
     "_inputElement": [{ type: ViewChild, args: ['input',] },],
     "ripple": [{ type: ViewChild, args: [MatRipple,] },],
     "checked": [{ type: Input },],
-    "disabled": [{ type: Input },],
     "indeterminate": [{ type: Input },],
 };
 
