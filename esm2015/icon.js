@@ -858,7 +858,6 @@ MatIconModule.decorators = [
                 imports: [MatCommonModule],
                 exports: [MatIcon, MatCommonModule],
                 declarations: [MatIcon],
-                providers: [ICON_REGISTRY_PROVIDER],
             },] },
 ];
 

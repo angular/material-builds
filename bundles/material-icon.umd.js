@@ -1195,7 +1195,6 @@ var MatIconModule = /** @class */ (function () {
                     imports: [core$1.MatCommonModule],
                     exports: [MatIcon, core$1.MatCommonModule],
                     declarations: [MatIcon],
-                    providers: [ICON_REGISTRY_PROVIDER],
                 },] },
     ];
     return MatIconModule;
