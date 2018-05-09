@@ -6766,6 +6766,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         _this._currentCheckState = TransitionCheckState.Init;
         _this._controlValueAccessorChangeFn = function () { };
         _this._checked = false;
+        _this._disabled = false;
         _this._indeterminate = false;
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
@@ -6828,6 +6829,26 @@ var MatCheckbox = /** @class */ (function (_super) {
         function (value) {
             if (value != this.checked) {
                 this._checked = value;
+                this._changeDetectorRef.markForCheck();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatCheckbox.prototype, "disabled", {
+        get: /**
+         * Whether the checkbox is disabled. This fully overrides the implementation provided by
+         * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
+         * @return {?}
+         */
+        function () { return this._disabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (value != this.disabled) {
+                this._disabled = value;
                 this._changeDetectorRef.markForCheck();
             }
         },
@@ -6934,7 +6955,6 @@ var MatCheckbox = /** @class */ (function (_super) {
      */
     function (isDisabled) {
         this.disabled = isDisabled;
-        this._changeDetectorRef.markForCheck();
     };
     /**
      * @return {?}
@@ -7164,7 +7184,7 @@ var MatCheckbox = /** @class */ (function (_super) {
                         '[class.mat-checkbox-label-before]': 'labelPosition == "before"',
                     },
                     providers: [MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR],
-                    inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
+                    inputs: ['disableRipple', 'color', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush
                 },] },
@@ -7190,6 +7210,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         "_inputElement": [{ type: core.ViewChild, args: ['input',] },],
         "ripple": [{ type: core.ViewChild, args: [MatRipple,] },],
         "checked": [{ type: core.Input },],
+        "disabled": [{ type: core.Input },],
         "indeterminate": [{ type: core.Input },],
     };
     return MatCheckbox;
@@ -32285,7 +32306,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.1-33b5df4');
+var /** @type {?} */ VERSION = new core.Version('6.0.1-c58f6bf');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32534,11 +32555,11 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa19 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb19 = MatMenuItemBase;
-exports.ɵc19 = _MatMenuItemMixinBase;
-exports.ɵe19 = MAT_MENU_PANEL;
-exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵe23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

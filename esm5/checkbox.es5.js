@@ -132,6 +132,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         _this._currentCheckState = TransitionCheckState.Init;
         _this._controlValueAccessorChangeFn = function () { };
         _this._checked = false;
+        _this._disabled = false;
         _this._indeterminate = false;
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
@@ -194,6 +195,26 @@ var MatCheckbox = /** @class */ (function (_super) {
         function (value) {
             if (value != this.checked) {
                 this._checked = value;
+                this._changeDetectorRef.markForCheck();
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatCheckbox.prototype, "disabled", {
+        get: /**
+         * Whether the checkbox is disabled. This fully overrides the implementation provided by
+         * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
+         * @return {?}
+         */
+        function () { return this._disabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            if (value != this.disabled) {
+                this._disabled = value;
                 this._changeDetectorRef.markForCheck();
             }
         },
@@ -300,7 +321,6 @@ var MatCheckbox = /** @class */ (function (_super) {
      */
     function (isDisabled) {
         this.disabled = isDisabled;
-        this._changeDetectorRef.markForCheck();
     };
     /**
      * @return {?}
@@ -530,7 +550,7 @@ var MatCheckbox = /** @class */ (function (_super) {
                         '[class.mat-checkbox-label-before]': 'labelPosition == "before"',
                     },
                     providers: [MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR],
-                    inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
+                    inputs: ['disableRipple', 'color', 'tabIndex'],
                     encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush
                 },] },
@@ -556,6 +576,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         "_inputElement": [{ type: ViewChild, args: ['input',] },],
         "ripple": [{ type: ViewChild, args: [MatRipple,] },],
         "checked": [{ type: Input },],
+        "disabled": [{ type: Input },],
         "indeterminate": [{ type: Input },],
     };
     return MatCheckbox;
