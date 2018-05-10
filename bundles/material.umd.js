@@ -9371,7 +9371,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
     MatDialogContainer.decorators = [
         { type: core.Component, args: [{selector: 'mat-dialog-container',
                     template: "<ng-template cdkPortalOutlet></ng-template>",
-                    styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap;margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
+                    styles: [".mat-dialog-container{box-shadow:0 11px 15px -7px rgba(0,0,0,.2),0 24px 38px 3px rgba(0,0,0,.14),0 9px 46px 8px rgba(0,0,0,.12);display:block;padding:24px;border-radius:2px;box-sizing:border-box;overflow:auto;outline:0;width:100%;height:100%;min-height:inherit;max-height:inherit}@media screen and (-ms-high-contrast:active){.mat-dialog-container{outline:solid 1px}}.mat-dialog-content{display:block;margin:0 -24px;padding:0 24px;max-height:65vh;overflow:auto;-webkit-overflow-scrolling:touch}.mat-dialog-title{margin:0 0 20px;display:block}.mat-dialog-actions{padding:12px 0;display:flex;flex-wrap:wrap;margin-bottom:-24px}.mat-dialog-actions[align=end]{justify-content:flex-end}.mat-dialog-actions[align=center]{justify-content:center}.mat-dialog-actions .mat-button+.mat-button,.mat-dialog-actions .mat-button+.mat-raised-button,.mat-dialog-actions .mat-raised-button+.mat-button,.mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:8px}[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button{margin-left:0;margin-right:8px}"],
                     encapsulation: core.ViewEncapsulation.None,
                     // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
                     // tslint:disable-next-line:validate-decorators
@@ -32345,7 +32345,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.1-9f282b6');
+var /** @type {?} */ VERSION = new core.Version('6.0.1-a20dfd3');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32594,11 +32594,11 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵe24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb21 = MatMenuItemBase;
+exports.ɵc21 = _MatMenuItemMixinBase;
+exports.ɵe21 = MAT_MENU_PANEL;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32725,17 +32725,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf22 = MatTabBase;
+exports.ɵg22 = _MatTabMixinBase;
+exports.ɵb22 = MatTabHeaderBase;
+exports.ɵc22 = _MatTabHeaderMixinBase;
+exports.ɵd22 = MatTabLabelWrapperBase;
+exports.ɵe22 = _MatTabLabelWrapperMixinBase;
+exports.ɵj22 = MatTabLinkBase;
+exports.ɵh22 = MatTabNavBase;
+exports.ɵk22 = _MatTabLinkMixinBase;
+exports.ɵi22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
