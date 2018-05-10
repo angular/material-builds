@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, IterableDiffers, ViewEncapsulation, Directive, Input, NgModule } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, IterableDiffers, ViewEncapsulation, Directive, Input, TemplateRef, NgModule } from '@angular/core';
 import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
@@ -68,8 +68,11 @@ var MatTable = /** @class */ (function (_super) {
  */
 var MatCellDef = /** @class */ (function (_super) {
     __extends(MatCellDef, _super);
-    function MatCellDef() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    // TODO(andrewseguin): Remove this constructor after compiler-cli is updated; see issue #9329
+    function MatCellDef(template) {
+        var _this = _super.call(this, template) || this;
+        _this.template = template;
+        return _this;
     }
     MatCellDef.decorators = [
         { type: Directive, args: [{
@@ -77,6 +80,10 @@ var MatCellDef = /** @class */ (function (_super) {
                     providers: [{ provide: CdkCellDef, useExisting: MatCellDef }]
                 },] },
     ];
+    /** @nocollapse */
+    MatCellDef.ctorParameters = function () { return [
+        { type: TemplateRef, },
+    ]; };
     return MatCellDef;
 }(CdkCellDef));
 /**
@@ -85,8 +92,11 @@ var MatCellDef = /** @class */ (function (_super) {
  */
 var MatHeaderCellDef = /** @class */ (function (_super) {
     __extends(MatHeaderCellDef, _super);
-    function MatHeaderCellDef() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    // TODO(andrewseguin): Remove this constructor after compiler-cli is updated; see issue #9329
+    function MatHeaderCellDef(template) {
+        var _this = _super.call(this, template) || this;
+        _this.template = template;
+        return _this;
     }
     MatHeaderCellDef.decorators = [
         { type: Directive, args: [{
@@ -94,6 +104,10 @@ var MatHeaderCellDef = /** @class */ (function (_super) {
                     providers: [{ provide: CdkHeaderCellDef, useExisting: MatHeaderCellDef }]
                 },] },
     ];
+    /** @nocollapse */
+    MatHeaderCellDef.ctorParameters = function () { return [
+        { type: TemplateRef, },
+    ]; };
     return MatHeaderCellDef;
 }(CdkHeaderCellDef));
 /**
@@ -102,8 +116,11 @@ var MatHeaderCellDef = /** @class */ (function (_super) {
  */
 var MatFooterCellDef = /** @class */ (function (_super) {
     __extends(MatFooterCellDef, _super);
-    function MatFooterCellDef() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    // TODO(andrewseguin): Remove this constructor after compiler-cli is updated; see issue #9329
+    function MatFooterCellDef(template) {
+        var _this = _super.call(this, template) || this;
+        _this.template = template;
+        return _this;
     }
     MatFooterCellDef.decorators = [
         { type: Directive, args: [{
@@ -111,6 +128,10 @@ var MatFooterCellDef = /** @class */ (function (_super) {
                     providers: [{ provide: CdkFooterCellDef, useExisting: MatFooterCellDef }]
                 },] },
     ];
+    /** @nocollapse */
+    MatFooterCellDef.ctorParameters = function () { return [
+        { type: TemplateRef, },
+    ]; };
     return MatFooterCellDef;
 }(CdkFooterCellDef));
 /**
@@ -223,8 +244,9 @@ var MatCell = /** @class */ (function (_super) {
  */
 var MatHeaderRowDef = /** @class */ (function (_super) {
     __extends(MatHeaderRowDef, _super);
-    function MatHeaderRowDef() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    // TODO(andrewseguin): Remove this constructor after compiler-cli is updated; see issue #9329
+    function MatHeaderRowDef(template, _differs) {
+        return _super.call(this, template, _differs) || this;
     }
     MatHeaderRowDef.decorators = [
         { type: Directive, args: [{
@@ -233,6 +255,11 @@ var MatHeaderRowDef = /** @class */ (function (_super) {
                     inputs: ['columns: matHeaderRowDef'],
                 },] },
     ];
+    /** @nocollapse */
+    MatHeaderRowDef.ctorParameters = function () { return [
+        { type: TemplateRef, },
+        { type: IterableDiffers, },
+    ]; };
     return MatHeaderRowDef;
 }(CdkHeaderRowDef));
 /**
@@ -241,8 +268,9 @@ var MatHeaderRowDef = /** @class */ (function (_super) {
  */
 var MatFooterRowDef = /** @class */ (function (_super) {
     __extends(MatFooterRowDef, _super);
-    function MatFooterRowDef() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    // TODO(andrewseguin): Remove this constructor after compiler-cli is updated; see issue #9329
+    function MatFooterRowDef(template, _differs) {
+        return _super.call(this, template, _differs) || this;
     }
     MatFooterRowDef.decorators = [
         { type: Directive, args: [{
@@ -251,6 +279,11 @@ var MatFooterRowDef = /** @class */ (function (_super) {
                     inputs: ['columns: matFooterRowDef'],
                 },] },
     ];
+    /** @nocollapse */
+    MatFooterRowDef.ctorParameters = function () { return [
+        { type: TemplateRef, },
+        { type: IterableDiffers, },
+    ]; };
     return MatFooterRowDef;
 }(CdkFooterRowDef));
 /**
@@ -261,8 +294,9 @@ var MatFooterRowDef = /** @class */ (function (_super) {
  */
 var MatRowDef = /** @class */ (function (_super) {
     __extends(MatRowDef, _super);
-    function MatRowDef() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    // TODO(andrewseguin): Remove this constructor after compiler-cli is updated; see issue #9329
+    function MatRowDef(template, _differs) {
+        return _super.call(this, template, _differs) || this;
     }
     MatRowDef.decorators = [
         { type: Directive, args: [{
@@ -271,6 +305,11 @@ var MatRowDef = /** @class */ (function (_super) {
                     inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
                 },] },
     ];
+    /** @nocollapse */
+    MatRowDef.ctorParameters = function () { return [
+        { type: TemplateRef, },
+        { type: IterableDiffers, },
+    ]; };
     return MatRowDef;
 }(CdkRowDef));
 /**

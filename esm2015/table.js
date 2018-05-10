@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, IterableDiffers, ViewEncapsulation, Directive, Input, NgModule } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, IterableDiffers, ViewEncapsulation, Directive, Input, TemplateRef, NgModule } from '@angular/core';
 import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
@@ -64,6 +64,13 @@ MatTable.ctorParameters = () => [
  * Captures the template of a column's data row cell as well as cell-specific properties.
  */
 class MatCellDef extends CdkCellDef {
+    /**
+     * @param {?} template
+     */
+    constructor(template) {
+        super(template);
+        this.template = template;
+    }
 }
 MatCellDef.decorators = [
     { type: Directive, args: [{
@@ -71,11 +78,22 @@ MatCellDef.decorators = [
                 providers: [{ provide: CdkCellDef, useExisting: MatCellDef }]
             },] },
 ];
+/** @nocollapse */
+MatCellDef.ctorParameters = () => [
+    { type: TemplateRef, },
+];
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
  */
 class MatHeaderCellDef extends CdkHeaderCellDef {
+    /**
+     * @param {?} template
+     */
+    constructor(template) {
+        super(template);
+        this.template = template;
+    }
 }
 MatHeaderCellDef.decorators = [
     { type: Directive, args: [{
@@ -83,17 +101,32 @@ MatHeaderCellDef.decorators = [
                 providers: [{ provide: CdkHeaderCellDef, useExisting: MatHeaderCellDef }]
             },] },
 ];
+/** @nocollapse */
+MatHeaderCellDef.ctorParameters = () => [
+    { type: TemplateRef, },
+];
 /**
  * Footer cell definition for the mat-table.
  * Captures the template of a column's footer cell and as well as cell-specific properties.
  */
 class MatFooterCellDef extends CdkFooterCellDef {
+    /**
+     * @param {?} template
+     */
+    constructor(template) {
+        super(template);
+        this.template = template;
+    }
 }
 MatFooterCellDef.decorators = [
     { type: Directive, args: [{
                 selector: '[matFooterCellDef]',
                 providers: [{ provide: CdkFooterCellDef, useExisting: MatFooterCellDef }]
             },] },
+];
+/** @nocollapse */
+MatFooterCellDef.ctorParameters = () => [
+    { type: TemplateRef, },
 ];
 /**
  * Column definition for the mat-table.
@@ -202,6 +235,13 @@ MatCell.ctorParameters = () => [
  * Captures the header row's template and other header properties such as the columns to display.
  */
 class MatHeaderRowDef extends CdkHeaderRowDef {
+    /**
+     * @param {?} template
+     * @param {?} _differs
+     */
+    constructor(template, _differs) {
+        super(template, _differs);
+    }
 }
 MatHeaderRowDef.decorators = [
     { type: Directive, args: [{
@@ -210,11 +250,23 @@ MatHeaderRowDef.decorators = [
                 inputs: ['columns: matHeaderRowDef'],
             },] },
 ];
+/** @nocollapse */
+MatHeaderRowDef.ctorParameters = () => [
+    { type: TemplateRef, },
+    { type: IterableDiffers, },
+];
 /**
  * Footer row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display.
  */
 class MatFooterRowDef extends CdkFooterRowDef {
+    /**
+     * @param {?} template
+     * @param {?} _differs
+     */
+    constructor(template, _differs) {
+        super(template, _differs);
+    }
 }
 MatFooterRowDef.decorators = [
     { type: Directive, args: [{
@@ -223,6 +275,11 @@ MatFooterRowDef.decorators = [
                 inputs: ['columns: matFooterRowDef'],
             },] },
 ];
+/** @nocollapse */
+MatFooterRowDef.ctorParameters = () => [
+    { type: TemplateRef, },
+    { type: IterableDiffers, },
+];
 /**
  * Data row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display and
@@ -230,6 +287,13 @@ MatFooterRowDef.decorators = [
  * @template T
  */
 class MatRowDef extends CdkRowDef {
+    /**
+     * @param {?} template
+     * @param {?} _differs
+     */
+    constructor(template, _differs) {
+        super(template, _differs);
+    }
 }
 MatRowDef.decorators = [
     { type: Directive, args: [{
@@ -237,6 +301,11 @@ MatRowDef.decorators = [
                 providers: [{ provide: CdkRowDef, useExisting: MatRowDef }],
                 inputs: ['columns: matRowDefColumns', 'when: matRowDefWhen'],
             },] },
+];
+/** @nocollapse */
+MatRowDef.ctorParameters = () => [
+    { type: TemplateRef, },
+    { type: IterableDiffers, },
 ];
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
