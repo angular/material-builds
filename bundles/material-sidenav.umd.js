@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/cdk/scrolling'), require('@angular/core'), require('@angular/common'), require('rxjs/operators'), require('rxjs'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/sidenav', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/cdk/scrolling', '@angular/core', '@angular/common', 'rxjs/operators', 'rxjs', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.cdk.scrolling,global.ng.core,global.ng.common,global.Rx.operators,global.Rx,global.ng.material.core));
-}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,platform,scrolling,core,common,operators,rxjs,core$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/cdk/scrolling'), require('@angular/core'), require('@angular/common'), require('rxjs/operators'), require('rxjs'), require('@angular/platform-browser/animations'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/sidenav', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/cdk/scrolling', '@angular/core', '@angular/common', 'rxjs/operators', 'rxjs', '@angular/platform-browser/animations', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sidenav = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.cdk.scrolling,global.ng.core,global.ng.common,global.Rx.operators,global.Rx,global.ng.platformBrowser.animations,global.ng.material.core));
+}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,platform,scrolling,core,common,operators,rxjs,animations$1,core$1) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -91,12 +91,6 @@ var MatDrawerContent = /** @class */ (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
         this._container = _container;
-        /**
-         * Margins to be applied to the content. These are used to push / shrink the drawer content when a
-         * drawer is open. We use margin rather than transform even for push mode because transform breaks
-         * fixed position elements inside of the transformed element.
-         */
-        this._margins = { left: null, right: null };
     }
     /**
      * @return {?}
@@ -106,8 +100,7 @@ var MatDrawerContent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this._container._contentMargins.subscribe(function (margins) {
-            _this._margins = margins;
+        this._container._contentMarginChanges.subscribe(function () {
             _this._changeDetectorRef.markForCheck();
         });
     };
@@ -116,8 +109,8 @@ var MatDrawerContent = /** @class */ (function () {
                     template: '<ng-content></ng-content>',
                     host: {
                         'class': 'mat-drawer-content',
-                        '[style.margin-left.px]': '_margins.left',
-                        '[style.margin-right.px]': '_margins.right',
+                        '[style.margin-left.px]': '_container._contentMargins.left',
+                        '[style.margin-right.px]': '_container._contentMargins.right',
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
@@ -582,13 +575,14 @@ var MatDrawer = /** @class */ (function () {
  * and coordinates the backdrop and content styling.
  */
 var MatDrawerContainer = /** @class */ (function () {
-    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize) {
+    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize, _animationMode) {
         if (defaultAutosize === void 0) { defaultAutosize = false; }
         var _this = this;
         this._dir = _dir;
         this._element = _element;
         this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
+        this._animationMode = _animationMode;
         /**
          * Event emitted when the drawer backdrop is clicked.
          */
@@ -601,7 +595,13 @@ var MatDrawerContainer = /** @class */ (function () {
          * Emits on every ngDoCheck. Used for debouncing reflows.
          */
         this._doCheckSubject = new rxjs.Subject();
-        this._contentMargins = new rxjs.Subject();
+        /**
+         * Margins to be applied to the content. These are used to push / shrink the drawer content when a
+         * drawer is open. We use margin rather than transform even for push mode because transform breaks
+         * fixed position elements inside of the transformed element.
+         */
+        this._contentMargins = { left: null, right: null };
+        this._contentMarginChanges = new rxjs.Subject();
         // If a `Dir` directive exists up the tree, listen direction changes
         // and update the left/right properties to point to the proper start/end.
         if (_dir) {
@@ -769,7 +769,7 @@ var MatDrawerContainer = /** @class */ (function () {
             .subscribe(function (event) {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
-            if (event.toState !== 'open-instant') {
+            if (event.toState !== 'open-instant' && _this._animationMode !== 'NoopAnimations') {
                 _this._element.nativeElement.classList.add('mat-drawer-transition');
             }
             _this._updateContentMargins();
@@ -988,8 +988,12 @@ var MatDrawerContainer = /** @class */ (function () {
                 left -= width;
             }
         }
-        // Pull back into the NgZone since in some cases we could be outside.
-        this._ngZone.run(function () { return _this._contentMargins.next({ left: left, right: right }); });
+        if (left !== this._contentMargins.left || right !== this._contentMargins.right) {
+            this._contentMargins = { left: left, right: right };
+            // Pull back into the NgZone since in some cases we could be outside. We need to be careful
+            // to do it only when something changed, otherwise we can end up hitting the zone too often.
+            this._ngZone.run(function () { return _this._contentMarginChanges.next(_this._contentMargins); });
+        }
     };
     MatDrawerContainer.decorators = [
         { type: core.Component, args: [{selector: 'mat-drawer-container',
@@ -1011,6 +1015,7 @@ var MatDrawerContainer = /** @class */ (function () {
         { type: core.NgZone, },
         { type: core.ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations$1.ANIMATION_MODULE_TYPE,] },] },
     ]; };
     MatDrawerContainer.propDecorators = {
         "_drawers": [{ type: core.ContentChildren, args: [MatDrawer,] },],
@@ -1037,8 +1042,8 @@ var MatSidenavContent = /** @class */ (function (_super) {
                     template: '<ng-content></ng-content>',
                     host: {
                         'class': 'mat-drawer-content mat-sidenav-content',
-                        '[style.margin-left.px]': '_margins.left',
-                        '[style.margin-right.px]': '_margins.right',
+                        '[style.margin-left.px]': '_container._contentMargins.left',
+                        '[style.margin-right.px]': '_container._contentMargins.right',
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,

@@ -11,6 +11,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
 import { HammerGestureConfig } from '@angular/platform-browser';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
 
@@ -1478,9 +1479,11 @@ class MatRipple {
      * @param {?} ngZone
      * @param {?} platform
      * @param {?} globalOptions
+     * @param {?=} _animationMode
      */
-    constructor(_elementRef, ngZone, platform, globalOptions) {
+    constructor(_elementRef, ngZone, platform, globalOptions, _animationMode) {
         this._elementRef = _elementRef;
+        this._animationMode = _animationMode;
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1560,7 +1563,8 @@ class MatRipple {
             centered: this.centered,
             radius: this.radius,
             color: this.color,
-            animation: Object.assign({}, this._globalOptions.animation, this.animation),
+            animation: this._animationMode === 'NoopAnimations' ?
+                { enterDuration: 0, exitDuration: 0 } : Object.assign({}, this._globalOptions.animation, this.animation),
             terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
             speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
         };
@@ -1613,6 +1617,7 @@ MatRipple.ctorParameters = () => [
     { type: NgZone, },
     { type: Platform, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
 ];
 MatRipple.propDecorators = {
     "color": [{ type: Input, args: ['matRippleColor',] },],

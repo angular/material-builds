@@ -22,16 +22,7 @@ export declare const MAT_DRAWER_DEFAULT_AUTOSIZE: InjectionToken<boolean>;
 export declare function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY(): boolean;
 export declare class MatDrawerContent implements AfterContentInit {
     private _changeDetectorRef;
-    private _container;
-    /**
-     * Margins to be applied to the content. These are used to push / shrink the drawer content when a
-     * drawer is open. We use margin rather than transform even for push mode because transform breaks
-     * fixed position elements inside of the transformed element.
-     */
-    _margins: {
-        left: number | null;
-        right: number | null;
-    };
+    _container: MatDrawerContainer;
     constructor(_changeDetectorRef: ChangeDetectorRef, _container: MatDrawerContainer);
     ngAfterContentInit(): void;
 }
@@ -132,6 +123,7 @@ export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
     private _element;
     private _ngZone;
     private _changeDetectorRef;
+    private _animationMode;
     _drawers: QueryList<MatDrawer>;
     _content: MatDrawerContent;
     /** The drawer child with the `start` position. */
@@ -172,13 +164,22 @@ export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
     private readonly _destroyed;
     /** Emits on every ngDoCheck. Used for debouncing reflows. */
     private readonly _doCheckSubject;
-    readonly _contentMargins: Subject<{
+    /**
+     * Margins to be applied to the content. These are used to push / shrink the drawer content when a
+     * drawer is open. We use margin rather than transform even for push mode because transform breaks
+     * fixed position elements inside of the transformed element.
+     */
+    _contentMargins: {
+        left: number | null;
+        right: number | null;
+    };
+    readonly _contentMarginChanges: Subject<{
         left: number | null;
         right: number | null;
     }>;
     /** Reference to the CdkScrollable instance that wraps the scrollable content. */
     scrollable: CdkScrollable;
-    constructor(_dir: Directionality, _element: ElementRef, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, defaultAutosize?: boolean);
+    constructor(_dir: Directionality, _element: ElementRef, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, defaultAutosize?: boolean, _animationMode?: string | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Calls `open` of both start and end drawers */

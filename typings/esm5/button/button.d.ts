@@ -26,9 +26,9 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
     private _platform;
     private _focusMonitor;
     /** Whether the button is round. */
-    _isRoundButton: boolean;
+    readonly isRoundButton: boolean;
     /** Whether the button is icon button. */
-    _isIconButton: boolean;
+    readonly isIconButton: boolean;
     /** Reference to the MatRipple instance of the button. */
     ripple: MatRipple;
     constructor(elementRef: ElementRef, 

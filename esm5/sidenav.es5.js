@@ -16,6 +16,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Co
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { filter, take, startWith, takeUntil, map, debounceTime } from 'rxjs/operators';
 import { merge, fromEvent, Subject } from 'rxjs';
+import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { __extends } from 'tslib';
 import { MatCommonModule } from '@angular/material/core';
 
@@ -73,12 +74,6 @@ var MatDrawerContent = /** @class */ (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
         this._container = _container;
-        /**
-         * Margins to be applied to the content. These are used to push / shrink the drawer content when a
-         * drawer is open. We use margin rather than transform even for push mode because transform breaks
-         * fixed position elements inside of the transformed element.
-         */
-        this._margins = { left: null, right: null };
     }
     /**
      * @return {?}
@@ -88,8 +83,7 @@ var MatDrawerContent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this._container._contentMargins.subscribe(function (margins) {
-            _this._margins = margins;
+        this._container._contentMarginChanges.subscribe(function () {
             _this._changeDetectorRef.markForCheck();
         });
     };
@@ -98,8 +92,8 @@ var MatDrawerContent = /** @class */ (function () {
                     template: '<ng-content></ng-content>',
                     host: {
                         'class': 'mat-drawer-content',
-                        '[style.margin-left.px]': '_margins.left',
-                        '[style.margin-right.px]': '_margins.right',
+                        '[style.margin-left.px]': '_container._contentMargins.left',
+                        '[style.margin-right.px]': '_container._contentMargins.right',
                     },
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
@@ -564,13 +558,14 @@ var MatDrawer = /** @class */ (function () {
  * and coordinates the backdrop and content styling.
  */
 var MatDrawerContainer = /** @class */ (function () {
-    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize) {
+    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize, _animationMode) {
         if (defaultAutosize === void 0) { defaultAutosize = false; }
         var _this = this;
         this._dir = _dir;
         this._element = _element;
         this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
+        this._animationMode = _animationMode;
         /**
          * Event emitted when the drawer backdrop is clicked.
          */
@@ -583,7 +578,13 @@ var MatDrawerContainer = /** @class */ (function () {
          * Emits on every ngDoCheck. Used for debouncing reflows.
          */
         this._doCheckSubject = new Subject();
-        this._contentMargins = new Subject();
+        /**
+         * Margins to be applied to the content. These are used to push / shrink the drawer content when a
+         * drawer is open. We use margin rather than transform even for push mode because transform breaks
+         * fixed position elements inside of the transformed element.
+         */
+        this._contentMargins = { left: null, right: null };
+        this._contentMarginChanges = new Subject();
         // If a `Dir` directive exists up the tree, listen direction changes
         // and update the left/right properties to point to the proper start/end.
         if (_dir) {
@@ -751,7 +752,7 @@ var MatDrawerContainer = /** @class */ (function () {
             .subscribe(function (event) {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
-            if (event.toState !== 'open-instant') {
+            if (event.toState !== 'open-instant' && _this._animationMode !== 'NoopAnimations') {
                 _this._element.nativeElement.classList.add('mat-drawer-transition');
             }
             _this._updateContentMargins();
@@ -970,8 +971,12 @@ var MatDrawerContainer = /** @class */ (function () {
                 left -= width;
             }
         }
-        // Pull back into the NgZone since in some cases we could be outside.
-        this._ngZone.run(function () { return _this._contentMargins.next({ left: left, right: right }); });
+        if (left !== this._contentMargins.left || right !== this._contentMargins.right) {
+            this._contentMargins = { left: left, right: right };
+            // Pull back into the NgZone since in some cases we could be outside. We need to be careful
+            // to do it only when something changed, otherwise we can end up hitting the zone too often.
+            this._ngZone.run(function () { return _this._contentMarginChanges.next(_this._contentMargins); });
+        }
     };
     MatDrawerContainer.decorators = [
         { type: Component, args: [{selector: 'mat-drawer-container',
@@ -993,6 +998,7 @@ var MatDrawerContainer = /** @class */ (function () {
         { type: NgZone, },
         { type: ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] },] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
     ]; };
     MatDrawerContainer.propDecorators = {
         "_drawers": [{ type: ContentChildren, args: [MatDrawer,] },],
@@ -1019,8 +1025,8 @@ var MatSidenavContent = /** @class */ (function (_super) {
                     template: '<ng-content></ng-content>',
                     host: {
                         'class': 'mat-drawer-content mat-sidenav-content',
-                        '[style.margin-left.px]': '_margins.left',
-                        '[style.margin-right.px]': '_margins.right',
+                        '[style.margin-left.px]': '_container._contentMargins.left',
+                        '[style.margin-right.px]': '_container._contentMargins.right',
                     },
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,

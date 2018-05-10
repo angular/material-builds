@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/platform-browser/animations'), require('@angular/cdk/scrolling'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('@angular/cdk/tree')) :
-	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/platform-browser/animations', '@angular/cdk/scrolling', '@angular/cdk/table', '@angular/cdk/stepper', '@angular/cdk/tree'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.platformBrowser.animations,global.ng.cdk.scrolling,global.ng.cdk.table,global.ng.cdk.stepper,global.ng.cdk.tree));
-}(this, (function (exports,core,bidi,coercion,rxjs,platform,platformBrowser,keycodes,common,animations,operators,a11y,overlay,portal,forms,layout,collections,observers,textField,accordion,http,animations$1,scrolling,table,stepper,tree) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/scrolling'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('@angular/cdk/tree')) :
+	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/scrolling', '@angular/cdk/table', '@angular/cdk/stepper', '@angular/cdk/tree'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.Rx,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.scrolling,global.ng.cdk.table,global.ng.cdk.stepper,global.ng.cdk.tree));
+}(this, (function (exports,core,bidi,coercion,rxjs,platform,platformBrowser,animations,keycodes,common,animations$1,operators,a11y,overlay,portal,forms,layout,collections,observers,textField,accordion,http,scrolling,table,stepper,tree) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1956,8 +1956,9 @@ function distanceToFurthestCorner(x, y, rect) {
  */
 var /** @type {?} */ MAT_RIPPLE_GLOBAL_OPTIONS = new core.InjectionToken('mat-ripple-global-options');
 var MatRipple = /** @class */ (function () {
-    function MatRipple(_elementRef, ngZone, platform$$1, globalOptions) {
+    function MatRipple(_elementRef, ngZone, platform$$1, globalOptions, _animationMode) {
         this._elementRef = _elementRef;
+        this._animationMode = _animationMode;
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -2058,7 +2059,8 @@ var MatRipple = /** @class */ (function () {
                 centered: this.centered,
                 radius: this.radius,
                 color: this.color,
-                animation: __assign({}, this._globalOptions.animation, this.animation),
+                animation: this._animationMode === 'NoopAnimations' ?
+                    { enterDuration: 0, exitDuration: 0 } : __assign({}, this._globalOptions.animation, this.animation),
                 terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
                 speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
             };
@@ -2131,6 +2133,7 @@ var MatRipple = /** @class */ (function () {
         { type: core.NgZone, },
         { type: platform.Platform, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
     ]; };
     MatRipple.propDecorators = {
         "color": [{ type: core.Input, args: ['matRippleColor',] },],
@@ -2786,12 +2789,12 @@ var MatError = /** @class */ (function () {
  */
 var /** @type {?} */ matFormFieldAnimations = {
     /** Animation that transitions the form field's error and hint messages. */
-    transitionMessages: animations.trigger('transitionMessages', [
+    transitionMessages: animations$1.trigger('transitionMessages', [
         // TODO(mmalerba): Use angular animations for label animation as well.
-        animations.state('enter', animations.style({ opacity: 1, transform: 'translateY(0%)' })),
-        animations.transition('void => enter', [
-            animations.style({ opacity: 0, transform: 'translateY(-100%)' }),
-            animations.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
+        animations$1.state('enter', animations$1.style({ opacity: 1, transform: 'translateY(0%)' })),
+        animations$1.transition('void => enter', [
+            animations$1.style({ opacity: 0, transform: 'translateY(-100%)' }),
+            animations$1.animate('300ms cubic-bezier(0.55, 0, 0.55, 0.2)'),
         ]),
     ])
 };
@@ -4969,11 +4972,11 @@ MatBottomSheetRef = /** @class */ (function () {
  */
 var /** @type {?} */ matBottomSheetAnimations = {
     /** Animation that shows and hides a bottom sheet. */
-    bottomSheetState: animations.trigger('state', [
-        animations.state('void, hidden', animations.style({ transform: 'translateY(100%)' })),
-        animations.state('visible', animations.style({ transform: 'translateY(0%)' })),
-        animations.transition('visible => void, visible => hidden', animations.animate(AnimationDurations.COMPLEX + " " + AnimationCurves.ACCELERATION_CURVE)),
-        animations.transition('void => visible', animations.animate(AnimationDurations.EXITING + " " + AnimationCurves.DECELERATION_CURVE)),
+    bottomSheetState: animations$1.trigger('state', [
+        animations$1.state('void, hidden', animations$1.style({ transform: 'translateY(100%)' })),
+        animations$1.state('visible', animations$1.style({ transform: 'translateY(0%)' })),
+        animations$1.transition('visible => void, visible => hidden', animations$1.animate(AnimationDurations.COMPLEX + " " + AnimationCurves.ACCELERATION_CURVE)),
+        animations$1.transition('void => visible', animations$1.animate(AnimationDurations.EXITING + " " + AnimationCurves.DECELERATION_CURVE)),
     ])
 };
 
@@ -5511,11 +5514,11 @@ var MatButton = /** @class */ (function (_super) {
         /**
          * Whether the button is round.
          */
-        _this._isRoundButton = _this._hasHostAttributes('mat-fab', 'mat-mini-fab');
+        _this.isRoundButton = _this._hasHostAttributes('mat-fab', 'mat-mini-fab');
         /**
          * Whether the button is icon button.
          */
-        _this._isIconButton = _this._hasHostAttributes('mat-icon-button');
+        _this.isIconButton = _this._hasHostAttributes('mat-icon-button');
         // For each of the variant selectors that is prevent in the button's host
         // attributes, add the correct corresponding class.
         for (var _i = 0, BUTTON_HOST_ATTRIBUTES_1 = BUTTON_HOST_ATTRIBUTES; _i < BUTTON_HOST_ATTRIBUTES_1.length; _i++) {
@@ -5525,7 +5528,7 @@ var MatButton = /** @class */ (function (_super) {
             }
         }
         _this._focusMonitor.monitor(_this._elementRef.nativeElement, true);
-        if (_this._isRoundButton) {
+        if (_this.isRoundButton) {
             _this.color = DEFAULT_ROUND_BUTTON_COLOR;
         }
         else if (_this._hasHostAttributes('mat-flat-button')) {
@@ -5597,7 +5600,7 @@ var MatButton = /** @class */ (function (_super) {
                     host: {
                         '[disabled]': 'disabled || null',
                     },
-                    template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
+                    template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"isRoundButton || isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
                     styles: [".mat-button,.mat-flat-button,.mat-icon-button,.mat-stroked-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible}.mat-button[disabled],.mat-flat-button[disabled],.mat-icon-button[disabled],.mat-stroked-button[disabled]{cursor:default}.mat-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-button.cdk-program-focused .mat-button-focus-overlay,.mat-flat-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-flat-button.cdk-program-focused .mat-button-focus-overlay,.mat-icon-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-icon-button.cdk-program-focused .mat-button-focus-overlay,.mat-stroked-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-stroked-button.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-flat-button::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-stroked-button::-moz-focus-inner{border:0}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay,.mat-stroked-button:hover .mat-button-focus-overlay{opacity:1}.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible;transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-raised-button[disabled]{cursor:default}.mat-raised-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-raised-button.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-raised-button::-moz-focus-inner{border:0}.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-raised-button[disabled]{box-shadow:none}.mat-stroked-button{border:1px solid currentColor;padding:0 15px;line-height:34px}.mat-stroked-button:not([class*=mat-elevation-z]){box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)}.mat-flat-button:not([class*=mat-elevation-z]){box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)}.mat-fab{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible;transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab[disabled]{cursor:default}.mat-fab.cdk-keyboard-focused .mat-button-focus-overlay,.mat-fab.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-fab::-moz-focus-inner{border:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-fab[disabled]{box-shadow:none}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible;transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab[disabled]{cursor:default}.mat-mini-fab.cdk-keyboard-focused .mat-button-focus-overlay,.mat-mini-fab.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-mini-fab::-moz-focus-inner{border:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-mini-fab[disabled]{box-shadow:none}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none;border-radius:inherit}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}.mat-button .mat-button-wrapper>*,.mat-fab .mat-button-wrapper>*,.mat-flat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-mini-fab .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*,.mat-stroked-button .mat-button-wrapper>*{vertical-align:middle}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button{display:block;font-size:inherit;width:2.5em;height:2.5em}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-flat-button,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
                     inputs: ['disabled', 'disableRipple', 'color'],
                     encapsulation: core.ViewEncapsulation.None,
@@ -5648,7 +5651,7 @@ var MatAnchor = /** @class */ (function (_super) {
                         '(click)': '_haltDisabledEvents($event)',
                     },
                     inputs: ['disabled', 'disableRipple', 'color'],
-                    template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"_isRoundButton || _isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"_isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
+                    template: "<span class=\"mat-button-wrapper\"><ng-content></ng-content></span><div matRipple class=\"mat-button-ripple\" [class.mat-button-ripple-round]=\"isRoundButton || isIconButton\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"isIconButton\" [matRippleTrigger]=\"_getHostElement()\"></div><div class=\"mat-button-focus-overlay\"></div>",
                     styles: [".mat-button,.mat-flat-button,.mat-icon-button,.mat-stroked-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible}.mat-button[disabled],.mat-flat-button[disabled],.mat-icon-button[disabled],.mat-stroked-button[disabled]{cursor:default}.mat-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-button.cdk-program-focused .mat-button-focus-overlay,.mat-flat-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-flat-button.cdk-program-focused .mat-button-focus-overlay,.mat-icon-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-icon-button.cdk-program-focused .mat-button-focus-overlay,.mat-stroked-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-stroked-button.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-button::-moz-focus-inner,.mat-flat-button::-moz-focus-inner,.mat-icon-button::-moz-focus-inner,.mat-stroked-button::-moz-focus-inner{border:0}.mat-button .mat-button-focus-overlay,.mat-icon-button .mat-button-focus-overlay{transition:none;opacity:0}.mat-button:hover .mat-button-focus-overlay,.mat-stroked-button:hover .mat-button-focus-overlay{opacity:1}.mat-raised-button{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible;transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1)}.mat-raised-button[disabled]{cursor:default}.mat-raised-button.cdk-keyboard-focused .mat-button-focus-overlay,.mat-raised-button.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-raised-button::-moz-focus-inner{border:0}.mat-raised-button:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-raised-button:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-raised-button[disabled]{box-shadow:none}.mat-stroked-button{border:1px solid currentColor;padding:0 15px;line-height:34px}.mat-stroked-button:not([class*=mat-elevation-z]){box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)}.mat-flat-button:not([class*=mat-elevation-z]){box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12)}.mat-fab{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible;transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);min-width:0;border-radius:50%;width:56px;height:56px;padding:0;flex-shrink:0}.mat-fab[disabled]{cursor:default}.mat-fab.cdk-keyboard-focused .mat-button-focus-overlay,.mat-fab.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-fab::-moz-focus-inner{border:0}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-fab[disabled]{box-shadow:none}.mat-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-fab .mat-button-wrapper{padding:16px 0;display:inline-block;line-height:24px}.mat-mini-fab{box-sizing:border-box;position:relative;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;display:inline-block;white-space:nowrap;text-decoration:none;vertical-align:baseline;text-align:center;margin:0;min-width:88px;line-height:36px;padding:0 16px;border-radius:2px;overflow:visible;transform:translate3d(0,0,0);transition:background .4s cubic-bezier(.25,.8,.25,1),box-shadow 280ms cubic-bezier(.4,0,.2,1);min-width:0;border-radius:50%;width:40px;height:40px;padding:0;flex-shrink:0}.mat-mini-fab[disabled]{cursor:default}.mat-mini-fab.cdk-keyboard-focused .mat-button-focus-overlay,.mat-mini-fab.cdk-program-focused .mat-button-focus-overlay{opacity:1}.mat-mini-fab::-moz-focus-inner{border:0}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-mini-fab[disabled]{box-shadow:none}.mat-mini-fab:not([class*=mat-elevation-z]){box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12)}.mat-mini-fab:not([disabled]):active:not([class*=mat-elevation-z]){box-shadow:0 7px 8px -4px rgba(0,0,0,.2),0 12px 17px 2px rgba(0,0,0,.14),0 5px 22px 4px rgba(0,0,0,.12)}.mat-mini-fab .mat-button-wrapper{padding:8px 0;display:inline-block;line-height:24px}.mat-icon-button{padding:0;min-width:0;width:40px;height:40px;flex-shrink:0;line-height:40px;border-radius:50%}.mat-icon-button .mat-icon,.mat-icon-button i{line-height:24px}.mat-button-focus-overlay,.mat-button-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none;border-radius:inherit}.mat-button-focus-overlay{background-color:rgba(0,0,0,.12);border-radius:inherit;opacity:0;transition:opacity .2s cubic-bezier(.35,0,.25,1),background-color .2s cubic-bezier(.35,0,.25,1)}@media screen and (-ms-high-contrast:active){.mat-button-focus-overlay{background-color:rgba(255,255,255,.5)}}.mat-button-ripple-round{border-radius:50%;z-index:1}.mat-button .mat-button-wrapper>*,.mat-fab .mat-button-wrapper>*,.mat-flat-button .mat-button-wrapper>*,.mat-icon-button .mat-button-wrapper>*,.mat-mini-fab .mat-button-wrapper>*,.mat-raised-button .mat-button-wrapper>*,.mat-stroked-button .mat-button-wrapper>*{vertical-align:middle}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button{display:block;font-size:inherit;width:2.5em;height:2.5em}@media screen and (-ms-high-contrast:active){.mat-button,.mat-fab,.mat-flat-button,.mat-icon-button,.mat-mini-fab,.mat-raised-button{outline:solid 1px}}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -9159,15 +9162,15 @@ MatDialogConfig = /** @class */ (function () {
  */
 var /** @type {?} */ matDialogAnimations = {
     /** Animation that slides the dialog in and out of view and fades the opacity. */
-    slideDialog: animations.trigger('slideDialog', [
+    slideDialog: animations$1.trigger('slideDialog', [
         // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
         // scale(1)`, because for some reason specifying the transform explicitly, causes IE both
         // to blur the dialog content and decimate the animation performance. Leaving it as `none`
         // solves both issues.
-        animations.state('enter', animations.style({ transform: 'none', opacity: 1 })),
-        animations.state('void', animations.style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
-        animations.state('exit', animations.style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
-        animations.transition('* => *', animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
+        animations$1.state('enter', animations$1.style({ transform: 'none', opacity: 1 })),
+        animations$1.state('void', animations$1.style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
+        animations$1.state('exit', animations$1.style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
+        animations$1.transition('* => *', animations$1.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
     ])
 };
 
@@ -12700,20 +12703,20 @@ var MatCalendar = /** @class */ (function () {
  */
 var /** @type {?} */ matDatepickerAnimations = {
     /** Transforms the height of the datepicker's calendar. */
-    transformPanel: animations.trigger('transformPanel', [
-        animations.state('void', animations.style({ opacity: 0, transform: 'scale(1, 0)' })),
-        animations.state('enter', animations.style({ opacity: 1, transform: 'scale(1, 1)' })),
-        animations.transition('void => enter', animations.group([
-            animations.query('@fadeInCalendar', animations.animateChild()),
-            animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')
+    transformPanel: animations$1.trigger('transformPanel', [
+        animations$1.state('void', animations$1.style({ opacity: 0, transform: 'scale(1, 0)' })),
+        animations$1.state('enter', animations$1.style({ opacity: 1, transform: 'scale(1, 1)' })),
+        animations$1.transition('void => enter', animations$1.group([
+            animations$1.query('@fadeInCalendar', animations$1.animateChild()),
+            animations$1.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')
         ])),
-        animations.transition('* => void', animations.animate('100ms linear', animations.style({ opacity: 0 })))
+        animations$1.transition('* => void', animations$1.animate('100ms linear', animations$1.style({ opacity: 0 })))
     ]),
     /** Fades in the content of the calendar. */
-    fadeInCalendar: animations.trigger('fadeInCalendar', [
-        animations.state('void', animations.style({ opacity: 0 })),
-        animations.state('enter', animations.style({ opacity: 1 })),
-        animations.transition('void => *', animations.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)'))
+    fadeInCalendar: animations$1.trigger('fadeInCalendar', [
+        animations$1.state('void', animations$1.style({ opacity: 0 })),
+        animations$1.state('enter', animations$1.style({ opacity: 1 })),
+        animations$1.transition('void => *', animations$1.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)'))
     ])
 };
 
@@ -14238,33 +14241,33 @@ var /** @type {?} */ EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,
  */
 var /** @type {?} */ matExpansionAnimations = {
     /** Animation that rotates the indicator arrow. */
-    indicatorRotate: animations.trigger('indicatorRotate', [
-        animations.state('collapsed', animations.style({ transform: 'rotate(0deg)' })),
-        animations.state('expanded', animations.style({ transform: 'rotate(180deg)' })),
-        animations.transition('expanded <=> collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    indicatorRotate: animations$1.trigger('indicatorRotate', [
+        animations$1.state('collapsed', animations$1.style({ transform: 'rotate(0deg)' })),
+        animations$1.state('expanded', animations$1.style({ transform: 'rotate(180deg)' })),
+        animations$1.transition('expanded <=> collapsed', animations$1.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ]),
     /** Animation that expands and collapses the panel header height. */
-    expansionHeaderHeight: animations.trigger('expansionHeight', [
-        animations.state('collapsed', animations.style({
+    expansionHeaderHeight: animations$1.trigger('expansionHeight', [
+        animations$1.state('collapsed', animations$1.style({
             height: '{{collapsedHeight}}',
         }), {
             params: { collapsedHeight: '48px' },
         }),
-        animations.state('expanded', animations.style({
+        animations$1.state('expanded', animations$1.style({
             height: '{{expandedHeight}}'
         }), {
             params: { expandedHeight: '64px' }
         }),
-        animations.transition('expanded <=> collapsed', animations.group([
-            animations.query('@indicatorRotate', animations.animateChild(), { optional: true }),
-            animations.animate(EXPANSION_PANEL_ANIMATION_TIMING),
+        animations$1.transition('expanded <=> collapsed', animations$1.group([
+            animations$1.query('@indicatorRotate', animations$1.animateChild(), { optional: true }),
+            animations$1.animate(EXPANSION_PANEL_ANIMATION_TIMING),
         ])),
     ]),
     /** Animation that expands and collapses the panel content. */
-    bodyExpansion: animations.trigger('bodyExpansion', [
-        animations.state('collapsed', animations.style({ height: '0px', visibility: 'hidden' })),
-        animations.state('expanded', animations.style({ height: '*', visibility: 'visible' })),
-        animations.transition('expanded <=> collapsed', animations.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
+    bodyExpansion: animations$1.trigger('bodyExpansion', [
+        animations$1.state('collapsed', animations$1.style({ height: '0px', visibility: 'hidden' })),
+        animations$1.state('expanded', animations$1.style({ height: '*', visibility: 'visible' })),
+        animations$1.transition('expanded <=> collapsed', animations$1.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ])
 };
 
@@ -18058,34 +18061,34 @@ var /** @type {?} */ matMenuAnimations = {
        * When the menu panel is removed from the DOM, it simply fades out after a brief
        * delay to display the ripple.
        */
-    transformMenu: animations.trigger('transformMenu', [
-        animations.state('void', animations.style({
+    transformMenu: animations$1.trigger('transformMenu', [
+        animations$1.state('void', animations$1.style({
             opacity: 0,
             // This starts off from 0.01, instead of 0, because there's an issue in the Angular animations
             // as of 4.2, which causes the animation to be skipped if it starts from 0.
             transform: 'scale(0.01, 0.01)'
         })),
-        animations.transition('void => enter', animations.sequence([
-            animations.query('.mat-menu-content', animations.style({ opacity: 0 })),
-            animations.animate('100ms linear', animations.style({ opacity: 1, transform: 'scale(1, 0.5)' })),
-            animations.group([
-                animations.query('.mat-menu-content', animations.animate('400ms cubic-bezier(0.55, 0, 0.55, 0.2)', animations.style({ opacity: 1 }))),
-                animations.animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)', animations.style({ transform: 'scale(1, 1)' })),
+        animations$1.transition('void => enter', animations$1.sequence([
+            animations$1.query('.mat-menu-content', animations$1.style({ opacity: 0 })),
+            animations$1.animate('100ms linear', animations$1.style({ opacity: 1, transform: 'scale(1, 0.5)' })),
+            animations$1.group([
+                animations$1.query('.mat-menu-content', animations$1.animate('400ms cubic-bezier(0.55, 0, 0.55, 0.2)', animations$1.style({ opacity: 1 }))),
+                animations$1.animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)', animations$1.style({ transform: 'scale(1, 1)' })),
             ])
         ])),
-        animations.transition('* => void', animations.animate('150ms 50ms linear', animations.style({ opacity: 0 })))
+        animations$1.transition('* => void', animations$1.animate('150ms 50ms linear', animations$1.style({ opacity: 0 })))
     ]),
     /**
        * This animation fades in the background color and content of the menu panel
        * after its containing element is scaled in.
        */
-    fadeInItems: animations.trigger('fadeInItems', [
+    fadeInItems: animations$1.trigger('fadeInItems', [
         // TODO(crisbeto): this is inside the `transformMenu`
         // now. Remove next time we do breaking changes.
-        animations.state('showing', animations.style({ opacity: 1 })),
-        animations.transition('void => *', [
-            animations.style({ opacity: 0 }),
-            animations.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+        animations$1.state('showing', animations$1.style({ opacity: 1 })),
+        animations$1.transition('void => *', [
+            animations$1.style({ opacity: 0 }),
+            animations$1.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
         ])
     ])
 };
@@ -19476,30 +19479,30 @@ var /** @type {?} */ matSelectAnimations = {
        *
        * When the panel is removed from the DOM, it simply fades out linearly.
        */
-    transformPanel: animations.trigger('transformPanel', [
-        animations.state('void', animations.style({
+    transformPanel: animations$1.trigger('transformPanel', [
+        animations$1.state('void', animations$1.style({
             transform: 'scaleY(0)',
             minWidth: '100%',
             opacity: 0
         })),
-        animations.state('showing', animations.style({
+        animations$1.state('showing', animations$1.style({
             opacity: 1,
             minWidth: 'calc(100% + 32px)',
             // 32px = 2 * 16px padding
             transform: 'scaleY(1)'
         })),
-        animations.state('showing-multiple', animations.style({
+        animations$1.state('showing-multiple', animations$1.style({
             opacity: 1,
             minWidth: 'calc(100% + 64px)',
             // 64px = 48px padding on the left + 16px padding on the right
             transform: 'scaleY(1)'
         })),
-        animations.transition('void => *', animations.group([
-            animations.query('@fadeInContent', animations.animateChild()),
-            animations.animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)')
+        animations$1.transition('void => *', animations$1.group([
+            animations$1.query('@fadeInContent', animations$1.animateChild()),
+            animations$1.animate('150ms cubic-bezier(0.25, 0.8, 0.25, 1)')
         ])),
-        animations.transition('* => void', [
-            animations.animate('250ms 100ms linear', animations.style({ opacity: 0 }))
+        animations$1.transition('* => void', [
+            animations$1.animate('250ms 100ms linear', animations$1.style({ opacity: 0 }))
         ])
     ]),
     /**
@@ -19507,11 +19510,11 @@ var /** @type {?} */ matSelectAnimations = {
        * select's options. It is time delayed to occur 100ms after the overlay
        * panel has transformed in.
        */
-    fadeInContent: animations.trigger('fadeInContent', [
-        animations.state('showing', animations.style({ opacity: 1 })),
-        animations.transition('void => showing', [
-            animations.style({ opacity: 0 }),
-            animations.animate('150ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
+    fadeInContent: animations$1.trigger('fadeInContent', [
+        animations$1.state('showing', animations$1.style({ opacity: 1 })),
+        animations$1.transition('void => showing', [
+            animations$1.style({ opacity: 0 }),
+            animations$1.animate('150ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)')
         ])
     ])
 };
@@ -21237,11 +21240,11 @@ var MatSelectModule = /** @class */ (function () {
  */
 var /** @type {?} */ matTooltipAnimations = {
     /** Animation that transitions a tooltip in and out. */
-    tooltipState: animations.trigger('state', [
-        animations.state('initial, void, hidden', animations.style({ transform: 'scale(0)' })),
-        animations.state('visible', animations.style({ transform: 'scale(1)' })),
-        animations.transition('* => visible', animations.animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
-        animations.transition('* => hidden', animations.animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
+    tooltipState: animations$1.trigger('state', [
+        animations$1.state('initial, void, hidden', animations$1.style({ transform: 'scale(0)' })),
+        animations$1.state('visible', animations$1.style({ transform: 'scale(1)' })),
+        animations$1.transition('* => visible', animations$1.animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
+        animations$1.transition('* => hidden', animations$1.animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
     ])
 };
 
@@ -22727,7 +22730,7 @@ var MatProgressBar = /** @class */ (function (_super) {
     /** @nocollapse */
     MatProgressBar.ctorParameters = function () { return [
         { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations$1.ANIMATION_MODULE_TYPE,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
     ]; };
     MatProgressBar.propDecorators = {
         "value": [{ type: core.Input },],
@@ -23014,7 +23017,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         { type: core.ElementRef, },
         { type: platform.Platform, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations$1.ANIMATION_MODULE_TYPE,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
     ]; };
     MatProgressSpinner.propDecorators = {
         "diameter": [{ type: core.Input },],
@@ -23059,7 +23062,7 @@ var MatSpinner = /** @class */ (function (_super) {
         { type: core.ElementRef, },
         { type: platform.Platform, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations$1.ANIMATION_MODULE_TYPE,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
     ]; };
     return MatSpinner;
 }(MatProgressSpinner));
@@ -23934,18 +23937,18 @@ var MatRadioModule = /** @class */ (function () {
  */
 var /** @type {?} */ matDrawerAnimations = {
     /** Animation that slides a drawer in and out. */
-    transformDrawer: animations.trigger('transform', [
-        animations.state('open, open-instant', animations.style({
+    transformDrawer: animations$1.trigger('transform', [
+        animations$1.state('open, open-instant', animations$1.style({
             'transform': 'translate3d(0, 0, 0)',
             'visibility': 'visible',
         })),
-        animations.state('void', animations.style({
+        animations$1.state('void', animations$1.style({
             // Avoids the shadow showing up when closed in SSR.
             'box-shadow': 'none',
             'visibility': 'hidden',
         })),
-        animations.transition('void => open-instant', animations.animate('0ms')),
-        animations.transition('void <=> open, open-instant => void', animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
+        animations$1.transition('void => open-instant', animations$1.animate('0ms')),
+        animations$1.transition('void <=> open, open-instant => void', animations$1.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)'))
     ])
 };
 
@@ -23979,12 +23982,6 @@ var MatDrawerContent = /** @class */ (function () {
     function MatDrawerContent(_changeDetectorRef, _container) {
         this._changeDetectorRef = _changeDetectorRef;
         this._container = _container;
-        /**
-         * Margins to be applied to the content. These are used to push / shrink the drawer content when a
-         * drawer is open. We use margin rather than transform even for push mode because transform breaks
-         * fixed position elements inside of the transformed element.
-         */
-        this._margins = { left: null, right: null };
     }
     /**
      * @return {?}
@@ -23994,8 +23991,7 @@ var MatDrawerContent = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        this._container._contentMargins.subscribe(function (margins) {
-            _this._margins = margins;
+        this._container._contentMarginChanges.subscribe(function () {
             _this._changeDetectorRef.markForCheck();
         });
     };
@@ -24004,8 +24000,8 @@ var MatDrawerContent = /** @class */ (function () {
                     template: '<ng-content></ng-content>',
                     host: {
                         'class': 'mat-drawer-content',
-                        '[style.margin-left.px]': '_margins.left',
-                        '[style.margin-right.px]': '_margins.right',
+                        '[style.margin-left.px]': '_container._contentMargins.left',
+                        '[style.margin-right.px]': '_container._contentMargins.right',
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
@@ -24470,13 +24466,14 @@ var MatDrawer = /** @class */ (function () {
  * and coordinates the backdrop and content styling.
  */
 var MatDrawerContainer = /** @class */ (function () {
-    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize) {
+    function MatDrawerContainer(_dir, _element, _ngZone, _changeDetectorRef, defaultAutosize, _animationMode) {
         if (defaultAutosize === void 0) { defaultAutosize = false; }
         var _this = this;
         this._dir = _dir;
         this._element = _element;
         this._ngZone = _ngZone;
         this._changeDetectorRef = _changeDetectorRef;
+        this._animationMode = _animationMode;
         /**
          * Event emitted when the drawer backdrop is clicked.
          */
@@ -24489,7 +24486,13 @@ var MatDrawerContainer = /** @class */ (function () {
          * Emits on every ngDoCheck. Used for debouncing reflows.
          */
         this._doCheckSubject = new rxjs.Subject();
-        this._contentMargins = new rxjs.Subject();
+        /**
+         * Margins to be applied to the content. These are used to push / shrink the drawer content when a
+         * drawer is open. We use margin rather than transform even for push mode because transform breaks
+         * fixed position elements inside of the transformed element.
+         */
+        this._contentMargins = { left: null, right: null };
+        this._contentMarginChanges = new rxjs.Subject();
         // If a `Dir` directive exists up the tree, listen direction changes
         // and update the left/right properties to point to the proper start/end.
         if (_dir) {
@@ -24657,7 +24660,7 @@ var MatDrawerContainer = /** @class */ (function () {
             .subscribe(function (event) {
             // Set the transition class on the container so that the animations occur. This should not
             // be set initially because animations should only be triggered via a change in state.
-            if (event.toState !== 'open-instant') {
+            if (event.toState !== 'open-instant' && _this._animationMode !== 'NoopAnimations') {
                 _this._element.nativeElement.classList.add('mat-drawer-transition');
             }
             _this._updateContentMargins();
@@ -24876,8 +24879,12 @@ var MatDrawerContainer = /** @class */ (function () {
                 left -= width;
             }
         }
-        // Pull back into the NgZone since in some cases we could be outside.
-        this._ngZone.run(function () { return _this._contentMargins.next({ left: left, right: right }); });
+        if (left !== this._contentMargins.left || right !== this._contentMargins.right) {
+            this._contentMargins = { left: left, right: right };
+            // Pull back into the NgZone since in some cases we could be outside. We need to be careful
+            // to do it only when something changed, otherwise we can end up hitting the zone too often.
+            this._ngZone.run(function () { return _this._contentMarginChanges.next(_this._contentMargins); });
+        }
     };
     MatDrawerContainer.decorators = [
         { type: core.Component, args: [{selector: 'mat-drawer-container',
@@ -24899,6 +24906,7 @@ var MatDrawerContainer = /** @class */ (function () {
         { type: core.NgZone, },
         { type: core.ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
     ]; };
     MatDrawerContainer.propDecorators = {
         "_drawers": [{ type: core.ContentChildren, args: [MatDrawer,] },],
@@ -24925,8 +24933,8 @@ var MatSidenavContent = /** @class */ (function (_super) {
                     template: '<ng-content></ng-content>',
                     host: {
                         'class': 'mat-drawer-content mat-sidenav-content',
-                        '[style.margin-left.px]': '_margins.left',
-                        '[style.margin-right.px]': '_margins.right',
+                        '[style.margin-left.px]': '_container._contentMargins.left',
+                        '[style.margin-right.px]': '_container._contentMargins.right',
                     },
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
@@ -26880,17 +26888,17 @@ MatSnackBarConfig = /** @class */ (function () {
  */
 var /** @type {?} */ matSnackBarAnimations = {
     /** Animation that slides the dialog in and out of view and fades the opacity. */
-    contentFade: animations.trigger('contentFade', [
-        animations.transition(':enter', [
-            animations.style({ opacity: '0' }),
-            animations.animate(AnimationDurations.COMPLEX + " " + AnimationCurves.STANDARD_CURVE)
+    contentFade: animations$1.trigger('contentFade', [
+        animations$1.transition(':enter', [
+            animations$1.style({ opacity: '0' }),
+            animations$1.animate(AnimationDurations.COMPLEX + " " + AnimationCurves.STANDARD_CURVE)
         ])
     ]),
     /** Animation that shows and hides a snack bar. */
-    snackBarState: animations.trigger('state', [
-        animations.state('visible-top, visible-bottom', animations.style({ transform: 'translateY(0%)' })),
-        animations.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animations.animate(AnimationDurations.EXITING + " " + AnimationCurves.ACCELERATION_CURVE)),
-        animations.transition('void => visible-top, void => visible-bottom', animations.animate(AnimationDurations.ENTERING + " " + AnimationCurves.DECELERATION_CURVE)),
+    snackBarState: animations$1.trigger('state', [
+        animations$1.state('visible-top, visible-bottom', animations$1.style({ transform: 'translateY(0%)' })),
+        animations$1.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animations$1.animate(AnimationDurations.EXITING + " " + AnimationCurves.ACCELERATION_CURVE)),
+        animations$1.transition('void => visible-top, void => visible-bottom', animations$1.animate(AnimationDurations.ENTERING + " " + AnimationCurves.DECELERATION_CURVE)),
     ])
 };
 
@@ -27814,32 +27822,32 @@ var /** @type {?} */ SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + '
  */
 var /** @type {?} */ matSortAnimations = {
     /** Animation that moves the sort indicator. */
-    indicator: animations.trigger('indicator', [
-        animations.state('active-asc, asc', animations.style({ transform: 'translateY(0px)' })),
+    indicator: animations$1.trigger('indicator', [
+        animations$1.state('active-asc, asc', animations$1.style({ transform: 'translateY(0px)' })),
         // 10px is the height of the sort indicator, minus the width of the pointers
-        animations.state('active-desc, desc', animations.style({ transform: 'translateY(10px)' })),
-        animations.transition('active-asc <=> active-desc', animations.animate(SORT_ANIMATION_TRANSITION))
+        animations$1.state('active-desc, desc', animations$1.style({ transform: 'translateY(10px)' })),
+        animations$1.transition('active-asc <=> active-desc', animations$1.animate(SORT_ANIMATION_TRANSITION))
     ]),
     /** Animation that rotates the left pointer of the indicator based on the sorting direction. */
-    leftPointer: animations.trigger('leftPointer', [
-        animations.state('active-asc, asc', animations.style({ transform: 'rotate(-45deg)' })),
-        animations.state('active-desc, desc', animations.style({ transform: 'rotate(45deg)' })),
-        animations.transition('active-asc <=> active-desc', animations.animate(SORT_ANIMATION_TRANSITION))
+    leftPointer: animations$1.trigger('leftPointer', [
+        animations$1.state('active-asc, asc', animations$1.style({ transform: 'rotate(-45deg)' })),
+        animations$1.state('active-desc, desc', animations$1.style({ transform: 'rotate(45deg)' })),
+        animations$1.transition('active-asc <=> active-desc', animations$1.animate(SORT_ANIMATION_TRANSITION))
     ]),
     /** Animation that rotates the right pointer of the indicator based on the sorting direction. */
-    rightPointer: animations.trigger('rightPointer', [
-        animations.state('active-asc, asc', animations.style({ transform: 'rotate(45deg)' })),
-        animations.state('active-desc, desc', animations.style({ transform: 'rotate(-45deg)' })),
-        animations.transition('active-asc <=> active-desc', animations.animate(SORT_ANIMATION_TRANSITION))
+    rightPointer: animations$1.trigger('rightPointer', [
+        animations$1.state('active-asc, asc', animations$1.style({ transform: 'rotate(45deg)' })),
+        animations$1.state('active-desc, desc', animations$1.style({ transform: 'rotate(-45deg)' })),
+        animations$1.transition('active-asc <=> active-desc', animations$1.animate(SORT_ANIMATION_TRANSITION))
     ]),
     /** Animation that controls the arrow opacity. */
-    arrowOpacity: animations.trigger('arrowOpacity', [
-        animations.state('desc-to-active, asc-to-active, active', animations.style({ opacity: 1 })),
-        animations.state('desc-to-hint, asc-to-hint, hint', animations.style({ opacity: .54 })),
-        animations.state('hint-to-desc, active-to-desc, desc, hint-to-asc, active-to-asc, asc', animations.style({ opacity: 0 })),
+    arrowOpacity: animations$1.trigger('arrowOpacity', [
+        animations$1.state('desc-to-active, asc-to-active, active', animations$1.style({ opacity: 1 })),
+        animations$1.state('desc-to-hint, asc-to-hint, hint', animations$1.style({ opacity: .54 })),
+        animations$1.state('hint-to-desc, active-to-desc, desc, hint-to-asc, active-to-asc, asc', animations$1.style({ opacity: 0 })),
         // Transition between all states except for immediate transitions
-        animations.transition('* => asc, * => desc, * => active, * => hint', animations.animate('0ms')),
-        animations.transition('* <=> *', animations.animate(SORT_ANIMATION_TRANSITION))
+        animations$1.transition('* => asc, * => desc, * => active, * => hint', animations$1.animate('0ms')),
+        animations$1.transition('* <=> *', animations$1.animate(SORT_ANIMATION_TRANSITION))
     ]),
     /**
        * Animation for the translation of the arrow as a whole. States are separated into two
@@ -27848,35 +27856,35 @@ var /** @type {?} */ matSortAnimations = {
        * and are determined as a function of their prev user-perceived state and what the next state
        * should be.
        */
-    arrowPosition: animations.trigger('arrowPosition', [
+    arrowPosition: animations$1.trigger('arrowPosition', [
         // Hidden Above => Hint Center
-        animations.transition('* => desc-to-hint, * => desc-to-active', animations.animate(SORT_ANIMATION_TRANSITION, animations.keyframes([
-            animations.style({ transform: 'translateY(-25%)' }),
-            animations.style({ transform: 'translateY(0)' })
+        animations$1.transition('* => desc-to-hint, * => desc-to-active', animations$1.animate(SORT_ANIMATION_TRANSITION, animations$1.keyframes([
+            animations$1.style({ transform: 'translateY(-25%)' }),
+            animations$1.style({ transform: 'translateY(0)' })
         ]))),
         // Hint Center => Hidden Below
-        animations.transition('* => hint-to-desc, * => active-to-desc', animations.animate(SORT_ANIMATION_TRANSITION, animations.keyframes([
-            animations.style({ transform: 'translateY(0)' }),
-            animations.style({ transform: 'translateY(25%)' })
+        animations$1.transition('* => hint-to-desc, * => active-to-desc', animations$1.animate(SORT_ANIMATION_TRANSITION, animations$1.keyframes([
+            animations$1.style({ transform: 'translateY(0)' }),
+            animations$1.style({ transform: 'translateY(25%)' })
         ]))),
         // Hidden Below => Hint Center
-        animations.transition('* => asc-to-hint, * => asc-to-active', animations.animate(SORT_ANIMATION_TRANSITION, animations.keyframes([
-            animations.style({ transform: 'translateY(25%)' }),
-            animations.style({ transform: 'translateY(0)' })
+        animations$1.transition('* => asc-to-hint, * => asc-to-active', animations$1.animate(SORT_ANIMATION_TRANSITION, animations$1.keyframes([
+            animations$1.style({ transform: 'translateY(25%)' }),
+            animations$1.style({ transform: 'translateY(0)' })
         ]))),
         // Hint Center => Hidden Above
-        animations.transition('* => hint-to-asc, * => active-to-asc', animations.animate(SORT_ANIMATION_TRANSITION, animations.keyframes([
-            animations.style({ transform: 'translateY(0)' }),
-            animations.style({ transform: 'translateY(-25%)' })
+        animations$1.transition('* => hint-to-asc, * => active-to-asc', animations$1.animate(SORT_ANIMATION_TRANSITION, animations$1.keyframes([
+            animations$1.style({ transform: 'translateY(0)' }),
+            animations$1.style({ transform: 'translateY(-25%)' })
         ]))),
-        animations.state('desc-to-hint, asc-to-hint, hint, desc-to-active, asc-to-active, active', animations.style({ transform: 'translateY(0)' })),
-        animations.state('hint-to-desc, active-to-desc, desc', animations.style({ transform: 'translateY(-25%)' })),
-        animations.state('hint-to-asc, active-to-asc, asc', animations.style({ transform: 'translateY(25%)' })),
+        animations$1.state('desc-to-hint, asc-to-hint, hint, desc-to-active, asc-to-active, active', animations$1.style({ transform: 'translateY(0)' })),
+        animations$1.state('hint-to-desc, active-to-desc, desc', animations$1.style({ transform: 'translateY(-25%)' })),
+        animations$1.state('hint-to-asc, active-to-asc, asc', animations$1.style({ transform: 'translateY(25%)' })),
     ]),
     /** Necessary trigger that calls animate on children animations. */
-    allowChildren: animations.trigger('allowChildren', [
-        animations.transition('* <=> *', [
-            animations.query('@*', animations.animateChild(), { optional: true })
+    allowChildren: animations$1.trigger('allowChildren', [
+        animations$1.transition('* <=> *', [
+            animations$1.query('@*', animations$1.animateChild(), { optional: true })
         ])
     ]),
 };
@@ -28457,18 +28465,18 @@ var MatStepHeader = /** @class */ (function () {
  */
 var /** @type {?} */ matStepperAnimations = {
     /** Animation that transitions the step along the X axis in a horizontal stepper. */
-    horizontalStepTransition: animations.trigger('stepTransition', [
-        animations.state('previous', animations.style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
-        animations.state('current', animations.style({ transform: 'none', visibility: 'visible' })),
-        animations.state('next', animations.style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
-        animations.transition('* => *', animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
+    horizontalStepTransition: animations$1.trigger('stepTransition', [
+        animations$1.state('previous', animations$1.style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
+        animations$1.state('current', animations$1.style({ transform: 'none', visibility: 'visible' })),
+        animations$1.state('next', animations$1.style({ transform: 'translate3d(100%, 0, 0)', visibility: 'hidden' })),
+        animations$1.transition('* => *', animations$1.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)'))
     ]),
     /** Animation that transitions the step along the Y axis in a vertical stepper. */
-    verticalStepTransition: animations.trigger('stepTransition', [
-        animations.state('previous', animations.style({ height: '0px', visibility: 'hidden' })),
-        animations.state('next', animations.style({ height: '0px', visibility: 'hidden' })),
-        animations.state('current', animations.style({ height: '*', visibility: 'visible' })),
-        animations.transition('* <=> current', animations.animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
+    verticalStepTransition: animations$1.trigger('stepTransition', [
+        animations$1.state('previous', animations$1.style({ height: '0px', visibility: 'hidden' })),
+        animations$1.state('next', animations$1.style({ height: '0px', visibility: 'hidden' })),
+        animations$1.state('current', animations$1.style({ height: '*', visibility: 'visible' })),
+        animations$1.transition('* <=> current', animations$1.animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)'))
     ])
 };
 
@@ -29857,19 +29865,19 @@ var MatTab = /** @class */ (function (_super) {
  */
 var /** @type {?} */ matTabsAnimations = {
     /** Animation translates a tab along the X axis. */
-    translateTab: animations.trigger('translateTab', [
+    translateTab: animations$1.trigger('translateTab', [
         // Note: transitions to `none` instead of 0, because some browsers might blur the content.
-        animations.state('center, void, left-origin-center, right-origin-center', animations.style({ transform: 'none' })),
-        animations.state('left', animations.style({ transform: 'translate3d(-100%, 0, 0)' })),
-        animations.state('right', animations.style({ transform: 'translate3d(100%, 0, 0)' })),
-        animations.transition('* => left, * => right, left => center, right => center', animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
-        animations.transition('void => left-origin-center', [
-            animations.style({ transform: 'translate3d(-100%, 0, 0)' }),
-            animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
+        animations$1.state('center, void, left-origin-center, right-origin-center', animations$1.style({ transform: 'none' })),
+        animations$1.state('left', animations$1.style({ transform: 'translate3d(-100%, 0, 0)' })),
+        animations$1.state('right', animations$1.style({ transform: 'translate3d(100%, 0, 0)' })),
+        animations$1.transition('* => left, * => right, left => center, right => center', animations$1.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
+        animations$1.transition('void => left-origin-center', [
+            animations$1.style({ transform: 'translate3d(-100%, 0, 0)' }),
+            animations$1.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
         ]),
-        animations.transition('void => right-origin-center', [
-            animations.style({ transform: 'translate3d(100%, 0, 0)' }),
-            animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
+        animations$1.transition('void => right-origin-center', [
+            animations$1.style({ transform: 'translate3d(100%, 0, 0)' }),
+            animations$1.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')
         ])
     ])
 };
@@ -32345,7 +32353,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.1-a20dfd3');
+var /** @type {?} */ VERSION = new core.Version('6.0.1-03e749a');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32594,11 +32602,11 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb21 = MatMenuItemBase;
-exports.ɵc21 = _MatMenuItemMixinBase;
-exports.ɵe21 = MAT_MENU_PANEL;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵe23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32725,17 +32733,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf22 = MatTabBase;
-exports.ɵg22 = _MatTabMixinBase;
-exports.ɵb22 = MatTabHeaderBase;
-exports.ɵc22 = _MatTabHeaderMixinBase;
-exports.ɵd22 = MatTabLabelWrapperBase;
-exports.ɵe22 = _MatTabLabelWrapperMixinBase;
-exports.ɵj22 = MatTabLinkBase;
-exports.ɵh22 = MatTabNavBase;
-exports.ɵk22 = _MatTabLinkMixinBase;
-exports.ɵi22 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
