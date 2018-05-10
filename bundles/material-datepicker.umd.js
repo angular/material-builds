@@ -2961,10 +2961,12 @@ var MatDatepickerInput = /** @class */ (function () {
         var /** @type {?} */ date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
         this._lastValueValid = !date || this._dateAdapter.isValid(date);
         date = this._getValidDateOrNull(date);
-        this._value = date;
-        this._cvaOnChange(date);
-        this._valueChange.emit(date);
-        this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
+        if (!this._dateAdapter.sameDate(date, this._value)) {
+            this._value = date;
+            this._cvaOnChange(date);
+            this._valueChange.emit(date);
+            this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
+        }
     };
     /**
      * @return {?}
