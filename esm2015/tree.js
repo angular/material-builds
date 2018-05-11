@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directive, ViewContainerRef, Attribute, ContentChildren, ElementRef, Input, IterableDiffers, ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
-import { CdkNestedTreeNode, CdkTree, CdkTreeNodeDef, CdkTreeNode, CdkTreeNodePadding, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
-import { mixinTabIndex, mixinDisabled, MatCommonModule } from '@angular/material/core';
+import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef, CdkTreeNodePadding, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
+import { mixinDisabled, mixinTabIndex, MatCommonModule } from '@angular/material/core';
 import { CommonModule } from '@angular/common';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, merge } from 'rxjs';

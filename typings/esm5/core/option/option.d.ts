@@ -1,5 +1,5 @@
+import { AfterViewChecked, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, OnDestroy, QueryList } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ChangeDetectorRef, ElementRef, EventEmitter, QueryList, InjectionToken, AfterViewChecked, OnDestroy } from '@angular/core';
 import { MatOptgroup } from './optgroup';
 /** Event object emitted by MatOption when selected or deselected. */
 export declare class MatOptionSelectionChange {

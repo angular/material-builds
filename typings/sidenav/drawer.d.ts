@@ -10,7 +10,7 @@ import { FocusMonitor, FocusOrigin, FocusTrapFactory } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import { CdkScrollable } from '@angular/cdk/scrolling';
-import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, QueryList } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, QueryList } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 /** Throws an exception when two MatDrawer are matching the same position. */
 export declare function throwMatDuplicatedDrawerError(position: string): void;
@@ -118,7 +118,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
  * This is the parent component to one or two `<mat-drawer>`s that validates the state internally
  * and coordinates the backdrop and content styling.
  */
-export declare class MatDrawerContainer implements AfterContentInit, OnDestroy {
+export declare class MatDrawerContainer implements AfterContentInit, DoCheck, OnDestroy {
     private _dir;
     private _element;
     private _ngZone;

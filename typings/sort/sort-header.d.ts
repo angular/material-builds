@@ -1,5 +1,5 @@
 import { CdkColumnDef } from '@angular/cdk/table';
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, OnDestroy, OnInit } from '@angular/core';
 import { CanDisable } from '@angular/material/core';
 import { MatSort, MatSortable } from './sort';
 import { SortDirection } from './sort-direction';
@@ -35,7 +35,7 @@ export interface ArrowViewStateTransition {
  * If used on header cells in a CdkTable, it will automatically default its id from its containing
  * column definition.
  */
-export declare class MatSortHeader extends _MatSortHeaderMixinBase implements MatSortable, CanDisable {
+export declare class MatSortHeader extends _MatSortHeaderMixinBase implements CanDisable, MatSortable, OnDestroy, OnInit {
     _intl: MatSortHeaderIntl;
     _sort: MatSort;
     _cdkColumnDef: CdkColumnDef;

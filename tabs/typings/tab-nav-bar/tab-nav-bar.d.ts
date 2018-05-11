@@ -8,7 +8,7 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList } from '@angular/core';
 import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, RippleConfig, RippleGlobalOptions, RippleRenderer, RippleTarget, ThemePalette } from '@angular/material/core';
 import { MatInkBar } from '../ink-bar';
 /** @docs-private */
@@ -21,7 +21,7 @@ export declare const _MatTabNavMixinBase: (new (...args: any[]) => CanDisableRip
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
  */
-export declare class MatTabNav extends _MatTabNavMixinBase implements AfterContentInit, CanColor, CanDisableRipple, OnDestroy {
+export declare class MatTabNav extends _MatTabNavMixinBase implements AfterContentChecked, AfterContentInit, CanColor, CanDisableRipple, OnDestroy {
     private _dir;
     private _ngZone;
     private _changeDetectorRef;

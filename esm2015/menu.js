@@ -11,10 +11,10 @@ import { DOCUMENT, CommonModule } from '@angular/common';
 import { trigger, state, style, animate, transition, query, group, sequence } from '@angular/animations';
 import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
-import { Subject, merge, Subscription, of, asapScheduler } from 'rxjs';
+import { Subject, merge, Subscription, asapScheduler, of } from 'rxjs';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
-import { startWith, switchMap, take, filter, delay, takeUntil } from 'rxjs/operators';
+import { startWith, switchMap, take, delay, filter, takeUntil } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
 
