@@ -1928,34 +1928,9 @@ var /** @type {?} */ _MatDatepickerContentMixinBase = core$1.mixinColor(MatDatep
  */
 var MatDatepickerContent = /** @class */ (function (_super) {
     __extends(MatDatepickerContent, _super);
-    function MatDatepickerContent(elementRef, _changeDetectorRef, _ngZone) {
-        var _this = _super.call(this, elementRef) || this;
-        _this._changeDetectorRef = _changeDetectorRef;
-        _this._ngZone = _ngZone;
-        return _this;
+    function MatDatepickerContent(elementRef) {
+        return _super.call(this, elementRef) || this;
     }
-    /**
-     * @return {?}
-     */
-    MatDatepickerContent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        if (!this.datepicker._popupRef || this._positionChange) {
-            return;
-        }
-        var /** @type {?} */ positionStrategy = /** @type {?} */ (((this.datepicker._popupRef.getConfig().positionStrategy)));
-        this._positionChange = positionStrategy.positionChanges.subscribe(function (change) {
-            var /** @type {?} */ isAbove = change.connectionPair.overlayY === 'bottom';
-            if (isAbove !== _this._isAbove) {
-                _this._ngZone.run(function () {
-                    _this._isAbove = isAbove;
-                    _this._changeDetectorRef.markForCheck();
-                });
-            }
-        });
-    };
     /**
      * @return {?}
      */
@@ -1965,27 +1940,14 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     function () {
         this._calendar.focusActiveCell();
     };
-    /**
-     * @return {?}
-     */
-    MatDatepickerContent.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        if (this._positionChange) {
-            this._positionChange.unsubscribe();
-            this._positionChange = null;
-        }
-    };
     MatDatepickerContent.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-content',
                     template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [headerComponent]=\"datepicker.calendarHeaderComponent\" [selected]=\"datepicker._selected\" [@fadeInCalendar]=\"'enter'\" (selectedChange)=\"datepicker._select($event)\" (yearSelected)=\"datepicker._selectYear($event)\" (monthSelected)=\"datepicker._selectMonth($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
-                    styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block;border-radius:2px;transform-origin:top center}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-above{transform-origin:bottom center}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
+                    styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block;border-radius:2px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
                     host: {
                         'class': 'mat-datepicker-content',
                         '[@transformPanel]': '"enter"',
                         '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
-                        '[class.mat-datepicker-content-above]': '_isAbove',
                     },
                     animations: [
                         matDatepickerAnimations.transformPanel,
@@ -2000,8 +1962,6 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     /** @nocollapse */
     MatDatepickerContent.ctorParameters = function () { return [
         { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
-        { type: core.NgZone, },
     ]; };
     MatDatepickerContent.propDecorators = {
         "_calendar": [{ type: core.ViewChild, args: [MatCalendar,] },],
@@ -2449,6 +2409,7 @@ var MatDatepicker = /** @class */ (function () {
     function () {
         return this._overlay.position()
             .flexibleConnectedTo(this._datepickerInput.getPopupConnectionElementRef())
+            .withTransformOriginOn('.mat-datepicker-content')
             .withFlexibleDimensions(false)
             .withViewportMargin(8)
             .withPush(false)

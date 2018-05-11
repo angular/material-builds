@@ -458,7 +458,6 @@ class MatMenu {
             throwMatMenuInvalidPositionX();
         }
         this._xPosition = value;
-        this.setPositionClasses();
     }
     /**
      * Position of the menu in the Y axis.
@@ -474,7 +473,6 @@ class MatMenu {
             throwMatMenuInvalidPositionY();
         }
         this._yPosition = value;
-        this.setPositionClasses();
     }
     /**
      * Whether the menu should overlap its trigger.
@@ -514,7 +512,6 @@ class MatMenu {
                 return obj;
             }, {});
             this._elementRef.nativeElement.className = '';
-            this.setPositionClasses();
         }
     }
     /**
@@ -531,12 +528,6 @@ class MatMenu {
      * @return {?}
      */
     set classList(classes) { this.panelClass = classes; }
-    /**
-     * @return {?}
-     */
-    ngOnInit() {
-        this.setPositionClasses();
-    }
     /**
      * @return {?}
      */
@@ -610,19 +601,6 @@ class MatMenu {
      */
     resetActiveItem() {
         this._keyManager.setActiveItem(-1);
-    }
-    /**
-     * It's necessary to set position-based classes to ensure the menu panel animation
-     * folds out from the correct direction.
-     * @param {?=} posX
-     * @param {?=} posY
-     * @return {?}
-     */
-    setPositionClasses(posX = this.xPosition, posY = this.yPosition) {
-        this._classList['mat-menu-before'] = posX === 'before';
-        this._classList['mat-menu-after'] = posX === 'after';
-        this._classList['mat-menu-above'] = posY === 'above';
-        this._classList['mat-menu-below'] = posY === 'below';
     }
     /**
      * Sets the menu panel elevation.
@@ -700,7 +678,7 @@ class MatMenu {
 MatMenu.decorators = [
     { type: Component, args: [{selector: 'mat-menu',
                 template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.start)=\"_isAnimating = true\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\"><ng-content></ng-content></div></div></ng-template>",
-                styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}.mat-menu-panel.ng-animating .mat-menu-item-submenu-trigger{pointer-events:none}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
+                styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}.mat-menu-panel.ng-animating .mat-menu-item-submenu-trigger{pointer-events:none}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 exportAs: 'matMenu',
@@ -1044,11 +1022,13 @@ class MatMenuTrigger {
      * @return {?}
      */
     _subscribeToPositions(position) {
-        position.positionChanges.subscribe(change => {
-            const /** @type {?} */ posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
-            const /** @type {?} */ posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above';
-            this.menu.setPositionClasses(posX, posY);
-        });
+        if (this.menu.setPositionClasses) {
+            position.positionChanges.subscribe(change => {
+                const /** @type {?} */ posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
+                const /** @type {?} */ posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above'; /** @type {?} */
+                ((this.menu.setPositionClasses))(posX, posY);
+            });
+        }
     }
     /**
      * This method builds the position strategy for the overlay, so the menu is properly connected
@@ -1074,6 +1054,7 @@ class MatMenuTrigger {
         }
         return this._overlay.position()
             .flexibleConnectedTo(this._element)
+            .withTransformOriginOn('.mat-menu-panel')
             .withPositions([
             { originX, originY, overlayX, overlayY, offsetY },
             { originX: originFallbackX, originY, overlayX: overlayFallbackX, overlayY, offsetY },

@@ -8,7 +8,7 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, ViewContainerRef, OnDestroy } from '@angular/core';
 import { CanColor, DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
@@ -31,21 +31,15 @@ export declare const _MatDatepickerContentMixinBase: (new (...args: any[]) => Ca
  * future. (e.g. confirmation buttons).
  * @docs-private
  */
-export declare class MatDatepickerContent<D> extends _MatDatepickerContentMixinBase implements AfterViewInit, CanColor, OnInit, OnDestroy {
-    private _changeDetectorRef;
-    private _ngZone;
-    /** Subscription to changes in the overlay's position. */
-    private _positionChange;
+export declare class MatDatepickerContent<D> extends _MatDatepickerContentMixinBase implements AfterViewInit, CanColor {
     /** Reference to the internal calendar component. */
     _calendar: MatCalendar<D>;
     /** Reference to the datepicker that created the overlay. */
     datepicker: MatDatepicker<D>;
     /** Whether the datepicker is above or below the input. */
     _isAbove: boolean;
-    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _ngZone: NgZone);
-    ngOnInit(): void;
+    constructor(elementRef: ElementRef);
     ngAfterViewInit(): void;
-    ngOnDestroy(): void;
 }
 /** Component responsible for managing the datepicker popup/dialog. */
 export declare class MatDatepicker<D> implements OnDestroy, CanColor {

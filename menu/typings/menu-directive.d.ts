@@ -7,7 +7,7 @@
  */
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
-import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, OnInit, TemplateRef, QueryList } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, TemplateRef, QueryList } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { MatMenuContent } from './menu-content';
 import { MatMenuItem } from './menu-item';
@@ -30,7 +30,7 @@ export interface MatMenuDefaultOptions {
 export declare const MAT_MENU_DEFAULT_OPTIONS: InjectionToken<MatMenuDefaultOptions>;
 /** @docs-private */
 export declare function MAT_MENU_DEFAULT_OPTIONS_FACTORY(): MatMenuDefaultOptions;
-export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel<MatMenuItem>, OnDestroy {
+export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, OnDestroy {
     private _elementRef;
     private _ngZone;
     private _defaultOptions;
@@ -107,7 +107,6 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel<M
      */
     close: EventEmitter<void | "click" | "keydown" | "tab">;
     constructor(_elementRef: ElementRef, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
-    ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Stream that emits whenever the hovered menu item changes. */
@@ -124,11 +123,6 @@ export declare class MatMenu implements OnInit, AfterContentInit, MatMenuPanel<M
      * the user to start from the first option when pressing the down arrow.
      */
     resetActiveItem(): void;
-    /**
-     * It's necessary to set position-based classes to ensure the menu panel animation
-     * folds out from the correct direction.
-     */
-    setPositionClasses(posX?: MenuPositionX, posY?: MenuPositionY): void;
     /**
      * Sets the menu panel elevation.
      * @param depth Number of parent menus that come before the menu.

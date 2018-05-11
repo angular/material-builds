@@ -179,7 +179,7 @@ class MatTooltip {
             if (this._overlayRef) {
                 this._updatePosition();
                 if (this._tooltipInstance) {
-                    /** @type {?} */ ((this._tooltipInstance)).show(value, 0);
+                    /** @type {?} */ ((this._tooltipInstance)).show(0);
                 }
                 this._overlayRef.updatePosition();
             }
@@ -274,7 +274,7 @@ class MatTooltip {
             .subscribe(() => this._detach());
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage(); /** @type {?} */
-        ((this._tooltipInstance)).show(this._position, delay);
+        ((this._tooltipInstance)).show(delay);
     }
     /**
      * Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input
@@ -332,6 +332,7 @@ class MatTooltip {
         // Create connected position strategy that listens for scroll events to reposition.
         const /** @type {?} */ strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
+            .withTransformOriginOn('.mat-tooltip')
             .withFlexibleDimensions(false)
             .withViewportMargin(8)
             .withPositions([
@@ -347,10 +348,6 @@ class MatTooltip {
                     // After position changes occur and the overlay is clipped by
                     // a parent scrollable then close the tooltip.
                     this._ngZone.run(() => this.hide(0));
-                }
-                else {
-                    // Otherwise recalculate the origin based on the new position.
-                    this._tooltipInstance._setTransformOrigin(change.connectionPair, direction);
                 }
             }
         });
@@ -561,10 +558,6 @@ class TooltipComponent {
          */
         this._closeOnInteraction = false;
         /**
-         * The transform origin used in the animation for showing and hiding the tooltip
-         */
-        this._transformOrigin = 'bottom';
-        /**
          * Subject for notifying that the tooltip has been hidden from the view
          */
         this._onHide = new Subject();
@@ -575,18 +568,16 @@ class TooltipComponent {
     }
     /**
      * Shows the tooltip with an animation originating from the provided origin
-     * @param {?} position Position of the tooltip.
      * @param {?} delay Amount of milliseconds to the delay showing the tooltip.
      * @return {?}
      */
-    show(position, delay) {
+    show(delay) {
         // Cancel the delayed hide if it is scheduled
         if (this._hideTimeoutId) {
             clearTimeout(this._hideTimeoutId);
         }
         // Body interactions should cancel the tooltip if there is a delay in showing.
         this._closeOnInteraction = true;
-        this._position = position;
         this._showTimeoutId = setTimeout(() => {
             this._visibility = 'visible';
             // Mark for check so if any parent component has set the
@@ -624,28 +615,6 @@ class TooltipComponent {
      */
     isVisible() {
         return this._visibility === 'visible';
-    }
-    /**
-     * Sets the tooltip transform origin according to the position of the tooltip overlay.
-     * @param {?} overlayPosition
-     * @param {?} direction
-     * @return {?}
-     */
-    _setTransformOrigin(overlayPosition, direction) {
-        const /** @type {?} */ axis = (this._position === 'above' || this._position === 'below') ? 'Y' : 'X';
-        const /** @type {?} */ position = axis == 'X' ? overlayPosition.overlayX : overlayPosition.overlayY;
-        if (position === 'top' || position === 'bottom') {
-            this._transformOrigin = position;
-        }
-        else if (position === 'start') {
-            this._transformOrigin = direction === 'ltr' ? 'left' : 'right';
-        }
-        else if (position === 'end') {
-            this._transformOrigin = direction === 'ltr' ? 'right' : 'left';
-        }
-        else {
-            throw getMatTooltipInvalidPositionError(this._position);
-        }
     }
     /**
      * @return {?}
@@ -689,7 +658,7 @@ class TooltipComponent {
 }
 TooltipComponent.decorators = [
     { type: Component, args: [{selector: 'mat-tooltip-component',
-                template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)!.matches\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
+                template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)!.matches\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
                 styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}"],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush,

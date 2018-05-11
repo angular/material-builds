@@ -182,7 +182,7 @@ var MatTooltip = /** @class */ (function () {
                 if (this._overlayRef) {
                     this._updatePosition();
                     if (this._tooltipInstance) {
-                        /** @type {?} */ ((this._tooltipInstance)).show(value, 0);
+                        /** @type {?} */ ((this._tooltipInstance)).show(0);
                     }
                     this._overlayRef.updatePosition();
                 }
@@ -310,7 +310,7 @@ var MatTooltip = /** @class */ (function () {
             .subscribe(function () { return _this._detach(); });
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage(); /** @type {?} */
-        ((this._tooltipInstance)).show(this._position, delay);
+        ((this._tooltipInstance)).show(delay);
     };
     /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input */
     /**
@@ -401,6 +401,7 @@ var MatTooltip = /** @class */ (function () {
         // Create connected position strategy that listens for scroll events to reposition.
         var /** @type {?} */ strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
+            .withTransformOriginOn('.mat-tooltip')
             .withFlexibleDimensions(false)
             .withViewportMargin(8)
             .withPositions([
@@ -418,11 +419,6 @@ var MatTooltip = /** @class */ (function () {
                     // After position changes occur and the overlay is clipped by
                     // a parent scrollable then close the tooltip.
                     _this._ngZone.run(function () { return _this.hide(0); });
-                }
-                else {
-                    // Otherwise recalculate the origin based on the new position.
-                    // Otherwise recalculate the origin based on the new position.
-                    _this._tooltipInstance._setTransformOrigin(change.connectionPair, direction);
                 }
             }
         });
@@ -668,10 +664,6 @@ var TooltipComponent = /** @class */ (function () {
          */
         this._closeOnInteraction = false;
         /**
-         * The transform origin used in the animation for showing and hiding the tooltip
-         */
-        this._transformOrigin = 'bottom';
-        /**
          * Subject for notifying that the tooltip has been hidden from the view
          */
         this._onHide = new rxjs.Subject();
@@ -682,22 +674,19 @@ var TooltipComponent = /** @class */ (function () {
     }
     /**
      * Shows the tooltip with an animation originating from the provided origin
-     * @param position Position of the tooltip.
      * @param delay Amount of milliseconds to the delay showing the tooltip.
      */
     /**
      * Shows the tooltip with an animation originating from the provided origin
-     * @param {?} position Position of the tooltip.
      * @param {?} delay Amount of milliseconds to the delay showing the tooltip.
      * @return {?}
      */
     TooltipComponent.prototype.show = /**
      * Shows the tooltip with an animation originating from the provided origin
-     * @param {?} position Position of the tooltip.
      * @param {?} delay Amount of milliseconds to the delay showing the tooltip.
      * @return {?}
      */
-    function (position, delay) {
+    function (delay) {
         var _this = this;
         // Cancel the delayed hide if it is scheduled
         if (this._hideTimeoutId) {
@@ -705,7 +694,6 @@ var TooltipComponent = /** @class */ (function () {
         }
         // Body interactions should cancel the tooltip if there is a delay in showing.
         this._closeOnInteraction = true;
-        this._position = position;
         this._showTimeoutId = setTimeout(function () {
             _this._visibility = 'visible';
             // Mark for check so if any parent component has set the
@@ -767,35 +755,6 @@ var TooltipComponent = /** @class */ (function () {
      */
     function () {
         return this._visibility === 'visible';
-    };
-    /** Sets the tooltip transform origin according to the position of the tooltip overlay. */
-    /**
-     * Sets the tooltip transform origin according to the position of the tooltip overlay.
-     * @param {?} overlayPosition
-     * @param {?} direction
-     * @return {?}
-     */
-    TooltipComponent.prototype._setTransformOrigin = /**
-     * Sets the tooltip transform origin according to the position of the tooltip overlay.
-     * @param {?} overlayPosition
-     * @param {?} direction
-     * @return {?}
-     */
-    function (overlayPosition, direction) {
-        var /** @type {?} */ axis = (this._position === 'above' || this._position === 'below') ? 'Y' : 'X';
-        var /** @type {?} */ position = axis == 'X' ? overlayPosition.overlayX : overlayPosition.overlayY;
-        if (position === 'top' || position === 'bottom') {
-            this._transformOrigin = position;
-        }
-        else if (position === 'start') {
-            this._transformOrigin = direction === 'ltr' ? 'left' : 'right';
-        }
-        else if (position === 'end') {
-            this._transformOrigin = direction === 'ltr' ? 'right' : 'left';
-        }
-        else {
-            throw getMatTooltipInvalidPositionError(this._position);
-        }
     };
     /**
      * @return {?}
@@ -867,7 +826,7 @@ var TooltipComponent = /** @class */ (function () {
     };
     TooltipComponent.decorators = [
         { type: core.Component, args: [{selector: 'mat-tooltip-component',
-                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)!.matches\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
+                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)!.matches\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
                     styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,

@@ -7,9 +7,9 @@
  */
 import { AnimationEvent } from '@angular/animations';
 import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
-import { Direction, Directionality } from '@angular/cdk/bidi';
+import { Directionality } from '@angular/cdk/bidi';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
-import { ConnectionPositionPair, OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollDispatcher, ScrollStrategy } from '@angular/cdk/overlay';
+import { OriginConnectionPosition, Overlay, OverlayConnectionPosition, OverlayRef, ScrollDispatcher, ScrollStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ChangeDetectorRef, ElementRef, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -140,10 +140,6 @@ export declare class TooltipComponent {
     _visibility: TooltipVisibility;
     /** Whether interactions on the page should close the tooltip */
     private _closeOnInteraction;
-    /** The transform origin used in the animation for showing and hiding the tooltip */
-    _transformOrigin: 'top' | 'bottom' | 'left' | 'right';
-    /** Current position of the tooltip. */
-    private _position;
     /** Subject for notifying that the tooltip has been hidden from the view */
     private readonly _onHide;
     /** Stream that emits whether the user has a handset-sized display.  */
@@ -151,10 +147,9 @@ export declare class TooltipComponent {
     constructor(_changeDetectorRef: ChangeDetectorRef, _breakpointObserver: BreakpointObserver);
     /**
      * Shows the tooltip with an animation originating from the provided origin
-     * @param position Position of the tooltip.
      * @param delay Amount of milliseconds to the delay showing the tooltip.
      */
-    show(position: TooltipPosition, delay: number): void;
+    show(delay: number): void;
     /**
      * Begins the animation to hide the tooltip after the provided delay in ms.
      * @param delay Amount of milliseconds to delay showing the tooltip.
@@ -164,8 +159,6 @@ export declare class TooltipComponent {
     afterHidden(): Observable<void>;
     /** Whether the tooltip is being displayed. */
     isVisible(): boolean;
-    /** Sets the tooltip transform origin according to the position of the tooltip overlay. */
-    _setTransformOrigin(overlayPosition: ConnectionPositionPair, direction: Direction): void;
     _animationStart(): void;
     _animationDone(event: AnimationEvent): void;
     /**

@@ -12766,34 +12766,9 @@ var /** @type {?} */ _MatDatepickerContentMixinBase = mixinColor(MatDatepickerCo
  */
 var MatDatepickerContent = /** @class */ (function (_super) {
     __extends(MatDatepickerContent, _super);
-    function MatDatepickerContent(elementRef, _changeDetectorRef, _ngZone) {
-        var _this = _super.call(this, elementRef) || this;
-        _this._changeDetectorRef = _changeDetectorRef;
-        _this._ngZone = _ngZone;
-        return _this;
+    function MatDatepickerContent(elementRef) {
+        return _super.call(this, elementRef) || this;
     }
-    /**
-     * @return {?}
-     */
-    MatDatepickerContent.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        if (!this.datepicker._popupRef || this._positionChange) {
-            return;
-        }
-        var /** @type {?} */ positionStrategy = /** @type {?} */ (((this.datepicker._popupRef.getConfig().positionStrategy)));
-        this._positionChange = positionStrategy.positionChanges.subscribe(function (change) {
-            var /** @type {?} */ isAbove = change.connectionPair.overlayY === 'bottom';
-            if (isAbove !== _this._isAbove) {
-                _this._ngZone.run(function () {
-                    _this._isAbove = isAbove;
-                    _this._changeDetectorRef.markForCheck();
-                });
-            }
-        });
-    };
     /**
      * @return {?}
      */
@@ -12803,27 +12778,14 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     function () {
         this._calendar.focusActiveCell();
     };
-    /**
-     * @return {?}
-     */
-    MatDatepickerContent.prototype.ngOnDestroy = /**
-     * @return {?}
-     */
-    function () {
-        if (this._positionChange) {
-            this._positionChange.unsubscribe();
-            this._positionChange = null;
-        }
-    };
     MatDatepickerContent.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-content',
                     template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [headerComponent]=\"datepicker.calendarHeaderComponent\" [selected]=\"datepicker._selected\" [@fadeInCalendar]=\"'enter'\" (selectedChange)=\"datepicker._select($event)\" (yearSelected)=\"datepicker._selectYear($event)\" (monthSelected)=\"datepicker._selectMonth($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
-                    styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block;border-radius:2px;transform-origin:top center}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-above{transform-origin:bottom center}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
+                    styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block;border-radius:2px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
                     host: {
                         'class': 'mat-datepicker-content',
                         '[@transformPanel]': '"enter"',
                         '[class.mat-datepicker-content-touch]': 'datepicker.touchUi',
-                        '[class.mat-datepicker-content-above]': '_isAbove',
                     },
                     animations: [
                         matDatepickerAnimations.transformPanel,
@@ -12838,8 +12800,6 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     /** @nocollapse */
     MatDatepickerContent.ctorParameters = function () { return [
         { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
-        { type: core.NgZone, },
     ]; };
     MatDatepickerContent.propDecorators = {
         "_calendar": [{ type: core.ViewChild, args: [MatCalendar,] },],
@@ -13287,6 +13247,7 @@ var MatDatepicker = /** @class */ (function () {
     function () {
         return this._overlay.position()
             .flexibleConnectedTo(this._datepickerInput.getPopupConnectionElementRef())
+            .withTransformOriginOn('.mat-datepicker-content')
             .withFlexibleDimensions(false)
             .withViewportMargin(8)
             .withPush(false)
@@ -18435,7 +18396,6 @@ var MatMenu = /** @class */ (function () {
                 throwMatMenuInvalidPositionX();
             }
             this._xPosition = value;
-            this.setPositionClasses();
         },
         enumerable: true,
         configurable: true
@@ -18455,7 +18415,6 @@ var MatMenu = /** @class */ (function () {
                 throwMatMenuInvalidPositionY();
             }
             this._yPosition = value;
-            this.setPositionClasses();
         },
         enumerable: true,
         configurable: true
@@ -18507,7 +18466,6 @@ var MatMenu = /** @class */ (function () {
                     return obj;
                 }, {});
                 this._elementRef.nativeElement.className = '';
-                this.setPositionClasses();
             }
         },
         enumerable: true,
@@ -18531,15 +18489,6 @@ var MatMenu = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    /**
-     * @return {?}
-     */
-    MatMenu.prototype.ngOnInit = /**
-     * @return {?}
-     */
-    function () {
-        this.setPositionClasses();
-    };
     /**
      * @return {?}
      */
@@ -18651,32 +18600,6 @@ var MatMenu = /** @class */ (function () {
      */
     function () {
         this._keyManager.setActiveItem(-1);
-    };
-    /**
-     * It's necessary to set position-based classes to ensure the menu panel animation
-     * folds out from the correct direction.
-     */
-    /**
-     * It's necessary to set position-based classes to ensure the menu panel animation
-     * folds out from the correct direction.
-     * @param {?=} posX
-     * @param {?=} posY
-     * @return {?}
-     */
-    MatMenu.prototype.setPositionClasses = /**
-     * It's necessary to set position-based classes to ensure the menu panel animation
-     * folds out from the correct direction.
-     * @param {?=} posX
-     * @param {?=} posY
-     * @return {?}
-     */
-    function (posX, posY) {
-        if (posX === void 0) { posX = this.xPosition; }
-        if (posY === void 0) { posY = this.yPosition; }
-        this._classList['mat-menu-before'] = posX === 'before';
-        this._classList['mat-menu-after'] = posX === 'after';
-        this._classList['mat-menu-above'] = posY === 'above';
-        this._classList['mat-menu-below'] = posY === 'below';
     };
     /**
      * Sets the menu panel elevation.
@@ -18798,7 +18721,7 @@ var MatMenu = /** @class */ (function () {
     MatMenu.decorators = [
         { type: core.Component, args: [{selector: 'mat-menu',
                     template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.start)=\"_isAnimating = true\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\"><ng-content></ng-content></div></div></ng-template>",
-                    styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}.mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:left top}.mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:left bottom}.mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:right top}.mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-below{transform-origin:right top}[dir=rtl] .mat-menu-panel.mat-menu-after.mat-menu-above{transform-origin:right bottom}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-below{transform-origin:left top}[dir=rtl] .mat-menu-panel.mat-menu-before.mat-menu-above{transform-origin:left bottom}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}.mat-menu-panel.ng-animating .mat-menu-item-submenu-trigger{pointer-events:none}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
+                    styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content{padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;position:relative}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}.mat-menu-panel.ng-animating .mat-menu-item-submenu-trigger{pointer-events:none}button.mat-menu-item{width:100%}.mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matMenu',
@@ -19230,11 +19153,13 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function (position) {
         var _this = this;
-        position.positionChanges.subscribe(function (change) {
-            var /** @type {?} */ posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
-            var /** @type {?} */ posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above';
-            _this.menu.setPositionClasses(posX, posY);
-        });
+        if (this.menu.setPositionClasses) {
+            position.positionChanges.subscribe(function (change) {
+                var /** @type {?} */ posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
+                var /** @type {?} */ posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above'; /** @type {?} */
+                ((_this.menu.setPositionClasses))(posX, posY);
+            });
+        }
     };
     /**
      * This method builds the position strategy for the overlay, so the menu is properly connected
@@ -19265,6 +19190,7 @@ var MatMenuTrigger = /** @class */ (function () {
         }
         return this._overlay.position()
             .flexibleConnectedTo(this._element)
+            .withTransformOriginOn('.mat-menu-panel')
             .withPositions([
             { originX: originX, originY: originY, overlayX: overlayX, overlayY: overlayY, offsetY: offsetY },
             { originX: originFallbackX, originY: originY, overlayX: overlayFallbackX, overlayY: overlayY, offsetY: offsetY },
@@ -21381,7 +21307,7 @@ var MatTooltip = /** @class */ (function () {
                 if (this._overlayRef) {
                     this._updatePosition();
                     if (this._tooltipInstance) {
-                        /** @type {?} */ ((this._tooltipInstance)).show(value, 0);
+                        /** @type {?} */ ((this._tooltipInstance)).show(0);
                     }
                     this._overlayRef.updatePosition();
                 }
@@ -21509,7 +21435,7 @@ var MatTooltip = /** @class */ (function () {
             .subscribe(function () { return _this._detach(); });
         this._setTooltipClass(this._tooltipClass);
         this._updateTooltipMessage(); /** @type {?} */
-        ((this._tooltipInstance)).show(this._position, delay);
+        ((this._tooltipInstance)).show(delay);
     };
     /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide or 0ms if no input */
     /**
@@ -21600,6 +21526,7 @@ var MatTooltip = /** @class */ (function () {
         // Create connected position strategy that listens for scroll events to reposition.
         var /** @type {?} */ strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
+            .withTransformOriginOn('.mat-tooltip')
             .withFlexibleDimensions(false)
             .withViewportMargin(8)
             .withPositions([
@@ -21617,11 +21544,6 @@ var MatTooltip = /** @class */ (function () {
                     // After position changes occur and the overlay is clipped by
                     // a parent scrollable then close the tooltip.
                     _this._ngZone.run(function () { return _this.hide(0); });
-                }
-                else {
-                    // Otherwise recalculate the origin based on the new position.
-                    // Otherwise recalculate the origin based on the new position.
-                    _this._tooltipInstance._setTransformOrigin(change.connectionPair, direction);
                 }
             }
         });
@@ -21867,10 +21789,6 @@ var TooltipComponent = /** @class */ (function () {
          */
         this._closeOnInteraction = false;
         /**
-         * The transform origin used in the animation for showing and hiding the tooltip
-         */
-        this._transformOrigin = 'bottom';
-        /**
          * Subject for notifying that the tooltip has been hidden from the view
          */
         this._onHide = new rxjs.Subject();
@@ -21881,22 +21799,19 @@ var TooltipComponent = /** @class */ (function () {
     }
     /**
      * Shows the tooltip with an animation originating from the provided origin
-     * @param position Position of the tooltip.
      * @param delay Amount of milliseconds to the delay showing the tooltip.
      */
     /**
      * Shows the tooltip with an animation originating from the provided origin
-     * @param {?} position Position of the tooltip.
      * @param {?} delay Amount of milliseconds to the delay showing the tooltip.
      * @return {?}
      */
     TooltipComponent.prototype.show = /**
      * Shows the tooltip with an animation originating from the provided origin
-     * @param {?} position Position of the tooltip.
      * @param {?} delay Amount of milliseconds to the delay showing the tooltip.
      * @return {?}
      */
-    function (position, delay) {
+    function (delay) {
         var _this = this;
         // Cancel the delayed hide if it is scheduled
         if (this._hideTimeoutId) {
@@ -21904,7 +21819,6 @@ var TooltipComponent = /** @class */ (function () {
         }
         // Body interactions should cancel the tooltip if there is a delay in showing.
         this._closeOnInteraction = true;
-        this._position = position;
         this._showTimeoutId = setTimeout(function () {
             _this._visibility = 'visible';
             // Mark for check so if any parent component has set the
@@ -21966,35 +21880,6 @@ var TooltipComponent = /** @class */ (function () {
      */
     function () {
         return this._visibility === 'visible';
-    };
-    /** Sets the tooltip transform origin according to the position of the tooltip overlay. */
-    /**
-     * Sets the tooltip transform origin according to the position of the tooltip overlay.
-     * @param {?} overlayPosition
-     * @param {?} direction
-     * @return {?}
-     */
-    TooltipComponent.prototype._setTransformOrigin = /**
-     * Sets the tooltip transform origin according to the position of the tooltip overlay.
-     * @param {?} overlayPosition
-     * @param {?} direction
-     * @return {?}
-     */
-    function (overlayPosition, direction) {
-        var /** @type {?} */ axis = (this._position === 'above' || this._position === 'below') ? 'Y' : 'X';
-        var /** @type {?} */ position = axis == 'X' ? overlayPosition.overlayX : overlayPosition.overlayY;
-        if (position === 'top' || position === 'bottom') {
-            this._transformOrigin = position;
-        }
-        else if (position === 'start') {
-            this._transformOrigin = direction === 'ltr' ? 'left' : 'right';
-        }
-        else if (position === 'end') {
-            this._transformOrigin = direction === 'ltr' ? 'right' : 'left';
-        }
-        else {
-            throw getMatTooltipInvalidPositionError(this._position);
-        }
     };
     /**
      * @return {?}
@@ -22066,7 +21951,7 @@ var TooltipComponent = /** @class */ (function () {
     };
     TooltipComponent.decorators = [
         { type: core.Component, args: [{selector: 'mat-tooltip-component',
-                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)!.matches\" [style.transform-origin]=\"_transformOrigin\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
+                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)!.matches\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
                     styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -32355,7 +32240,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.1-521b111');
+var /** @type {?} */ VERSION = new core.Version('6.0.1-d26735c');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32735,17 +32620,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf22 = MatTabBase;
-exports.ɵg22 = _MatTabMixinBase;
-exports.ɵb22 = MatTabHeaderBase;
-exports.ɵc22 = _MatTabHeaderMixinBase;
-exports.ɵd22 = MatTabLabelWrapperBase;
-exports.ɵe22 = _MatTabLabelWrapperMixinBase;
-exports.ɵj22 = MatTabLinkBase;
-exports.ɵh22 = MatTabNavBase;
-exports.ɵk22 = _MatTabLinkMixinBase;
-exports.ɵi22 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
