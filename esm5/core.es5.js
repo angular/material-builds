@@ -1373,7 +1373,7 @@ var GestureConfig = /** @class */ (function (_super) {
      * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
      *
      * Our gesture names come from the Material Design gestures spec:
-     * https://www.google.com/design/spec/patterns/gestures.html#gestures-touch-mechanics
+     * https://material.io/design/#gestures-touch-mechanics
      *
      * More information on default recognizers can be found in Hammer docs:
      * http://hammerjs.github.io/recognizer-pan/
@@ -1386,7 +1386,7 @@ var GestureConfig = /** @class */ (function (_super) {
      * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
      *
      * Our gesture names come from the Material Design gestures spec:
-     * https://www.google.com/design/spec/patterns/gestures.html#gestures-touch-mechanics
+     * https://material.io/design/#gestures-touch-mechanics
      *
      * More information on default recognizers can be found in Hammer docs:
      * http://hammerjs.github.io/recognizer-pan/
@@ -1399,7 +1399,7 @@ var GestureConfig = /** @class */ (function (_super) {
      * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
      *
      * Our gesture names come from the Material Design gestures spec:
-     * https://www.google.com/design/spec/patterns/gestures.html#gestures-touch-mechanics
+     * https://material.io/design/#gestures-touch-mechanics
      *
      * More information on default recognizers can be found in Hammer docs:
      * http://hammerjs.github.io/recognizer-pan/

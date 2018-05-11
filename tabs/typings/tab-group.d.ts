@@ -20,7 +20,7 @@ export declare const _MatTabGroupMixinBase: (new (...args: any[]) => CanColor) &
 /**
  * Material design tab-group component.  Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
- * See: https://www.google.com/design/spec/components/tabs.html
+ * See: https://material.io/design/components/tabs.html
  */
 export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterContentInit, AfterContentChecked, OnDestroy, CanColor, CanDisableRipple {
     private _changeDetectorRef;

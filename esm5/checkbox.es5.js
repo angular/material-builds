@@ -84,7 +84,7 @@ var /** @type {?} */ _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisab
  * disabled. Note that all additional accessibility attributes are taken care of by the component,
  * so there is no need to provide them yourself. However, if you want to omit a label and still
  * have the checkbox be accessible, you may supply an [aria-label] input.
- * See: https://www.google.com/design/spec/components/selection-controls.html
+ * See: https://material.io/design/components/selection-controls.html
  */
 var MatCheckbox = /** @class */ (function (_super) {
     __extends(MatCheckbox, _super);

@@ -1402,7 +1402,7 @@ var GestureConfig = /** @class */ (function (_super) {
      * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
      *
      * Our gesture names come from the Material Design gestures spec:
-     * https://www.google.com/design/spec/patterns/gestures.html#gestures-touch-mechanics
+     * https://material.io/design/#gestures-touch-mechanics
      *
      * More information on default recognizers can be found in Hammer docs:
      * http://hammerjs.github.io/recognizer-pan/
@@ -1415,7 +1415,7 @@ var GestureConfig = /** @class */ (function (_super) {
      * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
      *
      * Our gesture names come from the Material Design gestures spec:
-     * https://www.google.com/design/spec/patterns/gestures.html#gestures-touch-mechanics
+     * https://material.io/design/#gestures-touch-mechanics
      *
      * More information on default recognizers can be found in Hammer docs:
      * http://hammerjs.github.io/recognizer-pan/
@@ -1428,7 +1428,7 @@ var GestureConfig = /** @class */ (function (_super) {
      * Builds Hammer instance manually to add custom recognizers that match the Material Design spec.
      *
      * Our gesture names come from the Material Design gestures spec:
-     * https://www.google.com/design/spec/patterns/gestures.html#gestures-touch-mechanics
+     * https://material.io/design/#gestures-touch-mechanics
      *
      * More information on default recognizers can be found in Hammer docs:
      * http://hammerjs.github.io/recognizer-pan/
@@ -6721,7 +6721,7 @@ var /** @type {?} */ _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisab
  * disabled. Note that all additional accessibility attributes are taken care of by the component,
  * so there is no need to provide them yourself. However, if you want to omit a label and still
  * have the checkbox be accessible, you may supply an [aria-label] input.
- * See: https://www.google.com/design/spec/components/selection-controls.html
+ * See: https://material.io/design/components/selection-controls.html
  */
 var MatCheckbox = /** @class */ (function (_super) {
     __extends(MatCheckbox, _super);
@@ -30786,7 +30786,7 @@ var /** @type {?} */ _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTa
 /**
  * Material design tab-group component.  Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
- * See: https://www.google.com/design/spec/components/tabs.html
+ * See: https://material.io/design/components/tabs.html
  */
 var MatTabGroup = /** @class */ (function (_super) {
     __extends(MatTabGroup, _super);
@@ -32240,7 +32240,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.1-641edc3');
+var /** @type {?} */ VERSION = new core.Version('6.0.1-c224a38');
 
 exports.VERSION = VERSION;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
@@ -32489,11 +32489,11 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵe24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵe23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32620,17 +32620,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
