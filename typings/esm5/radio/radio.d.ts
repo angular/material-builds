@@ -138,6 +138,7 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     private _changeDetector;
     private _focusMonitor;
     private _radioDispatcher;
+    _animationMode: string | undefined;
     private _uniqueId;
     /** The unique ID for the radio button. */
     id: string;
@@ -186,7 +187,7 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     private _removeUniqueSelectionListener;
     /** The native `<input type=radio>` element */
     _inputElement: ElementRef;
-    constructor(radioGroup: MatRadioGroup, elementRef: ElementRef, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher);
+    constructor(radioGroup: MatRadioGroup, elementRef: ElementRef, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher, _animationMode?: string | undefined);
     /** Focuses the radio button. */
     focus(): void;
     /**
