@@ -19,6 +19,8 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     private _elementRef;
     private _changeDetectorRef;
     private _focusTrapFactory;
+    /** The bottom sheet configuration. */
+    bottomSheetConfig: MatBottomSheetConfig;
     private _breakpointSubscription;
     /** The portal outlet inside of this container into which the content will be loaded. */
     _portalOutlet: CdkPortalOutlet;
@@ -26,8 +28,6 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     _animationState: 'void' | 'visible' | 'hidden';
     /** Emits whenever the state of the animation changes. */
     _animationStateChanged: EventEmitter<AnimationEvent>;
-    /** The bottom sheet configuration. */
-    bottomSheetConfig: MatBottomSheetConfig;
     /** The class that traps and manages focus within the bottom sheet. */
     private _focusTrap;
     /** Element that was focused before the bottom sheet was opened. */
@@ -36,7 +36,9 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     private _document;
     /** Whether the component has been destroyed. */
     private _destroyed;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusTrapFactory: FocusTrapFactory, breakpointObserver: BreakpointObserver, document: any);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusTrapFactory: FocusTrapFactory, breakpointObserver: BreakpointObserver, document: any, 
+        /** The bottom sheet configuration. */
+        bottomSheetConfig: MatBottomSheetConfig);
     /** Attach a component portal as content to this bottom sheet container. */
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
     /** Attach a template portal as content to this bottom sheet container. */

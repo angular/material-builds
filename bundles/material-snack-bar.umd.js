@@ -356,11 +356,12 @@ var SimpleSnackBar = /** @class */ (function () {
  */
 var MatSnackBarContainer = /** @class */ (function (_super) {
     __extends(MatSnackBarContainer, _super);
-    function MatSnackBarContainer(_ngZone, _elementRef, _changeDetectorRef) {
+    function MatSnackBarContainer(_ngZone, _elementRef, _changeDetectorRef, snackBarConfig) {
         var _this = _super.call(this) || this;
         _this._ngZone = _ngZone;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
+        _this.snackBarConfig = snackBarConfig;
         /**
          * Whether the component has been destroyed.
          */
@@ -559,6 +560,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
         { type: core.NgZone, },
         { type: core.ElementRef, },
         { type: core.ChangeDetectorRef, },
+        { type: MatSnackBarConfig, },
     ]; };
     MatSnackBarContainer.propDecorators = {
         "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],
@@ -739,7 +741,11 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (overlayRef, config) {
-        var /** @type {?} */ containerPortal = new portal.ComponentPortal(MatSnackBarContainer, config.viewContainerRef);
+        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        var /** @type {?} */ injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
+            [MatSnackBarConfig, config]
+        ]));
+        var /** @type {?} */ containerPortal = new portal.ComponentPortal(MatSnackBarContainer, config.viewContainerRef, injector);
         var /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
         containerRef.instance.snackBarConfig = config;
         return containerRef.instance;
@@ -888,10 +894,10 @@ var MatSnackBar = /** @class */ (function () {
      */
     function (config, snackBarRef) {
         var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        var /** @type {?} */ injectionTokens = new WeakMap();
-        injectionTokens.set(MatSnackBarRef, snackBarRef);
-        injectionTokens.set(MAT_SNACK_BAR_DATA, config.data);
-        return new portal.PortalInjector(userInjector || this._injector, injectionTokens);
+        return new portal.PortalInjector(userInjector || this._injector, new WeakMap([
+            [MatSnackBarRef, snackBarRef],
+            [MAT_SNACK_BAR_DATA, config.data]
+        ]));
     };
     MatSnackBar.decorators = [
         { type: core.Injectable },

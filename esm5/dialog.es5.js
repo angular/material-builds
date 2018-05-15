@@ -129,12 +129,13 @@ function throwMatDialogContentAlreadyAttachedError() {
  */
 var MatDialogContainer = /** @class */ (function (_super) {
     __extends(MatDialogContainer, _super);
-    function MatDialogContainer(_elementRef, _focusTrapFactory, _changeDetectorRef, _document) {
+    function MatDialogContainer(_elementRef, _focusTrapFactory, _changeDetectorRef, _document, _config) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._focusTrapFactory = _focusTrapFactory;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._document = _document;
+        _this._config = _config;
         /**
          * Element that was focused before the dialog was opened. Save this to restore upon close.
          */
@@ -319,10 +320,10 @@ var MatDialogContainer = /** @class */ (function (_super) {
                         'class': 'mat-dialog-container',
                         'tabindex': '-1',
                         '[attr.id]': '_id',
-                        '[attr.role]': '_config?.role',
-                        '[attr.aria-labelledby]': '_config?.ariaLabel ? null : _ariaLabelledBy',
-                        '[attr.aria-label]': '_config?.ariaLabel',
-                        '[attr.aria-describedby]': '_config?.ariaDescribedBy || null',
+                        '[attr.role]': '_config.role',
+                        '[attr.aria-labelledby]': '_config.ariaLabel ? null : _ariaLabelledBy',
+                        '[attr.aria-label]': '_config.ariaLabel',
+                        '[attr.aria-describedby]': '_config.ariaDescribedBy || null',
                         '[@slideDialog]': '_state',
                         '(@slideDialog.start)': '_onAnimationStart($event)',
                         '(@slideDialog.done)': '_onAnimationDone($event)',
@@ -335,6 +336,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
         { type: FocusTrapFactory, },
         { type: ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+        { type: MatDialogConfig, },
     ]; };
     MatDialogContainer.propDecorators = {
         "_portalOutlet": [{ type: ViewChild, args: [CdkPortalOutlet,] },],
@@ -818,9 +820,12 @@ var MatDialog = /** @class */ (function () {
      * @return {?} A promise resolving to a ComponentRef for the attached container.
      */
     function (overlay, config) {
-        var /** @type {?} */ containerPortal = new ComponentPortal(MatDialogContainer, config.viewContainerRef);
+        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        var /** @type {?} */ injector = new PortalInjector(userInjector || this._injector, new WeakMap([
+            [MatDialogConfig, config]
+        ]));
+        var /** @type {?} */ containerPortal = new ComponentPortal(MatDialogContainer, config.viewContainerRef, injector);
         var /** @type {?} */ containerRef = overlay.attach(containerPortal);
-        containerRef.instance._config = config;
         return containerRef.instance;
     };
     /**
@@ -888,16 +893,17 @@ var MatDialog = /** @class */ (function () {
      */
     function (config, dialogRef, dialogContainer) {
         var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        var /** @type {?} */ injectionTokens = new WeakMap();
         // The MatDialogContainer is injected in the portal as the MatDialogContainer and the dialog's
         // content are created out of the same ViewContainerRef and as such, are siblings for injector
         // purposes. To allow the hierarchy that is expected, the MatDialogContainer is explicitly
         // added to the injection tokens.
-        injectionTokens
-            .set(MatDialogContainer, dialogContainer)
-            .set(MAT_DIALOG_DATA, config.data)
-            .set(MatDialogRef, dialogRef);
-        if (!userInjector || !userInjector.get(Directionality, null)) {
+        var /** @type {?} */ injectionTokens = new WeakMap([
+            [MatDialogContainer, dialogContainer],
+            [MAT_DIALOG_DATA, config.data],
+            [MatDialogRef, dialogRef]
+        ]);
+        if (config.direction &&
+            (!userInjector || !userInjector.get(Directionality, null))) {
             injectionTokens.set(Directionality, {
                 value: config.direction,
                 change: of()

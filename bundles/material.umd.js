@@ -3785,6 +3785,31 @@ var MatAutocomplete = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Directive applied to an element to make it usable
+ * as a connection point for an autocomplete panel.
+ */
+var MatAutocompleteOrigin = /** @class */ (function () {
+    function MatAutocompleteOrigin(elementRef) {
+        this.elementRef = elementRef;
+    }
+    MatAutocompleteOrigin.decorators = [
+        { type: core.Directive, args: [{
+                    selector: '[matAutocompleteOrigin]',
+                    exportAs: 'matAutocompleteOrigin',
+                },] },
+    ];
+    /** @nocollapse */
+    MatAutocompleteOrigin.ctorParameters = function () { return [
+        { type: core.ElementRef, },
+    ]; };
+    return MatAutocompleteOrigin;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * The height of each autocomplete option.
  */
 var /** @type {?} */ AUTOCOMPLETE_OPTION_HEIGHT = 48;
@@ -4416,6 +4441,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        if (this.connectedTo) {
+            return this.connectedTo.elementRef;
+        }
         return this._formField ? this._formField.getConnectedOverlayOrigin() : this._element;
     };
     /**
@@ -4490,6 +4518,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     ]; };
     MatAutocompleteTrigger.propDecorators = {
         "autocomplete": [{ type: core.Input, args: ['matAutocomplete',] },],
+        "connectedTo": [{ type: core.Input, args: ['matAutocompleteConnectedTo',] },],
         "autocompleteDisabled": [{ type: core.Input, args: ['matAutocompleteDisabled',] },],
     };
     return MatAutocompleteTrigger;
@@ -4505,8 +4534,14 @@ var MatAutocompleteModule = /** @class */ (function () {
     MatAutocompleteModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [MatOptionModule, overlay.OverlayModule, MatCommonModule, common.CommonModule],
-                    exports: [MatAutocomplete, MatOptionModule, MatAutocompleteTrigger, MatCommonModule],
-                    declarations: [MatAutocomplete, MatAutocompleteTrigger],
+                    exports: [
+                        MatAutocomplete,
+                        MatOptionModule,
+                        MatAutocompleteTrigger,
+                        MatAutocompleteOrigin,
+                        MatCommonModule
+                    ],
+                    declarations: [MatAutocomplete, MatAutocompleteTrigger, MatAutocompleteOrigin],
                 },] },
     ];
     return MatAutocompleteModule;
@@ -4990,11 +5025,12 @@ var /** @type {?} */ matBottomSheetAnimations = {
  */
 var MatBottomSheetContainer = /** @class */ (function (_super) {
     __extends(MatBottomSheetContainer, _super);
-    function MatBottomSheetContainer(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document) {
+    function MatBottomSheetContainer(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document, bottomSheetConfig) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusTrapFactory = _focusTrapFactory;
+        _this.bottomSheetConfig = bottomSheetConfig;
         /**
          * The state of the bottom sheet animations.
          */
@@ -5238,6 +5274,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
         { type: a11y.FocusTrapFactory, },
         { type: layout.BreakpointObserver, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: MatBottomSheetConfig, },
     ]; };
     MatBottomSheetContainer.propDecorators = {
         "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],
@@ -5362,9 +5399,12 @@ var MatBottomSheet = /** @class */ (function () {
      * @return {?}
      */
     function (overlayRef, config) {
-        var /** @type {?} */ containerPortal = new portal.ComponentPortal(MatBottomSheetContainer, config.viewContainerRef);
+        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        var /** @type {?} */ injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
+            [MatBottomSheetConfig, config]
+        ]));
+        var /** @type {?} */ containerPortal = new portal.ComponentPortal(MatBottomSheetContainer, config.viewContainerRef, injector);
         var /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
-        containerRef.instance.bottomSheetConfig = config;
         return containerRef.instance;
     };
     /**
@@ -5409,10 +5449,12 @@ var MatBottomSheet = /** @class */ (function () {
      */
     function (config, bottomSheetRef) {
         var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        var /** @type {?} */ injectionTokens = new WeakMap();
-        injectionTokens.set(MatBottomSheetRef, bottomSheetRef);
-        injectionTokens.set(MAT_BOTTOM_SHEET_DATA, config.data);
-        if (!userInjector || !userInjector.get(bidi.Directionality, null)) {
+        var /** @type {?} */ injectionTokens = new WeakMap([
+            [MatBottomSheetRef, bottomSheetRef],
+            [MAT_BOTTOM_SHEET_DATA, config.data]
+        ]);
+        if (config.direction &&
+            (!userInjector || !userInjector.get(bidi.Directionality, null))) {
             injectionTokens.set(bidi.Directionality, {
                 value: config.direction,
                 change: rxjs.of()
@@ -9194,12 +9236,13 @@ function throwMatDialogContentAlreadyAttachedError() {
  */
 var MatDialogContainer = /** @class */ (function (_super) {
     __extends(MatDialogContainer, _super);
-    function MatDialogContainer(_elementRef, _focusTrapFactory, _changeDetectorRef, _document) {
+    function MatDialogContainer(_elementRef, _focusTrapFactory, _changeDetectorRef, _document, _config) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._focusTrapFactory = _focusTrapFactory;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._document = _document;
+        _this._config = _config;
         /**
          * Element that was focused before the dialog was opened. Save this to restore upon close.
          */
@@ -9384,10 +9427,10 @@ var MatDialogContainer = /** @class */ (function (_super) {
                         'class': 'mat-dialog-container',
                         'tabindex': '-1',
                         '[attr.id]': '_id',
-                        '[attr.role]': '_config?.role',
-                        '[attr.aria-labelledby]': '_config?.ariaLabel ? null : _ariaLabelledBy',
-                        '[attr.aria-label]': '_config?.ariaLabel',
-                        '[attr.aria-describedby]': '_config?.ariaDescribedBy || null',
+                        '[attr.role]': '_config.role',
+                        '[attr.aria-labelledby]': '_config.ariaLabel ? null : _ariaLabelledBy',
+                        '[attr.aria-label]': '_config.ariaLabel',
+                        '[attr.aria-describedby]': '_config.ariaDescribedBy || null',
                         '[@slideDialog]': '_state',
                         '(@slideDialog.start)': '_onAnimationStart($event)',
                         '(@slideDialog.done)': '_onAnimationDone($event)',
@@ -9400,6 +9443,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
         { type: a11y.FocusTrapFactory, },
         { type: core.ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: MatDialogConfig, },
     ]; };
     MatDialogContainer.propDecorators = {
         "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],
@@ -9883,9 +9927,12 @@ var MatDialog = /** @class */ (function () {
      * @return {?} A promise resolving to a ComponentRef for the attached container.
      */
     function (overlay$$1, config) {
-        var /** @type {?} */ containerPortal = new portal.ComponentPortal(MatDialogContainer, config.viewContainerRef);
+        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        var /** @type {?} */ injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
+            [MatDialogConfig, config]
+        ]));
+        var /** @type {?} */ containerPortal = new portal.ComponentPortal(MatDialogContainer, config.viewContainerRef, injector);
         var /** @type {?} */ containerRef = overlay$$1.attach(containerPortal);
-        containerRef.instance._config = config;
         return containerRef.instance;
     };
     /**
@@ -9953,16 +10000,17 @@ var MatDialog = /** @class */ (function () {
      */
     function (config, dialogRef, dialogContainer) {
         var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        var /** @type {?} */ injectionTokens = new WeakMap();
         // The MatDialogContainer is injected in the portal as the MatDialogContainer and the dialog's
         // content are created out of the same ViewContainerRef and as such, are siblings for injector
         // purposes. To allow the hierarchy that is expected, the MatDialogContainer is explicitly
         // added to the injection tokens.
-        injectionTokens
-            .set(MatDialogContainer, dialogContainer)
-            .set(MAT_DIALOG_DATA, config.data)
-            .set(MatDialogRef, dialogRef);
-        if (!userInjector || !userInjector.get(bidi.Directionality, null)) {
+        var /** @type {?} */ injectionTokens = new WeakMap([
+            [MatDialogContainer, dialogContainer],
+            [MAT_DIALOG_DATA, config.data],
+            [MatDialogRef, dialogRef]
+        ]);
+        if (config.direction &&
+            (!userInjector || !userInjector.get(bidi.Directionality, null))) {
             injectionTokens.set(bidi.Directionality, {
                 value: config.direction,
                 change: rxjs.of()
@@ -24650,13 +24698,13 @@ var MatDrawerContainer = /** @class */ (function () {
         });
         this._right = this._left = null;
         // Detect if we're LTR or RTL.
-        if (!this._dir || this._dir.value == 'ltr') {
-            this._left = this._start;
-            this._right = this._end;
-        }
-        else {
+        if (this._dir && this._dir.value === 'rtl') {
             this._left = this._end;
             this._right = this._start;
+        }
+        else {
+            this._left = this._start;
+            this._right = this._end;
         }
     };
     /**
@@ -26857,11 +26905,12 @@ var SimpleSnackBar = /** @class */ (function () {
  */
 var MatSnackBarContainer = /** @class */ (function (_super) {
     __extends(MatSnackBarContainer, _super);
-    function MatSnackBarContainer(_ngZone, _elementRef, _changeDetectorRef) {
+    function MatSnackBarContainer(_ngZone, _elementRef, _changeDetectorRef, snackBarConfig) {
         var _this = _super.call(this) || this;
         _this._ngZone = _ngZone;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
+        _this.snackBarConfig = snackBarConfig;
         /**
          * Whether the component has been destroyed.
          */
@@ -27060,6 +27109,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
         { type: core.NgZone, },
         { type: core.ElementRef, },
         { type: core.ChangeDetectorRef, },
+        { type: MatSnackBarConfig, },
     ]; };
     MatSnackBarContainer.propDecorators = {
         "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],
@@ -27240,7 +27290,11 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (overlayRef, config) {
-        var /** @type {?} */ containerPortal = new portal.ComponentPortal(MatSnackBarContainer, config.viewContainerRef);
+        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        var /** @type {?} */ injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
+            [MatSnackBarConfig, config]
+        ]));
+        var /** @type {?} */ containerPortal = new portal.ComponentPortal(MatSnackBarContainer, config.viewContainerRef, injector);
         var /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
         containerRef.instance.snackBarConfig = config;
         return containerRef.instance;
@@ -27389,10 +27443,10 @@ var MatSnackBar = /** @class */ (function () {
      */
     function (config, snackBarRef) {
         var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        var /** @type {?} */ injectionTokens = new WeakMap();
-        injectionTokens.set(MatSnackBarRef, snackBarRef);
-        injectionTokens.set(MAT_SNACK_BAR_DATA, config.data);
-        return new portal.PortalInjector(userInjector || this._injector, injectionTokens);
+        return new portal.PortalInjector(userInjector || this._injector, new WeakMap([
+            [MatSnackBarRef, snackBarRef],
+            [MAT_SNACK_BAR_DATA, config.data]
+        ]));
     };
     MatSnackBar.decorators = [
         { type: core.Injectable },
@@ -32240,9 +32294,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.2-1bf5c41');
+var /** @type {?} */ VERSION = new core.Version('6.0.2-efe37f5');
 
 exports.VERSION = VERSION;
+exports.ɵa26 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32620,17 +32675,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa16 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf16 = MatTabBase;
-exports.ɵg16 = _MatTabMixinBase;
-exports.ɵb16 = MatTabHeaderBase;
-exports.ɵc16 = _MatTabHeaderMixinBase;
-exports.ɵd16 = MatTabLabelWrapperBase;
-exports.ɵe16 = _MatTabLabelWrapperMixinBase;
-exports.ɵj16 = MatTabLinkBase;
-exports.ɵh16 = MatTabNavBase;
-exports.ɵk16 = _MatTabLinkMixinBase;
-exports.ɵi16 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

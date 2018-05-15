@@ -26,14 +26,14 @@ export declare class MatDialogContainer extends BasePortalOutlet {
     private _focusTrapFactory;
     private _changeDetectorRef;
     private _document;
+    /** The dialog configuration. */
+    _config: MatDialogConfig;
     /** The portal outlet inside of this container into which the dialog content will be loaded. */
     _portalOutlet: CdkPortalOutlet;
     /** The class that traps and manages focus within the dialog. */
     private _focusTrap;
     /** Element that was focused before the dialog was opened. Save this to restore upon close. */
     private _elementFocusedBeforeDialogWasOpened;
-    /** The dialog configuration. */
-    _config: MatDialogConfig;
     /** State of the dialog animation. */
     _state: 'void' | 'enter' | 'exit';
     /** Emits when an animation state changes. */
@@ -42,7 +42,9 @@ export declare class MatDialogContainer extends BasePortalOutlet {
     _ariaLabelledBy: string | null;
     /** ID for the container DOM element. */
     _id: string;
-    constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _changeDetectorRef: ChangeDetectorRef, _document: any);
+    constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _changeDetectorRef: ChangeDetectorRef, _document: any, 
+        /** The dialog configuration. */
+        _config: MatDialogConfig);
     /**
      * Attach a ComponentPortal as content to this dialog container.
      * @param portal Portal to be attached as the dialog content.

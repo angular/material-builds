@@ -167,12 +167,14 @@ class MatBottomSheetContainer extends BasePortalOutlet {
      * @param {?} _focusTrapFactory
      * @param {?} breakpointObserver
      * @param {?} document
+     * @param {?} bottomSheetConfig
      */
-    constructor(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document) {
+    constructor(_elementRef, _changeDetectorRef, _focusTrapFactory, breakpointObserver, document, bottomSheetConfig) {
         super();
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._focusTrapFactory = _focusTrapFactory;
+        this.bottomSheetConfig = bottomSheetConfig;
         /**
          * The state of the bottom sheet animations.
          */
@@ -357,6 +359,7 @@ MatBottomSheetContainer.ctorParameters = () => [
     { type: FocusTrapFactory, },
     { type: BreakpointObserver, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    { type: MatBottomSheetConfig, },
 ];
 MatBottomSheetContainer.propDecorators = {
     "_portalOutlet": [{ type: ViewChild, args: [CdkPortalOutlet,] },],
@@ -459,9 +462,12 @@ class MatBottomSheet {
      * @return {?}
      */
     _attachContainer(overlayRef, config) {
-        const /** @type {?} */ containerPortal = new ComponentPortal(MatBottomSheetContainer, config.viewContainerRef);
+        const /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        const /** @type {?} */ injector = new PortalInjector(userInjector || this._injector, new WeakMap([
+            [MatBottomSheetConfig, config]
+        ]));
+        const /** @type {?} */ containerPortal = new ComponentPortal(MatBottomSheetContainer, config.viewContainerRef, injector);
         const /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
-        containerRef.instance.bottomSheetConfig = config;
         return containerRef.instance;
     }
     /**
@@ -494,10 +500,12 @@ class MatBottomSheet {
      */
     _createInjector(config, bottomSheetRef) {
         const /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        const /** @type {?} */ injectionTokens = new WeakMap();
-        injectionTokens.set(MatBottomSheetRef, bottomSheetRef);
-        injectionTokens.set(MAT_BOTTOM_SHEET_DATA, config.data);
-        if (!userInjector || !userInjector.get(Directionality, null)) {
+        const /** @type {?} */ injectionTokens = new WeakMap([
+            [MatBottomSheetRef, bottomSheetRef],
+            [MAT_BOTTOM_SHEET_DATA, config.data]
+        ]);
+        if (config.direction &&
+            (!userInjector || !userInjector.get(Directionality, null))) {
             injectionTokens.set(Directionality, {
                 value: config.direction,
                 change: of()

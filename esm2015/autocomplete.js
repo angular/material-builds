@@ -215,6 +215,33 @@ MatAutocomplete.propDecorators = {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Directive applied to an element to make it usable
+ * as a connection point for an autocomplete panel.
+ */
+class MatAutocompleteOrigin {
+    /**
+     * @param {?} elementRef
+     */
+    constructor(elementRef) {
+        this.elementRef = elementRef;
+    }
+}
+MatAutocompleteOrigin.decorators = [
+    { type: Directive, args: [{
+                selector: '[matAutocompleteOrigin]',
+                exportAs: 'matAutocompleteOrigin',
+            },] },
+];
+/** @nocollapse */
+MatAutocompleteOrigin.ctorParameters = () => [
+    { type: ElementRef, },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
  * The height of each autocomplete option.
  */
 const /** @type {?} */ AUTOCOMPLETE_OPTION_HEIGHT = 48;
@@ -720,6 +747,9 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     _getConnectedElement() {
+        if (this.connectedTo) {
+            return this.connectedTo.elementRef;
+        }
         return this._formField ? this._formField.getConnectedOverlayOrigin() : this._element;
     }
     /**
@@ -782,6 +812,7 @@ MatAutocompleteTrigger.ctorParameters = () => [
 ];
 MatAutocompleteTrigger.propDecorators = {
     "autocomplete": [{ type: Input, args: ['matAutocomplete',] },],
+    "connectedTo": [{ type: Input, args: ['matAutocompleteConnectedTo',] },],
     "autocompleteDisabled": [{ type: Input, args: ['matAutocompleteDisabled',] },],
 };
 
@@ -794,8 +825,14 @@ class MatAutocompleteModule {
 MatAutocompleteModule.decorators = [
     { type: NgModule, args: [{
                 imports: [MatOptionModule, OverlayModule, MatCommonModule, CommonModule],
-                exports: [MatAutocomplete, MatOptionModule, MatAutocompleteTrigger, MatCommonModule],
-                declarations: [MatAutocomplete, MatAutocompleteTrigger],
+                exports: [
+                    MatAutocomplete,
+                    MatOptionModule,
+                    MatAutocompleteTrigger,
+                    MatAutocompleteOrigin,
+                    MatCommonModule
+                ],
+                declarations: [MatAutocomplete, MatAutocompleteTrigger, MatAutocompleteOrigin],
             },] },
 ];
 
@@ -809,5 +846,5 @@ MatAutocompleteModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa26 };
 //# sourceMappingURL=autocomplete.js.map

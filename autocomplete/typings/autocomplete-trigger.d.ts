@@ -13,6 +13,7 @@ import { MatOption, MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
 import { MatAutocomplete } from './autocomplete';
+import { MatAutocompleteOrigin } from './autocomplete-origin';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the scrollTop of the panel. Because we are not
@@ -68,6 +69,11 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     _onTouched: () => void;
     /** The autocomplete panel to be attached to this trigger. */
     autocomplete: MatAutocomplete;
+    /**
+     * Reference relative to which to position the autocomplete panel.
+     * Defaults to the autocomplete trigger element.
+     */
+    connectedTo: MatAutocompleteOrigin;
     /**
      * Whether the autocomplete is disabled. When disabled, the element will
      * act as a regular input and the user won't be able to open the panel.

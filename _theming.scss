@@ -3523,6 +3523,11 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 }
 
+// Empty mixins to be consistent with all other components.
+@mixin mat-sort-theme($theme) { }
+
+@mixin mat-sort-typography($config) { }
+
 
 
 
@@ -4481,6 +4486,7 @@ $mat-form-field-dedupe: 0;
   @include mat-slide-toggle-typography($config);
   @include mat-slider-typography($config);
   @include mat-stepper-typography($config);
+  @include mat-sort-typography($config);
   @include mat-tabs-typography($config);
   @include mat-toolbar-typography($config);
   @include mat-tooltip-typography($config);
@@ -4586,6 +4592,7 @@ $mat-form-field-dedupe: 0;
 
 
 
+
 // Create a theme.
 @mixin angular-material-theme($theme) {
   @include mat-core-theme($theme);
@@ -4617,6 +4624,7 @@ $mat-form-field-dedupe: 0;
   @include mat-slide-toggle-theme($theme);
   @include mat-slider-theme($theme);
   @include mat-stepper-theme($theme);
+  @include mat-sort-theme($theme);
   @include mat-tabs-theme($theme);
   @include mat-toolbar-theme($theme);
   @include mat-tooltip-theme($theme);
