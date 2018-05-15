@@ -738,7 +738,7 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (content, userConfig) {
-        var /** @type {?} */ config = __assign({}, this._defaultConfig, userConfig);
+        var /** @type {?} */ config = __assign({}, new MatSnackBarConfig(), this._defaultConfig, userConfig);
         var /** @type {?} */ overlayRef = this._createOverlay(config);
         var /** @type {?} */ container = this._attachSnackBarContainer(overlayRef, config);
         var /** @type {?} */ snackBarRef = new MatSnackBarRef(container, overlayRef);

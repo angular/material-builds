@@ -563,7 +563,7 @@ class MatSnackBar {
      * @return {?}
      */
     _attach(content, userConfig) {
-        const /** @type {?} */ config = Object.assign({}, this._defaultConfig, userConfig);
+        const /** @type {?} */ config = Object.assign({}, new MatSnackBarConfig(), this._defaultConfig, userConfig);
         const /** @type {?} */ overlayRef = this._createOverlay(config);
         const /** @type {?} */ container = this._attachSnackBarContainer(overlayRef, config);
         const /** @type {?} */ snackBarRef = new MatSnackBarRef(container, overlayRef);
