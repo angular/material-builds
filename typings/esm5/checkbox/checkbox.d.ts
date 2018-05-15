@@ -55,6 +55,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     private _changeDetectorRef;
     private _focusMonitor;
     private _clickAction;
+    _animationMode: string | undefined;
     /**
      * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
      * take precedence so this may be omitted.
@@ -96,7 +97,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     private _controlValueAccessorChangeFn;
     /** Reference to the focused state ripple. */
     private _focusRipple;
-    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, tabIndex: string, _clickAction: MatCheckboxClickAction);
+    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, tabIndex: string, _clickAction: MatCheckboxClickAction, _animationMode?: string | undefined);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /**
@@ -144,6 +145,4 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     focus(): void;
     _onInteractionEvent(event: Event): void;
     private _getAnimationClassForCheckStateTransition(oldState, newState);
-    /** Fades out the focus state ripple. */
-    private _removeFocusRipple();
 }
