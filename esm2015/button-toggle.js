@@ -252,7 +252,7 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
             return false;
         }
         if (this.multiple && Array.isArray(this._rawValue)) {
-            return !!this._rawValue.find(value => toggle.value != null && value === toggle.value);
+            return this._rawValue.some(value => toggle.value != null && value === toggle.value);
         }
         return toggle.value === this._rawValue;
     }

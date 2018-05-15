@@ -373,7 +373,7 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
             return false;
         }
         if (this.multiple && Array.isArray(this._rawValue)) {
-            return !!this._rawValue.find(function (value) { return toggle.value != null && value === toggle.value; });
+            return this._rawValue.some(function (value) { return toggle.value != null && value === toggle.value; });
         }
         return toggle.value === this._rawValue;
     };
