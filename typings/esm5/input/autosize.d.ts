@@ -13,4 +13,6 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 export declare class MatTextareaAutosize extends CdkTextareaAutosize {
     matAutosizeMinRows: number;
     matAutosizeMaxRows: number;
+    matAutosize: boolean;
+    matTextareaAutosize: boolean;
 }

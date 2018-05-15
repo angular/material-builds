@@ -42,6 +42,24 @@ class MatTextareaAutosize extends CdkTextareaAutosize {
      * @return {?}
      */
     set matAutosizeMaxRows(value) { this.maxRows = value; }
+    /**
+     * @return {?}
+     */
+    get matAutosize() { return this.enabled; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set matAutosize(value) { this.enabled = value; }
+    /**
+     * @return {?}
+     */
+    get matTextareaAutosize() { return this.enabled; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set matTextareaAutosize(value) { this.enabled = value; }
 }
 MatTextareaAutosize.decorators = [
     { type: Directive, args: [{
@@ -61,6 +79,8 @@ MatTextareaAutosize.decorators = [
 MatTextareaAutosize.propDecorators = {
     "matAutosizeMinRows": [{ type: Input },],
     "matAutosizeMaxRows": [{ type: Input },],
+    "matAutosize": [{ type: Input, args: ['mat-autosize',] },],
+    "matTextareaAutosize": [{ type: Input },],
 };
 
 /**

@@ -10342,6 +10342,32 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatTextareaAutosize.prototype, "matAutosize", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this.enabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this.enabled = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatTextareaAutosize.prototype, "matTextareaAutosize", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this.enabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this.enabled = value; },
+        enumerable: true,
+        configurable: true
+    });
     MatTextareaAutosize.decorators = [
         { type: core.Directive, args: [{
                     selector: 'textarea[mat-autosize], textarea[matTextareaAutosize]',
@@ -10360,6 +10386,8 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
     MatTextareaAutosize.propDecorators = {
         "matAutosizeMinRows": [{ type: core.Input },],
         "matAutosizeMaxRows": [{ type: core.Input },],
+        "matAutosize": [{ type: core.Input, args: ['mat-autosize',] },],
+        "matTextareaAutosize": [{ type: core.Input },],
     };
     return MatTextareaAutosize;
 }(textField.CdkTextareaAutosize));
@@ -32293,10 +32321,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.2-af78b97');
+var /** @type {?} */ VERSION = new core.Version('6.0.2-2d227b7');
 
 exports.VERSION = VERSION;
-exports.ɵa27 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32674,17 +32702,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa6 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf6 = MatTabBase;
-exports.ɵg6 = _MatTabMixinBase;
-exports.ɵb6 = MatTabHeaderBase;
-exports.ɵc6 = _MatTabHeaderMixinBase;
-exports.ɵd6 = MatTabLabelWrapperBase;
-exports.ɵe6 = _MatTabLabelWrapperMixinBase;
-exports.ɵj6 = MatTabLinkBase;
-exports.ɵh6 = MatTabNavBase;
-exports.ɵk6 = _MatTabLinkMixinBase;
-exports.ɵi6 = _MatTabNavMixinBase;
+exports.ɵa21 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf21 = MatTabBase;
+exports.ɵg21 = _MatTabMixinBase;
+exports.ɵb21 = MatTabHeaderBase;
+exports.ɵc21 = _MatTabHeaderMixinBase;
+exports.ɵd21 = MatTabLabelWrapperBase;
+exports.ɵe21 = _MatTabLabelWrapperMixinBase;
+exports.ɵj21 = MatTabLinkBase;
+exports.ɵh21 = MatTabNavBase;
+exports.ɵk21 = _MatTabLinkMixinBase;
+exports.ɵi21 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

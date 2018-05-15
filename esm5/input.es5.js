@@ -55,6 +55,32 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatTextareaAutosize.prototype, "matAutosize", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this.enabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this.enabled = value; },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatTextareaAutosize.prototype, "matTextareaAutosize", {
+        get: /**
+         * @return {?}
+         */
+        function () { return this.enabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this.enabled = value; },
+        enumerable: true,
+        configurable: true
+    });
     MatTextareaAutosize.decorators = [
         { type: Directive, args: [{
                     selector: 'textarea[mat-autosize], textarea[matTextareaAutosize]',
@@ -73,6 +99,8 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
     MatTextareaAutosize.propDecorators = {
         "matAutosizeMinRows": [{ type: Input },],
         "matAutosizeMaxRows": [{ type: Input },],
+        "matAutosize": [{ type: Input, args: ['mat-autosize',] },],
+        "matTextareaAutosize": [{ type: Input },],
     };
     return MatTextareaAutosize;
 }(CdkTextareaAutosize));
