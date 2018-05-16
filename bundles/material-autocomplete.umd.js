@@ -496,7 +496,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             var _this = this;
             return rxjs.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(operators.filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
                 this._overlayRef.detachments().pipe(operators.filter(function () { return _this._overlayAttached; })) :
-                rxjs.of());
+                rxjs.of()).pipe(
+            // Normalize the output so we return a consistent type.
+            operators.map(function (event) { return event instanceof core$1.MatOptionSelectionChange ? event : null; }));
         },
         enumerable: true,
         configurable: true
@@ -1056,7 +1058,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY = MAT_AUTOCOMPLETE_SCROLL_STRAT
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

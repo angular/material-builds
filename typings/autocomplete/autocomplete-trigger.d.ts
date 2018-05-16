@@ -92,7 +92,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
      * A stream of actions that should close the autocomplete panel, including
      * when an option is selected, on blur, and when TAB is pressed.
      */
-    readonly panelClosingActions: Observable<MatOptionSelectionChange>;
+    readonly panelClosingActions: Observable<MatOptionSelectionChange | null>;
     /** Stream of autocomplete option selections. */
     readonly optionSelections: Observable<MatOptionSelectionChange>;
     /** The currently active option, coerced to MatOption type. */

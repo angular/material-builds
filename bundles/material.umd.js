@@ -4001,7 +4001,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             var _this = this;
             return rxjs.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(operators.filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
                 this._overlayRef.detachments().pipe(operators.filter(function () { return _this._overlayAttached; })) :
-                rxjs.of());
+                rxjs.of()).pipe(
+            // Normalize the output so we return a consistent type.
+            operators.map(function (event) { return event instanceof MatOptionSelectionChange ? event : null; }));
         },
         enumerable: true,
         configurable: true
@@ -32321,10 +32323,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.0.2-d52acc9');
+var /** @type {?} */ VERSION = new core.Version('6.0.2-2815607');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
