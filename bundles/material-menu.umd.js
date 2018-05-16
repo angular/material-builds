@@ -891,18 +891,23 @@ var MatMenu = /** @class */ (function () {
 /**
  * Injection token that determines the scroll handling while the menu is open.
  */
-var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy', {
-    providedIn: 'root',
-    factory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
-});
+var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy');
 /**
  * \@docs-private
+ * @param {?} overlay
  * @return {?}
  */
-function MAT_MENU_SCROLL_STRATEGY_FACTORY() {
-    var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
+/**
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+    provide: MAT_MENU_SCROLL_STRATEGY,
+    deps: [overlay.Overlay],
+    useFactory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
+};
 /**
  * Default top padding of the menu panel.
  */
@@ -1509,6 +1514,7 @@ var MatMenuModule = /** @class */ (function () {
                     ],
                     exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent, core$1.MatCommonModule],
                     declarations: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent],
+                    providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
                 },] },
     ];
     return MatMenuModule;
@@ -1524,11 +1530,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵe24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

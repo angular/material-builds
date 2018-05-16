@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, InjectionToken, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Optional, ContentChild, ContentChildren, EventEmitter, Input, NgZone, Output, ViewChild, inject, Self, NgModule } from '@angular/core';
+import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, InjectionToken, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Optional, ContentChild, ContentChildren, EventEmitter, Input, NgZone, Output, ViewChild, Self, NgModule } from '@angular/core';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { trigger, state, style, animate, transition, query, group, sequence } from '@angular/animations';
@@ -873,18 +873,23 @@ var MatMenu = /** @class */ (function () {
 /**
  * Injection token that determines the scroll handling while the menu is open.
  */
-var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy', {
-    providedIn: 'root',
-    factory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
-});
+var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy');
 /**
  * \@docs-private
+ * @param {?} overlay
  * @return {?}
  */
-function MAT_MENU_SCROLL_STRATEGY_FACTORY() {
-    var /** @type {?} */ overlay = inject(Overlay);
+function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay) {
     return function () { return overlay.scrollStrategies.reposition(); };
 }
+/**
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+    provide: MAT_MENU_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
+};
 /**
  * Default top padding of the menu panel.
  */
@@ -1491,6 +1496,7 @@ var MatMenuModule = /** @class */ (function () {
                     ],
                     exports: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent, MatCommonModule],
                     declarations: [MatMenu, MatMenuItem, MatMenuTrigger, MatMenuContent],
+                    providers: [MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER]
                 },] },
     ];
     return MatMenuModule;
@@ -1511,5 +1517,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵe24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
 //# sourceMappingURL=menu.es5.js.map

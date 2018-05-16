@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, inject, InjectionToken, ViewContainerRef, Directive, ContentChild, defineInjectable } from '@angular/core';
+import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, InjectionToken, ViewContainerRef, Directive, ContentChild, defineInjectable } from '@angular/core';
 import { Subject, merge, Subscription, of } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
 import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, ESCAPE } from '@angular/cdk/keycodes';
@@ -1539,18 +1539,23 @@ let /** @type {?} */ datepickerUid = 0;
 /**
  * Injection token that determines the scroll handling while the calendar is open.
  */
-const /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy', {
-    providedIn: 'root',
-    factory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
-});
+const /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy');
 /**
  * \@docs-private
+ * @param {?} overlay
  * @return {?}
  */
-function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY() {
-    const /** @type {?} */ overlay = inject(Overlay);
+function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition();
 }
+/**
+ * \@docs-private
+ */
+const /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+    provide: MAT_DATEPICKER_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
+};
 /**
  * \@docs-private
  */
@@ -2616,6 +2621,7 @@ MatDatepickerModule.decorators = [
                 ],
                 providers: [
                     MatDatepickerIntl,
+                    MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
                 ],
                 entryComponents: [
                     MatDatepickerContent,
@@ -2634,5 +2640,5 @@ MatDatepickerModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatDatepickerModule, MatCalendarHeader, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY, MatDatepickerContentBase, _MatDatepickerContentMixinBase, MatDatepickerContent, MatDatepicker, matDatepickerAnimations, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };
+export { MatDatepickerModule, MatCalendarHeader, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER, MatDatepickerContentBase, _MatDatepickerContentMixinBase, MatDatepickerContent, MatDatepicker, matDatepickerAnimations, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };
 //# sourceMappingURL=datepicker.js.map

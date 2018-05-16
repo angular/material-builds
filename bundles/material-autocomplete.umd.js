@@ -315,18 +315,23 @@ var /** @type {?} */ AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /**
  * Injection token that determines the scroll handling while the autocomplete panel is open.
  */
-var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete-scroll-strategy', {
-    providedIn: 'root',
-    factory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
-});
+var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete-scroll-strategy');
 /**
  * \@docs-private
+ * @param {?} overlay
  * @return {?}
  */
-function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY() {
-    var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
+/**
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+    provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
+    deps: [overlay.Overlay],
+    useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
+};
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * \@docs-private
@@ -1039,6 +1044,7 @@ var MatAutocompleteModule = /** @class */ (function () {
                         core$1.MatCommonModule
                     ],
                     declarations: [MatAutocomplete, MatAutocompleteTrigger, MatAutocompleteOrigin],
+                    providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER],
                 },] },
     ];
     return MatAutocompleteModule;
@@ -1055,10 +1061,11 @@ exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;
 exports.AUTOCOMPLETE_PANEL_HEIGHT = AUTOCOMPLETE_PANEL_HEIGHT;
 exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY;
 exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY;
+exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -1893,18 +1893,23 @@ var /** @type {?} */ datepickerUid = 0;
 /**
  * Injection token that determines the scroll handling while the calendar is open.
  */
-var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scroll-strategy', {
-    providedIn: 'root',
-    factory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
-});
+var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scroll-strategy');
 /**
  * \@docs-private
+ * @param {?} overlay
  * @return {?}
  */
-function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY() {
-    var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
+/**
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+    provide: MAT_DATEPICKER_SCROLL_STRATEGY,
+    deps: [overlay.Overlay],
+    useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
+};
 /**
  * \@docs-private
  */
@@ -3212,6 +3217,7 @@ var MatDatepickerModule = /** @class */ (function () {
                     ],
                     providers: [
                         MatDatepickerIntl,
+                        MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER,
                     ],
                     entryComponents: [
                         MatDatepickerContent,
@@ -3229,6 +3235,7 @@ exports.MatCalendarCell = MatCalendarCell;
 exports.MatCalendarBody = MatCalendarBody;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY = MAT_DATEPICKER_SCROLL_STRATEGY;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY = MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
+exports.MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatDatepickerContentBase = MatDatepickerContentBase;
 exports._MatDatepickerContentMixinBase = _MatDatepickerContentMixinBase;
 exports.MatDatepickerContent = MatDatepickerContent;

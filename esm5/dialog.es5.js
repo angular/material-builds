@@ -7,7 +7,7 @@
  */
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { __assign, __extends } from 'tslib';
-import { Component, ElementRef, EventEmitter, Inject, Optional, ChangeDetectorRef, ViewChild, ViewEncapsulation, ChangeDetectionStrategy, inject, Injectable, InjectionToken, Injector, SkipSelf, TemplateRef, Directive, Input, NgModule } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Inject, Optional, ChangeDetectorRef, ViewChild, ViewEncapsulation, ChangeDetectionStrategy, Injectable, InjectionToken, Injector, SkipSelf, TemplateRef, Directive, Input, NgModule } from '@angular/core';
 import { DOCUMENT, Location, CommonModule } from '@angular/common';
 import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, TemplatePortal, PortalModule } from '@angular/cdk/portal';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
@@ -597,16 +597,13 @@ var /** @type {?} */ MAT_DIALOG_DEFAULT_OPTIONS = new InjectionToken('mat-dialog
 /**
  * Injection token that determines the scroll handling while the dialog is open.
  */
-var /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy', {
-    providedIn: 'root',
-    factory: MAT_DIALOG_SCROLL_STRATEGY_FACTORY,
-});
+var /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy');
 /**
  * \@docs-private
+ * @param {?} overlay
  * @return {?}
  */
-function MAT_DIALOG_SCROLL_STRATEGY_FACTORY() {
-    var /** @type {?} */ overlay = inject(Overlay);
+function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay) {
     return function () { return overlay.scrollStrategies.block(); };
 }
 /**

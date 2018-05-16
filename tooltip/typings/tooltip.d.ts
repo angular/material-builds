@@ -23,7 +23,13 @@ export declare function getMatTooltipInvalidPositionError(position: string): Err
 /** Injection token that determines the scroll handling while a tooltip is visible. */
 export declare const MAT_TOOLTIP_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
-export declare function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(): () => ScrollStrategy;
+export declare function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
+/** @docs-private */
+export declare const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER: {
+    provide: InjectionToken<() => ScrollStrategy>;
+    deps: (typeof Overlay)[];
+    useFactory: typeof MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY;
+};
 /** Default `matTooltip` options that can be overridden. */
 export interface MatTooltipDefaultOptions {
     showDelay: number;

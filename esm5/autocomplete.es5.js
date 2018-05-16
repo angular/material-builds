@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { Component, ContentChildren, ElementRef, Input, TemplateRef, ViewChild, ViewEncapsulation, ChangeDetectorRef, ChangeDetectionStrategy, EventEmitter, Output, InjectionToken, Inject, Directive, forwardRef, Host, inject, NgZone, Optional, ViewContainerRef, NgModule } from '@angular/core';
+import { Component, ContentChildren, ElementRef, Input, TemplateRef, ViewChild, ViewEncapsulation, ChangeDetectorRef, ChangeDetectionStrategy, EventEmitter, Output, InjectionToken, Inject, Directive, forwardRef, Host, NgZone, Optional, ViewContainerRef, NgModule } from '@angular/core';
 import { MatOption, MatOptgroup, MAT_OPTION_PARENT_COMPONENT, mixinDisableRipple, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MatOptionModule, MatCommonModule } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -298,18 +298,23 @@ var /** @type {?} */ AUTOCOMPLETE_PANEL_HEIGHT = 256;
 /**
  * Injection token that determines the scroll handling while the autocomplete panel is open.
  */
-var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-scroll-strategy', {
-    providedIn: 'root',
-    factory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
-});
+var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-scroll-strategy');
 /**
  * \@docs-private
+ * @param {?} overlay
  * @return {?}
  */
-function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY() {
-    var /** @type {?} */ overlay = inject(Overlay);
+function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay) {
     return function () { return overlay.scrollStrategies.reposition(); };
 }
+/**
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+    provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
+};
 /**
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * \@docs-private
@@ -1022,6 +1027,7 @@ var MatAutocompleteModule = /** @class */ (function () {
                         MatCommonModule
                     ],
                     declarations: [MatAutocomplete, MatAutocompleteTrigger, MatAutocompleteOrigin],
+                    providers: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER],
                 },] },
     ];
     return MatAutocompleteModule;
@@ -1037,5 +1043,5 @@ var MatAutocompleteModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa28 };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa29 };
 //# sourceMappingURL=autocomplete.es5.js.map

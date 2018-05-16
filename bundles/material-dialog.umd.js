@@ -624,16 +624,13 @@ var /** @type {?} */ MAT_DIALOG_DEFAULT_OPTIONS = new core.InjectionToken('mat-d
 /**
  * Injection token that determines the scroll handling while the dialog is open.
  */
-var /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new core.InjectionToken('mat-dialog-scroll-strategy', {
-    providedIn: 'root',
-    factory: MAT_DIALOG_SCROLL_STRATEGY_FACTORY,
-});
+var /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new core.InjectionToken('mat-dialog-scroll-strategy');
 /**
  * \@docs-private
+ * @param {?} overlay
  * @return {?}
  */
-function MAT_DIALOG_SCROLL_STRATEGY_FACTORY() {
-    var /** @type {?} */ overlay$$1 = core.inject(overlay.Overlay);
+function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.block(); };
 }
 /**

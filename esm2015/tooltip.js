@@ -15,7 +15,7 @@ import { Overlay, ScrollDispatcher, OverlayModule } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { take, takeUntil } from 'rxjs/operators';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, inject, InjectionToken, Input, NgZone, Optional, ViewContainerRef, ViewEncapsulation, NgModule } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Directive, ElementRef, Inject, InjectionToken, Input, NgZone, Optional, ViewContainerRef, ViewEncapsulation, NgModule } from '@angular/core';
 import { Subject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
@@ -60,18 +60,23 @@ function getMatTooltipInvalidPositionError(position) {
 /**
  * Injection token that determines the scroll handling while a tooltip is visible.
  */
-const /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strategy', {
-    providedIn: 'root',
-    factory: MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
-});
+const /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strategy');
 /**
  * \@docs-private
+ * @param {?} overlay
  * @return {?}
  */
-function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY() {
-    const /** @type {?} */ overlay = inject(Overlay);
+function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS });
 }
+/**
+ * \@docs-private
+ */
+const /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+    provide: MAT_TOOLTIP_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
+};
 /**
  * Injection token to be used to override the default options for `matTooltip`.
  */
@@ -694,6 +699,7 @@ MatTooltipModule.decorators = [
                 exports: [MatTooltip, TooltipComponent, MatCommonModule],
                 declarations: [MatTooltip, TooltipComponent],
                 entryComponents: [TooltipComponent],
+                providers: [MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER]
             },] },
 ];
 
@@ -707,5 +713,5 @@ MatTooltipModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MatTooltip, TooltipComponent, matTooltipAnimations };
+export { MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MatTooltip, TooltipComponent, matTooltipAnimations };
 //# sourceMappingURL=tooltip.js.map

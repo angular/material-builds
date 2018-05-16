@@ -17,7 +17,13 @@ import { MatCalendar } from './calendar';
 /** Injection token that determines the scroll handling while the calendar is open. */
 export declare const MAT_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
-export declare function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(): () => ScrollStrategy;
+export declare function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay: Overlay): () => ScrollStrategy;
+/** @docs-private */
+export declare const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER: {
+    provide: InjectionToken<() => ScrollStrategy>;
+    deps: (typeof Overlay)[];
+    useFactory: typeof MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
+};
 /** @docs-private */
 export declare class MatDatepickerContentBase {
     _elementRef: ElementRef;
