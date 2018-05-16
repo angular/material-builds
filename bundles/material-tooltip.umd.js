@@ -308,6 +308,7 @@ var MatTooltip = /** @class */ (function () {
         }
         var /** @type {?} */ overlayRef = this._createOverlay();
         this._detach();
+        overlayRef.setDirection(this._dir ? this._dir.value : 'ltr');
         this._portal = this._portal || new portal.ComponentPortal(TooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
         this._tooltipInstance.afterHidden()
@@ -400,19 +401,12 @@ var MatTooltip = /** @class */ (function () {
         if (this._overlayRef) {
             return this._overlayRef;
         }
-        var /** @type {?} */ origin = this._getOrigin();
-        var /** @type {?} */ overlay$$1 = this._getOverlayPosition();
-        var /** @type {?} */ direction = this._dir ? this._dir.value : 'ltr';
         // Create connected position strategy that listens for scroll events to reposition.
         var /** @type {?} */ strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
             .withTransformOriginOn('.mat-tooltip')
             .withFlexibleDimensions(false)
-            .withViewportMargin(8)
-            .withPositions([
-            __assign({}, origin.main, overlay$$1.main),
-            __assign({}, origin.fallback, overlay$$1.fallback)
-        ]);
+            .withViewportMargin(8);
         var /** @type {?} */ scrollableAncestors = this._scrollDispatcher
             .getAncestorScrollContainers(this._elementRef);
         strategy.withScrollableContainers(scrollableAncestors);
@@ -428,11 +422,11 @@ var MatTooltip = /** @class */ (function () {
             }
         });
         this._overlayRef = this._overlay.create({
-            direction: direction,
             positionStrategy: strategy,
             panelClass: TOOLTIP_PANEL_CLASS,
             scrollStrategy: this._scrollStrategy()
         });
+        this._updatePosition();
         this._overlayRef.detachments()
             .pipe(operators.takeUntil(this._destroyed))
             .subscribe(function () { return _this._detach(); });
@@ -464,8 +458,7 @@ var MatTooltip = /** @class */ (function () {
         var /** @type {?} */ position = /** @type {?} */ (((this._overlayRef)).getConfig().positionStrategy);
         var /** @type {?} */ origin = this._getOrigin();
         var /** @type {?} */ overlay$$1 = this._getOverlayPosition();
-        position
-            .withPositions([
+        position.withPositions([
             __assign({}, origin.main, overlay$$1.main),
             __assign({}, origin.fallback, overlay$$1.fallback)
         ]);

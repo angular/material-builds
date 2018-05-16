@@ -272,6 +272,7 @@ class MatTooltip {
         }
         const /** @type {?} */ overlayRef = this._createOverlay();
         this._detach();
+        overlayRef.setDirection(this._dir ? this._dir.value : 'ltr');
         this._portal = this._portal || new ComponentPortal(TooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
         this._tooltipInstance.afterHidden()
@@ -331,19 +332,12 @@ class MatTooltip {
         if (this._overlayRef) {
             return this._overlayRef;
         }
-        const /** @type {?} */ origin = this._getOrigin();
-        const /** @type {?} */ overlay = this._getOverlayPosition();
-        const /** @type {?} */ direction = this._dir ? this._dir.value : 'ltr';
         // Create connected position strategy that listens for scroll events to reposition.
         const /** @type {?} */ strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
             .withTransformOriginOn('.mat-tooltip')
             .withFlexibleDimensions(false)
-            .withViewportMargin(8)
-            .withPositions([
-            Object.assign({}, origin.main, overlay.main),
-            Object.assign({}, origin.fallback, overlay.fallback)
-        ]);
+            .withViewportMargin(8);
         const /** @type {?} */ scrollableAncestors = this._scrollDispatcher
             .getAncestorScrollContainers(this._elementRef);
         strategy.withScrollableContainers(scrollableAncestors);
@@ -357,11 +351,11 @@ class MatTooltip {
             }
         });
         this._overlayRef = this._overlay.create({
-            direction,
             positionStrategy: strategy,
             panelClass: TOOLTIP_PANEL_CLASS,
             scrollStrategy: this._scrollStrategy()
         });
+        this._updatePosition();
         this._overlayRef.detachments()
             .pipe(takeUntil(this._destroyed))
             .subscribe(() => this._detach());
@@ -385,8 +379,7 @@ class MatTooltip {
         const /** @type {?} */ position = /** @type {?} */ (((this._overlayRef)).getConfig().positionStrategy);
         const /** @type {?} */ origin = this._getOrigin();
         const /** @type {?} */ overlay = this._getOverlayPosition();
-        position
-            .withPositions([
+        position.withPositions([
             Object.assign({}, origin.main, overlay.main),
             Object.assign({}, origin.fallback, overlay.fallback)
         ]);
