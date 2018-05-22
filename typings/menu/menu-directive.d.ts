@@ -13,6 +13,7 @@ import { MatMenuContent } from './menu-content';
 import { MatMenuItem } from './menu-item';
 import { MatMenuPanel } from './menu-panel';
 import { MenuPositionX, MenuPositionY } from './menu-positions';
+import { AnimationEvent } from '@angular/animations';
 /** Default `mat-menu` options that can be overridden. */
 export interface MatMenuDefaultOptions {
     /** The x-axis position of the menu. */
