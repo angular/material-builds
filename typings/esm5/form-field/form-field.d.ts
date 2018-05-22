@@ -16,16 +16,32 @@ import { MatPlaceholder } from './placeholder';
 import { MatPrefix } from './prefix';
 import { MatSuffix } from './suffix';
 import { Platform } from '@angular/cdk/platform';
-/** @docs-private */
+/**
+ * Boilerplate for applying mixins to MatFormField.
+ * @docs-private
+ */
 export declare class MatFormFieldBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
+/**
+ * Base class to which we're applying the form field mixins.
+ * @docs-private
+ */
 export declare const _MatFormFieldMixinBase: (new (...args: any[]) => CanColor) & typeof MatFormFieldBase;
+/** Possible appearance styles for the form field. */
 export declare type MatFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
+/**
+ * Represents the default options form the form field that can be configured
+ * using the `MAT_FORM_FIELD_DEFAULT_OPTIONS` injection token.
+ */
 export interface MatFormFieldDefaultOptions {
     appearance?: MatFormFieldAppearance;
 }
+/**
+ * Injection token that can be used to configure the
+ * default options for all form field within an app.
+ */
 export declare const MAT_FORM_FIELD_DEFAULT_OPTIONS: InjectionToken<MatFormFieldDefaultOptions>;
 /** Container for form controls that applies Material Design styling and behavior. */
 export declare class MatFormField extends _MatFormFieldMixinBase implements AfterContentInit, AfterContentChecked, AfterViewInit, CanColor {

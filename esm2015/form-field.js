@@ -212,6 +212,7 @@ let /** @type {?} */ nextUniqueId$2 = 0;
 const /** @type {?} */ floatingLabelScale = 0.75;
 const /** @type {?} */ outlineGapPadding = 5;
 /**
+ * Boilerplate for applying mixins to MatFormField.
  * \@docs-private
  */
 class MatFormFieldBase {
@@ -222,7 +223,15 @@ class MatFormFieldBase {
         this._elementRef = _elementRef;
     }
 }
+/**
+ * Base class to which we're applying the form field mixins.
+ * \@docs-private
+ */
 const /** @type {?} */ _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
+/**
+ * Injection token that can be used to configure the
+ * default options for all form field within an app.
+ */
 const /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
 /**
  * Container for form controls that applies Material Design styling and behavior.

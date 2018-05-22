@@ -2970,9 +2970,11 @@ var /** @type {?} */ nextUniqueId$2 = 0;
 var /** @type {?} */ floatingLabelScale = 0.75;
 var /** @type {?} */ outlineGapPadding = 5;
 /**
+ * Boilerplate for applying mixins to MatFormField.
  * \@docs-private
  */
 var   /**
+ * Boilerplate for applying mixins to MatFormField.
  * \@docs-private
  */
 MatFormFieldBase = /** @class */ (function () {
@@ -2981,7 +2983,15 @@ MatFormFieldBase = /** @class */ (function () {
     }
     return MatFormFieldBase;
 }());
+/**
+ * Base class to which we're applying the form field mixins.
+ * \@docs-private
+ */
 var /** @type {?} */ _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
+/**
+ * Injection token that can be used to configure the
+ * default options for all form field within an app.
+ */
 var /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new core.InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
 /**
  * Container for form controls that applies Material Design styling and behavior.
@@ -32346,7 +32356,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.1.0-fb5cdb2');
+var /** @type {?} */ VERSION = new core.Version('6.1.0-984f8dc');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -32598,12 +32608,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32730,17 +32740,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
