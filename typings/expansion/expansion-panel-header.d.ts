@@ -8,7 +8,6 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ChangeDetectorRef, ElementRef, OnDestroy } from '@angular/core';
 import { MatExpansionPanel } from './expansion-panel';
-import { MatAccordion } from './accordion';
 /**
  * `<mat-expansion-panel-header>`
  *
@@ -20,7 +19,7 @@ export declare class MatExpansionPanelHeader implements OnDestroy {
     private _focusMonitor;
     private _changeDetectorRef;
     private _parentChangeSubscription;
-    constructor(accordion: MatAccordion, panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef);
+    constructor(panel: MatExpansionPanel, _element: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef);
     /** Height of the header while the panel is expanded. */
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */
@@ -34,9 +33,7 @@ export declare class MatExpansionPanelHeader implements OnDestroy {
     /** Gets the panel id. */
     _getPanelId(): string;
     /** Gets whether the expand indicator should be shown. */
-    _isToggleVisible(): boolean;
-    /** Whether the expand indicator should be shown before the header content */
-    _placeToggleBefore(): boolean;
+    _showToggle(): boolean;
     /** Handle keydown event calling to toggle() if appropriate. */
     _keydown(event: KeyboardEvent): void;
     ngOnDestroy(): void;

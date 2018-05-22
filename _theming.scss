@@ -982,7 +982,7 @@ $mat-orange: (
   600: #fb8c00,
   700: #f57c00,
   800: #ef6c00,
-  900: #e6.1.0-51d859f,
+  900: #e6.1.0-f1f34bc,
   A100: #ffd180,
   A200: #ffab40,
   A400: #ff9100,
@@ -2541,7 +2541,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
   }
 
   .mat-expansion-panel-header-description,
-  .mat-expansion-indicator {
+  .mat-expansion-indicator::after {
     color: mat-color($foreground, secondary-text);
   }
 

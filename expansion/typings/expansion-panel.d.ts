@@ -11,7 +11,7 @@ import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { AfterContentInit, ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
-import { MatAccordion, MatAccordionTogglePosition } from './accordion';
+import { MatAccordion } from './accordion';
 import { MatExpansionPanelContent } from './expansion-panel-content';
 /** MatExpansionPanel's states. */
 export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
@@ -26,9 +26,6 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     /** Whether the toggle indicator should be hidden. */
     hideToggle: boolean;
     private _hideToggle;
-    /** The positioning of the expansion indicator. */
-    togglePosition: MatAccordionTogglePosition;
-    private _togglePosition;
     /** Stream that emits for changes in `@Input` properties. */
     readonly _inputChanges: Subject<SimpleChanges>;
     /** Optionally defined accordion the expansion panel belongs to. */
