@@ -14241,6 +14241,10 @@ var MatAccordion = /** @class */ (function (_super) {
     __extends(MatAccordion, _super);
     function MatAccordion() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
+        /**
+         * Stream that emits for changes in `\@Input` properties.
+         */
+        _this._inputChanges = new rxjs.Subject();
         _this._hideToggle = false;
         /**
          * The display mode used for all expansion panels in the accordion. Currently two display
@@ -14251,6 +14255,10 @@ var MatAccordion = /** @class */ (function (_super) {
          *     elevation.
          */
         _this.displayMode = 'default';
+        /**
+         * The positioning of the expansion indicator.
+         */
+        _this.togglePosition = 'after';
         return _this;
     }
     Object.defineProperty(MatAccordion.prototype, "hideToggle", {
@@ -14267,6 +14275,26 @@ var MatAccordion = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @param {?} changes
+     * @return {?}
+     */
+    MatAccordion.prototype.ngOnChanges = /**
+     * @param {?} changes
+     * @return {?}
+     */
+    function (changes) {
+        this._inputChanges.next(changes);
+    };
+    /**
+     * @return {?}
+     */
+    MatAccordion.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._inputChanges.complete();
+    };
     MatAccordion.decorators = [
         { type: core.Directive, args: [{
                     selector: 'mat-accordion',
@@ -14280,9 +14308,34 @@ var MatAccordion = /** @class */ (function (_super) {
     MatAccordion.propDecorators = {
         "hideToggle": [{ type: core.Input },],
         "displayMode": [{ type: core.Input },],
+        "togglePosition": [{ type: core.Input },],
     };
     return MatAccordion;
 }(accordion.CdkAccordion));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Expansion panel content that will be rendered lazily
+ * after the panel is opened for the first time.
+ */
+var MatExpansionPanelContent = /** @class */ (function () {
+    function MatExpansionPanelContent(_template) {
+        this._template = _template;
+    }
+    MatExpansionPanelContent.decorators = [
+        { type: core.Directive, args: [{
+                    selector: 'ng-template[matExpansionPanelContent]'
+                },] },
+    ];
+    /** @nocollapse */
+    MatExpansionPanelContent.ctorParameters = function () { return [
+        { type: core.TemplateRef, },
+    ]; };
+    return MatExpansionPanelContent;
+}());
 
 /**
  * @fileoverview added by tsickle
@@ -14298,8 +14351,8 @@ var /** @type {?} */ EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,
 var /** @type {?} */ matExpansionAnimations = {
     /** Animation that rotates the indicator arrow. */
     indicatorRotate: animations$1.trigger('indicatorRotate', [
-        animations$1.state('collapsed', animations$1.style({ transform: 'rotate(0deg)' })),
-        animations$1.state('expanded', animations$1.style({ transform: 'rotate(180deg)' })),
+        animations$1.state('collapsed', animations$1.style({ transform: 'rotate(45deg)' })),
+        animations$1.state('expanded', animations$1.style({ transform: 'rotate(225deg)' })),
         animations$1.transition('expanded <=> collapsed', animations$1.animate(EXPANSION_PANEL_ANIMATION_TIMING)),
     ]),
     /** Animation that expands and collapses the panel header height. */
@@ -14332,30 +14385,6 @@ var /** @type {?} */ matExpansionAnimations = {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Expansion panel content that will be rendered lazily
- * after the panel is opened for the first time.
- */
-var MatExpansionPanelContent = /** @class */ (function () {
-    function MatExpansionPanelContent(_template) {
-        this._template = _template;
-    }
-    MatExpansionPanelContent.decorators = [
-        { type: core.Directive, args: [{
-                    selector: 'ng-template[matExpansionPanelContent]'
-                },] },
-    ];
-    /** @nocollapse */
-    MatExpansionPanelContent.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
-    ]; };
-    return MatExpansionPanelContent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * Counter for generating unique element ids.
  */
 var /** @type {?} */ uniqueId$1 = 0;
@@ -14371,6 +14400,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         var _this = _super.call(this, accordion$$1, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
         _this._viewContainerRef = _viewContainerRef;
         _this._hideToggle = false;
+        _this._togglePosition = 'after';
         /**
          * Stream that emits for changes in `\@Input` properties.
          */
@@ -14394,6 +14424,24 @@ var MatExpansionPanel = /** @class */ (function (_super) {
          */
         function (value) {
             this._hideToggle = coercion.coerceBooleanProperty(value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatExpansionPanel.prototype, "togglePosition", {
+        get: /**
+         * The positioning of the expansion indicator.
+         * @return {?}
+         */
+        function () {
+            return this.accordion ? this.accordion.togglePosition : this._togglePosition;
+        },
+        set: /**
+         * @param {?} position
+         * @return {?}
+         */
+        function (position) {
+            this._togglePosition = position;
         },
         enumerable: true,
         configurable: true
@@ -14525,6 +14573,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     ]; };
     MatExpansionPanel.propDecorators = {
         "hideToggle": [{ type: core.Input },],
+        "togglePosition": [{ type: core.Input },],
         "_lazyContent": [{ type: core.ContentChild, args: [MatExpansionPanelContent,] },],
     };
     return MatExpansionPanel;
@@ -14553,16 +14602,20 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
  * This component corresponds to the header element of an `<mat-expansion-panel>`.
  */
 var MatExpansionPanelHeader = /** @class */ (function () {
-    function MatExpansionPanelHeader(panel, _element, _focusMonitor, _changeDetectorRef) {
+    function MatExpansionPanelHeader(accordion$$1, panel, _element, _focusMonitor, _changeDetectorRef) {
         var _this = this;
         this.panel = panel;
         this._element = _element;
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._parentChangeSubscription = rxjs.Subscription.EMPTY;
+        var /** @type {?} */ changeStreams = [panel._inputChanges];
+        if (accordion$$1) {
+            changeStreams.push(accordion$$1._inputChanges);
+        }
         // Since the toggle state depends on an @Input on the panel, we
-        // need to  subscribe and trigger change detection manually.
-        this._parentChangeSubscription = rxjs.merge(panel.opened, panel.closed, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
+        // need to subscribe and trigger change detection manually.
+        this._parentChangeSubscription = rxjs.merge(panel.opened, panel.closed, rxjs.merge.apply(void 0, changeStreams).pipe(operators.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"] || changes["togglePosition"]); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         _focusMonitor.monitor(_element.nativeElement);
     }
@@ -14619,12 +14672,24 @@ var MatExpansionPanelHeader = /** @class */ (function () {
      * Gets whether the expand indicator should be shown.
      * @return {?}
      */
-    MatExpansionPanelHeader.prototype._showToggle = /**
+    MatExpansionPanelHeader.prototype._isToggleVisible = /**
      * Gets whether the expand indicator should be shown.
      * @return {?}
      */
     function () {
         return !this.panel.hideToggle && !this.panel.disabled;
+    };
+    /** Whether the expand indicator should be shown before the header content */
+    /**
+     * Whether the expand indicator should be shown before the header content
+     * @return {?}
+     */
+    MatExpansionPanelHeader.prototype._placeToggleBefore = /**
+     * Whether the expand indicator should be shown before the header content
+     * @return {?}
+     */
+    function () {
+        return this.panel.togglePosition === 'before';
     };
     /** Handle keydown event calling to toggle() if appropriate. */
     /**
@@ -14661,8 +14726,8 @@ var MatExpansionPanelHeader = /** @class */ (function () {
     };
     MatExpansionPanelHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-expansion-panel-header',
-                    styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 24px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex-grow:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex-grow:2}.mat-expansion-indicator::after{border-style:solid;border-width:0 2px 2px 0;content:'';display:inline-block;padding:3px;transform:rotate(45deg);vertical-align:middle}"],
-                    template: "<span class=\"mat-content\"><ng-content select=\"mat-panel-title\"></ng-content><ng-content select=\"mat-panel-description\"></ng-content><ng-content></ng-content></span><span [@indicatorRotate]=\"_getExpandedState()\" *ngIf=\"_showToggle()\" class=\"mat-expansion-indicator\"></span>",
+                    styles: [".mat-expansion-panel-header{display:flex;flex-direction:row;align-items:center;padding:0 16px}.mat-expansion-panel-header:focus,.mat-expansion-panel-header:hover{outline:0}.mat-expansion-panel-header.mat-expanded:focus,.mat-expansion-panel-header.mat-expanded:hover{background:inherit}.mat-expansion-panel-header:not([aria-disabled=true]){cursor:pointer}.mat-content{display:flex;flex:1;flex-direction:row;overflow:hidden;padding-left:8px}.mat-expansion-panel-header-description,.mat-expansion-panel-header-title{display:flex;flex:1;margin-right:16px}[dir=rtl] .mat-expansion-panel-header-description,[dir=rtl] .mat-expansion-panel-header-title{margin-right:0;margin-left:16px}.mat-expansion-panel-header-description{flex:2}.mat-expansion-indicator-container{margin-bottom:1.41px;padding:0 8px 0 0;width:8px;order:1}.mat-expansion-indicator-container.mat-expansion-indicator-container-before{order:-1;padding:0 8px}.mat-expansion-indicator{border-style:solid;border-width:0 2px 2px 0;display:block;height:6px;transform:rotate(45deg);transform-origin:5.65px 5.65px;width:6px}"],
+                    template: "<span class=\"mat-content\"><ng-content select=\"mat-panel-title\"></ng-content><ng-content select=\"mat-panel-description\"></ng-content><ng-content></ng-content></span><div class=\"mat-expansion-indicator-container\" [class.mat-expansion-indicator-container-before]=\"_placeToggleBefore()\"><span *ngIf=\"_isToggleVisible()\" class=\"mat-expansion-indicator\" [@indicatorRotate]=\"_getExpandedState()\"></span></div>",
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     animations: [
@@ -14686,6 +14751,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatExpansionPanelHeader.ctorParameters = function () { return [
+        { type: MatAccordion, decorators: [{ type: core.Optional },] },
         { type: MatExpansionPanel, decorators: [{ type: core.Host },] },
         { type: core.ElementRef, },
         { type: a11y.FocusMonitor, },
@@ -32356,7 +32422,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.1.0-b9041e3');
+var /** @type {?} */ VERSION = new core.Version('6.1.0-51d859f');
 
 exports.VERSION = VERSION;
 exports.ɵa28 = MatAutocompleteOrigin;
@@ -32608,12 +32674,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32740,17 +32806,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf22 = MatTabBase;
+exports.ɵg22 = _MatTabMixinBase;
+exports.ɵb22 = MatTabHeaderBase;
+exports.ɵc22 = _MatTabHeaderMixinBase;
+exports.ɵd22 = MatTabLabelWrapperBase;
+exports.ɵe22 = _MatTabLabelWrapperMixinBase;
+exports.ɵj22 = MatTabLinkBase;
+exports.ɵh22 = MatTabNavBase;
+exports.ɵk22 = _MatTabLinkMixinBase;
+exports.ɵi22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
