@@ -11,7 +11,7 @@ import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkFoo
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
-import { BehaviorSubject, combineLatest, merge, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, merge, of, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 /**
@@ -448,6 +448,11 @@ MatTableDataSource = /** @class */ (function (_super) {
          */
         _this._filter = new BehaviorSubject('');
         /**
+         * Subscription to the changes that should trigger an update to the table's rendered rows, such
+         * as filtering, sorting, pagination, or base data changes.
+         */
+        _this._renderChangesSubscription = Subscription.EMPTY;
+        /**
          * Data accessor function that is used for accessing data properties for sorting through
          * the default sortData function.
          * This default function assumes that the sort header IDs (which defaults to the column name)
@@ -644,9 +649,6 @@ MatTableDataSource = /** @class */ (function (_super) {
         var /** @type {?} */ pageChange = this._paginator ?
             merge(this._paginator.page, this._paginator.initialized) :
             of(null);
-        if (this._renderChangesSubscription) {
-            this._renderChangesSubscription.unsubscribe();
-        }
         var /** @type {?} */ dataStream = this._data;
         // Watch for base data or filter changes to provide a filtered set of data.
         var /** @type {?} */ filteredData = combineLatest(dataStream, this._filter)
@@ -667,7 +669,8 @@ MatTableDataSource = /** @class */ (function (_super) {
             return _this._pageData(data);
         }));
         // Watched for paged data changes and send the result to the table to render.
-        paginatedData.subscribe(function (data) { return _this._renderData.next(data); });
+        this._renderChangesSubscription.unsubscribe();
+        this._renderChangesSubscription = paginatedData.subscribe(function (data) { return _this._renderData.next(data); });
     };
     /**
      * Returns a filtered data array where each filter object contains the filter string within

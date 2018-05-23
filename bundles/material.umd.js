@@ -29203,6 +29203,11 @@ MatTableDataSource = /** @class */ (function (_super) {
          */
         _this._filter = new rxjs.BehaviorSubject('');
         /**
+         * Subscription to the changes that should trigger an update to the table's rendered rows, such
+         * as filtering, sorting, pagination, or base data changes.
+         */
+        _this._renderChangesSubscription = rxjs.Subscription.EMPTY;
+        /**
          * Data accessor function that is used for accessing data properties for sorting through
          * the default sortData function.
          * This default function assumes that the sort header IDs (which defaults to the column name)
@@ -29399,9 +29404,6 @@ MatTableDataSource = /** @class */ (function (_super) {
         var /** @type {?} */ pageChange = this._paginator ?
             rxjs.merge(this._paginator.page, this._paginator.initialized) :
             rxjs.of(null);
-        if (this._renderChangesSubscription) {
-            this._renderChangesSubscription.unsubscribe();
-        }
         var /** @type {?} */ dataStream = this._data;
         // Watch for base data or filter changes to provide a filtered set of data.
         var /** @type {?} */ filteredData = rxjs.combineLatest(dataStream, this._filter)
@@ -29422,7 +29424,8 @@ MatTableDataSource = /** @class */ (function (_super) {
             return _this._pageData(data);
         }));
         // Watched for paged data changes and send the result to the table to render.
-        paginatedData.subscribe(function (data) { return _this._renderData.next(data); });
+        this._renderChangesSubscription.unsubscribe();
+        this._renderChangesSubscription = paginatedData.subscribe(function (data) { return _this._renderData.next(data); });
     };
     /**
      * Returns a filtered data array where each filter object contains the filter string within
@@ -32356,10 +32359,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.1.0-4b2cc1a');
+var /** @type {?} */ VERSION = new core.Version('6.1.0-9313f18');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32608,12 +32611,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32740,17 +32743,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
