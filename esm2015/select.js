@@ -1139,8 +1139,9 @@ class MatSelect extends _MatSelectMixinBase {
             offsetX -= rightOverflow + SELECT_PANEL_VIEWPORT_PADDING;
         }
         // Set the offset directly in order to avoid having to go through change detection and
-        // potentially triggering "changed after it was checked" errors.
-        this.overlayDir.offsetX = offsetX;
+        // potentially triggering "changed after it was checked" errors. Round the value to avoid
+        // blurry content in some browsers.
+        this.overlayDir.offsetX = Math.round(offsetX);
         this.overlayDir.overlayRef.updatePosition();
     }
     /**
@@ -1182,10 +1183,10 @@ class MatSelect extends _MatSelectMixinBase {
             // center it.
             optionOffsetFromPanelTop = scrollBuffer - itemHeight / 2;
         }
-        // The final offset is the option's offset from the top, adjusted for the height
-        // difference, multiplied by -1 to ensure that the overlay moves in the correct
-        // direction up the page.
-        return optionOffsetFromPanelTop * -1 - optionHeightAdjustment;
+        // The final offset is the option's offset from the top, adjusted for the height difference,
+        // multiplied by -1 to ensure that the overlay moves in the correct direction up the page.
+        // The value is rounded to prevent some browsers from blurring the content.
+        return Math.round(optionOffsetFromPanelTop * -1 - optionHeightAdjustment);
     }
     /**
      * Checks that the attempted overlay position will fit within the viewport.
