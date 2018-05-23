@@ -25,6 +25,7 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
      */
     private _platform;
     private _focusMonitor;
+    _animationMode: string | undefined;
     /** Whether the button is round. */
     readonly isRoundButton: boolean;
     /** Whether the button is icon button. */
@@ -36,7 +37,7 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
          * @deprecated Platform checks for SSR are no longer needed
          * @deletion-target 7.0.0
          */
-        _platform: Platform, _focusMonitor: FocusMonitor);
+        _platform: Platform, _focusMonitor: FocusMonitor, _animationMode?: string | undefined);
     ngOnDestroy(): void;
     /** Focuses the button. */
     focus(): void;
@@ -49,6 +50,6 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
  * Raised Material design button.
  */
 export declare class MatAnchor extends MatButton {
-    constructor(platform: Platform, focusMonitor: FocusMonitor, elementRef: ElementRef);
+    constructor(platform: Platform, focusMonitor: FocusMonitor, elementRef: ElementRef, animationMode?: string);
     _haltDisabledEvents(event: Event): void;
 }
