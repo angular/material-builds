@@ -34,6 +34,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     private _focusMonitor;
     private _changeDetectorRef;
     private _ngZone;
+    _animationMode: string | undefined;
     private onChange;
     private onTouched;
     private _uniqueId;
@@ -81,7 +82,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
          * @deprecated The `_platform` parameter to be removed.
          * @deletion-target 7.0.0
          */
-        _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone);
+        _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone, _animationMode?: string | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Method being called whenever the underlying input emits a change event. */

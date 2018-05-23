@@ -2330,7 +2330,7 @@ var MatDatepicker = /** @class */ (function () {
     function () {
         var _this = this;
         this._dialogRef = this._dialog.open(MatDatepickerContent, {
-            direction: this._getDirection(),
+            direction: this._dir ? this._dir.value : 'ltr',
             viewContainerRef: this._viewContainerRef,
             panelClass: 'mat-datepicker-dialog',
         });
@@ -2355,7 +2355,6 @@ var MatDatepicker = /** @class */ (function () {
             this._createPopup();
         }
         if (!this._popupRef.hasAttached()) {
-            this._popupRef.setDirection(this._getDirection());
             this._popupComponentRef = this._popupRef.attach(this._calendarPortal);
             this._popupComponentRef.instance.datepicker = this;
             this._setColor();
@@ -2379,7 +2378,7 @@ var MatDatepicker = /** @class */ (function () {
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
             backdropClass: 'mat-overlay-transparent-backdrop',
-            direction: this._getDirection(),
+            direction: this._dir,
             scrollStrategy: this._scrollStrategy(),
             panelClass: 'mat-datepicker-popup',
         });
@@ -2459,17 +2458,6 @@ var MatDatepicker = /** @class */ (function () {
         if (this._dialogRef) {
             this._dialogRef.componentInstance.color = color;
         }
-    };
-    /**
-     * Returns the layout direction of the datepicker.
-     * @return {?}
-     */
-    MatDatepicker.prototype._getDirection = /**
-     * Returns the layout direction of the datepicker.
-     * @return {?}
-     */
-    function () {
-        return this._dir ? this._dir.value : 'ltr';
     };
     MatDatepicker.decorators = [
         { type: Component, args: [{selector: 'mat-datepicker',

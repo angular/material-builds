@@ -704,7 +704,6 @@ class MatAutocompleteTrigger {
         else {
             // Update the panel width and direction, in case anything has changed.
             this._overlayRef.updateSize({ width: this._getHostWidth() });
-            this._overlayRef.setDirection(this._getDirection());
         }
         if (this._overlayRef && !this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
@@ -727,7 +726,7 @@ class MatAutocompleteTrigger {
             positionStrategy: this._getOverlayPosition(),
             scrollStrategy: this._scrollStrategy(),
             width: this._getHostWidth(),
-            direction: this._getDirection()
+            direction: this._dir
         });
     }
     /**
@@ -743,12 +742,6 @@ class MatAutocompleteTrigger {
             { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom' }
         ]);
         return this._positionStrategy;
-    }
-    /**
-     * @return {?}
-     */
-    _getDirection() {
-        return this._dir ? this._dir.value : 'ltr';
     }
     /**
      * @return {?}
@@ -854,5 +847,5 @@ MatAutocompleteModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa28 };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa25 };
 //# sourceMappingURL=autocomplete.js.map

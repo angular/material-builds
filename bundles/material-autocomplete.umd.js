@@ -881,7 +881,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         else {
             // Update the panel width and direction, in case anything has changed.
             this._overlayRef.updateSize({ width: this._getHostWidth() });
-            this._overlayRef.setDirection(this._getDirection());
         }
         if (this._overlayRef && !this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
@@ -907,7 +906,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             positionStrategy: this._getOverlayPosition(),
             scrollStrategy: this._scrollStrategy(),
             width: this._getHostWidth(),
-            direction: this._getDirection()
+            direction: this._dir
         });
     };
     /**
@@ -926,15 +925,6 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom' }
         ]);
         return this._positionStrategy;
-    };
-    /**
-     * @return {?}
-     */
-    MatAutocompleteTrigger.prototype._getDirection = /**
-     * @return {?}
-     */
-    function () {
-        return this._dir ? this._dir.value : 'ltr';
     };
     /**
      * @return {?}
@@ -1065,7 +1055,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCR
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa25 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

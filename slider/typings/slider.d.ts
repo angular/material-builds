@@ -36,6 +36,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private _focusMonitor;
     private _changeDetectorRef;
     private _dir;
+    _animationMode: string | undefined;
     /** Whether the slider is inverted. */
     invert: boolean;
     private _invert;
@@ -145,7 +146,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private readonly _invertMouseCoords;
     /** The language direction for this slider element. */
     private readonly _direction;
-    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, tabIndex: string);
+    constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, tabIndex: string, _animationMode?: string | undefined);
     ngOnInit(): void;
     ngOnDestroy(): void;
     _onMouseenter(): void;
