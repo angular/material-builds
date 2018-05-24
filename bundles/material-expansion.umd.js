@@ -166,7 +166,6 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * Counter for generating unique element ids.
  */
 var /** @type {?} */ uniqueId = 0;
-var ɵ0 = undefined;
 /**
  * `<mat-expansion-panel>`
  *
@@ -317,11 +316,6 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     inputs: ['disabled', 'expanded'],
                     outputs: ['opened', 'closed', 'expandedChange'],
                     animations: [matExpansionAnimations.bodyExpansion],
-                    providers: [
-                        // Provide MatAccordion as undefined to prevent nested expansion panels from registering
-                        // to the same accordion.
-                        { provide: MatAccordion, useValue: ɵ0 },
-                    ],
                     host: {
                         'class': 'mat-expansion-panel',
                         '[class.mat-expanded]': 'expanded',
@@ -331,7 +325,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatExpansionPanel.ctorParameters = function () { return [
-        { type: MatAccordion, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
+        { type: MatAccordion, decorators: [{ type: core.Optional },] },
         { type: core.ChangeDetectorRef, },
         { type: collections.UniqueSelectionDispatcher, },
         { type: core.ViewContainerRef, },

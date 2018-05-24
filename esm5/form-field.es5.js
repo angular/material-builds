@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, Input, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, Inject, InjectionToken, NgZone, Optional, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { Directive, Input, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, Inject, InjectionToken, Optional, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { __extends } from 'tslib';
 import { Directionality } from '@angular/cdk/bidi';
@@ -263,14 +263,13 @@ var /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken('MAT_FO
  */
 var MatFormField = /** @class */ (function (_super) {
     __extends(MatFormField, _super);
-    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions, _platform, _ngZone) {
+    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions, _platform) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
         _this._defaultOptions = _defaultOptions;
         _this._platform = _platform;
-        _this._ngZone = _ngZone;
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
@@ -449,18 +448,7 @@ var MatFormField = /** @class */ (function (_super) {
         var _this = this;
         this._validateControlChild();
         if (!this._initialGapCalculated) {
-            // @deletion-target 7.0.0 Remove this check and else block once _ngZone is required.
-            if (this._ngZone) {
-                // It's important that we run this outside the `_ngZone`, because the `Promise.resolve`
-                // can kick us into an infinite change detection loop, if the `_initialGapCalculated`
-                // wasn't flipped on for some reason.
-                this._ngZone.runOutsideAngular(function () {
-                    Promise.resolve().then(function () { return _this.updateOutlineGap(); });
-                });
-            }
-            else {
-                Promise.resolve().then(function () { return _this.updateOutlineGap(); });
-            }
+            Promise.resolve().then(function () { return _this.updateOutlineGap(); });
         }
     };
     /**
@@ -487,7 +475,7 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function (prop) {
         var /** @type {?} */ ngControl = this._control ? this._control.ngControl : null;
-        return ngControl && ngControl[prop];
+        return ngControl && (/** @type {?} */ (ngControl))[prop];
     };
     /**
      * @return {?}
@@ -775,7 +763,6 @@ var MatFormField = /** @class */ (function (_super) {
         { type: Directionality, decorators: [{ type: Optional },] },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] },] },
         { type: Platform, },
-        { type: NgZone, },
     ]; };
     MatFormField.propDecorators = {
         "appearance": [{ type: Input },],
