@@ -2998,13 +2998,14 @@ var /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new core.InjectionToken('M
  */
 var MatFormField = /** @class */ (function (_super) {
     __extends(MatFormField, _super);
-    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions, _platform) {
+    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions, _platform, _ngZone) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
         _this._defaultOptions = _defaultOptions;
         _this._platform = _platform;
+        _this._ngZone = _ngZone;
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
@@ -3183,7 +3184,18 @@ var MatFormField = /** @class */ (function (_super) {
         var _this = this;
         this._validateControlChild();
         if (!this._initialGapCalculated) {
-            Promise.resolve().then(function () { return _this.updateOutlineGap(); });
+            // @deletion-target 7.0.0 Remove this check and else block once _ngZone is required.
+            if (this._ngZone) {
+                // It's important that we run this outside the `_ngZone`, because the `Promise.resolve`
+                // can kick us into an infinite change detection loop, if the `_initialGapCalculated`
+                // wasn't flipped on for some reason.
+                this._ngZone.runOutsideAngular(function () {
+                    Promise.resolve().then(function () { return _this.updateOutlineGap(); });
+                });
+            }
+            else {
+                Promise.resolve().then(function () { return _this.updateOutlineGap(); });
+            }
         }
     };
     /**
@@ -3210,7 +3222,7 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function (prop) {
         var /** @type {?} */ ngControl = this._control ? this._control.ngControl : null;
-        return ngControl && (/** @type {?} */ (ngControl))[prop];
+        return ngControl && ngControl[prop];
     };
     /**
      * @return {?}
@@ -3498,6 +3510,7 @@ var MatFormField = /** @class */ (function (_super) {
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] },] },
         { type: platform.Platform, },
+        { type: core.NgZone, },
     ]; };
     MatFormField.propDecorators = {
         "appearance": [{ type: core.Input },],
@@ -14346,6 +14359,7 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * Counter for generating unique element ids.
  */
 var /** @type {?} */ uniqueId$1 = 0;
+var ɵ0$3 = undefined;
 /**
  * `<mat-expansion-panel>`
  *
@@ -14496,6 +14510,11 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     inputs: ['disabled', 'expanded'],
                     outputs: ['opened', 'closed', 'expandedChange'],
                     animations: [matExpansionAnimations.bodyExpansion],
+                    providers: [
+                        // Provide MatAccordion as undefined to prevent nested expansion panels from registering
+                        // to the same accordion.
+                        { provide: MatAccordion, useValue: ɵ0$3 },
+                    ],
                     host: {
                         'class': 'mat-expansion-panel',
                         '[class.mat-expanded]': 'expanded',
@@ -14505,7 +14524,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatExpansionPanel.ctorParameters = function () { return [
-        { type: MatAccordion, decorators: [{ type: core.Optional },] },
+        { type: MatAccordion, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
         { type: core.ChangeDetectorRef, },
         { type: collections.UniqueSelectionDispatcher, },
         { type: core.ViewContainerRef, },
@@ -32355,10 +32374,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.1.0-cdbb3e1');
+var /** @type {?} */ VERSION = new core.Version('6.1.0-69e4ca7');
 
 exports.VERSION = VERSION;
-exports.ɵa26 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32607,12 +32626,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb21 = MatMenuItemBase;
-exports.ɵc21 = _MatMenuItemMixinBase;
-exports.ɵf21 = MAT_MENU_PANEL;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32739,17 +32758,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa17 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf17 = MatTabBase;
+exports.ɵg17 = _MatTabMixinBase;
+exports.ɵb17 = MatTabHeaderBase;
+exports.ɵc17 = _MatTabHeaderMixinBase;
+exports.ɵd17 = MatTabLabelWrapperBase;
+exports.ɵe17 = _MatTabLabelWrapperMixinBase;
+exports.ɵj17 = MatTabLinkBase;
+exports.ɵh17 = MatTabNavBase;
+exports.ɵk17 = _MatTabLinkMixinBase;
+exports.ɵi17 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
