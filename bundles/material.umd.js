@@ -14359,6 +14359,7 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * Counter for generating unique element ids.
  */
 var /** @type {?} */ uniqueId$1 = 0;
+var ɵ0$3 = undefined;
 /**
  * `<mat-expansion-panel>`
  *
@@ -14509,6 +14510,11 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     inputs: ['disabled', 'expanded'],
                     outputs: ['opened', 'closed', 'expandedChange'],
                     animations: [matExpansionAnimations.bodyExpansion],
+                    providers: [
+                        // Provide MatAccordion as undefined to prevent nested expansion panels from registering
+                        // to the same accordion.
+                        { provide: MatAccordion, useValue: ɵ0$3 },
+                    ],
                     host: {
                         'class': 'mat-expansion-panel',
                         '[class.mat-expanded]': 'expanded',
@@ -14518,7 +14524,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatExpansionPanel.ctorParameters = function () { return [
-        { type: MatAccordion, decorators: [{ type: core.Optional },] },
+        { type: MatAccordion, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
         { type: core.ChangeDetectorRef, },
         { type: collections.UniqueSelectionDispatcher, },
         { type: core.ViewContainerRef, },
@@ -32368,10 +32374,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.1.0-e592615');
+var /** @type {?} */ VERSION = new core.Version('6.1.0-9bf720a');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32450,7 +32456,7 @@ exports.MatChip = MatChip;
 exports.MatChipRemove = MatChipRemove;
 exports.MatChipInput = MatChipInput;
 exports.MAT_CHIPS_DEFAULT_OPTIONS = MAT_CHIPS_DEFAULT_OPTIONS;
-exports.ɵa1 = MATERIAL_SANITY_CHECKS_FACTORY;
+exports.ɵa0 = MATERIAL_SANITY_CHECKS_FACTORY;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MatCommonModule = MatCommonModule;
@@ -32752,17 +32758,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa9 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf9 = MatTabBase;
+exports.ɵg9 = _MatTabMixinBase;
+exports.ɵb9 = MatTabHeaderBase;
+exports.ɵc9 = _MatTabHeaderMixinBase;
+exports.ɵd9 = MatTabLabelWrapperBase;
+exports.ɵe9 = _MatTabLabelWrapperMixinBase;
+exports.ɵj9 = MatTabLinkBase;
+exports.ɵh9 = MatTabNavBase;
+exports.ɵk9 = _MatTabLinkMixinBase;
+exports.ɵi9 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

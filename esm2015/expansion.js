@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Optional, ViewContainerRef, ViewEncapsulation, ElementRef, Host, NgModule } from '@angular/core';
+import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Optional, SkipSelf, ViewContainerRef, ViewEncapsulation, ElementRef, Host, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
 import { animate, animateChild, group, state, style, transition, trigger, query } from '@angular/animations';
@@ -141,6 +141,7 @@ MatExpansionPanelContent.ctorParameters = () => [
  * Counter for generating unique element ids.
  */
 let /** @type {?} */ uniqueId = 0;
+const ɵ0 = undefined;
 /**
  * `<mat-expansion-panel>`
  *
@@ -262,6 +263,11 @@ MatExpansionPanel.decorators = [
                 inputs: ['disabled', 'expanded'],
                 outputs: ['opened', 'closed', 'expandedChange'],
                 animations: [matExpansionAnimations.bodyExpansion],
+                providers: [
+                    // Provide MatAccordion as undefined to prevent nested expansion panels from registering
+                    // to the same accordion.
+                    { provide: MatAccordion, useValue: ɵ0 },
+                ],
                 host: {
                     'class': 'mat-expansion-panel',
                     '[class.mat-expanded]': 'expanded',
@@ -271,7 +277,7 @@ MatExpansionPanel.decorators = [
 ];
 /** @nocollapse */
 MatExpansionPanel.ctorParameters = () => [
-    { type: MatAccordion, decorators: [{ type: Optional },] },
+    { type: MatAccordion, decorators: [{ type: Optional }, { type: SkipSelf },] },
     { type: ChangeDetectorRef, },
     { type: UniqueSelectionDispatcher, },
     { type: ViewContainerRef, },
