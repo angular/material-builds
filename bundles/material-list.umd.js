@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/forms'), require('rxjs'), require('@angular/common'), require('@angular/material/divider')) :
 	typeof define === 'function' && define.amd ? define('@angular/material/list', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/forms', 'rxjs', '@angular/common', '@angular/material/divider'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.list = {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.forms,global.Rx,global.ng.common,global.ng.material.divider));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.list = {}),global.ng.core,global.ng.material.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.forms,global.rxjs,global.ng.common,global.ng.material.divider));
 }(this, (function (exports,core,core$1,a11y,coercion,collections,keycodes,forms,rxjs,common,divider) { 'use strict';
 
 /*! *****************************************************************************

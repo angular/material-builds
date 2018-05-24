@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/cdk/accordion'), require('@angular/animations'), require('@angular/cdk/collections'), require('@angular/cdk/portal'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/keycodes'), require('@angular/common')) :
 	typeof define === 'function' && define.amd ? define('@angular/material/expansion', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/cdk/accordion', '@angular/animations', '@angular/cdk/collections', '@angular/cdk/portal', 'rxjs', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/keycodes', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = {}),global.ng.core,global.ng.cdk.coercion,global.ng.cdk.accordion,global.ng.animations,global.ng.cdk.collections,global.ng.cdk.portal,global.Rx,global.Rx.operators,global.ng.cdk.a11y,global.ng.cdk.keycodes,global.ng.common));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.expansion = {}),global.ng.core,global.ng.cdk.coercion,global.ng.cdk.accordion,global.ng.animations,global.ng.cdk.collections,global.ng.cdk.portal,global.rxjs,global.rxjs.operators,global.ng.cdk.a11y,global.ng.cdk.keycodes,global.ng.common));
 }(this, (function (exports,core,coercion,accordion,animations,collections,portal,rxjs,operators,a11y,keycodes,common) { 'use strict';
 
 /*! *****************************************************************************

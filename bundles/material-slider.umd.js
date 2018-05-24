@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('rxjs'), require('@angular/platform-browser/animations'), require('@angular/common'), require('@angular/platform-browser')) :
 	typeof define === 'function' && define.amd ? define('@angular/material/slider', ['exports', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/core', '@angular/forms', '@angular/material/core', 'rxjs', '@angular/platform-browser/animations', '@angular/common', '@angular/platform-browser'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slider = {}),global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.core,global.ng.forms,global.ng.material.core,global.Rx,global.ng.platformBrowser.animations,global.ng.common,global.ng.platformBrowser));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slider = {}),global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.core,global.ng.forms,global.ng.material.core,global.rxjs,global.ng.platformBrowser.animations,global.ng.common,global.ng.platformBrowser));
 }(this, (function (exports,a11y,bidi,coercion,keycodes,core,forms,core$1,rxjs,animations,common,platformBrowser) { 'use strict';
 
 /*! *****************************************************************************

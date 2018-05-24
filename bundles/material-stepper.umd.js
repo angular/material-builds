@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/stepper'), require('rxjs'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/material/core'), require('rxjs/operators'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/material/button'), require('@angular/material/icon')) :
 	typeof define === 'function' && define.amd ? define('@angular/material/stepper', ['exports', '@angular/core', '@angular/cdk/stepper', 'rxjs', '@angular/cdk/a11y', '@angular/animations', '@angular/cdk/bidi', '@angular/material/core', 'rxjs/operators', '@angular/cdk/portal', '@angular/common', '@angular/material/button', '@angular/material/icon'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.stepper = {}),global.ng.core,global.ng.cdk.stepper,global.Rx,global.ng.cdk.a11y,global.ng.animations,global.ng.cdk.bidi,global.ng.material.core,global.Rx.operators,global.ng.cdk.portal,global.ng.common,global.ng.material.button,global.ng.material.icon));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.stepper = {}),global.ng.core,global.ng.cdk.stepper,global.rxjs,global.ng.cdk.a11y,global.ng.animations,global.ng.cdk.bidi,global.ng.material.core,global.rxjs.operators,global.ng.cdk.portal,global.ng.common,global.ng.material.button,global.ng.material.icon));
 }(this, (function (exports,core,stepper,rxjs,a11y,animations,bidi,core$1,operators,portal,common,button,icon) { 'use strict';
 
 /*! *****************************************************************************

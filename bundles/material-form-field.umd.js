@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/platform'), require('@angular/common')) :
 	typeof define === 'function' && define.amd ? define('@angular/material/formField', ['exports', '@angular/core', '@angular/animations', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', 'rxjs/operators', '@angular/cdk/platform', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}),global.ng.core,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.material.core,global.Rx,global.Rx.operators,global.ng.cdk.platform,global.ng.common));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.formField = {}),global.ng.core,global.ng.animations,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.material.core,global.rxjs,global.rxjs.operators,global.ng.cdk.platform,global.ng.common));
 }(this, (function (exports,core,animations,bidi,coercion,core$1,rxjs,operators,platform,common) { 'use strict';
 
 /*! *****************************************************************************
@@ -284,13 +284,14 @@ var /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new core.InjectionToken('M
  */
 var MatFormField = /** @class */ (function (_super) {
     __extends(MatFormField, _super);
-    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions, _platform) {
+    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions, _platform, _ngZone) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
         _this._defaultOptions = _defaultOptions;
         _this._platform = _platform;
+        _this._ngZone = _ngZone;
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
@@ -469,7 +470,18 @@ var MatFormField = /** @class */ (function (_super) {
         var _this = this;
         this._validateControlChild();
         if (!this._initialGapCalculated) {
-            Promise.resolve().then(function () { return _this.updateOutlineGap(); });
+            // @deletion-target 7.0.0 Remove this check and else block once _ngZone is required.
+            if (this._ngZone) {
+                // It's important that we run this outside the `_ngZone`, because the `Promise.resolve`
+                // can kick us into an infinite change detection loop, if the `_initialGapCalculated`
+                // wasn't flipped on for some reason.
+                this._ngZone.runOutsideAngular(function () {
+                    Promise.resolve().then(function () { return _this.updateOutlineGap(); });
+                });
+            }
+            else {
+                Promise.resolve().then(function () { return _this.updateOutlineGap(); });
+            }
         }
     };
     /**
@@ -496,7 +508,7 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function (prop) {
         var /** @type {?} */ ngControl = this._control ? this._control.ngControl : null;
-        return ngControl && (/** @type {?} */ (ngControl))[prop];
+        return ngControl && ngControl[prop];
     };
     /**
      * @return {?}
@@ -784,6 +796,7 @@ var MatFormField = /** @class */ (function (_super) {
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] },] },
         { type: platform.Platform, },
+        { type: core.NgZone, },
     ]; };
     MatFormField.propDecorators = {
         "appearance": [{ type: core.Input },],

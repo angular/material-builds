@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directionality } from '@angular/cdk/bidi';
-import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, QueryList } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, NgZone, QueryList } from '@angular/core';
 import { CanColor, FloatLabelType, LabelOptions } from '@angular/material/core';
 import { MatError } from './error';
 import { MatFormFieldControl } from './form-field-control';
@@ -50,6 +50,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _dir;
     private _defaultOptions;
     private _platform;
+    private _ngZone;
     private _labelOptions;
     /** The form-field appearance style. */
     appearance: MatFormFieldAppearance;
@@ -97,7 +98,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     _hintChildren: QueryList<MatHint>;
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions, _dir: Directionality, _defaultOptions: MatFormFieldDefaultOptions, _platform?: Platform | undefined);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions, _dir: Directionality, _defaultOptions: MatFormFieldDefaultOptions, _platform?: Platform | undefined, _ngZone?: NgZone | undefined);
     /**
      * Gets an ElementRef for the element that a overlay attached to the form-field should be
      * positioned relative to.

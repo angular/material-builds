@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay')) :
 	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/common', '@angular/animations', '@angular/cdk/a11y', '@angular/material/core', 'rxjs', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/cdk/bidi', '@angular/cdk/overlay'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.core,global.ng.cdk.portal,global.ng.common,global.ng.animations,global.ng.cdk.a11y,global.ng.material.core,global.Rx,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.Rx.operators,global.ng.cdk.bidi,global.ng.cdk.overlay));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.core,global.ng.cdk.portal,global.ng.common,global.ng.animations,global.ng.cdk.a11y,global.ng.material.core,global.rxjs,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.rxjs.operators,global.ng.cdk.bidi,global.ng.cdk.overlay));
 }(this, (function (exports,core,portal,common,animations,a11y,core$1,rxjs,coercion,keycodes,operators,bidi,overlay) { 'use strict';
 
 /*! *****************************************************************************

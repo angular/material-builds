@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('rxjs'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('@angular/common'), require('@angular/material/button'), require('@angular/material/select'), require('@angular/material/tooltip')) :
 	typeof define === 'function' && define.amd ? define('@angular/material/paginator', ['exports', '@angular/core', 'rxjs', '@angular/cdk/coercion', '@angular/material/core', '@angular/common', '@angular/material/button', '@angular/material/select', '@angular/material/tooltip'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = {}),global.ng.core,global.Rx,global.ng.cdk.coercion,global.ng.material.core,global.ng.common,global.ng.material.button,global.ng.material.select,global.ng.material.tooltip));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.paginator = {}),global.ng.core,global.rxjs,global.ng.cdk.coercion,global.ng.material.core,global.ng.common,global.ng.material.button,global.ng.material.select,global.ng.material.tooltip));
 }(this, (function (exports,core,rxjs,coercion,core$1,common,button,select,tooltip) { 'use strict';
 
 /*! *****************************************************************************

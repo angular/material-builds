@@ -8,7 +8,7 @@
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/common'), require('@angular/common/http'), require('@angular/core'), require('@angular/platform-browser'), require('rxjs'), require('rxjs/operators'), require('@angular/material/core'), require('@angular/cdk/coercion')) :
 	typeof define === 'function' && define.amd ? define('@angular/material/icon', ['exports', '@angular/common', '@angular/common/http', '@angular/core', '@angular/platform-browser', 'rxjs', 'rxjs/operators', '@angular/material/core', '@angular/cdk/coercion'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = {}),global.ng.common,global.ng.common.http,global.ng.core,global.ng.platformBrowser,global.Rx,global.Rx.operators,global.ng.material.core,global.ng.cdk.coercion));
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.icon = {}),global.ng.common,global.ng.common.http,global.ng.core,global.ng.platformBrowser,global.rxjs,global.rxjs.operators,global.ng.material.core,global.ng.cdk.coercion));
 }(this, (function (exports,common,http,core,platformBrowser,rxjs,operators,core$1,coercion) { 'use strict';
 
 /*! *****************************************************************************
