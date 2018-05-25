@@ -22797,6 +22797,20 @@ MatProgressSpinnerBase = /** @class */ (function () {
     return MatProgressSpinnerBase;
 }());
 var /** @type {?} */ _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
+/**
+ * Injection token to be used to override the default options for `mat-progress-spinner`.
+ */
+var /** @type {?} */ MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new core.InjectionToken('mat-progress-spinner-default-options', {
+    providedIn: 'root',
+    factory: MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
+});
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY() {
+    return { diameter: BASE_SIZE };
+}
 // .0001 percentage difference is necessary in order to avoid unwanted animation frames
 // for example because the animation duration is 4 seconds, .1% accounts to 4ms
 // which are enough to see the flicker described in
@@ -22807,14 +22821,19 @@ var /** @type {?} */ INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progr
  */
 var MatProgressSpinner = /** @class */ (function (_super) {
     __extends(MatProgressSpinner, _super);
-    function MatProgressSpinner(_elementRef, platform$$1, _document, _animationMode) {
+    function MatProgressSpinner(_elementRef, platform$$1, _document, 
+    // @deletion-target 7.0.0 _animationMode and _defaults parameters to be made required.
+    _animationMode, _defaults) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._document = _document;
         _this._animationMode = _animationMode;
+        _this._defaults = _defaults;
         _this._value = 0;
+        _this._strokeWidth = _this._defaults ? _this._defaults.strokeWidth : undefined;
         _this._fallbackAnimation = false;
-        _this._diameter = BASE_SIZE;
+        _this._diameter = _this._defaults && _this._defaults.diameter ?
+            _this._defaults.diameter : BASE_SIZE;
         /**
          * Mode of the progress circle
          */
@@ -23019,6 +23038,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         { type: platform.Platform, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] },] },
     ]; };
     MatProgressSpinner.propDecorators = {
         "diameter": [{ type: core.Input },],
@@ -23036,8 +23056,10 @@ var MatProgressSpinner = /** @class */ (function (_super) {
  */
 var MatSpinner = /** @class */ (function (_super) {
     __extends(MatSpinner, _super);
-    function MatSpinner(elementRef, platform$$1, document, _animationMode) {
-        var _this = _super.call(this, elementRef, platform$$1, document, _animationMode) || this;
+    function MatSpinner(elementRef, platform$$1, document, 
+    // @deletion-targets 7.0.0 animationMode and defaults parameters to be made required.
+    animationMode, defaults) {
+        var _this = _super.call(this, elementRef, platform$$1, document, animationMode, defaults) || this;
         _this.mode = 'indeterminate';
         return _this;
     }
@@ -23064,6 +23086,7 @@ var MatSpinner = /** @class */ (function (_super) {
         { type: platform.Platform, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] },] },
     ]; };
     return MatSpinner;
 }(MatProgressSpinner));
@@ -32374,10 +32397,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.1.0-69e4ca7');
+var /** @type {?} */ VERSION = new core.Version('6.1.0-c3899cf');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32657,6 +32680,8 @@ exports.MatProgressBar = MatProgressBar;
 exports.MatProgressSpinnerModule = MatProgressSpinnerModule;
 exports.MatProgressSpinnerBase = MatProgressSpinnerBase;
 exports._MatProgressSpinnerMixinBase = _MatProgressSpinnerMixinBase;
+exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS;
+exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY;
 exports.MatProgressSpinner = MatProgressSpinner;
 exports.MatSpinner = MatSpinner;
 exports.MatRadioModule = MatRadioModule;
@@ -32758,17 +32783,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa17 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf17 = MatTabBase;
-exports.ɵg17 = _MatTabMixinBase;
-exports.ɵb17 = MatTabHeaderBase;
-exports.ɵc17 = _MatTabHeaderMixinBase;
-exports.ɵd17 = MatTabLabelWrapperBase;
-exports.ɵe17 = _MatTabLabelWrapperMixinBase;
-exports.ɵj17 = MatTabLinkBase;
-exports.ɵh17 = MatTabNavBase;
-exports.ɵk17 = _MatTabLinkMixinBase;
-exports.ɵi17 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef } from '@angular/core';
+import { ElementRef, InjectionToken } from '@angular/core';
 import { CanColor } from '@angular/material/core';
 import { Platform } from '@angular/cdk/platform';
 /** Possible mode for a progress spinner. */
@@ -16,6 +16,17 @@ export declare class MatProgressSpinnerBase {
     constructor(_elementRef: ElementRef);
 }
 export declare const _MatProgressSpinnerMixinBase: (new (...args: any[]) => CanColor) & typeof MatProgressSpinnerBase;
+/** Default `mat-progress-spinner` options that can be overridden. */
+export interface MatProgressSpinnerDefaultOptions {
+    /** Diameter of the spinner. */
+    diameter?: number;
+    /** Width of the spinner's stroke. */
+    strokeWidth?: number;
+}
+/** Injection token to be used to override the default options for `mat-progress-spinner`. */
+export declare const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS: InjectionToken<MatProgressSpinnerDefaultOptions>;
+/** @docs-private */
+export declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgressSpinnerDefaultOptions;
 /**
  * `<mat-progress-spinner>` component.
  */
@@ -23,6 +34,7 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     _elementRef: ElementRef;
     private _document;
     _animationMode: string | undefined;
+    private _defaults;
     private _value;
     private _strokeWidth;
     private _fallbackAnimation;
@@ -42,7 +54,7 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     mode: ProgressSpinnerMode;
     /** Value of the progress circle. */
     value: number;
-    constructor(_elementRef: ElementRef, platform: Platform, _document: any, _animationMode?: string | undefined);
+    constructor(_elementRef: ElementRef, platform: Platform, _document: any, _animationMode?: string | undefined, _defaults?: MatProgressSpinnerDefaultOptions | undefined);
     /** The radius of the spinner, adjusted for stroke width. */
     readonly _circleRadius: number;
     /** The view box of the spinner's svg element. */
@@ -65,5 +77,5 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
  * indeterminate `<mat-progress-spinner>` instance.
  */
 export declare class MatSpinner extends MatProgressSpinner {
-    constructor(elementRef: ElementRef, platform: Platform, document: any, _animationMode?: string);
+    constructor(elementRef: ElementRef, platform: Platform, document: any, animationMode?: string, defaults?: MatProgressSpinnerDefaultOptions);
 }

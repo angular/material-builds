@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Component, ChangeDetectionStrategy, Inject, Input, ElementRef, ViewEncapsulation, Optional, NgModule } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Inject, Input, ElementRef, ViewEncapsulation, Optional, InjectionToken, NgModule } from '@angular/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
 import { Platform } from '@angular/cdk/platform';
@@ -38,6 +38,20 @@ class MatProgressSpinnerBase {
     }
 }
 const /** @type {?} */ _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
+/**
+ * Injection token to be used to override the default options for `mat-progress-spinner`.
+ */
+const /** @type {?} */ MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new InjectionToken('mat-progress-spinner-default-options', {
+    providedIn: 'root',
+    factory: MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
+});
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY() {
+    return { diameter: BASE_SIZE };
+}
 // .0001 percentage difference is necessary in order to avoid unwanted animation frames
 // for example because the animation duration is 4 seconds, .1% accounts to 4ms
 // which are enough to see the flicker described in
@@ -74,15 +88,21 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      * @param {?} platform
      * @param {?} _document
      * @param {?=} _animationMode
+     * @param {?=} _defaults
      */
-    constructor(_elementRef, platform, _document, _animationMode) {
+    constructor(_elementRef, platform, _document, 
+    // @deletion-target 7.0.0 _animationMode and _defaults parameters to be made required.
+    _animationMode, _defaults) {
         super(_elementRef);
         this._elementRef = _elementRef;
         this._document = _document;
         this._animationMode = _animationMode;
+        this._defaults = _defaults;
         this._value = 0;
+        this._strokeWidth = this._defaults ? this._defaults.strokeWidth : undefined;
         this._fallbackAnimation = false;
-        this._diameter = BASE_SIZE;
+        this._diameter = this._defaults && this._defaults.diameter ?
+            this._defaults.diameter : BASE_SIZE;
         /**
          * Mode of the progress circle
          */
@@ -242,6 +262,7 @@ MatProgressSpinner.ctorParameters = () => [
     { type: Platform, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] },] },
 ];
 MatProgressSpinner.propDecorators = {
     "diameter": [{ type: Input },],
@@ -260,10 +281,13 @@ class MatSpinner extends MatProgressSpinner {
      * @param {?} elementRef
      * @param {?} platform
      * @param {?} document
-     * @param {?=} _animationMode
+     * @param {?=} animationMode
+     * @param {?=} defaults
      */
-    constructor(elementRef, platform, document, _animationMode) {
-        super(elementRef, platform, document, _animationMode);
+    constructor(elementRef, platform, document, 
+    // @deletion-targets 7.0.0 animationMode and defaults parameters to be made required.
+    animationMode, defaults) {
+        super(elementRef, platform, document, animationMode, defaults);
         this.mode = 'indeterminate';
     }
 }
@@ -290,6 +314,7 @@ MatSpinner.ctorParameters = () => [
     { type: Platform, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] },] },
 ];
 
 /**
@@ -323,5 +348,5 @@ MatProgressSpinnerModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatProgressSpinnerModule, MatProgressSpinnerBase, _MatProgressSpinnerMixinBase, MatProgressSpinner, MatSpinner };
+export { MatProgressSpinnerModule, MatProgressSpinnerBase, _MatProgressSpinnerMixinBase, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinner, MatSpinner };
 //# sourceMappingURL=progress-spinner.js.map

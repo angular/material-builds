@@ -64,6 +64,20 @@ MatProgressSpinnerBase = /** @class */ (function () {
     return MatProgressSpinnerBase;
 }());
 var /** @type {?} */ _MatProgressSpinnerMixinBase = core$1.mixinColor(MatProgressSpinnerBase, 'primary');
+/**
+ * Injection token to be used to override the default options for `mat-progress-spinner`.
+ */
+var /** @type {?} */ MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new core.InjectionToken('mat-progress-spinner-default-options', {
+    providedIn: 'root',
+    factory: MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
+});
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY() {
+    return { diameter: BASE_SIZE };
+}
 // .0001 percentage difference is necessary in order to avoid unwanted animation frames
 // for example because the animation duration is 4 seconds, .1% accounts to 4ms
 // which are enough to see the flicker described in
@@ -74,14 +88,19 @@ var /** @type {?} */ INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progr
  */
 var MatProgressSpinner = /** @class */ (function (_super) {
     __extends(MatProgressSpinner, _super);
-    function MatProgressSpinner(_elementRef, platform$$1, _document, _animationMode) {
+    function MatProgressSpinner(_elementRef, platform$$1, _document, 
+    // @deletion-target 7.0.0 _animationMode and _defaults parameters to be made required.
+    _animationMode, _defaults) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._document = _document;
         _this._animationMode = _animationMode;
+        _this._defaults = _defaults;
         _this._value = 0;
+        _this._strokeWidth = _this._defaults ? _this._defaults.strokeWidth : undefined;
         _this._fallbackAnimation = false;
-        _this._diameter = BASE_SIZE;
+        _this._diameter = _this._defaults && _this._defaults.diameter ?
+            _this._defaults.diameter : BASE_SIZE;
         /**
          * Mode of the progress circle
          */
@@ -286,6 +305,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         { type: platform.Platform, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] },] },
     ]; };
     MatProgressSpinner.propDecorators = {
         "diameter": [{ type: core.Input },],
@@ -303,8 +323,10 @@ var MatProgressSpinner = /** @class */ (function (_super) {
  */
 var MatSpinner = /** @class */ (function (_super) {
     __extends(MatSpinner, _super);
-    function MatSpinner(elementRef, platform$$1, document, _animationMode) {
-        var _this = _super.call(this, elementRef, platform$$1, document, _animationMode) || this;
+    function MatSpinner(elementRef, platform$$1, document, 
+    // @deletion-targets 7.0.0 animationMode and defaults parameters to be made required.
+    animationMode, defaults) {
+        var _this = _super.call(this, elementRef, platform$$1, document, animationMode, defaults) || this;
         _this.mode = 'indeterminate';
         return _this;
     }
@@ -331,6 +353,7 @@ var MatSpinner = /** @class */ (function (_super) {
         { type: platform.Platform, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] },] },
     ]; };
     return MatSpinner;
 }(MatProgressSpinner));
@@ -362,6 +385,8 @@ var MatProgressSpinnerModule = /** @class */ (function () {
 exports.MatProgressSpinnerModule = MatProgressSpinnerModule;
 exports.MatProgressSpinnerBase = MatProgressSpinnerBase;
 exports._MatProgressSpinnerMixinBase = _MatProgressSpinnerMixinBase;
+exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS;
+exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY;
 exports.MatProgressSpinner = MatProgressSpinner;
 exports.MatSpinner = MatSpinner;
 
