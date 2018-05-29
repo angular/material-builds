@@ -963,18 +963,18 @@ var MatSlider = /** @class */ (function (_super) {
         this.value = value;
     };
     /**
-     * Registers a callback to eb triggered when the value has changed.
+     * Registers a callback to be triggered when the value has changed.
      * Implemented as part of ControlValueAccessor.
      * @param fn Callback to be registered.
      */
     /**
-     * Registers a callback to eb triggered when the value has changed.
+     * Registers a callback to be triggered when the value has changed.
      * Implemented as part of ControlValueAccessor.
      * @param {?} fn Callback to be registered.
      * @return {?}
      */
     MatSlider.prototype.registerOnChange = /**
-     * Registers a callback to eb triggered when the value has changed.
+     * Registers a callback to be triggered when the value has changed.
      * Implemented as part of ControlValueAccessor.
      * @param {?} fn Callback to be registered.
      * @return {?}

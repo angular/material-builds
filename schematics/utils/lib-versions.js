@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.materialVersion = '^6.2.0-b26b58c';
-exports.cdkVersion = '^6.2.0-b26b58c';
+exports.materialVersion = '^6.2.0-dcf9c3d';
+exports.cdkVersion = '^6.2.0-dcf9c3d';
 exports.angularVersion = '^6.0.0';
 //# sourceMappingURL=lib-versions.js.map

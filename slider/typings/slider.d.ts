@@ -195,7 +195,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      */
     writeValue(value: any): void;
     /**
-     * Registers a callback to eb triggered when the value has changed.
+     * Registers a callback to be triggered when the value has changed.
      * Implemented as part of ControlValueAccessor.
      * @param fn Callback to be registered.
      */

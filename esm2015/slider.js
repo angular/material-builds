@@ -747,7 +747,7 @@ class MatSlider extends _MatSliderMixinBase {
         this.value = value;
     }
     /**
-     * Registers a callback to eb triggered when the value has changed.
+     * Registers a callback to be triggered when the value has changed.
      * Implemented as part of ControlValueAccessor.
      * @param {?} fn Callback to be registered.
      * @return {?}
