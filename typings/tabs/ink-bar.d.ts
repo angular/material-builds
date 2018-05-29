@@ -12,8 +12,8 @@ import { ElementRef, InjectionToken, NgZone } from '@angular/core';
  */
 export interface _MatInkBarPositioner {
     (element: HTMLElement): {
-        left: string;
-        width: string;
+        left: number;
+        width: number;
     };
 }
 /** Injection token for the MatInkBar's Positioner. */
@@ -31,7 +31,7 @@ export declare class MatInkBar {
     private _elementRef;
     private _ngZone;
     private _inkBarPositioner;
-    constructor(_elementRef: ElementRef, _ngZone: NgZone, _inkBarPositioner: _MatInkBarPositioner);
+    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _inkBarPositioner: _MatInkBarPositioner);
     /**
      * Calculates the styles from the provided element in order to align the ink-bar to that element.
      * Shows the ink bar if previously set as hidden.
