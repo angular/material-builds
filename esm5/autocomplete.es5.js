@@ -864,6 +864,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         else {
             // Update the panel width and direction, in case anything has changed.
             this._overlayRef.updateSize({ width: this._getHostWidth() });
+            this._overlayRef.setDirection(this._getDirection());
         }
         if (this._overlayRef && !this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
@@ -889,7 +890,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             positionStrategy: this._getOverlayPosition(),
             scrollStrategy: this._scrollStrategy(),
             width: this._getHostWidth(),
-            direction: this._dir
+            direction: this._getDirection()
         });
     };
     /**
@@ -908,6 +909,15 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom' }
         ]);
         return this._positionStrategy;
+    };
+    /**
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype._getDirection = /**
+     * @return {?}
+     */
+    function () {
+        return this._dir ? this._dir.value : 'ltr';
     };
     /**
      * @return {?}
@@ -1033,5 +1043,5 @@ var MatAutocompleteModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa27 };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa28 };
 //# sourceMappingURL=autocomplete.es5.js.map

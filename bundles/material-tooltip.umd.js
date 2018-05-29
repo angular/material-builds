@@ -308,6 +308,7 @@ var MatTooltip = /** @class */ (function () {
         }
         var /** @type {?} */ overlayRef = this._createOverlay();
         this._detach();
+        overlayRef.setDirection(this._dir ? this._dir.value : 'ltr');
         this._portal = this._portal || new portal.ComponentPortal(TooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
         this._tooltipInstance.afterHidden()
@@ -421,7 +422,6 @@ var MatTooltip = /** @class */ (function () {
             }
         });
         this._overlayRef = this._overlay.create({
-            direction: this._dir,
             positionStrategy: strategy,
             panelClass: TOOLTIP_PANEL_CLASS,
             scrollStrategy: this._scrollStrategy()

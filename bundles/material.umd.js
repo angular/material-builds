@@ -4416,6 +4416,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         else {
             // Update the panel width and direction, in case anything has changed.
             this._overlayRef.updateSize({ width: this._getHostWidth() });
+            this._overlayRef.setDirection(this._getDirection());
         }
         if (this._overlayRef && !this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
@@ -4441,7 +4442,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             positionStrategy: this._getOverlayPosition(),
             scrollStrategy: this._scrollStrategy(),
             width: this._getHostWidth(),
-            direction: this._dir
+            direction: this._getDirection()
         });
     };
     /**
@@ -4460,6 +4461,15 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom' }
         ]);
         return this._positionStrategy;
+    };
+    /**
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype._getDirection = /**
+     * @return {?}
+     */
+    function () {
+        return this._dir ? this._dir.value : 'ltr';
     };
     /**
      * @return {?}
@@ -13287,7 +13297,7 @@ var MatDatepicker = /** @class */ (function () {
     function () {
         var _this = this;
         this._dialogRef = this._dialog.open(MatDatepickerContent, {
-            direction: this._dir ? this._dir.value : 'ltr',
+            direction: this._getDirection(),
             viewContainerRef: this._viewContainerRef,
             panelClass: 'mat-datepicker-dialog',
         });
@@ -13312,6 +13322,7 @@ var MatDatepicker = /** @class */ (function () {
             this._createPopup();
         }
         if (!this._popupRef.hasAttached()) {
+            this._popupRef.setDirection(this._getDirection());
             this._popupComponentRef = this._popupRef.attach(this._calendarPortal);
             this._popupComponentRef.instance.datepicker = this;
             this._setColor();
@@ -13335,7 +13346,7 @@ var MatDatepicker = /** @class */ (function () {
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
             backdropClass: 'mat-overlay-transparent-backdrop',
-            direction: this._dir,
+            direction: this._getDirection(),
             scrollStrategy: this._scrollStrategy(),
             panelClass: 'mat-datepicker-popup',
         });
@@ -13415,6 +13426,17 @@ var MatDatepicker = /** @class */ (function () {
         if (this._dialogRef) {
             this._dialogRef.componentInstance.color = color;
         }
+    };
+    /**
+     * Returns the layout direction of the datepicker.
+     * @return {?}
+     */
+    MatDatepicker.prototype._getDirection = /**
+     * Returns the layout direction of the datepicker.
+     * @return {?}
+     */
+    function () {
+        return this._dir ? this._dir.value : 'ltr';
     };
     MatDatepicker.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker',
@@ -19047,6 +19069,7 @@ var MatMenuTrigger = /** @class */ (function () {
             return;
         }
         var /** @type {?} */ overlayRef = this._createOverlay();
+        overlayRef.setDirection(this.dir);
         overlayRef.attach(this._portal);
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
@@ -19253,8 +19276,7 @@ var MatMenuTrigger = /** @class */ (function () {
             positionStrategy: this._getPosition(),
             hasBackdrop: this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop,
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
-            scrollStrategy: this._scrollStrategy(),
-            direction: this._dir
+            scrollStrategy: this._scrollStrategy()
         });
     };
     /**
@@ -21555,6 +21577,7 @@ var MatTooltip = /** @class */ (function () {
         }
         var /** @type {?} */ overlayRef = this._createOverlay();
         this._detach();
+        overlayRef.setDirection(this._dir ? this._dir.value : 'ltr');
         this._portal = this._portal || new portal.ComponentPortal(TooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
         this._tooltipInstance.afterHidden()
@@ -21668,7 +21691,6 @@ var MatTooltip = /** @class */ (function () {
             }
         });
         this._overlayRef = this._overlay.create({
-            direction: this._dir,
             positionStrategy: strategy,
             panelClass: TOOLTIP_PANEL_CLASS,
             scrollStrategy: this._scrollStrategy()
@@ -22804,20 +22826,6 @@ MatProgressSpinnerBase = /** @class */ (function () {
     return MatProgressSpinnerBase;
 }());
 var /** @type {?} */ _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
-/**
- * Injection token to be used to override the default options for `mat-progress-spinner`.
- */
-var /** @type {?} */ MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new core.InjectionToken('mat-progress-spinner-default-options', {
-    providedIn: 'root',
-    factory: MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
-});
-/**
- * \@docs-private
- * @return {?}
- */
-function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY() {
-    return { diameter: BASE_SIZE };
-}
 // .0001 percentage difference is necessary in order to avoid unwanted animation frames
 // for example because the animation duration is 4 seconds, .1% accounts to 4ms
 // which are enough to see the flicker described in
@@ -22828,19 +22836,14 @@ var /** @type {?} */ INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progr
  */
 var MatProgressSpinner = /** @class */ (function (_super) {
     __extends(MatProgressSpinner, _super);
-    function MatProgressSpinner(_elementRef, platform$$1, _document, 
-    // @deletion-target 7.0.0 _animationMode and _defaults parameters to be made required.
-    _animationMode, _defaults) {
+    function MatProgressSpinner(_elementRef, platform$$1, _document, _animationMode) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._document = _document;
         _this._animationMode = _animationMode;
-        _this._defaults = _defaults;
         _this._value = 0;
-        _this._strokeWidth = _this._defaults ? _this._defaults.strokeWidth : undefined;
         _this._fallbackAnimation = false;
-        _this._diameter = _this._defaults && _this._defaults.diameter ?
-            _this._defaults.diameter : BASE_SIZE;
+        _this._diameter = BASE_SIZE;
         /**
          * Mode of the progress circle
          */
@@ -23045,7 +23048,6 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         { type: platform.Platform, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] },] },
     ]; };
     MatProgressSpinner.propDecorators = {
         "diameter": [{ type: core.Input },],
@@ -23063,10 +23065,8 @@ var MatProgressSpinner = /** @class */ (function (_super) {
  */
 var MatSpinner = /** @class */ (function (_super) {
     __extends(MatSpinner, _super);
-    function MatSpinner(elementRef, platform$$1, document, 
-    // @deletion-targets 7.0.0 animationMode and defaults parameters to be made required.
-    animationMode, defaults) {
-        var _this = _super.call(this, elementRef, platform$$1, document, animationMode, defaults) || this;
+    function MatSpinner(elementRef, platform$$1, document, _animationMode) {
+        var _this = _super.call(this, elementRef, platform$$1, document, _animationMode) || this;
         _this.mode = 'indeterminate';
         return _this;
     }
@@ -23093,7 +23093,6 @@ var MatSpinner = /** @class */ (function (_super) {
         { type: platform.Platform, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] },] },
     ]; };
     return MatSpinner;
 }(MatProgressSpinner));
@@ -32404,10 +32403,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.1.0-315c9f8');
+var /** @type {?} */ VERSION = new core.Version('6.1.0-bfc6852');
 
 exports.VERSION = VERSION;
-exports.ɵa27 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32656,12 +32655,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32687,8 +32686,6 @@ exports.MatProgressBar = MatProgressBar;
 exports.MatProgressSpinnerModule = MatProgressSpinnerModule;
 exports.MatProgressSpinnerBase = MatProgressSpinnerBase;
 exports._MatProgressSpinnerMixinBase = _MatProgressSpinnerMixinBase;
-exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS;
-exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY;
 exports.MatProgressSpinner = MatProgressSpinner;
 exports.MatSpinner = MatSpinner;
 exports.MatRadioModule = MatRadioModule;
@@ -32790,17 +32787,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf22 = MatTabBase;
+exports.ɵg22 = _MatTabMixinBase;
+exports.ɵb22 = MatTabHeaderBase;
+exports.ɵc22 = _MatTabHeaderMixinBase;
+exports.ɵd22 = MatTabLabelWrapperBase;
+exports.ɵe22 = _MatTabLabelWrapperMixinBase;
+exports.ɵj22 = MatTabLinkBase;
+exports.ɵh22 = MatTabNavBase;
+exports.ɵk22 = _MatTabLinkMixinBase;
+exports.ɵi22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
