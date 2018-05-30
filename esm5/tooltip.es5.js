@@ -153,7 +153,7 @@ var MatTooltip = /** @class */ (function () {
             if (!origin) {
                 _ngZone.run(function () { return _this.hide(0); });
             }
-            else if (origin !== 'program') {
+            else if (origin === 'keyboard') {
                 _ngZone.run(function () { return _this.show(); });
             }
         });

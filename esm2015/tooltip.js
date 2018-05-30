@@ -164,7 +164,7 @@ class MatTooltip {
             if (!origin) {
                 _ngZone.run(() => this.hide(0));
             }
-            else if (origin !== 'program') {
+            else if (origin === 'keyboard') {
                 _ngZone.run(() => this.show());
             }
         });

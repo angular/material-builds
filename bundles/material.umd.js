@@ -21411,7 +21411,7 @@ var MatTooltip = /** @class */ (function () {
             if (!origin) {
                 _ngZone.run(function () { return _this.hide(0); });
             }
-            else if (origin !== 'program') {
+            else if (origin === 'keyboard') {
                 _ngZone.run(function () { return _this.show(); });
             }
         });
@@ -32409,10 +32409,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.2.0-be1b5e6');
+var /** @type {?} */ VERSION = new core.Version('6.2.0-74f4364');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
