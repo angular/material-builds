@@ -13,7 +13,7 @@ import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter,
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanDisable, CanDisableRipple, CanUpdateErrorState, ErrorStateMatcher, HasTabIndex, MatOptgroup, MatOption, MatOptionSelectionChange } from '@angular/material/core';
 import { MatFormField, MatFormFieldControl } from '@angular/material/form-field';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 /**
  * The following style constants are necessary to save here in order
  * to properly calculate the alignment of the selected option over
@@ -122,6 +122,8 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     _transformOrigin: string;
     /** Whether the panel's animation is done. */
     _panelDoneAnimating: boolean;
+    /** Emits when the panel element is finished transforming in. */
+    _panelDoneAnimatingStream: Subject<string>;
     /** Strategy that will be used to handle scrolling while the select panel is open. */
     _scrollStrategy: any;
     /**
@@ -262,11 +264,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _handleClosedKeydown(event);
     /** Handles keyboard events when the selected is open. */
     private _handleOpenKeydown(event);
-    /**
-     * When the panel element is finished transforming in (though not fading in), it
-     * emits an event and focuses an option if the panel is open.
-     */
-    _onPanelDone(): void;
     /**
      * When the panel content is done fading in, the _panelDoneAnimating property is
      * set so the proper class can be added to the panel.
