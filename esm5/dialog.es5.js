@@ -395,13 +395,15 @@ MatDialogRef = /** @class */ (function () {
             _this._afterOpen.complete();
         });
         // Dispose overlay when closing animation is complete
-        _containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), take(1))
-            .subscribe(function () {
-            _this._overlayRef.dispose();
+        _containerInstance._animationStateChanged.pipe(filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), take(1)).subscribe(function () { return _this._overlayRef.dispose(); });
+        _overlayRef.detachments().subscribe(function () {
+            _this._beforeClose.next(_this._result);
+            _this._beforeClose.complete();
             _this._locationChanges.unsubscribe();
             _this._afterClosed.next(_this._result);
             _this._afterClosed.complete();
             _this.componentInstance = /** @type {?} */ ((null));
+            _this._overlayRef.dispose();
         });
         _overlayRef.keydownEvents()
             .pipe(filter(function (event) { return event.keyCode === ESCAPE && !_this.disableClose; }))
