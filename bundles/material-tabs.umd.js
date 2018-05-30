@@ -903,7 +903,9 @@ var MatTabHeader = /** @class */ (function (_super) {
          * Tracks which element has focus; used for keyboard navigation
          * @return {?}
          */
-        function () { return this._focusIndex; },
+        function () {
+            return this._focusIndex;
+        },
         /** When the focus index is set, we must manually send focus to the correct label */
         set: /**
          * When the focus index is set, we must manually send focus to the correct label

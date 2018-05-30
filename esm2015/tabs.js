@@ -741,6 +741,13 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         this._updateTabScrollPosition();
     }
     /**
+     * Tracks which element has focus; used for keyboard navigation
+     * @return {?}
+     */
+    get focusIndex() {
+        return this._focusIndex;
+    }
+    /**
      * When the focus index is set, we must manually send focus to the correct label
      * @param {?} value
      * @return {?}
@@ -753,11 +760,6 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         this.indexFocused.emit(value);
         this._setTabFocus(value);
     }
-    /**
-     * Tracks which element has focus; used for keyboard navigation
-     * @return {?}
-     */
-    get focusIndex() { return this._focusIndex; }
     /**
      * Determines if an index is valid.  If the tabs are not ready yet, we assume that the user is
      * providing a valid index and return true.
