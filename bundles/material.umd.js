@@ -19313,7 +19313,6 @@ var MatMenuTrigger = /** @class */ (function () {
         return this._overlay.position()
             .flexibleConnectedTo(this._element)
             .withTransformOriginOn('.mat-menu-panel')
-            .withLockedPosition()
             .withPositions([
             { originX: originX, originY: originY, overlayX: overlayX, overlayY: overlayY, offsetY: offsetY },
             { originX: originFallbackX, originY: originY, overlayX: overlayFallbackX, overlayY: overlayY, offsetY: offsetY },
@@ -32411,10 +32410,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.2.0-55aaa03');
+var /** @type {?} */ VERSION = new core.Version('6.2.0-9f6aa84');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;

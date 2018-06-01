@@ -1068,7 +1068,6 @@ class MatMenuTrigger {
         return this._overlay.position()
             .flexibleConnectedTo(this._element)
             .withTransformOriginOn('.mat-menu-panel')
-            .withLockedPosition()
             .withPositions([
             { originX, originY, overlayX, overlayY, offsetY },
             { originX: originFallbackX, originY, overlayX: overlayFallbackX, overlayY, offsetY },
