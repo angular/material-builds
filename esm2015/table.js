@@ -5,8 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, IterableDiffers, ViewEncapsulation, Directive, Input, TemplateRef, NgModule } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, IterableDiffers, Optional, ViewEncapsulation, Directive, Input, TemplateRef, NgModule } from '@angular/core';
 import { CDK_TABLE_TEMPLATE, CdkTable, CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef, CDK_ROW_TEMPLATE, CdkFooterRow, CdkFooterRowDef, CdkHeaderRow, CdkHeaderRowDef, CdkRow, CdkRowDef, CdkTableModule, DataSource } from '@angular/cdk/table';
+import { Directionality } from '@angular/cdk/bidi';
 import { CommonModule } from '@angular/common';
 import { MatCommonModule } from '@angular/material/core';
 import { _isNumberValue } from '@angular/cdk/coercion';
@@ -27,12 +28,18 @@ class MatTable extends CdkTable {
      * @param {?} _changeDetectorRef
      * @param {?} _elementRef
      * @param {?} role
+     * @param {?} _dir
      */
-    constructor(_differs, _changeDetectorRef, _elementRef, role) {
-        super(_differs, _changeDetectorRef, _elementRef, role);
+    constructor(_differs, _changeDetectorRef, _elementRef, role, _dir) {
+        super(_differs, _changeDetectorRef, _elementRef, role, _dir);
         this._differs = _differs;
         this._changeDetectorRef = _changeDetectorRef;
         this._elementRef = _elementRef;
+        this._dir = _dir;
+        /**
+         * Overrides the sticky CSS class set by the `CdkTable`.
+         */
+        this.stickyCssClass = 'mat-table-sticky';
     }
 }
 MatTable.decorators = [
@@ -53,6 +60,7 @@ MatTable.ctorParameters = () => [
     { type: ChangeDetectorRef, },
     { type: ElementRef, },
     { type: undefined, decorators: [{ type: Attribute, args: ['role',] },] },
+    { type: Directionality, decorators: [{ type: Optional },] },
 ];
 
 /**
@@ -143,6 +151,8 @@ MatColumnDef.decorators = [
 /** @nocollapse */
 MatColumnDef.propDecorators = {
     "name": [{ type: Input, args: ['matColumnDef',] },],
+    "sticky": [{ type: Input },],
+    "stickyEnd": [{ type: Input },],
 };
 /**
  * Header cell template container that adds the right classes and role.
@@ -247,7 +257,7 @@ MatHeaderRowDef.decorators = [
     { type: Directive, args: [{
                 selector: '[matHeaderRowDef]',
                 providers: [{ provide: CdkHeaderRowDef, useExisting: MatHeaderRowDef }],
-                inputs: ['columns: matHeaderRowDef'],
+                inputs: ['columns: matHeaderRowDef', 'sticky: matHeaderRowDefSticky'],
             },] },
 ];
 /** @nocollapse */
@@ -272,7 +282,7 @@ MatFooterRowDef.decorators = [
     { type: Directive, args: [{
                 selector: '[matFooterRowDef]',
                 providers: [{ provide: CdkFooterRowDef, useExisting: MatFooterRowDef }],
-                inputs: ['columns: matFooterRowDef'],
+                inputs: ['columns: matFooterRowDef', 'sticky: matFooterRowDefSticky'],
             },] },
 ];
 /** @nocollapse */
@@ -322,6 +332,7 @@ MatHeaderRow.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 exportAs: 'matHeaderRow',
+                providers: [{ provide: CdkHeaderRow, useExisting: MatHeaderRow }],
             },] },
 ];
 /**
@@ -339,6 +350,7 @@ MatFooterRow.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 exportAs: 'matFooterRow',
+                providers: [{ provide: CdkFooterRow, useExisting: MatFooterRow }],
             },] },
 ];
 /**
@@ -356,6 +368,7 @@ MatRow.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
                 encapsulation: ViewEncapsulation.None,
                 exportAs: 'matRow',
+                providers: [{ provide: CdkRow, useExisting: MatRow }],
             },] },
 ];
 

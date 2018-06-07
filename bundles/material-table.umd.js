@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/table'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/core', '@angular/cdk/table', '@angular/common', '@angular/material/core', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}),global.ng.core,global.ng.cdk.table,global.ng.common,global.ng.material.core,global.ng.cdk.coercion,global.rxjs,global.rxjs.operators));
-}(this, (function (exports,core,table,common,core$1,coercion,rxjs,operators) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/table'), require('@angular/cdk/bidi'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/core', '@angular/cdk/table', '@angular/cdk/bidi', '@angular/common', '@angular/material/core', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}),global.ng.core,global.ng.cdk.table,global.ng.cdk.bidi,global.ng.common,global.ng.material.core,global.ng.cdk.coercion,global.rxjs,global.rxjs.operators));
+}(this, (function (exports,core,table,bidi,common,core$1,coercion,rxjs,operators) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -52,11 +52,16 @@ var MatTable = /** @class */ (function (_super) {
     // fixed bug.
     // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
     // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
-    function MatTable(_differs, _changeDetectorRef, _elementRef, role) {
-        var _this = _super.call(this, _differs, _changeDetectorRef, _elementRef, role) || this;
+    function MatTable(_differs, _changeDetectorRef, _elementRef, role, _dir) {
+        var _this = _super.call(this, _differs, _changeDetectorRef, _elementRef, role, _dir) || this;
         _this._differs = _differs;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._elementRef = _elementRef;
+        _this._dir = _dir;
+        /**
+         * Overrides the sticky CSS class set by the `CdkTable`.
+         */
+        _this.stickyCssClass = 'mat-table-sticky';
         return _this;
     }
     MatTable.decorators = [
@@ -77,6 +82,7 @@ var MatTable = /** @class */ (function (_super) {
         { type: core.ChangeDetectorRef, },
         { type: core.ElementRef, },
         { type: undefined, decorators: [{ type: core.Attribute, args: ['role',] },] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
     ]; };
     return MatTable;
 }(table.CdkTable));
@@ -175,6 +181,8 @@ var MatColumnDef = /** @class */ (function (_super) {
     /** @nocollapse */
     MatColumnDef.propDecorators = {
         "name": [{ type: core.Input, args: ['matColumnDef',] },],
+        "sticky": [{ type: core.Input },],
+        "stickyEnd": [{ type: core.Input },],
     };
     return MatColumnDef;
 }(table.CdkColumnDef));
@@ -275,7 +283,7 @@ var MatHeaderRowDef = /** @class */ (function (_super) {
         { type: core.Directive, args: [{
                     selector: '[matHeaderRowDef]',
                     providers: [{ provide: table.CdkHeaderRowDef, useExisting: MatHeaderRowDef }],
-                    inputs: ['columns: matHeaderRowDef'],
+                    inputs: ['columns: matHeaderRowDef', 'sticky: matHeaderRowDefSticky'],
                 },] },
     ];
     /** @nocollapse */
@@ -299,7 +307,7 @@ var MatFooterRowDef = /** @class */ (function (_super) {
         { type: core.Directive, args: [{
                     selector: '[matFooterRowDef]',
                     providers: [{ provide: table.CdkFooterRowDef, useExisting: MatFooterRowDef }],
-                    inputs: ['columns: matFooterRowDef'],
+                    inputs: ['columns: matFooterRowDef', 'sticky: matFooterRowDefSticky'],
                 },] },
     ];
     /** @nocollapse */
@@ -353,6 +361,7 @@ var MatHeaderRow = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matHeaderRow',
+                    providers: [{ provide: table.CdkHeaderRow, useExisting: MatHeaderRow }],
                 },] },
     ];
     return MatHeaderRow;
@@ -375,6 +384,7 @@ var MatFooterRow = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matFooterRow',
+                    providers: [{ provide: table.CdkFooterRow, useExisting: MatFooterRow }],
                 },] },
     ];
     return MatFooterRow;
@@ -397,6 +407,7 @@ var MatRow = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matRow',
+                    providers: [{ provide: table.CdkRow, useExisting: MatRow }],
                 },] },
     ];
     return MatRow;
