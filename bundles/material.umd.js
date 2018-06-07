@@ -4911,126 +4911,6 @@ MatBottomSheetConfig = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Reference to a bottom sheet dispatched from the bottom sheet service.
- * @template T, R
- */
-var   /**
- * Reference to a bottom sheet dispatched from the bottom sheet service.
- * @template T, R
- */
-MatBottomSheetRef = /** @class */ (function () {
-    function MatBottomSheetRef(containerInstance, _overlayRef) {
-        var _this = this;
-        this._overlayRef = _overlayRef;
-        /**
-         * Subject for notifying the user that the bottom sheet has been dismissed.
-         */
-        this._afterDismissed = new rxjs.Subject();
-        /**
-         * Subject for notifying the user that the bottom sheet has opened and appeared.
-         */
-        this._afterOpened = new rxjs.Subject();
-        this.containerInstance = containerInstance;
-        // Emit when opening animation completes
-        containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), operators.take(1))
-            .subscribe(function () {
-            _this._afterOpened.next();
-            _this._afterOpened.complete();
-        });
-        // Dispose overlay when closing animation is complete
-        containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), operators.take(1))
-            .subscribe(function () {
-            _this._overlayRef.dispose();
-            _this._afterDismissed.next(_this._result);
-            _this._afterDismissed.complete();
-        });
-        if (!containerInstance.bottomSheetConfig.disableClose) {
-            rxjs.merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
-        }
-    }
-    /**
-     * Dismisses the bottom sheet.
-     * @param result Data to be passed back to the bottom sheet opener.
-     */
-    /**
-     * Dismisses the bottom sheet.
-     * @param {?=} result Data to be passed back to the bottom sheet opener.
-     * @return {?}
-     */
-    MatBottomSheetRef.prototype.dismiss = /**
-     * Dismisses the bottom sheet.
-     * @param {?=} result Data to be passed back to the bottom sheet opener.
-     * @return {?}
-     */
-    function (result) {
-        var _this = this;
-        if (!this._afterDismissed.closed) {
-            // Transition the backdrop in parallel to the bottom sheet.
-            this.containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'start'; }), operators.take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
-            this._result = result;
-            this.containerInstance.exit();
-        }
-    };
-    /** Gets an observable that is notified when the bottom sheet is finished closing. */
-    /**
-     * Gets an observable that is notified when the bottom sheet is finished closing.
-     * @return {?}
-     */
-    MatBottomSheetRef.prototype.afterDismissed = /**
-     * Gets an observable that is notified when the bottom sheet is finished closing.
-     * @return {?}
-     */
-    function () {
-        return this._afterDismissed.asObservable();
-    };
-    /** Gets an observable that is notified when the bottom sheet has opened and appeared. */
-    /**
-     * Gets an observable that is notified when the bottom sheet has opened and appeared.
-     * @return {?}
-     */
-    MatBottomSheetRef.prototype.afterOpened = /**
-     * Gets an observable that is notified when the bottom sheet has opened and appeared.
-     * @return {?}
-     */
-    function () {
-        return this._afterOpened.asObservable();
-    };
-    /**
-     * Gets an observable that emits when the overlay's backdrop has been clicked.
-     */
-    /**
-     * Gets an observable that emits when the overlay's backdrop has been clicked.
-     * @return {?}
-     */
-    MatBottomSheetRef.prototype.backdropClick = /**
-     * Gets an observable that emits when the overlay's backdrop has been clicked.
-     * @return {?}
-     */
-    function () {
-        return this._overlayRef.backdropClick();
-    };
-    /**
-     * Gets an observable that emits when keydown events are targeted on the overlay.
-     */
-    /**
-     * Gets an observable that emits when keydown events are targeted on the overlay.
-     * @return {?}
-     */
-    MatBottomSheetRef.prototype.keydownEvents = /**
-     * Gets an observable that emits when keydown events are targeted on the overlay.
-     * @return {?}
-     */
-    function () {
-        return this._overlayRef.keydownEvents();
-    };
-    return MatBottomSheetRef;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * Animations used by the Material bottom sheet.
  */
 var /** @type {?} */ matBottomSheetAnimations = {
@@ -5314,6 +5194,149 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+var MatBottomSheetModule = /** @class */ (function () {
+    function MatBottomSheetModule() {
+    }
+    MatBottomSheetModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [
+                        common.CommonModule,
+                        overlay.OverlayModule,
+                        MatCommonModule,
+                        portal.PortalModule,
+                    ],
+                    exports: [MatBottomSheetContainer, MatCommonModule],
+                    declarations: [MatBottomSheetContainer],
+                    entryComponents: [MatBottomSheetContainer],
+                },] },
+    ];
+    return MatBottomSheetModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Reference to a bottom sheet dispatched from the bottom sheet service.
+ * @template T, R
+ */
+var   /**
+ * Reference to a bottom sheet dispatched from the bottom sheet service.
+ * @template T, R
+ */
+MatBottomSheetRef = /** @class */ (function () {
+    function MatBottomSheetRef(containerInstance, _overlayRef) {
+        var _this = this;
+        this._overlayRef = _overlayRef;
+        /**
+         * Subject for notifying the user that the bottom sheet has been dismissed.
+         */
+        this._afterDismissed = new rxjs.Subject();
+        /**
+         * Subject for notifying the user that the bottom sheet has opened and appeared.
+         */
+        this._afterOpened = new rxjs.Subject();
+        this.containerInstance = containerInstance;
+        // Emit when opening animation completes
+        containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), operators.take(1))
+            .subscribe(function () {
+            _this._afterOpened.next();
+            _this._afterOpened.complete();
+        });
+        // Dispose overlay when closing animation is complete
+        containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), operators.take(1))
+            .subscribe(function () {
+            _this._overlayRef.dispose();
+            _this._afterDismissed.next(_this._result);
+            _this._afterDismissed.complete();
+        });
+        if (!containerInstance.bottomSheetConfig.disableClose) {
+            rxjs.merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
+        }
+    }
+    /**
+     * Dismisses the bottom sheet.
+     * @param result Data to be passed back to the bottom sheet opener.
+     */
+    /**
+     * Dismisses the bottom sheet.
+     * @param {?=} result Data to be passed back to the bottom sheet opener.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.dismiss = /**
+     * Dismisses the bottom sheet.
+     * @param {?=} result Data to be passed back to the bottom sheet opener.
+     * @return {?}
+     */
+    function (result) {
+        var _this = this;
+        if (!this._afterDismissed.closed) {
+            // Transition the backdrop in parallel to the bottom sheet.
+            this.containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'start'; }), operators.take(1)).subscribe(function () { return _this._overlayRef.detachBackdrop(); });
+            this._result = result;
+            this.containerInstance.exit();
+        }
+    };
+    /** Gets an observable that is notified when the bottom sheet is finished closing. */
+    /**
+     * Gets an observable that is notified when the bottom sheet is finished closing.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.afterDismissed = /**
+     * Gets an observable that is notified when the bottom sheet is finished closing.
+     * @return {?}
+     */
+    function () {
+        return this._afterDismissed.asObservable();
+    };
+    /** Gets an observable that is notified when the bottom sheet has opened and appeared. */
+    /**
+     * Gets an observable that is notified when the bottom sheet has opened and appeared.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.afterOpened = /**
+     * Gets an observable that is notified when the bottom sheet has opened and appeared.
+     * @return {?}
+     */
+    function () {
+        return this._afterOpened.asObservable();
+    };
+    /**
+     * Gets an observable that emits when the overlay's backdrop has been clicked.
+     */
+    /**
+     * Gets an observable that emits when the overlay's backdrop has been clicked.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.backdropClick = /**
+     * Gets an observable that emits when the overlay's backdrop has been clicked.
+     * @return {?}
+     */
+    function () {
+        return this._overlayRef.backdropClick();
+    };
+    /**
+     * Gets an observable that emits when keydown events are targeted on the overlay.
+     */
+    /**
+     * Gets an observable that emits when keydown events are targeted on the overlay.
+     * @return {?}
+     */
+    MatBottomSheetRef.prototype.keydownEvents = /**
+     * Gets an observable that emits when keydown events are targeted on the overlay.
+     * @return {?}
+     */
+    function () {
+        return this._overlayRef.keydownEvents();
+    };
+    return MatBottomSheetRef;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Service to trigger Material Design bottom sheets.
  */
@@ -5491,7 +5514,7 @@ var MatBottomSheet = /** @class */ (function () {
         return new portal.PortalInjector(userInjector || this._injector, injectionTokens);
     };
     MatBottomSheet.decorators = [
-        { type: core.Injectable },
+        { type: core.Injectable, args: [{ providedIn: MatBottomSheetModule },] },
     ];
     /** @nocollapse */
     MatBottomSheet.ctorParameters = function () { return [
@@ -5499,6 +5522,7 @@ var MatBottomSheet = /** @class */ (function () {
         { type: core.Injector, },
         { type: MatBottomSheet, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
     ]; };
+    /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.inject(overlay.Overlay), core.inject(core.INJECTOR), core.inject(MatBottomSheet, 12)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
     return MatBottomSheet;
 }());
 /**
@@ -5509,30 +5533,6 @@ var MatBottomSheet = /** @class */ (function () {
 function _applyConfigDefaults(config) {
     return __assign({}, new MatBottomSheetConfig(), config);
 }
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var MatBottomSheetModule = /** @class */ (function () {
-    function MatBottomSheetModule() {
-    }
-    MatBottomSheetModule.decorators = [
-        { type: core.NgModule, args: [{
-                    imports: [
-                        common.CommonModule,
-                        overlay.OverlayModule,
-                        MatCommonModule,
-                        portal.PortalModule,
-                    ],
-                    exports: [MatBottomSheetContainer, MatCommonModule],
-                    declarations: [MatBottomSheetContainer],
-                    entryComponents: [MatBottomSheetContainer],
-                    providers: [MatBottomSheet],
-                },] },
-    ];
-    return MatBottomSheetModule;
-}());
 
 /**
  * @fileoverview added by tsickle
@@ -22558,7 +22558,7 @@ var MatPaginator = /** @class */ (function (_super) {
     MatPaginator.decorators = [
         { type: core.Component, args: [{selector: 'mat-paginator',
                     exportAs: 'matPaginator',
-                    template: "<div class=\"mat-paginator-container\"><div class=\"mat-paginator-page-size\" *ngIf=\"!hidePageSize\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\"><mat-select [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (selectionChange)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-actions\"><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-first\" (click)=\"firstPage()\" [attr.aria-label]=\"_intl.firstPageLabel\" [matTooltip]=\"_intl.firstPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\" *ngIf=\"showFirstLastButtons\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6.2.1-3681ddf2H6z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-last\" (click)=\"lastPage()\" [attr.aria-label]=\"_intl.lastPageLabel\" [matTooltip]=\"_intl.lastPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\" *ngIf=\"showFirstLastButtons\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6.2.1-3681ddf2h-2z\"/></svg></button></div></div>",
+                    template: "<div class=\"mat-paginator-container\"><div class=\"mat-paginator-page-size\" *ngIf=\"!hidePageSize\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\"><mat-select [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (selectionChange)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-actions\"><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-first\" (click)=\"firstPage()\" [attr.aria-label]=\"_intl.firstPageLabel\" [matTooltip]=\"_intl.firstPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\" *ngIf=\"showFirstLastButtons\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6.2.1-0be9c4e2H6z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-last\" (click)=\"lastPage()\" [attr.aria-label]=\"_intl.lastPageLabel\" [matTooltip]=\"_intl.lastPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\" *ngIf=\"showFirstLastButtons\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6.2.1-0be9c4e2h-2z\"/></svg></button></div></div>",
                     styles: [".mat-paginator{display:block}.mat-paginator-container{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px;flex-wrap:wrap-reverse}.mat-paginator-page-size{display:flex;align-items:baseline;margin-right:8px}[dir=rtl] .mat-paginator-page-size{margin-right:0;margin-left:8px}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:6px 4px 0 4px;width:56px}.mat-paginator-range-label{margin:0 32px 0 24px}.mat-paginator-range-actions{display:flex;align-items:center;min-height:48px}.mat-paginator-icon{width:28px;fill:currentColor}[dir=rtl] .mat-paginator-icon{transform:rotate(180deg)}"],
                     host: {
                         'class': 'mat-paginator',
@@ -27226,6 +27226,30 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+var MatSnackBarModule = /** @class */ (function () {
+    function MatSnackBarModule() {
+    }
+    MatSnackBarModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [
+                        overlay.OverlayModule,
+                        portal.PortalModule,
+                        common.CommonModule,
+                        MatButtonModule,
+                        MatCommonModule,
+                    ],
+                    exports: [MatSnackBarContainer, MatCommonModule],
+                    declarations: [MatSnackBarContainer, SimpleSnackBar],
+                    entryComponents: [MatSnackBarContainer, SimpleSnackBar],
+                },] },
+    ];
+    return MatSnackBarModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Injection token that can be used to specify default snack bar.
  */
@@ -27554,7 +27578,7 @@ var MatSnackBar = /** @class */ (function () {
         ]));
     };
     MatSnackBar.decorators = [
-        { type: core.Injectable },
+        { type: core.Injectable, args: [{ providedIn: MatSnackBarModule },] },
     ];
     /** @nocollapse */
     MatSnackBar.ctorParameters = function () { return [
@@ -27565,32 +27589,8 @@ var MatSnackBar = /** @class */ (function () {
         { type: MatSnackBar, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
         { type: MatSnackBarConfig, decorators: [{ type: core.Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] },] },
     ]; };
+    /** @nocollapse */ MatSnackBar.ngInjectableDef = core.defineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(core.inject(overlay.Overlay), core.inject(a11y.LiveAnnouncer), core.inject(core.INJECTOR), core.inject(layout.BreakpointObserver), core.inject(MatSnackBar, 12), core.inject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
     return MatSnackBar;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var MatSnackBarModule = /** @class */ (function () {
-    function MatSnackBarModule() {
-    }
-    MatSnackBarModule.decorators = [
-        { type: core.NgModule, args: [{
-                    imports: [
-                        overlay.OverlayModule,
-                        portal.PortalModule,
-                        common.CommonModule,
-                        MatButtonModule,
-                        MatCommonModule,
-                    ],
-                    exports: [MatSnackBarContainer, MatCommonModule],
-                    declarations: [MatSnackBarContainer, SimpleSnackBar],
-                    entryComponents: [MatSnackBarContainer, SimpleSnackBar],
-                    providers: [MatSnackBar]
-                },] },
-    ];
-    return MatSnackBarModule;
 }());
 
 /**
@@ -32416,7 +32416,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.2.1-3681ddf');
+var /** @type {?} */ VERSION = new core.Version('6.2.1-0be9c4e');
 
 exports.VERSION = VERSION;
 exports.ɵa28 = MatAutocompleteOrigin;
@@ -32668,12 +32668,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32802,17 +32802,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

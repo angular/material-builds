@@ -5,17 +5,17 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { InjectionToken, Component, ViewChild, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, EventEmitter, Inject, Optional, TemplateRef, Injectable, Injector, SkipSelf, NgModule } from '@angular/core';
-import { ESCAPE } from '@angular/cdk/keycodes';
-import { merge, Subject, of } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { InjectionToken, Component, ViewChild, ElementRef, ChangeDetectionStrategy, ViewEncapsulation, ChangeDetectorRef, EventEmitter, Inject, Optional, NgModule, Injectable, Injector, SkipSelf, TemplateRef, defineInjectable, inject, INJECTOR } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
-import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, TemplatePortal, PortalInjector, PortalModule } from '@angular/cdk/portal';
+import { BasePortalOutlet, CdkPortalOutlet, PortalModule, ComponentPortal, PortalInjector, TemplatePortal } from '@angular/cdk/portal';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
-import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { OverlayModule, Overlay, OverlayConfig } from '@angular/cdk/overlay';
+import { ESCAPE } from '@angular/cdk/keycodes';
+import { merge, Subject, of } from 'rxjs';
+import { filter, take } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 
 /**
@@ -48,90 +48,6 @@ class MatBottomSheetConfig {
          * Aria label to assign to the bottom sheet element.
          */
         this.ariaLabel = null;
-    }
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * Reference to a bottom sheet dispatched from the bottom sheet service.
- * @template T, R
- */
-class MatBottomSheetRef {
-    /**
-     * @param {?} containerInstance
-     * @param {?} _overlayRef
-     */
-    constructor(containerInstance, _overlayRef) {
-        this._overlayRef = _overlayRef;
-        /**
-         * Subject for notifying the user that the bottom sheet has been dismissed.
-         */
-        this._afterDismissed = new Subject();
-        /**
-         * Subject for notifying the user that the bottom sheet has opened and appeared.
-         */
-        this._afterOpened = new Subject();
-        this.containerInstance = containerInstance;
-        // Emit when opening animation completes
-        containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'visible'), take(1))
-            .subscribe(() => {
-            this._afterOpened.next();
-            this._afterOpened.complete();
-        });
-        // Dispose overlay when closing animation is complete
-        containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'hidden'), take(1))
-            .subscribe(() => {
-            this._overlayRef.dispose();
-            this._afterDismissed.next(this._result);
-            this._afterDismissed.complete();
-        });
-        if (!containerInstance.bottomSheetConfig.disableClose) {
-            merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(filter(event => event.keyCode === ESCAPE))).subscribe(() => this.dismiss());
-        }
-    }
-    /**
-     * Dismisses the bottom sheet.
-     * @param {?=} result Data to be passed back to the bottom sheet opener.
-     * @return {?}
-     */
-    dismiss(result) {
-        if (!this._afterDismissed.closed) {
-            // Transition the backdrop in parallel to the bottom sheet.
-            this.containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'start'), take(1)).subscribe(() => this._overlayRef.detachBackdrop());
-            this._result = result;
-            this.containerInstance.exit();
-        }
-    }
-    /**
-     * Gets an observable that is notified when the bottom sheet is finished closing.
-     * @return {?}
-     */
-    afterDismissed() {
-        return this._afterDismissed.asObservable();
-    }
-    /**
-     * Gets an observable that is notified when the bottom sheet has opened and appeared.
-     * @return {?}
-     */
-    afterOpened() {
-        return this._afterOpened.asObservable();
-    }
-    /**
-     * Gets an observable that emits when the overlay's backdrop has been clicked.
-     * @return {?}
-     */
-    backdropClick() {
-        return this._overlayRef.backdropClick();
-    }
-    /**
-     * Gets an observable that emits when keydown events are targeted on the overlay.
-     * @return {?}
-     */
-    keydownEvents() {
-        return this._overlayRef.keydownEvents();
     }
 }
 
@@ -369,6 +285,110 @@ MatBottomSheetContainer.propDecorators = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+class MatBottomSheetModule {
+}
+MatBottomSheetModule.decorators = [
+    { type: NgModule, args: [{
+                imports: [
+                    CommonModule,
+                    OverlayModule,
+                    MatCommonModule,
+                    PortalModule,
+                ],
+                exports: [MatBottomSheetContainer, MatCommonModule],
+                declarations: [MatBottomSheetContainer],
+                entryComponents: [MatBottomSheetContainer],
+            },] },
+];
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Reference to a bottom sheet dispatched from the bottom sheet service.
+ * @template T, R
+ */
+class MatBottomSheetRef {
+    /**
+     * @param {?} containerInstance
+     * @param {?} _overlayRef
+     */
+    constructor(containerInstance, _overlayRef) {
+        this._overlayRef = _overlayRef;
+        /**
+         * Subject for notifying the user that the bottom sheet has been dismissed.
+         */
+        this._afterDismissed = new Subject();
+        /**
+         * Subject for notifying the user that the bottom sheet has opened and appeared.
+         */
+        this._afterOpened = new Subject();
+        this.containerInstance = containerInstance;
+        // Emit when opening animation completes
+        containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'visible'), take(1))
+            .subscribe(() => {
+            this._afterOpened.next();
+            this._afterOpened.complete();
+        });
+        // Dispose overlay when closing animation is complete
+        containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'hidden'), take(1))
+            .subscribe(() => {
+            this._overlayRef.dispose();
+            this._afterDismissed.next(this._result);
+            this._afterDismissed.complete();
+        });
+        if (!containerInstance.bottomSheetConfig.disableClose) {
+            merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(filter(event => event.keyCode === ESCAPE))).subscribe(() => this.dismiss());
+        }
+    }
+    /**
+     * Dismisses the bottom sheet.
+     * @param {?=} result Data to be passed back to the bottom sheet opener.
+     * @return {?}
+     */
+    dismiss(result) {
+        if (!this._afterDismissed.closed) {
+            // Transition the backdrop in parallel to the bottom sheet.
+            this.containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'start'), take(1)).subscribe(() => this._overlayRef.detachBackdrop());
+            this._result = result;
+            this.containerInstance.exit();
+        }
+    }
+    /**
+     * Gets an observable that is notified when the bottom sheet is finished closing.
+     * @return {?}
+     */
+    afterDismissed() {
+        return this._afterDismissed.asObservable();
+    }
+    /**
+     * Gets an observable that is notified when the bottom sheet has opened and appeared.
+     * @return {?}
+     */
+    afterOpened() {
+        return this._afterOpened.asObservable();
+    }
+    /**
+     * Gets an observable that emits when the overlay's backdrop has been clicked.
+     * @return {?}
+     */
+    backdropClick() {
+        return this._overlayRef.backdropClick();
+    }
+    /**
+     * Gets an observable that emits when keydown events are targeted on the overlay.
+     * @return {?}
+     */
+    keydownEvents() {
+        return this._overlayRef.keydownEvents();
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Service to trigger Material Design bottom sheets.
  */
@@ -515,7 +535,7 @@ class MatBottomSheet {
     }
 }
 MatBottomSheet.decorators = [
-    { type: Injectable },
+    { type: Injectable, args: [{ providedIn: MatBottomSheetModule },] },
 ];
 /** @nocollapse */
 MatBottomSheet.ctorParameters = () => [
@@ -523,6 +543,7 @@ MatBottomSheet.ctorParameters = () => [
     { type: Injector, },
     { type: MatBottomSheet, decorators: [{ type: Optional }, { type: SkipSelf },] },
 ];
+/** @nocollapse */ MatBottomSheet.ngInjectableDef = defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(inject(Overlay), inject(INJECTOR), inject(MatBottomSheet, 12)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
 /**
  * Applies default options to the bottom sheet config.
  * @param {?=} config The configuration to which the defaults will be applied.
@@ -531,27 +552,6 @@ MatBottomSheet.ctorParameters = () => [
 function _applyConfigDefaults(config) {
     return Object.assign({}, new MatBottomSheetConfig(), config);
 }
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-class MatBottomSheetModule {
-}
-MatBottomSheetModule.decorators = [
-    { type: NgModule, args: [{
-                imports: [
-                    CommonModule,
-                    OverlayModule,
-                    MatCommonModule,
-                    PortalModule,
-                ],
-                exports: [MatBottomSheetContainer, MatCommonModule],
-                declarations: [MatBottomSheetContainer],
-                entryComponents: [MatBottomSheetContainer],
-                providers: [MatBottomSheet],
-            },] },
-];
 
 /**
  * @fileoverview added by tsickle

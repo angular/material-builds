@@ -1,13 +1,6 @@
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
-import { TemplateRef, Injector } from '@angular/core';
+import { Injector, TemplateRef } from '@angular/core';
 import { MatBottomSheetConfig } from './bottom-sheet-config';
 import { MatBottomSheetRef } from './bottom-sheet-ref';
 /**

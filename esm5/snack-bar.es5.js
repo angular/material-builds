@@ -6,17 +6,17 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Subject } from 'rxjs';
-import { InjectionToken, Component, ViewEncapsulation, Inject, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, NgZone, ViewChild, Injectable, Injector, Optional, SkipSelf, TemplateRef, NgModule } from '@angular/core';
+import { InjectionToken, Component, ViewEncapsulation, Inject, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, NgZone, ViewChild, NgModule, Injectable, Injector, Optional, SkipSelf, TemplateRef, defineInjectable, inject, INJECTOR } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
-import { __assign, __extends } from 'tslib';
-import { BasePortalOutlet, CdkPortalOutlet, ComponentPortal, PortalInjector, TemplatePortal, PortalModule } from '@angular/cdk/portal';
+import { __extends, __assign } from 'tslib';
+import { BasePortalOutlet, CdkPortalOutlet, PortalModule, ComponentPortal, PortalInjector, TemplatePortal } from '@angular/cdk/portal';
 import { take, takeUntil } from 'rxjs/operators';
-import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Overlay, OverlayConfig, OverlayModule } from '@angular/cdk/overlay';
+import { OverlayModule, Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 /**
  * @fileoverview added by tsickle
@@ -545,6 +545,30 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+var MatSnackBarModule = /** @class */ (function () {
+    function MatSnackBarModule() {
+    }
+    MatSnackBarModule.decorators = [
+        { type: NgModule, args: [{
+                    imports: [
+                        OverlayModule,
+                        PortalModule,
+                        CommonModule,
+                        MatButtonModule,
+                        MatCommonModule,
+                    ],
+                    exports: [MatSnackBarContainer, MatCommonModule],
+                    declarations: [MatSnackBarContainer, SimpleSnackBar],
+                    entryComponents: [MatSnackBarContainer, SimpleSnackBar],
+                },] },
+    ];
+    return MatSnackBarModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Injection token that can be used to specify default snack bar.
  */
@@ -873,7 +897,7 @@ var MatSnackBar = /** @class */ (function () {
         ]));
     };
     MatSnackBar.decorators = [
-        { type: Injectable },
+        { type: Injectable, args: [{ providedIn: MatSnackBarModule },] },
     ];
     /** @nocollapse */
     MatSnackBar.ctorParameters = function () { return [
@@ -884,32 +908,8 @@ var MatSnackBar = /** @class */ (function () {
         { type: MatSnackBar, decorators: [{ type: Optional }, { type: SkipSelf },] },
         { type: MatSnackBarConfig, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] },] },
     ]; };
+    /** @nocollapse */ MatSnackBar.ngInjectableDef = defineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(inject(Overlay), inject(LiveAnnouncer), inject(INJECTOR), inject(BreakpointObserver), inject(MatSnackBar, 12), inject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
     return MatSnackBar;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var MatSnackBarModule = /** @class */ (function () {
-    function MatSnackBarModule() {
-    }
-    MatSnackBarModule.decorators = [
-        { type: NgModule, args: [{
-                    imports: [
-                        OverlayModule,
-                        PortalModule,
-                        CommonModule,
-                        MatButtonModule,
-                        MatCommonModule,
-                    ],
-                    exports: [MatSnackBarContainer, MatCommonModule],
-                    declarations: [MatSnackBarContainer, SimpleSnackBar],
-                    entryComponents: [MatSnackBarContainer, SimpleSnackBar],
-                    providers: [MatSnackBar]
-                },] },
-    ];
-    return MatSnackBarModule;
 }());
 
 /**

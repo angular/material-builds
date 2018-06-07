@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs'), require('@angular/core'), require('@angular/animations'), require('@angular/material/core'), require('@angular/cdk/portal'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/layout'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/material/button')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/snackBar', ['exports', 'rxjs', '@angular/core', '@angular/animations', '@angular/material/core', '@angular/cdk/portal', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/layout', '@angular/cdk/overlay', '@angular/common', '@angular/material/button'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = {}),global.rxjs,global.ng.core,global.ng.animations,global.ng.material.core,global.ng.cdk.portal,global.rxjs.operators,global.ng.cdk.a11y,global.ng.cdk.layout,global.ng.cdk.overlay,global.ng.common,global.ng.material.button));
-}(this, (function (exports,rxjs,core,animations,core$1,portal,operators,a11y,layout,overlay,common,button) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('rxjs'), require('@angular/core'), require('@angular/animations'), require('@angular/material/core'), require('@angular/cdk/portal'), require('rxjs/operators'), require('@angular/cdk/overlay'), require('@angular/common'), require('@angular/material/button'), require('@angular/cdk/a11y'), require('@angular/cdk/layout')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/snackBar', ['exports', 'rxjs', '@angular/core', '@angular/animations', '@angular/material/core', '@angular/cdk/portal', 'rxjs/operators', '@angular/cdk/overlay', '@angular/common', '@angular/material/button', '@angular/cdk/a11y', '@angular/cdk/layout'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.snackBar = {}),global.rxjs,global.ng.core,global.ng.animations,global.ng.material.core,global.ng.cdk.portal,global.rxjs.operators,global.ng.cdk.overlay,global.ng.common,global.ng.material.button,global.ng.cdk.a11y,global.ng.cdk.layout));
+}(this, (function (exports,rxjs,core,animations,core$1,portal,operators,overlay,common,button,a11y,layout) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -572,6 +572,30 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+var MatSnackBarModule = /** @class */ (function () {
+    function MatSnackBarModule() {
+    }
+    MatSnackBarModule.decorators = [
+        { type: core.NgModule, args: [{
+                    imports: [
+                        overlay.OverlayModule,
+                        portal.PortalModule,
+                        common.CommonModule,
+                        button.MatButtonModule,
+                        core$1.MatCommonModule,
+                    ],
+                    exports: [MatSnackBarContainer, core$1.MatCommonModule],
+                    declarations: [MatSnackBarContainer, SimpleSnackBar],
+                    entryComponents: [MatSnackBarContainer, SimpleSnackBar],
+                },] },
+    ];
+    return MatSnackBarModule;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 /**
  * Injection token that can be used to specify default snack bar.
  */
@@ -900,7 +924,7 @@ var MatSnackBar = /** @class */ (function () {
         ]));
     };
     MatSnackBar.decorators = [
-        { type: core.Injectable },
+        { type: core.Injectable, args: [{ providedIn: MatSnackBarModule },] },
     ];
     /** @nocollapse */
     MatSnackBar.ctorParameters = function () { return [
@@ -911,32 +935,8 @@ var MatSnackBar = /** @class */ (function () {
         { type: MatSnackBar, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
         { type: MatSnackBarConfig, decorators: [{ type: core.Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] },] },
     ]; };
+    /** @nocollapse */ MatSnackBar.ngInjectableDef = core.defineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(core.inject(overlay.Overlay), core.inject(a11y.LiveAnnouncer), core.inject(core.INJECTOR), core.inject(layout.BreakpointObserver), core.inject(MatSnackBar, 12), core.inject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
     return MatSnackBar;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-var MatSnackBarModule = /** @class */ (function () {
-    function MatSnackBarModule() {
-    }
-    MatSnackBarModule.decorators = [
-        { type: core.NgModule, args: [{
-                    imports: [
-                        overlay.OverlayModule,
-                        portal.PortalModule,
-                        common.CommonModule,
-                        button.MatButtonModule,
-                        core$1.MatCommonModule,
-                    ],
-                    exports: [MatSnackBarContainer, core$1.MatCommonModule],
-                    declarations: [MatSnackBarContainer, SimpleSnackBar],
-                    entryComponents: [MatSnackBarContainer, SimpleSnackBar],
-                    providers: [MatSnackBar]
-                },] },
-    ];
-    return MatSnackBarModule;
 }());
 
 exports.MatSnackBarModule = MatSnackBarModule;
