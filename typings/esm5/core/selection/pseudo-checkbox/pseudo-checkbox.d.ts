@@ -1,3 +1,7 @@
+/**
+ * Possible states for a pseudo checkbox.
+ * @docs-private
+ */
 export declare type MatPseudoCheckboxState = 'unchecked' | 'checked' | 'indeterminate';
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
@@ -13,8 +17,10 @@ export declare type MatPseudoCheckboxState = 'unchecked' | 'checked' | 'indeterm
  * @docs-private
  */
 export declare class MatPseudoCheckbox {
+    _animationMode: string | undefined;
     /** Display state of the checkbox. */
     state: MatPseudoCheckboxState;
     /** Whether the checkbox is disabled. */
     disabled: boolean;
+    constructor(_animationMode?: string | undefined);
 }
