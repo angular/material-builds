@@ -2183,8 +2183,7 @@ var MatRippleModule = /** @class */ (function () {
  * \@docs-private
  */
 var MatPseudoCheckbox = /** @class */ (function () {
-    function MatPseudoCheckbox(_animationMode) {
-        this._animationMode = _animationMode;
+    function MatPseudoCheckbox() {
         /**
          * Display state of the checkbox.
          */
@@ -2198,21 +2197,17 @@ var MatPseudoCheckbox = /** @class */ (function () {
         { type: core.Component, args: [{encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     selector: 'mat-pseudo-checkbox',
-                    styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border-color:transparent}._mat-animation-noopable.mat-pseudo-checkbox{transition:none;animation:none}._mat-animation-noopable.mat-pseudo-checkbox::after{transition:none}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:7px;left:0;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:3px;left:1px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
+                    styles: [".mat-pseudo-checkbox{width:20px;height:20px;border:2px solid;border-radius:2px;cursor:pointer;display:inline-block;vertical-align:middle;box-sizing:border-box;position:relative;flex-shrink:0;transition:border-color 90ms cubic-bezier(0,0,.2,.1),background-color 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox::after{position:absolute;opacity:0;content:'';border-bottom:2px solid currentColor;transition:opacity 90ms cubic-bezier(0,0,.2,.1)}.mat-pseudo-checkbox.mat-pseudo-checkbox-checked,.mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate{border-color:transparent}.mat-pseudo-checkbox-disabled{cursor:default}.mat-pseudo-checkbox-indeterminate::after{top:7px;left:0;width:16px;opacity:1}.mat-pseudo-checkbox-checked::after{top:3px;left:1px;width:12px;height:5px;border-left:2px solid currentColor;transform:rotate(-45deg);opacity:1}"],
                     template: '',
                     host: {
                         'class': 'mat-pseudo-checkbox',
                         '[class.mat-pseudo-checkbox-indeterminate]': 'state === "indeterminate"',
                         '[class.mat-pseudo-checkbox-checked]': 'state === "checked"',
                         '[class.mat-pseudo-checkbox-disabled]': 'disabled',
-                        '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
                     },
                 },] },
     ];
     /** @nocollapse */
-    MatPseudoCheckbox.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
-    ]; };
     MatPseudoCheckbox.propDecorators = {
         "state": [{ type: core.Input },],
         "disabled": [{ type: core.Input },],
