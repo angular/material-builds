@@ -591,10 +591,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
     }
     Object.defineProperty(MatTreeNestedDataSource.prototype, "data", {
         /**
-         * Data for the nested treee
+         * Data for the nested tree
          */
         get: /**
-         * Data for the nested treee
+         * Data for the nested tree
          * @return {?}
          */
         function () { return this._data.value; },

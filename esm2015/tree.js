@@ -452,7 +452,7 @@ class MatTreeNestedDataSource extends DataSource {
         this._data = new BehaviorSubject([]);
     }
     /**
-     * Data for the nested treee
+     * Data for the nested tree
      * @return {?}
      */
     get data() { return this._data.value; }

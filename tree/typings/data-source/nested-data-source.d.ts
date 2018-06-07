@@ -16,7 +16,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export declare class MatTreeNestedDataSource<T> extends DataSource<T> {
     _data: BehaviorSubject<T[]>;
     /**
-     * Data for the nested treee
+     * Data for the nested tree
      */
     data: T[];
     connect(collectionViewer: CollectionViewer): Observable<T[]>;
