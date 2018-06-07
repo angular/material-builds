@@ -4293,7 +4293,8 @@ $mat-form-field-outline-dedupe: 0;
       }
     }
 
-    .mat-form-field-ripple {
+    .mat-form-field-ripple,
+    .mat-form-field-ripple.mat-accent {
       background-color: $underline-color-warn;
     }
   }

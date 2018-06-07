@@ -1562,6 +1562,7 @@ MatTabLink.decorators = [
                 inputs: ['disabled', 'disableRipple', 'tabIndex'],
                 host: {
                     'class': 'mat-tab-link',
+                    '[attr.aria-current]': 'active',
                     '[attr.aria-disabled]': 'disabled.toString()',
                     '[attr.tabIndex]': 'tabIndex',
                     '[class.mat-tab-disabled]': 'disabled',
