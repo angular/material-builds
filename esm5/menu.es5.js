@@ -607,7 +607,7 @@ var MatMenu = /** @class */ (function () {
     function () {
         var _this = this;
         this._keyManager = new FocusKeyManager(this._items).withWrap().withTypeAhead();
-        this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.close.emit('tab'); });
+        this._tabSubscription = this._keyManager.tabOut.subscribe(function () { return _this.closed.emit('tab'); });
     };
     /**
      * @return {?}
@@ -1357,7 +1357,7 @@ var MatMenuTrigger = /** @class */ (function () {
         var _this = this;
         var /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
         var /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
-        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of();
+        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.closed : of();
         var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter(function (active) { return active !== _this._menuItemInstance; }), filter(function () { return _this._menuOpen; })) : of();
         return merge(backdrop, parentClose, hover, detachments);
     };

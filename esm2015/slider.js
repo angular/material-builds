@@ -242,7 +242,13 @@ class MatSlider extends _MatSliderMixinBase {
      */
     set value(v) {
         if (v !== this._value) {
-            this._value = coerceNumberProperty(v);
+            let /** @type {?} */ value = coerceNumberProperty(v);
+            // While incrementing by a decimal we can end up with values like 33.300000000000004.
+            // Truncate it to ensure that it matches the label and to make it easier to work with.
+            if (this._roundToDecimal) {
+                value = parseFloat(value.toFixed(this._roundToDecimal));
+            }
+            this._value = value;
             this._percent = this._calculatePercentage(this._value);
             // Since this also modifies the percentage, we need to let the change detection know.
             this._changeDetectorRef.markForCheck();
@@ -630,15 +636,10 @@ class MatSlider extends _MatSliderMixinBase {
             this.value = this.max;
         }
         else {
-            let /** @type {?} */ exactValue = this._calculateValue(percent);
+            const /** @type {?} */ exactValue = this._calculateValue(percent);
             // This calculation finds the closest step by finding the closest
             // whole number divisible by the step relative to the min.
-            let /** @type {?} */ closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
-            // If we've got a step with a decimal, we may end up with something like 33.300000000000004.
-            // Truncate the value to ensure that it matches the label and to make it easier to work with.
-            if (this._roundToDecimal) {
-                closestValue = parseFloat(closestValue.toFixed(this._roundToDecimal));
-            }
+            const /** @type {?} */ closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
             // The value needs to snap to the min and max.
             this.value = this._clamp(closestValue, this.min, this.max);
         }

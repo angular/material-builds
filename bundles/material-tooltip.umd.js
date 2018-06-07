@@ -856,6 +856,7 @@ var MatTooltipModule = /** @class */ (function () {
     MatTooltipModule.decorators = [
         { type: core.NgModule, args: [{
                     imports: [
+                        a11y.A11yModule,
                         common.CommonModule,
                         overlay.OverlayModule,
                         core$1.MatCommonModule,

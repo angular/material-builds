@@ -296,7 +296,10 @@ var MatBadgeModule = /** @class */ (function () {
     }
     MatBadgeModule.decorators = [
         { type: core.NgModule, args: [{
-                    imports: [core$1.MatCommonModule],
+                    imports: [
+                        a11y.A11yModule,
+                        core$1.MatCommonModule
+                    ],
                     exports: [MatBadge],
                     declarations: [MatBadge],
                 },] },

@@ -533,7 +533,7 @@ class MatMenu {
      */
     ngAfterContentInit() {
         this._keyManager = new FocusKeyManager(this._items).withWrap().withTypeAhead();
-        this._tabSubscription = this._keyManager.tabOut.subscribe(() => this.close.emit('tab'));
+        this._tabSubscription = this._keyManager.tabOut.subscribe(() => this.closed.emit('tab'));
     }
     /**
      * @return {?}
@@ -1102,7 +1102,7 @@ class MatMenuTrigger {
     _menuClosingActions() {
         const /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
         const /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
-        const /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.close : of();
+        const /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.closed : of();
         const /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter(active => active !== this._menuItemInstance), filter(() => this._menuOpen)) : of();
         return merge(backdrop, parentClose, hover, detachments);
     }

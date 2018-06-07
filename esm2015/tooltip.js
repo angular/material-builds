@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AriaDescriber, FocusMonitor } from '@angular/cdk/a11y';
+import { AriaDescriber, FocusMonitor, A11yModule } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
@@ -685,6 +685,7 @@ class MatTooltipModule {
 MatTooltipModule.decorators = [
     { type: NgModule, args: [{
                 imports: [
+                    A11yModule,
                     CommonModule,
                     OverlayModule,
                     MatCommonModule,

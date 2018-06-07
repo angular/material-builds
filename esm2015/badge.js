@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AriaDescriber } from '@angular/cdk/a11y';
+import { AriaDescriber, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
 import { Directive, ElementRef, Inject, Input, NgZone, Optional, NgModule } from '@angular/core';
@@ -248,7 +248,10 @@ class MatBadgeModule {
 }
 MatBadgeModule.decorators = [
     { type: NgModule, args: [{
-                imports: [MatCommonModule],
+                imports: [
+                    A11yModule,
+                    MatCommonModule
+                ],
                 exports: [MatBadge],
                 declarations: [MatBadge],
             },] },
