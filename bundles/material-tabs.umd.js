@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/observers'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/tabs', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/cdk/bidi', 'rxjs/operators', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/observers', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = {}),global.ng.core,global.ng.cdk.portal,global.ng.material.core,global.rxjs,global.ng.animations,global.ng.cdk.bidi,global.rxjs.operators,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.observers,global.ng.common));
-}(this, (function (exports,core,portal,core$1,rxjs,animations,bidi,operators,coercion,keycodes,scrolling,platform,observers,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/bidi'), require('rxjs/operators'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/scrolling'), require('@angular/cdk/a11y'), require('@angular/cdk/platform'), require('@angular/cdk/observers'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/tabs', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/cdk/bidi', 'rxjs/operators', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/scrolling', '@angular/cdk/a11y', '@angular/cdk/platform', '@angular/cdk/observers', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tabs = {}),global.ng.core,global.ng.cdk.portal,global.ng.material.core,global.rxjs,global.ng.animations,global.ng.cdk.bidi,global.rxjs.operators,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.scrolling,global.ng.cdk.a11y,global.ng.cdk.platform,global.ng.cdk.observers,global.ng.common));
+}(this, (function (exports,core,portal,core$1,rxjs,animations,bidi,operators,coercion,keycodes,scrolling,a11y,platform,observers,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -710,10 +710,6 @@ var MatTabHeader = /** @class */ (function (_super) {
         _this._viewportRuler = _viewportRuler;
         _this._dir = _dir;
         /**
-         * The tab index that is focused.
-         */
-        _this._focusIndex = 0;
-        /**
          * The distance in pixels that the tab labels should be translated to the left.
          */
         _this._scrollDistance = 0;
@@ -762,7 +758,9 @@ var MatTabHeader = /** @class */ (function (_super) {
             value = coercion.coerceNumberProperty(value);
             this._selectedIndexChanged = this._selectedIndex != value;
             this._selectedIndex = value;
-            this._focusIndex = value;
+            if (this._keyManager) {
+                this._keyManager.updateActiveItemIndex(value);
+            }
         },
         enumerable: true,
         configurable: true
@@ -807,18 +805,12 @@ var MatTabHeader = /** @class */ (function (_super) {
      */
     function (event) {
         switch (event.keyCode) {
-            case keycodes.RIGHT_ARROW:
-                this._focusNextTab();
-                break;
-            case keycodes.LEFT_ARROW:
-                this._focusPreviousTab();
-                break;
             case keycodes.HOME:
-                this._focusFirstTab();
+                this._keyManager.setFirstItemActive();
                 event.preventDefault();
                 break;
             case keycodes.END:
-                this._focusLastTab();
+                this._keyManager.setLastItemActive();
                 event.preventDefault();
                 break;
             case keycodes.ENTER:
@@ -826,6 +818,8 @@ var MatTabHeader = /** @class */ (function (_super) {
                 this.selectFocusedIndex.emit(this.focusIndex);
                 event.preventDefault();
                 break;
+            default:
+                this._keyManager.onKeydown(event);
         }
     };
     /**
@@ -847,10 +841,16 @@ var MatTabHeader = /** @class */ (function (_super) {
             _this._updatePagination();
             _this._alignInkBarToSelectedTab();
         };
+        this._keyManager = new a11y.FocusKeyManager(this._labelWrappers)
+            .withHorizontalOrientation(this._getLayoutDirection());
+        this._keyManager.updateActiveItemIndex(0);
         // Defer the first call in order to allow for slower browsers to lay out the elements.
         // This helps in cases where the user lands directly on a page with paginated tabs.
         typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
-        this._realignInkBar = rxjs.merge(dirChange, resize).subscribe(realign);
+        this._realignInkBar = rxjs.merge(dirChange, resize).subscribe(function () {
+            realign();
+            _this._keyManager.withHorizontalOrientation(_this._getLayoutDirection());
+        });
     };
     /**
      * @return {?}
@@ -900,7 +900,7 @@ var MatTabHeader = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this._focusIndex;
+            return this._keyManager ? /** @type {?} */ ((this._keyManager.activeItemIndex)) : 0;
         },
         /** When the focus index is set, we must manually send focus to the correct label */
         set: /**
@@ -909,10 +909,10 @@ var MatTabHeader = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            if (!this._isValidIndex(value) || this._focusIndex == value) {
+            if (!this._isValidIndex(value) || this.focusIndex == value || !this._keyManager) {
                 return;
             }
-            this._focusIndex = value;
+            this._keyManager.setActiveItem(value);
             this.indexFocused.emit(value);
             this._setTabFocus(value);
         },
@@ -974,89 +974,6 @@ var MatTabHeader = /** @class */ (function (_super) {
             }
             else {
                 containerEl.scrollLeft = containerEl.scrollWidth - containerEl.offsetWidth;
-            }
-        }
-    };
-    /**
-     * Moves the focus towards the beginning or the end of the list depending on the offset provided.
-     * Valid offsets are 1 and -1.
-     */
-    /**
-     * Moves the focus towards the beginning or the end of the list depending on the offset provided.
-     * Valid offsets are 1 and -1.
-     * @param {?} offset
-     * @return {?}
-     */
-    MatTabHeader.prototype._moveFocus = /**
-     * Moves the focus towards the beginning or the end of the list depending on the offset provided.
-     * Valid offsets are 1 and -1.
-     * @param {?} offset
-     * @return {?}
-     */
-    function (offset) {
-        if (this._labelWrappers) {
-            var /** @type {?} */ tabs = this._labelWrappers.toArray();
-            for (var /** @type {?} */ i = this.focusIndex + offset; i < tabs.length && i >= 0; i += offset) {
-                if (this._isValidIndex(i)) {
-                    this.focusIndex = i;
-                    return;
-                }
-            }
-        }
-    };
-    /** Increment the focus index by 1 until a valid tab is found. */
-    /**
-     * Increment the focus index by 1 until a valid tab is found.
-     * @return {?}
-     */
-    MatTabHeader.prototype._focusNextTab = /**
-     * Increment the focus index by 1 until a valid tab is found.
-     * @return {?}
-     */
-    function () {
-        this._moveFocus(this._getLayoutDirection() == 'ltr' ? 1 : -1);
-    };
-    /** Decrement the focus index by 1 until a valid tab is found. */
-    /**
-     * Decrement the focus index by 1 until a valid tab is found.
-     * @return {?}
-     */
-    MatTabHeader.prototype._focusPreviousTab = /**
-     * Decrement the focus index by 1 until a valid tab is found.
-     * @return {?}
-     */
-    function () {
-        this._moveFocus(this._getLayoutDirection() == 'ltr' ? -1 : 1);
-    };
-    /**
-     * Focuses the first tab.
-     * @return {?}
-     */
-    MatTabHeader.prototype._focusFirstTab = /**
-     * Focuses the first tab.
-     * @return {?}
-     */
-    function () {
-        for (var /** @type {?} */ i = 0; i < this._labelWrappers.length; i++) {
-            if (this._isValidIndex(i)) {
-                this.focusIndex = i;
-                break;
-            }
-        }
-    };
-    /**
-     * Focuses the last tab.
-     * @return {?}
-     */
-    MatTabHeader.prototype._focusLastTab = /**
-     * Focuses the last tab.
-     * @return {?}
-     */
-    function () {
-        for (var /** @type {?} */ i = this._labelWrappers.length - 1; i > -1; i--) {
-            if (this._isValidIndex(i)) {
-                this.focusIndex = i;
-                break;
             }
         }
     };
@@ -2111,17 +2028,17 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

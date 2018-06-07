@@ -37,8 +37,6 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     _inkBar: MatInkBar;
     _tabListContainer: ElementRef;
     _tabList: ElementRef;
-    /** The tab index that is focused. */
-    private _focusIndex;
     /** The distance in pixels that the tab labels should be translated to the left. */
     private _scrollDistance;
     /** Whether the header should scroll to the selected index after the view has been checked. */
@@ -58,6 +56,8 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     private _tabLabelCount;
     /** Whether the scroll distance has changed and should be applied after the view is checked. */
     private _scrollDistanceChanged;
+    /** Used to manage focus between the tabs. */
+    private _keyManager;
     private _selectedIndex;
     /** The index of the active tab. */
     selectedIndex: number;
@@ -94,19 +94,6 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
      * scrolling is enabled.
      */
     _setTabFocus(tabIndex: number): void;
-    /**
-     * Moves the focus towards the beginning or the end of the list depending on the offset provided.
-     * Valid offsets are 1 and -1.
-     */
-    _moveFocus(offset: number): void;
-    /** Increment the focus index by 1 until a valid tab is found. */
-    _focusNextTab(): void;
-    /** Decrement the focus index by 1 until a valid tab is found. */
-    _focusPreviousTab(): void;
-    /** Focuses the first tab. */
-    private _focusFirstTab();
-    /** Focuses the last tab. */
-    private _focusLastTab();
     /** The layout direction of the containing app. */
     _getLayoutDirection(): Direction;
     /** Performs the CSS transformation on the tab list that will cause the list to scroll. */

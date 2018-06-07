@@ -14,8 +14,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Directionality } from '@angular/cdk/bidi';
 import { startWith, takeUntil } from 'rxjs/operators';
 import { coerceNumberProperty, coerceBooleanProperty } from '@angular/cdk/coercion';
-import { END, ENTER, HOME, LEFT_ARROW, RIGHT_ARROW, SPACE } from '@angular/cdk/keycodes';
+import { END, ENTER, HOME, SPACE } from '@angular/cdk/keycodes';
 import { ViewportRuler } from '@angular/cdk/scrolling';
+import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { ObserversModule } from '@angular/cdk/observers';
 import { CommonModule } from '@angular/common';
@@ -693,10 +694,6 @@ var MatTabHeader = /** @class */ (function (_super) {
         _this._viewportRuler = _viewportRuler;
         _this._dir = _dir;
         /**
-         * The tab index that is focused.
-         */
-        _this._focusIndex = 0;
-        /**
          * The distance in pixels that the tab labels should be translated to the left.
          */
         _this._scrollDistance = 0;
@@ -745,7 +742,9 @@ var MatTabHeader = /** @class */ (function (_super) {
             value = coerceNumberProperty(value);
             this._selectedIndexChanged = this._selectedIndex != value;
             this._selectedIndex = value;
-            this._focusIndex = value;
+            if (this._keyManager) {
+                this._keyManager.updateActiveItemIndex(value);
+            }
         },
         enumerable: true,
         configurable: true
@@ -790,18 +789,12 @@ var MatTabHeader = /** @class */ (function (_super) {
      */
     function (event) {
         switch (event.keyCode) {
-            case RIGHT_ARROW:
-                this._focusNextTab();
-                break;
-            case LEFT_ARROW:
-                this._focusPreviousTab();
-                break;
             case HOME:
-                this._focusFirstTab();
+                this._keyManager.setFirstItemActive();
                 event.preventDefault();
                 break;
             case END:
-                this._focusLastTab();
+                this._keyManager.setLastItemActive();
                 event.preventDefault();
                 break;
             case ENTER:
@@ -809,6 +802,8 @@ var MatTabHeader = /** @class */ (function (_super) {
                 this.selectFocusedIndex.emit(this.focusIndex);
                 event.preventDefault();
                 break;
+            default:
+                this._keyManager.onKeydown(event);
         }
     };
     /**
@@ -830,10 +825,16 @@ var MatTabHeader = /** @class */ (function (_super) {
             _this._updatePagination();
             _this._alignInkBarToSelectedTab();
         };
+        this._keyManager = new FocusKeyManager(this._labelWrappers)
+            .withHorizontalOrientation(this._getLayoutDirection());
+        this._keyManager.updateActiveItemIndex(0);
         // Defer the first call in order to allow for slower browsers to lay out the elements.
         // This helps in cases where the user lands directly on a page with paginated tabs.
         typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
-        this._realignInkBar = merge(dirChange, resize).subscribe(realign);
+        this._realignInkBar = merge(dirChange, resize).subscribe(function () {
+            realign();
+            _this._keyManager.withHorizontalOrientation(_this._getLayoutDirection());
+        });
     };
     /**
      * @return {?}
@@ -883,7 +884,7 @@ var MatTabHeader = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this._focusIndex;
+            return this._keyManager ? /** @type {?} */ ((this._keyManager.activeItemIndex)) : 0;
         },
         /** When the focus index is set, we must manually send focus to the correct label */
         set: /**
@@ -892,10 +893,10 @@ var MatTabHeader = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            if (!this._isValidIndex(value) || this._focusIndex == value) {
+            if (!this._isValidIndex(value) || this.focusIndex == value || !this._keyManager) {
                 return;
             }
-            this._focusIndex = value;
+            this._keyManager.setActiveItem(value);
             this.indexFocused.emit(value);
             this._setTabFocus(value);
         },
@@ -957,89 +958,6 @@ var MatTabHeader = /** @class */ (function (_super) {
             }
             else {
                 containerEl.scrollLeft = containerEl.scrollWidth - containerEl.offsetWidth;
-            }
-        }
-    };
-    /**
-     * Moves the focus towards the beginning or the end of the list depending on the offset provided.
-     * Valid offsets are 1 and -1.
-     */
-    /**
-     * Moves the focus towards the beginning or the end of the list depending on the offset provided.
-     * Valid offsets are 1 and -1.
-     * @param {?} offset
-     * @return {?}
-     */
-    MatTabHeader.prototype._moveFocus = /**
-     * Moves the focus towards the beginning or the end of the list depending on the offset provided.
-     * Valid offsets are 1 and -1.
-     * @param {?} offset
-     * @return {?}
-     */
-    function (offset) {
-        if (this._labelWrappers) {
-            var /** @type {?} */ tabs = this._labelWrappers.toArray();
-            for (var /** @type {?} */ i = this.focusIndex + offset; i < tabs.length && i >= 0; i += offset) {
-                if (this._isValidIndex(i)) {
-                    this.focusIndex = i;
-                    return;
-                }
-            }
-        }
-    };
-    /** Increment the focus index by 1 until a valid tab is found. */
-    /**
-     * Increment the focus index by 1 until a valid tab is found.
-     * @return {?}
-     */
-    MatTabHeader.prototype._focusNextTab = /**
-     * Increment the focus index by 1 until a valid tab is found.
-     * @return {?}
-     */
-    function () {
-        this._moveFocus(this._getLayoutDirection() == 'ltr' ? 1 : -1);
-    };
-    /** Decrement the focus index by 1 until a valid tab is found. */
-    /**
-     * Decrement the focus index by 1 until a valid tab is found.
-     * @return {?}
-     */
-    MatTabHeader.prototype._focusPreviousTab = /**
-     * Decrement the focus index by 1 until a valid tab is found.
-     * @return {?}
-     */
-    function () {
-        this._moveFocus(this._getLayoutDirection() == 'ltr' ? -1 : 1);
-    };
-    /**
-     * Focuses the first tab.
-     * @return {?}
-     */
-    MatTabHeader.prototype._focusFirstTab = /**
-     * Focuses the first tab.
-     * @return {?}
-     */
-    function () {
-        for (var /** @type {?} */ i = 0; i < this._labelWrappers.length; i++) {
-            if (this._isValidIndex(i)) {
-                this.focusIndex = i;
-                break;
-            }
-        }
-    };
-    /**
-     * Focuses the last tab.
-     * @return {?}
-     */
-    MatTabHeader.prototype._focusLastTab = /**
-     * Focuses the last tab.
-     * @return {?}
-     */
-    function () {
-        for (var /** @type {?} */ i = this._labelWrappers.length - 1; i > -1; i--) {
-            if (this._isValidIndex(i)) {
-                this.focusIndex = i;
-                break;
             }
         }
     };
@@ -2092,5 +2010,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatTabBase as ɵf23, _MatTabMixinBase as ɵg23, MatTabHeaderBase as ɵb23, _MatTabHeaderMixinBase as ɵc23, MatTabLabelWrapperBase as ɵd23, _MatTabLabelWrapperMixinBase as ɵe23, MatTabLinkBase as ɵj23, MatTabNavBase as ɵh23, _MatTabLinkMixinBase as ɵk23, _MatTabNavMixinBase as ɵi23 };
 //# sourceMappingURL=tabs.es5.js.map

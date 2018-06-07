@@ -22614,7 +22614,7 @@ var MatPaginator = /** @class */ (function (_super) {
     MatPaginator.decorators = [
         { type: core.Component, args: [{selector: 'mat-paginator',
                     exportAs: 'matPaginator',
-                    template: "<div class=\"mat-paginator-container\"><div class=\"mat-paginator-page-size\" *ngIf=\"!hidePageSize\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\"><mat-select [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (selectionChange)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-actions\"><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-first\" (click)=\"firstPage()\" [attr.aria-label]=\"_intl.firstPageLabel\" [matTooltip]=\"_intl.firstPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\" *ngIf=\"showFirstLastButtons\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6.2.1-260afcf2H6z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-last\" (click)=\"lastPage()\" [attr.aria-label]=\"_intl.lastPageLabel\" [matTooltip]=\"_intl.lastPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\" *ngIf=\"showFirstLastButtons\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6.2.1-260afcf2h-2z\"/></svg></button></div></div>",
+                    template: "<div class=\"mat-paginator-container\"><div class=\"mat-paginator-page-size\" *ngIf=\"!hidePageSize\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\"><mat-select [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (selectionChange)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-actions\"><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-first\" (click)=\"firstPage()\" [attr.aria-label]=\"_intl.firstPageLabel\" [matTooltip]=\"_intl.firstPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\" *ngIf=\"showFirstLastButtons\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6.2.1-6bd90e82H6z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-last\" (click)=\"lastPage()\" [attr.aria-label]=\"_intl.lastPageLabel\" [matTooltip]=\"_intl.lastPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\" *ngIf=\"showFirstLastButtons\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6.2.1-6bd90e82h-2z\"/></svg></button></div></div>",
                     styles: [".mat-paginator{display:block}.mat-paginator-container{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px;flex-wrap:wrap-reverse}.mat-paginator-page-size{display:flex;align-items:baseline;margin-right:8px}[dir=rtl] .mat-paginator-page-size{margin-right:0;margin-left:8px}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:6px 4px 0 4px;width:56px}.mat-paginator-range-label{margin:0 32px 0 24px}.mat-paginator-range-actions{display:flex;align-items:center;min-height:48px}.mat-paginator-icon{width:28px;fill:currentColor}[dir=rtl] .mat-paginator-icon{transform:rotate(180deg)}"],
                     host: {
                         'class': 'mat-paginator',
@@ -30362,10 +30362,6 @@ var MatTabHeader = /** @class */ (function (_super) {
         _this._viewportRuler = _viewportRuler;
         _this._dir = _dir;
         /**
-         * The tab index that is focused.
-         */
-        _this._focusIndex = 0;
-        /**
          * The distance in pixels that the tab labels should be translated to the left.
          */
         _this._scrollDistance = 0;
@@ -30414,7 +30410,9 @@ var MatTabHeader = /** @class */ (function (_super) {
             value = coercion.coerceNumberProperty(value);
             this._selectedIndexChanged = this._selectedIndex != value;
             this._selectedIndex = value;
-            this._focusIndex = value;
+            if (this._keyManager) {
+                this._keyManager.updateActiveItemIndex(value);
+            }
         },
         enumerable: true,
         configurable: true
@@ -30459,18 +30457,12 @@ var MatTabHeader = /** @class */ (function (_super) {
      */
     function (event) {
         switch (event.keyCode) {
-            case keycodes.RIGHT_ARROW:
-                this._focusNextTab();
-                break;
-            case keycodes.LEFT_ARROW:
-                this._focusPreviousTab();
-                break;
             case keycodes.HOME:
-                this._focusFirstTab();
+                this._keyManager.setFirstItemActive();
                 event.preventDefault();
                 break;
             case keycodes.END:
-                this._focusLastTab();
+                this._keyManager.setLastItemActive();
                 event.preventDefault();
                 break;
             case keycodes.ENTER:
@@ -30478,6 +30470,8 @@ var MatTabHeader = /** @class */ (function (_super) {
                 this.selectFocusedIndex.emit(this.focusIndex);
                 event.preventDefault();
                 break;
+            default:
+                this._keyManager.onKeydown(event);
         }
     };
     /**
@@ -30499,10 +30493,16 @@ var MatTabHeader = /** @class */ (function (_super) {
             _this._updatePagination();
             _this._alignInkBarToSelectedTab();
         };
+        this._keyManager = new a11y.FocusKeyManager(this._labelWrappers)
+            .withHorizontalOrientation(this._getLayoutDirection());
+        this._keyManager.updateActiveItemIndex(0);
         // Defer the first call in order to allow for slower browsers to lay out the elements.
         // This helps in cases where the user lands directly on a page with paginated tabs.
         typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
-        this._realignInkBar = rxjs.merge(dirChange, resize).subscribe(realign);
+        this._realignInkBar = rxjs.merge(dirChange, resize).subscribe(function () {
+            realign();
+            _this._keyManager.withHorizontalOrientation(_this._getLayoutDirection());
+        });
     };
     /**
      * @return {?}
@@ -30552,7 +30552,7 @@ var MatTabHeader = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this._focusIndex;
+            return this._keyManager ? /** @type {?} */ ((this._keyManager.activeItemIndex)) : 0;
         },
         /** When the focus index is set, we must manually send focus to the correct label */
         set: /**
@@ -30561,10 +30561,10 @@ var MatTabHeader = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            if (!this._isValidIndex(value) || this._focusIndex == value) {
+            if (!this._isValidIndex(value) || this.focusIndex == value || !this._keyManager) {
                 return;
             }
-            this._focusIndex = value;
+            this._keyManager.setActiveItem(value);
             this.indexFocused.emit(value);
             this._setTabFocus(value);
         },
@@ -30626,89 +30626,6 @@ var MatTabHeader = /** @class */ (function (_super) {
             }
             else {
                 containerEl.scrollLeft = containerEl.scrollWidth - containerEl.offsetWidth;
-            }
-        }
-    };
-    /**
-     * Moves the focus towards the beginning or the end of the list depending on the offset provided.
-     * Valid offsets are 1 and -1.
-     */
-    /**
-     * Moves the focus towards the beginning or the end of the list depending on the offset provided.
-     * Valid offsets are 1 and -1.
-     * @param {?} offset
-     * @return {?}
-     */
-    MatTabHeader.prototype._moveFocus = /**
-     * Moves the focus towards the beginning or the end of the list depending on the offset provided.
-     * Valid offsets are 1 and -1.
-     * @param {?} offset
-     * @return {?}
-     */
-    function (offset) {
-        if (this._labelWrappers) {
-            var /** @type {?} */ tabs = this._labelWrappers.toArray();
-            for (var /** @type {?} */ i = this.focusIndex + offset; i < tabs.length && i >= 0; i += offset) {
-                if (this._isValidIndex(i)) {
-                    this.focusIndex = i;
-                    return;
-                }
-            }
-        }
-    };
-    /** Increment the focus index by 1 until a valid tab is found. */
-    /**
-     * Increment the focus index by 1 until a valid tab is found.
-     * @return {?}
-     */
-    MatTabHeader.prototype._focusNextTab = /**
-     * Increment the focus index by 1 until a valid tab is found.
-     * @return {?}
-     */
-    function () {
-        this._moveFocus(this._getLayoutDirection() == 'ltr' ? 1 : -1);
-    };
-    /** Decrement the focus index by 1 until a valid tab is found. */
-    /**
-     * Decrement the focus index by 1 until a valid tab is found.
-     * @return {?}
-     */
-    MatTabHeader.prototype._focusPreviousTab = /**
-     * Decrement the focus index by 1 until a valid tab is found.
-     * @return {?}
-     */
-    function () {
-        this._moveFocus(this._getLayoutDirection() == 'ltr' ? -1 : 1);
-    };
-    /**
-     * Focuses the first tab.
-     * @return {?}
-     */
-    MatTabHeader.prototype._focusFirstTab = /**
-     * Focuses the first tab.
-     * @return {?}
-     */
-    function () {
-        for (var /** @type {?} */ i = 0; i < this._labelWrappers.length; i++) {
-            if (this._isValidIndex(i)) {
-                this.focusIndex = i;
-                break;
-            }
-        }
-    };
-    /**
-     * Focuses the last tab.
-     * @return {?}
-     */
-    MatTabHeader.prototype._focusLastTab = /**
-     * Focuses the last tab.
-     * @return {?}
-     */
-    function () {
-        for (var /** @type {?} */ i = this._labelWrappers.length - 1; i > -1; i--) {
-            if (this._isValidIndex(i)) {
-                this.focusIndex = i;
-                break;
             }
         }
     };
@@ -32478,7 +32395,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.2.1-260afcf');
+var /** @type {?} */ VERSION = new core.Version('6.2.1-6bd90e8');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -32730,12 +32647,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32864,17 +32781,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
