@@ -458,6 +458,7 @@ class MatMenu {
             throwMatMenuInvalidPositionX();
         }
         this._xPosition = value;
+        this.setPositionClasses();
     }
     /**
      * Position of the menu in the Y axis.
@@ -473,6 +474,7 @@ class MatMenu {
             throwMatMenuInvalidPositionY();
         }
         this._yPosition = value;
+        this.setPositionClasses();
     }
     /**
      * Whether the menu should overlap its trigger.
@@ -528,6 +530,12 @@ class MatMenu {
      * @return {?}
      */
     set classList(classes) { this.panelClass = classes; }
+    /**
+     * @return {?}
+     */
+    ngOnInit() {
+        this.setPositionClasses();
+    }
     /**
      * @return {?}
      */
@@ -648,6 +656,21 @@ class MatMenu {
             this._items.splice(index, 1);
             this._itemChanges.next(this._items);
         }
+    }
+    /**
+     * Adds classes to the menu panel based on its position. Can be used by
+     * consumers to add specific styling based on the position.
+     * \@docs-private
+     * @param {?=} posX Position of the menu along the x axis.
+     * @param {?=} posY Position of the menu along the y axis.
+     * @return {?}
+     */
+    setPositionClasses(posX = this.xPosition, posY = this.yPosition) {
+        const /** @type {?} */ classes = this._classList;
+        classes['mat-menu-before'] = posX === 'before';
+        classes['mat-menu-after'] = posX === 'after';
+        classes['mat-menu-above'] = posY === 'above';
+        classes['mat-menu-below'] = posY === 'below';
     }
     /**
      * Starts the enter animation.
@@ -1244,5 +1267,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵf24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe24 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
 //# sourceMappingURL=menu.js.map

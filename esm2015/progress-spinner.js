@@ -88,26 +88,31 @@ class MatProgressSpinner extends _MatProgressSpinnerMixinBase {
      * @param {?} platform
      * @param {?} _document
      * @param {?=} _animationMode
-     * @param {?=} _defaults
+     * @param {?=} defaults
      */
     constructor(_elementRef, platform, _document, 
-    // @deletion-target 7.0.0 _animationMode and _defaults parameters to be made required.
-    _animationMode, _defaults) {
+    // @deletion-target 7.0.0 _animationMode and defaults parameters to be made required.
+    _animationMode, defaults) {
         super(_elementRef);
         this._elementRef = _elementRef;
         this._document = _document;
         this._animationMode = _animationMode;
-        this._defaults = _defaults;
         this._value = 0;
-        this._strokeWidth = this._defaults ? this._defaults.strokeWidth : undefined;
         this._fallbackAnimation = false;
-        this._diameter = this._defaults && this._defaults.diameter ?
-            this._defaults.diameter : BASE_SIZE;
+        this._diameter = BASE_SIZE;
         /**
          * Mode of the progress circle
          */
         this.mode = 'determinate';
         this._fallbackAnimation = platform.EDGE || platform.TRIDENT;
+        if (defaults) {
+            if (defaults.diameter) {
+                this.diameter = defaults.diameter;
+            }
+            if (defaults.strokeWidth) {
+                this.strokeWidth = defaults.strokeWidth;
+            }
+        }
         // On IE and Edge, we can't animate the `stroke-dashoffset`
         // reliably so we fall back to a non-spec animation.
         const /** @type {?} */ animationClass = `mat-progress-spinner-indeterminate${this._fallbackAnimation ? '-fallback' : ''}-animation`;

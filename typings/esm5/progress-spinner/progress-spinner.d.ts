@@ -34,7 +34,6 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     _elementRef: ElementRef;
     private _document;
     _animationMode: string | undefined;
-    private _defaults;
     private _value;
     private _strokeWidth;
     private _fallbackAnimation;
@@ -54,7 +53,7 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     mode: ProgressSpinnerMode;
     /** Value of the progress circle. */
     value: number;
-    constructor(_elementRef: ElementRef, platform: Platform, _document: any, _animationMode?: string | undefined, _defaults?: MatProgressSpinnerDefaultOptions | undefined);
+    constructor(_elementRef: ElementRef, platform: Platform, _document: any, _animationMode?: string | undefined, defaults?: MatProgressSpinnerDefaultOptions);
     /** The radius of the spinner, adjusted for stroke width. */
     readonly _circleRadius: number;
     /** The view box of the spinner's svg element. */

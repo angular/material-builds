@@ -65,23 +65,28 @@ var /** @type {?} */ INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progr
 var MatProgressSpinner = /** @class */ (function (_super) {
     __extends(MatProgressSpinner, _super);
     function MatProgressSpinner(_elementRef, platform, _document, 
-    // @deletion-target 7.0.0 _animationMode and _defaults parameters to be made required.
-    _animationMode, _defaults) {
+    // @deletion-target 7.0.0 _animationMode and defaults parameters to be made required.
+    _animationMode, defaults) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._document = _document;
         _this._animationMode = _animationMode;
-        _this._defaults = _defaults;
         _this._value = 0;
-        _this._strokeWidth = _this._defaults ? _this._defaults.strokeWidth : undefined;
         _this._fallbackAnimation = false;
-        _this._diameter = _this._defaults && _this._defaults.diameter ?
-            _this._defaults.diameter : BASE_SIZE;
+        _this._diameter = BASE_SIZE;
         /**
          * Mode of the progress circle
          */
         _this.mode = 'determinate';
         _this._fallbackAnimation = platform.EDGE || platform.TRIDENT;
+        if (defaults) {
+            if (defaults.diameter) {
+                _this.diameter = defaults.diameter;
+            }
+            if (defaults.strokeWidth) {
+                _this.strokeWidth = defaults.strokeWidth;
+            }
+        }
         // On IE and Edge, we can't animate the `stroke-dashoffset`
         // reliably so we fall back to a non-spec animation.
         var /** @type {?} */ animationClass = "mat-progress-spinner-indeterminate" + (_this._fallbackAnimation ? '-fallback' : '') + "-animation";

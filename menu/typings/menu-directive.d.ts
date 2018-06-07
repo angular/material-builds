@@ -7,7 +7,7 @@
  */
 import { FocusOrigin } from '@angular/cdk/a11y';
 import { Direction } from '@angular/cdk/bidi';
-import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, TemplateRef, QueryList } from '@angular/core';
+import { AfterContentInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, TemplateRef, QueryList, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { MatMenuContent } from './menu-content';
 import { MatMenuItem } from './menu-item';
@@ -31,7 +31,7 @@ export interface MatMenuDefaultOptions {
 export declare const MAT_MENU_DEFAULT_OPTIONS: InjectionToken<MatMenuDefaultOptions>;
 /** @docs-private */
 export declare function MAT_MENU_DEFAULT_OPTIONS_FACTORY(): MatMenuDefaultOptions;
-export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, OnDestroy {
+export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuItem>, OnInit, OnDestroy {
     private _elementRef;
     private _ngZone;
     private _defaultOptions;
@@ -108,6 +108,7 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
      */
     close: EventEmitter<void | "click" | "keydown" | "tab">;
     constructor(_elementRef: ElementRef, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
+    ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Stream that emits whenever the hovered menu item changes. */
@@ -139,6 +140,14 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
      * @docs-private
      */
     removeItem(item: MatMenuItem): void;
+    /**
+     * Adds classes to the menu panel based on its position. Can be used by
+     * consumers to add specific styling based on the position.
+     * @param posX Position of the menu along the x axis.
+     * @param posY Position of the menu along the y axis.
+     * @docs-private
+     */
+    setPositionClasses(posX?: MenuPositionX, posY?: MenuPositionY): void;
     /** Starts the enter animation. */
     _startAnimation(): void;
     /** Resets the panel animation to its initial state. */

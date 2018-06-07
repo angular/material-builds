@@ -345,6 +345,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
                         'class': 'mat-bottom-sheet-container',
                         'tabindex': '-1',
                         'role': 'dialog',
+                        'aria-modal': 'true',
                         '[attr.aria-label]': 'bottomSheetConfig?.ariaLabel',
                         '[@state]': '_animationState',
                         '(@state.start)': '_onAnimationStart($event)',

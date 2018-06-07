@@ -523,6 +523,7 @@ var MatMenu = /** @class */ (function () {
                 throwMatMenuInvalidPositionX();
             }
             this._xPosition = value;
+            this.setPositionClasses();
         },
         enumerable: true,
         configurable: true
@@ -542,6 +543,7 @@ var MatMenu = /** @class */ (function () {
                 throwMatMenuInvalidPositionY();
             }
             this._yPosition = value;
+            this.setPositionClasses();
         },
         enumerable: true,
         configurable: true
@@ -616,6 +618,15 @@ var MatMenu = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @return {?}
+     */
+    MatMenu.prototype.ngOnInit = /**
+     * @return {?}
+     */
+    function () {
+        this.setPositionClasses();
+    };
     /**
      * @return {?}
      */
@@ -803,6 +814,38 @@ var MatMenu = /** @class */ (function () {
             this._items.splice(index, 1);
             this._itemChanges.next(this._items);
         }
+    };
+    /**
+     * Adds classes to the menu panel based on its position. Can be used by
+     * consumers to add specific styling based on the position.
+     * @param posX Position of the menu along the x axis.
+     * @param posY Position of the menu along the y axis.
+     * @docs-private
+     */
+    /**
+     * Adds classes to the menu panel based on its position. Can be used by
+     * consumers to add specific styling based on the position.
+     * \@docs-private
+     * @param {?=} posX Position of the menu along the x axis.
+     * @param {?=} posY Position of the menu along the y axis.
+     * @return {?}
+     */
+    MatMenu.prototype.setPositionClasses = /**
+     * Adds classes to the menu panel based on its position. Can be used by
+     * consumers to add specific styling based on the position.
+     * \@docs-private
+     * @param {?=} posX Position of the menu along the x axis.
+     * @param {?=} posY Position of the menu along the y axis.
+     * @return {?}
+     */
+    function (posX, posY) {
+        if (posX === void 0) { posX = this.xPosition; }
+        if (posY === void 0) { posY = this.yPosition; }
+        var /** @type {?} */ classes = this._classList;
+        classes['mat-menu-before'] = posX === 'before';
+        classes['mat-menu-after'] = posX === 'after';
+        classes['mat-menu-above'] = posY === 'above';
+        classes['mat-menu-below'] = posY === 'below';
     };
     /** Starts the enter animation. */
     /**
@@ -1539,12 +1582,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -346,6 +346,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
                     host: {
                         'class': 'mat-dialog-container',
                         'tabindex': '-1',
+                        'aria-modal': 'true',
                         '[attr.id]': '_id',
                         '[attr.role]': '_config.role',
                         '[attr.aria-labelledby]': '_config.ariaLabel ? null : _ariaLabelledBy',
