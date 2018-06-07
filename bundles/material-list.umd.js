@@ -739,6 +739,12 @@ var MatSelectionList = /** @class */ (function (_super) {
                 keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
                 event.preventDefault();
                 break;
+            case keycodes.A:
+                if (event.ctrlKey) {
+                    this.options.find(function (option) { return !option.selected; }) ? this.selectAll() : this.deselectAll();
+                    event.preventDefault();
+                }
+                break;
             default:
                 manager.onKeydown(event);
         }

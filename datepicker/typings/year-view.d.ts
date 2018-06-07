@@ -29,6 +29,8 @@ export declare class MatYearView<D> implements AfterContentInit {
     readonly selectedChange: EventEmitter<D>;
     /** Emits the selected month. This doesn't imply a change on the selected date */
     readonly monthSelected: EventEmitter<D>;
+    /** Emits when any date is activated. */
+    readonly activeDateChange: EventEmitter<D>;
     /** The body of calendar table */
     _matCalendarBody: MatCalendarBody;
     /** Grid of calendar cells representing the months of the year. */

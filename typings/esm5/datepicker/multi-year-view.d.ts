@@ -30,6 +30,8 @@ export declare class MatMultiYearView<D> implements AfterContentInit {
     readonly selectedChange: EventEmitter<D>;
     /** Emits the selected year. This doesn't imply a change on the selected date */
     readonly yearSelected: EventEmitter<D>;
+    /** Emits when any date is activated. */
+    readonly activeDateChange: EventEmitter<D>;
     /** The body of calendar table */
     _matCalendarBody: MatCalendarBody;
     /** Grid of calendar cells representing the currently displayed years. */
