@@ -28,7 +28,7 @@ exports.default = default_1;
 /** Add material, cdk, annimations to package.json if not already present. */
 function addMaterialToPackageJson() {
     return (host, context) => {
-        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/cdk', lib_versions_1.cdkVersion);
+        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/cdk', lib_versions_1.materialVersion);
         package_1.addPackageToPackageJson(host, 'dependencies', '@angular/material', lib_versions_1.materialVersion);
         package_1.addPackageToPackageJson(host, 'dependencies', '@angular/animations', lib_versions_1.angularVersion);
         context.addTask(new tasks_1.NodePackageInstallTask());
@@ -66,7 +66,7 @@ function addBodyMarginToStyles(options) {
         const buffer = host.read(stylesPath);
         if (buffer) {
             const src = buffer.toString();
-            const insertion = new change_1.InsertChange(stylesPath, src.length, `\nbody { margin: 0; }\n`);
+            const insertion = new change_1.InsertChange(stylesPath, src.length, `\nhtml, body { height: 100%; }\nbody { margin: 0; font-family: 'Roboto', sans-serif; }\n`);
             const recorder = host.beginUpdate(stylesPath);
             recorder.insertLeft(insertion.pos, insertion.toAdd);
             host.commitUpdate(recorder);

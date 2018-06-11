@@ -4,7 +4,7 @@ const schematics_1 = require("@angular-devkit/schematics");
 const ast_1 = require("../utils/ast");
 const component_1 = require("../utils/devkit-utils/component");
 /**
- * Scaffolds a new navigation component.
+ * Scaffolds a new dashboard component.
  * Internally it bootstraps the base component schematic
  */
 function default_1(options) {
@@ -25,6 +25,7 @@ function addNavModulesToModule(options) {
         ast_1.addModuleImportToModule(host, modulePath, 'MatMenuModule', '@angular/material');
         ast_1.addModuleImportToModule(host, modulePath, 'MatIconModule', '@angular/material');
         ast_1.addModuleImportToModule(host, modulePath, 'MatButtonModule', '@angular/material');
+        ast_1.addModuleImportToModule(host, modulePath, 'LayoutModule', '@angular/cdk/layout');
         return host;
     };
 }
