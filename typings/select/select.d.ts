@@ -288,27 +288,19 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
      */
-    private _setSelectionByValue(value, isUserInput?);
+    private _setSelectionByValue(value);
     /**
      * Finds and selects and option based on its value.
      * @returns Option that has the corresponding value.
      */
-    private _selectValue(value, isUserInput?);
-    /**
-     * Clears the select trigger and deselects every option in the list.
-     * @param skip Option that should not be deselected.
-     */
-    private _clearSelection(skip?);
+    private _selectValue(value);
     /** Sets up a key manager to listen to keyboard events on the overlay panel. */
     private _initKeyManager();
     /** Drops current option subscriptions and IDs and resets from scratch. */
     private _resetOptions();
     /** Invoked when an option is clicked. */
-    private _onSelect(option);
-    /**
-     * Sorts the model values, ensuring that they keep the same
-     * order that they have in the panel.
-     */
+    private _onSelect(option, isUserInput);
+    /** Sorts the selected values in the selected based on their order in the panel. */
     private _sortValues();
     /** Emits change event to set the model value. */
     private _propagateChanges(fallbackValue?);

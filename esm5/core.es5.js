@@ -2413,9 +2413,11 @@ var MatOption = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._selected = true;
-        this._changeDetectorRef.markForCheck();
-        this._emitSelectionChangeEvent();
+        if (!this._selected) {
+            this._selected = true;
+            this._changeDetectorRef.markForCheck();
+            this._emitSelectionChangeEvent();
+        }
     };
     /** Deselects the option. */
     /**
@@ -2427,9 +2429,11 @@ var MatOption = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._selected = false;
-        this._changeDetectorRef.markForCheck();
-        this._emitSelectionChangeEvent();
+        if (this._selected) {
+            this._selected = false;
+            this._changeDetectorRef.markForCheck();
+            this._emitSelectionChangeEvent();
+        }
     };
     /** Sets focus onto this option. */
     /**

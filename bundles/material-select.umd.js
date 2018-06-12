@@ -536,7 +536,7 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._selectionModel = new collections.SelectionModel(this.multiple, undefined, false);
+        this._selectionModel = new collections.SelectionModel(this.multiple);
         this.stateChanges.next();
         // We need `distinctUntilChanged` here, because some browsers will
         // fire the animation end event twice for the same animation. See:
@@ -564,7 +564,11 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._initKeyManager();
+        this._initKeyManager(); /** @type {?} */
+        ((this._selectionModel.onChange)).pipe(operators.takeUntil(this._destroy)).subscribe(function (event) {
+            event.added.forEach(function (option) { return option.select(); });
+            event.removed.forEach(function (option) { return option.deselect(); });
+        });
         this.options.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroy)).subscribe(function () {
             _this._resetOptions();
             _this._initializeSelection();
@@ -1017,30 +1021,27 @@ var MatSelect = /** @class */ (function (_super) {
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
      * @param {?} value
-     * @param {?=} isUserInput
      * @return {?}
      */
     MatSelect.prototype._setSelectionByValue = /**
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
      * @param {?} value
-     * @param {?=} isUserInput
      * @return {?}
      */
-    function (value, isUserInput) {
+    function (value) {
         var _this = this;
-        if (isUserInput === void 0) { isUserInput = false; }
         if (this.multiple && value) {
             if (!Array.isArray(value)) {
                 throw getMatSelectNonArrayValueError();
             }
-            this._clearSelection();
-            value.forEach(function (currentValue) { return _this._selectValue(currentValue, isUserInput); });
+            this._selectionModel.clear();
+            value.forEach(function (currentValue) { return _this._selectValue(currentValue); });
             this._sortValues();
         }
         else {
-            this._clearSelection();
-            var /** @type {?} */ correspondingOption = this._selectValue(value, isUserInput);
+            this._selectionModel.clear();
+            var /** @type {?} */ correspondingOption = this._selectValue(value);
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what option the user interacted with last.
             if (correspondingOption) {
@@ -1052,18 +1053,15 @@ var MatSelect = /** @class */ (function (_super) {
     /**
      * Finds and selects and option based on its value.
      * @param {?} value
-     * @param {?=} isUserInput
      * @return {?} Option that has the corresponding value.
      */
     MatSelect.prototype._selectValue = /**
      * Finds and selects and option based on its value.
      * @param {?} value
-     * @param {?=} isUserInput
      * @return {?} Option that has the corresponding value.
      */
-    function (value, isUserInput) {
+    function (value) {
         var _this = this;
-        if (isUserInput === void 0) { isUserInput = false; }
         var /** @type {?} */ correspondingOption = this.options.find(function (option) {
             try {
                 // Treat null as a special reset value.
@@ -1078,30 +1076,9 @@ var MatSelect = /** @class */ (function (_super) {
             }
         });
         if (correspondingOption) {
-            isUserInput ? correspondingOption._selectViaInteraction() : correspondingOption.select();
             this._selectionModel.select(correspondingOption);
-            this.stateChanges.next();
         }
         return correspondingOption;
-    };
-    /**
-     * Clears the select trigger and deselects every option in the list.
-     * @param {?=} skip Option that should not be deselected.
-     * @return {?}
-     */
-    MatSelect.prototype._clearSelection = /**
-     * Clears the select trigger and deselects every option in the list.
-     * @param {?=} skip Option that should not be deselected.
-     * @return {?}
-     */
-    function (skip) {
-        this._selectionModel.clear();
-        this.options.forEach(function (option) {
-            if (option !== skip) {
-                option.deselect();
-            }
-        });
-        this.stateChanges.next();
     };
     /**
      * Sets up a key manager to listen to keyboard events on the overlay panel.
@@ -1145,11 +1122,9 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         var _this = this;
         var /** @type {?} */ changedOrDestroyed = rxjs.merge(this.options.changes, this._destroy);
-        this.optionSelectionChanges
-            .pipe(operators.takeUntil(changedOrDestroyed), operators.filter(function (event) { return event.isUserInput; }))
-            .subscribe(function (event) {
-            _this._onSelect(event.source);
-            if (!_this.multiple && _this._panelOpen) {
+        this.optionSelectionChanges.pipe(operators.takeUntil(changedOrDestroyed)).subscribe(function (event) {
+            _this._onSelect(event.source, event.isUserInput);
+            if (event.isUserInput && !_this.multiple && _this._panelOpen) {
                 _this.close();
                 _this.focus();
             }
@@ -1166,61 +1141,53 @@ var MatSelect = /** @class */ (function (_super) {
     /**
      * Invoked when an option is clicked.
      * @param {?} option
+     * @param {?} isUserInput
      * @return {?}
      */
     MatSelect.prototype._onSelect = /**
      * Invoked when an option is clicked.
      * @param {?} option
+     * @param {?} isUserInput
      * @return {?}
      */
-    function (option) {
+    function (option, isUserInput) {
         var /** @type {?} */ wasSelected = this._selectionModel.isSelected(option);
-        // TODO(crisbeto): handle blank/null options inside multi-select.
-        if (this.multiple) {
-            this._selectionModel.toggle(option);
-            this.stateChanges.next();
-            wasSelected ? option.deselect() : option.select();
-            this._keyManager.setActiveItem(option);
-            this._sortValues();
-            // In case the user select the option with their mouse, we
-            // want to restore focus back to the trigger, in order to
-            // prevent the select keyboard controls from clashing with
-            // the ones from `mat-option`.
-            this.focus();
+        if (option.value == null) {
+            this._selectionModel.clear();
+            this._propagateChanges(option.value);
         }
         else {
-            this._clearSelection(option.value == null ? undefined : option);
-            if (option.value == null) {
-                this._propagateChanges(option.value);
-            }
-            else {
-                this._selectionModel.select(option);
-                this.stateChanges.next();
+            option.selected ? this._selectionModel.select(option) : this._selectionModel.deselect(option);
+            // TODO(crisbeto): handle blank/null options inside multi-select.
+            if (this.multiple) {
+                this._sortValues();
+                if (isUserInput) {
+                    this._keyManager.setActiveItem(option);
+                    // In case the user selected the option with their mouse, we
+                    // want to restore focus back to the trigger, in order to
+                    // prevent the select keyboard controls from clashing with
+                    // the ones from `mat-option`.
+                    this.focus();
+                }
             }
         }
         if (wasSelected !== this._selectionModel.isSelected(option)) {
             this._propagateChanges();
         }
+        this.stateChanges.next();
     };
     /**
-     * Sorts the model values, ensuring that they keep the same
-     * order that they have in the panel.
+     * Sorts the selected values in the selected based on their order in the panel.
      * @return {?}
      */
     MatSelect.prototype._sortValues = /**
-     * Sorts the model values, ensuring that they keep the same
-     * order that they have in the panel.
+     * Sorts the selected values in the selected based on their order in the panel.
      * @return {?}
      */
     function () {
-        var _this = this;
-        if (this._multiple) {
-            this._selectionModel.clear();
-            this.options.forEach(function (option) {
-                if (option.selected) {
-                    _this._selectionModel.select(option);
-                }
-            });
+        if (this.multiple) {
+            var /** @type {?} */ options_1 = this.options.toArray();
+            this._selectionModel.sort(function (a, b) { return options_1.indexOf(a) - options_1.indexOf(b); });
             this.stateChanges.next();
         }
     };

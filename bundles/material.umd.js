@@ -2442,9 +2442,11 @@ var MatOption = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._selected = true;
-        this._changeDetectorRef.markForCheck();
-        this._emitSelectionChangeEvent();
+        if (!this._selected) {
+            this._selected = true;
+            this._changeDetectorRef.markForCheck();
+            this._emitSelectionChangeEvent();
+        }
     };
     /** Deselects the option. */
     /**
@@ -2456,9 +2458,11 @@ var MatOption = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        this._selected = false;
-        this._changeDetectorRef.markForCheck();
-        this._emitSelectionChangeEvent();
+        if (this._selected) {
+            this._selected = false;
+            this._changeDetectorRef.markForCheck();
+            this._emitSelectionChangeEvent();
+        }
     };
     /** Sets focus onto this option. */
     /**
@@ -4199,11 +4203,12 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         // filter out all of the extra events, we save the value on focus and between
         // `input` events, and we check whether it changed.
         // See: https://connect.microsoft.com/IE/feedback/details/885747/
-        if (this._canOpen() && this._previousValue !== value &&
-            document.activeElement === event.target) {
+        if (this._previousValue !== value && document.activeElement === event.target) {
             this._previousValue = value;
             this._onChange(value);
-            this.openPanel();
+            if (this._canOpen()) {
+                this.openPanel();
+            }
         }
     };
     /**
@@ -20094,7 +20099,7 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._selectionModel = new collections.SelectionModel(this.multiple, undefined, false);
+        this._selectionModel = new collections.SelectionModel(this.multiple);
         this.stateChanges.next();
         // We need `distinctUntilChanged` here, because some browsers will
         // fire the animation end event twice for the same animation. See:
@@ -20122,7 +20127,11 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._initKeyManager();
+        this._initKeyManager(); /** @type {?} */
+        ((this._selectionModel.onChange)).pipe(operators.takeUntil(this._destroy)).subscribe(function (event) {
+            event.added.forEach(function (option) { return option.select(); });
+            event.removed.forEach(function (option) { return option.deselect(); });
+        });
         this.options.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroy)).subscribe(function () {
             _this._resetOptions();
             _this._initializeSelection();
@@ -20575,30 +20584,27 @@ var MatSelect = /** @class */ (function (_super) {
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
      * @param {?} value
-     * @param {?=} isUserInput
      * @return {?}
      */
     MatSelect.prototype._setSelectionByValue = /**
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
      * @param {?} value
-     * @param {?=} isUserInput
      * @return {?}
      */
-    function (value, isUserInput) {
+    function (value) {
         var _this = this;
-        if (isUserInput === void 0) { isUserInput = false; }
         if (this.multiple && value) {
             if (!Array.isArray(value)) {
                 throw getMatSelectNonArrayValueError();
             }
-            this._clearSelection();
-            value.forEach(function (currentValue) { return _this._selectValue(currentValue, isUserInput); });
+            this._selectionModel.clear();
+            value.forEach(function (currentValue) { return _this._selectValue(currentValue); });
             this._sortValues();
         }
         else {
-            this._clearSelection();
-            var /** @type {?} */ correspondingOption = this._selectValue(value, isUserInput);
+            this._selectionModel.clear();
+            var /** @type {?} */ correspondingOption = this._selectValue(value);
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what option the user interacted with last.
             if (correspondingOption) {
@@ -20610,18 +20616,15 @@ var MatSelect = /** @class */ (function (_super) {
     /**
      * Finds and selects and option based on its value.
      * @param {?} value
-     * @param {?=} isUserInput
      * @return {?} Option that has the corresponding value.
      */
     MatSelect.prototype._selectValue = /**
      * Finds and selects and option based on its value.
      * @param {?} value
-     * @param {?=} isUserInput
      * @return {?} Option that has the corresponding value.
      */
-    function (value, isUserInput) {
+    function (value) {
         var _this = this;
-        if (isUserInput === void 0) { isUserInput = false; }
         var /** @type {?} */ correspondingOption = this.options.find(function (option) {
             try {
                 // Treat null as a special reset value.
@@ -20636,30 +20639,9 @@ var MatSelect = /** @class */ (function (_super) {
             }
         });
         if (correspondingOption) {
-            isUserInput ? correspondingOption._selectViaInteraction() : correspondingOption.select();
             this._selectionModel.select(correspondingOption);
-            this.stateChanges.next();
         }
         return correspondingOption;
-    };
-    /**
-     * Clears the select trigger and deselects every option in the list.
-     * @param {?=} skip Option that should not be deselected.
-     * @return {?}
-     */
-    MatSelect.prototype._clearSelection = /**
-     * Clears the select trigger and deselects every option in the list.
-     * @param {?=} skip Option that should not be deselected.
-     * @return {?}
-     */
-    function (skip) {
-        this._selectionModel.clear();
-        this.options.forEach(function (option) {
-            if (option !== skip) {
-                option.deselect();
-            }
-        });
-        this.stateChanges.next();
     };
     /**
      * Sets up a key manager to listen to keyboard events on the overlay panel.
@@ -20703,11 +20685,9 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         var _this = this;
         var /** @type {?} */ changedOrDestroyed = rxjs.merge(this.options.changes, this._destroy);
-        this.optionSelectionChanges
-            .pipe(operators.takeUntil(changedOrDestroyed), operators.filter(function (event) { return event.isUserInput; }))
-            .subscribe(function (event) {
-            _this._onSelect(event.source);
-            if (!_this.multiple && _this._panelOpen) {
+        this.optionSelectionChanges.pipe(operators.takeUntil(changedOrDestroyed)).subscribe(function (event) {
+            _this._onSelect(event.source, event.isUserInput);
+            if (event.isUserInput && !_this.multiple && _this._panelOpen) {
                 _this.close();
                 _this.focus();
             }
@@ -20724,61 +20704,53 @@ var MatSelect = /** @class */ (function (_super) {
     /**
      * Invoked when an option is clicked.
      * @param {?} option
+     * @param {?} isUserInput
      * @return {?}
      */
     MatSelect.prototype._onSelect = /**
      * Invoked when an option is clicked.
      * @param {?} option
+     * @param {?} isUserInput
      * @return {?}
      */
-    function (option) {
+    function (option, isUserInput) {
         var /** @type {?} */ wasSelected = this._selectionModel.isSelected(option);
-        // TODO(crisbeto): handle blank/null options inside multi-select.
-        if (this.multiple) {
-            this._selectionModel.toggle(option);
-            this.stateChanges.next();
-            wasSelected ? option.deselect() : option.select();
-            this._keyManager.setActiveItem(option);
-            this._sortValues();
-            // In case the user select the option with their mouse, we
-            // want to restore focus back to the trigger, in order to
-            // prevent the select keyboard controls from clashing with
-            // the ones from `mat-option`.
-            this.focus();
+        if (option.value == null) {
+            this._selectionModel.clear();
+            this._propagateChanges(option.value);
         }
         else {
-            this._clearSelection(option.value == null ? undefined : option);
-            if (option.value == null) {
-                this._propagateChanges(option.value);
-            }
-            else {
-                this._selectionModel.select(option);
-                this.stateChanges.next();
+            option.selected ? this._selectionModel.select(option) : this._selectionModel.deselect(option);
+            // TODO(crisbeto): handle blank/null options inside multi-select.
+            if (this.multiple) {
+                this._sortValues();
+                if (isUserInput) {
+                    this._keyManager.setActiveItem(option);
+                    // In case the user selected the option with their mouse, we
+                    // want to restore focus back to the trigger, in order to
+                    // prevent the select keyboard controls from clashing with
+                    // the ones from `mat-option`.
+                    this.focus();
+                }
             }
         }
         if (wasSelected !== this._selectionModel.isSelected(option)) {
             this._propagateChanges();
         }
+        this.stateChanges.next();
     };
     /**
-     * Sorts the model values, ensuring that they keep the same
-     * order that they have in the panel.
+     * Sorts the selected values in the selected based on their order in the panel.
      * @return {?}
      */
     MatSelect.prototype._sortValues = /**
-     * Sorts the model values, ensuring that they keep the same
-     * order that they have in the panel.
+     * Sorts the selected values in the selected based on their order in the panel.
      * @return {?}
      */
     function () {
-        var _this = this;
-        if (this._multiple) {
-            this._selectionModel.clear();
-            this.options.forEach(function (option) {
-                if (option.selected) {
-                    _this._selectionModel.select(option);
-                }
-            });
+        if (this.multiple) {
+            var /** @type {?} */ options_1 = this.options.toArray();
+            this._selectionModel.sort(function (a, b) { return options_1.indexOf(a) - options_1.indexOf(b); });
             this.stateChanges.next();
         }
     };
@@ -22644,7 +22616,7 @@ var MatPaginator = /** @class */ (function (_super) {
     MatPaginator.decorators = [
         { type: core.Component, args: [{selector: 'mat-paginator',
                     exportAs: 'matPaginator',
-                    template: "<div class=\"mat-paginator-container\"><div class=\"mat-paginator-page-size\" *ngIf=\"!hidePageSize\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\"><mat-select [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (selectionChange)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-actions\"><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-first\" (click)=\"firstPage()\" [attr.aria-label]=\"_intl.firstPageLabel\" [matTooltip]=\"_intl.firstPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\" *ngIf=\"showFirstLastButtons\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6.2.1-e95623d2H6z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-last\" (click)=\"lastPage()\" [attr.aria-label]=\"_intl.lastPageLabel\" [matTooltip]=\"_intl.lastPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\" *ngIf=\"showFirstLastButtons\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6.2.1-e95623d2h-2z\"/></svg></button></div></div>",
+                    template: "<div class=\"mat-paginator-container\"><div class=\"mat-paginator-page-size\" *ngIf=\"!hidePageSize\"><div class=\"mat-paginator-page-size-label\">{{_intl.itemsPerPageLabel}}</div><mat-form-field *ngIf=\"_displayedPageSizeOptions.length > 1\" class=\"mat-paginator-page-size-select\"><mat-select [value]=\"pageSize\" [aria-label]=\"_intl.itemsPerPageLabel\" (selectionChange)=\"_changePageSize($event.value)\"><mat-option *ngFor=\"let pageSizeOption of _displayedPageSizeOptions\" [value]=\"pageSizeOption\">{{pageSizeOption}}</mat-option></mat-select></mat-form-field><div *ngIf=\"_displayedPageSizeOptions.length <= 1\">{{pageSize}}</div></div><div class=\"mat-paginator-range-actions\"><div class=\"mat-paginator-range-label\">{{_intl.getRangeLabel(pageIndex, pageSize, length)}}</div><button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-first\" (click)=\"firstPage()\" [attr.aria-label]=\"_intl.firstPageLabel\" [matTooltip]=\"_intl.firstPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\" *ngIf=\"showFirstLastButtons\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M18.41 16.59L13.82 12l4.59-4.59L17 6l-6 6 6 6zM6 6.2.1-81537af2H6z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-previous\" (click)=\"previousPage()\" [attr.aria-label]=\"_intl.previousPageLabel\" [matTooltip]=\"_intl.previousPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasPreviousPage()\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-next\" (click)=\"nextPage()\" [attr.aria-label]=\"_intl.nextPageLabel\" [matTooltip]=\"_intl.nextPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z\"/></svg></button> <button mat-icon-button type=\"button\" class=\"mat-paginator-navigation-last\" (click)=\"lastPage()\" [attr.aria-label]=\"_intl.lastPageLabel\" [matTooltip]=\"_intl.lastPageLabel\" [matTooltipPosition]=\"'above'\" [disabled]=\"!hasNextPage()\" *ngIf=\"showFirstLastButtons\"><svg class=\"mat-paginator-icon\" viewBox=\"0 0 24 24\" focusable=\"false\"><path d=\"M5.59 7.41L10.18 12l-4.59 4.59L7 18l6-6-6-6zM16 6.2.1-81537af2h-2z\"/></svg></button></div></div>",
                     styles: [".mat-paginator{display:block}.mat-paginator-container{display:flex;align-items:center;justify-content:flex-end;min-height:56px;padding:0 8px;flex-wrap:wrap-reverse}.mat-paginator-page-size{display:flex;align-items:baseline;margin-right:8px}[dir=rtl] .mat-paginator-page-size{margin-right:0;margin-left:8px}.mat-paginator-page-size-label{margin:0 4px}.mat-paginator-page-size-select{margin:6px 4px 0 4px;width:56px}.mat-paginator-range-label{margin:0 32px 0 24px}.mat-paginator-range-actions{display:flex;align-items:center;min-height:48px}.mat-paginator-icon{width:28px;fill:currentColor}[dir=rtl] .mat-paginator-icon{transform:rotate(180deg)}"],
                     host: {
                         'class': 'mat-paginator',
@@ -28762,7 +28734,7 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
     MatHorizontalStepper.decorators = [
         { type: core.Component, args: [{selector: 'mat-horizontal-stepper',
                     exportAs: 'matHorizontalStepper',
-                    template: "<div class=\"mat-horizontal-stepper-header-container\"><ng-container *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-horizontal-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_getFocusIndex() === i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [index]=\"i\" [state]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div *ngIf=\"!isLast\" class=\"mat-stepper-horizontal-line\"></div></ng-container></div><div class=\"mat-horizontal-content-container\"><div *ngFor=\"let step of _steps; let i = index\" class=\"mat-horizontal-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" (@stepTransition.done)=\"_animationDone($event)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div>",
+                    template: "<div class=\"mat-horizontal-stepper-header-container\"><ng-container *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-horizontal-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_getFocusIndex() === i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-posinset]=\"i + 1\" [attr.aria-setsize]=\"_steps.length\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex == i\" [index]=\"i\" [state]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div *ngIf=\"!isLast\" class=\"mat-stepper-horizontal-line\"></div></ng-container></div><div class=\"mat-horizontal-content-container\"><div *ngFor=\"let step of _steps; let i = index\" class=\"mat-horizontal-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" (@stepTransition.done)=\"_animationDone($event)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div>",
                     styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content[aria-expanded=false]{height:0;overflow:hidden}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
                     inputs: ['selectedIndex'],
                     host: {
@@ -28788,7 +28760,7 @@ var MatVerticalStepper = /** @class */ (function (_super) {
     MatVerticalStepper.decorators = [
         { type: core.Component, args: [{selector: 'mat-vertical-stepper',
                     exportAs: 'matVerticalStepper',
-                    template: "<div class=\"mat-step\" *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-vertical-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_getFocusIndex() == i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex === i\" [index]=\"i\" [state]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div class=\"mat-vertical-content-container\" [class.mat-stepper-vertical-line]=\"!isLast\"><div class=\"mat-vertical-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" (@stepTransition.done)=\"_animationDone($event)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><div class=\"mat-vertical-content\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div></div></div>",
+                    template: "<div class=\"mat-step\" *ngFor=\"let step of _steps; let i = index; let isLast = last\"><mat-step-header class=\"mat-vertical-stepper-header\" (click)=\"step.select()\" (keydown)=\"_onKeydown($event)\" [tabIndex]=\"_getFocusIndex() == i ? 0 : -1\" [id]=\"_getStepLabelId(i)\" [attr.aria-posinset]=\"i + 1\" [attr.aria-setsize]=\"_steps.length\" [attr.aria-controls]=\"_getStepContentId(i)\" [attr.aria-selected]=\"selectedIndex === i\" [index]=\"i\" [state]=\"_getIndicatorType(i)\" [label]=\"step.stepLabel || step.label\" [selected]=\"selectedIndex === i\" [active]=\"step.completed || selectedIndex === i || !linear\" [optional]=\"step.optional\" [iconOverrides]=\"_iconOverrides\"></mat-step-header><div class=\"mat-vertical-content-container\" [class.mat-stepper-vertical-line]=\"!isLast\"><div class=\"mat-vertical-stepper-content\" role=\"tabpanel\" [@stepTransition]=\"_getAnimationDirection(i)\" (@stepTransition.done)=\"_animationDone($event)\" [id]=\"_getStepContentId(i)\" [attr.aria-labelledby]=\"_getStepLabelId(i)\" [attr.aria-expanded]=\"selectedIndex === i\"><div class=\"mat-vertical-content\"><ng-container [ngTemplateOutlet]=\"step.content\"></ng-container></div></div></div></div>",
                     styles: [".mat-stepper-horizontal,.mat-stepper-vertical{display:block}.mat-horizontal-stepper-header-container{white-space:nowrap;display:flex;align-items:center}.mat-stepper-horizontal-line{border-top-width:1px;border-top-style:solid;flex:auto;height:0;margin:0 -16px;min-width:32px}.mat-horizontal-stepper-header{display:flex;height:72px;overflow:hidden;align-items:center;padding:0 24px}.mat-horizontal-stepper-header .mat-step-icon,.mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:8px;flex:none}[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon,[dir=rtl] .mat-horizontal-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:8px}.mat-vertical-stepper-header{display:flex;align-items:center;padding:24px;max-height:24px}.mat-vertical-stepper-header .mat-step-icon,.mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:12px}[dir=rtl] .mat-vertical-stepper-header .mat-step-icon,[dir=rtl] .mat-vertical-stepper-header .mat-step-icon-not-touched{margin-right:0;margin-left:12px}.mat-horizontal-stepper-content[aria-expanded=false]{height:0;overflow:hidden}.mat-horizontal-content-container{overflow:hidden;padding:0 24px 24px 24px}.mat-vertical-content-container{margin-left:36px;border:0;position:relative}[dir=rtl] .mat-vertical-content-container{margin-left:0;margin-right:36px}.mat-stepper-vertical-line::before{content:'';position:absolute;top:-16px;bottom:-16px;left:0;border-left-width:1px;border-left-style:solid}[dir=rtl] .mat-stepper-vertical-line::before{left:auto;right:0}.mat-vertical-stepper-content{overflow:hidden}.mat-vertical-content{padding:0 24px 24px 24px}.mat-step:last-child .mat-vertical-content-container{border:none}"],
                     inputs: ['selectedIndex'],
                     host: {
@@ -32425,7 +32397,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.2.1-e95623d');
+var /** @type {?} */ VERSION = new core.Version('6.2.1-81537af');
 
 exports.VERSION = VERSION;
 exports.ɵa28 = MatAutocompleteOrigin;
@@ -32677,12 +32649,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32811,17 +32783,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
