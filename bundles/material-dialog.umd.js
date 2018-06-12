@@ -592,8 +592,8 @@ MatDialogRef = /** @class */ (function () {
      * @return {?}
      */
     function (width, height) {
-        if (width === void 0) { width = 'auto'; }
-        if (height === void 0) { height = 'auto'; }
+        if (width === void 0) { width = ''; }
+        if (height === void 0) { height = ''; }
         this._getPositionStrategy().width(width).height(height);
         this._overlayRef.updatePosition();
         return this;
