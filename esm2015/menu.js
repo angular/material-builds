@@ -1204,6 +1204,7 @@ MatMenuTrigger.decorators = [
                 selector: `[mat-menu-trigger-for], [matMenuTriggerFor]`,
                 host: {
                     'aria-haspopup': 'true',
+                    '[attr.aria-expanded]': 'menuOpen || null',
                     '(mousedown)': '_handleMousedown($event)',
                     '(keydown)': '_handleKeydown($event)',
                     '(click)': '_handleClick($event)',
