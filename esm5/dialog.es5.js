@@ -49,7 +49,7 @@ MatDialogConfig = /** @class */ (function () {
          */
         this.backdropClass = '';
         /**
-         * Whether the user can use escape or clicking outside to close a modal.
+         * Whether the user can use escape or clicking on the backdrop to close the modal.
          */
         this.disableClose = false;
         /**

@@ -42,7 +42,7 @@ export declare class MatDialogConfig<D = any> {
     hasBackdrop?: boolean;
     /** Custom class for the backdrop, */
     backdropClass?: string;
-    /** Whether the user can use escape or clicking outside to close a modal. */
+    /** Whether the user can use escape or clicking on the backdrop to close the modal. */
     disableClose?: boolean;
     /** Width of the dialog. */
     width?: string;
