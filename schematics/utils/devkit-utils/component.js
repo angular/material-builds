@@ -55,10 +55,13 @@ function addDeclarationToNgModule(options) {
         return host;
     };
 }
-function buildSelector(options) {
+function buildSelector(options, projectPrefix) {
     let selector = core_1.strings.dasherize(options.name);
     if (options.prefix) {
         selector = `${options.prefix}-${selector}`;
+    }
+    else if (options.prefix === undefined && projectPrefix) {
+        selector = `${projectPrefix}-${selector}`;
     }
     return selector;
 }
@@ -72,7 +75,7 @@ function buildComponent(options) {
         if (options.path === undefined) {
             options.path = `/${project.root}/src/app`;
         }
-        options.selector = options.selector || buildSelector(options);
+        options.selector = options.selector || buildSelector(options, project.prefix);
         options.module = find_module_1.findModuleFromOptions(host, options);
         const parsedPath = parse_name_1.parseName(options.path, options.name);
         options.name = parsedPath.name;
