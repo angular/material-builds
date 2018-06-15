@@ -1152,13 +1152,12 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function (option, isUserInput) {
         var /** @type {?} */ wasSelected = this._selectionModel.isSelected(option);
-        if (option.value == null) {
+        if (option.value == null && !this._multiple) {
             this._selectionModel.clear();
             this._propagateChanges(option.value);
         }
         else {
             option.selected ? this._selectionModel.select(option) : this._selectionModel.deselect(option);
-            // TODO(crisbeto): handle blank/null options inside multi-select.
             if (this.multiple) {
                 this._sortValues();
                 if (isUserInput) {
