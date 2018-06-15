@@ -70,6 +70,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     hintLabel: string;
     private _hintLabel;
     _hintLabelId: string;
+    _labelId: string;
     /**
      * Whether the label should always float, never float or float as the user types.
      *

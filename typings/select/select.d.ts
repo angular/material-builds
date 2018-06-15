@@ -328,7 +328,9 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      */
     _calculateOverlayScroll(selectedIndex: number, scrollBuffer: number, maxScroll: number): number;
     /** Returns the aria-label of the select component. */
-    readonly _ariaLabel: string | null;
+    _getAriaLabel(): string | null;
+    /** Returns the aria-labelledby of the select component. */
+    _getAriaLabelledby(): string | null;
     /** Determines the `aria-activedescendant` to be set on the host. */
     _getAriaActiveDescendant(): string | null;
     /**

@@ -1066,10 +1066,25 @@ class MatSelect extends _MatSelectMixinBase {
      * Returns the aria-label of the select component.
      * @return {?}
      */
-    get _ariaLabel() {
-        // If an ariaLabelledby value has been set, the select should not overwrite the
+    _getAriaLabel() {
+        // If an ariaLabelledby value has been set by the consumer, the select should not overwrite the
         // `aria-labelledby` value by setting the ariaLabel to the placeholder.
         return this.ariaLabelledby ? null : this.ariaLabel || this.placeholder;
+    }
+    /**
+     * Returns the aria-labelledby of the select component.
+     * @return {?}
+     */
+    _getAriaLabelledby() {
+        if (this.ariaLabelledby) {
+            return this.ariaLabelledby;
+        }
+        // Note: we use `_getAriaLabel` here, because we want to check whether there's a
+        // computed label. `this.ariaLabel` is only the user-specified label.
+        if (!this._parentFormField || this._getAriaLabel()) {
+            return null;
+        }
+        return this._parentFormField._labelId || null;
     }
     /**
      * Determines the `aria-activedescendant` to be set on the host.
@@ -1306,8 +1321,8 @@ MatSelect.decorators = [
                     'role': 'listbox',
                     '[attr.id]': 'id',
                     '[attr.tabindex]': 'tabIndex',
-                    '[attr.aria-label]': '_ariaLabel',
-                    '[attr.aria-labelledby]': 'ariaLabelledby',
+                    '[attr.aria-label]': '_getAriaLabel()',
+                    '[attr.aria-labelledby]': '_getAriaLabelledby()',
                     '[attr.aria-required]': 'required.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                     '[attr.aria-invalid]': 'errorState',
