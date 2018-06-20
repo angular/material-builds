@@ -147,7 +147,12 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Whether the component is disabling centering of the active option over the trigger. */
     private _disableOptionCentering;
     /** Whether the select is focused. */
+    /**
+     * @deprecated Setter to be removed as this property is intended to be readonly.
+     * @deletion-target 8.0.0
+     */
     focused: boolean;
+    private _focused;
     /** A name for this control that can be used by `mat-form-field`. */
     controlType: string;
     /** Trigger that opens the select. */

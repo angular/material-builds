@@ -324,10 +324,7 @@ var MatSelect = /** @class */ (function (_super) {
          * Whether the component is disabling centering of the active option over the trigger.
          */
         _this._disableOptionCentering = false;
-        /**
-         * Whether the select is focused.
-         */
-        _this.focused = false;
+        _this._focused = false;
         /**
          * A name for this control that can be used by `mat-form-field`.
          */
@@ -382,6 +379,31 @@ var MatSelect = /** @class */ (function (_super) {
         _this.id = _this.id;
         return _this;
     }
+    Object.defineProperty(MatSelect.prototype, "focused", {
+        /** Whether the select is focused. */
+        get: /**
+         * Whether the select is focused.
+         * @return {?}
+         */
+        function () {
+            return this._focused || this._panelOpen;
+        },
+        /**
+         * @deprecated Setter to be removed as this property is intended to be readonly.
+         * @deletion-target 8.0.0
+         */
+        set: /**
+         * @deprecated Setter to be removed as this property is intended to be readonly.
+         * \@deletion-target 8.0.0
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._focused = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatSelect.prototype, "placeholder", {
         get: /**
          * Placeholder to be shown if no value has been selected.
@@ -918,7 +940,7 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         if (!this.disabled) {
-            this.focused = true;
+            this._focused = true;
             this.stateChanges.next();
         }
     };
@@ -937,7 +959,7 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this.focused = false;
+        this._focused = false;
         if (!this.disabled && !this.panelOpen) {
             this._onTouched();
             this._changeDetectorRef.markForCheck();

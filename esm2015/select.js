@@ -336,10 +336,7 @@ class MatSelect extends _MatSelectMixinBase {
          * Whether the component is disabling centering of the active option over the trigger.
          */
         this._disableOptionCentering = false;
-        /**
-         * Whether the select is focused.
-         */
-        this.focused = false;
+        this._focused = false;
         /**
          * A name for this control that can be used by `mat-form-field`.
          */
@@ -389,6 +386,22 @@ class MatSelect extends _MatSelectMixinBase {
         this.tabIndex = parseInt(tabIndex) || 0;
         // Force setter to be called in case id was not specified.
         this.id = this.id;
+    }
+    /**
+     * Whether the select is focused.
+     * @return {?}
+     */
+    get focused() {
+        return this._focused || this._panelOpen;
+    }
+    /**
+     * @deprecated Setter to be removed as this property is intended to be readonly.
+     * \@deletion-target 8.0.0
+     * @param {?} value
+     * @return {?}
+     */
+    set focused(value) {
+        this._focused = value;
     }
     /**
      * Placeholder to be shown if no value has been selected.
@@ -760,7 +773,7 @@ class MatSelect extends _MatSelectMixinBase {
      */
     _onFocus() {
         if (!this.disabled) {
-            this.focused = true;
+            this._focused = true;
             this.stateChanges.next();
         }
     }
@@ -770,7 +783,7 @@ class MatSelect extends _MatSelectMixinBase {
      * @return {?}
      */
     _onBlur() {
-        this.focused = false;
+        this._focused = false;
         if (!this.disabled && !this.panelOpen) {
             this._onTouched();
             this._changeDetectorRef.markForCheck();

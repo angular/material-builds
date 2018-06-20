@@ -19890,10 +19890,7 @@ var MatSelect = /** @class */ (function (_super) {
          * Whether the component is disabling centering of the active option over the trigger.
          */
         _this._disableOptionCentering = false;
-        /**
-         * Whether the select is focused.
-         */
-        _this.focused = false;
+        _this._focused = false;
         /**
          * A name for this control that can be used by `mat-form-field`.
          */
@@ -19948,6 +19945,31 @@ var MatSelect = /** @class */ (function (_super) {
         _this.id = _this.id;
         return _this;
     }
+    Object.defineProperty(MatSelect.prototype, "focused", {
+        /** Whether the select is focused. */
+        get: /**
+         * Whether the select is focused.
+         * @return {?}
+         */
+        function () {
+            return this._focused || this._panelOpen;
+        },
+        /**
+         * @deprecated Setter to be removed as this property is intended to be readonly.
+         * @deletion-target 8.0.0
+         */
+        set: /**
+         * @deprecated Setter to be removed as this property is intended to be readonly.
+         * \@deletion-target 8.0.0
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._focused = value;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(MatSelect.prototype, "placeholder", {
         get: /**
          * Placeholder to be shown if no value has been selected.
@@ -20484,7 +20506,7 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         if (!this.disabled) {
-            this.focused = true;
+            this._focused = true;
             this.stateChanges.next();
         }
     };
@@ -20503,7 +20525,7 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this.focused = false;
+        this._focused = false;
         if (!this.disabled && !this.panelOpen) {
             this._onTouched();
             this._changeDetectorRef.markForCheck();
@@ -32403,10 +32425,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.0-1ff9cf0');
+var /** @type {?} */ VERSION = new core.Version('6.3.0-83631fc');
 
 exports.VERSION = VERSION;
-exports.ɵa26 = MatAutocompleteOrigin;
+exports.ɵa27 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32655,12 +32677,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32789,17 +32811,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf22 = MatTabBase;
-exports.ɵg22 = _MatTabMixinBase;
-exports.ɵb22 = MatTabHeaderBase;
-exports.ɵc22 = _MatTabHeaderMixinBase;
-exports.ɵd22 = MatTabLabelWrapperBase;
-exports.ɵe22 = _MatTabLabelWrapperMixinBase;
-exports.ɵj22 = MatTabLinkBase;
-exports.ɵh22 = MatTabNavBase;
-exports.ɵk22 = _MatTabLinkMixinBase;
-exports.ɵi22 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
