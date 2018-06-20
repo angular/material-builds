@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('@angular/cdk/observers'), require('@angular/platform-browser')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/slideToggle', ['exports', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/platform-browser/animations', '@angular/cdk/observers', '@angular/platform-browser'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slideToggle = {}),global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.platform,global.ng.core,global.ng.forms,global.ng.material.core,global.ng.platformBrowser.animations,global.ng.cdk.observers,global.ng.platformBrowser));
-}(this, (function (exports,a11y,coercion,platform,core,forms,core$1,animations,observers,platformBrowser) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/a11y'), require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/forms'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('@angular/cdk/observers'), require('@angular/platform-browser')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/slideToggle', ['exports', '@angular/core', '@angular/cdk/a11y', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/forms', '@angular/material/core', '@angular/platform-browser/animations', '@angular/cdk/observers', '@angular/platform-browser'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slideToggle = {}),global.ng.core,global.ng.cdk.a11y,global.ng.cdk.coercion,global.ng.cdk.platform,global.ng.forms,global.ng.material.core,global.ng.platformBrowser.animations,global.ng.cdk.observers,global.ng.platformBrowser));
+}(this, (function (exports,core,a11y,coercion,platform,forms,core$1,animations,observers,platformBrowser) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -36,6 +36,18 @@ function __extends(d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 }
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Injection token to be used to override the default options for `mat-slide-toggle`.
+ */
+var /** @type {?} */ MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('mat-slide-toggle-default-options', {
+    providedIn: 'root',
+    factory: function () { return ({ disableToggleValue: false, disableDragValue: false }); }
+});
 
 /**
  * @fileoverview added by tsickle
@@ -87,11 +99,12 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @deprecated The `_platform` parameter to be removed.
      * @deletion-target 7.0.0
      */
-    _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, _animationMode) {
+    _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._ngZone = _ngZone;
+        _this.defaults = defaults;
         _this._animationMode = _animationMode;
         _this.onChange = function (_) { };
         _this.onTouched = function () { };
@@ -126,6 +139,19 @@ var MatSlideToggle = /** @class */ (function (_super) {
          * An event will be dispatched each time the slide-toggle changes its value.
          */
         _this.change = new core.EventEmitter();
+        /**
+         * An event will be dispatched each time the slide-toggle input is toggled.
+         * This event always fire when user toggle the slide toggle, but does not mean the slide toggle's
+         * value is changed. The event does not fire when user drag to change the slide toggle value.
+         */
+        _this.toggleChange = new core.EventEmitter();
+        /**
+         * An event will be dispatched each time the slide-toggle is dragged.
+         * This event always fire when user drag the slide toggle to make a change that greater than 50%.
+         * It does not mean the slide toggle's value is changed. The event does not fire when user toggle
+         * the slide toggle to change the slide toggle's value.
+         */
+        _this.dragChange = new core.EventEmitter();
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -207,10 +233,15 @@ var MatSlideToggle = /** @class */ (function (_super) {
         // Otherwise the change event, from the input element, will bubble up and
         // emit its event object to the component's `change` output.
         event.stopPropagation();
+        if (!this._dragging) {
+            this.toggleChange.emit();
+        }
         // Releasing the pointer over the `<label>` element while dragging triggers another
         // click event on the `<label>` element. This means that the checked state of the underlying
-        // input changed unintentionally and needs to be changed back.
-        if (this._dragging) {
+        // input changed unintentionally and needs to be changed back. Or when the slide toggle's config
+        // disabled toggle change event by setting `disableToggleValue: true`, the slide toggle's value
+        // does not change, and the checked state of the underlying input needs to be changed back.
+        if (this._dragging || this.defaults.disableToggleValue) {
             this._inputElement.nativeElement.checked = this.checked;
             return;
         }
@@ -419,8 +450,11 @@ var MatSlideToggle = /** @class */ (function (_super) {
         if (this._dragging) {
             var /** @type {?} */ newCheckedValue = this._dragPercentage > 50;
             if (newCheckedValue !== this.checked) {
-                this.checked = newCheckedValue;
-                this._emitChangeEvent();
+                this.dragChange.emit();
+                if (!this.defaults.disableDragValue) {
+                    this.checked = newCheckedValue;
+                    this._emitChangeEvent();
+                }
             }
             // The drag should be stopped outside of the current event handler, otherwise the
             // click event will be fired before it and will revert the drag change.
@@ -481,6 +515,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         { type: core.ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
         { type: core.NgZone, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,] },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
     ]; };
     MatSlideToggle.propDecorators = {
@@ -494,6 +529,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
         "required": [{ type: core.Input },],
         "checked": [{ type: core.Input },],
         "change": [{ type: core.Output },],
+        "toggleChange": [{ type: core.Output },],
+        "dragChange": [{ type: core.Output },],
         "_inputElement": [{ type: core.ViewChild, args: ['input',] },],
         "_ripple": [{ type: core.ViewChild, args: [core$1.MatRipple,] },],
     };
@@ -526,6 +563,7 @@ exports.MatSlideToggleChange = MatSlideToggleChange;
 exports.MatSlideToggleBase = MatSlideToggleBase;
 exports._MatSlideToggleMixinBase = _MatSlideToggleMixinBase;
 exports.MatSlideToggle = MatSlideToggle;
+exports.MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

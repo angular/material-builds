@@ -5,15 +5,27 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
+import { InjectionToken, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild, ViewEncapsulation, NgZone, Optional, Inject, NgModule } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Platform } from '@angular/cdk/platform';
-import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Input, Output, ViewChild, ViewEncapsulation, NgZone, Optional, Inject, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, mixinTabIndex, GestureConfig, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ObserversModule } from '@angular/cdk/observers';
 import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Injection token to be used to override the default options for `mat-slide-toggle`.
+ */
+const /** @type {?} */ MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-default-options', {
+    providedIn: 'root',
+    factory: () => ({ disableToggleValue: false, disableDragValue: false })
+});
 
 /**
  * @fileoverview added by tsickle
@@ -62,6 +74,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @param {?} _changeDetectorRef
      * @param {?} tabIndex
      * @param {?} _ngZone
+     * @param {?} defaults
      * @param {?=} _animationMode
      */
     constructor(elementRef, /**
@@ -72,11 +85,12 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @deprecated The `_platform` parameter to be removed.
      * @deletion-target 7.0.0
      */
-    _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, _animationMode) {
+    _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode) {
         super(elementRef);
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._ngZone = _ngZone;
+        this.defaults = defaults;
         this._animationMode = _animationMode;
         this.onChange = (_) => { };
         this.onTouched = () => { };
@@ -111,6 +125,19 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
          * An event will be dispatched each time the slide-toggle changes its value.
          */
         this.change = new EventEmitter();
+        /**
+         * An event will be dispatched each time the slide-toggle input is toggled.
+         * This event always fire when user toggle the slide toggle, but does not mean the slide toggle's
+         * value is changed. The event does not fire when user drag to change the slide toggle value.
+         */
+        this.toggleChange = new EventEmitter();
+        /**
+         * An event will be dispatched each time the slide-toggle is dragged.
+         * This event always fire when user drag the slide toggle to make a change that greater than 50%.
+         * It does not mean the slide toggle's value is changed. The event does not fire when user toggle
+         * the slide toggle to change the slide toggle's value.
+         */
+        this.dragChange = new EventEmitter();
         this.tabIndex = parseInt(tabIndex) || 0;
     }
     /**
@@ -165,10 +192,15 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         // Otherwise the change event, from the input element, will bubble up and
         // emit its event object to the component's `change` output.
         event.stopPropagation();
+        if (!this._dragging) {
+            this.toggleChange.emit();
+        }
         // Releasing the pointer over the `<label>` element while dragging triggers another
         // click event on the `<label>` element. This means that the checked state of the underlying
-        // input changed unintentionally and needs to be changed back.
-        if (this._dragging) {
+        // input changed unintentionally and needs to be changed back. Or when the slide toggle's config
+        // disabled toggle change event by setting `disableToggleValue: true`, the slide toggle's value
+        // does not change, and the checked state of the underlying input needs to be changed back.
+        if (this._dragging || this.defaults.disableToggleValue) {
             this._inputElement.nativeElement.checked = this.checked;
             return;
         }
@@ -312,8 +344,11 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
         if (this._dragging) {
             const /** @type {?} */ newCheckedValue = this._dragPercentage > 50;
             if (newCheckedValue !== this.checked) {
-                this.checked = newCheckedValue;
-                this._emitChangeEvent();
+                this.dragChange.emit();
+                if (!this.defaults.disableDragValue) {
+                    this.checked = newCheckedValue;
+                    this._emitChangeEvent();
+                }
             }
             // The drag should be stopped outside of the current event handler, otherwise the
             // click event will be fired before it and will revert the drag change.
@@ -366,6 +401,7 @@ MatSlideToggle.ctorParameters = () => [
     { type: ChangeDetectorRef, },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
     { type: NgZone, },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
 ];
 MatSlideToggle.propDecorators = {
@@ -379,6 +415,8 @@ MatSlideToggle.propDecorators = {
     "required": [{ type: Input },],
     "checked": [{ type: Input },],
     "change": [{ type: Output },],
+    "toggleChange": [{ type: Output },],
+    "dragChange": [{ type: Output },],
     "_inputElement": [{ type: ViewChild, args: ['input',] },],
     "_ripple": [{ type: ViewChild, args: [MatRipple,] },],
 };
@@ -410,5 +448,5 @@ MatSlideToggleModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatSlideToggleModule, MAT_SLIDE_TOGGLE_VALUE_ACCESSOR, MatSlideToggleChange, MatSlideToggleBase, _MatSlideToggleMixinBase, MatSlideToggle };
+export { MatSlideToggleModule, MAT_SLIDE_TOGGLE_VALUE_ACCESSOR, MatSlideToggleChange, MatSlideToggleBase, _MatSlideToggleMixinBase, MatSlideToggle, MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS };
 //# sourceMappingURL=slide-toggle.js.map

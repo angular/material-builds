@@ -362,7 +362,7 @@ class MatTreeFlattener {
         let /** @type {?} */ results = [];
         let /** @type {?} */ currentExpand = [];
         currentExpand[0] = true;
-        nodes.forEach((node) => {
+        nodes.forEach(node => {
             let /** @type {?} */ expand = true;
             for (let /** @type {?} */ i = 0; i <= this.getLevel(node); i++) {
                 expand = expand && currentExpand[i];

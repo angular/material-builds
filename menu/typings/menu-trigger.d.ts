@@ -125,11 +125,11 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      */
     private _subscribeToPositions(position);
     /**
-     * This method builds the position strategy for the overlay, so the menu is properly connected
-     * to the trigger.
-     * @returns ConnectedPositionStrategy
+     * Sets the appropriate positions on a position strategy
+     * so the overlay connects with the trigger correctly.
+     * @param positionStrategy Strategy whose position to update.
      */
-    private _getPosition();
+    private _setPosition(positionStrategy);
     /** Cleans up the active subscriptions. */
     private _cleanUpSubscriptions();
     /** Returns a stream that emits whenever an action that should close the menu occurs. */

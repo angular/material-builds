@@ -19125,6 +19125,7 @@ var MatMenuTrigger = /** @class */ (function () {
             return;
         }
         var /** @type {?} */ overlayRef = this._createOverlay();
+        this._setPosition(/** @type {?} */ (overlayRef.getConfig().positionStrategy));
         overlayRef.attach(this._portal);
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
@@ -19328,7 +19329,9 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function () {
         return new overlay.OverlayConfig({
-            positionStrategy: this._getPosition(),
+            positionStrategy: this._overlay.position()
+                .flexibleConnectedTo(this._element)
+                .withTransformOriginOn('.mat-menu-panel'),
             hasBackdrop: this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop,
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
             scrollStrategy: this._scrollStrategy(),
@@ -19360,16 +19363,18 @@ var MatMenuTrigger = /** @class */ (function () {
         }
     };
     /**
-     * This method builds the position strategy for the overlay, so the menu is properly connected
-     * to the trigger.
-     * @return {?} ConnectedPositionStrategy
+     * Sets the appropriate positions on a position strategy
+     * so the overlay connects with the trigger correctly.
+     * @param {?} positionStrategy Strategy whose position to update.
+     * @return {?}
      */
-    MatMenuTrigger.prototype._getPosition = /**
-     * This method builds the position strategy for the overlay, so the menu is properly connected
-     * to the trigger.
-     * @return {?} ConnectedPositionStrategy
+    MatMenuTrigger.prototype._setPosition = /**
+     * Sets the appropriate positions on a position strategy
+     * so the overlay connects with the trigger correctly.
+     * @param {?} positionStrategy Strategy whose position to update.
+     * @return {?}
      */
-    function () {
+    function (positionStrategy) {
         var _a = this.menu.xPosition === 'before' ? ['end', 'start'] : ['start', 'end'], originX = _a[0], originFallbackX = _a[1];
         var _b = this.menu.yPosition === 'above' ? ['bottom', 'top'] : ['top', 'bottom'], overlayY = _b[0], overlayFallbackY = _b[1];
         var _c = [overlayY, overlayFallbackY], originY = _c[0], originFallbackY = _c[1];
@@ -19386,10 +19391,7 @@ var MatMenuTrigger = /** @class */ (function () {
             originY = overlayY === 'top' ? 'bottom' : 'top';
             originFallbackY = overlayFallbackY === 'top' ? 'bottom' : 'top';
         }
-        return this._overlay.position()
-            .flexibleConnectedTo(this._element)
-            .withTransformOriginOn('.mat-menu-panel')
-            .withPositions([
+        positionStrategy.withPositions([
             { originX: originX, originY: originY, overlayX: overlayX, overlayY: overlayY, offsetY: offsetY },
             { originX: originFallbackX, originY: originY, overlayX: overlayFallbackX, overlayY: overlayY, offsetY: offsetY },
             {
@@ -25223,6 +25225,18 @@ var MatSidenavModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * Injection token to be used to override the default options for `mat-slide-toggle`.
+ */
+var /** @type {?} */ MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('mat-slide-toggle-default-options', {
+    providedIn: 'root',
+    factory: function () { return ({ disableToggleValue: false, disableDragValue: false }); }
+});
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 // Increasing integer for generating unique ids for slide-toggle components.
 var /** @type {?} */ nextUniqueId$8 = 0;
 var /** @type {?} */ MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
@@ -25269,11 +25283,12 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @deprecated The `_platform` parameter to be removed.
      * @deletion-target 7.0.0
      */
-    _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, _animationMode) {
+    _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._ngZone = _ngZone;
+        _this.defaults = defaults;
         _this._animationMode = _animationMode;
         _this.onChange = function (_) { };
         _this.onTouched = function () { };
@@ -25308,6 +25323,19 @@ var MatSlideToggle = /** @class */ (function (_super) {
          * An event will be dispatched each time the slide-toggle changes its value.
          */
         _this.change = new core.EventEmitter();
+        /**
+         * An event will be dispatched each time the slide-toggle input is toggled.
+         * This event always fire when user toggle the slide toggle, but does not mean the slide toggle's
+         * value is changed. The event does not fire when user drag to change the slide toggle value.
+         */
+        _this.toggleChange = new core.EventEmitter();
+        /**
+         * An event will be dispatched each time the slide-toggle is dragged.
+         * This event always fire when user drag the slide toggle to make a change that greater than 50%.
+         * It does not mean the slide toggle's value is changed. The event does not fire when user toggle
+         * the slide toggle to change the slide toggle's value.
+         */
+        _this.dragChange = new core.EventEmitter();
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
@@ -25389,10 +25417,15 @@ var MatSlideToggle = /** @class */ (function (_super) {
         // Otherwise the change event, from the input element, will bubble up and
         // emit its event object to the component's `change` output.
         event.stopPropagation();
+        if (!this._dragging) {
+            this.toggleChange.emit();
+        }
         // Releasing the pointer over the `<label>` element while dragging triggers another
         // click event on the `<label>` element. This means that the checked state of the underlying
-        // input changed unintentionally and needs to be changed back.
-        if (this._dragging) {
+        // input changed unintentionally and needs to be changed back. Or when the slide toggle's config
+        // disabled toggle change event by setting `disableToggleValue: true`, the slide toggle's value
+        // does not change, and the checked state of the underlying input needs to be changed back.
+        if (this._dragging || this.defaults.disableToggleValue) {
             this._inputElement.nativeElement.checked = this.checked;
             return;
         }
@@ -25601,8 +25634,11 @@ var MatSlideToggle = /** @class */ (function (_super) {
         if (this._dragging) {
             var /** @type {?} */ newCheckedValue = this._dragPercentage > 50;
             if (newCheckedValue !== this.checked) {
-                this.checked = newCheckedValue;
-                this._emitChangeEvent();
+                this.dragChange.emit();
+                if (!this.defaults.disableDragValue) {
+                    this.checked = newCheckedValue;
+                    this._emitChangeEvent();
+                }
             }
             // The drag should be stopped outside of the current event handler, otherwise the
             // click event will be fired before it and will revert the drag change.
@@ -25663,6 +25699,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         { type: core.ChangeDetectorRef, },
         { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
         { type: core.NgZone, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,] },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
     ]; };
     MatSlideToggle.propDecorators = {
@@ -25676,6 +25713,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
         "required": [{ type: core.Input },],
         "checked": [{ type: core.Input },],
         "change": [{ type: core.Output },],
+        "toggleChange": [{ type: core.Output },],
+        "dragChange": [{ type: core.Output },],
         "_inputElement": [{ type: core.ViewChild, args: ['input',] },],
         "_ripple": [{ type: core.ViewChild, args: [MatRipple,] },],
     };
@@ -32425,10 +32464,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.0-83631fc');
+var /** @type {?} */ VERSION = new core.Version('6.3.0-ee2732a');
 
 exports.VERSION = VERSION;
-exports.ɵa27 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32756,6 +32795,7 @@ exports.MatSlideToggleChange = MatSlideToggleChange;
 exports.MatSlideToggleBase = MatSlideToggleBase;
 exports._MatSlideToggleMixinBase = _MatSlideToggleMixinBase;
 exports.MatSlideToggle = MatSlideToggle;
+exports.MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS;
 exports.MatSliderModule = MatSliderModule;
 exports.MAT_SLIDER_VALUE_ACCESSOR = MAT_SLIDER_VALUE_ACCESSOR;
 exports.MatSliderChange = MatSliderChange;

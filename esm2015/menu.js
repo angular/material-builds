@@ -892,6 +892,7 @@ class MatMenuTrigger {
             return;
         }
         const /** @type {?} */ overlayRef = this._createOverlay();
+        this._setPosition(/** @type {?} */ (overlayRef.getConfig().positionStrategy));
         overlayRef.attach(this._portal);
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
@@ -1043,7 +1044,9 @@ class MatMenuTrigger {
      */
     _getOverlayConfig() {
         return new OverlayConfig({
-            positionStrategy: this._getPosition(),
+            positionStrategy: this._overlay.position()
+                .flexibleConnectedTo(this._element)
+                .withTransformOriginOn('.mat-menu-panel'),
             hasBackdrop: this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop,
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
             scrollStrategy: this._scrollStrategy(),
@@ -1067,11 +1070,12 @@ class MatMenuTrigger {
         }
     }
     /**
-     * This method builds the position strategy for the overlay, so the menu is properly connected
-     * to the trigger.
-     * @return {?} ConnectedPositionStrategy
+     * Sets the appropriate positions on a position strategy
+     * so the overlay connects with the trigger correctly.
+     * @param {?} positionStrategy Strategy whose position to update.
+     * @return {?}
      */
-    _getPosition() {
+    _setPosition(positionStrategy) {
         let [originX, originFallbackX] = this.menu.xPosition === 'before' ? ['end', 'start'] : ['start', 'end'];
         let [overlayY, overlayFallbackY] = this.menu.yPosition === 'above' ? ['bottom', 'top'] : ['top', 'bottom'];
         let [originY, originFallbackY] = [overlayY, overlayFallbackY];
@@ -1088,10 +1092,7 @@ class MatMenuTrigger {
             originY = overlayY === 'top' ? 'bottom' : 'top';
             originFallbackY = overlayFallbackY === 'top' ? 'bottom' : 'top';
         }
-        return this._overlay.position()
-            .flexibleConnectedTo(this._element)
-            .withTransformOriginOn('.mat-menu-panel')
-            .withPositions([
+        positionStrategy.withPositions([
             { originX, originY, overlayX, overlayY, offsetY },
             { originX: originFallbackX, originY, overlayX: overlayFallbackX, overlayY, offsetY },
             {

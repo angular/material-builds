@@ -1093,6 +1093,7 @@ var MatMenuTrigger = /** @class */ (function () {
             return;
         }
         var /** @type {?} */ overlayRef = this._createOverlay();
+        this._setPosition(/** @type {?} */ (overlayRef.getConfig().positionStrategy));
         overlayRef.attach(this._portal);
         if (this.menu.lazyContent) {
             this.menu.lazyContent.attach(this.menuData);
@@ -1296,7 +1297,9 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function () {
         return new OverlayConfig({
-            positionStrategy: this._getPosition(),
+            positionStrategy: this._overlay.position()
+                .flexibleConnectedTo(this._element)
+                .withTransformOriginOn('.mat-menu-panel'),
             hasBackdrop: this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop,
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
             scrollStrategy: this._scrollStrategy(),
@@ -1328,16 +1331,18 @@ var MatMenuTrigger = /** @class */ (function () {
         }
     };
     /**
-     * This method builds the position strategy for the overlay, so the menu is properly connected
-     * to the trigger.
-     * @return {?} ConnectedPositionStrategy
+     * Sets the appropriate positions on a position strategy
+     * so the overlay connects with the trigger correctly.
+     * @param {?} positionStrategy Strategy whose position to update.
+     * @return {?}
      */
-    MatMenuTrigger.prototype._getPosition = /**
-     * This method builds the position strategy for the overlay, so the menu is properly connected
-     * to the trigger.
-     * @return {?} ConnectedPositionStrategy
+    MatMenuTrigger.prototype._setPosition = /**
+     * Sets the appropriate positions on a position strategy
+     * so the overlay connects with the trigger correctly.
+     * @param {?} positionStrategy Strategy whose position to update.
+     * @return {?}
      */
-    function () {
+    function (positionStrategy) {
         var _a = this.menu.xPosition === 'before' ? ['end', 'start'] : ['start', 'end'], originX = _a[0], originFallbackX = _a[1];
         var _b = this.menu.yPosition === 'above' ? ['bottom', 'top'] : ['top', 'bottom'], overlayY = _b[0], overlayFallbackY = _b[1];
         var _c = [overlayY, overlayFallbackY], originY = _c[0], originFallbackY = _c[1];
@@ -1354,10 +1359,7 @@ var MatMenuTrigger = /** @class */ (function () {
             originY = overlayY === 'top' ? 'bottom' : 'top';
             originFallbackY = overlayFallbackY === 'top' ? 'bottom' : 'top';
         }
-        return this._overlay.position()
-            .flexibleConnectedTo(this._element)
-            .withTransformOriginOn('.mat-menu-panel')
-            .withPositions([
+        positionStrategy.withPositions([
             { originX: originX, originY: originY, overlayX: overlayX, overlayY: overlayY, offsetY: offsetY },
             { originX: originFallbackX, originY: originY, overlayX: overlayFallbackX, overlayY: overlayY, offsetY: offsetY },
             {

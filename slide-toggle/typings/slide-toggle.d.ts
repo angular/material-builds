@@ -10,6 +10,7 @@ import { Platform } from '@angular/cdk/platform';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, NgZone } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanDisable, CanDisableRipple, HammerInput, HasTabIndex, MatRipple } from '@angular/material/core';
+import { MatSlideToggleDefaultOptions } from './slide-toggle-config';
 export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 /** Change event object emitted by a MatSlideToggle. */
 export declare class MatSlideToggleChange {
@@ -34,6 +35,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     private _focusMonitor;
     private _changeDetectorRef;
     private _ngZone;
+    defaults: MatSlideToggleDefaultOptions;
     _animationMode: string | undefined;
     private onChange;
     private onTouched;
@@ -71,6 +73,19 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     checked: boolean;
     /** An event will be dispatched each time the slide-toggle changes its value. */
     readonly change: EventEmitter<MatSlideToggleChange>;
+    /**
+     * An event will be dispatched each time the slide-toggle input is toggled.
+     * This event always fire when user toggle the slide toggle, but does not mean the slide toggle's
+     * value is changed. The event does not fire when user drag to change the slide toggle value.
+     */
+    readonly toggleChange: EventEmitter<void>;
+    /**
+     * An event will be dispatched each time the slide-toggle is dragged.
+     * This event always fire when user drag the slide toggle to make a change that greater than 50%.
+     * It does not mean the slide toggle's value is changed. The event does not fire when user toggle
+     * the slide toggle to change the slide toggle's value.
+     */
+    readonly dragChange: EventEmitter<void>;
     /** Returns the unique id for the visual hidden input. */
     readonly inputId: string;
     /** Reference to the underlying input element. */
@@ -82,7 +97,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
          * @deprecated The `_platform` parameter to be removed.
          * @deletion-target 7.0.0
          */
-        _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone, _animationMode?: string | undefined);
+        _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone, defaults: MatSlideToggleDefaultOptions, _animationMode?: string | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Method being called whenever the underlying input emits a change event. */
