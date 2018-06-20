@@ -445,7 +445,7 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
                     ],
                     inputs: ['disabled'],
                     host: {
-                        '[attr.role]': 'multiple ? "group" : "radiogroup"',
+                        'role': 'group',
                         'class': 'mat-button-toggle-group',
                         '[class.mat-button-toggle-vertical]': 'vertical'
                     },
@@ -503,13 +503,13 @@ var MatButtonToggle = /** @class */ (function (_super) {
         _this.buttonToggleGroup = toggleGroup;
         return _this;
     }
-    Object.defineProperty(MatButtonToggle.prototype, "inputId", {
-        /** Unique ID for the underlying `input` element. */
+    Object.defineProperty(MatButtonToggle.prototype, "buttonId", {
+        /** Unique ID for the underlying `button` element. */
         get: /**
-         * Unique ID for the underlying `input` element.
+         * Unique ID for the underlying `button` element.
          * @return {?}
          */
-        function () { return this.id + "-input"; },
+        function () { return this.id + "-button"; },
         enumerable: true,
         configurable: true
     });
@@ -591,46 +591,31 @@ var MatButtonToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._inputElement.nativeElement.focus();
+        this._buttonElement.nativeElement.focus();
     };
-    /** Checks the button toggle due to an interaction with the underlying native input. */
+    /** Checks the button toggle due to an interaction with the underlying native button. */
     /**
-     * Checks the button toggle due to an interaction with the underlying native input.
+     * Checks the button toggle due to an interaction with the underlying native button.
      * @param {?} event
      * @return {?}
      */
-    MatButtonToggle.prototype._onInputChange = /**
-     * Checks the button toggle due to an interaction with the underlying native input.
+    MatButtonToggle.prototype._onButtonClick = /**
+     * Checks the button toggle due to an interaction with the underlying native button.
      * @param {?} event
      * @return {?}
      */
     function (event) {
         event.stopPropagation();
-        this._checked = this._isSingleSelector ? true : !this._checked;
-        if (this.buttonToggleGroup) {
-            this.buttonToggleGroup._syncButtonToggle(this, this._checked, true);
-            this.buttonToggleGroup._onTouched();
+        var /** @type {?} */ newChecked = this._isSingleSelector ? true : !this._checked;
+        if (newChecked !== this._checked) {
+            this._checked = newChecked;
+            if (this.buttonToggleGroup) {
+                this.buttonToggleGroup._syncButtonToggle(this, this._checked, true);
+                this.buttonToggleGroup._onTouched();
+            }
+            // Emit a change event when the native button does.
+            this.change.emit(new MatButtonToggleChange(this, this.value));
         }
-        // Emit a change event when the native input does.
-        this.change.emit(new MatButtonToggleChange(this, this.value));
-    };
-    /**
-     * @param {?} event
-     * @return {?}
-     */
-    MatButtonToggle.prototype._onInputClick = /**
-     * @param {?} event
-     * @return {?}
-     */
-    function (event) {
-        // We have to stop propagation for click events on the visual hidden input element.
-        // By default, when a user clicks on a label element, a generated click event will be
-        // dispatched on the associated input element. Since we are using a label element as our
-        // root container, the click event on the `slide-toggle` will be executed twice.
-        // The real click event will bubble up, and the generated click event also tries to bubble up.
-        // This will lead to multiple click events.
-        // Preventing bubbling for the second event will solve that issue.
-        event.stopPropagation();
     };
     /**
      * Marks the button toggle as needing checking for change detection.
@@ -656,8 +641,8 @@ var MatButtonToggle = /** @class */ (function (_super) {
     };
     MatButtonToggle.decorators = [
         { type: core.Component, args: [{selector: 'mat-button-toggle',
-                    template: "<label [attr.for]=\"inputId\" class=\"mat-button-toggle-label\" #label><input #input class=\"mat-button-toggle-input cdk-visually-hidden\" [type]=\"_type\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled || null\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></label><div class=\"mat-button-toggle-focus-overlay\"></div><div class=\"mat-button-toggle-ripple\" matRipple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"this.disableRipple || this.disabled\"></div>",
-                    styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap;overflow:hidden}@media screen and (-ms-high-contrast:active){.mat-button-toggle-group,.mat-button-toggle-standalone{outline:solid 1px}}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}@media screen and (-ms-high-contrast:active){.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:.5}}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}@media screen and (-ms-high-contrast:active){.mat-button-toggle-checked .mat-button-toggle-focus-overlay{opacity:.5;height:0;border-bottom:solid 36px}}.mat-button-toggle-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
+                    template: "<button #button class=\"mat-button-toggle-button\" type=\"button\" [id]=\"buttonId\" [attr.aria-pressed]=\"checked\" [disabled]=\"disabled || null\" [attr.name]=\"name || null\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (click)=\"_onButtonClick($event)\"><div class=\"mat-button-toggle-label-content\"><ng-content></ng-content></div></button><div class=\"mat-button-toggle-focus-overlay\"></div><div class=\"mat-button-toggle-ripple\" matRipple [matRippleTrigger]=\"button\" [matRippleDisabled]=\"this.disableRipple || this.disabled\"></div>",
+                    styles: [".mat-button-toggle-group,.mat-button-toggle-standalone{box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);position:relative;display:inline-flex;flex-direction:row;border-radius:2px;cursor:pointer;white-space:nowrap;overflow:hidden}@media screen and (-ms-high-contrast:active){.mat-button-toggle-group,.mat-button-toggle-standalone{outline:solid 1px}}.mat-button-toggle-vertical{flex-direction:column}.mat-button-toggle-vertical .mat-button-toggle-label-content{display:block}.mat-button-toggle-disabled .mat-button-toggle-label-content{cursor:default}.mat-button-toggle{white-space:nowrap;position:relative}.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:1}@media screen and (-ms-high-contrast:active){.mat-button-toggle.cdk-keyboard-focused .mat-button-toggle-focus-overlay{opacity:.5}}.mat-button-toggle-label-content{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;display:inline-block;line-height:36px;padding:0 16px;cursor:pointer}.mat-button-toggle-label-content>*{vertical-align:middle}.mat-button-toggle-focus-overlay{border-radius:inherit;pointer-events:none;opacity:0;top:0;left:0;right:0;bottom:0;position:absolute}@media screen and (-ms-high-contrast:active){.mat-button-toggle-checked .mat-button-toggle-focus-overlay{opacity:.5;height:0;border-bottom:solid 36px}}.mat-button-toggle-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}.mat-button-toggle-button{border:0;background:0 0;color:inherit;padding:inherit;margin:inherit;font:inherit;outline:0}"],
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matButtonToggle',
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -681,7 +666,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
     MatButtonToggle.propDecorators = {
         "ariaLabel": [{ type: core.Input, args: ['aria-label',] },],
         "ariaLabelledby": [{ type: core.Input, args: ['aria-labelledby',] },],
-        "_inputElement": [{ type: core.ViewChild, args: ['input',] },],
+        "_buttonElement": [{ type: core.ViewChild, args: ['button',] },],
         "id": [{ type: core.Input },],
         "name": [{ type: core.Input },],
         "value": [{ type: core.Input },],

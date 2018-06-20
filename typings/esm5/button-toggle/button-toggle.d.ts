@@ -133,11 +133,11 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     ariaLabelledby: string | null;
     /** Type of the button toggle. Either 'radio' or 'checkbox'. */
     _type: ToggleType;
-    _inputElement: ElementRef<HTMLInputElement>;
+    _buttonElement: ElementRef<HTMLButtonElement>;
     /** The parent button toggle group (exclusive selection). Optional. */
     buttonToggleGroup: MatButtonToggleGroup;
-    /** Unique ID for the underlying `input` element. */
-    readonly inputId: string;
+    /** Unique ID for the underlying `button` element. */
+    readonly buttonId: string;
     /** The unique ID for this button toggle. */
     id: string;
     /** HTML's 'name' attribute used to group radios for unique selection. */
@@ -156,9 +156,8 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     ngOnDestroy(): void;
     /** Focuses the button. */
     focus(): void;
-    /** Checks the button toggle due to an interaction with the underlying native input. */
-    _onInputChange(event: Event): void;
-    _onInputClick(event: Event): void;
+    /** Checks the button toggle due to an interaction with the underlying native button. */
+    _onButtonClick(event: Event): void;
     /**
      * Marks the button toggle as needing checking for change detection.
      * This method is exposed because the parent button toggle group will directly
