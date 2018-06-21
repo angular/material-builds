@@ -65,14 +65,19 @@ var /** @type {?} */ INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progr
 var MatProgressSpinner = /** @class */ (function (_super) {
     __extends(MatProgressSpinner, _super);
     function MatProgressSpinner(_elementRef, platform, _document, 
-    // @deletion-target 7.0.0 _animationMode and defaults parameters to be made required.
-    _animationMode, defaults) {
+    // @deletion-target 7.0.0 animationMode and defaults parameters to be made required.
+    animationMode, defaults) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._document = _document;
-        _this._animationMode = _animationMode;
+        _this.animationMode = animationMode;
+        _this.defaults = defaults;
         _this._value = 0;
         _this._fallbackAnimation = false;
+        /**
+         * Whether the _mat-animation-noopable class should be applied, disabling animations.
+         */
+        _this._noopAnimations = _this.animationMode === 'NoopAnimations' && (!!_this.defaults && !_this.defaults._forceAnimations);
         _this._diameter = BASE_SIZE;
         /**
          * Mode of the progress circle
@@ -265,7 +270,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
                     host: {
                         'role': 'progressbar',
                         'class': 'mat-progress-spinner',
-                        '[class._mat-animation-noopable]': "_animationMode === 'NoopAnimations'",
+                        '[class._mat-animation-noopable]': "_noopAnimations",
                         '[style.width.px]': 'diameter',
                         '[style.height.px]': 'diameter',
                         '[attr.aria-valuemin]': 'mode === "determinate" ? 0 : null',
@@ -317,7 +322,7 @@ var MatSpinner = /** @class */ (function (_super) {
                         'role': 'progressbar',
                         'mode': 'indeterminate',
                         'class': 'mat-spinner mat-progress-spinner',
-                        '[class._mat-animation-noopable]': "_animationMode === 'NoopAnimations'",
+                        '[class._mat-animation-noopable]': "_noopAnimations",
                         '[style.width.px]': 'diameter',
                         '[style.height.px]': 'diameter',
                     },

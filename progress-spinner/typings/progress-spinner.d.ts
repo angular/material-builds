@@ -22,6 +22,11 @@ export interface MatProgressSpinnerDefaultOptions {
     diameter?: number;
     /** Width of the spinner's stroke. */
     strokeWidth?: number;
+    /**
+     * Whether the animations should be force to be enabled, ignoring if the current environment is
+     * using NoopAnimationsModule.
+     */
+    _forceAnimations?: boolean;
 }
 /** Injection token to be used to override the default options for `mat-progress-spinner`. */
 export declare const MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS: InjectionToken<MatProgressSpinnerDefaultOptions>;
@@ -33,7 +38,8 @@ export declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgr
 export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase implements CanColor {
     _elementRef: ElementRef;
     private _document;
-    _animationMode: string | undefined;
+    private animationMode;
+    private defaults;
     private _value;
     private _strokeWidth;
     private _fallbackAnimation;
@@ -44,6 +50,8 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
      * @dynamic
      */
     private static styleTag;
+    /** Whether the _mat-animation-noopable class should be applied, disabling animations.  */
+    _noopAnimations: boolean;
     /** The diameter of the progress spinner (will set width and height of svg). */
     diameter: number;
     private _diameter;
@@ -53,7 +61,7 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     mode: ProgressSpinnerMode;
     /** Value of the progress circle. */
     value: number;
-    constructor(_elementRef: ElementRef, platform: Platform, _document: any, _animationMode?: string | undefined, defaults?: MatProgressSpinnerDefaultOptions);
+    constructor(_elementRef: ElementRef, platform: Platform, _document: any, animationMode?: string | undefined, defaults?: MatProgressSpinnerDefaultOptions | undefined);
     /** The radius of the spinner, adjusted for stroke width. */
     readonly _circleRadius: number;
     /** The view box of the spinner's svg element. */
