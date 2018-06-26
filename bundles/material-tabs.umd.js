@@ -1866,8 +1866,6 @@ var MatTabLink = /** @class */ (function (_super) {
         _this._tabLinkRipple.setupTriggerEvents(_elementRef.nativeElement);
         _this.tabIndex = parseInt(tabIndex) || 0;
         if (globalOptions) {
-            // TODO(paul): Once the speedFactor is removed, we no longer need to copy each single option.
-            // TODO(paul): Once the speedFactor is removed, we no longer need to copy each single option.
             _this.rippleConfig = {
                 terminateOnPointerUp: globalOptions.terminateOnPointerUp,
                 speedFactor: globalOptions.baseSpeedFactor,

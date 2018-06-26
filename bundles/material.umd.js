@@ -7413,10 +7413,6 @@ var MatChip = /** @class */ (function (_super) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         /**
-         * Whether the ripples are globally disabled through the RippleGlobalOptions
-         */
-        _this._ripplesGloballyDisabled = false;
-        /**
          * Ripple configuration for ripples that are launched on pointer down.
          * \@docs-private
          */
@@ -7456,9 +7452,6 @@ var MatChip = /** @class */ (function (_super) {
         _this._chipRipple = new RippleRenderer(_this, ngZone, _elementRef, platform$$1);
         _this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
         if (globalOptions) {
-            _this._ripplesGloballyDisabled = !!globalOptions.disabled;
-            // TODO(paul): Once the speedFactor is removed, we no longer need to copy each single option.
-            // TODO(paul): Once the speedFactor is removed, we no longer need to copy each single option.
             _this.rippleConfig = {
                 speedFactor: globalOptions.baseSpeedFactor,
                 animation: globalOptions.animation,
@@ -7478,7 +7471,7 @@ var MatChip = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this.disabled || this.disableRipple || this._ripplesGloballyDisabled;
+            return this.disabled || this.disableRipple;
         },
         enumerable: true,
         configurable: true
@@ -31610,8 +31603,6 @@ var MatTabLink = /** @class */ (function (_super) {
         _this._tabLinkRipple.setupTriggerEvents(_elementRef.nativeElement);
         _this.tabIndex = parseInt(tabIndex) || 0;
         if (globalOptions) {
-            // TODO(paul): Once the speedFactor is removed, we no longer need to copy each single option.
-            // TODO(paul): Once the speedFactor is removed, we no longer need to copy each single option.
             _this.rippleConfig = {
                 terminateOnPointerUp: globalOptions.terminateOnPointerUp,
                 speedFactor: globalOptions.baseSpeedFactor,
@@ -32489,10 +32480,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.1-69a7f7c');
+var /** @type {?} */ VERSION = new core.Version('6.3.1-2d11588');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
