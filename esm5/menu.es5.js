@@ -869,6 +869,15 @@ var MatMenu = /** @class */ (function () {
     function (event) {
         this._animationDone.next(event);
         this._isAnimating = false;
+        // Scroll the content element to the top once the animation is done. This is necessary, because
+        // we move focus to the first item while it's still being animated, which can throw the browser
+        // off when it determines the scroll position. Alternatively we can move focus when the
+        // animation is done, however moving focus asynchronously will interrupt screen readers
+        // which are in the process of reading out the menu already. We take the `element` from
+        // the `event` since we can't use a `ViewChild` to access the pane.
+        if (event.toState === 'enter' && this._keyManager.activeItemIndex === 0) {
+            event.element.scrollTop = 0;
+        }
     };
     MatMenu.decorators = [
         { type: Component, args: [{selector: 'mat-menu',
@@ -1572,5 +1581,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa20, MatMenuItemBase as ɵb20, _MatMenuItemMixinBase as ɵc20, MAT_MENU_PANEL as ɵf20, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd20, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe20 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
 //# sourceMappingURL=menu.es5.js.map
