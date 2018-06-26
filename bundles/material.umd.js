@@ -20736,6 +20736,7 @@ var MatSelect = /** @class */ (function (_super) {
     function (option, isUserInput) {
         var /** @type {?} */ wasSelected = this._selectionModel.isSelected(option);
         if (option.value == null && !this._multiple) {
+            option.deselect();
             this._selectionModel.clear();
             this._propagateChanges(option.value);
         }
@@ -32478,10 +32479,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.1-742c226');
+var /** @type {?} */ VERSION = new core.Version('6.3.1-d88e021');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
