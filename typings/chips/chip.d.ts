@@ -54,13 +54,15 @@ export declare class MatChipTrailingIcon {
  */
 export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisable, CanDisableRipple, RippleTarget {
     _elementRef: ElementRef;
+    /** Reference to the RippleRenderer for the chip. */
+    private _chipRipple;
+    /** Whether the ripples are globally disabled through the RippleGlobalOptions */
+    private _ripplesGloballyDisabled;
     /**
      * Ripple configuration for ripples that are launched on pointer down.
      * @docs-private
      */
     rippleConfig: RippleConfig;
-    /** Reference to the RippleRenderer for the chip. */
-    private _chipRipple;
     /**
      * Whether ripples are disabled on interaction
      * @docs-private

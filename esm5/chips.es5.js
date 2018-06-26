@@ -91,6 +91,10 @@ var MatChip = /** @class */ (function (_super) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         /**
+         * Whether the ripples are globally disabled through the RippleGlobalOptions
+         */
+        _this._ripplesGloballyDisabled = false;
+        /**
          * Ripple configuration for ripples that are launched on pointer down.
          * \@docs-private
          */
@@ -130,6 +134,9 @@ var MatChip = /** @class */ (function (_super) {
         _this._chipRipple = new RippleRenderer(_this, ngZone, _elementRef, platform);
         _this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
         if (globalOptions) {
+            _this._ripplesGloballyDisabled = !!globalOptions.disabled;
+            // TODO(paul): Once the speedFactor is removed, we no longer need to copy each single option.
+            // TODO(paul): Once the speedFactor is removed, we no longer need to copy each single option.
             _this.rippleConfig = {
                 speedFactor: globalOptions.baseSpeedFactor,
                 animation: globalOptions.animation,
@@ -149,7 +156,7 @@ var MatChip = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this.disabled || this.disableRipple;
+            return this.disabled || this.disableRipple || this._ripplesGloballyDisabled;
         },
         enumerable: true,
         configurable: true
