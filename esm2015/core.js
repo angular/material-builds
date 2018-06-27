@@ -1479,11 +1479,10 @@ class MatRipple {
      * @param {?} ngZone
      * @param {?} platform
      * @param {?} globalOptions
-     * @param {?=} _animationMode
+     * @param {?=} animationMode
      */
-    constructor(_elementRef, ngZone, platform, globalOptions, _animationMode) {
+    constructor(_elementRef, ngZone, platform, globalOptions, animationMode) {
         this._elementRef = _elementRef;
-        this._animationMode = _animationMode;
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1505,6 +1504,9 @@ class MatRipple {
         this._isInitialized = false;
         this._globalOptions = globalOptions || {};
         this._rippleRenderer = new RippleRenderer(this, ngZone, _elementRef, platform);
+        if (animationMode === 'NoopAnimations') {
+            this._globalOptions.animation = { enterDuration: 0, exitDuration: 0 };
+        }
     }
     /**
      * Whether click events will not trigger the ripple. Ripples can be still launched manually
@@ -1563,8 +1565,7 @@ class MatRipple {
             centered: this.centered,
             radius: this.radius,
             color: this.color,
-            animation: this._animationMode === 'NoopAnimations' ?
-                { enterDuration: 0, exitDuration: 0 } : Object.assign({}, this._globalOptions.animation, this.animation),
+            animation: Object.assign({}, this._globalOptions.animation, this.animation),
             terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
             speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
         };

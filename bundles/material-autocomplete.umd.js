@@ -385,6 +385,11 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * `View -> model callback called when autocomplete has been touched`
          */
         this._onTouched = function () { };
+        /**
+         * `autocomplete` attribute to be set on the input element.
+         * \@docs-private
+         */
+        this.autocompleteAttribute = 'off';
         this._overlayAttached = false;
         /**
          * Stream of autocomplete option selections.
@@ -979,7 +984,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         { type: core.Directive, args: [{
                     selector: "input[matAutocomplete], textarea[matAutocomplete]",
                     host: {
-                        'autocomplete': 'off',
+                        '[attr.autocomplete]': 'autocompleteAttribute',
                         '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
                         '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
                         '[attr.aria-activedescendant]': 'activeOption?.id',
@@ -1012,6 +1017,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     MatAutocompleteTrigger.propDecorators = {
         "autocomplete": [{ type: core.Input, args: ['matAutocomplete',] },],
         "connectedTo": [{ type: core.Input, args: ['matAutocompleteConnectedTo',] },],
+        "autocompleteAttribute": [{ type: core.Input, args: ['autocomplete',] },],
         "autocompleteDisabled": [{ type: core.Input, args: ['matAutocompleteDisabled',] },],
     };
     return MatAutocompleteTrigger;
@@ -1056,7 +1062,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCR
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa26 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

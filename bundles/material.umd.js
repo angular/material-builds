@@ -1956,9 +1956,8 @@ function distanceToFurthestCorner(x, y, rect) {
  */
 var /** @type {?} */ MAT_RIPPLE_GLOBAL_OPTIONS = new core.InjectionToken('mat-ripple-global-options');
 var MatRipple = /** @class */ (function () {
-    function MatRipple(_elementRef, ngZone, platform$$1, globalOptions, _animationMode) {
+    function MatRipple(_elementRef, ngZone, platform$$1, globalOptions, animationMode) {
         this._elementRef = _elementRef;
-        this._animationMode = _animationMode;
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1980,6 +1979,9 @@ var MatRipple = /** @class */ (function () {
         this._isInitialized = false;
         this._globalOptions = globalOptions || {};
         this._rippleRenderer = new RippleRenderer(this, ngZone, _elementRef, platform$$1);
+        if (animationMode === 'NoopAnimations') {
+            this._globalOptions.animation = { enterDuration: 0, exitDuration: 0 };
+        }
     }
     Object.defineProperty(MatRipple.prototype, "disabled", {
         get: /**
@@ -2059,8 +2061,7 @@ var MatRipple = /** @class */ (function () {
                 centered: this.centered,
                 radius: this.radius,
                 color: this.color,
-                animation: this._animationMode === 'NoopAnimations' ?
-                    { enterDuration: 0, exitDuration: 0 } : __assign({}, this._globalOptions.animation, this.animation),
+                animation: __assign({}, this._globalOptions.animation, this.animation),
                 terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
                 speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
             };
@@ -3931,6 +3932,11 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * `View -> model callback called when autocomplete has been touched`
          */
         this._onTouched = function () { };
+        /**
+         * `autocomplete` attribute to be set on the input element.
+         * \@docs-private
+         */
+        this.autocompleteAttribute = 'off';
         this._overlayAttached = false;
         /**
          * Stream of autocomplete option selections.
@@ -4525,7 +4531,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         { type: core.Directive, args: [{
                     selector: "input[matAutocomplete], textarea[matAutocomplete]",
                     host: {
-                        'autocomplete': 'off',
+                        '[attr.autocomplete]': 'autocompleteAttribute',
                         '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
                         '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
                         '[attr.aria-activedescendant]': 'activeOption?.id',
@@ -4558,6 +4564,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     MatAutocompleteTrigger.propDecorators = {
         "autocomplete": [{ type: core.Input, args: ['matAutocomplete',] },],
         "connectedTo": [{ type: core.Input, args: ['matAutocompleteConnectedTo',] },],
+        "autocompleteAttribute": [{ type: core.Input, args: ['autocomplete',] },],
         "autocompleteDisabled": [{ type: core.Input, args: ['matAutocompleteDisabled',] },],
     };
     return MatAutocompleteTrigger;
@@ -32491,10 +32498,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.1-4166d16');
+var /** @type {?} */ VERSION = new core.Version('6.3.1-88efb7e');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa26 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32743,12 +32750,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32878,17 +32885,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

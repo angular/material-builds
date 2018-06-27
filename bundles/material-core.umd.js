@@ -1956,9 +1956,8 @@ function distanceToFurthestCorner(x, y, rect) {
  */
 var /** @type {?} */ MAT_RIPPLE_GLOBAL_OPTIONS = new core.InjectionToken('mat-ripple-global-options');
 var MatRipple = /** @class */ (function () {
-    function MatRipple(_elementRef, ngZone, platform$$1, globalOptions, _animationMode) {
+    function MatRipple(_elementRef, ngZone, platform$$1, globalOptions, animationMode) {
         this._elementRef = _elementRef;
-        this._animationMode = _animationMode;
         /**
          * If set, the radius in pixels of foreground ripples when fully expanded. If unset, the radius
          * will be the distance from the center of the ripple to the furthest corner of the host element's
@@ -1980,6 +1979,9 @@ var MatRipple = /** @class */ (function () {
         this._isInitialized = false;
         this._globalOptions = globalOptions || {};
         this._rippleRenderer = new RippleRenderer(this, ngZone, _elementRef, platform$$1);
+        if (animationMode === 'NoopAnimations') {
+            this._globalOptions.animation = { enterDuration: 0, exitDuration: 0 };
+        }
     }
     Object.defineProperty(MatRipple.prototype, "disabled", {
         get: /**
@@ -2059,8 +2061,7 @@ var MatRipple = /** @class */ (function () {
                 centered: this.centered,
                 radius: this.radius,
                 color: this.color,
-                animation: this._animationMode === 'NoopAnimations' ?
-                    { enterDuration: 0, exitDuration: 0 } : __assign({}, this._globalOptions.animation, this.animation),
+                animation: __assign({}, this._globalOptions.animation, this.animation),
                 terminateOnPointerUp: this._globalOptions.terminateOnPointerUp,
                 speedFactor: this.speedFactor * (this._globalOptions.baseSpeedFactor || 1),
             };

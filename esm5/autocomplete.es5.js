@@ -368,6 +368,11 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          * `View -> model callback called when autocomplete has been touched`
          */
         this._onTouched = function () { };
+        /**
+         * `autocomplete` attribute to be set on the input element.
+         * \@docs-private
+         */
+        this.autocompleteAttribute = 'off';
         this._overlayAttached = false;
         /**
          * Stream of autocomplete option selections.
@@ -962,7 +967,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         { type: Directive, args: [{
                     selector: "input[matAutocomplete], textarea[matAutocomplete]",
                     host: {
-                        'autocomplete': 'off',
+                        '[attr.autocomplete]': 'autocompleteAttribute',
                         '[attr.role]': 'autocompleteDisabled ? null : "combobox"',
                         '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
                         '[attr.aria-activedescendant]': 'activeOption?.id',
@@ -995,6 +1000,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     MatAutocompleteTrigger.propDecorators = {
         "autocomplete": [{ type: Input, args: ['matAutocomplete',] },],
         "connectedTo": [{ type: Input, args: ['matAutocompleteConnectedTo',] },],
+        "autocompleteAttribute": [{ type: Input, args: ['autocomplete',] },],
         "autocompleteDisabled": [{ type: Input, args: ['matAutocompleteDisabled',] },],
     };
     return MatAutocompleteTrigger;
@@ -1034,5 +1040,5 @@ var MatAutocompleteModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa29 };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa26 };
 //# sourceMappingURL=autocomplete.es5.js.map

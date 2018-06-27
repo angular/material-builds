@@ -17,8 +17,9 @@ export interface RippleGlobalOptions {
      */
     disabled?: boolean;
     /**
-     * Configuration for the animation duration of the ripples.
-     * There are two phases with different durations for the ripples.
+     * Configuration for the animation duration of the ripples. There are two phases with different
+     * durations for the ripples. The animation durations will be overwritten if the
+     * `NoopAnimationsModule` is being used.
      */
     animation?: RippleAnimationConfig;
     /**
@@ -39,7 +40,6 @@ export interface RippleGlobalOptions {
 export declare const MAT_RIPPLE_GLOBAL_OPTIONS: InjectionToken<RippleGlobalOptions>;
 export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     private _elementRef;
-    private _animationMode;
     /** Custom color for all ripples. */
     color: string;
     /** Whether the ripples should be visible outside the component's bounds. */
@@ -65,7 +65,8 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     speedFactor: number;
     /**
      * Configuration for the ripple animation. Allows modifying the enter and exit animation
-     * duration of the ripples.
+     * duration of the ripples. The animation durations will be overwritten if the
+     * `NoopAnimationsModule` is being used.
      */
     animation: RippleAnimationConfig;
     /**
@@ -86,7 +87,7 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     private _globalOptions;
     /** Whether ripple directive is initialized and the input bindings are set. */
     private _isInitialized;
-    constructor(_elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions, _animationMode?: string | undefined);
+    constructor(_elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions, animationMode?: string);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Fades out all currently showing ripple elements. */
