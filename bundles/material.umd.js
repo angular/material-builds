@@ -6809,10 +6809,11 @@ var /** @type {?} */ _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisab
  */
 var MatCheckbox = /** @class */ (function (_super) {
     __extends(MatCheckbox, _super);
-    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, tabIndex, _clickAction, _animationMode) {
+    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, _ngZone, tabIndex, _clickAction, _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusMonitor = _focusMonitor;
+        _this._ngZone = _ngZone;
         _this._clickAction = _clickAction;
         _this._animationMode = _animationMode;
         /**
@@ -7074,6 +7075,13 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
             element.classList.add(this._currentAnimationClass);
+            // Remove the animation class to avoid animation when the checkbox is moved between containers
+            var /** @type {?} */ animationClass_1 = this._currentAnimationClass;
+            this._ngZone.runOutsideAngular(function () {
+                setTimeout(function () {
+                    element.classList.remove(animationClass_1);
+                }, 1000);
+            });
         }
     };
     /**
@@ -7276,6 +7284,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         { type: core.ElementRef, },
         { type: core.ChangeDetectorRef, },
         { type: a11y.FocusMonitor, },
+        { type: core.NgZone, },
         { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_CHECKBOX_CLICK_ACTION,] },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
@@ -32502,10 +32511,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.1-637ef83');
+var /** @type {?} */ VERSION = new core.Version('6.3.1-fbccfd4');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32754,12 +32763,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa8 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb8 = MatMenuItemBase;
-exports.ɵc8 = _MatMenuItemMixinBase;
-exports.ɵf8 = MAT_MENU_PANEL;
-exports.ɵd8 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe8 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb21 = MatMenuItemBase;
+exports.ɵc21 = _MatMenuItemMixinBase;
+exports.ɵf21 = MAT_MENU_PANEL;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32889,17 +32898,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa11 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf11 = MatTabBase;
-exports.ɵg11 = _MatTabMixinBase;
-exports.ɵb11 = MatTabHeaderBase;
-exports.ɵc11 = _MatTabHeaderMixinBase;
-exports.ɵd11 = MatTabLabelWrapperBase;
-exports.ɵe11 = _MatTabLabelWrapperMixinBase;
-exports.ɵj11 = MatTabLinkBase;
-exports.ɵh11 = MatTabNavBase;
-exports.ɵk11 = _MatTabLinkMixinBase;
-exports.ɵi11 = _MatTabNavMixinBase;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf22 = MatTabBase;
+exports.ɵg22 = _MatTabMixinBase;
+exports.ɵb22 = MatTabHeaderBase;
+exports.ɵc22 = _MatTabHeaderMixinBase;
+exports.ɵd22 = MatTabLabelWrapperBase;
+exports.ɵe22 = _MatTabLabelWrapperMixinBase;
+exports.ɵj22 = MatTabLinkBase;
+exports.ɵh22 = MatTabNavBase;
+exports.ɵk22 = _MatTabLinkMixinBase;
+exports.ɵi22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

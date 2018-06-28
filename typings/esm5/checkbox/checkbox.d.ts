@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, MatRipple } from '@angular/material/core';
 import { MatCheckboxClickAction } from './checkbox-config';
@@ -54,6 +54,7 @@ export declare const _MatCheckboxMixinBase: (new (...args: any[]) => HasTabIndex
 export declare class MatCheckbox extends _MatCheckboxMixinBase implements ControlValueAccessor, AfterViewInit, OnDestroy, CanColor, CanDisable, HasTabIndex, CanDisableRipple {
     private _changeDetectorRef;
     private _focusMonitor;
+    private _ngZone;
     private _clickAction;
     _animationMode: string | undefined;
     /**
@@ -97,7 +98,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     private _controlValueAccessorChangeFn;
     /** Reference to the focused state ripple. */
     private _focusRipple;
-    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, tabIndex: string, _clickAction: MatCheckboxClickAction, _animationMode?: string | undefined);
+    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, _ngZone: NgZone, tabIndex: string, _clickAction: MatCheckboxClickAction, _animationMode?: string | undefined);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /**

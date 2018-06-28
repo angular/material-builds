@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { InjectionToken, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, Directive, NgModule } from '@angular/core';
+import { InjectionToken, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, ViewChild, ViewEncapsulation, Directive, NgModule } from '@angular/core';
 import { __extends } from 'tslib';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
@@ -89,10 +89,11 @@ var /** @type {?} */ _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisab
  */
 var MatCheckbox = /** @class */ (function (_super) {
     __extends(MatCheckbox, _super);
-    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, tabIndex, _clickAction, _animationMode) {
+    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, _ngZone, tabIndex, _clickAction, _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusMonitor = _focusMonitor;
+        _this._ngZone = _ngZone;
         _this._clickAction = _clickAction;
         _this._animationMode = _animationMode;
         /**
@@ -354,6 +355,13 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
             element.classList.add(this._currentAnimationClass);
+            // Remove the animation class to avoid animation when the checkbox is moved between containers
+            var /** @type {?} */ animationClass_1 = this._currentAnimationClass;
+            this._ngZone.runOutsideAngular(function () {
+                setTimeout(function () {
+                    element.classList.remove(animationClass_1);
+                }, 1000);
+            });
         }
     };
     /**
@@ -556,6 +564,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         { type: ElementRef, },
         { type: ChangeDetectorRef, },
         { type: FocusMonitor, },
+        { type: NgZone, },
         { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_CHECKBOX_CLICK_ACTION,] },] },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },

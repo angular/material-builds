@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { InjectionToken, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, Directive, NgModule } from '@angular/core';
+import { InjectionToken, Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, ViewChild, ViewEncapsulation, Directive, NgModule } from '@angular/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { NG_VALUE_ACCESSOR, CheckboxRequiredValidator, NG_VALIDATORS } from '@angular/forms';
@@ -84,14 +84,16 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      * @param {?} elementRef
      * @param {?} _changeDetectorRef
      * @param {?} _focusMonitor
+     * @param {?} _ngZone
      * @param {?} tabIndex
      * @param {?} _clickAction
      * @param {?=} _animationMode
      */
-    constructor(elementRef, _changeDetectorRef, _focusMonitor, tabIndex, _clickAction, _animationMode) {
+    constructor(elementRef, _changeDetectorRef, _focusMonitor, _ngZone, tabIndex, _clickAction, _animationMode) {
         super(elementRef);
         this._changeDetectorRef = _changeDetectorRef;
         this._focusMonitor = _focusMonitor;
+        this._ngZone = _ngZone;
         this._clickAction = _clickAction;
         this._animationMode = _animationMode;
         /**
@@ -289,6 +291,13 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
             element.classList.add(this._currentAnimationClass);
+            // Remove the animation class to avoid animation when the checkbox is moved between containers
+            const /** @type {?} */ animationClass = this._currentAnimationClass;
+            this._ngZone.runOutsideAngular(() => {
+                setTimeout(() => {
+                    element.classList.remove(animationClass);
+                }, 1000);
+            });
         }
     }
     /**
@@ -449,6 +458,7 @@ MatCheckbox.ctorParameters = () => [
     { type: ElementRef, },
     { type: ChangeDetectorRef, },
     { type: FocusMonitor, },
+    { type: NgZone, },
     { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_CHECKBOX_CLICK_ACTION,] },] },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },

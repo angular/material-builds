@@ -111,10 +111,11 @@ var /** @type {?} */ _MatCheckboxMixinBase = core$1.mixinTabIndex(core$1.mixinCo
  */
 var MatCheckbox = /** @class */ (function (_super) {
     __extends(MatCheckbox, _super);
-    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, tabIndex, _clickAction, _animationMode) {
+    function MatCheckbox(elementRef, _changeDetectorRef, _focusMonitor, _ngZone, tabIndex, _clickAction, _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._focusMonitor = _focusMonitor;
+        _this._ngZone = _ngZone;
         _this._clickAction = _clickAction;
         _this._animationMode = _animationMode;
         /**
@@ -376,6 +377,13 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
             element.classList.add(this._currentAnimationClass);
+            // Remove the animation class to avoid animation when the checkbox is moved between containers
+            var /** @type {?} */ animationClass_1 = this._currentAnimationClass;
+            this._ngZone.runOutsideAngular(function () {
+                setTimeout(function () {
+                    element.classList.remove(animationClass_1);
+                }, 1000);
+            });
         }
     };
     /**
@@ -578,6 +586,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         { type: core.ElementRef, },
         { type: core.ChangeDetectorRef, },
         { type: a11y.FocusMonitor, },
+        { type: core.NgZone, },
         { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_CHECKBOX_CLICK_ACTION,] },] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
