@@ -9,6 +9,7 @@ const html_1 = require("../utils/html");
 const lib_versions_1 = require("../utils/lib-versions");
 const package_1 = require("../utils/package");
 const theming_1 = require("./theming");
+const parse5 = require("parse5");
 /**
  * Scaffolds the basics of a Angular Material application, this includes:
  *  - Add Packages to package.json
@@ -16,6 +17,9 @@ const theming_1 = require("./theming");
  *  - Adds Browser Animation to app.momdule
  */
 function default_1(options) {
+    if (!parse5) {
+        throw new schematics_1.SchematicsException('parse5 depedency not found! Please install parse5 from npm to continue.');
+    }
     return schematics_1.chain([
         options && options.skipPackageJson ? schematics_1.noop() : addMaterialToPackageJson(),
         theming_1.addThemeToAppStyles(options),
