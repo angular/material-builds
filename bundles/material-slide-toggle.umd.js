@@ -352,6 +352,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
      */
     function () {
         this.checked = !this.checked;
+        this.onChange(this.checked);
     };
     /**
      * Function is called whenever the focus changes for the input element.
