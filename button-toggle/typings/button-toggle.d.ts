@@ -157,7 +157,7 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     /** Focuses the button. */
     focus(): void;
     /** Checks the button toggle due to an interaction with the underlying native button. */
-    _onButtonClick(event: Event): void;
+    _onButtonClick(): void;
     /**
      * Marks the button toggle as needing checking for change detection.
      * This method is exposed because the parent button toggle group will directly
