@@ -16979,10 +16979,15 @@ var MatIcon = /** @class */ (function (_super) {
     function () {
         var /** @type {?} */ layoutElement = this._elementRef.nativeElement;
         var /** @type {?} */ childCount = layoutElement.childNodes.length;
-        // Remove existing child nodes and add the new SVG element. Note that we can't
-        // use innerHTML, because IE will throw if the element has a data binding.
+        // Remove existing non-element child nodes and SVGs, and add the new SVG element. Note that
+        // we can't use innerHTML, because IE will throw if the element has a data binding.
         for (var /** @type {?} */ i = 0; i < childCount; i++) {
-            layoutElement.removeChild(layoutElement.childNodes[i]);
+            var /** @type {?} */ child = layoutElement.childNodes[i];
+            // 1 corresponds to Node.ELEMENT_NODE. We remove all non-element nodes in order to get rid
+            // of any loose text nodes, as well as any SVG elements in order to remove any old icons.
+            if (child.nodeType !== 1 || child.nodeName.toLowerCase() === 'svg') {
+                layoutElement.removeChild(child);
+            }
         }
     };
     /**
@@ -32499,10 +32504,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.1-fc15fa2');
+var /** @type {?} */ VERSION = new core.Version('6.3.1-8280a76');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa27 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32751,12 +32756,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb21 = MatMenuItemBase;
+exports.ɵc21 = _MatMenuItemMixinBase;
+exports.ɵf21 = MAT_MENU_PANEL;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
