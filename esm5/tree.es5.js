@@ -390,15 +390,39 @@ MatTreeFlattener = /** @class */ (function () {
         var /** @type {?} */ flatNode = this.transformFunction(node, level);
         resultNodes.push(flatNode);
         if (this.isExpandable(flatNode)) {
-            this.getChildren(node).pipe(take(1)).subscribe(function (children) {
-                children.forEach(function (child, index) {
-                    var /** @type {?} */ childParentMap = parentMap.slice();
-                    childParentMap.push(index != children.length - 1);
-                    _this._flattenNode(child, level + 1, resultNodes, childParentMap);
+            var /** @type {?} */ childrenNodes = this.getChildren(node);
+            if (Array.isArray(childrenNodes)) {
+                this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
+            }
+            else {
+                childrenNodes.pipe(take(1)).subscribe(function (children) {
+                    _this._flattenChildren(children, level, resultNodes, parentMap);
                 });
-            });
+            }
         }
         return resultNodes;
+    };
+    /**
+     * @param {?} children
+     * @param {?} level
+     * @param {?} resultNodes
+     * @param {?} parentMap
+     * @return {?}
+     */
+    MatTreeFlattener.prototype._flattenChildren = /**
+     * @param {?} children
+     * @param {?} level
+     * @param {?} resultNodes
+     * @param {?} parentMap
+     * @return {?}
+     */
+    function (children, level, resultNodes, parentMap) {
+        var _this = this;
+        children.forEach(function (child, index) {
+            var /** @type {?} */ childParentMap = parentMap.slice();
+            childParentMap.push(index != children.length - 1);
+            _this._flattenNode(child, level + 1, resultNodes, childParentMap);
+        });
     };
     /**
      * Flatten a list of node type T to flattened version of node F.

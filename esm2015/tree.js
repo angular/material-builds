@@ -329,15 +329,31 @@ class MatTreeFlattener {
         const /** @type {?} */ flatNode = this.transformFunction(node, level);
         resultNodes.push(flatNode);
         if (this.isExpandable(flatNode)) {
-            this.getChildren(node).pipe(take(1)).subscribe(children => {
-                children.forEach((child, index) => {
-                    let /** @type {?} */ childParentMap = parentMap.slice();
-                    childParentMap.push(index != children.length - 1);
-                    this._flattenNode(child, level + 1, resultNodes, childParentMap);
+            const /** @type {?} */ childrenNodes = this.getChildren(node);
+            if (Array.isArray(childrenNodes)) {
+                this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
+            }
+            else {
+                childrenNodes.pipe(take(1)).subscribe(children => {
+                    this._flattenChildren(children, level, resultNodes, parentMap);
                 });
-            });
+            }
         }
         return resultNodes;
+    }
+    /**
+     * @param {?} children
+     * @param {?} level
+     * @param {?} resultNodes
+     * @param {?} parentMap
+     * @return {?}
+     */
+    _flattenChildren(children, level, resultNodes, parentMap) {
+        children.forEach((child, index) => {
+            let /** @type {?} */ childParentMap = parentMap.slice();
+            childParentMap.push(index != children.length - 1);
+            this._flattenNode(child, level + 1, resultNodes, childParentMap);
+        });
     }
     /**
      * Flatten a list of node type T to flattened version of node F.

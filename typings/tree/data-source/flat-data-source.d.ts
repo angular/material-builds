@@ -46,9 +46,10 @@ export declare class MatTreeFlattener<T, F> {
     transformFunction: (node: T, level: number) => F;
     getLevel: (node: F) => number;
     isExpandable: (node: F) => boolean;
-    getChildren: (node: T) => Observable<T[]>;
-    constructor(transformFunction: (node: T, level: number) => F, getLevel: (node: F) => number, isExpandable: (node: F) => boolean, getChildren: (node: T) => Observable<T[]>);
+    getChildren: (node: T) => Observable<T[]> | T[];
+    constructor(transformFunction: (node: T, level: number) => F, getLevel: (node: F) => number, isExpandable: (node: F) => boolean, getChildren: (node: T) => Observable<T[]> | T[]);
     _flattenNode(node: T, level: number, resultNodes: F[], parentMap: boolean[]): F[];
+    _flattenChildren(children: T[], level: number, resultNodes: F[], parentMap: boolean[]): void;
     /**
      * Flatten a list of node type T to flattened version of node F.
      * Please note that type T may be nested, and the length of `structuredData` may be different
