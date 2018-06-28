@@ -22,7 +22,8 @@ import { CommonModule } from '@angular/common';
  */
 /**
  * Directive to automatically resize a textarea to fit its content.
- * \@deletion-target 7.0.0 deprecate in favor of `cdkTextareaAutosize`.
+ * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
+ * \@deletion-target 7.0.0
  */
 var MatTextareaAutosize = /** @class */ (function (_super) {
     __extends(MatTextareaAutosize, _super);

@@ -10358,7 +10358,8 @@ var MatDialogModule = /** @class */ (function () {
  */
 /**
  * Directive to automatically resize a textarea to fit its content.
- * \@deletion-target 7.0.0 deprecate in favor of `cdkTextareaAutosize`.
+ * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
+ * \@deletion-target 7.0.0
  */
 var MatTextareaAutosize = /** @class */ (function (_super) {
     __extends(MatTextareaAutosize, _super);
@@ -32501,10 +32502,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.1-5e16682');
+var /** @type {?} */ VERSION = new core.Version('6.3.1-637ef83');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32753,12 +32754,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa19 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb19 = MatMenuItemBase;
-exports.ɵc19 = _MatMenuItemMixinBase;
-exports.ɵf19 = MAT_MENU_PANEL;
-exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe19 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa8 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb8 = MatMenuItemBase;
+exports.ɵc8 = _MatMenuItemMixinBase;
+exports.ɵf8 = MAT_MENU_PANEL;
+exports.ɵd8 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe8 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -32888,17 +32889,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa11 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf11 = MatTabBase;
+exports.ɵg11 = _MatTabMixinBase;
+exports.ɵb11 = MatTabHeaderBase;
+exports.ɵc11 = _MatTabHeaderMixinBase;
+exports.ɵd11 = MatTabLabelWrapperBase;
+exports.ɵe11 = _MatTabLabelWrapperMixinBase;
+exports.ɵj11 = MatTabLinkBase;
+exports.ɵh11 = MatTabNavBase;
+exports.ɵk11 = _MatTabLinkMixinBase;
+exports.ɵi11 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
