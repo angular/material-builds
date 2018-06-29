@@ -204,6 +204,7 @@ MatAutocomplete.propDecorators = {
     "optionGroups": [{ type: ContentChildren, args: [MatOptgroup,] },],
     "displayWith": [{ type: Input },],
     "autoActiveFirstOption": [{ type: Input },],
+    "panelWidth": [{ type: Input },],
     "optionSelected": [{ type: Output },],
     "opened": [{ type: Output },],
     "closed": [{ type: Output },],
@@ -702,14 +703,14 @@ class MatAutocompleteTrigger {
             if (this._viewportRuler) {
                 this._viewportSubscription = this._viewportRuler.change().subscribe(() => {
                     if (this.panelOpen && this._overlayRef) {
-                        this._overlayRef.updateSize({ width: this._getHostWidth() });
+                        this._overlayRef.updateSize({ width: this._getPanelWidth() });
                     }
                 });
             }
         }
         else {
             // Update the panel width and direction, in case anything has changed.
-            this._overlayRef.updateSize({ width: this._getHostWidth() });
+            this._overlayRef.updateSize({ width: this._getPanelWidth() });
         }
         if (this._overlayRef && !this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
@@ -731,7 +732,7 @@ class MatAutocompleteTrigger {
         return new OverlayConfig({
             positionStrategy: this._getOverlayPosition(),
             scrollStrategy: this._scrollStrategy(),
-            width: this._getHostWidth(),
+            width: this._getPanelWidth(),
             direction: this._dir
         });
     }
@@ -757,6 +758,12 @@ class MatAutocompleteTrigger {
             return this.connectedTo.elementRef;
         }
         return this._formField ? this._formField.getConnectedOverlayOrigin() : this._element;
+    }
+    /**
+     * @return {?}
+     */
+    _getPanelWidth() {
+        return this.autocomplete.panelWidth || this._getHostWidth();
     }
     /**
      * Returns the width of the input element, so the panel width can match it.
@@ -854,5 +861,5 @@ MatAutocompleteModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa28 };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa29 };
 //# sourceMappingURL=autocomplete.js.map

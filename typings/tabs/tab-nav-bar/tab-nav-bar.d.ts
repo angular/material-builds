@@ -62,6 +62,8 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestro
     protected _isActive: boolean;
     /** Reference to the RippleRenderer for the tab-link. */
     protected _tabLinkRipple: RippleRenderer;
+    /** Whether the ripples are globally disabled through the RippleGlobalOptions */
+    private _ripplesGloballyDisabled;
     /** Whether the link is active. */
     active: boolean;
     /**

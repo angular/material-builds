@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ChangeDetectionStrategy, Component, ContentChild, ContentChildren, Directive, ElementRef, Optional, ViewEncapsulation, Attribute, ChangeDetectorRef, EventEmitter, forwardRef, Inject, Input, Output, ViewChild, NgModule } from '@angular/core';
-import { MatLine, MatLineSetter, mixinDisableRipple, mixinDisabled, MatCommonModule, MatLineModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
+import { MatLine, MatLineSetter, mixinDisableRipple, MatCommonModule, MatLineModule, MatPseudoCheckboxModule, MatRippleModule } from '@angular/material/core';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -183,7 +183,7 @@ MatListItem.propDecorators = {
  */
 class MatSelectionListBase {
 }
-const /** @type {?} */ _MatSelectionListMixinBase = mixinDisableRipple(mixinDisabled(MatSelectionListBase));
+const /** @type {?} */ _MatSelectionListMixinBase = mixinDisableRipple(MatSelectionListBase);
 /**
  * \@docs-private
  */
@@ -386,6 +386,15 @@ class MatListOption extends _MatListOptionMixinBase {
         this._changeDetector.markForCheck();
         return true;
     }
+    /**
+     * Notifies Angular that the option needs to be checked in the next change detection run. Mainly
+     * used to trigger an update of the list option if the disabled state of the selection list
+     * changed.
+     * @return {?}
+     */
+    _markForCheck() {
+        this._changeDetector.markForCheck();
+    }
 }
 MatListOption.decorators = [
     { type: Component, args: [{selector: 'mat-list-option',
@@ -441,6 +450,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
          * Tabindex of the selection list.
          */
         this.tabIndex = 0;
+        this._disabled = false;
         /**
          * The currently selected options.
          */
@@ -449,12 +459,34 @@ class MatSelectionList extends _MatSelectionListMixinBase {
          * View to model callback that should be called whenever the selected options change.
          */
         this._onChange = (_) => { };
+        /**
+         * Subscription to sync value changes in the SelectionModel back to the SelectionList.
+         */
         this._modelChanges = Subscription.EMPTY;
         /**
          * View to model callback that should be called if the list or its options lost focus.
          */
         this._onTouched = () => { };
         this.tabIndex = parseInt(tabIndex) || 0;
+    }
+    /**
+     * Whether the selection list is disabled.
+     * @return {?}
+     */
+    get disabled() { return this._disabled; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set disabled(value) {
+        this._disabled = coerceBooleanProperty(value);
+        // The `MatSelectionList` and `MatListOption` are using the `OnPush` change detection
+        // strategy. Therefore the options will not check for any changes if the `MatSelectionList`
+        // changed its state. Since we know that a change to `disabled` property of the list affects
+        // the state of the options, we manually mark each option for check.
+        if (this.options) {
+            this.options.forEach(option => option._markForCheck());
+        }
     }
     /**
      * @return {?}
@@ -730,6 +762,7 @@ MatSelectionList.propDecorators = {
     "selectionChange": [{ type: Output },],
     "tabIndex": [{ type: Input },],
     "compareWith": [{ type: Input },],
+    "disabled": [{ type: Input },],
 };
 
 /**

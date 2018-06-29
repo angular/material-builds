@@ -259,7 +259,7 @@ MatSelectionListBase = /** @class */ (function () {
     }
     return MatSelectionListBase;
 }());
-var /** @type {?} */ _MatSelectionListMixinBase = core$1.mixinDisableRipple(core$1.mixinDisabled(MatSelectionListBase));
+var /** @type {?} */ _MatSelectionListMixinBase = core$1.mixinDisableRipple(MatSelectionListBase);
 /**
  * \@docs-private
  */
@@ -528,6 +528,26 @@ var MatListOption = /** @class */ (function (_super) {
         this._changeDetector.markForCheck();
         return true;
     };
+    /**
+     * Notifies Angular that the option needs to be checked in the next change detection run. Mainly
+     * used to trigger an update of the list option if the disabled state of the selection list
+     * changed.
+     */
+    /**
+     * Notifies Angular that the option needs to be checked in the next change detection run. Mainly
+     * used to trigger an update of the list option if the disabled state of the selection list
+     * changed.
+     * @return {?}
+     */
+    MatListOption.prototype._markForCheck = /**
+     * Notifies Angular that the option needs to be checked in the next change detection run. Mainly
+     * used to trigger an update of the list option if the disabled state of the selection list
+     * changed.
+     * @return {?}
+     */
+    function () {
+        this._changeDetector.markForCheck();
+    };
     MatListOption.decorators = [
         { type: core.Component, args: [{selector: 'mat-list-option',
                     exportAs: 'matListOption',
@@ -581,6 +601,7 @@ var MatSelectionList = /** @class */ (function (_super) {
          * Tabindex of the selection list.
          */
         _this.tabIndex = 0;
+        _this._disabled = false;
         /**
          * The currently selected options.
          */
@@ -589,6 +610,9 @@ var MatSelectionList = /** @class */ (function (_super) {
          * View to model callback that should be called whenever the selected options change.
          */
         _this._onChange = function (_) { };
+        /**
+         * Subscription to sync value changes in the SelectionModel back to the SelectionList.
+         */
         _this._modelChanges = rxjs.Subscription.EMPTY;
         /**
          * View to model callback that should be called if the list or its options lost focus.
@@ -597,6 +621,29 @@ var MatSelectionList = /** @class */ (function (_super) {
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
+    Object.defineProperty(MatSelectionList.prototype, "disabled", {
+        get: /**
+         * Whether the selection list is disabled.
+         * @return {?}
+         */
+        function () { return this._disabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._disabled = coercion.coerceBooleanProperty(value);
+            // The `MatSelectionList` and `MatListOption` are using the `OnPush` change detection
+            // strategy. Therefore the options will not check for any changes if the `MatSelectionList`
+            // changed its state. Since we know that a change to `disabled` property of the list affects
+            // the state of the options, we manually mark each option for check.
+            if (this.options) {
+                this.options.forEach(function (option) { return option._markForCheck(); });
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -978,6 +1025,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         "selectionChange": [{ type: core.Output },],
         "tabIndex": [{ type: core.Input },],
         "compareWith": [{ type: core.Input },],
+        "disabled": [{ type: core.Input },],
     };
     return MatSelectionList;
 }(_MatSelectionListMixinBase));

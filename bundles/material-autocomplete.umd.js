@@ -267,6 +267,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
         "optionGroups": [{ type: core.ContentChildren, args: [core$1.MatOptgroup,] },],
         "displayWith": [{ type: core.Input },],
         "autoActiveFirstOption": [{ type: core.Input },],
+        "panelWidth": [{ type: core.Input },],
         "optionSelected": [{ type: core.Output },],
         "opened": [{ type: core.Output },],
         "closed": [{ type: core.Output },],
@@ -879,14 +880,14 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             if (this._viewportRuler) {
                 this._viewportSubscription = this._viewportRuler.change().subscribe(function () {
                     if (_this.panelOpen && _this._overlayRef) {
-                        _this._overlayRef.updateSize({ width: _this._getHostWidth() });
+                        _this._overlayRef.updateSize({ width: _this._getPanelWidth() });
                     }
                 });
             }
         }
         else {
             // Update the panel width and direction, in case anything has changed.
-            this._overlayRef.updateSize({ width: this._getHostWidth() });
+            this._overlayRef.updateSize({ width: this._getPanelWidth() });
         }
         if (this._overlayRef && !this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
@@ -911,7 +912,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         return new overlay.OverlayConfig({
             positionStrategy: this._getOverlayPosition(),
             scrollStrategy: this._scrollStrategy(),
-            width: this._getHostWidth(),
+            width: this._getPanelWidth(),
             direction: this._dir
         });
     };
@@ -943,6 +944,15 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             return this.connectedTo.elementRef;
         }
         return this._formField ? this._formField.getConnectedOverlayOrigin() : this._element;
+    };
+    /**
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype._getPanelWidth = /**
+     * @return {?}
+     */
+    function () {
+        return this.autocomplete.panelWidth || this._getHostWidth();
     };
     /**
      * Returns the width of the input element, so the panel width can match it.
@@ -1062,7 +1072,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCR
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

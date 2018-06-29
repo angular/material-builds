@@ -3814,6 +3814,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
         "optionGroups": [{ type: core.ContentChildren, args: [MatOptgroup,] },],
         "displayWith": [{ type: core.Input },],
         "autoActiveFirstOption": [{ type: core.Input },],
+        "panelWidth": [{ type: core.Input },],
         "optionSelected": [{ type: core.Output },],
         "opened": [{ type: core.Output },],
         "closed": [{ type: core.Output },],
@@ -4426,14 +4427,14 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             if (this._viewportRuler) {
                 this._viewportSubscription = this._viewportRuler.change().subscribe(function () {
                     if (_this.panelOpen && _this._overlayRef) {
-                        _this._overlayRef.updateSize({ width: _this._getHostWidth() });
+                        _this._overlayRef.updateSize({ width: _this._getPanelWidth() });
                     }
                 });
             }
         }
         else {
             // Update the panel width and direction, in case anything has changed.
-            this._overlayRef.updateSize({ width: this._getHostWidth() });
+            this._overlayRef.updateSize({ width: this._getPanelWidth() });
         }
         if (this._overlayRef && !this._overlayRef.hasAttached()) {
             this._overlayRef.attach(this._portal);
@@ -4458,7 +4459,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         return new overlay.OverlayConfig({
             positionStrategy: this._getOverlayPosition(),
             scrollStrategy: this._scrollStrategy(),
-            width: this._getHostWidth(),
+            width: this._getPanelWidth(),
             direction: this._dir
         });
     };
@@ -4490,6 +4491,15 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             return this.connectedTo.elementRef;
         }
         return this._formField ? this._formField.getConnectedOverlayOrigin() : this._element;
+    };
+    /**
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype._getPanelWidth = /**
+     * @return {?}
+     */
+    function () {
+        return this.autocomplete.panelWidth || this._getHostWidth();
     };
     /**
      * Returns the width of the input element, so the panel width can match it.
@@ -17316,7 +17326,7 @@ MatSelectionListBase = /** @class */ (function () {
     }
     return MatSelectionListBase;
 }());
-var /** @type {?} */ _MatSelectionListMixinBase = mixinDisableRipple(mixinDisabled(MatSelectionListBase));
+var /** @type {?} */ _MatSelectionListMixinBase = mixinDisableRipple(MatSelectionListBase);
 /**
  * \@docs-private
  */
@@ -17585,6 +17595,26 @@ var MatListOption = /** @class */ (function (_super) {
         this._changeDetector.markForCheck();
         return true;
     };
+    /**
+     * Notifies Angular that the option needs to be checked in the next change detection run. Mainly
+     * used to trigger an update of the list option if the disabled state of the selection list
+     * changed.
+     */
+    /**
+     * Notifies Angular that the option needs to be checked in the next change detection run. Mainly
+     * used to trigger an update of the list option if the disabled state of the selection list
+     * changed.
+     * @return {?}
+     */
+    MatListOption.prototype._markForCheck = /**
+     * Notifies Angular that the option needs to be checked in the next change detection run. Mainly
+     * used to trigger an update of the list option if the disabled state of the selection list
+     * changed.
+     * @return {?}
+     */
+    function () {
+        this._changeDetector.markForCheck();
+    };
     MatListOption.decorators = [
         { type: core.Component, args: [{selector: 'mat-list-option',
                     exportAs: 'matListOption',
@@ -17638,6 +17668,7 @@ var MatSelectionList = /** @class */ (function (_super) {
          * Tabindex of the selection list.
          */
         _this.tabIndex = 0;
+        _this._disabled = false;
         /**
          * The currently selected options.
          */
@@ -17646,6 +17677,9 @@ var MatSelectionList = /** @class */ (function (_super) {
          * View to model callback that should be called whenever the selected options change.
          */
         _this._onChange = function (_) { };
+        /**
+         * Subscription to sync value changes in the SelectionModel back to the SelectionList.
+         */
         _this._modelChanges = rxjs.Subscription.EMPTY;
         /**
          * View to model callback that should be called if the list or its options lost focus.
@@ -17654,6 +17688,29 @@ var MatSelectionList = /** @class */ (function (_super) {
         _this.tabIndex = parseInt(tabIndex) || 0;
         return _this;
     }
+    Object.defineProperty(MatSelectionList.prototype, "disabled", {
+        get: /**
+         * Whether the selection list is disabled.
+         * @return {?}
+         */
+        function () { return this._disabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._disabled = coercion.coerceBooleanProperty(value);
+            // The `MatSelectionList` and `MatListOption` are using the `OnPush` change detection
+            // strategy. Therefore the options will not check for any changes if the `MatSelectionList`
+            // changed its state. Since we know that a change to `disabled` property of the list affects
+            // the state of the options, we manually mark each option for check.
+            if (this.options) {
+                this.options.forEach(function (option) { return option._markForCheck(); });
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -18035,6 +18092,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         "selectionChange": [{ type: core.Output },],
         "tabIndex": [{ type: core.Input },],
         "compareWith": [{ type: core.Input },],
+        "disabled": [{ type: core.Input },],
     };
     return MatSelectionList;
 }(_MatSelectionListMixinBase));
@@ -20774,10 +20832,12 @@ var MatSelect = /** @class */ (function (_super) {
         }
         else {
             option.selected ? this._selectionModel.select(option) : this._selectionModel.deselect(option);
+            if (isUserInput) {
+                this._keyManager.setActiveItem(option);
+            }
             if (this.multiple) {
                 this._sortValues();
                 if (isUserInput) {
-                    this._keyManager.setActiveItem(option);
                     // In case the user selected the option with their mouse, we
                     // want to restore focus back to the trigger, in order to
                     // prevent the select keyboard controls from clashing with
@@ -31629,6 +31689,10 @@ var MatTabLink = /** @class */ (function (_super) {
          */
         _this._isActive = false;
         /**
+         * Whether the ripples are globally disabled through the RippleGlobalOptions
+         */
+        _this._ripplesGloballyDisabled = false;
+        /**
          * Ripple configuration for ripples that are launched on pointer down.
          * \@docs-private
          */
@@ -31637,6 +31701,7 @@ var MatTabLink = /** @class */ (function (_super) {
         _this._tabLinkRipple.setupTriggerEvents(_elementRef.nativeElement);
         _this.tabIndex = parseInt(tabIndex) || 0;
         if (globalOptions) {
+            _this._ripplesGloballyDisabled = !!globalOptions.disabled;
             // TODO(paul): Once the speedFactor is removed, we no longer need to copy each single option.
             // TODO(paul): Once the speedFactor is removed, we no longer need to copy each single option.
             _this.rippleConfig = {
@@ -31677,7 +31742,8 @@ var MatTabLink = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this.disabled || this.disableRipple || this._tabNavBar.disableRipple;
+            return this.disabled || this.disableRipple || this._tabNavBar.disableRipple ||
+                this._ripplesGloballyDisabled;
         },
         enumerable: true,
         configurable: true
@@ -32540,10 +32606,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.1-c3fdc32');
+var /** @type {?} */ VERSION = new core.Version('6.3.1-4a02bb1');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32792,12 +32858,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa17 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb17 = MatMenuItemBase;
-exports.ɵc17 = _MatMenuItemMixinBase;
-exports.ɵf17 = MAT_MENU_PANEL;
-exports.ɵd17 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe17 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

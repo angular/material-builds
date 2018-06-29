@@ -158,6 +158,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _getOverlayConfig();
     private _getOverlayPosition();
     private _getConnectedElement();
+    private _getPanelWidth();
     /** Returns the width of the input element, so the panel width can match it. */
     private _getHostWidth();
     /**

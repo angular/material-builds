@@ -59,6 +59,11 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
      */
     autoActiveFirstOption: boolean;
     private _autoActiveFirstOption;
+    /**
+     * Specify the width of the autocomplete panel.  Can be any CSS sizing value, otherwise it will
+     * match the width of its host.
+     */
+    panelWidth: string | number;
     /** Event that is emitted whenever an option from the list is selected. */
     readonly optionSelected: EventEmitter<MatAutocompleteSelectedEvent>;
     /** Event that is emitted when the autocomplete panel is opened. */

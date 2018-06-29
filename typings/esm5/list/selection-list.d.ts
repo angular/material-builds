@@ -8,12 +8,12 @@
 import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
-import { CanDisable, CanDisableRipple, MatLine } from '@angular/material/core';
+import { CanDisableRipple, MatLine } from '@angular/material/core';
 import { ControlValueAccessor } from '@angular/forms';
 /** @docs-private */
 export declare class MatSelectionListBase {
 }
-export declare const _MatSelectionListMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatSelectionListBase;
+export declare const _MatSelectionListMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatSelectionListBase;
 /** @docs-private */
 export declare class MatListOptionBase {
 }
@@ -81,11 +81,17 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     _getHostElement(): HTMLElement;
     /** Sets the selected state of the option. Returns whether the value has changed. */
     _setSelected(selected: boolean): boolean;
+    /**
+     * Notifies Angular that the option needs to be checked in the next change detection run. Mainly
+     * used to trigger an update of the list option if the disabled state of the selection list
+     * changed.
+     */
+    _markForCheck(): void;
 }
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
  */
-export declare class MatSelectionList extends _MatSelectionListMixinBase implements FocusableOption, CanDisable, CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy {
+export declare class MatSelectionList extends _MatSelectionListMixinBase implements FocusableOption, CanDisableRipple, AfterContentInit, ControlValueAccessor, OnDestroy {
     private _element;
     /** The FocusKeyManager which handles focus. */
     _keyManager: FocusKeyManager<MatListOption>;
@@ -101,12 +107,16 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
      * one is a value from the selected value. A boolean must be returned.
      */
     compareWith: (o1: any, o2: any) => boolean;
+    /** Whether the selection list is disabled. */
+    disabled: boolean;
+    private _disabled;
     /** The currently selected options. */
     selectedOptions: SelectionModel<MatListOption>;
     /** View to model callback that should be called whenever the selected options change. */
     private _onChange;
     /** Used for storing the values that were assigned before the options were initialized. */
     private _tempValues;
+    /** Subscription to sync value changes in the SelectionModel back to the SelectionList. */
     private _modelChanges;
     /** View to model callback that should be called if the list or its options lost focus. */
     _onTouched: () => void;
