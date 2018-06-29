@@ -777,6 +777,9 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         operators.switchMap(function () {
             _this._resetActiveItem();
             _this.autocomplete._setVisibility();
+            if (_this.panelOpen) {
+                /** @type {?} */ ((_this._overlayRef)).updatePosition();
+            }
             return _this.panelClosingActions;
         }), 
         // when the first closing event occurs...
@@ -1072,7 +1075,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCR
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa27 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
