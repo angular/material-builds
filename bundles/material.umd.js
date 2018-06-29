@@ -25115,7 +25115,13 @@ var MatDrawerContainer = /** @class */ (function () {
             }
         }
         if (left !== this._contentMargins.left || right !== this._contentMargins.right) {
-            this._contentMargins = { left: left, right: right };
+            this._contentMargins = {
+                // If either `right` or `left` is zero, don't set a style to the element. This
+                // allows users to specify a custom size via CSS class in SSR scenarios where the
+                // measured widths will always be zero.
+                left: left || null,
+                right: right || null,
+            };
             // Pull back into the NgZone since in some cases we could be outside. We need to be careful
             // to do it only when something changed, otherwise we can end up hitting the zone too often.
             this._ngZone.run(function () { return _this._contentMarginChanges.next(_this._contentMargins); });
@@ -32617,10 +32623,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.1-d64f94d');
+var /** @type {?} */ VERSION = new core.Version('6.3.1-444fb38');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa25 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32699,7 +32705,7 @@ exports.MatChip = MatChip;
 exports.MatChipRemove = MatChipRemove;
 exports.MatChipInput = MatChipInput;
 exports.MAT_CHIPS_DEFAULT_OPTIONS = MAT_CHIPS_DEFAULT_OPTIONS;
-exports.ɵa1 = MATERIAL_SANITY_CHECKS_FACTORY;
+exports.ɵa0 = MATERIAL_SANITY_CHECKS_FACTORY;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MatCommonModule = MatCommonModule;
