@@ -11,7 +11,7 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
+import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW, A } from '@angular/cdk/keycodes';
 import { CdkConnectedOverlay, Overlay, ViewportRuler, OverlayModule } from '@angular/cdk/overlay';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, isDevMode, NgZone, Optional, Output, Self, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -904,6 +904,11 @@ var MatSelect = /** @class */ (function (_super) {
         else if ((keyCode === ENTER || keyCode === SPACE) && manager.activeItem) {
             event.preventDefault();
             manager.activeItem._selectViaInteraction();
+        }
+        else if (this._multiple && keyCode === A && event.ctrlKey) {
+            event.preventDefault();
+            var /** @type {?} */ hasDeselectedOptions_1 = this.options.some(function (option) { return !option.selected; });
+            this.options.forEach(function (option) { return hasDeselectedOptions_1 ? option.select() : option.deselect(); });
         }
         else {
             var /** @type {?} */ previouslyFocusedIndex = manager.activeItemIndex;

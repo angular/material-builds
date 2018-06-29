@@ -20509,6 +20509,11 @@ var MatSelect = /** @class */ (function (_super) {
             event.preventDefault();
             manager.activeItem._selectViaInteraction();
         }
+        else if (this._multiple && keyCode === keycodes.A && event.ctrlKey) {
+            event.preventDefault();
+            var /** @type {?} */ hasDeselectedOptions_1 = this.options.some(function (option) { return !option.selected; });
+            this.options.forEach(function (option) { return hasDeselectedOptions_1 ? option.select() : option.deselect(); });
+        }
         else {
             var /** @type {?} */ previouslyFocusedIndex = manager.activeItemIndex;
             manager.onKeydown(event);
@@ -32535,10 +32540,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.1-8dfce58');
+var /** @type {?} */ VERSION = new core.Version('6.3.1-d5de711');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
