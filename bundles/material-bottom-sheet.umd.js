@@ -430,7 +430,7 @@ MatBottomSheetRef = /** @class */ (function () {
             _this._afterDismissed.complete();
         });
         if (!containerInstance.bottomSheetConfig.disableClose) {
-            rxjs.merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
+            rxjs.merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
         }
     }
     /**

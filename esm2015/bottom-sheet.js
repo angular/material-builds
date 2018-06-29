@@ -340,7 +340,7 @@ class MatBottomSheetRef {
             this._afterDismissed.complete();
         });
         if (!containerInstance.bottomSheetConfig.disableClose) {
-            merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(filter(event => event.keyCode === ESCAPE))).subscribe(() => this.dismiss());
+            merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(filter(event => event.keyCode === ESCAPE))).subscribe(() => this.dismiss());
         }
     }
     /**

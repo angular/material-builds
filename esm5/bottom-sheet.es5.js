@@ -404,7 +404,7 @@ MatBottomSheetRef = /** @class */ (function () {
             _this._afterDismissed.complete();
         });
         if (!containerInstance.bottomSheetConfig.disableClose) {
-            merge(_overlayRef.backdropClick(), _overlayRef._keydownEvents.pipe(filter(function (event) { return event.keyCode === ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
+            merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(filter(function (event) { return event.keyCode === ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
         }
     }
     /**
