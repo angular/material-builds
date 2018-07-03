@@ -10,6 +10,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { CanDisableRipple, MatLine } from '@angular/material/core';
 import { ControlValueAccessor } from '@angular/forms';
+import { MatListAvatarCssMatStyler } from './list';
 /** @docs-private */
 export declare class MatSelectionListBase {
 }
@@ -46,6 +47,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     private _disabled;
     /** Whether the option has focus. */
     _hasFocus: boolean;
+    _avatar: MatListAvatarCssMatStyler;
     _lines: QueryList<MatLine>;
     /** DOM element containing the item's text. */
     _text: ElementRef;
