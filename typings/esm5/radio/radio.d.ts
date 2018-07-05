@@ -37,12 +37,7 @@ export declare const _MatRadioGroupMixinBase: (new (...args: any[]) => CanDisabl
  */
 export declare class MatRadioGroup extends _MatRadioGroupMixinBase implements AfterContentInit, ControlValueAccessor, CanDisable {
     private _changeDetector;
-    /**
-     * Selected value for group. Should equal the value of the selected radio button if there *is*
-     * a corresponding radio button with a matching value. If there is *not* such a corresponding
-     * radio button, this value persists to be applied in case a new radio button is added with a
-     * matching value.
-     */
+    /** Selected value for the radio group. */
     private _value;
     /** The HTML name attribute applied to radio buttons in this group. */
     private _name;
@@ -75,10 +70,18 @@ export declare class MatRadioGroup extends _MatRadioGroupMixinBase implements Af
     name: string;
     /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
     labelPosition: 'before' | 'after';
-    /** Value of the radio button. */
+    /**
+     * Value for the radio-group. Should equal the value of the selected radio button if there is
+     * a corresponding radio button with a matching value. If there is not such a corresponding
+     * radio button, this value persists to be applied in case a new radio button is added with a
+     * matching value.
+     */
     value: any;
     _checkSelectedRadioButton(): void;
-    /** Whether the radio button is selected. */
+    /**
+     * The currently selected radio button. If set to a new radio button, the radio group value
+     * will be updated to match the new selected button.
+     */
     selected: MatRadioButton | null;
     /** Whether the radio group is disabled */
     disabled: boolean;

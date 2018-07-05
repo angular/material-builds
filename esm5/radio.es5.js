@@ -65,10 +65,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         var _this = _super.call(this) || this;
         _this._changeDetector = _changeDetector;
         /**
-         * Selected value for group. Should equal the value of the selected radio button if there *is*
-         * a corresponding radio button with a matching value. If there is *not* such a corresponding
-         * radio button, this value persists to be applied in case a new radio button is added with a
-         * matching value.
+         * Selected value for the radio group.
          */
         _this._value = null;
         /**
@@ -150,7 +147,10 @@ var MatRadioGroup = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatRadioGroup.prototype, "value", {
         get: /**
-         * Value of the radio button.
+         * Value for the radio-group. Should equal the value of the selected radio button if there is
+         * a corresponding radio button with a matching value. If there is not such a corresponding
+         * radio button, this value persists to be applied in case a new radio button is added with a
+         * matching value.
          * @return {?}
          */
         function () { return this._value; },
@@ -182,7 +182,8 @@ var MatRadioGroup = /** @class */ (function (_super) {
     };
     Object.defineProperty(MatRadioGroup.prototype, "selected", {
         get: /**
-         * Whether the radio button is selected.
+         * The currently selected radio button. If set to a new radio button, the radio group value
+         * will be updated to match the new selected button.
          * @return {?}
          */
         function () { return this._selected; },

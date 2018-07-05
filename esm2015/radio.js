@@ -60,10 +60,7 @@ class MatRadioGroup extends _MatRadioGroupMixinBase {
         super();
         this._changeDetector = _changeDetector;
         /**
-         * Selected value for group. Should equal the value of the selected radio button if there *is*
-         * a corresponding radio button with a matching value. If there is *not* such a corresponding
-         * radio button, this value persists to be applied in case a new radio button is added with a
-         * matching value.
+         * Selected value for the radio group.
          */
         this._value = null;
         /**
@@ -135,7 +132,10 @@ class MatRadioGroup extends _MatRadioGroupMixinBase {
         this._markRadiosForCheck();
     }
     /**
-     * Value of the radio button.
+     * Value for the radio-group. Should equal the value of the selected radio button if there is
+     * a corresponding radio button with a matching value. If there is not such a corresponding
+     * radio button, this value persists to be applied in case a new radio button is added with a
+     * matching value.
      * @return {?}
      */
     get value() { return this._value; }
@@ -160,7 +160,8 @@ class MatRadioGroup extends _MatRadioGroupMixinBase {
         }
     }
     /**
-     * Whether the radio button is selected.
+     * The currently selected radio button. If set to a new radio button, the radio group value
+     * will be updated to match the new selected button.
      * @return {?}
      */
     get selected() { return this._selected; }
