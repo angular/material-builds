@@ -1006,6 +1006,23 @@ ErrorStateMatcher.decorators = [
  * More info at http://hammerjs.github.io/api/.
  */
 const /** @type {?} */ MAT_HAMMER_OPTIONS = new InjectionToken('MAT_HAMMER_OPTIONS');
+const /** @type {?} */ ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
+    'longpress',
+    'slide',
+    'slidestart',
+    'slideend',
+    'slideright',
+    'slideleft'
+];
+const ɵ0$2 = () => { }, ɵ1 = () => { };
+/**
+ * Fake HammerInstance that is used when a Hammer instance is requested when HammerJS has not
+ * been loaded on the page.
+ */
+const /** @type {?} */ noopHammerInstance = {
+    on: ɵ0$2,
+    off: ɵ1,
+};
 /**
  * Adjusts configuration of our gesture library, Hammer.
  */
@@ -1017,18 +1034,10 @@ class GestureConfig extends HammerGestureConfig {
     constructor(_hammerOptions, commonModule) {
         super();
         this._hammerOptions = _hammerOptions;
-        this._hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
         /**
          * List of new event names to add to the gesture support list
          */
-        this.events = this._hammer ? [
-            'longpress',
-            'slide',
-            'slidestart',
-            'slideend',
-            'slideright',
-            'slideleft'
-        ] : [];
+        this.events = ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES;
         if (commonModule) {
             commonModule._checkHammerIsAvailable();
         }
@@ -1047,11 +1056,23 @@ class GestureConfig extends HammerGestureConfig {
      * @return {?} Newly-created HammerJS instance.
      */
     buildHammer(element) {
-        const /** @type {?} */ mc = new this._hammer(element, this._hammerOptions || undefined);
+        const /** @type {?} */ hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
+        if (!hammer) {
+            // If HammerJS is not loaded here, return the noop HammerInstance. This is necessary to
+            // ensure that omitting HammerJS completely will not cause any errors while *also* supporting
+            // the lazy-loading of HammerJS via the HAMMER_LOADER token introduced in Angular 6.1.
+            // Because we can't depend on HAMMER_LOADER's existance until 7.0, we have to always set
+            // `this.events` to the set we support, instead of conditionally setting it to `[]` if
+            // `HAMMER_LOADER` is present (and then throwing an Error here if `window.Hammer` is
+            // undefined).
+            // @deletion-target 7.0.0
+            return noopHammerInstance;
+        }
+        const /** @type {?} */ mc = new hammer(element, this._hammerOptions || undefined);
         // Default Hammer Recognizers.
-        const /** @type {?} */ pan = new this._hammer.Pan();
-        const /** @type {?} */ swipe = new this._hammer.Swipe();
-        const /** @type {?} */ press = new this._hammer.Press();
+        const /** @type {?} */ pan = new hammer.Pan();
+        const /** @type {?} */ swipe = new hammer.Swipe();
+        const /** @type {?} */ press = new hammer.Press();
         // Notice that a HammerJS recognizer can only depend on one other recognizer once.
         // Otherwise the previous `recognizeWith` will be dropped.
         // TODO: Confirm threshold numbers with Material Design UX Team

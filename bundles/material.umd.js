@@ -1373,6 +1373,23 @@ var ErrorStateMatcher = /** @class */ (function () {
  * More info at http://hammerjs.github.io/api/.
  */
 var /** @type {?} */ MAT_HAMMER_OPTIONS = new core.InjectionToken('MAT_HAMMER_OPTIONS');
+var /** @type {?} */ ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
+    'longpress',
+    'slide',
+    'slidestart',
+    'slideend',
+    'slideright',
+    'slideleft'
+];
+var ɵ0$2 = function () { }, ɵ1 = function () { };
+/**
+ * Fake HammerInstance that is used when a Hammer instance is requested when HammerJS has not
+ * been loaded on the page.
+ */
+var /** @type {?} */ noopHammerInstance = {
+    on: ɵ0$2,
+    off: ɵ1,
+};
 /**
  * Adjusts configuration of our gesture library, Hammer.
  */
@@ -1381,18 +1398,10 @@ var GestureConfig = /** @class */ (function (_super) {
     function GestureConfig(_hammerOptions, commonModule) {
         var _this = _super.call(this) || this;
         _this._hammerOptions = _hammerOptions;
-        _this._hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
         /**
          * List of new event names to add to the gesture support list
          */
-        _this.events = _this._hammer ? [
-            'longpress',
-            'slide',
-            'slidestart',
-            'slideend',
-            'slideright',
-            'slideleft'
-        ] : [];
+        _this.events = ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES;
         if (commonModule) {
             commonModule._checkHammerIsAvailable();
         }
@@ -1438,11 +1447,23 @@ var GestureConfig = /** @class */ (function (_super) {
      * @return {?} Newly-created HammerJS instance.
      */
     function (element) {
-        var /** @type {?} */ mc = new this._hammer(element, this._hammerOptions || undefined);
+        var /** @type {?} */ hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
+        if (!hammer) {
+            // If HammerJS is not loaded here, return the noop HammerInstance. This is necessary to
+            // ensure that omitting HammerJS completely will not cause any errors while *also* supporting
+            // the lazy-loading of HammerJS via the HAMMER_LOADER token introduced in Angular 6.1.
+            // Because we can't depend on HAMMER_LOADER's existance until 7.0, we have to always set
+            // `this.events` to the set we support, instead of conditionally setting it to `[]` if
+            // `HAMMER_LOADER` is present (and then throwing an Error here if `window.Hammer` is
+            // undefined).
+            // @deletion-target 7.0.0
+            return noopHammerInstance;
+        }
+        var /** @type {?} */ mc = new hammer(element, this._hammerOptions || undefined);
         // Default Hammer Recognizers.
-        var /** @type {?} */ pan = new this._hammer.Pan();
-        var /** @type {?} */ swipe = new this._hammer.Swipe();
-        var /** @type {?} */ press = new this._hammer.Press();
+        var /** @type {?} */ pan = new hammer.Pan();
+        var /** @type {?} */ swipe = new hammer.Swipe();
+        var /** @type {?} */ press = new hammer.Press();
         // Notice that a HammerJS recognizer can only depend on one other recognizer once.
         // Otherwise the previous `recognizeWith` will be dropped.
         // TODO: Confirm threshold numbers with Material Design UX Team
@@ -9170,7 +9191,7 @@ var /** @type {?} */ CHIP_DECLARATIONS = [
     MatChipAvatar,
     MatChipTrailingIcon,
 ];
-var ɵ0$2 = {
+var ɵ0$3 = {
     separatorKeyCodes: [keycodes.ENTER]
 };
 var MatChipsModule = /** @class */ (function () {
@@ -9184,7 +9205,7 @@ var MatChipsModule = /** @class */ (function () {
                         ErrorStateMatcher,
                         {
                             provide: MAT_CHIPS_DEFAULT_OPTIONS,
-                            useValue: /** @type {?} */ ((ɵ0$2))
+                            useValue: /** @type {?} */ ((ɵ0$3))
                         }
                     ]
                 },] },
@@ -14423,7 +14444,7 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * Counter for generating unique element ids.
  */
 var /** @type {?} */ uniqueId$1 = 0;
-var ɵ0$3 = undefined;
+var ɵ0$4 = undefined;
 /**
  * `<mat-expansion-panel>`
  *
@@ -14577,7 +14598,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     providers: [
                         // Provide MatAccordion as undefined to prevent nested expansion panels from registering
                         // to the same accordion.
-                        { provide: MatAccordion, useValue: ɵ0$3 },
+                        { provide: MatAccordion, useValue: ɵ0$4 },
                     ],
                     host: {
                         'class': 'mat-expansion-panel',
@@ -32636,7 +32657,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.3-e1fd13a');
+var /** @type {?} */ VERSION = new core.Version('6.3.3-eed6110');
 
 exports.VERSION = VERSION;
 exports.ɵa27 = MatAutocompleteOrigin;
@@ -32888,12 +32909,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33023,17 +33044,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
