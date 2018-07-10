@@ -631,7 +631,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             this._resetActiveItem();
             event.preventDefault();
         }
-        else {
+        else if (this.autocomplete) {
             var /** @type {?} */ prevActiveItem = this.autocomplete._keyManager.activeItem;
             var /** @type {?} */ isArrowKey = keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW;
             if (this.panelOpen || keyCode === keycodes.TAB) {
