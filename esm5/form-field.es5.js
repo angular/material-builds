@@ -306,6 +306,10 @@ var MatFormField = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
+            // If we're switching to `outline` from another appearance, we have to recalculate the gap.
+            if (value !== this._appearance && value === 'outline') {
+                this._initialGapCalculated = false;
+            }
             this._appearance = value;
         },
         enumerable: true,
