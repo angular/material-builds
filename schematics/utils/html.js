@@ -10,7 +10,7 @@ const change_1 = require("./devkit-utils/change");
  * @param src the src path of the html file to parse
  */
 function getHeadTag(host, src) {
-    const document = parse5.parse(src, { locationInfo: true });
+    const document = parse5.parse(src, { sourceCodeLocationInfo: true });
     let head;
     const visit = (nodes) => {
         nodes.forEach(node => {
@@ -30,7 +30,7 @@ function getHeadTag(host, src) {
         throw new schematics_1.SchematicsException('Head element not found!');
     }
     return {
-        position: head.__location.startTag.endOffset
+        position: head.sourceCodeLocation.startTag.endOffset
     };
 }
 exports.getHeadTag = getHeadTag;
