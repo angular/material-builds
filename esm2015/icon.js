@@ -778,11 +778,11 @@ class MatIcon extends _MatIconMixinBase {
      */
     _clearSvgElement() {
         const /** @type {?} */ layoutElement = this._elementRef.nativeElement;
-        const /** @type {?} */ childCount = layoutElement.childNodes.length;
+        let /** @type {?} */ childCount = layoutElement.childNodes.length;
         // Remove existing non-element child nodes and SVGs, and add the new SVG element. Note that
         // we can't use innerHTML, because IE will throw if the element has a data binding.
-        for (let /** @type {?} */ i = 0; i < childCount; i++) {
-            const /** @type {?} */ child = layoutElement.childNodes[i];
+        while (childCount--) {
+            const /** @type {?} */ child = layoutElement.childNodes[childCount];
             // 1 corresponds to Node.ELEMENT_NODE. We remove all non-element nodes in order to get rid
             // of any loose text nodes, as well as any SVG elements in order to remove any old icons.
             if (child.nodeType !== 1 || child.nodeName.toLowerCase() === 'svg') {

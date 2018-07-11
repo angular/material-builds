@@ -415,9 +415,11 @@ var MatSlider = /** @class */ (function (_super) {
          */
         function () {
             var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
+            var /** @type {?} */ scale = this.vertical ? "1, " + (1 - this.percent) + ", 1" : 1 - this.percent + ", 1, 1";
             var /** @type {?} */ sign = this._invertMouseCoords ? '-' : '';
             return {
-                'transform': "translate" + axis + "(" + sign + this._thumbGap + "px) scale" + axis + "(" + (1 - this.percent) + ")"
+                // scale3d avoids some rendering issues in Chrome. See #12071.
+                transform: "translate" + axis + "(" + sign + this._thumbGap + "px) scale3d(" + scale + ")"
             };
         },
         enumerable: true,
@@ -431,9 +433,11 @@ var MatSlider = /** @class */ (function (_super) {
          */
         function () {
             var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
+            var /** @type {?} */ scale = this.vertical ? "1, " + this.percent + ", 1" : this.percent + ", 1, 1";
             var /** @type {?} */ sign = this._invertMouseCoords ? '' : '-';
             return {
-                'transform': "translate" + axis + "(" + sign + this._thumbGap + "px) scale" + axis + "(" + this.percent + ")"
+                // scale3d avoids some rendering issues in Chrome. See #12071.
+                transform: "translate" + axis + "(" + sign + this._thumbGap + "px) scale3d(" + scale + ")"
             };
         },
         enumerable: true,
