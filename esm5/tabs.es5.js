@@ -1441,7 +1441,13 @@ var MatTabGroup = /** @class */ (function (_super) {
             // Maintain the previously-selected tab if a new tab is added or removed.
             for (var /** @type {?} */ i = 0; i < tabs.length; i++) {
                 if (tabs[i].isActive) {
-                    _this._indexToSelect = i;
+                    // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
+                    // event, otherwise the consumer may end up in an infinite loop in some edge cases like
+                    // adding a tab within the `selectedIndexChange` event.
+                    // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
+                    // event, otherwise the consumer may end up in an infinite loop in some edge cases like
+                    // adding a tab within the `selectedIndexChange` event.
+                    _this._indexToSelect = _this._selectedIndex = i;
                     break;
                 }
             }
@@ -2037,5 +2043,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatTabBase as ɵf23, _MatTabMixinBase as ɵg23, MatTabHeaderBase as ɵb23, _MatTabHeaderMixinBase as ɵc23, MatTabLabelWrapperBase as ɵd23, _MatTabLabelWrapperMixinBase as ɵe23, MatTabLinkBase as ɵj23, MatTabNavBase as ɵh23, _MatTabLinkMixinBase as ɵk23, _MatTabNavMixinBase as ɵi23 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
 //# sourceMappingURL=tabs.es5.js.map

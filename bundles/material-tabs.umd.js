@@ -1457,7 +1457,13 @@ var MatTabGroup = /** @class */ (function (_super) {
             // Maintain the previously-selected tab if a new tab is added or removed.
             for (var /** @type {?} */ i = 0; i < tabs.length; i++) {
                 if (tabs[i].isActive) {
-                    _this._indexToSelect = i;
+                    // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
+                    // event, otherwise the consumer may end up in an infinite loop in some edge cases like
+                    // adding a tab within the `selectedIndexChange` event.
+                    // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
+                    // event, otherwise the consumer may end up in an infinite loop in some edge cases like
+                    // adding a tab within the `selectedIndexChange` event.
+                    _this._indexToSelect = _this._selectedIndex = i;
                     break;
                 }
             }
@@ -2055,17 +2061,17 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
