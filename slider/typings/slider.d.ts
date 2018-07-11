@@ -74,6 +74,12 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     readonly change: EventEmitter<MatSliderChange>;
     /** Event emitted when the slider thumb moves. */
     readonly input: EventEmitter<MatSliderChange>;
+    /**
+     * Emits when the raw value of the slider changes. This is here primarily
+     * to facilitate the two-way binding for the `value` input.
+     * @docs-private
+     */
+    readonly valueChange: EventEmitter<number | null>;
     /** The value to be used for display purposes. */
     readonly displayValue: string | number;
     /** set focus to the host element */

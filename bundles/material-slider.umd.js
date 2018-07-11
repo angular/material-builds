@@ -122,6 +122,12 @@ var MatSlider = /** @class */ (function (_super) {
          */
         _this.input = new core.EventEmitter();
         /**
+         * Emits when the raw value of the slider changes. This is here primarily
+         * to facilitate the two-way binding for the `value` input.
+         * \@docs-private
+         */
+        _this.valueChange = new core.EventEmitter();
+        /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
         _this.onTouched = function () { };
@@ -832,6 +838,7 @@ var MatSlider = /** @class */ (function (_super) {
      */
     function () {
         this._controlValueAccessorChangeFn(this.value);
+        this.valueChange.emit(this.value);
         this.change.emit(this._createChangeEvent());
     };
     /**
@@ -1107,6 +1114,7 @@ var MatSlider = /** @class */ (function (_super) {
         "vertical": [{ type: core.Input },],
         "change": [{ type: core.Output },],
         "input": [{ type: core.Output },],
+        "valueChange": [{ type: core.Output },],
         "_sliderWrapper": [{ type: core.ViewChild, args: ['sliderWrapper',] },],
     };
     return MatSlider;
