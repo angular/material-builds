@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef } from '@angular/core';
+import { Location } from '@angular/common';
 import { CanColor } from '@angular/material/core';
 /** @docs-private */
 export declare class MatProgressBarBase {
@@ -19,7 +20,17 @@ export declare const _MatProgressBarMixinBase: (new (...args: any[]) => CanColor
 export declare class MatProgressBar extends _MatProgressBarMixinBase implements CanColor {
     _elementRef: ElementRef;
     _animationMode: string | undefined;
-    constructor(_elementRef: ElementRef, _animationMode?: string | undefined);
+    /**
+     * Current page path. Used to prefix SVG references which
+     * won't work on Safari unless they're prefixed with the path.
+     */
+    _currentPath: string;
+    constructor(_elementRef: ElementRef, _animationMode?: string | undefined, 
+        /**
+         * @deprecated `location` parameter to be made required.
+         * @deletion-target 8.0.0
+         */
+        location?: Location);
     /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
     value: number;
     private _value;
