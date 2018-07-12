@@ -7,7 +7,7 @@
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
-import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, ViewEncapsulation, Optional, Inject, NgModule } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, ViewChild, ViewEncapsulation, Optional, Inject, Input, NgModule } from '@angular/core';
 import { MatRipple, mixinColor, mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
@@ -181,7 +181,10 @@ MatAnchor.decorators = [
              a[mat-mini-fab], a[mat-stroked-button], a[mat-flat-button]`,
                 exportAs: 'matButton, matAnchor',
                 host: {
-                    '[attr.tabindex]': 'disabled ? -1 : 0',
+                    // Note that we ignore the user-specified tabindex when it's disabled for
+                    // consistency with the `mat-button` applied on native buttons where even
+                    // though they have an index, they're not tabbable.
+                    '[attr.tabindex]': 'disabled ? -1 : (tabIndex || 0)',
                     '[attr.disabled]': 'disabled || null',
                     '[attr.aria-disabled]': 'disabled.toString()',
                     '(click)': '_haltDisabledEvents($event)',
@@ -201,6 +204,9 @@ MatAnchor.ctorParameters = () => [
     { type: ElementRef, },
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
 ];
+MatAnchor.propDecorators = {
+    "tabIndex": [{ type: Input },],
+};
 
 /**
  * @fileoverview added by tsickle

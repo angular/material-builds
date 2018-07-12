@@ -117,12 +117,14 @@ class MatCommonModule {
      * @return {?}
      */
     _checkThemeIsPresent() {
-        if (this._document && typeof getComputedStyle === 'function') {
+        // We need to assert that the `body` is defined, because these checks run very early
+        // and the `body` won't be defined if the consumer put their scripts in the `head`.
+        if (this._document && this._document.body && typeof getComputedStyle === 'function') {
             const /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
             const /** @type {?} */ computedStyle = getComputedStyle(testElement);
-            // In some situations, the computed style of the test element can be null. For example in
+            // In some situations the computed style of the test element can be null. For example in
             // Firefox, the computed style is null if an application is running inside of a hidden iframe.
             // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
             if (computedStyle && computedStyle.display !== 'none') {

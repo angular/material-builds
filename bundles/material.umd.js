@@ -170,12 +170,14 @@ var MatCommonModule = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (this._document && typeof getComputedStyle === 'function') {
+        // We need to assert that the `body` is defined, because these checks run very early
+        // and the `body` won't be defined if the consumer put their scripts in the `head`.
+        if (this._document && this._document.body && typeof getComputedStyle === 'function') {
             var /** @type {?} */ testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
             var /** @type {?} */ computedStyle = getComputedStyle(testElement);
-            // In some situations, the computed style of the test element can be null. For example in
+            // In some situations the computed style of the test element can be null. For example in
             // Firefox, the computed style is null if an application is running inside of a hidden iframe.
             // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
             if (computedStyle && computedStyle.display !== 'none') {
@@ -4968,6 +4970,10 @@ MatBottomSheetConfig = /** @class */ (function () {
          * Aria label to assign to the bottom sheet element.
          */
         this.ariaLabel = null;
+        /**
+         * Whether the bottom sheet should close when the user goes backwards/forwards in history.
+         */
+        this.closeOnNavigation = true;
     }
     return MatBottomSheetConfig;
 }());
@@ -5293,7 +5299,7 @@ var   /**
  * @template T, R
  */
 MatBottomSheetRef = /** @class */ (function () {
-    function MatBottomSheetRef(containerInstance, _overlayRef) {
+    function MatBottomSheetRef(containerInstance, _overlayRef, location) {
         var _this = this;
         this._overlayRef = _overlayRef;
         /**
@@ -5304,6 +5310,10 @@ MatBottomSheetRef = /** @class */ (function () {
          * Subject for notifying the user that the bottom sheet has opened and appeared.
          */
         this._afterOpened = new rxjs.Subject();
+        /**
+         * Subscription to changes in the user's location.
+         */
+        this._locationChanges = rxjs.Subscription.EMPTY;
         this.containerInstance = containerInstance;
         // Emit when opening animation completes
         containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), operators.take(1))
@@ -5314,12 +5324,20 @@ MatBottomSheetRef = /** @class */ (function () {
         // Dispose overlay when closing animation is complete
         containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), operators.take(1))
             .subscribe(function () {
+            _this._locationChanges.unsubscribe();
             _this._overlayRef.dispose();
             _this._afterDismissed.next(_this._result);
             _this._afterDismissed.complete();
         });
         if (!containerInstance.bottomSheetConfig.disableClose) {
             rxjs.merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
+        }
+        if (location) {
+            this._locationChanges = location.subscribe(function () {
+                if (containerInstance.bottomSheetConfig.closeOnNavigation) {
+                    _this.dismiss();
+                }
+            });
         }
     }
     /**
@@ -5408,10 +5426,11 @@ MatBottomSheetRef = /** @class */ (function () {
  * Service to trigger Material Design bottom sheets.
  */
 var MatBottomSheet = /** @class */ (function () {
-    function MatBottomSheet(_overlay, _injector, _parentBottomSheet) {
+    function MatBottomSheet(_overlay, _injector, _parentBottomSheet, _location) {
         this._overlay = _overlay;
         this._injector = _injector;
         this._parentBottomSheet = _parentBottomSheet;
+        this._location = _location;
         this._bottomSheetRefAtThisLevel = null;
     }
     Object.defineProperty(MatBottomSheet.prototype, "_openedBottomSheetRef", {
@@ -5456,7 +5475,7 @@ var MatBottomSheet = /** @class */ (function () {
         var /** @type {?} */ _config = _applyConfigDefaults(config);
         var /** @type {?} */ overlayRef = this._createOverlay(_config);
         var /** @type {?} */ container = this._attachContainer(overlayRef, _config);
-        var /** @type {?} */ ref = new MatBottomSheetRef(container, overlayRef);
+        var /** @type {?} */ ref = new MatBottomSheetRef(container, overlayRef, this._location);
         if (componentOrTemplateRef instanceof core.TemplateRef) {
             container.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({
                 $implicit: _config.data,
@@ -5588,8 +5607,9 @@ var MatBottomSheet = /** @class */ (function () {
         { type: overlay.Overlay, },
         { type: core.Injector, },
         { type: MatBottomSheet, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
+        { type: common.Location, decorators: [{ type: core.Optional },] },
     ]; };
-    /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.inject(overlay.Overlay), core.inject(core.INJECTOR), core.inject(MatBottomSheet, 12)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+    /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.inject(overlay.Overlay), core.inject(core.INJECTOR), core.inject(MatBottomSheet, 12), core.inject(common.Location, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
     return MatBottomSheet;
 }());
 /**
@@ -5789,7 +5809,10 @@ var MatAnchor = /** @class */ (function (_super) {
         { type: core.Component, args: [{selector: "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab],\n             a[mat-mini-fab], a[mat-stroked-button], a[mat-flat-button]",
                     exportAs: 'matButton, matAnchor',
                     host: {
-                        '[attr.tabindex]': 'disabled ? -1 : 0',
+                        // Note that we ignore the user-specified tabindex when it's disabled for
+                        // consistency with the `mat-button` applied on native buttons where even
+                        // though they have an index, they're not tabbable.
+                        '[attr.tabindex]': 'disabled ? -1 : (tabIndex || 0)',
                         '[attr.disabled]': 'disabled || null',
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '(click)': '_haltDisabledEvents($event)',
@@ -5809,6 +5832,9 @@ var MatAnchor = /** @class */ (function (_super) {
         { type: core.ElementRef, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
     ]; };
+    MatAnchor.propDecorators = {
+        "tabIndex": [{ type: core.Input },],
+    };
     return MatAnchor;
 }(MatButton));
 
@@ -11243,7 +11269,7 @@ var MatCalendarBody = /** @class */ (function () {
     };
     MatCalendarBody.decorators = [
         { type: core.Component, args: [{selector: '[mat-calendar-body]',
-                    template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" (click)=\"_cellClicked(item)\" [style.width.%]=\"100 / numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
+                    template: "<tr *ngIf=\"_firstRowOffset < labelMinRequiredCells\" aria-hidden=\"true\"><td class=\"mat-calendar-body-label\" [attr.colspan]=\"numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{label}}</td></tr><tr *ngFor=\"let row of rows; let rowIndex = index\" role=\"row\"><td *ngIf=\"rowIndex === 0 && _firstRowOffset\" aria-hidden=\"true\" class=\"mat-calendar-body-label\" [attr.colspan]=\"_firstRowOffset\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\">{{_firstRowOffset >= labelMinRequiredCells ? label : ''}}</td><td *ngFor=\"let item of row; let colIndex = index\" role=\"gridcell\" class=\"mat-calendar-body-cell\" [tabindex]=\"_isActiveCell(rowIndex, colIndex) ? 0 : -1\" [class.mat-calendar-body-disabled]=\"!item.enabled\" [class.mat-calendar-body-active]=\"_isActiveCell(rowIndex, colIndex)\" [attr.aria-label]=\"item.ariaLabel\" [attr.aria-disabled]=\"!item.enabled || null\" [attr.aria-selected]=\"selectedValue === item.value\" (click)=\"_cellClicked(item)\" [style.width.%]=\"100 / numCols\" [style.paddingTop.%]=\"50 * cellAspectRatio / numCols\" [style.paddingBottom.%]=\"50 * cellAspectRatio / numCols\"><div class=\"mat-calendar-body-cell-content\" [class.mat-calendar-body-selected]=\"selectedValue === item.value\" [class.mat-calendar-body-today]=\"todayValue === item.value\">{{item.displayValue}}</div></td></tr>",
                     styles: [".mat-calendar-body{min-width:224px}.mat-calendar-body-label{height:0;line-height:0;text-align:left;padding-left:4.71429%;padding-right:4.71429%}.mat-calendar-body-cell{position:relative;height:0;line-height:0;text-align:center;outline:0;cursor:pointer}.mat-calendar-body-disabled{cursor:default}.mat-calendar-body-cell-content{position:absolute;top:5%;left:5%;display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:90%;height:90%;line-height:1;border-width:1px;border-style:solid;border-radius:999px}@media screen and (-ms-high-contrast:active){.mat-calendar-body-cell-content{border:none}}@media screen and (-ms-high-contrast:active){.mat-calendar-body-selected,.mat-datepicker-popup:not(:empty){outline:solid 1px}.mat-calendar-body-today{outline:dotted 1px}}[dir=rtl] .mat-calendar-body-label{text-align:right}"],
                     host: {
                         'class': 'mat-calendar-body',
@@ -12545,10 +12571,11 @@ var MatCalendarHeader = /** @class */ (function () {
  * @template D
  */
 var MatCalendar = /** @class */ (function () {
-    function MatCalendar(_intl, _dateAdapter, _dateFormats, changeDetectorRef) {
+    function MatCalendar(_intl, _dateAdapter, _dateFormats, _changeDetectorRef) {
         var _this = this;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
+        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Used for scheduling that focus should be moved to the active cell on the next tick.
          * We need to schedule it, rather than do it immediately, because we have to wait
@@ -12588,7 +12615,7 @@ var MatCalendar = /** @class */ (function () {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
         this._intlChanges = _intl.changes.subscribe(function () {
-            changeDetectorRef.markForCheck();
+            _changeDetectorRef.markForCheck();
             _this.stateChanges.next();
         });
     }
@@ -12743,6 +12770,9 @@ var MatCalendar = /** @class */ (function () {
         if (change && !change.firstChange) {
             var /** @type {?} */ view = this._getCurrentViewComponent();
             if (view) {
+                // We need to `detectChanges` manually here, because the `minDate`, `maxDate` etc. are
+                // passed down to the view via data bindings which won't be up-to-date when we call `_init`.
+                this._changeDetectorRef.detectChanges();
                 view._init();
             }
         }
@@ -17964,9 +17994,7 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (isDisabled) {
-        if (this.options) {
-            this.options.forEach(function (option) { return option.disabled = isDisabled; });
-        }
+        this.disabled = isDisabled;
     };
     /** Implemented as part of ControlValueAccessor. */
     /**
@@ -32692,10 +32720,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.3-04934b4');
+var /** @type {?} */ VERSION = new core.Version('6.3.3-b1d4fe1');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32944,12 +32972,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb21 = MatMenuItemBase;
-exports.ɵc21 = _MatMenuItemMixinBase;
-exports.ɵf21 = MAT_MENU_PANEL;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

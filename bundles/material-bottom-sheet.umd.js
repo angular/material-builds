@@ -85,6 +85,10 @@ MatBottomSheetConfig = /** @class */ (function () {
          * Aria label to assign to the bottom sheet element.
          */
         this.ariaLabel = null;
+        /**
+         * Whether the bottom sheet should close when the user goes backwards/forwards in history.
+         */
+        this.closeOnNavigation = true;
     }
     return MatBottomSheetConfig;
 }());
@@ -410,7 +414,7 @@ var   /**
  * @template T, R
  */
 MatBottomSheetRef = /** @class */ (function () {
-    function MatBottomSheetRef(containerInstance, _overlayRef) {
+    function MatBottomSheetRef(containerInstance, _overlayRef, location) {
         var _this = this;
         this._overlayRef = _overlayRef;
         /**
@@ -421,6 +425,10 @@ MatBottomSheetRef = /** @class */ (function () {
          * Subject for notifying the user that the bottom sheet has opened and appeared.
          */
         this._afterOpened = new rxjs.Subject();
+        /**
+         * Subscription to changes in the user's location.
+         */
+        this._locationChanges = rxjs.Subscription.EMPTY;
         this.containerInstance = containerInstance;
         // Emit when opening animation completes
         containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'visible'; }), operators.take(1))
@@ -431,12 +439,20 @@ MatBottomSheetRef = /** @class */ (function () {
         // Dispose overlay when closing animation is complete
         containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'hidden'; }), operators.take(1))
             .subscribe(function () {
+            _this._locationChanges.unsubscribe();
             _this._overlayRef.dispose();
             _this._afterDismissed.next(_this._result);
             _this._afterDismissed.complete();
         });
         if (!containerInstance.bottomSheetConfig.disableClose) {
             rxjs.merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE; }))).subscribe(function () { return _this.dismiss(); });
+        }
+        if (location) {
+            this._locationChanges = location.subscribe(function () {
+                if (containerInstance.bottomSheetConfig.closeOnNavigation) {
+                    _this.dismiss();
+                }
+            });
         }
     }
     /**
@@ -525,10 +541,11 @@ MatBottomSheetRef = /** @class */ (function () {
  * Service to trigger Material Design bottom sheets.
  */
 var MatBottomSheet = /** @class */ (function () {
-    function MatBottomSheet(_overlay, _injector, _parentBottomSheet) {
+    function MatBottomSheet(_overlay, _injector, _parentBottomSheet, _location) {
         this._overlay = _overlay;
         this._injector = _injector;
         this._parentBottomSheet = _parentBottomSheet;
+        this._location = _location;
         this._bottomSheetRefAtThisLevel = null;
     }
     Object.defineProperty(MatBottomSheet.prototype, "_openedBottomSheetRef", {
@@ -573,7 +590,7 @@ var MatBottomSheet = /** @class */ (function () {
         var /** @type {?} */ _config = _applyConfigDefaults(config);
         var /** @type {?} */ overlayRef = this._createOverlay(_config);
         var /** @type {?} */ container = this._attachContainer(overlayRef, _config);
-        var /** @type {?} */ ref = new MatBottomSheetRef(container, overlayRef);
+        var /** @type {?} */ ref = new MatBottomSheetRef(container, overlayRef, this._location);
         if (componentOrTemplateRef instanceof core.TemplateRef) {
             container.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({
                 $implicit: _config.data,
@@ -705,8 +722,9 @@ var MatBottomSheet = /** @class */ (function () {
         { type: overlay.Overlay, },
         { type: core.Injector, },
         { type: MatBottomSheet, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
+        { type: common.Location, decorators: [{ type: core.Optional },] },
     ]; };
-    /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.inject(overlay.Overlay), core.inject(core.INJECTOR), core.inject(MatBottomSheet, 12)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+    /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.inject(overlay.Overlay), core.inject(core.INJECTOR), core.inject(MatBottomSheet, 12), core.inject(common.Location, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
     return MatBottomSheet;
 }());
 /**

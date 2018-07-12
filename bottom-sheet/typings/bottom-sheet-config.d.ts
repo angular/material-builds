@@ -29,4 +29,6 @@ export declare class MatBottomSheetConfig<D = any> {
     disableClose?: boolean;
     /** Aria label to assign to the bottom sheet element. */
     ariaLabel?: string | null;
+    /** Whether the bottom sheet should close when the user goes backwards/forwards in history. */
+    closeOnNavigation?: boolean;
 }

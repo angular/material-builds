@@ -50,6 +50,8 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
  * Raised Material design button.
  */
 export declare class MatAnchor extends MatButton {
+    /** Tabindex of the button. */
+    tabIndex: number;
     constructor(platform: Platform, focusMonitor: FocusMonitor, elementRef: ElementRef, animationMode?: string);
     _haltDisabledEvents(event: Event): void;
 }

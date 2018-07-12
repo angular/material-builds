@@ -10,11 +10,11 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
 import { BasePortalOutlet, CdkPortalOutlet, PortalModule, ComponentPortal, PortalInjector, TemplatePortal } from '@angular/cdk/portal';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { DOCUMENT, CommonModule } from '@angular/common';
+import { DOCUMENT, CommonModule, Location } from '@angular/common';
 import { FocusTrapFactory } from '@angular/cdk/a11y';
 import { OverlayModule, Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { ESCAPE } from '@angular/cdk/keycodes';
-import { merge, Subject, of } from 'rxjs';
+import { merge, Subject, Subscription, of } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 
@@ -48,6 +48,10 @@ class MatBottomSheetConfig {
          * Aria label to assign to the bottom sheet element.
          */
         this.ariaLabel = null;
+        /**
+         * Whether the bottom sheet should close when the user goes backwards/forwards in history.
+         */
+        this.closeOnNavigation = true;
     }
 }
 
@@ -314,8 +318,9 @@ class MatBottomSheetRef {
     /**
      * @param {?} containerInstance
      * @param {?} _overlayRef
+     * @param {?=} location
      */
-    constructor(containerInstance, _overlayRef) {
+    constructor(containerInstance, _overlayRef, location) {
         this._overlayRef = _overlayRef;
         /**
          * Subject for notifying the user that the bottom sheet has been dismissed.
@@ -325,6 +330,10 @@ class MatBottomSheetRef {
          * Subject for notifying the user that the bottom sheet has opened and appeared.
          */
         this._afterOpened = new Subject();
+        /**
+         * Subscription to changes in the user's location.
+         */
+        this._locationChanges = Subscription.EMPTY;
         this.containerInstance = containerInstance;
         // Emit when opening animation completes
         containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'visible'), take(1))
@@ -335,12 +344,20 @@ class MatBottomSheetRef {
         // Dispose overlay when closing animation is complete
         containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'hidden'), take(1))
             .subscribe(() => {
+            this._locationChanges.unsubscribe();
             this._overlayRef.dispose();
             this._afterDismissed.next(this._result);
             this._afterDismissed.complete();
         });
         if (!containerInstance.bottomSheetConfig.disableClose) {
             merge(_overlayRef.backdropClick(), _overlayRef.keydownEvents().pipe(filter(event => event.keyCode === ESCAPE))).subscribe(() => this.dismiss());
+        }
+        if (location) {
+            this._locationChanges = location.subscribe(() => {
+                if (containerInstance.bottomSheetConfig.closeOnNavigation) {
+                    this.dismiss();
+                }
+            });
         }
     }
     /**
@@ -398,11 +415,13 @@ class MatBottomSheet {
      * @param {?} _overlay
      * @param {?} _injector
      * @param {?} _parentBottomSheet
+     * @param {?=} _location
      */
-    constructor(_overlay, _injector, _parentBottomSheet) {
+    constructor(_overlay, _injector, _parentBottomSheet, _location) {
         this._overlay = _overlay;
         this._injector = _injector;
         this._parentBottomSheet = _parentBottomSheet;
+        this._location = _location;
         this._bottomSheetRefAtThisLevel = null;
     }
     /**
@@ -435,7 +454,7 @@ class MatBottomSheet {
         const /** @type {?} */ _config = _applyConfigDefaults(config);
         const /** @type {?} */ overlayRef = this._createOverlay(_config);
         const /** @type {?} */ container = this._attachContainer(overlayRef, _config);
-        const /** @type {?} */ ref = new MatBottomSheetRef(container, overlayRef);
+        const /** @type {?} */ ref = new MatBottomSheetRef(container, overlayRef, this._location);
         if (componentOrTemplateRef instanceof TemplateRef) {
             container.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({
                 $implicit: _config.data,
@@ -543,8 +562,9 @@ MatBottomSheet.ctorParameters = () => [
     { type: Overlay, },
     { type: Injector, },
     { type: MatBottomSheet, decorators: [{ type: Optional }, { type: SkipSelf },] },
+    { type: Location, decorators: [{ type: Optional },] },
 ];
-/** @nocollapse */ MatBottomSheet.ngInjectableDef = defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(inject(Overlay), inject(INJECTOR), inject(MatBottomSheet, 12)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
+/** @nocollapse */ MatBottomSheet.ngInjectableDef = defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(inject(Overlay), inject(INJECTOR), inject(MatBottomSheet, 12), inject(Location, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
 /**
  * Applies default options to the bottom sheet config.
  * @param {?=} config The configuration to which the defaults will be applied.

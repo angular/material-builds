@@ -842,9 +842,7 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (isDisabled) {
-        if (this.options) {
-            this.options.forEach(function (option) { return option.disabled = isDisabled; });
-        }
+        this.disabled = isDisabled;
     };
     /** Implemented as part of ControlValueAccessor. */
     /**

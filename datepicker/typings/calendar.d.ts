@@ -52,6 +52,7 @@ export declare class MatCalendarHeader<D> {
 export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecked, OnDestroy, OnChanges {
     private _dateAdapter;
     private _dateFormats;
+    private _changeDetectorRef;
     /** An input indicating the type of the header component, if set. */
     headerComponent: ComponentType<any>;
     /** A portal containing the header component type for this calendar. */
@@ -112,7 +113,7 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
      * Emits whenever there is a state change that the header may need to respond to.
      */
     stateChanges: Subject<void>;
-    constructor(_intl: MatDatepickerIntl, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, changeDetectorRef: ChangeDetectorRef);
+    constructor(_intl: MatDatepickerIntl, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, _changeDetectorRef: ChangeDetectorRef);
     ngAfterContentInit(): void;
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;

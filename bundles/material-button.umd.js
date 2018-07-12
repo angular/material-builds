@@ -228,7 +228,10 @@ var MatAnchor = /** @class */ (function (_super) {
         { type: core.Component, args: [{selector: "a[mat-button], a[mat-raised-button], a[mat-icon-button], a[mat-fab],\n             a[mat-mini-fab], a[mat-stroked-button], a[mat-flat-button]",
                     exportAs: 'matButton, matAnchor',
                     host: {
-                        '[attr.tabindex]': 'disabled ? -1 : 0',
+                        // Note that we ignore the user-specified tabindex when it's disabled for
+                        // consistency with the `mat-button` applied on native buttons where even
+                        // though they have an index, they're not tabbable.
+                        '[attr.tabindex]': 'disabled ? -1 : (tabIndex || 0)',
                         '[attr.disabled]': 'disabled || null',
                         '[attr.aria-disabled]': 'disabled.toString()',
                         '(click)': '_haltDisabledEvents($event)',
@@ -248,6 +251,9 @@ var MatAnchor = /** @class */ (function (_super) {
         { type: core.ElementRef, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
     ]; };
+    MatAnchor.propDecorators = {
+        "tabIndex": [{ type: core.Input },],
+    };
     return MatAnchor;
 }(MatButton));
 

@@ -1,3 +1,11 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+import { Location } from '@angular/common';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Observable } from 'rxjs';
 import { MatBottomSheetContainer } from './bottom-sheet-container';
@@ -19,7 +27,9 @@ export declare class MatBottomSheetRef<T = any, R = any> {
     private readonly _afterOpened;
     /** Result to be passed down to the `afterDismissed` stream. */
     private _result;
-    constructor(containerInstance: MatBottomSheetContainer, _overlayRef: OverlayRef);
+    /** Subscription to changes in the user's location. */
+    private _locationChanges;
+    constructor(containerInstance: MatBottomSheetContainer, _overlayRef: OverlayRef, location?: Location);
     /**
      * Dismisses the bottom sheet.
      * @param result Data to be passed back to the bottom sheet opener.

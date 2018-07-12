@@ -1,6 +1,7 @@
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
 import { Injector, TemplateRef } from '@angular/core';
+import { Location } from '@angular/common';
 import { MatBottomSheetConfig } from './bottom-sheet-config';
 import { MatBottomSheetRef } from './bottom-sheet-ref';
 /**
@@ -10,10 +11,11 @@ export declare class MatBottomSheet {
     private _overlay;
     private _injector;
     private _parentBottomSheet;
+    private _location;
     private _bottomSheetRefAtThisLevel;
     /** Reference to the currently opened bottom sheet. */
     _openedBottomSheetRef: MatBottomSheetRef<any> | null;
-    constructor(_overlay: Overlay, _injector: Injector, _parentBottomSheet: MatBottomSheet);
+    constructor(_overlay: Overlay, _injector: Injector, _parentBottomSheet: MatBottomSheet, _location?: Location | undefined);
     open<T, D = any, R = any>(component: ComponentType<T>, config?: MatBottomSheetConfig<D>): MatBottomSheetRef<T, R>;
     open<T, D = any, R = any>(template: TemplateRef<T>, config?: MatBottomSheetConfig<D>): MatBottomSheetRef<T, R>;
     /**

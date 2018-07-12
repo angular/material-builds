@@ -642,9 +642,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      * @return {?}
      */
     setDisabledState(isDisabled) {
-        if (this.options) {
-            this.options.forEach(option => option.disabled = isDisabled);
-        }
+        this.disabled = isDisabled;
     }
     /**
      * Implemented as part of ControlValueAccessor.
