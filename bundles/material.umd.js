@@ -12571,11 +12571,10 @@ var MatCalendarHeader = /** @class */ (function () {
  * @template D
  */
 var MatCalendar = /** @class */ (function () {
-    function MatCalendar(_intl, _dateAdapter, _dateFormats, _changeDetectorRef) {
+    function MatCalendar(_intl, _dateAdapter, _dateFormats, changeDetectorRef) {
         var _this = this;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
-        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Used for scheduling that focus should be moved to the active cell on the next tick.
          * We need to schedule it, rather than do it immediately, because we have to wait
@@ -12615,7 +12614,7 @@ var MatCalendar = /** @class */ (function () {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
         this._intlChanges = _intl.changes.subscribe(function () {
-            _changeDetectorRef.markForCheck();
+            changeDetectorRef.markForCheck();
             _this.stateChanges.next();
         });
     }
@@ -12770,9 +12769,6 @@ var MatCalendar = /** @class */ (function () {
         if (change && !change.firstChange) {
             var /** @type {?} */ view = this._getCurrentViewComponent();
             if (view) {
-                // We need to `detectChanges` manually here, because the `minDate`, `maxDate` etc. are
-                // passed down to the view via data bindings which won't be up-to-date when we call `_init`.
-                this._changeDetectorRef.detectChanges();
                 view._init();
             }
         }
@@ -32720,10 +32716,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.3.3-b1d4fe1');
+var /** @type {?} */ VERSION = new core.Version('6.3.3-32da038');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -32972,12 +32968,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33107,17 +33103,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa20 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf20 = MatTabBase;
+exports.ɵg20 = _MatTabMixinBase;
+exports.ɵb20 = MatTabHeaderBase;
+exports.ɵc20 = _MatTabHeaderMixinBase;
+exports.ɵd20 = MatTabLabelWrapperBase;
+exports.ɵe20 = _MatTabLabelWrapperMixinBase;
+exports.ɵj20 = MatTabLinkBase;
+exports.ɵh20 = MatTabNavBase;
+exports.ɵk20 = _MatTabLinkMixinBase;
+exports.ɵi20 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
