@@ -1259,11 +1259,12 @@ class MatCalendar {
      * @param {?} _intl
      * @param {?} _dateAdapter
      * @param {?} _dateFormats
-     * @param {?} changeDetectorRef
+     * @param {?} _changeDetectorRef
      */
-    constructor(_intl, _dateAdapter, _dateFormats, changeDetectorRef) {
+    constructor(_intl, _dateAdapter, _dateFormats, _changeDetectorRef) {
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
+        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Used for scheduling that focus should be moved to the active cell on the next tick.
          * We need to schedule it, rather than do it immediately, because we have to wait
@@ -1303,7 +1304,7 @@ class MatCalendar {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
         this._intlChanges = _intl.changes.subscribe(() => {
-            changeDetectorRef.markForCheck();
+            _changeDetectorRef.markForCheck();
             this.stateChanges.next();
         });
     }
@@ -1416,6 +1417,9 @@ class MatCalendar {
         if (change && !change.firstChange) {
             const /** @type {?} */ view = this._getCurrentViewComponent();
             if (view) {
+                // We need to `detectChanges` manually here, because the `minDate`, `maxDate` etc. are
+                // passed down to the view via data bindings which won't be up-to-date when we call `_init`.
+                this._changeDetectorRef.detectChanges();
                 view._init();
             }
         }

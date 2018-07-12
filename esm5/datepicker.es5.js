@@ -1519,10 +1519,11 @@ var MatCalendarHeader = /** @class */ (function () {
  * @template D
  */
 var MatCalendar = /** @class */ (function () {
-    function MatCalendar(_intl, _dateAdapter, _dateFormats, changeDetectorRef) {
+    function MatCalendar(_intl, _dateAdapter, _dateFormats, _changeDetectorRef) {
         var _this = this;
         this._dateAdapter = _dateAdapter;
         this._dateFormats = _dateFormats;
+        this._changeDetectorRef = _changeDetectorRef;
         /**
          * Used for scheduling that focus should be moved to the active cell on the next tick.
          * We need to schedule it, rather than do it immediately, because we have to wait
@@ -1562,7 +1563,7 @@ var MatCalendar = /** @class */ (function () {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
         this._intlChanges = _intl.changes.subscribe(function () {
-            changeDetectorRef.markForCheck();
+            _changeDetectorRef.markForCheck();
             _this.stateChanges.next();
         });
     }
@@ -1717,6 +1718,9 @@ var MatCalendar = /** @class */ (function () {
         if (change && !change.firstChange) {
             var /** @type {?} */ view = this._getCurrentViewComponent();
             if (view) {
+                // We need to `detectChanges` manually here, because the `minDate`, `maxDate` etc. are
+                // passed down to the view via data bindings which won't be up-to-date when we call `_init`.
+                this._changeDetectorRef.detectChanges();
                 view._init();
             }
         }
