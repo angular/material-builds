@@ -343,8 +343,12 @@ var /** @type {?} */ matTabsAnimations = {
     translateTab: animations.trigger('translateTab', [
         // Note: transitions to `none` instead of 0, because some browsers might blur the content.
         animations.state('center, void, left-origin-center, right-origin-center', animations.style({ transform: 'none' })),
-        animations.state('left', animations.style({ transform: 'translate3d(-100%, 0, 0)' })),
-        animations.state('right', animations.style({ transform: 'translate3d(100%, 0, 0)' })),
+        // If the tab is either on the left or right, we additionally add a `min-height` of 1px
+        // in order to ensure that the element has a height before its state changes. This is
+        // necessary because Chrome does seem to skip the transition in RTL mode if the element does
+        // not have a static height and is not rendered. See related issue: #9465
+        animations.state('left', animations.style({ transform: 'translate3d(-100%, 0, 0)', minHeight: '1px' })),
+        animations.state('right', animations.style({ transform: 'translate3d(100%, 0, 0)', minHeight: '1px' })),
         animations.transition('* => left, * => right, left => center, right => center', animations.animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
         animations.transition('void => left-origin-center', [
             animations.style({ transform: 'translate3d(-100%, 0, 0)' }),
@@ -2064,17 +2068,17 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf22 = MatTabBase;
-exports.ɵg22 = _MatTabMixinBase;
-exports.ɵb22 = MatTabHeaderBase;
-exports.ɵc22 = _MatTabHeaderMixinBase;
-exports.ɵd22 = MatTabLabelWrapperBase;
-exports.ɵe22 = _MatTabLabelWrapperMixinBase;
-exports.ɵj22 = MatTabLinkBase;
-exports.ɵh22 = MatTabNavBase;
-exports.ɵk22 = _MatTabLinkMixinBase;
-exports.ɵi22 = _MatTabNavMixinBase;
+exports.ɵa21 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf21 = MatTabBase;
+exports.ɵg21 = _MatTabMixinBase;
+exports.ɵb21 = MatTabHeaderBase;
+exports.ɵc21 = _MatTabHeaderMixinBase;
+exports.ɵd21 = MatTabLabelWrapperBase;
+exports.ɵe21 = _MatTabLabelWrapperMixinBase;
+exports.ɵj21 = MatTabLinkBase;
+exports.ɵh21 = MatTabNavBase;
+exports.ɵk21 = _MatTabLinkMixinBase;
+exports.ɵi21 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -281,8 +281,12 @@ const /** @type {?} */ matTabsAnimations = {
     translateTab: trigger('translateTab', [
         // Note: transitions to `none` instead of 0, because some browsers might blur the content.
         state('center, void, left-origin-center, right-origin-center', style({ transform: 'none' })),
-        state('left', style({ transform: 'translate3d(-100%, 0, 0)' })),
-        state('right', style({ transform: 'translate3d(100%, 0, 0)' })),
+        // If the tab is either on the left or right, we additionally add a `min-height` of 1px
+        // in order to ensure that the element has a height before its state changes. This is
+        // necessary because Chrome does seem to skip the transition in RTL mode if the element does
+        // not have a static height and is not rendered. See related issue: #9465
+        state('left', style({ transform: 'translate3d(-100%, 0, 0)', minHeight: '1px' })),
+        state('right', style({ transform: 'translate3d(100%, 0, 0)', minHeight: '1px' })),
         transition('* => left, * => right, left => center, right => center', animate('500ms cubic-bezier(0.35, 0, 0.25, 1)')),
         transition('void => left-origin-center', [
             style({ transform: 'translate3d(-100%, 0, 0)' }),
@@ -1616,5 +1620,5 @@ MatTabsModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa22, MatTabBase as ɵf22, _MatTabMixinBase as ɵg22, MatTabHeaderBase as ɵb22, _MatTabHeaderMixinBase as ɵc22, MatTabLabelWrapperBase as ɵd22, _MatTabLabelWrapperMixinBase as ɵe22, MatTabLinkBase as ɵj22, MatTabNavBase as ɵh22, _MatTabLinkMixinBase as ɵk22, _MatTabNavMixinBase as ɵi22 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa21, MatTabBase as ɵf21, _MatTabMixinBase as ɵg21, MatTabHeaderBase as ɵb21, _MatTabHeaderMixinBase as ɵc21, MatTabLabelWrapperBase as ɵd21, _MatTabLabelWrapperMixinBase as ɵe21, MatTabLinkBase as ɵj21, MatTabNavBase as ɵh21, _MatTabLinkMixinBase as ɵk21, _MatTabNavMixinBase as ɵi21 };
 //# sourceMappingURL=tabs.js.map
