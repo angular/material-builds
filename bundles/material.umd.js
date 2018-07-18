@@ -4979,6 +4979,10 @@ MatBottomSheetConfig = /** @class */ (function () {
          * Whether the bottom sheet should close when the user goes backwards/forwards in history.
          */
         this.closeOnNavigation = true;
+        /**
+         * Whether the bottom sheet should focus the first focusable element on open.
+         */
+        this.autoFocus = true;
     }
     return MatBottomSheetConfig;
 }());
@@ -5125,11 +5129,11 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        if (event.toState === 'visible') {
-            this._trapFocus();
-        }
-        else if (event.toState === 'hidden') {
+        if (event.toState === 'hidden') {
             this._restoreFocus();
+        }
+        else if (event.toState === 'visible' && this.bottomSheetConfig.autoFocus) {
+            this._trapFocus();
         }
         this._animationStateChanged.emit(event);
     };
@@ -32779,7 +32783,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.0-b53b66a');
+var /** @type {?} */ VERSION = new core.Version('6.4.0-d6ca3ec');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
