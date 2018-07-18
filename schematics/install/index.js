@@ -1,4 +1,11 @@
 "use strict";
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
 const tasks_1 = require("@angular-devkit/schematics/tasks");
@@ -18,7 +25,8 @@ const parse5 = require("parse5");
  */
 function default_1(options) {
     if (!parse5) {
-        throw new schematics_1.SchematicsException('parse5 depedency not found! Please install parse5 from npm to continue.');
+        throw new schematics_1.SchematicsException('Parse5 is required but could not be found! Please install ' +
+            '"parse5" manually in order to continue.');
     }
     return schematics_1.chain([
         options && options.skipPackageJson ? schematics_1.noop() : addMaterialToPackageJson(),
@@ -66,7 +74,7 @@ function addBodyMarginToStyles(options) {
     return (host) => {
         const workspace = config_1.getWorkspace(host);
         const project = config_1.getProjectFromWorkspace(workspace, options.project);
-        const stylesPath = ast_1.getStylesPath(host, project);
+        const stylesPath = ast_1.getStylesPath(project);
         const buffer = host.read(stylesPath);
         if (buffer) {
             const src = buffer.toString();

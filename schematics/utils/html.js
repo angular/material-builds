@@ -1,4 +1,11 @@
 "use strict";
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
 const parse5 = require("parse5");
@@ -6,10 +13,9 @@ const ast_1 = require("./ast");
 const change_1 = require("./devkit-utils/change");
 /**
  * Parses the index.html file to get the HEAD tag position.
- * @param host the tree we are traversing
  * @param src the src path of the html file to parse
  */
-function getHeadTag(host, src) {
+function getHeadTag(src) {
     const document = parse5.parse(src, { sourceCodeLocationInfo: true });
     let head;
     const visit = (nodes) => {
@@ -42,14 +48,14 @@ exports.getHeadTag = getHeadTag;
  * @param link html element string we are inserting.
  */
 function addHeadLink(host, project, link) {
-    const indexPath = ast_1.getIndexHtmlPath(host, project);
+    const indexPath = ast_1.getIndexHtmlPath(project);
     const buffer = host.read(indexPath);
     if (!buffer) {
         throw new schematics_1.SchematicsException(`Could not find file for path: ${indexPath}`);
     }
     const src = buffer.toString();
     if (src.indexOf(link) === -1) {
-        const node = getHeadTag(host, src);
+        const node = getHeadTag(src);
         const insertion = new change_1.InsertChange(indexPath, node.position, link);
         const recorder = host.beginUpdate(indexPath);
         recorder.insertLeft(insertion.pos, insertion.toAdd);

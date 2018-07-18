@@ -1,4 +1,11 @@
 "use strict";
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
 const ast_1 = require("../utils/ast");
@@ -26,7 +33,7 @@ function addThemeToAppStyles(options) {
 exports.addThemeToAppStyles = addThemeToAppStyles;
 /** Insert a custom theme to styles.scss file. */
 function insertCustomTheme(project, host) {
-    const stylesPath = ast_1.getStylesPath(host, project);
+    const stylesPath = ast_1.getStylesPath(project);
     const buffer = host.read(stylesPath);
     if (buffer) {
         const insertion = new change_1.InsertChange(stylesPath, 0, custom_theme_1.createCustomTheme(project));

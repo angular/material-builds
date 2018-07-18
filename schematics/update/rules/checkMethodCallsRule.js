@@ -1,4 +1,11 @@
 "use strict";
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
@@ -25,12 +32,12 @@ class CheckMethodCallsWalker extends tslint_1.ProgramAwareRuleWalker {
     }
     visitCallExpression(expression) {
         if (expression.expression.kind !== ts.SyntaxKind.PropertyAccessExpression) {
-            const methodName = expression.getFirstToken().getText();
-            if (methodName === 'super') {
-                const type = this.getTypeChecker().getTypeAtLocation(expression.expression);
-                const className = type.symbol && type.symbol.name;
-                if (className) {
-                    this.checkConstructor(expression, className);
+            const functionName = expression.getFirstToken().getText();
+            if (functionName === 'super') {
+                const superClassType = this.getTypeChecker().getTypeAtLocation(expression.expression);
+                const superClassName = superClassType.symbol && superClassType.symbol.name;
+                if (superClassType) {
+                    this.checkConstructor(expression, superClassName);
                 }
             }
             return;

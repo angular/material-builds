@@ -1,4 +1,11 @@
 "use strict";
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const path_1 = require("path");
@@ -28,7 +35,7 @@ class SwitchIdentifiersWalker extends tslint_1.ProgramAwareRuleWalker {
     }
     /** Method that is called for every identifier inside of the specified project. */
     visitIdentifier(identifier) {
-        // Store Angular Material namespace identifers in a list of declarations.
+        // Store Angular Material namespace identifiers in a list of declarations.
         // Namespace identifiers can be: `import * as md from '@angular/material';`
         this._storeNamespaceImports(identifier);
         // For identifiers that aren't listed in the className data, the whole check can be
@@ -53,6 +60,9 @@ class SwitchIdentifiersWalker extends tslint_1.ProgramAwareRuleWalker {
         // should be stored so that other identifiers in the file can be compared.
         if (imports_1.isImportSpecifierNode(identifier) && typescript_specifiers_1.isMaterialImportDeclaration(identifier)) {
             this.materialDeclarations.push(symbol.valueDeclaration);
+            // For identifiers that are not part of an import or export, the list of Material declarations
+            // should be checked to ensure that only identifiers of Angular Material are updated.
+            // Identifiers that are imported through an Angular Material namespace will be updated.
         }
         else if (this.materialDeclarations.indexOf(symbol.valueDeclaration) === -1 &&
             !this._isIdentifierFromNamespace(identifier)) {

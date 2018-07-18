@@ -1,4 +1,11 @@
 "use strict";
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics");
@@ -47,7 +54,7 @@ function addModuleImportToModule(host, modulePath, moduleName, src) {
 }
 exports.addModuleImportToModule = addModuleImportToModule;
 /** Gets the app index.html file */
-function getIndexHtmlPath(host, project) {
+function getIndexHtmlPath(project) {
     const buildTarget = project.architect.build.options;
     if (buildTarget.index && buildTarget.index.endsWith('index.html')) {
         return buildTarget.index;
@@ -56,7 +63,7 @@ function getIndexHtmlPath(host, project) {
 }
 exports.getIndexHtmlPath = getIndexHtmlPath;
 /** Get the root stylesheet file. */
-function getStylesPath(host, project) {
+function getStylesPath(project) {
     const buildTarget = project.architect['build'];
     if (buildTarget.options && buildTarget.options.styles && buildTarget.options.styles.length) {
         const styles = buildTarget.options.styles.map(s => typeof s === 'string' ? s : s.input);

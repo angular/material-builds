@@ -1,4 +1,11 @@
 "use strict";
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * TSLint custom walker implementation that also visits external and inline templates.
@@ -14,10 +21,10 @@ const component_file_1 = require("./component-file");
  * the component metadata.
  */
 class ComponentWalker extends tslint_1.RuleWalker {
-    visitInlineTemplate(template) { }
-    visitInlineStylesheet(stylesheet) { }
-    visitExternalTemplate(template) { }
-    visitExternalStylesheet(stylesheet) { }
+    visitInlineTemplate(_template) { }
+    visitInlineStylesheet(_stylesheet) { }
+    visitExternalTemplate(_template) { }
+    visitExternalStylesheet(_stylesheet) { }
     constructor(sourceFile, options, skipFiles = []) {
         super(sourceFile, options);
         this.skipFiles = new Set(skipFiles.map(p => path_1.resolve(p)));
@@ -49,7 +56,8 @@ class ComponentWalker extends tslint_1.RuleWalker {
             if (propertyName === 'styles' && initializerKind === ts.SyntaxKind.ArrayLiteralExpression) {
                 this._reportInlineStyles(property.initializer);
             }
-            if (propertyName === 'styleUrls' && initializerKind === ts.SyntaxKind.ArrayLiteralExpression) {
+            if (propertyName === 'styleUrls' &&
+                initializerKind === ts.SyntaxKind.ArrayLiteralExpression) {
                 this._visitExternalStylesArrayLiteral(property.initializer);
             }
         }
