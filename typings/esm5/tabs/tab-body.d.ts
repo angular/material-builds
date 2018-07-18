@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { EventEmitter, OnDestroy, OnInit, ElementRef, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
+import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit, ElementRef, ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 import { TemplatePortal, CdkPortalOutlet, PortalHostDirective } from '@angular/cdk/portal';
 import { Directionality, Direction } from '@angular/cdk/bidi';
@@ -47,9 +47,15 @@ export declare class MatTabBodyPortal extends CdkPortalOutlet implements OnInit,
  * Wrapper for the contents of a tab.
  * @docs-private
  */
-export declare class MatTabBody implements OnInit {
+export declare class MatTabBody implements OnInit, OnDestroy {
     private _elementRef;
     private _dir;
+    /** Current position of the tab-body in the tab-group. Zero means that the tab is visible. */
+    private _positionIndex;
+    /** Subscription to the directionality change observable. */
+    private _dirChangeSubscription;
+    /** Tab body position state. Used by the animation trigger for the current state. */
+    _position: MatTabBodyPositionState;
     /** Event emitted when the tab begins to animate towards the center as the active tab. */
     readonly _onCentering: EventEmitter<number>;
     /** Event emitted before the centering of the tab begins. */
@@ -62,22 +68,32 @@ export declare class MatTabBody implements OnInit {
     _portalHost: PortalHostDirective;
     /** The tab body content to display. */
     _content: TemplatePortal;
+    /** Position that will be used when the tab is immediately becoming visible after creation. */
+    origin: number;
     /** The shifted index position of the tab body, where zero represents the active center tab. */
     position: number;
-    _position: MatTabBodyPositionState;
-    /** The origin position from which this tab should appear when it is centered into view. */
-    origin: number;
-    _origin: MatTabBodyOriginState;
-    constructor(_elementRef: ElementRef, _dir: Directionality);
+    constructor(_elementRef: ElementRef, _dir: Directionality, 
+        /**
+         * @deletion-target 7.0.0 changeDetectorRef to be made required.
+         */
+        changeDetectorRef?: ChangeDetectorRef);
     /**
      * After initialized, check if the content is centered and has an origin. If so, set the
      * special position states that transition the tab from the left or right before centering.
      */
     ngOnInit(): void;
+    ngOnDestroy(): void;
     _onTranslateTabStarted(e: AnimationEvent): void;
     _onTranslateTabComplete(e: AnimationEvent): void;
     /** The text direction of the containing app. */
     _getLayoutDirection(): Direction;
     /** Whether the provided position state is considered center, regardless of origin. */
     _isCenterPosition(position: MatTabBodyPositionState | string): boolean;
+    /** Computes the position state that will be used for the tab-body animation trigger. */
+    private _computePositionAnimationState(dir?);
+    /**
+     * Computes the position state based on the specified origin position. This is used if the
+     * tab is becoming visible immediately after creation.
+     */
+    private _computePositionFromOrigin();
 }

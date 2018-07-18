@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, ElementRef, Inject, InjectionToken, NgZone, TemplateRef, ViewContainerRef, ChangeDetectionStrategy, Component, ContentChild, Input, ViewChild, ViewEncapsulation, Output, EventEmitter, Optional, ComponentFactoryResolver, forwardRef, ChangeDetectorRef, ContentChildren, Attribute, NgModule } from '@angular/core';
+import { Directive, ElementRef, Inject, InjectionToken, NgZone, TemplateRef, ViewContainerRef, ChangeDetectionStrategy, Component, ContentChild, Input, ViewChild, ViewEncapsulation, ChangeDetectorRef, Output, EventEmitter, Optional, ComponentFactoryResolver, forwardRef, ContentChildren, Attribute, NgModule } from '@angular/core';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
 import { mixinDisabled, mixinDisableRipple, mixinColor, MAT_RIPPLE_GLOBAL_OPTIONS, mixinTabIndex, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { Subject, Subscription, merge, of } from 'rxjs';
@@ -371,10 +371,21 @@ class MatTabBody {
     /**
      * @param {?} _elementRef
      * @param {?} _dir
+     * @param {?=} changeDetectorRef
      */
-    constructor(_elementRef, _dir) {
+    constructor(_elementRef, _dir, /**
+                   * @deletion-target 7.0.0 changeDetectorRef to be made required.
+                   */
+    /**
+     * @deletion-target 7.0.0 changeDetectorRef to be made required.
+     */
+    changeDetectorRef) {
         this._elementRef = _elementRef;
         this._dir = _dir;
+        /**
+         * Subscription to the directionality change observable.
+         */
+        this._dirChangeSubscription = Subscription.EMPTY;
         /**
          * Event emitted when the tab begins to animate towards the center as the active tab.
          */
@@ -391,6 +402,12 @@ class MatTabBody {
          * Event emitted when the tab completes its animation towards the center.
          */
         this._onCentered = new EventEmitter(true);
+        if (this._dir && changeDetectorRef) {
+            this._dirChangeSubscription = this._dir.change.subscribe(dir => {
+                this._computePositionAnimationState(dir);
+                changeDetectorRef.markForCheck();
+            });
+        }
     }
     /**
      * The shifted index position of the tab body, where zero represents the active center tab.
@@ -398,32 +415,8 @@ class MatTabBody {
      * @return {?}
      */
     set position(position) {
-        if (position < 0) {
-            this._position = this._getLayoutDirection() == 'ltr' ? 'left' : 'right';
-        }
-        else if (position > 0) {
-            this._position = this._getLayoutDirection() == 'ltr' ? 'right' : 'left';
-        }
-        else {
-            this._position = 'center';
-        }
-    }
-    /**
-     * The origin position from which this tab should appear when it is centered into view.
-     * @param {?} origin
-     * @return {?}
-     */
-    set origin(origin) {
-        if (origin == null) {
-            return;
-        }
-        const /** @type {?} */ dir = this._getLayoutDirection();
-        if ((dir == 'ltr' && origin <= 0) || (dir == 'rtl' && origin > 0)) {
-            this._origin = 'left';
-        }
-        else {
-            this._origin = 'right';
-        }
+        this._positionIndex = position;
+        this._computePositionAnimationState();
     }
     /**
      * After initialized, check if the content is centered and has an origin. If so, set the
@@ -431,9 +424,15 @@ class MatTabBody {
      * @return {?}
      */
     ngOnInit() {
-        if (this._position == 'center' && this._origin) {
-            this._position = this._origin == 'left' ? 'left-origin-center' : 'right-origin-center';
+        if (this._position == 'center' && this.origin !== undefined) {
+            this._position = this._computePositionFromOrigin();
         }
+    }
+    /**
+     * @return {?}
+     */
+    ngOnDestroy() {
+        this._dirChangeSubscription.unsubscribe();
     }
     /**
      * @param {?} e
@@ -476,6 +475,34 @@ class MatTabBody {
             position == 'left-origin-center' ||
             position == 'right-origin-center';
     }
+    /**
+     * Computes the position state that will be used for the tab-body animation trigger.
+     * @param {?=} dir
+     * @return {?}
+     */
+    _computePositionAnimationState(dir = this._getLayoutDirection()) {
+        if (this._positionIndex < 0) {
+            this._position = dir == 'ltr' ? 'left' : 'right';
+        }
+        else if (this._positionIndex > 0) {
+            this._position = dir == 'ltr' ? 'right' : 'left';
+        }
+        else {
+            this._position = 'center';
+        }
+    }
+    /**
+     * Computes the position state based on the specified origin position. This is used if the
+     * tab is becoming visible immediately after creation.
+     * @return {?}
+     */
+    _computePositionFromOrigin() {
+        const /** @type {?} */ dir = this._getLayoutDirection();
+        if ((dir == 'ltr' && this.origin <= 0) || (dir == 'rtl' && this.origin > 0)) {
+            return 'left-origin-center';
+        }
+        return 'right-origin-center';
+    }
 }
 MatTabBody.decorators = [
     { type: Component, args: [{selector: 'mat-tab-body',
@@ -493,6 +520,7 @@ MatTabBody.decorators = [
 MatTabBody.ctorParameters = () => [
     { type: ElementRef, },
     { type: Directionality, decorators: [{ type: Optional },] },
+    { type: ChangeDetectorRef, },
 ];
 MatTabBody.propDecorators = {
     "_onCentering": [{ type: Output },],
@@ -501,8 +529,8 @@ MatTabBody.propDecorators = {
     "_onCentered": [{ type: Output },],
     "_portalHost": [{ type: ViewChild, args: [PortalHostDirective,] },],
     "_content": [{ type: Input, args: ['content',] },],
-    "position": [{ type: Input },],
     "origin": [{ type: Input },],
+    "position": [{ type: Input },],
 };
 
 /**
@@ -1100,7 +1128,7 @@ class MatTabGroup extends _MatTabGroupMixinBase {
      * @return {?}
      */
     ngAfterContentChecked() {
-        // Clamp the next selected index to the boundsof 0 and the tabs length.
+        // Clamp the next selected index to the bounds of 0 and the tabs length.
         // Note the `|| 0`, which ensures that values like NaN can't get through
         // and which would otherwise throw the component into an infinite loop
         // (since Math.max(NaN, 0) === NaN).
@@ -1622,5 +1650,5 @@ MatTabsModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa22, MatTabBase as ɵf22, _MatTabMixinBase as ɵg22, MatTabHeaderBase as ɵb22, _MatTabHeaderMixinBase as ɵc22, MatTabLabelWrapperBase as ɵd22, _MatTabLabelWrapperMixinBase as ɵe22, MatTabLinkBase as ɵj22, MatTabNavBase as ɵh22, _MatTabLinkMixinBase as ɵk22, _MatTabNavMixinBase as ɵi22 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
 //# sourceMappingURL=tabs.js.map

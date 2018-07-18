@@ -439,9 +439,20 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
  * \@docs-private
  */
 var MatTabBody = /** @class */ (function () {
-    function MatTabBody(_elementRef, _dir) {
+    function MatTabBody(_elementRef, _dir, /**
+                   * @deletion-target 7.0.0 changeDetectorRef to be made required.
+                   */
+    /**
+     * @deletion-target 7.0.0 changeDetectorRef to be made required.
+     */
+    changeDetectorRef) {
+        var _this = this;
         this._elementRef = _elementRef;
         this._dir = _dir;
+        /**
+         * Subscription to the directionality change observable.
+         */
+        this._dirChangeSubscription = rxjs.Subscription.EMPTY;
         /**
          * Event emitted when the tab begins to animate towards the center as the active tab.
          */
@@ -458,6 +469,12 @@ var MatTabBody = /** @class */ (function () {
          * Event emitted when the tab completes its animation towards the center.
          */
         this._onCentered = new core.EventEmitter(true);
+        if (this._dir && changeDetectorRef) {
+            this._dirChangeSubscription = this._dir.change.subscribe(function (dir) {
+                _this._computePositionAnimationState(dir);
+                changeDetectorRef.markForCheck();
+            });
+        }
     }
     Object.defineProperty(MatTabBody.prototype, "position", {
         set: /**
@@ -466,36 +483,8 @@ var MatTabBody = /** @class */ (function () {
          * @return {?}
          */
         function (position) {
-            if (position < 0) {
-                this._position = this._getLayoutDirection() == 'ltr' ? 'left' : 'right';
-            }
-            else if (position > 0) {
-                this._position = this._getLayoutDirection() == 'ltr' ? 'right' : 'left';
-            }
-            else {
-                this._position = 'center';
-            }
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatTabBody.prototype, "origin", {
-        set: /**
-         * The origin position from which this tab should appear when it is centered into view.
-         * @param {?} origin
-         * @return {?}
-         */
-        function (origin) {
-            if (origin == null) {
-                return;
-            }
-            var /** @type {?} */ dir = this._getLayoutDirection();
-            if ((dir == 'ltr' && origin <= 0) || (dir == 'rtl' && origin > 0)) {
-                this._origin = 'left';
-            }
-            else {
-                this._origin = 'right';
-            }
+            this._positionIndex = position;
+            this._computePositionAnimationState();
         },
         enumerable: true,
         configurable: true
@@ -515,9 +504,18 @@ var MatTabBody = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        if (this._position == 'center' && this._origin) {
-            this._position = this._origin == 'left' ? 'left-origin-center' : 'right-origin-center';
+        if (this._position == 'center' && this.origin !== undefined) {
+            this._position = this._computePositionFromOrigin();
         }
+    };
+    /**
+     * @return {?}
+     */
+    MatTabBody.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._dirChangeSubscription.unsubscribe();
     };
     /**
      * @param {?} e
@@ -579,6 +577,45 @@ var MatTabBody = /** @class */ (function () {
             position == 'left-origin-center' ||
             position == 'right-origin-center';
     };
+    /**
+     * Computes the position state that will be used for the tab-body animation trigger.
+     * @param {?=} dir
+     * @return {?}
+     */
+    MatTabBody.prototype._computePositionAnimationState = /**
+     * Computes the position state that will be used for the tab-body animation trigger.
+     * @param {?=} dir
+     * @return {?}
+     */
+    function (dir) {
+        if (dir === void 0) { dir = this._getLayoutDirection(); }
+        if (this._positionIndex < 0) {
+            this._position = dir == 'ltr' ? 'left' : 'right';
+        }
+        else if (this._positionIndex > 0) {
+            this._position = dir == 'ltr' ? 'right' : 'left';
+        }
+        else {
+            this._position = 'center';
+        }
+    };
+    /**
+     * Computes the position state based on the specified origin position. This is used if the
+     * tab is becoming visible immediately after creation.
+     * @return {?}
+     */
+    MatTabBody.prototype._computePositionFromOrigin = /**
+     * Computes the position state based on the specified origin position. This is used if the
+     * tab is becoming visible immediately after creation.
+     * @return {?}
+     */
+    function () {
+        var /** @type {?} */ dir = this._getLayoutDirection();
+        if ((dir == 'ltr' && this.origin <= 0) || (dir == 'rtl' && this.origin > 0)) {
+            return 'left-origin-center';
+        }
+        return 'right-origin-center';
+    };
     MatTabBody.decorators = [
         { type: core.Component, args: [{selector: 'mat-tab-body',
                     template: "<div class=\"mat-tab-body-content\" #content [@translateTab]=\"_position\" (@translateTab.start)=\"_onTranslateTabStarted($event)\" (@translateTab.done)=\"_onTranslateTabComplete($event)\"><ng-template matTabBodyHost></ng-template></div>",
@@ -595,6 +632,7 @@ var MatTabBody = /** @class */ (function () {
     MatTabBody.ctorParameters = function () { return [
         { type: core.ElementRef, },
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: core.ChangeDetectorRef, },
     ]; };
     MatTabBody.propDecorators = {
         "_onCentering": [{ type: core.Output },],
@@ -603,8 +641,8 @@ var MatTabBody = /** @class */ (function () {
         "_onCentered": [{ type: core.Output },],
         "_portalHost": [{ type: core.ViewChild, args: [portal.PortalHostDirective,] },],
         "_content": [{ type: core.Input, args: ['content',] },],
-        "position": [{ type: core.Input },],
         "origin": [{ type: core.Input },],
+        "position": [{ type: core.Input },],
     };
     return MatTabBody;
 }());
@@ -1420,7 +1458,7 @@ var MatTabGroup = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        // Clamp the next selected index to the boundsof 0 and the tabs length.
+        // Clamp the next selected index to the bounds of 0 and the tabs length.
         // Note the `|| 0`, which ensures that values like NaN can't get through
         // and which would otherwise throw the component into an infinite loop
         // (since Math.max(NaN, 0) === NaN).
@@ -2070,17 +2108,17 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf22 = MatTabBase;
-exports.ɵg22 = _MatTabMixinBase;
-exports.ɵb22 = MatTabHeaderBase;
-exports.ɵc22 = _MatTabHeaderMixinBase;
-exports.ɵd22 = MatTabLabelWrapperBase;
-exports.ɵe22 = _MatTabLabelWrapperMixinBase;
-exports.ɵj22 = MatTabLinkBase;
-exports.ɵh22 = MatTabNavBase;
-exports.ɵk22 = _MatTabLinkMixinBase;
-exports.ɵi22 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
