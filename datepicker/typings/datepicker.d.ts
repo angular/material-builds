@@ -126,7 +126,7 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     constructor(_dialog: MatDialog, _overlay: Overlay, _ngZone: NgZone, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _dateAdapter: DateAdapter<D>, _dir: Directionality, _document: any);
     ngOnDestroy(): void;
     /** Selects the given date */
-    _select(date: D): void;
+    select(date: D): void;
     /** Emits the selected year in multiyear view */
     _selectYear(normalizedYear: D): void;
     /** Emits selected month in year view */

@@ -180,7 +180,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Whether to center the active option over the trigger. */
     disableOptionCentering: boolean;
     /**
-     * A function to compare the option values with the selected values. The first argument
+     * Function to compare the option values with the selected values. The first argument
      * is a value from an option. The second is a value from the selection. A boolean
      * should be returned.
      */
@@ -192,8 +192,13 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     ariaLabel: string;
     /** Input that can be used to specify the `aria-labelledby` attribute. */
     ariaLabelledby: string;
-    /** An object used to control when error messages are shown. */
+    /** Object used to control when error messages are shown. */
     errorStateMatcher: ErrorStateMatcher;
+    /**
+     * Function used to sort the values in a select in multiple mode.
+     * Follows the same logic as `Array.prototype.sort`.
+     */
+    sortComparator: (a: MatOption, b: MatOption, options: MatOption[]) => number;
     /** Unique id of the element. */
     id: string;
     private _id;

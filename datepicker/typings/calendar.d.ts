@@ -119,6 +119,8 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
     ngOnDestroy(): void;
     ngOnChanges(changes: SimpleChanges): void;
     focusActiveCell(): void;
+    /** Updates today's date after an update of the active date */
+    updateTodaysDate(): void;
     /** Handles date selection in the month view. */
     _dateSelected(date: D): void;
     /** Handles year selection in the multiyear view. */

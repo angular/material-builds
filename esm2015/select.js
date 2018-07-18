@@ -457,7 +457,7 @@ class MatSelect extends _MatSelectMixinBase {
         this._disableOptionCentering = coerceBooleanProperty(value);
     }
     /**
-     * A function to compare the option values with the selected values. The first argument
+     * Function to compare the option values with the selected values. The first argument
      * is a value from an option. The second is a value from the selection. A boolean
      * should be returned.
      * @return {?}
@@ -968,7 +968,10 @@ class MatSelect extends _MatSelectMixinBase {
     _sortValues() {
         if (this.multiple) {
             const /** @type {?} */ options = this.options.toArray();
-            this._selectionModel.sort((a, b) => options.indexOf(a) - options.indexOf(b));
+            this._selectionModel.sort((a, b) => {
+                return this.sortComparator ? this.sortComparator(a, b, options) :
+                    options.indexOf(a) - options.indexOf(b);
+            });
             this.stateChanges.next();
         }
     }
@@ -1400,6 +1403,7 @@ MatSelect.propDecorators = {
     "ariaLabel": [{ type: Input, args: ['aria-label',] },],
     "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
     "errorStateMatcher": [{ type: Input },],
+    "sortComparator": [{ type: Input },],
     "id": [{ type: Input },],
     "openedChange": [{ type: Output },],
     "_openedStream": [{ type: Output, args: ['opened',] },],
