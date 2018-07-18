@@ -31,6 +31,10 @@ class MatBadge {
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._ariaDescriber = _ariaDescriber;
+        /**
+         * Whether the badge has any content.
+         */
+        this._hasContent = false;
         this._color = 'primary';
         this._overlap = true;
         /**
@@ -78,11 +82,12 @@ class MatBadge {
      */
     get content() { return this._content; }
     /**
-     * @param {?} val
+     * @param {?} value
      * @return {?}
      */
-    set content(val) {
-        this._content = val;
+    set content(value) {
+        this._content = value;
+        this._hasContent = value != null && `${value}`.trim().length > 0;
         this._updateTextContent();
     }
     /**
@@ -219,7 +224,7 @@ MatBadge.decorators = [
                     '[class.mat-badge-small]': 'size === "small"',
                     '[class.mat-badge-medium]': 'size === "medium"',
                     '[class.mat-badge-large]': 'size === "large"',
-                    '[class.mat-badge-hidden]': 'hidden',
+                    '[class.mat-badge-hidden]': 'hidden || !_hasContent',
                 },
             },] },
 ];

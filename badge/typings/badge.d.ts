@@ -16,6 +16,8 @@ export declare class MatBadge implements OnDestroy {
     private _ngZone;
     private _elementRef;
     private _ariaDescriber;
+    /** Whether the badge has any content. */
+    _hasContent: boolean;
     /** The color of the badge. Can be `primary`, `accent`, or `warn`. */
     color: ThemePalette;
     private _color;

@@ -25,6 +25,10 @@ var MatBadge = /** @class */ (function () {
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._ariaDescriber = _ariaDescriber;
+        /**
+         * Whether the badge has any content.
+         */
+        this._hasContent = false;
         this._color = 'primary';
         this._overlap = true;
         /**
@@ -81,11 +85,12 @@ var MatBadge = /** @class */ (function () {
          */
         function () { return this._content; },
         set: /**
-         * @param {?} val
+         * @param {?} value
          * @return {?}
          */
-        function (val) {
-            this._content = val;
+        function (value) {
+            this._content = value;
+            this._hasContent = value != null && ("" + value).trim().length > 0;
             this._updateTextContent();
         },
         enumerable: true,
@@ -264,7 +269,7 @@ var MatBadge = /** @class */ (function () {
                         '[class.mat-badge-small]': 'size === "small"',
                         '[class.mat-badge-medium]': 'size === "medium"',
                         '[class.mat-badge-large]': 'size === "large"',
-                        '[class.mat-badge-hidden]': 'hidden',
+                        '[class.mat-badge-hidden]': 'hidden || !_hasContent',
                     },
                 },] },
     ];
