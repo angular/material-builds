@@ -1519,8 +1519,12 @@ var MatMenuTrigger = /** @class */ (function () {
             // while the new trigger tries to re-open it. Wait for the animation to finish
             // before doing so. Also interrupt if the user moves to another item.
             if (_this.menu instanceof MatMenu && _this.menu._isAnimating) {
+                // We need the `delay(0)` here in order to avoid
+                // 'changed after checked' errors in some cases. See #12194.
+                // We need the `delay(0)` here in order to avoid
+                // 'changed after checked' errors in some cases. See #12194.
                 _this.menu._animationDone
-                    .pipe(operators.take(1), operators.takeUntil(_this._parentMenu._hovered()))
+                    .pipe(operators.take(1), operators.delay(0, rxjs.asapScheduler), operators.takeUntil(_this._parentMenu._hovered()))
                     .subscribe(function () { return _this.openMenu(); });
             }
             else {
@@ -1597,12 +1601,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa22 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb22 = MatMenuItemBase;
-exports.ɵc22 = _MatMenuItemMixinBase;
-exports.ɵf22 = MAT_MENU_PANEL;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe22 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

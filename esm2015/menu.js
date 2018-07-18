@@ -1199,8 +1199,10 @@ class MatMenuTrigger {
             // while the new trigger tries to re-open it. Wait for the animation to finish
             // before doing so. Also interrupt if the user moves to another item.
             if (this.menu instanceof MatMenu && this.menu._isAnimating) {
+                // We need the `delay(0)` here in order to avoid
+                // 'changed after checked' errors in some cases. See #12194.
                 this.menu._animationDone
-                    .pipe(take(1), takeUntil(this._parentMenu._hovered()))
+                    .pipe(take(1), delay(0, asapScheduler), takeUntil(this._parentMenu._hovered()))
                     .subscribe(() => this.openMenu());
             }
             else {
@@ -1278,5 +1280,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa22, MatMenuItemBase as ɵb22, _MatMenuItemMixinBase as ɵc22, MAT_MENU_PANEL as ɵf22, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd22, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe22 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
 //# sourceMappingURL=menu.js.map
