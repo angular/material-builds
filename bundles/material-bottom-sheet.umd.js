@@ -89,6 +89,10 @@ MatBottomSheetConfig = /** @class */ (function () {
          * Whether the bottom sheet should close when the user goes backwards/forwards in history.
          */
         this.closeOnNavigation = true;
+        /**
+         * Whether the bottom sheet should focus the first focusable element on open.
+         */
+        this.autoFocus = true;
     }
     return MatBottomSheetConfig;
 }());
@@ -235,11 +239,11 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        if (event.toState === 'visible') {
-            this._trapFocus();
-        }
-        else if (event.toState === 'hidden') {
+        if (event.toState === 'hidden') {
             this._restoreFocus();
+        }
+        else if (event.toState === 'visible' && this.bottomSheetConfig.autoFocus) {
+            this._trapFocus();
         }
         this._animationStateChanged.emit(event);
     };

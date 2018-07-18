@@ -31,4 +31,6 @@ export declare class MatBottomSheetConfig<D = any> {
     ariaLabel?: string | null;
     /** Whether the bottom sheet should close when the user goes backwards/forwards in history. */
     closeOnNavigation?: boolean;
+    /** Whether the bottom sheet should focus the first focusable element on open. */
+    autoFocus?: boolean;
 }

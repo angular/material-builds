@@ -4979,6 +4979,10 @@ MatBottomSheetConfig = /** @class */ (function () {
          * Whether the bottom sheet should close when the user goes backwards/forwards in history.
          */
         this.closeOnNavigation = true;
+        /**
+         * Whether the bottom sheet should focus the first focusable element on open.
+         */
+        this.autoFocus = true;
     }
     return MatBottomSheetConfig;
 }());
@@ -5125,11 +5129,11 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        if (event.toState === 'visible') {
-            this._trapFocus();
-        }
-        else if (event.toState === 'hidden') {
+        if (event.toState === 'hidden') {
             this._restoreFocus();
+        }
+        else if (event.toState === 'visible' && this.bottomSheetConfig.autoFocus) {
+            this._trapFocus();
         }
         this._animationStateChanged.emit(event);
     };
@@ -20212,7 +20216,7 @@ var MatSelect = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatSelect.prototype, "compareWith", {
         get: /**
-         * A function to compare the option values with the selected values. The first argument
+         * Function to compare the option values with the selected values. The first argument
          * is a value from an option. The second is a value from the selection. A boolean
          * should be returned.
          * @return {?}
@@ -20935,9 +20939,13 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        var _this = this;
         if (this.multiple) {
             var /** @type {?} */ options_1 = this.options.toArray();
-            this._selectionModel.sort(function (a, b) { return options_1.indexOf(a) - options_1.indexOf(b); });
+            this._selectionModel.sort(function (a, b) {
+                return _this.sortComparator ? _this.sortComparator(a, b, options_1) :
+                    options_1.indexOf(a) - options_1.indexOf(b);
+            });
             this.stateChanges.next();
         }
     };
@@ -21510,6 +21518,7 @@ var MatSelect = /** @class */ (function (_super) {
         "ariaLabel": [{ type: core.Input, args: ['aria-label',] },],
         "ariaLabelledby": [{ type: core.Input, args: ['aria-labelledby',] },],
         "errorStateMatcher": [{ type: core.Input },],
+        "sortComparator": [{ type: core.Input },],
         "id": [{ type: core.Input },],
         "openedChange": [{ type: core.Output },],
         "_openedStream": [{ type: core.Output, args: ['opened',] },],
@@ -32779,10 +32788,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.0-b53b66a');
+var /** @type {?} */ VERSION = new core.Version('6.4.0-d54a75a');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
