@@ -671,7 +671,8 @@ var MatTabLabelWrapper = /** @class */ (function (_super) {
                     selector: '[matTabLabelWrapper]',
                     inputs: ['disabled'],
                     host: {
-                        '[class.mat-tab-disabled]': 'disabled'
+                        '[class.mat-tab-disabled]': 'disabled',
+                        '[attr.aria-disabled]': '!!disabled',
                     }
                 },] },
     ];
@@ -851,7 +852,8 @@ var MatTabHeader = /** @class */ (function (_super) {
             _this._alignInkBarToSelectedTab();
         };
         this._keyManager = new a11y.FocusKeyManager(this._labelWrappers)
-            .withHorizontalOrientation(this._getLayoutDirection());
+            .withHorizontalOrientation(this._getLayoutDirection())
+            .withWrap();
         this._keyManager.updateActiveItemIndex(0);
         // Defer the first call in order to allow for slower browsers to lay out the elements.
         // This helps in cases where the user lands directly on a page with paginated tabs.
@@ -2068,17 +2070,17 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
