@@ -454,6 +454,11 @@ var MatTableModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
+ * Corresponds to `Number.MAX_SAFE_INTEGER`. Moved out into a variable here due to
+ * flaky browser support and the value not being defined in Closure's typings.
+ */
+var /** @type {?} */ MAX_SAFE_INTEGER = 9007199254740991;
+/**
  * Data source that accepts a client-side data array and includes native support of filtering,
  * sorting (using MatSort), and pagination (using MatPaginator).
  *
@@ -500,7 +505,13 @@ MatTableDataSource = /** @class */ (function (_super) {
          */
         _this.sortingDataAccessor = function (data, sortHeaderId) {
             var /** @type {?} */ value = data[sortHeaderId];
-            return coercion._isNumberValue(value) ? Number(value) : value;
+            if (coercion._isNumberValue(value)) {
+                var /** @type {?} */ numberValue = Number(value);
+                // Numbers beyond `MAX_SAFE_INTEGER` can't be compared reliably so we
+                // leave them as strings. For more info: https://goo.gl/y5vbSg
+                return numberValue < MAX_SAFE_INTEGER ? numberValue : value;
+            }
+            return value;
         };
         /**
          * Gets a sorted copy of the data array based on the state of the MatSort. Called
