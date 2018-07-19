@@ -16,7 +16,12 @@ const component_1 = require("../utils/devkit-utils/component");
  */
 function default_1(options) {
     return schematics_1.chain([
-        component_1.buildComponent(Object.assign({}, options)),
+        component_1.buildComponent(Object.assign({}, options), {
+            template: options.inlineTemplate &&
+                './__path__/__name@dasherize@if-flat__/__name@dasherize__.component.html',
+            stylesheet: options.inlineStyle &&
+                './__path__/__name@dasherize@if-flat__/__name@dasherize__.component.__styleext__',
+        }),
         options.skipImport ? schematics_1.noop() : addFormModulesToModule(options)
     ]);
 }
