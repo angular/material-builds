@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, NgZone } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
@@ -37,6 +38,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     private _ngZone;
     defaults: MatSlideToggleDefaultOptions;
     _animationMode: string | undefined;
+    private _dir;
     private onChange;
     private onTouched;
     private _uniqueId;
@@ -97,7 +99,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
          * @deprecated The `_platform` parameter to be removed.
          * @deletion-target 7.0.0
          */
-        _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone, defaults: MatSlideToggleDefaultOptions, _animationMode?: string | undefined);
+        _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone, defaults: MatSlideToggleDefaultOptions, _animationMode?: string | undefined, _dir?: Directionality | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Method being called whenever the underlying input emits a change event. */
