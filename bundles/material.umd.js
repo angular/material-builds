@@ -14395,7 +14395,7 @@ var MatAccordion = /** @class */ (function (_super) {
          * The display mode used for all expansion panels in the accordion. Currently two display
          * modes exist:
          *  default - a gutter-like spacing is placed around any expanded panel, placing the expanded
-         *     panel at a different elevation from the reset of the accordion.
+         *     panel at a different elevation from the rest of the accordion.
          *  flat - no spacing is placed around expanded panels, showing all panels at the same
          *     elevation.
          */
@@ -30732,9 +30732,9 @@ var MatTabHeader = /** @class */ (function (_super) {
          */
         _this._selectedIndexChanged = false;
         /**
-         * Combines listeners that will re-align the ink bar whenever they're invoked.
+         * Emits when the component is destroyed.
          */
-        _this._realignInkBar = rxjs.Subscription.EMPTY;
+        _this._destroyed = new rxjs.Subject();
         /**
          * Whether the controls for pagination should be displayed
          */
@@ -30858,13 +30858,22 @@ var MatTabHeader = /** @class */ (function (_super) {
         this._keyManager = new a11y.FocusKeyManager(this._labelWrappers)
             .withHorizontalOrientation(this._getLayoutDirection())
             .withWrap();
-        this._keyManager.updateActiveItemIndex(0);
+        this._keyManager.updateActiveItem(0);
         // Defer the first call in order to allow for slower browsers to lay out the elements.
         // This helps in cases where the user lands directly on a page with paginated tabs.
         typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
-        this._realignInkBar = rxjs.merge(dirChange, resize).subscribe(function () {
+        // On dir change or window resize, realign the ink bar and update the orientation of
+        // the key manager if the direction has changed.
+        rxjs.merge(dirChange, resize).pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
             realign();
             _this._keyManager.withHorizontalOrientation(_this._getLayoutDirection());
+        });
+        // If there is a change in the focus key manager we need to emit the `indexFocused`
+        // event in order to provide a public event that notifies about focus changes. Also we realign
+        // the tabs container by scrolling the new focused tab into the visible section.
+        this._keyManager.change.pipe(operators.takeUntil(this._destroyed)).subscribe(function (newFocusIndex) {
+            _this.indexFocused.emit(newFocusIndex);
+            _this._setTabFocus(newFocusIndex);
         });
     };
     /**
@@ -30874,7 +30883,8 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._realignInkBar.unsubscribe();
+        this._destroyed.next();
+        this._destroyed.complete();
     };
     /**
      * Callback for when the MutationObserver detects that the content has changed.
@@ -30924,12 +30934,10 @@ var MatTabHeader = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            if (!this._isValidIndex(value) || this.focusIndex == value || !this._keyManager) {
+            if (!this._isValidIndex(value) || this.focusIndex === value || !this._keyManager) {
                 return;
             }
             this._keyManager.setActiveItem(value);
-            this.indexFocused.emit(value);
-            this._setTabFocus(value);
         },
         enumerable: true,
         configurable: true
@@ -32817,10 +32825,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.0-944caf9');
+var /** @type {?} */ VERSION = new core.Version('6.4.0-3b2c5a6');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -33069,12 +33077,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa16 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb16 = MatMenuItemBase;
-exports.ɵc16 = _MatMenuItemMixinBase;
-exports.ɵf16 = MAT_MENU_PANEL;
-exports.ɵd16 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe16 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

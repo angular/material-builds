@@ -634,9 +634,9 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
          */
         this._selectedIndexChanged = false;
         /**
-         * Combines listeners that will re-align the ink bar whenever they're invoked.
+         * Emits when the component is destroyed.
          */
-        this._realignInkBar = Subscription.EMPTY;
+        this._destroyed = new Subject();
         /**
          * Whether the controls for pagination should be displayed
          */
@@ -740,20 +740,30 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         this._keyManager = new FocusKeyManager(this._labelWrappers)
             .withHorizontalOrientation(this._getLayoutDirection())
             .withWrap();
-        this._keyManager.updateActiveItemIndex(0);
+        this._keyManager.updateActiveItem(0);
         // Defer the first call in order to allow for slower browsers to lay out the elements.
         // This helps in cases where the user lands directly on a page with paginated tabs.
         typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
-        this._realignInkBar = merge(dirChange, resize).subscribe(() => {
+        // On dir change or window resize, realign the ink bar and update the orientation of
+        // the key manager if the direction has changed.
+        merge(dirChange, resize).pipe(takeUntil(this._destroyed)).subscribe(() => {
             realign();
             this._keyManager.withHorizontalOrientation(this._getLayoutDirection());
+        });
+        // If there is a change in the focus key manager we need to emit the `indexFocused`
+        // event in order to provide a public event that notifies about focus changes. Also we realign
+        // the tabs container by scrolling the new focused tab into the visible section.
+        this._keyManager.change.pipe(takeUntil(this._destroyed)).subscribe(newFocusIndex => {
+            this.indexFocused.emit(newFocusIndex);
+            this._setTabFocus(newFocusIndex);
         });
     }
     /**
      * @return {?}
      */
     ngOnDestroy() {
-        this._realignInkBar.unsubscribe();
+        this._destroyed.next();
+        this._destroyed.complete();
     }
     /**
      * Callback for when the MutationObserver detects that the content has changed.
@@ -786,12 +796,10 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @return {?}
      */
     set focusIndex(value) {
-        if (!this._isValidIndex(value) || this.focusIndex == value || !this._keyManager) {
+        if (!this._isValidIndex(value) || this.focusIndex === value || !this._keyManager) {
             return;
         }
         this._keyManager.setActiveItem(value);
-        this.indexFocused.emit(value);
-        this._setTabFocus(value);
     }
     /**
      * Determines if an index is valid.  If the tabs are not ready yet, we assume that the user is

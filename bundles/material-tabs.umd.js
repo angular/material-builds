@@ -766,9 +766,9 @@ var MatTabHeader = /** @class */ (function (_super) {
          */
         _this._selectedIndexChanged = false;
         /**
-         * Combines listeners that will re-align the ink bar whenever they're invoked.
+         * Emits when the component is destroyed.
          */
-        _this._realignInkBar = rxjs.Subscription.EMPTY;
+        _this._destroyed = new rxjs.Subject();
         /**
          * Whether the controls for pagination should be displayed
          */
@@ -892,13 +892,22 @@ var MatTabHeader = /** @class */ (function (_super) {
         this._keyManager = new a11y.FocusKeyManager(this._labelWrappers)
             .withHorizontalOrientation(this._getLayoutDirection())
             .withWrap();
-        this._keyManager.updateActiveItemIndex(0);
+        this._keyManager.updateActiveItem(0);
         // Defer the first call in order to allow for slower browsers to lay out the elements.
         // This helps in cases where the user lands directly on a page with paginated tabs.
         typeof requestAnimationFrame !== 'undefined' ? requestAnimationFrame(realign) : realign();
-        this._realignInkBar = rxjs.merge(dirChange, resize).subscribe(function () {
+        // On dir change or window resize, realign the ink bar and update the orientation of
+        // the key manager if the direction has changed.
+        rxjs.merge(dirChange, resize).pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
             realign();
             _this._keyManager.withHorizontalOrientation(_this._getLayoutDirection());
+        });
+        // If there is a change in the focus key manager we need to emit the `indexFocused`
+        // event in order to provide a public event that notifies about focus changes. Also we realign
+        // the tabs container by scrolling the new focused tab into the visible section.
+        this._keyManager.change.pipe(operators.takeUntil(this._destroyed)).subscribe(function (newFocusIndex) {
+            _this.indexFocused.emit(newFocusIndex);
+            _this._setTabFocus(newFocusIndex);
         });
     };
     /**
@@ -908,7 +917,8 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._realignInkBar.unsubscribe();
+        this._destroyed.next();
+        this._destroyed.complete();
     };
     /**
      * Callback for when the MutationObserver detects that the content has changed.
@@ -958,12 +968,10 @@ var MatTabHeader = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            if (!this._isValidIndex(value) || this.focusIndex == value || !this._keyManager) {
+            if (!this._isValidIndex(value) || this.focusIndex === value || !this._keyManager) {
                 return;
             }
             this._keyManager.setActiveItem(value);
-            this.indexFocused.emit(value);
-            this._setTabFocus(value);
         },
         enumerable: true,
         configurable: true

@@ -41,8 +41,8 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     private _scrollDistance;
     /** Whether the header should scroll to the selected index after the view has been checked. */
     private _selectedIndexChanged;
-    /** Combines listeners that will re-align the ink bar whenever they're invoked. */
-    private _realignInkBar;
+    /** Emits when the component is destroyed. */
+    private readonly _destroyed;
     /** Whether the controls for pagination should be displayed */
     _showPaginationControls: boolean;
     /** Whether the tab list can be scrolled more towards the end of the tab label list. */
