@@ -76,6 +76,8 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
      * manually.
      */
     private _subscribeToTabLabels();
+    /** Clamps the given index to the bounds of 0 and the tabs length. */
+    private _clampTabIndex(index);
     /** Returns a unique id for each tab label element */
     _getTabLabelId(i: number): string;
     /** Returns a unique id for each tab content element */

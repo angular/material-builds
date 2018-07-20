@@ -1470,12 +1470,9 @@ var MatTabGroup = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        // Clamp the next selected index to the bounds of 0 and the tabs length.
-        // Note the `|| 0`, which ensures that values like NaN can't get through
-        // and which would otherwise throw the component into an infinite loop
-        // (since Math.max(NaN, 0) === NaN).
-        var /** @type {?} */ indexToSelect = this._indexToSelect =
-            Math.min(this._tabs.length - 1, Math.max(this._indexToSelect || 0, 0));
+        // Don't clamp the `indexToSelect` immediately in the setter because it can happen that
+        // the amount of tabs changes before the actual change detection runs.
+        var /** @type {?} */ indexToSelect = this._indexToSelect = this._clampTabIndex(this._indexToSelect);
         // If there is a change in selected index, emit a change event. Should not trigger if
         // the selected index has not yet been initialized.
         if (this._selectedIndex != indexToSelect && this._selectedIndex != null) {
@@ -1512,18 +1509,22 @@ var MatTabGroup = /** @class */ (function (_super) {
         // Subscribe to changes in the amount of tabs, in order to be
         // able to re-render the content as new tabs are added or removed.
         this._tabsSubscription = this._tabs.changes.subscribe(function () {
-            var /** @type {?} */ tabs = _this._tabs.toArray();
-            // Maintain the previously-selected tab if a new tab is added or removed.
-            for (var /** @type {?} */ i = 0; i < tabs.length; i++) {
-                if (tabs[i].isActive) {
-                    // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
-                    // event, otherwise the consumer may end up in an infinite loop in some edge cases like
-                    // adding a tab within the `selectedIndexChange` event.
-                    // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
-                    // event, otherwise the consumer may end up in an infinite loop in some edge cases like
-                    // adding a tab within the `selectedIndexChange` event.
-                    _this._indexToSelect = _this._selectedIndex = i;
-                    break;
+            var /** @type {?} */ indexToSelect = _this._clampTabIndex(_this._indexToSelect);
+            // Maintain the previously-selected tab if a new tab is added or removed and there is no
+            // explicit change that selects a different tab.
+            if (indexToSelect === _this._selectedIndex) {
+                var /** @type {?} */ tabs = _this._tabs.toArray();
+                for (var /** @type {?} */ i = 0; i < tabs.length; i++) {
+                    if (tabs[i].isActive) {
+                        // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
+                        // event, otherwise the consumer may end up in an infinite loop in some edge cases like
+                        // adding a tab within the `selectedIndexChange` event.
+                        // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
+                        // event, otherwise the consumer may end up in an infinite loop in some edge cases like
+                        // adding a tab within the `selectedIndexChange` event.
+                        _this._indexToSelect = _this._selectedIndex = i;
+                        break;
+                    }
                 }
             }
             _this._subscribeToTabLabels();
@@ -1603,6 +1604,22 @@ var MatTabGroup = /** @class */ (function (_super) {
         this._tabLabelSubscription = rxjs.merge.apply(void 0, this._tabs.map(function (tab) { return tab._disableChange; }).concat(this._tabs.map(function (tab) { return tab._labelChange; }))).subscribe(function () {
             _this._changeDetectorRef.markForCheck();
         });
+    };
+    /**
+     * Clamps the given index to the bounds of 0 and the tabs length.
+     * @param {?} index
+     * @return {?}
+     */
+    MatTabGroup.prototype._clampTabIndex = /**
+     * Clamps the given index to the bounds of 0 and the tabs length.
+     * @param {?} index
+     * @return {?}
+     */
+    function (index) {
+        // Note the `|| 0`, which ensures that values like NaN can't get through
+        // and which would otherwise throw the component into an infinite loop
+        // (since Math.max(NaN, 0) === NaN).
+        return Math.min(this._tabs.length - 1, Math.max(index || 0, 0));
     };
     /** Returns a unique id for each tab label element */
     /**
