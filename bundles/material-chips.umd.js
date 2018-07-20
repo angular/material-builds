@@ -820,8 +820,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this.chips.some(function (chip) { return chip._hasFocus; }) ||
-                (this._chipInput && this._chipInput.focused);
+            return (this._chipInput && this._chipInput.focused) || this.chips.some(function (chip) { return chip._hasFocus; });
         },
         enumerable: true,
         configurable: true
@@ -1261,8 +1260,9 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ chipsArray = this.chips;
-        if (this._lastDestroyedIndex != null && chipsArray.length > 0 && this.focused) {
+        var /** @type {?} */ chipsArray = this.chips.toArray();
+        if (this._lastDestroyedIndex != null && chipsArray.length > 0 && (this.focused ||
+            (this._keyManager.activeItem && chipsArray.indexOf(this._keyManager.activeItem) === -1))) {
             // Check whether the destroyed chip was the last item
             var /** @type {?} */ newFocusIndex = Math.min(this._lastDestroyedIndex, chipsArray.length - 1);
             this._keyManager.setActiveItem(newFocusIndex);

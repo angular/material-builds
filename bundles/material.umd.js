@@ -8213,8 +8213,7 @@ var MatChipList = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            return this.chips.some(function (chip) { return chip._hasFocus; }) ||
-                (this._chipInput && this._chipInput.focused);
+            return (this._chipInput && this._chipInput.focused) || this.chips.some(function (chip) { return chip._hasFocus; });
         },
         enumerable: true,
         configurable: true
@@ -8654,8 +8653,9 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ chipsArray = this.chips;
-        if (this._lastDestroyedIndex != null && chipsArray.length > 0 && this.focused) {
+        var /** @type {?} */ chipsArray = this.chips.toArray();
+        if (this._lastDestroyedIndex != null && chipsArray.length > 0 && (this.focused ||
+            (this._keyManager.activeItem && chipsArray.indexOf(this._keyManager.activeItem) === -1))) {
             // Check whether the destroyed chip was the last item
             var /** @type {?} */ newFocusIndex = Math.min(this._lastDestroyedIndex, chipsArray.length - 1);
             this._keyManager.setActiveItem(newFocusIndex);
@@ -32825,10 +32825,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.0-275de51');
+var /** @type {?} */ VERSION = new core.Version('6.4.0-e13bfe0');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa26 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -33077,12 +33077,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa18 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb18 = MatMenuItemBase;
-exports.ɵc18 = _MatMenuItemMixinBase;
-exports.ɵf18 = MAT_MENU_PANEL;
-exports.ɵd18 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe18 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33212,17 +33212,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa15 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf15 = MatTabBase;
-exports.ɵg15 = _MatTabMixinBase;
-exports.ɵb15 = MatTabHeaderBase;
-exports.ɵc15 = _MatTabHeaderMixinBase;
-exports.ɵd15 = MatTabLabelWrapperBase;
-exports.ɵe15 = _MatTabLabelWrapperMixinBase;
-exports.ɵj15 = MatTabLinkBase;
-exports.ɵh15 = MatTabNavBase;
-exports.ɵk15 = _MatTabLinkMixinBase;
-exports.ɵi15 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

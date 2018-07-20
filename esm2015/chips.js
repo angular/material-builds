@@ -668,8 +668,7 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     get focused() {
-        return this.chips.some(chip => chip._hasFocus) ||
-            (this._chipInput && this._chipInput.focused);
+        return (this._chipInput && this._chipInput.focused) || this.chips.some(chip => chip._hasFocus);
     }
     /**
      * Implemented as part of MatFormFieldControl.
@@ -944,12 +943,13 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     _updateFocusForDestroyedChips() {
-        let /** @type {?} */ chipsArray = this.chips;
-        if (this._lastDestroyedIndex != null && chipsArray.length > 0 && this.focused) {
+        const /** @type {?} */ chipsArray = this.chips.toArray();
+        if (this._lastDestroyedIndex != null && chipsArray.length > 0 && (this.focused ||
+            (this._keyManager.activeItem && chipsArray.indexOf(this._keyManager.activeItem) === -1))) {
             // Check whether the destroyed chip was the last item
             const /** @type {?} */ newFocusIndex = Math.min(this._lastDestroyedIndex, chipsArray.length - 1);
             this._keyManager.setActiveItem(newFocusIndex);
-            let /** @type {?} */ focusChip = this._keyManager.activeItem;
+            const /** @type {?} */ focusChip = this._keyManager.activeItem;
             // Focus the chip
             if (focusChip) {
                 focusChip.focus();
