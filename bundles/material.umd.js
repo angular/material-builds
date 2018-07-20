@@ -32825,7 +32825,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.0-ba134f4');
+var /** @type {?} */ VERSION = new core.Version('6.4.0-f9d3757');
 
 exports.VERSION = VERSION;
 exports.ɵa26 = MatAutocompleteOrigin;
@@ -33077,12 +33077,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa14 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb14 = MatMenuItemBase;
-exports.ɵc14 = _MatMenuItemMixinBase;
-exports.ɵf14 = MAT_MENU_PANEL;
-exports.ɵd14 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe14 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa20 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb20 = MatMenuItemBase;
+exports.ɵc20 = _MatMenuItemMixinBase;
+exports.ɵf20 = MAT_MENU_PANEL;
+exports.ɵd20 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe20 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
