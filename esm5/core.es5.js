@@ -1610,7 +1610,7 @@ RippleRef = /** @class */ (function () {
         this.element = element;
         this.config = config;
         /**
-         * Current state of the ripple reference.
+         * Current state of the ripple.
          */
         this.state = RippleState.HIDDEN;
     }
@@ -2045,9 +2045,13 @@ var MatRipple = /** @class */ (function () {
         this._rippleRenderer.fadeOutAll();
     };
     Object.defineProperty(MatRipple.prototype, "rippleConfig", {
-        /** Ripple configuration from the directive's input values. */
+        /**
+         * Ripple configuration from the directive's input values.
+         * @docs-private Implemented as part of RippleTarget
+         */
         get: /**
          * Ripple configuration from the directive's input values.
+         * \@docs-private Implemented as part of RippleTarget
          * @return {?}
          */
         function () {
@@ -2064,9 +2068,13 @@ var MatRipple = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatRipple.prototype, "rippleDisabled", {
-        /** Whether ripples on pointer-down are disabled or not. */
+        /**
+         * Whether ripples on pointer-down are disabled or not.
+         * @docs-private Implemented as part of RippleTarget
+         */
         get: /**
          * Whether ripples on pointer-down are disabled or not.
+         * \@docs-private Implemented as part of RippleTarget
          * @return {?}
          */
         function () {

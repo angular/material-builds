@@ -1218,7 +1218,7 @@ class RippleRef {
         this.element = element;
         this.config = config;
         /**
-         * Current state of the ripple reference.
+         * Current state of the ripple.
          */
         this.state = RippleState.HIDDEN;
     }
@@ -1581,6 +1581,7 @@ class MatRipple {
     }
     /**
      * Ripple configuration from the directive's input values.
+     * \@docs-private Implemented as part of RippleTarget
      * @return {?}
      */
     get rippleConfig() {
@@ -1595,6 +1596,7 @@ class MatRipple {
     }
     /**
      * Whether ripples on pointer-down are disabled or not.
+     * \@docs-private Implemented as part of RippleTarget
      * @return {?}
      */
     get rippleDisabled() {

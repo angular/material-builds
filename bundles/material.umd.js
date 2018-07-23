@@ -1645,7 +1645,7 @@ RippleRef = /** @class */ (function () {
         this.element = element;
         this.config = config;
         /**
-         * Current state of the ripple reference.
+         * Current state of the ripple.
          */
         this.state = RippleState.HIDDEN;
     }
@@ -2080,9 +2080,13 @@ var MatRipple = /** @class */ (function () {
         this._rippleRenderer.fadeOutAll();
     };
     Object.defineProperty(MatRipple.prototype, "rippleConfig", {
-        /** Ripple configuration from the directive's input values. */
+        /**
+         * Ripple configuration from the directive's input values.
+         * @docs-private Implemented as part of RippleTarget
+         */
         get: /**
          * Ripple configuration from the directive's input values.
+         * \@docs-private Implemented as part of RippleTarget
          * @return {?}
          */
         function () {
@@ -2099,9 +2103,13 @@ var MatRipple = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatRipple.prototype, "rippleDisabled", {
-        /** Whether ripples on pointer-down are disabled or not. */
+        /**
+         * Whether ripples on pointer-down are disabled or not.
+         * @docs-private Implemented as part of RippleTarget
+         */
         get: /**
          * Whether ripples on pointer-down are disabled or not.
+         * \@docs-private Implemented as part of RippleTarget
          * @return {?}
          */
         function () {
@@ -32845,10 +32853,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.0-3b50e44');
+var /** @type {?} */ VERSION = new core.Version('6.4.0-82915c7');
 
 exports.VERSION = VERSION;
-exports.ɵa26 = MatAutocompleteOrigin;
+exports.ɵa27 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -33097,12 +33105,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa8 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb8 = MatMenuItemBase;
-exports.ɵc8 = _MatMenuItemMixinBase;
-exports.ɵf8 = MAT_MENU_PANEL;
-exports.ɵd8 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe8 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

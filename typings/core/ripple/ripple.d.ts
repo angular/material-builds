@@ -92,9 +92,15 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     ngOnDestroy(): void;
     /** Fades out all currently showing ripple elements. */
     fadeOutAll(): void;
-    /** Ripple configuration from the directive's input values. */
+    /**
+     * Ripple configuration from the directive's input values.
+     * @docs-private Implemented as part of RippleTarget
+     */
     readonly rippleConfig: RippleConfig;
-    /** Whether ripples on pointer-down are disabled or not. */
+    /**
+     * Whether ripples on pointer-down are disabled or not.
+     * @docs-private Implemented as part of RippleTarget
+     */
     readonly rippleDisabled: boolean;
     /** Sets up the the trigger event listeners if ripples are enabled. */
     private _setupTriggerEventsIfEnabled();
