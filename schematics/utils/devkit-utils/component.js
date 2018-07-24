@@ -76,6 +76,16 @@ function buildSelector(options, projectPrefix) {
     return selector;
 }
 /**
+ * Indents the text content with the amount of specified spaces. The spaces will be added after
+ * every line-break. This utility function can be used inside of EJS templates to properly
+ * include the additional files.
+ */
+function indentTextContent(text, numSpaces) {
+    // In the Material project there should be only LF line-endings, but the schematic files
+    // are not being linted and therefore there can be also use CRLF or just CR line-endings.
+    return text.replace(/(\r\n|\r|\n)/g, `$1${' '.repeat(numSpaces)}`);
+}
+/**
  * Rule that copies and interpolates the files that belong to this schematic context. Additionally
  * a list of file paths can be passed to this rule in order to expose them inside the EJS
  * template context.
@@ -83,7 +93,7 @@ function buildSelector(options, projectPrefix) {
  * This allows inlining the external template or stylesheet files in EJS without having
  * to manually duplicate the file content.
  */
-function buildComponent(options, additionalFiles) {
+function buildComponent(options, additionalFiles = {}) {
     return (host, context) => {
         const workspace = config_1.getWorkspace(host);
         if (!options.project) {
@@ -117,7 +127,8 @@ function buildComponent(options, additionalFiles) {
             options.spec ? schematics_1.noop() : schematics_1.filter(path => !path.endsWith('.spec.ts')),
             options.inlineStyle ? schematics_1.filter(path => !path.endsWith('.__styleext__')) : schematics_1.noop(),
             options.inlineTemplate ? schematics_1.filter(path => !path.endsWith('.html')) : schematics_1.noop(),
-            schematics_1.template(Object.assign({ resolvedFiles }, baseTemplateContext)),
+            schematics_1.template(Object.assign({ indentTextContent,
+                resolvedFiles }, baseTemplateContext)),
             schematics_1.move(null, parsedPath.path),
         ]);
         return schematics_1.chain([
@@ -129,4 +140,5 @@ function buildComponent(options, additionalFiles) {
     };
 }
 exports.buildComponent = buildComponent;
+// TODO(paul): move this utility out of the `devkit-utils` because it's no longer taken from there.
 //# sourceMappingURL=component.js.map
