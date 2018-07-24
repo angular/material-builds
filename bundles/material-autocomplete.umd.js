@@ -1005,7 +1005,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
                         '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
                         '[attr.aria-activedescendant]': 'activeOption?.id',
                         '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
-                        '[attr.aria-owns]': 'autocompleteDisabled ? null : autocomplete?.id',
+                        '[attr.aria-owns]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
                         // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
                         // a little earlier. This avoids issues where IE delays the focusing of the input.
                         '(focusin)': '_handleFocus()',
@@ -1078,7 +1078,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCR
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa26 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

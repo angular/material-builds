@@ -801,7 +801,7 @@ MatAutocompleteTrigger.decorators = [
                     '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
                     '[attr.aria-activedescendant]': 'activeOption?.id',
                     '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
-                    '[attr.aria-owns]': 'autocompleteDisabled ? null : autocomplete?.id',
+                    '[attr.aria-owns]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
                     // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
                     // a little earlier. This avoids issues where IE delays the focusing of the input.
                     '(focusin)': '_handleFocus()',
@@ -864,5 +864,5 @@ MatAutocompleteModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa26 };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa30 };
 //# sourceMappingURL=autocomplete.js.map

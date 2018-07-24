@@ -4590,7 +4590,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
                         '[attr.aria-autocomplete]': 'autocompleteDisabled ? null : "list"',
                         '[attr.aria-activedescendant]': 'activeOption?.id',
                         '[attr.aria-expanded]': 'autocompleteDisabled ? null : panelOpen.toString()',
-                        '[attr.aria-owns]': 'autocompleteDisabled ? null : autocomplete?.id',
+                        '[attr.aria-owns]': '(autocompleteDisabled || !panelOpen) ? null : autocomplete?.id',
                         // Note: we use `focusin`, as opposed to `focus`, in order to open the panel
                         // a little earlier. This avoids issues where IE delays the focusing of the input.
                         '(focusin)': '_handleFocus()',
@@ -32853,10 +32853,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.1-e67fd7b');
+var /** @type {?} */ VERSION = new core.Version('6.4.1-f0a0ab1');
 
 exports.VERSION = VERSION;
-exports.ɵa26 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
