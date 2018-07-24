@@ -13505,7 +13505,7 @@ var MatDatepicker = /** @class */ (function () {
      */
     function () {
         return this._overlay.position()
-            .flexibleConnectedTo(this._datepickerInput.getPopupConnectionElementRef())
+            .flexibleConnectedTo(this._datepickerInput.getConnectedOverlayOrigin())
             .withTransformOriginOn('.mat-datepicker-content')
             .withFlexibleDimensions(false)
             .withViewportMargin(8)
@@ -32853,10 +32853,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.1-f0a0ab1');
+var /** @type {?} */ VERSION = new core.Version('6.4.1-bd76f1a');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;

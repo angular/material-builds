@@ -2452,7 +2452,7 @@ var MatDatepicker = /** @class */ (function () {
      */
     function () {
         return this._overlay.position()
-            .flexibleConnectedTo(this._datepickerInput.getPopupConnectionElementRef())
+            .flexibleConnectedTo(this._datepickerInput.getConnectedOverlayOrigin())
             .withTransformOriginOn('.mat-datepicker-content')
             .withFlexibleDimensions(false)
             .withViewportMargin(8)
