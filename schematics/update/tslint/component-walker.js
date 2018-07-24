@@ -40,7 +40,12 @@ class ComponentWalker extends tslint_1.RuleWalker {
         super.visitNode(node);
     }
     _visitDirectiveCallExpression(callExpression) {
-        const directiveMetadata = callExpression.arguments[0];
+        // If the call expressions does not have the correct amount of arguments, we can assume that
+        // this call expression is not related to Angular and just uses a similar decorator name.
+        if (callExpression.arguments.length !== 1) {
+            return;
+        }
+        const directiveMetadata = this._findMetadataFromExpression(callExpression.arguments[0]);
         if (!directiveMetadata) {
             return;
         }
@@ -103,10 +108,21 @@ class ComponentWalker extends tslint_1.RuleWalker {
         const stylesheetFile = component_file_1.createComponentFile(stylePath, fs_1.readFileSync(stylePath, 'utf8'));
         this.visitExternalStylesheet(stylesheetFile);
     }
-    /** Creates a TSLint rule failure for the given external resource. */
-    addExternalResourceFailure(file, message, fix) {
-        const ruleFailure = new tslint_1.RuleFailure(file, file.getStart(), file.getEnd(), message, this.getRuleName(), fix);
-        this.addFailure(ruleFailure);
+    /**
+     * Recursively searches for the metadata object literal expression inside of a directive call
+     * expression. Since expression calls can be nested through *parenthesized* expressions, we
+     * need to recursively visit and check every expression inside of a parenthesized expression.
+     *
+     * e.g. @Component((({myMetadataExpression}))) will return `myMetadataExpression`.
+     */
+    _findMetadataFromExpression(node) {
+        if (node.kind === ts.SyntaxKind.ObjectLiteralExpression) {
+            return node;
+        }
+        else if (node.kind === ts.SyntaxKind.ParenthesizedExpression) {
+            return this._findMetadataFromExpression(node.expression);
+        }
+        return null;
     }
 }
 exports.ComponentWalker = ComponentWalker;
