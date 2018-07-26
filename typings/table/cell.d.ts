@@ -5,31 +5,25 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, TemplateRef } from '@angular/core';
+import { ElementRef } from '@angular/core';
 import { CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef } from '@angular/cdk/table';
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
  */
 export declare class MatCellDef extends CdkCellDef {
-    /** @docs-private */ template: TemplateRef<any>;
-    constructor(/** @docs-private */ template: TemplateRef<any>);
 }
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
  */
 export declare class MatHeaderCellDef extends CdkHeaderCellDef {
-    /** @docs-private */ template: TemplateRef<any>;
-    constructor(/** @docs-private */ template: TemplateRef<any>);
 }
 /**
  * Footer cell definition for the mat-table.
  * Captures the template of a column's footer cell and as well as cell-specific properties.
  */
 export declare class MatFooterCellDef extends CdkFooterCellDef {
-    /** @docs-private */ template: TemplateRef<any>;
-    constructor(/** @docs-private */ template: TemplateRef<any>);
 }
 /**
  * Column definition for the mat-table.
