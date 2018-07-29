@@ -8,35 +8,36 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
+const change_1 = require("@schematics/angular/utility/change");
+const config_1 = require("@schematics/angular/utility/config");
 const ast_1 = require("../utils/ast");
-const change_1 = require("../utils/devkit-utils/change");
-const config_1 = require("../utils/devkit-utils/config");
+const get_project_1 = require("../utils/get-project");
 const custom_theme_1 = require("./custom-theme");
 /** Add pre-built styles to the main project style file. */
 function addThemeToAppStyles(options) {
     return function (host) {
         const workspace = config_1.getWorkspace(host);
-        const project = config_1.getProjectFromWorkspace(workspace, options.project);
+        const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
         // Because the build setup for the Angular CLI can be changed so dramatically, we can't know
         // where to generate anything if the project is not using the default config for build and test.
         assertDefaultProjectConfig(project);
         const themeName = options.theme || 'indigo-pink';
         if (themeName === 'custom') {
-            insertCustomTheme(project, host);
+            insertCustomTheme(project, options.project, host);
         }
         else {
-            insertPrebuiltTheme(project, host, themeName, workspace);
+            insertPrebuiltTheme(project, host, themeName, workspace, options.project);
         }
         return host;
     };
 }
 exports.addThemeToAppStyles = addThemeToAppStyles;
 /** Insert a custom theme to styles.scss file. */
-function insertCustomTheme(project, host) {
+function insertCustomTheme(project, projectName, host) {
     const stylesPath = ast_1.getStylesPath(project);
     const buffer = host.read(stylesPath);
     if (buffer) {
-        const insertion = new change_1.InsertChange(stylesPath, 0, custom_theme_1.createCustomTheme(project));
+        const insertion = new change_1.InsertChange(stylesPath, 0, custom_theme_1.createCustomTheme(projectName));
         const recorder = host.beginUpdate(stylesPath);
         recorder.insertLeft(insertion.pos, insertion.toAdd);
         host.commitUpdate(recorder);
@@ -46,34 +47,33 @@ function insertCustomTheme(project, host) {
     }
 }
 /** Insert a pre-built theme into the angular.json file. */
-function insertPrebuiltTheme(project, host, theme, workspace) {
-    // TODO(jelbourn): what should this be relative to?
-    const themePath = `node_modules/@angular/material/prebuilt-themes/${theme}.css`;
+function insertPrebuiltTheme(project, host, theme, workspace, projectName) {
+    // Path needs to be always relative to the `package.json` or workspace root.
+    const themePath = `./node_modules/@angular/material/prebuilt-themes/${theme}.css`;
     if (project.architect) {
         addStyleToTarget(project.architect['build'], host, themePath, workspace);
         addStyleToTarget(project.architect['test'], host, themePath, workspace);
     }
     else {
-        throw new schematics_1.SchematicsException(`${project.name} does not have an architect configuration`);
+        throw new schematics_1.SchematicsException(`${projectName} does not have an architect configuration`);
     }
 }
 /** Adds a style entry to the given target. */
 function addStyleToTarget(target, host, asset, workspace) {
-    const styleEntry = { input: asset };
     // We can't assume that any of these properties are defined, so safely add them as we go
     // if necessary.
     if (!target.options) {
-        target.options = { styles: [styleEntry] };
+        target.options = { styles: [asset] };
     }
     else if (!target.options.styles) {
-        target.options.styles = [styleEntry];
+        target.options.styles = [asset];
     }
     else {
         const existingStyles = target.options.styles.map(s => typeof s === 'string' ? s : s.input);
         const hasGivenTheme = existingStyles.find(s => s.includes(asset));
         const hasOtherTheme = existingStyles.find(s => s.includes('material/prebuilt'));
         if (!hasGivenTheme && !hasOtherTheme) {
-            target.options.styles.splice(0, 0, styleEntry);
+            target.options.styles.unshift(asset);
         }
     }
     host.overwrite('angular.json', JSON.stringify(workspace, null, 2));

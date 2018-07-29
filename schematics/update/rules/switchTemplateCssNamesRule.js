@@ -9,7 +9,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
-const component_data_1 = require("../material/component-data");
+const css_names_1 = require("../material/data/css-names");
 const component_walker_1 = require("../tslint/component-walker");
 const literal_1 = require("../typescript/literal");
 /**
@@ -42,7 +42,7 @@ class SwitchTemplateCaaNamesWalker extends component_walker_1.ComponentWalker {
      */
     replaceNamesInTemplate(node, templateContent) {
         const replacements = [];
-        component_data_1.cssNames.forEach(name => {
+        css_names_1.cssNames.forEach(name => {
             if (!name.whitelist || name.whitelist.html) {
                 this.createReplacementsForOffsets(node, name, literal_1.findAll(templateContent, name.replace))
                     .forEach(replacement => {

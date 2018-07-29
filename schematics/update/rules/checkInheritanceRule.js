@@ -9,7 +9,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
-const component_data_1 = require("../material/component-data");
+const property_names_1 = require("../material/data/property-names");
 /**
  * Rule that walks through every property access expression and updates properties that have
  * been changed in favor of the new name.
@@ -26,7 +26,7 @@ class CheckInheritanceWalker extends tslint_1.ProgramAwareRuleWalker {
         const type = this.getTypeChecker().getTypeAtLocation(declaration.name);
         const baseTypes = this.getTypeChecker().getBaseTypes(type);
         baseTypes.forEach(t => {
-            const propertyData = component_data_1.propertyNames.find(data => data.whitelist && new Set(data.whitelist.classes).has(t.symbol.name));
+            const propertyData = property_names_1.propertyNames.find(data => data.whitelist && new Set(data.whitelist.classes).has(t.symbol.name));
             if (propertyData) {
                 this.addFailureAtNode(declaration, `Found class "${chalk_1.bold(declaration.name.text)}" which extends class` +
                     ` "${chalk_1.bold(t.symbol.name)}". Please note that the base class property` +

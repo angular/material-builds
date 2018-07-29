@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
 const parse5 = require("parse5");
 const ast_1 = require("./ast");
-const change_1 = require("./devkit-utils/change");
+const change_1 = require("@schematics/angular/utility/change");
 /**
  * Parses the index.html file to get the HEAD tag position.
  * @param src the src path of the html file to parse

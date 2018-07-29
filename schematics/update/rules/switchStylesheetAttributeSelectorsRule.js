@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const glob_1 = require("glob");
 const tslint_1 = require("tslint");
-const component_data_1 = require("../material/component-data");
+const attribute_selectors_1 = require("../material/data/attribute-selectors");
 const component_walker_1 = require("../tslint/component-walker");
 const literal_1 = require("../typescript/literal");
 /**
@@ -52,7 +52,7 @@ class SwitchStylesheetAtributeSelectorsWalker extends component_walker_1.Compone
      */
     replaceNamesInStylesheet(node, stylesheetContent) {
         const replacements = [];
-        component_data_1.attributeSelectors.forEach(selector => {
+        attribute_selectors_1.attributeSelectors.forEach(selector => {
             const bracketedSelector = {
                 replace: `[${selector.replace}]`,
                 replaceWith: `[${selector.replaceWith}]`

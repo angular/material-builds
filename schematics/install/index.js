@@ -10,8 +10,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
 const tasks_1 = require("@angular-devkit/schematics/tasks");
 const ast_1 = require("../utils/ast");
-const change_1 = require("../utils/devkit-utils/change");
-const config_1 = require("../utils/devkit-utils/config");
+const change_1 = require("@schematics/angular/utility/change");
+const config_1 = require("@schematics/angular/utility/config");
+const get_project_1 = require("../utils/get-project");
 const html_1 = require("../utils/html");
 const lib_versions_1 = require("../utils/lib-versions");
 const package_1 = require("../utils/package");
@@ -51,7 +52,7 @@ function addMaterialToPackageJson() {
 function addAnimationRootConfig(options) {
     return (host) => {
         const workspace = config_1.getWorkspace(host);
-        const project = config_1.getProjectFromWorkspace(workspace, options.project);
+        const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
         ast_1.addModuleImportToRootModule(host, 'BrowserAnimationsModule', '@angular/platform-browser/animations', project);
         return host;
     };
@@ -60,7 +61,7 @@ function addAnimationRootConfig(options) {
 function addFontsToIndex(options) {
     return (host) => {
         const workspace = config_1.getWorkspace(host);
-        const project = config_1.getProjectFromWorkspace(workspace, options.project);
+        const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
         const fonts = [
             'https://fonts.googleapis.com/css?family=Roboto:300,400,500',
             'https://fonts.googleapis.com/icon?family=Material+Icons',
@@ -73,7 +74,7 @@ function addFontsToIndex(options) {
 function addBodyMarginToStyles(options) {
     return (host) => {
         const workspace = config_1.getWorkspace(host);
-        const project = config_1.getProjectFromWorkspace(workspace, options.project);
+        const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
         const stylesPath = ast_1.getStylesPath(project);
         const buffer = host.read(stylesPath);
         if (buffer) {

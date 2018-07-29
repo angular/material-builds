@@ -11,7 +11,7 @@ const chalk_1 = require("chalk");
 const path_1 = require("path");
 const tslint_1 = require("tslint");
 const ts = require("typescript");
-const component_data_1 = require("../material/component-data");
+const class_names_1 = require("../material/data/class-names");
 const typescript_specifiers_1 = require("../material/typescript-specifiers");
 const identifiers_1 = require("../typescript/identifiers");
 const imports_1 = require("../typescript/imports");
@@ -40,7 +40,7 @@ class SwitchIdentifiersWalker extends tslint_1.ProgramAwareRuleWalker {
         this._storeNamespaceImports(identifier);
         // For identifiers that aren't listed in the className data, the whole check can be
         // skipped safely.
-        if (!component_data_1.classNames.some(data => data.replace === identifier.text)) {
+        if (!class_names_1.classNames.some(data => data.replace === identifier.text)) {
             return;
         }
         const symbol = identifiers_1.getOriginalSymbolFromNode(identifier, this.getTypeChecker());
@@ -72,7 +72,7 @@ class SwitchIdentifiersWalker extends tslint_1.ProgramAwareRuleWalker {
     }
     /** Creates a failure and replacement for the specified identifier. */
     createIdentifierFailure(identifier, symbol) {
-        let classData = component_data_1.classNames.find(data => data.replace === symbol.name || data.replace === identifier.text);
+        let classData = class_names_1.classNames.find(data => data.replace === symbol.name || data.replace === identifier.text);
         if (!classData) {
             console.error(`Could not find updated name for identifier "${identifier.getText()}" in ` +
                 ` in file ${this._getRelativeFileName()}.`);

@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const glob_1 = require("glob");
 const tslint_1 = require("tslint");
-const component_data_1 = require("../material/component-data");
+const element_selectors_1 = require("../material/data/element-selectors");
 const component_walker_1 = require("../tslint/component-walker");
 const literal_1 = require("../typescript/literal");
 /**
@@ -52,7 +52,7 @@ class SwitchStylesheetElementSelectorsWalker extends component_walker_1.Componen
      */
     replaceNamesInStylesheet(node, stylesheetContent) {
         const replacements = [];
-        component_data_1.elementSelectors.forEach(selector => {
+        element_selectors_1.elementSelectors.forEach(selector => {
             this.createReplacementsForOffsets(node, selector, literal_1.findAll(stylesheetContent, selector.replace)).forEach(replacement => {
                 replacements.push({
                     message: `Found deprecated element selector "${chalk_1.red(selector.replace)}" which has` +

@@ -10,27 +10,31 @@ Object.defineProperty(exports, "__esModule", { value: true });
  */
 const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics");
-const ts = require("typescript");
-const ast_utils_1 = require("./ast-utils");
-const change_1 = require("./change");
-const find_module_1 = require("./find-module");
-const config_1 = require("./config");
-const parse_name_1 = require("./parse-name");
-const validation_1 = require("./validation");
+const ast_utils_1 = require("@schematics/angular/utility/ast-utils");
+const change_1 = require("@schematics/angular/utility/change");
+const config_1 = require("@schematics/angular/utility/config");
+const find_module_1 = require("@schematics/angular/utility/find-module");
+const parse_name_1 = require("@schematics/angular/utility/parse-name");
+const project_1 = require("@schematics/angular/utility/project");
+const validation_1 = require("@schematics/angular/utility/validation");
 const path_1 = require("path");
 const fs_1 = require("fs");
+const ts = require("typescript");
+function readIntoSourceFile(host, modulePath) {
+    const text = host.read(modulePath);
+    if (text === null) {
+        throw new schematics_1.SchematicsException(`File ${modulePath} does not exist.`);
+    }
+    const sourceText = text.toString('utf-8');
+    return ts.createSourceFile(modulePath, sourceText, ts.ScriptTarget.Latest, true);
+}
 function addDeclarationToNgModule(options) {
     return (host) => {
         if (options.skipImport || !options.module) {
             return host;
         }
         const modulePath = options.module;
-        const text = host.read(modulePath);
-        if (text === null) {
-            throw new schematics_1.SchematicsException(`File ${modulePath} does not exist.`);
-        }
-        const sourceText = text.toString('utf-8');
-        const source = ts.createSourceFile(modulePath, sourceText, ts.ScriptTarget.Latest, true);
+        const source = readIntoSourceFile(host, modulePath);
         const componentPath = `/${options.path}/`
             + (options.flat ? '' : core_1.strings.dasherize(options.name) + '/')
             + core_1.strings.dasherize(options.name)
@@ -47,12 +51,7 @@ function addDeclarationToNgModule(options) {
         host.commitUpdate(declarationRecorder);
         if (options.export) {
             // Need to refresh the AST because we overwrote the file in the host.
-            const text = host.read(modulePath);
-            if (text === null) {
-                throw new schematics_1.SchematicsException(`File ${modulePath} does not exist.`);
-            }
-            const sourceText = text.toString('utf-8');
-            const source = ts.createSourceFile(modulePath, sourceText, ts.ScriptTarget.Latest, true);
+            const source = readIntoSourceFile(host, modulePath);
             const exportRecorder = host.beginUpdate(modulePath);
             const exportChanges = ast_utils_1.addExportToModule(source, modulePath, core_1.strings.classify(`${options.name}Component`), relativePath);
             for (const change of exportChanges) {
@@ -61,6 +60,18 @@ function addDeclarationToNgModule(options) {
                 }
             }
             host.commitUpdate(exportRecorder);
+        }
+        if (options.entryComponent) {
+            // Need to refresh the AST because we overwrote the file in the host.
+            const source = readIntoSourceFile(host, modulePath);
+            const entryComponentRecorder = host.beginUpdate(modulePath);
+            const entryComponentChanges = ast_utils_1.addEntryComponentToModule(source, modulePath, core_1.strings.classify(`${options.name}Component`), relativePath);
+            for (const change of entryComponentChanges) {
+                if (change instanceof change_1.InsertChange) {
+                    entryComponentRecorder.insertLeft(change.pos, change.toAdd);
+                }
+            }
+            host.commitUpdate(entryComponentRecorder);
         }
         return host;
     };
@@ -96,21 +107,19 @@ function indentTextContent(text, numSpaces) {
 function buildComponent(options, additionalFiles = {}) {
     return (host, context) => {
         const workspace = config_1.getWorkspace(host);
-        if (!options.project) {
-            options.project = Object.keys(workspace.projects)[0];
-        }
-        const project = workspace.projects[options.project];
+        const project = workspace.projects[options.project || workspace.defaultProject];
         const schematicFilesUrl = './files';
         const schematicFilesPath = path_1.resolve(path_1.dirname(context.schematic.description.path), schematicFilesUrl);
         if (options.path === undefined) {
-            options.path = `/${project.root}/src/app`;
+            options.path = project_1.buildDefaultPath(project);
         }
-        options.selector = options.selector || buildSelector(options, project.prefix);
         options.module = find_module_1.findModuleFromOptions(host, options);
         const parsedPath = parse_name_1.parseName(options.path, options.name);
         options.name = parsedPath.name;
         options.path = parsedPath.path;
+        options.selector = options.selector || buildSelector(options, project.prefix);
         validation_1.validateName(options.name);
+        validation_1.validateHtmlSelector(options.selector);
         // Object that will be used as context for the EJS templates.
         const baseTemplateContext = Object.assign({}, core_1.strings, { 'if-flat': (s) => options.flat ? '' : s }, options);
         // Key-value object that includes the specified additional files with their loaded content.
@@ -127,8 +136,9 @@ function buildComponent(options, additionalFiles = {}) {
             options.spec ? schematics_1.noop() : schematics_1.filter(path => !path.endsWith('.spec.ts')),
             options.inlineStyle ? schematics_1.filter(path => !path.endsWith('.__styleext__')) : schematics_1.noop(),
             options.inlineTemplate ? schematics_1.filter(path => !path.endsWith('.html')) : schematics_1.noop(),
-            schematics_1.template(Object.assign({ indentTextContent,
-                resolvedFiles }, baseTemplateContext)),
+            // Treat the template options as any, because the type definition for the template options
+            // is made unnecessarily explicit. Every type of object can be used in the EJS template.
+            schematics_1.template(Object.assign({ indentTextContent, resolvedFiles }, baseTemplateContext)),
             schematics_1.move(null, parsedPath.path),
         ]);
         return schematics_1.chain([
@@ -141,4 +151,4 @@ function buildComponent(options, additionalFiles = {}) {
 }
 exports.buildComponent = buildComponent;
 // TODO(paul): move this utility out of the `devkit-utils` because it's no longer taken from there.
-//# sourceMappingURL=component.js.map
+//# sourceMappingURL=build-component.js.map

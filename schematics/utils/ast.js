@@ -9,12 +9,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics");
+const ast_utils_1 = require("@schematics/angular/utility/ast-utils");
+const change_1 = require("@schematics/angular/utility/change");
+const config_1 = require("@schematics/angular/utility/config");
+const ng_ast_utils_1 = require("@schematics/angular/utility/ng-ast-utils");
+const find_module_1 = require("@schematics/angular/utility/find-module");
 const ts = require("typescript");
-const ast_utils_1 = require("./devkit-utils/ast-utils");
-const change_1 = require("./devkit-utils/change");
-const config_1 = require("./devkit-utils/config");
-const ng_ast_utils_1 = require("./devkit-utils/ng-ast-utils");
-const find_module_1 = require("./devkit-utils/find-module");
 /** Reads file given path and returns TypeScript source file. */
 function getSourceFile(host, path) {
     const buffer = host.read(path);

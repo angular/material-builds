@@ -8,11 +8,11 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const tasks_1 = require("@angular-devkit/schematics/tasks");
+const config_1 = require("@schematics/angular/utility/config");
 const fs_1 = require("fs");
 const path = require("path");
-const config_1 = require("../utils/devkit-utils/config");
 const schematicsSrcPath = 'node_modules/@angular/material/schematics';
-const schematicsTmpPath = fs_1.mkdtempSync('angular_material_schematics-');
+const schematicsTmpPath = fs_1.mkdtempSync('angular_material_temp_schematics');
 /** Entry point for `ng update` from Angular CLI. */
 function default_1() {
     return (tree, context) => {

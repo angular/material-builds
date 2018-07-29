@@ -8,8 +8,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 /** Create custom theme for the given application configuration. */
-function createCustomTheme(project) {
-    const name = project.name || 'app';
+function createCustomTheme(name = 'app') {
     return `
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming

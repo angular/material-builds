@@ -47,10 +47,14 @@ var __assign = function() {
 var /** @type {?} */ matTooltipAnimations = {
     /** Animation that transitions a tooltip in and out. */
     tooltipState: animations.trigger('state', [
-        animations.state('initial, void, hidden', animations.style({ transform: 'scale(0)' })),
+        animations.state('initial, void, hidden', animations.style({ opacity: 0, transform: 'scale(0)' })),
         animations.state('visible', animations.style({ transform: 'scale(1)' })),
-        animations.transition('* => visible', animations.animate('150ms cubic-bezier(0.0, 0.0, 0.2, 1)')),
-        animations.transition('* => hidden', animations.animate('150ms cubic-bezier(0.4, 0.0, 1, 1)')),
+        animations.transition('* => visible', animations.animate('200ms cubic-bezier(0, 0, 0.2, 1)', animations.keyframes([
+            animations.style({ opacity: 0, transform: 'scale(0)', offset: 0 }),
+            animations.style({ opacity: 0.5, transform: 'scale(0.99)', offset: 0.5 }),
+            animations.style({ opacity: 1, transform: 'scale(1)', offset: 1 })
+        ]))),
+        animations.transition('* => hidden', animations.animate('100ms cubic-bezier(0, 0, 0.2, 1)', animations.style({ opacity: 0 }))),
     ])
 };
 
@@ -834,7 +838,7 @@ var TooltipComponent = /** @class */ (function () {
     TooltipComponent.decorators = [
         { type: core.Component, args: [{selector: 'mat-tooltip-component',
                     template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)!.matches\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
-                    styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:2px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}"],
+                    styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     animations: [matTooltipAnimations.tooltipState],

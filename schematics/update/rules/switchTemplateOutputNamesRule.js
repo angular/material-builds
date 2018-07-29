@@ -9,7 +9,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
-const component_data_1 = require("../material/component-data");
+const output_names_1 = require("../material/data/output-names");
 const component_walker_1 = require("../tslint/component-walker");
 const literal_1 = require("../typescript/literal");
 /**
@@ -42,7 +42,7 @@ class SwitchTemplateOutputNamesWalker extends component_walker_1.ComponentWalker
      */
     replaceNamesInTemplate(node, templateContent) {
         const replacements = [];
-        component_data_1.outputNames.forEach(name => {
+        output_names_1.outputNames.forEach(name => {
             let offsets = [];
             if (name.whitelist && name.whitelist.attributes && name.whitelist.attributes.length) {
                 offsets = offsets.concat(literal_1.findAllOutputsInElWithAttr(templateContent, name.replace, name.whitelist.attributes));

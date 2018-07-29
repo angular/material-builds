@@ -9,7 +9,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
-const component_data_1 = require("../material/component-data");
+const attribute_selectors_1 = require("../material/data/attribute-selectors");
 const component_walker_1 = require("../tslint/component-walker");
 const literal_1 = require("../typescript/literal");
 /**
@@ -42,7 +42,7 @@ class SwitchTemplateAttributeSelectorsWalker extends component_walker_1.Componen
      */
     replaceNamesInTemplate(node, templateContent) {
         const replacements = [];
-        component_data_1.attributeSelectors.forEach(selector => {
+        attribute_selectors_1.attributeSelectors.forEach(selector => {
             // Being more aggressive with that replacement here allows us to also handle inline
             // style elements. Normally we would check if the selector is surrounded by the HTML tag
             // characters.
