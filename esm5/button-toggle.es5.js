@@ -41,11 +41,11 @@ var /** @type {?} */ MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
 };
 /**
  * @deprecated Use `MatButtonToggleGroup` instead.
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 var  /**
  * @deprecated Use `MatButtonToggleGroup` instead.
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 MatButtonToggleGroupMultiple = /** @class */ (function () {
     function MatButtonToggleGroupMultiple() {

@@ -81,12 +81,12 @@ const /** @type {?} */ matSelectAnimations = {
 };
 /**
  * @deprecated
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 const /** @type {?} */ transformPanel = matSelectAnimations.transformPanel;
 /**
  * @deprecated
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 const /** @type {?} */ fadeInContent = matSelectAnimations.fadeInContent;
 
@@ -396,7 +396,7 @@ class MatSelect extends _MatSelectMixinBase {
     }
     /**
      * @deprecated Setter to be removed as this property is intended to be readonly.
-     * \@deletion-target 8.0.0
+     * \@breaking-change 8.0.0
      * @param {?} value
      * @return {?}
      */

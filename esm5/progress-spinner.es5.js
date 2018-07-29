@@ -65,7 +65,7 @@ var /** @type {?} */ INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progr
 var MatProgressSpinner = /** @class */ (function (_super) {
     __extends(MatProgressSpinner, _super);
     function MatProgressSpinner(_elementRef, platform, _document, 
-    // @deletion-target 7.0.0 animationMode and defaults parameters to be made required.
+    // @breaking-change 7.0.0 animationMode and defaults parameters to be made required.
     animationMode, defaults) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
@@ -310,7 +310,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
 var MatSpinner = /** @class */ (function (_super) {
     __extends(MatSpinner, _super);
     function MatSpinner(elementRef, platform, document, 
-    // @deletion-targets 7.0.0 animationMode and defaults parameters to be made required.
+    // @breaking-changes 7.0.0 animationMode and defaults parameters to be made required.
     animationMode, defaults) {
         var _this = _super.call(this, elementRef, platform, document, animationMode, defaults) || this;
         _this.mode = 'indeterminate';

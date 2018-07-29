@@ -88,7 +88,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     _initialGapCalculated: boolean;
     /**
      * @deprecated
-     * @deletion-target 7.0.0
+     * @breaking-change 7.0.0
      */
     underlineRef: ElementRef;
     _connectionContainerRef: ElementRef;

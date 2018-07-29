@@ -78,7 +78,7 @@ class MatSlider extends _MatSliderMixinBase {
      * @param {?=} _animationMode
      */
     constructor(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, 
-    // @deletion-target 7.0.0 `_animationMode` parameter to be made required.
+    // @breaking-change 7.0.0 `_animationMode` parameter to be made required.
     _animationMode) {
         super(elementRef);
         this._focusMonitor = _focusMonitor;

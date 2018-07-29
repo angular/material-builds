@@ -81,11 +81,11 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      */
     constructor(elementRef, /**
                    * @deprecated The `_platform` parameter to be removed.
-                   * @deletion-target 7.0.0
+                   * @breaking-change 7.0.0
                    */
     /**
      * @deprecated The `_platform` parameter to be removed.
-     * @deletion-target 7.0.0
+     * @breaking-change 7.0.0
      */
     _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode, _dir) {
         super(elementRef);

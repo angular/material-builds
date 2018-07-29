@@ -101,7 +101,7 @@ var /** @type {?} */ _MatSliderMixinBase = core$1.mixinTabIndex(core$1.mixinColo
 var MatSlider = /** @class */ (function (_super) {
     __extends(MatSlider, _super);
     function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, 
-    // @deletion-target 7.0.0 `_animationMode` parameter to be made required.
+    // @breaking-change 7.0.0 `_animationMode` parameter to be made required.
     _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;

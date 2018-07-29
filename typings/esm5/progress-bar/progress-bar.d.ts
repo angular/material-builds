@@ -23,7 +23,7 @@ export declare class MatProgressBar extends _MatProgressBarMixinBase implements 
     constructor(_elementRef: ElementRef, _animationMode?: string | undefined, 
         /**
          * @deprecated `location` parameter to be made required.
-         * @deletion-target 8.0.0
+         * @breaking-change 8.0.0
          */
         location?: Location);
     /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */

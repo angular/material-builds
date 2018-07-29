@@ -97,7 +97,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     constructor(elementRef: ElementRef, 
         /**
          * @deprecated The `_platform` parameter to be removed.
-         * @deletion-target 7.0.0
+         * @breaking-change 7.0.0
          */
         _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone, defaults: MatSlideToggleDefaultOptions, _animationMode?: string | undefined, _dir?: Directionality | undefined);
     ngAfterContentInit(): void;

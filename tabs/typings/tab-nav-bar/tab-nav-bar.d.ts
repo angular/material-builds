@@ -40,7 +40,7 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
     constructor(elementRef: ElementRef, _dir: Directionality, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler);
     /**
      * Notifies the component that the active link has been changed.
-     * @deletion-target 7.0.0 `element` parameter to be removed.
+     * @breaking-change 7.0.0 `element` parameter to be removed.
      */
     updateActiveLink(element: ElementRef): void;
     ngAfterContentInit(): void;
@@ -61,7 +61,7 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestro
     _elementRef: ElementRef;
     /**
      * @deprecated
-     * @deletion-target 7.0.0 `_focusMonitor` parameter to be made required.
+     * @breaking-change 7.0.0 `_focusMonitor` parameter to be made required.
      */
     private _focusMonitor;
     /** Whether the tab link is active or not. */
@@ -85,7 +85,7 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestro
     constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions, tabIndex: string, 
         /**
          * @deprecated
-         * @deletion-target 7.0.0 `_focusMonitor` parameter to be made required.
+         * @breaking-change 7.0.0 `_focusMonitor` parameter to be made required.
          */
         _focusMonitor?: FocusMonitor | undefined);
     ngOnDestroy(): void;

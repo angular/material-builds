@@ -82,12 +82,12 @@ var /** @type {?} */ matSelectAnimations = {
 };
 /**
  * @deprecated
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 var /** @type {?} */ transformPanel = matSelectAnimations.transformPanel;
 /**
  * @deprecated
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 var /** @type {?} */ fadeInContent = matSelectAnimations.fadeInContent;
 
@@ -390,11 +390,11 @@ var MatSelect = /** @class */ (function (_super) {
         },
         /**
          * @deprecated Setter to be removed as this property is intended to be readonly.
-         * @deletion-target 8.0.0
+         * @breaking-change 8.0.0
          */
         set: /**
          * @deprecated Setter to be removed as this property is intended to be readonly.
-         * \@deletion-target 8.0.0
+         * \@breaking-change 8.0.0
          * @param {?} value
          * @return {?}
          */

@@ -1276,7 +1276,7 @@ class MatChipInput {
         /**
          * The input's placeholder text.
          * @deprecated Bind to the `placeholder` attribute directly.
-         * \@deletion-target 7.0.0
+         * \@breaking-change 7.0.0
          */
         this.placeholder = '';
         /**

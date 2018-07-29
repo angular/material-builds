@@ -18,11 +18,11 @@ export declare const matSelectAnimations: {
 };
 /**
  * @deprecated
- * @deletion-target 7.0.0
+ * @breaking-change 7.0.0
  */
 export declare const transformPanel: AnimationTriggerMetadata;
 /**
  * @deprecated
- * @deletion-target 7.0.0
+ * @breaking-change 7.0.0
  */
 export declare const fadeInContent: AnimationTriggerMetadata;

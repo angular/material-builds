@@ -68,7 +68,7 @@ var MatProgressBar = /** @class */ (function (_super) {
     __extends(MatProgressBar, _super);
     function MatProgressBar(_elementRef, _animationMode, /**
                    * @deprecated `location` parameter to be made required.
-                   * @deletion-target 8.0.0
+                   * @breaking-change 8.0.0
                    */
     location) {
         var _this = _super.call(this, _elementRef) || this;

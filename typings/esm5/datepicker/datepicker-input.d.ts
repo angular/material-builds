@@ -82,7 +82,7 @@ export declare class MatDatepickerInput<D> implements AfterContentInit, ControlV
     validate(c: AbstractControl): ValidationErrors | null;
     /**
      * @deprecated
-     * @deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
+     * @breaking-change 7.0.0 Use `getConnectedOverlayOrigin` instead
      */
     getPopupConnectionElementRef(): ElementRef;
     /**

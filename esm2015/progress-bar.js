@@ -41,7 +41,7 @@ class MatProgressBar extends _MatProgressBarMixinBase {
      */
     constructor(_elementRef, _animationMode, /**
                    * @deprecated `location` parameter to be made required.
-                   * @deletion-target 8.0.0
+                   * @breaking-change 8.0.0
                    */
     location) {
         super(_elementRef);

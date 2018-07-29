@@ -149,7 +149,7 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Whether the select is focused. */
     /**
      * @deprecated Setter to be removed as this property is intended to be readonly.
-     * @deletion-target 8.0.0
+     * @breaking-change 8.0.0
      */
     focused: boolean;
     private _focused;

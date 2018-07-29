@@ -57,7 +57,7 @@ var /** @type {?} */ _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisable
 var MatButton = /** @class */ (function (_super) {
     __extends(MatButton, _super);
     function MatButton(elementRef, _platform, _focusMonitor, 
-    // @deletion-target 7.0.0 `_animationMode` parameter to be made required.
+    // @breaking-change 7.0.0 `_animationMode` parameter to be made required.
     _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
@@ -178,7 +178,7 @@ var MatButton = /** @class */ (function (_super) {
 var MatAnchor = /** @class */ (function (_super) {
     __extends(MatAnchor, _super);
     function MatAnchor(platform, focusMonitor, elementRef, 
-    // @deletion-target 7.0.0 `animationMode` parameter to be made required.
+    // @breaking-change 7.0.0 `animationMode` parameter to be made required.
     animationMode) {
         return _super.call(this, elementRef, platform, focusMonitor, animationMode) || this;
     }

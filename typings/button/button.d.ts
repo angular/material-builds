@@ -21,7 +21,7 @@ export declare const _MatButtonMixinBase: (new (...args: any[]) => CanColor) & (
 export declare class MatButton extends _MatButtonMixinBase implements OnDestroy, CanDisable, CanColor, CanDisableRipple {
     /**
      * @deprecated Platform checks for SSR are no longer needed
-     * @deletion-target 7.0.0
+     * @breaking-change 7.0.0
      */
     private _platform;
     private _focusMonitor;
@@ -35,7 +35,7 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
     constructor(elementRef: ElementRef, 
         /**
          * @deprecated Platform checks for SSR are no longer needed
-         * @deletion-target 7.0.0
+         * @breaking-change 7.0.0
          */
         _platform: Platform, _focusMonitor: FocusMonitor, _animationMode?: string | undefined);
     ngOnDestroy(): void;

@@ -60,7 +60,7 @@ class MatButton extends _MatButtonMixinBase {
      * @param {?=} _animationMode
      */
     constructor(elementRef, _platform, _focusMonitor, 
-    // @deletion-target 7.0.0 `_animationMode` parameter to be made required.
+    // @breaking-change 7.0.0 `_animationMode` parameter to be made required.
     _animationMode) {
         super(elementRef);
         this._platform = _platform;
@@ -160,7 +160,7 @@ class MatAnchor extends MatButton {
      * @param {?=} animationMode
      */
     constructor(platform, focusMonitor, elementRef, 
-    // @deletion-target 7.0.0 `animationMode` parameter to be made required.
+    // @breaking-change 7.0.0 `animationMode` parameter to be made required.
     animationMode) {
         super(elementRef, platform, focusMonitor, animationMode);
     }

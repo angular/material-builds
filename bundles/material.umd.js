@@ -565,7 +565,7 @@ function MAT_DATE_LOCALE_FACTORY() {
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
  * @deprecated
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 var /** @type {?} */ MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: core.LOCALE_ID };
 /**
@@ -1464,7 +1464,7 @@ var GestureConfig = /** @class */ (function (_super) {
             // `this.events` to the set we support, instead of conditionally setting it to `[]` if
             // `HAMMER_LOADER` is present (and then throwing an Error here if `window.Hammer` is
             // undefined).
-            // @deletion-target 7.0.0
+            // @breaking-change 7.0.0
             return noopHammerInstance;
         }
         var /** @type {?} */ mc = new hammer(element, this._hammerOptions || undefined);
@@ -1998,7 +1998,7 @@ var MatRipple = /** @class */ (function () {
          * setting it to 0.5 will cause the animations to take twice as long.
          * A changed speedFactor will not modify the fade-out duration of the ripples.
          * @deprecated Use the [matRippleAnimation] binding instead.
-         * \@deletion-target 7.0.0
+         * \@breaking-change 7.0.0
          */
         this.speedFactor = 1;
         this._disabled = false;
@@ -2960,7 +2960,7 @@ var MatLabel = /** @class */ (function () {
  * The placeholder text for an `MatFormField`.
  * @deprecated Use `<mat-label>` to specify the label and the `placeholder` attribute to specify the
  *     placeholder.
- * \@deletion-target 8.0.0
+ * \@breaking-change 8.0.0
  */
 var MatPlaceholder = /** @class */ (function () {
     function MatPlaceholder() {
@@ -3238,7 +3238,7 @@ var MatFormField = /** @class */ (function (_super) {
         var _this = this;
         this._validateControlChild();
         if (!this._initialGapCalculated) {
-            // @deletion-target 7.0.0 Remove this check and else block once _ngZone is required.
+            // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
             if (this._ngZone) {
                 // It's important that we run this outside the `_ngZone`, because the `Promise.resolve`
                 // can kick us into an infinite change detection loop, if the `_initialGapCalculated`
@@ -5682,7 +5682,7 @@ var /** @type {?} */ _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisable
 var MatButton = /** @class */ (function (_super) {
     __extends(MatButton, _super);
     function MatButton(elementRef, _platform, _focusMonitor, 
-    // @deletion-target 7.0.0 `_animationMode` parameter to be made required.
+    // @breaking-change 7.0.0 `_animationMode` parameter to be made required.
     _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
@@ -5803,7 +5803,7 @@ var MatButton = /** @class */ (function (_super) {
 var MatAnchor = /** @class */ (function (_super) {
     __extends(MatAnchor, _super);
     function MatAnchor(platform$$1, focusMonitor, elementRef, 
-    // @deletion-target 7.0.0 `animationMode` parameter to be made required.
+    // @breaking-change 7.0.0 `animationMode` parameter to be made required.
     animationMode) {
         return _super.call(this, elementRef, platform$$1, focusMonitor, animationMode) || this;
     }
@@ -5911,11 +5911,11 @@ var /** @type {?} */ MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
 };
 /**
  * @deprecated Use `MatButtonToggleGroup` instead.
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 var   /**
  * @deprecated Use `MatButtonToggleGroup` instead.
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 MatButtonToggleGroupMultiple = /** @class */ (function () {
     function MatButtonToggleGroupMultiple() {
@@ -9067,7 +9067,7 @@ var MatChipInput = /** @class */ (function () {
         /**
          * The input's placeholder text.
          * @deprecated Bind to the `placeholder` attribute directly.
-         * \@deletion-target 7.0.0
+         * \@breaking-change 7.0.0
          */
         this.placeholder = '';
         /**
@@ -10455,7 +10455,7 @@ var MatDialogModule = /** @class */ (function () {
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 var MatTextareaAutosize = /** @class */ (function (_super) {
     __extends(MatTextareaAutosize, _super);
@@ -11020,7 +11020,7 @@ var MatInput = /** @class */ (function (_super) {
                     exportAs: 'matInput',
                     host: {
                         /**
-                             * @deletion-target 7.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
+                             * @breaking-change 7.0.0 remove .mat-form-field-autofill-control in favor of AutofillMonitor.
                              */
                         'class': 'mat-input-element mat-form-field-autofill-control',
                         '[class.mat-input-server]': '_isServer',
@@ -13904,16 +13904,16 @@ var MatDatepickerInput = /** @class */ (function () {
     };
     /**
      * @deprecated
-     * @deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
+     * @breaking-change 7.0.0 Use `getConnectedOverlayOrigin` instead
      */
     /**
      * @deprecated
-     * \@deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
+     * \@breaking-change 7.0.0 Use `getConnectedOverlayOrigin` instead
      * @return {?}
      */
     MatDatepickerInput.prototype.getPopupConnectionElementRef = /**
      * @deprecated
-     * \@deletion-target 7.0.0 Use `getConnectedOverlayOrigin` instead
+     * \@breaking-change 7.0.0 Use `getConnectedOverlayOrigin` instead
      * @return {?}
      */
     function () {
@@ -17383,7 +17383,7 @@ var MatListItem = /** @class */ (function (_super) {
                     exportAs: 'matListItem',
                     host: {
                         'class': 'mat-list-item',
-                        // @deletion-target 7.0.0 Remove `mat-list-item-avatar` in favor of `mat-list-item-with-avatar`.
+                        // @breaking-change 7.0.0 Remove `mat-list-item-avatar` in favor of `mat-list-item-with-avatar`.
                         '[class.mat-list-item-avatar]': '_avatar || _icon',
                         '[class.mat-list-item-with-avatar]': '_avatar || _icon',
                         '(focus)': '_handleFocus()',
@@ -18380,12 +18380,12 @@ var /** @type {?} */ matMenuAnimations = {
 };
 /**
  * @deprecated
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 var /** @type {?} */ fadeInItems = matMenuAnimations.fadeInItems;
 /**
  * @deprecated
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 var /** @type {?} */ transformMenu = matMenuAnimations.transformMenu;
 
@@ -18455,7 +18455,7 @@ var MatMenuItem = /** @class */ (function (_super) {
     __extends(MatMenuItem, _super);
     function MatMenuItem(_elementRef, document, _focusMonitor, _parentMenu) {
         var _this = 
-        // @deletion-target 7.0.0 make `_focusMonitor` and `document` required params.
+        // @breaking-change 7.0.0 make `_focusMonitor` and `document` required params.
         _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._focusMonitor = _focusMonitor;
@@ -18700,7 +18700,7 @@ var MatMenu = /** @class */ (function () {
         /**
          * Event emitted when the menu is closed.
          * @deprecated Switch to `closed` instead
-         * \@deletion-target 7.0.0
+         * \@breaking-change 7.0.0
          */
         this.close = this.closed;
     }
@@ -18802,7 +18802,7 @@ var MatMenu = /** @class */ (function () {
          * menu template that displays in the overlay container.  Otherwise, it's difficult
          * to style the containing menu from outside the component.
          * @deprecated Use `panelClass` instead.
-         * \@deletion-target 7.0.0
+         * \@breaking-change 7.0.0
          * @return {?}
          */
         function () { return this.panelClass; },
@@ -19053,7 +19053,7 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        // @deletion-target 7.0.0 Combine with _resetAnimation.
+        // @breaking-change 7.0.0 Combine with _resetAnimation.
         this._panelAnimationState = 'enter';
     };
     /** Resets the panel animation to its initial state. */
@@ -19066,7 +19066,7 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        // @deletion-target 7.0.0 Combine with _startAnimation.
+        // @breaking-change 7.0.0 Combine with _startAnimation.
         this._panelAnimationState = 'void';
     };
     /** Callback that is invoked when the panel animation completes. */
@@ -19186,7 +19186,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is opened.
          * @deprecated Switch to `menuOpened` instead
-         * \@deletion-target 7.0.0
+         * \@breaking-change 7.0.0
          */
         this.onMenuOpen = this.menuOpened;
         /**
@@ -19196,7 +19196,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is closed.
          * @deprecated Switch to `menuClosed` instead
-         * \@deletion-target 7.0.0
+         * \@breaking-change 7.0.0
          */
         this.onMenuClose = this.menuClosed;
         if (_menuItemInstance) {
@@ -19206,7 +19206,7 @@ var MatMenuTrigger = /** @class */ (function () {
     Object.defineProperty(MatMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", {
         get: /**
          * @deprecated
-         * \@deletion-target 7.0.0
+         * \@breaking-change 7.0.0
          * @return {?}
          */
         function () {
@@ -19845,12 +19845,12 @@ var /** @type {?} */ matSelectAnimations = {
 };
 /**
  * @deprecated
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 var /** @type {?} */ transformPanel = matSelectAnimations.transformPanel;
 /**
  * @deprecated
- * \@deletion-target 7.0.0
+ * \@breaking-change 7.0.0
  */
 var /** @type {?} */ fadeInContent = matSelectAnimations.fadeInContent;
 
@@ -20153,11 +20153,11 @@ var MatSelect = /** @class */ (function (_super) {
         },
         /**
          * @deprecated Setter to be removed as this property is intended to be readonly.
-         * @deletion-target 8.0.0
+         * @breaking-change 8.0.0
          */
         set: /**
          * @deprecated Setter to be removed as this property is intended to be readonly.
-         * \@deletion-target 8.0.0
+         * \@breaking-change 8.0.0
          * @param {?} value
          * @return {?}
          */
@@ -22941,7 +22941,7 @@ var MatProgressBar = /** @class */ (function (_super) {
     __extends(MatProgressBar, _super);
     function MatProgressBar(_elementRef, _animationMode, /**
                    * @deprecated `location` parameter to be made required.
-                   * @deletion-target 8.0.0
+                   * @breaking-change 8.0.0
                    */
     location) {
         var _this = _super.call(this, _elementRef) || this;
@@ -23145,7 +23145,7 @@ var /** @type {?} */ INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progr
 var MatProgressSpinner = /** @class */ (function (_super) {
     __extends(MatProgressSpinner, _super);
     function MatProgressSpinner(_elementRef, platform$$1, _document, 
-    // @deletion-target 7.0.0 animationMode and defaults parameters to be made required.
+    // @breaking-change 7.0.0 animationMode and defaults parameters to be made required.
     animationMode, defaults) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
@@ -23390,7 +23390,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
 var MatSpinner = /** @class */ (function (_super) {
     __extends(MatSpinner, _super);
     function MatSpinner(elementRef, platform$$1, document, 
-    // @deletion-targets 7.0.0 animationMode and defaults parameters to be made required.
+    // @breaking-changes 7.0.0 animationMode and defaults parameters to be made required.
     animationMode, defaults) {
         var _this = _super.call(this, elementRef, platform$$1, document, animationMode, defaults) || this;
         _this.mode = 'indeterminate';
@@ -25540,11 +25540,11 @@ var MatSlideToggle = /** @class */ (function (_super) {
     __extends(MatSlideToggle, _super);
     function MatSlideToggle(elementRef, /**
                    * @deprecated The `_platform` parameter to be removed.
-                   * @deletion-target 7.0.0
+                   * @breaking-change 7.0.0
                    */
     /**
      * @deprecated The `_platform` parameter to be removed.
-     * @deletion-target 7.0.0
+     * @breaking-change 7.0.0
      */
     _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode, _dir) {
         var _this = _super.call(this, elementRef) || this;
@@ -26069,7 +26069,7 @@ var /** @type {?} */ _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisable
 var MatSlider = /** @class */ (function (_super) {
     __extends(MatSlider, _super);
     function MatSlider(elementRef, _focusMonitor, _changeDetectorRef, _dir, tabIndex, 
-    // @deletion-target 7.0.0 `_animationMode` parameter to be made required.
+    // @breaking-change 7.0.0 `_animationMode` parameter to be made required.
     _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._focusMonitor = _focusMonitor;
@@ -27180,18 +27180,18 @@ MatSnackBarRef = /** @class */ (function () {
     /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * @deletion-target 7.0.0
+     * @breaking-change 7.0.0
      */
     /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * \@deletion-target 7.0.0
+     * \@breaking-change 7.0.0
      * @return {?}
      */
     MatSnackBarRef.prototype.closeWithAction = /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * \@deletion-target 7.0.0
+     * \@breaking-change 7.0.0
      * @return {?}
      */
     function () {
@@ -30412,10 +30412,10 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
  */
 var MatTabBody = /** @class */ (function () {
     function MatTabBody(_elementRef, _dir, /**
-                   * @deletion-target 7.0.0 changeDetectorRef to be made required.
+                   * @breaking-change 7.0.0 changeDetectorRef to be made required.
                    */
     /**
-     * @deletion-target 7.0.0 changeDetectorRef to be made required.
+     * @breaking-change 7.0.0 changeDetectorRef to be made required.
      */
     changeDetectorRef) {
         var _this = this;
@@ -31796,23 +31796,23 @@ var MatTabNav = /** @class */ (function (_super) {
     });
     /**
      * Notifies the component that the active link has been changed.
-     * @deletion-target 7.0.0 `element` parameter to be removed.
+     * @breaking-change 7.0.0 `element` parameter to be removed.
      */
     /**
      * Notifies the component that the active link has been changed.
-     * \@deletion-target 7.0.0 `element` parameter to be removed.
+     * \@breaking-change 7.0.0 `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     MatTabNav.prototype.updateActiveLink = /**
      * Notifies the component that the active link has been changed.
-     * \@deletion-target 7.0.0 `element` parameter to be removed.
+     * \@breaking-change 7.0.0 `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     function (element) {
         // Note: keeping the `element` for backwards-compat, but isn't being used for anything.
-        // @deletion-target 7.0.0
+        // @breaking-change 7.0.0
         this._activeLinkChanged = !!element;
         this._changeDetectorRef.markForCheck();
     };
@@ -32848,7 +32848,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.1-4e358c3');
+var /** @type {?} */ VERSION = new core.Version('6.4.1-877de56');
 
 exports.VERSION = VERSION;
 exports.ɵa28 = MatAutocompleteOrigin;
@@ -33100,12 +33100,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33235,17 +33235,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

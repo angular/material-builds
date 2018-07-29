@@ -74,7 +74,7 @@ export declare class MatTabBody implements OnInit, OnDestroy {
     position: number;
     constructor(_elementRef: ElementRef, _dir: Directionality, 
         /**
-         * @deletion-target 7.0.0 changeDetectorRef to be made required.
+         * @breaking-change 7.0.0 changeDetectorRef to be made required.
          */
         changeDetectorRef?: ChangeDetectorRef);
     /**

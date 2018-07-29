@@ -165,7 +165,7 @@ MatLabel.decorators = [
  * The placeholder text for an `MatFormField`.
  * @deprecated Use `<mat-label>` to specify the label and the `placeholder` attribute to specify the
  *     placeholder.
- * \@deletion-target 8.0.0
+ * \@breaking-change 8.0.0
  */
 class MatPlaceholder {
 }
@@ -397,7 +397,7 @@ class MatFormField extends _MatFormFieldMixinBase {
     ngAfterContentChecked() {
         this._validateControlChild();
         if (!this._initialGapCalculated) {
-            // @deletion-target 7.0.0 Remove this check and else block once _ngZone is required.
+            // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
             if (this._ngZone) {
                 // It's important that we run this outside the `_ngZone`, because the `Promise.resolve`
                 // can kick us into an infinite change detection loop, if the `_initialGapCalculated`
