@@ -6,18 +6,18 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { __extends } from 'tslib';
 import { FocusMonitor, FocusTrapFactory } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { CdkScrollable, ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { CdkScrollable, ScrollDispatcher, ScrollDispatchModule } from '@angular/cdk/scrolling';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, NgZone, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { fromEvent, merge, Subject } from 'rxjs';
 import { debounceTime, filter, map, startWith, take, takeUntil } from 'rxjs/operators';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
-import { __extends } from 'tslib';
 import { MatCommonModule } from '@angular/material/core';
 
 /**
@@ -70,10 +70,13 @@ var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWE
 function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY() {
     return false;
 }
-var MatDrawerContent = /** @class */ (function () {
-    function MatDrawerContent(_changeDetectorRef, _container) {
-        this._changeDetectorRef = _changeDetectorRef;
-        this._container = _container;
+var MatDrawerContent = /** @class */ (function (_super) {
+    __extends(MatDrawerContent, _super);
+    function MatDrawerContent(_changeDetectorRef, _container, elementRef, scrollDispatcher, ngZone) {
+        var _this = _super.call(this, elementRef, scrollDispatcher, ngZone) || this;
+        _this._changeDetectorRef = _changeDetectorRef;
+        _this._container = _container;
+        return _this;
     }
     /**
      * @return {?}
@@ -103,9 +106,12 @@ var MatDrawerContent = /** @class */ (function () {
     MatDrawerContent.ctorParameters = function () { return [
         { type: ChangeDetectorRef, },
         { type: MatDrawerContainer, decorators: [{ type: Inject, args: [forwardRef(function () { return MatDrawerContainer; }),] },] },
+        { type: ElementRef, },
+        { type: ScrollDispatcher, },
+        { type: NgZone, },
     ]; };
     return MatDrawerContent;
-}());
+}(CdkScrollable));
 /**
  * This component corresponds to a drawer that can be opened on the drawer container.
  */
@@ -657,6 +663,18 @@ var MatDrawerContainer = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatDrawerContainer.prototype, "scrollable", {
+        /** Reference to the CdkScrollable instance that wraps the scrollable content. */
+        get: /**
+         * Reference to the CdkScrollable instance that wraps the scrollable content.
+         * @return {?}
+         */
+        function () {
+            return this._userContent || this._content;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -987,7 +1005,7 @@ var MatDrawerContainer = /** @class */ (function () {
     MatDrawerContainer.decorators = [
         { type: Component, args: [{selector: 'mat-drawer-container',
                     exportAs: 'matDrawerContainer',
-                    template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" *ngIf=\"hasBackdrop\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-drawer\"></ng-content><ng-content select=\"mat-drawer-content\"></ng-content><mat-drawer-content *ngIf=\"!_content\" cdkScrollable><ng-content></ng-content></mat-drawer-content>",
+                    template: "<div class=\"mat-drawer-backdrop\" (click)=\"_onBackdropClicked()\" *ngIf=\"hasBackdrop\" [class.mat-drawer-shown]=\"_isShowingBackdrop()\"></div><ng-content select=\"mat-drawer\"></ng-content><ng-content select=\"mat-drawer-content\"></ng-content><mat-drawer-content *ngIf=\"!_content\"><ng-content></ng-content></mat-drawer-content>",
                     styles: [".mat-drawer-container{position:relative;z-index:1;box-sizing:border-box;-webkit-overflow-scrolling:touch;display:block;overflow:hidden}.mat-drawer-container[fullscreen]{top:0;left:0;right:0;bottom:0;position:absolute}.mat-drawer-container[fullscreen].mat-drawer-opened{overflow:hidden}.mat-drawer-container.mat-drawer-container-explicit-backdrop .mat-drawer-side{z-index:3}.mat-drawer-backdrop{top:0;left:0;right:0;bottom:0;position:absolute;display:block;z-index:3;visibility:hidden}.mat-drawer-backdrop.mat-drawer-shown{visibility:visible}.mat-drawer-transition .mat-drawer-backdrop{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:background-color,visibility}@media screen and (-ms-high-contrast:active){.mat-drawer-backdrop{opacity:.5}}.mat-drawer-content{position:relative;z-index:1;display:block;height:100%;overflow:auto}.mat-drawer-transition .mat-drawer-content{transition-duration:.4s;transition-timing-function:cubic-bezier(.25,.8,.25,1);transition-property:transform,margin-left,margin-right}.mat-drawer{position:relative;z-index:4;display:block;position:absolute;top:0;bottom:0;z-index:3;outline:0;box-sizing:border-box;overflow-y:auto;transform:translate3d(-100%,0,0)}@media screen and (-ms-high-contrast:active){.mat-drawer,[dir=rtl] .mat-drawer.mat-drawer-end{border-right:solid 1px currentColor}}@media screen and (-ms-high-contrast:active){.mat-drawer.mat-drawer-end,[dir=rtl] .mat-drawer{border-left:solid 1px currentColor;border-right:none}}.mat-drawer.mat-drawer-side{z-index:2}.mat-drawer.mat-drawer-end{right:0;transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer{transform:translate3d(100%,0,0)}[dir=rtl] .mat-drawer.mat-drawer-end{left:0;right:auto;transform:translate3d(-100%,0,0)}.mat-drawer:not(.mat-drawer-side){box-shadow:0 8px 10px -5px rgba(0,0,0,.2),0 16px 24px 2px rgba(0,0,0,.14),0 6px 30px 5px rgba(0,0,0,.12)}.mat-sidenav-fixed{position:fixed}"],
                     host: {
                         'class': 'mat-drawer-container',
@@ -1009,10 +1027,10 @@ var MatDrawerContainer = /** @class */ (function () {
     MatDrawerContainer.propDecorators = {
         "_drawers": [{ type: ContentChildren, args: [MatDrawer,] },],
         "_content": [{ type: ContentChild, args: [MatDrawerContent,] },],
+        "_userContent": [{ type: ViewChild, args: [MatDrawerContent,] },],
         "autosize": [{ type: Input },],
         "hasBackdrop": [{ type: Input },],
         "backdropClick": [{ type: Output },],
-        "scrollable": [{ type: ViewChild, args: [CdkScrollable,] },],
     };
     return MatDrawerContainer;
 }());
@@ -1023,8 +1041,8 @@ var MatDrawerContainer = /** @class */ (function () {
  */
 var MatSidenavContent = /** @class */ (function (_super) {
     __extends(MatSidenavContent, _super);
-    function MatSidenavContent(changeDetectorRef, container) {
-        return _super.call(this, changeDetectorRef, container) || this;
+    function MatSidenavContent(changeDetectorRef, container, elementRef, scrollDispatcher, ngZone) {
+        return _super.call(this, changeDetectorRef, container, elementRef, scrollDispatcher, ngZone) || this;
     }
     MatSidenavContent.decorators = [
         { type: Component, args: [{selector: 'mat-sidenav-content',
@@ -1042,6 +1060,9 @@ var MatSidenavContent = /** @class */ (function (_super) {
     MatSidenavContent.ctorParameters = function () { return [
         { type: ChangeDetectorRef, },
         { type: MatSidenavContainer, decorators: [{ type: Inject, args: [forwardRef(function () { return MatSidenavContainer; }),] },] },
+        { type: ElementRef, },
+        { type: ScrollDispatcher, },
+        { type: NgZone, },
     ]; };
     return MatSidenavContent;
 }(MatDrawerContent));

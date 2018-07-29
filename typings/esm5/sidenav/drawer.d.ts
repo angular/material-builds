@@ -9,7 +9,7 @@ import { AnimationEvent } from '@angular/animations';
 import { FocusMonitor, FocusOrigin, FocusTrapFactory } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
-import { CdkScrollable } from '@angular/cdk/scrolling';
+import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, QueryList } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 /** Throws an exception when two MatDrawer are matching the same position. */
@@ -20,10 +20,10 @@ export declare type MatDrawerToggleResult = 'open' | 'close';
 export declare const MAT_DRAWER_DEFAULT_AUTOSIZE: InjectionToken<boolean>;
 /** @docs-private */
 export declare function MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY(): boolean;
-export declare class MatDrawerContent implements AfterContentInit {
+export declare class MatDrawerContent extends CdkScrollable implements AfterContentInit {
     private _changeDetectorRef;
     _container: MatDrawerContainer;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _container: MatDrawerContainer);
+    constructor(_changeDetectorRef: ChangeDetectorRef, _container: MatDrawerContainer, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, ngZone: NgZone);
     ngAfterContentInit(): void;
 }
 /**
@@ -126,6 +126,7 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     private _animationMode;
     _drawers: QueryList<MatDrawer>;
     _content: MatDrawerContent;
+    _userContent: MatDrawerContent;
     /** The drawer child with the `start` position. */
     readonly start: MatDrawer | null;
     /** The drawer child with the `end` position. */
@@ -178,7 +179,7 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
         right: number | null;
     }>;
     /** Reference to the CdkScrollable instance that wraps the scrollable content. */
-    scrollable: CdkScrollable;
+    readonly scrollable: CdkScrollable;
     constructor(_dir: Directionality, _element: ElementRef, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, defaultAutosize?: boolean, _animationMode?: string | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
