@@ -12,14 +12,14 @@ const imports_1 = require("../typescript/imports");
 exports.materialModuleSpecifier = '@angular/material';
 /** Name of the Angular CDK module specifier. */
 exports.cdkModuleSpecifier = '@angular/cdk';
-/** Whether the specified node is part of an Angular Material import declaration. */
+/** Whether the specified node is part of an Angular Material or CDK import declaration. */
 function isMaterialImportDeclaration(node) {
     return isMaterialDeclaration(imports_1.getImportDeclaration(node));
 }
 exports.isMaterialImportDeclaration = isMaterialImportDeclaration;
-/** Whether the specified node is part of an Angular Material export declaration. */
+/** Whether the specified node is part of an Angular Material or CDK import declaration. */
 function isMaterialExportDeclaration(node) {
-    return imports_1.getExportDeclaration(imports_1.getImportDeclaration(node));
+    return isMaterialDeclaration(imports_1.getExportDeclaration(node));
 }
 exports.isMaterialExportDeclaration = isMaterialExportDeclaration;
 /** Whether the declaration is part of Angular Material. */
