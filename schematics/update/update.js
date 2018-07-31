@@ -110,7 +110,7 @@ function getTsConfigPaths(tree) {
             for (const taskName of ['build', 'test']) {
                 const task = project.architect[taskName];
                 if (task && task.options && task.options.tsConfig) {
-                    const tsConfigOption = project.architect.tsConfig;
+                    const tsConfigOption = task.options.tsConfig;
                     if (typeof tsConfigOption === 'string') {
                         tsconfigPaths.push(tsConfigOption);
                     }
