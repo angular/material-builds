@@ -24,7 +24,7 @@ export { MatGridListModule, MatGridList, MatGridTile, MatGridTileText, MatGridAv
 export { MatIconModule, MatIconBase, _MatIconMixinBase, MatIcon, getMatIconNameNotFoundError, getMatIconNoHttpProviderError, getMatIconFailedToSanitizeUrlError, getMatIconFailedToSanitizeLiteralError, MatIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER } from '@angular/material/icon';
 export { MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR } from '@angular/material/input';
 export { MatListModule, MatListBase, _MatListMixinBase, MatListItemBase, _MatListItemMixinBase, MatNavList, MatList, MatListAvatarCssMatStyler, MatListIconCssMatStyler, MatListSubheaderCssMatStyler, MatListItem, MatSelectionListBase, _MatSelectionListMixinBase, MatListOptionBase, _MatListOptionMixinBase, MAT_SELECTION_LIST_VALUE_ACCESSOR, MatSelectionListChange, MatListOption, MatSelectionList } from '@angular/material/list';
-export { ɵa16, ɵb16, ɵc16, ɵf16, ɵd16, ɵe16, MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent } from '@angular/material/menu';
+export { ɵa22, ɵb22, ɵc22, ɵf22, ɵd22, ɵe22, MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent } from '@angular/material/menu';
 export { MatPaginatorModule, PageEvent, MatPaginatorBase, _MatPaginatorBase, MatPaginator, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MAT_PAGINATOR_INTL_PROVIDER } from '@angular/material/paginator';
 export { MatProgressBarModule, MatProgressBarBase, _MatProgressBarMixinBase, MatProgressBar } from '@angular/material/progress-bar';
 export { MatProgressSpinnerModule, MatProgressSpinnerBase, _MatProgressSpinnerMixinBase, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinner, MatSpinner } from '@angular/material/progress-spinner';
@@ -37,7 +37,7 @@ export { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT
 export { MatSortModule, MatSortHeaderBase, _MatSortHeaderMixinBase, MatSortHeader, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MAT_SORT_HEADER_INTL_PROVIDER, MatSortBase, _MatSortMixinBase, MatSort, matSortAnimations } from '@angular/material/sort';
 export { MatStepperModule, MatStepLabel, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl, matStepperAnimations, MatStepperIcon } from '@angular/material/stepper';
 export { MatTableModule, MatCellDef, MatHeaderCellDef, MatFooterCellDef, MatColumnDef, MatHeaderCell, MatFooterCell, MatCell, MatTable, MatHeaderRowDef, MatFooterRowDef, MatRowDef, MatHeaderRow, MatFooterRow, MatRow, MatTableDataSource } from '@angular/material/table';
-export { ɵa19, ɵf19, ɵg19, ɵb19, ɵc19, ɵd19, ɵe19, ɵj19, ɵh19, ɵk19, ɵi19, MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations } from '@angular/material/tabs';
+export { ɵa21, ɵf21, ɵg21, ɵb21, ɵc21, ɵd21, ɵe21, ɵj21, ɵh21, ɵk21, ɵi21, MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations } from '@angular/material/tabs';
 export { MatToolbarModule, MatToolbarBase, _MatToolbarMixinBase, MatToolbarRow, MatToolbar, throwToolbarMixedModesError } from '@angular/material/toolbar';
 export { MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MatTooltip, TooltipComponent, matTooltipAnimations } from '@angular/material/tooltip';
 export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeNodeOutlet, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource } from '@angular/material/tree';
@@ -49,7 +49,7 @@ export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTre
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new Version('6.4.2-2ffdae6');
+var /** @type {?} */ VERSION = new Version('6.4.2-37ba893');
 
 /**
  * @fileoverview added by tsickle
