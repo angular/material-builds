@@ -413,6 +413,7 @@ var MatCheckbox = /** @class */ (function (_super) {
      * @return {?}
      */
     function (focusOrigin) {
+        var _this = this;
         // TODO(paul): support `program`. See https://github.com/angular/material2/issues/9889
         if (!this._focusRipple && focusOrigin === 'keyboard') {
             this._focusRipple = this.ripple.launch(0, 0, { persistent: true });
@@ -422,7 +423,12 @@ var MatCheckbox = /** @class */ (function (_super) {
                 this._focusRipple.fadeOut();
                 this._focusRipple = null;
             }
-            this._onTouched();
+            // When a focused element becomes disabled, the browser *immediately* fires a blur event.
+            // Angular does not expect events to be raised during change detection, so any state change
+            // (such as a form control's 'ng-touched') will cause a changed-after-checked error.
+            // See https://github.com/angular/angular/issues/17793. To work around this, we defer telling
+            // the form control it has been touched until the next tick.
+            Promise.resolve().then(function () { return _this._onTouched(); });
         }
     };
     /** Toggles the `checked` state of the checkbox. */
