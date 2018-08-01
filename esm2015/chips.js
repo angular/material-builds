@@ -1275,8 +1275,6 @@ class MatChipInput {
         this.chipEnd = new EventEmitter();
         /**
          * The input's placeholder text.
-         * @deprecated Bind to the `placeholder` attribute directly.
-         * \@breaking-change 7.0.0
          */
         this.placeholder = '';
         /**
@@ -1311,6 +1309,12 @@ class MatChipInput {
      * @return {?}
      */
     get empty() { return !this._inputElement.value; }
+    /**
+     * @return {?}
+     */
+    ngOnChanges() {
+        this._chipList.stateChanges.next();
+    }
     /**
      * Utility method to make host definition/tests more clear.
      * @param {?=} event

@@ -1,4 +1,4 @@
-import { ElementRef, EventEmitter } from '@angular/core';
+import { ElementRef, EventEmitter, OnChanges } from '@angular/core';
 import { MatChipList } from './chip-list';
 import { MatChipsDefaultOptions } from './chip-default-options';
 /** Represents an input event on a `matChipInput`. */
@@ -12,7 +12,7 @@ export interface MatChipInputEvent {
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
  */
-export declare class MatChipInput {
+export declare class MatChipInput implements OnChanges {
     protected _elementRef: ElementRef;
     private _defaultOptions;
     /** Whether the control is focused. */
@@ -33,11 +33,7 @@ export declare class MatChipInput {
     separatorKeyCodes: number[];
     /** Emitted when a chip is to be added. */
     chipEnd: EventEmitter<MatChipInputEvent>;
-    /**
-     * The input's placeholder text.
-     * @deprecated Bind to the `placeholder` attribute directly.
-     * @breaking-change 7.0.0
-     */
+    /** The input's placeholder text. */
     placeholder: string;
     /** Unique id for the input. */
     id: string;
@@ -46,6 +42,7 @@ export declare class MatChipInput {
     /** The native input element to which this directive is attached. */
     protected _inputElement: HTMLInputElement;
     constructor(_elementRef: ElementRef, _defaultOptions: MatChipsDefaultOptions);
+    ngOnChanges(): void;
     /** Utility method to make host definition/tests more clear. */
     _keydown(event?: KeyboardEvent): void;
     /** Checks to see if the blur should emit the (chipEnd) event. */

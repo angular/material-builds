@@ -1665,8 +1665,6 @@ var MatChipInput = /** @class */ (function () {
         this.chipEnd = new core.EventEmitter();
         /**
          * The input's placeholder text.
-         * @deprecated Bind to the `placeholder` attribute directly.
-         * \@breaking-change 7.0.0
          */
         this.placeholder = '';
         /**
@@ -1714,6 +1712,15 @@ var MatChipInput = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    /**
+     * @return {?}
+     */
+    MatChipInput.prototype.ngOnChanges = /**
+     * @return {?}
+     */
+    function () {
+        this._chipList.stateChanges.next();
+    };
     /** Utility method to make host definition/tests more clear. */
     /**
      * Utility method to make host definition/tests more clear.
