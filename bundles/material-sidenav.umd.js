@@ -1210,7 +1210,7 @@ var MatSidenavModule = /** @class */ (function () {
                     imports: [
                         common.CommonModule,
                         core$1.MatCommonModule,
-                        scrolling.ScrollDispatchModule,
+                        scrolling.ScrollingModule,
                         platform.PlatformModule,
                     ],
                     exports: [

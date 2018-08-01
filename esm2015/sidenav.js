@@ -11,7 +11,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty, coerceNumberProperty } from '@angular/cdk/coercion';
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { Platform, PlatformModule } from '@angular/cdk/platform';
-import { CdkScrollable, ScrollDispatcher, ScrollDispatchModule } from '@angular/cdk/scrolling';
+import { CdkScrollable, ScrollDispatcher, ScrollingModule } from '@angular/cdk/scrolling';
 import { DOCUMENT, CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, ElementRef, EventEmitter, forwardRef, Inject, InjectionToken, Input, NgZone, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { fromEvent, merge, Subject } from 'rxjs';
@@ -974,7 +974,7 @@ MatSidenavModule.decorators = [
                 imports: [
                     CommonModule,
                     MatCommonModule,
-                    ScrollDispatchModule,
+                    ScrollingModule,
                     PlatformModule,
                 ],
                 exports: [
