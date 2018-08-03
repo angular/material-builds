@@ -9187,7 +9187,7 @@ var MatChipInput = /** @class */ (function () {
         if (!this._inputElement.value && !!event) {
             this._chipList._keydown(event);
         }
-        if (!event || this.separatorKeyCodes.indexOf(event.keyCode) > -1) {
+        if (!event || this._isSeparatorKey(event.keyCode)) {
             this.chipEnd.emit({ input: this._inputElement, value: this._inputElement.value });
             if (event) {
                 event.preventDefault();
@@ -9213,7 +9213,23 @@ var MatChipInput = /** @class */ (function () {
      * Focuses the input.
      * @return {?}
      */
-    function () { this._inputElement.focus(); };
+    function () {
+        this._inputElement.focus();
+    };
+    /**
+     * Checks whether a keycode is one of the configured separators.
+     * @param {?} keyCode
+     * @return {?}
+     */
+    MatChipInput.prototype._isSeparatorKey = /**
+     * Checks whether a keycode is one of the configured separators.
+     * @param {?} keyCode
+     * @return {?}
+     */
+    function (keyCode) {
+        var /** @type {?} */ separators = this.separatorKeyCodes;
+        return Array.isArray(separators) ? separators.indexOf(keyCode) > -1 : separators.has(keyCode);
+    };
     MatChipInput.decorators = [
         { type: core.Directive, args: [{
                     selector: 'input[matChipInputFor]',
@@ -32867,10 +32883,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.2-4a9fe87');
+var /** @type {?} */ VERSION = new core.Version('6.4.2-170665a');
 
 exports.VERSION = VERSION;
-exports.ɵa26 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -33119,12 +33135,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa18 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb18 = MatMenuItemBase;
+exports.ɵc18 = _MatMenuItemMixinBase;
+exports.ɵf18 = MAT_MENU_PANEL;
+exports.ɵd18 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe18 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33254,17 +33270,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa20 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf20 = MatTabBase;
-exports.ɵg20 = _MatTabMixinBase;
-exports.ɵb20 = MatTabHeaderBase;
-exports.ɵc20 = _MatTabHeaderMixinBase;
-exports.ɵd20 = MatTabLabelWrapperBase;
-exports.ɵe20 = _MatTabLabelWrapperMixinBase;
-exports.ɵj20 = MatTabLinkBase;
-exports.ɵh20 = MatTabNavBase;
-exports.ɵk20 = _MatTabLinkMixinBase;
-exports.ɵi20 = _MatTabNavMixinBase;
+exports.ɵa19 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf19 = MatTabBase;
+exports.ɵg19 = _MatTabMixinBase;
+exports.ɵb19 = MatTabHeaderBase;
+exports.ɵc19 = _MatTabHeaderMixinBase;
+exports.ɵd19 = MatTabLabelWrapperBase;
+exports.ɵe19 = _MatTabLabelWrapperMixinBase;
+exports.ɵj19 = MatTabLinkBase;
+exports.ɵh19 = MatTabNavBase;
+exports.ɵk19 = _MatTabLinkMixinBase;
+exports.ɵi19 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
