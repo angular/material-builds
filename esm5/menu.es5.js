@@ -8,11 +8,11 @@
 import { Directive, TemplateRef, ComponentFactoryResolver, ApplicationRef, Injector, ViewContainerRef, Inject, InjectionToken, ChangeDetectionStrategy, Component, ElementRef, ViewEncapsulation, Optional, ContentChild, ContentChildren, EventEmitter, Input, NgZone, Output, ViewChild, Self, NgModule } from '@angular/core';
 import { TemplatePortal, DomPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT, CommonModule } from '@angular/common';
+import { Subject, merge, Subscription, asapScheduler, of } from 'rxjs';
 import { trigger, state, style, animate, transition, query, group, sequence } from '@angular/animations';
 import { __extends } from 'tslib';
 import { FocusMonitor, FocusKeyManager, isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
-import { Subject, merge, Subscription, asapScheduler, of } from 'rxjs';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ESCAPE, LEFT_ARROW, RIGHT_ARROW, DOWN_ARROW, UP_ARROW } from '@angular/cdk/keycodes';
 import { startWith, switchMap, take, delay, filter, takeUntil } from 'rxjs/operators';
@@ -34,6 +34,10 @@ var MatMenuContent = /** @class */ (function () {
         this._injector = _injector;
         this._viewContainerRef = _viewContainerRef;
         this._document = _document;
+        /**
+         * Emits when the menu content has been attached.
+         */
+        this._attached = new Subject();
     }
     /**
      * Attaches the content with a particular context.
@@ -67,6 +71,7 @@ var MatMenuContent = /** @class */ (function () {
         // risk it staying attached to a pane that's no longer in the DOM.
         element.parentNode)).insertBefore(this._outlet.outletElement, element);
         this._portal.attach(this._outlet, context);
+        this._attached.next();
     };
     /**
      * Detaches the content.
@@ -1169,9 +1174,12 @@ var MatMenuTrigger = /** @class */ (function () {
             if (menu.lazyContent) {
                 // Wait for the exit animation to finish before detaching the content.
                 menu._animationDone
-                    .pipe(filter(function (event) { return event.toState === 'void'; }), take(1))
-                    .subscribe(function () {
-                    /** @type {?} */ ((menu.lazyContent)).detach();
+                    .pipe(filter(function (event) { return event.toState === 'void'; }), take(1), 
+                // Interrupt if the content got re-attached.
+                takeUntil(menu.lazyContent._attached))
+                    .subscribe(function () { return ((menu.lazyContent)).detach(); }, undefined, function () {
+                    // No matter whether the content got re-attached, reset the menu.
+                    // No matter whether the content got re-attached, reset the menu.
                     _this._resetMenu();
                 });
             }
@@ -1585,5 +1593,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa13, MatMenuItemBase as ɵb13, _MatMenuItemMixinBase as ɵc13, MAT_MENU_PANEL as ɵf13, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd13, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe13 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
 //# sourceMappingURL=menu.es5.js.map

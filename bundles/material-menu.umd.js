@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/common', '@angular/animations', '@angular/cdk/a11y', '@angular/material/core', 'rxjs', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/cdk/bidi', '@angular/cdk/overlay'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.core,global.ng.cdk.portal,global.ng.common,global.ng.animations,global.ng.cdk.a11y,global.ng.material.core,global.rxjs,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.rxjs.operators,global.ng.cdk.bidi,global.ng.cdk.overlay));
-}(this, (function (exports,core,portal,common,animations,a11y,core$1,rxjs,coercion,keycodes,operators,bidi,overlay) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/portal'), require('@angular/common'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('rxjs/operators'), require('@angular/cdk/bidi'), require('@angular/cdk/overlay')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/menu', ['exports', '@angular/core', '@angular/cdk/portal', '@angular/common', 'rxjs', '@angular/animations', '@angular/cdk/a11y', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/keycodes', 'rxjs/operators', '@angular/cdk/bidi', '@angular/cdk/overlay'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.menu = {}),global.ng.core,global.ng.cdk.portal,global.ng.common,global.rxjs,global.ng.animations,global.ng.cdk.a11y,global.ng.material.core,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.rxjs.operators,global.ng.cdk.bidi,global.ng.cdk.overlay));
+}(this, (function (exports,core,portal,common,rxjs,animations,a11y,core$1,coercion,keycodes,operators,bidi,overlay) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -55,6 +55,10 @@ var MatMenuContent = /** @class */ (function () {
         this._injector = _injector;
         this._viewContainerRef = _viewContainerRef;
         this._document = _document;
+        /**
+         * Emits when the menu content has been attached.
+         */
+        this._attached = new rxjs.Subject();
     }
     /**
      * Attaches the content with a particular context.
@@ -88,6 +92,7 @@ var MatMenuContent = /** @class */ (function () {
         // risk it staying attached to a pane that's no longer in the DOM.
         element.parentNode)).insertBefore(this._outlet.outletElement, element);
         this._portal.attach(this._outlet, context);
+        this._attached.next();
     };
     /**
      * Detaches the content.
@@ -1190,9 +1195,12 @@ var MatMenuTrigger = /** @class */ (function () {
             if (menu.lazyContent) {
                 // Wait for the exit animation to finish before detaching the content.
                 menu._animationDone
-                    .pipe(operators.filter(function (event) { return event.toState === 'void'; }), operators.take(1))
-                    .subscribe(function () {
-                    /** @type {?} */ ((menu.lazyContent)).detach();
+                    .pipe(operators.filter(function (event) { return event.toState === 'void'; }), operators.take(1), 
+                // Interrupt if the content got re-attached.
+                operators.takeUntil(menu.lazyContent._attached))
+                    .subscribe(function () { return ((menu.lazyContent)).detach(); }, undefined, function () {
+                    // No matter whether the content got re-attached, reset the menu.
+                    // No matter whether the content got re-attached, reset the menu.
                     _this._resetMenu();
                 });
             }
@@ -1601,12 +1609,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa13 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb13 = MatMenuItemBase;
-exports.ɵc13 = _MatMenuItemMixinBase;
-exports.ɵf13 = MAT_MENU_PANEL;
-exports.ɵd13 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe13 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

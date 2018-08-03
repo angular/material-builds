@@ -18277,6 +18277,10 @@ var MatMenuContent = /** @class */ (function () {
         this._injector = _injector;
         this._viewContainerRef = _viewContainerRef;
         this._document = _document;
+        /**
+         * Emits when the menu content has been attached.
+         */
+        this._attached = new rxjs.Subject();
     }
     /**
      * Attaches the content with a particular context.
@@ -18310,6 +18314,7 @@ var MatMenuContent = /** @class */ (function () {
         // risk it staying attached to a pane that's no longer in the DOM.
         element.parentNode)).insertBefore(this._outlet.outletElement, element);
         this._portal.attach(this._outlet, context);
+        this._attached.next();
     };
     /**
      * Detaches the content.
@@ -19412,9 +19417,12 @@ var MatMenuTrigger = /** @class */ (function () {
             if (menu.lazyContent) {
                 // Wait for the exit animation to finish before detaching the content.
                 menu._animationDone
-                    .pipe(operators.filter(function (event) { return event.toState === 'void'; }), operators.take(1))
-                    .subscribe(function () {
-                    /** @type {?} */ ((menu.lazyContent)).detach();
+                    .pipe(operators.filter(function (event) { return event.toState === 'void'; }), operators.take(1), 
+                // Interrupt if the content got re-attached.
+                operators.takeUntil(menu.lazyContent._attached))
+                    .subscribe(function () { return ((menu.lazyContent)).detach(); }, undefined, function () {
+                    // No matter whether the content got re-attached, reset the menu.
+                    // No matter whether the content got re-attached, reset the menu.
                     _this._resetMenu();
                 });
             }
@@ -32883,10 +32891,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.2-ef57919');
+var /** @type {?} */ VERSION = new core.Version('6.4.2-1e1751f');
 
 exports.VERSION = VERSION;
-exports.ɵa27 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -33135,12 +33143,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa13 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb13 = MatMenuItemBase;
-exports.ɵc13 = _MatMenuItemMixinBase;
-exports.ɵf13 = MAT_MENU_PANEL;
-exports.ɵd13 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe13 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33270,17 +33278,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa20 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf20 = MatTabBase;
-exports.ɵg20 = _MatTabMixinBase;
-exports.ɵb20 = MatTabHeaderBase;
-exports.ɵc20 = _MatTabHeaderMixinBase;
-exports.ɵd20 = MatTabLabelWrapperBase;
-exports.ɵe20 = _MatTabLabelWrapperMixinBase;
-exports.ɵj20 = MatTabLinkBase;
-exports.ɵh20 = MatTabNavBase;
-exports.ɵk20 = _MatTabLinkMixinBase;
-exports.ɵi20 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
