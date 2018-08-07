@@ -100,6 +100,11 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     /** Closes the autocomplete suggestion panel. */
     closePanel(): void;
     /**
+     * Updates the position of the autocomplete suggestion panel to ensure that it fits all options
+     * within the viewport.
+     */
+    updatePosition(): void;
+    /**
      * A stream of actions that should close the autocomplete panel, including
      * when an option is selected, on blur, and when TAB is pressed.
      */

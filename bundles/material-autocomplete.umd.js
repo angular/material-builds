@@ -496,6 +496,25 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             this._changeDetectorRef.detectChanges();
         }
     };
+    /**
+     * Updates the position of the autocomplete suggestion panel to ensure that it fits all options
+     * within the viewport.
+     */
+    /**
+     * Updates the position of the autocomplete suggestion panel to ensure that it fits all options
+     * within the viewport.
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype.updatePosition = /**
+     * Updates the position of the autocomplete suggestion panel to ensure that it fits all options
+     * within the viewport.
+     * @return {?}
+     */
+    function () {
+        if (this._overlayAttached) {
+            /** @type {?} */ ((this._overlayRef)).updatePosition();
+        }
+    };
     Object.defineProperty(MatAutocompleteTrigger.prototype, "panelClosingActions", {
         /**
          * A stream of actions that should close the autocomplete panel, including
@@ -1078,7 +1097,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCR
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa25 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

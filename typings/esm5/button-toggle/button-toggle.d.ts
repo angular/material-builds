@@ -144,6 +144,8 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     name: string;
     /** MatButtonToggleGroup reads this to assign its own value. */
     value: any;
+    /** Tabindex for the toggle. */
+    tabIndex: number | null;
     /** Whether the button is checked. */
     checked: boolean;
     /** Whether the button is disabled. */
@@ -151,7 +153,7 @@ export declare class MatButtonToggle extends _MatButtonToggleMixinBase implement
     private _disabled;
     /** Event emitted when the group value changes. */
     readonly change: EventEmitter<MatButtonToggleChange>;
-    constructor(toggleGroup: MatButtonToggleGroup, _changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _focusMonitor: FocusMonitor);
+    constructor(toggleGroup: MatButtonToggleGroup, _changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, _focusMonitor: FocusMonitor, defaultTabIndex: string);
     ngOnInit(): void;
     ngOnDestroy(): void;
     /** Focuses the button. */

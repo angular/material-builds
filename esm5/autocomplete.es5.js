@@ -476,6 +476,25 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             this._changeDetectorRef.detectChanges();
         }
     };
+    /**
+     * Updates the position of the autocomplete suggestion panel to ensure that it fits all options
+     * within the viewport.
+     */
+    /**
+     * Updates the position of the autocomplete suggestion panel to ensure that it fits all options
+     * within the viewport.
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype.updatePosition = /**
+     * Updates the position of the autocomplete suggestion panel to ensure that it fits all options
+     * within the viewport.
+     * @return {?}
+     */
+    function () {
+        if (this._overlayAttached) {
+            /** @type {?} */ ((this._overlayRef)).updatePosition();
+        }
+    };
     Object.defineProperty(MatAutocompleteTrigger.prototype, "panelClosingActions", {
         /**
          * A stream of actions that should close the autocomplete panel, including
@@ -1053,5 +1072,5 @@ var MatAutocompleteModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa25 };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa28 };
 //# sourceMappingURL=autocomplete.es5.js.map

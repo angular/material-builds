@@ -15,11 +15,11 @@ export declare class MatDialogRef<T, R = any> {
     /** Whether the user is allowed to close the dialog. */
     disableClose: boolean | undefined;
     /** Subject for notifying the user that the dialog has finished opening. */
-    private readonly _afterOpen;
+    private readonly _afterOpened;
     /** Subject for notifying the user that the dialog has finished closing. */
     private readonly _afterClosed;
     /** Subject for notifying the user that the dialog has started closing. */
-    private readonly _beforeClose;
+    private readonly _beforeClosed;
     /** Result to be passed to afterClosed. */
     private _result;
     /** Subscription to changes in the user's location. */
@@ -33,7 +33,7 @@ export declare class MatDialogRef<T, R = any> {
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      */
-    afterOpen(): Observable<void>;
+    afterOpened(): Observable<void>;
     /**
      * Gets an observable that is notified when the dialog is finished closing.
      */
@@ -41,7 +41,7 @@ export declare class MatDialogRef<T, R = any> {
     /**
      * Gets an observable that is notified when the dialog has started closing.
      */
-    beforeClose(): Observable<R | undefined>;
+    beforeClosed(): Observable<R | undefined>;
     /**
      * Gets an observable that emits when the overlay's backdrop has been clicked.
      */
@@ -61,6 +61,18 @@ export declare class MatDialogRef<T, R = any> {
      * @param height New height of the dialog.
      */
     updateSize(width?: string, height?: string): this;
+    /**
+     * Gets an observable that is notified when the dialog is finished opening.
+     * @deprecated Use `afterOpened` instead.
+     * @deletion-target 8.0.0
+     */
+    afterOpen(): Observable<void>;
+    /**
+     * Gets an observable that is notified when the dialog has started closing.
+     * @deprecated Use `beforeClosed` instead.
+     * @deletion-target 8.0.0
+     */
+    beforeClose(): Observable<R | undefined>;
     /** Fetches the position strategy object from the overlay ref. */
     private _getPositionStrategy();
 }

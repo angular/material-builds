@@ -407,7 +407,7 @@ MatDialogRef = /** @class */ (function () {
         /**
          * Subject for notifying the user that the dialog has finished opening.
          */
-        this._afterOpen = new rxjs.Subject();
+        this._afterOpened = new rxjs.Subject();
         /**
          * Subject for notifying the user that the dialog has finished closing.
          */
@@ -415,7 +415,7 @@ MatDialogRef = /** @class */ (function () {
         /**
          * Subject for notifying the user that the dialog has started closing.
          */
-        this._beforeClose = new rxjs.Subject();
+        this._beforeClosed = new rxjs.Subject();
         /**
          * Subscription to changes in the user's location.
          */
@@ -425,14 +425,14 @@ MatDialogRef = /** @class */ (function () {
         // Emit when opening animation completes
         _containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'enter'; }), operators.take(1))
             .subscribe(function () {
-            _this._afterOpen.next();
-            _this._afterOpen.complete();
+            _this._afterOpened.next();
+            _this._afterOpened.complete();
         });
         // Dispose overlay when closing animation is complete
         _containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'done' && event.toState === 'exit'; }), operators.take(1)).subscribe(function () { return _this._overlayRef.dispose(); });
         _overlayRef.detachments().subscribe(function () {
-            _this._beforeClose.next(_this._result);
-            _this._beforeClose.complete();
+            _this._beforeClosed.next(_this._result);
+            _this._beforeClosed.complete();
             _this._locationChanges.unsubscribe();
             _this._afterClosed.next(_this._result);
             _this._afterClosed.complete();
@@ -473,8 +473,8 @@ MatDialogRef = /** @class */ (function () {
         // Transition the backdrop in parallel to the dialog.
         this._containerInstance._animationStateChanged.pipe(operators.filter(function (event) { return event.phaseName === 'start'; }), operators.take(1))
             .subscribe(function () {
-            _this._beforeClose.next(dialogResult);
-            _this._beforeClose.complete();
+            _this._beforeClosed.next(dialogResult);
+            _this._beforeClosed.complete();
             _this._overlayRef.detachBackdrop();
         });
         this._containerInstance._startExitAnimation();
@@ -486,12 +486,12 @@ MatDialogRef = /** @class */ (function () {
      * Gets an observable that is notified when the dialog is finished opening.
      * @return {?}
      */
-    MatDialogRef.prototype.afterOpen = /**
+    MatDialogRef.prototype.afterOpened = /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @return {?}
      */
     function () {
-        return this._afterOpen.asObservable();
+        return this._afterOpened.asObservable();
     };
     /**
      * Gets an observable that is notified when the dialog is finished closing.
@@ -514,12 +514,12 @@ MatDialogRef = /** @class */ (function () {
      * Gets an observable that is notified when the dialog has started closing.
      * @return {?}
      */
-    MatDialogRef.prototype.beforeClose = /**
+    MatDialogRef.prototype.beforeClosed = /**
      * Gets an observable that is notified when the dialog has started closing.
      * @return {?}
      */
     function () {
-        return this._beforeClose.asObservable();
+        return this._beforeClosed.asObservable();
     };
     /**
      * Gets an observable that emits when the overlay's backdrop has been clicked.
@@ -605,6 +605,46 @@ MatDialogRef = /** @class */ (function () {
         return this;
     };
     /**
+     * Gets an observable that is notified when the dialog is finished opening.
+     * @deprecated Use `afterOpened` instead.
+     * @deletion-target 8.0.0
+     */
+    /**
+     * Gets an observable that is notified when the dialog is finished opening.
+     * @deprecated Use `afterOpened` instead.
+     * \@deletion-target 8.0.0
+     * @return {?}
+     */
+    MatDialogRef.prototype.afterOpen = /**
+     * Gets an observable that is notified when the dialog is finished opening.
+     * @deprecated Use `afterOpened` instead.
+     * \@deletion-target 8.0.0
+     * @return {?}
+     */
+    function () {
+        return this.afterOpened();
+    };
+    /**
+     * Gets an observable that is notified when the dialog has started closing.
+     * @deprecated Use `beforeClosed` instead.
+     * @deletion-target 8.0.0
+     */
+    /**
+     * Gets an observable that is notified when the dialog has started closing.
+     * @deprecated Use `beforeClosed` instead.
+     * \@deletion-target 8.0.0
+     * @return {?}
+     */
+    MatDialogRef.prototype.beforeClose = /**
+     * Gets an observable that is notified when the dialog has started closing.
+     * @deprecated Use `beforeClosed` instead.
+     * \@deletion-target 8.0.0
+     * @return {?}
+     */
+    function () {
+        return this.beforeClosed();
+    };
+    /**
      * Fetches the position strategy object from the overlay ref.
      * @return {?}
      */
@@ -673,7 +713,7 @@ var MatDialog = /** @class */ (function () {
         this._overlayContainer = _overlayContainer;
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new rxjs.Subject();
-        this._afterOpenAtThisLevel = new rxjs.Subject();
+        this._afterOpenedAtThisLevel = new rxjs.Subject();
         this._ariaHiddenElements = new Map();
         /**
          * Stream that emits when all open dialog have finished closing.
@@ -697,14 +737,32 @@ var MatDialog = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatDialog.prototype, "afterOpen", {
+    Object.defineProperty(MatDialog.prototype, "afterOpened", {
         /** Stream that emits when a dialog has been opened. */
         get: /**
          * Stream that emits when a dialog has been opened.
          * @return {?}
          */
         function () {
-            return this._parentDialog ? this._parentDialog.afterOpen : this._afterOpenAtThisLevel;
+            return this._parentDialog ? this._parentDialog.afterOpened : this._afterOpenedAtThisLevel;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatDialog.prototype, "afterOpen", {
+        /**
+         * Stream that emits when a dialog has been opened.
+         * @deprecated Use `afterOpened` instead.
+         * @deletion-target 8.0.0
+         */
+        get: /**
+         * Stream that emits when a dialog has been opened.
+         * @deprecated Use `afterOpened` instead.
+         * \@deletion-target 8.0.0
+         * @return {?}
+         */
+        function () {
+            return this.afterOpened;
         },
         enumerable: true,
         configurable: true
@@ -758,7 +816,7 @@ var MatDialog = /** @class */ (function () {
         }
         this.openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(function () { return _this._removeOpenDialog(dialogRef); });
-        this.afterOpen.next(dialogRef);
+        this.afterOpened.next(dialogRef);
         return dialogRef;
     };
     /**

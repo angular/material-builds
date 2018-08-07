@@ -322,7 +322,7 @@ class MatDialogRef {
         /**
          * Subject for notifying the user that the dialog has finished opening.
          */
-        this._afterOpen = new Subject();
+        this._afterOpened = new Subject();
         /**
          * Subject for notifying the user that the dialog has finished closing.
          */
@@ -330,7 +330,7 @@ class MatDialogRef {
         /**
          * Subject for notifying the user that the dialog has started closing.
          */
-        this._beforeClose = new Subject();
+        this._beforeClosed = new Subject();
         /**
          * Subscription to changes in the user's location.
          */
@@ -340,14 +340,14 @@ class MatDialogRef {
         // Emit when opening animation completes
         _containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'enter'), take(1))
             .subscribe(() => {
-            this._afterOpen.next();
-            this._afterOpen.complete();
+            this._afterOpened.next();
+            this._afterOpened.complete();
         });
         // Dispose overlay when closing animation is complete
         _containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'done' && event.toState === 'exit'), take(1)).subscribe(() => this._overlayRef.dispose());
         _overlayRef.detachments().subscribe(() => {
-            this._beforeClose.next(this._result);
-            this._beforeClose.complete();
+            this._beforeClosed.next(this._result);
+            this._beforeClosed.complete();
             this._locationChanges.unsubscribe();
             this._afterClosed.next(this._result);
             this._afterClosed.complete();
@@ -378,8 +378,8 @@ class MatDialogRef {
         // Transition the backdrop in parallel to the dialog.
         this._containerInstance._animationStateChanged.pipe(filter(event => event.phaseName === 'start'), take(1))
             .subscribe(() => {
-            this._beforeClose.next(dialogResult);
-            this._beforeClose.complete();
+            this._beforeClosed.next(dialogResult);
+            this._beforeClosed.complete();
             this._overlayRef.detachBackdrop();
         });
         this._containerInstance._startExitAnimation();
@@ -388,8 +388,8 @@ class MatDialogRef {
      * Gets an observable that is notified when the dialog is finished opening.
      * @return {?}
      */
-    afterOpen() {
-        return this._afterOpen.asObservable();
+    afterOpened() {
+        return this._afterOpened.asObservable();
     }
     /**
      * Gets an observable that is notified when the dialog is finished closing.
@@ -402,8 +402,8 @@ class MatDialogRef {
      * Gets an observable that is notified when the dialog has started closing.
      * @return {?}
      */
-    beforeClose() {
-        return this._beforeClose.asObservable();
+    beforeClosed() {
+        return this._beforeClosed.asObservable();
     }
     /**
      * Gets an observable that emits when the overlay's backdrop has been clicked.
@@ -451,6 +451,24 @@ class MatDialogRef {
         this._getPositionStrategy().width(width).height(height);
         this._overlayRef.updatePosition();
         return this;
+    }
+    /**
+     * Gets an observable that is notified when the dialog is finished opening.
+     * @deprecated Use `afterOpened` instead.
+     * \@deletion-target 8.0.0
+     * @return {?}
+     */
+    afterOpen() {
+        return this.afterOpened();
+    }
+    /**
+     * Gets an observable that is notified when the dialog has started closing.
+     * @deprecated Use `beforeClosed` instead.
+     * \@deletion-target 8.0.0
+     * @return {?}
+     */
+    beforeClose() {
+        return this.beforeClosed();
     }
     /**
      * Fetches the position strategy object from the overlay ref.
@@ -524,7 +542,7 @@ class MatDialog {
         this._overlayContainer = _overlayContainer;
         this._openDialogsAtThisLevel = [];
         this._afterAllClosedAtThisLevel = new Subject();
-        this._afterOpenAtThisLevel = new Subject();
+        this._afterOpenedAtThisLevel = new Subject();
         this._ariaHiddenElements = new Map();
         /**
          * Stream that emits when all open dialog have finished closing.
@@ -545,8 +563,17 @@ class MatDialog {
      * Stream that emits when a dialog has been opened.
      * @return {?}
      */
+    get afterOpened() {
+        return this._parentDialog ? this._parentDialog.afterOpened : this._afterOpenedAtThisLevel;
+    }
+    /**
+     * Stream that emits when a dialog has been opened.
+     * @deprecated Use `afterOpened` instead.
+     * \@deletion-target 8.0.0
+     * @return {?}
+     */
     get afterOpen() {
-        return this._parentDialog ? this._parentDialog.afterOpen : this._afterOpenAtThisLevel;
+        return this.afterOpened;
     }
     /**
      * @return {?}
@@ -577,7 +604,7 @@ class MatDialog {
         }
         this.openDialogs.push(dialogRef);
         dialogRef.afterClosed().subscribe(() => this._removeOpenDialog(dialogRef));
-        this.afterOpen.next(dialogRef);
+        this.afterOpened.next(dialogRef);
         return dialogRef;
     }
     /**

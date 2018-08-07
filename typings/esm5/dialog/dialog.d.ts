@@ -34,11 +34,17 @@ export declare class MatDialog {
     private _overlayContainer;
     private _openDialogsAtThisLevel;
     private readonly _afterAllClosedAtThisLevel;
-    private readonly _afterOpenAtThisLevel;
+    private readonly _afterOpenedAtThisLevel;
     private _ariaHiddenElements;
     /** Keeps track of the currently-open dialogs. */
     readonly openDialogs: MatDialogRef<any>[];
     /** Stream that emits when a dialog has been opened. */
+    readonly afterOpened: Subject<MatDialogRef<any>>;
+    /**
+     * Stream that emits when a dialog has been opened.
+     * @deprecated Use `afterOpened` instead.
+     * @deletion-target 8.0.0
+     */
     readonly afterOpen: Subject<MatDialogRef<any>>;
     readonly _afterAllClosed: any;
     /**
