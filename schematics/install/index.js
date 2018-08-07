@@ -1,18 +1,10 @@
 "use strict";
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
 const tasks_1 = require("@angular-devkit/schematics/tasks");
 const ast_1 = require("../utils/ast");
-const change_1 = require("@schematics/angular/utility/change");
-const config_1 = require("@schematics/angular/utility/config");
-const get_project_1 = require("../utils/get-project");
+const change_1 = require("../utils/devkit-utils/change");
+const config_1 = require("../utils/devkit-utils/config");
 const html_1 = require("../utils/html");
 const lib_versions_1 = require("../utils/lib-versions");
 const package_1 = require("../utils/package");
@@ -26,8 +18,7 @@ const parse5 = require("parse5");
  */
 function default_1(options) {
     if (!parse5) {
-        throw new schematics_1.SchematicsException('Parse5 is required but could not be found! Please install ' +
-            '"parse5" manually in order to continue.');
+        throw new schematics_1.SchematicsException('parse5 depedency not found! Please install parse5 from npm to continue.');
     }
     return schematics_1.chain([
         options && options.skipPackageJson ? schematics_1.noop() : addMaterialToPackageJson(),
@@ -52,7 +43,7 @@ function addMaterialToPackageJson() {
 function addAnimationRootConfig(options) {
     return (host) => {
         const workspace = config_1.getWorkspace(host);
-        const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
+        const project = config_1.getProjectFromWorkspace(workspace, options.project);
         ast_1.addModuleImportToRootModule(host, 'BrowserAnimationsModule', '@angular/platform-browser/animations', project);
         return host;
     };
@@ -61,7 +52,7 @@ function addAnimationRootConfig(options) {
 function addFontsToIndex(options) {
     return (host) => {
         const workspace = config_1.getWorkspace(host);
-        const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
+        const project = config_1.getProjectFromWorkspace(workspace, options.project);
         const fonts = [
             'https://fonts.googleapis.com/css?family=Roboto:300,400,500',
             'https://fonts.googleapis.com/icon?family=Material+Icons',
@@ -74,8 +65,8 @@ function addFontsToIndex(options) {
 function addBodyMarginToStyles(options) {
     return (host) => {
         const workspace = config_1.getWorkspace(host);
-        const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
-        const stylesPath = ast_1.getStylesPath(project);
+        const project = config_1.getProjectFromWorkspace(workspace, options.project);
+        const stylesPath = ast_1.getStylesPath(host, project);
         const buffer = host.read(stylesPath);
         if (buffer) {
             const src = buffer.toString();

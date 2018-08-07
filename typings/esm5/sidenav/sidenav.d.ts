@@ -5,11 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ChangeDetectorRef, QueryList, ElementRef, NgZone } from '@angular/core';
+import { ChangeDetectorRef, QueryList } from '@angular/core';
 import { MatDrawer, MatDrawerContainer, MatDrawerContent } from './drawer';
-import { ScrollDispatcher } from '@angular/cdk/scrolling';
 export declare class MatSidenavContent extends MatDrawerContent {
-    constructor(changeDetectorRef: ChangeDetectorRef, container: MatSidenavContainer, elementRef: ElementRef<HTMLElement>, scrollDispatcher: ScrollDispatcher, ngZone: NgZone);
+    constructor(changeDetectorRef: ChangeDetectorRef, container: MatSidenavContainer);
 }
 export declare class MatSidenav extends MatDrawer {
     /** Whether the sidenav is fixed in the viewport. */

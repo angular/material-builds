@@ -1,16 +1,9 @@
 "use strict";
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const glob_1 = require("glob");
 const tslint_1 = require("tslint");
-const input_names_1 = require("../material/data/input-names");
+const component_data_1 = require("../material/component-data");
 const component_walker_1 = require("../tslint/component-walker");
 const literal_1 = require("../typescript/literal");
 /**
@@ -52,7 +45,7 @@ class SwitchStylesheetInputNamesWalker extends component_walker_1.ComponentWalke
      */
     replaceNamesInStylesheet(node, stylesheetContent) {
         const replacements = [];
-        input_names_1.inputNames.forEach(name => {
+        component_data_1.inputNames.forEach(name => {
             if (!name.whitelist || name.whitelist.css) {
                 const bracketedName = { replace: `[${name.replace}]`, replaceWith: `[${name.replaceWith}]` };
                 this.createReplacementsForOffsets(node, name, literal_1.findAll(stylesheetContent, bracketedName.replace)).forEach(replacement => {

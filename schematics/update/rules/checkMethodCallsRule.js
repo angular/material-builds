@@ -1,17 +1,10 @@
 "use strict";
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
 const ts = require("typescript");
 const color_1 = require("../material/color");
-const method_call_checks_1 = require("../material/data/method-call-checks");
+const component_data_1 = require("../material/component-data");
 /**
  * Rule that walks through every property access expression and updates properties that have
  * been changed in favor of the new name.
@@ -32,12 +25,12 @@ class CheckMethodCallsWalker extends tslint_1.ProgramAwareRuleWalker {
     }
     visitCallExpression(expression) {
         if (expression.expression.kind !== ts.SyntaxKind.PropertyAccessExpression) {
-            const functionName = expression.getFirstToken().getText();
-            if (functionName === 'super') {
-                const superClassType = this.getTypeChecker().getTypeAtLocation(expression.expression);
-                const superClassName = superClassType.symbol && superClassType.symbol.name;
-                if (superClassType) {
-                    this.checkConstructor(expression, superClassName);
+            const methodName = expression.getFirstToken().getText();
+            if (methodName === 'super') {
+                const type = this.getTypeChecker().getTypeAtLocation(expression.expression);
+                const className = type.symbol && type.symbol.name;
+                if (className) {
+                    this.checkConstructor(expression, className);
                 }
             }
             return;
@@ -50,7 +43,7 @@ class CheckMethodCallsWalker extends tslint_1.ProgramAwareRuleWalker {
         const methodName = methodNode.getText();
         const type = this.getTypeChecker().getTypeAtLocation(classNode);
         const className = type.symbol && type.symbol.name;
-        const currentCheck = method_call_checks_1.methodCallChecks
+        const currentCheck = component_data_1.methodCallChecks
             .find(data => data.method === methodName && data.className === className);
         if (!currentCheck) {
             return;
@@ -63,7 +56,7 @@ class CheckMethodCallsWalker extends tslint_1.ProgramAwareRuleWalker {
         }
     }
     checkConstructor(node, className) {
-        const currentCheck = method_call_checks_1.methodCallChecks
+        const currentCheck = component_data_1.methodCallChecks
             .find(data => data.method === 'constructor' && data.className === className);
         if (!currentCheck) {
             return;

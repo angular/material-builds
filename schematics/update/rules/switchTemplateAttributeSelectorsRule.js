@@ -1,15 +1,8 @@
 "use strict";
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
-const attribute_selectors_1 = require("../material/data/attribute-selectors");
+const component_data_1 = require("../material/component-data");
 const component_walker_1 = require("../tslint/component-walker");
 const literal_1 = require("../typescript/literal");
 /**
@@ -42,7 +35,7 @@ class SwitchTemplateAttributeSelectorsWalker extends component_walker_1.Componen
      */
     replaceNamesInTemplate(node, templateContent) {
         const replacements = [];
-        attribute_selectors_1.attributeSelectors.forEach(selector => {
+        component_data_1.attributeSelectors.forEach(selector => {
             // Being more aggressive with that replacement here allows us to also handle inline
             // style elements. Normally we would check if the selector is surrounded by the HTML tag
             // characters.

@@ -1,15 +1,8 @@
 "use strict";
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
-const export_as_names_1 = require("../material/data/export-as-names");
+const component_data_1 = require("../material/component-data");
 const component_walker_1 = require("../tslint/component-walker");
 const literal_1 = require("../typescript/literal");
 /**
@@ -42,7 +35,7 @@ class SwitchTemplateExportAsNamesWalker extends component_walker_1.ComponentWalk
      */
     replaceNamesInTemplate(node, templateContent) {
         const replacements = [];
-        export_as_names_1.exportAsNames.forEach(name => {
+        component_data_1.exportAsNames.forEach(name => {
             this.createReplacementsForOffsets(node, name, literal_1.findAll(templateContent, name.replace))
                 .forEach(replacement => {
                 replacements.push({

@@ -494,7 +494,7 @@ var MatSelect = /** @class */ (function (_super) {
     });
     Object.defineProperty(MatSelect.prototype, "compareWith", {
         get: /**
-         * Function to compare the option values with the selected values. The first argument
+         * A function to compare the option values with the selected values. The first argument
          * is a value from an option. The second is a value from the selection. A boolean
          * should be returned.
          * @return {?}
@@ -1217,13 +1217,9 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var _this = this;
         if (this.multiple) {
             var /** @type {?} */ options_1 = this.options.toArray();
-            this._selectionModel.sort(function (a, b) {
-                return _this.sortComparator ? _this.sortComparator(a, b, options_1) :
-                    options_1.indexOf(a) - options_1.indexOf(b);
-            });
+            this._selectionModel.sort(function (a, b) { return options_1.indexOf(a) - options_1.indexOf(b); });
             this.stateChanges.next();
         }
     };
@@ -1796,7 +1792,6 @@ var MatSelect = /** @class */ (function (_super) {
         "ariaLabel": [{ type: core.Input, args: ['aria-label',] },],
         "ariaLabelledby": [{ type: core.Input, args: ['aria-labelledby',] },],
         "errorStateMatcher": [{ type: core.Input },],
-        "sortComparator": [{ type: core.Input },],
         "id": [{ type: core.Input },],
         "openedChange": [{ type: core.Output },],
         "_openedStream": [{ type: core.Output, args: ['opened',] },],

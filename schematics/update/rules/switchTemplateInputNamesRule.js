@@ -1,15 +1,8 @@
 "use strict";
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
-const input_names_1 = require("../material/data/input-names");
+const component_data_1 = require("../material/component-data");
 const component_walker_1 = require("../tslint/component-walker");
 const literal_1 = require("../typescript/literal");
 /**
@@ -42,7 +35,7 @@ class SwitchTemplateInputNamesWalker extends component_walker_1.ComponentWalker 
      */
     replaceNamesInTemplate(node, templateContent) {
         const replacements = [];
-        input_names_1.inputNames.forEach(name => {
+        component_data_1.inputNames.forEach(name => {
             let offsets = [];
             if (name.whitelist && name.whitelist.attributes && name.whitelist.attributes.length) {
                 offsets = offsets.concat(literal_1.findAllInputsInElWithAttr(templateContent, name.replace, name.whitelist.attributes));

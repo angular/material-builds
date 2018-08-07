@@ -1759,7 +1759,7 @@ var MatChipInput = /** @class */ (function () {
         if (!this._inputElement.value && !!event) {
             this._chipList._keydown(event);
         }
-        if (!event || this._isSeparatorKey(event.keyCode)) {
+        if (!event || this.separatorKeyCodes.indexOf(event.keyCode) > -1) {
             this.chipEnd.emit({ input: this._inputElement, value: this._inputElement.value });
             if (event) {
                 event.preventDefault();
@@ -1785,23 +1785,7 @@ var MatChipInput = /** @class */ (function () {
      * Focuses the input.
      * @return {?}
      */
-    function () {
-        this._inputElement.focus();
-    };
-    /**
-     * Checks whether a keycode is one of the configured separators.
-     * @param {?} keyCode
-     * @return {?}
-     */
-    MatChipInput.prototype._isSeparatorKey = /**
-     * Checks whether a keycode is one of the configured separators.
-     * @param {?} keyCode
-     * @return {?}
-     */
-    function (keyCode) {
-        var /** @type {?} */ separators = this.separatorKeyCodes;
-        return Array.isArray(separators) ? separators.indexOf(keyCode) > -1 : separators.has(keyCode);
-    };
+    function () { this._inputElement.focus(); };
     MatChipInput.decorators = [
         { type: Directive, args: [{
                     selector: 'input[matChipInputFor]',
