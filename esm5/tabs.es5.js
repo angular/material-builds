@@ -2116,5 +2116,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa22, MatTabBase as ɵf22, _MatTabMixinBase as ɵg22, MatTabHeaderBase as ɵb22, _MatTabHeaderMixinBase as ɵc22, MatTabLabelWrapperBase as ɵd22, _MatTabLabelWrapperMixinBase as ɵe22, MatTabLinkBase as ɵj22, MatTabNavBase as ɵh22, _MatTabLinkMixinBase as ɵk22, _MatTabNavMixinBase as ɵi22 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa18, MatTabBase as ɵf18, _MatTabMixinBase as ɵg18, MatTabHeaderBase as ɵb18, _MatTabHeaderMixinBase as ɵc18, MatTabLabelWrapperBase as ɵd18, _MatTabLabelWrapperMixinBase as ɵe18, MatTabLinkBase as ɵj18, MatTabNavBase as ɵh18, _MatTabLinkMixinBase as ɵk18, _MatTabNavMixinBase as ɵi18 };
 //# sourceMappingURL=tabs.es5.js.map

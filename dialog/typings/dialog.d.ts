@@ -43,7 +43,7 @@ export declare class MatDialog {
     /**
      * Stream that emits when a dialog has been opened.
      * @deprecated Use `afterOpened` instead.
-     * @deletion-target 8.0.0
+     * @breaking-change 8.0.0
      */
     readonly afterOpen: Subject<MatDialogRef<any>>;
     readonly _afterAllClosed: any;

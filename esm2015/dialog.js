@@ -455,7 +455,7 @@ class MatDialogRef {
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * \@deletion-target 8.0.0
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     afterOpen() {
@@ -464,7 +464,7 @@ class MatDialogRef {
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * \@deletion-target 8.0.0
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     beforeClose() {
@@ -569,7 +569,7 @@ class MatDialog {
     /**
      * Stream that emits when a dialog has been opened.
      * @deprecated Use `afterOpened` instead.
-     * \@deletion-target 8.0.0
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     get afterOpen() {

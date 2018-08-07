@@ -607,18 +607,18 @@ MatDialogRef = /** @class */ (function () {
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * @deletion-target 8.0.0
+     * @breaking-change 8.0.0
      */
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * \@deletion-target 8.0.0
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     MatDialogRef.prototype.afterOpen = /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * \@deletion-target 8.0.0
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     function () {
@@ -627,18 +627,18 @@ MatDialogRef = /** @class */ (function () {
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * @deletion-target 8.0.0
+     * @breaking-change 8.0.0
      */
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * \@deletion-target 8.0.0
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     MatDialogRef.prototype.beforeClose = /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * \@deletion-target 8.0.0
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     function () {
@@ -753,12 +753,12 @@ var MatDialog = /** @class */ (function () {
         /**
          * Stream that emits when a dialog has been opened.
          * @deprecated Use `afterOpened` instead.
-         * @deletion-target 8.0.0
+         * @breaking-change 8.0.0
          */
         get: /**
          * Stream that emits when a dialog has been opened.
          * @deprecated Use `afterOpened` instead.
-         * \@deletion-target 8.0.0
+         * \@breaking-change 8.0.0
          * @return {?}
          */
         function () {

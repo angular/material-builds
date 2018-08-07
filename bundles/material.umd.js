@@ -9871,18 +9871,18 @@ MatDialogRef = /** @class */ (function () {
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * @deletion-target 8.0.0
+     * @breaking-change 8.0.0
      */
     /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * \@deletion-target 8.0.0
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     MatDialogRef.prototype.afterOpen = /**
      * Gets an observable that is notified when the dialog is finished opening.
      * @deprecated Use `afterOpened` instead.
-     * \@deletion-target 8.0.0
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     function () {
@@ -9891,18 +9891,18 @@ MatDialogRef = /** @class */ (function () {
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * @deletion-target 8.0.0
+     * @breaking-change 8.0.0
      */
     /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * \@deletion-target 8.0.0
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     MatDialogRef.prototype.beforeClose = /**
      * Gets an observable that is notified when the dialog has started closing.
      * @deprecated Use `beforeClosed` instead.
-     * \@deletion-target 8.0.0
+     * \@breaking-change 8.0.0
      * @return {?}
      */
     function () {
@@ -10017,12 +10017,12 @@ var MatDialog = /** @class */ (function () {
         /**
          * Stream that emits when a dialog has been opened.
          * @deprecated Use `afterOpened` instead.
-         * @deletion-target 8.0.0
+         * @breaking-change 8.0.0
          */
         get: /**
          * Stream that emits when a dialog has been opened.
          * @deprecated Use `afterOpened` instead.
-         * \@deletion-target 8.0.0
+         * \@breaking-change 8.0.0
          * @return {?}
          */
         function () {
@@ -32988,7 +32988,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.2-58c1c95');
+var /** @type {?} */ VERSION = new core.Version('6.4.2-fc43513');
 
 exports.VERSION = VERSION;
 exports.ɵa28 = MatAutocompleteOrigin;
@@ -33240,12 +33240,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb21 = MatMenuItemBase;
+exports.ɵc21 = _MatMenuItemMixinBase;
+exports.ɵf21 = MAT_MENU_PANEL;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33375,17 +33375,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf22 = MatTabBase;
-exports.ɵg22 = _MatTabMixinBase;
-exports.ɵb22 = MatTabHeaderBase;
-exports.ɵc22 = _MatTabHeaderMixinBase;
-exports.ɵd22 = MatTabLabelWrapperBase;
-exports.ɵe22 = _MatTabLabelWrapperMixinBase;
-exports.ɵj22 = MatTabLinkBase;
-exports.ɵh22 = MatTabNavBase;
-exports.ɵk22 = _MatTabLinkMixinBase;
-exports.ɵi22 = _MatTabNavMixinBase;
+exports.ɵa18 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf18 = MatTabBase;
+exports.ɵg18 = _MatTabMixinBase;
+exports.ɵb18 = MatTabHeaderBase;
+exports.ɵc18 = _MatTabHeaderMixinBase;
+exports.ɵd18 = MatTabLabelWrapperBase;
+exports.ɵe18 = _MatTabLabelWrapperMixinBase;
+exports.ɵj18 = MatTabLinkBase;
+exports.ɵh18 = MatTabNavBase;
+exports.ɵk18 = _MatTabLinkMixinBase;
+exports.ɵi18 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
