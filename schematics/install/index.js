@@ -9,12 +9,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
 const tasks_1 = require("@angular-devkit/schematics/tasks");
-const ast_1 = require("../utils/ast");
 const change_1 = require("@schematics/angular/utility/change");
 const config_1 = require("@schematics/angular/utility/config");
+const version_names_1 = require("./version-names");
+const ast_1 = require("../utils/ast");
 const get_project_1 = require("../utils/get-project");
 const html_1 = require("../utils/html");
-const lib_versions_1 = require("../utils/lib-versions");
 const package_1 = require("../utils/package");
 const theming_1 = require("./theming");
 const parse5 = require("parse5");
@@ -22,7 +22,7 @@ const parse5 = require("parse5");
  * Scaffolds the basics of a Angular Material application, this includes:
  *  - Add Packages to package.json
  *  - Adds pre-built themes to styles.ext
- *  - Adds Browser Animation to app.momdule
+ *  - Adds Browser Animation to app.module
  */
 function default_1(options) {
     if (!parse5) {
@@ -38,12 +38,16 @@ function default_1(options) {
     ]);
 }
 exports.default = default_1;
-/** Add material, cdk, annimations to package.json if not already present. */
+/** Add material, cdk, animations to package.json if not already present. */
 function addMaterialToPackageJson() {
     return (host, context) => {
-        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/cdk', lib_versions_1.materialVersion);
-        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/material', lib_versions_1.materialVersion);
-        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/animations', lib_versions_1.angularVersion);
+        // Version tag of the `@angular/core` dependency that has been loaded from the `package.json`
+        // of the CLI project. This tag should be preferred because all Angular dependencies should
+        // have the same version tag if possible.
+        const ngCoreVersionTag = package_1.getPackageVersionFromPackageJson(host, '@angular/core');
+        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/cdk', version_names_1.materialVersion);
+        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/material', version_names_1.materialVersion);
+        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/animations', ngCoreVersionTag || version_names_1.requiredAngularVersion);
         context.addTask(new tasks_1.NodePackageInstallTask());
         return host;
     };
