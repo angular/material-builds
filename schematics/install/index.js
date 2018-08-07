@@ -1,20 +1,12 @@
 "use strict";
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
 const tasks_1 = require("@angular-devkit/schematics/tasks");
-const change_1 = require("@schematics/angular/utility/change");
-const config_1 = require("@schematics/angular/utility/config");
-const version_names_1 = require("./version-names");
 const ast_1 = require("../utils/ast");
-const get_project_1 = require("../utils/get-project");
+const change_1 = require("../utils/devkit-utils/change");
+const config_1 = require("../utils/devkit-utils/config");
 const html_1 = require("../utils/html");
+const lib_versions_1 = require("../utils/lib-versions");
 const package_1 = require("../utils/package");
 const theming_1 = require("./theming");
 const parse5 = require("parse5");
@@ -22,12 +14,11 @@ const parse5 = require("parse5");
  * Scaffolds the basics of a Angular Material application, this includes:
  *  - Add Packages to package.json
  *  - Adds pre-built themes to styles.ext
- *  - Adds Browser Animation to app.module
+ *  - Adds Browser Animation to app.momdule
  */
 function default_1(options) {
     if (!parse5) {
-        throw new schematics_1.SchematicsException('Parse5 is required but could not be found! Please install ' +
-            '"parse5" manually in order to continue.');
+        throw new schematics_1.SchematicsException('parse5 depedency not found! Please install parse5 from npm to continue.');
     }
     return schematics_1.chain([
         options && options.skipPackageJson ? schematics_1.noop() : addMaterialToPackageJson(),
@@ -38,16 +29,12 @@ function default_1(options) {
     ]);
 }
 exports.default = default_1;
-/** Add material, cdk, animations to package.json if not already present. */
+/** Add material, cdk, annimations to package.json if not already present. */
 function addMaterialToPackageJson() {
     return (host, context) => {
-        // Version tag of the `@angular/core` dependency that has been loaded from the `package.json`
-        // of the CLI project. This tag should be preferred because all Angular dependencies should
-        // have the same version tag if possible.
-        const ngCoreVersionTag = package_1.getPackageVersionFromPackageJson(host, '@angular/core');
-        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/cdk', version_names_1.materialVersion);
-        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/material', version_names_1.materialVersion);
-        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/animations', ngCoreVersionTag || version_names_1.requiredAngularVersion);
+        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/cdk', lib_versions_1.materialVersion);
+        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/material', lib_versions_1.materialVersion);
+        package_1.addPackageToPackageJson(host, 'dependencies', '@angular/animations', lib_versions_1.angularVersion);
         context.addTask(new tasks_1.NodePackageInstallTask());
         return host;
     };
@@ -56,7 +43,7 @@ function addMaterialToPackageJson() {
 function addAnimationRootConfig(options) {
     return (host) => {
         const workspace = config_1.getWorkspace(host);
-        const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
+        const project = config_1.getProjectFromWorkspace(workspace, options.project);
         ast_1.addModuleImportToRootModule(host, 'BrowserAnimationsModule', '@angular/platform-browser/animations', project);
         return host;
     };
@@ -65,7 +52,7 @@ function addAnimationRootConfig(options) {
 function addFontsToIndex(options) {
     return (host) => {
         const workspace = config_1.getWorkspace(host);
-        const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
+        const project = config_1.getProjectFromWorkspace(workspace, options.project);
         const fonts = [
             'https://fonts.googleapis.com/css?family=Roboto:300,400,500',
             'https://fonts.googleapis.com/icon?family=Material+Icons',
@@ -78,8 +65,8 @@ function addFontsToIndex(options) {
 function addBodyMarginToStyles(options) {
     return (host) => {
         const workspace = config_1.getWorkspace(host);
-        const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
-        const stylesPath = ast_1.getStylesPath(project);
+        const project = config_1.getProjectFromWorkspace(workspace, options.project);
+        const stylesPath = ast_1.getStylesPath(host, project);
         const buffer = host.read(stylesPath);
         if (buffer) {
             const src = buffer.toString();

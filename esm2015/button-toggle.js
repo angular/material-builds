@@ -34,7 +34,7 @@ const /** @type {?} */ MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
 };
 /**
  * @deprecated Use `MatButtonToggleGroup` instead.
- * \@breaking-change 7.0.0
+ * \@deletion-target 7.0.0
  */
 class MatButtonToggleGroupMultiple {
 }

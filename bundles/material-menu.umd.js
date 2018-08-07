@@ -192,12 +192,12 @@ var /** @type {?} */ matMenuAnimations = {
 };
 /**
  * @deprecated
- * \@breaking-change 7.0.0
+ * \@deletion-target 7.0.0
  */
 var /** @type {?} */ fadeInItems = matMenuAnimations.fadeInItems;
 /**
  * @deprecated
- * \@breaking-change 7.0.0
+ * \@deletion-target 7.0.0
  */
 var /** @type {?} */ transformMenu = matMenuAnimations.transformMenu;
 
@@ -267,7 +267,7 @@ var MatMenuItem = /** @class */ (function (_super) {
     __extends(MatMenuItem, _super);
     function MatMenuItem(_elementRef, document, _focusMonitor, _parentMenu) {
         var _this = 
-        // @breaking-change 7.0.0 make `_focusMonitor` and `document` required params.
+        // @deletion-target 7.0.0 make `_focusMonitor` and `document` required params.
         _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._focusMonitor = _focusMonitor;
@@ -512,7 +512,7 @@ var MatMenu = /** @class */ (function () {
         /**
          * Event emitted when the menu is closed.
          * @deprecated Switch to `closed` instead
-         * \@breaking-change 7.0.0
+         * \@deletion-target 7.0.0
          */
         this.close = this.closed;
     }
@@ -614,7 +614,7 @@ var MatMenu = /** @class */ (function () {
          * menu template that displays in the overlay container.  Otherwise, it's difficult
          * to style the containing menu from outside the component.
          * @deprecated Use `panelClass` instead.
-         * \@breaking-change 7.0.0
+         * \@deletion-target 7.0.0
          * @return {?}
          */
         function () { return this.panelClass; },
@@ -865,7 +865,7 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        // @breaking-change 7.0.0 Combine with _resetAnimation.
+        // @deletion-target 7.0.0 Combine with _resetAnimation.
         this._panelAnimationState = 'enter';
     };
     /** Resets the panel animation to its initial state. */
@@ -878,7 +878,7 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        // @breaking-change 7.0.0 Combine with _startAnimation.
+        // @deletion-target 7.0.0 Combine with _startAnimation.
         this._panelAnimationState = 'void';
     };
     /** Callback that is invoked when the panel animation completes. */
@@ -998,7 +998,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is opened.
          * @deprecated Switch to `menuOpened` instead
-         * \@breaking-change 7.0.0
+         * \@deletion-target 7.0.0
          */
         this.onMenuOpen = this.menuOpened;
         /**
@@ -1008,7 +1008,7 @@ var MatMenuTrigger = /** @class */ (function () {
         /**
          * Event emitted when the associated menu is closed.
          * @deprecated Switch to `menuClosed` instead
-         * \@breaking-change 7.0.0
+         * \@deletion-target 7.0.0
          */
         this.onMenuClose = this.menuClosed;
         if (_menuItemInstance) {
@@ -1018,7 +1018,7 @@ var MatMenuTrigger = /** @class */ (function () {
     Object.defineProperty(MatMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", {
         get: /**
          * @deprecated
-         * \@breaking-change 7.0.0
+         * \@deletion-target 7.0.0
          * @return {?}
          */
         function () {
@@ -1609,12 +1609,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb21 = MatMenuItemBase;
-exports.ɵc21 = _MatMenuItemMixinBase;
-exports.ɵf21 = MAT_MENU_PANEL;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

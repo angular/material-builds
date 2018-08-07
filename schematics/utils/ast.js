@@ -1,20 +1,13 @@
 "use strict";
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics");
-const ast_utils_1 = require("@schematics/angular/utility/ast-utils");
-const change_1 = require("@schematics/angular/utility/change");
-const config_1 = require("@schematics/angular/utility/config");
-const ng_ast_utils_1 = require("@schematics/angular/utility/ng-ast-utils");
-const find_module_1 = require("@schematics/angular/utility/find-module");
 const ts = require("typescript");
+const ast_utils_1 = require("./devkit-utils/ast-utils");
+const change_1 = require("./devkit-utils/change");
+const config_1 = require("./devkit-utils/config");
+const ng_ast_utils_1 = require("./devkit-utils/ng-ast-utils");
+const find_module_1 = require("./devkit-utils/find-module");
 /** Reads file given path and returns TypeScript source file. */
 function getSourceFile(host, path) {
     const buffer = host.read(path);
@@ -54,7 +47,7 @@ function addModuleImportToModule(host, modulePath, moduleName, src) {
 }
 exports.addModuleImportToModule = addModuleImportToModule;
 /** Gets the app index.html file */
-function getIndexHtmlPath(project) {
+function getIndexHtmlPath(host, project) {
     const buildTarget = project.architect.build.options;
     if (buildTarget.index && buildTarget.index.endsWith('index.html')) {
         return buildTarget.index;
@@ -63,7 +56,7 @@ function getIndexHtmlPath(project) {
 }
 exports.getIndexHtmlPath = getIndexHtmlPath;
 /** Get the root stylesheet file. */
-function getStylesPath(project) {
+function getStylesPath(host, project) {
     const buildTarget = project.architect['build'];
     if (buildTarget.options && buildTarget.options.styles && buildTarget.options.styles.length) {
         const styles = buildTarget.options.styles.map(s => typeof s === 'string' ? s : s.input);

@@ -20,10 +20,15 @@ export declare const _MatProgressBarMixinBase: (new (...args: any[]) => CanColor
 export declare class MatProgressBar extends _MatProgressBarMixinBase implements CanColor {
     _elementRef: ElementRef;
     _animationMode: string | undefined;
+    /**
+     * Current page path. Used to prefix SVG references which
+     * won't work on Safari unless they're prefixed with the path.
+     */
+    _currentPath: string;
     constructor(_elementRef: ElementRef, _animationMode?: string | undefined, 
         /**
          * @deprecated `location` parameter to be made required.
-         * @breaking-change 8.0.0
+         * @deletion-target 8.0.0
          */
         location?: Location);
     /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
@@ -40,10 +45,8 @@ export declare class MatProgressBar extends _MatProgressBarMixinBase implements 
      * Mirrored to mode attribute.
      */
     mode: 'determinate' | 'indeterminate' | 'buffer' | 'query';
-    /** ID of the progress bar. */
+    /** The id of the progress bar. */
     progressbarId: string;
-    /** Attribute to be used for the `fill` attribute on the internal `rect` element. */
-    _rectangleFillValue: string;
     /** Gets the current transform value for the progress bar's primary indicator. */
     _primaryTransform(): {
         transform: string;

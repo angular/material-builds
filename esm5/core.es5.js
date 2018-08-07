@@ -530,7 +530,7 @@ function MAT_DATE_LOCALE_FACTORY() {
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
  * @deprecated
- * \@breaking-change 7.0.0
+ * \@deletion-target 7.0.0
  */
 var /** @type {?} */ MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID };
 /**
@@ -1429,7 +1429,7 @@ var GestureConfig = /** @class */ (function (_super) {
             // `this.events` to the set we support, instead of conditionally setting it to `[]` if
             // `HAMMER_LOADER` is present (and then throwing an Error here if `window.Hammer` is
             // undefined).
-            // @breaking-change 7.0.0
+            // @deletion-target 7.0.0
             return noopHammerInstance;
         }
         var /** @type {?} */ mc = new hammer(element, this._hammerOptions || undefined);
@@ -1610,7 +1610,7 @@ RippleRef = /** @class */ (function () {
         this.element = element;
         this.config = config;
         /**
-         * Current state of the ripple.
+         * Current state of the ripple reference.
          */
         this.state = RippleState.HIDDEN;
     }
@@ -1963,7 +1963,7 @@ var MatRipple = /** @class */ (function () {
          * setting it to 0.5 will cause the animations to take twice as long.
          * A changed speedFactor will not modify the fade-out duration of the ripples.
          * @deprecated Use the [matRippleAnimation] binding instead.
-         * \@breaking-change 7.0.0
+         * \@deletion-target 7.0.0
          */
         this.speedFactor = 1;
         this._disabled = false;
@@ -2045,13 +2045,9 @@ var MatRipple = /** @class */ (function () {
         this._rippleRenderer.fadeOutAll();
     };
     Object.defineProperty(MatRipple.prototype, "rippleConfig", {
-        /**
-         * Ripple configuration from the directive's input values.
-         * @docs-private Implemented as part of RippleTarget
-         */
+        /** Ripple configuration from the directive's input values. */
         get: /**
          * Ripple configuration from the directive's input values.
-         * \@docs-private Implemented as part of RippleTarget
          * @return {?}
          */
         function () {
@@ -2068,13 +2064,9 @@ var MatRipple = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatRipple.prototype, "rippleDisabled", {
-        /**
-         * Whether ripples on pointer-down are disabled or not.
-         * @docs-private Implemented as part of RippleTarget
-         */
+        /** Whether ripples on pointer-down are disabled or not. */
         get: /**
          * Whether ripples on pointer-down are disabled or not.
-         * \@docs-private Implemented as part of RippleTarget
          * @return {?}
          */
         function () {

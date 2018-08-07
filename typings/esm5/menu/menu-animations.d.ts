@@ -17,11 +17,11 @@ export declare const matMenuAnimations: {
 };
 /**
  * @deprecated
- * @breaking-change 7.0.0
+ * @deletion-target 7.0.0
  */
 export declare const fadeInItems: AnimationTriggerMetadata;
 /**
  * @deprecated
- * @breaking-change 7.0.0
+ * @deletion-target 7.0.0
  */
 export declare const transformMenu: AnimationTriggerMetadata;

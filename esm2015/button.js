@@ -21,6 +21,10 @@ import { CommonModule } from '@angular/common';
  */
 const /** @type {?} */ DEFAULT_ROUND_BUTTON_COLOR = 'accent';
 /**
+ * Default color palette for flat buttons (mat-flat-button)
+ */
+const /** @type {?} */ DEFAULT_FLAT_BUTTON_COLOR = 'primary';
+/**
  * List of classes to add to MatButton instances based on host attributes to
  * style as different variants.
  */
@@ -56,7 +60,7 @@ class MatButton extends _MatButtonMixinBase {
      * @param {?=} _animationMode
      */
     constructor(elementRef, _platform, _focusMonitor, 
-    // @breaking-change 7.0.0 `_animationMode` parameter to be made required.
+    // @deletion-target 7.0.0 `_animationMode` parameter to be made required.
     _animationMode) {
         super(elementRef);
         this._platform = _platform;
@@ -80,6 +84,9 @@ class MatButton extends _MatButtonMixinBase {
         this._focusMonitor.monitor(this._elementRef.nativeElement, true);
         if (this.isRoundButton) {
             this.color = DEFAULT_ROUND_BUTTON_COLOR;
+        }
+        else if (this._hasHostAttributes('mat-flat-button')) {
+            this.color = DEFAULT_FLAT_BUTTON_COLOR;
         }
     }
     /**
@@ -153,7 +160,7 @@ class MatAnchor extends MatButton {
      * @param {?=} animationMode
      */
     constructor(platform, focusMonitor, elementRef, 
-    // @breaking-change 7.0.0 `animationMode` parameter to be made required.
+    // @deletion-target 7.0.0 `animationMode` parameter to be made required.
     animationMode) {
         super(elementRef, platform, focusMonitor, animationMode);
     }

@@ -30,7 +30,7 @@ export declare class MatChipInput implements OnChanges {
      *
      * Defaults to `[ENTER]`.
      */
-    separatorKeyCodes: number[] | Set<number>;
+    separatorKeyCodes: number[];
     /** Emitted when a chip is to be added. */
     chipEnd: EventEmitter<MatChipInputEvent>;
     /** The input's placeholder text. */
@@ -53,6 +53,4 @@ export declare class MatChipInput implements OnChanges {
     _onInput(): void;
     /** Focuses the input. */
     focus(): void;
-    /** Checks whether a keycode is one of the configured separators. */
-    private _isSeparatorKey(keyCode);
 }

@@ -1,11 +1,4 @@
 "use strict";
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * TSLint custom walker implementation that also visits external and inline templates.
@@ -21,10 +14,10 @@ const component_file_1 = require("./component-file");
  * the component metadata.
  */
 class ComponentWalker extends tslint_1.RuleWalker {
-    visitInlineTemplate(_template) { }
-    visitInlineStylesheet(_stylesheet) { }
-    visitExternalTemplate(_template) { }
-    visitExternalStylesheet(_stylesheet) { }
+    visitInlineTemplate(template) { }
+    visitInlineStylesheet(stylesheet) { }
+    visitExternalTemplate(template) { }
+    visitExternalStylesheet(stylesheet) { }
     constructor(sourceFile, options, skipFiles = []) {
         super(sourceFile, options);
         this.skipFiles = new Set(skipFiles.map(p => path_1.resolve(p)));
@@ -40,12 +33,7 @@ class ComponentWalker extends tslint_1.RuleWalker {
         super.visitNode(node);
     }
     _visitDirectiveCallExpression(callExpression) {
-        // If the call expressions does not have the correct amount of arguments, we can assume that
-        // this call expression is not related to Angular and just uses a similar decorator name.
-        if (callExpression.arguments.length !== 1) {
-            return;
-        }
-        const directiveMetadata = this._findMetadataFromExpression(callExpression.arguments[0]);
+        const directiveMetadata = callExpression.arguments[0];
         if (!directiveMetadata) {
             return;
         }
@@ -61,8 +49,7 @@ class ComponentWalker extends tslint_1.RuleWalker {
             if (propertyName === 'styles' && initializerKind === ts.SyntaxKind.ArrayLiteralExpression) {
                 this._reportInlineStyles(property.initializer);
             }
-            if (propertyName === 'styleUrls' &&
-                initializerKind === ts.SyntaxKind.ArrayLiteralExpression) {
+            if (propertyName === 'styleUrls' && initializerKind === ts.SyntaxKind.ArrayLiteralExpression) {
                 this._visitExternalStylesArrayLiteral(property.initializer);
             }
         }
@@ -108,21 +95,10 @@ class ComponentWalker extends tslint_1.RuleWalker {
         const stylesheetFile = component_file_1.createComponentFile(stylePath, fs_1.readFileSync(stylePath, 'utf8'));
         this.visitExternalStylesheet(stylesheetFile);
     }
-    /**
-     * Recursively searches for the metadata object literal expression inside of a directive call
-     * expression. Since expression calls can be nested through *parenthesized* expressions, we
-     * need to recursively visit and check every expression inside of a parenthesized expression.
-     *
-     * e.g. @Component((({myMetadataExpression}))) will return `myMetadataExpression`.
-     */
-    _findMetadataFromExpression(node) {
-        if (node.kind === ts.SyntaxKind.ObjectLiteralExpression) {
-            return node;
-        }
-        else if (node.kind === ts.SyntaxKind.ParenthesizedExpression) {
-            return this._findMetadataFromExpression(node.expression);
-        }
-        return null;
+    /** Creates a TSLint rule failure for the given external resource. */
+    addExternalResourceFailure(file, message, fix) {
+        const ruleFailure = new tslint_1.RuleFailure(file, file.getStart(), file.getEnd(), message, this.getRuleName(), fix);
+        this.addFailure(ruleFailure);
     }
 }
 exports.ComponentWalker = ComponentWalker;

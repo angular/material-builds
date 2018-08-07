@@ -22,6 +22,10 @@ import { CommonModule } from '@angular/common';
  */
 var /** @type {?} */ DEFAULT_ROUND_BUTTON_COLOR = 'accent';
 /**
+ * Default color palette for flat buttons (mat-flat-button)
+ */
+var /** @type {?} */ DEFAULT_FLAT_BUTTON_COLOR = 'primary';
+/**
  * List of classes to add to MatButton instances based on host attributes to
  * style as different variants.
  */
@@ -53,7 +57,7 @@ var /** @type {?} */ _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisable
 var MatButton = /** @class */ (function (_super) {
     __extends(MatButton, _super);
     function MatButton(elementRef, _platform, _focusMonitor, 
-    // @breaking-change 7.0.0 `_animationMode` parameter to be made required.
+    // @deletion-target 7.0.0 `_animationMode` parameter to be made required.
     _animationMode) {
         var _this = _super.call(this, elementRef) || this;
         _this._platform = _platform;
@@ -78,6 +82,9 @@ var MatButton = /** @class */ (function (_super) {
         _this._focusMonitor.monitor(_this._elementRef.nativeElement, true);
         if (_this.isRoundButton) {
             _this.color = DEFAULT_ROUND_BUTTON_COLOR;
+        }
+        else if (_this._hasHostAttributes('mat-flat-button')) {
+            _this.color = DEFAULT_FLAT_BUTTON_COLOR;
         }
         return _this;
     }
@@ -171,7 +178,7 @@ var MatButton = /** @class */ (function (_super) {
 var MatAnchor = /** @class */ (function (_super) {
     __extends(MatAnchor, _super);
     function MatAnchor(platform, focusMonitor, elementRef, 
-    // @breaking-change 7.0.0 `animationMode` parameter to be made required.
+    // @deletion-target 7.0.0 `animationMode` parameter to be made required.
     animationMode) {
         return _super.call(this, elementRef, platform, focusMonitor, animationMode) || this;
     }

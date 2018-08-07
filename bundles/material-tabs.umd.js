@@ -440,10 +440,10 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
  */
 var MatTabBody = /** @class */ (function () {
     function MatTabBody(_elementRef, _dir, /**
-                   * @breaking-change 7.0.0 changeDetectorRef to be made required.
+                   * @deletion-target 7.0.0 changeDetectorRef to be made required.
                    */
     /**
-     * @breaking-change 7.0.0 changeDetectorRef to be made required.
+     * @deletion-target 7.0.0 changeDetectorRef to be made required.
      */
     changeDetectorRef) {
         var _this = this;
@@ -1824,23 +1824,23 @@ var MatTabNav = /** @class */ (function (_super) {
     });
     /**
      * Notifies the component that the active link has been changed.
-     * @breaking-change 7.0.0 `element` parameter to be removed.
+     * @deletion-target 7.0.0 `element` parameter to be removed.
      */
     /**
      * Notifies the component that the active link has been changed.
-     * \@breaking-change 7.0.0 `element` parameter to be removed.
+     * \@deletion-target 7.0.0 `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     MatTabNav.prototype.updateActiveLink = /**
      * Notifies the component that the active link has been changed.
-     * \@breaking-change 7.0.0 `element` parameter to be removed.
+     * \@deletion-target 7.0.0 `element` parameter to be removed.
      * @param {?} element
      * @return {?}
      */
     function (element) {
         // Note: keeping the `element` for backwards-compat, but isn't being used for anything.
-        // @breaking-change 7.0.0
+        // @deletion-target 7.0.0
         this._activeLinkChanged = !!element;
         this._changeDetectorRef.markForCheck();
     };
@@ -2137,17 +2137,17 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa18 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf18 = MatTabBase;
-exports.ɵg18 = _MatTabMixinBase;
-exports.ɵb18 = MatTabHeaderBase;
-exports.ɵc18 = _MatTabHeaderMixinBase;
-exports.ɵd18 = MatTabLabelWrapperBase;
-exports.ɵe18 = _MatTabLabelWrapperMixinBase;
-exports.ɵj18 = MatTabLinkBase;
-exports.ɵh18 = MatTabNavBase;
-exports.ɵk18 = _MatTabLinkMixinBase;
-exports.ɵi18 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

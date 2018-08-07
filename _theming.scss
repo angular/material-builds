@@ -483,22 +483,22 @@ $_mat-elevation-prefix: 'mat-elevation-z';
 
 
 // @deprecated renamed to $dark-primary-text.
-// @breaking-change 7.0.0
+// @deletion-target 7.0.0
 $black-87-opacity: rgba(black, 0.87);
 // @deprecated renamed to $light-primary-text.
-// @breaking-change 7.0.0
+// @deletion-target 7.0.0
 $white-87-opacity: rgba(white, 0.87);
 // @deprecated use $dark-[secondary-text,disabled-text,dividers,focused] instead.
-// @breaking-change 7.0.0
+// @deletion-target 7.0.0
 $black-12-opacity: rgba(black, 0.12);
 // @deprecated use $light-[secondary-text,disabled-text,dividers,focused] instead.
-// @breaking-change 7.0.0
+// @deletion-target 7.0.0
 $white-12-opacity: rgba(white, 0.12);
 // @deprecated use $dark-[secondary-text,disabled-text,dividers,focused] instead.
-// @breaking-change 7.0.0
+// @deletion-target 7.0.0
 $black-6-opacity: rgba(black, 0.06);
 // @deprecated use $light-[secondary-text,disabled-text,dividers,focused] instead.
-// @breaking-change 7.0.0
+// @deletion-target 7.0.0
 $white-6-opacity: rgba(white, 0.06);
 
 $dark-primary-text: rgba(black, 0.87);
@@ -3337,7 +3337,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
 @mixin mat-slide-toggle-typography($config) {
   .mat-slide-toggle-content {
-    font-family: mat-font-family($config);
+    @include mat-typography-level-to-styles($config, body-1);
   }
 }
 
@@ -3785,7 +3785,7 @@ $mat-tooltip-target-height: 22px;
 $mat-tooltip-font-size: 10px;
 $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-size) / 2;
 
-$mat-tooltip-handset-target-height: 30px;
+$mat-tooltip-handset-target-height: 32px;
 $mat-tooltip-handset-font-size: 14px;
 $mat-tooltip-handset-vertical-padding:
     ($mat-tooltip-handset-target-height - $mat-tooltip-handset-font-size) / 2;
@@ -4051,7 +4051,7 @@ $mat-form-field-legacy-dedupe: 0;
                 $subscript-font-scale, $infix-padding, $infix-margin-top);
       }
 
-      // @breaking-change 7.0.0 will rely on AutofillMonitor instead.
+      // @deletion-target 7.0.0 will rely on AutofillMonitor instead.
       .mat-form-field-autofill-control:-webkit-autofill + .mat-form-field-label-wrapper
       .mat-form-field-label {
         @include _mat-form-field-legacy-label-floating(

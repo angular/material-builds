@@ -20,10 +20,7 @@ export declare type MatSnackBarVerticalPosition = 'top' | 'bottom';
 export declare class MatSnackBarConfig<D = any> {
     /** The politeness level for the MatAriaLiveAnnouncer announcement. */
     politeness?: AriaLivePoliteness;
-    /**
-     * Message to be announced by the LiveAnnouncer. When opening a snackbar without a custom
-     * component or template, the announcement message will default to the specified message.
-     */
+    /** Message to be announced by the MatAriaLiveAnnouncer */
     announcementMessage?: string;
     /** The view container to place the overlay for the snack bar into. */
     viewContainerRef?: ViewContainerRef;

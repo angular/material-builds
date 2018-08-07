@@ -73,11 +73,11 @@ var MatSlideToggle = /** @class */ (function (_super) {
     __extends(MatSlideToggle, _super);
     function MatSlideToggle(elementRef, /**
                    * @deprecated The `_platform` parameter to be removed.
-                   * @breaking-change 7.0.0
+                   * @deletion-target 7.0.0
                    */
     /**
      * @deprecated The `_platform` parameter to be removed.
-     * @breaking-change 7.0.0
+     * @deletion-target 7.0.0
      */
     _platform, _focusMonitor, _changeDetectorRef, tabIndex, _ngZone, defaults, _animationMode, _dir) {
         var _this = _super.call(this, elementRef) || this;

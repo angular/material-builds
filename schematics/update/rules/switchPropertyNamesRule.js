@@ -1,16 +1,9 @@
 "use strict";
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
 const ts = require("typescript");
-const property_names_1 = require("../material/data/property-names");
+const component_data_1 = require("../material/component-data");
 /**
  * Rule that walks through every property access expression and updates properties that have
  * been changed in favor of the new name.
@@ -35,7 +28,7 @@ class SwitchPropertyNamesWalker extends tslint_1.ProgramAwareRuleWalker {
         const type = this.getTypeChecker().getTypeAtLocation(propHost);
         const typeSymbol = type && type.getSymbol();
         const typeName = typeSymbol && typeSymbol.getName();
-        const propertyData = property_names_1.propertyNames.find(name => {
+        const propertyData = component_data_1.propertyNames.find(name => {
             if (prop.name.text === name.replace) {
                 // TODO(mmalerba): Verify that this type comes from Angular Material like we do in
                 // `switchIdentifiersRule`.

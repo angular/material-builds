@@ -17,7 +17,7 @@ export declare type RippleConfig = {
     terminateOnPointerUp?: boolean;
     /**
      * @deprecated Use the `animation` property instead.
-     * @breaking-change 7.0.0
+     * @deletion-target 7.0.0
      */
     speedFactor?: number;
 };

@@ -1,16 +1,9 @@
 "use strict";
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const glob_1 = require("glob");
 const tslint_1 = require("tslint");
-const element_selectors_1 = require("../material/data/element-selectors");
+const component_data_1 = require("../material/component-data");
 const component_walker_1 = require("../tslint/component-walker");
 const literal_1 = require("../typescript/literal");
 /**
@@ -52,7 +45,7 @@ class SwitchStylesheetElementSelectorsWalker extends component_walker_1.Componen
      */
     replaceNamesInStylesheet(node, stylesheetContent) {
         const replacements = [];
-        element_selectors_1.elementSelectors.forEach(selector => {
+        component_data_1.elementSelectors.forEach(selector => {
             this.createReplacementsForOffsets(node, selector, literal_1.findAll(stylesheetContent, selector.replace)).forEach(replacement => {
                 replacements.push({
                     message: `Found deprecated element selector "${chalk_1.red(selector.replace)}" which has` +

@@ -1,25 +1,15 @@
 "use strict";
-/**
- * @license
- * Copyright Google LLC All Rights Reserved.
- *
- * Use of this source code is governed by an MIT-style license that can be
- * found in the LICENSE file at https://angular.io/license
- */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
-const build_component_1 = require("../utils/build-component");
 const ast_1 = require("../utils/ast");
+const component_1 = require("../utils/devkit-utils/component");
 /**
  * Scaffolds a new table component.
  * Internally it bootstraps the base component schematic
  */
 function default_1(options) {
     return schematics_1.chain([
-        build_component_1.buildComponent(Object.assign({}, options), {
-            template: options.inlineTemplate &&
-                './__path__/__name@dasherize@if-flat__/__name@dasherize__.component.html'
-        }),
+        component_1.buildComponent(Object.assign({}, options)),
         options.skipImport ? schematics_1.noop() : addTableModulesToModule(options)
     ]);
 }

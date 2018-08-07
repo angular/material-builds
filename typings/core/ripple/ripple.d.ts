@@ -27,7 +27,7 @@ export interface RippleGlobalOptions {
      * setting it to 0.5 will cause the ripple fade-in animation to take twice as long.
      * A changed speedFactor will not affect the fade-out duration of the ripples.
      * @deprecated Use the `animation` global option instead.
-     * @breaking-change 7.0.0
+     * @deletion-target 7.0.0
      */
     baseSpeedFactor?: number;
     /**
@@ -60,7 +60,7 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
      * setting it to 0.5 will cause the animations to take twice as long.
      * A changed speedFactor will not modify the fade-out duration of the ripples.
      * @deprecated Use the [matRippleAnimation] binding instead.
-     * @breaking-change 7.0.0
+     * @deletion-target 7.0.0
      */
     speedFactor: number;
     /**
@@ -92,15 +92,9 @@ export declare class MatRipple implements OnInit, OnDestroy, RippleTarget {
     ngOnDestroy(): void;
     /** Fades out all currently showing ripple elements. */
     fadeOutAll(): void;
-    /**
-     * Ripple configuration from the directive's input values.
-     * @docs-private Implemented as part of RippleTarget
-     */
+    /** Ripple configuration from the directive's input values. */
     readonly rippleConfig: RippleConfig;
-    /**
-     * Whether ripples on pointer-down are disabled or not.
-     * @docs-private Implemented as part of RippleTarget
-     */
+    /** Whether ripples on pointer-down are disabled or not. */
     readonly rippleDisabled: boolean;
     /** Sets up the the trigger event listeners if ripples are enabled. */
     private _setupTriggerEventsIfEnabled();

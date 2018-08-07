@@ -18,17 +18,11 @@ export declare enum RippleState {
  */
 export declare class RippleRef {
     private _renderer;
-    /** Reference to the ripple HTML element. */
     element: HTMLElement;
-    /** Ripple configuration used for the ripple. */
     config: RippleConfig;
-    /** Current state of the ripple. */
+    /** Current state of the ripple reference. */
     state: RippleState;
-    constructor(_renderer: RippleRenderer, 
-        /** Reference to the ripple HTML element. */
-        element: HTMLElement, 
-        /** Ripple configuration used for the ripple. */
-        config: RippleConfig);
+    constructor(_renderer: RippleRenderer, element: HTMLElement, config: RippleConfig);
     /** Fades out the ripple element. */
     fadeOut(): void;
 }

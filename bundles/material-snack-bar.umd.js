@@ -122,18 +122,18 @@ MatSnackBarRef = /** @class */ (function () {
     /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * @breaking-change 7.0.0
+     * @deletion-target 7.0.0
      */
     /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * \@breaking-change 7.0.0
+     * \@deletion-target 7.0.0
      * @return {?}
      */
     MatSnackBarRef.prototype.closeWithAction = /**
      * Marks the snackbar action clicked.
      * @deprecated Use `dismissWithAction` instead.
-     * \@breaking-change 7.0.0
+     * \@deletion-target 7.0.0
      * @return {?}
      */
     function () {
@@ -248,8 +248,7 @@ MatSnackBarConfig = /** @class */ (function () {
          */
         this.politeness = 'assertive';
         /**
-         * Message to be announced by the LiveAnnouncer. When opening a snackbar without a custom
-         * component or template, the announcement message will default to the specified message.
+         * Message to be announced by the MatAriaLiveAnnouncer
          */
         this.announcementMessage = '';
         /**
@@ -740,9 +739,7 @@ var MatSnackBar = /** @class */ (function () {
         // Since the user doesn't have access to the component, we can
         // override the data to pass in our own message and action.
         _config.data = { message: message, action: action };
-        if (!_config.announcementMessage) {
-            _config.announcementMessage = message;
-        }
+        _config.announcementMessage = message;
         return this.openFromComponent(SimpleSnackBar, _config);
     };
     /**
