@@ -68,6 +68,11 @@ export declare class MatDialogConfig<D = any> {
     ariaLabel?: string | null;
     /** Whether the dialog should focus the first focusable element on open. */
     autoFocus?: boolean;
+    /**
+     * Whether the dialog should restore focus to the
+     * previously-focused element, after it's closed.
+     */
+    restoreFocus?: boolean;
     /** Scroll strategy to be used for the dialog. */
     scrollStrategy?: ScrollStrategy;
     /** Whether the dialog should close when the user goes backwards/forwards in history. */

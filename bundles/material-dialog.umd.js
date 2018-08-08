@@ -114,6 +114,11 @@ MatDialogConfig = /** @class */ (function () {
          */
         this.autoFocus = true;
         /**
+         * Whether the dialog should restore focus to the
+         * previously-focused element, after it's closed.
+         */
+        this.restoreFocus = true;
+        /**
          * Whether the dialog should close when the user goes backwards/forwards in history.
          */
         this.closeOnNavigation = true;
@@ -263,7 +268,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
     function () {
         var /** @type {?} */ toFocus = this._elementFocusedBeforeDialogWasOpened;
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
-        if (toFocus && typeof toFocus.focus === 'function') {
+        if (this._config.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
             toFocus.focus();
         }
         if (this._focusTrap) {

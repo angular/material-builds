@@ -9378,6 +9378,11 @@ MatDialogConfig = /** @class */ (function () {
          */
         this.autoFocus = true;
         /**
+         * Whether the dialog should restore focus to the
+         * previously-focused element, after it's closed.
+         */
+        this.restoreFocus = true;
+        /**
          * Whether the dialog should close when the user goes backwards/forwards in history.
          */
         this.closeOnNavigation = true;
@@ -9527,7 +9532,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
     function () {
         var /** @type {?} */ toFocus = this._elementFocusedBeforeDialogWasOpened;
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
-        if (toFocus && typeof toFocus.focus === 'function') {
+        if (this._config.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
             toFocus.focus();
         }
         if (this._focusTrap) {
@@ -32988,7 +32993,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.2-5a560b2');
+var /** @type {?} */ VERSION = new core.Version('6.4.2-d5c5f31');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -33240,12 +33245,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33375,17 +33380,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa2 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf2 = MatTabBase;
-exports.ɵg2 = _MatTabMixinBase;
-exports.ɵb2 = MatTabHeaderBase;
-exports.ɵc2 = _MatTabHeaderMixinBase;
-exports.ɵd2 = MatTabLabelWrapperBase;
-exports.ɵe2 = _MatTabLabelWrapperMixinBase;
-exports.ɵj2 = MatTabLinkBase;
-exports.ɵh2 = MatTabNavBase;
-exports.ɵk2 = _MatTabLinkMixinBase;
-exports.ɵi2 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
