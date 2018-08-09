@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * couldn't be found.
  */
 function getProjectFromWorkspace(workspace, projectName) {
-    let project = workspace.projects[projectName || workspace.defaultProject];
+    const project = workspace.projects[projectName || workspace.defaultProject];
     if (!project) {
         throw new Error(`Could not find project in workspace: ${projectName}`);
     }
