@@ -11,7 +11,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.materialVersion = loadPackageVersionGracefully('@angular/cdk') ||
     loadPackageVersionGracefully('@angular/material');
 /** Angular version that is needed for the Material version that comes with the schematics. */
-exports.requiredAngularVersion = '>=6.0.0-beta.0 <7.0.0';
+exports.requiredAngularVersion = '>=6.0.0 <7.0.0';
 /** Loads the full version from the given Angular package gracefully. */
 function loadPackageVersionGracefully(packageName) {
     try {
