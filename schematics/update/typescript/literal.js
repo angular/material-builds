@@ -12,14 +12,14 @@ function getLiteralTextWithoutQuotes(literal) {
     return literal.getText().substring(1, literal.getText().length - 1);
 }
 exports.getLiteralTextWithoutQuotes = getLiteralTextWithoutQuotes;
-/** Method that can be used to replace all search occurrences in a string. */
-function findAll(str, search) {
+/** Finds all start indices of the given search string in the input string. */
+function findAllSubstringIndices(input, search) {
     const result = [];
     let i = -1;
-    while ((i = str.indexOf(search, i + 1)) !== -1) {
+    while ((i = input.indexOf(search, i + 1)) !== -1) {
         result.push(i);
     }
     return result;
 }
-exports.findAll = findAll;
+exports.findAllSubstringIndices = findAllSubstringIndices;
 //# sourceMappingURL=literal.js.map

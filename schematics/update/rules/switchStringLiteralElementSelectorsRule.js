@@ -29,7 +29,7 @@ class SwitchStringLiteralElementSelectorsWalker extends tslint_1.RuleWalker {
         }
         let stringLiteralText = stringLiteral.getFullText();
         element_selectors_1.elementSelectors.forEach(selector => {
-            this.createReplacementsForOffsets(stringLiteral, selector, literal_1.findAll(stringLiteralText, selector.replace)).forEach(replacement => {
+            this.createReplacementsForOffsets(stringLiteral, selector, literal_1.findAllSubstringIndices(stringLiteralText, selector.replace)).forEach(replacement => {
                 this.addFailureAtNode(stringLiteral, `Found deprecated element selector "${chalk_1.red(selector.replace)}" which has been` +
                     ` renamed to "${chalk_1.green(selector.replaceWith)}"`, replacement);
             });

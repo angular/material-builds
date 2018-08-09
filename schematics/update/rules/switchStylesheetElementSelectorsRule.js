@@ -53,7 +53,7 @@ class SwitchStylesheetElementSelectorsWalker extends component_walker_1.Componen
     replaceNamesInStylesheet(node, stylesheetContent) {
         const replacements = [];
         element_selectors_1.elementSelectors.forEach(selector => {
-            this.createReplacementsForOffsets(node, selector, literal_1.findAll(stylesheetContent, selector.replace)).forEach(replacement => {
+            this.createReplacementsForOffsets(node, selector, literal_1.findAllSubstringIndices(stylesheetContent, selector.replace)).forEach(replacement => {
                 replacements.push({
                     message: `Found deprecated element selector "${chalk_1.red(selector.replace)}" which has` +
                         ` been renamed to "${chalk_1.green(selector.replaceWith)}"`,

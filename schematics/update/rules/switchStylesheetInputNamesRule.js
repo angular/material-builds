@@ -55,7 +55,8 @@ class SwitchStylesheetInputNamesWalker extends component_walker_1.ComponentWalke
         input_names_1.inputNames.forEach(name => {
             if (!name.whitelist || name.whitelist.css) {
                 const bracketedName = { replace: `[${name.replace}]`, replaceWith: `[${name.replaceWith}]` };
-                this.createReplacementsForOffsets(node, name, literal_1.findAll(stylesheetContent, bracketedName.replace)).forEach(replacement => {
+                const foundOffsets = literal_1.findAllSubstringIndices(stylesheetContent, bracketedName.replace);
+                this.createReplacementsForOffsets(node, name, foundOffsets).forEach(replacement => {
                     replacements.push({
                         message: `Found deprecated @Input() "${chalk_1.red(name.replace)}" which has been renamed` +
                             ` to "${chalk_1.green(name.replaceWith)}"`,

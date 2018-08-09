@@ -15,7 +15,7 @@ const colorFns = {
 };
 function color(message) {
     // 'r{{text}}' with red 'text', 'g{{text}}' with green 'text', and 'b{{text}}' with bold 'text'.
-    return message.replace(/(.)\{\{(.*?)\}\}/g, (_m, fnName, text) => {
+    return message.replace(/(.){{(.*?)}}/g, (_m, fnName, text) => {
         const fn = colorFns[fnName];
         return fn ? fn(text) : text;
     });

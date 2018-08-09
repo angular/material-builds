@@ -46,8 +46,8 @@ class SwitchTemplateElementSelectorsWalker extends component_walker_1.ComponentW
             // Being more aggressive with that replacement here allows us to also handle inline
             // style elements. Normally we would check if the selector is surrounded by the HTML tag
             // characters.
-            this.createReplacementsForOffsets(node, selector, literal_1.findAll(templateContent, selector.replace))
-                .forEach(replacement => {
+            const foundOffsets = literal_1.findAllSubstringIndices(templateContent, selector.replace);
+            this.createReplacementsForOffsets(node, selector, foundOffsets).forEach(replacement => {
                 replacements.push({
                     message: `Found deprecated element selector "${chalk_1.red(selector.replace)}" which has` +
                         ` been renamed to "${chalk_1.green(selector.replaceWith)}"`,

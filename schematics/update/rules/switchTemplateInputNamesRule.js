@@ -52,7 +52,7 @@ class SwitchTemplateInputNamesWalker extends component_walker_1.ComponentWalker 
                 offsets = offsets.concat(angular_1.findInputsOnElementWithTag(templateContent, name.replace, name.whitelist.elements));
             }
             if (!name.whitelist) {
-                offsets = offsets.concat(literal_1.findAll(templateContent, name.replace));
+                offsets = offsets.concat(literal_1.findAllSubstringIndices(templateContent, name.replace));
             }
             this.createReplacementsForOffsets(node, name, offsets).forEach(replacement => {
                 replacements.push({

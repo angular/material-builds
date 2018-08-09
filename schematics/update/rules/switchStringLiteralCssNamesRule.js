@@ -30,7 +30,7 @@ class SwitchStringLiteralCssNamesWalker extends tslint_1.RuleWalker {
         let stringLiteralText = stringLiteral.getFullText();
         css_names_1.cssNames.forEach(name => {
             if (!name.whitelist || name.whitelist.strings) {
-                this.createReplacementsForOffsets(stringLiteral, name, literal_1.findAll(stringLiteralText, name.replace)).forEach(replacement => {
+                this.createReplacementsForOffsets(stringLiteral, name, literal_1.findAllSubstringIndices(stringLiteralText, name.replace)).forEach(replacement => {
                     this.addFailureAtNode(stringLiteral, `Found deprecated CSS class "${chalk_1.red(name.replace)}" which has been renamed to` +
                         ` "${chalk_1.green(name.replaceWith)}"`, replacement);
                 });

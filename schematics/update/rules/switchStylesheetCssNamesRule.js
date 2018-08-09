@@ -54,8 +54,8 @@ class SwitchStylesheetCssNamesWalker extends component_walker_1.ComponentWalker 
         const replacements = [];
         css_names_1.cssNames.forEach(name => {
             if (!name.whitelist || name.whitelist.css) {
-                this.createReplacementsForOffsets(node, name, literal_1.findAll(stylesheetContent, name.replace))
-                    .forEach(replacement => {
+                const foundOffsets = literal_1.findAllSubstringIndices(stylesheetContent, name.replace);
+                this.createReplacementsForOffsets(node, name, foundOffsets).forEach(replacement => {
                     replacements.push({
                         message: `Found CSS class "${chalk_1.red(name.replace)}" which has been renamed to` +
                             ` "${chalk_1.green(name.replaceWith)}"`,

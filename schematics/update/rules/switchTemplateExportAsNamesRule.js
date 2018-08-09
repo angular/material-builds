@@ -43,8 +43,8 @@ class SwitchTemplateExportAsNamesWalker extends component_walker_1.ComponentWalk
     replaceNamesInTemplate(node, templateContent) {
         const replacements = [];
         export_as_names_1.exportAsNames.forEach(name => {
-            this.createReplacementsForOffsets(node, name, literal_1.findAll(templateContent, name.replace))
-                .forEach(replacement => {
+            const foundOffsets = literal_1.findAllSubstringIndices(templateContent, name.replace);
+            this.createReplacementsForOffsets(node, name, foundOffsets).forEach(replacement => {
                 replacements.push({
                     message: `Found deprecated exportAs reference "${chalk_1.red(name.replace)}" which has been` +
                         ` renamed to "${chalk_1.green(name.replaceWith)}"`,

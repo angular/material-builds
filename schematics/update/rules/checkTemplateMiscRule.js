@@ -40,7 +40,7 @@ class CheckTemplateMiscWalker extends component_walker_1.ComponentWalker {
      */
     checkTemplate(templateContent) {
         let failures = [];
-        failures = failures.concat(literal_1.findAll(templateContent, 'cdk-focus-trap').map(offset => ({
+        failures = failures.concat(literal_1.findAllSubstringIndices(templateContent, 'cdk-focus-trap').map(offset => ({
             start: offset,
             end: offset + 'cdk-focus-trap'.length,
             message: `Found deprecated element selector "${chalk_1.red('cdk-focus-trap')}" which has been` +
