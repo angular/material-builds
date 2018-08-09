@@ -9,7 +9,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
-const angular_1 = require("../html/angular");
 const component_walker_1 = require("../tslint/component-walker");
 const literal_1 = require("../typescript/literal");
 /**
@@ -46,7 +45,7 @@ class CheckTemplateMiscWalker extends component_walker_1.ComponentWalker {
             message: `Found deprecated element selector "${chalk_1.red('cdk-focus-trap')}" which has been` +
                 ` changed to an attribute selector "${chalk_1.green('[cdkTrapFocus]')}"`
         })));
-        failures = failures.concat(angular_1.findOutputsOnElementWithTag(templateContent, 'selectionChange', ['mat-list-option'])
+        failures = failures.concat(literal_1.findAllOutputsInElWithTag(templateContent, 'selectionChange', ['mat-list-option'])
             .map(offset => ({
             start: offset,
             end: offset + 'selectionChange'.length,
@@ -54,7 +53,7 @@ class CheckTemplateMiscWalker extends component_walker_1.ComponentWalker {
                 ` "${chalk_1.bold('mat-list-option')}". Use "${chalk_1.green('selectionChange')}" on` +
                 ` "${chalk_1.bold('mat-selection-list')}" instead`
         })));
-        failures = failures.concat(angular_1.findOutputsOnElementWithTag(templateContent, 'selectedChanged', ['mat-datepicker'])
+        failures = failures.concat(literal_1.findAllOutputsInElWithTag(templateContent, 'selectedChanged', ['mat-datepicker'])
             .map(offset => ({
             start: offset,
             end: offset + 'selectionChange'.length,
@@ -62,7 +61,7 @@ class CheckTemplateMiscWalker extends component_walker_1.ComponentWalker {
                 ` "${chalk_1.bold('mat-datepicker')}". Use "${chalk_1.green('dateChange')}" or` +
                 ` "${chalk_1.green('dateInput')}" on "${chalk_1.bold('<input [matDatepicker]>')}" instead`
         })));
-        failures = failures.concat(angular_1.findInputsOnElementWithTag(templateContent, 'selected', ['mat-button-toggle-group'])
+        failures = failures.concat(literal_1.findAllInputsInElWithTag(templateContent, 'selected', ['mat-button-toggle-group'])
             .map(offset => ({
             start: offset,
             end: offset + 'selected'.length,

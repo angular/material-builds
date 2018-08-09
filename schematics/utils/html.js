@@ -8,7 +8,7 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
-const parse5_1 = require("parse5");
+const parse5 = require("parse5");
 const ast_1 = require("./ast");
 const change_1 = require("@schematics/angular/utility/change");
 /**
@@ -16,23 +16,24 @@ const change_1 = require("@schematics/angular/utility/change");
  * @param src the src path of the html file to parse
  */
 function getHeadTag(src) {
-    const document = parse5_1.parse(src, { sourceCodeLocationInfo: true });
+    const document = parse5.parse(src, { sourceCodeLocationInfo: true });
     let head;
-    const visitNodes = nodes => {
+    const visit = (nodes) => {
         nodes.forEach(node => {
-            if (node.tagName === 'head') {
-                head = node;
+            const element = node;
+            if (element.tagName === 'head') {
+                head = element;
             }
             else {
-                if (node.childNodes) {
-                    visitNodes(node.childNodes);
+                if (element.childNodes) {
+                    visit(element.childNodes);
                 }
             }
         });
     };
-    visitNodes(document.childNodes);
+    visit(document.childNodes);
     if (!head) {
-        throw new schematics_1.SchematicsException('Head element could not be found!');
+        throw new schematics_1.SchematicsException('Head element not found!');
     }
     return {
         position: head.sourceCodeLocation.startTag.endOffset
