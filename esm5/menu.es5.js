@@ -1316,7 +1316,6 @@ var MatMenuTrigger = /** @class */ (function () {
         return new OverlayConfig({
             positionStrategy: this._overlay.position()
                 .flexibleConnectedTo(this._element)
-                .withLockedPosition()
                 .withTransformOriginOn('.mat-menu-panel'),
             hasBackdrop: this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop,
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
@@ -1594,5 +1593,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa16, MatMenuItemBase as ɵb16, _MatMenuItemMixinBase as ɵc16, MAT_MENU_PANEL as ɵf16, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd16, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe16 };
 //# sourceMappingURL=menu.es5.js.map

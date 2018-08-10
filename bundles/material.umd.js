@@ -19623,7 +19623,6 @@ var MatMenuTrigger = /** @class */ (function () {
         return new overlay.OverlayConfig({
             positionStrategy: this._overlay.position()
                 .flexibleConnectedTo(this._element)
-                .withLockedPosition()
                 .withTransformOriginOn('.mat-menu-panel'),
             hasBackdrop: this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop,
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
@@ -32994,7 +32993,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.2-52cb1cb');
+var /** @type {?} */ VERSION = new core.Version('6.4.2-c5cfede');
 
 exports.VERSION = VERSION;
 exports.ɵa28 = MatAutocompleteOrigin;
@@ -33246,12 +33245,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa16 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb16 = MatMenuItemBase;
+exports.ɵc16 = _MatMenuItemMixinBase;
+exports.ɵf16 = MAT_MENU_PANEL;
+exports.ɵd16 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe16 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
