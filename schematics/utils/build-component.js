@@ -20,6 +20,7 @@ const validation_1 = require("@schematics/angular/utility/validation");
 const path_1 = require("path");
 const fs_1 = require("fs");
 const ts = require("typescript");
+const default_style_ext_1 = require("./default-style-ext");
 function readIntoSourceFile(host, modulePath) {
     const text = host.read(modulePath);
     if (text === null) {
@@ -93,7 +94,7 @@ function buildSelector(options, projectPrefix) {
  */
 function indentTextContent(text, numSpaces) {
     // In the Material project there should be only LF line-endings, but the schematic files
-    // are not being linted and therefore there can be also use CRLF or just CR line-endings.
+    // are not being linted and therefore there can be also CRLF or just CR line-endings.
     return text.replace(/(\r\n|\r|\n)/g, `$1${' '.repeat(numSpaces)}`);
 }
 /**
@@ -110,6 +111,9 @@ function buildComponent(options, additionalFiles = {}) {
         const project = workspace.projects[options.project || workspace.defaultProject];
         const schematicFilesUrl = './files';
         const schematicFilesPath = path_1.resolve(path_1.dirname(context.schematic.description.path), schematicFilesUrl);
+        if (!options.styleext) {
+            options.styleext = default_style_ext_1.determineDefaultStyleExt(project);
+        }
         if (options.path === undefined) {
             options.path = project_1.buildDefaultPath(project);
         }
