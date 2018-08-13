@@ -237,13 +237,9 @@ var MatTab = /** @class */ (function (_super) {
          */
         _this._contentPortal = null;
         /**
-         * Emits whenever the label changes.
+         * Emits whenever the internal state of the tab changes.
          */
-        _this._labelChange = new rxjs.Subject();
-        /**
-         * Emits whenever the disable changes
-         */
-        _this._disableChange = new rxjs.Subject();
+        _this._stateChanges = new rxjs.Subject();
         /**
          * The relatively indexed position where 0 represents the center, negative is left, and positive
          * represents the right.
@@ -281,11 +277,8 @@ var MatTab = /** @class */ (function (_super) {
      * @return {?}
      */
     function (changes) {
-        if (changes.hasOwnProperty('textLabel')) {
-            this._labelChange.next();
-        }
-        if (changes.hasOwnProperty('disabled')) {
-            this._disableChange.next();
+        if (changes.hasOwnProperty('textLabel') || changes.hasOwnProperty('disabled')) {
+            this._stateChanges.next();
         }
     };
     /**
@@ -295,8 +288,7 @@ var MatTab = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._disableChange.complete();
-        this._labelChange.complete();
+        this._stateChanges.complete();
     };
     /**
      * @return {?}
@@ -1475,17 +1467,23 @@ var MatTabGroup = /** @class */ (function (_super) {
         var /** @type {?} */ indexToSelect = this._indexToSelect = this._clampTabIndex(this._indexToSelect);
         // If there is a change in selected index, emit a change event. Should not trigger if
         // the selected index has not yet been initialized.
-        if (this._selectedIndex != indexToSelect && this._selectedIndex != null) {
-            var /** @type {?} */ tabChangeEvent = this._createChangeEvent(indexToSelect);
-            this.selectedTabChange.emit(tabChangeEvent);
-            // Emitting this value after change detection has run
-            // since the checked content may contain this variable'
-            Promise.resolve().then(function () { return _this.selectedIndexChange.emit(indexToSelect); });
+        if (this._selectedIndex != indexToSelect) {
+            var /** @type {?} */ isFirstRun_1 = this._selectedIndex == null;
+            if (!isFirstRun_1) {
+                this.selectedTabChange.emit(this._createChangeEvent(indexToSelect));
+            }
+            // Changing these values after change detection has run
+            // since the checked content may contain references to them.
+            Promise.resolve().then(function () {
+                _this._tabs.forEach(function (tab, index) { return tab.isActive = index === indexToSelect; });
+                if (!isFirstRun_1) {
+                    _this.selectedIndexChange.emit(indexToSelect);
+                }
+            });
         }
         // Setup the position for each tab and optionally setup an origin on the next selected tab.
         this._tabs.forEach(function (tab, index) {
             tab.position = index - indexToSelect;
-            tab.isActive = index === indexToSelect;
             // If there is already a selected tab, then set up an origin for the next selected tab
             // if it doesn't have one already.
             if (_this._selectedIndex != null && tab.position == 0 && !tab.origin) {
@@ -1601,9 +1599,7 @@ var MatTabGroup = /** @class */ (function (_super) {
         if (this._tabLabelSubscription) {
             this._tabLabelSubscription.unsubscribe();
         }
-        this._tabLabelSubscription = rxjs.merge.apply(void 0, this._tabs.map(function (tab) { return tab._disableChange; }).concat(this._tabs.map(function (tab) { return tab._labelChange; }))).subscribe(function () {
-            _this._changeDetectorRef.markForCheck();
-        });
+        this._tabLabelSubscription = rxjs.merge.apply(void 0, this._tabs.map(function (tab) { return tab._stateChanges; })).subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
     };
     /**
      * Clamps the given index to the bounds of 0 and the tabs length.
