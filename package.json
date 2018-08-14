@@ -1,6 +1,6 @@
 {
   "name": "@angular/material",
-  "version": "6.4.5-5144aa7",
+  "version": "6.4.5-8aaca12",
   "description": "Angular Material",
   "main": "./bundles/material.umd.js",
   "module": "./esm5/material.es5.js",
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/angular/material2#readme",
   "peerDependencies": {
-    "@angular/cdk": "6.4.5-5144aa7",
+    "@angular/cdk": "6.4.5-8aaca12",
     "@angular/core": ">=6.0.0 <7.0.0",
     "@angular/common": ">=6.0.0 <7.0.0"
   },
@@ -42,7 +42,7 @@
     ]
   },
   "sideEffects": false,
-  "releaseGitCommitSha": "5144aa790dfad54c1340a0e16435ca3f5253b16e",
+  "releaseGitCommitSha": "8aaca12303bede199b427cb16041cdaf4db3649a",
   "releaseGitBranch": "",
   "releaseGitUser": "Travis CI User <travis@example.org>"
 }
