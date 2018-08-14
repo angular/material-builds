@@ -35,4 +35,4 @@ function getPackageVersionFromPackageJson(tree, name) {
     return null;
 }
 exports.getPackageVersionFromPackageJson = getPackageVersionFromPackageJson;
-//# sourceMappingURL=package.js.map
+//# sourceMappingURL=package-json.js.map

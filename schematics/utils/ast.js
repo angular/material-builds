@@ -7,13 +7,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const core_1 = require("@angular-devkit/core");
 const schematics_1 = require("@angular-devkit/schematics");
 const ast_utils_1 = require("@schematics/angular/utility/ast-utils");
 const change_1 = require("@schematics/angular/utility/change");
 const config_1 = require("@schematics/angular/utility/config");
-const ng_ast_utils_1 = require("@schematics/angular/utility/ng-ast-utils");
 const find_module_1 = require("@schematics/angular/utility/find-module");
+const ng_ast_utils_1 = require("@schematics/angular/utility/ng-ast-utils");
 const ts = require("typescript");
 /** Reads file given path and returns TypeScript source file. */
 function getSourceFile(host, path) {
@@ -53,35 +52,6 @@ function addModuleImportToModule(host, modulePath, moduleName, src) {
     host.commitUpdate(recorder);
 }
 exports.addModuleImportToModule = addModuleImportToModule;
-/** Gets the app index.html file */
-function getIndexHtmlPath(project) {
-    const buildTarget = project.architect.build.options;
-    if (buildTarget.index && buildTarget.index.endsWith('index.html')) {
-        return buildTarget.index;
-    }
-    throw new schematics_1.SchematicsException('No index.html file was found.');
-}
-exports.getIndexHtmlPath = getIndexHtmlPath;
-/** Get the root stylesheet file. */
-function getStylesPath(project) {
-    const buildTarget = project.architect['build'];
-    if (buildTarget.options && buildTarget.options.styles && buildTarget.options.styles.length) {
-        const styles = buildTarget.options.styles.map(s => typeof s === 'string' ? s : s.input);
-        // First, see if any of the assets is called "styles.(le|sc|c)ss", which is the default
-        // "main" style sheet.
-        const defaultMainStylePath = styles.find(a => /styles\.(c|le|sc)ss/.test(a));
-        if (defaultMainStylePath) {
-            return core_1.normalize(defaultMainStylePath);
-        }
-        // If there was no obvious default file, use the first style asset.
-        const fallbackStylePath = styles.find(a => /\.(c|le|sc)ss/.test(a));
-        if (fallbackStylePath) {
-            return core_1.normalize(fallbackStylePath);
-        }
-    }
-    throw new schematics_1.SchematicsException('No style files could be found into which a theme could be added');
-}
-exports.getStylesPath = getStylesPath;
 /** Wraps the internal find module from options with undefined path handling  */
 function findModuleFromOptions(host, options) {
     const workspace = config_1.getWorkspace(host);
