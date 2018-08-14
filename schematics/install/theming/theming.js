@@ -10,8 +10,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
 const change_1 = require("@schematics/angular/utility/change");
 const config_1 = require("@schematics/angular/utility/config");
-const ast_1 = require("../utils/ast");
-const get_project_1 = require("../utils/get-project");
+const get_project_1 = require("../../utils/get-project");
+const project_style_file_1 = require("../../utils/project-style-file");
 const custom_theme_1 = require("./custom-theme");
 /** Add pre-built styles to the main project style file. */
 function addThemeToAppStyles(options) {
@@ -34,7 +34,7 @@ function addThemeToAppStyles(options) {
 exports.addThemeToAppStyles = addThemeToAppStyles;
 /** Insert a custom theme to styles.scss file. */
 function insertCustomTheme(project, projectName, host) {
-    const stylesPath = ast_1.getStylesPath(project);
+    const stylesPath = project_style_file_1.getProjectStyleFile(project);
     const buffer = host.read(stylesPath);
     if (buffer) {
         const insertion = new change_1.InsertChange(stylesPath, 0, custom_theme_1.createCustomTheme(projectName));
