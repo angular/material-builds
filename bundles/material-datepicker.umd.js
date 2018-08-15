@@ -3259,7 +3259,7 @@ exports.MatDatepickerToggleIcon = MatDatepickerToggleIcon;
 exports.MatDatepickerToggle = MatDatepickerToggle;
 exports.MatMonthView = MatMonthView;
 exports.MatYearView = MatYearView;
-exports.ɵa34 = MatMultiYearView;
+exports.ɵa33 = MatMultiYearView;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
