@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/observers'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/scrolling'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('@angular/cdk/tree')) :
-	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/observers', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/scrolling', '@angular/cdk/table', '@angular/cdk/stepper', '@angular/cdk/tree'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.rxjs.operators,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.observers,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.scrolling,global.ng.cdk.table,global.ng.cdk.stepper,global.ng.cdk.tree));
-}(this, (function (exports,core,bidi,coercion,rxjs,platform,platformBrowser,animations,keycodes,common,animations$1,operators,a11y,overlay,portal,forms,layout,collections,observers,textField,accordion,http,scrolling,table,stepper,tree) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/observers'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/scrolling'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('@angular/cdk/tree')) :
+	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/operators', '@angular/cdk/observers', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/scrolling', '@angular/cdk/table', '@angular/cdk/stepper', '@angular/cdk/tree'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.rxjs.operators,global.ng.cdk.observers,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.scrolling,global.ng.cdk.table,global.ng.cdk.stepper,global.ng.cdk.tree));
+}(this, (function (exports,core,bidi,coercion,rxjs,platform,platformBrowser,animations,keycodes,common,animations$1,operators,observers,a11y,overlay,portal,forms,layout,collections,textField,accordion,http,scrolling,table,stepper,tree) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -3066,9 +3066,6 @@ var MatFormField = /** @class */ (function (_super) {
         _this._hintLabelId = "mat-hint-" + nextUniqueId$2++;
         // Unique id for the internal form field label.
         _this._labelId = "mat-form-field-label-" + nextUniqueId$2++;
-        _this._outlineGapWidth = 0;
-        _this._outlineGapStart = 0;
-        _this._initialGapCalculated = false;
         _this._labelOptions = labelOptions ? labelOptions : {};
         _this.floatLabel = _this._labelOptions.float || 'auto';
         _this._animationsEnabled = _animationMode !== 'NoopAnimations';
@@ -3087,11 +3084,20 @@ var MatFormField = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            // If we're switching to `outline` from another appearance, we have to recalculate the gap.
-            if (value !== this._appearance && value === 'outline') {
-                this._initialGapCalculated = false;
-            }
+            var _this = this;
+            var /** @type {?} */ oldValue = this._appearance;
             this._appearance = value;
+            if (this._appearance === 'outline' && oldValue !== value) {
+                // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
+                if (this._ngZone) {
+                    /** @type {?} */ ((this._ngZone)).onStable.pipe(operators.take(1)).subscribe(function () {
+                        /** @type {?} */ ((_this._ngZone)).runOutsideAngular(function () { return _this.updateOutlineGap(); });
+                    });
+                }
+                else {
+                    Promise.resolve().then(function () { return _this.updateOutlineGap(); });
+                }
+            }
         },
         enumerable: true,
         configurable: true
@@ -3235,22 +3241,7 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var _this = this;
         this._validateControlChild();
-        if (!this._initialGapCalculated) {
-            // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
-            if (this._ngZone) {
-                // It's important that we run this outside the `_ngZone`, because the `Promise.resolve`
-                // can kick us into an infinite change detection loop, if the `_initialGapCalculated`
-                // wasn't flipped on for some reason.
-                this._ngZone.runOutsideAngular(function () {
-                    Promise.resolve().then(function () { return _this.updateOutlineGap(); });
-                });
-            }
-            else {
-                Promise.resolve().then(function () { return _this.updateOutlineGap(); });
-            }
-        }
     };
     /**
      * @return {?}
@@ -3484,10 +3475,16 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this.appearance === 'outline' && this._label && this._label.nativeElement.children.length) {
+        if (this.appearance !== 'outline') {
+            return;
+        }
+        var /** @type {?} */ startWidth = 0;
+        var /** @type {?} */ gapWidth = 0;
+        var /** @type {?} */ startEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-start');
+        var /** @type {?} */ gapEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-gap');
+        if (this._label && this._label.nativeElement.children.length) {
             if (this._platform && !this._platform.isBrowser) {
                 // getBoundingClientRect isn't available on the server.
-                this._initialGapCalculated = true;
                 return;
             }
             if (!document.documentElement.contains(this._elementRef.nativeElement)) {
@@ -3500,15 +3497,15 @@ var MatFormField = /** @class */ (function (_super) {
                 var child = _a[_i];
                 labelWidth += child.offsetWidth;
             }
-            this._outlineGapStart = labelStart - containerStart - outlineGapPadding;
-            this._outlineGapWidth = labelWidth * floatingLabelScale + outlineGapPadding * 2;
+            startWidth = labelStart - containerStart - outlineGapPadding;
+            gapWidth = labelWidth * floatingLabelScale + outlineGapPadding * 2;
         }
-        else {
-            this._outlineGapStart = 0;
-            this._outlineGapWidth = 0;
+        for (var /** @type {?} */ i = 0; i < startEls.length; i++) {
+            startEls.item(i).style.width = startWidth + "px";
         }
-        this._initialGapCalculated = true;
-        this._changeDetectorRef.markForCheck();
+        for (var /** @type {?} */ i = 0; i < gapEls.length; i++) {
+            gapEls.item(i).style.width = gapWidth + "px";
+        }
     };
     /**
      * Gets the start end of the rect considering the current directionality.
@@ -3526,7 +3523,7 @@ var MatFormField = /** @class */ (function (_super) {
     MatFormField.decorators = [
         { type: core.Component, args: [{selector: 'mat-form-field',
                     exportAs: 'matFormField',
-                    template: "<div class=\"mat-form-field-wrapper\"><div class=\"mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><ng-container *ngIf=\"appearance == 'outline'\"><div class=\"mat-form-field-outline\"><div class=\"mat-form-field-outline-start\" [style.width.px]=\"_outlineGapStart\"></div><div class=\"mat-form-field-outline-gap\" [style.width.px]=\"_outlineGapWidth\"></div><div class=\"mat-form-field-outline-end\"></div></div><div class=\"mat-form-field-outline mat-form-field-outline-thick\"><div class=\"mat-form-field-outline-start\" [style.width.px]=\"_outlineGapStart\"></div><div class=\"mat-form-field-outline-gap\" [style.width.px]=\"_outlineGapWidth\"></div><div class=\"mat-form-field-outline-end\"></div></div></ng-container><div class=\"mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-form-field-infix\" #inputContainer><ng-content></ng-content><span class=\"mat-form-field-label-wrapper\"><label class=\"mat-form-field-label\" [id]=\"_labelId\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #label *ngIf=\"_hasFloatingLabel()\" [ngSwitch]=\"_hasLabel()\"><ng-container *ngSwitchCase=\"false\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}}</ng-container><ng-content select=\"mat-label\" *ngSwitchCase=\"true\"></ng-content><span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required && !_control.disabled\">&nbsp;*</span></label></span></div><div class=\"mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-form-field-underline\" #underline *ngIf=\"appearance != 'outline'\"><span class=\"mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
+                    template: "<div class=\"mat-form-field-wrapper\"><div class=\"mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><ng-container *ngIf=\"appearance == 'outline'\"><div class=\"mat-form-field-outline\"><div class=\"mat-form-field-outline-start\"></div><div class=\"mat-form-field-outline-gap\"></div><div class=\"mat-form-field-outline-end\"></div></div><div class=\"mat-form-field-outline mat-form-field-outline-thick\"><div class=\"mat-form-field-outline-start\"></div><div class=\"mat-form-field-outline-gap\"></div><div class=\"mat-form-field-outline-end\"></div></div></ng-container><div class=\"mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-form-field-infix\" #inputContainer><ng-content></ng-content><span class=\"mat-form-field-label-wrapper\"><label class=\"mat-form-field-label\" (cdkObserveContent)=\"updateOutlineGap()\" [id]=\"_labelId\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #label *ngIf=\"_hasFloatingLabel()\" [ngSwitch]=\"_hasLabel()\"><ng-container *ngSwitchCase=\"false\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}}</ng-container><ng-content select=\"mat-label\" *ngSwitchCase=\"true\"></ng-content><span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required && !_control.disabled\">&nbsp;*</span></label></span></div><div class=\"mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-form-field-underline\" #underline *ngIf=\"appearance != 'outline'\"><span class=\"mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
                     // MatInput is a directive and can't have styles, so we need to include its styles here.
                     // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
                     // aren't using MatInput.
@@ -3610,7 +3607,10 @@ var MatFormFieldModule = /** @class */ (function () {
                         MatPrefix,
                         MatSuffix,
                     ],
-                    imports: [common.CommonModule],
+                    imports: [
+                        common.CommonModule,
+                        observers.ObserversModule,
+                    ],
                     exports: [
                         MatError,
                         MatFormField,
@@ -32989,10 +32989,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.5-7e74b5d');
+var /** @type {?} */ VERSION = new core.Version('6.4.5-03527c6');
 
 exports.VERSION = VERSION;
-exports.ɵa27 = MatAutocompleteOrigin;
+exports.ɵa25 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -33241,12 +33241,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb21 = MatMenuItemBase;
+exports.ɵc21 = _MatMenuItemMixinBase;
+exports.ɵf21 = MAT_MENU_PANEL;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
