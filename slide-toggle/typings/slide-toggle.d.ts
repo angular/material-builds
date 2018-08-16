@@ -10,7 +10,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, NgZone } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanDisable, CanDisableRipple, HammerInput, HasTabIndex, MatRipple } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple, HammerInput, HasTabIndex } from '@angular/material/core';
 import { MatSlideToggleDefaultOptions } from './slide-toggle-config';
 export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 /** Change event object emitted by a MatSlideToggle. */
@@ -44,8 +44,6 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     private _uniqueId;
     private _required;
     private _checked;
-    /** Reference to the focus state ripple. */
-    private _focusRipple;
     /** Whether the thumb is currently being dragged. */
     private _dragging;
     /** Previous checked state before drag started. */
@@ -92,8 +90,6 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     readonly inputId: string;
     /** Reference to the underlying input element. */
     _inputElement: ElementRef;
-    /** Reference to the ripple directive on the thumb container. */
-    _ripple: MatRipple;
     constructor(elementRef: ElementRef, 
         /**
          * @deprecated The `_platform` parameter to be removed.
@@ -118,8 +114,6 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     focus(): void;
     /** Toggles the checked state of the slide-toggle. */
     toggle(): void;
-    /** Function is called whenever the focus changes for the input element. */
-    private _onInputFocusChange(focusOrigin);
     /**
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
      */
