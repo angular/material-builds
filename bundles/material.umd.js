@@ -14623,6 +14623,14 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         _this._viewContainerRef = _viewContainerRef;
         _this._hideToggle = false;
         /**
+         * An event emitted after the body's expansion animation happens.
+         */
+        _this.afterExpand = new core.EventEmitter();
+        /**
+         * An event emitted after the body's collapse animation happens.
+         */
+        _this.afterCollapse = new core.EventEmitter();
+        /**
          * Stream that emits for changes in `\@Input` properties.
          */
         _this._inputChanges = new rxjs.Subject();
@@ -14738,7 +14746,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     function (event) {
         var /** @type {?} */ classList = event.element.classList;
         var /** @type {?} */ cssClass = 'mat-expanded';
-        var phaseName = event.phaseName, toState = event.toState;
+        var phaseName = event.phaseName, toState = event.toState, fromState = event.fromState;
         // Toggle the body's `overflow: hidden` class when closing starts or when expansion ends in
         // order to prevent the cases where switching too early would cause the animation to jump.
         // Note that we do it directly on the DOM element to avoid the slight delay that comes
@@ -14746,8 +14754,14 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         if (phaseName === 'done' && toState === 'expanded') {
             classList.add(cssClass);
         }
-        else if (phaseName === 'start' && toState === 'collapsed') {
+        if (phaseName === 'start' && toState === 'collapsed') {
             classList.remove(cssClass);
+        }
+        if (phaseName === 'done' && toState === 'expanded' && fromState !== 'void') {
+            this.afterExpand.emit();
+        }
+        if (phaseName === 'done' && toState === 'collapsed' && fromState !== 'void') {
+            this.afterCollapse.emit();
         }
     };
     MatExpansionPanel.decorators = [
@@ -14781,6 +14795,8 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     ]; };
     MatExpansionPanel.propDecorators = {
         "hideToggle": [{ type: core.Input },],
+        "afterExpand": [{ type: core.Output },],
+        "afterCollapse": [{ type: core.Output },],
         "_lazyContent": [{ type: core.ContentChild, args: [MatExpansionPanelContent,] },],
     };
     return MatExpansionPanel;
@@ -32964,10 +32980,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.5-9d882a0');
+var /** @type {?} */ VERSION = new core.Version('6.4.5-f6b1002');
 
 exports.VERSION = VERSION;
-exports.ɵa26 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -33216,12 +33232,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa19 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb19 = MatMenuItemBase;
-exports.ɵc19 = _MatMenuItemMixinBase;
-exports.ɵf19 = MAT_MENU_PANEL;
-exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe19 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

@@ -183,6 +183,14 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         _this._viewContainerRef = _viewContainerRef;
         _this._hideToggle = false;
         /**
+         * An event emitted after the body's expansion animation happens.
+         */
+        _this.afterExpand = new core.EventEmitter();
+        /**
+         * An event emitted after the body's collapse animation happens.
+         */
+        _this.afterCollapse = new core.EventEmitter();
+        /**
          * Stream that emits for changes in `\@Input` properties.
          */
         _this._inputChanges = new rxjs.Subject();
@@ -298,7 +306,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     function (event) {
         var /** @type {?} */ classList = event.element.classList;
         var /** @type {?} */ cssClass = 'mat-expanded';
-        var phaseName = event.phaseName, toState = event.toState;
+        var phaseName = event.phaseName, toState = event.toState, fromState = event.fromState;
         // Toggle the body's `overflow: hidden` class when closing starts or when expansion ends in
         // order to prevent the cases where switching too early would cause the animation to jump.
         // Note that we do it directly on the DOM element to avoid the slight delay that comes
@@ -306,8 +314,14 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         if (phaseName === 'done' && toState === 'expanded') {
             classList.add(cssClass);
         }
-        else if (phaseName === 'start' && toState === 'collapsed') {
+        if (phaseName === 'start' && toState === 'collapsed') {
             classList.remove(cssClass);
+        }
+        if (phaseName === 'done' && toState === 'expanded' && fromState !== 'void') {
+            this.afterExpand.emit();
+        }
+        if (phaseName === 'done' && toState === 'collapsed' && fromState !== 'void') {
+            this.afterCollapse.emit();
         }
     };
     MatExpansionPanel.decorators = [
@@ -341,6 +355,8 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     ]; };
     MatExpansionPanel.propDecorators = {
         "hideToggle": [{ type: core.Input },],
+        "afterExpand": [{ type: core.Output },],
+        "afterCollapse": [{ type: core.Output },],
         "_lazyContent": [{ type: core.ContentChild, args: [MatExpansionPanelContent,] },],
     };
     return MatExpansionPanel;

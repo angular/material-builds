@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Optional, SkipSelf, ViewContainerRef, ViewEncapsulation, ElementRef, Host, NgModule } from '@angular/core';
+import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Optional, Output, SkipSelf, ViewContainerRef, ViewEncapsulation, ElementRef, Host, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
 import { animate, animateChild, group, state, style, transition, trigger, query } from '@angular/animations';
@@ -160,6 +160,14 @@ class MatExpansionPanel extends CdkAccordionItem {
         this._viewContainerRef = _viewContainerRef;
         this._hideToggle = false;
         /**
+         * An event emitted after the body's expansion animation happens.
+         */
+        this.afterExpand = new EventEmitter();
+        /**
+         * An event emitted after the body's collapse animation happens.
+         */
+        this.afterCollapse = new EventEmitter();
+        /**
          * Stream that emits for changes in `\@Input` properties.
          */
         this._inputChanges = new Subject();
@@ -240,7 +248,7 @@ class MatExpansionPanel extends CdkAccordionItem {
     _bodyAnimation(event) {
         const /** @type {?} */ classList = event.element.classList;
         const /** @type {?} */ cssClass = 'mat-expanded';
-        const { phaseName, toState } = event;
+        const { phaseName, toState, fromState } = event;
         // Toggle the body's `overflow: hidden` class when closing starts or when expansion ends in
         // order to prevent the cases where switching too early would cause the animation to jump.
         // Note that we do it directly on the DOM element to avoid the slight delay that comes
@@ -248,8 +256,14 @@ class MatExpansionPanel extends CdkAccordionItem {
         if (phaseName === 'done' && toState === 'expanded') {
             classList.add(cssClass);
         }
-        else if (phaseName === 'start' && toState === 'collapsed') {
+        if (phaseName === 'start' && toState === 'collapsed') {
             classList.remove(cssClass);
+        }
+        if (phaseName === 'done' && toState === 'expanded' && fromState !== 'void') {
+            this.afterExpand.emit();
+        }
+        if (phaseName === 'done' && toState === 'collapsed' && fromState !== 'void') {
+            this.afterCollapse.emit();
         }
     }
 }
@@ -284,6 +298,8 @@ MatExpansionPanel.ctorParameters = () => [
 ];
 MatExpansionPanel.propDecorators = {
     "hideToggle": [{ type: Input },],
+    "afterExpand": [{ type: Output },],
+    "afterCollapse": [{ type: Output },],
     "_lazyContent": [{ type: ContentChild, args: [MatExpansionPanelContent,] },],
 };
 class MatExpansionPanelActionRow {

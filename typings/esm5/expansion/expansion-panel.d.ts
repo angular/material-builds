@@ -9,7 +9,7 @@ import { AnimationEvent } from '@angular/animations';
 import { CdkAccordionItem } from '@angular/cdk/accordion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal } from '@angular/cdk/portal';
-import { AfterContentInit, ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy, SimpleChanges, ViewContainerRef } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatAccordion } from './accordion';
 import { MatExpansionPanelContent } from './expansion-panel-content';
@@ -26,6 +26,10 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     /** Whether the toggle indicator should be hidden. */
     hideToggle: boolean;
     private _hideToggle;
+    /** An event emitted after the body's expansion animation happens. */
+    afterExpand: EventEmitter<void>;
+    /** An event emitted after the body's collapse animation happens. */
+    afterCollapse: EventEmitter<void>;
     /** Stream that emits for changes in `@Input` properties. */
     readonly _inputChanges: Subject<SimpleChanges>;
     /** Optionally defined accordion the expansion panel belongs to. */

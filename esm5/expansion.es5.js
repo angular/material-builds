@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Optional, SkipSelf, ViewContainerRef, ViewEncapsulation, ElementRef, Host, NgModule } from '@angular/core';
+import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Optional, Output, SkipSelf, ViewContainerRef, ViewEncapsulation, ElementRef, Host, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
 import { animate, animateChild, group, state, style, transition, trigger, query } from '@angular/animations';
@@ -161,6 +161,14 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         _this._viewContainerRef = _viewContainerRef;
         _this._hideToggle = false;
         /**
+         * An event emitted after the body's expansion animation happens.
+         */
+        _this.afterExpand = new EventEmitter();
+        /**
+         * An event emitted after the body's collapse animation happens.
+         */
+        _this.afterCollapse = new EventEmitter();
+        /**
          * Stream that emits for changes in `\@Input` properties.
          */
         _this._inputChanges = new Subject();
@@ -276,7 +284,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     function (event) {
         var /** @type {?} */ classList = event.element.classList;
         var /** @type {?} */ cssClass = 'mat-expanded';
-        var phaseName = event.phaseName, toState = event.toState;
+        var phaseName = event.phaseName, toState = event.toState, fromState = event.fromState;
         // Toggle the body's `overflow: hidden` class when closing starts or when expansion ends in
         // order to prevent the cases where switching too early would cause the animation to jump.
         // Note that we do it directly on the DOM element to avoid the slight delay that comes
@@ -284,8 +292,14 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         if (phaseName === 'done' && toState === 'expanded') {
             classList.add(cssClass);
         }
-        else if (phaseName === 'start' && toState === 'collapsed') {
+        if (phaseName === 'start' && toState === 'collapsed') {
             classList.remove(cssClass);
+        }
+        if (phaseName === 'done' && toState === 'expanded' && fromState !== 'void') {
+            this.afterExpand.emit();
+        }
+        if (phaseName === 'done' && toState === 'collapsed' && fromState !== 'void') {
+            this.afterCollapse.emit();
         }
     };
     MatExpansionPanel.decorators = [
@@ -319,6 +333,8 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     ]; };
     MatExpansionPanel.propDecorators = {
         "hideToggle": [{ type: Input },],
+        "afterExpand": [{ type: Output },],
+        "afterCollapse": [{ type: Output },],
         "_lazyContent": [{ type: ContentChild, args: [MatExpansionPanelContent,] },],
     };
     return MatExpansionPanel;
