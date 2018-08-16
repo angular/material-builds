@@ -781,11 +781,9 @@ var MatSelectionList = /** @class */ (function (_super) {
         switch (keyCode) {
             case keycodes.SPACE:
             case keycodes.ENTER:
-                if (!this.disabled) {
-                    this._toggleSelectOnFocusedOption();
-                    // Always prevent space from scrolling the page since the list has focus
-                    event.preventDefault();
-                }
+                this._toggleFocusedOption();
+                // Always prevent space from scrolling the page since the list has focus
+                event.preventDefault();
                 break;
             case keycodes.HOME:
             case keycodes.END:
@@ -803,7 +801,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         }
         if ((keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) && event.shiftKey &&
             manager.activeItemIndex !== previousFocusIndex) {
-            this._toggleSelectOnFocusedOption();
+            this._toggleFocusedOption();
         }
     };
     /** Reports a value change to the ControlValueAccessor */
@@ -929,18 +927,18 @@ var MatSelectionList = /** @class */ (function (_super) {
         return this.options.filter(function (option) { return option.selected; }).map(function (option) { return option.value; });
     };
     /**
-     * Toggles the selected state of the currently focused option.
+     * Toggles the state of the currently focused option if enabled.
      * @return {?}
      */
-    MatSelectionList.prototype._toggleSelectOnFocusedOption = /**
-     * Toggles the selected state of the currently focused option.
+    MatSelectionList.prototype._toggleFocusedOption = /**
+     * Toggles the state of the currently focused option if enabled.
      * @return {?}
      */
     function () {
         var /** @type {?} */ focusedIndex = this._keyManager.activeItemIndex;
         if (focusedIndex != null && this._isValidIndex(focusedIndex)) {
             var /** @type {?} */ focusedOption = this.options.toArray()[focusedIndex];
-            if (focusedOption) {
+            if (focusedOption && !focusedOption.disabled) {
                 focusedOption.toggle();
                 // Emit a change event because the focused option changed its state through user
                 // interaction.

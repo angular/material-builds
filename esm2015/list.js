@@ -581,11 +581,9 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         switch (keyCode) {
             case SPACE:
             case ENTER:
-                if (!this.disabled) {
-                    this._toggleSelectOnFocusedOption();
-                    // Always prevent space from scrolling the page since the list has focus
-                    event.preventDefault();
-                }
+                this._toggleFocusedOption();
+                // Always prevent space from scrolling the page since the list has focus
+                event.preventDefault();
                 break;
             case HOME:
             case END:
@@ -603,7 +601,7 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         }
         if ((keyCode === UP_ARROW || keyCode === DOWN_ARROW) && event.shiftKey &&
             manager.activeItemIndex !== previousFocusIndex) {
-            this._toggleSelectOnFocusedOption();
+            this._toggleFocusedOption();
         }
     }
     /**
@@ -682,14 +680,14 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         return this.options.filter(option => option.selected).map(option => option.value);
     }
     /**
-     * Toggles the selected state of the currently focused option.
+     * Toggles the state of the currently focused option if enabled.
      * @return {?}
      */
-    _toggleSelectOnFocusedOption() {
+    _toggleFocusedOption() {
         let /** @type {?} */ focusedIndex = this._keyManager.activeItemIndex;
         if (focusedIndex != null && this._isValidIndex(focusedIndex)) {
             let /** @type {?} */ focusedOption = this.options.toArray()[focusedIndex];
-            if (focusedOption) {
+            if (focusedOption && !focusedOption.disabled) {
                 focusedOption.toggle();
                 // Emit a change event because the focused option changed its state through user
                 // interaction.

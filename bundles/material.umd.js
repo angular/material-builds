@@ -18034,11 +18034,9 @@ var MatSelectionList = /** @class */ (function (_super) {
         switch (keyCode) {
             case keycodes.SPACE:
             case keycodes.ENTER:
-                if (!this.disabled) {
-                    this._toggleSelectOnFocusedOption();
-                    // Always prevent space from scrolling the page since the list has focus
-                    event.preventDefault();
-                }
+                this._toggleFocusedOption();
+                // Always prevent space from scrolling the page since the list has focus
+                event.preventDefault();
                 break;
             case keycodes.HOME:
             case keycodes.END:
@@ -18056,7 +18054,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         }
         if ((keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW) && event.shiftKey &&
             manager.activeItemIndex !== previousFocusIndex) {
-            this._toggleSelectOnFocusedOption();
+            this._toggleFocusedOption();
         }
     };
     /** Reports a value change to the ControlValueAccessor */
@@ -18182,18 +18180,18 @@ var MatSelectionList = /** @class */ (function (_super) {
         return this.options.filter(function (option) { return option.selected; }).map(function (option) { return option.value; });
     };
     /**
-     * Toggles the selected state of the currently focused option.
+     * Toggles the state of the currently focused option if enabled.
      * @return {?}
      */
-    MatSelectionList.prototype._toggleSelectOnFocusedOption = /**
-     * Toggles the selected state of the currently focused option.
+    MatSelectionList.prototype._toggleFocusedOption = /**
+     * Toggles the state of the currently focused option if enabled.
      * @return {?}
      */
     function () {
         var /** @type {?} */ focusedIndex = this._keyManager.activeItemIndex;
         if (focusedIndex != null && this._isValidIndex(focusedIndex)) {
             var /** @type {?} */ focusedOption = this.options.toArray()[focusedIndex];
-            if (focusedOption) {
+            if (focusedOption && !focusedOption.disabled) {
                 focusedOption.toggle();
                 // Emit a change event because the focused option changed its state through user
                 // interaction.
@@ -32989,7 +32987,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.5-ceb2051');
+var /** @type {?} */ VERSION = new core.Version('6.4.5-4cfdb20');
 
 exports.VERSION = VERSION;
 exports.ɵa30 = MatAutocompleteOrigin;
@@ -33376,17 +33374,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa19 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf19 = MatTabBase;
-exports.ɵg19 = _MatTabMixinBase;
-exports.ɵb19 = MatTabHeaderBase;
-exports.ɵc19 = _MatTabHeaderMixinBase;
-exports.ɵd19 = MatTabLabelWrapperBase;
-exports.ɵe19 = _MatTabLabelWrapperMixinBase;
-exports.ɵj19 = MatTabLinkBase;
-exports.ɵh19 = MatTabNavBase;
-exports.ɵk19 = _MatTabLinkMixinBase;
-exports.ɵi19 = _MatTabNavMixinBase;
+exports.ɵa21 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf21 = MatTabBase;
+exports.ɵg21 = _MatTabMixinBase;
+exports.ɵb21 = MatTabHeaderBase;
+exports.ɵc21 = _MatTabHeaderMixinBase;
+exports.ɵd21 = MatTabLabelWrapperBase;
+exports.ɵe21 = _MatTabLabelWrapperMixinBase;
+exports.ɵj21 = MatTabLinkBase;
+exports.ɵh21 = MatTabNavBase;
+exports.ɵk21 = _MatTabLinkMixinBase;
+exports.ɵi21 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

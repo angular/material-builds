@@ -153,8 +153,8 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     private _setOptionsFromValues(values);
     /** Returns the values of the selected options. */
     private _getSelectedOptionValues();
-    /** Toggles the selected state of the currently focused option. */
-    private _toggleSelectOnFocusedOption();
+    /** Toggles the state of the currently focused option if enabled. */
+    private _toggleFocusedOption();
     /**
      * Sets the selected state on all of the options
      * and emits an event if anything changed.
