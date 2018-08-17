@@ -3829,7 +3829,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
     MatAutocomplete.decorators = [
         { type: core.Component, args: [{selector: 'mat-autocomplete',
                     template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
-                    styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative;width:100%}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}@media screen and (-ms-high-contrast:active){.mat-autocomplete-panel{outline:solid 1px}}"],
+                    styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative;width:100%;border-bottom-left-radius:4px;border-bottom-right-radius:4px}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}@media screen and (-ms-high-contrast:active){.mat-autocomplete-panel{outline:solid 1px}}.mat-autocomplete-panel-above{border-radius:0;border-top-left-radius:4px;border-top-right-radius:4px}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     exportAs: 'matAutocomplete',
@@ -4533,6 +4533,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
+        var _this = this;
         this._positionStrategy = this._overlay.position()
             .flexibleConnectedTo(this._getConnectedElement())
             .withFlexibleDimensions(false)
@@ -4541,6 +4542,16 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
             { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom' }
         ]);
+        // The overlay edge connected to the trigger should have squared corners, while
+        // the opposite end has rounded corners. We apply a CSS class to swap the
+        // border-radius based on the overlay position.
+        this._positionStrategy.positionChanges.subscribe(function (_a) {
+            var connectionPair = _a.connectionPair;
+            if (_this.autocomplete) {
+                _this.autocomplete._classList['mat-autocomplete-panel-above'] =
+                    connectionPair.originY === 'top';
+            }
+        });
         return this._positionStrategy;
     };
     /**
@@ -32980,7 +32991,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.5-f6b1002');
+var /** @type {?} */ VERSION = new core.Version('6.4.5-b9651df');
 
 exports.VERSION = VERSION;
 exports.ɵa28 = MatAutocompleteOrigin;
@@ -33232,12 +33243,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33367,17 +33378,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf22 = MatTabBase;
+exports.ɵg22 = _MatTabMixinBase;
+exports.ɵb22 = MatTabHeaderBase;
+exports.ɵc22 = _MatTabHeaderMixinBase;
+exports.ɵd22 = MatTabLabelWrapperBase;
+exports.ɵe22 = _MatTabLabelWrapperMixinBase;
+exports.ɵj22 = MatTabLinkBase;
+exports.ɵh22 = MatTabNavBase;
+exports.ɵk22 = _MatTabLinkMixinBase;
+exports.ɵi22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
