@@ -45,9 +45,9 @@ function addMaterialToPackageJson() {
         // of the CLI project. This tag should be preferred because all Angular dependencies should
         // have the same version tag if possible.
         const ngCoreVersionTag = package_json_1.getPackageVersionFromPackageJson(host, '@angular/core');
-        package_json_1.addPackageToPackageJson(host, 'dependencies', '@angular/cdk', version_names_1.materialVersion);
-        package_json_1.addPackageToPackageJson(host, 'dependencies', '@angular/material', version_names_1.materialVersion);
-        package_json_1.addPackageToPackageJson(host, 'dependencies', '@angular/animations', ngCoreVersionTag || version_names_1.requiredAngularVersion);
+        package_json_1.addPackageToPackageJson(host, 'dependencies', '@angular/cdk', `^${version_names_1.materialVersion}`);
+        package_json_1.addPackageToPackageJson(host, 'dependencies', '@angular/material', `^${version_names_1.materialVersion}`);
+        package_json_1.addPackageToPackageJson(host, 'dependencies', '@angular/animations', ngCoreVersionTag || version_names_1.requiredAngularVersionRange);
         context.addTask(new tasks_1.NodePackageInstallTask());
         return host;
     };

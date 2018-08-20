@@ -10,12 +10,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 /** Name of the Material version that is shipped together with the schematics. */
 exports.materialVersion = loadPackageVersionGracefully('@angular/cdk') ||
     loadPackageVersionGracefully('@angular/material');
-/** Angular version that is needed for the Material version that comes with the schematics. */
-exports.requiredAngularVersion = '>=6.0.0 <7.0.0';
+/**
+ * Range of Angular versions that can be used together with the Angular Material version
+ * that provides these schematics.
+ */
+exports.requiredAngularVersionRange = '>=6.0.0 <7.0.0';
 /** Loads the full version from the given Angular package gracefully. */
 function loadPackageVersionGracefully(packageName) {
     try {
-        return require(packageName).VERSION.full;
+        return require(`${packageName}/package.json`).version;
     }
     catch (_a) {
         return null;
