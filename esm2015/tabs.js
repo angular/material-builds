@@ -192,13 +192,9 @@ class MatTab extends _MatTabMixinBase {
          */
         this._contentPortal = null;
         /**
-         * Emits whenever the label changes.
+         * Emits whenever the internal state of the tab changes.
          */
-        this._labelChange = new Subject();
-        /**
-         * Emits whenever the disable changes
-         */
-        this._disableChange = new Subject();
+        this._stateChanges = new Subject();
         /**
          * The relatively indexed position where 0 represents the center, negative is left, and positive
          * represents the right.
@@ -226,19 +222,15 @@ class MatTab extends _MatTabMixinBase {
      * @return {?}
      */
     ngOnChanges(changes) {
-        if (changes.hasOwnProperty('textLabel')) {
-            this._labelChange.next();
-        }
-        if (changes.hasOwnProperty('disabled')) {
-            this._disableChange.next();
+        if (changes.hasOwnProperty('textLabel') || changes.hasOwnProperty('disabled')) {
+            this._stateChanges.next();
         }
     }
     /**
      * @return {?}
      */
     ngOnDestroy() {
-        this._disableChange.complete();
-        this._labelChange.complete();
+        this._stateChanges.complete();
     }
     /**
      * @return {?}
@@ -424,7 +416,7 @@ class MatTabBody {
      * @return {?}
      */
     ngOnInit() {
-        if (this._position == 'center' && this.origin !== undefined) {
+        if (this._position == 'center' && this.origin != null) {
             this._position = this._computePositionFromOrigin();
         }
     }
@@ -1145,17 +1137,23 @@ class MatTabGroup extends _MatTabGroupMixinBase {
         const /** @type {?} */ indexToSelect = this._indexToSelect = this._clampTabIndex(this._indexToSelect);
         // If there is a change in selected index, emit a change event. Should not trigger if
         // the selected index has not yet been initialized.
-        if (this._selectedIndex != indexToSelect && this._selectedIndex != null) {
-            const /** @type {?} */ tabChangeEvent = this._createChangeEvent(indexToSelect);
-            this.selectedTabChange.emit(tabChangeEvent);
-            // Emitting this value after change detection has run
-            // since the checked content may contain this variable'
-            Promise.resolve().then(() => this.selectedIndexChange.emit(indexToSelect));
+        if (this._selectedIndex != indexToSelect) {
+            const /** @type {?} */ isFirstRun = this._selectedIndex == null;
+            if (!isFirstRun) {
+                this.selectedTabChange.emit(this._createChangeEvent(indexToSelect));
+            }
+            // Changing these values after change detection has run
+            // since the checked content may contain references to them.
+            Promise.resolve().then(() => {
+                this._tabs.forEach((tab, index) => tab.isActive = index === indexToSelect);
+                if (!isFirstRun) {
+                    this.selectedIndexChange.emit(indexToSelect);
+                }
+            });
         }
         // Setup the position for each tab and optionally setup an origin on the next selected tab.
         this._tabs.forEach((tab, index) => {
             tab.position = index - indexToSelect;
-            tab.isActive = index === indexToSelect;
             // If there is already a selected tab, then set up an origin for the next selected tab
             // if it doesn't have one already.
             if (this._selectedIndex != null && tab.position == 0 && !tab.origin) {
@@ -1240,9 +1238,8 @@ class MatTabGroup extends _MatTabGroupMixinBase {
         if (this._tabLabelSubscription) {
             this._tabLabelSubscription.unsubscribe();
         }
-        this._tabLabelSubscription = merge(...this._tabs.map(tab => tab._disableChange), ...this._tabs.map(tab => tab._labelChange)).subscribe(() => {
-            this._changeDetectorRef.markForCheck();
-        });
+        this._tabLabelSubscription = merge(...this._tabs.map(tab => tab._stateChanges))
+            .subscribe(() => this._changeDetectorRef.markForCheck());
     }
     /**
      * Clamps the given index to the bounds of 0 and the tabs length.

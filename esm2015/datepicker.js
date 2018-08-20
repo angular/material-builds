@@ -2201,17 +2201,19 @@ class MatDatepickerInput {
      * @return {?}
      */
     set matDatepicker(value) {
-        this.registerDatepicker(value);
-    }
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    registerDatepicker(value) {
-        if (value) {
-            this._datepicker = value;
-            this._datepicker._registerInput(this);
+        if (!value) {
+            return;
         }
+        this._datepicker = value;
+        this._datepicker._registerInput(this);
+        this._datepickerSubscription.unsubscribe();
+        this._datepickerSubscription = this._datepicker._selectedChanged.subscribe((selected) => {
+            this.value = selected;
+            this._cvaOnChange(selected);
+            this._onTouched();
+            this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
+            this.dateChange.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
+        });
     }
     /**
      * Function that can be used to filter out dates within the datepicker.
@@ -2295,20 +2297,6 @@ class MatDatepickerInput {
     /**
      * @return {?}
      */
-    ngAfterContentInit() {
-        if (this._datepicker) {
-            this._datepickerSubscription = this._datepicker._selectedChanged.subscribe((selected) => {
-                this.value = selected;
-                this._cvaOnChange(selected);
-                this._onTouched();
-                this.dateInput.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
-                this.dateChange.emit(new MatDatepickerInputEvent(this, this._elementRef.nativeElement));
-            });
-        }
-    }
-    /**
-     * @return {?}
-     */
     ngOnDestroy() {
         this._datepickerSubscription.unsubscribe();
         this._localeSubscription.unsubscribe();
@@ -2379,7 +2367,7 @@ class MatDatepickerInput {
      * @return {?}
      */
     _onKeydown(event) {
-        if (event.altKey && event.keyCode === DOWN_ARROW) {
+        if (this._datepicker && event.altKey && event.keyCode === DOWN_ARROW) {
             this._datepicker.open();
             event.preventDefault();
         }

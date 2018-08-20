@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/tree'), require('@angular/material/core'), require('@angular/common'), require('@angular/cdk/collections'), require('rxjs'), require('rxjs/operators')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/tree', ['exports', '@angular/core', '@angular/cdk/tree', '@angular/material/core', '@angular/common', '@angular/cdk/collections', 'rxjs', 'rxjs/operators'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = {}),global.ng.core,global.ng.cdk.tree,global.ng.material.core,global.ng.common,global.ng.cdk.collections,global.rxjs,global.rxjs.operators));
-}(this, (function (exports,core,tree,core$1,common,collections,rxjs,operators) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/tree'), require('@angular/material/core'), require('@angular/cdk/bidi'), require('@angular/common'), require('@angular/cdk/collections'), require('rxjs'), require('rxjs/operators')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/tree', ['exports', '@angular/core', '@angular/cdk/tree', '@angular/material/core', '@angular/cdk/bidi', '@angular/common', '@angular/cdk/collections', 'rxjs', 'rxjs/operators'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tree = {}),global.ng.core,global.ng.cdk.tree,global.ng.material.core,global.ng.cdk.bidi,global.ng.common,global.ng.cdk.collections,global.rxjs,global.rxjs.operators));
+}(this, (function (exports,core,tree,core$1,bidi,common,collections,rxjs,operators) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -115,8 +115,13 @@ var MatTreeNode = /** @class */ (function (_super) {
  */
 var MatTreeNodeDef = /** @class */ (function (_super) {
     __extends(MatTreeNodeDef, _super);
-    function MatTreeNodeDef() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
+    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
+    // fixed bug.
+    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
+    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
+    function MatTreeNodeDef(template) {
+        return _super.call(this, template) || this;
     }
     MatTreeNodeDef.decorators = [
         { type: core.Directive, args: [{
@@ -128,6 +133,9 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
+    MatTreeNodeDef.ctorParameters = function () { return [
+        { type: core.TemplateRef, },
+    ]; };
     MatTreeNodeDef.propDecorators = {
         "data": [{ type: core.Input, args: ['matTreeNode',] },],
     };
@@ -208,8 +216,13 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
  */
 var MatTreeNodePadding = /** @class */ (function (_super) {
     __extends(MatTreeNodePadding, _super);
-    function MatTreeNodePadding() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
+    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
+    // fixed bug.
+    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
+    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
+    function MatTreeNodePadding(_treeNode, _tree, _renderer, _element, _dir) {
+        return _super.call(this, _treeNode, _tree, _renderer, _element, _dir) || this;
     }
     MatTreeNodePadding.decorators = [
         { type: core.Directive, args: [{
@@ -218,6 +231,13 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
+    MatTreeNodePadding.ctorParameters = function () { return [
+        { type: tree.CdkTreeNode, },
+        { type: tree.CdkTree, },
+        { type: core.Renderer2, },
+        { type: core.ElementRef, },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+    ]; };
     MatTreeNodePadding.propDecorators = {
         "level": [{ type: core.Input, args: ['matTreeNodePadding',] },],
         "indent": [{ type: core.Input, args: ['matTreeNodePaddingIndent',] },],
@@ -235,8 +255,13 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
  */
 var MatTree = /** @class */ (function (_super) {
     __extends(MatTree, _super);
-    function MatTree() {
-        return _super !== null && _super.apply(this, arguments) || this;
+    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
+    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
+    // fixed bug.
+    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
+    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
+    function MatTree(_differs, _changeDetectorRef) {
+        return _super.call(this, _differs, _changeDetectorRef) || this;
     }
     MatTree.decorators = [
         { type: core.Component, args: [{selector: 'mat-tree',
@@ -253,6 +278,10 @@ var MatTree = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
+    MatTree.ctorParameters = function () { return [
+        { type: core.IterableDiffers, },
+        { type: core.ChangeDetectorRef, },
+    ]; };
     MatTree.propDecorators = {
         "_nodeOutlet": [{ type: core.ViewChild, args: [MatTreeNodeOutlet,] },],
     };
@@ -269,8 +298,13 @@ var MatTree = /** @class */ (function (_super) {
  */
 var MatTreeNodeToggle = /** @class */ (function (_super) {
     __extends(MatTreeNodeToggle, _super);
-    function MatTreeNodeToggle() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
+    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
+    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
+    // fixed bug.
+    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
+    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
+    function MatTreeNodeToggle(_tree, _treeNode) {
+        var _this = _super.call(this, _tree, _treeNode) || this;
         _this.recursive = false;
         return _this;
     }
@@ -284,6 +318,10 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
+    MatTreeNodeToggle.ctorParameters = function () { return [
+        { type: tree.CdkTree, },
+        { type: tree.CdkTreeNode, },
+    ]; };
     MatTreeNodeToggle.propDecorators = {
         "recursive": [{ type: core.Input, args: ['matTreeNodeToggleRecursive',] },],
     };

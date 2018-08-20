@@ -2659,25 +2659,24 @@ var MatDatepickerInput = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            this.registerDatepicker(value);
+            var _this = this;
+            if (!value) {
+                return;
+            }
+            this._datepicker = value;
+            this._datepicker._registerInput(this);
+            this._datepickerSubscription.unsubscribe();
+            this._datepickerSubscription = this._datepicker._selectedChanged.subscribe(function (selected) {
+                _this.value = selected;
+                _this._cvaOnChange(selected);
+                _this._onTouched();
+                _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+                _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
+            });
         },
         enumerable: true,
         configurable: true
     });
-    /**
-     * @param {?} value
-     * @return {?}
-     */
-    MatDatepickerInput.prototype.registerDatepicker = /**
-     * @param {?} value
-     * @return {?}
-     */
-    function (value) {
-        if (value) {
-            this._datepicker = value;
-            this._datepicker._registerInput(this);
-        }
-    };
     Object.defineProperty(MatDatepickerInput.prototype, "matDatepickerFilter", {
         set: /**
          * Function that can be used to filter out dates within the datepicker.
@@ -2777,24 +2776,6 @@ var MatDatepickerInput = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    /**
-     * @return {?}
-     */
-    MatDatepickerInput.prototype.ngAfterContentInit = /**
-     * @return {?}
-     */
-    function () {
-        var _this = this;
-        if (this._datepicker) {
-            this._datepickerSubscription = this._datepicker._selectedChanged.subscribe(function (selected) {
-                _this.value = selected;
-                _this._cvaOnChange(selected);
-                _this._onTouched();
-                _this.dateInput.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
-                _this.dateChange.emit(new MatDatepickerInputEvent(_this, _this._elementRef.nativeElement));
-            });
-        }
-    };
     /**
      * @return {?}
      */
@@ -2924,7 +2905,7 @@ var MatDatepickerInput = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        if (event.altKey && event.keyCode === keycodes.DOWN_ARROW) {
+        if (this._datepicker && event.altKey && event.keyCode === keycodes.DOWN_ARROW) {
             this._datepicker.open();
             event.preventDefault();
         }

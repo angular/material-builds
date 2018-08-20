@@ -16,6 +16,7 @@ import { startWith, take } from 'rxjs/operators';
 import { Platform } from '@angular/cdk/platform';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
+import { ObserversModule } from '@angular/cdk/observers';
 
 /**
  * @fileoverview added by tsickle
@@ -285,9 +286,6 @@ var MatFormField = /** @class */ (function (_super) {
         _this._hintLabelId = "mat-hint-" + nextUniqueId$2++;
         // Unique id for the internal form field label.
         _this._labelId = "mat-form-field-label-" + nextUniqueId$2++;
-        _this._outlineGapWidth = 0;
-        _this._outlineGapStart = 0;
-        _this._initialGapCalculated = false;
         _this._labelOptions = labelOptions ? labelOptions : {};
         _this.floatLabel = _this._labelOptions.float || 'auto';
         _this._animationsEnabled = _animationMode !== 'NoopAnimations';
@@ -306,11 +304,20 @@ var MatFormField = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            // If we're switching to `outline` from another appearance, we have to recalculate the gap.
-            if (value !== this._appearance && value === 'outline') {
-                this._initialGapCalculated = false;
-            }
+            var _this = this;
+            var /** @type {?} */ oldValue = this._appearance;
             this._appearance = value;
+            if (this._appearance === 'outline' && oldValue !== value) {
+                // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
+                if (this._ngZone) {
+                    /** @type {?} */ ((this._ngZone)).onStable.pipe(take(1)).subscribe(function () {
+                        /** @type {?} */ ((_this._ngZone)).runOutsideAngular(function () { return _this.updateOutlineGap(); });
+                    });
+                }
+                else {
+                    Promise.resolve().then(function () { return _this.updateOutlineGap(); });
+                }
+            }
         },
         enumerable: true,
         configurable: true
@@ -454,22 +461,7 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var _this = this;
         this._validateControlChild();
-        if (!this._initialGapCalculated) {
-            // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
-            if (this._ngZone) {
-                // It's important that we run this outside the `_ngZone`, because the `Promise.resolve`
-                // can kick us into an infinite change detection loop, if the `_initialGapCalculated`
-                // wasn't flipped on for some reason.
-                this._ngZone.runOutsideAngular(function () {
-                    Promise.resolve().then(function () { return _this.updateOutlineGap(); });
-                });
-            }
-            else {
-                Promise.resolve().then(function () { return _this.updateOutlineGap(); });
-            }
-        }
     };
     /**
      * @return {?}
@@ -703,10 +695,16 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this.appearance === 'outline' && this._label && this._label.nativeElement.children.length) {
+        if (this.appearance !== 'outline') {
+            return;
+        }
+        var /** @type {?} */ startWidth = 0;
+        var /** @type {?} */ gapWidth = 0;
+        var /** @type {?} */ startEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-start');
+        var /** @type {?} */ gapEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-gap');
+        if (this._label && this._label.nativeElement.children.length) {
             if (this._platform && !this._platform.isBrowser) {
                 // getBoundingClientRect isn't available on the server.
-                this._initialGapCalculated = true;
                 return;
             }
             if (!document.documentElement.contains(this._elementRef.nativeElement)) {
@@ -719,15 +717,15 @@ var MatFormField = /** @class */ (function (_super) {
                 var child = _a[_i];
                 labelWidth += child.offsetWidth;
             }
-            this._outlineGapStart = labelStart - containerStart - outlineGapPadding;
-            this._outlineGapWidth = labelWidth * floatingLabelScale + outlineGapPadding * 2;
+            startWidth = labelStart - containerStart - outlineGapPadding;
+            gapWidth = labelWidth * floatingLabelScale + outlineGapPadding * 2;
         }
-        else {
-            this._outlineGapStart = 0;
-            this._outlineGapWidth = 0;
+        for (var /** @type {?} */ i = 0; i < startEls.length; i++) {
+            startEls.item(i).style.width = startWidth + "px";
         }
-        this._initialGapCalculated = true;
-        this._changeDetectorRef.markForCheck();
+        for (var /** @type {?} */ i = 0; i < gapEls.length; i++) {
+            gapEls.item(i).style.width = gapWidth + "px";
+        }
     };
     /**
      * Gets the start end of the rect considering the current directionality.
@@ -745,7 +743,7 @@ var MatFormField = /** @class */ (function (_super) {
     MatFormField.decorators = [
         { type: Component, args: [{selector: 'mat-form-field',
                     exportAs: 'matFormField',
-                    template: "<div class=\"mat-form-field-wrapper\"><div class=\"mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><ng-container *ngIf=\"appearance == 'outline'\"><div class=\"mat-form-field-outline\"><div class=\"mat-form-field-outline-start\" [style.width.px]=\"_outlineGapStart\"></div><div class=\"mat-form-field-outline-gap\" [style.width.px]=\"_outlineGapWidth\"></div><div class=\"mat-form-field-outline-end\"></div></div><div class=\"mat-form-field-outline mat-form-field-outline-thick\"><div class=\"mat-form-field-outline-start\" [style.width.px]=\"_outlineGapStart\"></div><div class=\"mat-form-field-outline-gap\" [style.width.px]=\"_outlineGapWidth\"></div><div class=\"mat-form-field-outline-end\"></div></div></ng-container><div class=\"mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-form-field-infix\" #inputContainer><ng-content></ng-content><span class=\"mat-form-field-label-wrapper\"><label class=\"mat-form-field-label\" [id]=\"_labelId\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #label *ngIf=\"_hasFloatingLabel()\" [ngSwitch]=\"_hasLabel()\"><ng-container *ngSwitchCase=\"false\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}}</ng-container><ng-content select=\"mat-label\" *ngSwitchCase=\"true\"></ng-content><span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required && !_control.disabled\">&nbsp;*</span></label></span></div><div class=\"mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-form-field-underline\" #underline *ngIf=\"appearance != 'outline'\"><span class=\"mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
+                    template: "<div class=\"mat-form-field-wrapper\"><div class=\"mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><ng-container *ngIf=\"appearance == 'outline'\"><div class=\"mat-form-field-outline\"><div class=\"mat-form-field-outline-start\"></div><div class=\"mat-form-field-outline-gap\"></div><div class=\"mat-form-field-outline-end\"></div></div><div class=\"mat-form-field-outline mat-form-field-outline-thick\"><div class=\"mat-form-field-outline-start\"></div><div class=\"mat-form-field-outline-gap\"></div><div class=\"mat-form-field-outline-end\"></div></div></ng-container><div class=\"mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-form-field-infix\" #inputContainer><ng-content></ng-content><span class=\"mat-form-field-label-wrapper\"><label class=\"mat-form-field-label\" (cdkObserveContent)=\"updateOutlineGap()\" [id]=\"_labelId\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #label *ngIf=\"_hasFloatingLabel()\" [ngSwitch]=\"_hasLabel()\"><ng-container *ngSwitchCase=\"false\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}}</ng-container><ng-content select=\"mat-label\" *ngSwitchCase=\"true\"></ng-content><span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required && !_control.disabled\">&nbsp;*</span></label></span></div><div class=\"mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-form-field-underline\" #underline *ngIf=\"appearance != 'outline'\"><span class=\"mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
                     // MatInput is a directive and can't have styles, so we need to include its styles here.
                     // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
                     // aren't using MatInput.
@@ -829,7 +827,10 @@ var MatFormFieldModule = /** @class */ (function () {
                         MatPrefix,
                         MatSuffix,
                     ],
-                    imports: [CommonModule],
+                    imports: [
+                        CommonModule,
+                        ObserversModule,
+                    ],
                     exports: [
                         MatError,
                         MatFormField,
