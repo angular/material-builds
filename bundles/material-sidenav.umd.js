@@ -70,6 +70,7 @@ var /** @type {?} */ matDrawerAnimations = {
  */
 /**
  * Throws an exception when two MatDrawer are matching the same position.
+ * \@docs-private
  * @param {?} position
  * @return {?}
  */

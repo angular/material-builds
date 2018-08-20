@@ -18,7 +18,10 @@ export declare type TooltipPosition = 'left' | 'right' | 'above' | 'below' | 'be
 export declare const SCROLL_THROTTLE_MS = 20;
 /** CSS class that will be attached to the overlay panel. */
 export declare const TOOLTIP_PANEL_CLASS = "mat-tooltip-panel";
-/** Creates an error to be thrown if the user supplied an invalid tooltip position. */
+/**
+ * Creates an error to be thrown if the user supplied an invalid tooltip position.
+ * @docs-private
+ */
 export declare function getMatTooltipInvalidPositionError(position: string): Error;
 /** Injection token that determines the scroll handling while a tooltip is visible. */
 export declare const MAT_TOOLTIP_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
@@ -38,6 +41,7 @@ export interface MatTooltipDefaultOptions {
 }
 /** Injection token to be used to override the default options for `matTooltip`. */
 export declare const MAT_TOOLTIP_DEFAULT_OPTIONS: InjectionToken<MatTooltipDefaultOptions>;
+/** @docs-private */
 export declare function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY(): MatTooltipDefaultOptions;
 /**
  * Directive that attaches a material design tooltip to the host element. Animates the showing and

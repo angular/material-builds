@@ -12,7 +12,10 @@ import { Platform } from '@angular/cdk/platform';
 import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, QueryList } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-/** Throws an exception when two MatDrawer are matching the same position. */
+/**
+ * Throws an exception when two MatDrawer are matching the same position.
+ * @docs-private
+ */
 export declare function throwMatDuplicatedDrawerError(position: string): void;
 /** Result of the toggle promise that indicates the state of the drawer. */
 export declare type MatDrawerToggleResult = 'open' | 'close';

@@ -327,6 +327,7 @@ var /** @type {?} */ MAT_AUTOCOMPLETE_VALUE_ACCESSOR = {
 };
 /**
  * Creates an error to be thrown when attempting to use an autocomplete trigger without a panel.
+ * \@docs-private
  * @return {?}
  */
 function getMatAutocompleteMissingPanelError() {

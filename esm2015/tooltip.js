@@ -55,6 +55,7 @@ const /** @type {?} */ SCROLL_THROTTLE_MS = 20;
 const /** @type {?} */ TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
 /**
  * Creates an error to be thrown if the user supplied an invalid tooltip position.
+ * \@docs-private
  * @param {?} position
  * @return {?}
  */
@@ -89,6 +90,7 @@ const /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-too
     factory: MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY
 });
 /**
+ * \@docs-private
  * @return {?}
  */
 function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
