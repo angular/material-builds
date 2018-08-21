@@ -436,7 +436,7 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     get panelClosingActions() {
-        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(() => this._overlayAttached)), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
+        return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(() => this._overlayAttached)), this._closeKeyEventStream, this._getOutsideClickStream(), this._overlayRef ?
             this._overlayRef.detachments().pipe(filter(() => this._overlayAttached)) :
             of()).pipe(
         // Normalize the output so we return a consistent type.
@@ -456,7 +456,7 @@ class MatAutocompleteTrigger {
      * Stream of clicks outside of the autocomplete panel.
      * @return {?}
      */
-    get _outsideClickStream() {
+    _getOutsideClickStream() {
         if (!this._document) {
             return of(null);
         }
@@ -884,5 +884,5 @@ MatAutocompleteModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa29 };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa28 };
 //# sourceMappingURL=autocomplete.js.map

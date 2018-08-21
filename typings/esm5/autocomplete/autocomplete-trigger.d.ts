@@ -115,7 +115,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     /** The currently active option, coerced to MatOption type. */
     readonly activeOption: MatOption | null;
     /** Stream of clicks outside of the autocomplete panel. */
-    private readonly _outsideClickStream;
+    private _getOutsideClickStream();
     writeValue(value: any): void;
     registerOnChange(fn: (value: any) => {}): void;
     registerOnTouched(fn: () => {}): void;

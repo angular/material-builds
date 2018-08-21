@@ -528,7 +528,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () {
             var _this = this;
-            return rxjs.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(operators.filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
+            return rxjs.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(operators.filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._getOutsideClickStream(), this._overlayRef ?
                 this._overlayRef.detachments().pipe(operators.filter(function () { return _this._overlayAttached; })) :
                 rxjs.of()).pipe(
             // Normalize the output so we return a consistent type.
@@ -552,30 +552,30 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatAutocompleteTrigger.prototype, "_outsideClickStream", {
-        get: /**
-         * Stream of clicks outside of the autocomplete panel.
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            if (!this._document) {
-                return rxjs.of(null);
-            }
-            return rxjs.merge(rxjs.fromEvent(this._document, 'click'), rxjs.fromEvent(this._document, 'touchend'))
-                .pipe(operators.filter(function (event) {
-                var /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
-                var /** @type {?} */ formField$$1 = _this._formField ?
-                    _this._formField._elementRef.nativeElement : null;
-                return _this._overlayAttached &&
-                    clickTarget !== _this._element.nativeElement &&
-                    (!formField$$1 || !formField$$1.contains(clickTarget)) &&
-                    (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
-            }));
-        },
-        enumerable: true,
-        configurable: true
-    });
+    /**
+     * Stream of clicks outside of the autocomplete panel.
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype._getOutsideClickStream = /**
+     * Stream of clicks outside of the autocomplete panel.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (!this._document) {
+            return rxjs.of(null);
+        }
+        return rxjs.merge(rxjs.fromEvent(this._document, 'click'), rxjs.fromEvent(this._document, 'touchend'))
+            .pipe(operators.filter(function (event) {
+            var /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
+            var /** @type {?} */ formField$$1 = _this._formField ?
+                _this._formField._elementRef.nativeElement : null;
+            return _this._overlayAttached &&
+                clickTarget !== _this._element.nativeElement &&
+                (!formField$$1 || !formField$$1.contains(clickTarget)) &&
+                (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
+        }));
+    };
     // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
@@ -1109,7 +1109,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCR
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

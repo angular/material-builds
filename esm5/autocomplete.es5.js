@@ -508,7 +508,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () {
             var _this = this;
-            return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
+            return merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._getOutsideClickStream(), this._overlayRef ?
                 this._overlayRef.detachments().pipe(filter(function () { return _this._overlayAttached; })) :
                 of()).pipe(
             // Normalize the output so we return a consistent type.
@@ -532,30 +532,30 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatAutocompleteTrigger.prototype, "_outsideClickStream", {
-        get: /**
-         * Stream of clicks outside of the autocomplete panel.
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            if (!this._document) {
-                return of(null);
-            }
-            return merge(fromEvent(this._document, 'click'), fromEvent(this._document, 'touchend'))
-                .pipe(filter(function (event) {
-                var /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
-                var /** @type {?} */ formField = _this._formField ?
-                    _this._formField._elementRef.nativeElement : null;
-                return _this._overlayAttached &&
-                    clickTarget !== _this._element.nativeElement &&
-                    (!formField || !formField.contains(clickTarget)) &&
-                    (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
-            }));
-        },
-        enumerable: true,
-        configurable: true
-    });
+    /**
+     * Stream of clicks outside of the autocomplete panel.
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype._getOutsideClickStream = /**
+     * Stream of clicks outside of the autocomplete panel.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (!this._document) {
+            return of(null);
+        }
+        return merge(fromEvent(this._document, 'click'), fromEvent(this._document, 'touchend'))
+            .pipe(filter(function (event) {
+            var /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
+            var /** @type {?} */ formField = _this._formField ?
+                _this._formField._elementRef.nativeElement : null;
+            return _this._overlayAttached &&
+                clickTarget !== _this._element.nativeElement &&
+                (!formField || !formField.contains(clickTarget)) &&
+                (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
+        }));
+    };
     // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
@@ -1084,5 +1084,5 @@ var MatAutocompleteModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa29 };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa28 };
 //# sourceMappingURL=autocomplete.es5.js.map

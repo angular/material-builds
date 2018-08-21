@@ -288,7 +288,7 @@ var MatMenuItem = /** @class */ (function (_super) {
             // Start monitoring the element so it gets the appropriate focused classes. We want
             // to show the focus style for menu items only when the focus was not caused by a
             // mouse or touch interaction.
-            _focusMonitor.monitor(_this._getHostElement(), false);
+            _focusMonitor.monitor(_this._elementRef, false);
         }
         if (_parentMenu && _parentMenu.addItem) {
             _parentMenu.addItem(_this);
@@ -324,7 +324,7 @@ var MatMenuItem = /** @class */ (function (_super) {
      */
     function () {
         if (this._focusMonitor) {
-            this._focusMonitor.stopMonitoring(this._getHostElement());
+            this._focusMonitor.stopMonitoring(this._elementRef);
         }
         if (this._parentMenu && this._parentMenu.removeItem) {
             this._parentMenu.removeItem(this);
@@ -1609,12 +1609,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

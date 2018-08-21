@@ -339,7 +339,7 @@ class MatExpansionPanelHeader {
         // need to subscribe and trigger change detection manually.
         this._parentChangeSubscription = merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(filter(changes => !!(changes["hideToggle"] || changes["disabled"]))))
             .subscribe(() => this._changeDetectorRef.markForCheck());
-        _focusMonitor.monitor(_element.nativeElement);
+        _focusMonitor.monitor(_element);
     }
     /**
      * Toggles the expanded state of the panel.
@@ -398,7 +398,7 @@ class MatExpansionPanelHeader {
      */
     ngOnDestroy() {
         this._parentChangeSubscription.unsubscribe();
-        this._focusMonitor.stopMonitoring(this._element.nativeElement);
+        this._focusMonitor.stopMonitoring(this._element);
     }
 }
 MatExpansionPanelHeader.decorators = [

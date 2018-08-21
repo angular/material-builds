@@ -577,7 +577,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
         if (this.buttonToggleGroup && this.buttonToggleGroup._isPrechecked(this)) {
             this.checked = true;
         }
-        this._focusMonitor.monitor(this._elementRef.nativeElement, true);
+        this._focusMonitor.monitor(this._elementRef, true);
     };
     /**
      * @return {?}
@@ -586,7 +586,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._focusMonitor.stopMonitoring(this._elementRef);
     };
     /** Focuses the button. */
     /**

@@ -529,14 +529,14 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
      */
     ngAfterViewInit() {
         this._focusMonitor
-            .monitor(this._inputElement.nativeElement)
+            .monitor(this._inputElement)
             .subscribe(focusOrigin => this._onInputFocusChange(focusOrigin));
     }
     /**
      * @return {?}
      */
     ngOnDestroy() {
-        this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
+        this._focusMonitor.stopMonitoring(this._inputElement);
         this._removeUniqueSelectionListener();
     }
     /**

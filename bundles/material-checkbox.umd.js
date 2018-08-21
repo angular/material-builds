@@ -198,7 +198,7 @@ var MatCheckbox = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._focusMonitor
-            .monitor(this._inputElement.nativeElement)
+            .monitor(this._inputElement)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -208,7 +208,7 @@ var MatCheckbox = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
+        this._focusMonitor.stopMonitoring(this._inputElement);
     };
     Object.defineProperty(MatCheckbox.prototype, "checked", {
         get: /**

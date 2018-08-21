@@ -94,7 +94,7 @@ var MatStepHeader = /** @class */ (function () {
         this._intl = _intl;
         this._focusMonitor = _focusMonitor;
         this._element = _element;
-        _focusMonitor.monitor(_element.nativeElement, true);
+        _focusMonitor.monitor(_element, true);
         this._intlSubscription = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
     /**
@@ -105,7 +105,7 @@ var MatStepHeader = /** @class */ (function () {
      */
     function () {
         this._intlSubscription.unsubscribe();
-        this._focusMonitor.stopMonitoring(this._element.nativeElement);
+        this._focusMonitor.stopMonitoring(this._element);
     };
     /** Returns string label of given step if it is a text label. */
     /**

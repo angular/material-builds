@@ -4113,7 +4113,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
          */
         function () {
             var _this = this;
-            return rxjs.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(operators.filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._outsideClickStream, this._overlayRef ?
+            return rxjs.merge(this.optionSelections, this.autocomplete._keyManager.tabOut.pipe(operators.filter(function () { return _this._overlayAttached; })), this._closeKeyEventStream, this._getOutsideClickStream(), this._overlayRef ?
                 this._overlayRef.detachments().pipe(operators.filter(function () { return _this._overlayAttached; })) :
                 rxjs.of()).pipe(
             // Normalize the output so we return a consistent type.
@@ -4137,30 +4137,30 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatAutocompleteTrigger.prototype, "_outsideClickStream", {
-        get: /**
-         * Stream of clicks outside of the autocomplete panel.
-         * @return {?}
-         */
-        function () {
-            var _this = this;
-            if (!this._document) {
-                return rxjs.of(null);
-            }
-            return rxjs.merge(rxjs.fromEvent(this._document, 'click'), rxjs.fromEvent(this._document, 'touchend'))
-                .pipe(operators.filter(function (event) {
-                var /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
-                var /** @type {?} */ formField = _this._formField ?
-                    _this._formField._elementRef.nativeElement : null;
-                return _this._overlayAttached &&
-                    clickTarget !== _this._element.nativeElement &&
-                    (!formField || !formField.contains(clickTarget)) &&
-                    (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
-            }));
-        },
-        enumerable: true,
-        configurable: true
-    });
+    /**
+     * Stream of clicks outside of the autocomplete panel.
+     * @return {?}
+     */
+    MatAutocompleteTrigger.prototype._getOutsideClickStream = /**
+     * Stream of clicks outside of the autocomplete panel.
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (!this._document) {
+            return rxjs.of(null);
+        }
+        return rxjs.merge(rxjs.fromEvent(this._document, 'click'), rxjs.fromEvent(this._document, 'touchend'))
+            .pipe(operators.filter(function (event) {
+            var /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
+            var /** @type {?} */ formField = _this._formField ?
+                _this._formField._elementRef.nativeElement : null;
+            return _this._overlayAttached &&
+                clickTarget !== _this._element.nativeElement &&
+                (!formField || !formField.contains(clickTarget)) &&
+                (!!_this._overlayRef && !_this._overlayRef.overlayElement.contains(clickTarget));
+        }));
+    };
     // Implemented as part of ControlValueAccessor.
     /**
      * @param {?} value
@@ -5731,7 +5731,7 @@ var MatButton = /** @class */ (function (_super) {
                 (/** @type {?} */ (elementRef.nativeElement)).classList.add(attr);
             }
         }
-        _this._focusMonitor.monitor(_this._elementRef.nativeElement, true);
+        _this._focusMonitor.monitor(_this._elementRef, true);
         if (_this.isRoundButton) {
             _this.color = DEFAULT_ROUND_BUTTON_COLOR;
         }
@@ -5744,7 +5744,7 @@ var MatButton = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._focusMonitor.stopMonitoring(this._elementRef);
     };
     /** Focuses the button. */
     /**
@@ -6444,7 +6444,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
         if (this.buttonToggleGroup && this.buttonToggleGroup._isPrechecked(this)) {
             this.checked = true;
         }
-        this._focusMonitor.monitor(this._elementRef.nativeElement, true);
+        this._focusMonitor.monitor(this._elementRef, true);
     };
     /**
      * @return {?}
@@ -6453,7 +6453,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._focusMonitor.stopMonitoring(this._elementRef);
     };
     /** Focuses the button. */
     /**
@@ -7012,7 +7012,7 @@ var MatCheckbox = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._focusMonitor
-            .monitor(this._inputElement.nativeElement)
+            .monitor(this._inputElement)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -7022,7 +7022,7 @@ var MatCheckbox = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
+        this._focusMonitor.stopMonitoring(this._inputElement);
     };
     Object.defineProperty(MatCheckbox.prototype, "checked", {
         get: /**
@@ -14845,7 +14845,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         // need to subscribe and trigger change detection manually.
         this._parentChangeSubscription = rxjs.merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
-        _focusMonitor.monitor(_element.nativeElement);
+        _focusMonitor.monitor(_element);
     }
     /** Toggles the expanded state of the panel. */
     /**
@@ -14938,7 +14938,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
      */
     function () {
         this._parentChangeSubscription.unsubscribe();
-        this._focusMonitor.stopMonitoring(this._element.nativeElement);
+        this._focusMonitor.stopMonitoring(this._element);
     };
     MatExpansionPanelHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-expansion-panel-header',
@@ -18597,7 +18597,7 @@ var MatMenuItem = /** @class */ (function (_super) {
             // Start monitoring the element so it gets the appropriate focused classes. We want
             // to show the focus style for menu items only when the focus was not caused by a
             // mouse or touch interaction.
-            _focusMonitor.monitor(_this._getHostElement(), false);
+            _focusMonitor.monitor(_this._elementRef, false);
         }
         if (_parentMenu && _parentMenu.addItem) {
             _parentMenu.addItem(_this);
@@ -18633,7 +18633,7 @@ var MatMenuItem = /** @class */ (function (_super) {
      */
     function () {
         if (this._focusMonitor) {
-            this._focusMonitor.stopMonitoring(this._getHostElement());
+            this._focusMonitor.stopMonitoring(this._elementRef);
         }
         if (this._parentMenu && this._parentMenu.removeItem) {
             this._parentMenu.removeItem(this);
@@ -21837,7 +21837,7 @@ var MatTooltip = /** @class */ (function () {
         if (element.draggable && element.style['webkitUserDrag'] === 'none') {
             element.style['webkitUserDrag'] = '';
         }
-        _focusMonitor.monitor(element).pipe(operators.takeUntil(this._destroyed)).subscribe(function (origin) {
+        _focusMonitor.monitor(_elementRef).pipe(operators.takeUntil(this._destroyed)).subscribe(function (origin) {
             // Note that the focus monitor runs outside the Angular zone.
             if (!origin) {
                 _ngZone.run(function () { return _this.hide(0); });
@@ -21963,7 +21963,7 @@ var MatTooltip = /** @class */ (function () {
         this._destroyed.next();
         this._destroyed.complete();
         this._ariaDescriber.removeDescription(this._elementRef.nativeElement, this.message);
-        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._focusMonitor.stopMonitoring(this._elementRef);
     };
     /** Shows the tooltip after the delay in ms, defaults to tooltip-delay-show or 0ms if no input */
     /**
@@ -24242,7 +24242,7 @@ var MatRadioButton = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._focusMonitor
-            .monitor(this._inputElement.nativeElement)
+            .monitor(this._inputElement)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
     };
     /**
@@ -24252,7 +24252,7 @@ var MatRadioButton = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.stopMonitoring(this._inputElement.nativeElement);
+        this._focusMonitor.stopMonitoring(this._inputElement);
         this._removeUniqueSelectionListener();
     };
     /**
@@ -25780,7 +25780,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._focusMonitor
-            .monitor(this._elementRef.nativeElement, true)
+            .monitor(this._elementRef, true)
             .subscribe(function (focusOrigin) {
             if (!focusOrigin) {
                 // When a focused element becomes disabled, the browser *immediately* fires a blur event.
@@ -25799,7 +25799,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._focusMonitor.stopMonitoring(this._elementRef);
     };
     /** Method being called whenever the underlying input emits a change event. */
     /**
@@ -26061,7 +26061,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
                         '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
                     },
                     template: "<label class=\"mat-slide-toggle-label\" #label><div #toggleBar class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" #thumbContainer (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"disableRipple || disabled\" [matRippleCentered]=\"true\" [matRippleRadius]=\"20\" [matRippleAnimation]=\"{enterDuration: 150}\"><div class=\"mat-ripple-element mat-slide-toggle-persistent-ripple\"></div></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
-                    styles: [".mat-slide-toggle{display:inline-block;height:24px;max-width:100%;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}[dir=rtl] .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(-16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;height:inherit;cursor:pointer}.mat-slide-toggle-content{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}._mat-animation-noopable .mat-slide-toggle-thumb-container{transition:none}[dir=rtl] .mat-slide-toggle-thumb-container{left:auto;right:0}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;flex-shrink:0;border-radius:8px}.mat-slide-toggle-input{bottom:0;left:10px}[dir=rtl] .mat-slide-toggle-input{left:auto;right:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}._mat-animation-noopable .mat-slide-toggle-bar,._mat-animation-noopable .mat-slide-toggle-thumb{transition:none}.mat-slide-toggle .mat-slide-toggle-ripple{position:absolute;top:calc(50% - 20px);left:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-slide-toggle .mat-slide-toggle-ripple .mat-ripple-element:not(.mat-slide-toggle-persistent-ripple){opacity:.12}.mat-slide-toggle-persistent-ripple{width:100%;height:100%;transform:none}.mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:.04}.mat-slide-toggle.cdk-focused .mat-slide-toggle-persistent-ripple{opacity:.12}.mat-slide-toggle-persistent-ripple,.mat-slide-toggle.mat-disabled .mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:0}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:1px solid #000}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb{background:#000;border:1px solid #fff}.mat-slide-toggle-bar{background:#fff}}@media screen and (-ms-high-contrast:black-on-white){.mat-slide-toggle-bar{border:1px solid #000}}"],
+                    styles: [".mat-slide-toggle{display:inline-block;height:24px;max-width:100%;line-height:24px;white-space:nowrap;outline:0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}[dir=rtl] .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(-16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;height:inherit;cursor:pointer}.mat-slide-toggle-content{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}._mat-animation-noopable .mat-slide-toggle-thumb-container{transition:none}[dir=rtl] .mat-slide-toggle-thumb-container{left:auto;right:0}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;flex-shrink:0;border-radius:8px}.mat-slide-toggle-input{bottom:0;left:10px}[dir=rtl] .mat-slide-toggle-input{left:auto;right:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}._mat-animation-noopable .mat-slide-toggle-bar,._mat-animation-noopable .mat-slide-toggle-thumb{transition:none}.mat-slide-toggle .mat-slide-toggle-ripple{position:absolute;top:calc(50% - 20px);left:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-slide-toggle .mat-slide-toggle-ripple .mat-ripple-element:not(.mat-slide-toggle-persistent-ripple){opacity:.12}.mat-slide-toggle-persistent-ripple{width:100%;height:100%;transform:none}.mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:.04}.mat-slide-toggle.cdk-focused .mat-slide-toggle-persistent-ripple{opacity:.12}.mat-slide-toggle-persistent-ripple,.mat-slide-toggle.mat-disabled .mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:0}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:1px solid #000}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb{background:#000;border:1px solid #fff}.mat-slide-toggle-bar{background:#fff}}@media screen and (-ms-high-contrast:black-on-white){.mat-slide-toggle-bar{border:1px solid #000}}"],
                     providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
                     inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
@@ -26522,7 +26522,7 @@ var MatSlider = /** @class */ (function (_super) {
         function () {
             var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
             var /** @type {?} */ scale = this.vertical ? "1, " + (1 - this.percent) + ", 1" : 1 - this.percent + ", 1, 1";
-            var /** @type {?} */ sign = this._invertMouseCoords ? '-' : '';
+            var /** @type {?} */ sign = this._shouldInvertMouseCoords() ? '-' : '';
             return {
                 // scale3d avoids some rendering issues in Chrome. See #12071.
                 transform: "translate" + axis + "(" + sign + this._thumbGap + "px) scale3d(" + scale + ")"
@@ -26540,7 +26540,7 @@ var MatSlider = /** @class */ (function (_super) {
         function () {
             var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
             var /** @type {?} */ scale = this.vertical ? "1, " + this.percent + ", 1" : this.percent + ", 1, 1";
-            var /** @type {?} */ sign = this._invertMouseCoords ? '' : '-';
+            var /** @type {?} */ sign = this._shouldInvertMouseCoords() ? '' : '-';
             return {
                 // scale3d avoids some rendering issues in Chrome. See #12071.
                 transform: "translate" + axis + "(" + sign + this._thumbGap + "px) scale3d(" + scale + ")"
@@ -26559,7 +26559,7 @@ var MatSlider = /** @class */ (function (_super) {
             var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
             // For a horizontal slider in RTL languages we push the ticks container off the left edge
             // instead of the right edge to avoid causing a horizontal scrollbar to appear.
-            var /** @type {?} */ sign = !this.vertical && this._direction == 'rtl' ? '' : '-';
+            var /** @type {?} */ sign = !this.vertical && this._getDirection() == 'rtl' ? '' : '-';
             var /** @type {?} */ offset = this._tickIntervalPercent / 2 * 100;
             return {
                 'transform': "translate" + axis + "(" + sign + offset + "%)"
@@ -26581,8 +26581,8 @@ var MatSlider = /** @class */ (function (_super) {
             // Depending on the direction we pushed the ticks container, push the ticks the opposite
             // direction to re-center them but clip off the end edge. In RTL languages we need to flip the
             // ticks 180 degrees so we're really cutting off the end edge abd not the start.
-            var /** @type {?} */ sign = !this.vertical && this._direction == 'rtl' ? '-' : '';
-            var /** @type {?} */ rotate = !this.vertical && this._direction == 'rtl' ? ' rotate(180deg)' : '';
+            var /** @type {?} */ sign = !this.vertical && this._getDirection() == 'rtl' ? '-' : '';
+            var /** @type {?} */ rotate = !this.vertical && this._getDirection() == 'rtl' ? ' rotate(180deg)' : '';
             var /** @type {?} */ styles = {
                 'backgroundSize': backgroundSize,
                 // Without translateZ ticks sometimes jitter as the slider moves on Chrome & Firefox.
@@ -26607,7 +26607,7 @@ var MatSlider = /** @class */ (function (_super) {
             var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
             // For a horizontal slider in RTL languages we push the thumb container off the left edge
             // instead of the right edge to avoid causing a horizontal scrollbar to appear.
-            var /** @type {?} */ invertOffset = (this._direction == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
+            var /** @type {?} */ invertOffset = (this._getDirection() == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
             var /** @type {?} */ offset = (invertOffset ? this.percent : 1 - this.percent) * 100;
             return {
                 'transform': "translate" + axis + "(-" + offset + "%)"
@@ -26616,29 +26616,30 @@ var MatSlider = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(MatSlider.prototype, "_invertMouseCoords", {
-        get: /**
-         * Whether mouse events should be converted to a slider position by calculating their distance
-         * from the right or bottom edge of the slider as opposed to the top or left.
-         * @return {?}
-         */
-        function () {
-            return (this._direction == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
-        },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatSlider.prototype, "_direction", {
-        get: /**
-         * The language direction for this slider element.
-         * @return {?}
-         */
-        function () {
-            return (this._dir && this._dir.value == 'rtl') ? 'rtl' : 'ltr';
-        },
-        enumerable: true,
-        configurable: true
-    });
+    /**
+     * Whether mouse events should be converted to a slider position by calculating their distance
+     * from the right or bottom edge of the slider as opposed to the top or left.
+     * @return {?}
+     */
+    MatSlider.prototype._shouldInvertMouseCoords = /**
+     * Whether mouse events should be converted to a slider position by calculating their distance
+     * from the right or bottom edge of the slider as opposed to the top or left.
+     * @return {?}
+     */
+    function () {
+        return (this._getDirection() == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
+    };
+    /**
+     * The language direction for this slider element.
+     * @return {?}
+     */
+    MatSlider.prototype._getDirection = /**
+     * The language direction for this slider element.
+     * @return {?}
+     */
+    function () {
+        return (this._dir && this._dir.value == 'rtl') ? 'rtl' : 'ltr';
+    };
     /**
      * @return {?}
      */
@@ -26648,7 +26649,7 @@ var MatSlider = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._focusMonitor
-            .monitor(this._elementRef.nativeElement, true)
+            .monitor(this._elementRef, true)
             .subscribe(function (origin) {
             _this._isActive = !!origin && origin !== 'keyboard';
             _this._changeDetectorRef.detectChanges();
@@ -26666,7 +26667,7 @@ var MatSlider = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._focusMonitor.stopMonitoring(this._elementRef);
         this._dirChangeSubscription.unsubscribe();
     };
     /**
@@ -26822,14 +26823,14 @@ var MatSlider = /** @class */ (function (_super) {
                 // expect left to mean increment. Therefore we flip the meaning of the side arrow keys for
                 // RTL. For inverted sliders we prefer a good a11y experience to having it "look right" for
                 // sighted users, therefore we do not swap the meaning.
-                this._increment(this._direction == 'rtl' ? 1 : -1);
+                this._increment(this._getDirection() == 'rtl' ? 1 : -1);
                 break;
             case keycodes.UP_ARROW:
                 this._increment(1);
                 break;
             case keycodes.RIGHT_ARROW:
                 // See comment on LEFT_ARROW about the conditions under which we flip the meaning.
-                this._increment(this._direction == 'rtl' ? -1 : 1);
+                this._increment(this._getDirection() == 'rtl' ? -1 : 1);
                 break;
             case keycodes.DOWN_ARROW:
                 this._increment(-1);
@@ -26887,7 +26888,7 @@ var MatSlider = /** @class */ (function (_super) {
         var /** @type {?} */ posComponent = this.vertical ? pos.y : pos.x;
         // The exact value is calculated from the event and used to find the closest snap value.
         var /** @type {?} */ percent = this._clamp((posComponent - offset) / size);
-        if (this._invertMouseCoords) {
+        if (this._shouldInvertMouseCoords()) {
             percent = 1 - percent;
         }
         // Since the steps may not divide cleanly into the max value, if the user
@@ -28918,7 +28919,7 @@ var MatStepHeader = /** @class */ (function () {
         this._intl = _intl;
         this._focusMonitor = _focusMonitor;
         this._element = _element;
-        _focusMonitor.monitor(_element.nativeElement, true);
+        _focusMonitor.monitor(_element, true);
         this._intlSubscription = _intl.changes.subscribe(function () { return changeDetectorRef.markForCheck(); });
     }
     /**
@@ -28929,7 +28930,7 @@ var MatStepHeader = /** @class */ (function () {
      */
     function () {
         this._intlSubscription.unsubscribe();
-        this._focusMonitor.stopMonitoring(this._element.nativeElement);
+        this._focusMonitor.stopMonitoring(this._element);
     };
     /** Returns string label of given step if it is a text label. */
     /**
@@ -32049,7 +32050,7 @@ var MatTabLink = /** @class */ (function (_super) {
             };
         }
         if (_focusMonitor) {
-            _focusMonitor.monitor(_elementRef.nativeElement);
+            _focusMonitor.monitor(_elementRef);
         }
         return _this;
     }
@@ -32098,7 +32099,7 @@ var MatTabLink = /** @class */ (function (_super) {
     function () {
         this._tabLinkRipple._removeTriggerEvents();
         if (this._focusMonitor) {
-            this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+            this._focusMonitor.stopMonitoring(this._elementRef);
         }
     };
     /**
@@ -32960,10 +32961,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-636d27e');
+var /** @type {?} */ VERSION = new core.Version('6.4.6-2364b7c');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -33214,12 +33215,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33360,17 +33361,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

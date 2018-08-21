@@ -75,7 +75,7 @@ var MatButton = /** @class */ (function (_super) {
                 (/** @type {?} */ (elementRef.nativeElement)).classList.add(attr);
             }
         }
-        _this._focusMonitor.monitor(_this._elementRef.nativeElement, true);
+        _this._focusMonitor.monitor(_this._elementRef, true);
         if (_this.isRoundButton) {
             _this.color = DEFAULT_ROUND_BUTTON_COLOR;
         }
@@ -88,7 +88,7 @@ var MatButton = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._focusMonitor.stopMonitoring(this._elementRef);
     };
     /** Focuses the button. */
     /**

@@ -254,7 +254,7 @@ class MatMenuItem extends _MatMenuItemMixinBase {
             // Start monitoring the element so it gets the appropriate focused classes. We want
             // to show the focus style for menu items only when the focus was not caused by a
             // mouse or touch interaction.
-            _focusMonitor.monitor(this._getHostElement(), false);
+            _focusMonitor.monitor(this._elementRef, false);
         }
         if (_parentMenu && _parentMenu.addItem) {
             _parentMenu.addItem(this);
@@ -279,7 +279,7 @@ class MatMenuItem extends _MatMenuItemMixinBase {
      */
     ngOnDestroy() {
         if (this._focusMonitor) {
-            this._focusMonitor.stopMonitoring(this._getHostElement());
+            this._focusMonitor.stopMonitoring(this._elementRef);
         }
         if (this._parentMenu && this._parentMenu.removeItem) {
             this._parentMenu.removeItem(this);
@@ -1287,5 +1287,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵf24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe24 };
 //# sourceMappingURL=menu.js.map
