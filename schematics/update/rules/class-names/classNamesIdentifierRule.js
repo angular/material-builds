@@ -10,20 +10,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
 const ts = require("typescript");
-const class_names_1 = require("../material/data/class-names");
-const typescript_specifiers_1 = require("../material/typescript-specifiers");
-const imports_1 = require("../typescript/imports");
+const class_names_1 = require("../../material/data/class-names");
+const typescript_specifiers_1 = require("../../material/typescript-specifiers");
+const imports_1 = require("../../typescript/imports");
 /**
  * Rule that walks through every identifier that is part of Angular Material and replaces the
  * outdated name with the new one.
  */
 class Rule extends tslint_1.Rules.AbstractRule {
     apply(sourceFile) {
-        return this.applyWithWalker(new SwitchIdentifiersWalker(sourceFile, this.getOptions()));
+        return this.applyWithWalker(new Walker(sourceFile, this.getOptions()));
     }
 }
 exports.Rule = Rule;
-class SwitchIdentifiersWalker extends tslint_1.RuleWalker {
+class Walker extends tslint_1.RuleWalker {
     constructor() {
         super(...arguments);
         /**
@@ -85,5 +85,5 @@ class SwitchIdentifiersWalker extends tslint_1.RuleWalker {
             ` "${chalk_1.green(classData.replaceWith)}"`, replacement);
     }
 }
-exports.SwitchIdentifiersWalker = SwitchIdentifiersWalker;
-//# sourceMappingURL=switchIdentifiersRule.js.map
+exports.Walker = Walker;
+//# sourceMappingURL=classNamesIdentifierRule.js.map

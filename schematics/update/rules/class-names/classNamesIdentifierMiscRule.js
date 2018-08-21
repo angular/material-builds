@@ -10,16 +10,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
 /**
- * Rule that walks through every identifier that is part of Angular Material and replaces the
- * outdated name with the new one.
+ * Rule that looks for class name identifiers that have been removed but cannot be
+ * automatically migrated.
  */
-class Rule extends tslint_1.Rules.TypedRule {
-    applyWithProgram(sourceFile, program) {
-        return this.applyWithWalker(new CheckIdentifierMiscWalker(sourceFile, this.getOptions(), program));
+class Rule extends tslint_1.Rules.AbstractRule {
+    apply(sourceFile) {
+        return this.applyWithWalker(new Walker(sourceFile, this.getOptions()));
     }
 }
 exports.Rule = Rule;
-class CheckIdentifierMiscWalker extends tslint_1.ProgramAwareRuleWalker {
+class Walker extends tslint_1.RuleWalker {
     visitIdentifier(identifier) {
         if (identifier.getText() === 'MatDrawerToggleResult') {
             this.addFailureAtNode(identifier, `Found "${chalk_1.bold('MatDrawerToggleResult')}" which has changed from a class type to a` +
@@ -31,5 +31,5 @@ class CheckIdentifierMiscWalker extends tslint_1.ProgramAwareRuleWalker {
         }
     }
 }
-exports.CheckIdentifierMiscWalker = CheckIdentifierMiscWalker;
-//# sourceMappingURL=checkIdentifierMiscRule.js.map
+exports.Walker = Walker;
+//# sourceMappingURL=classNamesIdentifierMiscRule.js.map

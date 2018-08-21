@@ -17,10 +17,6 @@ exports.cssNames = transform_change_data_1.transformChanges([
                 replaceWith: 'mat-form-field-label'
             },
             {
-                replace: 'mat-form-field-placeholder-wrapper',
-                replaceWith: 'mat-form-field-label-wrapper'
-            },
-            {
                 replace: 'mat-input-container',
                 replaceWith: 'mat-form-field'
             },
@@ -79,13 +75,13 @@ exports.cssNames = transform_change_data_1.transformChanges([
         ]
     },
     {
-        pr: 'https://github.com/angular/material2/pull/10325',
+        pr: 'https://github.com/angular/material2/pull/10430',
         changes: [
             {
                 replace: '$mat-font-family',
                 replaceWith: "Roboto, 'Helvetica Neue', sans-serif",
                 whitelist: {
-                    css: true
+                    stylesheet: true
                 }
             }
         ]
