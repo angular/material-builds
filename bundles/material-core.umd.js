@@ -1740,7 +1740,12 @@ RippleRenderer = /** @class */ (function () {
                 // time after a touchstart event.
                 _this._lastTouchStartEvent = Date.now();
                 _this._isPointerDown = true;
-                _this.fadeInRipple(event.touches[0].clientX, event.touches[0].clientY, _this._target.rippleConfig);
+                // Use `changedTouches` so we skip any touches where the user put
+                // their finger down, but used another finger to tap the element again.
+                var /** @type {?} */ touches = event.changedTouches;
+                for (var /** @type {?} */ i = 0; i < touches.length; i++) {
+                    _this.fadeInRipple(touches[i].clientX, touches[i].clientY, _this._target.rippleConfig);
+                }
             }
         };
         /**

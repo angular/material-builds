@@ -694,7 +694,12 @@ class MatChipList extends _MatChipListMixinBase {
      * @param {?} value
      * @return {?}
      */
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
+    set disabled(value) {
+        this._disabled = coerceBooleanProperty(value);
+        if (this.chips) {
+            this.chips.forEach(chip => chip.disabled = this._disabled);
+        }
+    }
     /**
      * Whether or not this chip list is selectable. When a chip list is not selectable,
      * the selected states for all the chips inside the chip list are always ignored.
@@ -864,6 +869,9 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     focus() {
+        if (this.disabled) {
+            return;
+        }
         // TODO: ARIA says this should focus the first `selected` chip if any are selected.
         // Focus on first element if there's no chipInput inside chip-list
         if (this._chipInput && this._chipInput.focused) {
@@ -1191,7 +1199,7 @@ MatChipList.decorators = [
                 template: `<div class="mat-chip-list-wrapper"><ng-content></ng-content></div>`,
                 exportAs: 'matChipList',
                 host: {
-                    '[attr.tabindex]': '_tabIndex',
+                    '[attr.tabindex]': 'disabled ? null : _tabIndex',
                     '[attr.aria-describedby]': '_ariaDescribedby || null',
                     '[attr.aria-required]': 'required.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
@@ -1281,6 +1289,7 @@ class MatChipInput {
          * Unique id for the input.
          */
         this.id = `mat-chip-list-input-${nextUniqueId$1++}`;
+        this._disabled = false;
         this._inputElement = /** @type {?} */ (this._elementRef.nativeElement);
     }
     /**
@@ -1304,6 +1313,16 @@ class MatChipInput {
      * @return {?}
      */
     set addOnBlur(value) { this._addOnBlur = coerceBooleanProperty(value); }
+    /**
+     * Whether the input is disabled.
+     * @return {?}
+     */
+    get disabled() { return this._disabled || (this._chipList && this._chipList.disabled); }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     /**
      * Whether the input is empty.
      * @return {?}
@@ -1396,6 +1415,7 @@ MatChipInput.decorators = [
                     '(focus)': '_focus()',
                     '(input)': '_onInput()',
                     '[id]': 'id',
+                    '[attr.disabled]': 'disabled || null',
                     '[attr.placeholder]': 'placeholder || null',
                 }
             },] },
@@ -1412,6 +1432,7 @@ MatChipInput.propDecorators = {
     "chipEnd": [{ type: Output, args: ['matChipInputTokenEnd',] },],
     "placeholder": [{ type: Input },],
     "id": [{ type: Input },],
+    "disabled": [{ type: Input },],
 };
 
 /**

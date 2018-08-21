@@ -845,7 +845,13 @@ var MatChipList = /** @class */ (function (_super) {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._disabled = coerceBooleanProperty(value); },
+        function (value) {
+            var _this = this;
+            this._disabled = coerceBooleanProperty(value);
+            if (this.chips) {
+                this.chips.forEach(function (chip) { return chip.disabled = _this._disabled; });
+            }
+        },
         enumerable: true,
         configurable: true
     });
@@ -1117,6 +1123,9 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
+        if (this.disabled) {
+            return;
+        }
         // TODO: ARIA says this should focus the first `selected` chip if any are selected.
         // Focus on first element if there's no chipInput inside chip-list
         if (this._chipInput && this._chipInput.focused) {
@@ -1562,7 +1571,7 @@ var MatChipList = /** @class */ (function (_super) {
                     template: "<div class=\"mat-chip-list-wrapper\"><ng-content></ng-content></div>",
                     exportAs: 'matChipList',
                     host: {
-                        '[attr.tabindex]': '_tabIndex',
+                        '[attr.tabindex]': 'disabled ? null : _tabIndex',
                         '[attr.aria-describedby]': '_ariaDescribedby || null',
                         '[attr.aria-required]': 'required.toString()',
                         '[attr.aria-disabled]': 'disabled.toString()',
@@ -1650,6 +1659,7 @@ var MatChipInput = /** @class */ (function () {
          * Unique id for the input.
          */
         this.id = "mat-chip-list-input-" + nextUniqueId$1++;
+        this._disabled = false;
         this._inputElement = /** @type {?} */ (this._elementRef.nativeElement);
     }
     Object.defineProperty(MatChipInput.prototype, "chipList", {
@@ -1678,6 +1688,20 @@ var MatChipInput = /** @class */ (function () {
          * @return {?}
          */
         function (value) { this._addOnBlur = coerceBooleanProperty(value); },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(MatChipInput.prototype, "disabled", {
+        get: /**
+         * Whether the input is disabled.
+         * @return {?}
+         */
+        function () { return this._disabled || (this._chipList && this._chipList.disabled); },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) { this._disabled = coerceBooleanProperty(value); },
         enumerable: true,
         configurable: true
     });
@@ -1813,6 +1837,7 @@ var MatChipInput = /** @class */ (function () {
                         '(focus)': '_focus()',
                         '(input)': '_onInput()',
                         '[id]': 'id',
+                        '[attr.disabled]': 'disabled || null',
                         '[attr.placeholder]': 'placeholder || null',
                     }
                 },] },
@@ -1829,6 +1854,7 @@ var MatChipInput = /** @class */ (function () {
         "chipEnd": [{ type: Output, args: ['matChipInputTokenEnd',] },],
         "placeholder": [{ type: Input },],
         "id": [{ type: Input },],
+        "disabled": [{ type: Input },],
     };
     return MatChipInput;
 }());

@@ -37,6 +37,9 @@ export declare class MatChipInput implements OnChanges {
     placeholder: string;
     /** Unique id for the input. */
     id: string;
+    /** Whether the input is disabled. */
+    disabled: boolean;
+    private _disabled;
     /** Whether the input is empty. */
     readonly empty: boolean;
     /** The native input element to which this directive is attached. */
