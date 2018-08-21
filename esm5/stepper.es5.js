@@ -6,16 +6,16 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { Directive, TemplateRef, Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, EventEmitter, forwardRef, Inject, Optional, Output, SkipSelf, ViewChildren, defineInjectable } from '@angular/core';
+import { Directive, Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, ViewEncapsulation, ContentChild, ContentChildren, EventEmitter, forwardRef, Inject, Optional, Output, SkipSelf, ViewChildren, TemplateRef, defineInjectable } from '@angular/core';
 import { CdkStepLabel, CdkStep, CdkStepper, CdkStepperNext, CdkStepperPrevious, CdkStepperModule } from '@angular/cdk/stepper';
 import { Subject } from 'rxjs';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Directionality } from '@angular/cdk/bidi';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { ErrorStateMatcher, MatCommonModule, MatRippleModule } from '@angular/material/core';
 import { takeUntil } from 'rxjs/operators';
 import { PortalModule } from '@angular/cdk/portal';
-import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -23,22 +23,20 @@ import { MatIconModule } from '@angular/material/icon';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkStepLabel = CdkStepLabel;
 var MatStepLabel = /** @class */ (function (_super) {
     __extends(MatStepLabel, _super);
-    function MatStepLabel(template) {
-        return _super.call(this, template) || this;
+    function MatStepLabel() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     MatStepLabel.decorators = [
         { type: Directive, args: [{
                     selector: '[matStepLabel]',
                 },] },
     ];
-    /** @nocollapse */
-    MatStepLabel.ctorParameters = function () { return [
-        { type: TemplateRef, },
-    ]; };
     return MatStepLabel;
-}(CdkStepLabel));
+}(_CdkStepLabel));
 
 /**
  * @fileoverview added by tsickle
@@ -234,6 +232,8 @@ var MatStepperIcon = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkStepper = CdkStepper;
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper, _errorStateMatcher) {
@@ -339,7 +339,7 @@ var MatStepper = /** @class */ (function (_super) {
         "animationDone": [{ type: Output },],
     };
     return MatStepper;
-}(CdkStepper));
+}(_CdkStepper));
 var MatHorizontalStepper = /** @class */ (function (_super) {
     __extends(MatHorizontalStepper, _super);
     function MatHorizontalStepper() {
@@ -366,8 +366,11 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
 }(MatStepper));
 var MatVerticalStepper = /** @class */ (function (_super) {
     __extends(MatVerticalStepper, _super);
-    function MatVerticalStepper(dir, changeDetectorRef) {
-        var _this = _super.call(this, dir, changeDetectorRef) || this;
+    function MatVerticalStepper(dir, changeDetectorRef, 
+    // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
+    // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
+    elementRef, _document) {
+        var _this = _super.call(this, dir, changeDetectorRef, elementRef, _document) || this;
         _this._orientation = 'vertical';
         return _this;
     }
@@ -392,6 +395,8 @@ var MatVerticalStepper = /** @class */ (function (_super) {
     MatVerticalStepper.ctorParameters = function () { return [
         { type: Directionality, decorators: [{ type: Optional },] },
         { type: ChangeDetectorRef, },
+        { type: ElementRef, },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     ]; };
     return MatVerticalStepper;
 }(MatStepper));
@@ -400,6 +405,9 @@ var MatVerticalStepper = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkStepperNext = CdkStepperNext;
+var /** @type {?} */ _CdkStepperPrevious = CdkStepperPrevious;
 /**
  * Button that moves to the next step in a stepper workflow.
  */
@@ -420,7 +428,7 @@ var MatStepperNext = /** @class */ (function (_super) {
                 },] },
     ];
     return MatStepperNext;
-}(CdkStepperNext));
+}(_CdkStepperNext));
 /**
  * Button that moves to the previous step in a stepper workflow.
  */
@@ -441,7 +449,7 @@ var MatStepperPrevious = /** @class */ (function (_super) {
                 },] },
     ];
     return MatStepperPrevious;
-}(CdkStepperPrevious));
+}(_CdkStepperPrevious));
 
 /**
  * @fileoverview added by tsickle
@@ -500,5 +508,5 @@ var MatStepperModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatStepperModule, MatStepLabel, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl, matStepperAnimations, MatStepperIcon };
+export { MatStepperModule, _CdkStepLabel, MatStepLabel, _CdkStepper, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, _CdkStepperNext, _CdkStepperPrevious, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl, matStepperAnimations, MatStepperIcon };
 //# sourceMappingURL=stepper.es5.js.map

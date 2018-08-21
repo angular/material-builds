@@ -6,9 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef } from '@angular/cdk/tree';
-import { AfterContentInit, ElementRef, IterableDiffers, OnDestroy, QueryList, TemplateRef } from '@angular/core';
+import { AfterContentInit, ElementRef, IterableDiffers, OnDestroy, QueryList } from '@angular/core';
 import { CanDisable, HasTabIndex } from '@angular/material/core';
 import { MatTreeNodeOutlet } from './outlet';
+export declare const _CdkTreeNodeDef: typeof CdkTreeNodeDef;
 export declare const _MatTreeNodeMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisable) & typeof CdkTreeNode;
 export declare const _MatNestedTreeNodeMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisable) & typeof CdkNestedTreeNode;
 /**
@@ -23,9 +24,8 @@ export declare class MatTreeNode<T> extends _MatTreeNodeMixinBase<T> implements 
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
  */
-export declare class MatTreeNodeDef<T> extends CdkTreeNodeDef<T> {
+export declare class MatTreeNodeDef<T> extends _CdkTreeNodeDef<T> {
     data: T;
-    constructor(template: TemplateRef<any>);
 }
 /**
  * Wrapper for the CdkTree nested node with Material design styles.

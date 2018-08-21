@@ -20,6 +20,8 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): Workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkTextareaAutosize = CdkTextareaAutosize;
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
@@ -104,7 +106,7 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
         "matTextareaAutosize": [{ type: Input },],
     };
     return MatTextareaAutosize;
-}(CdkTextareaAutosize));
+}(_CdkTextareaAutosize));
 
 /**
  * @fileoverview added by tsickle
@@ -671,5 +673,5 @@ var MatInputModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };
+export { _CdkTextareaAutosize, MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };
 //# sourceMappingURL=input.es5.js.map

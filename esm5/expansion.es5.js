@@ -12,7 +12,7 @@ import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk
 import { animate, animateChild, group, state, style, transition, trigger, query } from '@angular/animations';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { Subject, merge, Subscription } from 'rxjs';
+import { Subject, merge, Subscription, EMPTY } from 'rxjs';
 import { filter, startWith, take } from 'rxjs/operators';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
@@ -59,6 +59,7 @@ var MatAccordion = /** @class */ (function (_super) {
         { type: Directive, args: [{
                     selector: 'mat-accordion',
                     exportAs: 'matAccordion',
+                    inputs: ['multi'],
                     host: {
                         class: 'mat-accordion'
                     }
@@ -143,6 +144,8 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkAccordionItem = CdkAccordionItem;
 /**
  * Counter for generating unique element ids.
  */
@@ -184,7 +187,9 @@ var MatExpansionPanel = /** @class */ (function (_super) {
          * Whether the toggle indicator should be hidden.
          * @return {?}
          */
-        function () { return this._hideToggle; },
+        function () {
+            return this._hideToggle || (this.accordion && this.accordion.hideToggle);
+        },
         set: /**
          * @param {?} value
          * @return {?}
@@ -195,21 +200,6 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    /** Whether the expansion indicator should be hidden. */
-    /**
-     * Whether the expansion indicator should be hidden.
-     * @return {?}
-     */
-    MatExpansionPanel.prototype._getHideToggle = /**
-     * Whether the expansion indicator should be hidden.
-     * @return {?}
-     */
-    function () {
-        if (this.accordion) {
-            return this.accordion.hideToggle;
-        }
-        return this.hideToggle;
-    };
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     /**
      * Determines whether the expansion panel should have spacing between it and its siblings.
@@ -221,6 +211,9 @@ var MatExpansionPanel = /** @class */ (function (_super) {
      */
     function () {
         if (this.accordion) {
+            // We don't need to subscribe to the `stateChanges` of the parent accordion because each time
+            // the [displayMode] input changes, the change detection will also cover the host bindings
+            // of this expansion panel.
             return (this.expanded ? this.accordion.displayMode : this._getExpandedState()) === 'default';
         }
         return false;
@@ -338,7 +331,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         "_lazyContent": [{ type: ContentChild, args: [MatExpansionPanelContent,] },],
     };
     return MatExpansionPanel;
-}(CdkAccordionItem));
+}(_CdkAccordionItem));
 var MatExpansionPanelActionRow = /** @class */ (function () {
     function MatExpansionPanelActionRow() {
     }
@@ -370,9 +363,11 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._parentChangeSubscription = Subscription.EMPTY;
+        var /** @type {?} */ accordionHideToggleChange = panel.accordion ?
+            panel.accordion._stateChanges.pipe(filter(function (changes) { return !!changes["hideToggle"]; })) : EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
-        // need to  subscribe and trigger change detection manually.
-        this._parentChangeSubscription = merge(panel.opened, panel.closed, panel._inputChanges.pipe(filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
+        // need to subscribe and trigger change detection manually.
+        this._parentChangeSubscription = merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         _focusMonitor.monitor(_element.nativeElement);
     }
@@ -587,5 +582,5 @@ var MatExpansionModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatExpansionModule, MatAccordion, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
+export { MatExpansionModule, MatAccordion, _CdkAccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
 //# sourceMappingURL=expansion.es5.js.map

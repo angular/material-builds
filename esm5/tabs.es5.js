@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, ElementRef, Inject, InjectionToken, NgZone, TemplateRef, ViewContainerRef, ChangeDetectionStrategy, Component, ContentChild, Input, ViewChild, ViewEncapsulation, ChangeDetectorRef, Output, EventEmitter, Optional, ComponentFactoryResolver, forwardRef, ContentChildren, Attribute, NgModule } from '@angular/core';
+import { Directive, ElementRef, Inject, InjectionToken, NgZone, TemplateRef, ChangeDetectionStrategy, Component, ContentChild, Input, ViewChild, ViewContainerRef, ViewEncapsulation, ChangeDetectorRef, Output, EventEmitter, Optional, ComponentFactoryResolver, forwardRef, ContentChildren, Attribute, NgModule } from '@angular/core';
 import { __extends } from 'tslib';
 import { CdkPortal, TemplatePortal, CdkPortalOutlet, PortalHostDirective, PortalModule } from '@angular/cdk/portal';
 import { mixinDisabled, mixinDisableRipple, mixinColor, MAT_RIPPLE_GLOBAL_OPTIONS, mixinTabIndex, RippleRenderer, MatCommonModule, MatRippleModule } from '@angular/material/core';
@@ -146,26 +146,23 @@ var MatInkBar = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): Workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkPortal = CdkPortal;
 /**
  * Used to flag tab labels for use with the portal directive
  */
 var MatTabLabel = /** @class */ (function (_super) {
     __extends(MatTabLabel, _super);
-    function MatTabLabel(templateRef, viewContainerRef) {
-        return _super.call(this, templateRef, viewContainerRef) || this;
+    function MatTabLabel() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTabLabel.decorators = [
         { type: Directive, args: [{
                     selector: '[mat-tab-label], [matTabLabel]',
                 },] },
     ];
-    /** @nocollapse */
-    MatTabLabel.ctorParameters = function () { return [
-        { type: TemplateRef, },
-        { type: ViewContainerRef, },
-    ]; };
     return MatTabLabel;
-}(CdkPortal));
+}(_CdkPortal));
 
 /**
  * @fileoverview added by tsickle
@@ -2112,5 +2109,5 @@ var MatTabsModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa19, MatTabBase as ɵf19, _MatTabMixinBase as ɵg19, MatTabHeaderBase as ɵb19, _MatTabHeaderMixinBase as ɵc19, MatTabLabelWrapperBase as ɵd19, _MatTabLabelWrapperMixinBase as ɵe19, MatTabLinkBase as ɵj19, MatTabNavBase as ɵh19, _MatTabLinkMixinBase as ɵk19, _MatTabNavMixinBase as ɵi19 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
 //# sourceMappingURL=tabs.es5.js.map

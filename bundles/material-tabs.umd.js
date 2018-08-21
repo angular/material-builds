@@ -165,26 +165,23 @@ var MatInkBar = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): Workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkPortal = portal.CdkPortal;
 /**
  * Used to flag tab labels for use with the portal directive
  */
 var MatTabLabel = /** @class */ (function (_super) {
     __extends(MatTabLabel, _super);
-    function MatTabLabel(templateRef, viewContainerRef) {
-        return _super.call(this, templateRef, viewContainerRef) || this;
+    function MatTabLabel() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTabLabel.decorators = [
         { type: core.Directive, args: [{
                     selector: '[mat-tab-label], [matTabLabel]',
                 },] },
     ];
-    /** @nocollapse */
-    MatTabLabel.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
-        { type: core.ViewContainerRef, },
-    ]; };
     return MatTabLabel;
-}(portal.CdkPortal));
+}(_CdkPortal));
 
 /**
  * @fileoverview added by tsickle
@@ -2133,17 +2130,17 @@ exports.MatTabGroupBase = MatTabGroupBase;
 exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
-exports.ɵa19 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf19 = MatTabBase;
-exports.ɵg19 = _MatTabMixinBase;
-exports.ɵb19 = MatTabHeaderBase;
-exports.ɵc19 = _MatTabHeaderMixinBase;
-exports.ɵd19 = MatTabLabelWrapperBase;
-exports.ɵe19 = _MatTabLabelWrapperMixinBase;
-exports.ɵj19 = MatTabLinkBase;
-exports.ɵh19 = MatTabNavBase;
-exports.ɵk19 = _MatTabLinkMixinBase;
-exports.ɵi19 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

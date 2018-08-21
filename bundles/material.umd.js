@@ -10576,6 +10576,8 @@ var MatDialogModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): Workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkTextareaAutosize = textField.CdkTextareaAutosize;
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
@@ -10660,7 +10662,7 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
         "matTextareaAutosize": [{ type: core.Input },],
     };
     return MatTextareaAutosize;
-}(textField.CdkTextareaAutosize));
+}(_CdkTextareaAutosize));
 
 /**
  * @fileoverview added by tsickle
@@ -14533,6 +14535,7 @@ var MatAccordion = /** @class */ (function (_super) {
         { type: core.Directive, args: [{
                     selector: 'mat-accordion',
                     exportAs: 'matAccordion',
+                    inputs: ['multi'],
                     host: {
                         class: 'mat-accordion'
                     }
@@ -14617,6 +14620,8 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkAccordionItem = accordion.CdkAccordionItem;
 /**
  * Counter for generating unique element ids.
  */
@@ -14658,7 +14663,9 @@ var MatExpansionPanel = /** @class */ (function (_super) {
          * Whether the toggle indicator should be hidden.
          * @return {?}
          */
-        function () { return this._hideToggle; },
+        function () {
+            return this._hideToggle || (this.accordion && this.accordion.hideToggle);
+        },
         set: /**
          * @param {?} value
          * @return {?}
@@ -14669,21 +14676,6 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    /** Whether the expansion indicator should be hidden. */
-    /**
-     * Whether the expansion indicator should be hidden.
-     * @return {?}
-     */
-    MatExpansionPanel.prototype._getHideToggle = /**
-     * Whether the expansion indicator should be hidden.
-     * @return {?}
-     */
-    function () {
-        if (this.accordion) {
-            return this.accordion.hideToggle;
-        }
-        return this.hideToggle;
-    };
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     /**
      * Determines whether the expansion panel should have spacing between it and its siblings.
@@ -14695,6 +14687,9 @@ var MatExpansionPanel = /** @class */ (function (_super) {
      */
     function () {
         if (this.accordion) {
+            // We don't need to subscribe to the `stateChanges` of the parent accordion because each time
+            // the [displayMode] input changes, the change detection will also cover the host bindings
+            // of this expansion panel.
             return (this.expanded ? this.accordion.displayMode : this._getExpandedState()) === 'default';
         }
         return false;
@@ -14812,7 +14807,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         "_lazyContent": [{ type: core.ContentChild, args: [MatExpansionPanelContent,] },],
     };
     return MatExpansionPanel;
-}(accordion.CdkAccordionItem));
+}(_CdkAccordionItem));
 var MatExpansionPanelActionRow = /** @class */ (function () {
     function MatExpansionPanelActionRow() {
     }
@@ -14844,9 +14839,11 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._parentChangeSubscription = rxjs.Subscription.EMPTY;
+        var /** @type {?} */ accordionHideToggleChange = panel.accordion ?
+            panel.accordion._stateChanges.pipe(operators.filter(function (changes) { return !!changes["hideToggle"]; })) : rxjs.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
-        // need to  subscribe and trigger change detection manually.
-        this._parentChangeSubscription = rxjs.merge(panel.opened, panel.closed, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
+        // need to subscribe and trigger change detection manually.
+        this._parentChangeSubscription = rxjs.merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(operators.filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         _focusMonitor.monitor(_element.nativeElement);
     }
@@ -18524,7 +18521,7 @@ var /** @type {?} */ transformMenu = matMenuAnimations.transformMenu;
  * @return {?}
  */
 function throwMatMenuMissingError() {
-    throw Error("mat-menu-trigger: must pass in an mat-menu instance.\n\n    Example:\n      <mat-menu #menu=\"matMenu\"></mat-menu>\n      <button [matMenuTriggerFor]=\"menu\"></button>");
+    throw Error("matMenuTriggerFor: must pass in an mat-menu instance.\n\n    Example:\n      <mat-menu #menu=\"matMenu\"></mat-menu>\n      <button [matMenuTriggerFor]=\"menu\"></button>");
 }
 /**
  * Throws an exception for the case when menu's x-position value isn't valid.
@@ -18533,7 +18530,7 @@ function throwMatMenuMissingError() {
  * @return {?}
  */
 function throwMatMenuInvalidPositionX() {
-    throw Error("x-position value must be either 'before' or after'.\n      Example: <mat-menu x-position=\"before\" #menu=\"matMenu\"></mat-menu>");
+    throw Error("xPosition value must be either 'before' or after'.\n      Example: <mat-menu xPosition=\"before\" #menu=\"matMenu\"></mat-menu>");
 }
 /**
  * Throws an exception for the case when menu's y-position value isn't valid.
@@ -18542,7 +18539,7 @@ function throwMatMenuInvalidPositionX() {
  * @return {?}
  */
 function throwMatMenuInvalidPositionY() {
-    throw Error("y-position value must be either 'above' or below'.\n      Example: <mat-menu y-position=\"above\" #menu=\"matMenu\"></mat-menu>");
+    throw Error("yPosition value must be either 'above' or below'.\n      Example: <mat-menu yPosition=\"above\" #menu=\"matMenu\"></mat-menu>");
 }
 
 /**
@@ -26064,7 +26061,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
                         '[class._mat-animation-noopable]': '_animationMode === "NoopAnimations"',
                     },
                     template: "<label class=\"mat-slide-toggle-label\" #label><div #toggleBar class=\"mat-slide-toggle-bar\" [class.mat-slide-toggle-bar-no-side-margin]=\"!labelContent.textContent || !labelContent.textContent.trim()\"><input #input class=\"mat-slide-toggle-input cdk-visually-hidden\" type=\"checkbox\" [id]=\"inputId\" [required]=\"required\" [tabIndex]=\"tabIndex\" [checked]=\"checked\" [disabled]=\"disabled\" [attr.name]=\"name\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" (change)=\"_onChangeEvent($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-slide-toggle-thumb-container\" #thumbContainer (slidestart)=\"_onDragStart()\" (slide)=\"_onDrag($event)\" (slideend)=\"_onDragEnd()\"><div class=\"mat-slide-toggle-thumb\"></div><div class=\"mat-slide-toggle-ripple\" mat-ripple [matRippleTrigger]=\"label\" [matRippleDisabled]=\"disableRipple || disabled\" [matRippleCentered]=\"true\" [matRippleRadius]=\"20\" [matRippleAnimation]=\"{enterDuration: 150}\"><div class=\"mat-ripple-element mat-slide-toggle-persistent-ripple\"></div></div></div></div><span class=\"mat-slide-toggle-content\" #labelContent (cdkObserveContent)=\"_onLabelTextChange()\"><ng-content></ng-content></span></label>",
-                    styles: [".mat-slide-toggle{display:inline-block;height:24px;max-width:100%;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}[dir=rtl] .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(-16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;height:inherit;cursor:pointer}.mat-slide-toggle-content{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}._mat-animation-noopable .mat-slide-toggle-thumb-container{transition:none}[dir=rtl] .mat-slide-toggle-thumb-container{left:auto;right:0}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;flex-shrink:0;border-radius:8px}.mat-slide-toggle-input{bottom:0;left:10px}[dir=rtl] .mat-slide-toggle-input{left:auto;right:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}._mat-animation-noopable .mat-slide-toggle-bar,._mat-animation-noopable .mat-slide-toggle-thumb{transition:none}.mat-slide-toggle .mat-slide-toggle-ripple{position:absolute;top:calc(50% - 20px);left:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-slide-toggle .mat-slide-toggle-ripple .mat-ripple-element:not(.mat-slide-toggle-persistent-ripple){opacity:.16}.mat-slide-toggle-persistent-ripple{width:100%;height:100%;transform:none}.mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:.04}.mat-slide-toggle.cdk-focused .mat-slide-toggle-persistent-ripple{opacity:.12}.mat-slide-toggle-persistent-ripple,.mat-slide-toggle.mat-disabled .mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:0}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:1px solid #000}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb{background:#000;border:1px solid #fff}.mat-slide-toggle-bar{background:#fff}}@media screen and (-ms-high-contrast:black-on-white){.mat-slide-toggle-bar{border:1px solid #000}}"],
+                    styles: [".mat-slide-toggle{display:inline-block;height:24px;max-width:100%;line-height:24px;white-space:nowrap;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;outline:0}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(16px,0,0)}[dir=rtl] .mat-slide-toggle.mat-checked .mat-slide-toggle-thumb-container{transform:translate3d(-16px,0,0)}.mat-slide-toggle.mat-disabled .mat-slide-toggle-label,.mat-slide-toggle.mat-disabled .mat-slide-toggle-thumb-container{cursor:default}.mat-slide-toggle-label{display:flex;flex:1;flex-direction:row;align-items:center;height:inherit;cursor:pointer}.mat-slide-toggle-content{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.mat-slide-toggle-label-before .mat-slide-toggle-label{order:1}.mat-slide-toggle-label-before .mat-slide-toggle-bar{order:2}.mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-label-before .mat-slide-toggle-bar{margin-right:8px;margin-left:0}.mat-slide-toggle-label-before .mat-slide-toggle-bar,[dir=rtl] .mat-slide-toggle-bar{margin-left:8px;margin-right:0}.mat-slide-toggle-bar-no-side-margin{margin-left:0;margin-right:0}.mat-slide-toggle-thumb-container{position:absolute;z-index:1;width:20px;height:20px;top:-3px;left:0;transform:translate3d(0,0,0);transition:all 80ms linear;transition-property:transform;cursor:-webkit-grab;cursor:grab}.mat-slide-toggle-thumb-container.mat-dragging,.mat-slide-toggle-thumb-container:active{cursor:-webkit-grabbing;cursor:grabbing;transition-duration:0s}._mat-animation-noopable .mat-slide-toggle-thumb-container{transition:none}[dir=rtl] .mat-slide-toggle-thumb-container{left:auto;right:0}.mat-slide-toggle-thumb{height:20px;width:20px;border-radius:50%;box-shadow:0 2px 1px -1px rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 1px 3px 0 rgba(0,0,0,.12)}.mat-slide-toggle-bar{position:relative;width:36px;height:14px;flex-shrink:0;border-radius:8px}.mat-slide-toggle-input{bottom:0;left:10px}[dir=rtl] .mat-slide-toggle-input{left:auto;right:10px}.mat-slide-toggle-bar,.mat-slide-toggle-thumb{transition:all 80ms linear;transition-property:background-color;transition-delay:50ms}._mat-animation-noopable .mat-slide-toggle-bar,._mat-animation-noopable .mat-slide-toggle-thumb{transition:none}.mat-slide-toggle .mat-slide-toggle-ripple{position:absolute;top:calc(50% - 20px);left:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-slide-toggle .mat-slide-toggle-ripple .mat-ripple-element:not(.mat-slide-toggle-persistent-ripple){opacity:.12}.mat-slide-toggle-persistent-ripple{width:100%;height:100%;transform:none}.mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:.04}.mat-slide-toggle.cdk-focused .mat-slide-toggle-persistent-ripple{opacity:.12}.mat-slide-toggle-persistent-ripple,.mat-slide-toggle.mat-disabled .mat-slide-toggle-bar:hover .mat-slide-toggle-persistent-ripple{opacity:0}@media screen and (-ms-high-contrast:active){.mat-slide-toggle-thumb{background:#fff;border:1px solid #000}.mat-slide-toggle.mat-checked .mat-slide-toggle-thumb{background:#000;border:1px solid #fff}.mat-slide-toggle-bar{background:#fff}}@media screen and (-ms-high-contrast:black-on-white){.mat-slide-toggle-bar{border:1px solid #000}}"],
                     providers: [MAT_SLIDE_TOGGLE_VALUE_ACCESSOR],
                     inputs: ['disabled', 'disableRipple', 'color', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
@@ -28871,22 +28868,20 @@ var MatSortModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkStepLabel = stepper.CdkStepLabel;
 var MatStepLabel = /** @class */ (function (_super) {
     __extends(MatStepLabel, _super);
-    function MatStepLabel(template) {
-        return _super.call(this, template) || this;
+    function MatStepLabel() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     MatStepLabel.decorators = [
         { type: core.Directive, args: [{
                     selector: '[matStepLabel]',
                 },] },
     ];
-    /** @nocollapse */
-    MatStepLabel.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
-    ]; };
     return MatStepLabel;
-}(stepper.CdkStepLabel));
+}(_CdkStepLabel));
 
 /**
  * @fileoverview added by tsickle
@@ -29082,6 +29077,8 @@ var MatStepperIcon = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkStepper = stepper.CdkStepper;
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper$$1, _errorStateMatcher) {
@@ -29187,7 +29184,7 @@ var MatStepper = /** @class */ (function (_super) {
         "animationDone": [{ type: core.Output },],
     };
     return MatStepper;
-}(stepper.CdkStepper));
+}(_CdkStepper));
 var MatHorizontalStepper = /** @class */ (function (_super) {
     __extends(MatHorizontalStepper, _super);
     function MatHorizontalStepper() {
@@ -29214,8 +29211,11 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
 }(MatStepper));
 var MatVerticalStepper = /** @class */ (function (_super) {
     __extends(MatVerticalStepper, _super);
-    function MatVerticalStepper(dir, changeDetectorRef) {
-        var _this = _super.call(this, dir, changeDetectorRef) || this;
+    function MatVerticalStepper(dir, changeDetectorRef, 
+    // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
+    // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
+    elementRef, _document) {
+        var _this = _super.call(this, dir, changeDetectorRef, elementRef, _document) || this;
         _this._orientation = 'vertical';
         return _this;
     }
@@ -29240,6 +29240,8 @@ var MatVerticalStepper = /** @class */ (function (_super) {
     MatVerticalStepper.ctorParameters = function () { return [
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
         { type: core.ChangeDetectorRef, },
+        { type: core.ElementRef, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     return MatVerticalStepper;
 }(MatStepper));
@@ -29248,6 +29250,9 @@ var MatVerticalStepper = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkStepperNext = stepper.CdkStepperNext;
+var /** @type {?} */ _CdkStepperPrevious = stepper.CdkStepperPrevious;
 /**
  * Button that moves to the next step in a stepper workflow.
  */
@@ -29268,7 +29273,7 @@ var MatStepperNext = /** @class */ (function (_super) {
                 },] },
     ];
     return MatStepperNext;
-}(stepper.CdkStepperNext));
+}(_CdkStepperNext));
 /**
  * Button that moves to the previous step in a stepper workflow.
  */
@@ -29289,7 +29294,7 @@ var MatStepperPrevious = /** @class */ (function (_super) {
                 },] },
     ];
     return MatStepperPrevious;
-}(stepper.CdkStepperPrevious));
+}(_CdkStepperPrevious));
 
 /**
  * @fileoverview added by tsickle
@@ -29342,23 +29347,16 @@ var MatStepperModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkTable = table.CdkTable;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
  */
 var MatTable = /** @class */ (function (_super) {
     __extends(MatTable, _super);
-    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
-    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
-    // fixed bug.
-    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
-    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
-    function MatTable(_differs, _changeDetectorRef, _elementRef, role, _dir) {
-        var _this = _super.call(this, _differs, _changeDetectorRef, _elementRef, role, _dir) || this;
-        _this._differs = _differs;
-        _this._changeDetectorRef = _changeDetectorRef;
-        _this._elementRef = _elementRef;
-        _this._dir = _dir;
+    function MatTable() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         /**
          * Overrides the sticky CSS class set by the `CdkTable`.
          */
@@ -29377,21 +29375,17 @@ var MatTable = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /** @nocollapse */
-    MatTable.ctorParameters = function () { return [
-        { type: core.IterableDiffers, },
-        { type: core.ChangeDetectorRef, },
-        { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['role',] },] },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-    ]; };
     return MatTable;
-}(table.CdkTable));
+}(_CdkTable));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkCellDef = table.CdkCellDef;
+var /** @type {?} */ _CdkHeaderCellDef = table.CdkHeaderCellDef;
+var /** @type {?} */ _CdkFooterCellDef = table.CdkFooterCellDef;
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -29408,7 +29402,7 @@ var MatCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatCellDef;
-}(table.CdkCellDef));
+}(_CdkCellDef));
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
@@ -29425,7 +29419,7 @@ var MatHeaderCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatHeaderCellDef;
-}(table.CdkHeaderCellDef));
+}(_CdkHeaderCellDef));
 /**
  * Footer cell definition for the mat-table.
  * Captures the template of a column's footer cell and as well as cell-specific properties.
@@ -29442,7 +29436,7 @@ var MatFooterCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatFooterCellDef;
-}(table.CdkFooterCellDef));
+}(_CdkFooterCellDef));
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -29549,6 +29543,10 @@ var MatCell = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkHeaderRowDef = table.CdkHeaderRowDef;
+var /** @type {?} */ _CdkFooterRowDef = table.CdkFooterRowDef;
+var /** @type {?} */ _CdkRowDef = table.CdkRowDef;
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
@@ -29566,7 +29564,7 @@ var MatHeaderRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatHeaderRowDef;
-}(table.CdkHeaderRowDef));
+}(_CdkHeaderRowDef));
 /**
  * Footer row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display.
@@ -29584,7 +29582,7 @@ var MatFooterRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatFooterRowDef;
-}(table.CdkFooterRowDef));
+}(_CdkFooterRowDef));
 /**
  * Data row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display and
@@ -29604,7 +29602,7 @@ var MatRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatRowDef;
-}(table.CdkRowDef));
+}(_CdkRowDef));
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */
@@ -30250,26 +30248,23 @@ var MatInkBar = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): Workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkPortal = portal.CdkPortal;
 /**
  * Used to flag tab labels for use with the portal directive
  */
 var MatTabLabel = /** @class */ (function (_super) {
     __extends(MatTabLabel, _super);
-    function MatTabLabel(templateRef, viewContainerRef) {
-        return _super.call(this, templateRef, viewContainerRef) || this;
+    function MatTabLabel() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTabLabel.decorators = [
         { type: core.Directive, args: [{
                     selector: '[mat-tab-label], [matTabLabel]',
                 },] },
     ];
-    /** @nocollapse */
-    MatTabLabel.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
-        { type: core.ViewContainerRef, },
-    ]; };
     return MatTabLabel;
-}(portal.CdkPortal));
+}(_CdkPortal));
 
 /**
  * @fileoverview added by tsickle
@@ -32359,6 +32354,8 @@ var MatTreeNodeOutlet = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkTreeNodeDef = tree.CdkTreeNodeDef;
 var /** @type {?} */ _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(tree.CdkTreeNode));
 var /** @type {?} */ _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(tree.CdkNestedTreeNode));
 /**
@@ -32406,13 +32403,8 @@ var MatTreeNode = /** @class */ (function (_super) {
  */
 var MatTreeNodeDef = /** @class */ (function (_super) {
     __extends(MatTreeNodeDef, _super);
-    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
-    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
-    // fixed bug.
-    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
-    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
-    function MatTreeNodeDef(template) {
-        return _super.call(this, template) || this;
+    function MatTreeNodeDef() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTreeNodeDef.decorators = [
         { type: core.Directive, args: [{
@@ -32424,14 +32416,11 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatTreeNodeDef.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
-    ]; };
     MatTreeNodeDef.propDecorators = {
         "data": [{ type: core.Input, args: ['matTreeNode',] },],
     };
     return MatTreeNodeDef;
-}(tree.CdkTreeNodeDef));
+}(_CdkTreeNodeDef));
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  * @template T
@@ -32501,19 +32490,16 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkTreeNodePadding = tree.CdkTreeNodePadding;
 /**
  * Wrapper for the CdkTree padding with Material design styles.
  * @template T
  */
 var MatTreeNodePadding = /** @class */ (function (_super) {
     __extends(MatTreeNodePadding, _super);
-    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
-    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
-    // fixed bug.
-    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
-    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
-    function MatTreeNodePadding(_treeNode, _tree, _renderer, _element, _dir) {
-        return _super.call(this, _treeNode, _tree, _renderer, _element, _dir) || this;
+    function MatTreeNodePadding() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTreeNodePadding.decorators = [
         { type: core.Directive, args: [{
@@ -32522,37 +32508,27 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatTreeNodePadding.ctorParameters = function () { return [
-        { type: tree.CdkTreeNode, },
-        { type: tree.CdkTree, },
-        { type: core.Renderer2, },
-        { type: core.ElementRef, },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-    ]; };
     MatTreeNodePadding.propDecorators = {
         "level": [{ type: core.Input, args: ['matTreeNodePadding',] },],
         "indent": [{ type: core.Input, args: ['matTreeNodePaddingIndent',] },],
     };
     return MatTreeNodePadding;
-}(tree.CdkTreeNodePadding));
+}(_CdkTreeNodePadding));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkTree = tree.CdkTree;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
  */
 var MatTree = /** @class */ (function (_super) {
     __extends(MatTree, _super);
-    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
-    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
-    // fixed bug.
-    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
-    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
-    function MatTree(_differs, _changeDetectorRef) {
-        return _super.call(this, _differs, _changeDetectorRef) || this;
+    function MatTree() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTree.decorators = [
         { type: core.Component, args: [{selector: 'mat-tree',
@@ -32569,33 +32545,26 @@ var MatTree = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatTree.ctorParameters = function () { return [
-        { type: core.IterableDiffers, },
-        { type: core.ChangeDetectorRef, },
-    ]; };
     MatTree.propDecorators = {
         "_nodeOutlet": [{ type: core.ViewChild, args: [MatTreeNodeOutlet,] },],
     };
     return MatTree;
-}(tree.CdkTree));
+}(_CdkTree));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkTreeNodeToggle = tree.CdkTreeNodeToggle;
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  * @template T
  */
 var MatTreeNodeToggle = /** @class */ (function (_super) {
     __extends(MatTreeNodeToggle, _super);
-    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
-    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
-    // fixed bug.
-    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
-    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
-    function MatTreeNodeToggle(_tree, _treeNode) {
-        var _this = _super.call(this, _tree, _treeNode) || this;
+    function MatTreeNodeToggle() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.recursive = false;
         return _this;
     }
@@ -32609,15 +32578,11 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatTreeNodeToggle.ctorParameters = function () { return [
-        { type: tree.CdkTree, },
-        { type: tree.CdkTreeNode, },
-    ]; };
     MatTreeNodeToggle.propDecorators = {
         "recursive": [{ type: core.Input, args: ['matTreeNodeToggleRecursive',] },],
     };
     return MatTreeNodeToggle;
-}(tree.CdkTreeNodeToggle));
+}(_CdkTreeNodeToggle));
 
 /**
  * @fileoverview added by tsickle
@@ -32995,10 +32960,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-8b69db0');
+var /** @type {?} */ VERSION = new core.Version('6.4.6-636d27e');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -33179,6 +33144,7 @@ exports.MatDivider = MatDivider;
 exports.MatDividerModule = MatDividerModule;
 exports.MatExpansionModule = MatExpansionModule;
 exports.MatAccordion = MatAccordion;
+exports._CdkAccordionItem = _CdkAccordionItem;
 exports.MatExpansionPanel = MatExpansionPanel;
 exports.MatExpansionPanelActionRow = MatExpansionPanelActionRow;
 exports.MatExpansionPanelHeader = MatExpansionPanelHeader;
@@ -33221,6 +33187,7 @@ exports.getMatIconFailedToSanitizeLiteralError = getMatIconFailedToSanitizeLiter
 exports.MatIconRegistry = MatIconRegistry;
 exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
 exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
+exports._CdkTextareaAutosize = _CdkTextareaAutosize;
 exports.MatTextareaAutosize = MatTextareaAutosize;
 exports.MatInputBase = MatInputBase;
 exports._MatInputMixinBase = _MatInputMixinBase;
@@ -33247,12 +33214,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33355,11 +33322,15 @@ exports._MatSortMixinBase = _MatSortMixinBase;
 exports.MatSort = MatSort;
 exports.matSortAnimations = matSortAnimations;
 exports.MatStepperModule = MatStepperModule;
+exports._CdkStepLabel = _CdkStepLabel;
 exports.MatStepLabel = MatStepLabel;
+exports._CdkStepper = _CdkStepper;
 exports.MatStep = MatStep;
 exports.MatStepper = MatStepper;
 exports.MatHorizontalStepper = MatHorizontalStepper;
 exports.MatVerticalStepper = MatVerticalStepper;
+exports._CdkStepperNext = _CdkStepperNext;
+exports._CdkStepperPrevious = _CdkStepperPrevious;
 exports.MatStepperNext = MatStepperNext;
 exports.MatStepperPrevious = MatStepperPrevious;
 exports.MatStepHeader = MatStepHeader;
@@ -33367,6 +33338,9 @@ exports.MatStepperIntl = MatStepperIntl;
 exports.matStepperAnimations = matStepperAnimations;
 exports.MatStepperIcon = MatStepperIcon;
 exports.MatTableModule = MatTableModule;
+exports._CdkCellDef = _CdkCellDef;
+exports._CdkHeaderCellDef = _CdkHeaderCellDef;
+exports._CdkFooterCellDef = _CdkFooterCellDef;
 exports.MatCellDef = MatCellDef;
 exports.MatHeaderCellDef = MatHeaderCellDef;
 exports.MatFooterCellDef = MatFooterCellDef;
@@ -33374,7 +33348,11 @@ exports.MatColumnDef = MatColumnDef;
 exports.MatHeaderCell = MatHeaderCell;
 exports.MatFooterCell = MatFooterCell;
 exports.MatCell = MatCell;
+exports._CdkTable = _CdkTable;
 exports.MatTable = MatTable;
+exports._CdkHeaderRowDef = _CdkHeaderRowDef;
+exports._CdkFooterRowDef = _CdkFooterRowDef;
+exports._CdkRowDef = _CdkRowDef;
 exports.MatHeaderRowDef = MatHeaderRowDef;
 exports.MatFooterRowDef = MatFooterRowDef;
 exports.MatRowDef = MatRowDef;
@@ -33382,17 +33360,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa19 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf19 = MatTabBase;
-exports.ɵg19 = _MatTabMixinBase;
-exports.ɵb19 = MatTabHeaderBase;
-exports.ɵc19 = _MatTabHeaderMixinBase;
-exports.ɵd19 = MatTabLabelWrapperBase;
-exports.ɵe19 = _MatTabLabelWrapperMixinBase;
-exports.ɵj19 = MatTabLinkBase;
-exports.ɵh19 = MatTabNavBase;
-exports.ɵk19 = _MatTabLinkMixinBase;
-exports.ɵi19 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
@@ -33428,14 +33406,18 @@ exports.MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY = MAT_TOOLTIP_DEFAULT_OPTIONS_FACTOR
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;
+exports._CdkTreeNodeDef = _CdkTreeNodeDef;
 exports._MatTreeNodeMixinBase = _MatTreeNodeMixinBase;
 exports._MatNestedTreeNodeMixinBase = _MatNestedTreeNodeMixinBase;
 exports.MatTreeNode = MatTreeNode;
 exports.MatTreeNodeDef = MatTreeNodeDef;
 exports.MatNestedTreeNode = MatNestedTreeNode;
+exports._CdkTreeNodePadding = _CdkTreeNodePadding;
 exports.MatTreeNodePadding = MatTreeNodePadding;
+exports._CdkTree = _CdkTree;
 exports.MatTree = MatTree;
 exports.MatTreeModule = MatTreeModule;
+exports._CdkTreeNodeToggle = _CdkTreeNodeToggle;
 exports.MatTreeNodeToggle = MatTreeNodeToggle;
 exports.MatTreeNodeOutlet = MatTreeNodeOutlet;
 exports.MatTreeFlattener = MatTreeFlattener;

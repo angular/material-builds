@@ -13,6 +13,7 @@ import { AfterContentInit, ChangeDetectorRef, EventEmitter, OnChanges, OnDestroy
 import { Subject } from 'rxjs';
 import { MatAccordion } from './accordion';
 import { MatExpansionPanelContent } from './expansion-panel-content';
+export declare const _CdkAccordionItem: typeof CdkAccordionItem;
 /** MatExpansionPanel's states. */
 export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
 /**
@@ -21,7 +22,7 @@ export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
  * This component can be used as a single element to show expandable content, or as one of
  * multiple children of an element with the MatAccordion directive attached.
  */
-export declare class MatExpansionPanel extends CdkAccordionItem implements AfterContentInit, OnChanges, OnDestroy {
+export declare class MatExpansionPanel extends _CdkAccordionItem implements AfterContentInit, OnChanges, OnDestroy {
     private _viewContainerRef;
     /** Whether the toggle indicator should be hidden. */
     hideToggle: boolean;
@@ -41,8 +42,6 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     /** ID for the associated header element. Used for a11y labelling. */
     _headerId: string;
     constructor(accordion: MatAccordion, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher, _viewContainerRef: ViewContainerRef);
-    /** Whether the expansion indicator should be hidden. */
-    _getHideToggle(): boolean;
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     _hasSpacing(): boolean;
     /** Gets the expanded state string. */

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/stepper'), require('rxjs'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/material/core'), require('rxjs/operators'), require('@angular/cdk/portal'), require('@angular/common'), require('@angular/material/button'), require('@angular/material/icon')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/stepper', ['exports', '@angular/core', '@angular/cdk/stepper', 'rxjs', '@angular/cdk/a11y', '@angular/animations', '@angular/cdk/bidi', '@angular/material/core', 'rxjs/operators', '@angular/cdk/portal', '@angular/common', '@angular/material/button', '@angular/material/icon'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.stepper = {}),global.ng.core,global.ng.cdk.stepper,global.rxjs,global.ng.cdk.a11y,global.ng.animations,global.ng.cdk.bidi,global.ng.material.core,global.rxjs.operators,global.ng.cdk.portal,global.ng.common,global.ng.material.button,global.ng.material.icon));
-}(this, (function (exports,core,stepper,rxjs,a11y,animations,bidi,core$1,operators,portal,common,button,icon) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/stepper'), require('rxjs'), require('@angular/cdk/a11y'), require('@angular/animations'), require('@angular/cdk/bidi'), require('@angular/common'), require('@angular/material/core'), require('rxjs/operators'), require('@angular/cdk/portal'), require('@angular/material/button'), require('@angular/material/icon')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/stepper', ['exports', '@angular/core', '@angular/cdk/stepper', 'rxjs', '@angular/cdk/a11y', '@angular/animations', '@angular/cdk/bidi', '@angular/common', '@angular/material/core', 'rxjs/operators', '@angular/cdk/portal', '@angular/material/button', '@angular/material/icon'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.stepper = {}),global.ng.core,global.ng.cdk.stepper,global.rxjs,global.ng.cdk.a11y,global.ng.animations,global.ng.cdk.bidi,global.ng.common,global.ng.material.core,global.rxjs.operators,global.ng.cdk.portal,global.ng.material.button,global.ng.material.icon));
+}(this, (function (exports,core,stepper,rxjs,a11y,animations,bidi,common,core$1,operators,portal,button,icon) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -44,22 +44,20 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkStepLabel = stepper.CdkStepLabel;
 var MatStepLabel = /** @class */ (function (_super) {
     __extends(MatStepLabel, _super);
-    function MatStepLabel(template) {
-        return _super.call(this, template) || this;
+    function MatStepLabel() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     MatStepLabel.decorators = [
         { type: core.Directive, args: [{
                     selector: '[matStepLabel]',
                 },] },
     ];
-    /** @nocollapse */
-    MatStepLabel.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
-    ]; };
     return MatStepLabel;
-}(stepper.CdkStepLabel));
+}(_CdkStepLabel));
 
 /**
  * @fileoverview added by tsickle
@@ -255,6 +253,8 @@ var MatStepperIcon = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkStepper = stepper.CdkStepper;
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper$$1, _errorStateMatcher) {
@@ -360,7 +360,7 @@ var MatStepper = /** @class */ (function (_super) {
         "animationDone": [{ type: core.Output },],
     };
     return MatStepper;
-}(stepper.CdkStepper));
+}(_CdkStepper));
 var MatHorizontalStepper = /** @class */ (function (_super) {
     __extends(MatHorizontalStepper, _super);
     function MatHorizontalStepper() {
@@ -387,8 +387,11 @@ var MatHorizontalStepper = /** @class */ (function (_super) {
 }(MatStepper));
 var MatVerticalStepper = /** @class */ (function (_super) {
     __extends(MatVerticalStepper, _super);
-    function MatVerticalStepper(dir, changeDetectorRef) {
-        var _this = _super.call(this, dir, changeDetectorRef) || this;
+    function MatVerticalStepper(dir, changeDetectorRef, 
+    // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
+    // @breaking-change 8.0.0 `elementRef` and `_document` parameters to become required.
+    elementRef, _document) {
+        var _this = _super.call(this, dir, changeDetectorRef, elementRef, _document) || this;
         _this._orientation = 'vertical';
         return _this;
     }
@@ -413,6 +416,8 @@ var MatVerticalStepper = /** @class */ (function (_super) {
     MatVerticalStepper.ctorParameters = function () { return [
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
         { type: core.ChangeDetectorRef, },
+        { type: core.ElementRef, },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
     ]; };
     return MatVerticalStepper;
 }(MatStepper));
@@ -421,6 +426,9 @@ var MatVerticalStepper = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkStepperNext = stepper.CdkStepperNext;
+var /** @type {?} */ _CdkStepperPrevious = stepper.CdkStepperPrevious;
 /**
  * Button that moves to the next step in a stepper workflow.
  */
@@ -441,7 +449,7 @@ var MatStepperNext = /** @class */ (function (_super) {
                 },] },
     ];
     return MatStepperNext;
-}(stepper.CdkStepperNext));
+}(_CdkStepperNext));
 /**
  * Button that moves to the previous step in a stepper workflow.
  */
@@ -462,7 +470,7 @@ var MatStepperPrevious = /** @class */ (function (_super) {
                 },] },
     ];
     return MatStepperPrevious;
-}(stepper.CdkStepperPrevious));
+}(_CdkStepperPrevious));
 
 /**
  * @fileoverview added by tsickle
@@ -512,11 +520,15 @@ var MatStepperModule = /** @class */ (function () {
 }());
 
 exports.MatStepperModule = MatStepperModule;
+exports._CdkStepLabel = _CdkStepLabel;
 exports.MatStepLabel = MatStepLabel;
+exports._CdkStepper = _CdkStepper;
 exports.MatStep = MatStep;
 exports.MatStepper = MatStepper;
 exports.MatHorizontalStepper = MatHorizontalStepper;
 exports.MatVerticalStepper = MatVerticalStepper;
+exports._CdkStepperNext = _CdkStepperNext;
+exports._CdkStepperPrevious = _CdkStepperPrevious;
 exports.MatStepperNext = MatStepperNext;
 exports.MatStepperPrevious = MatStepperPrevious;
 exports.MatStepHeader = MatStepHeader;

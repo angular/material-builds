@@ -11,7 +11,7 @@ import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk
 import { animate, animateChild, group, state, style, transition, trigger, query } from '@angular/animations';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { Subject, merge, Subscription } from 'rxjs';
+import { Subject, merge, Subscription, EMPTY } from 'rxjs';
 import { filter, startWith, take } from 'rxjs/operators';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
@@ -53,6 +53,7 @@ MatAccordion.decorators = [
     { type: Directive, args: [{
                 selector: 'mat-accordion',
                 exportAs: 'matAccordion',
+                inputs: ['multi'],
                 host: {
                     class: 'mat-accordion'
                 }
@@ -137,6 +138,8 @@ MatExpansionPanelContent.ctorParameters = () => [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+const /** @type {?} */ _CdkAccordionItem = CdkAccordionItem;
 /**
  * Counter for generating unique element ids.
  */
@@ -148,7 +151,7 @@ const ɵ0 = undefined;
  * This component can be used as a single element to show expandable content, or as one of
  * multiple children of an element with the MatAccordion directive attached.
  */
-class MatExpansionPanel extends CdkAccordionItem {
+class MatExpansionPanel extends _CdkAccordionItem {
     /**
      * @param {?} accordion
      * @param {?} _changeDetectorRef
@@ -181,7 +184,9 @@ class MatExpansionPanel extends CdkAccordionItem {
      * Whether the toggle indicator should be hidden.
      * @return {?}
      */
-    get hideToggle() { return this._hideToggle; }
+    get hideToggle() {
+        return this._hideToggle || (this.accordion && this.accordion.hideToggle);
+    }
     /**
      * @param {?} value
      * @return {?}
@@ -190,21 +195,14 @@ class MatExpansionPanel extends CdkAccordionItem {
         this._hideToggle = coerceBooleanProperty(value);
     }
     /**
-     * Whether the expansion indicator should be hidden.
-     * @return {?}
-     */
-    _getHideToggle() {
-        if (this.accordion) {
-            return this.accordion.hideToggle;
-        }
-        return this.hideToggle;
-    }
-    /**
      * Determines whether the expansion panel should have spacing between it and its siblings.
      * @return {?}
      */
     _hasSpacing() {
         if (this.accordion) {
+            // We don't need to subscribe to the `stateChanges` of the parent accordion because each time
+            // the [displayMode] input changes, the change detection will also cover the host bindings
+            // of this expansion panel.
             return (this.expanded ? this.accordion.displayMode : this._getExpandedState()) === 'default';
         }
         return false;
@@ -335,9 +333,11 @@ class MatExpansionPanelHeader {
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._parentChangeSubscription = Subscription.EMPTY;
+        const /** @type {?} */ accordionHideToggleChange = panel.accordion ?
+            panel.accordion._stateChanges.pipe(filter(changes => !!changes["hideToggle"])) : EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
-        // need to  subscribe and trigger change detection manually.
-        this._parentChangeSubscription = merge(panel.opened, panel.closed, panel._inputChanges.pipe(filter(changes => !!(changes["hideToggle"] || changes["disabled"]))))
+        // need to subscribe and trigger change detection manually.
+        this._parentChangeSubscription = merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(filter(changes => !!(changes["hideToggle"] || changes["disabled"]))))
             .subscribe(() => this._changeDetectorRef.markForCheck());
         _focusMonitor.monitor(_element.nativeElement);
     }
@@ -514,5 +514,5 @@ MatExpansionModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatExpansionModule, MatAccordion, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
+export { MatExpansionModule, MatAccordion, _CdkAccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
 //# sourceMappingURL=expansion.js.map
