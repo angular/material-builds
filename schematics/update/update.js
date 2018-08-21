@@ -31,11 +31,8 @@ function default_1() {
                 rules: {
                     // Automatic fixes.
                     'switch-property-names': true,
-                    'switch-string-literal-element-selectors': true,
-                    'switch-stylesheet-element-selectors': true,
                     'switch-stylesheet-input-names': true,
                     'switch-stylesheet-output-names': true,
-                    'switch-template-element-selectors': true,
                     'switch-template-export-as-names': true,
                     'switch-template-input-names': true,
                     'switch-template-output-names': true,
@@ -50,6 +47,10 @@ function default_1() {
                     'css-names-string-literal': true,
                     'css-names-stylesheet': true,
                     'css-names-template': true,
+                    // Element selector update rules
+                    'element-selectors-string-literal': true,
+                    'element-selectors-stylesheet': true,
+                    'element-selectors-template': true,
                     // Additional issues we can detect but not automatically fix.
                     'check-class-declaration-misc': true,
                     'check-import-misc': true,
