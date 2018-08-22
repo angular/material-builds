@@ -63,7 +63,7 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     startAt: D | null;
     private _startAt;
     /** The view that the calendar should start in. */
-    startView: 'month' | 'year' | 'multi-year';
+    startView: 'month' | 'year';
     /** Color palette to use on the datepicker's calendar. */
     color: ThemePalette;
     _color: ThemePalette;
