@@ -3480,7 +3480,9 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this.appearance !== 'outline') {
+        var /** @type {?} */ labelEl = this._label ? this._label.nativeElement : null;
+        if (this.appearance !== 'outline' || !labelEl || !labelEl.children.length ||
+            !labelEl.textContent.trim()) {
             return;
         }
         var /** @type {?} */ startWidth = 0;
@@ -3496,14 +3498,14 @@ var MatFormField = /** @class */ (function (_super) {
                 return;
             }
             var /** @type {?} */ containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
-            var /** @type {?} */ labelStart = this._getStartEnd(this._label.nativeElement.children[0].getBoundingClientRect());
+            var /** @type {?} */ labelStart = this._getStartEnd(labelEl.children[0].getBoundingClientRect());
             var /** @type {?} */ labelWidth = 0;
-            for (var _i = 0, _a = this._label.nativeElement.children; _i < _a.length; _i++) {
+            for (var _i = 0, _a = labelEl.children; _i < _a.length; _i++) {
                 var child = _a[_i];
                 labelWidth += child.offsetWidth;
             }
             startWidth = labelStart - containerStart - outlineGapPadding;
-            gapWidth = labelWidth * floatingLabelScale + outlineGapPadding * 2;
+            gapWidth = labelWidth > 0 ? labelWidth * floatingLabelScale + outlineGapPadding * 2 : 0;
         }
         for (var /** @type {?} */ i = 0; i < startEls.length; i++) {
             startEls.item(i).style.width = startWidth + "px";
@@ -24447,8 +24449,12 @@ var MatRadioModule = /** @class */ (function () {
 var /** @type {?} */ matDrawerAnimations = {
     /** Animation that slides a drawer in and out. */
     transformDrawer: animations$1.trigger('transform', [
+        // We remove the `transform` here completely, rather than setting it to zero, because:
+        // 1. Having a transform can cause elements with ripples or an animated
+        //    transform to shift around in Chrome with an RTL layout (see #10023).
+        // 2. 3d transforms causes text to appear blurry on IE and Edge.
         animations$1.state('open, open-instant', animations$1.style({
-            'transform': 'translate3d(0, 0, 0)',
+            'transform': 'none',
             'visibility': 'visible',
         })),
         animations$1.state('void', animations$1.style({
@@ -32983,7 +32989,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-5727eac');
+var /** @type {?} */ VERSION = new core.Version('6.4.6-4050002');
 
 exports.VERSION = VERSION;
 exports.ɵa28 = MatAutocompleteOrigin;
