@@ -16,6 +16,7 @@ const get_project_1 = require("../utils/get-project");
 const package_json_1 = require("../utils/package-json");
 const project_style_file_1 = require("../utils/project-style-file");
 const material_fonts_1 = require("./fonts/material-fonts");
+const hammerjs_import_1 = require("./gestures/hammerjs-import");
 const theming_1 = require("./theming/theming");
 const version_names_1 = require("./version-names");
 /**
@@ -30,7 +31,8 @@ function default_1(options) {
             '"parse5" manually in order to continue.');
     }
     return schematics_1.chain([
-        options && options.skipPackageJson ? schematics_1.noop() : addMaterialToPackageJson(),
+        options && options.skipPackageJson ? schematics_1.noop() : addMaterialToPackageJson(options),
+        options && options.gestures ? hammerjs_import_1.addHammerJsToMain(options) : schematics_1.noop(),
         theming_1.addThemeToAppStyles(options),
         addAnimationRootConfig(options),
         material_fonts_1.addFontsToIndex(options),
@@ -39,7 +41,7 @@ function default_1(options) {
 }
 exports.default = default_1;
 /** Add material, cdk, animations to package.json if not already present. */
-function addMaterialToPackageJson() {
+function addMaterialToPackageJson(options) {
     return (host, context) => {
         // Version tag of the `@angular/core` dependency that has been loaded from the `package.json`
         // of the CLI project. This tag should be preferred because all Angular dependencies should
@@ -48,6 +50,9 @@ function addMaterialToPackageJson() {
         package_json_1.addPackageToPackageJson(host, 'dependencies', '@angular/cdk', `^${version_names_1.materialVersion}`);
         package_json_1.addPackageToPackageJson(host, 'dependencies', '@angular/material', `^${version_names_1.materialVersion}`);
         package_json_1.addPackageToPackageJson(host, 'dependencies', '@angular/animations', ngCoreVersionTag || version_names_1.requiredAngularVersionRange);
+        if (options.gestures) {
+            package_json_1.addPackageToPackageJson(host, 'dependencies', 'hammerjs', version_names_1.hammerjsVersion);
+        }
         context.addTask(new tasks_1.NodePackageInstallTask());
         return host;
     };

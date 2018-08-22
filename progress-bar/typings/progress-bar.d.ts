@@ -5,8 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef } from '@angular/core';
-import { Location } from '@angular/common';
+import { ElementRef, InjectionToken } from '@angular/core';
 import { CanColor } from '@angular/material/core';
 /** @docs-private */
 export declare class MatProgressBarBase {
@@ -14,6 +13,21 @@ export declare class MatProgressBarBase {
     constructor(_elementRef: ElementRef);
 }
 export declare const _MatProgressBarMixinBase: (new (...args: any[]) => CanColor) & typeof MatProgressBarBase;
+/**
+ * Injection token used to provide the current location to `MatProgressBar`.
+ * Used to handle server-side rendering and to stub out during unit tests.
+ * @docs-private
+ */
+export declare const MAT_PROGRESS_BAR_LOCATION: InjectionToken<MatProgressBarLocation>;
+/**
+ * Stubbed out location for `MatProgressBar`.
+ * @docs-private
+ */
+export interface MatProgressBarLocation {
+    pathname: string;
+}
+/** @docs-private */
+export declare function MAT_PROGRESS_BAR_LOCATION_FACTORY(): MatProgressBarLocation;
 /**
  * `<mat-progress-bar>` component.
  */
@@ -25,7 +39,7 @@ export declare class MatProgressBar extends _MatProgressBarMixinBase implements 
          * @deprecated `location` parameter to be made required.
          * @breaking-change 8.0.0
          */
-        location?: Location);
+        location?: MatProgressBarLocation);
     /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
     value: number;
     private _value;

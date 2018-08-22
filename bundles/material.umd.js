@@ -3480,7 +3480,9 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this.appearance !== 'outline') {
+        var /** @type {?} */ labelEl = this._label ? this._label.nativeElement : null;
+        if (this.appearance !== 'outline' || !labelEl || !labelEl.children.length ||
+            !labelEl.textContent.trim()) {
             return;
         }
         var /** @type {?} */ startWidth = 0;
@@ -3496,14 +3498,14 @@ var MatFormField = /** @class */ (function (_super) {
                 return;
             }
             var /** @type {?} */ containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
-            var /** @type {?} */ labelStart = this._getStartEnd(this._label.nativeElement.children[0].getBoundingClientRect());
+            var /** @type {?} */ labelStart = this._getStartEnd(labelEl.children[0].getBoundingClientRect());
             var /** @type {?} */ labelWidth = 0;
-            for (var _i = 0, _a = this._label.nativeElement.children; _i < _a.length; _i++) {
+            for (var _i = 0, _a = labelEl.children; _i < _a.length; _i++) {
                 var child = _a[_i];
                 labelWidth += child.offsetWidth;
             }
             startWidth = labelStart - containerStart - outlineGapPadding;
-            gapWidth = labelWidth * floatingLabelScale + outlineGapPadding * 2;
+            gapWidth = labelWidth > 0 ? labelWidth * floatingLabelScale + outlineGapPadding * 2 : 0;
         }
         for (var /** @type {?} */ i = 0; i < startEls.length; i++) {
             startEls.item(i).style.width = startWidth + "px";
@@ -23065,6 +23067,19 @@ MatProgressBarBase = /** @class */ (function () {
 }());
 var /** @type {?} */ _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
 /**
+ * Injection token used to provide the current location to `MatProgressBar`.
+ * Used to handle server-side rendering and to stub out during unit tests.
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_PROGRESS_BAR_LOCATION = new core.InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
+    return typeof window !== 'undefined' ? window.location : { pathname: '' };
+}
+/**
  * Counter used to generate unique IDs for progress bars.
  */
 var /** @type {?} */ progressbarId = 0;
@@ -23097,11 +23112,12 @@ var MatProgressBar = /** @class */ (function (_super) {
         _this.progressbarId = "mat-progress-bar-" + progressbarId++;
         // We need to prefix the SVG reference with the current path, otherwise they won't work
         // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
-        // because named route URLs can contain parentheses (see #12338).
-        // We need to prefix the SVG reference with the current path, otherwise they won't work
-        // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
-        // because named route URLs can contain parentheses (see #12338).
-        _this._rectangleFillValue = "url('" + (location ? location.path() : '') + "#" + _this.progressbarId + "')";
+        // because named route URLs can contain parentheses (see #12338). Also we don't use
+        // `Location` from `@angular/common` since we can't tell the difference between whether
+        // the consumer is using the hash location strategy or not, because `Location` normalizes
+        // both `/#/foo/bar` and `/foo/bar` to the same thing.
+        var /** @type {?} */ path = location ? location.pathname.split('#')[0] : '';
+        _this._rectangleFillValue = "url('" + path + "#" + _this.progressbarId + "')";
         return _this;
     }
     Object.defineProperty(MatProgressBar.prototype, "value", {
@@ -23188,7 +23204,7 @@ var MatProgressBar = /** @class */ (function (_super) {
     MatProgressBar.ctorParameters = function () { return [
         { type: core.ElementRef, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
-        { type: common.Location, decorators: [{ type: core.Optional },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_PROGRESS_BAR_LOCATION,] },] },
     ]; };
     MatProgressBar.propDecorators = {
         "value": [{ type: core.Input },],
@@ -24433,8 +24449,12 @@ var MatRadioModule = /** @class */ (function () {
 var /** @type {?} */ matDrawerAnimations = {
     /** Animation that slides a drawer in and out. */
     transformDrawer: animations$1.trigger('transform', [
+        // We remove the `transform` here completely, rather than setting it to zero, because:
+        // 1. Having a transform can cause elements with ripples or an animated
+        //    transform to shift around in Chrome with an RTL layout (see #10023).
+        // 2. 3d transforms causes text to appear blurry on IE and Edge.
         animations$1.state('open, open-instant', animations$1.style({
-            'transform': 'translate3d(0, 0, 0)',
+            'transform': 'none',
             'visibility': 'visible',
         })),
         animations$1.state('void', animations$1.style({
@@ -32969,10 +32989,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-ab72e61');
+var /** @type {?} */ VERSION = new core.Version('6.4.6-b919a48');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -33223,12 +33243,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33250,6 +33270,8 @@ exports.MAT_PAGINATOR_INTL_PROVIDER = MAT_PAGINATOR_INTL_PROVIDER;
 exports.MatProgressBarModule = MatProgressBarModule;
 exports.MatProgressBarBase = MatProgressBarBase;
 exports._MatProgressBarMixinBase = _MatProgressBarMixinBase;
+exports.MAT_PROGRESS_BAR_LOCATION = MAT_PROGRESS_BAR_LOCATION;
+exports.MAT_PROGRESS_BAR_LOCATION_FACTORY = MAT_PROGRESS_BAR_LOCATION_FACTORY;
 exports.MatProgressBar = MatProgressBar;
 exports.MatProgressSpinnerModule = MatProgressSpinnerModule;
 exports.MatProgressSpinnerBase = MatProgressSpinnerBase;
@@ -33369,17 +33391,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

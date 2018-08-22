@@ -717,7 +717,9 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        if (this.appearance !== 'outline') {
+        var /** @type {?} */ labelEl = this._label ? this._label.nativeElement : null;
+        if (this.appearance !== 'outline' || !labelEl || !labelEl.children.length ||
+            !labelEl.textContent.trim()) {
             return;
         }
         var /** @type {?} */ startWidth = 0;
@@ -733,14 +735,14 @@ var MatFormField = /** @class */ (function (_super) {
                 return;
             }
             var /** @type {?} */ containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
-            var /** @type {?} */ labelStart = this._getStartEnd(this._label.nativeElement.children[0].getBoundingClientRect());
+            var /** @type {?} */ labelStart = this._getStartEnd(labelEl.children[0].getBoundingClientRect());
             var /** @type {?} */ labelWidth = 0;
-            for (var _i = 0, _a = this._label.nativeElement.children; _i < _a.length; _i++) {
+            for (var _i = 0, _a = labelEl.children; _i < _a.length; _i++) {
                 var child = _a[_i];
                 labelWidth += child.offsetWidth;
             }
             startWidth = labelStart - containerStart - outlineGapPadding;
-            gapWidth = labelWidth * floatingLabelScale + outlineGapPadding * 2;
+            gapWidth = labelWidth > 0 ? labelWidth * floatingLabelScale + outlineGapPadding * 2 : 0;
         }
         for (var /** @type {?} */ i = 0; i < startEls.length; i++) {
             startEls.item(i).style.width = startWidth + "px";
