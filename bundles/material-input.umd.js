@@ -393,7 +393,7 @@ var MatInput = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(function (event) {
+        this._autofillMonitor.monitor(this._elementRef).subscribe(function (event) {
             _this.autofilled = event.isAutofilled;
             _this.stateChanges.next();
         });
@@ -415,7 +415,7 @@ var MatInput = /** @class */ (function (_super) {
      */
     function () {
         this.stateChanges.complete();
-        this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._autofillMonitor.stopMonitoring(this._elementRef);
     };
     /**
      * @return {?}

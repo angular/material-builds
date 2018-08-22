@@ -327,7 +327,7 @@ class MatInput extends _MatInputMixinBase {
      * @return {?}
      */
     ngOnInit() {
-        this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(event => {
+        this._autofillMonitor.monitor(this._elementRef).subscribe(event => {
             this.autofilled = event.isAutofilled;
             this.stateChanges.next();
         });
@@ -343,7 +343,7 @@ class MatInput extends _MatInputMixinBase {
      */
     ngOnDestroy() {
         this.stateChanges.complete();
-        this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
+        this._autofillMonitor.stopMonitoring(this._elementRef);
     }
     /**
      * @return {?}
