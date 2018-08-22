@@ -15083,30 +15083,6 @@ var MatExpansionModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Converts values into strings. Falsy values become empty strings.
- * \@docs-private
- * @param {?} value
- * @return {?}
- */
-function coerceToString(value) {
-    return "" + (value || '');
-}
-/**
- * Converts a value that might be a string into a number.
- * \@docs-private
- * @param {?} value
- * @return {?}
- */
-function coerceToNumber(value) {
-    return typeof value === 'string' ? parseInt(value, 10) : value;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 var MatGridTile = /** @class */ (function () {
     function MatGridTile(_element) {
         this._element = _element;
@@ -15123,7 +15099,7 @@ var MatGridTile = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._rowspan = coerceToNumber(value); },
+        function (value) { this._rowspan = Math.round(coercion.coerceNumberProperty(value)); },
         enumerable: true,
         configurable: true
     });
@@ -15137,7 +15113,7 @@ var MatGridTile = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._colspan = coerceToNumber(value); },
+        function (value) { this._colspan = Math.round(coercion.coerceNumberProperty(value)); },
         enumerable: true,
         configurable: true
     });
@@ -15968,7 +15944,7 @@ var MatGridList = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._cols = coerceToNumber(value); },
+        function (value) { this._cols = Math.round(coercion.coerceNumberProperty(value)); },
         enumerable: true,
         configurable: true
     });
@@ -15982,7 +15958,7 @@ var MatGridList = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._gutter = coerceToString(value); },
+        function (value) { this._gutter = "" + (value || ''); },
         enumerable: true,
         configurable: true
     });
@@ -15993,7 +15969,7 @@ var MatGridList = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newValue = coerceToString(value);
+            var /** @type {?} */ newValue = "" + (value || '');
             if (newValue !== this._rowHeight) {
                 this._rowHeight = newValue;
                 this._setTileStyler(this._rowHeight);
@@ -23089,6 +23065,19 @@ MatProgressBarBase = /** @class */ (function () {
 }());
 var /** @type {?} */ _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
 /**
+ * Injection token used to provide the current location to `MatProgressBar`.
+ * Used to handle server-side rendering and to stub out during unit tests.
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_PROGRESS_BAR_LOCATION = new core.InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
+    return typeof window !== 'undefined' ? window.location : { pathname: '' };
+}
+/**
  * Counter used to generate unique IDs for progress bars.
  */
 var /** @type {?} */ progressbarId = 0;
@@ -23121,11 +23110,12 @@ var MatProgressBar = /** @class */ (function (_super) {
         _this.progressbarId = "mat-progress-bar-" + progressbarId++;
         // We need to prefix the SVG reference with the current path, otherwise they won't work
         // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
-        // because named route URLs can contain parentheses (see #12338).
-        // We need to prefix the SVG reference with the current path, otherwise they won't work
-        // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
-        // because named route URLs can contain parentheses (see #12338).
-        _this._rectangleFillValue = "url('" + (location ? location.path() : '') + "#" + _this.progressbarId + "')";
+        // because named route URLs can contain parentheses (see #12338). Also we don't use
+        // `Location` from `@angular/common` since we can't tell the difference between whether
+        // the consumer is using the hash location strategy or not, because `Location` normalizes
+        // both `/#/foo/bar` and `/foo/bar` to the same thing.
+        var /** @type {?} */ path = location ? location.pathname.split('#')[0] : '';
+        _this._rectangleFillValue = "url('" + path + "#" + _this.progressbarId + "')";
         return _this;
     }
     Object.defineProperty(MatProgressBar.prototype, "value", {
@@ -23212,7 +23202,7 @@ var MatProgressBar = /** @class */ (function (_super) {
     MatProgressBar.ctorParameters = function () { return [
         { type: core.ElementRef, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
-        { type: common.Location, decorators: [{ type: core.Optional },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_PROGRESS_BAR_LOCATION,] },] },
     ]; };
     MatProgressBar.propDecorators = {
         "value": [{ type: core.Input },],
@@ -32993,7 +32983,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-ea9a88d');
+var /** @type {?} */ VERSION = new core.Version('6.4.6-5727eac');
 
 exports.VERSION = VERSION;
 exports.ɵa28 = MatAutocompleteOrigin;
@@ -33247,12 +33237,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33274,6 +33264,8 @@ exports.MAT_PAGINATOR_INTL_PROVIDER = MAT_PAGINATOR_INTL_PROVIDER;
 exports.MatProgressBarModule = MatProgressBarModule;
 exports.MatProgressBarBase = MatProgressBarBase;
 exports._MatProgressBarMixinBase = _MatProgressBarMixinBase;
+exports.MAT_PROGRESS_BAR_LOCATION = MAT_PROGRESS_BAR_LOCATION;
+exports.MAT_PROGRESS_BAR_LOCATION_FACTORY = MAT_PROGRESS_BAR_LOCATION_FACTORY;
 exports.MatProgressBar = MatProgressBar;
 exports.MatProgressSpinnerModule = MatProgressSpinnerModule;
 exports.MatProgressSpinnerBase = MatProgressSpinnerBase;
@@ -33393,17 +33385,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/common'), require('@angular/platform-browser/animations'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/progressBar', ['exports', '@angular/core', '@angular/common', '@angular/platform-browser/animations', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressBar = {}),global.ng.core,global.ng.common,global.ng.platformBrowser.animations,global.ng.material.core));
-}(this, (function (exports,core,common,animations,core$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser/animations'), require('@angular/material/core'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/progressBar', ['exports', '@angular/core', '@angular/platform-browser/animations', '@angular/material/core', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressBar = {}),global.ng.core,global.ng.platformBrowser.animations,global.ng.material.core,global.ng.common));
+}(this, (function (exports,core,animations,core$1,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -58,6 +58,19 @@ MatProgressBarBase = /** @class */ (function () {
 }());
 var /** @type {?} */ _MatProgressBarMixinBase = core$1.mixinColor(MatProgressBarBase, 'primary');
 /**
+ * Injection token used to provide the current location to `MatProgressBar`.
+ * Used to handle server-side rendering and to stub out during unit tests.
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_PROGRESS_BAR_LOCATION = new core.InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
+    return typeof window !== 'undefined' ? window.location : { pathname: '' };
+}
+/**
  * Counter used to generate unique IDs for progress bars.
  */
 var /** @type {?} */ progressbarId = 0;
@@ -90,11 +103,12 @@ var MatProgressBar = /** @class */ (function (_super) {
         _this.progressbarId = "mat-progress-bar-" + progressbarId++;
         // We need to prefix the SVG reference with the current path, otherwise they won't work
         // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
-        // because named route URLs can contain parentheses (see #12338).
-        // We need to prefix the SVG reference with the current path, otherwise they won't work
-        // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
-        // because named route URLs can contain parentheses (see #12338).
-        _this._rectangleFillValue = "url('" + (location ? location.path() : '') + "#" + _this.progressbarId + "')";
+        // because named route URLs can contain parentheses (see #12338). Also we don't use
+        // `Location` from `@angular/common` since we can't tell the difference between whether
+        // the consumer is using the hash location strategy or not, because `Location` normalizes
+        // both `/#/foo/bar` and `/foo/bar` to the same thing.
+        var /** @type {?} */ path = location ? location.pathname.split('#')[0] : '';
+        _this._rectangleFillValue = "url('" + path + "#" + _this.progressbarId + "')";
         return _this;
     }
     Object.defineProperty(MatProgressBar.prototype, "value", {
@@ -181,7 +195,7 @@ var MatProgressBar = /** @class */ (function (_super) {
     MatProgressBar.ctorParameters = function () { return [
         { type: core.ElementRef, },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
-        { type: common.Location, decorators: [{ type: core.Optional },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_PROGRESS_BAR_LOCATION,] },] },
     ]; };
     MatProgressBar.propDecorators = {
         "value": [{ type: core.Input },],
@@ -223,6 +237,8 @@ var MatProgressBarModule = /** @class */ (function () {
 exports.MatProgressBarModule = MatProgressBarModule;
 exports.MatProgressBarBase = MatProgressBarBase;
 exports._MatProgressBarMixinBase = _MatProgressBarMixinBase;
+exports.MAT_PROGRESS_BAR_LOCATION = MAT_PROGRESS_BAR_LOCATION;
+exports.MAT_PROGRESS_BAR_LOCATION_FACTORY = MAT_PROGRESS_BAR_LOCATION_FACTORY;
 exports.MatProgressBar = MatProgressBar;
 
 Object.defineProperty(exports, '__esModule', { value: true });
