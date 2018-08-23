@@ -7554,10 +7554,9 @@ var MatChipTrailingIcon = /** @class */ (function () {
  */
 var MatChip = /** @class */ (function (_super) {
     __extends(MatChip, _super);
-    function MatChip(_elementRef, _ngZone, platform$$1, globalOptions) {
+    function MatChip(_elementRef, ngZone, platform$$1, globalOptions) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
-        _this._ngZone = _ngZone;
         /**
          * Whether the ripples are globally disabled through the RippleGlobalOptions
          */
@@ -7599,7 +7598,7 @@ var MatChip = /** @class */ (function (_super) {
          */
         _this.removed = new core.EventEmitter();
         _this._addHostClassName();
-        _this._chipRipple = new RippleRenderer(_this, _ngZone, _elementRef, platform$$1);
+        _this._chipRipple = new RippleRenderer(_this, ngZone, _elementRef, platform$$1);
         _this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
         if (globalOptions) {
             _this._ripplesGloballyDisabled = !!globalOptions.disabled;
@@ -7916,15 +7915,7 @@ var MatChip = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var _this = this;
-        // When animations are enabled, Angular may end up removing the chip from the DOM a little
-        // earlier than usual, causing it to be blurred and throwing off the logic in the chip list
-        // that moves focus not the next item. To work around the issue, we defer marking the chip
-        // as not focused until the next time the zone stabilizes.
-        this._ngZone.onStable
-            .asObservable()
-            .pipe(operators.take(1))
-            .subscribe(function () { return _this._hasFocus = false; });
+        this._hasFocus = false;
         this._onBlur.next({ chip: this });
     };
     MatChip.decorators = [
@@ -33026,10 +33017,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-5fb338b');
+var /** @type {?} */ VERSION = new core.Version('6.4.6-22953a9');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
