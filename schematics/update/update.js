@@ -27,15 +27,13 @@ function default_1() {
                     path.join(__dirname, 'rules/attribute-selectors'),
                     path.join(__dirname, 'rules/class-names'),
                     path.join(__dirname, 'rules/css-names'),
+                    path.join(__dirname, 'rules/input-names'),
+                    path.join(__dirname, 'rules/output-names'),
                 ],
                 rules: {
                     // Automatic fixes.
                     'switch-property-names': true,
-                    'switch-stylesheet-input-names': true,
-                    'switch-stylesheet-output-names': true,
                     'switch-template-export-as-names': true,
-                    'switch-template-input-names': true,
-                    'switch-template-output-names': true,
                     // Attribute selector update rules.
                     'attribute-selectors-string-literal': true,
                     'attribute-selectors-stylesheet': true,
@@ -51,6 +49,11 @@ function default_1() {
                     'element-selectors-string-literal': true,
                     'element-selectors-stylesheet': true,
                     'element-selectors-template': true,
+                    // Input name update rules
+                    'input-names-stylesheet': true,
+                    'input-names-template': true,
+                    // Output name update rules
+                    'output-names-template': true,
                     // Additional issues we can detect but not automatically fix.
                     'check-class-declaration-misc': true,
                     'check-import-misc': true,
