@@ -5,17 +5,17 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, Optional, Output, SkipSelf, ViewContainerRef, ViewEncapsulation, ElementRef, Host, NgModule } from '@angular/core';
+import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, EventEmitter, ElementRef, Inject, Optional, Output, SkipSelf, ViewContainerRef, ViewEncapsulation, ViewChild, Host, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
 import { animate, animateChild, group, state, style, transition, trigger, query } from '@angular/animations';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
+import { DOCUMENT, CommonModule } from '@angular/common';
 import { Subject, merge, Subscription, EMPTY } from 'rxjs';
 import { filter, startWith, take } from 'rxjs/operators';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
-import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -151,14 +151,15 @@ const ɵ0 = undefined;
  * This component can be used as a single element to show expandable content, or as one of
  * multiple children of an element with the MatAccordion directive attached.
  */
-class MatExpansionPanel extends _CdkAccordionItem {
+class MatExpansionPanel extends CdkAccordionItem {
     /**
      * @param {?} accordion
      * @param {?} _changeDetectorRef
      * @param {?} _uniqueSelectionDispatcher
      * @param {?} _viewContainerRef
+     * @param {?=} _document
      */
-    constructor(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef) {
+    constructor(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef, _document) {
         super(accordion, _changeDetectorRef, _uniqueSelectionDispatcher);
         this._viewContainerRef = _viewContainerRef;
         this._hideToggle = false;
@@ -179,6 +180,7 @@ class MatExpansionPanel extends _CdkAccordionItem {
          */
         this._headerId = `mat-expansion-panel-header-${uniqueId++}`;
         this.accordion = accordion;
+        this._document = _document;
     }
     /**
      * Whether the toggle indicator should be hidden.
@@ -264,6 +266,18 @@ class MatExpansionPanel extends _CdkAccordionItem {
             this.afterCollapse.emit();
         }
     }
+    /**
+     * Checks whether the expansion panel's content contains the currently-focused element.
+     * @return {?}
+     */
+    _containsFocus() {
+        if (this._body && this._document) {
+            const /** @type {?} */ focusedElement = this._document.activeElement;
+            const /** @type {?} */ bodyElement = this._body.nativeElement;
+            return focusedElement === bodyElement || bodyElement.contains(focusedElement);
+        }
+        return false;
+    }
 }
 MatExpansionPanel.decorators = [
     { type: Component, args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-expansion-panel{outline:solid 1px}}.mat-expansion-panel-content{overflow:hidden}.mat-expansion-panel-content.mat-expanded{overflow:visible}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion>.mat-expansion-panel-spacing:first-child,.mat-accordion>:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-top:0}.mat-accordion>.mat-expansion-panel-spacing:last-child,.mat-accordion>:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
@@ -293,12 +307,14 @@ MatExpansionPanel.ctorParameters = () => [
     { type: ChangeDetectorRef, },
     { type: UniqueSelectionDispatcher, },
     { type: ViewContainerRef, },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
 ];
 MatExpansionPanel.propDecorators = {
     "hideToggle": [{ type: Input },],
     "afterExpand": [{ type: Output },],
     "afterCollapse": [{ type: Output },],
     "_lazyContent": [{ type: ContentChild, args: [MatExpansionPanelContent,] },],
+    "_body": [{ type: ViewChild, args: ['body',] },],
 };
 class MatExpansionPanelActionRow {
 }
@@ -339,6 +355,10 @@ class MatExpansionPanelHeader {
         // need to subscribe and trigger change detection manually.
         this._parentChangeSubscription = merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(filter(changes => !!(changes["hideToggle"] || changes["disabled"]))))
             .subscribe(() => this._changeDetectorRef.markForCheck());
+        // Avoids focus being lost if the panel contained the focused element and was closed.
+        panel.closed
+            .pipe(filter(() => panel._containsFocus()))
+            .subscribe(() => _focusMonitor.focusVia(_element.nativeElement, 'program'));
         _focusMonitor.monitor(_element);
     }
     /**
