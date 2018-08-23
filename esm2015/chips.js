@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { BACKSPACE, DELETE, SPACE, ENTER } from '@angular/cdk/keycodes';
+import { BACKSPACE, DELETE, SPACE, HOME, END, ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, InjectionToken, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, mixinColor, mixinDisabled, mixinDisableRipple, RippleRenderer, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
@@ -916,7 +916,17 @@ class MatChipList extends _MatChipListMixinBase {
             event.preventDefault();
         }
         else if (target && target.classList.contains('mat-chip')) {
-            this._keyManager.onKeydown(event);
+            if (event.keyCode === HOME) {
+                this._keyManager.setFirstItemActive();
+                event.preventDefault();
+            }
+            else if (event.keyCode === END) {
+                this._keyManager.setLastItemActive();
+                event.preventDefault();
+            }
+            else {
+                this._keyManager.onKeydown(event);
+            }
             this.stateChanges.next();
         }
     }

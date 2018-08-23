@@ -1205,7 +1205,17 @@ var MatChipList = /** @class */ (function (_super) {
             event.preventDefault();
         }
         else if (target && target.classList.contains('mat-chip')) {
-            this._keyManager.onKeydown(event);
+            if (event.keyCode === keycodes.HOME) {
+                this._keyManager.setFirstItemActive();
+                event.preventDefault();
+            }
+            else if (event.keyCode === keycodes.END) {
+                this._keyManager.setLastItemActive();
+                event.preventDefault();
+            }
+            else {
+                this._keyManager.onKeydown(event);
+            }
             this.stateChanges.next();
         }
     };
