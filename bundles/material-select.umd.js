@@ -926,8 +926,12 @@ var MatSelect = /** @class */ (function (_super) {
         }
         else if (this._multiple && keyCode === keycodes.A && event.ctrlKey) {
             event.preventDefault();
-            var /** @type {?} */ hasDeselectedOptions_1 = this.options.some(function (option) { return !option.selected; });
-            this.options.forEach(function (option) { return hasDeselectedOptions_1 ? option.select() : option.deselect(); });
+            var /** @type {?} */ hasDeselectedOptions_1 = this.options.some(function (opt) { return !opt.disabled && !opt.selected; });
+            this.options.forEach(function (option) {
+                if (!option.disabled) {
+                    hasDeselectedOptions_1 ? option.select() : option.deselect();
+                }
+            });
         }
         else {
             var /** @type {?} */ previouslyFocusedIndex = manager.activeItemIndex;

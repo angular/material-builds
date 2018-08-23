@@ -752,8 +752,12 @@ class MatSelect extends _MatSelectMixinBase {
         }
         else if (this._multiple && keyCode === A && event.ctrlKey) {
             event.preventDefault();
-            const /** @type {?} */ hasDeselectedOptions = this.options.some(option => !option.selected);
-            this.options.forEach(option => hasDeselectedOptions ? option.select() : option.deselect());
+            const /** @type {?} */ hasDeselectedOptions = this.options.some(opt => !opt.disabled && !opt.selected);
+            this.options.forEach(option => {
+                if (!option.disabled) {
+                    hasDeselectedOptions ? option.select() : option.deselect();
+                }
+            });
         }
         else {
             const /** @type {?} */ previouslyFocusedIndex = manager.activeItemIndex;
