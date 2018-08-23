@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/core'), require('@angular/material/core'), require('rxjs'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field'), require('rxjs/operators')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/chips', ['exports', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/core', '@angular/material/core', 'rxjs', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field', 'rxjs/operators'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = {}),global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.core,global.ng.material.core,global.rxjs,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.collections,global.ng.forms,global.ng.material.formField,global.rxjs.operators));
-}(this, (function (exports,coercion,keycodes,platform,core,core$1,rxjs,a11y,bidi,collections,forms,formField,operators) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/platform'), require('@angular/core'), require('@angular/material/core'), require('rxjs'), require('rxjs/operators'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/collections'), require('@angular/forms'), require('@angular/material/form-field')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/chips', ['exports', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/platform', '@angular/core', '@angular/material/core', 'rxjs', 'rxjs/operators', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/collections', '@angular/forms', '@angular/material/form-field'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.chips = {}),global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.platform,global.ng.core,global.ng.material.core,global.rxjs,global.rxjs.operators,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.collections,global.ng.forms,global.ng.material.formField));
+}(this, (function (exports,coercion,keycodes,platform,core,core$1,rxjs,operators,a11y,bidi,collections,forms,formField) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -108,9 +108,10 @@ var MatChipTrailingIcon = /** @class */ (function () {
  */
 var MatChip = /** @class */ (function (_super) {
     __extends(MatChip, _super);
-    function MatChip(_elementRef, ngZone, platform$$1, globalOptions) {
+    function MatChip(_elementRef, _ngZone, platform$$1, globalOptions) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
+        _this._ngZone = _ngZone;
         /**
          * Whether the ripples are globally disabled through the RippleGlobalOptions
          */
@@ -152,7 +153,7 @@ var MatChip = /** @class */ (function (_super) {
          */
         _this.removed = new core.EventEmitter();
         _this._addHostClassName();
-        _this._chipRipple = new core$1.RippleRenderer(_this, ngZone, _elementRef, platform$$1);
+        _this._chipRipple = new core$1.RippleRenderer(_this, _ngZone, _elementRef, platform$$1);
         _this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
         if (globalOptions) {
             _this._ripplesGloballyDisabled = !!globalOptions.disabled;
@@ -469,7 +470,15 @@ var MatChip = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._hasFocus = false;
+        var _this = this;
+        // When animations are enabled, Angular may end up removing the chip from the DOM a little
+        // earlier than usual, causing it to be blurred and throwing off the logic in the chip list
+        // that moves focus not the next item. To work around the issue, we defer marking the chip
+        // as not focused until the next time the zone stabilizes.
+        this._ngZone.onStable
+            .asObservable()
+            .pipe(operators.take(1))
+            .subscribe(function () { return _this._hasFocus = false; });
         this._onBlur.next({ chip: this });
     };
     MatChip.decorators = [

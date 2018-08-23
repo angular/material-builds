@@ -2381,6 +2381,13 @@ var MatDatepicker = /** @class */ (function () {
      */
     function () {
         var _this = this;
+        // Usually this would be handled by `open` which ensures that we can only have one overlay
+        // open at a time, however since we reset the variables in async handlers some overlays
+        // may slip through if the user opens and closes multiple times in quick succession (e.g.
+        // by holding down the enter key).
+        if (this._dialogRef) {
+            this._dialogRef.close();
+        }
         this._dialogRef = this._dialog.open(MatDatepickerContent, {
             direction: this._dir ? this._dir.value : 'ltr',
             viewContainerRef: this._viewContainerRef,

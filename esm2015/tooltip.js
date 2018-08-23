@@ -149,15 +149,15 @@ class MatTooltip {
          */
         this._destroyed = new Subject();
         const /** @type {?} */ element = _elementRef.nativeElement;
-        // The mouse events shouldn't be bound on iOS devices, because
-        // they can prevent the first tap from firing its click event.
-        if (!_platform.IOS) {
-            this._manualListeners.set('mouseenter', () => this.show());
-            this._manualListeners.set('mouseleave', () => this.hide());
+        // The mouse events shouldn't be bound on mobile devices, because they can prevent the
+        // first tap from firing its click event or can cause the tooltip to open for clicks.
+        if (!_platform.IOS && !_platform.ANDROID) {
             this._manualListeners
-                .forEach((listener, event) => _elementRef.nativeElement.addEventListener(event, listener));
+                .set('mouseenter', () => this.show())
+                .set('mouseleave', () => this.hide())
+                .forEach((listener, event) => element.addEventListener(event, listener));
         }
-        else if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
+        else if (_platform.IOS && (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA')) {
             // When we bind a gesture event on an element (in this case `longpress`), HammerJS
             // will add some inline styles by default, including `user-select: none`. This is
             // problematic on iOS, because it will prevent users from typing in inputs. If

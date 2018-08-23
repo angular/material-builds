@@ -12,12 +12,12 @@ import { Platform } from '@angular/cdk/platform';
 import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, InjectionToken, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, mixinColor, mixinDisabled, mixinDisableRipple, RippleRenderer, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
 import { Subject, merge, Subscription } from 'rxjs';
+import { take, startWith } from 'rxjs/operators';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { startWith } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
@@ -87,9 +87,10 @@ var MatChipTrailingIcon = /** @class */ (function () {
  */
 var MatChip = /** @class */ (function (_super) {
     __extends(MatChip, _super);
-    function MatChip(_elementRef, ngZone, platform, globalOptions) {
+    function MatChip(_elementRef, _ngZone, platform, globalOptions) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
+        _this._ngZone = _ngZone;
         /**
          * Whether the ripples are globally disabled through the RippleGlobalOptions
          */
@@ -131,7 +132,7 @@ var MatChip = /** @class */ (function (_super) {
          */
         _this.removed = new EventEmitter();
         _this._addHostClassName();
-        _this._chipRipple = new RippleRenderer(_this, ngZone, _elementRef, platform);
+        _this._chipRipple = new RippleRenderer(_this, _ngZone, _elementRef, platform);
         _this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
         if (globalOptions) {
             _this._ripplesGloballyDisabled = !!globalOptions.disabled;
@@ -448,7 +449,15 @@ var MatChip = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._hasFocus = false;
+        var _this = this;
+        // When animations are enabled, Angular may end up removing the chip from the DOM a little
+        // earlier than usual, causing it to be blurred and throwing off the logic in the chip list
+        // that moves focus not the next item. To work around the issue, we defer marking the chip
+        // as not focused until the next time the zone stabilizes.
+        this._ngZone.onStable
+            .asObservable()
+            .pipe(take(1))
+            .subscribe(function () { return _this._hasFocus = false; });
         this._onBlur.next({ chip: this });
     };
     MatChip.decorators = [
