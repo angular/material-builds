@@ -23160,7 +23160,7 @@ var MatProgressBar = /** @class */ (function (_super) {
         // `Location` from `@angular/common` since we can't tell the difference between whether
         // the consumer is using the hash location strategy or not, because `Location` normalizes
         // both `/#/foo/bar` and `/foo/bar` to the same thing.
-        var /** @type {?} */ path = location ? location.pathname.split('#')[0] : '';
+        var /** @type {?} */ path = location && location.pathname ? location.pathname.split('#')[0] : '';
         _this._rectangleFillValue = "url('" + path + "#" + _this.progressbarId + "')";
         return _this;
     }
@@ -33033,10 +33033,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-89d16b2');
+var /** @type {?} */ VERSION = new core.Version('6.4.6-f3af763');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa27 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
