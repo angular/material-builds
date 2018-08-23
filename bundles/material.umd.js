@@ -22554,7 +22554,7 @@ var TooltipComponent = /** @class */ (function () {
     };
     TooltipComponent.decorators = [
         { type: core.Component, args: [{selector: 'mat-tooltip-component',
-                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)!.matches\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
+                    template: "<div class=\"mat-tooltip\" [ngClass]=\"tooltipClass\" [class.mat-tooltip-handset]=\"(_isHandset | async)?.matches\" [@state]=\"_visibility\" (@state.start)=\"_animationStart()\" (@state.done)=\"_animationDone($event)\">{{message}}</div>",
                     styles: [".mat-tooltip-panel{pointer-events:none!important}.mat-tooltip{color:#fff;border-radius:4px;margin:14px;max-width:250px;padding-left:8px;padding-right:8px;overflow:hidden;text-overflow:ellipsis}@media screen and (-ms-high-contrast:active){.mat-tooltip{outline:solid 1px}}.mat-tooltip-handset{margin:24px;padding-left:16px;padding-right:16px}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
@@ -27518,29 +27518,6 @@ MatSnackBarConfig = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Animations used by the Material snack bar.
- */
-var /** @type {?} */ matSnackBarAnimations = {
-    /** Animation that slides the dialog in and out of view and fades the opacity. */
-    contentFade: animations$1.trigger('contentFade', [
-        animations$1.transition(':enter', [
-            animations$1.style({ opacity: '0' }),
-            animations$1.animate(AnimationDurations.COMPLEX + " " + AnimationCurves.STANDARD_CURVE)
-        ])
-    ]),
-    /** Animation that shows and hides a snack bar. */
-    snackBarState: animations$1.trigger('state', [
-        animations$1.state('visible-top, visible-bottom', animations$1.style({ transform: 'translateY(0%)' })),
-        animations$1.transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animations$1.animate(AnimationDurations.EXITING + " " + AnimationCurves.ACCELERATION_CURVE)),
-        animations$1.transition('void => visible-top, void => visible-bottom', animations$1.animate(AnimationDurations.ENTERING + " " + AnimationCurves.DECELERATION_CURVE)),
-    ])
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
  */
@@ -27576,12 +27553,10 @@ var SimpleSnackBar = /** @class */ (function () {
     SimpleSnackBar.decorators = [
         { type: core.Component, args: [{selector: 'simple-snack-bar',
                     template: "<span>{{data.message}}</span><div class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\"><button mat-button (click)=\"action()\">{{data.action}}</button></div>",
-                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px;opacity:1}.mat-simple-snackbar-action{display:flex;flex-direction:column;flex-shrink:0;justify-content:space-around;margin:-8px 0 -8px 8px}.mat-simple-snackbar-action button{flex:1;max-height:36px}[dir=rtl] .mat-simple-snackbar-action{margin-left:0;margin-right:8px}"],
+                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;align-items:center;height:100%;line-height:20px;opacity:1}.mat-simple-snackbar-action{display:flex;flex-direction:column;flex-shrink:0;justify-content:space-around;margin:-8px -8px -8px 8px}.mat-simple-snackbar-action button{flex:1;max-height:36px;min-width:0}[dir=rtl] .mat-simple-snackbar-action{margin-left:-8px;margin-right:8px}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
-                    animations: [matSnackBarAnimations.contentFade],
                     host: {
-                        '[@contentFade]': '',
                         'class': 'mat-simple-snackbar',
                     }
                 },] },
@@ -27593,6 +27568,31 @@ var SimpleSnackBar = /** @class */ (function () {
     ]; };
     return SimpleSnackBar;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Animations used by the Material snack bar.
+ */
+var /** @type {?} */ matSnackBarAnimations = {
+    /** Animation that shows and hides a snack bar. */
+    snackBarState: animations$1.trigger('state', [
+        animations$1.state('void, hidden', animations$1.style({
+            transform: 'scale(0.8)',
+            opacity: 0,
+        })),
+        animations$1.state('visible', animations$1.style({
+            transform: 'scale(1)',
+            opacity: 1,
+        })),
+        animations$1.transition('* => visible', animations$1.animate('150ms cubic-bezier(0, 0, 0.2, 1)')),
+        animations$1.transition('* => void, * => hidden', animations$1.animate('75ms cubic-bezier(0.4, 0.0, 1, 1)', animations$1.style({
+            opacity: 0
+        }))),
+    ])
+};
 
 /**
  * @fileoverview added by tsickle
@@ -27677,10 +27677,10 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      */
     function (event) {
         var fromState = event.fromState, toState = event.toState;
-        if ((toState === 'void' && fromState !== 'void') || toState.startsWith('hidden')) {
+        if ((toState === 'void' && fromState !== 'void') || toState === 'hidden') {
             this._completeExit();
         }
-        if (toState.startsWith('visible')) {
+        if (toState === 'visible') {
             // Note: we shouldn't use `this` inside the zone callback,
             // because it can cause a memory leak.
             var /** @type {?} */ onEnter_1 = this._onEnter;
@@ -27701,7 +27701,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      */
     function () {
         if (!this._destroyed) {
-            this._animationState = "visible-" + this.snackBarConfig.verticalPosition;
+            this._animationState = 'visible';
             this._changeDetectorRef.detectChanges();
         }
     };
@@ -27715,7 +27715,10 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._animationState = "hidden-" + this.snackBarConfig.verticalPosition;
+        // Note: this one transitions to `hidden`, rather than `void`, in order to handle the case
+        // where multiple snack bars are opened in quick succession (e.g. two consecutive calls to
+        // `MatSnackBar.open`).
+        this._animationState = 'hidden';
         return this._onExit;
     };
     /** Makes sure the exit callbacks have been invoked when the element is destroyed. */
@@ -27791,7 +27794,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
     MatSnackBarContainer.decorators = [
         { type: core.Component, args: [{selector: 'snack-bar-container',
                     template: "<ng-template cdkPortalOutlet></ng-template>",
-                    styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:border-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:0;max-width:inherit;width:100%}"],
+                    styles: [".mat-snack-bar-container{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);border-radius:4px;box-sizing:border-box;display:block;margin:24px;max-width:33vw;min-width:344px;padding:14px 16px;min-height:48px;transform-origin:center}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:8px;max-width:100%;width:100%}"],
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
                     animations: [matSnackBarAnimations.snackBarState],
@@ -33033,10 +33036,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-f3af763');
+var /** @type {?} */ VERSION = new core.Version('6.4.6-2830a64');
 
 exports.VERSION = VERSION;
-exports.ɵa27 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -33287,12 +33290,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33435,17 +33438,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

@@ -8,12 +8,12 @@
 import { Subject } from 'rxjs';
 import { InjectionToken, Component, ViewEncapsulation, Inject, ChangeDetectionStrategy, ChangeDetectorRef, ElementRef, NgZone, ViewChild, NgModule, Injectable, Injector, Optional, SkipSelf, TemplateRef, defineInjectable, inject, INJECTOR } from '@angular/core';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { AnimationCurves, AnimationDurations, MatCommonModule } from '@angular/material/core';
 import { __extends, __assign } from 'tslib';
 import { BasePortalOutlet, CdkPortalOutlet, PortalModule, ComponentPortal, PortalInjector, TemplatePortal } from '@angular/cdk/portal';
 import { take, takeUntil } from 'rxjs/operators';
 import { OverlayModule, Overlay, OverlayConfig } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
+import { MatCommonModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -244,29 +244,6 @@ MatSnackBarConfig = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Animations used by the Material snack bar.
- */
-var /** @type {?} */ matSnackBarAnimations = {
-    /** Animation that slides the dialog in and out of view and fades the opacity. */
-    contentFade: trigger('contentFade', [
-        transition(':enter', [
-            style({ opacity: '0' }),
-            animate(AnimationDurations.COMPLEX + " " + AnimationCurves.STANDARD_CURVE)
-        ])
-    ]),
-    /** Animation that shows and hides a snack bar. */
-    snackBarState: trigger('state', [
-        state('visible-top, visible-bottom', style({ transform: 'translateY(0%)' })),
-        transition('visible-top => hidden-top, visible-bottom => hidden-bottom', animate(AnimationDurations.EXITING + " " + AnimationCurves.ACCELERATION_CURVE)),
-        transition('void => visible-top, void => visible-bottom', animate(AnimationDurations.ENTERING + " " + AnimationCurves.DECELERATION_CURVE)),
-    ])
-};
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
  * A component used to open as the default snack bar, matching material spec.
  * This should only be used internally by the snack bar service.
  */
@@ -302,12 +279,10 @@ var SimpleSnackBar = /** @class */ (function () {
     SimpleSnackBar.decorators = [
         { type: Component, args: [{selector: 'simple-snack-bar',
                     template: "<span>{{data.message}}</span><div class=\"mat-simple-snackbar-action\" *ngIf=\"hasAction\"><button mat-button (click)=\"action()\">{{data.action}}</button></div>",
-                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;line-height:20px;opacity:1}.mat-simple-snackbar-action{display:flex;flex-direction:column;flex-shrink:0;justify-content:space-around;margin:-8px 0 -8px 8px}.mat-simple-snackbar-action button{flex:1;max-height:36px}[dir=rtl] .mat-simple-snackbar-action{margin-left:0;margin-right:8px}"],
+                    styles: [".mat-simple-snackbar{display:flex;justify-content:space-between;align-items:center;height:100%;line-height:20px;opacity:1}.mat-simple-snackbar-action{display:flex;flex-direction:column;flex-shrink:0;justify-content:space-around;margin:-8px -8px -8px 8px}.mat-simple-snackbar-action button{flex:1;max-height:36px;min-width:0}[dir=rtl] .mat-simple-snackbar-action{margin-left:-8px;margin-right:8px}"],
                     encapsulation: ViewEncapsulation.None,
                     changeDetection: ChangeDetectionStrategy.OnPush,
-                    animations: [matSnackBarAnimations.contentFade],
                     host: {
-                        '[@contentFade]': '',
                         'class': 'mat-simple-snackbar',
                     }
                 },] },
@@ -319,6 +294,31 @@ var SimpleSnackBar = /** @class */ (function () {
     ]; };
     return SimpleSnackBar;
 }());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
+/**
+ * Animations used by the Material snack bar.
+ */
+var /** @type {?} */ matSnackBarAnimations = {
+    /** Animation that shows and hides a snack bar. */
+    snackBarState: trigger('state', [
+        state('void, hidden', style({
+            transform: 'scale(0.8)',
+            opacity: 0,
+        })),
+        state('visible', style({
+            transform: 'scale(1)',
+            opacity: 1,
+        })),
+        transition('* => visible', animate('150ms cubic-bezier(0, 0, 0.2, 1)')),
+        transition('* => void, * => hidden', animate('75ms cubic-bezier(0.4, 0.0, 1, 1)', style({
+            opacity: 0
+        }))),
+    ])
+};
 
 /**
  * @fileoverview added by tsickle
@@ -403,10 +403,10 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      */
     function (event) {
         var fromState = event.fromState, toState = event.toState;
-        if ((toState === 'void' && fromState !== 'void') || toState.startsWith('hidden')) {
+        if ((toState === 'void' && fromState !== 'void') || toState === 'hidden') {
             this._completeExit();
         }
-        if (toState.startsWith('visible')) {
+        if (toState === 'visible') {
             // Note: we shouldn't use `this` inside the zone callback,
             // because it can cause a memory leak.
             var /** @type {?} */ onEnter_1 = this._onEnter;
@@ -427,7 +427,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      */
     function () {
         if (!this._destroyed) {
-            this._animationState = "visible-" + this.snackBarConfig.verticalPosition;
+            this._animationState = 'visible';
             this._changeDetectorRef.detectChanges();
         }
     };
@@ -441,7 +441,10 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._animationState = "hidden-" + this.snackBarConfig.verticalPosition;
+        // Note: this one transitions to `hidden`, rather than `void`, in order to handle the case
+        // where multiple snack bars are opened in quick succession (e.g. two consecutive calls to
+        // `MatSnackBar.open`).
+        this._animationState = 'hidden';
         return this._onExit;
     };
     /** Makes sure the exit callbacks have been invoked when the element is destroyed. */
@@ -517,7 +520,7 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
     MatSnackBarContainer.decorators = [
         { type: Component, args: [{selector: 'snack-bar-container',
                     template: "<ng-template cdkPortalOutlet></ng-template>",
-                    styles: [".mat-snack-bar-container{border-radius:2px;box-sizing:border-box;display:block;margin:24px;max-width:568px;min-width:288px;padding:14px 24px;transform:translateY(100%) translateY(24px)}.mat-snack-bar-container.mat-snack-bar-center{margin:0;transform:translateY(100%)}.mat-snack-bar-container.mat-snack-bar-top{transform:translateY(-100%) translateY(-24px)}.mat-snack-bar-container.mat-snack-bar-top.mat-snack-bar-center{transform:translateY(-100%)}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:0;max-width:inherit;width:100%}"],
+                    styles: [".mat-snack-bar-container{box-shadow:0 3px 5px -1px rgba(0,0,0,.2),0 6px 10px 0 rgba(0,0,0,.14),0 1px 18px 0 rgba(0,0,0,.12);border-radius:4px;box-sizing:border-box;display:block;margin:24px;max-width:33vw;min-width:344px;padding:14px 16px;min-height:48px;transform-origin:center}@media screen and (-ms-high-contrast:active){.mat-snack-bar-container{border:solid 1px}}.mat-snack-bar-handset{width:100%}.mat-snack-bar-handset .mat-snack-bar-container{margin:8px;max-width:100%;width:100%}"],
                     changeDetection: ChangeDetectionStrategy.OnPush,
                     encapsulation: ViewEncapsulation.None,
                     animations: [matSnackBarAnimations.snackBarState],

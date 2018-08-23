@@ -8,6 +8,5 @@
 import { AnimationTriggerMetadata } from '@angular/animations';
 /** Animations used by the Material snack bar. */
 export declare const matSnackBarAnimations: {
-    readonly contentFade: AnimationTriggerMetadata;
     readonly snackBarState: AnimationTriggerMetadata;
 };
