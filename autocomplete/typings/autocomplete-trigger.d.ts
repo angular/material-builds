@@ -68,8 +68,19 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _closingActionsSubscription;
     /** Subscription to viewport size changes. */
     private _viewportSubscription;
+    /**
+     * Whether the autocomplete can open the next time it is focused. Used to prevent a focused,
+     * closed autocomplete from being reopened if the user switches to another browser tab and then
+     * comes back.
+     */
+    private _canOpenOnNextFocus;
     /** Stream of keyboard events that can close the panel. */
     private readonly _closeKeyEventStream;
+    /**
+     * Event handler for when the window is blurred. Needs to be an
+     * arrow function in order to preserve the context.
+     */
+    private _windowBlurHandler;
     /** `View -> model callback called when value changes` */
     _onChange: (value: any) => void;
     /** `View -> model callback called when autocomplete has been touched` */
