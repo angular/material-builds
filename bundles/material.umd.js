@@ -21878,7 +21878,7 @@ function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
  *
- * https://material.google.com/components/tooltips.html
+ * https://material.io/design/components/tooltips.html
  */
 var MatTooltip = /** @class */ (function () {
     function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir, _defaultOptions) {
@@ -22555,18 +22555,18 @@ var TooltipComponent = /** @class */ (function () {
     /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.
-     * https://material.google.com/components/tooltips.html#tooltips-interaction
+     * https://material.io/design/components/tooltips.html#behavior
      */
     /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.
-     * https://material.google.com/components/tooltips.html#tooltips-interaction
+     * https://material.io/design/components/tooltips.html#behavior
      * @return {?}
      */
     TooltipComponent.prototype._handleBodyInteraction = /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.
-     * https://material.google.com/components/tooltips.html#tooltips-interaction
+     * https://material.io/design/components/tooltips.html#behavior
      * @return {?}
      */
     function () {
@@ -33078,7 +33078,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-0ef9e38');
+var /** @type {?} */ VERSION = new core.Version('6.4.6-4c2a9f2');
 
 exports.VERSION = VERSION;
 exports.ɵa26 = MatAutocompleteOrigin;
@@ -33480,17 +33480,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa21 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf21 = MatTabBase;
-exports.ɵg21 = _MatTabMixinBase;
-exports.ɵb21 = MatTabHeaderBase;
-exports.ɵc21 = _MatTabHeaderMixinBase;
-exports.ɵd21 = MatTabLabelWrapperBase;
-exports.ɵe21 = _MatTabLabelWrapperMixinBase;
-exports.ɵj21 = MatTabLinkBase;
-exports.ɵh21 = MatTabNavBase;
-exports.ɵk21 = _MatTabLinkMixinBase;
-exports.ɵi21 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

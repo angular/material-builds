@@ -105,7 +105,7 @@ function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
  *
- * https://material.google.com/components/tooltips.html
+ * https://material.io/design/components/tooltips.html
  */
 var MatTooltip = /** @class */ (function () {
     function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir, _defaultOptions) {
@@ -782,18 +782,18 @@ var TooltipComponent = /** @class */ (function () {
     /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.
-     * https://material.google.com/components/tooltips.html#tooltips-interaction
+     * https://material.io/design/components/tooltips.html#behavior
      */
     /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.
-     * https://material.google.com/components/tooltips.html#tooltips-interaction
+     * https://material.io/design/components/tooltips.html#behavior
      * @return {?}
      */
     TooltipComponent.prototype._handleBodyInteraction = /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.
-     * https://material.google.com/components/tooltips.html#tooltips-interaction
+     * https://material.io/design/components/tooltips.html#behavior
      * @return {?}
      */
     function () {
