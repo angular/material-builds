@@ -26,9 +26,10 @@ function default_1() {
                     path.join(__dirname, 'rules/'),
                     path.join(__dirname, 'rules/attribute-selectors'),
                     path.join(__dirname, 'rules/class-names'),
-                    path.join(__dirname, 'rules/css-names'),
                     path.join(__dirname, 'rules/input-names'),
                     path.join(__dirname, 'rules/output-names'),
+                    path.join(__dirname, 'rules/css-selectors'),
+                    path.join(__dirname, 'rules/element-selectors'),
                 ],
                 rules: {
                     // Automatic fixes.
@@ -41,10 +42,10 @@ function default_1() {
                     // Class name update rules
                     'class-names-identifier': true,
                     'class-names-identifier-misc': true,
-                    // CSS class name update rules
-                    'css-names-string-literal': true,
-                    'css-names-stylesheet': true,
-                    'css-names-template': true,
+                    // CSS selectors update rules
+                    'css-selectors-string-literal': true,
+                    'css-selectors-stylesheet': true,
+                    'css-selectors-template': true,
                     // Element selector update rules
                     'element-selectors-string-literal': true,
                     'element-selectors-stylesheet': true,

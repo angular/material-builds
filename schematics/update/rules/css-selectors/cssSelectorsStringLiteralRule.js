@@ -10,11 +10,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
 const ts = require("typescript");
-const css_names_1 = require("../../material/data/css-names");
+const css_selectors_1 = require("../../material/data/css-selectors");
 const literal_1 = require("../../typescript/literal");
 /**
  * Rule that walks through every string literal that is wrapped inside of a call expression.
- * All string literals which include an outdated CSS class name will be migrated.
+ * All string literals which include an outdated CSS selector will be migrated.
  */
 class Rule extends tslint_1.Rules.AbstractRule {
     apply(sourceFile) {
@@ -28,21 +28,21 @@ class Walker extends tslint_1.RuleWalker {
             return;
         }
         const textContent = node.getFullText();
-        css_names_1.cssNames.forEach(name => {
-            if (name.whitelist && !name.whitelist.strings) {
+        css_selectors_1.cssSelectors.forEach(data => {
+            if (data.whitelist && !data.whitelist.strings) {
                 return;
             }
-            literal_1.findAllSubstringIndices(textContent, name.replace)
+            literal_1.findAllSubstringIndices(textContent, data.replace)
                 .map(offset => node.getStart() + offset)
-                .map(start => new tslint_1.Replacement(start, name.replace.length, name.replaceWith))
-                .forEach(replacement => this._addFailureWithReplacement(node, replacement, name));
+                .map(start => new tslint_1.Replacement(start, data.replace.length, data.replaceWith))
+                .forEach(replacement => this._addFailureWithReplacement(node, replacement, data));
         });
     }
-    /** Adds a css name failure with the given replacement at the specified node. */
-    _addFailureWithReplacement(node, replacement, name) {
-        this.addFailureAtNode(node, `Found deprecated CSS class "${chalk_1.red(name.replace)}" which has ` +
-            `been renamed to "${chalk_1.green(name.replaceWith)}"`, replacement);
+    /** Adds a css selector failure with the given replacement at the specified node. */
+    _addFailureWithReplacement(node, replacement, data) {
+        this.addFailureAtNode(node, `Found deprecated CSS selector "${chalk_1.red(data.replace)}" which has ` +
+            `been renamed to "${chalk_1.green(data.replaceWith)}"`, replacement);
     }
 }
 exports.Walker = Walker;
-//# sourceMappingURL=cssNamesStringLiteralRule.js.map
+//# sourceMappingURL=cssSelectorsStringLiteralRule.js.map

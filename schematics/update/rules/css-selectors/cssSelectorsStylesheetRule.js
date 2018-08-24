@@ -10,13 +10,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const glob_1 = require("glob");
 const tslint_1 = require("tslint");
-const css_names_1 = require("../../material/data/css-names");
+const css_selectors_1 = require("../../material/data/css-selectors");
 const component_walker_1 = require("../../tslint/component-walker");
 const rule_failures_1 = require("../../tslint/rule-failures");
 const literal_1 = require("../../typescript/literal");
 /**
  * Rule that walks through every inline or external CSs stylesheet and updates outdated
- * CSS classes.
+ * CSS selectors.
  */
 class Rule extends tslint_1.Rules.AbstractRule {
     apply(sourceFile) {
@@ -43,24 +43,24 @@ class Walker extends component_walker_1.ComponentWalker {
             .forEach(failure => this.addFailure(failure));
     }
     /**
-     * Searches for outdated CSs classes in the specified content and creates replacements
+     * Searches for outdated CSS selectors in the specified content and creates replacements
      * with the according messages that can be added to a rule failure.
      */
     _createReplacementsForContent(node, stylesheetContent) {
         const replacements = [];
-        css_names_1.cssNames.forEach(name => {
-            if (name.whitelist && !name.whitelist.stylesheet) {
+        css_selectors_1.cssSelectors.forEach(data => {
+            if (data.whitelist && !data.whitelist.stylesheet) {
                 return;
             }
-            const failureMessage = `Found deprecated CSS class "${chalk_1.red(name.replace)}" ` +
-                `which has been renamed to "${chalk_1.green(name.replaceWith)}"`;
-            literal_1.findAllSubstringIndices(stylesheetContent, name.replace)
+            const failureMessage = `Found deprecated CSS selector "${chalk_1.red(data.replace)}" ` +
+                `which has been renamed to "${chalk_1.green(data.replaceWith)}"`;
+            literal_1.findAllSubstringIndices(stylesheetContent, data.replace)
                 .map(offset => node.getStart() + offset)
-                .map(start => new tslint_1.Replacement(start, name.replace.length, name.replaceWith))
+                .map(start => new tslint_1.Replacement(start, data.replace.length, data.replaceWith))
                 .forEach(replacement => replacements.push({ replacement, failureMessage }));
         });
         return replacements;
     }
 }
 exports.Walker = Walker;
-//# sourceMappingURL=cssNamesStylesheetRule.js.map
+//# sourceMappingURL=cssSelectorsStylesheetRule.js.map

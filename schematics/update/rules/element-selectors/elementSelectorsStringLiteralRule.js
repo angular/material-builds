@@ -32,7 +32,7 @@ class Walker extends tslint_1.RuleWalker {
             literal_1.findAllSubstringIndices(textContent, selector.replace)
                 .map(offset => node.getStart() + offset)
                 .map(start => new tslint_1.Replacement(start, selector.replace.length, selector.replaceWith))
-                .forEach(replacement => this._addFailureWithReplacement(node, replacement, name));
+                .forEach(replacement => this._addFailureWithReplacement(node, replacement, selector));
         });
     }
     /** Adds an element selector failure with the given replacement at the specified node. */
