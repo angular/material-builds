@@ -37,16 +37,15 @@ export declare class MatOption implements AfterViewChecked, OnDestroy {
     private _selected;
     private _active;
     private _disabled;
-    private _id;
     private _mostRecentViewValue;
     /** Whether the wrapping component is in multiple selection mode. */
     readonly multiple: boolean | undefined;
-    /** The unique ID of the option. */
-    readonly id: string;
     /** Whether or not the option is currently selected. */
     readonly selected: boolean;
     /** The form value of the option. */
     value: any;
+    /** The unique ID of the option. */
+    id: string;
     /** Whether the option is disabled. */
     disabled: any;
     /** Whether ripples for the option are disabled. */

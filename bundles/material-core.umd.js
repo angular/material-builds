@@ -2373,8 +2373,11 @@ var MatOption = /** @class */ (function () {
         this._selected = false;
         this._active = false;
         this._disabled = false;
-        this._id = "mat-option-" + _uniqueIdCounter++;
         this._mostRecentViewValue = '';
+        /**
+         * The unique ID of the option.
+         */
+        this.id = "mat-option-" + _uniqueIdCounter++;
         /**
          * Event emitted when the option is selected or deselected.
          */
@@ -2391,16 +2394,6 @@ var MatOption = /** @class */ (function () {
          * @return {?}
          */
         function () { return this._parent && this._parent.multiple; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatOption.prototype, "id", {
-        /** The unique ID of the option. */
-        get: /**
-         * The unique ID of the option.
-         * @return {?}
-         */
-        function () { return this._id; },
         enumerable: true,
         configurable: true
     });
@@ -2718,6 +2711,7 @@ var MatOption = /** @class */ (function () {
     ]; };
     MatOption.propDecorators = {
         "value": [{ type: core.Input },],
+        "id": [{ type: core.Input },],
         "disabled": [{ type: core.Input },],
         "onSelectionChange": [{ type: core.Output },],
     };
@@ -2860,7 +2854,7 @@ exports.SEP = SEP;
 exports.OCT = OCT;
 exports.NOV = NOV;
 exports.DEC = DEC;
-exports.ɵa1 = MATERIAL_SANITY_CHECKS_FACTORY;
+exports.ɵa0 = MATERIAL_SANITY_CHECKS_FACTORY;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

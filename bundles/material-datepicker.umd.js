@@ -1905,19 +1905,23 @@ var MatCalendar = /** @class */ (function () {
 var /** @type {?} */ matDatepickerAnimations = {
     /** Transforms the height of the datepicker's calendar. */
     transformPanel: animations.trigger('transformPanel', [
-        animations.state('void', animations.style({ opacity: 0, transform: 'scale(1, 0)' })),
-        animations.state('enter', animations.style({ opacity: 1, transform: 'scale(1, 1)' })),
-        animations.transition('void => enter', animations.group([
-            animations.query('@fadeInCalendar', animations.animateChild()),
-            animations.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')
-        ])),
+        animations.state('void', animations.style({
+            opacity: 0,
+            transform: 'scale(1, 0.8)'
+        })),
+        animations.transition('void => enter', animations.animate('120ms cubic-bezier(0, 0, 0.2, 1)', animations.style({
+            opacity: 1,
+            transform: 'scale(1, 1)'
+        }))),
         animations.transition('* => void', animations.animate('100ms linear', animations.style({ opacity: 0 })))
     ]),
     /** Fades in the content of the calendar. */
     fadeInCalendar: animations.trigger('fadeInCalendar', [
         animations.state('void', animations.style({ opacity: 0 })),
         animations.state('enter', animations.style({ opacity: 1 })),
-        animations.transition('void => *', animations.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)'))
+        // TODO(crisbeto): this animation should be removed since it isn't quite on spec, but we
+        // need to keep it until #12440 gets in, otherwise the exit animation will look glitchy.
+        animations.transition('void => *', animations.animate('120ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)'))
     ])
 };
 
@@ -1987,7 +1991,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     MatDatepickerContent.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-content',
                     template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [headerComponent]=\"datepicker.calendarHeaderComponent\" [selected]=\"datepicker._selected\" [@fadeInCalendar]=\"'enter'\" (selectedChange)=\"datepicker.select($event)\" (yearSelected)=\"datepicker._selectYear($event)\" (monthSelected)=\"datepicker._selectMonth($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
-                    styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block;border-radius:2px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
+                    styles: [".mat-datepicker-content{box-shadow:0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12);display:block;border-radius:4px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
                     host: {
                         'class': 'mat-datepicker-content',
                         '[@transformPanel]': '"enter"',
@@ -3075,10 +3079,12 @@ var MatDatepickerToggleIcon = /** @class */ (function () {
  * @template D
  */
 var MatDatepickerToggle = /** @class */ (function () {
-    function MatDatepickerToggle(_intl, _changeDetectorRef) {
+    function MatDatepickerToggle(_intl, _changeDetectorRef, defaultTabIndex) {
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
         this._stateChanges = rxjs.Subscription.EMPTY;
+        var /** @type {?} */ parsedTabIndex = Number(defaultTabIndex);
+        this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
     }
     Object.defineProperty(MatDatepickerToggle.prototype, "disabled", {
         get: /**
@@ -3162,10 +3168,12 @@ var MatDatepickerToggle = /** @class */ (function () {
     };
     MatDatepickerToggle.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-toggle',
-                    template: "<button mat-icon-button type=\"button\" aria-haspopup=\"true\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
+                    template: "<button mat-icon-button type=\"button\" aria-haspopup=\"true\" [attr.aria-label]=\"_intl.openCalendarLabel\" [attr.tabindex]=\"disabled ? -1 : tabIndex\" [disabled]=\"disabled\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
                     styles: [".mat-form-field-appearance-legacy .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon{width:1em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-datepicker-toggle-default-icon{display:block;width:1.5em;height:1.5em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-datepicker-toggle-default-icon{margin:auto}"],
                     host: {
                         'class': 'mat-datepicker-toggle',
+                        // Clear out the native tabindex here since we forward it to the underlying button
+                        '[attr.tabindex]': 'null',
                         '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
                         '[class.mat-accent]': 'datepicker && datepicker.color === "accent"',
                         '[class.mat-warn]': 'datepicker && datepicker.color === "warn"',
@@ -3179,9 +3187,11 @@ var MatDatepickerToggle = /** @class */ (function () {
     MatDatepickerToggle.ctorParameters = function () { return [
         { type: MatDatepickerIntl, },
         { type: core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
     ]; };
     MatDatepickerToggle.propDecorators = {
         "datepicker": [{ type: core.Input, args: ['for',] },],
+        "tabIndex": [{ type: core.Input },],
         "disabled": [{ type: core.Input },],
         "_customIcon": [{ type: core.ContentChild, args: [MatDatepickerToggleIcon,] },],
     };

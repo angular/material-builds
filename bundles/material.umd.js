@@ -2373,8 +2373,11 @@ var MatOption = /** @class */ (function () {
         this._selected = false;
         this._active = false;
         this._disabled = false;
-        this._id = "mat-option-" + _uniqueIdCounter++;
         this._mostRecentViewValue = '';
+        /**
+         * The unique ID of the option.
+         */
+        this.id = "mat-option-" + _uniqueIdCounter++;
         /**
          * Event emitted when the option is selected or deselected.
          */
@@ -2391,16 +2394,6 @@ var MatOption = /** @class */ (function () {
          * @return {?}
          */
         function () { return this._parent && this._parent.multiple; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatOption.prototype, "id", {
-        /** The unique ID of the option. */
-        get: /**
-         * The unique ID of the option.
-         * @return {?}
-         */
-        function () { return this._id; },
         enumerable: true,
         configurable: true
     });
@@ -2718,6 +2711,7 @@ var MatOption = /** @class */ (function () {
     ]; };
     MatOption.propDecorators = {
         "value": [{ type: core.Input },],
+        "id": [{ type: core.Input },],
         "disabled": [{ type: core.Input },],
         "onSelectionChange": [{ type: core.Output },],
     };
@@ -3050,12 +3044,12 @@ var /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new core.InjectionToken('M
  */
 var MatFormField = /** @class */ (function (_super) {
     __extends(MatFormField, _super);
-    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions, _platform, _ngZone, _animationMode) {
+    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaults, _platform, _ngZone, _animationMode) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
-        _this._defaultOptions = _defaultOptions;
+        _this._defaults = _defaults;
         _this._platform = _platform;
         _this._ngZone = _ngZone;
         _this._outlineGapCalculationNeeded = false;
@@ -3075,6 +3069,9 @@ var MatFormField = /** @class */ (function (_super) {
         _this._labelOptions = labelOptions ? labelOptions : {};
         _this.floatLabel = _this._labelOptions.float || 'auto';
         _this._animationsEnabled = _animationMode !== 'NoopAnimations';
+        // Set the default through here so we invoke the setter on the first run.
+        // Set the default through here so we invoke the setter on the first run.
+        _this.appearance = (_defaults && _defaults.appearance) ? _defaults.appearance : 'legacy';
         return _this;
     }
     Object.defineProperty(MatFormField.prototype, "appearance", {
@@ -3082,9 +3079,7 @@ var MatFormField = /** @class */ (function (_super) {
          * The form-field appearance style.
          * @return {?}
          */
-        function () {
-            return this._appearance || this._defaultOptions && this._defaultOptions.appearance || 'legacy';
-        },
+        function () { return this._appearance; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -3092,7 +3087,7 @@ var MatFormField = /** @class */ (function (_super) {
         function (value) {
             var _this = this;
             var /** @type {?} */ oldValue = this._appearance;
-            this._appearance = value;
+            this._appearance = value || (this._defaults && this._defaults.appearance) || 'legacy';
             if (this._appearance === 'outline' && oldValue !== value) {
                 // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
                 if (this._ngZone) {
@@ -10984,10 +10979,12 @@ var MatInput = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._autofillMonitor.monitor(this._elementRef).subscribe(function (event) {
-            _this.autofilled = event.isAutofilled;
-            _this.stateChanges.next();
-        });
+        if (this._platform.isBrowser) {
+            this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(function (event) {
+                _this.autofilled = event.isAutofilled;
+                _this.stateChanges.next();
+            });
+        }
     };
     /**
      * @return {?}
@@ -11006,7 +11003,9 @@ var MatInput = /** @class */ (function (_super) {
      */
     function () {
         this.stateChanges.complete();
-        this._autofillMonitor.stopMonitoring(this._elementRef);
+        if (this._platform.isBrowser) {
+            this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
+        }
     };
     /**
      * @return {?}
@@ -13143,19 +13142,23 @@ var MatCalendar = /** @class */ (function () {
 var /** @type {?} */ matDatepickerAnimations = {
     /** Transforms the height of the datepicker's calendar. */
     transformPanel: animations$1.trigger('transformPanel', [
-        animations$1.state('void', animations$1.style({ opacity: 0, transform: 'scale(1, 0)' })),
-        animations$1.state('enter', animations$1.style({ opacity: 1, transform: 'scale(1, 1)' })),
-        animations$1.transition('void => enter', animations$1.group([
-            animations$1.query('@fadeInCalendar', animations$1.animateChild()),
-            animations$1.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')
-        ])),
+        animations$1.state('void', animations$1.style({
+            opacity: 0,
+            transform: 'scale(1, 0.8)'
+        })),
+        animations$1.transition('void => enter', animations$1.animate('120ms cubic-bezier(0, 0, 0.2, 1)', animations$1.style({
+            opacity: 1,
+            transform: 'scale(1, 1)'
+        }))),
         animations$1.transition('* => void', animations$1.animate('100ms linear', animations$1.style({ opacity: 0 })))
     ]),
     /** Fades in the content of the calendar. */
     fadeInCalendar: animations$1.trigger('fadeInCalendar', [
         animations$1.state('void', animations$1.style({ opacity: 0 })),
         animations$1.state('enter', animations$1.style({ opacity: 1 })),
-        animations$1.transition('void => *', animations$1.animate('400ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)'))
+        // TODO(crisbeto): this animation should be removed since it isn't quite on spec, but we
+        // need to keep it until #12440 gets in, otherwise the exit animation will look glitchy.
+        animations$1.transition('void => *', animations$1.animate('120ms 100ms cubic-bezier(0.55, 0, 0.55, 0.2)'))
     ])
 };
 
@@ -13225,7 +13228,7 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     MatDatepickerContent.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-content',
                     template: "<mat-calendar cdkTrapFocus [id]=\"datepicker.id\" [ngClass]=\"datepicker.panelClass\" [startAt]=\"datepicker.startAt\" [startView]=\"datepicker.startView\" [minDate]=\"datepicker._minDate\" [maxDate]=\"datepicker._maxDate\" [dateFilter]=\"datepicker._dateFilter\" [headerComponent]=\"datepicker.calendarHeaderComponent\" [selected]=\"datepicker._selected\" [@fadeInCalendar]=\"'enter'\" (selectedChange)=\"datepicker.select($event)\" (yearSelected)=\"datepicker._selectYear($event)\" (monthSelected)=\"datepicker._selectMonth($event)\" (_userSelection)=\"datepicker.close()\"></mat-calendar>",
-                    styles: [".mat-datepicker-content{box-shadow:0 5px 5px -3px rgba(0,0,0,.2),0 8px 10px 1px rgba(0,0,0,.14),0 3px 14px 2px rgba(0,0,0,.12);display:block;border-radius:2px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
+                    styles: [".mat-datepicker-content{box-shadow:0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12);display:block;border-radius:4px}.mat-datepicker-content .mat-calendar{width:296px;height:354px}.mat-datepicker-content-touch{box-shadow:0 0 0 0 rgba(0,0,0,.2),0 0 0 0 rgba(0,0,0,.14),0 0 0 0 rgba(0,0,0,.12);display:block;max-height:80vh;overflow:auto;margin:-24px}.mat-datepicker-content-touch .mat-calendar{min-width:250px;min-height:312px;max-width:750px;max-height:788px}@media all and (orientation:landscape){.mat-datepicker-content-touch .mat-calendar{width:64vh;height:80vh}}@media all and (orientation:portrait){.mat-datepicker-content-touch .mat-calendar{width:80vw;height:100vw}}"],
                     host: {
                         'class': 'mat-datepicker-content',
                         '[@transformPanel]': '"enter"',
@@ -14313,10 +14316,12 @@ var MatDatepickerToggleIcon = /** @class */ (function () {
  * @template D
  */
 var MatDatepickerToggle = /** @class */ (function () {
-    function MatDatepickerToggle(_intl, _changeDetectorRef) {
+    function MatDatepickerToggle(_intl, _changeDetectorRef, defaultTabIndex) {
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
         this._stateChanges = rxjs.Subscription.EMPTY;
+        var /** @type {?} */ parsedTabIndex = Number(defaultTabIndex);
+        this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
     }
     Object.defineProperty(MatDatepickerToggle.prototype, "disabled", {
         get: /**
@@ -14400,10 +14405,12 @@ var MatDatepickerToggle = /** @class */ (function () {
     };
     MatDatepickerToggle.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-toggle',
-                    template: "<button mat-icon-button type=\"button\" aria-haspopup=\"true\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
+                    template: "<button mat-icon-button type=\"button\" aria-haspopup=\"true\" [attr.aria-label]=\"_intl.openCalendarLabel\" [attr.tabindex]=\"disabled ? -1 : tabIndex\" [disabled]=\"disabled\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
                     styles: [".mat-form-field-appearance-legacy .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon{width:1em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-datepicker-toggle-default-icon{display:block;width:1.5em;height:1.5em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-datepicker-toggle-default-icon{margin:auto}"],
                     host: {
                         'class': 'mat-datepicker-toggle',
+                        // Clear out the native tabindex here since we forward it to the underlying button
+                        '[attr.tabindex]': 'null',
                         '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
                         '[class.mat-accent]': 'datepicker && datepicker.color === "accent"',
                         '[class.mat-warn]': 'datepicker && datepicker.color === "warn"',
@@ -14417,9 +14424,11 @@ var MatDatepickerToggle = /** @class */ (function () {
     MatDatepickerToggle.ctorParameters = function () { return [
         { type: MatDatepickerIntl, },
         { type: core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
     ]; };
     MatDatepickerToggle.propDecorators = {
         "datepicker": [{ type: core.Input, args: ['for',] },],
+        "tabIndex": [{ type: core.Input },],
         "disabled": [{ type: core.Input },],
         "_customIcon": [{ type: core.ContentChild, args: [MatDatepickerToggleIcon,] },],
     };
@@ -29088,8 +29097,8 @@ var MatStepHeader = /** @class */ (function () {
     };
     MatStepHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-step-header',
-                    template: "<div class=\"mat-step-header-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div><div [class.mat-step-icon]=\"state !== 'number' || selected\" [class.mat-step-icon-not-touched]=\"state == 'number' && !selected\" [ngSwitch]=\"state\"><ng-container *ngSwitchCase=\"'number'\" [ngSwitch]=\"!!(iconOverrides && iconOverrides.number)\"><ng-container *ngSwitchCase=\"true\" [ngTemplateOutlet]=\"iconOverrides.number\" [ngTemplateOutletContext]=\"_getIconContext()\"></ng-container><span *ngSwitchDefault>{{index + 1}}</span></ng-container><ng-container *ngSwitchCase=\"'edit'\" [ngSwitch]=\"!!(iconOverrides && iconOverrides.edit)\"><ng-container *ngSwitchCase=\"true\" [ngTemplateOutlet]=\"iconOverrides.edit\" [ngTemplateOutletContext]=\"_getIconContext()\"></ng-container><mat-icon *ngSwitchDefault>create</mat-icon></ng-container><ng-container *ngSwitchCase=\"'done'\" [ngSwitch]=\"!!(iconOverrides && iconOverrides.done)\"><ng-container *ngSwitchCase=\"true\" [ngTemplateOutlet]=\"iconOverrides.done\" [ngTemplateOutletContext]=\"_getIconContext()\"></ng-container><mat-icon *ngSwitchDefault>done</mat-icon></ng-container></div><div class=\"mat-step-label\" [class.mat-step-label-active]=\"active\" [class.mat-step-label-selected]=\"selected\"><ng-container *ngIf=\"_templateLabel()\" [ngTemplateOutlet]=\"_templateLabel()!.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel()\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">{{_intl.optionalLabel}}</div></div>",
-                    styles: [".mat-step-header{overflow:hidden;outline:0;cursor:pointer;position:relative;box-sizing:content-box;-webkit-tap-highlight-color:transparent}.mat-step-optional{font-size:12px}.mat-step-icon,.mat-step-icon-not-touched{border-radius:50%;height:24px;width:24px;align-items:center;justify-content:center;display:flex;flex-shrink:0}.mat-step-icon .mat-icon{font-size:16px;height:16px;width:16px}.mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle}.mat-step-text-label{text-overflow:ellipsis;overflow:hidden}.mat-step-header .mat-step-header-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
+                    template: "<div class=\"mat-step-header-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\"></div><div [class.mat-step-icon]=\"state !== 'number' || selected\" [class.mat-step-icon-not-touched]=\"state == 'number' && !selected\" [ngSwitch]=\"state\"><ng-container *ngSwitchCase=\"'number'\" [ngSwitch]=\"!!(iconOverrides && iconOverrides.number)\"><ng-container *ngSwitchCase=\"true\" [ngTemplateOutlet]=\"iconOverrides.number\" [ngTemplateOutletContext]=\"_getIconContext()\"></ng-container><span class=\"mat-step-icon-content\" *ngSwitchDefault>{{index + 1}}</span></ng-container><ng-container *ngSwitchCase=\"'edit'\" [ngSwitch]=\"!!(iconOverrides && iconOverrides.edit)\"><ng-container *ngSwitchCase=\"true\" [ngTemplateOutlet]=\"iconOverrides.edit\" [ngTemplateOutletContext]=\"_getIconContext()\"></ng-container><mat-icon class=\"mat-step-icon-content\" *ngSwitchDefault>create</mat-icon></ng-container><ng-container *ngSwitchCase=\"'done'\" [ngSwitch]=\"!!(iconOverrides && iconOverrides.done)\"><ng-container *ngSwitchCase=\"true\" [ngTemplateOutlet]=\"iconOverrides.done\" [ngTemplateOutletContext]=\"_getIconContext()\"></ng-container><mat-icon class=\"mat-step-icon-content\" *ngSwitchDefault>done</mat-icon></ng-container></div><div class=\"mat-step-label\" [class.mat-step-label-active]=\"active\" [class.mat-step-label-selected]=\"selected\"><ng-container *ngIf=\"_templateLabel()\" [ngTemplateOutlet]=\"_templateLabel()!.template\"></ng-container><div class=\"mat-step-text-label\" *ngIf=\"_stringLabel()\">{{label}}</div><div class=\"mat-step-optional\" *ngIf=\"optional\">{{_intl.optionalLabel}}</div></div>",
+                    styles: [".mat-step-header{overflow:hidden;outline:0;cursor:pointer;position:relative;box-sizing:content-box;-webkit-tap-highlight-color:transparent}.mat-step-optional{font-size:12px}.mat-step-icon,.mat-step-icon-not-touched{border-radius:50%;height:24px;width:24px;flex-shrink:0;position:relative}.mat-step-icon-content{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}.mat-step-icon .mat-icon{font-size:16px;height:16px;width:16px}.mat-step-label{display:inline-block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:50px;vertical-align:middle}.mat-step-text-label{text-overflow:ellipsis;overflow:hidden}.mat-step-header .mat-step-header-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                     host: {
                         'class': 'mat-step-header',
                         'role': 'tab',
@@ -33054,7 +33063,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-21095f5');
+var /** @type {?} */ VERSION = new core.Version('6.4.6-29d5173');
 
 exports.VERSION = VERSION;
 exports.ɵa28 = MatAutocompleteOrigin;
@@ -33136,7 +33145,7 @@ exports.MatChip = MatChip;
 exports.MatChipRemove = MatChipRemove;
 exports.MatChipInput = MatChipInput;
 exports.MAT_CHIPS_DEFAULT_OPTIONS = MAT_CHIPS_DEFAULT_OPTIONS;
-exports.ɵa1 = MATERIAL_SANITY_CHECKS_FACTORY;
+exports.ɵa0 = MATERIAL_SANITY_CHECKS_FACTORY;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MatCommonModule = MatCommonModule;
@@ -33308,12 +33317,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb21 = MatMenuItemBase;
-exports.ɵc21 = _MatMenuItemMixinBase;
-exports.ɵf21 = MAT_MENU_PANEL;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

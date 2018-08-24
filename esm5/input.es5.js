@@ -369,10 +369,12 @@ var MatInput = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        this._autofillMonitor.monitor(this._elementRef).subscribe(function (event) {
-            _this.autofilled = event.isAutofilled;
-            _this.stateChanges.next();
-        });
+        if (this._platform.isBrowser) {
+            this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(function (event) {
+                _this.autofilled = event.isAutofilled;
+                _this.stateChanges.next();
+            });
+        }
     };
     /**
      * @return {?}
@@ -391,7 +393,9 @@ var MatInput = /** @class */ (function (_super) {
      */
     function () {
         this.stateChanges.complete();
-        this._autofillMonitor.stopMonitoring(this._elementRef);
+        if (this._platform.isBrowser) {
+            this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
+        }
     };
     /**
      * @return {?}

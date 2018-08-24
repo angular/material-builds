@@ -10,12 +10,14 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     private _stateChanges;
     /** Datepicker instance that the button will toggle. */
     datepicker: MatDatepicker<D>;
+    /** Tabindex for the toggle. */
+    tabIndex: number | null;
     /** Whether the toggle button is disabled. */
     disabled: boolean;
     private _disabled;
     /** Custom icon set by the consumer. */
     _customIcon: MatDatepickerToggleIcon;
-    constructor(_intl: MatDatepickerIntl, _changeDetectorRef: ChangeDetectorRef);
+    constructor(_intl: MatDatepickerIntl, _changeDetectorRef: ChangeDetectorRef, defaultTabIndex: string);
     ngOnChanges(changes: SimpleChanges): void;
     ngOnDestroy(): void;
     ngAfterContentInit(): void;

@@ -244,17 +244,17 @@ class MatFormField extends _MatFormFieldMixinBase {
      * @param {?} _changeDetectorRef
      * @param {?} labelOptions
      * @param {?} _dir
-     * @param {?} _defaultOptions
+     * @param {?} _defaults
      * @param {?=} _platform
      * @param {?=} _ngZone
      * @param {?=} _animationMode
      */
-    constructor(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions, _platform, _ngZone, _animationMode) {
+    constructor(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaults, _platform, _ngZone, _animationMode) {
         super(_elementRef);
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._dir = _dir;
-        this._defaultOptions = _defaultOptions;
+        this._defaults = _defaults;
         this._platform = _platform;
         this._ngZone = _ngZone;
         this._outlineGapCalculationNeeded = false;
@@ -274,21 +274,21 @@ class MatFormField extends _MatFormFieldMixinBase {
         this._labelOptions = labelOptions ? labelOptions : {};
         this.floatLabel = this._labelOptions.float || 'auto';
         this._animationsEnabled = _animationMode !== 'NoopAnimations';
+        // Set the default through here so we invoke the setter on the first run.
+        this.appearance = (_defaults && _defaults.appearance) ? _defaults.appearance : 'legacy';
     }
     /**
      * The form-field appearance style.
      * @return {?}
      */
-    get appearance() {
-        return this._appearance || this._defaultOptions && this._defaultOptions.appearance || 'legacy';
-    }
+    get appearance() { return this._appearance; }
     /**
      * @param {?} value
      * @return {?}
      */
     set appearance(value) {
         const /** @type {?} */ oldValue = this._appearance;
-        this._appearance = value;
+        this._appearance = value || (this._defaults && this._defaults.appearance) || 'legacy';
         if (this._appearance === 'outline' && oldValue !== value) {
             // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
             if (this._ngZone) {
