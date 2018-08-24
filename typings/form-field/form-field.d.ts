@@ -48,10 +48,11 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     _elementRef: ElementRef;
     private _changeDetectorRef;
     private _dir;
-    private _defaultOptions;
+    private _defaults;
     private _platform;
     private _ngZone;
     private _labelOptions;
+    private _outlineGapCalculationNeeded;
     /** The form-field appearance style. */
     appearance: MatFormFieldAppearance;
     _appearance: MatFormFieldAppearance;
@@ -98,7 +99,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     _hintChildren: QueryList<MatHint>;
     _prefixChildren: QueryList<MatPrefix>;
     _suffixChildren: QueryList<MatSuffix>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions, _dir: Directionality, _defaultOptions: MatFormFieldDefaultOptions, _platform?: Platform | undefined, _ngZone?: NgZone | undefined, _animationMode?: string);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, labelOptions: LabelOptions, _dir: Directionality, _defaults: MatFormFieldDefaultOptions, _platform?: Platform | undefined, _ngZone?: NgZone | undefined, _animationMode?: string);
     /**
      * Gets an ElementRef for the element that a overlay attached to the form-field should be
      * positioned relative to.

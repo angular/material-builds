@@ -287,14 +287,15 @@ var /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new core.InjectionToken('M
  */
 var MatFormField = /** @class */ (function (_super) {
     __extends(MatFormField, _super);
-    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions, _platform, _ngZone, _animationMode) {
+    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaults, _platform, _ngZone, _animationMode) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
-        _this._defaultOptions = _defaultOptions;
+        _this._defaults = _defaults;
         _this._platform = _platform;
         _this._ngZone = _ngZone;
+        _this._outlineGapCalculationNeeded = false;
         /**
          * Override for the logic that disables the label animation in certain cases.
          */
@@ -311,6 +312,9 @@ var MatFormField = /** @class */ (function (_super) {
         _this._labelOptions = labelOptions ? labelOptions : {};
         _this.floatLabel = _this._labelOptions.float || 'auto';
         _this._animationsEnabled = _animationMode !== 'NoopAnimations';
+        // Set the default through here so we invoke the setter on the first run.
+        // Set the default through here so we invoke the setter on the first run.
+        _this.appearance = (_defaults && _defaults.appearance) ? _defaults.appearance : 'legacy';
         return _this;
     }
     Object.defineProperty(MatFormField.prototype, "appearance", {
@@ -318,9 +322,7 @@ var MatFormField = /** @class */ (function (_super) {
          * The form-field appearance style.
          * @return {?}
          */
-        function () {
-            return this._appearance || this._defaultOptions && this._defaultOptions.appearance || 'legacy';
-        },
+        function () { return this._appearance; },
         set: /**
          * @param {?} value
          * @return {?}
@@ -328,7 +330,7 @@ var MatFormField = /** @class */ (function (_super) {
         function (value) {
             var _this = this;
             var /** @type {?} */ oldValue = this._appearance;
-            this._appearance = value;
+            this._appearance = value || (this._defaults && this._defaults.appearance) || 'legacy';
             if (this._appearance === 'outline' && oldValue !== value) {
                 // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
                 if (this._ngZone) {
@@ -484,6 +486,9 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function () {
         this._validateControlChild();
+        if (this._outlineGapCalculationNeeded) {
+            this.updateOutlineGap();
+        }
     };
     /**
      * @return {?}
@@ -722,18 +727,21 @@ var MatFormField = /** @class */ (function (_super) {
             !labelEl.textContent.trim()) {
             return;
         }
+        if (this._platform && !this._platform.isBrowser) {
+            // getBoundingClientRect isn't available on the server.
+            return;
+        }
+        // If the element is not present in the DOM, the outline gap will need to be calculated
+        // the next time it is checked and in the DOM.
+        if (!document.documentElement.contains(this._elementRef.nativeElement)) {
+            this._outlineGapCalculationNeeded = true;
+            return;
+        }
         var /** @type {?} */ startWidth = 0;
         var /** @type {?} */ gapWidth = 0;
         var /** @type {?} */ startEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-start');
         var /** @type {?} */ gapEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-gap');
         if (this._label && this._label.nativeElement.children.length) {
-            if (this._platform && !this._platform.isBrowser) {
-                // getBoundingClientRect isn't available on the server.
-                return;
-            }
-            if (!document.documentElement.contains(this._elementRef.nativeElement)) {
-                return;
-            }
             var /** @type {?} */ containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
             var /** @type {?} */ labelStart = this._getStartEnd(labelEl.children[0].getBoundingClientRect());
             var /** @type {?} */ labelWidth = 0;
@@ -750,6 +758,7 @@ var MatFormField = /** @class */ (function (_super) {
         for (var /** @type {?} */ i = 0; i < gapEls.length; i++) {
             gapEls.item(i).style.width = gapWidth + "px";
         }
+        this._outlineGapCalculationNeeded = false;
     };
     /**
      * Gets the start end of the rect considering the current directionality.
