@@ -8022,23 +8022,31 @@ var MatChipRemove = /** @class */ (function () {
     /** Calls the parent chip's public `remove()` method if applicable. */
     /**
      * Calls the parent chip's public `remove()` method if applicable.
+     * @param {?} event
      * @return {?}
      */
     MatChipRemove.prototype._handleClick = /**
      * Calls the parent chip's public `remove()` method if applicable.
+     * @param {?} event
      * @return {?}
      */
-    function () {
+    function (event) {
         if (this._parentChip.removable) {
             this._parentChip.remove();
         }
+        // We need to stop event propagation because otherwise the event will bubble up to the
+        // form field and cause the `onContainerClick` method to be invoked. This method would then
+        // reset the focused chip that has been focused after chip removal. Usually the parent
+        // the parent click listener of the `MatChip` would prevent propagation, but it can happen
+        // that the chip is being removed before the event bubbles up.
+        event.stopPropagation();
     };
     MatChipRemove.decorators = [
         { type: core.Directive, args: [{
                     selector: '[matChipRemove]',
                     host: {
                         'class': 'mat-chip-remove mat-chip-trailing-icon',
-                        '(click)': '_handleClick()',
+                        '(click)': '_handleClick($event)',
                     }
                 },] },
     ];
@@ -8111,17 +8119,15 @@ var MatChipList = /** @class */ (function (_super) {
          */
         _this.controlType = 'mat-chip-list';
         /**
-         * When a chip is destroyed, we track the index so we can focus the appropriate next chip.
+         * When a chip is destroyed, we store the index of the destroyed chip until the chips
+         * query list notifies about the update. This is necessary because we cannot determine an
+         * appropriate chip that should receive focus until the array of chips updated completely.
          */
-        _this._lastDestroyedIndex = null;
+        _this._lastDestroyedChipIndex = null;
         /**
-         * Track which chips we're listening to for focus/destruction.
+         * Subject that emits when the component has been destroyed.
          */
-        _this._chipSet = new WeakMap();
-        /**
-         * Subscription to tabbing out from the chip list.
-         */
-        _this._tabOutSubscription = rxjs.Subscription.EMPTY;
+        _this._destroyed = new rxjs.Subject();
         /**
          * Uid of the chip list
          */
@@ -8457,12 +8463,12 @@ var MatChipList = /** @class */ (function (_super) {
             .withHorizontalOrientation(this._dir ? this._dir.value : 'ltr');
         // Prevents the chip list from capturing focus and redirecting
         // it back to the first chip when the user tabs out.
-        this._tabOutSubscription = this._keyManager.tabOut.subscribe(function () {
+        this._keyManager.tabOut.pipe(operators.takeUntil(this._destroyed)).subscribe(function () {
             _this._tabIndex = -1;
             setTimeout(function () { return _this._tabIndex = _this._userTabIndex || 0; });
         });
         // When the list changes, re-subscribe
-        this._changeSubscription = this.chips.changes.pipe(operators.startWith(null)).subscribe(function () {
+        this.chips.changes.pipe(operators.startWith(null), operators.takeUntil(this._destroyed)).subscribe(function () {
             _this._resetChips();
             // Reset chips selected/deselected status
             // Reset chips selected/deselected status
@@ -8507,15 +8513,10 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._tabOutSubscription.unsubscribe();
-        if (this._changeSubscription) {
-            this._changeSubscription.unsubscribe();
-        }
-        if (this._chipRemoveSubscription) {
-            this._chipRemoveSubscription.unsubscribe();
-        }
-        this._dropSubscriptions();
+        this._destroyed.next();
+        this._destroyed.complete();
         this.stateChanges.complete();
+        this._dropSubscriptions();
     };
     /** Associates an HTML input element with this chip list. */
     /**
@@ -8712,73 +8713,29 @@ var MatChipList = /** @class */ (function (_super) {
         this._tabIndex = this._userTabIndex || (this.chips.length === 0 ? -1 : 0);
     };
     /**
-     * Update key manager's active item when chip is deleted.
-     * If the deleted chip is the last chip in chip list, focus the new last chip.
-     * Otherwise focus the next chip in the list.
-     * Save `_lastDestroyedIndex` so we can set the correct focus.
+     * If the amount of chips changed, we need to update the key manager state and make sure
+     * that to so that we can refocus the
+     * next closest one.
      */
     /**
-     * Update key manager's active item when chip is deleted.
-     * If the deleted chip is the last chip in chip list, focus the new last chip.
-     * Otherwise focus the next chip in the list.
-     * Save `_lastDestroyedIndex` so we can set the correct focus.
-     * @param {?} chip
-     * @return {?}
-     */
-    MatChipList.prototype._updateKeyManager = /**
-     * Update key manager's active item when chip is deleted.
-     * If the deleted chip is the last chip in chip list, focus the new last chip.
-     * Otherwise focus the next chip in the list.
-     * Save `_lastDestroyedIndex` so we can set the correct focus.
-     * @param {?} chip
-     * @return {?}
-     */
-    function (chip) {
-        var /** @type {?} */ chipIndex = this.chips.toArray().indexOf(chip);
-        if (this._isValidIndex(chipIndex)) {
-            if (chip._hasFocus) {
-                // Check whether the chip is not the last item
-                if (chipIndex < this.chips.length - 1) {
-                    this._keyManager.setActiveItem(chipIndex);
-                }
-                else if (chipIndex - 1 >= 0) {
-                    this._keyManager.setActiveItem(chipIndex - 1);
-                }
-            }
-            if (this._keyManager.activeItemIndex === chipIndex) {
-                this._lastDestroyedIndex = chipIndex;
-            }
-        }
-    };
-    /**
-     * Checks to see if a focus chip was recently destroyed so that we can refocus the next closest
-     * one.
-     */
-    /**
-     * Checks to see if a focus chip was recently destroyed so that we can refocus the next closest
-     * one.
+     * If the amount of chips changed, we need to update the key manager state and make sure
+     * that to so that we can refocus the
+     * next closest one.
      * @return {?}
      */
     MatChipList.prototype._updateFocusForDestroyedChips = /**
-     * Checks to see if a focus chip was recently destroyed so that we can refocus the next closest
-     * one.
+     * If the amount of chips changed, we need to update the key manager state and make sure
+     * that to so that we can refocus the
+     * next closest one.
      * @return {?}
      */
     function () {
-        var /** @type {?} */ chipsArray = this.chips.toArray();
-        if (this._lastDestroyedIndex != null && chipsArray.length > 0 && (this.focused ||
-            (this._keyManager.activeItem && chipsArray.indexOf(this._keyManager.activeItem) === -1))) {
-            // Check whether the destroyed chip was the last item
-            var /** @type {?} */ newFocusIndex = Math.min(this._lastDestroyedIndex, chipsArray.length - 1);
-            this._keyManager.setActiveItem(newFocusIndex);
-            var /** @type {?} */ focusChip = this._keyManager.activeItem;
-            // Focus the chip
-            if (focusChip) {
-                focusChip.focus();
-            }
+        if (this._lastDestroyedChipIndex == null || !this.chips.length) {
+            return;
         }
-        // Reset our destroyed index
-        this._lastDestroyedIndex = null;
+        var /** @type {?} */ newChipIndex = Math.min(this._lastDestroyedChipIndex, this.chips.length - 1);
+        this._keyManager.setActiveItem(newChipIndex);
+        this._lastDestroyedChipIndex = null;
     };
     /**
      * Utility to ensure all indexes are valid.
@@ -9021,6 +8978,10 @@ var MatChipList = /** @class */ (function (_super) {
             this._chipSelectionSubscription.unsubscribe();
             this._chipSelectionSubscription = null;
         }
+        if (this._chipRemoveSubscription) {
+            this._chipRemoveSubscription.unsubscribe();
+            this._chipRemoveSubscription = null;
+        }
     };
     /**
      * Listens to user-generated selection events on each chip.
@@ -9080,7 +9041,14 @@ var MatChipList = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._chipRemoveSubscription = this.chipRemoveChanges.subscribe(function (event) {
-            _this._updateKeyManager(event.chip);
+            var /** @type {?} */ chip = event.chip;
+            var /** @type {?} */ chipIndex = _this.chips.toArray().indexOf(event.chip);
+            // In case the chip that will be removed is currently focused, we temporarily store
+            // the index in order to be able to determine an appropriate sibling chip that will
+            // receive focus.
+            if (_this._isValidIndex(chipIndex) && chip._hasFocus) {
+                _this._lastDestroyedChipIndex = chipIndex;
+            }
         });
     };
     MatChipList.decorators = [
@@ -33078,7 +33046,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-36d8412');
+var /** @type {?} */ VERSION = new core.Version('6.4.6-3da390e');
 
 exports.VERSION = VERSION;
 exports.ɵa28 = MatAutocompleteOrigin;
@@ -33332,12 +33300,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33480,17 +33448,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
