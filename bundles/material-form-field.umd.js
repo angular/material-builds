@@ -287,12 +287,12 @@ var /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new core.InjectionToken('M
  */
 var MatFormField = /** @class */ (function (_super) {
     __extends(MatFormField, _super);
-    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaults, _platform, _ngZone, _animationMode) {
+    function MatFormField(_elementRef, _changeDetectorRef, labelOptions, _dir, _defaultOptions, _platform, _ngZone, _animationMode) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._dir = _dir;
-        _this._defaults = _defaults;
+        _this._defaultOptions = _defaultOptions;
         _this._platform = _platform;
         _this._ngZone = _ngZone;
         _this._outlineGapCalculationNeeded = false;
@@ -312,9 +312,6 @@ var MatFormField = /** @class */ (function (_super) {
         _this._labelOptions = labelOptions ? labelOptions : {};
         _this.floatLabel = _this._labelOptions.float || 'auto';
         _this._animationsEnabled = _animationMode !== 'NoopAnimations';
-        // Set the default through here so we invoke the setter on the first run.
-        // Set the default through here so we invoke the setter on the first run.
-        _this.appearance = (_defaults && _defaults.appearance) ? _defaults.appearance : 'legacy';
         return _this;
     }
     Object.defineProperty(MatFormField.prototype, "appearance", {
@@ -322,7 +319,9 @@ var MatFormField = /** @class */ (function (_super) {
          * The form-field appearance style.
          * @return {?}
          */
-        function () { return this._appearance; },
+        function () {
+            return this._appearance || this._defaultOptions && this._defaultOptions.appearance || 'legacy';
+        },
         set: /**
          * @param {?} value
          * @return {?}
@@ -330,7 +329,7 @@ var MatFormField = /** @class */ (function (_super) {
         function (value) {
             var _this = this;
             var /** @type {?} */ oldValue = this._appearance;
-            this._appearance = value || (this._defaults && this._defaults.appearance) || 'legacy';
+            this._appearance = value;
             if (this._appearance === 'outline' && oldValue !== value) {
                 // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
                 if (this._ngZone) {
