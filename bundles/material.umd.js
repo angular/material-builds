@@ -8716,28 +8716,24 @@ var MatChipList = /** @class */ (function (_super) {
         this._tabIndex = this._userTabIndex || (this.chips.length === 0 ? -1 : 0);
     };
     /**
-     * If the amount of chips changed, we need to update the key manager state and make sure
-     * that to so that we can refocus the
-     * next closest one.
+     * If the amount of chips changed, we need to update the
+     * key manager state and focus the next closest chip.
      */
     /**
-     * If the amount of chips changed, we need to update the key manager state and make sure
-     * that to so that we can refocus the
-     * next closest one.
+     * If the amount of chips changed, we need to update the
+     * key manager state and focus the next closest chip.
      * @return {?}
      */
     MatChipList.prototype._updateFocusForDestroyedChips = /**
-     * If the amount of chips changed, we need to update the key manager state and make sure
-     * that to so that we can refocus the
-     * next closest one.
+     * If the amount of chips changed, we need to update the
+     * key manager state and focus the next closest chip.
      * @return {?}
      */
     function () {
-        if (this._lastDestroyedChipIndex == null || !this.chips.length) {
-            return;
+        if (this._lastDestroyedChipIndex != null && this.chips.length) {
+            var /** @type {?} */ newChipIndex = Math.min(this._lastDestroyedChipIndex, this.chips.length - 1);
+            this._keyManager.setActiveItem(newChipIndex);
         }
-        var /** @type {?} */ newChipIndex = Math.min(this._lastDestroyedChipIndex, this.chips.length - 1);
-        this._keyManager.setActiveItem(newChipIndex);
         this._lastDestroyedChipIndex = null;
     };
     /**
@@ -33063,10 +33059,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-cfa2d04');
+var /** @type {?} */ VERSION = new core.Version('6.4.6-c3b2d4f');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -33145,7 +33141,7 @@ exports.MatChip = MatChip;
 exports.MatChipRemove = MatChipRemove;
 exports.MatChipInput = MatChipInput;
 exports.MAT_CHIPS_DEFAULT_OPTIONS = MAT_CHIPS_DEFAULT_OPTIONS;
-exports.ɵa0 = MATERIAL_SANITY_CHECKS_FACTORY;
+exports.ɵa1 = MATERIAL_SANITY_CHECKS_FACTORY;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MatCommonModule = MatCommonModule;
@@ -33317,12 +33313,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33465,17 +33461,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf22 = MatTabBase;
+exports.ɵg22 = _MatTabMixinBase;
+exports.ɵb22 = MatTabHeaderBase;
+exports.ɵc22 = _MatTabHeaderMixinBase;
+exports.ɵd22 = MatTabLabelWrapperBase;
+exports.ɵe22 = _MatTabLabelWrapperMixinBase;
+exports.ɵj22 = MatTabLinkBase;
+exports.ɵh22 = MatTabNavBase;
+exports.ɵk22 = _MatTabLinkMixinBase;
+exports.ɵi22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

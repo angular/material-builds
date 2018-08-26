@@ -212,9 +212,8 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
      */
     protected _updateTabIndex(): void;
     /**
-     * If the amount of chips changed, we need to update the key manager state and make sure
-     * that to so that we can refocus the
-     * next closest one.
+     * If the amount of chips changed, we need to update the
+     * key manager state and focus the next closest chip.
      */
     protected _updateFocusForDestroyedChips(): void;
     /**
