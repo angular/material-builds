@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { MatPaginatorIntl } from './paginator-intl';
-import { HasInitialized } from '@angular/material/core';
+import { HasInitialized, ThemePalette } from '@angular/material/core';
 /**
  * Change event object that is emitted when the user selects a
  * different page size or navigates to another page.
@@ -32,6 +32,8 @@ export declare class MatPaginator extends _MatPaginatorBase implements OnInit, O
     private _changeDetectorRef;
     private _initialized;
     private _intlChanges;
+    /** Theme color to be used for the underlying form controls. */
+    color: ThemePalette;
     /** The zero-based page index of the displayed list of items. Defaulted to 0. */
     pageIndex: number;
     _pageIndex: number;

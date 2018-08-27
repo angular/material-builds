@@ -244,7 +244,7 @@ var MatAutocomplete = /** @class */ (function (_super) {
     MatAutocomplete.decorators = [
         { type: core.Component, args: [{selector: 'mat-autocomplete',
                     template: "<ng-template><div class=\"mat-autocomplete-panel\" role=\"listbox\" [id]=\"id\" [ngClass]=\"_classList\" #panel><ng-content></ng-content></div></ng-template>",
-                    styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative;width:100%;border-bottom-left-radius:4px;border-bottom-right-radius:4px}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}@media screen and (-ms-high-contrast:active){.mat-autocomplete-panel{outline:solid 1px}}.mat-autocomplete-panel-above{border-radius:0;border-top-left-radius:4px;border-top-right-radius:4px}"],
+                    styles: [".mat-autocomplete-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;visibility:hidden;max-width:none;max-height:256px;position:relative;width:100%;border-bottom-left-radius:4px;border-bottom-right-radius:4px}.mat-autocomplete-panel:not([class*=mat-elevation-z]){box-shadow:0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)}.mat-autocomplete-panel.mat-autocomplete-visible{visibility:visible}.mat-autocomplete-panel.mat-autocomplete-hidden{visibility:hidden}.mat-autocomplete-panel-above .mat-autocomplete-panel{border-radius:0;border-top-left-radius:4px;border-top-right-radius:4px}@media screen and (-ms-high-contrast:active){.mat-autocomplete-panel{outline:solid 1px}}"],
                     encapsulation: core.ViewEncapsulation.None,
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     exportAs: 'matAutocomplete',
@@ -980,25 +980,28 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var _this = this;
         this._positionStrategy = this._overlay.position()
             .flexibleConnectedTo(this._getConnectedElement())
             .withFlexibleDimensions(false)
             .withPush(false)
             .withPositions([
-            { originX: 'start', originY: 'bottom', overlayX: 'start', overlayY: 'top' },
-            { originX: 'start', originY: 'top', overlayX: 'start', overlayY: 'bottom' }
-        ]);
-        // The overlay edge connected to the trigger should have squared corners, while
-        // the opposite end has rounded corners. We apply a CSS class to swap the
-        // border-radius based on the overlay position.
-        this._positionStrategy.positionChanges.subscribe(function (_a) {
-            var connectionPair = _a.connectionPair;
-            if (_this.autocomplete) {
-                _this.autocomplete._classList['mat-autocomplete-panel-above'] =
-                    connectionPair.originY === 'top';
+            {
+                originX: 'start',
+                originY: 'bottom',
+                overlayX: 'start',
+                overlayY: 'top'
+            },
+            {
+                originX: 'start',
+                originY: 'top',
+                overlayX: 'start',
+                overlayY: 'bottom',
+                // The overlay edge connected to the trigger should have squared corners, while
+                // the opposite end has rounded corners. We apply a CSS class to swap the
+                // border-radius based on the overlay position.
+                panelClass: 'mat-autocomplete-panel-above'
             }
-        });
+        ]);
         return this._positionStrategy;
     };
     /**
@@ -1140,7 +1143,7 @@ exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCR
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
 exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa25 = MatAutocompleteOrigin;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

@@ -312,6 +312,7 @@ MatButtonToggleGroup.decorators = [
                 host: {
                     'role': 'group',
                     'class': 'mat-button-toggle-group',
+                    '[attr.aria-disabled]': 'disabled',
                     '[class.mat-button-toggle-vertical]': 'vertical'
                 },
                 exportAs: 'matButtonToggleGroup',
