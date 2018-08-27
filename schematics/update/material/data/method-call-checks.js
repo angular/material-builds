@@ -33,7 +33,7 @@ exports.methodCallChecks = transform_change_data_1.transformChanges([
                 invalidArgCounts: [
                     {
                         count: 2,
-                        message: '"g{{default}}" is now required as a third argument'
+                        message: '"g{{defaults}}" is now required as a third argument'
                     }
                 ]
             }

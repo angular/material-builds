@@ -9,8 +9,8 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
-const ts = require("typescript");
-const property_names_1 = require("../material/data/property-names");
+const property_names_1 = require("../../material/data/property-names");
+const base_types_1 = require("../../typescript/base-types");
 /**
  * Map of classes that have been updated. Each class name maps to the according property change
  * data.
@@ -31,7 +31,7 @@ class Rule extends tslint_1.Rules.TypedRule {
 exports.Rule = Rule;
 class Walker extends tslint_1.ProgramAwareRuleWalker {
     visitClassDeclaration(node) {
-        const baseTypes = this._determineBaseTypes(node);
+        const baseTypes = base_types_1.determineBaseTypes(node);
         if (!baseTypes) {
             return;
         }
@@ -45,16 +45,6 @@ class Walker extends tslint_1.ProgramAwareRuleWalker {
             }
         });
     }
-    _determineBaseTypes(node) {
-        if (!node.heritageClauses) {
-            return null;
-        }
-        return node.heritageClauses
-            .reduce((types, clause) => types.concat(clause.types), [])
-            .map(typeExpression => typeExpression.expression)
-            .filter(expression => expression && ts.isIdentifier(expression))
-            .map(identifier => identifier.text);
-    }
 }
 exports.Walker = Walker;
-//# sourceMappingURL=checkInheritanceRule.js.map
+//# sourceMappingURL=classInheritanceCheckRule.js.map
