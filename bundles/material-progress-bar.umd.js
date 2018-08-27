@@ -68,7 +68,9 @@ var /** @type {?} */ MAT_PROGRESS_BAR_LOCATION = new core.InjectionToken('mat-pr
  * @return {?}
  */
 function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
-    return typeof window !== 'undefined' ? window.location : { pathname: '' };
+    var /** @type {?} */ _document = core.inject(common.DOCUMENT);
+    var /** @type {?} */ pathname = (_document && _document.location && _document.location.pathname) || '';
+    return { pathname: pathname };
 }
 /**
  * Counter used to generate unique IDs for progress bars.

@@ -1070,7 +1070,7 @@ var MatGridList = /** @class */ (function () {
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
     ]; };
     MatGridList.propDecorators = {
-        "_tiles": [{ type: core.ContentChildren, args: [MatGridTile,] },],
+        "_tiles": [{ type: core.ContentChildren, args: [MatGridTile, { descendants: true },] },],
         "cols": [{ type: core.Input },],
         "gutterSize": [{ type: core.Input },],
         "rowHeight": [{ type: core.Input },],

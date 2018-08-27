@@ -1041,7 +1041,7 @@ var MatGridList = /** @class */ (function () {
         { type: Directionality, decorators: [{ type: Optional },] },
     ]; };
     MatGridList.propDecorators = {
-        "_tiles": [{ type: ContentChildren, args: [MatGridTile,] },],
+        "_tiles": [{ type: ContentChildren, args: [MatGridTile, { descendants: true },] },],
         "cols": [{ type: Input },],
         "gutterSize": [{ type: Input },],
         "rowHeight": [{ type: Input },],

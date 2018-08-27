@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Component, ChangeDetectionStrategy, ElementRef, Inject, Input, Optional, ViewEncapsulation, InjectionToken, NgModule } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ElementRef, Inject, Input, Optional, ViewEncapsulation, InjectionToken, inject, NgModule } from '@angular/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
-import { CommonModule } from '@angular/common';
+import { DOCUMENT, CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -37,7 +37,9 @@ const /** @type {?} */ MAT_PROGRESS_BAR_LOCATION = new InjectionToken('mat-progr
  * @return {?}
  */
 function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
-    return typeof window !== 'undefined' ? window.location : { pathname: '' };
+    const /** @type {?} */ _document = inject(DOCUMENT);
+    const /** @type {?} */ pathname = (_document && _document.location && _document.location.pathname) || '';
+    return { pathname };
 }
 /**
  * Counter used to generate unique IDs for progress bars.
