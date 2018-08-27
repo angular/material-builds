@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/observers'), require('@angular/cdk/a11y'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/scrolling'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('@angular/cdk/tree')) :
-	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/operators', '@angular/cdk/observers', '@angular/cdk/a11y', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/scrolling', '@angular/cdk/table', '@angular/cdk/stepper', '@angular/cdk/tree'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.rxjs.operators,global.ng.cdk.observers,global.ng.cdk.a11y,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.scrolling,global.ng.cdk.table,global.ng.cdk.stepper,global.ng.cdk.tree));
-}(this, (function (exports,core,bidi,coercion,rxjs,platform,platformBrowser,animations,keycodes,common,animations$1,operators,observers,a11y,overlay,portal,forms,layout,collections,textField,accordion,http,scrolling,table,stepper,tree) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/scrolling'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('@angular/cdk/tree')) :
+	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/operators', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/scrolling', '@angular/cdk/table', '@angular/cdk/stepper', '@angular/cdk/tree'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.rxjs.operators,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.scrolling,global.ng.cdk.table,global.ng.cdk.stepper,global.ng.cdk.tree));
+}(this, (function (exports,core,bidi,coercion,rxjs,platform,platformBrowser,a11y,animations,keycodes,common,animations$1,operators,observers,overlay,portal,forms,layout,collections,textField,accordion,http,scrolling,table,stepper,tree) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1720,9 +1720,12 @@ RippleRenderer = /** @class */ (function () {
          * Function being called whenever the trigger is being pressed using mouse.
          */
         this.onMousedown = function (event) {
+            // Screen readers will fire fake mouse events for space/enter. Skip launching a
+            // ripple in this case for consistency with the non-screen-reader experience.
+            var /** @type {?} */ isFakeMousedown = a11y.isFakeMousedownFromScreenReader(event);
             var /** @type {?} */ isSyntheticEvent = _this._lastTouchStartEvent &&
                 Date.now() < _this._lastTouchStartEvent + ignoreMouseEventsTimeout;
-            if (!_this._target.rippleDisabled && !isSyntheticEvent) {
+            if (!_this._target.rippleDisabled && !isFakeMousedown && !isSyntheticEvent) {
                 _this._isPointerDown = true;
                 _this.fadeInRipple(event.clientX, event.clientY, _this._target.rippleConfig);
             }
@@ -11475,7 +11478,7 @@ var MatCalendarBody = /** @class */ (function () {
                     host: {
                         'class': 'mat-calendar-body',
                         'role': 'grid',
-                        'attr.aria-readonly': 'true'
+                        'aria-readonly': 'true'
                     },
                     exportAs: 'matCalendarBody',
                     encapsulation: core.ViewEncapsulation.None,
@@ -21469,7 +21472,8 @@ var MatSelect = /** @class */ (function (_super) {
         }
         // Note: we use `_getAriaLabel` here, because we want to check whether there's a
         // computed label. `this.ariaLabel` is only the user-specified label.
-        if (!this._parentFormField || this._getAriaLabel()) {
+        if (!this._parentFormField || !this._parentFormField._hasFloatingLabel() ||
+            this._getAriaLabel()) {
             return null;
         }
         return this._parentFormField._labelId || null;
@@ -24445,8 +24449,12 @@ var MatRadioButton = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._focusMonitor
-            .monitor(this._inputElement)
-            .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
+            .monitor(this._elementRef, true)
+            .subscribe(function (focusOrigin) {
+            if (!focusOrigin && _this.radioGroup) {
+                _this.radioGroup._touch();
+            }
+        });
     };
     /**
      * @return {?}
@@ -24455,7 +24463,7 @@ var MatRadioButton = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.stopMonitoring(this._inputElement);
+        this._focusMonitor.stopMonitoring(this._elementRef);
         this._removeUniqueSelectionListener();
     };
     /**
@@ -24528,35 +24536,10 @@ var MatRadioButton = /** @class */ (function (_super) {
             }
         }
     };
-    /**
-     * Function is called whenever the focus changes for the input element.
-     * @param {?} focusOrigin
-     * @return {?}
-     */
-    MatRadioButton.prototype._onInputFocusChange = /**
-     * Function is called whenever the focus changes for the input element.
-     * @param {?} focusOrigin
-     * @return {?}
-     */
-    function (focusOrigin) {
-        // TODO(paul): support `program`. See https://github.com/angular/material2/issues/9889
-        if (!this._focusRipple && focusOrigin === 'keyboard') {
-            this._focusRipple = this._ripple.launch(0, 0, { persistent: true });
-        }
-        else if (!focusOrigin) {
-            if (this.radioGroup) {
-                this.radioGroup._touch();
-            }
-            if (this._focusRipple) {
-                this._focusRipple.fadeOut();
-                this._focusRipple = null;
-            }
-        }
-    };
     MatRadioButton.decorators = [
         { type: core.Component, args: [{selector: 'mat-radio-button',
-                    template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div mat-ripple class=\"mat-radio-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\" [matRippleRadius]=\"23\" [matRippleAnimation]=\"{enterDuration: 150}\"></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [tabIndex]=\"tabIndex\" [attr.name]=\"name\" [required]=\"required\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" [attr.aria-describedby]=\"ariaDescribedby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
-                    styles: [".mat-radio-button{display:inline-block;-webkit-tap-highlight-color:transparent}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}._mat-animation-noopable .mat-radio-outer-circle{transition:none}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(.001)}._mat-animation-noopable .mat-radio-inner-circle{transition:none}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}@media screen and (-ms-high-contrast:active){.mat-radio-checked .mat-radio-inner-circle{border:solid 10px}}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-button .mat-radio-ripple{position:absolute;left:calc(50% - 25px);top:calc(50% - 25px);height:50px;width:50px;z-index:1;pointer-events:none}"],
+                    template: "<label [attr.for]=\"inputId\" class=\"mat-radio-label\" #label><div class=\"mat-radio-container\"><div class=\"mat-radio-outer-circle\"></div><div class=\"mat-radio-inner-circle\"></div><div mat-ripple class=\"mat-radio-ripple\" [matRippleTrigger]=\"label\" [matRippleDisabled]=\"_isRippleDisabled()\" [matRippleCentered]=\"true\" [matRippleRadius]=\"20\" [matRippleAnimation]=\"{enterDuration: 150}\"><div class=\"mat-ripple-element mat-radio-persistent-ripple\"></div></div></div><input #input class=\"mat-radio-input cdk-visually-hidden\" type=\"radio\" [id]=\"inputId\" [checked]=\"checked\" [disabled]=\"disabled\" [tabIndex]=\"tabIndex\" [attr.name]=\"name\" [required]=\"required\" [attr.aria-label]=\"ariaLabel\" [attr.aria-labelledby]=\"ariaLabelledby\" [attr.aria-describedby]=\"ariaDescribedby\" (change)=\"_onInputChange($event)\" (click)=\"_onInputClick($event)\"><div class=\"mat-radio-label-content\" [class.mat-radio-label-before]=\"labelPosition == 'before'\"><span style=\"display:none\">&nbsp;</span><ng-content></ng-content></div></label>",
+                    styles: [".mat-radio-button{display:inline-block;-webkit-tap-highlight-color:transparent}.mat-radio-label{cursor:pointer;display:inline-flex;align-items:center;white-space:nowrap;vertical-align:middle}.mat-radio-container{box-sizing:border-box;display:inline-block;position:relative;width:20px;height:20px;flex-shrink:0}.mat-radio-outer-circle{box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:border-color ease 280ms;width:20px;border-width:2px;border-style:solid;border-radius:50%}._mat-animation-noopable .mat-radio-outer-circle{transition:none}.mat-radio-inner-circle{border-radius:50%;box-sizing:border-box;height:20px;left:0;position:absolute;top:0;transition:transform ease 280ms,background-color ease 280ms;width:20px;transform:scale(.001)}._mat-animation-noopable .mat-radio-inner-circle{transition:none}.mat-radio-checked .mat-radio-inner-circle{transform:scale(.5)}@media screen and (-ms-high-contrast:active){.mat-radio-checked .mat-radio-inner-circle{border:solid 10px}}.mat-radio-label-content{display:inline-block;order:0;line-height:inherit;padding-left:8px;padding-right:0}[dir=rtl] .mat-radio-label-content{padding-right:8px;padding-left:0}.mat-radio-label-content.mat-radio-label-before{order:-1;padding-left:0;padding-right:8px}[dir=rtl] .mat-radio-label-content.mat-radio-label-before{padding-right:0;padding-left:8px}.mat-radio-disabled,.mat-radio-disabled .mat-radio-label{cursor:default}.mat-radio-button .mat-radio-ripple{position:absolute;left:calc(50% - 20px);top:calc(50% - 20px);height:40px;width:40px;z-index:1;pointer-events:none}.mat-radio-button .mat-radio-ripple .mat-ripple-element:not(.mat-radio-persistent-ripple){opacity:.16}.mat-radio-persistent-ripple{width:100%;height:100%;transform:none}.mat-radio-container:hover .mat-radio-persistent-ripple{opacity:.04}.mat-radio-button.cdk-focused .mat-radio-persistent-ripple{opacity:.12}.mat-radio-disabled .mat-radio-container:hover .mat-radio-persistent-ripple,.mat-radio-persistent-ripple{opacity:0}"],
                     inputs: ['color', 'disableRipple', 'tabIndex'],
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matRadioButton',
@@ -24595,7 +24578,6 @@ var MatRadioButton = /** @class */ (function (_super) {
         "disabled": [{ type: core.Input },],
         "required": [{ type: core.Input },],
         "change": [{ type: core.Output },],
-        "_ripple": [{ type: core.ViewChild, args: [MatRipple,] },],
         "_inputElement": [{ type: core.ViewChild, args: ['input',] },],
     };
     return MatRadioButton;
@@ -33171,10 +33153,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /**
  * Current version of Angular Material.
  */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-32e5d72');
+var /** @type {?} */ VERSION = new core.Version('6.4.6-4639a87');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
@@ -33426,12 +33408,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa22 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb22 = MatMenuItemBase;
-exports.ɵc22 = _MatMenuItemMixinBase;
-exports.ɵf22 = MAT_MENU_PANEL;
-exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe22 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;

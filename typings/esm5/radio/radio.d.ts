@@ -9,7 +9,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, MatRipple } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple, HasTabIndex } from '@angular/material/core';
 /**
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -182,10 +182,6 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     private _required;
     /** Value assigned to this radio. */
     private _value;
-    /** The child ripple instance. */
-    _ripple: MatRipple;
-    /** Reference to the current focus ripple. */
-    private _focusRipple;
     /** Unregister function for _radioDispatcher */
     private _removeUniqueSelectionListener;
     /** The native `<input type=radio>` element */
@@ -211,6 +207,4 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
      * Clicking on a label element, will trigger a change event on the associated input.
      */
     _onInputChange(event: Event): void;
-    /** Function is called whenever the focus changes for the input element. */
-    private _onInputFocusChange(focusOrigin);
 }

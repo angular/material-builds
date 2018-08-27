@@ -1420,7 +1420,8 @@ var MatSelect = /** @class */ (function (_super) {
         }
         // Note: we use `_getAriaLabel` here, because we want to check whether there's a
         // computed label. `this.ariaLabel` is only the user-specified label.
-        if (!this._parentFormField || this._getAriaLabel()) {
+        if (!this._parentFormField || !this._parentFormField._hasFloatingLabel() ||
+            this._getAriaLabel()) {
             return null;
         }
         return this._parentFormField._labelId || null;

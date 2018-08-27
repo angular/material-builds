@@ -11,6 +11,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
 import { HammerGestureConfig } from '@angular/platform-browser';
+import { isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
@@ -1285,9 +1286,12 @@ class RippleRenderer {
          * Function being called whenever the trigger is being pressed using mouse.
          */
         this.onMousedown = (event) => {
+            // Screen readers will fire fake mouse events for space/enter. Skip launching a
+            // ripple in this case for consistency with the non-screen-reader experience.
+            const /** @type {?} */ isFakeMousedown = isFakeMousedownFromScreenReader(event);
             const /** @type {?} */ isSyntheticEvent = this._lastTouchStartEvent &&
                 Date.now() < this._lastTouchStartEvent + ignoreMouseEventsTimeout;
-            if (!this._target.rippleDisabled && !isSyntheticEvent) {
+            if (!this._target.rippleDisabled && !isFakeMousedown && !isSyntheticEvent) {
                 this._isPointerDown = true;
                 this.fadeInRipple(event.clientX, event.clientY, this._target.rippleConfig);
             }

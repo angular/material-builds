@@ -222,7 +222,7 @@ var MatCalendarBody = /** @class */ (function () {
                     host: {
                         'class': 'mat-calendar-body',
                         'role': 'grid',
-                        'attr.aria-readonly': 'true'
+                        'aria-readonly': 'true'
                     },
                     exportAs: 'matCalendarBody',
                     encapsulation: ViewEncapsulation.None,
