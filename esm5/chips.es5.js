@@ -470,8 +470,12 @@ var MatChip = /** @class */ (function (_super) {
         this._ngZone.onStable
             .asObservable()
             .pipe(take(1))
-            .subscribe(function () { return _this._hasFocus = false; });
-        this._onBlur.next({ chip: this });
+            .subscribe(function () {
+            _this._ngZone.run(function () {
+                _this._hasFocus = false;
+                _this._onBlur.next({ chip: _this });
+            });
+        });
     };
     MatChip.decorators = [
         { type: Directive, args: [{
