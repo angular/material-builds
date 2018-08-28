@@ -89,7 +89,7 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
      * @breaking-change 7.0.0
      */
     underlineRef: ElementRef;
-    _connectionContainerRef: ElementRef<HTMLElement>;
+    _connectionContainerRef: ElementRef;
     _inputContainerRef: ElementRef;
     private _label;
     _control: MatFormFieldControl<any>;

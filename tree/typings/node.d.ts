@@ -16,10 +16,10 @@ export declare const _MatNestedTreeNodeMixinBase: import("../core/common-behavio
  * Wrapper for the CdkTree node with Material design styles.
  */
 export declare class MatTreeNode<T> extends _MatTreeNodeMixinBase<T> implements CanDisable, HasTabIndex {
-    protected _elementRef: ElementRef;
+    protected _elementRef: ElementRef<HTMLElement>;
     protected _tree: CdkTree<T>;
     role: 'treeitem' | 'group';
-    constructor(_elementRef: ElementRef, _tree: CdkTree<T>, tabIndex: string);
+    constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T>, tabIndex: string);
 }
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
@@ -31,12 +31,12 @@ export declare class MatTreeNodeDef<T> extends _CdkTreeNodeDef<T> {
  * Wrapper for the CdkTree nested node with Material design styles.
  */
 export declare class MatNestedTreeNode<T> extends _MatNestedTreeNodeMixinBase<T> implements AfterContentInit, CanDisable, HasTabIndex, OnDestroy {
-    protected _elementRef: ElementRef;
+    protected _elementRef: ElementRef<HTMLElement>;
     protected _tree: CdkTree<T>;
     protected _differs: IterableDiffers;
     node: T;
     nodeOutlet: QueryList<MatTreeNodeOutlet>;
-    constructor(_elementRef: ElementRef, _tree: CdkTree<T>, _differs: IterableDiffers, tabIndex: string);
+    constructor(_elementRef: ElementRef<HTMLElement>, _tree: CdkTree<T>, _differs: IterableDiffers, tabIndex: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
 }

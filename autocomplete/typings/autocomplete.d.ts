@@ -80,7 +80,7 @@ export declare class MatAutocomplete extends _MatAutocompleteMixinBase implement
     };
     /** Unique ID to be used by autocomplete trigger's "aria-owns" property. */
     id: string;
-    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef, defaults: MatAutocompleteDefaultOptions);
+    constructor(_changeDetectorRef: ChangeDetectorRef, _elementRef: ElementRef<HTMLElement>, defaults: MatAutocompleteDefaultOptions);
     ngAfterContentInit(): void;
     /**
      * Sets the panel scrollTop. This allows us to manually scroll to display options

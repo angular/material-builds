@@ -43,7 +43,7 @@ export declare class MatChipListChange {
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
 export declare class MatChipList extends _MatChipListMixinBase implements MatFormFieldControl<any>, ControlValueAccessor, AfterContentInit, DoCheck, OnInit, OnDestroy, CanUpdateErrorState {
-    protected _elementRef: ElementRef;
+    protected _elementRef: ElementRef<HTMLElement>;
     private _changeDetectorRef;
     private _dir;
     /** @docs-private */
@@ -173,7 +173,7 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     readonly valueChange: EventEmitter<any>;
     /** The chip components contained within this chip list. */
     chips: QueryList<MatChip>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, 
+    constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, 
     /** @docs-private */
     ngControl: NgControl);
     ngAfterContentInit(): void;

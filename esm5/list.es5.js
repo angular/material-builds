@@ -429,7 +429,7 @@ var MatListOption = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        return this._text ? this._text.nativeElement.textContent : '';
+        return this._text ? (this._text.nativeElement.textContent || '') : '';
     };
     /** Whether this list item should show a ripple effect when clicked. */
     /**

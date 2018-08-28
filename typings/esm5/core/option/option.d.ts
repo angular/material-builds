@@ -61,7 +61,7 @@ export declare class MatOption implements AfterViewChecked, OnDestroy {
     readonly onSelectionChange: EventEmitter<MatOptionSelectionChange>;
     /** Emits when the state of the option changes and any parents have to be notified. */
     readonly _stateChanges: Subject<void>;
-    constructor(_element: ElementRef, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: MatOptgroup);
+    constructor(_element: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: MatOptgroup);
     /**
      * Whether or not the option is currently active and ready to be selected.
      * An active option displays styles as if it is focused, but the

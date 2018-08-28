@@ -42,7 +42,7 @@ export declare class MatColumnDef extends CdkColumnDef {
 }
 /** Header cell template container that adds the right classes and role. */
 export declare class MatHeaderCell extends CdkHeaderCell {
-    constructor(columnDef: CdkColumnDef, elementRef: ElementRef);
+    constructor(columnDef: CdkColumnDef, elementRef: ElementRef<HTMLElement>);
 }
 /** Footer cell template container that adds the right classes and role. */
 export declare class MatFooterCell extends CdkFooterCell {
@@ -50,5 +50,5 @@ export declare class MatFooterCell extends CdkFooterCell {
 }
 /** Cell template container that adds the right classes and role. */
 export declare class MatCell extends CdkCell {
-    constructor(columnDef: CdkColumnDef, elementRef: ElementRef);
+    constructor(columnDef: CdkColumnDef, elementRef: ElementRef<HTMLElement>);
 }

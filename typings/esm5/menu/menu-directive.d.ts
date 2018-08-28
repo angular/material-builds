@@ -107,7 +107,7 @@ export declare class MatMenu implements AfterContentInit, MatMenuPanel<MatMenuIt
      * @breaking-change 7.0.0
      */
     close: EventEmitter<void | "click" | "keydown" | "tab">;
-    constructor(_elementRef: ElementRef, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
+    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone, _defaultOptions: MatMenuDefaultOptions);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;

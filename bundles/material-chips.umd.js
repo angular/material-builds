@@ -1165,7 +1165,6 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function (isDisabled) {
         this.disabled = isDisabled;
-        this._elementRef.nativeElement.disabled = isDisabled;
         this.stateChanges.next();
     };
     /**

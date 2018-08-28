@@ -869,7 +869,6 @@ class MatChipList extends _MatChipListMixinBase {
      */
     setDisabledState(isDisabled) {
         this.disabled = isDisabled;
-        this._elementRef.nativeElement.disabled = isDisabled;
         this.stateChanges.next();
     }
     /**

@@ -47,7 +47,7 @@ export declare class MatCalendarBody {
     cellAspectRatio: number;
     /** Emits when a new value is selected. */
     readonly selectedValueChange: EventEmitter<number>;
-    constructor(_elementRef: ElementRef, _ngZone: NgZone);
+    constructor(_elementRef: ElementRef<HTMLElement>, _ngZone: NgZone);
     _cellClicked(cell: MatCalendarCell): void;
     /** The number of blank cells to put at the beginning for the first row. */
     readonly _firstRowOffset: number;

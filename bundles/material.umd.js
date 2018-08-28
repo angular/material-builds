@@ -8876,7 +8876,6 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function (isDisabled) {
         this.disabled = isDisabled;
-        this._elementRef.nativeElement.disabled = isDisabled;
         this.stateChanges.next();
     };
     /**
@@ -11789,7 +11788,11 @@ var MatCalendarBody = /** @class */ (function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
             _this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
-                _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
+                /** @type {?} */
+                var activeCell = _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
+                if (activeCell) {
+                    activeCell.focus();
+                }
             });
         });
     };
@@ -18361,7 +18364,7 @@ var MatListOption = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        return this._text ? this._text.nativeElement.textContent : '';
+        return this._text ? (this._text.nativeElement.textContent || '') : '';
     };
     /** Whether this list item should show a ripple effect when clicked. */
     /**
@@ -32364,7 +32367,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         var selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
             this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement :
             null;
-        this._inkBar.alignToElement(selectedLabelWrapper);
+        this._inkBar.alignToElement(/** @type {?} */ ((selectedLabelWrapper)));
     };
     MatTabHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-tab-header',
@@ -33996,10 +33999,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('6.4.6-6a1a707');
+var VERSION = new core.Version('6.4.6-cf9b8ab');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa27 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;

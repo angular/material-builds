@@ -85,7 +85,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     /** The value attribute of the native input element */
     value: string;
     /** The native `<input type="checkbox">` element */
-    _inputElement: ElementRef;
+    _inputElement: ElementRef<HTMLInputElement>;
     /** Reference to the ripple instance of the checkbox. */
     ripple: MatRipple;
     /**
@@ -98,7 +98,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     private _controlValueAccessorChangeFn;
     /** Reference to the focused state ripple. */
     private _focusRipple;
-    constructor(elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, _ngZone: NgZone, tabIndex: string, _clickAction: MatCheckboxClickAction, _animationMode?: string | undefined);
+    constructor(elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, _ngZone: NgZone, tabIndex: string, _clickAction: MatCheckboxClickAction, _animationMode?: string | undefined);
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /**

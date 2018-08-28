@@ -20,7 +20,7 @@ export declare class MatDialogClose implements OnInit, OnChanges {
     /** Dialog close input. */
     dialogResult: any;
     _matDialogClose: any;
-    constructor(dialogRef: MatDialogRef<any>, _elementRef: ElementRef, _dialog: MatDialog);
+    constructor(dialogRef: MatDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatDialog);
     ngOnInit(): void;
     ngOnChanges(changes: SimpleChanges): void;
 }
@@ -32,7 +32,7 @@ export declare class MatDialogTitle implements OnInit {
     private _elementRef;
     private _dialog;
     id: string;
-    constructor(_dialogRef: MatDialogRef<any>, _elementRef: ElementRef, _dialog: MatDialog);
+    constructor(_dialogRef: MatDialogRef<any>, _elementRef: ElementRef<HTMLElement>, _dialog: MatDialog);
     ngOnInit(): void;
 }
 /**

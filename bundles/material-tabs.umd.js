@@ -1292,7 +1292,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         var selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
             this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement :
             null;
-        this._inkBar.alignToElement(selectedLabelWrapper);
+        this._inkBar.alignToElement(/** @type {?} */ ((selectedLabelWrapper)));
     };
     MatTabHeader.decorators = [
         { type: core.Component, args: [{selector: 'mat-tab-header',

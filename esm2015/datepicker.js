@@ -195,7 +195,11 @@ class MatCalendarBody {
     _focusActiveCell() {
         this._ngZone.runOutsideAngular(() => {
             this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
-                this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
+                /** @type {?} */
+                const activeCell = this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
+                if (activeCell) {
+                    activeCell.focus();
+                }
             });
         });
     }

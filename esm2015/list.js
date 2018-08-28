@@ -330,7 +330,7 @@ class MatListOption extends _MatListOptionMixinBase {
      * @return {?}
      */
     getLabel() {
-        return this._text ? this._text.nativeElement.textContent : '';
+        return this._text ? (this._text.nativeElement.textContent || '') : '';
     }
     /**
      * Whether this list item should show a ripple effect when clicked.

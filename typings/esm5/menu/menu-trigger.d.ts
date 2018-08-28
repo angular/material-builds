@@ -68,7 +68,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      * @breaking-change 7.0.0
      */
     readonly onMenuClose: EventEmitter<void>;
-    constructor(_overlay: Overlay, _element: ElementRef, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _parentMenu: MatMenu, _menuItemInstance: MatMenuItem, _dir: Directionality, _focusMonitor?: FocusMonitor | undefined);
+    constructor(_overlay: Overlay, _element: ElementRef<HTMLElement>, _viewContainerRef: ViewContainerRef, _scrollStrategy: any, _parentMenu: MatMenu, _menuItemInstance: MatMenuItem, _dir: Directionality, _focusMonitor?: FocusMonitor | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Whether the menu is open. */
