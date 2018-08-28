@@ -23866,16 +23866,31 @@ var progressbarId = 0;
  */
 var MatProgressBar = /** @class */ (function (_super) {
     __extends(MatProgressBar, _super);
-    function MatProgressBar(_elementRef, _animationMode, /**
+    function MatProgressBar(_elementRef, _ngZone, _animationMode, /**
                    * @deprecated `location` parameter to be made required.
                    * @breaking-change 8.0.0
                    */
     location) {
         var _this = _super.call(this, _elementRef) || this;
         _this._elementRef = _elementRef;
+        _this._ngZone = _ngZone;
         _this._animationMode = _animationMode;
+        /**
+         * Flag that indicates whether NoopAnimations mode is set to true.
+         */
+        _this._isNoopAnimation = false;
         _this._value = 0;
         _this._bufferValue = 0;
+        /**
+         * Event emitted when animation of the primary progress bar completes. This event will not
+         * be emitted when animations are disabled, nor will it be emitted for modes with continuous
+         * animations (indeterminate and query).
+         */
+        _this.animationEnd = new core.EventEmitter();
+        /**
+         * Reference to animation end subscription to be unsubscribed on destroy.
+         */
+        _this._animationEndSubscription = rxjs.Subscription.EMPTY;
         /**
          * Mode of the progress bar.
          *
@@ -23891,6 +23906,7 @@ var MatProgressBar = /** @class */ (function (_super) {
         /** @type {?} */
         var path = location && location.pathname ? location.pathname.split('#')[0] : '';
         _this._rectangleFillValue = "url('" + path + "#" + _this.progressbarId + "')";
+        _this._isNoopAnimation = _animationMode === 'NoopAnimations';
         return _this;
     }
     Object.defineProperty(MatProgressBar.prototype, "value", {
@@ -23904,7 +23920,13 @@ var MatProgressBar = /** @class */ (function (_super) {
          * @param {?} v
          * @return {?}
          */
-        function (v) { this._value = clamp(v || 0); },
+        function (v) {
+            this._value = clamp(v || 0);
+            // When noop animation is set to true, trigger animationEnd directly.
+            if (this._isNoopAnimation) {
+                this.emitAnimationEnd();
+            }
+        },
         enumerable: true,
         configurable: true
     });
@@ -23958,6 +23980,49 @@ var MatProgressBar = /** @class */ (function (_super) {
             return { transform: "scaleX(" + scale + ")" };
         }
     };
+    /**
+     * @return {?}
+     */
+    MatProgressBar.prototype.ngAfterViewInit = /**
+     * @return {?}
+     */
+    function () {
+        var _this = this;
+        if (!this._isNoopAnimation) {
+            // Run outside angular so change detection didn't get triggered on every transition end
+            // instead only on the animation that we care about (primary value bar's transitionend)
+            this._ngZone.runOutsideAngular((function () {
+                _this._animationEndSubscription =
+                    rxjs.fromEvent(_this._primaryValueBar.nativeElement, 'transitionend')
+                        .pipe(operators.filter((function (e) {
+                        return e.target === _this._primaryValueBar.nativeElement;
+                    })))
+                        .subscribe(function (_) { return _this._ngZone.run(function () { return _this.emitAnimationEnd(); }); });
+            }));
+        }
+    };
+    /**
+     * @return {?}
+     */
+    MatProgressBar.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        this._animationEndSubscription.unsubscribe();
+    };
+    /**
+     * Emit an animationEnd event if in determinate or buffer mode.
+     * @return {?}
+     */
+    MatProgressBar.prototype.emitAnimationEnd = /**
+     * Emit an animationEnd event if in determinate or buffer mode.
+     * @return {?}
+     */
+    function () {
+        if (this.mode === 'determinate' || this.mode === 'buffer') {
+            this.animationEnd.next({ value: this.value });
+        }
+    };
     MatProgressBar.decorators = [
         { type: core.Component, args: [{selector: 'mat-progress-bar',
                     exportAs: 'matProgressBar',
@@ -23968,10 +24033,10 @@ var MatProgressBar = /** @class */ (function (_super) {
                         '[attr.aria-valuenow]': 'value',
                         '[attr.mode]': 'mode',
                         'class': 'mat-progress-bar',
-                        '[class._mat-animation-noopable]': "_animationMode === 'NoopAnimations'",
+                        '[class._mat-animation-noopable]': "_isNoopAnimation",
                     },
                     inputs: ['color'],
-                    template: "<svg width=\"100%\" height=\"4\" focusable=\"false\" class=\"mat-progress-bar-background mat-progress-bar-element\"><defs><pattern [id]=\"progressbarId\" x=\"4\" y=\"0\" width=\"8\" height=\"4\" patternUnits=\"userSpaceOnUse\"><circle cx=\"2\" cy=\"2\" r=\"2\"/></pattern></defs><rect [attr.fill]=\"_rectangleFillValue\" width=\"100%\" height=\"100%\"/></svg><div class=\"mat-progress-bar-buffer mat-progress-bar-element\" [ngStyle]=\"_bufferTransform()\"></div><div class=\"mat-progress-bar-primary mat-progress-bar-fill mat-progress-bar-element\" [ngStyle]=\"_primaryTransform()\"></div><div class=\"mat-progress-bar-secondary mat-progress-bar-fill mat-progress-bar-element\"></div>",
+                    template: "<svg width=\"100%\" height=\"4\" focusable=\"false\" class=\"mat-progress-bar-background mat-progress-bar-element\"><defs><pattern [id]=\"progressbarId\" x=\"4\" y=\"0\" width=\"8\" height=\"4\" patternUnits=\"userSpaceOnUse\"><circle cx=\"2\" cy=\"2\" r=\"2\"/></pattern></defs><rect [attr.fill]=\"_rectangleFillValue\" width=\"100%\" height=\"100%\"/></svg><div class=\"mat-progress-bar-buffer mat-progress-bar-element\" [ngStyle]=\"_bufferTransform()\"></div><div class=\"mat-progress-bar-primary mat-progress-bar-fill mat-progress-bar-element\" [ngStyle]=\"_primaryTransform()\" #primaryValueBar></div><div class=\"mat-progress-bar-secondary mat-progress-bar-fill mat-progress-bar-element\"></div>",
                     styles: [".mat-progress-bar{display:block;height:4px;overflow:hidden;position:relative;transition:opacity 250ms linear;width:100%}._mat-animation-noopable.mat-progress-bar{transition:none;animation:none}.mat-progress-bar .mat-progress-bar-element,.mat-progress-bar .mat-progress-bar-fill::after{height:100%;position:absolute;width:100%}.mat-progress-bar .mat-progress-bar-background{width:calc(100% + 10px)}@media screen and (-ms-high-contrast:active){.mat-progress-bar .mat-progress-bar-background{display:none}}.mat-progress-bar .mat-progress-bar-buffer{transform-origin:top left;transition:transform 250ms ease}@media screen and (-ms-high-contrast:active){.mat-progress-bar .mat-progress-bar-buffer{border-top:solid 5px;opacity:.5}}.mat-progress-bar .mat-progress-bar-secondary{display:none}.mat-progress-bar .mat-progress-bar-fill{animation:none;transform-origin:top left;transition:transform 250ms ease}@media screen and (-ms-high-contrast:active){.mat-progress-bar .mat-progress-bar-fill{border-top:solid 4px}}.mat-progress-bar .mat-progress-bar-fill::after{animation:none;content:'';display:inline-block;left:0}.mat-progress-bar[dir=rtl],[dir=rtl] .mat-progress-bar{transform:rotateY(180deg)}.mat-progress-bar[mode=query]{transform:rotateZ(180deg)}.mat-progress-bar[mode=query][dir=rtl],[dir=rtl] .mat-progress-bar[mode=query]{transform:rotateZ(180deg) rotateY(180deg)}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-fill,.mat-progress-bar[mode=query] .mat-progress-bar-fill{transition:none}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-primary,.mat-progress-bar[mode=query] .mat-progress-bar-primary{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-primary-indeterminate-translate 2s infinite linear;left:-145.166611%}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-primary.mat-progress-bar-fill::after,.mat-progress-bar[mode=query] .mat-progress-bar-primary.mat-progress-bar-fill::after{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-primary-indeterminate-scale 2s infinite linear}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-secondary,.mat-progress-bar[mode=query] .mat-progress-bar-secondary{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-secondary-indeterminate-translate 2s infinite linear;left:-54.888891%;display:block}.mat-progress-bar[mode=indeterminate] .mat-progress-bar-secondary.mat-progress-bar-fill::after,.mat-progress-bar[mode=query] .mat-progress-bar-secondary.mat-progress-bar-fill::after{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-secondary-indeterminate-scale 2s infinite linear}.mat-progress-bar[mode=buffer] .mat-progress-bar-background{-webkit-backface-visibility:hidden;backface-visibility:hidden;animation:mat-progress-bar-background-scroll 250ms infinite linear;display:block}.mat-progress-bar._mat-animation-noopable .mat-progress-bar-background,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-buffer,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-fill,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-fill::after,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-primary,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-primary.mat-progress-bar-fill::after,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-secondary,.mat-progress-bar._mat-animation-noopable .mat-progress-bar-secondary.mat-progress-bar-fill::after{animation:none;transition:none}@keyframes mat-progress-bar-primary-indeterminate-translate{0%{transform:translateX(0)}20%{animation-timing-function:cubic-bezier(.5,0,.70173,.49582);transform:translateX(0)}59.15%{animation-timing-function:cubic-bezier(.30244,.38135,.55,.95635);transform:translateX(83.67142%)}100%{transform:translateX(200.61106%)}}@keyframes mat-progress-bar-primary-indeterminate-scale{0%{transform:scaleX(.08)}36.65%{animation-timing-function:cubic-bezier(.33473,.12482,.78584,1);transform:scaleX(.08)}69.15%{animation-timing-function:cubic-bezier(.06,.11,.6,1);transform:scaleX(.66148)}100%{transform:scaleX(.08)}}@keyframes mat-progress-bar-secondary-indeterminate-translate{0%{animation-timing-function:cubic-bezier(.15,0,.51506,.40969);transform:translateX(0)}25%{animation-timing-function:cubic-bezier(.31033,.28406,.8,.73371);transform:translateX(37.65191%)}48.35%{animation-timing-function:cubic-bezier(.4,.62704,.6,.90203);transform:translateX(84.38617%)}100%{transform:translateX(160.27778%)}}@keyframes mat-progress-bar-secondary-indeterminate-scale{0%{animation-timing-function:cubic-bezier(.15,0,.51506,.40969);transform:scaleX(.08)}19.15%{animation-timing-function:cubic-bezier(.31033,.28406,.8,.73371);transform:scaleX(.4571)}44.15%{animation-timing-function:cubic-bezier(.4,.62704,.6,.90203);transform:scaleX(.72796)}100%{transform:scaleX(.08)}}@keyframes mat-progress-bar-background-scroll{to{transform:translateX(-10px)}}"],
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
@@ -23980,12 +24045,15 @@ var MatProgressBar = /** @class */ (function (_super) {
     /** @nocollapse */
     MatProgressBar.ctorParameters = function () { return [
         { type: core.ElementRef },
+        { type: core.NgZone },
         { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_PROGRESS_BAR_LOCATION,] }] }
     ]; };
     MatProgressBar.propDecorators = {
         value: [{ type: core.Input }],
         bufferValue: [{ type: core.Input }],
+        _primaryValueBar: [{ type: core.ViewChild, args: ['primaryValueBar',] }],
+        animationEnd: [{ type: core.Output }],
         mode: [{ type: core.Input }]
     };
     return MatProgressBar;
@@ -33928,10 +33996,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('6.4.6-f82a94b');
+var VERSION = new core.Version('6.4.6-7e67fe9');
 
 exports.VERSION = VERSION;
-exports.ɵa27 = MatAutocompleteOrigin;
+exports.ɵa26 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34183,12 +34251,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa22 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb22 = MatMenuItemBase;
+exports.ɵc22 = _MatMenuItemMixinBase;
+exports.ɵf22 = MAT_MENU_PANEL;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe22 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
