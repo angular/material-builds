@@ -20329,6 +20329,7 @@ var MatMenuTrigger = /** @class */ (function () {
         return new overlay.OverlayConfig({
             positionStrategy: this._overlay.position()
                 .flexibleConnectedTo(this._element)
+                .withLockedPosition()
                 .withTransformOriginOn('.mat-menu-panel'),
             hasBackdrop: this.menu.hasBackdrop == null ? !this.triggersSubmenu() : this.menu.hasBackdrop,
             backdropClass: this.menu.backdropClass || 'cdk-overlay-transparent-backdrop',
@@ -33999,7 +34000,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('6.4.6-cf9b8ab');
+var VERSION = new core.Version('6.4.6-e765d8e');
 
 exports.VERSION = VERSION;
 exports.ɵa27 = MatAutocompleteOrigin;
