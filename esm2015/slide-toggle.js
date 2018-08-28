@@ -20,10 +20,10 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token to be used to override the default options for `mat-slide-toggle`.
- */
-const /** @type {?} */ MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-default-options', {
+  @type {?} */
+const MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-default-options', {
     providedIn: 'root',
     factory: () => ({ disableToggleValue: false, disableDragValue: false })
 });
@@ -32,9 +32,10 @@ const /** @type {?} */ MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('ma
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Increasing integer for generating unique ids for slide-toggle components.
-let /** @type {?} */ nextUniqueId = 0;
-const /** @type {?} */ MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
+/** @type {?} */
+let nextUniqueId = 0;
+/** @type {?} */
+const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatSlideToggle),
     multi: true
@@ -63,7 +64,8 @@ class MatSlideToggleBase {
         this._elementRef = _elementRef;
     }
 }
-const /** @type {?} */ _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatSlideToggleBase)), 'accent'));
+/** @type {?} */
+const _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatSlideToggleBase)), 'accent'));
 /**
  * Represents a slidable "switch" toggle that can be moved between on and off.
  */
@@ -299,7 +301,8 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @return {?}
      */
     _getDragPercentage(distance) {
-        let /** @type {?} */ percentage = (distance / this._thumbBarWidth) * 100;
+        /** @type {?} */
+        let percentage = (distance / this._thumbBarWidth) * 100;
         // When the toggle was initially checked, then we have to start the drag at the end.
         if (this._previousChecked) {
             percentage += 100;
@@ -311,7 +314,8 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      */
     _onDragStart() {
         if (!this.disabled && !this._dragging) {
-            const /** @type {?} */ thumbEl = this._thumbEl.nativeElement;
+            /** @type {?} */
+            const thumbEl = this._thumbEl.nativeElement;
             this._thumbBarWidth = this._thumbBarEl.nativeElement.clientWidth - thumbEl.clientWidth;
             thumbEl.classList.add('mat-dragging');
             this._previousChecked = this.checked;
@@ -324,10 +328,11 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      */
     _onDrag(event) {
         if (this._dragging) {
-            const /** @type {?} */ direction = this._dir && this._dir.value === 'rtl' ? -1 : 1;
+            /** @type {?} */
+            const direction = this._dir && this._dir.value === 'rtl' ? -1 : 1;
             this._dragPercentage = this._getDragPercentage(event.deltaX * direction);
-            // Calculate the moved distance based on the thumb bar width.
-            const /** @type {?} */ dragX = (this._dragPercentage / 100) * this._thumbBarWidth * direction;
+            /** @type {?} */
+            const dragX = (this._dragPercentage / 100) * this._thumbBarWidth * direction;
             this._thumbEl.nativeElement.style.transform = `translate3d(${dragX}px, 0, 0)`;
         }
     }
@@ -336,7 +341,8 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      */
     _onDragEnd() {
         if (this._dragging) {
-            const /** @type {?} */ newCheckedValue = this._dragPercentage > 50;
+            /** @type {?} */
+            const newCheckedValue = this._dragPercentage > 50;
             if (newCheckedValue !== this.checked) {
                 this.dragChange.emit();
                 if (!this.defaults.disableDragValue) {
@@ -389,30 +395,30 @@ MatSlideToggle.decorators = [
 ];
 /** @nocollapse */
 MatSlideToggle.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: Platform, },
-    { type: FocusMonitor, },
-    { type: ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
-    { type: NgZone, },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,] },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
-    { type: Directionality, decorators: [{ type: Optional },] },
+    { type: ElementRef },
+    { type: Platform },
+    { type: FocusMonitor },
+    { type: ChangeDetectorRef },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
+    { type: NgZone },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,] }] },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+    { type: Directionality, decorators: [{ type: Optional }] }
 ];
 MatSlideToggle.propDecorators = {
-    "_thumbEl": [{ type: ViewChild, args: ['thumbContainer',] },],
-    "_thumbBarEl": [{ type: ViewChild, args: ['toggleBar',] },],
-    "name": [{ type: Input },],
-    "id": [{ type: Input },],
-    "labelPosition": [{ type: Input },],
-    "ariaLabel": [{ type: Input, args: ['aria-label',] },],
-    "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
-    "required": [{ type: Input },],
-    "checked": [{ type: Input },],
-    "change": [{ type: Output },],
-    "toggleChange": [{ type: Output },],
-    "dragChange": [{ type: Output },],
-    "_inputElement": [{ type: ViewChild, args: ['input',] },],
+    _thumbEl: [{ type: ViewChild, args: ['thumbContainer',] }],
+    _thumbBarEl: [{ type: ViewChild, args: ['toggleBar',] }],
+    name: [{ type: Input }],
+    id: [{ type: Input }],
+    labelPosition: [{ type: Input }],
+    ariaLabel: [{ type: Input, args: ['aria-label',] }],
+    ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }],
+    required: [{ type: Input }],
+    checked: [{ type: Input }],
+    change: [{ type: Output }],
+    toggleChange: [{ type: Output }],
+    dragChange: [{ type: Output }],
+    _inputElement: [{ type: ViewChild, args: ['input',] }]
 };
 
 /**

@@ -21,7 +21,8 @@ import { ObserversModule } from '@angular/cdk/observers';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-let /** @type {?} */ nextUniqueId = 0;
+/** @type {?} */
+let nextUniqueId = 0;
 /**
  * Single error message to be shown underneath the form field.
  */
@@ -40,19 +41,18 @@ MatError.decorators = [
                 }
             },] },
 ];
-/** @nocollapse */
 MatError.propDecorators = {
-    "id": [{ type: Input },],
+    id: [{ type: Input }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the MatFormField.
- */
-const /** @type {?} */ matFormFieldAnimations = {
+  @type {?} */
+const matFormFieldAnimations = {
     /** Animation that transitions the form field's error and hint messages. */
     transitionMessages: trigger('transitionMessages', [
         // TODO(mmalerba): Use angular animations for label animation as well.
@@ -109,7 +109,8 @@ function getMatFormFieldMissingControlError() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-let /** @type {?} */ nextUniqueId$1 = 0;
+/** @type {?} */
+let nextUniqueId$1 = 0;
 /**
  * Hint text to be shown underneath the form field control.
  */
@@ -137,10 +138,9 @@ MatHint.decorators = [
                 }
             },] },
 ];
-/** @nocollapse */
 MatHint.propDecorators = {
-    "align": [{ type: Input },],
-    "id": [{ type: Input },],
+    align: [{ type: Input }],
+    id: [{ type: Input }]
 };
 
 /**
@@ -210,9 +210,12 @@ MatSuffix.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-let /** @type {?} */ nextUniqueId$2 = 0;
-const /** @type {?} */ floatingLabelScale = 0.75;
-const /** @type {?} */ outlineGapPadding = 5;
+/** @type {?} */
+let nextUniqueId$2 = 0;
+/** @type {?} */
+const floatingLabelScale = 0.75;
+/** @type {?} */
+const outlineGapPadding = 5;
 /**
  * Boilerplate for applying mixins to MatFormField.
  * \@docs-private
@@ -225,16 +228,16 @@ class MatFormFieldBase {
         this._elementRef = _elementRef;
     }
 }
-/**
+/** *
  * Base class to which we're applying the form field mixins.
  * \@docs-private
- */
-const /** @type {?} */ _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
-/**
+  @type {?} */
+const _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
+/** *
  * Injection token that can be used to configure the
  * default options for all form field within an app.
- */
-const /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
+  @type {?} */
+const MAT_FORM_FIELD_DEFAULT_OPTIONS = new InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
@@ -287,7 +290,8 @@ class MatFormField extends _MatFormFieldMixinBase {
      * @return {?}
      */
     set appearance(value) {
-        const /** @type {?} */ oldValue = this._appearance;
+        /** @type {?} */
+        const oldValue = this._appearance;
         this._appearance = value || (this._defaults && this._defaults.appearance) || 'legacy';
         if (this._appearance === 'outline' && oldValue !== value) {
             // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
@@ -383,8 +387,8 @@ class MatFormField extends _MatFormFieldMixinBase {
             this._syncDescribedByIds();
             this._changeDetectorRef.markForCheck();
         });
-        // Run change detection if the value, prefix, or suffix changes.
-        const /** @type {?} */ valueChanges = this._control.ngControl && this._control.ngControl.valueChanges || EMPTY;
+        /** @type {?} */
+        const valueChanges = this._control.ngControl && this._control.ngControl.valueChanges || EMPTY;
         merge(valueChanges, this._prefixChildren.changes, this._suffixChildren.changes)
             .subscribe(() => this._changeDetectorRef.markForCheck());
         // Re-validate when the number of hints changes.
@@ -421,7 +425,8 @@ class MatFormField extends _MatFormFieldMixinBase {
      * @return {?}
      */
     _shouldForward(prop) {
-        const /** @type {?} */ ngControl = this._control ? this._control.ngControl : null;
+        /** @type {?} */
+        const ngControl = this._control ? this._control.ngControl : null;
         return ngControl && ngControl[prop];
     }
     /**
@@ -508,8 +513,10 @@ class MatFormField extends _MatFormFieldMixinBase {
      */
     _validateHints() {
         if (this._hintChildren) {
-            let /** @type {?} */ startHint;
-            let /** @type {?} */ endHint;
+            /** @type {?} */
+            let startHint;
+            /** @type {?} */
+            let endHint;
             this._hintChildren.forEach((hint) => {
                 if (hint.align === 'start') {
                     if (startHint || this.hintLabel) {
@@ -533,11 +540,14 @@ class MatFormField extends _MatFormFieldMixinBase {
      */
     _syncDescribedByIds() {
         if (this._control) {
-            let /** @type {?} */ ids = [];
+            /** @type {?} */
+            let ids = [];
             if (this._getDisplayedMessages() === 'hint') {
-                const /** @type {?} */ startHint = this._hintChildren ?
+                /** @type {?} */
+                const startHint = this._hintChildren ?
                     this._hintChildren.find(hint => hint.align === 'start') : null;
-                const /** @type {?} */ endHint = this._hintChildren ?
+                /** @type {?} */
+                const endHint = this._hintChildren ?
                     this._hintChildren.find(hint => hint.align === 'end') : null;
                 if (startHint) {
                     ids.push(startHint.id);
@@ -570,7 +580,8 @@ class MatFormField extends _MatFormFieldMixinBase {
      * @return {?}
      */
     updateOutlineGap() {
-        const /** @type {?} */ labelEl = this._label ? this._label.nativeElement : null;
+        /** @type {?} */
+        const labelEl = this._label ? this._label.nativeElement : null;
         if (this.appearance !== 'outline' || !labelEl || !labelEl.children.length ||
             !labelEl.textContent.trim()) {
             return;
@@ -585,24 +596,31 @@ class MatFormField extends _MatFormFieldMixinBase {
             this._outlineGapCalculationNeeded = true;
             return;
         }
-        let /** @type {?} */ startWidth = 0;
-        let /** @type {?} */ gapWidth = 0;
-        const /** @type {?} */ startEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-start');
-        const /** @type {?} */ gapEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-gap');
+        /** @type {?} */
+        let startWidth = 0;
+        /** @type {?} */
+        let gapWidth = 0;
+        /** @type {?} */
+        const startEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-start');
+        /** @type {?} */
+        const gapEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-gap');
         if (this._label && this._label.nativeElement.children.length) {
-            const /** @type {?} */ containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
-            const /** @type {?} */ labelStart = this._getStartEnd(labelEl.children[0].getBoundingClientRect());
-            let /** @type {?} */ labelWidth = 0;
-            for (const /** @type {?} */ child of labelEl.children) {
+            /** @type {?} */
+            const containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
+            /** @type {?} */
+            const labelStart = this._getStartEnd(labelEl.children[0].getBoundingClientRect());
+            /** @type {?} */
+            let labelWidth = 0;
+            for (const child of labelEl.children) {
                 labelWidth += child.offsetWidth;
             }
             startWidth = labelStart - containerStart - outlineGapPadding;
             gapWidth = labelWidth > 0 ? labelWidth * floatingLabelScale + outlineGapPadding * 2 : 0;
         }
-        for (let /** @type {?} */ i = 0; i < startEls.length; i++) {
+        for (let i = 0; i < startEls.length; i++) {
             startEls.item(i).style.width = `${startWidth}px`;
         }
-        for (let /** @type {?} */ i = 0; i < gapEls.length; i++) {
+        for (let i = 0; i < gapEls.length; i++) {
             gapEls.item(i).style.width = `${gapWidth}px`;
         }
         this._outlineGapCalculationNeeded = false;
@@ -656,31 +674,31 @@ MatFormField.decorators = [
 ];
 /** @nocollapse */
 MatFormField.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_LABEL_GLOBAL_OPTIONS,] },] },
-    { type: Directionality, decorators: [{ type: Optional },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] },] },
-    { type: Platform, },
-    { type: NgZone, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+    { type: ElementRef },
+    { type: ChangeDetectorRef },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_LABEL_GLOBAL_OPTIONS,] }] },
+    { type: Directionality, decorators: [{ type: Optional }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] }] },
+    { type: Platform },
+    { type: NgZone },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 MatFormField.propDecorators = {
-    "appearance": [{ type: Input },],
-    "hideRequiredMarker": [{ type: Input },],
-    "hintLabel": [{ type: Input },],
-    "floatLabel": [{ type: Input },],
-    "underlineRef": [{ type: ViewChild, args: ['underline',] },],
-    "_connectionContainerRef": [{ type: ViewChild, args: ['connectionContainer',] },],
-    "_inputContainerRef": [{ type: ViewChild, args: ['inputContainer',] },],
-    "_label": [{ type: ViewChild, args: ['label',] },],
-    "_control": [{ type: ContentChild, args: [MatFormFieldControl,] },],
-    "_placeholderChild": [{ type: ContentChild, args: [MatPlaceholder,] },],
-    "_labelChild": [{ type: ContentChild, args: [MatLabel,] },],
-    "_errorChildren": [{ type: ContentChildren, args: [MatError,] },],
-    "_hintChildren": [{ type: ContentChildren, args: [MatHint,] },],
-    "_prefixChildren": [{ type: ContentChildren, args: [MatPrefix,] },],
-    "_suffixChildren": [{ type: ContentChildren, args: [MatSuffix,] },],
+    appearance: [{ type: Input }],
+    hideRequiredMarker: [{ type: Input }],
+    hintLabel: [{ type: Input }],
+    floatLabel: [{ type: Input }],
+    underlineRef: [{ type: ViewChild, args: ['underline',] }],
+    _connectionContainerRef: [{ type: ViewChild, args: ['connectionContainer',] }],
+    _inputContainerRef: [{ type: ViewChild, args: ['inputContainer',] }],
+    _label: [{ type: ViewChild, args: ['label',] }],
+    _control: [{ type: ContentChild, args: [MatFormFieldControl,] }],
+    _placeholderChild: [{ type: ContentChild, args: [MatPlaceholder,] }],
+    _labelChild: [{ type: ContentChild, args: [MatLabel,] }],
+    _errorChildren: [{ type: ContentChildren, args: [MatError,] }],
+    _hintChildren: [{ type: ContentChildren, args: [MatHint,] }],
+    _prefixChildren: [{ type: ContentChildren, args: [MatPrefix,] }],
+    _suffixChildren: [{ type: ContentChildren, args: [MatSuffix,] }]
 };
 
 /**

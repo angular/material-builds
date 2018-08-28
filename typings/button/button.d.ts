@@ -14,7 +14,7 @@ export declare class MatButtonBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatButtonMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & (new (...args: any[]) => CanDisableRipple) & typeof MatButtonBase;
+export declare const _MatButtonMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatButtonBase;
 /**
  * Material design button.
  */
@@ -25,7 +25,7 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
      */
     private _platform;
     private _focusMonitor;
-    _animationMode: string | undefined;
+    _animationMode?: string | undefined;
     /** Whether the button is round. */
     readonly isRoundButton: boolean;
     /** Whether the button is icon button. */
@@ -33,11 +33,11 @@ export declare class MatButton extends _MatButtonMixinBase implements OnDestroy,
     /** Reference to the MatRipple instance of the button. */
     ripple: MatRipple;
     constructor(elementRef: ElementRef, 
-        /**
-         * @deprecated Platform checks for SSR are no longer needed
-         * @breaking-change 7.0.0
-         */
-        _platform: Platform, _focusMonitor: FocusMonitor, _animationMode?: string | undefined);
+    /**
+     * @deprecated Platform checks for SSR are no longer needed
+     * @breaking-change 7.0.0
+     */
+    _platform: Platform, _focusMonitor: FocusMonitor, _animationMode?: string | undefined);
     ngOnDestroy(): void;
     /** Focuses the button. */
     focus(): void;

@@ -29,7 +29,7 @@ export declare class MatDatepickerContentBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatDatepickerContentMixinBase: (new (...args: any[]) => CanColor) & typeof MatDatepickerContentBase;
+export declare const _MatDatepickerContentMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatDatepickerContentBase;
 /**
  * Component used as the content for the datepicker dialog and popup. We use this instead of using
  * MatCalendar directly as the content so we can control the initial focus. This also gives us a
@@ -141,18 +141,18 @@ export declare class MatDatepicker<D> implements OnDestroy, CanColor {
     /** Close the calendar. */
     close(): void;
     /** Open the calendar as a dialog. */
-    private _openAsDialog();
+    private _openAsDialog;
     /** Open the calendar as a popup. */
-    private _openAsPopup();
+    private _openAsPopup;
     /** Create the popup. */
-    private _createPopup();
+    private _createPopup;
     /** Create the popup PositionStrategy. */
-    private _createPopupPositionStrategy();
+    private _createPopupPositionStrategy;
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.
      */
-    private _getValidDateOrNull(obj);
+    private _getValidDateOrNull;
     /** Passes the current theme color along to the calendar overlay. */
-    private _setColor();
+    private _setColor;
 }

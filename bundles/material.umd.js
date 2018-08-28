@@ -84,10 +84,10 @@ var AnimationDurations = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that configures whether the Material sanity checks are enabled.
- */
-var /** @type {?} */ MATERIAL_SANITY_CHECKS = new core.InjectionToken('mat-sanity-checks', {
+  @type {?} */
+var MATERIAL_SANITY_CHECKS = new core.InjectionToken('mat-sanity-checks', {
     providedIn: 'root',
     factory: MATERIAL_SANITY_CHECKS_FACTORY,
 });
@@ -173,10 +173,12 @@ var MatCommonModule = /** @class */ (function () {
         // We need to assert that the `body` is defined, because these checks run very early
         // and the `body` won't be defined if the consumer put their scripts in the `head`.
         if (this._document && this._document.body && typeof getComputedStyle === 'function') {
-            var /** @type {?} */ testElement = this._document.createElement('div');
+            /** @type {?} */
+            var testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
-            var /** @type {?} */ computedStyle = getComputedStyle(testElement);
+            /** @type {?} */
+            var computedStyle = getComputedStyle(testElement);
             // In some situations the computed style of the test element can be null. For example in
             // Firefox, the computed style is null if an application is running inside of a hidden iframe.
             // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
@@ -214,7 +216,7 @@ var MatCommonModule = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatCommonModule.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
+        { type: Boolean, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MATERIAL_SANITY_CHECKS,] }] }
     ]; };
     return MatCommonModule;
 }());
@@ -293,7 +295,8 @@ function mixinColor(base, defaultColor) {
              * @return {?}
              */
             function (value) {
-                var /** @type {?} */ colorPalette = value || defaultColor;
+                /** @type {?} */
+                var colorPalette = value || defaultColor;
                 if (colorPalette !== this._color) {
                     if (this._color) {
                         this._elementRef.nativeElement.classList.remove("mat-" + this._color);
@@ -434,11 +437,16 @@ function mixinErrorState(base) {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ oldState = this.errorState;
-            var /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
-            var /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-            var /** @type {?} */ control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
-            var /** @type {?} */ newState = matcher.isErrorState(control, parent);
+            /** @type {?} */
+            var oldState = this.errorState;
+            /** @type {?} */
+            var parent = this._parentFormGroup || this._parentForm;
+            /** @type {?} */
+            var matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
+            /** @type {?} */
+            var control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
+            /** @type {?} */
+            var newState = matcher.isErrorState(control, parent);
             if (newState !== oldState) {
                 this.errorState = newState;
                 this.stateChanges.next();
@@ -547,10 +555,10 @@ function mixinInitialized(base) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * InjectionToken for datepicker that can be used to override default locale code.
- */
-var /** @type {?} */ MAT_DATE_LOCALE = new core.InjectionToken('MAT_DATE_LOCALE', {
+  @type {?} */
+var MAT_DATE_LOCALE = new core.InjectionToken('MAT_DATE_LOCALE', {
     providedIn: 'root',
     factory: MAT_DATE_LOCALE_FACTORY,
 });
@@ -561,13 +569,13 @@ var /** @type {?} */ MAT_DATE_LOCALE = new core.InjectionToken('MAT_DATE_LOCALE'
 function MAT_DATE_LOCALE_FACTORY() {
     return core.inject(core.LOCALE_ID);
 }
-/**
+/** *
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
  * @deprecated
  * \@breaking-change 7.0.0
- */
-var /** @type {?} */ MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: core.LOCALE_ID };
+  @type {?} */
+var MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: core.LOCALE_ID };
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
@@ -701,8 +709,10 @@ DateAdapter = /** @class */ (function () {
      */
     function (first, second) {
         if (first && second) {
-            var /** @type {?} */ firstValid = this.isValid(first);
-            var /** @type {?} */ secondValid = this.isValid(second);
+            /** @type {?} */
+            var firstValid = this.isValid(first);
+            /** @type {?} */
+            var secondValid = this.isValid(second);
             if (firstValid && secondValid) {
                 return !this.compareDate(first, second);
             }
@@ -750,20 +760,21 @@ DateAdapter = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ MAT_DATE_FORMATS = new core.InjectionToken('mat-date-formats');
+/** @type {?} */
+var MAT_DATE_FORMATS = new core.InjectionToken('mat-date-formats');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Whether the browser supports the Intl API.
- */
-var /** @type {?} */ SUPPORTS_INTL_API = typeof Intl != 'undefined';
-/**
+  @type {?} */
+var SUPPORTS_INTL_API = typeof Intl != 'undefined';
+/** *
  * The default month names to use if Intl API is not available.
- */
-var /** @type {?} */ DEFAULT_MONTH_NAMES = {
+  @type {?} */
+var DEFAULT_MONTH_NAMES = {
     'long': [
         'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
         'October', 'November', 'December'
@@ -772,24 +783,24 @@ var /** @type {?} */ DEFAULT_MONTH_NAMES = {
     'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 };
 var ɵ0 = function (i) { return String(i + 1); };
-/**
+/** *
  * The default date names to use if Intl API is not available.
- */
-var /** @type {?} */ DEFAULT_DATE_NAMES = range(31, ɵ0);
-/**
+  @type {?} */
+var DEFAULT_DATE_NAMES = range(31, ɵ0);
+/** *
  * The default day of the week names to use if Intl API is not available.
- */
-var /** @type {?} */ DEFAULT_DAY_OF_WEEK_NAMES = {
+  @type {?} */
+var DEFAULT_DAY_OF_WEEK_NAMES = {
     'long': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     'short': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     'narrow': ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 };
-/**
+/** *
  * Matches strings that have the form of a valid RFC 3339 string
  * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
  * because the regex will match strings an with out of bounds month, date, etc.
- */
-var /** @type {?} */ ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
+  @type {?} */
+var ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 /**
  * Creates an array and fills it with values.
  * @template T
@@ -798,8 +809,9 @@ var /** @type {?} */ ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?
  * @return {?}
  */
 function range(length, valueFunction) {
-    var /** @type {?} */ valuesArray = Array(length);
-    for (var /** @type {?} */ i = 0; i < length; i++) {
+    /** @type {?} */
+    var valuesArray = Array(length);
+    for (var i = 0; i < length; i++) {
         valuesArray[i] = valueFunction(i);
     }
     return valuesArray;
@@ -885,7 +897,8 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     function (style) {
         var _this = this;
         if (SUPPORTS_INTL_API) {
-            var /** @type {?} */ dtf_1 = new Intl.DateTimeFormat(this.locale, { month: style, timeZone: 'utc' });
+            /** @type {?} */
+            var dtf_1 = new Intl.DateTimeFormat(this.locale, { month: style, timeZone: 'utc' });
             return range(12, function (i) {
                 return _this._stripDirectionalityCharacters(_this._format(dtf_1, new Date(2017, i, 1)));
             });
@@ -901,10 +914,9 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     function () {
         var _this = this;
         if (SUPPORTS_INTL_API) {
-            var /** @type {?} */ dtf_2 = new Intl.DateTimeFormat(this.locale, { day: 'numeric', timeZone: 'utc' });
-            return range(31, function (i) {
-                return _this._stripDirectionalityCharacters(_this._format(dtf_2, new Date(2017, 0, i + 1)));
-            });
+            /** @type {?} */
+            var dtf_2 = new Intl.DateTimeFormat(this.locale, { day: 'numeric', timeZone: 'utc' });
+            return range(31, function (i) { return _this._stripDirectionalityCharacters(_this._format(dtf_2, new Date(2017, 0, i + 1))); });
         }
         return DEFAULT_DATE_NAMES;
     };
@@ -919,10 +931,9 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     function (style) {
         var _this = this;
         if (SUPPORTS_INTL_API) {
-            var /** @type {?} */ dtf_3 = new Intl.DateTimeFormat(this.locale, { weekday: style, timeZone: 'utc' });
-            return range(7, function (i) {
-                return _this._stripDirectionalityCharacters(_this._format(dtf_3, new Date(2017, 0, i + 1)));
-            });
+            /** @type {?} */
+            var dtf_3 = new Intl.DateTimeFormat(this.locale, { weekday: style, timeZone: 'utc' });
+            return range(7, function (i) { return _this._stripDirectionalityCharacters(_this._format(dtf_3, new Date(2017, 0, i + 1))); });
         }
         return DEFAULT_DAY_OF_WEEK_NAMES[style];
     };
@@ -936,7 +947,8 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      */
     function (date) {
         if (SUPPORTS_INTL_API) {
-            var /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric', timeZone: 'utc' });
+            /** @type {?} */
+            var dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric', timeZone: 'utc' });
             return this._stripDirectionalityCharacters(this._format(dtf, date));
         }
         return String(this.getYear(date));
@@ -994,7 +1006,8 @@ var NativeDateAdapter = /** @class */ (function (_super) {
         if (date < 1) {
             throw Error("Invalid date \"" + date + "\". Date has to be greater than 0.");
         }
-        var /** @type {?} */ result = this._createDateWithOverflow(year, month, date);
+        /** @type {?} */
+        var result = this._createDateWithOverflow(year, month, date);
         // Check that the date wasn't above the upper bound for the month, causing the month to overflow
         if (result.getMonth() != month) {
             throw Error("Invalid date \"" + date + "\" for month with index \"" + month + "\".");
@@ -1048,7 +1061,8 @@ var NativeDateAdapter = /** @class */ (function (_super) {
                 date.setFullYear(Math.max(1, Math.min(9999, date.getFullYear())));
             }
             displayFormat = __assign({}, displayFormat, { timeZone: 'utc' });
-            var /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
+            /** @type {?} */
+            var dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
             return this._stripDirectionalityCharacters(this._format(dtf, date));
         }
         return this._stripDirectionalityCharacters(date.toDateString());
@@ -1077,7 +1091,8 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      * @return {?}
      */
     function (date, months) {
-        var /** @type {?} */ newDate = this._createDateWithOverflow(this.getYear(date), this.getMonth(date) + months, this.getDate(date));
+        /** @type {?} */
+        var newDate = this._createDateWithOverflow(this.getYear(date), this.getMonth(date) + months, this.getDate(date));
         // It's possible to wind up in the wrong month if the original month has more days than the new
         // month. In this case we want to go to the last day of the desired month.
         // Note: the additional + 12 % 12 ensures we end up with a positive number, since JS % doesn't
@@ -1142,7 +1157,8 @@ var NativeDateAdapter = /** @class */ (function (_super) {
             // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
             // string is the right format first.
             if (ISO_8601_REGEX.test(value)) {
-                var /** @type {?} */ date = new Date(value);
+                /** @type {?} */
+                var date = new Date(value);
                 if (this.isValid(date)) {
                     return date;
                 }
@@ -1196,7 +1212,8 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      * @return {?}
      */
     function (year, month, date) {
-        var /** @type {?} */ result = new Date(year, month, date);
+        /** @type {?} */
+        var result = new Date(year, month, date);
         // We need to correct for the fact that JS native Date treats years in range [0, 99] as
         // abbreviations for 19xx.
         if (year >= 0 && year < 100) {
@@ -1257,7 +1274,8 @@ var NativeDateAdapter = /** @class */ (function (_super) {
      * @return {?} A Date object with its UTC representation based on the passed in date info
      */
     function (dtf, date) {
-        var /** @type {?} */ d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
+        /** @type {?} */
+        var d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
         return dtf.format(d);
     };
     NativeDateAdapter.decorators = [
@@ -1265,8 +1283,8 @@ var NativeDateAdapter = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     NativeDateAdapter.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_LOCALE,] },] },
-        { type: platform.Platform, },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_LOCALE,] }] },
+        { type: platform.Platform }
     ]; };
     return NativeDateAdapter;
 }(DateAdapter));
@@ -1276,7 +1294,8 @@ var NativeDateAdapter = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-var /** @type {?} */ MAT_NATIVE_DATE_FORMATS = {
+/** @type {?} */
+var MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
     },
@@ -1376,12 +1395,13 @@ var ErrorStateMatcher = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to provide options to the Hammerjs instance.
  * More info at http://hammerjs.github.io/api/.
- */
-var /** @type {?} */ MAT_HAMMER_OPTIONS = new core.InjectionToken('MAT_HAMMER_OPTIONS');
-var /** @type {?} */ ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
+  @type {?} */
+var MAT_HAMMER_OPTIONS = new core.InjectionToken('MAT_HAMMER_OPTIONS');
+/** @type {?} */
+var ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
     'longpress',
     'slide',
     'slidestart',
@@ -1390,11 +1410,11 @@ var /** @type {?} */ ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
     'slideleft'
 ];
 var ɵ0$2 = function () { }, ɵ1 = function () { };
-/**
+/** *
  * Fake HammerInstance that is used when a Hammer instance is requested when HammerJS has not
  * been loaded on the page.
- */
-var /** @type {?} */ noopHammerInstance = {
+  @type {?} */
+var noopHammerInstance = {
     on: ɵ0$2,
     off: ɵ1,
 };
@@ -1455,7 +1475,8 @@ var GestureConfig = /** @class */ (function (_super) {
      * @return {?} Newly-created HammerJS instance.
      */
     function (element) {
-        var /** @type {?} */ hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
+        /** @type {?} */
+        var hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
         if (!hammer) {
             // If HammerJS is not loaded here, return the noop HammerInstance. This is necessary to
             // ensure that omitting HammerJS completely will not cause any errors while *also* supporting
@@ -1467,16 +1488,18 @@ var GestureConfig = /** @class */ (function (_super) {
             // @breaking-change 7.0.0
             return noopHammerInstance;
         }
-        var /** @type {?} */ mc = new hammer(element, this._hammerOptions || undefined);
-        // Default Hammer Recognizers.
-        var /** @type {?} */ pan = new hammer.Pan();
-        var /** @type {?} */ swipe = new hammer.Swipe();
-        var /** @type {?} */ press = new hammer.Press();
-        // Notice that a HammerJS recognizer can only depend on one other recognizer once.
-        // Otherwise the previous `recognizeWith` will be dropped.
-        // TODO: Confirm threshold numbers with Material Design UX Team
-        var /** @type {?} */ slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
-        var /** @type {?} */ longpress = this._createRecognizer(press, { event: 'longpress', time: 500 });
+        /** @type {?} */
+        var mc = new hammer(element, this._hammerOptions || undefined);
+        /** @type {?} */
+        var pan = new hammer.Pan();
+        /** @type {?} */
+        var swipe = new hammer.Swipe();
+        /** @type {?} */
+        var press = new hammer.Press();
+        /** @type {?} */
+        var slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
+        /** @type {?} */
+        var longpress = this._createRecognizer(press, { event: 'longpress', time: 500 });
         // Overwrite the default `pan` event to use the swipe event.
         pan.recognizeWith(swipe);
         // Add customized gestures to Hammer manager
@@ -1502,7 +1525,8 @@ var GestureConfig = /** @class */ (function (_super) {
         for (var _i = 2; _i < arguments.length; _i++) {
             inheritances[_i - 2] = arguments[_i];
         }
-        var /** @type {?} */ recognizer = new (/** @type {?} */ (base.constructor))(options);
+        /** @type {?} */
+        var recognizer = new (/** @type {?} */ (base.constructor))(options);
         inheritances.push(base);
         inheritances.forEach(function (item) { return recognizer.recognizeWith(item); });
         return recognizer;
@@ -1512,8 +1536,8 @@ var GestureConfig = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     GestureConfig.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_HAMMER_OPTIONS,] },] },
-        { type: MatCommonModule, decorators: [{ type: core.Optional },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_HAMMER_OPTIONS,] }] },
+        { type: MatCommonModule, decorators: [{ type: core.Optional }] }
     ]; };
     return GestureConfig;
 }(platformBrowser.HammerGestureConfig));
@@ -1624,15 +1648,12 @@ var MatLineModule = /** @class */ (function () {
 
 /** @enum {number} */
 var RippleState = {
-    FADING_IN: 0,
-    VISIBLE: 1,
-    FADING_OUT: 2,
-    HIDDEN: 3,
+    FADING_IN: 0, VISIBLE: 1, FADING_OUT: 2, HIDDEN: 3,
 };
-RippleState[RippleState.FADING_IN] = "FADING_IN";
-RippleState[RippleState.VISIBLE] = "VISIBLE";
-RippleState[RippleState.FADING_OUT] = "FADING_OUT";
-RippleState[RippleState.HIDDEN] = "HIDDEN";
+RippleState[RippleState.FADING_IN] = 'FADING_IN';
+RippleState[RippleState.VISIBLE] = 'VISIBLE';
+RippleState[RippleState.FADING_OUT] = 'FADING_OUT';
+RippleState[RippleState.HIDDEN] = 'HIDDEN';
 /**
  * Reference to a previously launched ripple element.
  */
@@ -1668,19 +1689,19 @@ RippleRef = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Default ripple animation configuration for ripples without an explicit
  * animation config specified.
- */
-var /** @type {?} */ defaultRippleAnimationConfig = {
+  @type {?} */
+var defaultRippleAnimationConfig = {
     enterDuration: 450,
     exitDuration: 400
 };
-/**
+/** *
  * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
  * events to avoid synthetic mouse events.
- */
-var /** @type {?} */ ignoreMouseEventsTimeout = 800;
+  @type {?} */
+var ignoreMouseEventsTimeout = 800;
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
@@ -1720,10 +1741,10 @@ RippleRenderer = /** @class */ (function () {
          * Function being called whenever the trigger is being pressed using mouse.
          */
         this.onMousedown = function (event) {
-            // Screen readers will fire fake mouse events for space/enter. Skip launching a
-            // ripple in this case for consistency with the non-screen-reader experience.
-            var /** @type {?} */ isFakeMousedown = a11y.isFakeMousedownFromScreenReader(event);
-            var /** @type {?} */ isSyntheticEvent = _this._lastTouchStartEvent &&
+            /** @type {?} */
+            var isFakeMousedown = a11y.isFakeMousedownFromScreenReader(event);
+            /** @type {?} */
+            var isSyntheticEvent = _this._lastTouchStartEvent &&
                 Date.now() < _this._lastTouchStartEvent + ignoreMouseEventsTimeout;
             if (!_this._target.rippleDisabled && !isFakeMousedown && !isSyntheticEvent) {
                 _this._isPointerDown = true;
@@ -1743,10 +1764,9 @@ RippleRenderer = /** @class */ (function () {
                 // time after a touchstart event.
                 _this._lastTouchStartEvent = Date.now();
                 _this._isPointerDown = true;
-                // Use `changedTouches` so we skip any touches where the user put
-                // their finger down, but used another finger to tap the element again.
-                var /** @type {?} */ touches = event.changedTouches;
-                for (var /** @type {?} */ i = 0; i < touches.length; i++) {
+                /** @type {?} */
+                var touches = event.changedTouches;
+                for (var i = 0; i < touches.length; i++) {
                     _this.fadeInRipple(touches[i].clientX, touches[i].clientY, _this._target.rippleConfig);
                 }
             }
@@ -1762,9 +1782,8 @@ RippleRenderer = /** @class */ (function () {
             // Fade-out all ripples that are visible and not persistent.
             // Fade-out all ripples that are visible and not persistent.
             _this._activeRipples.forEach(function (ripple) {
-                // By default, only ripples that are completely visible will fade out on pointer release.
-                // If the `terminateOnPointerUp` option is set, ripples that still fade in will also fade out.
-                var /** @type {?} */ isVisible = ripple.state === RippleState.VISIBLE ||
+                /** @type {?} */
+                var isVisible = ripple.state === RippleState.VISIBLE ||
                     ripple.config.terminateOnPointerUp && ripple.state === RippleState.FADING_IN;
                 if (!ripple.config.persistent && isVisible) {
                     ripple.fadeOut();
@@ -1805,18 +1824,25 @@ RippleRenderer = /** @class */ (function () {
     function (x, y, config) {
         var _this = this;
         if (config === void 0) { config = {}; }
-        var /** @type {?} */ containerRect = this._containerRect =
+        /** @type {?} */
+        var containerRect = this._containerRect =
             this._containerRect || this._containerElement.getBoundingClientRect();
-        var /** @type {?} */ animationConfig = __assign({}, defaultRippleAnimationConfig, config.animation);
+        /** @type {?} */
+        var animationConfig = __assign({}, defaultRippleAnimationConfig, config.animation);
         if (config.centered) {
             x = containerRect.left + containerRect.width / 2;
             y = containerRect.top + containerRect.height / 2;
         }
-        var /** @type {?} */ radius = config.radius || distanceToFurthestCorner(x, y, containerRect);
-        var /** @type {?} */ offsetX = x - containerRect.left;
-        var /** @type {?} */ offsetY = y - containerRect.top;
-        var /** @type {?} */ duration = animationConfig.enterDuration / (config.speedFactor || 1);
-        var /** @type {?} */ ripple = document.createElement('div');
+        /** @type {?} */
+        var radius = config.radius || distanceToFurthestCorner(x, y, containerRect);
+        /** @type {?} */
+        var offsetX = x - containerRect.left;
+        /** @type {?} */
+        var offsetY = y - containerRect.top;
+        /** @type {?} */
+        var duration = animationConfig.enterDuration / (config.speedFactor || 1);
+        /** @type {?} */
+        var ripple = document.createElement('div');
         ripple.classList.add('mat-ripple-element');
         ripple.style.left = offsetX - radius + "px";
         ripple.style.top = offsetY - radius + "px";
@@ -1830,8 +1856,8 @@ RippleRenderer = /** @class */ (function () {
         // ripple elements. This is critical because then the `scale` would not animate properly.
         enforceStyleRecalculation(ripple);
         ripple.style.transform = 'scale(1)';
-        // Exposed reference to the ripple that will be returned.
-        var /** @type {?} */ rippleRef = new RippleRef(this, ripple, config);
+        /** @type {?} */
+        var rippleRef = new RippleRef(this, ripple, config);
         rippleRef.state = RippleState.FADING_IN;
         // Add the ripple reference to the list of all active ripples.
         this._activeRipples.add(rippleRef);
@@ -1841,7 +1867,8 @@ RippleRenderer = /** @class */ (function () {
         // Wait for the ripple element to be completely faded in.
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(function () {
-            var /** @type {?} */ isMostRecentTransientRipple = rippleRef === _this._mostRecentTransientRipple;
+            /** @type {?} */
+            var isMostRecentTransientRipple = rippleRef === _this._mostRecentTransientRipple;
             rippleRef.state = RippleState.VISIBLE;
             // When the timer runs out while the user has kept their pointer down, we want to
             // keep only the persistent ripples and the latest transient ripple. We do this,
@@ -1865,7 +1892,8 @@ RippleRenderer = /** @class */ (function () {
      * @return {?}
      */
     function (rippleRef) {
-        var /** @type {?} */ wasActive = this._activeRipples.delete(rippleRef);
+        /** @type {?} */
+        var wasActive = this._activeRipples.delete(rippleRef);
         if (rippleRef === this._mostRecentTransientRipple) {
             this._mostRecentTransientRipple = null;
         }
@@ -1877,8 +1905,10 @@ RippleRenderer = /** @class */ (function () {
         if (!wasActive) {
             return;
         }
-        var /** @type {?} */ rippleEl = rippleRef.element;
-        var /** @type {?} */ animationConfig = __assign({}, defaultRippleAnimationConfig, rippleRef.config.animation);
+        /** @type {?} */
+        var rippleEl = rippleRef.element;
+        /** @type {?} */
+        var animationConfig = __assign({}, defaultRippleAnimationConfig, rippleRef.config.animation);
         rippleEl.style.transitionDuration = animationConfig.exitDuration + "ms";
         rippleEl.style.opacity = '0';
         rippleRef.state = RippleState.FADING_OUT;
@@ -1979,8 +2009,10 @@ function enforceStyleRecalculation(element) {
  * @return {?}
  */
 function distanceToFurthestCorner(x, y, rect) {
-    var /** @type {?} */ distX = Math.max(Math.abs(x - rect.left), Math.abs(x - rect.right));
-    var /** @type {?} */ distY = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
+    /** @type {?} */
+    var distX = Math.max(Math.abs(x - rect.left), Math.abs(x - rect.right));
+    /** @type {?} */
+    var distY = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
     return Math.sqrt(distX * distX + distY * distY);
 }
 
@@ -1988,10 +2020,10 @@ function distanceToFurthestCorner(x, y, rect) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to specify the global ripple options.
- */
-var /** @type {?} */ MAT_RIPPLE_GLOBAL_OPTIONS = new core.InjectionToken('mat-ripple-global-options');
+  @type {?} */
+var MAT_RIPPLE_GLOBAL_OPTIONS = new core.InjectionToken('mat-ripple-global-options');
 var MatRipple = /** @class */ (function () {
     function MatRipple(_elementRef, ngZone, platform$$1, globalOptions, animationMode) {
         this._elementRef = _elementRef;
@@ -2021,6 +2053,10 @@ var MatRipple = /** @class */ (function () {
         }
     }
     Object.defineProperty(MatRipple.prototype, "disabled", {
+        /**
+         * Whether click events will not trigger the ripple. Ripples can be still launched manually
+         * by using the `launch()` method.
+         */
         get: /**
          * Whether click events will not trigger the ripple. Ripples can be still launched manually
          * by using the `launch()` method.
@@ -2039,6 +2075,10 @@ var MatRipple = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatRipple.prototype, "trigger", {
+        /**
+         * The element that triggers the ripple when click events are received.
+         * Defaults to the directive's host element.
+         */
         get: /**
          * The element that triggers the ripple when click events are received.
          * Defaults to the directive's host element.
@@ -2175,21 +2215,21 @@ var MatRipple = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatRipple.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.NgZone, },
-        { type: platform.Platform, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: core.ElementRef },
+        { type: core.NgZone },
+        { type: platform.Platform },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatRipple.propDecorators = {
-        "color": [{ type: core.Input, args: ['matRippleColor',] },],
-        "unbounded": [{ type: core.Input, args: ['matRippleUnbounded',] },],
-        "centered": [{ type: core.Input, args: ['matRippleCentered',] },],
-        "radius": [{ type: core.Input, args: ['matRippleRadius',] },],
-        "speedFactor": [{ type: core.Input, args: ['matRippleSpeedFactor',] },],
-        "animation": [{ type: core.Input, args: ['matRippleAnimation',] },],
-        "disabled": [{ type: core.Input, args: ['matRippleDisabled',] },],
-        "trigger": [{ type: core.Input, args: ['matRippleTrigger',] },],
+        color: [{ type: core.Input, args: ['matRippleColor',] }],
+        unbounded: [{ type: core.Input, args: ['matRippleUnbounded',] }],
+        centered: [{ type: core.Input, args: ['matRippleCentered',] }],
+        radius: [{ type: core.Input, args: ['matRippleRadius',] }],
+        speedFactor: [{ type: core.Input, args: ['matRippleSpeedFactor',] }],
+        animation: [{ type: core.Input, args: ['matRippleAnimation',] }],
+        disabled: [{ type: core.Input, args: ['matRippleDisabled',] }],
+        trigger: [{ type: core.Input, args: ['matRippleTrigger',] }]
     };
     return MatRipple;
 }());
@@ -2257,11 +2297,11 @@ var MatPseudoCheckbox = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatPseudoCheckbox.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatPseudoCheckbox.propDecorators = {
-        "state": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
+        state: [{ type: core.Input }],
+        disabled: [{ type: core.Input }]
     };
     return MatPseudoCheckbox;
 }());
@@ -2297,9 +2337,10 @@ MatOptgroupBase = /** @class */ (function () {
     }
     return MatOptgroupBase;
 }());
-var /** @type {?} */ _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
-// Counter for unique group ids.
-var /** @type {?} */ _uniqueOptgroupIdCounter = 0;
+/** @type {?} */
+var _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
+/** @type {?} */
+var _uniqueOptgroupIdCounter = 0;
 /**
  * Component that is used to group instances of `mat-option`.
  */
@@ -2330,9 +2371,8 @@ var MatOptgroup = /** @class */ (function (_super) {
                     }
                 },] },
     ];
-    /** @nocollapse */
     MatOptgroup.propDecorators = {
-        "label": [{ type: core.Input },],
+        label: [{ type: core.Input }]
     };
     return MatOptgroup;
 }(_MatOptgroupMixinBase));
@@ -2341,11 +2381,11 @@ var MatOptgroup = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Option IDs need to be unique across components, so this counter exists outside of
  * the component definition.
- */
-var /** @type {?} */ _uniqueIdCounter = 0;
+  @type {?} */
+var _uniqueIdCounter = 0;
 /**
  * Event object emitted by MatOption when selected or deselected.
  */
@@ -2360,10 +2400,10 @@ MatOptionSelectionChange = /** @class */ (function () {
     }
     return MatOptionSelectionChange;
 }());
-/**
+/** *
  * Injection token used to provide the parent component to options.
- */
-var /** @type {?} */ MAT_OPTION_PARENT_COMPONENT = new core.InjectionToken('MAT_OPTION_PARENT_COMPONENT');
+  @type {?} */
+var MAT_OPTION_PARENT_COMPONENT = new core.InjectionToken('MAT_OPTION_PARENT_COMPONENT');
 /**
  * Single option inside of a `<mat-select>` element.
  */
@@ -2411,6 +2451,7 @@ var MatOption = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatOption.prototype, "disabled", {
+        /** Whether the option is disabled. */
         get: /**
          * Whether the option is disabled.
          * @return {?}
@@ -2513,7 +2554,8 @@ var MatOption = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ element = this._getHostElement();
+        /** @type {?} */
+        var element = this._getHostElement();
         if (typeof element.focus === 'function') {
             element.focus();
         }
@@ -2652,7 +2694,8 @@ var MatOption = /** @class */ (function () {
         // relatively cheap, however we still limit them only to selected options in order to avoid
         // hitting the DOM too often.
         if (this._selected) {
-            var /** @type {?} */ viewValue = this.viewValue;
+            /** @type {?} */
+            var viewValue = this.viewValue;
             if (viewValue !== this._mostRecentViewValue) {
                 this._mostRecentViewValue = viewValue;
                 this._stateChanges.next();
@@ -2707,16 +2750,16 @@ var MatOption = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatOption.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_OPTION_PARENT_COMPONENT,] },] },
-        { type: MatOptgroup, decorators: [{ type: core.Optional },] },
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_OPTION_PARENT_COMPONENT,] }] },
+        { type: MatOptgroup, decorators: [{ type: core.Optional }] }
     ]; };
     MatOption.propDecorators = {
-        "value": [{ type: core.Input },],
-        "id": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
-        "onSelectionChange": [{ type: core.Output },],
+        value: [{ type: core.Input }],
+        id: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
+        onSelectionChange: [{ type: core.Output }]
     };
     return MatOption;
 }());
@@ -2730,10 +2773,13 @@ var MatOption = /** @class */ (function () {
  */
 function _countGroupLabelsBeforeOption(optionIndex, options, optionGroups) {
     if (optionGroups.length) {
-        var /** @type {?} */ optionsArray = options.toArray();
-        var /** @type {?} */ groups = optionGroups.toArray();
-        var /** @type {?} */ groupCounter = 0;
-        for (var /** @type {?} */ i = 0; i < optionIndex + 1; i++) {
+        /** @type {?} */
+        var optionsArray = options.toArray();
+        /** @type {?} */
+        var groups = optionGroups.toArray();
+        /** @type {?} */
+        var groupCounter = 0;
+        for (var i = 0; i < optionIndex + 1; i++) {
             if (optionsArray[i].group && optionsArray[i].group === groups[groupCounter]) {
                 groupCounter++;
             }
@@ -2752,7 +2798,8 @@ function _countGroupLabelsBeforeOption(optionIndex, options, optionGroups) {
  * @return {?}
  */
 function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPosition, panelHeight) {
-    var /** @type {?} */ optionOffset = optionIndex * optionHeight;
+    /** @type {?} */
+    var optionOffset = optionIndex * optionHeight;
     if (optionOffset < currentScrollPosition) {
         return optionOffset;
     }
@@ -2783,28 +2830,83 @@ var MatOptionModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * InjectionToken that can be used to specify the global label options.
- */
-var /** @type {?} */ MAT_LABEL_GLOBAL_OPTIONS = new core.InjectionToken('mat-label-global-options');
+  @type {?} */
+var MAT_LABEL_GLOBAL_OPTIONS = new core.InjectionToken('mat-label-global-options');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
 
-/**
+/** *
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
- */
-var /** @type {?} */ JAN = 0, /** @type {?} */ FEB = 1, /** @type {?} */ MAR = 2, /** @type {?} */ APR = 3, /** @type {?} */ MAY = 4, /** @type {?} */ JUN = 5, /** @type {?} */ JUL = 6, /** @type {?} */ AUG = 7, /** @type {?} */ SEP = 8, /** @type {?} */
-OCT = 9, /** @type {?} */ NOV = 10, /** @type {?} */ DEC = 11;
+  @type {?} */
+var JAN = 0;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+var FEB = 1;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+var MAR = 2;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+var APR = 3;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+var MAY = 4;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+var JUN = 5;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+var JUL = 6;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+var AUG = 7;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+var SEP = 8;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+var OCT = 9;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+var NOV = 10;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+var DEC = 11;
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ nextUniqueId = 0;
+/** @type {?} */
+var nextUniqueId = 0;
 /**
  * Single error message to be shown underneath the form field.
  */
@@ -2822,9 +2924,8 @@ var MatError = /** @class */ (function () {
                     }
                 },] },
     ];
-    /** @nocollapse */
     MatError.propDecorators = {
-        "id": [{ type: core.Input },],
+        id: [{ type: core.Input }]
     };
     return MatError;
 }());
@@ -2833,10 +2934,10 @@ var MatError = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the MatFormField.
- */
-var /** @type {?} */ matFormFieldAnimations = {
+  @type {?} */
+var matFormFieldAnimations = {
     /** Animation that transitions the form field's error and hint messages. */
     transitionMessages: animations$1.trigger('transitionMessages', [
         // TODO(mmalerba): Use angular animations for label animation as well.
@@ -2901,7 +3002,8 @@ function getMatFormFieldMissingControlError() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ nextUniqueId$1 = 0;
+/** @type {?} */
+var nextUniqueId$1 = 0;
 /**
  * Hint text to be shown underneath the form field control.
  */
@@ -2928,10 +3030,9 @@ var MatHint = /** @class */ (function () {
                     }
                 },] },
     ];
-    /** @nocollapse */
     MatHint.propDecorators = {
-        "align": [{ type: core.Input },],
-        "id": [{ type: core.Input },],
+        align: [{ type: core.Input }],
+        id: [{ type: core.Input }]
     };
     return MatHint;
 }());
@@ -3015,9 +3116,12 @@ var MatSuffix = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ nextUniqueId$2 = 0;
-var /** @type {?} */ floatingLabelScale = 0.75;
-var /** @type {?} */ outlineGapPadding = 5;
+/** @type {?} */
+var nextUniqueId$2 = 0;
+/** @type {?} */
+var floatingLabelScale = 0.75;
+/** @type {?} */
+var outlineGapPadding = 5;
 /**
  * Boilerplate for applying mixins to MatFormField.
  * \@docs-private
@@ -3032,16 +3136,16 @@ MatFormFieldBase = /** @class */ (function () {
     }
     return MatFormFieldBase;
 }());
-/**
+/** *
  * Base class to which we're applying the form field mixins.
  * \@docs-private
- */
-var /** @type {?} */ _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
-/**
+  @type {?} */
+var _MatFormFieldMixinBase = mixinColor(MatFormFieldBase, 'primary');
+/** *
  * Injection token that can be used to configure the
  * default options for all form field within an app.
- */
-var /** @type {?} */ MAT_FORM_FIELD_DEFAULT_OPTIONS = new core.InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
+  @type {?} */
+var MAT_FORM_FIELD_DEFAULT_OPTIONS = new core.InjectionToken('MAT_FORM_FIELD_DEFAULT_OPTIONS');
 /**
  * Container for form controls that applies Material Design styling and behavior.
  */
@@ -3078,6 +3182,7 @@ var MatFormField = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatFormField.prototype, "appearance", {
+        /** The form-field appearance style. */
         get: /**
          * The form-field appearance style.
          * @return {?}
@@ -3089,7 +3194,8 @@ var MatFormField = /** @class */ (function (_super) {
          */
         function (value) {
             var _this = this;
-            var /** @type {?} */ oldValue = this._appearance;
+            /** @type {?} */
+            var oldValue = this._appearance;
             this._appearance = value || (this._defaults && this._defaults.appearance) || 'legacy';
             if (this._appearance === 'outline' && oldValue !== value) {
                 // @breaking-change 7.0.0 Remove this check and else block once _ngZone is required.
@@ -3107,6 +3213,7 @@ var MatFormField = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatFormField.prototype, "hideRequiredMarker", {
+        /** Whether the required marker should be hidden. */
         get: /**
          * Whether the required marker should be hidden.
          * @return {?}
@@ -3145,6 +3252,7 @@ var MatFormField = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatFormField.prototype, "hintLabel", {
+        /** Text for the form field hint. */
         get: /**
          * Text for the form field hint.
          * @return {?}
@@ -3162,6 +3270,14 @@ var MatFormField = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatFormField.prototype, "floatLabel", {
+        /**
+         * Whether the label should always float, never float or float as the user types.
+         *
+         * Note: only the legacy appearance supports the `never` option. `never` was originally added as a
+         * way to make the floating label emulate the behavior of a standard input placeholder. However
+         * the form field now supports both floating labels and placeholders. Therefore in the non-legacy
+         * appearances the `never` option has been disabled in favor of just using the placeholder.
+         */
         get: /**
          * Whether the label should always float, never float or float as the user types.
          *
@@ -3223,8 +3339,8 @@ var MatFormField = /** @class */ (function (_super) {
             _this._syncDescribedByIds();
             _this._changeDetectorRef.markForCheck();
         });
-        // Run change detection if the value, prefix, or suffix changes.
-        var /** @type {?} */ valueChanges = this._control.ngControl && this._control.ngControl.valueChanges || rxjs.EMPTY;
+        /** @type {?} */
+        var valueChanges = this._control.ngControl && this._control.ngControl.valueChanges || rxjs.EMPTY;
         rxjs.merge(valueChanges, this._prefixChildren.changes, this._suffixChildren.changes)
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
         // Re-validate when the number of hints changes.
@@ -3273,7 +3389,8 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function (prop) {
-        var /** @type {?} */ ngControl = this._control ? this._control.ngControl : null;
+        /** @type {?} */
+        var ngControl = this._control ? this._control.ngControl : null;
         return ngControl && ngControl[prop];
     };
     /**
@@ -3401,8 +3518,10 @@ var MatFormField = /** @class */ (function (_super) {
     function () {
         var _this = this;
         if (this._hintChildren) {
-            var /** @type {?} */ startHint_1;
-            var /** @type {?} */ endHint_1;
+            /** @type {?} */
+            var startHint_1 = void 0;
+            /** @type {?} */
+            var endHint_1 = void 0;
             this._hintChildren.forEach(function (hint) {
                 if (hint.align === 'start') {
                     if (startHint_1 || _this.hintLabel) {
@@ -3431,11 +3550,14 @@ var MatFormField = /** @class */ (function (_super) {
      */
     function () {
         if (this._control) {
-            var /** @type {?} */ ids = [];
+            /** @type {?} */
+            var ids = [];
             if (this._getDisplayedMessages() === 'hint') {
-                var /** @type {?} */ startHint = this._hintChildren ?
+                /** @type {?} */
+                var startHint = this._hintChildren ?
                     this._hintChildren.find(function (hint) { return hint.align === 'start'; }) : null;
-                var /** @type {?} */ endHint = this._hintChildren ?
+                /** @type {?} */
+                var endHint = this._hintChildren ?
                     this._hintChildren.find(function (hint) { return hint.align === 'end'; }) : null;
                 if (startHint) {
                     ids.push(startHint.id);
@@ -3482,7 +3604,8 @@ var MatFormField = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ labelEl = this._label ? this._label.nativeElement : null;
+        /** @type {?} */
+        var labelEl = this._label ? this._label.nativeElement : null;
         if (this.appearance !== 'outline' || !labelEl || !labelEl.children.length ||
             !labelEl.textContent.trim()) {
             return;
@@ -3497,14 +3620,21 @@ var MatFormField = /** @class */ (function (_super) {
             this._outlineGapCalculationNeeded = true;
             return;
         }
-        var /** @type {?} */ startWidth = 0;
-        var /** @type {?} */ gapWidth = 0;
-        var /** @type {?} */ startEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-start');
-        var /** @type {?} */ gapEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-gap');
+        /** @type {?} */
+        var startWidth = 0;
+        /** @type {?} */
+        var gapWidth = 0;
+        /** @type {?} */
+        var startEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-start');
+        /** @type {?} */
+        var gapEls = this._connectionContainerRef.nativeElement.querySelectorAll('.mat-form-field-outline-gap');
         if (this._label && this._label.nativeElement.children.length) {
-            var /** @type {?} */ containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
-            var /** @type {?} */ labelStart = this._getStartEnd(labelEl.children[0].getBoundingClientRect());
-            var /** @type {?} */ labelWidth = 0;
+            /** @type {?} */
+            var containerStart = this._getStartEnd(this._connectionContainerRef.nativeElement.getBoundingClientRect());
+            /** @type {?} */
+            var labelStart = this._getStartEnd(labelEl.children[0].getBoundingClientRect());
+            /** @type {?} */
+            var labelWidth = 0;
             for (var _i = 0, _a = labelEl.children; _i < _a.length; _i++) {
                 var child = _a[_i];
                 labelWidth += child.offsetWidth;
@@ -3512,10 +3642,10 @@ var MatFormField = /** @class */ (function (_super) {
             startWidth = labelStart - containerStart - outlineGapPadding;
             gapWidth = labelWidth > 0 ? labelWidth * floatingLabelScale + outlineGapPadding * 2 : 0;
         }
-        for (var /** @type {?} */ i = 0; i < startEls.length; i++) {
+        for (var i = 0; i < startEls.length; i++) {
             startEls.item(i).style.width = startWidth + "px";
         }
-        for (var /** @type {?} */ i = 0; i < gapEls.length; i++) {
+        for (var i = 0; i < gapEls.length; i++) {
             gapEls.item(i).style.width = gapWidth + "px";
         }
         this._outlineGapCalculationNeeded = false;
@@ -3573,31 +3703,31 @@ var MatFormField = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatFormField.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_LABEL_GLOBAL_OPTIONS,] },] },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] },] },
-        { type: platform.Platform, },
-        { type: core.NgZone, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_LABEL_GLOBAL_OPTIONS,] }] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_FORM_FIELD_DEFAULT_OPTIONS,] }] },
+        { type: platform.Platform },
+        { type: core.NgZone },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatFormField.propDecorators = {
-        "appearance": [{ type: core.Input },],
-        "hideRequiredMarker": [{ type: core.Input },],
-        "hintLabel": [{ type: core.Input },],
-        "floatLabel": [{ type: core.Input },],
-        "underlineRef": [{ type: core.ViewChild, args: ['underline',] },],
-        "_connectionContainerRef": [{ type: core.ViewChild, args: ['connectionContainer',] },],
-        "_inputContainerRef": [{ type: core.ViewChild, args: ['inputContainer',] },],
-        "_label": [{ type: core.ViewChild, args: ['label',] },],
-        "_control": [{ type: core.ContentChild, args: [MatFormFieldControl,] },],
-        "_placeholderChild": [{ type: core.ContentChild, args: [MatPlaceholder,] },],
-        "_labelChild": [{ type: core.ContentChild, args: [MatLabel,] },],
-        "_errorChildren": [{ type: core.ContentChildren, args: [MatError,] },],
-        "_hintChildren": [{ type: core.ContentChildren, args: [MatHint,] },],
-        "_prefixChildren": [{ type: core.ContentChildren, args: [MatPrefix,] },],
-        "_suffixChildren": [{ type: core.ContentChildren, args: [MatSuffix,] },],
+        appearance: [{ type: core.Input }],
+        hideRequiredMarker: [{ type: core.Input }],
+        hintLabel: [{ type: core.Input }],
+        floatLabel: [{ type: core.Input }],
+        underlineRef: [{ type: core.ViewChild, args: ['underline',] }],
+        _connectionContainerRef: [{ type: core.ViewChild, args: ['connectionContainer',] }],
+        _inputContainerRef: [{ type: core.ViewChild, args: ['inputContainer',] }],
+        _label: [{ type: core.ViewChild, args: ['label',] }],
+        _control: [{ type: core.ContentChild, args: [MatFormFieldControl,] }],
+        _placeholderChild: [{ type: core.ContentChild, args: [MatPlaceholder,] }],
+        _labelChild: [{ type: core.ContentChild, args: [MatLabel,] }],
+        _errorChildren: [{ type: core.ContentChildren, args: [MatError,] }],
+        _hintChildren: [{ type: core.ContentChildren, args: [MatHint,] }],
+        _prefixChildren: [{ type: core.ContentChildren, args: [MatPrefix,] }],
+        _suffixChildren: [{ type: core.ContentChildren, args: [MatSuffix,] }]
     };
     return MatFormField;
 }(_MatFormFieldMixinBase));
@@ -3642,11 +3772,11 @@ var MatFormFieldModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
  * the component definition.
- */
-var /** @type {?} */ _uniqueAutocompleteIdCounter = 0;
+  @type {?} */
+var _uniqueAutocompleteIdCounter = 0;
 /**
  * Event object that is emitted when an autocomplete option is selected.
  */
@@ -3671,11 +3801,12 @@ MatAutocompleteBase = /** @class */ (function () {
     }
     return MatAutocompleteBase;
 }());
-var /** @type {?} */ _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompleteBase);
-/**
+/** @type {?} */
+var _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompleteBase);
+/** *
  * Injection token to be used to override the default options for `mat-autocomplete`.
- */
-var /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new core.InjectionToken('mat-autocomplete-default-options', {
+  @type {?} */
+var MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new core.InjectionToken('mat-autocomplete-default-options', {
     providedIn: 'root',
     factory: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
 });
@@ -3732,6 +3863,10 @@ var MatAutocomplete = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatAutocomplete.prototype, "autoActiveFirstOption", {
+        /**
+         * Whether the first option should be highlighted when the autocomplete panel is opened.
+         * Can be configured globally through the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
+         */
         get: /**
          * Whether the first option should be highlighted when the autocomplete panel is opened.
          * Can be configured globally through the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
@@ -3749,6 +3884,10 @@ var MatAutocomplete = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatAutocomplete.prototype, "classList", {
+        /**
+         * Takes classes set on the host mat-autocomplete element and applies them to the panel
+         * inside the overlay container to allow for easy styling.
+         */
         set: /**
          * Takes classes set on the host mat-autocomplete element and applies them to the panel
          * inside the overlay container to allow for easy styling.
@@ -3836,7 +3975,8 @@ var MatAutocomplete = /** @class */ (function (_super) {
      * @return {?}
      */
     function (option) {
-        var /** @type {?} */ event = new MatAutocompleteSelectedEvent(this, option);
+        /** @type {?} */
+        var event = new MatAutocompleteSelectedEvent(this, option);
         this.optionSelected.emit(event);
     };
     MatAutocomplete.decorators = [
@@ -3857,22 +3997,22 @@ var MatAutocomplete = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatAutocomplete.ctorParameters = function () { return [
-        { type: core.ChangeDetectorRef, },
-        { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] },] },
+        { type: core.ChangeDetectorRef },
+        { type: core.ElementRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
     ]; };
     MatAutocomplete.propDecorators = {
-        "template": [{ type: core.ViewChild, args: [core.TemplateRef,] },],
-        "panel": [{ type: core.ViewChild, args: ['panel',] },],
-        "options": [{ type: core.ContentChildren, args: [MatOption, { descendants: true },] },],
-        "optionGroups": [{ type: core.ContentChildren, args: [MatOptgroup,] },],
-        "displayWith": [{ type: core.Input },],
-        "autoActiveFirstOption": [{ type: core.Input },],
-        "panelWidth": [{ type: core.Input },],
-        "optionSelected": [{ type: core.Output },],
-        "opened": [{ type: core.Output },],
-        "closed": [{ type: core.Output },],
-        "classList": [{ type: core.Input, args: ['class',] },],
+        template: [{ type: core.ViewChild, args: [core.TemplateRef,] }],
+        panel: [{ type: core.ViewChild, args: ['panel',] }],
+        options: [{ type: core.ContentChildren, args: [MatOption, { descendants: true },] }],
+        optionGroups: [{ type: core.ContentChildren, args: [MatOptgroup,] }],
+        displayWith: [{ type: core.Input }],
+        autoActiveFirstOption: [{ type: core.Input }],
+        panelWidth: [{ type: core.Input }],
+        optionSelected: [{ type: core.Output }],
+        opened: [{ type: core.Output }],
+        closed: [{ type: core.Output }],
+        classList: [{ type: core.Input, args: ['class',] }]
     };
     return MatAutocomplete;
 }(_MatAutocompleteMixinBase));
@@ -3897,7 +4037,7 @@ var MatAutocompleteOrigin = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatAutocompleteOrigin.ctorParameters = function () { return [
-        { type: core.ElementRef, },
+        { type: core.ElementRef }
     ]; };
     return MatAutocompleteOrigin;
 }());
@@ -3906,18 +4046,18 @@ var MatAutocompleteOrigin = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * The height of each autocomplete option.
- */
-var /** @type {?} */ AUTOCOMPLETE_OPTION_HEIGHT = 48;
-/**
+  @type {?} */
+var AUTOCOMPLETE_OPTION_HEIGHT = 48;
+/** *
  * The total height of the autocomplete panel.
- */
-var /** @type {?} */ AUTOCOMPLETE_PANEL_HEIGHT = 256;
-/**
+  @type {?} */
+var AUTOCOMPLETE_PANEL_HEIGHT = 256;
+/** *
  * Injection token that determines the scroll handling while the autocomplete panel is open.
- */
-var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete-scroll-strategy');
+  @type {?} */
+var MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken('mat-autocomplete-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -3926,19 +4066,19 @@ var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new core.InjectionToken(
 function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
-/**
+/** *
  * \@docs-private
- */
-var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+  @type {?} */
+var MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
     useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
 };
-/**
+/** *
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * \@docs-private
- */
-var /** @type {?} */ MAT_AUTOCOMPLETE_VALUE_ACCESSOR = {
+  @type {?} */
+var MAT_AUTOCOMPLETE_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatAutocompleteTrigger; }),
     multi: true
@@ -4034,6 +4174,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         }
     }
     Object.defineProperty(MatAutocompleteTrigger.prototype, "autocompleteDisabled", {
+        /**
+         * Whether the autocomplete is disabled. When disabled, the element will
+         * act as a regular input and the user won't be able to open the panel.
+         */
         get: /**
          * Whether the autocomplete is disabled. When disabled, the element will
          * act as a regular input and the user won't be able to open the panel.
@@ -4193,8 +4337,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         }
         return rxjs.merge(rxjs.fromEvent(this._document, 'click'), rxjs.fromEvent(this._document, 'touchend'))
             .pipe(operators.filter(function (event) {
-            var /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
-            var /** @type {?} */ formField = _this._formField ?
+            /** @type {?} */
+            var clickTarget = /** @type {?} */ (event.target);
+            /** @type {?} */
+            var formField = _this._formField ?
                 _this._formField._elementRef.nativeElement : null;
             return _this._overlayAttached &&
                 clickTarget !== _this._element.nativeElement &&
@@ -4260,7 +4406,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ keyCode = event.keyCode;
+        /** @type {?} */
+        var keyCode = event.keyCode;
         // Prevent the default action on all escape key presses. This is here primarily to bring IE
         // in line with other browsers. By default, pressing escape on IE will cause it to revert
         // the input value to the one that it had on focus, however it won't dispatch any events
@@ -4281,8 +4428,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             event.preventDefault();
         }
         else if (this.autocomplete) {
-            var /** @type {?} */ prevActiveItem = this.autocomplete._keyManager.activeItem;
-            var /** @type {?} */ isArrowKey = keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW;
+            /** @type {?} */
+            var prevActiveItem = this.autocomplete._keyManager.activeItem;
+            /** @type {?} */
+            var isArrowKey = keyCode === keycodes.UP_ARROW || keyCode === keycodes.DOWN_ARROW;
             if (this.panelOpen || keyCode === keycodes.TAB) {
                 this.autocomplete._keyManager.onKeydown(event);
             }
@@ -4303,8 +4452,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ target = /** @type {?} */ (event.target);
-        var /** @type {?} */ value = target.value;
+        /** @type {?} */
+        var target = /** @type {?} */ (event.target);
+        /** @type {?} */
+        var value = target.value;
         // Based on `NumberValueAccessor` from forms.
         if (target.type === 'number') {
             value = value == '' ? null : parseFloat(value);
@@ -4399,9 +4550,12 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ index = this.autocomplete._keyManager.activeItemIndex || 0;
-        var /** @type {?} */ labelCount = _countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
-        var /** @type {?} */ newScrollPosition = _getOptionScrollPosition(index + labelCount, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
+        /** @type {?} */
+        var index = this.autocomplete._keyManager.activeItemIndex || 0;
+        /** @type {?} */
+        var labelCount = _countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
+        /** @type {?} */
+        var newScrollPosition = _getOptionScrollPosition(index + labelCount, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
         this.autocomplete._setScrollTop(newScrollPosition);
     };
     /**
@@ -4416,8 +4570,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ firstStable = this._zone.onStable.asObservable().pipe(operators.take(1));
-        var /** @type {?} */ optionChanges = this.autocomplete.options.changes.pipe(operators.tap(function () { return _this._positionStrategy.reapplyLastPosition(); }), 
+        /** @type {?} */
+        var firstStable = this._zone.onStable.asObservable().pipe(operators.take(1));
+        /** @type {?} */
+        var optionChanges = this.autocomplete.options.changes.pipe(operators.tap(function () { return _this._positionStrategy.reapplyLastPosition(); }), 
         // Defer emitting to the stream until the next tick, because changing
         // bindings in here will cause "changed after checked" errors.
         operators.delay(0));
@@ -4436,6 +4592,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         }), 
         // when the first closing event occurs...
         operators.take(1))
+            // set the value, close the panel, and complete.
             .subscribe(function (event) { return _this._setValueAndClose(event); });
     };
     /**
@@ -4462,12 +4619,12 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function (value) {
-        var /** @type {?} */ toDisplay = this.autocomplete && this.autocomplete.displayWith ?
+        /** @type {?} */
+        var toDisplay = this.autocomplete && this.autocomplete.displayWith ?
             this.autocomplete.displayWith(value) :
             value;
-        // Simply falling back to an empty string if the display value is falsy does not work properly.
-        // The display value can also be the number zero and shouldn't fall back to an empty string.
-        var /** @type {?} */ inputValue = toDisplay != null ? toDisplay : '';
+        /** @type {?} */
+        var inputValue = toDisplay != null ? toDisplay : '';
         // If it's used within a `MatFormField`, we should set it through the property so it can go
         // through change detection.
         if (this._formField) {
@@ -4548,7 +4705,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             this._overlayRef.attach(this._portal);
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
-        var /** @type {?} */ wasOpen = this.panelOpen;
+        /** @type {?} */
+        var wasOpen = this.panelOpen;
         this.autocomplete._setVisibility();
         this.autocomplete._isOpen = this._overlayAttached = true;
         // We need to do an extra `panelOpen` check in here, because the
@@ -4656,7 +4814,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ element = this._element.nativeElement;
+        /** @type {?} */
+        var element = this._element.nativeElement;
         return !element.readOnly && !element.disabled && !this._autocompleteDisabled;
     };
     MatAutocompleteTrigger.decorators = [
@@ -4682,22 +4841,22 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatAutocompleteTrigger.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: overlay.Overlay, },
-        { type: core.ViewContainerRef, },
-        { type: core.NgZone, },
-        { type: core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: MatFormField, decorators: [{ type: core.Optional }, { type: core.Host },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
-        { type: overlay.ViewportRuler, },
+        { type: core.ElementRef },
+        { type: overlay.Overlay },
+        { type: core.ViewContainerRef },
+        { type: core.NgZone },
+        { type: core.ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] }] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: MatFormField, decorators: [{ type: core.Optional }, { type: core.Host }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: overlay.ViewportRuler }
     ]; };
     MatAutocompleteTrigger.propDecorators = {
-        "autocomplete": [{ type: core.Input, args: ['matAutocomplete',] },],
-        "connectedTo": [{ type: core.Input, args: ['matAutocompleteConnectedTo',] },],
-        "autocompleteAttribute": [{ type: core.Input, args: ['autocomplete',] },],
-        "autocompleteDisabled": [{ type: core.Input, args: ['matAutocompleteDisabled',] },],
+        autocomplete: [{ type: core.Input, args: ['matAutocomplete',] }],
+        connectedTo: [{ type: core.Input, args: ['matAutocompleteConnectedTo',] }],
+        autocompleteAttribute: [{ type: core.Input, args: ['autocomplete',] }],
+        autocompleteDisabled: [{ type: core.Input, args: ['matAutocompleteDisabled',] }]
     };
     return MatAutocompleteTrigger;
 }());
@@ -4730,7 +4889,8 @@ var MatAutocompleteModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ nextId = 0;
+/** @type {?} */
+var nextId = 0;
 /**
  * Directive to display a text badge.
  */
@@ -4761,6 +4921,7 @@ var MatBadge = /** @class */ (function () {
         this._id = nextId++;
     }
     Object.defineProperty(MatBadge.prototype, "color", {
+        /** The color of the badge. Can be `primary`, `accent`, or `warn`. */
         get: /**
          * The color of the badge. Can be `primary`, `accent`, or `warn`.
          * @return {?}
@@ -4778,6 +4939,7 @@ var MatBadge = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatBadge.prototype, "overlap", {
+        /** Whether the badge should overlap its contents or not */
         get: /**
          * Whether the badge should overlap its contents or not
          * @return {?}
@@ -4794,6 +4956,7 @@ var MatBadge = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatBadge.prototype, "content", {
+        /** The content for the badge */
         get: /**
          * The content for the badge
          * @return {?}
@@ -4812,6 +4975,7 @@ var MatBadge = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatBadge.prototype, "description", {
+        /** Message used to describe the decorated element via aria-describedby */
         get: /**
          * Message used to describe the decorated element via aria-describedby
          * @return {?}
@@ -4831,6 +4995,7 @@ var MatBadge = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatBadge.prototype, "hidden", {
+        /** Whether the badge is hidden. */
         get: /**
          * Whether the badge is hidden.
          * @return {?}
@@ -4907,8 +5072,10 @@ var MatBadge = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ badgeElement = this._document.createElement('span');
-        var /** @type {?} */ activeClass = 'mat-badge-active';
+        /** @type {?} */
+        var badgeElement = this._document.createElement('span');
+        /** @type {?} */
+        var activeClass = 'mat-badge-active';
         badgeElement.setAttribute('id', "mat-badge-content-" + this._id);
         badgeElement.classList.add('mat-badge-content');
         badgeElement.textContent = this.content;
@@ -4942,8 +5109,8 @@ var MatBadge = /** @class */ (function () {
      * @return {?}
      */
     function (newDescription, oldDescription) {
-        // ensure content available before setting label
-        var /** @type {?} */ content = this._updateTextContent();
+        /** @type {?} */
+        var content = this._updateTextContent();
         if (oldDescription) {
             this._ariaDescriber.removeDescription(content, oldDescription);
         }
@@ -4990,19 +5157,19 @@ var MatBadge = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatBadge.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
-        { type: core.NgZone, },
-        { type: core.ElementRef, },
-        { type: a11y.AriaDescriber, },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: core.NgZone },
+        { type: core.ElementRef },
+        { type: a11y.AriaDescriber }
     ]; };
     MatBadge.propDecorators = {
-        "color": [{ type: core.Input, args: ['matBadgeColor',] },],
-        "overlap": [{ type: core.Input, args: ['matBadgeOverlap',] },],
-        "position": [{ type: core.Input, args: ['matBadgePosition',] },],
-        "content": [{ type: core.Input, args: ['matBadge',] },],
-        "description": [{ type: core.Input, args: ['matBadgeDescription',] },],
-        "size": [{ type: core.Input, args: ['matBadgeSize',] },],
-        "hidden": [{ type: core.Input, args: ['matBadgeHidden',] },],
+        color: [{ type: core.Input, args: ['matBadgeColor',] }],
+        overlap: [{ type: core.Input, args: ['matBadgeOverlap',] }],
+        position: [{ type: core.Input, args: ['matBadgePosition',] }],
+        content: [{ type: core.Input, args: ['matBadge',] }],
+        description: [{ type: core.Input, args: ['matBadgeDescription',] }],
+        size: [{ type: core.Input, args: ['matBadgeSize',] }],
+        hidden: [{ type: core.Input, args: ['matBadgeHidden',] }]
     };
     return MatBadge;
 }());
@@ -5031,10 +5198,10 @@ var MatBadgeModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to access the data that was passed in to a bottom sheet.
- */
-var /** @type {?} */ MAT_BOTTOM_SHEET_DATA = new core.InjectionToken('MatBottomSheetData');
+  @type {?} */
+var MAT_BOTTOM_SHEET_DATA = new core.InjectionToken('MatBottomSheetData');
 /**
  * Configuration used when opening a bottom sheet.
  * @template D
@@ -5077,10 +5244,10 @@ MatBottomSheetConfig = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material bottom sheet.
- */
-var /** @type {?} */ matBottomSheetAnimations = {
+  @type {?} */
+var matBottomSheetAnimations = {
     /** Animation that shows and hides a bottom sheet. */
     bottomSheetState: animations$1.trigger('state', [
         animations$1.state('void, hidden', animations$1.style({ transform: 'translateY(100%)' })),
@@ -5245,7 +5412,8 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function (cssClass, add) {
-        var /** @type {?} */ classList = this._elementRef.nativeElement.classList;
+        /** @type {?} */
+        var classList = this._elementRef.nativeElement.classList;
         add ? classList.add(cssClass) : classList.remove(cssClass);
     };
     /**
@@ -5266,8 +5434,10 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ element = this._elementRef.nativeElement;
-        var /** @type {?} */ panelClass = this.bottomSheetConfig.panelClass;
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
+        /** @type {?} */
+        var panelClass = this.bottomSheetConfig.panelClass;
         if (Array.isArray(panelClass)) {
             // Note that we can't use a spread here, because IE doesn't support multiple arguments.
             panelClass.forEach(function (cssClass) { return element.classList.add(cssClass); });
@@ -5299,7 +5469,8 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ toFocus = this._elementFocusedBeforeOpened;
+        /** @type {?} */
+        var toFocus = this._elementFocusedBeforeOpened;
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
         if (toFocus && typeof toFocus.focus === 'function') {
             toFocus.focus();
@@ -5345,15 +5516,15 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatBottomSheetContainer.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
-        { type: a11y.FocusTrapFactory, },
-        { type: layout.BreakpointObserver, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
-        { type: MatBottomSheetConfig, },
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: a11y.FocusTrapFactory },
+        { type: layout.BreakpointObserver },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: MatBottomSheetConfig }
     ]; };
     MatBottomSheetContainer.propDecorators = {
-        "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],
+        _portalOutlet: [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] }]
     };
     return MatBottomSheetContainer;
 }(portal.BasePortalOutlet));
@@ -5535,7 +5706,8 @@ var MatBottomSheet = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ parent = this._parentBottomSheet;
+            /** @type {?} */
+            var parent = this._parentBottomSheet;
             return parent ? parent._openedBottomSheetRef : this._bottomSheetRefAtThisLevel;
         },
         set: /**
@@ -5567,10 +5739,14 @@ var MatBottomSheet = /** @class */ (function () {
      */
     function (componentOrTemplateRef, config) {
         var _this = this;
-        var /** @type {?} */ _config = _applyConfigDefaults(config);
-        var /** @type {?} */ overlayRef = this._createOverlay(_config);
-        var /** @type {?} */ container = this._attachContainer(overlayRef, _config);
-        var /** @type {?} */ ref = new MatBottomSheetRef(container, overlayRef, this._location);
+        /** @type {?} */
+        var _config = _applyConfigDefaults(config);
+        /** @type {?} */
+        var overlayRef = this._createOverlay(_config);
+        /** @type {?} */
+        var container = this._attachContainer(overlayRef, _config);
+        /** @type {?} */
+        var ref = new MatBottomSheetRef(container, overlayRef, this._location);
         if (componentOrTemplateRef instanceof core.TemplateRef) {
             container.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({
                 $implicit: _config.data,
@@ -5578,8 +5754,10 @@ var MatBottomSheet = /** @class */ (function () {
             })));
         }
         else {
-            var /** @type {?} */ portal$$1 = new portal.ComponentPortal(componentOrTemplateRef, undefined, this._createInjector(_config, ref));
-            var /** @type {?} */ contentRef = container.attachComponentPortal(portal$$1);
+            /** @type {?} */
+            var portal$$1 = new portal.ComponentPortal(componentOrTemplateRef, undefined, this._createInjector(_config, ref));
+            /** @type {?} */
+            var contentRef = container.attachComponentPortal(portal$$1);
             ref.instance = contentRef.instance;
         }
         // When the bottom sheet is dismissed, clear the reference to it.
@@ -5631,12 +5809,16 @@ var MatBottomSheet = /** @class */ (function () {
      * @return {?}
      */
     function (overlayRef, config) {
-        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        var /** @type {?} */ injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
+        /** @type {?} */
+        var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        /** @type {?} */
+        var injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
             [MatBottomSheetConfig, config]
         ]));
-        var /** @type {?} */ containerPortal = new portal.ComponentPortal(MatBottomSheetContainer, config.viewContainerRef, injector);
-        var /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
+        /** @type {?} */
+        var containerPortal = new portal.ComponentPortal(MatBottomSheetContainer, config.viewContainerRef, injector);
+        /** @type {?} */
+        var containerRef = overlayRef.attach(containerPortal);
         return containerRef.instance;
     };
     /**
@@ -5650,7 +5832,8 @@ var MatBottomSheet = /** @class */ (function () {
      * @return {?}
      */
     function (config) {
-        var /** @type {?} */ overlayConfig = new overlay.OverlayConfig({
+        /** @type {?} */
+        var overlayConfig = new overlay.OverlayConfig({
             direction: config.direction,
             hasBackdrop: config.hasBackdrop,
             maxWidth: '100%',
@@ -5680,8 +5863,10 @@ var MatBottomSheet = /** @class */ (function () {
      * @return {?}
      */
     function (config, bottomSheetRef) {
-        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        var /** @type {?} */ injectionTokens = new WeakMap([
+        /** @type {?} */
+        var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        /** @type {?} */
+        var injectionTokens = new WeakMap([
             [MatBottomSheetRef, bottomSheetRef],
             [MAT_BOTTOM_SHEET_DATA, config.data]
         ]);
@@ -5699,10 +5884,10 @@ var MatBottomSheet = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatBottomSheet.ctorParameters = function () { return [
-        { type: overlay.Overlay, },
-        { type: core.Injector, },
-        { type: MatBottomSheet, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
-        { type: common.Location, decorators: [{ type: core.Optional },] },
+        { type: overlay.Overlay },
+        { type: core.Injector },
+        { type: MatBottomSheet, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] },
+        { type: common.Location, decorators: [{ type: core.Optional }] }
     ]; };
     /** @nocollapse */ MatBottomSheet.ngInjectableDef = core.defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(core.inject(overlay.Overlay), core.inject(core.INJECTOR), core.inject(MatBottomSheet, 12), core.inject(common.Location, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
     return MatBottomSheet;
@@ -5720,15 +5905,15 @@ function _applyConfigDefaults(config) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
- */
-var /** @type {?} */ DEFAULT_ROUND_BUTTON_COLOR = 'accent';
-/**
+  @type {?} */
+var DEFAULT_ROUND_BUTTON_COLOR = 'accent';
+/** *
  * List of classes to add to MatButton instances based on host attributes to
  * style as different variants.
- */
-var /** @type {?} */ BUTTON_HOST_ATTRIBUTES = [
+  @type {?} */
+var BUTTON_HOST_ATTRIBUTES = [
     'mat-button',
     'mat-flat-button',
     'mat-icon-button',
@@ -5749,7 +5934,8 @@ MatButtonBase = /** @class */ (function () {
     }
     return MatButtonBase;
 }());
-var /** @type {?} */ _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonBase)));
+/** @type {?} */
+var _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonBase)));
 /**
  * Material design button.
  */
@@ -5858,13 +6044,13 @@ var MatButton = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatButton.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: platform.Platform, },
-        { type: a11y.FocusMonitor, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: core.ElementRef },
+        { type: platform.Platform },
+        { type: a11y.FocusMonitor },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatButton.propDecorators = {
-        "ripple": [{ type: core.ViewChild, args: [MatRipple,] },],
+        ripple: [{ type: core.ViewChild, args: [MatRipple,] }]
     };
     return MatButton;
 }(_MatButtonMixinBase));
@@ -5915,13 +6101,13 @@ var MatAnchor = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatAnchor.ctorParameters = function () { return [
-        { type: platform.Platform, },
-        { type: a11y.FocusMonitor, },
-        { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: platform.Platform },
+        { type: a11y.FocusMonitor },
+        { type: core.ElementRef },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatAnchor.propDecorators = {
-        "tabIndex": [{ type: core.Input },],
+        tabIndex: [{ type: core.Input }]
     };
     return MatAnchor;
 }(MatButton));
@@ -5969,13 +6155,14 @@ MatButtonToggleGroupBase = /** @class */ (function () {
     }
     return MatButtonToggleGroupBase;
 }());
-var /** @type {?} */ _MatButtonToggleGroupMixinBase = mixinDisabled(MatButtonToggleGroupBase);
-/**
+/** @type {?} */
+var _MatButtonToggleGroupMixinBase = mixinDisabled(MatButtonToggleGroupBase);
+/** *
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
- */
-var /** @type {?} */ MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
+  @type {?} */
+var MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatButtonToggleGroup; }),
     multi: true
@@ -5993,7 +6180,8 @@ MatButtonToggleGroupMultiple = /** @class */ (function () {
     }
     return MatButtonToggleGroupMultiple;
 }());
-var /** @type {?} */ _uniqueIdCounter$1 = 0;
+/** @type {?} */
+var _uniqueIdCounter$1 = 0;
 /**
  * Change event object emitted by MatButtonToggle.
  */
@@ -6040,6 +6228,7 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatButtonToggleGroup.prototype, "name", {
+        /** `name` attribute for the underlying `input` element. */
         get: /**
          * `name` attribute for the underlying `input` element.
          * @return {?}
@@ -6060,6 +6249,7 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatButtonToggleGroup.prototype, "vertical", {
+        /** Whether the toggle group is vertical. */
         get: /**
          * Whether the toggle group is vertical.
          * @return {?}
@@ -6076,12 +6266,14 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatButtonToggleGroup.prototype, "value", {
+        /** Value of the toggle group. */
         get: /**
          * Value of the toggle group.
          * @return {?}
          */
         function () {
-            var /** @type {?} */ selected = this._selectionModel ? this._selectionModel.selected : [];
+            /** @type {?} */
+            var selected = this._selectionModel ? this._selectionModel.selected : [];
             if (this.multiple) {
                 return selected.map(function (toggle) { return toggle.value; });
             }
@@ -6105,13 +6297,15 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ selected = this._selectionModel.selected;
+            /** @type {?} */
+            var selected = this._selectionModel.selected;
             return this.multiple ? selected : (selected[0] || null);
         },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(MatButtonToggleGroup.prototype, "multiple", {
+        /** Whether multiple button toggles can be selected. */
         get: /**
          * Whether multiple button toggles can be selected.
          * @return {?}
@@ -6143,8 +6337,8 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        (_a = this._selectionModel).select.apply(_a, this._buttonToggles.filter(function (toggle) { return toggle.checked; }));
         var _a;
+        (_a = this._selectionModel).select.apply(_a, this._buttonToggles.filter(function (toggle) { return toggle.checked; }));
     };
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
@@ -6213,9 +6407,12 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ selected = this.selected;
-        var /** @type {?} */ source = Array.isArray(selected) ? selected[selected.length - 1] : selected;
-        var /** @type {?} */ event = new MatButtonToggleChange(/** @type {?} */ ((source)), this.value);
+        /** @type {?} */
+        var selected = this.selected;
+        /** @type {?} */
+        var source = Array.isArray(selected) ? selected[selected.length - 1] : selected;
+        /** @type {?} */
+        var event = new MatButtonToggleChange(/** @type {?} */ ((source)), this.value);
         this._controlValueAccessorChangeFn(event.value);
         this.change.emit(event);
     };
@@ -6345,7 +6542,8 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
      * @return {?}
      */
     function (value) {
-        var /** @type {?} */ correspondingOption = this._buttonToggles.find(function (toggle) {
+        /** @type {?} */
+        var correspondingOption = this._buttonToggles.find(function (toggle) {
             return toggle.value != null && toggle.value === value;
         });
         if (correspondingOption) {
@@ -6372,16 +6570,16 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatButtonToggleGroup.ctorParameters = function () { return [
-        { type: core.ChangeDetectorRef, },
+        { type: core.ChangeDetectorRef }
     ]; };
     MatButtonToggleGroup.propDecorators = {
-        "_buttonToggles": [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatButtonToggle; }),] },],
-        "name": [{ type: core.Input },],
-        "vertical": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
-        "valueChange": [{ type: core.Output },],
-        "multiple": [{ type: core.Input },],
-        "change": [{ type: core.Output },],
+        _buttonToggles: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatButtonToggle; }),] }],
+        name: [{ type: core.Input }],
+        vertical: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        valueChange: [{ type: core.Output }],
+        multiple: [{ type: core.Input }],
+        change: [{ type: core.Output }]
     };
     return MatButtonToggleGroup;
 }(_MatButtonToggleGroupMixinBase));
@@ -6396,7 +6594,8 @@ MatButtonToggleBase = /** @class */ (function () {
     }
     return MatButtonToggleBase;
 }());
-var /** @type {?} */ _MatButtonToggleMixinBase = mixinDisableRipple(MatButtonToggleBase);
+/** @type {?} */
+var _MatButtonToggleMixinBase = mixinDisableRipple(MatButtonToggleBase);
 /**
  * Single button inside of a toggle group.
  */
@@ -6420,7 +6619,8 @@ var MatButtonToggle = /** @class */ (function (_super) {
          * Event emitted when the group value changes.
          */
         _this.change = new core.EventEmitter();
-        var /** @type {?} */ parsedTabIndex = Number(defaultTabIndex);
+        /** @type {?} */
+        var parsedTabIndex = Number(defaultTabIndex);
         _this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
         _this.buttonToggleGroup = toggleGroup;
         return _this;
@@ -6436,6 +6636,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatButtonToggle.prototype, "checked", {
+        /** Whether the button is checked. */
         get: /**
          * Whether the button is checked.
          * @return {?}
@@ -6448,7 +6649,8 @@ var MatButtonToggle = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newValue = coercion.coerceBooleanProperty(value);
+            /** @type {?} */
+            var newValue = coercion.coerceBooleanProperty(value);
             if (newValue !== this._checked) {
                 this._checked = newValue;
                 if (this.buttonToggleGroup) {
@@ -6461,6 +6663,7 @@ var MatButtonToggle = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatButtonToggle.prototype, "disabled", {
+        /** Whether the button is disabled. */
         get: /**
          * Whether the button is disabled.
          * @return {?}
@@ -6525,7 +6728,8 @@ var MatButtonToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ newChecked = this._isSingleSelector ? true : !this._checked;
+        /** @type {?} */
+        var newChecked = this._isSingleSelector ? true : !this._checked;
         if (newChecked !== this._checked) {
             this._checked = newChecked;
             if (this.buttonToggleGroup) {
@@ -6579,23 +6783,23 @@ var MatButtonToggle = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatButtonToggle.ctorParameters = function () { return [
-        { type: MatButtonToggleGroup, decorators: [{ type: core.Optional },] },
-        { type: core.ChangeDetectorRef, },
-        { type: core.ElementRef, },
-        { type: a11y.FocusMonitor, },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
+        { type: MatButtonToggleGroup, decorators: [{ type: core.Optional }] },
+        { type: core.ChangeDetectorRef },
+        { type: core.ElementRef },
+        { type: a11y.FocusMonitor },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] }
     ]; };
     MatButtonToggle.propDecorators = {
-        "ariaLabel": [{ type: core.Input, args: ['aria-label',] },],
-        "ariaLabelledby": [{ type: core.Input, args: ['aria-labelledby',] },],
-        "_buttonElement": [{ type: core.ViewChild, args: ['button',] },],
-        "id": [{ type: core.Input },],
-        "name": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
-        "tabIndex": [{ type: core.Input },],
-        "checked": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
-        "change": [{ type: core.Output },],
+        ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
+        _buttonElement: [{ type: core.ViewChild, args: ['button',] }],
+        id: [{ type: core.Input }],
+        name: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        tabIndex: [{ type: core.Input }],
+        checked: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
+        change: [{ type: core.Output }]
     };
     return MatButtonToggle;
 }(_MatButtonToggleMixinBase));
@@ -6691,9 +6895,8 @@ var MatCardActions = /** @class */ (function () {
                     }
                 },] },
     ];
-    /** @nocollapse */
     MatCardActions.propDecorators = {
-        "align": [{ type: core.Input },],
+        align: [{ type: core.Input }]
     };
     return MatCardActions;
 }());
@@ -6906,23 +7109,23 @@ var MatCardModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to specify the checkbox click behavior.
- */
-var /** @type {?} */ MAT_CHECKBOX_CLICK_ACTION = new core.InjectionToken('mat-checkbox-click-action');
+  @type {?} */
+var MAT_CHECKBOX_CLICK_ACTION = new core.InjectionToken('mat-checkbox-click-action');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Increasing integer for generating unique ids for checkbox components.
-var /** @type {?} */ nextUniqueId$3 = 0;
-/**
+/** @type {?} */
+var nextUniqueId$3 = 0;
+/** *
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
- */
-var /** @type {?} */ MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
+  @type {?} */
+var MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatCheckbox; }),
     multi: true
@@ -6938,10 +7141,10 @@ var TransitionCheckState = {
     /** The state representing the component when it's becoming indeterminate. */
     Indeterminate: 3,
 };
-TransitionCheckState[TransitionCheckState.Init] = "Init";
-TransitionCheckState[TransitionCheckState.Checked] = "Checked";
-TransitionCheckState[TransitionCheckState.Unchecked] = "Unchecked";
-TransitionCheckState[TransitionCheckState.Indeterminate] = "Indeterminate";
+TransitionCheckState[TransitionCheckState.Init] = 'Init';
+TransitionCheckState[TransitionCheckState.Checked] = 'Checked';
+TransitionCheckState[TransitionCheckState.Unchecked] = 'Unchecked';
+TransitionCheckState[TransitionCheckState.Indeterminate] = 'Indeterminate';
 /**
  * Change event object emitted by MatCheckbox.
  */
@@ -6965,7 +7168,8 @@ MatCheckboxBase = /** @class */ (function () {
     }
     return MatCheckboxBase;
 }());
-var /** @type {?} */ _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatCheckboxBase)), 'accent'));
+/** @type {?} */
+var _MatCheckboxMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatCheckboxBase)), 'accent'));
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MatCheckbox can be either checked, unchecked, indeterminate, or
@@ -7038,6 +7242,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatCheckbox.prototype, "required", {
+        /** Whether the checkbox is required. */
         get: /**
          * Whether the checkbox is required.
          * @return {?}
@@ -7073,6 +7278,9 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._focusMonitor.stopMonitoring(this._inputElement);
     };
     Object.defineProperty(MatCheckbox.prototype, "checked", {
+        /**
+         * Whether the checkbox is checked.
+         */
         get: /**
          * Whether the checkbox is checked.
          * @return {?}
@@ -7092,6 +7300,10 @@ var MatCheckbox = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatCheckbox.prototype, "disabled", {
+        /**
+         * Whether the checkbox is disabled. This fully overrides the implementation provided by
+         * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
+         */
         get: /**
          * Whether the checkbox is disabled. This fully overrides the implementation provided by
          * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
@@ -7112,6 +7324,12 @@ var MatCheckbox = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatCheckbox.prototype, "indeterminate", {
+        /**
+         * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
+         * represent a checkbox with three states, e.g. a checkbox that represents a nested list of
+         * checkable items. Note that whenever checkbox is manually clicked, indeterminate is immediately
+         * set to false.
+         */
         get: /**
          * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
          * represent a checkbox with three states, e.g. a checkbox that represents a nested list of
@@ -7125,7 +7343,8 @@ var MatCheckbox = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ changed = value != this._indeterminate;
+            /** @type {?} */
+            var changed = value != this._indeterminate;
             this._indeterminate = value;
             if (changed) {
                 if (this._indeterminate) {
@@ -7230,8 +7449,10 @@ var MatCheckbox = /** @class */ (function (_super) {
      * @return {?}
      */
     function (newState) {
-        var /** @type {?} */ oldState = this._currentCheckState;
-        var /** @type {?} */ element = this._elementRef.nativeElement;
+        /** @type {?} */
+        var oldState = this._currentCheckState;
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
         if (oldState === newState) {
             return;
         }
@@ -7242,8 +7463,8 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
             element.classList.add(this._currentAnimationClass);
-            // Remove the animation class to avoid animation when the checkbox is moved between containers
-            var /** @type {?} */ animationClass_1 = this._currentAnimationClass;
+            /** @type {?} */
+            var animationClass_1 = this._currentAnimationClass;
             this._ngZone.runOutsideAngular(function () {
                 setTimeout(function () {
                     element.classList.remove(animationClass_1);
@@ -7258,7 +7479,8 @@ var MatCheckbox = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ event = new MatCheckboxChange();
+        /** @type {?} */
+        var event = new MatCheckboxChange();
         event.source = this;
         event.checked = this.checked;
         this._controlValueAccessorChangeFn(this.checked);
@@ -7402,7 +7624,8 @@ var MatCheckbox = /** @class */ (function (_super) {
         if (this._animationMode === 'NoopAnimations') {
             return '';
         }
-        var /** @type {?} */ animSuffix = '';
+        /** @type {?} */
+        var animSuffix = '';
         switch (oldState) {
             case TransitionCheckState.Init:
                 // Handle edge case where user interacts with checkbox that does not have [(ngModel)] or
@@ -7454,29 +7677,29 @@ var MatCheckbox = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatCheckbox.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
-        { type: a11y.FocusMonitor, },
-        { type: core.NgZone, },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_CHECKBOX_CLICK_ACTION,] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: a11y.FocusMonitor },
+        { type: core.NgZone },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_CHECKBOX_CLICK_ACTION,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatCheckbox.propDecorators = {
-        "ariaLabel": [{ type: core.Input, args: ['aria-label',] },],
-        "ariaLabelledby": [{ type: core.Input, args: ['aria-labelledby',] },],
-        "id": [{ type: core.Input },],
-        "required": [{ type: core.Input },],
-        "labelPosition": [{ type: core.Input },],
-        "name": [{ type: core.Input },],
-        "change": [{ type: core.Output },],
-        "indeterminateChange": [{ type: core.Output },],
-        "value": [{ type: core.Input },],
-        "_inputElement": [{ type: core.ViewChild, args: ['input',] },],
-        "ripple": [{ type: core.ViewChild, args: [MatRipple,] },],
-        "checked": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
-        "indeterminate": [{ type: core.Input },],
+        ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
+        id: [{ type: core.Input }],
+        required: [{ type: core.Input }],
+        labelPosition: [{ type: core.Input }],
+        name: [{ type: core.Input }],
+        change: [{ type: core.Output }],
+        indeterminateChange: [{ type: core.Output }],
+        value: [{ type: core.Input }],
+        _inputElement: [{ type: core.ViewChild, args: ['input',] }],
+        ripple: [{ type: core.ViewChild, args: [MatRipple,] }],
+        checked: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
+        indeterminate: [{ type: core.Input }]
     };
     return MatCheckbox;
 }(_MatCheckboxMixinBase));
@@ -7485,7 +7708,8 @@ var MatCheckbox = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ MAT_CHECKBOX_REQUIRED_VALIDATOR = {
+/** @type {?} */
+var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: forms.NG_VALIDATORS,
     useExisting: core.forwardRef(function () { return MatCheckboxRequiredValidator; }),
     multi: true
@@ -7558,8 +7782,10 @@ MatChipBase = /** @class */ (function () {
     }
     return MatChipBase;
 }());
-var /** @type {?} */ _MatChipMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary');
-var /** @type {?} */ CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
+/** @type {?} */
+var _MatChipMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary');
+/** @type {?} */
+var CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
 /**
  * Dummy directive to add CSS class to chip avatar.
  * \@docs-private
@@ -7671,6 +7897,7 @@ var MatChip = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChip.prototype, "selected", {
+        /** Whether the chip is selected. */
         get: /**
          * Whether the chip is selected.
          * @return {?}
@@ -7692,6 +7919,7 @@ var MatChip = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChip.prototype, "value", {
+        /** The value of the chip. Defaults to the content inside `<mat-chip>` tags. */
         get: /**
          * The value of the chip. Defaults to the content inside `<mat-chip>` tags.
          * @return {?}
@@ -7710,6 +7938,12 @@ var MatChip = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChip.prototype, "selectable", {
+        /**
+         * Whether or not the chip is selectable. When a chip is not selectable,
+         * changes to it's selected state are always ignored. By default a chip is
+         * selectable, and it becomes non-selectable if it's parent chip list is
+         * not selectable.
+         */
         get: /**
          * Whether or not the chip is selectable. When a chip is not selectable,
          * changes to it's selected state are always ignored. By default a chip is
@@ -7729,6 +7963,9 @@ var MatChip = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChip.prototype, "removable", {
+        /**
+         * Determines whether or not the chip displays the remove styling and emits (removed) events.
+         */
         get: /**
          * Determines whether or not the chip displays the remove styling and emits (removed) events.
          * @return {?}
@@ -7993,22 +8230,22 @@ var MatChip = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatChip.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.NgZone, },
-        { type: platform.Platform, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
+        { type: core.ElementRef },
+        { type: core.NgZone },
+        { type: platform.Platform },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] }
     ]; };
     MatChip.propDecorators = {
-        "avatar": [{ type: core.ContentChild, args: [MatChipAvatar,] },],
-        "trailingIcon": [{ type: core.ContentChild, args: [MatChipTrailingIcon,] },],
-        "removeIcon": [{ type: core.ContentChild, args: [core.forwardRef(function () { return MatChipRemove; }),] },],
-        "selected": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
-        "selectable": [{ type: core.Input },],
-        "removable": [{ type: core.Input },],
-        "selectionChange": [{ type: core.Output },],
-        "destroyed": [{ type: core.Output },],
-        "removed": [{ type: core.Output },],
+        avatar: [{ type: core.ContentChild, args: [MatChipAvatar,] }],
+        trailingIcon: [{ type: core.ContentChild, args: [MatChipTrailingIcon,] }],
+        removeIcon: [{ type: core.ContentChild, args: [core.forwardRef(function () { return MatChipRemove; }),] }],
+        selected: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        selectable: [{ type: core.Input }],
+        removable: [{ type: core.Input }],
+        selectionChange: [{ type: core.Output }],
+        destroyed: [{ type: core.Output }],
+        removed: [{ type: core.Output }]
     };
     return MatChip;
 }(_MatChipMixinBase));
@@ -8062,7 +8299,7 @@ var MatChipRemove = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatChipRemove.ctorParameters = function () { return [
-        { type: MatChip, },
+        { type: MatChip }
     ]; };
     return MatChipRemove;
 }());
@@ -8071,10 +8308,10 @@ var MatChipRemove = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token to be used to override the default options for the chips module.
- */
-var /** @type {?} */ MAT_CHIPS_DEFAULT_OPTIONS = new core.InjectionToken('mat-chips-default-options');
+  @type {?} */
+var MAT_CHIPS_DEFAULT_OPTIONS = new core.InjectionToken('mat-chips-default-options');
 
 /**
  * @fileoverview added by tsickle
@@ -8095,9 +8332,10 @@ MatChipListBase = /** @class */ (function () {
     }
     return MatChipListBase;
 }());
-var /** @type {?} */ _MatChipListMixinBase = mixinErrorState(MatChipListBase);
-// Increasing integer for generating unique ids for chip-list components.
-var /** @type {?} */ nextUniqueId$4 = 0;
+/** @type {?} */
+var _MatChipListMixinBase = mixinErrorState(MatChipListBase);
+/** @type {?} */
+var nextUniqueId$4 = 0;
 /**
  * Change event object that is emitted when the chip list value has changed.
  */
@@ -8206,6 +8444,7 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "multiple", {
+        /** Whether the user should be allowed to select multiple chips. */
         get: /**
          * Whether the user should be allowed to select multiple chips.
          * @return {?}
@@ -8222,6 +8461,11 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "compareWith", {
+        /**
+         * A function to compare the option values with the selected values. The first argument
+         * is a value from an option. The second is a value from the selection. A boolean
+         * should be returned.
+         */
         get: /**
          * A function to compare the option values with the selected values. The first argument
          * is a value from an option. The second is a value from the selection. A boolean
@@ -8244,6 +8488,10 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "value", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -8278,6 +8526,10 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "required", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -8296,6 +8548,10 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "placeholder", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -8358,6 +8614,10 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "disabled", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -8379,6 +8639,10 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "selectable", {
+        /**
+         * Whether or not this chip list is selectable. When a chip list is not selectable,
+         * the selected states for all the chips inside the chip list are always ignored.
+         */
         get: /**
          * Whether or not this chip list is selectable. When a chip list is not selectable,
          * the selected states for all the chips inside the chip list are always ignored.
@@ -8686,7 +8950,8 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ target = /** @type {?} */ (event.target);
+        /** @type {?} */
+        var target = /** @type {?} */ (event.target);
         // If they are on an empty input and hit backspace, focus the last chip
         if (event.keyCode === keycodes.BACKSPACE && this._isInputEmpty(target)) {
             this._keyManager.setLastItemActive();
@@ -8738,7 +9003,8 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         if (this._lastDestroyedChipIndex != null && this.chips.length) {
-            var /** @type {?} */ newChipIndex = Math.min(this._lastDestroyedChipIndex, this.chips.length - 1);
+            /** @type {?} */
+            var newChipIndex = Math.min(this._lastDestroyedChipIndex, this.chips.length - 1);
             this._keyManager.setActiveItem(newChipIndex);
         }
         this._lastDestroyedChipIndex = null;
@@ -8768,7 +9034,8 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function (element) {
         if (element && element.nodeName.toLowerCase() === 'input') {
-            var /** @type {?} */ input = /** @type {?} */ (element);
+            /** @type {?} */
+            var input = /** @type {?} */ (element);
             return !input.value;
         }
         return false;
@@ -8793,7 +9060,8 @@ var MatChipList = /** @class */ (function (_super) {
             this._sortValues();
         }
         else {
-            var /** @type {?} */ correspondingChip = this._selectValue(value, isUserInput);
+            /** @type {?} */
+            var correspondingChip = this._selectValue(value, isUserInput);
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what chip the user interacted with last.
             if (correspondingChip) {
@@ -8818,7 +9086,8 @@ var MatChipList = /** @class */ (function (_super) {
     function (value, isUserInput) {
         var _this = this;
         if (isUserInput === void 0) { isUserInput = true; }
-        var /** @type {?} */ correspondingChip = this.chips.find(function (chip) {
+        /** @type {?} */
+        var correspondingChip = this.chips.find(function (chip) {
             return chip.value != null && _this._compareWith(chip.value, value);
         });
         if (correspondingChip) {
@@ -8896,7 +9165,8 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (fallbackValue) {
-        var /** @type {?} */ valueToEmit = null;
+        /** @type {?} */
+        var valueToEmit = null;
         if (Array.isArray(this.selected)) {
             valueToEmit = this.selected.map(function (chip) { return chip.value; });
         }
@@ -9027,7 +9297,8 @@ var MatChipList = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._chipFocusSubscription = this.chipFocusChanges.subscribe(function (event) {
-            var /** @type {?} */ chipIndex = _this.chips.toArray().indexOf(event.chip);
+            /** @type {?} */
+            var chipIndex = _this.chips.toArray().indexOf(event.chip);
             if (_this._isValidIndex(chipIndex)) {
                 _this._keyManager.updateActiveItemIndex(chipIndex);
             }
@@ -9047,8 +9318,10 @@ var MatChipList = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._chipRemoveSubscription = this.chipRemoveChanges.subscribe(function (event) {
-            var /** @type {?} */ chip = event.chip;
-            var /** @type {?} */ chipIndex = _this.chips.toArray().indexOf(event.chip);
+            /** @type {?} */
+            var chip = event.chip;
+            /** @type {?} */
+            var chipIndex = _this.chips.toArray().indexOf(event.chip);
             // In case the chip that will be removed is currently focused, we temporarily store
             // the index in order to be able to determine an appropriate sibling chip that will
             // receive focus.
@@ -9087,28 +9360,28 @@ var MatChipList = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatChipList.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: forms.NgForm, decorators: [{ type: core.Optional },] },
-        { type: forms.FormGroupDirective, decorators: [{ type: core.Optional },] },
-        { type: ErrorStateMatcher, },
-        { type: forms.NgControl, decorators: [{ type: core.Optional }, { type: core.Self },] },
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: forms.NgForm, decorators: [{ type: core.Optional }] },
+        { type: forms.FormGroupDirective, decorators: [{ type: core.Optional }] },
+        { type: ErrorStateMatcher },
+        { type: forms.NgControl, decorators: [{ type: core.Optional }, { type: core.Self }] }
     ]; };
     MatChipList.propDecorators = {
-        "errorStateMatcher": [{ type: core.Input },],
-        "multiple": [{ type: core.Input },],
-        "compareWith": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
-        "required": [{ type: core.Input },],
-        "placeholder": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
-        "ariaOrientation": [{ type: core.Input, args: ['aria-orientation',] },],
-        "selectable": [{ type: core.Input },],
-        "tabIndex": [{ type: core.Input },],
-        "change": [{ type: core.Output },],
-        "valueChange": [{ type: core.Output },],
-        "chips": [{ type: core.ContentChildren, args: [MatChip,] },],
+        errorStateMatcher: [{ type: core.Input }],
+        multiple: [{ type: core.Input }],
+        compareWith: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        required: [{ type: core.Input }],
+        placeholder: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
+        ariaOrientation: [{ type: core.Input, args: ['aria-orientation',] }],
+        selectable: [{ type: core.Input }],
+        tabIndex: [{ type: core.Input }],
+        change: [{ type: core.Output }],
+        valueChange: [{ type: core.Output }],
+        chips: [{ type: core.ContentChildren, args: [MatChip,] }]
     };
     return MatChipList;
 }(_MatChipListMixinBase));
@@ -9117,8 +9390,8 @@ var MatChipList = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Increasing integer for generating unique ids.
-var /** @type {?} */ nextUniqueId$1$1 = 0;
+/** @type {?} */
+var nextUniqueId$1$1 = 0;
 /**
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
@@ -9154,6 +9427,7 @@ var MatChipInput = /** @class */ (function () {
         this._inputElement = /** @type {?} */ (this._elementRef.nativeElement);
     }
     Object.defineProperty(MatChipInput.prototype, "chipList", {
+        /** Register input for chip list */
         set: /**
          * Register input for chip list
          * @param {?} value
@@ -9169,6 +9443,9 @@ var MatChipInput = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatChipInput.prototype, "addOnBlur", {
+        /**
+         * Whether or not the chipEnd event will be emitted when the input is blurred.
+         */
         get: /**
          * Whether or not the chipEnd event will be emitted when the input is blurred.
          * @return {?}
@@ -9183,6 +9460,7 @@ var MatChipInput = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatChipInput.prototype, "disabled", {
+        /** Whether the input is disabled. */
         get: /**
          * Whether the input is disabled.
          * @return {?}
@@ -9314,7 +9592,8 @@ var MatChipInput = /** @class */ (function () {
      * @return {?}
      */
     function (keyCode) {
-        var /** @type {?} */ separators = this.separatorKeyCodes;
+        /** @type {?} */
+        var separators = this.separatorKeyCodes;
         return Array.isArray(separators) ? separators.indexOf(keyCode) > -1 : separators.has(keyCode);
     };
     MatChipInput.decorators = [
@@ -9335,17 +9614,17 @@ var MatChipInput = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatChipInput.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_CHIPS_DEFAULT_OPTIONS,] },] },
+        { type: core.ElementRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_CHIPS_DEFAULT_OPTIONS,] }] }
     ]; };
     MatChipInput.propDecorators = {
-        "chipList": [{ type: core.Input, args: ['matChipInputFor',] },],
-        "addOnBlur": [{ type: core.Input, args: ['matChipInputAddOnBlur',] },],
-        "separatorKeyCodes": [{ type: core.Input, args: ['matChipInputSeparatorKeyCodes',] },],
-        "chipEnd": [{ type: core.Output, args: ['matChipInputTokenEnd',] },],
-        "placeholder": [{ type: core.Input },],
-        "id": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
+        chipList: [{ type: core.Input, args: ['matChipInputFor',] }],
+        addOnBlur: [{ type: core.Input, args: ['matChipInputAddOnBlur',] }],
+        separatorKeyCodes: [{ type: core.Input, args: ['matChipInputSeparatorKeyCodes',] }],
+        chipEnd: [{ type: core.Output, args: ['matChipInputTokenEnd',] }],
+        placeholder: [{ type: core.Input }],
+        id: [{ type: core.Input }],
+        disabled: [{ type: core.Input }]
     };
     return MatChipInput;
 }());
@@ -9354,7 +9633,8 @@ var MatChipInput = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ CHIP_DECLARATIONS = [
+/** @type {?} */
+var CHIP_DECLARATIONS = [
     MatChipList,
     MatChip,
     MatChipInput,
@@ -9463,10 +9743,10 @@ MatDialogConfig = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by MatDialog.
- */
-var /** @type {?} */ matDialogAnimations = {
+  @type {?} */
+var matDialogAnimations = {
     /** Animation that slides the dialog in and out of view and fades the opacity. */
     slideDialog: animations$1.trigger('slideDialog', [
         // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
@@ -9599,7 +9879,8 @@ var MatDialogContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ toFocus = this._elementFocusedBeforeDialogWasOpened;
+        /** @type {?} */
+        var toFocus = this._elementFocusedBeforeDialogWasOpened;
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
         if (this._config.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
             toFocus.focus();
@@ -9704,14 +9985,14 @@ var MatDialogContainer = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatDialogContainer.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: a11y.FocusTrapFactory, },
-        { type: core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
-        { type: MatDialogConfig, },
+        { type: core.ElementRef },
+        { type: a11y.FocusTrapFactory },
+        { type: core.ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: MatDialogConfig }
     ]; };
     MatDialogContainer.propDecorators = {
-        "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],
+        _portalOutlet: [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] }]
     };
     return MatDialogContainer;
 }(portal.BasePortalOutlet));
@@ -9720,9 +10001,8 @@ var MatDialogContainer = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(jelbourn): resizing
-// Counter for unique dialog ids.
-var /** @type {?} */ uniqueId = 0;
+/** @type {?} */
+var uniqueId = 0;
 /**
  * Reference to a dialog opened via the MatDialog service.
  * @template T, R
@@ -9902,7 +10182,8 @@ MatDialogRef = /** @class */ (function () {
      * @return {?}
      */
     function (position) {
-        var /** @type {?} */ strategy = this._getPositionStrategy();
+        /** @type {?} */
+        var strategy = this._getPositionStrategy();
         if (position && (position.left || position.right)) {
             position.left ? strategy.left(position.left) : strategy.right(position.right);
         }
@@ -10000,18 +10281,18 @@ MatDialogRef = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to access the data that was passed in to a dialog.
- */
-var /** @type {?} */ MAT_DIALOG_DATA = new core.InjectionToken('MatDialogData');
-/**
+  @type {?} */
+var MAT_DIALOG_DATA = new core.InjectionToken('MatDialogData');
+/** *
  * Injection token that can be used to specify default dialog options.
- */
-var /** @type {?} */ MAT_DIALOG_DEFAULT_OPTIONS = new core.InjectionToken('mat-dialog-default-options');
-/**
+  @type {?} */
+var MAT_DIALOG_DEFAULT_OPTIONS = new core.InjectionToken('mat-dialog-default-options');
+/** *
  * Injection token that determines the scroll handling while the dialog is open.
- */
-var /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new core.InjectionToken('mat-dialog-scroll-strategy');
+  @type {?} */
+var MAT_DIALOG_SCROLL_STRATEGY = new core.InjectionToken('mat-dialog-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -10028,10 +10309,10 @@ function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay$$1) {
 function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.block(); };
 }
-/**
+/** *
  * \@docs-private
- */
-var /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
+  @type {?} */
+var MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_DIALOG_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
     useFactory: MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
@@ -10057,11 +10338,9 @@ var MatDialog = /** @class */ (function () {
          * Stream that emits when all open dialog have finished closing.
          * Will emit on subscribe if there are no open dialogs to begin with.
          */
-        this.afterAllClosed = rxjs.defer(function () {
-            return _this.openDialogs.length ?
-                _this._afterAllClosed :
-                _this._afterAllClosed.pipe(operators.startWith(undefined));
-        });
+        this.afterAllClosed = rxjs.defer(function () { return _this.openDialogs.length ?
+            _this._afterAllClosed :
+            _this._afterAllClosed.pipe(operators.startWith(undefined)); });
     }
     Object.defineProperty(MatDialog.prototype, "openDialogs", {
         /** Keeps track of the currently-open dialogs. */
@@ -10110,7 +10389,8 @@ var MatDialog = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ parent = this._parentDialog;
+            /** @type {?} */
+            var parent = this._parentDialog;
             return parent ? parent._afterAllClosed : this._afterAllClosedAtThisLevel;
         },
         enumerable: true,
@@ -10145,9 +10425,12 @@ var MatDialog = /** @class */ (function () {
         if (config.id && this.getDialogById(config.id)) {
             throw Error("Dialog with id \"" + config.id + "\" exists already. The dialog id must be unique.");
         }
-        var /** @type {?} */ overlayRef = this._createOverlay(config);
-        var /** @type {?} */ dialogContainer = this._attachDialogContainer(overlayRef, config);
-        var /** @type {?} */ dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
+        /** @type {?} */
+        var overlayRef = this._createOverlay(config);
+        /** @type {?} */
+        var dialogContainer = this._attachDialogContainer(overlayRef, config);
+        /** @type {?} */
+        var dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
         // If this is the first dialog that we're opening, hide all the non-overlay content.
         if (!this.openDialogs.length) {
             this._hideNonDialogContentFromAssistiveTechnology();
@@ -10169,7 +10452,8 @@ var MatDialog = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ i = this.openDialogs.length;
+        /** @type {?} */
+        var i = this.openDialogs.length;
         while (i--) {
             // The `_openDialogs` property isn't updated after close until the rxjs subscription
             // runs on the next microtask, in addition to modifying the array as we're going
@@ -10206,7 +10490,8 @@ var MatDialog = /** @class */ (function () {
      * @return {?} A promise resolving to the OverlayRef for the created overlay.
      */
     function (config) {
-        var /** @type {?} */ overlayConfig = this._getOverlayConfig(config);
+        /** @type {?} */
+        var overlayConfig = this._getOverlayConfig(config);
         return this._overlay.create(overlayConfig);
     };
     /**
@@ -10220,7 +10505,8 @@ var MatDialog = /** @class */ (function () {
      * @return {?} The overlay configuration.
      */
     function (dialogConfig) {
-        var /** @type {?} */ state$$1 = new overlay.OverlayConfig({
+        /** @type {?} */
+        var state$$1 = new overlay.OverlayConfig({
             positionStrategy: this._overlay.position().global(),
             scrollStrategy: dialogConfig.scrollStrategy || this._scrollStrategy(),
             panelClass: dialogConfig.panelClass,
@@ -10249,12 +10535,16 @@ var MatDialog = /** @class */ (function () {
      * @return {?} A promise resolving to a ComponentRef for the attached container.
      */
     function (overlay$$1, config) {
-        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        var /** @type {?} */ injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
+        /** @type {?} */
+        var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        /** @type {?} */
+        var injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
             [MatDialogConfig, config]
         ]));
-        var /** @type {?} */ containerPortal = new portal.ComponentPortal(MatDialogContainer, config.viewContainerRef, injector);
-        var /** @type {?} */ containerRef = overlay$$1.attach(containerPortal);
+        /** @type {?} */
+        var containerPortal = new portal.ComponentPortal(MatDialogContainer, config.viewContainerRef, injector);
+        /** @type {?} */
+        var containerRef = overlay$$1.attach(containerPortal);
         return containerRef.instance;
     };
     /**
@@ -10278,9 +10568,8 @@ var MatDialog = /** @class */ (function () {
      * @return {?} A promise resolving to the MatDialogRef that should be returned to the user.
      */
     function (componentOrTemplateRef, dialogContainer, overlayRef, config) {
-        // Create a reference to the dialog we're creating in order to give the user a handle
-        // to modify and close it.
-        var /** @type {?} */ dialogRef = new MatDialogRef(overlayRef, dialogContainer, this._location, config.id);
+        /** @type {?} */
+        var dialogRef = new MatDialogRef(overlayRef, dialogContainer, this._location, config.id);
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(function () {
@@ -10293,8 +10582,10 @@ var MatDialog = /** @class */ (function () {
             dialogContainer.attachTemplatePortal(new portal.TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({ $implicit: config.data, dialogRef: dialogRef })));
         }
         else {
-            var /** @type {?} */ injector = this._createInjector(config, dialogRef, dialogContainer);
-            var /** @type {?} */ contentRef = dialogContainer.attachComponentPortal(new portal.ComponentPortal(componentOrTemplateRef, undefined, injector));
+            /** @type {?} */
+            var injector = this._createInjector(config, dialogRef, dialogContainer);
+            /** @type {?} */
+            var contentRef = dialogContainer.attachComponentPortal(new portal.ComponentPortal(componentOrTemplateRef, undefined, injector));
             dialogRef.componentInstance = contentRef.instance;
         }
         dialogRef
@@ -10321,12 +10612,10 @@ var MatDialog = /** @class */ (function () {
      * @return {?} The custom injector that can be used inside the dialog.
      */
     function (config, dialogRef, dialogContainer) {
-        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        // The MatDialogContainer is injected in the portal as the MatDialogContainer and the dialog's
-        // content are created out of the same ViewContainerRef and as such, are siblings for injector
-        // purposes. To allow the hierarchy that is expected, the MatDialogContainer is explicitly
-        // added to the injection tokens.
-        var /** @type {?} */ injectionTokens = new WeakMap([
+        /** @type {?} */
+        var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        /** @type {?} */
+        var injectionTokens = new WeakMap([
             [MatDialogContainer, dialogContainer],
             [MAT_DIALOG_DATA, config.data],
             [MatDialogRef, dialogRef]
@@ -10351,7 +10640,8 @@ var MatDialog = /** @class */ (function () {
      * @return {?}
      */
     function (dialogRef) {
-        var /** @type {?} */ index = this.openDialogs.indexOf(dialogRef);
+        /** @type {?} */
+        var index = this.openDialogs.indexOf(dialogRef);
         if (index > -1) {
             this.openDialogs.splice(index, 1);
             // If all the dialogs were closed, remove/restore the `aria-hidden`
@@ -10379,12 +10669,15 @@ var MatDialog = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ overlayContainer = this._overlayContainer.getContainerElement();
+        /** @type {?} */
+        var overlayContainer = this._overlayContainer.getContainerElement();
         // Ensure that the overlay container is attached to the DOM.
         if (overlayContainer.parentElement) {
-            var /** @type {?} */ siblings = overlayContainer.parentElement.children;
-            for (var /** @type {?} */ i = siblings.length - 1; i > -1; i--) {
-                var /** @type {?} */ sibling = siblings[i];
+            /** @type {?} */
+            var siblings = overlayContainer.parentElement.children;
+            for (var i = siblings.length - 1; i > -1; i--) {
+                /** @type {?} */
+                var sibling = siblings[i];
                 if (sibling !== overlayContainer &&
                     sibling.nodeName !== 'SCRIPT' &&
                     sibling.nodeName !== 'STYLE' &&
@@ -10400,13 +10693,13 @@ var MatDialog = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatDialog.ctorParameters = function () { return [
-        { type: overlay.Overlay, },
-        { type: core.Injector, },
-        { type: common.Location, decorators: [{ type: core.Optional },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] },] },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] },] },
-        { type: MatDialog, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
-        { type: overlay.OverlayContainer, },
+        { type: overlay.Overlay },
+        { type: core.Injector },
+        { type: common.Location, decorators: [{ type: core.Optional }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] }] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] }] },
+        { type: MatDialog, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] },
+        { type: overlay.OverlayContainer }
     ]; };
     return MatDialog;
 }());
@@ -10424,10 +10717,10 @@ function _applyConfigDefaults$1(config, defaultOptions) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Counter used to generate unique IDs for dialog elements.
- */
-var /** @type {?} */ dialogElementUid = 0;
+  @type {?} */
+var dialogElementUid = 0;
 /**
  * Button that will close the current dialog.
  */
@@ -10466,7 +10759,8 @@ var MatDialogClose = /** @class */ (function () {
      * @return {?}
      */
     function (changes) {
-        var /** @type {?} */ proxiedChange = changes["_matDialogClose"] || changes["_matDialogCloseResult"];
+        /** @type {?} */
+        var proxiedChange = changes["_matDialogClose"] || changes["_matDialogCloseResult"];
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
@@ -10484,14 +10778,14 @@ var MatDialogClose = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatDialogClose.ctorParameters = function () { return [
-        { type: MatDialogRef, decorators: [{ type: core.Optional },] },
-        { type: core.ElementRef, },
-        { type: MatDialog, },
+        { type: MatDialogRef, decorators: [{ type: core.Optional }] },
+        { type: core.ElementRef },
+        { type: MatDialog }
     ]; };
     MatDialogClose.propDecorators = {
-        "ariaLabel": [{ type: core.Input, args: ['aria-label',] },],
-        "dialogResult": [{ type: core.Input, args: ['mat-dialog-close',] },],
-        "_matDialogClose": [{ type: core.Input, args: ['matDialogClose',] },],
+        ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+        dialogResult: [{ type: core.Input, args: ['mat-dialog-close',] }],
+        _matDialogClose: [{ type: core.Input, args: ['matDialogClose',] }]
     };
     return MatDialogClose;
 }());
@@ -10518,7 +10812,8 @@ var MatDialogTitle = /** @class */ (function () {
         }
         if (this._dialogRef) {
             Promise.resolve().then(function () {
-                var /** @type {?} */ container = _this._dialogRef._containerInstance;
+                /** @type {?} */
+                var container = _this._dialogRef._containerInstance;
                 if (container && !container._ariaLabelledBy) {
                     container._ariaLabelledBy = _this.id;
                 }
@@ -10537,12 +10832,12 @@ var MatDialogTitle = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatDialogTitle.ctorParameters = function () { return [
-        { type: MatDialogRef, decorators: [{ type: core.Optional },] },
-        { type: core.ElementRef, },
-        { type: MatDialog, },
+        { type: MatDialogRef, decorators: [{ type: core.Optional }] },
+        { type: core.ElementRef },
+        { type: MatDialog }
     ]; };
     MatDialogTitle.propDecorators = {
-        "id": [{ type: core.Input },],
+        id: [{ type: core.Input }]
     };
     return MatDialogTitle;
 }());
@@ -10582,7 +10877,8 @@ var MatDialogActions = /** @class */ (function () {
  * @return {?}
  */
 function getClosestDialog(element, openDialogs) {
-    var /** @type {?} */ parent = element.nativeElement.parentElement;
+    /** @type {?} */
+    var parent = element.nativeElement.parentElement;
     while (parent && !parent.classList.contains('mat-dialog-container')) {
         parent = parent.parentElement;
     }
@@ -10633,8 +10929,8 @@ var MatDialogModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): Workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkTextareaAutosize = textField.CdkTextareaAutosize;
+/** @type {?} */
+var _CdkTextareaAutosize = textField.CdkTextareaAutosize;
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
@@ -10711,12 +11007,11 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
                     },
                 },] },
     ];
-    /** @nocollapse */
     MatTextareaAutosize.propDecorators = {
-        "matAutosizeMinRows": [{ type: core.Input },],
-        "matAutosizeMaxRows": [{ type: core.Input },],
-        "matAutosize": [{ type: core.Input, args: ['mat-autosize',] },],
-        "matTextareaAutosize": [{ type: core.Input },],
+        matAutosizeMinRows: [{ type: core.Input }],
+        matAutosizeMaxRows: [{ type: core.Input }],
+        matAutosize: [{ type: core.Input, args: ['mat-autosize',] }],
+        matTextareaAutosize: [{ type: core.Input }]
     };
     return MatTextareaAutosize;
 }(_CdkTextareaAutosize));
@@ -10739,20 +11034,20 @@ function getMatInputUnsupportedTypeError(type) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
  * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
  * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
  * value to them.
- */
-var /** @type {?} */ MAT_INPUT_VALUE_ACCESSOR = new core.InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
+  @type {?} */
+var MAT_INPUT_VALUE_ACCESSOR = new core.InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
-var /** @type {?} */ MAT_INPUT_INVALID_TYPES = [
+/** @type {?} */
+var MAT_INPUT_INVALID_TYPES = [
     'button',
     'checkbox',
     'file',
@@ -10763,7 +11058,8 @@ var /** @type {?} */ MAT_INPUT_INVALID_TYPES = [
     'reset',
     'submit'
 ];
-var /** @type {?} */ nextUniqueId$5 = 0;
+/** @type {?} */
+var nextUniqueId$5 = 0;
 /**
  * \@docs-private
  */
@@ -10779,7 +11075,8 @@ MatInputBase = /** @class */ (function () {
     }
     return MatInputBase;
 }());
-var /** @type {?} */ _MatInputMixinBase = mixinErrorState(MatInputBase);
+/** @type {?} */
+var _MatInputMixinBase = mixinErrorState(MatInputBase);
 /**
  * Directive that allows a native input to work inside a `MatFormField`.
  */
@@ -10844,7 +11141,8 @@ var MatInput = /** @class */ (function (_super) {
         if (_platform.IOS) {
             ngZone.runOutsideAngular(function () {
                 _elementRef.nativeElement.addEventListener('keyup', function (event) {
-                    var /** @type {?} */ el = /** @type {?} */ (event.target);
+                    /** @type {?} */
+                    var el = /** @type {?} */ (event.target);
                     if (!el.value && !el.selectionStart && !el.selectionEnd) {
                         // Note: Just setting `0, 0` doesn't fix the issue. Setting
                         // `1, 1` fixes it for the first time that you type text and
@@ -10860,6 +11158,10 @@ var MatInput = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatInput.prototype, "disabled", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -10888,6 +11190,10 @@ var MatInput = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatInput.prototype, "id", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -10903,6 +11209,10 @@ var MatInput = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatInput.prototype, "required", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -10918,6 +11228,7 @@ var MatInput = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatInput.prototype, "type", {
+        /** Input type of the element. */
         get: /**
          * Input type of the element.
          * @return {?}
@@ -10941,6 +11252,10 @@ var MatInput = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatInput.prototype, "value", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -10961,6 +11276,7 @@ var MatInput = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatInput.prototype, "readonly", {
+        /** Whether the element is readonly. */
         get: /**
          * Whether the element is readonly.
          * @return {?}
@@ -11080,7 +11396,8 @@ var MatInput = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ newValue = this.value;
+        /** @type {?} */
+        var newValue = this.value;
         if (this._previousNativeValue !== newValue) {
             this._previousNativeValue = newValue;
             this.stateChanges.next();
@@ -11122,8 +11439,8 @@ var MatInput = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // The `validity` property won't be present on platform-server.
-        var /** @type {?} */ validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
+        /** @type {?} */
+        var validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
         return validity && validity.badInput;
     };
     /** Determines if the component host is a textarea. */
@@ -11230,25 +11547,25 @@ var MatInput = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatInput.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: platform.Platform, },
-        { type: forms.NgControl, decorators: [{ type: core.Optional }, { type: core.Self },] },
-        { type: forms.NgForm, decorators: [{ type: core.Optional },] },
-        { type: forms.FormGroupDirective, decorators: [{ type: core.Optional },] },
-        { type: ErrorStateMatcher, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Self }, { type: core.Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] },] },
-        { type: textField.AutofillMonitor, },
-        { type: core.NgZone, },
+        { type: core.ElementRef },
+        { type: platform.Platform },
+        { type: forms.NgControl, decorators: [{ type: core.Optional }, { type: core.Self }] },
+        { type: forms.NgForm, decorators: [{ type: core.Optional }] },
+        { type: forms.FormGroupDirective, decorators: [{ type: core.Optional }] },
+        { type: ErrorStateMatcher },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Self }, { type: core.Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] }] },
+        { type: textField.AutofillMonitor },
+        { type: core.NgZone }
     ]; };
     MatInput.propDecorators = {
-        "disabled": [{ type: core.Input },],
-        "id": [{ type: core.Input },],
-        "placeholder": [{ type: core.Input },],
-        "required": [{ type: core.Input },],
-        "type": [{ type: core.Input },],
-        "errorStateMatcher": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
-        "readonly": [{ type: core.Input },],
+        disabled: [{ type: core.Input }],
+        id: [{ type: core.Input }],
+        placeholder: [{ type: core.Input }],
+        required: [{ type: core.Input }],
+        type: [{ type: core.Input }],
+        errorStateMatcher: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        readonly: [{ type: core.Input }]
     };
     return MatInput;
 }(_MatInputMixinBase));
@@ -11447,7 +11764,8 @@ var MatCalendarBody = /** @class */ (function () {
      * @return {?}
      */
     function (rowIndex, colIndex) {
-        var /** @type {?} */ cellNumber = rowIndex * this.numCols + colIndex;
+        /** @type {?} */
+        var cellNumber = rowIndex * this.numCols + colIndex;
         // Account for the fact that the first row may not have as many cells.
         if (rowIndex) {
             cellNumber -= this._firstRowOffset;
@@ -11487,20 +11805,20 @@ var MatCalendarBody = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatCalendarBody.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.NgZone, },
+        { type: core.ElementRef },
+        { type: core.NgZone }
     ]; };
     MatCalendarBody.propDecorators = {
-        "label": [{ type: core.Input },],
-        "rows": [{ type: core.Input },],
-        "todayValue": [{ type: core.Input },],
-        "selectedValue": [{ type: core.Input },],
-        "labelMinRequiredCells": [{ type: core.Input },],
-        "numCols": [{ type: core.Input },],
-        "allowDisabledSelection": [{ type: core.Input },],
-        "activeCell": [{ type: core.Input },],
-        "cellAspectRatio": [{ type: core.Input },],
-        "selectedValueChange": [{ type: core.Output },],
+        label: [{ type: core.Input }],
+        rows: [{ type: core.Input }],
+        todayValue: [{ type: core.Input }],
+        selectedValue: [{ type: core.Input }],
+        labelMinRequiredCells: [{ type: core.Input }],
+        numCols: [{ type: core.Input }],
+        allowDisabledSelection: [{ type: core.Input }],
+        activeCell: [{ type: core.Input }],
+        cellAspectRatio: [{ type: core.Input }],
+        selectedValueChange: [{ type: core.Output }]
     };
     return MatCalendarBody;
 }());
@@ -11509,7 +11827,8 @@ var MatCalendarBody = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ DAYS_PER_WEEK = 7;
+/** @type {?} */
+var DAYS_PER_WEEK = 7;
 /**
  * An internal component used to display a single month in the datepicker.
  * \@docs-private
@@ -11539,17 +11858,23 @@ var MatMonthView = /** @class */ (function () {
         if (!this._dateFormats) {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
-        var /** @type {?} */ firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
-        var /** @type {?} */ narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
-        var /** @type {?} */ longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
-        // Rotate the labels for days of the week based on the configured first day of the week.
-        var /** @type {?} */ weekdays = longWeekdays.map(function (long, i) {
+        /** @type {?} */
+        var firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
+        /** @type {?} */
+        var narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
+        /** @type {?} */
+        var longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
+        /** @type {?} */
+        var weekdays = longWeekdays.map(function (long, i) {
             return { long: long, narrow: narrowWeekdays[i] };
         });
         this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
         this._activeDate = this._dateAdapter.today();
     }
     Object.defineProperty(MatMonthView.prototype, "activeDate", {
+        /**
+         * The date to display in this month view (everything other than the month and year is ignored).
+         */
         get: /**
          * The date to display in this month view (everything other than the month and year is ignored).
          * @return {?}
@@ -11560,8 +11885,10 @@ var MatMonthView = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ oldActiveDate = this._activeDate;
-            var /** @type {?} */ validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+            /** @type {?} */
+            var oldActiveDate = this._activeDate;
+            /** @type {?} */
+            var validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
             this._activeDate = this._dateAdapter.clampDate(validDate, this.minDate, this.maxDate);
             if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
                 this._init();
@@ -11571,6 +11898,7 @@ var MatMonthView = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatMonthView.prototype, "selected", {
+        /** The currently selected date. */
         get: /**
          * The currently selected date.
          * @return {?}
@@ -11588,6 +11916,7 @@ var MatMonthView = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatMonthView.prototype, "minDate", {
+        /** The minimum selectable date. */
         get: /**
          * The minimum selectable date.
          * @return {?}
@@ -11604,6 +11933,7 @@ var MatMonthView = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatMonthView.prototype, "maxDate", {
+        /** The maximum selectable date. */
         get: /**
          * The maximum selectable date.
          * @return {?}
@@ -11641,9 +11971,12 @@ var MatMonthView = /** @class */ (function () {
      */
     function (date) {
         if (this._selectedDate != date) {
-            var /** @type {?} */ selectedYear = this._dateAdapter.getYear(this.activeDate);
-            var /** @type {?} */ selectedMonth = this._dateAdapter.getMonth(this.activeDate);
-            var /** @type {?} */ selectedDate = this._dateAdapter.createDate(selectedYear, selectedMonth, date);
+            /** @type {?} */
+            var selectedYear = this._dateAdapter.getYear(this.activeDate);
+            /** @type {?} */
+            var selectedMonth = this._dateAdapter.getMonth(this.activeDate);
+            /** @type {?} */
+            var selectedDate = this._dateAdapter.createDate(selectedYear, selectedMonth, date);
             this.selectedChange.emit(selectedDate);
         }
         this._userSelection.emit();
@@ -11660,11 +11993,10 @@ var MatMonthView = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
-        // disabled ones from being selected. This may not be ideal, we should look into whether
-        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
-        var /** @type {?} */ oldActiveDate = this._activeDate;
-        var /** @type {?} */ isRtl = this._isRtl();
+        /** @type {?} */
+        var oldActiveDate = this._activeDate;
+        /** @type {?} */
+        var isRtl = this._isRtl();
         switch (event.keyCode) {
             case keycodes.LEFT_ARROW:
                 this.activeDate = this._dateAdapter.addCalendarDays(this._activeDate, isRtl ? 1 : -1);
@@ -11729,7 +12061,8 @@ var MatMonthView = /** @class */ (function () {
         this._monthLabel =
             this._dateAdapter.getMonthNames('short')[this._dateAdapter.getMonth(this.activeDate)]
                 .toLocaleUpperCase();
-        var /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), 1);
+        /** @type {?} */
+        var firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), 1);
         this._firstWeekOffset =
             (DAYS_PER_WEEK + this._dateAdapter.getDayOfWeek(firstOfMonth) -
                 this._dateAdapter.getFirstDayOfWeek()) % DAYS_PER_WEEK;
@@ -11757,17 +12090,22 @@ var MatMonthView = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
-        var /** @type {?} */ dateNames = this._dateAdapter.getDateNames();
+        /** @type {?} */
+        var daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
+        /** @type {?} */
+        var dateNames = this._dateAdapter.getDateNames();
         this._weeks = [[]];
-        for (var /** @type {?} */ i = 0, /** @type {?} */ cell = this._firstWeekOffset; i < daysInMonth; i++, cell++) {
+        for (var i = 0, cell = this._firstWeekOffset; i < daysInMonth; i++, cell++) {
             if (cell == DAYS_PER_WEEK) {
                 this._weeks.push([]);
                 cell = 0;
             }
-            var /** @type {?} */ date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), i + 1);
-            var /** @type {?} */ enabled = this._shouldEnableDate(date);
-            var /** @type {?} */ ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
+            /** @type {?} */
+            var date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), i + 1);
+            /** @type {?} */
+            var enabled = this._shouldEnableDate(date);
+            /** @type {?} */
+            var ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
             this._weeks[this._weeks.length - 1]
                 .push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled));
         }
@@ -11852,21 +12190,21 @@ var MatMonthView = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatMonthView.ctorParameters = function () { return [
-        { type: core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_FORMATS,] },] },
-        { type: DateAdapter, decorators: [{ type: core.Optional },] },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: core.ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_FORMATS,] }] },
+        { type: DateAdapter, decorators: [{ type: core.Optional }] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] }
     ]; };
     MatMonthView.propDecorators = {
-        "activeDate": [{ type: core.Input },],
-        "selected": [{ type: core.Input },],
-        "minDate": [{ type: core.Input },],
-        "maxDate": [{ type: core.Input },],
-        "dateFilter": [{ type: core.Input },],
-        "selectedChange": [{ type: core.Output },],
-        "_userSelection": [{ type: core.Output },],
-        "activeDateChange": [{ type: core.Output },],
-        "_matCalendarBody": [{ type: core.ViewChild, args: [MatCalendarBody,] },],
+        activeDate: [{ type: core.Input }],
+        selected: [{ type: core.Input }],
+        minDate: [{ type: core.Input }],
+        maxDate: [{ type: core.Input }],
+        dateFilter: [{ type: core.Input }],
+        selectedChange: [{ type: core.Output }],
+        _userSelection: [{ type: core.Output }],
+        activeDateChange: [{ type: core.Output }],
+        _matCalendarBody: [{ type: core.ViewChild, args: [MatCalendarBody,] }]
     };
     return MatMonthView;
 }());
@@ -11875,8 +12213,10 @@ var MatMonthView = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ yearsPerPage = 24;
-var /** @type {?} */ yearsPerRow = 4;
+/** @type {?} */
+var yearsPerPage = 24;
+/** @type {?} */
+var yearsPerRow = 4;
 /**
  * An internal component used to display a year selector in the datepicker.
  * \@docs-private
@@ -11905,6 +12245,7 @@ var MatMultiYearView = /** @class */ (function () {
         this._activeDate = this._dateAdapter.today();
     }
     Object.defineProperty(MatMultiYearView.prototype, "activeDate", {
+        /** The date to display in this multi-year view (everything other than the year is ignored). */
         get: /**
          * The date to display in this multi-year view (everything other than the year is ignored).
          * @return {?}
@@ -11915,8 +12256,10 @@ var MatMultiYearView = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ oldActiveDate = this._activeDate;
-            var /** @type {?} */ validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+            /** @type {?} */
+            var oldActiveDate = this._activeDate;
+            /** @type {?} */
+            var validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
             this._activeDate = this._dateAdapter.clampDate(validDate, this.minDate, this.maxDate);
             if (Math.floor(this._dateAdapter.getYear(oldActiveDate) / yearsPerPage) !=
                 Math.floor(this._dateAdapter.getYear(this._activeDate) / yearsPerPage)) {
@@ -11927,6 +12270,7 @@ var MatMultiYearView = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatMultiYearView.prototype, "selected", {
+        /** The currently selected date. */
         get: /**
          * The currently selected date.
          * @return {?}
@@ -11944,6 +12288,7 @@ var MatMultiYearView = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatMultiYearView.prototype, "minDate", {
+        /** The minimum selectable date. */
         get: /**
          * The minimum selectable date.
          * @return {?}
@@ -11960,6 +12305,7 @@ var MatMultiYearView = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatMultiYearView.prototype, "maxDate", {
+        /** The maximum selectable date. */
         get: /**
          * The maximum selectable date.
          * @return {?}
@@ -11996,10 +12342,12 @@ var MatMultiYearView = /** @class */ (function () {
     function () {
         var _this = this;
         this._todayYear = this._dateAdapter.getYear(this._dateAdapter.today());
-        var /** @type {?} */ activeYear = this._dateAdapter.getYear(this._activeDate);
-        var /** @type {?} */ activeOffset = activeYear % yearsPerPage;
+        /** @type {?} */
+        var activeYear = this._dateAdapter.getYear(this._activeDate);
+        /** @type {?} */
+        var activeOffset = activeYear % yearsPerPage;
         this._years = [];
-        for (var /** @type {?} */ i = 0, /** @type {?} */ row = []; i < yearsPerPage; i++) {
+        for (var i = 0, row = []; i < yearsPerPage; i++) {
             row.push(activeYear - activeOffset + i);
             if (row.length == yearsPerRow) {
                 this._years.push(row.map(function (year) { return _this._createCellForYear(year); }));
@@ -12021,8 +12369,10 @@ var MatMultiYearView = /** @class */ (function () {
      */
     function (year) {
         this.yearSelected.emit(this._dateAdapter.createDate(year, 0, 1));
-        var /** @type {?} */ month = this._dateAdapter.getMonth(this.activeDate);
-        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this._dateAdapter.createDate(year, month, 1));
+        /** @type {?} */
+        var month = this._dateAdapter.getMonth(this.activeDate);
+        /** @type {?} */
+        var daysInMonth = this._dateAdapter.getNumDaysInMonth(this._dateAdapter.createDate(year, month, 1));
         this.selectedChange.emit(this._dateAdapter.createDate(year, month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
     };
     /** Handles keydown events on the calendar body when calendar is in multi-year view. */
@@ -12037,11 +12387,10 @@ var MatMultiYearView = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
-        // disabled ones from being selected. This may not be ideal, we should look into whether
-        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
-        var /** @type {?} */ oldActiveDate = this._activeDate;
-        var /** @type {?} */ isRtl = this._isRtl();
+        /** @type {?} */
+        var oldActiveDate = this._activeDate;
+        /** @type {?} */
+        var isRtl = this._isRtl();
         switch (event.keyCode) {
             case keycodes.LEFT_ARROW:
                 this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, isRtl ? 1 : -1);
@@ -12115,7 +12464,8 @@ var MatMultiYearView = /** @class */ (function () {
      * @return {?}
      */
     function (year) {
-        var /** @type {?} */ yearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(year, 0, 1));
+        /** @type {?} */
+        var yearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(year, 0, 1));
         return new MatCalendarCell(year, yearName, yearName, this._shouldEnableYear(year));
     };
     /**
@@ -12139,9 +12489,10 @@ var MatMultiYearView = /** @class */ (function () {
         if (!this.dateFilter) {
             return true;
         }
-        var /** @type {?} */ firstOfYear = this._dateAdapter.createDate(year, 0, 1);
+        /** @type {?} */
+        var firstOfYear = this._dateAdapter.createDate(year, 0, 1);
         // If any date in the year is enabled count the year as enabled.
-        for (var /** @type {?} */ date = firstOfYear; this._dateAdapter.getYear(date) == year; date = this._dateAdapter.addCalendarDays(date, 1)) {
+        for (var date = firstOfYear; this._dateAdapter.getYear(date) == year; date = this._dateAdapter.addCalendarDays(date, 1)) {
             if (this.dateFilter(date)) {
                 return true;
             }
@@ -12180,20 +12531,20 @@ var MatMultiYearView = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatMultiYearView.ctorParameters = function () { return [
-        { type: core.ChangeDetectorRef, },
-        { type: DateAdapter, decorators: [{ type: core.Optional },] },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: core.ChangeDetectorRef },
+        { type: DateAdapter, decorators: [{ type: core.Optional }] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] }
     ]; };
     MatMultiYearView.propDecorators = {
-        "activeDate": [{ type: core.Input },],
-        "selected": [{ type: core.Input },],
-        "minDate": [{ type: core.Input },],
-        "maxDate": [{ type: core.Input },],
-        "dateFilter": [{ type: core.Input },],
-        "selectedChange": [{ type: core.Output },],
-        "yearSelected": [{ type: core.Output },],
-        "activeDateChange": [{ type: core.Output },],
-        "_matCalendarBody": [{ type: core.ViewChild, args: [MatCalendarBody,] },],
+        activeDate: [{ type: core.Input }],
+        selected: [{ type: core.Input }],
+        minDate: [{ type: core.Input }],
+        maxDate: [{ type: core.Input }],
+        dateFilter: [{ type: core.Input }],
+        selectedChange: [{ type: core.Output }],
+        yearSelected: [{ type: core.Output }],
+        activeDateChange: [{ type: core.Output }],
+        _matCalendarBody: [{ type: core.ViewChild, args: [MatCalendarBody,] }]
     };
     return MatMultiYearView;
 }());
@@ -12234,6 +12585,7 @@ var MatYearView = /** @class */ (function () {
         this._activeDate = this._dateAdapter.today();
     }
     Object.defineProperty(MatYearView.prototype, "activeDate", {
+        /** The date to display in this year view (everything other than the year is ignored). */
         get: /**
          * The date to display in this year view (everything other than the year is ignored).
          * @return {?}
@@ -12244,8 +12596,10 @@ var MatYearView = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ oldActiveDate = this._activeDate;
-            var /** @type {?} */ validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+            /** @type {?} */
+            var oldActiveDate = this._activeDate;
+            /** @type {?} */
+            var validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
             this._activeDate = this._dateAdapter.clampDate(validDate, this.minDate, this.maxDate);
             if (this._dateAdapter.getYear(oldActiveDate) !== this._dateAdapter.getYear(this._activeDate)) {
                 this._init();
@@ -12255,6 +12609,7 @@ var MatYearView = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatYearView.prototype, "selected", {
+        /** The currently selected date. */
         get: /**
          * The currently selected date.
          * @return {?}
@@ -12272,6 +12627,7 @@ var MatYearView = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatYearView.prototype, "minDate", {
+        /** The minimum selectable date. */
         get: /**
          * The minimum selectable date.
          * @return {?}
@@ -12288,6 +12644,7 @@ var MatYearView = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatYearView.prototype, "maxDate", {
+        /** The maximum selectable date. */
         get: /**
          * The maximum selectable date.
          * @return {?}
@@ -12324,9 +12681,11 @@ var MatYearView = /** @class */ (function () {
      * @return {?}
      */
     function (month) {
-        var /** @type {?} */ normalizedDate = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1);
+        /** @type {?} */
+        var normalizedDate = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1);
         this.monthSelected.emit(normalizedDate);
-        var /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(normalizedDate);
+        /** @type {?} */
+        var daysInMonth = this._dateAdapter.getNumDaysInMonth(normalizedDate);
         this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
     };
     /** Handles keydown events on the calendar body when calendar is in year view. */
@@ -12341,11 +12700,10 @@ var MatYearView = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
-        // disabled ones from being selected. This may not be ideal, we should look into whether
-        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
-        var /** @type {?} */ oldActiveDate = this._activeDate;
-        var /** @type {?} */ isRtl = this._isRtl();
+        /** @type {?} */
+        var oldActiveDate = this._activeDate;
+        /** @type {?} */
+        var isRtl = this._isRtl();
         switch (event.keyCode) {
             case keycodes.LEFT_ARROW:
                 this.activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, isRtl ? 1 : -1);
@@ -12401,11 +12759,10 @@ var MatYearView = /** @class */ (function () {
         this._selectedMonth = this._getMonthInCurrentYear(this.selected);
         this._todayMonth = this._getMonthInCurrentYear(this._dateAdapter.today());
         this._yearLabel = this._dateAdapter.getYearName(this.activeDate);
-        var /** @type {?} */ monthNames = this._dateAdapter.getMonthNames('short');
+        /** @type {?} */
+        var monthNames = this._dateAdapter.getMonthNames('short');
         // First row of months only contains 5 elements so we can fit the year label on the same row.
-        this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map(function (row) {
-            return row.map(function (month) { return _this._createCellForMonth(month, monthNames[month]); });
-        });
+        this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map(function (row) { return row.map(function (month) { return _this._createCellForMonth(month, monthNames[month]); }); });
         this._changeDetectorRef.markForCheck();
     };
     /** Focuses the active cell after the microtask queue is empty. */
@@ -12449,7 +12806,8 @@ var MatYearView = /** @class */ (function () {
      * @return {?}
      */
     function (month, monthName) {
-        var /** @type {?} */ ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
+        /** @type {?} */
+        var ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
         return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._shouldEnableMonth(month));
     };
     /**
@@ -12463,7 +12821,8 @@ var MatYearView = /** @class */ (function () {
      * @return {?}
      */
     function (month) {
-        var /** @type {?} */ activeYear = this._dateAdapter.getYear(this.activeDate);
+        /** @type {?} */
+        var activeYear = this._dateAdapter.getYear(this.activeDate);
         if (month === undefined || month === null ||
             this._isYearAndMonthAfterMaxDate(activeYear, month) ||
             this._isYearAndMonthBeforeMinDate(activeYear, month)) {
@@ -12472,9 +12831,10 @@ var MatYearView = /** @class */ (function () {
         if (!this.dateFilter) {
             return true;
         }
-        var /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(activeYear, month, 1);
+        /** @type {?} */
+        var firstOfMonth = this._dateAdapter.createDate(activeYear, month, 1);
         // If any date in the month is enabled count the month as enabled.
-        for (var /** @type {?} */ date = firstOfMonth; this._dateAdapter.getMonth(date) == month; date = this._dateAdapter.addCalendarDays(date, 1)) {
+        for (var date = firstOfMonth; this._dateAdapter.getMonth(date) == month; date = this._dateAdapter.addCalendarDays(date, 1)) {
             if (this.dateFilter(date)) {
                 return true;
             }
@@ -12497,8 +12857,10 @@ var MatYearView = /** @class */ (function () {
      */
     function (year, month) {
         if (this.maxDate) {
-            var /** @type {?} */ maxYear = this._dateAdapter.getYear(this.maxDate);
-            var /** @type {?} */ maxMonth = this._dateAdapter.getMonth(this.maxDate);
+            /** @type {?} */
+            var maxYear = this._dateAdapter.getYear(this.maxDate);
+            /** @type {?} */
+            var maxMonth = this._dateAdapter.getMonth(this.maxDate);
             return year > maxYear || (year === maxYear && month > maxMonth);
         }
         return false;
@@ -12519,8 +12881,10 @@ var MatYearView = /** @class */ (function () {
      */
     function (year, month) {
         if (this.minDate) {
-            var /** @type {?} */ minYear = this._dateAdapter.getYear(this.minDate);
-            var /** @type {?} */ minMonth = this._dateAdapter.getMonth(this.minDate);
+            /** @type {?} */
+            var minYear = this._dateAdapter.getYear(this.minDate);
+            /** @type {?} */
+            var minMonth = this._dateAdapter.getMonth(this.minDate);
             return year < minYear || (year === minYear && month < minMonth);
         }
         return false;
@@ -12557,21 +12921,21 @@ var MatYearView = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatYearView.ctorParameters = function () { return [
-        { type: core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_FORMATS,] },] },
-        { type: DateAdapter, decorators: [{ type: core.Optional },] },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: core.ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_FORMATS,] }] },
+        { type: DateAdapter, decorators: [{ type: core.Optional }] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] }
     ]; };
     MatYearView.propDecorators = {
-        "activeDate": [{ type: core.Input },],
-        "selected": [{ type: core.Input },],
-        "minDate": [{ type: core.Input },],
-        "maxDate": [{ type: core.Input },],
-        "dateFilter": [{ type: core.Input },],
-        "selectedChange": [{ type: core.Output },],
-        "monthSelected": [{ type: core.Output },],
-        "activeDateChange": [{ type: core.Output },],
-        "_matCalendarBody": [{ type: core.ViewChild, args: [MatCalendarBody,] },],
+        activeDate: [{ type: core.Input }],
+        selected: [{ type: core.Input }],
+        minDate: [{ type: core.Input }],
+        maxDate: [{ type: core.Input }],
+        dateFilter: [{ type: core.Input }],
+        selectedChange: [{ type: core.Output }],
+        monthSelected: [{ type: core.Output }],
+        activeDateChange: [{ type: core.Output }],
+        _matCalendarBody: [{ type: core.ViewChild, args: [MatCalendarBody,] }]
     };
     return MatYearView;
 }());
@@ -12607,9 +12971,12 @@ var MatCalendarHeader = /** @class */ (function () {
             if (this.calendar.currentView == 'year') {
                 return this._dateAdapter.getYearName(this.calendar.activeDate);
             }
-            var /** @type {?} */ activeYear = this._dateAdapter.getYear(this.calendar.activeDate);
-            var /** @type {?} */ firstYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear - activeYear % 24, 0, 1));
-            var /** @type {?} */ lastYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear + yearsPerPage - 1 - activeYear % 24, 0, 1));
+            /** @type {?} */
+            var activeYear = this._dateAdapter.getYear(this.calendar.activeDate);
+            /** @type {?} */
+            var firstYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear - activeYear % 24, 0, 1));
+            /** @type {?} */
+            var lastYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear + yearsPerPage - 1 - activeYear % 24, 0, 1));
             return firstYearInView + " \u2013 " + lastYearInView;
         },
         enumerable: true,
@@ -12761,11 +13128,11 @@ var MatCalendarHeader = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatCalendarHeader.ctorParameters = function () { return [
-        { type: MatDatepickerIntl, },
-        { type: MatCalendar, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatCalendar; }),] },] },
-        { type: DateAdapter, decorators: [{ type: core.Optional },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_FORMATS,] },] },
-        { type: core.ChangeDetectorRef, },
+        { type: MatDatepickerIntl },
+        { type: MatCalendar, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatCalendar; }),] }] },
+        { type: DateAdapter, decorators: [{ type: core.Optional }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_FORMATS,] }] },
+        { type: core.ChangeDetectorRef }
     ]; };
     return MatCalendarHeader;
 }());
@@ -12824,6 +13191,7 @@ var MatCalendar = /** @class */ (function () {
         });
     }
     Object.defineProperty(MatCalendar.prototype, "startAt", {
+        /** A date representing the period (month or year) to start the calendar in. */
         get: /**
          * A date representing the period (month or year) to start the calendar in.
          * @return {?}
@@ -12840,6 +13208,7 @@ var MatCalendar = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatCalendar.prototype, "selected", {
+        /** The currently selected date. */
         get: /**
          * The currently selected date.
          * @return {?}
@@ -12856,6 +13225,7 @@ var MatCalendar = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatCalendar.prototype, "minDate", {
+        /** The minimum selectable date. */
         get: /**
          * The minimum selectable date.
          * @return {?}
@@ -12872,6 +13242,7 @@ var MatCalendar = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatCalendar.prototype, "maxDate", {
+        /** The maximum selectable date. */
         get: /**
          * The maximum selectable date.
          * @return {?}
@@ -12970,9 +13341,11 @@ var MatCalendar = /** @class */ (function () {
      * @return {?}
      */
     function (changes) {
-        var /** @type {?} */ change = changes["minDate"] || changes["maxDate"] || changes["dateFilter"];
+        /** @type {?} */
+        var change = changes["minDate"] || changes["maxDate"] || changes["dateFilter"];
         if (change && !change.firstChange) {
-            var /** @type {?} */ view = this._getCurrentViewComponent();
+            /** @type {?} */
+            var view = this._getCurrentViewComponent();
             if (view) {
                 // We need to `detectChanges` manually here, because the `minDate`, `maxDate` etc. are
                 // passed down to the view via data bindings which won't be up-to-date when we call `_init`.
@@ -13001,7 +13374,8 @@ var MatCalendar = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ view = this.currentView == 'month' ? this.monthView :
+        /** @type {?} */
+        var view = this.currentView == 'month' ? this.monthView :
             (this.currentView == 'year' ? this.yearView : this.multiYearView);
         view.ngAfterContentInit();
     };
@@ -13111,26 +13485,26 @@ var MatCalendar = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatCalendar.ctorParameters = function () { return [
-        { type: MatDatepickerIntl, },
-        { type: DateAdapter, decorators: [{ type: core.Optional },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_FORMATS,] },] },
-        { type: core.ChangeDetectorRef, },
+        { type: MatDatepickerIntl },
+        { type: DateAdapter, decorators: [{ type: core.Optional }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_FORMATS,] }] },
+        { type: core.ChangeDetectorRef }
     ]; };
     MatCalendar.propDecorators = {
-        "headerComponent": [{ type: core.Input },],
-        "startAt": [{ type: core.Input },],
-        "startView": [{ type: core.Input },],
-        "selected": [{ type: core.Input },],
-        "minDate": [{ type: core.Input },],
-        "maxDate": [{ type: core.Input },],
-        "dateFilter": [{ type: core.Input },],
-        "selectedChange": [{ type: core.Output },],
-        "yearSelected": [{ type: core.Output },],
-        "monthSelected": [{ type: core.Output },],
-        "_userSelection": [{ type: core.Output },],
-        "monthView": [{ type: core.ViewChild, args: [MatMonthView,] },],
-        "yearView": [{ type: core.ViewChild, args: [MatYearView,] },],
-        "multiYearView": [{ type: core.ViewChild, args: [MatMultiYearView,] },],
+        headerComponent: [{ type: core.Input }],
+        startAt: [{ type: core.Input }],
+        startView: [{ type: core.Input }],
+        selected: [{ type: core.Input }],
+        minDate: [{ type: core.Input }],
+        maxDate: [{ type: core.Input }],
+        dateFilter: [{ type: core.Input }],
+        selectedChange: [{ type: core.Output }],
+        yearSelected: [{ type: core.Output }],
+        monthSelected: [{ type: core.Output }],
+        _userSelection: [{ type: core.Output }],
+        monthView: [{ type: core.ViewChild, args: [MatMonthView,] }],
+        yearView: [{ type: core.ViewChild, args: [MatYearView,] }],
+        multiYearView: [{ type: core.ViewChild, args: [MatMultiYearView,] }]
     };
     return MatCalendar;
 }());
@@ -13139,10 +13513,10 @@ var MatCalendar = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material datepicker.
- */
-var /** @type {?} */ matDatepickerAnimations = {
+  @type {?} */
+var matDatepickerAnimations = {
     /** Transforms the height of the datepicker's calendar. */
     transformPanel: animations$1.trigger('transformPanel', [
         animations$1.state('void', animations$1.style({
@@ -13169,14 +13543,14 @@ var /** @type {?} */ matDatepickerAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Used to generate a unique ID for each datepicker instance.
- */
-var /** @type {?} */ datepickerUid = 0;
-/**
+  @type {?} */
+var datepickerUid = 0;
+/** *
  * Injection token that determines the scroll handling while the calendar is open.
- */
-var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scroll-strategy');
+  @type {?} */
+var MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('mat-datepicker-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -13185,10 +13559,10 @@ var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new core.InjectionToken('m
 function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
-/**
+/** *
  * \@docs-private
- */
-var /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+  @type {?} */
+var MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_DATEPICKER_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
     useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
@@ -13205,7 +13579,8 @@ MatDatepickerContentBase = /** @class */ (function () {
     }
     return MatDatepickerContentBase;
 }());
-var /** @type {?} */ _MatDatepickerContentMixinBase = mixinColor(MatDatepickerContentBase);
+/** @type {?} */
+var _MatDatepickerContentMixinBase = mixinColor(MatDatepickerContentBase);
 /**
  * Component used as the content for the datepicker dialog and popup. We use this instead of using
  * MatCalendar directly as the content so we can control the initial focus. This also gives us a
@@ -13249,10 +13624,10 @@ var MatDatepickerContent = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatDatepickerContent.ctorParameters = function () { return [
-        { type: core.ElementRef, },
+        { type: core.ElementRef }
     ]; };
     MatDatepickerContent.propDecorators = {
-        "_calendar": [{ type: core.ViewChild, args: [MatCalendar,] },],
+        _calendar: [{ type: core.ViewChild, args: [MatCalendar,] }]
     };
     return MatDatepickerContent;
 }(_MatDatepickerContentMixinBase));
@@ -13320,6 +13695,7 @@ var MatDatepicker = /** @class */ (function () {
         }
     }
     Object.defineProperty(MatDatepicker.prototype, "startAt", {
+        /** The date to open the calendar to initially. */
         get: /**
          * The date to open the calendar to initially.
          * @return {?}
@@ -13340,6 +13716,7 @@ var MatDatepicker = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDatepicker.prototype, "color", {
+        /** Color palette to use on the datepicker's calendar. */
         get: /**
          * Color palette to use on the datepicker's calendar.
          * @return {?}
@@ -13359,6 +13736,10 @@ var MatDatepicker = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDatepicker.prototype, "touchUi", {
+        /**
+         * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
+         * than a popup and elements have more padding to allow for bigger touch targets.
+         */
         get: /**
          * Whether the calendar UI is in touch mode. In touch mode the calendar opens in a dialog rather
          * than a popup and elements have more padding to allow for bigger touch targets.
@@ -13376,6 +13757,7 @@ var MatDatepicker = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDatepicker.prototype, "disabled", {
+        /** Whether the datepicker pop-up should be disabled. */
         get: /**
          * Whether the datepicker pop-up should be disabled.
          * @return {?}
@@ -13389,7 +13771,8 @@ var MatDatepicker = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newValue = coercion.coerceBooleanProperty(value);
+            /** @type {?} */
+            var newValue = coercion.coerceBooleanProperty(value);
             if (newValue !== this._disabled) {
                 this._disabled = newValue;
                 this._disabledChange.next(newValue);
@@ -13399,6 +13782,7 @@ var MatDatepicker = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDatepicker.prototype, "opened", {
+        /** Whether the calendar is open. */
         get: /**
          * Whether the calendar is open.
          * @return {?}
@@ -13488,7 +13872,8 @@ var MatDatepicker = /** @class */ (function () {
      * @return {?}
      */
     function (date) {
-        var /** @type {?} */ oldValue = this._selected;
+        /** @type {?} */
+        var oldValue = this._selected;
         this._selected = date;
         if (!this._dateAdapter.sameDate(oldValue, this._selected)) {
             this._selectedChanged.next(date);
@@ -13592,7 +13977,8 @@ var MatDatepicker = /** @class */ (function () {
         if (this._calendarPortal && this._calendarPortal.isAttached) {
             this._calendarPortal.detach();
         }
-        var /** @type {?} */ completeClose = function () {
+        /** @type {?} */
+        var completeClose = function () {
             // The `_opened` could've been reset already if
             // we got two events in quick succession.
             if (_this._opened) {
@@ -13677,7 +14063,8 @@ var MatDatepicker = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ overlayConfig = new overlay.OverlayConfig({
+        /** @type {?} */
+        var overlayConfig = new overlay.OverlayConfig({
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
             backdropClass: 'mat-overlay-transparent-backdrop',
@@ -13755,7 +14142,8 @@ var MatDatepicker = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ color = this.color;
+        /** @type {?} */
+        var color = this.color;
         if (this._popupComponentRef) {
             this._popupComponentRef.instance.color = color;
         }
@@ -13773,28 +14161,28 @@ var MatDatepicker = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatDatepicker.ctorParameters = function () { return [
-        { type: MatDialog, },
-        { type: overlay.Overlay, },
-        { type: core.NgZone, },
-        { type: core.ViewContainerRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DATEPICKER_SCROLL_STRATEGY,] },] },
-        { type: DateAdapter, decorators: [{ type: core.Optional },] },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: MatDialog },
+        { type: overlay.Overlay },
+        { type: core.NgZone },
+        { type: core.ViewContainerRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DATEPICKER_SCROLL_STRATEGY,] }] },
+        { type: DateAdapter, decorators: [{ type: core.Optional }] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
     MatDatepicker.propDecorators = {
-        "calendarHeaderComponent": [{ type: core.Input },],
-        "startAt": [{ type: core.Input },],
-        "startView": [{ type: core.Input },],
-        "color": [{ type: core.Input },],
-        "touchUi": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
-        "yearSelected": [{ type: core.Output },],
-        "monthSelected": [{ type: core.Output },],
-        "panelClass": [{ type: core.Input },],
-        "openedStream": [{ type: core.Output, args: ['opened',] },],
-        "closedStream": [{ type: core.Output, args: ['closed',] },],
-        "opened": [{ type: core.Input },],
+        calendarHeaderComponent: [{ type: core.Input }],
+        startAt: [{ type: core.Input }],
+        startView: [{ type: core.Input }],
+        color: [{ type: core.Input }],
+        touchUi: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
+        yearSelected: [{ type: core.Output }],
+        monthSelected: [{ type: core.Output }],
+        panelClass: [{ type: core.Input }],
+        openedStream: [{ type: core.Output, args: ['opened',] }],
+        closedStream: [{ type: core.Output, args: ['closed',] }],
+        opened: [{ type: core.Input }]
     };
     return MatDatepicker;
 }());
@@ -13803,12 +14191,14 @@ var MatDatepicker = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ MAT_DATEPICKER_VALUE_ACCESSOR = {
+/** @type {?} */
+var MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatDatepickerInput; }),
     multi: true
 };
-var /** @type {?} */ MAT_DATEPICKER_VALIDATORS = {
+/** @type {?} */
+var MAT_DATEPICKER_VALIDATORS = {
     provide: forms.NG_VALIDATORS,
     useExisting: core.forwardRef(function () { return MatDatepickerInput; }),
     multi: true
@@ -13876,7 +14266,8 @@ var MatDatepickerInput = /** @class */ (function () {
          * The form control validator for the min date.
          */
         this._minValidator = function (control) {
-            var /** @type {?} */ controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
+            /** @type {?} */
+            var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return (!_this.min || !controlValue ||
                 _this._dateAdapter.compareDate(_this.min, controlValue) <= 0) ?
                 null : { 'matDatepickerMin': { 'min': _this.min, 'actual': controlValue } };
@@ -13885,7 +14276,8 @@ var MatDatepickerInput = /** @class */ (function () {
          * The form control validator for the max date.
          */
         this._maxValidator = function (control) {
-            var /** @type {?} */ controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
+            /** @type {?} */
+            var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return (!_this.max || !controlValue ||
                 _this._dateAdapter.compareDate(_this.max, controlValue) >= 0) ?
                 null : { 'matDatepickerMax': { 'max': _this.max, 'actual': controlValue } };
@@ -13894,7 +14286,8 @@ var MatDatepickerInput = /** @class */ (function () {
          * The form control validator for the date filter.
          */
         this._filterValidator = function (control) {
-            var /** @type {?} */ controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
+            /** @type {?} */
+            var controlValue = _this._getValidDateOrNull(_this._dateAdapter.deserialize(control.value));
             return !_this._dateFilter || !controlValue || _this._dateFilter(controlValue) ?
                 null : { 'matDatepickerFilter': true };
         };
@@ -13918,6 +14311,7 @@ var MatDatepickerInput = /** @class */ (function () {
         });
     }
     Object.defineProperty(MatDatepickerInput.prototype, "matDatepicker", {
+        /** The datepicker that this input is associated with. */
         set: /**
          * The datepicker that this input is associated with.
          * @param {?} value
@@ -13943,6 +14337,7 @@ var MatDatepickerInput = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDatepickerInput.prototype, "matDatepickerFilter", {
+        /** Function that can be used to filter out dates within the datepicker. */
         set: /**
          * Function that can be used to filter out dates within the datepicker.
          * @param {?} value
@@ -13956,6 +14351,7 @@ var MatDatepickerInput = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDatepickerInput.prototype, "value", {
+        /** The value of the input. */
         get: /**
          * The value of the input.
          * @return {?}
@@ -13969,7 +14365,8 @@ var MatDatepickerInput = /** @class */ (function () {
             value = this._dateAdapter.deserialize(value);
             this._lastValueValid = !value || this._dateAdapter.isValid(value);
             value = this._getValidDateOrNull(value);
-            var /** @type {?} */ oldDate = this.value;
+            /** @type {?} */
+            var oldDate = this.value;
             this._value = value;
             this._formatValue(value);
             if (!this._dateAdapter.sameDate(oldDate, value)) {
@@ -13980,6 +14377,7 @@ var MatDatepickerInput = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDatepickerInput.prototype, "min", {
+        /** The minimum valid date. */
         get: /**
          * The minimum valid date.
          * @return {?}
@@ -13997,6 +14395,7 @@ var MatDatepickerInput = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDatepickerInput.prototype, "max", {
+        /** The maximum valid date. */
         get: /**
          * The maximum valid date.
          * @return {?}
@@ -14014,6 +14413,7 @@ var MatDatepickerInput = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDatepickerInput.prototype, "disabled", {
+        /** Whether the datepicker-input is disabled. */
         get: /**
          * Whether the datepicker-input is disabled.
          * @return {?}
@@ -14024,8 +14424,10 @@ var MatDatepickerInput = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newValue = coercion.coerceBooleanProperty(value);
-            var /** @type {?} */ element = this._elementRef.nativeElement;
+            /** @type {?} */
+            var newValue = coercion.coerceBooleanProperty(value);
+            /** @type {?} */
+            var element = this._elementRef.nativeElement;
             if (this._disabled !== newValue) {
                 this._disabled = newValue;
                 this._disabledChange.emit(newValue);
@@ -14184,7 +14586,8 @@ var MatDatepickerInput = /** @class */ (function () {
      * @return {?}
      */
     function (value) {
-        var /** @type {?} */ date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
+        /** @type {?} */
+        var date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
         this._lastValueValid = !date || this._dateAdapter.isValid(date);
         date = this._getValidDateOrNull(date);
         if (!this._dateAdapter.sameDate(date, this._value)) {
@@ -14280,20 +14683,20 @@ var MatDatepickerInput = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatDatepickerInput.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: DateAdapter, decorators: [{ type: core.Optional },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_FORMATS,] },] },
-        { type: MatFormField, decorators: [{ type: core.Optional },] },
+        { type: core.ElementRef },
+        { type: DateAdapter, decorators: [{ type: core.Optional }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_DATE_FORMATS,] }] },
+        { type: MatFormField, decorators: [{ type: core.Optional }] }
     ]; };
     MatDatepickerInput.propDecorators = {
-        "matDatepicker": [{ type: core.Input },],
-        "matDatepickerFilter": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
-        "min": [{ type: core.Input },],
-        "max": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
-        "dateChange": [{ type: core.Output },],
-        "dateInput": [{ type: core.Output },],
+        matDatepicker: [{ type: core.Input }],
+        matDatepickerFilter: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        min: [{ type: core.Input }],
+        max: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
+        dateChange: [{ type: core.Output }],
+        dateInput: [{ type: core.Output }]
     };
     return MatDatepickerInput;
 }());
@@ -14323,10 +14726,12 @@ var MatDatepickerToggle = /** @class */ (function () {
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
         this._stateChanges = rxjs.Subscription.EMPTY;
-        var /** @type {?} */ parsedTabIndex = Number(defaultTabIndex);
+        /** @type {?} */
+        var parsedTabIndex = Number(defaultTabIndex);
         this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
     }
     Object.defineProperty(MatDatepickerToggle.prototype, "disabled", {
+        /** Whether the toggle button is disabled. */
         get: /**
          * Whether the toggle button is disabled.
          * @return {?}
@@ -14397,10 +14802,13 @@ var MatDatepickerToggle = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ datepickerDisabled = this.datepicker ? this.datepicker._disabledChange : rxjs.of();
-        var /** @type {?} */ inputDisabled = this.datepicker && this.datepicker._datepickerInput ?
+        /** @type {?} */
+        var datepickerDisabled = this.datepicker ? this.datepicker._disabledChange : rxjs.of();
+        /** @type {?} */
+        var inputDisabled = this.datepicker && this.datepicker._datepickerInput ?
             this.datepicker._datepickerInput._disabledChange : rxjs.of();
-        var /** @type {?} */ datepickerToggled = this.datepicker ?
+        /** @type {?} */
+        var datepickerToggled = this.datepicker ?
             rxjs.merge(this.datepicker.openedStream, this.datepicker.closedStream) :
             rxjs.of();
         this._stateChanges.unsubscribe();
@@ -14425,15 +14833,15 @@ var MatDatepickerToggle = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatDatepickerToggle.ctorParameters = function () { return [
-        { type: MatDatepickerIntl, },
-        { type: core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
+        { type: MatDatepickerIntl },
+        { type: core.ChangeDetectorRef },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] }
     ]; };
     MatDatepickerToggle.propDecorators = {
-        "datepicker": [{ type: core.Input, args: ['for',] },],
-        "tabIndex": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
-        "_customIcon": [{ type: core.ContentChild, args: [MatDatepickerToggleIcon,] },],
+        datepicker: [{ type: core.Input, args: ['for',] }],
+        tabIndex: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
+        _customIcon: [{ type: core.ContentChild, args: [MatDatepickerToggleIcon,] }]
     };
     return MatDatepickerToggle;
 }());
@@ -14504,6 +14912,7 @@ var MatDivider = /** @class */ (function () {
         this._inset = false;
     }
     Object.defineProperty(MatDivider.prototype, "vertical", {
+        /** Whether the divider is vertically aligned. */
         get: /**
          * Whether the divider is vertically aligned.
          * @return {?}
@@ -14518,6 +14927,7 @@ var MatDivider = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDivider.prototype, "inset", {
+        /** Whether the divider is an inset divider. */
         get: /**
          * Whether the divider is an inset divider.
          * @return {?}
@@ -14547,10 +14957,9 @@ var MatDivider = /** @class */ (function () {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /** @nocollapse */
     MatDivider.propDecorators = {
-        "vertical": [{ type: core.Input },],
-        "inset": [{ type: core.Input },],
+        vertical: [{ type: core.Input }],
+        inset: [{ type: core.Input }]
     };
     return MatDivider;
 }());
@@ -14576,24 +14985,24 @@ var MatDividerModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Token used to provide a `MatAccordion` to `MatExpansionPanel`.
  * Used primarily to avoid circular imports between `MatAccordion` and `MatExpansionPanel`.
- */
-var /** @type {?} */ MAT_ACCORDION = new core.InjectionToken('MAT_ACCORDION');
+  @type {?} */
+var MAT_ACCORDION = new core.InjectionToken('MAT_ACCORDION');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Time and timing curve for expansion panel animations.
- */
-var /** @type {?} */ EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
-/**
+  @type {?} */
+var EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
+/** *
  * Animations used by the Material expansion panel.
- */
-var /** @type {?} */ matExpansionAnimations = {
+  @type {?} */
+var matExpansionAnimations = {
     /** Animation that rotates the indicator arrow. */
     indicatorRotate: animations$1.trigger('indicatorRotate', [
         animations$1.state('collapsed', animations$1.style({ transform: 'rotate(0deg)' })),
@@ -14644,7 +15053,7 @@ var MatExpansionPanelContent = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatExpansionPanelContent.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
+        { type: core.TemplateRef }
     ]; };
     return MatExpansionPanelContent;
 }());
@@ -14653,12 +15062,12 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkAccordionItem = accordion.CdkAccordionItem;
-/**
+/** @type {?} */
+var _CdkAccordionItem = accordion.CdkAccordionItem;
+/** *
  * Counter for generating unique element ids.
- */
-var /** @type {?} */ uniqueId$1 = 0;
+  @type {?} */
+var uniqueId$1 = 0;
 var ɵ0$4 = undefined;
 /**
  * `<mat-expansion-panel>`
@@ -14693,6 +15102,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatExpansionPanel.prototype, "hideToggle", {
+        /** Whether the toggle indicator should be hidden. */
         get: /**
          * Whether the toggle indicator should be hidden.
          * @return {?}
@@ -14785,8 +15195,10 @@ var MatExpansionPanel = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ classList = event.element.classList;
-        var /** @type {?} */ cssClass = 'mat-expanded';
+        /** @type {?} */
+        var classList = event.element.classList;
+        /** @type {?} */
+        var cssClass = 'mat-expanded';
         var phaseName = event.phaseName, toState = event.toState, fromState = event.fromState;
         // Toggle the body's `overflow: hidden` class when closing starts or when expansion ends in
         // order to prevent the cases where switching too early would cause the animation to jump.
@@ -14816,8 +15228,10 @@ var MatExpansionPanel = /** @class */ (function (_super) {
      */
     function () {
         if (this._body && this._document) {
-            var /** @type {?} */ focusedElement = this._document.activeElement;
-            var /** @type {?} */ bodyElement = this._body.nativeElement;
+            /** @type {?} */
+            var focusedElement = this._document.activeElement;
+            /** @type {?} */
+            var bodyElement = this._body.nativeElement;
             return focusedElement === bodyElement || bodyElement.contains(focusedElement);
         }
         return false;
@@ -14846,18 +15260,18 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatExpansionPanel.ctorParameters = function () { return [
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.SkipSelf }, { type: core.Inject, args: [MAT_ACCORDION,] },] },
-        { type: core.ChangeDetectorRef, },
-        { type: collections.UniqueSelectionDispatcher, },
-        { type: core.ViewContainerRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.SkipSelf }, { type: core.Inject, args: [MAT_ACCORDION,] }] },
+        { type: core.ChangeDetectorRef },
+        { type: collections.UniqueSelectionDispatcher },
+        { type: core.ViewContainerRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
     MatExpansionPanel.propDecorators = {
-        "hideToggle": [{ type: core.Input },],
-        "afterExpand": [{ type: core.Output },],
-        "afterCollapse": [{ type: core.Output },],
-        "_lazyContent": [{ type: core.ContentChild, args: [MatExpansionPanelContent,] },],
-        "_body": [{ type: core.ViewChild, args: ['body',] },],
+        hideToggle: [{ type: core.Input }],
+        afterExpand: [{ type: core.Output }],
+        afterCollapse: [{ type: core.Output }],
+        _lazyContent: [{ type: core.ContentChild, args: [MatExpansionPanelContent,] }],
+        _body: [{ type: core.ViewChild, args: ['body',] }]
     };
     return MatExpansionPanel;
 }(accordion.CdkAccordionItem));
@@ -14892,7 +15306,8 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._parentChangeSubscription = rxjs.Subscription.EMPTY;
-        var /** @type {?} */ accordionHideToggleChange = panel.accordion ?
+        /** @type {?} */
+        var accordionHideToggleChange = panel.accordion ?
             panel.accordion._stateChanges.pipe(operators.filter(function (changes) { return !!changes["hideToggle"]; })) : rxjs.EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to subscribe and trigger change detection manually.
@@ -15068,14 +15483,14 @@ var MatExpansionPanelHeader = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatExpansionPanelHeader.ctorParameters = function () { return [
-        { type: MatExpansionPanel, decorators: [{ type: core.Host },] },
-        { type: core.ElementRef, },
-        { type: a11y.FocusMonitor, },
-        { type: core.ChangeDetectorRef, },
+        { type: MatExpansionPanel, decorators: [{ type: core.Host }] },
+        { type: core.ElementRef },
+        { type: a11y.FocusMonitor },
+        { type: core.ChangeDetectorRef }
     ]; };
     MatExpansionPanelHeader.propDecorators = {
-        "expandedHeight": [{ type: core.Input },],
-        "collapsedHeight": [{ type: core.Input },],
+        expandedHeight: [{ type: core.Input }],
+        collapsedHeight: [{ type: core.Input }]
     };
     return MatExpansionPanelHeader;
 }());
@@ -15140,6 +15555,7 @@ var MatAccordion = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatAccordion.prototype, "hideToggle", {
+        /** Whether the expansion indicator should be hidden. */
         get: /**
          * Whether the expansion indicator should be hidden.
          * @return {?}
@@ -15175,7 +15591,8 @@ var MatAccordion = /** @class */ (function (_super) {
      */
     function (event) {
         var keyCode = event.keyCode;
-        var /** @type {?} */ manager = this._keyManager;
+        /** @type {?} */
+        var manager = this._keyManager;
         if (keyCode === keycodes.HOME) {
             manager.setFirstItemActive();
             event.preventDefault();
@@ -15213,11 +15630,10 @@ var MatAccordion = /** @class */ (function (_super) {
                     }
                 },] },
     ];
-    /** @nocollapse */
     MatAccordion.propDecorators = {
-        "_headers": [{ type: core.ContentChildren, args: [MatExpansionPanelHeader, { descendants: true },] },],
-        "hideToggle": [{ type: core.Input },],
-        "displayMode": [{ type: core.Input },],
+        _headers: [{ type: core.ContentChildren, args: [MatExpansionPanelHeader, { descendants: true },] }],
+        hideToggle: [{ type: core.Input }],
+        displayMode: [{ type: core.Input }]
     };
     return MatAccordion;
 }(accordion.CdkAccordion));
@@ -15266,6 +15682,7 @@ var MatGridTile = /** @class */ (function () {
         this._colspan = 1;
     }
     Object.defineProperty(MatGridTile.prototype, "rowspan", {
+        /** Amount of rows that the grid tile takes up. */
         get: /**
          * Amount of rows that the grid tile takes up.
          * @return {?}
@@ -15280,6 +15697,7 @@ var MatGridTile = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatGridTile.prototype, "colspan", {
+        /** Amount of columns that the grid tile takes up. */
         get: /**
          * Amount of columns that the grid tile takes up.
          * @return {?}
@@ -15328,11 +15746,11 @@ var MatGridTile = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatGridTile.ctorParameters = function () { return [
-        { type: core.ElementRef, },
+        { type: core.ElementRef }
     ]; };
     MatGridTile.propDecorators = {
-        "rowspan": [{ type: core.Input },],
-        "colspan": [{ type: core.Input },],
+        rowspan: [{ type: core.Input }],
+        colspan: [{ type: core.Input }]
     };
     return MatGridTile;
 }());
@@ -15358,10 +15776,10 @@ var MatGridTileText = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatGridTileText.ctorParameters = function () { return [
-        { type: core.ElementRef, },
+        { type: core.ElementRef }
     ]; };
     MatGridTileText.propDecorators = {
-        "_lines": [{ type: core.ContentChildren, args: [MatLine,] },],
+        _lines: [{ type: core.ContentChildren, args: [MatLine,] }]
     };
     return MatGridTileText;
 }());
@@ -15486,7 +15904,8 @@ TileCoordinator = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ lastRowMax = Math.max.apply(Math, this.tracker);
+            /** @type {?} */
+            var lastRowMax = Math.max.apply(Math, this.tracker);
             // if any of the tiles has a rowspan that pushes it beyond the total row count,
             // add the difference to the rowcount
             return lastRowMax > 1 ? this.rowCount + lastRowMax - 1 : this.rowCount;
@@ -15505,8 +15924,8 @@ TileCoordinator = /** @class */ (function () {
      * @return {?}
      */
     function (tile) {
-        // Find a gap large enough for this tile.
-        var /** @type {?} */ gapStartIndex = this._findMatchingGap(tile.colspan);
+        /** @type {?} */
+        var gapStartIndex = this._findMatchingGap(tile.colspan);
         // Place tile in the resulting gap.
         this._markTilePosition(gapStartIndex, tile);
         // The next time we look for a gap, the search will start at columnIndex, which should be
@@ -15529,9 +15948,10 @@ TileCoordinator = /** @class */ (function () {
             throw Error("mat-grid-list: tile with colspan " + tileCols + " is wider than " +
                 ("grid with cols=\"" + this.tracker.length + "\"."));
         }
-        // Start index is inclusive, end index is exclusive.
-        var /** @type {?} */ gapStartIndex = -1;
-        var /** @type {?} */ gapEndIndex = -1;
+        /** @type {?} */
+        var gapStartIndex = -1;
+        /** @type {?} */
+        var gapEndIndex = -1;
         // Look for a gap large enough to fit the given tile. Empty spaces are marked with a zero.
         do {
             // If we've reached the end of the row, go to the next row.
@@ -15567,7 +15987,7 @@ TileCoordinator = /** @class */ (function () {
         this.columnIndex = 0;
         this.rowIndex++;
         // Decrement all spaces by one to reflect moving down one row.
-        for (var /** @type {?} */ i = 0; i < this.tracker.length; i++) {
+        for (var i = 0; i < this.tracker.length; i++) {
             this.tracker[i] = Math.max(0, this.tracker[i] - 1);
         }
     };
@@ -15584,7 +16004,7 @@ TileCoordinator = /** @class */ (function () {
      * @return {?}
      */
     function (gapStartIndex) {
-        for (var /** @type {?} */ i = gapStartIndex + 1; i < this.tracker.length; i++) {
+        for (var i = gapStartIndex + 1; i < this.tracker.length; i++) {
             if (this.tracker[i] != 0) {
                 return i;
             }
@@ -15605,7 +16025,7 @@ TileCoordinator = /** @class */ (function () {
      * @return {?}
      */
     function (start, tile) {
-        for (var /** @type {?} */ i = 0; i < tile.colspan; i++) {
+        for (var i = 0; i < tile.colspan; i++) {
             this.tracker[start + i] = tile.rowspan;
         }
     };
@@ -15778,11 +16198,10 @@ TileStyler = /** @class */ (function () {
      * @return {?}
      */
     function (tile, rowIndex, colIndex) {
-        // Percent of the available horizontal space that one column takes up.
-        var /** @type {?} */ percentWidthPerTile = 100 / this._cols;
-        // Fraction of the vertical gutter size that each column takes up.
-        // For example, if there are 5 columns, each column uses 4/5 = 0.8 times the gutter width.
-        var /** @type {?} */ gutterWidthFractionPerTile = (this._cols - 1) / this._cols;
+        /** @type {?} */
+        var percentWidthPerTile = 100 / this._cols;
+        /** @type {?} */
+        var gutterWidthFractionPerTile = (this._cols - 1) / this._cols;
         this.setColStyles(tile, colIndex, percentWidthPerTile, gutterWidthFractionPerTile);
         this.setRowStyles(tile, rowIndex, percentWidthPerTile, gutterWidthFractionPerTile);
     };
@@ -15804,11 +16223,10 @@ TileStyler = /** @class */ (function () {
      * @return {?}
      */
     function (tile, colIndex, percentWidth, gutterWidth) {
-        // Base horizontal size of a column.
-        var /** @type {?} */ baseTileWidth = this.getBaseTileSize(percentWidth, gutterWidth);
-        // The width and horizontal position of each tile is always calculated the same way, but the
-        // height and vertical position depends on the rowMode.
-        var /** @type {?} */ side = this._direction === 'rtl' ? 'right' : 'left';
+        /** @type {?} */
+        var baseTileWidth = this.getBaseTileSize(percentWidth, gutterWidth);
+        /** @type {?} */
+        var side = this._direction === 'rtl' ? 'right' : 'left';
         tile._setStyle(side, this.getTilePosition(baseTileWidth, colIndex));
         tile._setStyle('width', calc(this.getTileSize(baseTileWidth, tile.colspan)));
     };
@@ -15972,7 +16390,8 @@ RatioTileStyler = /** @class */ (function (_super) {
      * @return {?}
      */
     function (tile, rowIndex, percentWidth, gutterWidth) {
-        var /** @type {?} */ percentHeightPerTile = percentWidth / this.rowHeightRatio;
+        /** @type {?} */
+        var percentHeightPerTile = percentWidth / this.rowHeightRatio;
         this.baseTileHeight = this.getBaseTileSize(percentHeightPerTile, gutterWidth);
         // Use padding-top and margin-top to maintain the given aspect ratio, as
         // a percentage-based value for these properties is applied versus the *width* of the
@@ -16015,7 +16434,8 @@ RatioTileStyler = /** @class */ (function (_super) {
      * @return {?}
      */
     function (value) {
-        var /** @type {?} */ ratioParts = value.split(':');
+        /** @type {?} */
+        var ratioParts = value.split(':');
         if (ratioParts.length !== 2) {
             throw Error("mat-grid-list: invalid ratio given for row-height: \"" + value + "\"");
         }
@@ -16053,12 +16473,12 @@ FitTileStyler = /** @class */ (function (_super) {
      * @return {?}
      */
     function (tile, rowIndex) {
-        // Percent of the available vertical space that one row takes up.
-        var /** @type {?} */ percentHeightPerTile = 100 / this._rowspan;
-        // Fraction of the horizontal gutter size that each column takes up.
-        var /** @type {?} */ gutterHeightPerTile = (this._rows - 1) / this._rows;
-        // Base vertical size of a column.
-        var /** @type {?} */ baseTileHeight = this.getBaseTileSize(percentHeightPerTile, gutterHeightPerTile);
+        /** @type {?} */
+        var percentHeightPerTile = 100 / this._rowspan;
+        /** @type {?} */
+        var gutterHeightPerTile = (this._rows - 1) / this._rows;
+        /** @type {?} */
+        var baseTileHeight = this.getBaseTileSize(percentHeightPerTile, gutterHeightPerTile);
         tile._setStyle('top', this.getTilePosition(baseTileHeight, rowIndex));
         tile._setStyle('height', calc(this.getTileSize(baseTileHeight, tile.rowspan)));
     };
@@ -16097,10 +16517,8 @@ function normalizeUnits(value) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(kara): Conditional (responsive) column count / row size.
-// TODO(kara): Re-layout on window resize / media change (debounced).
-// TODO(kara): gridTileHeader and gridTileFooter.
-var /** @type {?} */ MAT_FIT_MODE = 'fit';
+/** @type {?} */
+var MAT_FIT_MODE = 'fit';
 var MatGridList = /** @class */ (function () {
     function MatGridList(_element, _dir) {
         this._element = _element;
@@ -16111,6 +16529,7 @@ var MatGridList = /** @class */ (function () {
         this._gutter = '1px';
     }
     Object.defineProperty(MatGridList.prototype, "cols", {
+        /** Amount of columns in the grid list. */
         get: /**
          * Amount of columns in the grid list.
          * @return {?}
@@ -16125,6 +16544,7 @@ var MatGridList = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatGridList.prototype, "gutterSize", {
+        /** Size of the grid list's gutter in pixels. */
         get: /**
          * Size of the grid list's gutter in pixels.
          * @return {?}
@@ -16139,13 +16559,15 @@ var MatGridList = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatGridList.prototype, "rowHeight", {
+        /** Set internal representation of row height from the user-provided value. */
         set: /**
          * Set internal representation of row height from the user-provided value.
          * @param {?} value
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newValue = "" + (value || '');
+            /** @type {?} */
+            var newValue = "" + (value || '');
             if (newValue !== this._rowHeight) {
                 this._rowHeight = newValue;
                 this._setTileStyler(this._rowHeight);
@@ -16242,11 +16664,14 @@ var MatGridList = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ tracker = new TileCoordinator(this.cols, this._tiles);
-        var /** @type {?} */ direction = this._dir ? this._dir.value : 'ltr';
+        /** @type {?} */
+        var tracker = new TileCoordinator(this.cols, this._tiles);
+        /** @type {?} */
+        var direction = this._dir ? this._dir.value : 'ltr';
         this._tileStyler.init(this.gutterSize, tracker, this.cols, direction);
         this._tiles.forEach(function (tile, index) {
-            var /** @type {?} */ pos = tracker.positions[index];
+            /** @type {?} */
+            var pos = tracker.positions[index];
             _this._tileStyler.setStyle(tile, pos.row, pos.col);
         });
         this._setListStyle(this._tileStyler.getComputedHeight());
@@ -16281,14 +16706,14 @@ var MatGridList = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatGridList.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: core.ElementRef },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] }
     ]; };
     MatGridList.propDecorators = {
-        "_tiles": [{ type: core.ContentChildren, args: [MatGridTile, { descendants: true },] },],
-        "cols": [{ type: core.Input },],
-        "gutterSize": [{ type: core.Input },],
-        "rowHeight": [{ type: core.Input },],
+        _tiles: [{ type: core.ContentChildren, args: [MatGridTile, { descendants: true },] }],
+        cols: [{ type: core.Input }],
+        gutterSize: [{ type: core.Input }],
+        rowHeight: [{ type: core.Input }]
     };
     return MatGridList;
 }());
@@ -16516,11 +16941,13 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (namespace, iconName, literal) {
-        var /** @type {?} */ sanitizedLiteral = this._sanitizer.sanitize(core.SecurityContext.HTML, literal);
+        /** @type {?} */
+        var sanitizedLiteral = this._sanitizer.sanitize(core.SecurityContext.HTML, literal);
         if (!sanitizedLiteral) {
             throw getMatIconFailedToSanitizeLiteralError(literal);
         }
-        var /** @type {?} */ svgElement = this._createSvgElementForSingleIcon(sanitizedLiteral);
+        /** @type {?} */
+        var svgElement = this._createSvgElementForSingleIcon(sanitizedLiteral);
         return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig(svgElement));
     };
     /**
@@ -16595,11 +17022,13 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (namespace, literal) {
-        var /** @type {?} */ sanitizedLiteral = this._sanitizer.sanitize(core.SecurityContext.HTML, literal);
+        /** @type {?} */
+        var sanitizedLiteral = this._sanitizer.sanitize(core.SecurityContext.HTML, literal);
         if (!sanitizedLiteral) {
             throw getMatIconFailedToSanitizeLiteralError(literal);
         }
-        var /** @type {?} */ svgElement = this._svgElementFromString(sanitizedLiteral);
+        /** @type {?} */
+        var svgElement = this._svgElementFromString(sanitizedLiteral);
         return this._addSvgIconSetConfig(namespace, new SvgIconConfig(svgElement));
     };
     /**
@@ -16721,11 +17150,13 @@ var MatIconRegistry = /** @class */ (function () {
      */
     function (safeUrl) {
         var _this = this;
-        var /** @type {?} */ url = this._sanitizer.sanitize(core.SecurityContext.RESOURCE_URL, safeUrl);
+        /** @type {?} */
+        var url = this._sanitizer.sanitize(core.SecurityContext.RESOURCE_URL, safeUrl);
         if (!url) {
             throw getMatIconFailedToSanitizeUrlError(safeUrl);
         }
-        var /** @type {?} */ cachedIcon = this._cachedIconsByUrl.get(url);
+        /** @type {?} */
+        var cachedIcon = this._cachedIconsByUrl.get(url);
         if (cachedIcon) {
             return rxjs.of(cloneSvg(cachedIcon));
         }
@@ -16759,14 +17190,15 @@ var MatIconRegistry = /** @class */ (function () {
      */
     function (name, namespace) {
         if (namespace === void 0) { namespace = ''; }
-        // Return (copy of) cached icon if possible.
-        var /** @type {?} */ key = iconKey(namespace, name);
-        var /** @type {?} */ config = this._svgIconConfigs.get(key);
+        /** @type {?} */
+        var key = iconKey(namespace, name);
+        /** @type {?} */
+        var config = this._svgIconConfigs.get(key);
         if (config) {
             return this._getSvgFromConfig(config);
         }
-        // See if we have any icon sets registered for the namespace.
-        var /** @type {?} */ iconSetConfigs = this._iconSetConfigs.get(namespace);
+        /** @type {?} */
+        var iconSetConfigs = this._iconSetConfigs.get(namespace);
         if (iconSetConfigs) {
             return this._getSvgFromIconSetConfigs(name, iconSetConfigs);
         }
@@ -16816,22 +17248,21 @@ var MatIconRegistry = /** @class */ (function () {
      */
     function (name, iconSetConfigs) {
         var _this = this;
-        // For all the icon set SVG elements we've fetched, see if any contain an icon with the
-        // requested name.
-        var /** @type {?} */ namedIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
+        /** @type {?} */
+        var namedIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
         if (namedIcon) {
             // We could cache namedIcon in _svgIconConfigs, but since we have to make a copy every
             // time anyway, there's probably not much advantage compared to just always extracting
             // it from the icon set.
             return rxjs.of(namedIcon);
         }
-        // Not found in any cached icon sets. If there are icon sets with URLs that we haven't
-        // fetched, fetch them now and look for iconName in the results.
-        var /** @type {?} */ iconSetFetchRequests = iconSetConfigs
+        /** @type {?} */
+        var iconSetFetchRequests = iconSetConfigs
             .filter(function (iconSetConfig) { return !iconSetConfig.svgElement; })
             .map(function (iconSetConfig) {
             return _this._loadSvgIconSetFromConfig(iconSetConfig).pipe(operators.catchError(function (err) {
-                var /** @type {?} */ url = _this._sanitizer.sanitize(core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
+                /** @type {?} */
+                var url = _this._sanitizer.sanitize(core.SecurityContext.RESOURCE_URL, iconSetConfig.url);
                 // Swallow errors fetching individual URLs so the
                 // combined Observable won't necessarily fail.
                 console.error("Loading icon set URL: " + url + " failed: " + err.message);
@@ -16841,7 +17272,8 @@ var MatIconRegistry = /** @class */ (function () {
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
         // cached SVG element (unless the request failed), and we can check again for the icon.
         return rxjs.forkJoin(iconSetFetchRequests).pipe(operators.map(function () {
-            var /** @type {?} */ foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
+            /** @type {?} */
+            var foundIcon = _this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
                 throw getMatIconNameNotFoundError(name);
             }
@@ -16866,10 +17298,12 @@ var MatIconRegistry = /** @class */ (function () {
      */
     function (iconName, iconSetConfigs) {
         // Iterate backwards, so icon sets added later have precedence.
-        for (var /** @type {?} */ i = iconSetConfigs.length - 1; i >= 0; i--) {
-            var /** @type {?} */ config = iconSetConfigs[i];
+        for (var i = iconSetConfigs.length - 1; i >= 0; i--) {
+            /** @type {?} */
+            var config = iconSetConfigs[i];
             if (config.svgElement) {
-                var /** @type {?} */ foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName);
+                /** @type {?} */
+                var foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName);
                 if (foundIcon) {
                     return foundIcon;
                 }
@@ -16932,7 +17366,8 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (responseText) {
-        var /** @type {?} */ svg = this._svgElementFromString(responseText);
+        /** @type {?} */
+        var svg = this._svgElementFromString(responseText);
         this._setSvgAttributes(svg);
         return svg;
     };
@@ -16953,13 +17388,13 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (iconSet, iconName) {
-        var /** @type {?} */ iconSource = iconSet.querySelector('#' + iconName);
+        /** @type {?} */
+        var iconSource = iconSet.querySelector('#' + iconName);
         if (!iconSource) {
             return null;
         }
-        // Clone the element and remove the ID to prevent multiple elements from being added
-        // to the page with the same ID.
-        var /** @type {?} */ iconElement = /** @type {?} */ (iconSource.cloneNode(true));
+        /** @type {?} */
+        var iconElement = /** @type {?} */ (iconSource.cloneNode(true));
         iconElement.removeAttribute('id');
         // If the icon node is itself an <svg> node, clone and return it directly. If not, set it as
         // the content of a new <svg> node.
@@ -16972,12 +17407,8 @@ var MatIconRegistry = /** @class */ (function () {
         if (iconElement.nodeName.toLowerCase() === 'symbol') {
             return this._setSvgAttributes(this._toSvgElement(iconElement));
         }
-        // createElement('SVG') doesn't work as expected; the DOM ends up with
-        // the correct nodes, but the SVG content doesn't render. Instead we
-        // have to create an empty SVG node using innerHTML and append its content.
-        // Elements created using DOMParser.parseFromString have the same problem.
-        // http://stackoverflow.com/questions/23003278/svg-innerhtml-in-firefox-can-not-display
-        var /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
+        /** @type {?} */
+        var svg = this._svgElementFromString('<svg></svg>');
         // Clone the node so we don't remove it from the parent icon set element.
         svg.appendChild(iconElement);
         return this._setSvgAttributes(svg);
@@ -16993,9 +17424,11 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (str) {
-        var /** @type {?} */ div = this._document.createElement('DIV');
+        /** @type {?} */
+        var div = this._document.createElement('DIV');
         div.innerHTML = str;
-        var /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
+        /** @type {?} */
+        var svg = /** @type {?} */ (div.querySelector('svg'));
         if (!svg) {
             throw Error('<svg> tag not found');
         }
@@ -17012,8 +17445,9 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (element) {
-        var /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
-        for (var /** @type {?} */ i = 0; i < element.childNodes.length; i++) {
+        /** @type {?} */
+        var svg = this._svgElementFromString('<svg></svg>');
+        for (var i = 0; i < element.childNodes.length; i++) {
             if (element.childNodes[i].nodeType === this._document.ELEMENT_NODE) {
                 svg.appendChild(element.childNodes[i].cloneNode(true));
             }
@@ -17058,20 +17492,18 @@ var MatIconRegistry = /** @class */ (function () {
         if (safeUrl == null) {
             throw Error("Cannot fetch icon from URL \"" + safeUrl + "\".");
         }
-        var /** @type {?} */ url = this._sanitizer.sanitize(core.SecurityContext.RESOURCE_URL, safeUrl);
+        /** @type {?} */
+        var url = this._sanitizer.sanitize(core.SecurityContext.RESOURCE_URL, safeUrl);
         if (!url) {
             throw getMatIconFailedToSanitizeUrlError(safeUrl);
         }
-        // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
-        // already a request in progress for that URL. It's necessary to call share() on the
-        // Observable returned by http.get() so that multiple subscribers don't cause multiple XHRs.
-        var /** @type {?} */ inProgressFetch = this._inProgressUrlFetches.get(url);
+        /** @type {?} */
+        var inProgressFetch = this._inProgressUrlFetches.get(url);
         if (inProgressFetch) {
             return inProgressFetch;
         }
-        // TODO(jelbourn): for some reason, the `finalize` operator "loses" the generic type on the
-        // Observable. Figure out why and fix it.
-        var /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(operators.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), operators.share());
+        /** @type {?} */
+        var req = this._httpClient.get(url, { responseType: 'text' }).pipe(operators.finalize(function () { return _this._inProgressUrlFetches.delete(url); }), operators.share());
         this._inProgressUrlFetches.set(url, req);
         return req;
     };
@@ -17106,7 +17538,8 @@ var MatIconRegistry = /** @class */ (function () {
      * @return {?}
      */
     function (namespace, config) {
-        var /** @type {?} */ configNamespace = this._iconSetConfigs.get(namespace);
+        /** @type {?} */
+        var configNamespace = this._iconSetConfigs.get(namespace);
         if (configNamespace) {
             configNamespace.push(config);
         }
@@ -17120,9 +17553,9 @@ var MatIconRegistry = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatIconRegistry.ctorParameters = function () { return [
-        { type: http.HttpClient, decorators: [{ type: core.Optional },] },
-        { type: platformBrowser.DomSanitizer, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: http.HttpClient, decorators: [{ type: core.Optional }] },
+        { type: platformBrowser.DomSanitizer },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
     /** @nocollapse */ MatIconRegistry.ngInjectableDef = core.defineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(core.inject(http.HttpClient, 8), core.inject(platformBrowser.DomSanitizer), core.inject(common.DOCUMENT, 8)); }, token: MatIconRegistry, providedIn: "root" });
     return MatIconRegistry;
@@ -17138,10 +17571,10 @@ var MatIconRegistry = /** @class */ (function () {
 function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, document) {
     return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document);
 }
-/**
+/** *
  * \@docs-private
- */
-var /** @type {?} */ ICON_REGISTRY_PROVIDER = {
+  @type {?} */
+var ICON_REGISTRY_PROVIDER = {
     // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
     provide: MatIconRegistry,
     deps: [
@@ -17186,7 +17619,8 @@ MatIconBase = /** @class */ (function () {
     }
     return MatIconBase;
 }());
-var /** @type {?} */ _MatIconMixinBase = mixinColor(MatIconBase);
+/** @type {?} */
+var _MatIconMixinBase = mixinColor(MatIconBase);
 /**
  * Component to display an icon. It can be used in the following ways:
  *
@@ -17228,6 +17662,10 @@ var MatIcon = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatIcon.prototype, "inline", {
+        /**
+         * Whether the icon should be inlined, automatically sizing the icon to match the font size of
+         * the element the icon is contained in.
+         */
         get: /**
          * Whether the icon should be inlined, automatically sizing the icon to match the font size of
          * the element the icon is contained in.
@@ -17247,6 +17685,7 @@ var MatIcon = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatIcon.prototype, "fontSet", {
+        /** Font set that the icon is a part of. */
         get: /**
          * Font set that the icon is a part of.
          * @return {?}
@@ -17263,6 +17702,7 @@ var MatIcon = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatIcon.prototype, "fontIcon", {
+        /** Name of an icon within a font set. */
         get: /**
          * Name of an icon within a font set.
          * @return {?}
@@ -17312,7 +17752,8 @@ var MatIcon = /** @class */ (function (_super) {
         if (!iconName) {
             return ['', ''];
         }
-        var /** @type {?} */ parts = iconName.split(':');
+        /** @type {?} */
+        var parts = iconName.split(':');
         switch (parts.length) {
             case 1: return ['', parts[0]]; // Use default namespace.
             case 2: return /** @type {?} */ (parts);
@@ -17375,11 +17816,9 @@ var MatIcon = /** @class */ (function (_super) {
      */
     function (svg) {
         this._clearSvgElement();
-        // Workaround for IE11 and Edge ignoring `style` tags inside dynamically-created SVGs.
-        // See: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/10898469/
-        // Do this before inserting the element into the DOM, in order to avoid a style recalculation.
-        var /** @type {?} */ styleTags = /** @type {?} */ (svg.querySelectorAll('style'));
-        for (var /** @type {?} */ i = 0; i < styleTags.length; i++) {
+        /** @type {?} */
+        var styleTags = /** @type {?} */ (svg.querySelectorAll('style'));
+        for (var i = 0; i < styleTags.length; i++) {
             styleTags[i].textContent += ' ';
         }
         this._elementRef.nativeElement.appendChild(svg);
@@ -17391,12 +17830,15 @@ var MatIcon = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ layoutElement = this._elementRef.nativeElement;
-        var /** @type {?} */ childCount = layoutElement.childNodes.length;
+        /** @type {?} */
+        var layoutElement = this._elementRef.nativeElement;
+        /** @type {?} */
+        var childCount = layoutElement.childNodes.length;
         // Remove existing non-element child nodes and SVGs, and add the new SVG element. Note that
         // we can't use innerHTML, because IE will throw if the element has a data binding.
         while (childCount--) {
-            var /** @type {?} */ child = layoutElement.childNodes[childCount];
+            /** @type {?} */
+            var child = layoutElement.childNodes[childCount];
             // 1 corresponds to Node.ELEMENT_NODE. We remove all non-element nodes in order to get rid
             // of any loose text nodes, as well as any SVG elements in order to remove any old icons.
             if (child.nodeType !== 1 || child.nodeName.toLowerCase() === 'svg') {
@@ -17414,8 +17856,10 @@ var MatIcon = /** @class */ (function (_super) {
         if (!this._usingFontIcon()) {
             return;
         }
-        var /** @type {?} */ elem = this._elementRef.nativeElement;
-        var /** @type {?} */ fontSetClass = this.fontSet ?
+        /** @type {?} */
+        var elem = this._elementRef.nativeElement;
+        /** @type {?} */
+        var fontSetClass = this.fontSet ?
             this._iconRegistry.classNameForFontAlias(this.fontSet) :
             this._iconRegistry.getDefaultFontSetClass();
         if (fontSetClass != this._previousFontSetClass) {
@@ -17471,15 +17915,15 @@ var MatIcon = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatIcon.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: MatIconRegistry, },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['aria-hidden',] },] },
+        { type: core.ElementRef },
+        { type: MatIconRegistry },
+        { type: String, decorators: [{ type: core.Attribute, args: ['aria-hidden',] }] }
     ]; };
     MatIcon.propDecorators = {
-        "inline": [{ type: core.Input },],
-        "svgIcon": [{ type: core.Input },],
-        "fontSet": [{ type: core.Input },],
-        "fontIcon": [{ type: core.Input },],
+        inline: [{ type: core.Input }],
+        svgIcon: [{ type: core.Input }],
+        fontSet: [{ type: core.Input }],
+        fontIcon: [{ type: core.Input }]
     };
     return MatIcon;
 }(_MatIconMixinBase));
@@ -17516,7 +17960,8 @@ MatListBase = /** @class */ (function () {
     }
     return MatListBase;
 }());
-var /** @type {?} */ _MatListMixinBase = mixinDisableRipple(MatListBase);
+/** @type {?} */
+var _MatListMixinBase = mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
@@ -17528,7 +17973,8 @@ MatListItemBase = /** @class */ (function () {
     }
     return MatListItemBase;
 }());
-var /** @type {?} */ _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
+/** @type {?} */
+var _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
 var MatNavList = /** @class */ (function (_super) {
     __extends(MatNavList, _super);
     function MatNavList() {
@@ -17698,13 +18144,13 @@ var MatListItem = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatListItem.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: MatNavList, decorators: [{ type: core.Optional },] },
+        { type: core.ElementRef },
+        { type: MatNavList, decorators: [{ type: core.Optional }] }
     ]; };
     MatListItem.propDecorators = {
-        "_lines": [{ type: core.ContentChildren, args: [MatLine,] },],
-        "_avatar": [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler,] },],
-        "_icon": [{ type: core.ContentChild, args: [MatListIconCssMatStyler,] },],
+        _lines: [{ type: core.ContentChildren, args: [MatLine,] }],
+        _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler,] }],
+        _icon: [{ type: core.ContentChild, args: [MatListIconCssMatStyler,] }]
     };
     return MatListItem;
 }(_MatListItemMixinBase));
@@ -17724,7 +18170,8 @@ MatSelectionListBase = /** @class */ (function () {
     }
     return MatSelectionListBase;
 }());
-var /** @type {?} */ _MatSelectionListMixinBase = mixinDisableRipple(MatSelectionListBase);
+/** @type {?} */
+var _MatSelectionListMixinBase = mixinDisableRipple(MatSelectionListBase);
 /**
  * \@docs-private
  */
@@ -17736,11 +18183,12 @@ MatListOptionBase = /** @class */ (function () {
     }
     return MatListOptionBase;
 }());
-var /** @type {?} */ _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
-/**
+/** @type {?} */
+var _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
+/** *
  * \@docs-private
- */
-var /** @type {?} */ MAT_SELECTION_LIST_VALUE_ACCESSOR = {
+  @type {?} */
+var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatSelectionList; }),
     multi: true
@@ -17784,6 +18232,7 @@ var MatListOption = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatListOption.prototype, "disabled", {
+        /** Whether the option is disabled. */
         get: /**
          * Whether the option is disabled.
          * @return {?}
@@ -17794,7 +18243,8 @@ var MatListOption = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newValue = coercion.coerceBooleanProperty(value);
+            /** @type {?} */
+            var newValue = coercion.coerceBooleanProperty(value);
             if (newValue !== this._disabled) {
                 this._disabled = newValue;
                 this._changeDetector.markForCheck();
@@ -17804,6 +18254,7 @@ var MatListOption = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatListOption.prototype, "selected", {
+        /** Whether the option is selected. */
         get: /**
          * Whether the option is selected.
          * @return {?}
@@ -17814,7 +18265,8 @@ var MatListOption = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ isSelected = coercion.coerceBooleanProperty(value);
+            /** @type {?} */
+            var isSelected = coercion.coerceBooleanProperty(value);
             if (isSelected !== this._selected) {
                 this._setSelected(isSelected);
                 this.selectionList._reportValueChange();
@@ -17831,12 +18283,8 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        // List options that are selected at initialization can't be reported properly to the form
-        // control. This is because it takes some time until the selection-list knows about all
-        // available options. Also it can happen that the ControlValueAccessor has an initial value
-        // that should be used instead. Deferring the value change report to the next tick ensures
-        // that the form control value is not being overwritten.
-        var /** @type {?} */ wasSelected = this._selected;
+        /** @type {?} */
+        var wasSelected = this._selected;
         Promise.resolve().then(function () {
             if (_this._selected || wasSelected) {
                 _this.selected = true;
@@ -18037,18 +18485,18 @@ var MatListOption = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatListOption.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
-        { type: MatSelectionList, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatSelectionList; }),] },] },
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: MatSelectionList, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatSelectionList; }),] }] }
     ]; };
     MatListOption.propDecorators = {
-        "_avatar": [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler,] },],
-        "_lines": [{ type: core.ContentChildren, args: [MatLine,] },],
-        "_text": [{ type: core.ViewChild, args: ['text',] },],
-        "checkboxPosition": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
-        "selected": [{ type: core.Input },],
+        _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler,] }],
+        _lines: [{ type: core.ContentChildren, args: [MatLine,] }],
+        _text: [{ type: core.ViewChild, args: ['text',] }],
+        checkboxPosition: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
+        selected: [{ type: core.Input }]
     };
     return MatListOption;
 }(_MatListOptionMixinBase));
@@ -18089,6 +18537,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatSelectionList.prototype, "disabled", {
+        /** Whether the selection list is disabled. */
         get: /**
          * Whether the selection list is disabled.
          * @return {?}
@@ -18121,6 +18570,8 @@ var MatSelectionList = /** @class */ (function (_super) {
         this._keyManager = new a11y.FocusKeyManager(this.options)
             .withWrap()
             .withTypeAhead()
+            // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
+            // screenreader users, that allows reading the different options of the list.
             .skipPredicate(function () { return false; });
         if (this._tempValues) {
             this._setOptionsFromValues(this._tempValues);
@@ -18214,7 +18665,8 @@ var MatSelectionList = /** @class */ (function (_super) {
      */
     function (option) {
         if (option._hasFocus) {
-            var /** @type {?} */ optionIndex = this._getOptionIndex(option);
+            /** @type {?} */
+            var optionIndex = this._getOptionIndex(option);
             // Check whether the option is the last item
             if (optionIndex > 0) {
                 this._keyManager.setPreviousItemActive();
@@ -18236,9 +18688,12 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ keyCode = event.keyCode;
-        var /** @type {?} */ manager = this._keyManager;
-        var /** @type {?} */ previousFocusIndex = manager.activeItemIndex;
+        /** @type {?} */
+        var keyCode = event.keyCode;
+        /** @type {?} */
+        var manager = this._keyManager;
+        /** @type {?} */
+        var previousFocusIndex = manager.activeItemIndex;
         switch (keyCode) {
             case keycodes.SPACE:
             case keycodes.ENTER:
@@ -18396,9 +18851,11 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ focusedIndex = this._keyManager.activeItemIndex;
+        /** @type {?} */
+        var focusedIndex = this._keyManager.activeItemIndex;
         if (focusedIndex != null && this._isValidIndex(focusedIndex)) {
-            var /** @type {?} */ focusedOption = this.options.toArray()[focusedIndex];
+            /** @type {?} */
+            var focusedOption = this.options.toArray()[focusedIndex];
             if (focusedOption && !focusedOption.disabled) {
                 focusedOption.toggle();
                 // Emit a change event because the focused option changed its state through user
@@ -18420,9 +18877,8 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (isSelected) {
-        // Keep track of whether anything changed, because we only want to
-        // emit the changed event when something actually changed.
-        var /** @type {?} */ hasChanged = false;
+        /** @type {?} */
+        var hasChanged = false;
         this.options.forEach(function (option) {
             if (option._setSelected(isSelected)) {
                 hasChanged = true;
@@ -18480,15 +18936,15 @@ var MatSelectionList = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSelectionList.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
+        { type: core.ElementRef },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] }
     ]; };
     MatSelectionList.propDecorators = {
-        "options": [{ type: core.ContentChildren, args: [MatListOption,] },],
-        "selectionChange": [{ type: core.Output },],
-        "tabIndex": [{ type: core.Input },],
-        "compareWith": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
+        options: [{ type: core.ContentChildren, args: [MatListOption,] }],
+        selectionChange: [{ type: core.Output }],
+        tabIndex: [{ type: core.Input }],
+        compareWith: [{ type: core.Input }],
+        disabled: [{ type: core.Input }]
     };
     return MatSelectionList;
 }(_MatSelectionListMixinBase));
@@ -18577,7 +19033,8 @@ var MatMenuContent = /** @class */ (function () {
         if (!this._outlet) {
             this._outlet = new portal.DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
         }
-        var /** @type {?} */ element = this._template.elementRef.nativeElement; /** @type {?} */
+        /** @type {?} */
+        var element = this._template.elementRef.nativeElement; /** @type {?} */
         ((
         // Because we support opening the same menu from different triggers (which in turn have their
         // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
@@ -18623,12 +19080,12 @@ var MatMenuContent = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatMenuContent.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
-        { type: core.ComponentFactoryResolver, },
-        { type: core.ApplicationRef, },
-        { type: core.Injector, },
-        { type: core.ViewContainerRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: core.TemplateRef },
+        { type: core.ComponentFactoryResolver },
+        { type: core.ApplicationRef },
+        { type: core.Injector },
+        { type: core.ViewContainerRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
     return MatMenuContent;
 }());
@@ -18637,12 +19094,12 @@ var MatMenuContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the mat-menu component.
  * Animation duration and timing values are based on:
  * https://material.io/guidelines/components/menus.html#menus-usage
- */
-var /** @type {?} */ matMenuAnimations = {
+  @type {?} */
+var matMenuAnimations = {
     /**
        * This animation controls the menu panel's entry and exit from the page.
        *
@@ -18682,16 +19139,16 @@ var /** @type {?} */ matMenuAnimations = {
         ])
     ])
 };
-/**
+/** *
  * @deprecated
  * \@breaking-change 7.0.0
- */
-var /** @type {?} */ fadeInItems = matMenuAnimations.fadeInItems;
-/**
+  @type {?} */
+var fadeInItems = matMenuAnimations.fadeInItems;
+/** *
  * @deprecated
  * \@breaking-change 7.0.0
- */
-var /** @type {?} */ transformMenu = matMenuAnimations.transformMenu;
+  @type {?} */
+var transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
@@ -18729,11 +19186,11 @@ function throwMatMenuInvalidPositionY() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token used to provide the parent menu to menu-specific components.
  * \@docs-private
- */
-var /** @type {?} */ MAT_MENU_PANEL = new core.InjectionToken('MAT_MENU_PANEL');
+  @type {?} */
+var MAT_MENU_PANEL = new core.InjectionToken('MAT_MENU_PANEL');
 
 /**
  * @fileoverview added by tsickle
@@ -18750,7 +19207,8 @@ MatMenuItemBase = /** @class */ (function () {
     }
     return MatMenuItemBase;
 }());
-var /** @type {?} */ _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase));
+/** @type {?} */
+var _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase));
 /**
  * This directive is intended to be used inside an mat-menu tag.
  * It exists mostly to set the role attribute.
@@ -18886,15 +19344,19 @@ var MatMenuItem = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ element = this._elementRef.nativeElement;
-        var /** @type {?} */ textNodeType = this._document ? this._document.TEXT_NODE : 3;
-        var /** @type {?} */ output = '';
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
+        /** @type {?} */
+        var textNodeType = this._document ? this._document.TEXT_NODE : 3;
+        /** @type {?} */
+        var output = '';
         if (element.childNodes) {
-            var /** @type {?} */ length_1 = element.childNodes.length;
+            /** @type {?} */
+            var length_1 = element.childNodes.length;
             // Go through all the top-level text nodes and extract their text.
             // We skip anything that's not a text node to prevent the text from
             // being thrown off by something like an icon.
-            for (var /** @type {?} */ i = 0; i < length_1; i++) {
+            for (var i = 0; i < length_1; i++) {
                 if (element.childNodes[i].nodeType === textNodeType) {
                     output += element.childNodes[i].textContent;
                 }
@@ -18924,10 +19386,10 @@ var MatMenuItem = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatMenuItem.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
-        { type: a11y.FocusMonitor, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_PANEL,] }, { type: core.Optional },] },
+        { type: core.ElementRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: a11y.FocusMonitor },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_PANEL,] }, { type: core.Optional }] }
     ]; };
     return MatMenuItem;
 }(_MatMenuItemMixinBase));
@@ -18936,10 +19398,10 @@ var MatMenuItem = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token to be used to override the default options for `mat-menu`.
- */
-var /** @type {?} */ MAT_MENU_DEFAULT_OPTIONS = new core.InjectionToken('mat-menu-default-options', {
+  @type {?} */
+var MAT_MENU_DEFAULT_OPTIONS = new core.InjectionToken('mat-menu-default-options', {
     providedIn: 'root',
     factory: MAT_MENU_DEFAULT_OPTIONS_FACTORY
 });
@@ -18955,11 +19417,11 @@ function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
         backdropClass: 'cdk-overlay-transparent-backdrop',
     };
 }
-/**
+/** *
  * Start elevation for the menu panel.
  * \@docs-private
- */
-var /** @type {?} */ MAT_MENU_BASE_ELEVATION = 2;
+  @type {?} */
+var MAT_MENU_BASE_ELEVATION = 2;
 var MatMenu = /** @class */ (function () {
     function MatMenu(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
@@ -19009,6 +19471,7 @@ var MatMenu = /** @class */ (function () {
         this.close = this.closed;
     }
     Object.defineProperty(MatMenu.prototype, "xPosition", {
+        /** Position of the menu in the X axis. */
         get: /**
          * Position of the menu in the X axis.
          * @return {?}
@@ -19029,6 +19492,7 @@ var MatMenu = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatMenu.prototype, "yPosition", {
+        /** Position of the menu in the Y axis. */
         get: /**
          * Position of the menu in the Y axis.
          * @return {?}
@@ -19049,6 +19513,7 @@ var MatMenu = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatMenu.prototype, "overlapTrigger", {
+        /** Whether the menu should overlap its trigger. */
         get: /**
          * Whether the menu should overlap its trigger.
          * @return {?}
@@ -19065,6 +19530,7 @@ var MatMenu = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatMenu.prototype, "hasBackdrop", {
+        /** Whether the menu has a backdrop. */
         get: /**
          * Whether the menu has a backdrop.
          * @return {?}
@@ -19081,6 +19547,12 @@ var MatMenu = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatMenu.prototype, "panelClass", {
+        /**
+         * This method takes classes set on the host mat-menu element and applies them on the
+         * menu template that displays in the overlay container.  Otherwise, it's difficult
+         * to style the containing menu from outside the component.
+         * @param classes list of class names
+         */
         set: /**
          * This method takes classes set on the host mat-menu element and applies them on the
          * menu template that displays in the overlay container.  Otherwise, it's difficult
@@ -19101,6 +19573,13 @@ var MatMenu = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatMenu.prototype, "classList", {
+        /**
+         * This method takes classes set on the host mat-menu element and applies them on the
+         * menu template that displays in the overlay container.  Otherwise, it's difficult
+         * to style the containing menu from outside the component.
+         * @deprecated Use `panelClass` instead.
+         * @breaking-change 7.0.0
+         */
         get: /**
          * This method takes classes set on the host mat-menu element and applies them on the
          * menu template that displays in the overlay container.  Otherwise, it's difficult
@@ -19172,7 +19651,8 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ keyCode = event.keyCode;
+        /** @type {?} */
+        var keyCode = event.keyCode;
         switch (keyCode) {
             case keycodes.ESCAPE:
                 this.closed.emit('keydown');
@@ -19254,9 +19734,10 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function (depth) {
-        // The elevation starts at the base and increases by one for each level.
-        var /** @type {?} */ newElevation = "mat-elevation-z" + (MAT_MENU_BASE_ELEVATION + depth);
-        var /** @type {?} */ customElevation = Object.keys(this._classList).find(function (c) { return c.startsWith('mat-elevation-z'); });
+        /** @type {?} */
+        var newElevation = "mat-elevation-z" + (MAT_MENU_BASE_ELEVATION + depth);
+        /** @type {?} */
+        var customElevation = Object.keys(this._classList).find(function (c) { return c.startsWith('mat-elevation-z'); });
         if (!customElevation || customElevation === this._previousElevation) {
             if (this._previousElevation) {
                 this._classList[this._previousElevation] = false;
@@ -19309,7 +19790,8 @@ var MatMenu = /** @class */ (function () {
      * @return {?}
      */
     function (item) {
-        var /** @type {?} */ index = this._items.indexOf(item);
+        /** @type {?} */
+        var index = this._items.indexOf(item);
         if (this._items.indexOf(item) > -1) {
             this._items.splice(index, 1);
             this._itemChanges.next(this._items);
@@ -19341,7 +19823,8 @@ var MatMenu = /** @class */ (function () {
     function (posX, posY) {
         if (posX === void 0) { posX = this.xPosition; }
         if (posY === void 0) { posY = this.yPosition; }
-        var /** @type {?} */ classes = this._classList;
+        /** @type {?} */
+        var classes = this._classList;
         classes['mat-menu-before'] = posX === 'before';
         classes['mat-menu-after'] = posX === 'after';
         classes['mat-menu-above'] = posY === 'above';
@@ -19415,23 +19898,23 @@ var MatMenu = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatMenu.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.NgZone, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
+        { type: core.ElementRef },
+        { type: core.NgZone },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
     ]; };
     MatMenu.propDecorators = {
-        "backdropClass": [{ type: core.Input },],
-        "xPosition": [{ type: core.Input },],
-        "yPosition": [{ type: core.Input },],
-        "templateRef": [{ type: core.ViewChild, args: [core.TemplateRef,] },],
-        "items": [{ type: core.ContentChildren, args: [MatMenuItem,] },],
-        "lazyContent": [{ type: core.ContentChild, args: [MatMenuContent,] },],
-        "overlapTrigger": [{ type: core.Input },],
-        "hasBackdrop": [{ type: core.Input },],
-        "panelClass": [{ type: core.Input, args: ['class',] },],
-        "classList": [{ type: core.Input },],
-        "closed": [{ type: core.Output },],
-        "close": [{ type: core.Output },],
+        backdropClass: [{ type: core.Input }],
+        xPosition: [{ type: core.Input }],
+        yPosition: [{ type: core.Input }],
+        templateRef: [{ type: core.ViewChild, args: [core.TemplateRef,] }],
+        items: [{ type: core.ContentChildren, args: [MatMenuItem,] }],
+        lazyContent: [{ type: core.ContentChild, args: [MatMenuContent,] }],
+        overlapTrigger: [{ type: core.Input }],
+        hasBackdrop: [{ type: core.Input }],
+        panelClass: [{ type: core.Input, args: ['class',] }],
+        classList: [{ type: core.Input }],
+        closed: [{ type: core.Output }],
+        close: [{ type: core.Output }]
     };
     return MatMenu;
 }());
@@ -19440,10 +19923,10 @@ var MatMenu = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that determines the scroll handling while the menu is open.
- */
-var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy');
+  @type {?} */
+var MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-menu-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -19452,18 +19935,18 @@ var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new core.InjectionToken('mat-men
 function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
-/**
+/** *
  * \@docs-private
- */
-var /** @type {?} */ MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+  @type {?} */
+var MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_MENU_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
     useFactory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
 };
-/**
+/** *
  * Default top padding of the menu panel.
- */
-var /** @type {?} */ MENU_PANEL_TOP_PADDING = 8;
+  @type {?} */
+var MENU_PANEL_TOP_PADDING = 8;
 /**
  * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
@@ -19508,6 +19991,10 @@ var MatMenuTrigger = /** @class */ (function () {
         }
     }
     Object.defineProperty(MatMenuTrigger.prototype, "_deprecatedMatMenuTriggerFor", {
+        /**
+         * @deprecated
+         * @breaking-change 7.0.0
+         */
         get: /**
          * @deprecated
          * \@breaking-change 7.0.0
@@ -19620,7 +20107,8 @@ var MatMenuTrigger = /** @class */ (function () {
             return;
         }
         this._checkMenu();
-        var /** @type {?} */ overlayRef = this._createOverlay();
+        /** @type {?} */
+        var overlayRef = this._createOverlay();
         this._setPosition(/** @type {?} */ (overlayRef.getConfig().positionStrategy));
         overlayRef.attach(this._portal);
         if (this.menu.lazyContent) {
@@ -19680,7 +20168,8 @@ var MatMenuTrigger = /** @class */ (function () {
         if (!this._overlayRef || !this.menuOpen) {
             return;
         }
-        var /** @type {?} */ menu = this.menu;
+        /** @type {?} */
+        var menu = this.menu;
         this._closeSubscription.unsubscribe();
         this._overlayRef.detach();
         if (menu instanceof MatMenu) {
@@ -19735,8 +20224,10 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function () {
         if (this.menu.setElevation) {
-            var /** @type {?} */ depth = 0;
-            var /** @type {?} */ parentMenu = this.menu.parentMenu;
+            /** @type {?} */
+            var depth = 0;
+            /** @type {?} */
+            var parentMenu = this.menu.parentMenu;
             while (parentMenu) {
                 depth++;
                 parentMenu = parentMenu.parentMenu;
@@ -19812,7 +20303,8 @@ var MatMenuTrigger = /** @class */ (function () {
     function () {
         if (!this._overlayRef) {
             this._portal = new portal.TemplatePortal(this.menu.templateRef, this._viewContainerRef);
-            var /** @type {?} */ config = this._getOverlayConfig();
+            /** @type {?} */
+            var config = this._getOverlayConfig();
             this._subscribeToPositions(/** @type {?} */ (config.positionStrategy));
             this._overlayRef = this._overlay.create(config);
         }
@@ -19855,8 +20347,10 @@ var MatMenuTrigger = /** @class */ (function () {
         var _this = this;
         if (this.menu.setPositionClasses) {
             position.positionChanges.subscribe(function (change) {
-                var /** @type {?} */ posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
-                var /** @type {?} */ posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above'; /** @type {?} */
+                /** @type {?} */
+                var posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
+                /** @type {?} */
+                var posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above'; /** @type {?} */
                 ((_this.menu.setPositionClasses))(posX, posY);
             });
         }
@@ -19878,7 +20372,8 @@ var MatMenuTrigger = /** @class */ (function () {
         var _b = this.menu.yPosition === 'above' ? ['bottom', 'top'] : ['top', 'bottom'], overlayY = _b[0], overlayFallbackY = _b[1];
         var _c = [overlayY, overlayFallbackY], originY = _c[0], originFallbackY = _c[1];
         var _d = [originX, originFallbackX], overlayX = _d[0], overlayFallbackX = _d[1];
-        var /** @type {?} */ offsetY = 0;
+        /** @type {?} */
+        var offsetY = 0;
         if (this.triggersSubmenu()) {
             // When the menu is a sub-menu, it should always align itself
             // to the edges of the trigger, instead of overlapping it.
@@ -19931,10 +20426,14 @@ var MatMenuTrigger = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
-        var /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
-        var /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.closed : rxjs.of();
-        var /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(operators.filter(function (active) { return active !== _this._menuItemInstance; }), operators.filter(function () { return _this._menuOpen; })) : rxjs.of();
+        /** @type {?} */
+        var backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
+        /** @type {?} */
+        var detachments = /** @type {?} */ ((this._overlayRef)).detachments();
+        /** @type {?} */
+        var parentClose = this._parentMenu ? this._parentMenu.closed : rxjs.of();
+        /** @type {?} */
+        var hover = this._parentMenu ? this._parentMenu._hovered().pipe(operators.filter(function (active) { return active !== _this._menuItemInstance; }), operators.filter(function () { return _this._menuOpen; })) : rxjs.of();
         return rxjs.merge(backdrop, parentClose, hover, detachments);
     };
     /** Handles mouse presses on the trigger. */
@@ -19971,7 +20470,8 @@ var MatMenuTrigger = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ keyCode = event.keyCode;
+        /** @type {?} */
+        var keyCode = event.keyCode;
         if (this.triggersSubmenu() && ((keyCode === keycodes.RIGHT_ARROW && this.dir === 'ltr') ||
             (keyCode === keycodes.LEFT_ARROW && this.dir === 'rtl'))) {
             this.openMenu();
@@ -20013,6 +20513,9 @@ var MatMenuTrigger = /** @class */ (function () {
             return;
         }
         this._hoverSubscription = this._parentMenu._hovered()
+            // Since we might have multiple competing triggers for the same menu (e.g. a sub-menu
+            // with different data and triggers), we have to delay it by a tick to ensure that
+            // it won't be closed immediately after it is opened.
             .pipe(operators.filter(function (active) { return active === _this._menuItemInstance && !active.disabled; }), operators.delay(0, rxjs.asapScheduler))
             .subscribe(function () {
             _this._openedByMouse = true;
@@ -20048,23 +20551,23 @@ var MatMenuTrigger = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatMenuTrigger.ctorParameters = function () { return [
-        { type: overlay.Overlay, },
-        { type: core.ElementRef, },
-        { type: core.ViewContainerRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_SCROLL_STRATEGY,] },] },
-        { type: MatMenu, decorators: [{ type: core.Optional },] },
-        { type: MatMenuItem, decorators: [{ type: core.Optional }, { type: core.Self },] },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: a11y.FocusMonitor, },
+        { type: overlay.Overlay },
+        { type: core.ElementRef },
+        { type: core.ViewContainerRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_MENU_SCROLL_STRATEGY,] }] },
+        { type: MatMenu, decorators: [{ type: core.Optional }] },
+        { type: MatMenuItem, decorators: [{ type: core.Optional }, { type: core.Self }] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: a11y.FocusMonitor }
     ]; };
     MatMenuTrigger.propDecorators = {
-        "_deprecatedMatMenuTriggerFor": [{ type: core.Input, args: ['mat-menu-trigger-for',] },],
-        "menu": [{ type: core.Input, args: ['matMenuTriggerFor',] },],
-        "menuData": [{ type: core.Input, args: ['matMenuTriggerData',] },],
-        "menuOpened": [{ type: core.Output },],
-        "onMenuOpen": [{ type: core.Output },],
-        "menuClosed": [{ type: core.Output },],
-        "onMenuClose": [{ type: core.Output },],
+        _deprecatedMatMenuTriggerFor: [{ type: core.Input, args: ['mat-menu-trigger-for',] }],
+        menu: [{ type: core.Input, args: ['matMenuTriggerFor',] }],
+        menuData: [{ type: core.Input, args: ['matMenuTriggerData',] }],
+        menuOpened: [{ type: core.Output }],
+        onMenuOpen: [{ type: core.Output }],
+        menuClosed: [{ type: core.Output }],
+        onMenuClose: [{ type: core.Output }]
     };
     return MatMenuTrigger;
 }());
@@ -20096,13 +20599,13 @@ var MatMenuModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * The following are all the animations for the mat-select component, with each
  * const containing the metadata for one animation.
  *
  * The values below match the implementation of the AngularJS Material mat-select animation.
- */
-var /** @type {?} */ matSelectAnimations = {
+  @type {?} */
+var matSelectAnimations = {
     /**
        * This animation transforms the select's overlay panel on and off the page.
        *
@@ -20151,16 +20654,16 @@ var /** @type {?} */ matSelectAnimations = {
         ])
     ])
 };
-/**
+/** *
  * @deprecated
  * \@breaking-change 7.0.0
- */
-var /** @type {?} */ transformPanel = matSelectAnimations.transformPanel;
-/**
+  @type {?} */
+var transformPanel = matSelectAnimations.transformPanel;
+/** *
  * @deprecated
  * \@breaking-change 7.0.0
- */
-var /** @type {?} */ fadeInContent = matSelectAnimations.fadeInContent;
+  @type {?} */
+var fadeInContent = matSelectAnimations.fadeInContent;
 
 /**
  * @fileoverview added by tsickle
@@ -20200,41 +20703,42 @@ function getMatSelectNonFunctionValueError() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ nextUniqueId$6 = 0;
-/**
+/** @type {?} */
+var nextUniqueId$6 = 0;
+/** *
  * The max height of the select's overlay panel
- */
-var /** @type {?} */ SELECT_PANEL_MAX_HEIGHT = 256;
-/**
+  @type {?} */
+var SELECT_PANEL_MAX_HEIGHT = 256;
+/** *
  * The panel's padding on the x-axis
- */
-var /** @type {?} */ SELECT_PANEL_PADDING_X = 16;
-/**
+  @type {?} */
+var SELECT_PANEL_PADDING_X = 16;
+/** *
  * The panel's x axis padding if it is indented (e.g. there is an option group).
- */
-var /** @type {?} */ SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_PADDING_X * 2;
-/**
+  @type {?} */
+var SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_PADDING_X * 2;
+/** *
  * The height of the select items in `em` units.
- */
-var /** @type {?} */ SELECT_ITEM_HEIGHT_EM = 3;
-/**
+  @type {?} */
+var SELECT_ITEM_HEIGHT_EM = 3;
+/** *
  * Distance between the panel edge and the option text in
  * multi-selection mode.
  *
  * (SELECT_PANEL_PADDING_X * 1.5) + 20 = 44
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 20px.
- */
-var /** @type {?} */ SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + 20;
-/**
+  @type {?} */
+var SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + 20;
+/** *
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
- */
-var /** @type {?} */ SELECT_PANEL_VIEWPORT_PADDING = 8;
-/**
+  @type {?} */
+var SELECT_PANEL_VIEWPORT_PADDING = 8;
+/** *
  * Injection token that determines the scroll handling while a select is open.
- */
-var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy');
+  @type {?} */
+var MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -20243,10 +20747,10 @@ var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-s
 function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
-/**
+/** *
  * \@docs-private
- */
-var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
+  @type {?} */
+var MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_SELECT_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
     useFactory: MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
@@ -20280,7 +20784,8 @@ MatSelectBase = /** @class */ (function () {
     }
     return MatSelectBase;
 }());
-var /** @type {?} */ _MatSelectMixinBase = mixinDisableRipple(mixinTabIndex(mixinDisabled(mixinErrorState(MatSelectBase))));
+/** @type {?} */
+var _MatSelectMixinBase = mixinDisableRipple(mixinTabIndex(mixinDisabled(mixinErrorState(MatSelectBase))));
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
@@ -20476,6 +20981,7 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "placeholder", {
+        /** Placeholder to be shown if no value has been selected. */
         get: /**
          * Placeholder to be shown if no value has been selected.
          * @return {?}
@@ -20493,6 +20999,7 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "required", {
+        /** Whether the component is required. */
         get: /**
          * Whether the component is required.
          * @return {?}
@@ -20510,6 +21017,7 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "multiple", {
+        /** Whether the user should be allowed to select multiple options. */
         get: /**
          * Whether the user should be allowed to select multiple options.
          * @return {?}
@@ -20529,6 +21037,7 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "disableOptionCentering", {
+        /** Whether to center the active option over the trigger. */
         get: /**
          * Whether to center the active option over the trigger.
          * @return {?}
@@ -20545,6 +21054,11 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "compareWith", {
+        /**
+         * Function to compare the option values with the selected values. The first argument
+         * is a value from an option. The second is a value from the selection. A boolean
+         * should be returned.
+         */
         get: /**
          * Function to compare the option values with the selected values. The first argument
          * is a value from an option. The second is a value from the selection. A boolean
@@ -20570,6 +21084,7 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "value", {
+        /** Value of the select control. */
         get: /**
          * Value of the select control.
          * @return {?}
@@ -20589,6 +21104,7 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "id", {
+        /** Unique id of the element. */
         get: /**
          * Unique id of the element.
          * @return {?}
@@ -20885,7 +21401,8 @@ var MatSelect = /** @class */ (function (_super) {
                 return '';
             }
             if (this._multiple) {
-                var /** @type {?} */ selectedOptions = this._selectionModel.selected.map(function (option) { return option.viewValue; });
+                /** @type {?} */
+                var selectedOptions = this._selectionModel.selected.map(function (option) { return option.viewValue; });
                 if (this._isRtl()) {
                     selectedOptions.reverse();
                 }
@@ -20936,10 +21453,13 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ keyCode = event.keyCode;
-        var /** @type {?} */ isArrowKey = keyCode === keycodes.DOWN_ARROW || keyCode === keycodes.UP_ARROW ||
+        /** @type {?} */
+        var keyCode = event.keyCode;
+        /** @type {?} */
+        var isArrowKey = keyCode === keycodes.DOWN_ARROW || keyCode === keycodes.UP_ARROW ||
             keyCode === keycodes.LEFT_ARROW || keyCode === keycodes.RIGHT_ARROW;
-        var /** @type {?} */ isOpenKey = keyCode === keycodes.ENTER || keyCode === keycodes.SPACE;
+        /** @type {?} */
+        var isOpenKey = keyCode === keycodes.ENTER || keyCode === keycodes.SPACE;
         // Open the select on ALT + arrow key to match the native <select>
         if (isOpenKey || ((this.multiple || event.altKey) && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
@@ -20960,9 +21480,12 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ keyCode = event.keyCode;
-        var /** @type {?} */ isArrowKey = keyCode === keycodes.DOWN_ARROW || keyCode === keycodes.UP_ARROW;
-        var /** @type {?} */ manager = this._keyManager;
+        /** @type {?} */
+        var keyCode = event.keyCode;
+        /** @type {?} */
+        var isArrowKey = keyCode === keycodes.DOWN_ARROW || keyCode === keycodes.UP_ARROW;
+        /** @type {?} */
+        var manager = this._keyManager;
         if (keyCode === keycodes.HOME || keyCode === keycodes.END) {
             event.preventDefault();
             keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
@@ -20978,7 +21501,8 @@ var MatSelect = /** @class */ (function (_super) {
         }
         else if (this._multiple && keyCode === keycodes.A && event.ctrlKey) {
             event.preventDefault();
-            var /** @type {?} */ hasDeselectedOptions_1 = this.options.some(function (opt) { return !opt.disabled && !opt.selected; });
+            /** @type {?} */
+            var hasDeselectedOptions_1 = this.options.some(function (opt) { return !opt.disabled && !opt.selected; });
             this.options.forEach(function (option) {
                 if (!option.disabled) {
                     hasDeselectedOptions_1 ? option.select() : option.deselect();
@@ -20986,7 +21510,8 @@ var MatSelect = /** @class */ (function (_super) {
             });
         }
         else {
-            var /** @type {?} */ previouslyFocusedIndex = manager.activeItemIndex;
+            /** @type {?} */
+            var previouslyFocusedIndex = manager.activeItemIndex;
             manager.onKeydown(event);
             if (this._multiple && isArrowKey && event.shiftKey && manager.activeItem &&
                 manager.activeItemIndex !== previouslyFocusedIndex) {
@@ -21127,7 +21652,8 @@ var MatSelect = /** @class */ (function (_super) {
         }
         else {
             this._selectionModel.clear();
-            var /** @type {?} */ correspondingOption = this._selectValue(value);
+            /** @type {?} */
+            var correspondingOption = this._selectValue(value);
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what option the user interacted with last.
             if (correspondingOption) {
@@ -21148,12 +21674,13 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function (value) {
         var _this = this;
-        var /** @type {?} */ correspondingOption = this.options.find(function (option) {
+        /** @type {?} */
+        var correspondingOption = this.options.find(function (option) {
             try {
                 // Treat null as a special reset value.
                 return option.value != null && _this._compareWith(option.value, value);
             }
-            catch (/** @type {?} */ error) {
+            catch (error) {
                 if (core.isDevMode()) {
                     // Notify developers of errors in their comparator.
                     console.warn(error);
@@ -21207,7 +21734,8 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ changedOrDestroyed = rxjs.merge(this.options.changes, this._destroy);
+        /** @type {?} */
+        var changedOrDestroyed = rxjs.merge(this.options.changes, this._destroy);
         this.optionSelectionChanges.pipe(operators.takeUntil(changedOrDestroyed)).subscribe(function (event) {
             _this._onSelect(event.source, event.isUserInput);
             if (event.isUserInput && !_this.multiple && _this._panelOpen) {
@@ -21237,7 +21765,8 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (option, isUserInput) {
-        var /** @type {?} */ wasSelected = this._selectionModel.isSelected(option);
+        /** @type {?} */
+        var wasSelected = this._selectionModel.isSelected(option);
         if (option.value == null && !this._multiple) {
             option.deselect();
             this._selectionModel.clear();
@@ -21275,7 +21804,8 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         var _this = this;
         if (this.multiple) {
-            var /** @type {?} */ options_1 = this.options.toArray();
+            /** @type {?} */
+            var options_1 = this.options.toArray();
             this._selectionModel.sort(function (a, b) {
                 return _this.sortComparator ? _this.sortComparator(a, b, options_1) :
                     options_1.indexOf(a) - options_1.indexOf(b);
@@ -21294,7 +21824,8 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (fallbackValue) {
-        var /** @type {?} */ valueToEmit = null;
+        /** @type {?} */
+        var valueToEmit = null;
         if (this.multiple) {
             valueToEmit = (/** @type {?} */ (this.selected)).map(function (option) { return option.value; });
         }
@@ -21347,8 +21878,10 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ activeOptionIndex = this._keyManager.activeItemIndex || 0;
-        var /** @type {?} */ labelCount = _countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
+        /** @type {?} */
+        var activeOptionIndex = this._keyManager.activeItemIndex || 0;
+        /** @type {?} */
+        var labelCount = _countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
         this.panel.nativeElement.scrollTop = _getOptionScrollPosition(activeOptionIndex + labelCount, this._getItemHeight(), this.panel.nativeElement.scrollTop, SELECT_PANEL_MAX_HEIGHT);
     };
     /** Focuses the select element. */
@@ -21387,18 +21920,21 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ itemHeight = this._getItemHeight();
-        var /** @type {?} */ items = this._getItemCount();
-        var /** @type {?} */ panelHeight = Math.min(items * itemHeight, SELECT_PANEL_MAX_HEIGHT);
-        var /** @type {?} */ scrollContainerHeight = items * itemHeight;
-        // The farthest the panel can be scrolled before it hits the bottom
-        var /** @type {?} */ maxScroll = scrollContainerHeight - panelHeight;
-        // If no value is selected we open the popup to the first item.
-        var /** @type {?} */ selectedOptionOffset = this.empty ? 0 : /** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0])));
+        /** @type {?} */
+        var itemHeight = this._getItemHeight();
+        /** @type {?} */
+        var items = this._getItemCount();
+        /** @type {?} */
+        var panelHeight = Math.min(items * itemHeight, SELECT_PANEL_MAX_HEIGHT);
+        /** @type {?} */
+        var scrollContainerHeight = items * itemHeight;
+        /** @type {?} */
+        var maxScroll = scrollContainerHeight - panelHeight;
+        /** @type {?} */
+        var selectedOptionOffset = this.empty ? 0 : /** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0])));
         selectedOptionOffset += _countGroupLabelsBeforeOption(selectedOptionOffset, this.options, this.optionGroups);
-        // We must maintain a scroll buffer so the selected option will be scrolled to the
-        // center of the overlay panel rather than the top.
-        var /** @type {?} */ scrollBuffer = panelHeight / 2;
+        /** @type {?} */
+        var scrollBuffer = panelHeight / 2;
         this._scrollTop = this._calculateOverlayScroll(selectedOptionOffset, scrollBuffer, maxScroll);
         this._offsetY = this._calculateOverlayOffsetY(selectedOptionOffset, scrollBuffer, maxScroll);
         this._checkOverlayWithinViewport(maxScroll);
@@ -21433,14 +21969,14 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (selectedIndex, scrollBuffer, maxScroll) {
-        var /** @type {?} */ itemHeight = this._getItemHeight();
-        var /** @type {?} */ optionOffsetFromScrollTop = itemHeight * selectedIndex;
-        var /** @type {?} */ halfOptionHeight = itemHeight / 2;
-        // Starts at the optionOffsetFromScrollTop, which scrolls the option to the top of the
-        // scroll container, then subtracts the scroll buffer to scroll the option down to
-        // the center of the overlay panel. Half the option height must be re-added to the
-        // scrollTop so the option is centered based on its middle, not its top edge.
-        var /** @type {?} */ optimalScrollPosition = optionOffsetFromScrollTop - scrollBuffer + halfOptionHeight;
+        /** @type {?} */
+        var itemHeight = this._getItemHeight();
+        /** @type {?} */
+        var optionOffsetFromScrollTop = itemHeight * selectedIndex;
+        /** @type {?} */
+        var halfOptionHeight = itemHeight / 2;
+        /** @type {?} */
+        var optimalScrollPosition = optionOffsetFromScrollTop - scrollBuffer + halfOptionHeight;
         return Math.min(Math.max(0, optimalScrollPosition), maxScroll);
     };
     /** Returns the aria-label of the select component. */
@@ -21510,27 +22046,34 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ overlayRect = this.overlayDir.overlayRef.overlayElement.getBoundingClientRect();
-        var /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
-        var /** @type {?} */ isRtl = this._isRtl();
-        var /** @type {?} */ paddingWidth = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
+        /** @type {?} */
+        var overlayRect = this.overlayDir.overlayRef.overlayElement.getBoundingClientRect();
+        /** @type {?} */
+        var viewportSize = this._viewportRuler.getViewportSize();
+        /** @type {?} */
+        var isRtl = this._isRtl();
+        /** @type {?} */
+        var paddingWidth = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
             SELECT_PANEL_PADDING_X * 2;
-        var /** @type {?} */ offsetX;
+        /** @type {?} */
+        var offsetX;
         // Adjust the offset, depending on the option padding.
         if (this.multiple) {
             offsetX = SELECT_MULTIPLE_PANEL_PADDING_X;
         }
         else {
-            var /** @type {?} */ selected = this._selectionModel.selected[0] || this.options.first;
+            /** @type {?} */
+            var selected = this._selectionModel.selected[0] || this.options.first;
             offsetX = selected && selected.group ? SELECT_PANEL_INDENT_PADDING_X : SELECT_PANEL_PADDING_X;
         }
         // Invert the offset in LTR.
         if (!isRtl) {
             offsetX *= -1;
         }
-        // Determine how much the select overflows on each side.
-        var /** @type {?} */ leftOverflow = 0 - (overlayRect.left + offsetX - (isRtl ? paddingWidth : 0));
-        var /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportSize.width
+        /** @type {?} */
+        var leftOverflow = 0 - (overlayRect.left + offsetX - (isRtl ? paddingWidth : 0));
+        /** @type {?} */
+        var rightOverflow = overlayRect.right + offsetX - viewportSize.width
             + (isRtl ? 0 : paddingWidth);
         // If the element overflows on either side, reduce the offset to allow it to fit.
         if (leftOverflow > 0) {
@@ -21564,10 +22107,14 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (selectedIndex, scrollBuffer, maxScroll) {
-        var /** @type {?} */ itemHeight = this._getItemHeight();
-        var /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
-        var /** @type {?} */ maxOptionsDisplayed = Math.floor(SELECT_PANEL_MAX_HEIGHT / itemHeight);
-        var /** @type {?} */ optionOffsetFromPanelTop;
+        /** @type {?} */
+        var itemHeight = this._getItemHeight();
+        /** @type {?} */
+        var optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
+        /** @type {?} */
+        var maxOptionsDisplayed = Math.floor(SELECT_PANEL_MAX_HEIGHT / itemHeight);
+        /** @type {?} */
+        var optionOffsetFromPanelTop;
         // Disable offset if requested by user by returning 0 as value to offset
         if (this._disableOptionCentering) {
             return 0;
@@ -21576,11 +22123,12 @@ var MatSelect = /** @class */ (function (_super) {
             optionOffsetFromPanelTop = selectedIndex * itemHeight;
         }
         else if (this._scrollTop === maxScroll) {
-            var /** @type {?} */ firstDisplayedIndex = this._getItemCount() - maxOptionsDisplayed;
-            var /** @type {?} */ selectedDisplayIndex = selectedIndex - firstDisplayedIndex;
-            // The first item is partially out of the viewport. Therefore we need to calculate what
-            // portion of it is shown in the viewport and account for it in our offset.
-            var /** @type {?} */ partialItemHeight = itemHeight - (this._getItemCount() * itemHeight - SELECT_PANEL_MAX_HEIGHT) % itemHeight;
+            /** @type {?} */
+            var firstDisplayedIndex = this._getItemCount() - maxOptionsDisplayed;
+            /** @type {?} */
+            var selectedDisplayIndex = selectedIndex - firstDisplayedIndex;
+            /** @type {?} */
+            var partialItemHeight = itemHeight - (this._getItemCount() * itemHeight - SELECT_PANEL_MAX_HEIGHT) % itemHeight;
             // Because the panel height is longer than the height of the options alone,
             // there is always extra padding at the top or bottom of the panel. When
             // scrolled to the very bottom, this padding is at the top of the panel and
@@ -21615,13 +22163,20 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (maxScroll) {
-        var /** @type {?} */ itemHeight = this._getItemHeight();
-        var /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
-        var /** @type {?} */ topSpaceAvailable = this._triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
-        var /** @type {?} */ bottomSpaceAvailable = viewportSize.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
-        var /** @type {?} */ panelHeightTop = Math.abs(this._offsetY);
-        var /** @type {?} */ totalPanelHeight = Math.min(this._getItemCount() * itemHeight, SELECT_PANEL_MAX_HEIGHT);
-        var /** @type {?} */ panelHeightBottom = totalPanelHeight - panelHeightTop - this._triggerRect.height;
+        /** @type {?} */
+        var itemHeight = this._getItemHeight();
+        /** @type {?} */
+        var viewportSize = this._viewportRuler.getViewportSize();
+        /** @type {?} */
+        var topSpaceAvailable = this._triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
+        /** @type {?} */
+        var bottomSpaceAvailable = viewportSize.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
+        /** @type {?} */
+        var panelHeightTop = Math.abs(this._offsetY);
+        /** @type {?} */
+        var totalPanelHeight = Math.min(this._getItemCount() * itemHeight, SELECT_PANEL_MAX_HEIGHT);
+        /** @type {?} */
+        var panelHeightBottom = totalPanelHeight - panelHeightTop - this._triggerRect.height;
         if (panelHeightBottom > bottomSpaceAvailable) {
             this._adjustPanelUp(panelHeightBottom, bottomSpaceAvailable);
         }
@@ -21645,8 +22200,8 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (panelHeightBottom, bottomSpaceAvailable) {
-        // Browsers ignore fractional scroll offsets, so we need to round.
-        var /** @type {?} */ distanceBelowViewport = Math.round(panelHeightBottom - bottomSpaceAvailable);
+        /** @type {?} */
+        var distanceBelowViewport = Math.round(panelHeightBottom - bottomSpaceAvailable);
         // Scrolls the panel up by the distance it was extending past the boundary, then
         // adjusts the offset by that amount to move the panel up into the viewport.
         this._scrollTop -= distanceBelowViewport;
@@ -21676,8 +22231,8 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (panelHeightTop, topSpaceAvailable, maxScroll) {
-        // Browsers ignore fractional scroll offsets, so we need to round.
-        var /** @type {?} */ distanceAboveViewport = Math.round(panelHeightTop - topSpaceAvailable);
+        /** @type {?} */
+        var distanceAboveViewport = Math.round(panelHeightTop - topSpaceAvailable);
         // Scrolls the panel down by the distance it was extending past the boundary, then
         // adjusts the offset by that amount to move the panel down into the viewport.
         this._scrollTop += distanceAboveViewport;
@@ -21702,9 +22257,12 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ itemHeight = this._getItemHeight();
-        var /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
-        var /** @type {?} */ originY = Math.abs(this._offsetY) - optionHeightAdjustment + itemHeight / 2;
+        /** @type {?} */
+        var itemHeight = this._getItemHeight();
+        /** @type {?} */
+        var optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
+        /** @type {?} */
+        var originY = Math.abs(this._offsetY) - optionHeightAdjustment + itemHeight / 2;
         return "50% " + originY + "px 0px";
     };
     /**
@@ -21824,43 +22382,43 @@ var MatSelect = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSelect.ctorParameters = function () { return [
-        { type: overlay.ViewportRuler, },
-        { type: core.ChangeDetectorRef, },
-        { type: core.NgZone, },
-        { type: ErrorStateMatcher, },
-        { type: core.ElementRef, },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: forms.NgForm, decorators: [{ type: core.Optional },] },
-        { type: forms.FormGroupDirective, decorators: [{ type: core.Optional },] },
-        { type: MatFormField, decorators: [{ type: core.Optional },] },
-        { type: forms.NgControl, decorators: [{ type: core.Self }, { type: core.Optional },] },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] },] },
+        { type: overlay.ViewportRuler },
+        { type: core.ChangeDetectorRef },
+        { type: core.NgZone },
+        { type: ErrorStateMatcher },
+        { type: core.ElementRef },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: forms.NgForm, decorators: [{ type: core.Optional }] },
+        { type: forms.FormGroupDirective, decorators: [{ type: core.Optional }] },
+        { type: MatFormField, decorators: [{ type: core.Optional }] },
+        { type: forms.NgControl, decorators: [{ type: core.Self }, { type: core.Optional }] },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] }] }
     ]; };
     MatSelect.propDecorators = {
-        "trigger": [{ type: core.ViewChild, args: ['trigger',] },],
-        "panel": [{ type: core.ViewChild, args: ['panel',] },],
-        "overlayDir": [{ type: core.ViewChild, args: [overlay.CdkConnectedOverlay,] },],
-        "options": [{ type: core.ContentChildren, args: [MatOption, { descendants: true },] },],
-        "optionGroups": [{ type: core.ContentChildren, args: [MatOptgroup,] },],
-        "panelClass": [{ type: core.Input },],
-        "customTrigger": [{ type: core.ContentChild, args: [MatSelectTrigger,] },],
-        "placeholder": [{ type: core.Input },],
-        "required": [{ type: core.Input },],
-        "multiple": [{ type: core.Input },],
-        "disableOptionCentering": [{ type: core.Input },],
-        "compareWith": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
-        "ariaLabel": [{ type: core.Input, args: ['aria-label',] },],
-        "ariaLabelledby": [{ type: core.Input, args: ['aria-labelledby',] },],
-        "errorStateMatcher": [{ type: core.Input },],
-        "sortComparator": [{ type: core.Input },],
-        "id": [{ type: core.Input },],
-        "openedChange": [{ type: core.Output },],
-        "_openedStream": [{ type: core.Output, args: ['opened',] },],
-        "_closedStream": [{ type: core.Output, args: ['closed',] },],
-        "selectionChange": [{ type: core.Output },],
-        "valueChange": [{ type: core.Output },],
+        trigger: [{ type: core.ViewChild, args: ['trigger',] }],
+        panel: [{ type: core.ViewChild, args: ['panel',] }],
+        overlayDir: [{ type: core.ViewChild, args: [overlay.CdkConnectedOverlay,] }],
+        options: [{ type: core.ContentChildren, args: [MatOption, { descendants: true },] }],
+        optionGroups: [{ type: core.ContentChildren, args: [MatOptgroup,] }],
+        panelClass: [{ type: core.Input }],
+        customTrigger: [{ type: core.ContentChild, args: [MatSelectTrigger,] }],
+        placeholder: [{ type: core.Input }],
+        required: [{ type: core.Input }],
+        multiple: [{ type: core.Input }],
+        disableOptionCentering: [{ type: core.Input }],
+        compareWith: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
+        errorStateMatcher: [{ type: core.Input }],
+        sortComparator: [{ type: core.Input }],
+        id: [{ type: core.Input }],
+        openedChange: [{ type: core.Output }],
+        _openedStream: [{ type: core.Output, args: ['opened',] }],
+        _closedStream: [{ type: core.Output, args: ['closed',] }],
+        selectionChange: [{ type: core.Output }],
+        valueChange: [{ type: core.Output }]
     };
     return MatSelect;
 }(_MatSelectMixinBase));
@@ -21892,10 +22450,10 @@ var MatSelectModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by MatTooltip.
- */
-var /** @type {?} */ matTooltipAnimations = {
+  @type {?} */
+var matTooltipAnimations = {
     /** Animation that transitions a tooltip in and out. */
     tooltipState: animations$1.trigger('state', [
         animations$1.state('initial, void, hidden', animations$1.style({ opacity: 0, transform: 'scale(0)' })),
@@ -21913,14 +22471,14 @@ var /** @type {?} */ matTooltipAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Time in ms to throttle repositioning after scroll events.
- */
-var /** @type {?} */ SCROLL_THROTTLE_MS = 20;
-/**
+  @type {?} */
+var SCROLL_THROTTLE_MS = 20;
+/** *
  * CSS class that will be attached to the overlay panel.
- */
-var /** @type {?} */ TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
+  @type {?} */
+var TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
 /**
  * Creates an error to be thrown if the user supplied an invalid tooltip position.
  * \@docs-private
@@ -21930,10 +22488,10 @@ var /** @type {?} */ TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
 function getMatTooltipInvalidPositionError(position) {
     return Error("Tooltip position \"" + position + "\" is invalid.");
 }
-/**
+/** *
  * Injection token that determines the scroll handling while a tooltip is visible.
- */
-var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-strategy');
+  @type {?} */
+var MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-tooltip-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -21942,18 +22500,18 @@ var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new core.InjectionToken('mat-
 function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS }); };
 }
-/**
+/** *
  * \@docs-private
- */
-var /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+  @type {?} */
+var MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_TOOLTIP_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
     useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
 };
-/**
+/** *
  * Injection token to be used to override the default options for `matTooltip`.
- */
-var /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new core.InjectionToken('mat-tooltip-default-options', {
+  @type {?} */
+var MAT_TOOLTIP_DEFAULT_OPTIONS = new core.InjectionToken('mat-tooltip-default-options', {
     providedIn: 'root',
     factory: MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY
 });
@@ -22004,7 +22562,8 @@ var MatTooltip = /** @class */ (function () {
          * Emits when the component is destroyed.
          */
         this._destroyed = new rxjs.Subject();
-        var /** @type {?} */ element = _elementRef.nativeElement;
+        /** @type {?} */
+        var element = _elementRef.nativeElement;
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
         if (!_platform.IOS && !_platform.ANDROID) {
@@ -22038,6 +22597,7 @@ var MatTooltip = /** @class */ (function () {
         });
     }
     Object.defineProperty(MatTooltip.prototype, "position", {
+        /** Allows the user to define the position of the tooltip relative to the parent element */
         get: /**
          * Allows the user to define the position of the tooltip relative to the parent element
          * @return {?}
@@ -22063,6 +22623,7 @@ var MatTooltip = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatTooltip.prototype, "disabled", {
+        /** Disables the display of the tooltip. */
         get: /**
          * Disables the display of the tooltip.
          * @return {?}
@@ -22083,6 +22644,7 @@ var MatTooltip = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatTooltip.prototype, "message", {
+        /** The message to be displayed in the tooltip */
         get: /**
          * The message to be displayed in the tooltip
          * @return {?}
@@ -22108,6 +22670,7 @@ var MatTooltip = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatTooltip.prototype, "tooltipClass", {
+        /** Classes to be passed to the tooltip. Supports the same syntax as `ngClass`. */
         get: /**
          * Classes to be passed to the tooltip. Supports the same syntax as `ngClass`.
          * @return {?}
@@ -22172,7 +22735,8 @@ var MatTooltip = /** @class */ (function () {
         if (this.disabled || !this.message) {
             return;
         }
-        var /** @type {?} */ overlayRef = this._createOverlay();
+        /** @type {?} */
+        var overlayRef = this._createOverlay();
         this._detach();
         this._portal = this._portal || new portal.ComponentPortal(TooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
@@ -22266,13 +22830,14 @@ var MatTooltip = /** @class */ (function () {
         if (this._overlayRef) {
             return this._overlayRef;
         }
-        // Create connected position strategy that listens for scroll events to reposition.
-        var /** @type {?} */ strategy = this._overlay.position()
+        /** @type {?} */
+        var strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
             .withTransformOriginOn('.mat-tooltip')
             .withFlexibleDimensions(false)
             .withViewportMargin(8);
-        var /** @type {?} */ scrollableAncestors = this._scrollDispatcher
+        /** @type {?} */
+        var scrollableAncestors = this._scrollDispatcher
             .getAncestorScrollContainers(this._elementRef);
         strategy.withScrollableContainers(scrollableAncestors);
         strategy.positionChanges.pipe(operators.takeUntil(this._destroyed)).subscribe(function (change) {
@@ -22321,9 +22886,12 @@ var MatTooltip = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ position = /** @type {?} */ (((this._overlayRef)).getConfig().positionStrategy);
-        var /** @type {?} */ origin = this._getOrigin();
-        var /** @type {?} */ overlay$$1 = this._getOverlayPosition();
+        /** @type {?} */
+        var position = /** @type {?} */ (((this._overlayRef)).getConfig().positionStrategy);
+        /** @type {?} */
+        var origin = this._getOrigin();
+        /** @type {?} */
+        var overlay$$1 = this._getOverlayPosition();
         position.withPositions([
             __assign({}, origin.main, overlay$$1.main),
             __assign({}, origin.fallback, overlay$$1.fallback)
@@ -22344,9 +22912,12 @@ var MatTooltip = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
-        var /** @type {?} */ position = this.position;
-        var /** @type {?} */ originPosition;
+        /** @type {?} */
+        var isLtr = !this._dir || this._dir.value == 'ltr';
+        /** @type {?} */
+        var position = this.position;
+        /** @type {?} */
+        var originPosition;
         if (position == 'above' || position == 'below') {
             originPosition = { originX: 'center', originY: position == 'above' ? 'top' : 'bottom' };
         }
@@ -22379,9 +22950,12 @@ var MatTooltip = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
-        var /** @type {?} */ position = this.position;
-        var /** @type {?} */ overlayPosition;
+        /** @type {?} */
+        var isLtr = !this._dir || this._dir.value == 'ltr';
+        /** @type {?} */
+        var position = this.position;
+        /** @type {?} */
+        var overlayPosition;
         if (position == 'above') {
             overlayPosition = { overlayX: 'center', overlayY: 'bottom' };
         }
@@ -22489,25 +23063,25 @@ var MatTooltip = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatTooltip.ctorParameters = function () { return [
-        { type: overlay.Overlay, },
-        { type: core.ElementRef, },
-        { type: overlay.ScrollDispatcher, },
-        { type: core.ViewContainerRef, },
-        { type: core.NgZone, },
-        { type: platform.Platform, },
-        { type: a11y.AriaDescriber, },
-        { type: a11y.FocusMonitor, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] },] },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] },] },
+        { type: overlay.Overlay },
+        { type: core.ElementRef },
+        { type: overlay.ScrollDispatcher },
+        { type: core.ViewContainerRef },
+        { type: core.NgZone },
+        { type: platform.Platform },
+        { type: a11y.AriaDescriber },
+        { type: a11y.FocusMonitor },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] }] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] }
     ]; };
     MatTooltip.propDecorators = {
-        "position": [{ type: core.Input, args: ['matTooltipPosition',] },],
-        "disabled": [{ type: core.Input, args: ['matTooltipDisabled',] },],
-        "showDelay": [{ type: core.Input, args: ['matTooltipShowDelay',] },],
-        "hideDelay": [{ type: core.Input, args: ['matTooltipHideDelay',] },],
-        "message": [{ type: core.Input, args: ['matTooltip',] },],
-        "tooltipClass": [{ type: core.Input, args: ['matTooltipClass',] },],
+        position: [{ type: core.Input, args: ['matTooltipPosition',] }],
+        disabled: [{ type: core.Input, args: ['matTooltipDisabled',] }],
+        showDelay: [{ type: core.Input, args: ['matTooltipShowDelay',] }],
+        hideDelay: [{ type: core.Input, args: ['matTooltipHideDelay',] }],
+        message: [{ type: core.Input, args: ['matTooltip',] }],
+        tooltipClass: [{ type: core.Input, args: ['matTooltipClass',] }]
     };
     return MatTooltip;
 }());
@@ -22638,7 +23212,8 @@ var TooltipComponent = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ toState = /** @type {?} */ (event.toState);
+        /** @type {?} */
+        var toState = /** @type {?} */ (event.toState);
         if (toState === 'hidden' && !this.isVisible()) {
             this._onHide.next();
         }
@@ -22706,8 +23281,8 @@ var TooltipComponent = /** @class */ (function () {
     ];
     /** @nocollapse */
     TooltipComponent.ctorParameters = function () { return [
-        { type: core.ChangeDetectorRef, },
-        { type: layout.BreakpointObserver, },
+        { type: core.ChangeDetectorRef },
+        { type: layout.BreakpointObserver }
     ]; };
     return TooltipComponent;
 }());
@@ -22779,9 +23354,10 @@ var MatPaginatorIntl = /** @class */ (function () {
                 return "0 of " + length;
             }
             length = Math.max(length, 0);
-            var /** @type {?} */ startIndex = page * pageSize;
-            // If the start index exceeds the list length, do not try and fix the end index to the end.
-            var /** @type {?} */ endIndex = startIndex < length ?
+            /** @type {?} */
+            var startIndex = page * pageSize;
+            /** @type {?} */
+            var endIndex = startIndex < length ?
                 Math.min(startIndex + pageSize, length) :
                 startIndex + pageSize;
             return startIndex + 1 + " - " + endIndex + " of " + length;
@@ -22801,10 +23377,10 @@ var MatPaginatorIntl = /** @class */ (function () {
 function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatPaginatorIntl();
 }
-/**
+/** *
  * \@docs-private
- */
-var /** @type {?} */ MAT_PAGINATOR_INTL_PROVIDER = {
+  @type {?} */
+var MAT_PAGINATOR_INTL_PROVIDER = {
     // If there is already an MatPaginatorIntl available, use that. Otherwise, provide a new one.
     provide: MatPaginatorIntl,
     deps: [[new core.Optional(), new core.SkipSelf(), MatPaginatorIntl]],
@@ -22815,10 +23391,10 @@ var /** @type {?} */ MAT_PAGINATOR_INTL_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * The default page size if there is no page size and there are no provided page size options.
- */
-var /** @type {?} */ DEFAULT_PAGE_SIZE = 50;
+  @type {?} */
+var DEFAULT_PAGE_SIZE = 50;
 /**
  * Change event object that is emitted when the user selects a
  * different page size or navigates to another page.
@@ -22843,7 +23419,8 @@ MatPaginatorBase = /** @class */ (function () {
     }
     return MatPaginatorBase;
 }());
-var /** @type {?} */ _MatPaginatorBase = mixinInitialized(MatPaginatorBase);
+/** @type {?} */
+var _MatPaginatorBase = mixinInitialized(MatPaginatorBase);
 /**
  * Component to provide navigation between paged information. Displays the size of the current
  * page, user-selectable options to change that size, what items are being shown, and
@@ -22868,6 +23445,7 @@ var MatPaginator = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatPaginator.prototype, "pageIndex", {
+        /** The zero-based page index of the displayed list of items. Defaulted to 0. */
         get: /**
          * The zero-based page index of the displayed list of items. Defaulted to 0.
          * @return {?}
@@ -22885,6 +23463,7 @@ var MatPaginator = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatPaginator.prototype, "length", {
+        /** The length of the total number of items that are being paginated. Defaulted to 0. */
         get: /**
          * The length of the total number of items that are being paginated. Defaulted to 0.
          * @return {?}
@@ -22902,6 +23481,7 @@ var MatPaginator = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatPaginator.prototype, "pageSize", {
+        /** Number of items to display on a page. By default set to 50. */
         get: /**
          * Number of items to display on a page. By default set to 50.
          * @return {?}
@@ -22919,6 +23499,7 @@ var MatPaginator = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatPaginator.prototype, "pageSizeOptions", {
+        /** The set of provided page size options to display to the user. */
         get: /**
          * The set of provided page size options to display to the user.
          * @return {?}
@@ -22936,6 +23517,7 @@ var MatPaginator = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatPaginator.prototype, "hidePageSize", {
+        /** Whether to hide the page size selection UI from the user. */
         get: /**
          * Whether to hide the page size selection UI from the user.
          * @return {?}
@@ -22952,6 +23534,7 @@ var MatPaginator = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatPaginator.prototype, "showFirstLastButtons", {
+        /** Whether to show the first/last buttons UI to the user. */
         get: /**
          * Whether to show the first/last buttons UI to the user.
          * @return {?}
@@ -23000,7 +23583,8 @@ var MatPaginator = /** @class */ (function (_super) {
         if (!this.hasNextPage()) {
             return;
         }
-        var /** @type {?} */ previousPageIndex = this.pageIndex;
+        /** @type {?} */
+        var previousPageIndex = this.pageIndex;
         this.pageIndex++;
         this._emitPageEvent(previousPageIndex);
     };
@@ -23017,7 +23601,8 @@ var MatPaginator = /** @class */ (function (_super) {
         if (!this.hasPreviousPage()) {
             return;
         }
-        var /** @type {?} */ previousPageIndex = this.pageIndex;
+        /** @type {?} */
+        var previousPageIndex = this.pageIndex;
         this.pageIndex--;
         this._emitPageEvent(previousPageIndex);
     };
@@ -23035,7 +23620,8 @@ var MatPaginator = /** @class */ (function (_super) {
         if (!this.hasPreviousPage()) {
             return;
         }
-        var /** @type {?} */ previousPageIndex = this.pageIndex;
+        /** @type {?} */
+        var previousPageIndex = this.pageIndex;
         this.pageIndex = 0;
         this._emitPageEvent(previousPageIndex);
     };
@@ -23053,7 +23639,8 @@ var MatPaginator = /** @class */ (function (_super) {
         if (!this.hasNextPage()) {
             return;
         }
-        var /** @type {?} */ previousPageIndex = this.pageIndex;
+        /** @type {?} */
+        var previousPageIndex = this.pageIndex;
         this.pageIndex = this.getNumberOfPages();
         this._emitPageEvent(previousPageIndex);
     };
@@ -23079,7 +23666,8 @@ var MatPaginator = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ numberOfPages = this.getNumberOfPages();
+        /** @type {?} */
+        var numberOfPages = this.getNumberOfPages();
         return this.pageIndex < numberOfPages && this.pageSize != 0;
     };
     /** Calculate the number of pages */
@@ -23123,10 +23711,10 @@ var MatPaginator = /** @class */ (function (_super) {
      * @return {?}
      */
     function (pageSize) {
-        // Current page needs to be updated to reflect the new page size. Navigate to the page
-        // containing the previous page's first item.
-        var /** @type {?} */ startIndex = this.pageIndex * this.pageSize;
-        var /** @type {?} */ previousPageIndex = this.pageIndex;
+        /** @type {?} */
+        var startIndex = this.pageIndex * this.pageSize;
+        /** @type {?} */
+        var previousPageIndex = this.pageIndex;
         this.pageIndex = Math.floor(startIndex / pageSize) || 0;
         this.pageSize = pageSize;
         this._emitPageEvent(previousPageIndex);
@@ -23191,18 +23779,18 @@ var MatPaginator = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatPaginator.ctorParameters = function () { return [
-        { type: MatPaginatorIntl, },
-        { type: core.ChangeDetectorRef, },
+        { type: MatPaginatorIntl },
+        { type: core.ChangeDetectorRef }
     ]; };
     MatPaginator.propDecorators = {
-        "color": [{ type: core.Input },],
-        "pageIndex": [{ type: core.Input },],
-        "length": [{ type: core.Input },],
-        "pageSize": [{ type: core.Input },],
-        "pageSizeOptions": [{ type: core.Input },],
-        "hidePageSize": [{ type: core.Input },],
-        "showFirstLastButtons": [{ type: core.Input },],
-        "page": [{ type: core.Output },],
+        color: [{ type: core.Input }],
+        pageIndex: [{ type: core.Input }],
+        length: [{ type: core.Input }],
+        pageSize: [{ type: core.Input }],
+        pageSizeOptions: [{ type: core.Input }],
+        hidePageSize: [{ type: core.Input }],
+        showFirstLastButtons: [{ type: core.Input }],
+        page: [{ type: core.Output }]
     };
     return MatPaginator;
 }(_MatPaginatorBase));
@@ -23246,26 +23834,29 @@ MatProgressBarBase = /** @class */ (function () {
     }
     return MatProgressBarBase;
 }());
-var /** @type {?} */ _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
-/**
+/** @type {?} */
+var _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
+/** *
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.
  * \@docs-private
- */
-var /** @type {?} */ MAT_PROGRESS_BAR_LOCATION = new core.InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
+  @type {?} */
+var MAT_PROGRESS_BAR_LOCATION = new core.InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
 /**
  * \@docs-private
  * @return {?}
  */
 function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
-    var /** @type {?} */ _document = core.inject(common.DOCUMENT);
-    var /** @type {?} */ pathname = (_document && _document.location && _document.location.pathname) || '';
+    /** @type {?} */
+    var _document = core.inject(common.DOCUMENT);
+    /** @type {?} */
+    var pathname = (_document && _document.location && _document.location.pathname) || '';
     return { pathname: pathname };
 }
-/**
+/** *
  * Counter used to generate unique IDs for progress bars.
- */
-var /** @type {?} */ progressbarId = 0;
+  @type {?} */
+var progressbarId = 0;
 /**
  * `<mat-progress-bar>` component.
  */
@@ -23293,17 +23884,13 @@ var MatProgressBar = /** @class */ (function (_super) {
          * ID of the progress bar.
          */
         _this.progressbarId = "mat-progress-bar-" + progressbarId++;
-        // We need to prefix the SVG reference with the current path, otherwise they won't work
-        // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
-        // because named route URLs can contain parentheses (see #12338). Also we don't use
-        // `Location` from `@angular/common` since we can't tell the difference between whether
-        // the consumer is using the hash location strategy or not, because `Location` normalizes
-        // both `/#/foo/bar` and `/foo/bar` to the same thing.
-        var /** @type {?} */ path = location && location.pathname ? location.pathname.split('#')[0] : '';
+        /** @type {?} */
+        var path = location && location.pathname ? location.pathname.split('#')[0] : '';
         _this._rectangleFillValue = "url('" + path + "#" + _this.progressbarId + "')";
         return _this;
     }
     Object.defineProperty(MatProgressBar.prototype, "value", {
+        /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
         get: /**
          * Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow.
          * @return {?}
@@ -23318,6 +23905,7 @@ var MatProgressBar = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatProgressBar.prototype, "bufferValue", {
+        /** Buffer value of the progress bar. Defaults to zero. */
         get: /**
          * Buffer value of the progress bar. Defaults to zero.
          * @return {?}
@@ -23341,7 +23929,8 @@ var MatProgressBar = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ scale = this.value / 100;
+        /** @type {?} */
+        var scale = this.value / 100;
         return { transform: "scaleX(" + scale + ")" };
     };
     /**
@@ -23360,7 +23949,8 @@ var MatProgressBar = /** @class */ (function (_super) {
      */
     function () {
         if (this.mode === 'buffer') {
-            var /** @type {?} */ scale = this.bufferValue / 100;
+            /** @type {?} */
+            var scale = this.bufferValue / 100;
             return { transform: "scaleX(" + scale + ")" };
         }
     };
@@ -23385,14 +23975,14 @@ var MatProgressBar = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatProgressBar.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_PROGRESS_BAR_LOCATION,] },] },
+        { type: core.ElementRef },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_PROGRESS_BAR_LOCATION,] }] }
     ]; };
     MatProgressBar.propDecorators = {
-        "value": [{ type: core.Input },],
-        "bufferValue": [{ type: core.Input },],
-        "mode": [{ type: core.Input },],
+        value: [{ type: core.Input }],
+        bufferValue: [{ type: core.Input }],
+        mode: [{ type: core.Input }]
     };
     return MatProgressBar;
 }(_MatProgressBarMixinBase));
@@ -23430,16 +24020,16 @@ var MatProgressBarModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Base reference size of the spinner.
  * \@docs-private
- */
-var /** @type {?} */ BASE_SIZE = 100;
-/**
+  @type {?} */
+var BASE_SIZE = 100;
+/** *
  * Base reference stroke width of the spinner.
  * \@docs-private
- */
-var /** @type {?} */ BASE_STROKE_WIDTH = 10;
+  @type {?} */
+var BASE_STROKE_WIDTH = 10;
 /**
  * \@docs-private
  */
@@ -23452,11 +24042,12 @@ MatProgressSpinnerBase = /** @class */ (function () {
     }
     return MatProgressSpinnerBase;
 }());
-var /** @type {?} */ _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
-/**
+/** @type {?} */
+var _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
+/** *
  * Injection token to be used to override the default options for `mat-progress-spinner`.
- */
-var /** @type {?} */ MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new core.InjectionToken('mat-progress-spinner-default-options', {
+  @type {?} */
+var MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new core.InjectionToken('mat-progress-spinner-default-options', {
     providedIn: 'root',
     factory: MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
 });
@@ -23467,11 +24058,8 @@ var /** @type {?} */ MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new core.InjectionTo
 function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY() {
     return { diameter: BASE_SIZE };
 }
-// .0001 percentage difference is necessary in order to avoid unwanted animation frames
-// for example because the animation duration is 4 seconds, .1% accounts to 4ms
-// which are enough to see the flicker described in
-// https://github.com/angular/material2/issues/8984
-var /** @type {?} */ INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-stroke-rotate-DIAMETER {\n    0%      { stroke-dashoffset: START_VALUE;  transform: rotate(0); }\n    12.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(0); }\n    12.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(72.5deg); }\n    25%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(72.5deg); }\n\n    25.0001%   { stroke-dashoffset: START_VALUE;  transform: rotate(270deg); }\n    37.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(270deg); }\n    37.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(161.5deg); }\n    50%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(161.5deg); }\n\n    50.0001%  { stroke-dashoffset: START_VALUE;  transform: rotate(180deg); }\n    62.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(180deg); }\n    62.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(251.5deg); }\n    75%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(251.5deg); }\n\n    75.0001%  { stroke-dashoffset: START_VALUE;  transform: rotate(90deg); }\n    87.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(90deg); }\n    87.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(341.5deg); }\n    100%    { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(341.5deg); }\n  }\n";
+/** @type {?} */
+var INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-stroke-rotate-DIAMETER {\n    0%      { stroke-dashoffset: START_VALUE;  transform: rotate(0); }\n    12.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(0); }\n    12.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(72.5deg); }\n    25%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(72.5deg); }\n\n    25.0001%   { stroke-dashoffset: START_VALUE;  transform: rotate(270deg); }\n    37.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(270deg); }\n    37.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(161.5deg); }\n    50%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(161.5deg); }\n\n    50.0001%  { stroke-dashoffset: START_VALUE;  transform: rotate(180deg); }\n    62.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(180deg); }\n    62.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(251.5deg); }\n    75%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(251.5deg); }\n\n    75.0001%  { stroke-dashoffset: START_VALUE;  transform: rotate(90deg); }\n    87.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(90deg); }\n    87.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(341.5deg); }\n    100%    { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(341.5deg); }\n  }\n";
 /**
  * `<mat-progress-spinner>` component.
  */
@@ -23505,13 +24093,13 @@ var MatProgressSpinner = /** @class */ (function (_super) {
                 _this.strokeWidth = defaults.strokeWidth;
             }
         }
-        // On IE and Edge, we can't animate the `stroke-dashoffset`
-        // reliably so we fall back to a non-spec animation.
-        var /** @type {?} */ animationClass = "mat-progress-spinner-indeterminate" + (_this._fallbackAnimation ? '-fallback' : '') + "-animation";
+        /** @type {?} */
+        var animationClass = "mat-progress-spinner-indeterminate" + (_this._fallbackAnimation ? '-fallback' : '') + "-animation";
         _elementRef.nativeElement.classList.add(animationClass);
         return _this;
     }
     Object.defineProperty(MatProgressSpinner.prototype, "diameter", {
+        /** The diameter of the progress spinner (will set width and height of svg). */
         get: /**
          * The diameter of the progress spinner (will set width and height of svg).
          * @return {?}
@@ -23531,6 +24119,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatProgressSpinner.prototype, "strokeWidth", {
+        /** Stroke width of the progress spinner. */
         get: /**
          * Stroke width of the progress spinner.
          * @return {?}
@@ -23549,6 +24138,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatProgressSpinner.prototype, "value", {
+        /** Value of the progress circle. */
         get: /**
          * Value of the progress circle.
          * @return {?}
@@ -23585,7 +24175,8 @@ var MatProgressSpinner = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ viewBox = this._circleRadius * 2 + this.strokeWidth;
+            /** @type {?} */
+            var viewBox = this._circleRadius * 2 + this.strokeWidth;
             return "0 0 " + viewBox + " " + viewBox;
         },
         enumerable: true,
@@ -23643,7 +24234,8 @@ var MatProgressSpinner = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ styleTag = MatProgressSpinner.styleTag;
+        /** @type {?} */
+        var styleTag = MatProgressSpinner.styleTag;
         if (!styleTag) {
             styleTag = this._document.createElement('style');
             this._document.head.appendChild(styleTag);
@@ -23664,6 +24256,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
      */
     function () {
         return INDETERMINATE_ANIMATION_TEMPLATE
+            // Animation should begin at 5% and end at 80%
             .replace(/START_VALUE/g, "" + 0.95 * this._strokeCircumference)
             .replace(/END_VALUE/g, "" + 0.2 * this._strokeCircumference)
             .replace(/DIAMETER/g, "" + this.diameter);
@@ -23700,17 +24293,17 @@ var MatProgressSpinner = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatProgressSpinner.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: platform.Platform, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] },] },
+        { type: core.ElementRef },
+        { type: platform.Platform },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] }] }
     ]; };
     MatProgressSpinner.propDecorators = {
-        "diameter": [{ type: core.Input },],
-        "strokeWidth": [{ type: core.Input },],
-        "mode": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
+        diameter: [{ type: core.Input }],
+        strokeWidth: [{ type: core.Input }],
+        mode: [{ type: core.Input }],
+        value: [{ type: core.Input }]
     };
     return MatProgressSpinner;
 }(_MatProgressSpinnerMixinBase));
@@ -23748,11 +24341,11 @@ var MatSpinner = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSpinner.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: platform.Platform, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] },] },
+        { type: core.ElementRef },
+        { type: platform.Platform },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] }] }
     ]; };
     return MatSpinner;
 }(MatProgressSpinner));
@@ -23785,14 +24378,14 @@ var MatProgressSpinnerModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Increasing integer for generating unique ids for radio components.
-var /** @type {?} */ nextUniqueId$7 = 0;
-/**
+/** @type {?} */
+var nextUniqueId$7 = 0;
+/** *
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
  * \@docs-private
- */
-var /** @type {?} */ MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
+  @type {?} */
+var MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatRadioGroup; }),
     multi: true
@@ -23821,7 +24414,8 @@ MatRadioGroupBase = /** @class */ (function () {
     }
     return MatRadioGroupBase;
 }());
-var /** @type {?} */ _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
+/** @type {?} */
+var _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
@@ -23876,6 +24470,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatRadioGroup.prototype, "name", {
+        /** Name of the radio button group. All radio buttons inside this group will use this name. */
         get: /**
          * Name of the radio button group. All radio buttons inside this group will use this name.
          * @return {?}
@@ -23893,6 +24488,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioGroup.prototype, "labelPosition", {
+        /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
         get: /**
          * Whether the labels should appear after or before the radio-buttons. Defaults to 'after'
          * @return {?}
@@ -23912,6 +24508,12 @@ var MatRadioGroup = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioGroup.prototype, "value", {
+        /**
+         * Value for the radio-group. Should equal the value of the selected radio button if there is
+         * a corresponding radio button with a matching value. If there is not such a corresponding
+         * radio button, this value persists to be applied in case a new radio button is added with a
+         * matching value.
+         */
         get: /**
          * Value for the radio-group. Should equal the value of the selected radio button if there is
          * a corresponding radio button with a matching value. If there is not such a corresponding
@@ -23947,6 +24549,10 @@ var MatRadioGroup = /** @class */ (function (_super) {
         }
     };
     Object.defineProperty(MatRadioGroup.prototype, "selected", {
+        /**
+         * The currently selected radio button. If set to a new radio button, the radio group value
+         * will be updated to match the new selected button.
+         */
         get: /**
          * The currently selected radio button. If set to a new radio button, the radio group value
          * will be updated to match the new selected button.
@@ -23966,6 +24572,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioGroup.prototype, "disabled", {
+        /** Whether the radio group is disabled */
         get: /**
          * Whether the radio group is disabled
          * @return {?}
@@ -23983,6 +24590,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioGroup.prototype, "required", {
+        /** Whether the radio group is required */
         get: /**
          * Whether the radio group is required
          * @return {?}
@@ -24062,8 +24670,8 @@ var MatRadioGroup = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        // If the value already matches the selected radio, do nothing.
-        var /** @type {?} */ isAlreadySelected = this._selected !== null && this._selected.value === this._value;
+        /** @type {?} */
+        var isAlreadySelected = this._selected !== null && this._selected.value === this._value;
         if (this._radios && !isAlreadySelected) {
             this._selected = null;
             this._radios.forEach(function (radio) {
@@ -24189,17 +24797,17 @@ var MatRadioGroup = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatRadioGroup.ctorParameters = function () { return [
-        { type: core.ChangeDetectorRef, },
+        { type: core.ChangeDetectorRef }
     ]; };
     MatRadioGroup.propDecorators = {
-        "change": [{ type: core.Output },],
-        "_radios": [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatRadioButton; }), { descendants: true },] },],
-        "name": [{ type: core.Input },],
-        "labelPosition": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
-        "selected": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
-        "required": [{ type: core.Input },],
+        change: [{ type: core.Output }],
+        _radios: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatRadioButton; }), { descendants: true },] }],
+        name: [{ type: core.Input }],
+        labelPosition: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        selected: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
+        required: [{ type: core.Input }]
     };
     return MatRadioGroup;
 }(_MatRadioGroupMixinBase));
@@ -24215,9 +24823,8 @@ MatRadioButtonBase = /** @class */ (function () {
     }
     return MatRadioButtonBase;
 }());
-// As per Material design specifications the selection control radio should use the accent color
-// palette by default. https://material.io/guidelines/components/selection-controls.html
-var /** @type {?} */ _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(mixinTabIndex(MatRadioButtonBase)), 'accent');
+/** @type {?} */
+var _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(mixinTabIndex(MatRadioButtonBase)), 'accent');
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
@@ -24266,6 +24873,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatRadioButton.prototype, "checked", {
+        /** Whether this radio button is checked. */
         get: /**
          * Whether this radio button is checked.
          * @return {?}
@@ -24276,7 +24884,8 @@ var MatRadioButton = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newCheckedState = coercion.coerceBooleanProperty(value);
+            /** @type {?} */
+            var newCheckedState = coercion.coerceBooleanProperty(value);
             if (this._checked !== newCheckedState) {
                 this._checked = newCheckedState;
                 if (newCheckedState && this.radioGroup && this.radioGroup.value !== this.value) {
@@ -24298,6 +24907,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioButton.prototype, "value", {
+        /** The value of this radio button. */
         get: /**
          * The value of this radio button.
          * @return {?}
@@ -24325,6 +24935,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioButton.prototype, "labelPosition", {
+        /** Whether the label should appear after or before the radio button. Defaults to 'after' */
         get: /**
          * Whether the label should appear after or before the radio button. Defaults to 'after'
          * @return {?}
@@ -24343,6 +24954,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioButton.prototype, "disabled", {
+        /** Whether the radio button is disabled. */
         get: /**
          * Whether the radio button is disabled.
          * @return {?}
@@ -24355,7 +24967,8 @@ var MatRadioButton = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newDisabledState = coercion.coerceBooleanProperty(value);
+            /** @type {?} */
+            var newDisabledState = coercion.coerceBooleanProperty(value);
             if (this._disabled !== newDisabledState) {
                 this._disabled = newDisabledState;
                 this._changeDetector.markForCheck();
@@ -24365,6 +24978,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioButton.prototype, "required", {
+        /** Whether the radio button is required. */
         get: /**
          * Whether the radio button is required.
          * @return {?}
@@ -24525,7 +25139,8 @@ var MatRadioButton = /** @class */ (function (_super) {
         // Otherwise the change event, from the input element, will bubble up and
         // emit its event object to the `change` output.
         event.stopPropagation();
-        var /** @type {?} */ groupValueChanged = this.radioGroup && this.value !== this.radioGroup.value;
+        /** @type {?} */
+        var groupValueChanged = this.radioGroup && this.value !== this.radioGroup.value;
         this.checked = true;
         this._emitChangeEvent();
         if (this.radioGroup) {
@@ -24559,26 +25174,26 @@ var MatRadioButton = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatRadioButton.ctorParameters = function () { return [
-        { type: MatRadioGroup, decorators: [{ type: core.Optional },] },
-        { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
-        { type: a11y.FocusMonitor, },
-        { type: collections.UniqueSelectionDispatcher, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: MatRadioGroup, decorators: [{ type: core.Optional }] },
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: a11y.FocusMonitor },
+        { type: collections.UniqueSelectionDispatcher },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatRadioButton.propDecorators = {
-        "id": [{ type: core.Input },],
-        "name": [{ type: core.Input },],
-        "ariaLabel": [{ type: core.Input, args: ['aria-label',] },],
-        "ariaLabelledby": [{ type: core.Input, args: ['aria-labelledby',] },],
-        "ariaDescribedby": [{ type: core.Input, args: ['aria-describedby',] },],
-        "checked": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
-        "labelPosition": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
-        "required": [{ type: core.Input },],
-        "change": [{ type: core.Output },],
-        "_inputElement": [{ type: core.ViewChild, args: ['input',] },],
+        id: [{ type: core.Input }],
+        name: [{ type: core.Input }],
+        ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
+        ariaDescribedby: [{ type: core.Input, args: ['aria-describedby',] }],
+        checked: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        labelPosition: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
+        required: [{ type: core.Input }],
+        change: [{ type: core.Output }],
+        _inputElement: [{ type: core.ViewChild, args: ['input',] }]
     };
     return MatRadioButton;
 }(_MatRadioButtonMixinBase));
@@ -24604,10 +25219,10 @@ var MatRadioModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material drawers.
- */
-var /** @type {?} */ matDrawerAnimations = {
+  @type {?} */
+var matDrawerAnimations = {
     /** Animation that slides a drawer in and out. */
     transformDrawer: animations$1.trigger('transform', [
         // We remove the `transform` here completely, rather than setting it to zero, because:
@@ -24641,10 +25256,10 @@ var /** @type {?} */ matDrawerAnimations = {
 function throwMatDuplicatedDrawerError(position) {
     throw Error("A drawer was already declared for 'position=\"" + position + "\"'");
 }
-/**
+/** *
  * Configures whether drawers should use auto sizing by default.
- */
-var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
+  @type {?} */
+var MAT_DRAWER_DEFAULT_AUTOSIZE = new core.InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
     providedIn: 'root',
     factory: MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
 });
@@ -24689,11 +25304,11 @@ var MatDrawerContent = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatDrawerContent.ctorParameters = function () { return [
-        { type: core.ChangeDetectorRef, },
-        { type: MatDrawerContainer, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatDrawerContainer; }),] },] },
-        { type: core.ElementRef, },
-        { type: scrolling.ScrollDispatcher, },
-        { type: core.NgZone, },
+        { type: core.ChangeDetectorRef },
+        { type: MatDrawerContainer, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatDrawerContainer; }),] }] },
+        { type: core.ElementRef },
+        { type: scrolling.ScrollDispatcher },
+        { type: core.NgZone }
     ]; };
     return MatDrawerContent;
 }(scrolling.CdkScrollable));
@@ -24761,15 +25376,14 @@ var MatDrawer = /** @class */ (function () {
              * and we don't have close disabled.
              */
         this._ngZone.runOutsideAngular(function () {
-            rxjs.fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; })).subscribe(function (event) {
-                return _this._ngZone.run(function () {
-                    _this.close();
-                    event.stopPropagation();
-                });
-            });
+            rxjs.fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(operators.filter(function (event) { return event.keyCode === keycodes.ESCAPE && !_this.disableClose; })).subscribe(function (event) { return _this._ngZone.run(function () {
+                _this.close();
+                event.stopPropagation();
+            }); });
         });
     }
     Object.defineProperty(MatDrawer.prototype, "position", {
+        /** The side that the drawer is attached to. */
         get: /**
          * The side that the drawer is attached to.
          * @return {?}
@@ -24791,6 +25405,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "mode", {
+        /** Mode of the drawer; one of 'over', 'push' or 'side'. */
         get: /**
          * Mode of the drawer; one of 'over', 'push' or 'side'.
          * @return {?}
@@ -24808,6 +25423,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "disableClose", {
+        /** Whether the drawer can be closed with the escape key or by clicking on the backdrop. */
         get: /**
          * Whether the drawer can be closed with the escape key or by clicking on the backdrop.
          * @return {?}
@@ -24822,6 +25438,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "autoFocus", {
+        /** Whether the drawer should focus the first focusable element automatically when opened. */
         get: /**
          * Whether the drawer should focus the first focusable element automatically when opened.
          * @return {?}
@@ -24836,6 +25453,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "_openedStream", {
+        /** Event emitted when the drawer has been opened. */
         get: /**
          * Event emitted when the drawer has been opened.
          * @return {?}
@@ -24847,6 +25465,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "openedStart", {
+        /** Event emitted when the drawer has started opening. */
         get: /**
          * Event emitted when the drawer has started opening.
          * @return {?}
@@ -24858,6 +25477,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "_closedStream", {
+        /** Event emitted when the drawer has been closed. */
         get: /**
          * Event emitted when the drawer has been closed.
          * @return {?}
@@ -24869,6 +25489,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "closedStart", {
+        /** Event emitted when the drawer has started closing. */
         get: /**
          * Event emitted when the drawer has started closing.
          * @return {?}
@@ -24925,7 +25546,8 @@ var MatDrawer = /** @class */ (function () {
         if (!this.autoFocus) {
             return;
         }
-        var /** @type {?} */ activeEl = this._doc && this._doc.activeElement;
+        /** @type {?} */
+        var activeEl = this._doc && this._doc.activeElement;
         if (activeEl && this._elementRef.nativeElement.contains(activeEl)) {
             if (this._elementFocusedBeforeDrawerWasOpened instanceof HTMLElement) {
                 this._focusMonitor.focusVia(this._elementFocusedBeforeDrawerWasOpened, this._openedVia);
@@ -24974,6 +25596,10 @@ var MatDrawer = /** @class */ (function () {
         }
     };
     Object.defineProperty(MatDrawer.prototype, "opened", {
+        /**
+         * Whether the drawer is opened. We overload this because we trigger an event when it
+         * starts or end.
+         */
         get: /**
          * Whether the drawer is opened. We overload this because we trigger an event when it
          * starts or end.
@@ -25120,25 +25746,25 @@ var MatDrawer = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatDrawer.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: a11y.FocusTrapFactory, },
-        { type: a11y.FocusMonitor, },
-        { type: platform.Platform, },
-        { type: core.NgZone, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: core.ElementRef },
+        { type: a11y.FocusTrapFactory },
+        { type: a11y.FocusMonitor },
+        { type: platform.Platform },
+        { type: core.NgZone },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
     MatDrawer.propDecorators = {
-        "position": [{ type: core.Input },],
-        "mode": [{ type: core.Input },],
-        "disableClose": [{ type: core.Input },],
-        "autoFocus": [{ type: core.Input },],
-        "openedChange": [{ type: core.Output },],
-        "_openedStream": [{ type: core.Output, args: ['opened',] },],
-        "openedStart": [{ type: core.Output },],
-        "_closedStream": [{ type: core.Output, args: ['closed',] },],
-        "closedStart": [{ type: core.Output },],
-        "onPositionChanged": [{ type: core.Output, args: ['positionChanged',] },],
-        "opened": [{ type: core.Input },],
+        position: [{ type: core.Input }],
+        mode: [{ type: core.Input }],
+        disableClose: [{ type: core.Input }],
+        autoFocus: [{ type: core.Input }],
+        openedChange: [{ type: core.Output }],
+        _openedStream: [{ type: core.Output, args: ['opened',] }],
+        openedStart: [{ type: core.Output }],
+        _closedStream: [{ type: core.Output, args: ['closed',] }],
+        closedStart: [{ type: core.Output }],
+        onPositionChanged: [{ type: core.Output, args: ['positionChanged',] }],
+        opened: [{ type: core.Input }]
     };
     return MatDrawer;
 }());
@@ -25207,6 +25833,14 @@ var MatDrawerContainer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawerContainer.prototype, "autosize", {
+        /**
+         * Whether to automatically resize the container whenever
+         * the size of any of its drawers changes.
+         *
+         * **Use at your own risk!** Enabling this option can cause layout thrashing by measuring
+         * the drawers on every change detection cycle. Can be configured globally via the
+         * `MAT_DRAWER_DEFAULT_AUTOSIZE` token.
+         */
         get: /**
          * Whether to automatically resize the container whenever
          * the size of any of its drawers changes.
@@ -25226,6 +25860,11 @@ var MatDrawerContainer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawerContainer.prototype, "hasBackdrop", {
+        /**
+         * Whether the drawer container should have a backdrop while one of the sidenavs is open.
+         * If explicitly set to `true`, the backdrop will be enabled for drawers in the `side`
+         * mode as well.
+         */
         get: /**
          * Whether the drawer container should have a backdrop while one of the sidenavs is open.
          * If explicitly set to `true`, the backdrop will be enabled for drawers in the `side`
@@ -25546,20 +26185,17 @@ var MatDrawerContainer = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        // 1. For drawers in `over` mode, they don't affect the content.
-        // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
-        //    left margin (for left drawer) or right margin (for right the drawer).
-        // 3. For drawers in `push` mode the should shift the content without resizing it. We do this by
-        //    adding to the left or right margin and simultaneously subtracting the same amount of
-        //    margin from the other side.
-        var /** @type {?} */ left = 0;
-        var /** @type {?} */ right = 0;
+        /** @type {?} */
+        var left = 0;
+        /** @type {?} */
+        var right = 0;
         if (this._left && this._left.opened) {
             if (this._left.mode == 'side') {
                 left += this._left._width;
             }
             else if (this._left.mode == 'push') {
-                var /** @type {?} */ width = this._left._width;
+                /** @type {?} */
+                var width = this._left._width;
                 left += width;
                 right -= width;
             }
@@ -25569,7 +26205,8 @@ var MatDrawerContainer = /** @class */ (function () {
                 right += this._right._width;
             }
             else if (this._right.mode == 'push') {
-                var /** @type {?} */ width = this._right._width;
+                /** @type {?} */
+                var width = this._right._width;
                 right += width;
                 left -= width;
             }
@@ -25602,20 +26239,20 @@ var MatDrawerContainer = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatDrawerContainer.ctorParameters = function () { return [
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: core.ElementRef, },
-        { type: core.NgZone, },
-        { type: core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.ElementRef },
+        { type: core.NgZone },
+        { type: core.ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatDrawerContainer.propDecorators = {
-        "_drawers": [{ type: core.ContentChildren, args: [MatDrawer,] },],
-        "_content": [{ type: core.ContentChild, args: [MatDrawerContent,] },],
-        "_userContent": [{ type: core.ViewChild, args: [MatDrawerContent,] },],
-        "autosize": [{ type: core.Input },],
-        "hasBackdrop": [{ type: core.Input },],
-        "backdropClick": [{ type: core.Output },],
+        _drawers: [{ type: core.ContentChildren, args: [MatDrawer,] }],
+        _content: [{ type: core.ContentChild, args: [MatDrawerContent,] }],
+        _userContent: [{ type: core.ViewChild, args: [MatDrawerContent,] }],
+        autosize: [{ type: core.Input }],
+        hasBackdrop: [{ type: core.Input }],
+        backdropClick: [{ type: core.Output }]
     };
     return MatDrawerContainer;
 }());
@@ -25643,11 +26280,11 @@ var MatSidenavContent = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSidenavContent.ctorParameters = function () { return [
-        { type: core.ChangeDetectorRef, },
-        { type: MatSidenavContainer, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatSidenavContainer; }),] },] },
-        { type: core.ElementRef, },
-        { type: scrolling.ScrollDispatcher, },
-        { type: core.NgZone, },
+        { type: core.ChangeDetectorRef },
+        { type: MatSidenavContainer, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatSidenavContainer; }),] }] },
+        { type: core.ElementRef },
+        { type: scrolling.ScrollDispatcher },
+        { type: core.NgZone }
     ]; };
     return MatSidenavContent;
 }(MatDrawerContent));
@@ -25661,6 +26298,7 @@ var MatSidenav = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatSidenav.prototype, "fixedInViewport", {
+        /** Whether the sidenav is fixed in the viewport. */
         get: /**
          * Whether the sidenav is fixed in the viewport.
          * @return {?}
@@ -25675,6 +26313,10 @@ var MatSidenav = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSidenav.prototype, "fixedTopGap", {
+        /**
+         * The gap between the top of the sidenav and the top of the viewport when the sidenav is in fixed
+         * mode.
+         */
         get: /**
          * The gap between the top of the sidenav and the top of the viewport when the sidenav is in fixed
          * mode.
@@ -25690,6 +26332,10 @@ var MatSidenav = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSidenav.prototype, "fixedBottomGap", {
+        /**
+         * The gap between the bottom of the sidenav and the bottom of the viewport when the sidenav is in
+         * fixed mode.
+         */
         get: /**
          * The gap between the bottom of the sidenav and the bottom of the viewport when the sidenav is in
          * fixed mode.
@@ -25729,11 +26375,10 @@ var MatSidenav = /** @class */ (function (_super) {
                     encapsulation: core.ViewEncapsulation.None,
                 },] },
     ];
-    /** @nocollapse */
     MatSidenav.propDecorators = {
-        "fixedInViewport": [{ type: core.Input },],
-        "fixedTopGap": [{ type: core.Input },],
-        "fixedBottomGap": [{ type: core.Input },],
+        fixedInViewport: [{ type: core.Input }],
+        fixedTopGap: [{ type: core.Input }],
+        fixedBottomGap: [{ type: core.Input }]
     };
     return MatSidenav;
 }(MatDrawer));
@@ -25755,10 +26400,9 @@ var MatSidenavContainer = /** @class */ (function (_super) {
                     encapsulation: core.ViewEncapsulation.None,
                 },] },
     ];
-    /** @nocollapse */
     MatSidenavContainer.propDecorators = {
-        "_drawers": [{ type: core.ContentChildren, args: [MatSidenav,] },],
-        "_content": [{ type: core.ContentChild, args: [MatSidenavContent,] },],
+        _drawers: [{ type: core.ContentChildren, args: [MatSidenav,] }],
+        _content: [{ type: core.ContentChild, args: [MatSidenavContent,] }]
     };
     return MatSidenavContainer;
 }(MatDrawerContainer));
@@ -25804,10 +26448,10 @@ var MatSidenavModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token to be used to override the default options for `mat-slide-toggle`.
- */
-var /** @type {?} */ MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('mat-slide-toggle-default-options', {
+  @type {?} */
+var MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken('mat-slide-toggle-default-options', {
     providedIn: 'root',
     factory: function () { return ({ disableToggleValue: false, disableDragValue: false }); }
 });
@@ -25816,9 +26460,10 @@ var /** @type {?} */ MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new core.InjectionToken(
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Increasing integer for generating unique ids for slide-toggle components.
-var /** @type {?} */ nextUniqueId$8 = 0;
-var /** @type {?} */ MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
+/** @type {?} */
+var nextUniqueId$8 = 0;
+/** @type {?} */
+var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatSlideToggle; }),
     multi: true
@@ -25848,7 +26493,8 @@ MatSlideToggleBase = /** @class */ (function () {
     }
     return MatSlideToggleBase;
 }());
-var /** @type {?} */ _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatSlideToggleBase)), 'accent'));
+/** @type {?} */
+var _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatSlideToggleBase)), 'accent'));
 /**
  * Represents a slidable "switch" toggle that can be moved between on and off.
  */
@@ -25920,6 +26566,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatSlideToggle.prototype, "required", {
+        /** Whether the slide-toggle is required. */
         get: /**
          * Whether the slide-toggle is required.
          * @return {?}
@@ -25934,6 +26581,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlideToggle.prototype, "checked", {
+        /** Whether the slide-toggle element is checked or not */
         get: /**
          * Whether the slide-toggle element is checked or not
          * @return {?}
@@ -26150,7 +26798,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function (distance) {
-        var /** @type {?} */ percentage = (distance / this._thumbBarWidth) * 100;
+        /** @type {?} */
+        var percentage = (distance / this._thumbBarWidth) * 100;
         // When the toggle was initially checked, then we have to start the drag at the end.
         if (this._previousChecked) {
             percentage += 100;
@@ -26165,7 +26814,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
      */
     function () {
         if (!this.disabled && !this._dragging) {
-            var /** @type {?} */ thumbEl = this._thumbEl.nativeElement;
+            /** @type {?} */
+            var thumbEl = this._thumbEl.nativeElement;
             this._thumbBarWidth = this._thumbBarEl.nativeElement.clientWidth - thumbEl.clientWidth;
             thumbEl.classList.add('mat-dragging');
             this._previousChecked = this.checked;
@@ -26182,10 +26832,11 @@ var MatSlideToggle = /** @class */ (function (_super) {
      */
     function (event) {
         if (this._dragging) {
-            var /** @type {?} */ direction = this._dir && this._dir.value === 'rtl' ? -1 : 1;
+            /** @type {?} */
+            var direction = this._dir && this._dir.value === 'rtl' ? -1 : 1;
             this._dragPercentage = this._getDragPercentage(event.deltaX * direction);
-            // Calculate the moved distance based on the thumb bar width.
-            var /** @type {?} */ dragX = (this._dragPercentage / 100) * this._thumbBarWidth * direction;
+            /** @type {?} */
+            var dragX = (this._dragPercentage / 100) * this._thumbBarWidth * direction;
             this._thumbEl.nativeElement.style.transform = "translate3d(" + dragX + "px, 0, 0)";
         }
     };
@@ -26198,7 +26849,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
     function () {
         var _this = this;
         if (this._dragging) {
-            var /** @type {?} */ newCheckedValue = this._dragPercentage > 50;
+            /** @type {?} */
+            var newCheckedValue = this._dragPercentage > 50;
             if (newCheckedValue !== this.checked) {
                 this.dragChange.emit();
                 if (!this.defaults.disableDragValue) {
@@ -26208,19 +26860,17 @@ var MatSlideToggle = /** @class */ (function (_super) {
             }
             // The drag should be stopped outside of the current event handler, otherwise the
             // click event will be fired before it and will revert the drag change.
-            this._ngZone.runOutsideAngular(function () {
-                return setTimeout(function () {
-                    if (_this._dragging) {
-                        _this._dragging = false;
-                        _this._thumbEl.nativeElement.classList.remove('mat-dragging');
-                        // Reset the transform because the component will take care
-                        // of the thumb position after drag.
-                        // Reset the transform because the component will take care
-                        // of the thumb position after drag.
-                        _this._thumbEl.nativeElement.style.transform = '';
-                    }
-                });
-            });
+            this._ngZone.runOutsideAngular(function () { return setTimeout(function () {
+                if (_this._dragging) {
+                    _this._dragging = false;
+                    _this._thumbEl.nativeElement.classList.remove('mat-dragging');
+                    // Reset the transform because the component will take care
+                    // of the thumb position after drag.
+                    // Reset the transform because the component will take care
+                    // of the thumb position after drag.
+                    _this._thumbEl.nativeElement.style.transform = '';
+                }
+            }); });
         }
     };
     /** Method being called whenever the label text changes. */
@@ -26259,30 +26909,30 @@ var MatSlideToggle = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSlideToggle.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: platform.Platform, },
-        { type: a11y.FocusMonitor, },
-        { type: core.ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
-        { type: core.NgZone, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: core.ElementRef },
+        { type: platform.Platform },
+        { type: a11y.FocusMonitor },
+        { type: core.ChangeDetectorRef },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
+        { type: core.NgZone },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] }
     ]; };
     MatSlideToggle.propDecorators = {
-        "_thumbEl": [{ type: core.ViewChild, args: ['thumbContainer',] },],
-        "_thumbBarEl": [{ type: core.ViewChild, args: ['toggleBar',] },],
-        "name": [{ type: core.Input },],
-        "id": [{ type: core.Input },],
-        "labelPosition": [{ type: core.Input },],
-        "ariaLabel": [{ type: core.Input, args: ['aria-label',] },],
-        "ariaLabelledby": [{ type: core.Input, args: ['aria-labelledby',] },],
-        "required": [{ type: core.Input },],
-        "checked": [{ type: core.Input },],
-        "change": [{ type: core.Output },],
-        "toggleChange": [{ type: core.Output },],
-        "dragChange": [{ type: core.Output },],
-        "_inputElement": [{ type: core.ViewChild, args: ['input',] },],
+        _thumbEl: [{ type: core.ViewChild, args: ['thumbContainer',] }],
+        _thumbBarEl: [{ type: core.ViewChild, args: ['toggleBar',] }],
+        name: [{ type: core.Input }],
+        id: [{ type: core.Input }],
+        labelPosition: [{ type: core.Input }],
+        ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
+        required: [{ type: core.Input }],
+        checked: [{ type: core.Input }],
+        change: [{ type: core.Output }],
+        toggleChange: [{ type: core.Output }],
+        dragChange: [{ type: core.Output }],
+        _inputElement: [{ type: core.ViewChild, args: ['input',] }]
     };
     return MatSlideToggle;
 }(_MatSlideToggleMixinBase));
@@ -26311,28 +26961,28 @@ var MatSlideToggleModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
  * the default separation we chose.
- */
-var /** @type {?} */ MIN_AUTO_TICK_SEPARATION = 30;
-/**
+  @type {?} */
+var MIN_AUTO_TICK_SEPARATION = 30;
+/** *
  * The thumb gap size for a disabled slider.
- */
-var /** @type {?} */ DISABLED_THUMB_GAP = 7;
-/**
+  @type {?} */
+var DISABLED_THUMB_GAP = 7;
+/** *
  * The thumb gap size for a non-active slider at its minimum value.
- */
-var /** @type {?} */ MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
-/**
+  @type {?} */
+var MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
+/** *
  * The thumb gap size for an active slider at its minimum value.
- */
-var /** @type {?} */ MIN_VALUE_ACTIVE_THUMB_GAP = 10;
-/**
+  @type {?} */
+var MIN_VALUE_ACTIVE_THUMB_GAP = 10;
+/** *
  * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
- */
-var /** @type {?} */ MAT_SLIDER_VALUE_ACCESSOR = {
+  @type {?} */
+var MAT_SLIDER_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatSlider; }),
     multi: true
@@ -26360,7 +27010,8 @@ MatSliderBase = /** @class */ (function () {
     }
     return MatSliderBase;
 }());
-var /** @type {?} */ _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisabled(MatSliderBase), 'accent'));
+/** @type {?} */
+var _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisabled(MatSliderBase), 'accent'));
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
@@ -26429,6 +27080,7 @@ var MatSlider = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatSlider.prototype, "invert", {
+        /** Whether the slider is inverted. */
         get: /**
          * Whether the slider is inverted.
          * @return {?}
@@ -26445,6 +27097,7 @@ var MatSlider = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "max", {
+        /** The maximum value that the slider can have. */
         get: /**
          * The maximum value that the slider can have.
          * @return {?}
@@ -26464,6 +27117,7 @@ var MatSlider = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "min", {
+        /** The minimum value that the slider can have. */
         get: /**
          * The minimum value that the slider can have.
          * @return {?}
@@ -26487,6 +27141,7 @@ var MatSlider = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "step", {
+        /** The values at which the thumb will snap. */
         get: /**
          * The values at which the thumb will snap.
          * @return {?}
@@ -26508,6 +27163,7 @@ var MatSlider = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "thumbLabel", {
+        /** Whether or not to show the thumb label. */
         get: /**
          * Whether or not to show the thumb label.
          * @return {?}
@@ -26522,6 +27178,10 @@ var MatSlider = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "tickInterval", {
+        /**
+         * How often to show ticks. Relative to the step so that a tick always appears on a step.
+         * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
+         */
         get: /**
          * How often to show ticks. Relative to the step so that a tick always appears on a step.
          * Ex: Tick interval of 4 with a step of 3 will draw a tick every 4 steps (every 12 values).
@@ -26547,6 +27207,7 @@ var MatSlider = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "value", {
+        /** Value of the slider. */
         get: /**
          * Value of the slider.
          * @return {?}
@@ -26564,7 +27225,8 @@ var MatSlider = /** @class */ (function (_super) {
          */
         function (v) {
             if (v !== this._value) {
-                var /** @type {?} */ value = coercion.coerceNumberProperty(v);
+                /** @type {?} */
+                var value = coercion.coerceNumberProperty(v);
                 // While incrementing by a decimal we can end up with values like 33.300000000000004.
                 // Truncate it to ensure that it matches the label and to make it easier to work with.
                 if (this._roundToDecimal) {
@@ -26580,6 +27242,7 @@ var MatSlider = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlider.prototype, "vertical", {
+        /** Whether the slider is vertical. */
         get: /**
          * Whether the slider is vertical.
          * @return {?}
@@ -26709,9 +27372,12 @@ var MatSlider = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
-            var /** @type {?} */ scale = this.vertical ? "1, " + (1 - this.percent) + ", 1" : 1 - this.percent + ", 1, 1";
-            var /** @type {?} */ sign = this._shouldInvertMouseCoords() ? '-' : '';
+            /** @type {?} */
+            var axis = this.vertical ? 'Y' : 'X';
+            /** @type {?} */
+            var scale = this.vertical ? "1, " + (1 - this.percent) + ", 1" : 1 - this.percent + ", 1, 1";
+            /** @type {?} */
+            var sign = this._shouldInvertMouseCoords() ? '-' : '';
             return {
                 // scale3d avoids some rendering issues in Chrome. See #12071.
                 transform: "translate" + axis + "(" + sign + this._thumbGap + "px) scale3d(" + scale + ")"
@@ -26727,9 +27393,12 @@ var MatSlider = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
-            var /** @type {?} */ scale = this.vertical ? "1, " + this.percent + ", 1" : this.percent + ", 1, 1";
-            var /** @type {?} */ sign = this._shouldInvertMouseCoords() ? '' : '-';
+            /** @type {?} */
+            var axis = this.vertical ? 'Y' : 'X';
+            /** @type {?} */
+            var scale = this.vertical ? "1, " + this.percent + ", 1" : this.percent + ", 1, 1";
+            /** @type {?} */
+            var sign = this._shouldInvertMouseCoords() ? '' : '-';
             return {
                 // scale3d avoids some rendering issues in Chrome. See #12071.
                 transform: "translate" + axis + "(" + sign + this._thumbGap + "px) scale3d(" + scale + ")"
@@ -26745,11 +27414,12 @@ var MatSlider = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
-            // For a horizontal slider in RTL languages we push the ticks container off the left edge
-            // instead of the right edge to avoid causing a horizontal scrollbar to appear.
-            var /** @type {?} */ sign = !this.vertical && this._getDirection() == 'rtl' ? '' : '-';
-            var /** @type {?} */ offset = this._tickIntervalPercent / 2 * 100;
+            /** @type {?} */
+            var axis = this.vertical ? 'Y' : 'X';
+            /** @type {?} */
+            var sign = !this.vertical && this._getDirection() == 'rtl' ? '' : '-';
+            /** @type {?} */
+            var offset = this._tickIntervalPercent / 2 * 100;
             return {
                 'transform': "translate" + axis + "(" + sign + offset + "%)"
             };
@@ -26764,21 +27434,25 @@ var MatSlider = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ tickSize = this._tickIntervalPercent * 100;
-            var /** @type {?} */ backgroundSize = this.vertical ? "2px " + tickSize + "%" : tickSize + "% 2px";
-            var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
-            // Depending on the direction we pushed the ticks container, push the ticks the opposite
-            // direction to re-center them but clip off the end edge. In RTL languages we need to flip the
-            // ticks 180 degrees so we're really cutting off the end edge abd not the start.
-            var /** @type {?} */ sign = !this.vertical && this._getDirection() == 'rtl' ? '-' : '';
-            var /** @type {?} */ rotate = !this.vertical && this._getDirection() == 'rtl' ? ' rotate(180deg)' : '';
-            var /** @type {?} */ styles = {
+            /** @type {?} */
+            var tickSize = this._tickIntervalPercent * 100;
+            /** @type {?} */
+            var backgroundSize = this.vertical ? "2px " + tickSize + "%" : tickSize + "% 2px";
+            /** @type {?} */
+            var axis = this.vertical ? 'Y' : 'X';
+            /** @type {?} */
+            var sign = !this.vertical && this._getDirection() == 'rtl' ? '-' : '';
+            /** @type {?} */
+            var rotate = !this.vertical && this._getDirection() == 'rtl' ? ' rotate(180deg)' : '';
+            /** @type {?} */
+            var styles = {
                 'backgroundSize': backgroundSize,
                 // Without translateZ ticks sometimes jitter as the slider moves on Chrome & Firefox.
                 'transform': "translateZ(0) translate" + axis + "(" + sign + tickSize / 2 + "%)" + rotate
             };
             if (this._isMinValue && this._thumbGap) {
-                var /** @type {?} */ side = this.vertical ?
+                /** @type {?} */
+                var side = this.vertical ?
                     (this._invertAxis ? 'Bottom' : 'Top') :
                     (this._invertAxis ? 'Right' : 'Left');
                 styles["padding" + side] = this._thumbGap + "px";
@@ -26793,11 +27467,12 @@ var MatSlider = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
-            // For a horizontal slider in RTL languages we push the thumb container off the left edge
-            // instead of the right edge to avoid causing a horizontal scrollbar to appear.
-            var /** @type {?} */ invertOffset = (this._getDirection() == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
-            var /** @type {?} */ offset = (invertOffset ? this.percent : 1 - this.percent) * 100;
+            /** @type {?} */
+            var axis = this.vertical ? 'Y' : 'X';
+            /** @type {?} */
+            var invertOffset = (this._getDirection() == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
+            /** @type {?} */
+            var offset = (invertOffset ? this.percent : 1 - this.percent) * 100;
             return {
                 'transform': "translate" + axis + "(-" + offset + "%)"
             };
@@ -26886,7 +27561,8 @@ var MatSlider = /** @class */ (function (_super) {
         if (this.disabled) {
             return;
         }
-        var /** @type {?} */ oldValue = this.value;
+        /** @type {?} */
+        var oldValue = this.value;
         this._isSliding = false;
         this._focusHostElement();
         this._updateValueFromPosition({ x: event.clientX, y: event.clientY });
@@ -26915,7 +27591,8 @@ var MatSlider = /** @class */ (function (_super) {
         }
         // Prevent the slide from selecting anything else.
         event.preventDefault();
-        var /** @type {?} */ oldValue = this.value;
+        /** @type {?} */
+        var oldValue = this.value;
         this._updateValueFromPosition({ x: event.center.x, y: event.center.y });
         // Native range elements always emit `input` events when the value changed while sliding.
         if (oldValue != this.value) {
@@ -26990,7 +27667,8 @@ var MatSlider = /** @class */ (function (_super) {
         if (this.disabled) {
             return;
         }
-        var /** @type {?} */ oldValue = this.value;
+        /** @type {?} */
+        var oldValue = this.value;
         switch (event.keyCode) {
             case keycodes.PAGE_UP:
                 this._increment(10);
@@ -27072,11 +27750,14 @@ var MatSlider = /** @class */ (function (_super) {
         if (!this._sliderDimensions) {
             return;
         }
-        var /** @type {?} */ offset = this.vertical ? this._sliderDimensions.top : this._sliderDimensions.left;
-        var /** @type {?} */ size = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
-        var /** @type {?} */ posComponent = this.vertical ? pos.y : pos.x;
-        // The exact value is calculated from the event and used to find the closest snap value.
-        var /** @type {?} */ percent = this._clamp((posComponent - offset) / size);
+        /** @type {?} */
+        var offset = this.vertical ? this._sliderDimensions.top : this._sliderDimensions.left;
+        /** @type {?} */
+        var size = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
+        /** @type {?} */
+        var posComponent = this.vertical ? pos.y : pos.x;
+        /** @type {?} */
+        var percent = this._clamp((posComponent - offset) / size);
         if (this._shouldInvertMouseCoords()) {
             percent = 1 - percent;
         }
@@ -27091,10 +27772,10 @@ var MatSlider = /** @class */ (function (_super) {
             this.value = this.max;
         }
         else {
-            var /** @type {?} */ exactValue = this._calculateValue(percent);
-            // This calculation finds the closest step by finding the closest
-            // whole number divisible by the step relative to the min.
-            var /** @type {?} */ closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
+            /** @type {?} */
+            var exactValue = this._calculateValue(percent);
+            /** @type {?} */
+            var closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
             // The value needs to snap to the min and max.
             this.value = this._clamp(closestValue, this.min, this.max);
         }
@@ -27136,10 +27817,14 @@ var MatSlider = /** @class */ (function (_super) {
             return;
         }
         if (this.tickInterval == 'auto') {
-            var /** @type {?} */ trackSize = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
-            var /** @type {?} */ pixelsPerStep = trackSize * this.step / (this.max - this.min);
-            var /** @type {?} */ stepsPerTick = Math.ceil(MIN_AUTO_TICK_SEPARATION / pixelsPerStep);
-            var /** @type {?} */ pixelsPerTick = stepsPerTick * this.step;
+            /** @type {?} */
+            var trackSize = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
+            /** @type {?} */
+            var pixelsPerStep = trackSize * this.step / (this.max - this.min);
+            /** @type {?} */
+            var stepsPerTick = Math.ceil(MIN_AUTO_TICK_SEPARATION / pixelsPerStep);
+            /** @type {?} */
+            var pixelsPerTick = stepsPerTick * this.step;
             this._tickIntervalPercent = pixelsPerTick / trackSize;
         }
         else {
@@ -27158,7 +27843,8 @@ var MatSlider = /** @class */ (function (_super) {
      */
     function (value) {
         if (value === void 0) { value = this.value; }
-        var /** @type {?} */ event = new MatSliderChange();
+        /** @type {?} */
+        var event = new MatSliderChange();
         event.source = this;
         event.value = value;
         return event;
@@ -27366,27 +28052,27 @@ var MatSlider = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSlider.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: a11y.FocusMonitor, },
-        { type: core.ChangeDetectorRef, },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: core.ElementRef },
+        { type: a11y.FocusMonitor },
+        { type: core.ChangeDetectorRef },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatSlider.propDecorators = {
-        "invert": [{ type: core.Input },],
-        "max": [{ type: core.Input },],
-        "min": [{ type: core.Input },],
-        "step": [{ type: core.Input },],
-        "thumbLabel": [{ type: core.Input },],
-        "tickInterval": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
-        "displayWith": [{ type: core.Input },],
-        "vertical": [{ type: core.Input },],
-        "change": [{ type: core.Output },],
-        "input": [{ type: core.Output },],
-        "valueChange": [{ type: core.Output },],
-        "_sliderWrapper": [{ type: core.ViewChild, args: ['sliderWrapper',] },],
+        invert: [{ type: core.Input }],
+        max: [{ type: core.Input }],
+        min: [{ type: core.Input }],
+        step: [{ type: core.Input }],
+        thumbLabel: [{ type: core.Input }],
+        tickInterval: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        displayWith: [{ type: core.Input }],
+        vertical: [{ type: core.Input }],
+        change: [{ type: core.Output }],
+        input: [{ type: core.Output }],
+        valueChange: [{ type: core.Output }],
+        _sliderWrapper: [{ type: core.ViewChild, args: ['sliderWrapper',] }]
     };
     return MatSlider;
 }(_MatSliderMixinBase));
@@ -27587,10 +28273,10 @@ MatSnackBarRef = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to access the data that was passed in to a snack bar.
- */
-var /** @type {?} */ MAT_SNACK_BAR_DATA = new core.InjectionToken('MatSnackBarData');
+  @type {?} */
+var MAT_SNACK_BAR_DATA = new core.InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
  * @template D
@@ -27680,8 +28366,8 @@ var SimpleSnackBar = /** @class */ (function () {
     ];
     /** @nocollapse */
     SimpleSnackBar.ctorParameters = function () { return [
-        { type: MatSnackBarRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SNACK_BAR_DATA,] },] },
+        { type: MatSnackBarRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SNACK_BAR_DATA,] }] }
     ]; };
     return SimpleSnackBar;
 }());
@@ -27690,10 +28376,10 @@ var SimpleSnackBar = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material snack bar.
- */
-var /** @type {?} */ matSnackBarAnimations = {
+  @type {?} */
+var matSnackBarAnimations = {
     /** Animation that shows and hides a snack bar. */
     snackBarState: animations$1.trigger('state', [
         animations$1.state('void, hidden', animations$1.style({
@@ -27798,9 +28484,8 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
             this._completeExit();
         }
         if (toState === 'visible') {
-            // Note: we shouldn't use `this` inside the zone callback,
-            // because it can cause a memory leak.
-            var /** @type {?} */ onEnter_1 = this._onEnter;
+            /** @type {?} */
+            var onEnter_1 = this._onEnter;
             this._ngZone.run(function () {
                 onEnter_1.next();
                 onEnter_1.complete();
@@ -27877,8 +28562,10 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ element = this._elementRef.nativeElement;
-        var /** @type {?} */ panelClasses = this.snackBarConfig.panelClass;
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
+        /** @type {?} */
+        var panelClasses = this.snackBarConfig.panelClass;
         if (panelClasses) {
             if (Array.isArray(panelClasses)) {
                 // Note that we can't use a spread here, because IE doesn't support multiple arguments.
@@ -27925,13 +28612,13 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSnackBarContainer.ctorParameters = function () { return [
-        { type: core.NgZone, },
-        { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
-        { type: MatSnackBarConfig, },
+        { type: core.NgZone },
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: MatSnackBarConfig }
     ]; };
     MatSnackBarContainer.propDecorators = {
-        "_portalOutlet": [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] },],
+        _portalOutlet: [{ type: core.ViewChild, args: [portal.CdkPortalOutlet,] }]
     };
     return MatSnackBarContainer;
 }(portal.BasePortalOutlet));
@@ -27964,10 +28651,10 @@ var MatSnackBarModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to specify default snack bar.
- */
-var /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new core.InjectionToken('mat-snack-bar-default-options', {
+  @type {?} */
+var MAT_SNACK_BAR_DEFAULT_OPTIONS = new core.InjectionToken('mat-snack-bar-default-options', {
     providedIn: 'root',
     factory: MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY,
 });
@@ -28003,7 +28690,8 @@ var MatSnackBar = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ parent = this._parentSnackBar;
+            /** @type {?} */
+            var parent = this._parentSnackBar;
             return parent ? parent._openedSnackBarRef : this._snackBarRefAtThisLevel;
         },
         set: /**
@@ -28097,7 +28785,8 @@ var MatSnackBar = /** @class */ (function () {
      */
     function (message, action, config) {
         if (action === void 0) { action = ''; }
-        var /** @type {?} */ _config = __assign({}, this._defaultConfig, config);
+        /** @type {?} */
+        var _config = __assign({}, this._defaultConfig, config);
         // Since the user doesn't have access to the component, we can
         // override the data to pass in our own message and action.
         _config.data = { message: message, action: action };
@@ -28135,12 +28824,16 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (overlayRef, config) {
-        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        var /** @type {?} */ injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
+        /** @type {?} */
+        var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        /** @type {?} */
+        var injector = new portal.PortalInjector(userInjector || this._injector, new WeakMap([
             [MatSnackBarConfig, config]
         ]));
-        var /** @type {?} */ containerPortal = new portal.ComponentPortal(MatSnackBarContainer, config.viewContainerRef, injector);
-        var /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
+        /** @type {?} */
+        var containerPortal = new portal.ComponentPortal(MatSnackBarContainer, config.viewContainerRef, injector);
+        /** @type {?} */
+        var containerRef = overlayRef.attach(containerPortal);
         containerRef.instance.snackBarConfig = config;
         return containerRef.instance;
     };
@@ -28159,21 +28852,29 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (content, userConfig) {
-        var /** @type {?} */ config = __assign({}, new MatSnackBarConfig(), this._defaultConfig, userConfig);
-        var /** @type {?} */ overlayRef = this._createOverlay(config);
-        var /** @type {?} */ container = this._attachSnackBarContainer(overlayRef, config);
-        var /** @type {?} */ snackBarRef = new MatSnackBarRef(container, overlayRef);
+        /** @type {?} */
+        var config = __assign({}, new MatSnackBarConfig(), this._defaultConfig, userConfig);
+        /** @type {?} */
+        var overlayRef = this._createOverlay(config);
+        /** @type {?} */
+        var container = this._attachSnackBarContainer(overlayRef, config);
+        /** @type {?} */
+        var snackBarRef = new MatSnackBarRef(container, overlayRef);
         if (content instanceof core.TemplateRef) {
-            var /** @type {?} */ portal$$1 = new portal.TemplatePortal(content, /** @type {?} */ ((null)), /** @type {?} */ ({
+            /** @type {?} */
+            var portal$$1 = new portal.TemplatePortal(content, /** @type {?} */ ((null)), /** @type {?} */ ({
                 $implicit: config.data,
                 snackBarRef: snackBarRef
             }));
             snackBarRef.instance = container.attachTemplatePortal(portal$$1);
         }
         else {
-            var /** @type {?} */ injector = this._createInjector(config, snackBarRef);
-            var /** @type {?} */ portal$$1 = new portal.ComponentPortal(content, undefined, injector);
-            var /** @type {?} */ contentRef = container.attachComponentPortal(portal$$1);
+            /** @type {?} */
+            var injector = this._createInjector(config, snackBarRef);
+            /** @type {?} */
+            var portal$$1 = new portal.ComponentPortal(content, undefined, injector);
+            /** @type {?} */
+            var contentRef = container.attachComponentPortal(portal$$1);
             // We can't pass this via the injector, because the injector is created earlier.
             snackBarRef.instance = contentRef.instance;
         }
@@ -28244,15 +28945,19 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (config) {
-        var /** @type {?} */ overlayConfig = new overlay.OverlayConfig();
+        /** @type {?} */
+        var overlayConfig = new overlay.OverlayConfig();
         overlayConfig.direction = config.direction;
-        var /** @type {?} */ positionStrategy = this._overlay.position().global();
-        // Set horizontal position.
-        var /** @type {?} */ isRtl = config.direction === 'rtl';
-        var /** @type {?} */ isLeft = (config.horizontalPosition === 'left' ||
+        /** @type {?} */
+        var positionStrategy = this._overlay.position().global();
+        /** @type {?} */
+        var isRtl = config.direction === 'rtl';
+        /** @type {?} */
+        var isLeft = (config.horizontalPosition === 'left' ||
             (config.horizontalPosition === 'start' && !isRtl) ||
             (config.horizontalPosition === 'end' && isRtl));
-        var /** @type {?} */ isRight = !isLeft && config.horizontalPosition !== 'center';
+        /** @type {?} */
+        var isRight = !isLeft && config.horizontalPosition !== 'center';
         if (isLeft) {
             positionStrategy.left('0');
         }
@@ -28287,7 +28992,8 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (config, snackBarRef) {
-        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        /** @type {?} */
+        var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         return new portal.PortalInjector(userInjector || this._injector, new WeakMap([
             [MatSnackBarRef, snackBarRef],
             [MAT_SNACK_BAR_DATA, config.data]
@@ -28298,12 +29004,12 @@ var MatSnackBar = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatSnackBar.ctorParameters = function () { return [
-        { type: overlay.Overlay, },
-        { type: a11y.LiveAnnouncer, },
-        { type: core.Injector, },
-        { type: layout.BreakpointObserver, },
-        { type: MatSnackBar, decorators: [{ type: core.Optional }, { type: core.SkipSelf },] },
-        { type: MatSnackBarConfig, decorators: [{ type: core.Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] },] },
+        { type: overlay.Overlay },
+        { type: a11y.LiveAnnouncer },
+        { type: core.Injector },
+        { type: layout.BreakpointObserver },
+        { type: MatSnackBar, decorators: [{ type: core.Optional }, { type: core.SkipSelf }] },
+        { type: MatSnackBarConfig, decorators: [{ type: core.Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] }] }
     ]; };
     /** @nocollapse */ MatSnackBar.ngInjectableDef = core.defineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(core.inject(overlay.Overlay), core.inject(a11y.LiveAnnouncer), core.inject(core.INJECTOR), core.inject(layout.BreakpointObserver), core.inject(MatSnackBar, 12), core.inject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
     return MatSnackBar;
@@ -28360,7 +29066,8 @@ MatSortBase = /** @class */ (function () {
     }
     return MatSortBase;
 }());
-var /** @type {?} */ _MatSortMixinBase = mixinInitialized(mixinDisabled(MatSortBase));
+/** @type {?} */
+var _MatSortMixinBase = mixinInitialized(mixinDisabled(MatSortBase));
 /**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
@@ -28389,6 +29096,7 @@ var MatSort = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatSort.prototype, "direction", {
+        /** The sort direction of the currently active MatSortable. */
         get: /**
          * The sort direction of the currently active MatSortable.
          * @return {?}
@@ -28408,6 +29116,10 @@ var MatSort = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSort.prototype, "disableClear", {
+        /**
+         * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
+         * May be overriden by the MatSortable's disable clear input.
+         */
         get: /**
          * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
          * May be overriden by the MatSortable's disable clear input.
@@ -28502,11 +29214,12 @@ var MatSort = /** @class */ (function (_super) {
         if (!sortable) {
             return '';
         }
-        // Get the sort direction cycle with the potential sortable overrides.
-        var /** @type {?} */ disableClear = sortable.disableClear != null ? sortable.disableClear : this.disableClear;
-        var /** @type {?} */ sortDirectionCycle = getSortDirectionCycle(sortable.start || this.start, disableClear);
-        // Get and return the next direction in the cycle
-        var /** @type {?} */ nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
+        /** @type {?} */
+        var disableClear = sortable.disableClear != null ? sortable.disableClear : this.disableClear;
+        /** @type {?} */
+        var sortDirectionCycle = getSortDirectionCycle(sortable.start || this.start, disableClear);
+        /** @type {?} */
+        var nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
         if (nextDirectionIndex >= sortDirectionCycle.length) {
             nextDirectionIndex = 0;
         }
@@ -28546,13 +29259,12 @@ var MatSort = /** @class */ (function (_super) {
                     inputs: ['disabled: matSortDisabled']
                 },] },
     ];
-    /** @nocollapse */
     MatSort.propDecorators = {
-        "active": [{ type: core.Input, args: ['matSortActive',] },],
-        "start": [{ type: core.Input, args: ['matSortStart',] },],
-        "direction": [{ type: core.Input, args: ['matSortDirection',] },],
-        "disableClear": [{ type: core.Input, args: ['matSortDisableClear',] },],
-        "sortChange": [{ type: core.Output, args: ['matSortChange',] },],
+        active: [{ type: core.Input, args: ['matSortActive',] }],
+        start: [{ type: core.Input, args: ['matSortStart',] }],
+        direction: [{ type: core.Input, args: ['matSortDirection',] }],
+        disableClear: [{ type: core.Input, args: ['matSortDisableClear',] }],
+        sortChange: [{ type: core.Output, args: ['matSortChange',] }]
     };
     return MatSort;
 }(_MatSortMixinBase));
@@ -28563,7 +29275,8 @@ var MatSort = /** @class */ (function (_super) {
  * @return {?}
  */
 function getSortDirectionCycle(start, disableClear) {
-    var /** @type {?} */ sortOrder = ['asc', 'desc'];
+    /** @type {?} */
+    var sortOrder = ['asc', 'desc'];
     if (start == 'desc') {
         sortOrder.reverse();
     }
@@ -28577,12 +29290,13 @@ function getSortDirectionCycle(start, disableClear) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
+/** @type {?} */
+var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
     AnimationCurves.STANDARD_CURVE;
-/**
+/** *
  * Animations used by MatSort.
- */
-var /** @type {?} */ matSortAnimations = {
+  @type {?} */
+var matSortAnimations = {
     /** Animation that moves the sort indicator. */
     indicator: animations$1.trigger('indicator', [
         animations$1.state('active-asc, asc', animations$1.style({ transform: 'translateY(0px)' })),
@@ -28687,10 +29401,10 @@ var MatSortHeaderIntl = /** @class */ (function () {
 function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatSortHeaderIntl();
 }
-/**
+/** *
  * \@docs-private
- */
-var /** @type {?} */ MAT_SORT_HEADER_INTL_PROVIDER = {
+  @type {?} */
+var MAT_SORT_HEADER_INTL_PROVIDER = {
     // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
     provide: MatSortHeaderIntl,
     deps: [[new core.Optional(), new core.SkipSelf(), MatSortHeaderIntl]],
@@ -28712,7 +29426,8 @@ MatSortHeaderBase = /** @class */ (function () {
     }
     return MatSortHeaderBase;
 }());
-var /** @type {?} */ _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
+/** @type {?} */
+var _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -28764,6 +29479,7 @@ var MatSortHeader = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatSortHeader.prototype, "disableClear", {
+        /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
         get: /**
          * Overrides the disable clear value of the containing MatSort for this MatSortable.
          * @return {?}
@@ -28879,9 +29595,8 @@ var MatSortHeader = /** @class */ (function (_super) {
         if (this._viewState.toState === 'hint' || this._viewState.toState === 'active') {
             this._disableViewStateAnimation = true;
         }
-        // If the arrow is now sorted, animate the arrow into place. Otherwise, animate it away into
-        // the direction it is facing.
-        var /** @type {?} */ viewState = this._isSorted() ?
+        /** @type {?} */
+        var viewState = this._isSorted() ?
             { fromState: this._arrowDirection, toState: 'active' } :
             { fromState: 'active', toState: this._arrowDirection };
         this._setAnimationTransitionState(viewState);
@@ -28922,7 +29637,8 @@ var MatSortHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ fromState = this._viewState.fromState;
+        /** @type {?} */
+        var fromState = this._viewState.fromState;
         return (fromState ? fromState + "-to-" : '') + this._viewState.toState;
     };
     /**
@@ -29025,16 +29741,16 @@ var MatSortHeader = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSortHeader.ctorParameters = function () { return [
-        { type: MatSortHeaderIntl, },
-        { type: core.ChangeDetectorRef, },
-        { type: MatSort, decorators: [{ type: core.Optional },] },
-        { type: table.CdkColumnDef, decorators: [{ type: core.Optional },] },
+        { type: MatSortHeaderIntl },
+        { type: core.ChangeDetectorRef },
+        { type: MatSort, decorators: [{ type: core.Optional }] },
+        { type: table.CdkColumnDef, decorators: [{ type: core.Optional }] }
     ]; };
     MatSortHeader.propDecorators = {
-        "id": [{ type: core.Input, args: ['mat-sort-header',] },],
-        "arrowPosition": [{ type: core.Input },],
-        "start": [{ type: core.Input },],
-        "disableClear": [{ type: core.Input },],
+        id: [{ type: core.Input, args: ['mat-sort-header',] }],
+        arrowPosition: [{ type: core.Input }],
+        start: [{ type: core.Input }],
+        disableClear: [{ type: core.Input }]
     };
     return MatSortHeader;
 }(_MatSortHeaderMixinBase));
@@ -29061,8 +29777,8 @@ var MatSortModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkStepLabel = stepper.CdkStepLabel;
+/** @type {?} */
+var _CdkStepLabel = stepper.CdkStepLabel;
 var MatStepLabel = /** @class */ (function (_super) {
     __extends(MatStepLabel, _super);
     function MatStepLabel() {
@@ -29199,19 +29915,19 @@ var MatStepHeader = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatStepHeader.ctorParameters = function () { return [
-        { type: MatStepperIntl, },
-        { type: a11y.FocusMonitor, },
-        { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
+        { type: MatStepperIntl },
+        { type: a11y.FocusMonitor },
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef }
     ]; };
     MatStepHeader.propDecorators = {
-        "state": [{ type: core.Input },],
-        "label": [{ type: core.Input },],
-        "iconOverrides": [{ type: core.Input },],
-        "index": [{ type: core.Input },],
-        "selected": [{ type: core.Input },],
-        "active": [{ type: core.Input },],
-        "optional": [{ type: core.Input },],
+        state: [{ type: core.Input }],
+        label: [{ type: core.Input }],
+        iconOverrides: [{ type: core.Input }],
+        index: [{ type: core.Input }],
+        selected: [{ type: core.Input }],
+        active: [{ type: core.Input }],
+        optional: [{ type: core.Input }]
     };
     return MatStepHeader;
 }());
@@ -29220,10 +29936,10 @@ var MatStepHeader = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material steppers.
- */
-var /** @type {?} */ matStepperAnimations = {
+  @type {?} */
+var matStepperAnimations = {
     /** Animation that transitions the step along the X axis in a horizontal stepper. */
     horizontalStepTransition: animations$1.trigger('stepTransition', [
         animations$1.state('previous', animations$1.style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
@@ -29258,10 +29974,10 @@ var MatStepperIcon = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatStepperIcon.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
+        { type: core.TemplateRef }
     ]; };
     MatStepperIcon.propDecorators = {
-        "name": [{ type: core.Input, args: ['matStepperIcon',] },],
+        name: [{ type: core.Input, args: ['matStepperIcon',] }]
     };
     return MatStepperIcon;
 }());
@@ -29270,8 +29986,8 @@ var MatStepperIcon = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkStepper = stepper.CdkStepper;
+/** @type {?} */
+var _CdkStepper = stepper.CdkStepper;
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper$$1, _errorStateMatcher) {
@@ -29293,11 +30009,10 @@ var MatStep = /** @class */ (function (_super) {
      * @return {?}
      */
     function (control, form) {
-        var /** @type {?} */ originalErrorState = this._errorStateMatcher.isErrorState(control, form);
-        // Custom error state checks for the validity of form that is not submitted or touched
-        // since user can trigger a form change by calling for another step without directly
-        // interacting with the current form.
-        var /** @type {?} */ customErrorState = !!(control && control.invalid && this.interacted);
+        /** @type {?} */
+        var originalErrorState = this._errorStateMatcher.isErrorState(control, form);
+        /** @type {?} */
+        var customErrorState = !!(control && control.invalid && this.interacted);
         return originalErrorState || customErrorState;
     };
     MatStep.decorators = [
@@ -29311,11 +30026,11 @@ var MatStep = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatStep.ctorParameters = function () { return [
-        { type: MatStepper, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatStepper; }),] },] },
-        { type: ErrorStateMatcher, decorators: [{ type: core.SkipSelf },] },
+        { type: MatStepper, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatStepper; }),] }] },
+        { type: ErrorStateMatcher, decorators: [{ type: core.SkipSelf }] }
     ]; };
     MatStep.propDecorators = {
-        "stepLabel": [{ type: core.ContentChild, args: [MatStepLabel,] },],
+        stepLabel: [{ type: core.ContentChild, args: [MatStepLabel,] }]
     };
     return MatStep;
 }(stepper.CdkStep));
@@ -29341,9 +30056,11 @@ var MatStepper = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ icons = this._icons.toArray();
+        /** @type {?} */
+        var icons = this._icons.toArray();
         ['edit', 'done', 'number'].forEach(function (name) {
-            var /** @type {?} */ override = icons.find(function (icon) { return icon.name === name; });
+            /** @type {?} */
+            var override = icons.find(function (icon) { return icon.name === name; });
             if (override) {
                 _this._iconOverrides[name] = override.templateRef;
             }
@@ -29369,12 +30086,11 @@ var MatStepper = /** @class */ (function (_super) {
                     selector: '[matStepper]'
                 },] },
     ];
-    /** @nocollapse */
     MatStepper.propDecorators = {
-        "_stepHeader": [{ type: core.ViewChildren, args: [MatStepHeader,] },],
-        "_steps": [{ type: core.ContentChildren, args: [MatStep,] },],
-        "_icons": [{ type: core.ContentChildren, args: [MatStepperIcon,] },],
-        "animationDone": [{ type: core.Output },],
+        _stepHeader: [{ type: core.ViewChildren, args: [MatStepHeader,] }],
+        _steps: [{ type: core.ContentChildren, args: [MatStep,] }],
+        _icons: [{ type: core.ContentChildren, args: [MatStepperIcon,] }],
+        animationDone: [{ type: core.Output }]
     };
     return MatStepper;
 }(_CdkStepper));
@@ -29431,10 +30147,10 @@ var MatVerticalStepper = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatVerticalStepper.ctorParameters = function () { return [
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: core.ChangeDetectorRef, },
-        { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.ChangeDetectorRef },
+        { type: core.ElementRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
     return MatVerticalStepper;
 }(MatStepper));
@@ -29443,9 +30159,10 @@ var MatVerticalStepper = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkStepperNext = stepper.CdkStepperNext;
-var /** @type {?} */ _CdkStepperPrevious = stepper.CdkStepperPrevious;
+/** @type {?} */
+var _CdkStepperNext = stepper.CdkStepperNext;
+/** @type {?} */
+var _CdkStepperPrevious = stepper.CdkStepperPrevious;
 /**
  * Button that moves to the next step in a stepper workflow.
  */
@@ -29540,8 +30257,8 @@ var MatStepperModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkTable = table.CdkTable;
+/** @type {?} */
+var _CdkTable = table.CdkTable;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
@@ -29575,10 +30292,12 @@ var MatTable = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkCellDef = table.CdkCellDef;
-var /** @type {?} */ _CdkHeaderCellDef = table.CdkHeaderCellDef;
-var /** @type {?} */ _CdkFooterCellDef = table.CdkFooterCellDef;
+/** @type {?} */
+var _CdkCellDef = table.CdkCellDef;
+/** @type {?} */
+var _CdkHeaderCellDef = table.CdkHeaderCellDef;
+/** @type {?} */
+var _CdkFooterCellDef = table.CdkFooterCellDef;
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -29645,11 +30364,10 @@ var MatColumnDef = /** @class */ (function (_super) {
                     providers: [{ provide: table.CdkColumnDef, useExisting: MatColumnDef }],
                 },] },
     ];
-    /** @nocollapse */
     MatColumnDef.propDecorators = {
-        "name": [{ type: core.Input, args: ['matColumnDef',] },],
-        "sticky": [{ type: core.Input },],
-        "stickyEnd": [{ type: core.Input },],
+        name: [{ type: core.Input, args: ['matColumnDef',] }],
+        sticky: [{ type: core.Input }],
+        stickyEnd: [{ type: core.Input }]
     };
     return MatColumnDef;
 }(table.CdkColumnDef));
@@ -29674,8 +30392,8 @@ var MatHeaderCell = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatHeaderCell.ctorParameters = function () { return [
-        { type: table.CdkColumnDef, },
-        { type: core.ElementRef, },
+        { type: table.CdkColumnDef },
+        { type: core.ElementRef }
     ]; };
     return MatHeaderCell;
 }(table.CdkHeaderCell));
@@ -29700,8 +30418,8 @@ var MatFooterCell = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatFooterCell.ctorParameters = function () { return [
-        { type: table.CdkColumnDef, },
-        { type: core.ElementRef, },
+        { type: table.CdkColumnDef },
+        { type: core.ElementRef }
     ]; };
     return MatFooterCell;
 }(table.CdkFooterCell));
@@ -29726,8 +30444,8 @@ var MatCell = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatCell.ctorParameters = function () { return [
-        { type: table.CdkColumnDef, },
-        { type: core.ElementRef, },
+        { type: table.CdkColumnDef },
+        { type: core.ElementRef }
     ]; };
     return MatCell;
 }(table.CdkCell));
@@ -29736,10 +30454,12 @@ var MatCell = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkHeaderRowDef = table.CdkHeaderRowDef;
-var /** @type {?} */ _CdkFooterRowDef = table.CdkFooterRowDef;
-var /** @type {?} */ _CdkRowDef = table.CdkRowDef;
+/** @type {?} */
+var _CdkHeaderRowDef = table.CdkHeaderRowDef;
+/** @type {?} */
+var _CdkFooterRowDef = table.CdkFooterRowDef;
+/** @type {?} */
+var _CdkRowDef = table.CdkRowDef;
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
@@ -29870,7 +30590,8 @@ var MatRow = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ EXPORTED_DECLARATIONS = [
+/** @type {?} */
+var EXPORTED_DECLARATIONS = [
     MatTable,
     MatHeaderCellDef,
     MatHeaderRowDef,
@@ -29903,11 +30624,11 @@ var MatTableModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Corresponds to `Number.MAX_SAFE_INTEGER`. Moved out into a variable here due to
  * flaky browser support and the value not being defined in Closure's typings.
- */
-var /** @type {?} */ MAX_SAFE_INTEGER = 9007199254740991;
+  @type {?} */
+var MAX_SAFE_INTEGER = 9007199254740991;
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
  * sorting (using MatSort), and pagination (using MatPaginator).
@@ -29954,9 +30675,11 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @param sortHeaderId The name of the column that represents the data.
          */
         _this.sortingDataAccessor = function (data, sortHeaderId) {
-            var /** @type {?} */ value = data[sortHeaderId];
+            /** @type {?} */
+            var value = data[sortHeaderId];
             if (coercion._isNumberValue(value)) {
-                var /** @type {?} */ numberValue = Number(value);
+                /** @type {?} */
+                var numberValue = Number(value);
                 // Numbers beyond `MAX_SAFE_INTEGER` can't be compared reliably so we
                 // leave them as strings. For more info: https://goo.gl/y5vbSg
                 return numberValue < MAX_SAFE_INTEGER ? numberValue : value;
@@ -29973,19 +30696,20 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @param sort The connected MatSort that holds the current sort state.
          */
         _this.sortData = function (data, sort) {
-            var /** @type {?} */ active = sort.active;
-            var /** @type {?} */ direction = sort.direction;
+            /** @type {?} */
+            var active = sort.active;
+            /** @type {?} */
+            var direction = sort.direction;
             if (!active || direction == '') {
                 return data;
             }
             return data.sort(function (a, b) {
-                var /** @type {?} */ valueA = _this.sortingDataAccessor(a, active);
-                var /** @type {?} */ valueB = _this.sortingDataAccessor(b, active);
-                // If both valueA and valueB exist (truthy), then compare the two. Otherwise, check if
-                // one value exists while the other doesn't. In this case, existing value should come first.
-                // This avoids inconsistent results when comparing values to undefined/null.
-                // If neither value exists, return 0 (equal).
-                var /** @type {?} */ comparatorResult = 0;
+                /** @type {?} */
+                var valueA = _this.sortingDataAccessor(a, active);
+                /** @type {?} */
+                var valueB = _this.sortingDataAccessor(b, active);
+                /** @type {?} */
+                var comparatorResult = 0;
                 if (valueA != null && valueB != null) {
                     // Check if one value is greater than the other; if equal, comparatorResult should remain 0.
                     if (valueA > valueB) {
@@ -30015,11 +30739,12 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @return Whether the filter matches against the data
          */
         _this.filterPredicate = function (data, filter) {
-            // Transform the data into a lowercase string of all property values.
-            var /** @type {?} */ accumulator = function (currentTerm, key) { return currentTerm + data[key]; };
-            var /** @type {?} */ dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
-            // Transform the filter by converting it to lowercase and removing whitespace.
-            var /** @type {?} */ transformedFilter = filter.trim().toLowerCase();
+            /** @type {?} */
+            var accumulator = function (currentTerm, key) { return currentTerm + data[key]; };
+            /** @type {?} */
+            var dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+            /** @type {?} */
+            var transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
         };
         _this._data = new rxjs.BehaviorSubject(initialData);
@@ -30135,33 +30860,30 @@ MatTableDataSource = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
-        // The events should emit whenever the component emits a change or initializes, or if no
-        // component is provided, a stream with just a null event should be provided.
-        // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the
-        // pipeline can progress to the next step. Note that the value from these streams are not used,
-        // they purely act as a signal to progress in the pipeline.
-        var /** @type {?} */ sortChange = this._sort ?
+        /** @type {?} */
+        var sortChange = this._sort ?
             rxjs.merge(this._sort.sortChange, this._sort.initialized) :
             rxjs.of(null);
-        var /** @type {?} */ pageChange = this._paginator ?
+        /** @type {?} */
+        var pageChange = this._paginator ?
             rxjs.merge(this._paginator.page, this._paginator.initialized) :
             rxjs.of(null);
-        var /** @type {?} */ dataStream = this._data;
-        // Watch for base data or filter changes to provide a filtered set of data.
-        var /** @type {?} */ filteredData = rxjs.combineLatest(dataStream, this._filter)
+        /** @type {?} */
+        var dataStream = this._data;
+        /** @type {?} */
+        var filteredData = rxjs.combineLatest(dataStream, this._filter)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._filterData(data);
         }));
-        // Watch for filtered data or sort changes to provide an ordered set of data.
-        var /** @type {?} */ orderedData = rxjs.combineLatest(filteredData, sortChange)
+        /** @type {?} */
+        var orderedData = rxjs.combineLatest(filteredData, sortChange)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._orderData(data);
         }));
-        // Watch for ordered data or page changes to provide a paged set of data.
-        var /** @type {?} */ paginatedData = rxjs.combineLatest(orderedData, pageChange)
+        /** @type {?} */
+        var paginatedData = rxjs.combineLatest(orderedData, pageChange)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._pageData(data);
@@ -30247,7 +30969,8 @@ MatTableDataSource = /** @class */ (function (_super) {
         if (!this.paginator) {
             return data;
         }
-        var /** @type {?} */ startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+        /** @type {?} */
+        var startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         return data.slice().splice(startIndex, this.paginator.pageSize);
     };
     /**
@@ -30278,7 +31001,8 @@ MatTableDataSource = /** @class */ (function (_super) {
             _this.paginator.length = filteredDataLength;
             // If the page index is set beyond the page, reduce it to the last page.
             if (_this.paginator.pageIndex > 0) {
-                var /** @type {?} */ lastPageIndex = Math.ceil(_this.paginator.length / _this.paginator.pageSize) - 1 || 0;
+                /** @type {?} */
+                var lastPageIndex = Math.ceil(_this.paginator.length / _this.paginator.pageSize) - 1 || 0;
                 _this.paginator.pageIndex = Math.min(_this.paginator.pageIndex, lastPageIndex);
             }
         });
@@ -30320,10 +31044,10 @@ MatTableDataSource = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token for the MatInkBar's Positioner.
- */
-var /** @type {?} */ _MAT_INK_BAR_POSITIONER = new core.InjectionToken('MatInkBarPositioner', {
+  @type {?} */
+var _MAT_INK_BAR_POSITIONER = new core.InjectionToken('MatInkBarPositioner', {
     providedIn: 'root',
     factory: _MAT_INK_BAR_POSITIONER_FACTORY
 });
@@ -30333,12 +31057,11 @@ var /** @type {?} */ _MAT_INK_BAR_POSITIONER = new core.InjectionToken('MatInkBa
  * @return {?}
  */
 function _MAT_INK_BAR_POSITIONER_FACTORY() {
-    var /** @type {?} */ method = function (element) {
-        return ({
-            left: element ? (element.offsetLeft || 0) + 'px' : '0',
-            width: element ? (element.offsetWidth || 0) + 'px' : '0',
-        });
-    };
+    /** @type {?} */
+    var method = function (element) { return ({
+        left: element ? (element.offsetLeft || 0) + 'px' : '0',
+        width: element ? (element.offsetWidth || 0) + 'px' : '0',
+    }); };
     return method;
 }
 /**
@@ -30415,8 +31138,10 @@ var MatInkBar = /** @class */ (function () {
      * @return {?}
      */
     function (element) {
-        var /** @type {?} */ positions = this._inkBarPositioner(element);
-        var /** @type {?} */ inkBar = this._elementRef.nativeElement;
+        /** @type {?} */
+        var positions = this._inkBarPositioner(element);
+        /** @type {?} */
+        var inkBar = this._elementRef.nativeElement;
         inkBar.style.left = positions.left;
         inkBar.style.width = positions.width;
     };
@@ -30430,9 +31155,9 @@ var MatInkBar = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatInkBar.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.NgZone, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [_MAT_INK_BAR_POSITIONER,] },] },
+        { type: core.ElementRef },
+        { type: core.NgZone },
+        { type: undefined, decorators: [{ type: core.Inject, args: [_MAT_INK_BAR_POSITIONER,] }] }
     ]; };
     return MatInkBar;
 }());
@@ -30441,8 +31166,8 @@ var MatInkBar = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): Workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkPortal = portal.CdkPortal;
+/** @type {?} */
+var _CdkPortal = portal.CdkPortal;
 /**
  * Used to flag tab labels for use with the portal directive
  */
@@ -30475,7 +31200,7 @@ var MatTabContent = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatTabContent.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
+        { type: core.TemplateRef }
     ]; };
     return MatTabContent;
 }());
@@ -30495,7 +31220,8 @@ MatTabBase = /** @class */ (function () {
     }
     return MatTabBase;
 }());
-var /** @type {?} */ _MatTabMixinBase = mixinDisabled(MatTabBase);
+/** @type {?} */
+var _MatTabMixinBase = mixinDisabled(MatTabBase);
 var MatTab = /** @class */ (function (_super) {
     __extends(MatTab, _super);
     function MatTab(_viewContainerRef) {
@@ -30583,15 +31309,15 @@ var MatTab = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatTab.ctorParameters = function () { return [
-        { type: core.ViewContainerRef, },
+        { type: core.ViewContainerRef }
     ]; };
     MatTab.propDecorators = {
-        "templateLabel": [{ type: core.ContentChild, args: [MatTabLabel,] },],
-        "_explicitContent": [{ type: core.ContentChild, args: [MatTabContent, { read: core.TemplateRef },] },],
-        "_implicitContent": [{ type: core.ViewChild, args: [core.TemplateRef,] },],
-        "textLabel": [{ type: core.Input, args: ['label',] },],
-        "ariaLabel": [{ type: core.Input, args: ['aria-label',] },],
-        "ariaLabelledby": [{ type: core.Input, args: ['aria-labelledby',] },],
+        templateLabel: [{ type: core.ContentChild, args: [MatTabLabel,] }],
+        _explicitContent: [{ type: core.ContentChild, args: [MatTabContent, { read: core.TemplateRef },] }],
+        _implicitContent: [{ type: core.ViewChild, args: [core.TemplateRef,] }],
+        textLabel: [{ type: core.Input, args: ['label',] }],
+        ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }]
     };
     return MatTab;
 }(_MatTabMixinBase));
@@ -30600,10 +31326,10 @@ var MatTab = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material tabs.
- */
-var /** @type {?} */ matTabsAnimations = {
+  @type {?} */
+var matTabsAnimations = {
     /** Animation translates a tab along the X axis. */
     translateTab: animations$1.trigger('translateTab', [
         // Note: transitions to `none` instead of 0, because some browsers might blur the content.
@@ -30693,9 +31419,9 @@ var MatTabBodyPortal = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatTabBodyPortal.ctorParameters = function () { return [
-        { type: core.ComponentFactoryResolver, },
-        { type: core.ViewContainerRef, },
-        { type: MatTabBody, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatTabBody; }),] },] },
+        { type: core.ComponentFactoryResolver },
+        { type: core.ViewContainerRef },
+        { type: MatTabBody, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatTabBody; }),] }] }
     ]; };
     return MatTabBodyPortal;
 }(portal.CdkPortalOutlet));
@@ -30742,6 +31468,7 @@ var MatTabBody = /** @class */ (function () {
         }
     }
     Object.defineProperty(MatTabBody.prototype, "position", {
+        /** The shifted index position of the tab body, where zero represents the active center tab. */
         set: /**
          * The shifted index position of the tab body, where zero represents the active center tab.
          * @param {?} position
@@ -30791,7 +31518,8 @@ var MatTabBody = /** @class */ (function () {
      * @return {?}
      */
     function (e) {
-        var /** @type {?} */ isCentering = this._isCenterPosition(e.toState);
+        /** @type {?} */
+        var isCentering = this._isCenterPosition(e.toState);
         this._beforeCentering.emit(isCentering);
         if (isCentering) {
             this._onCentering.emit(this._elementRef.nativeElement.clientHeight);
@@ -30875,7 +31603,8 @@ var MatTabBody = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ dir = this._getLayoutDirection();
+        /** @type {?} */
+        var dir = this._getLayoutDirection();
         if ((dir == 'ltr' && this.origin <= 0) || (dir == 'rtl' && this.origin > 0)) {
             return 'left-origin-center';
         }
@@ -30895,19 +31624,19 @@ var MatTabBody = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatTabBody.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: core.ChangeDetectorRef, },
+        { type: core.ElementRef },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.ChangeDetectorRef }
     ]; };
     MatTabBody.propDecorators = {
-        "_onCentering": [{ type: core.Output },],
-        "_beforeCentering": [{ type: core.Output },],
-        "_afterLeavingCenter": [{ type: core.Output },],
-        "_onCentered": [{ type: core.Output },],
-        "_portalHost": [{ type: core.ViewChild, args: [portal.PortalHostDirective,] },],
-        "_content": [{ type: core.Input, args: ['content',] },],
-        "origin": [{ type: core.Input },],
-        "position": [{ type: core.Input },],
+        _onCentering: [{ type: core.Output }],
+        _beforeCentering: [{ type: core.Output }],
+        _afterLeavingCenter: [{ type: core.Output }],
+        _onCentered: [{ type: core.Output }],
+        _portalHost: [{ type: core.ViewChild, args: [portal.PortalHostDirective,] }],
+        _content: [{ type: core.Input, args: ['content',] }],
+        origin: [{ type: core.Input }],
+        position: [{ type: core.Input }]
     };
     return MatTabBody;
 }());
@@ -30927,7 +31656,8 @@ MatTabLabelWrapperBase = /** @class */ (function () {
     }
     return MatTabLabelWrapperBase;
 }());
-var /** @type {?} */ _MatTabLabelWrapperMixinBase = mixinDisabled(MatTabLabelWrapperBase);
+/** @type {?} */
+var _MatTabLabelWrapperMixinBase = mixinDisabled(MatTabLabelWrapperBase);
 /**
  * Used in the `mat-tab-group` view to display tab labels.
  * \@docs-private
@@ -30981,7 +31711,7 @@ var MatTabLabelWrapper = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatTabLabelWrapper.ctorParameters = function () { return [
-        { type: core.ElementRef, },
+        { type: core.ElementRef }
     ]; };
     return MatTabLabelWrapper;
 }(_MatTabLabelWrapperMixinBase));
@@ -30990,11 +31720,11 @@ var MatTabLabelWrapper = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
  * provide a small affordance to the label next to it.
- */
-var /** @type {?} */ EXAGGERATED_OVERSCROLL = 60;
+  @type {?} */
+var EXAGGERATED_OVERSCROLL = 60;
 /**
  * \@docs-private
  */
@@ -31006,7 +31736,8 @@ MatTabHeaderBase = /** @class */ (function () {
     }
     return MatTabHeaderBase;
 }());
-var /** @type {?} */ _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
+/** @type {?} */
+var _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
 /**
  * The header of the tab group which displays a list of all the tabs in the tab group. Includes
  * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the
@@ -31058,6 +31789,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatTabHeader.prototype, "selectedIndex", {
+        /** The index of the active tab. */
         get: /**
          * The index of the active tab.
          * @return {?}
@@ -31148,9 +31880,12 @@ var MatTabHeader = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ dirChange = this._dir ? this._dir.change : rxjs.of(null);
-        var /** @type {?} */ resize = this._viewportRuler.change(150);
-        var /** @type {?} */ realign = function () {
+        /** @type {?} */
+        var dirChange = this._dir ? this._dir.change : rxjs.of(null);
+        /** @type {?} */
+        var resize = this._viewportRuler.change(150);
+        /** @type {?} */
+        var realign = function () {
             _this._updatePagination();
             _this._alignInkBarToSelectedTab();
         };
@@ -31261,7 +31996,8 @@ var MatTabHeader = /** @class */ (function (_super) {
         if (!this._labelWrappers) {
             return true;
         }
-        var /** @type {?} */ tab = this._labelWrappers ? this._labelWrappers.toArray()[index] : null;
+        /** @type {?} */
+        var tab = this._labelWrappers ? this._labelWrappers.toArray()[index] : null;
         return !!tab && !tab.disabled;
     };
     /**
@@ -31286,11 +32022,10 @@ var MatTabHeader = /** @class */ (function (_super) {
         }
         if (this._labelWrappers && this._labelWrappers.length) {
             this._labelWrappers.toArray()[tabIndex].focus();
-            // Do not let the browser manage scrolling to focus the element, this will be handled
-            // by using translation. In LTR, the scroll left should be 0. In RTL, the scroll width
-            // should be the full width minus the offset width.
-            var /** @type {?} */ containerEl = this._tabListContainer.nativeElement;
-            var /** @type {?} */ dir = this._getLayoutDirection();
+            /** @type {?} */
+            var containerEl = this._tabListContainer.nativeElement;
+            /** @type {?} */
+            var dir = this._getLayoutDirection();
             if (dir == 'ltr') {
                 containerEl.scrollLeft = 0;
             }
@@ -31321,8 +32056,10 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ scrollDistance = this.scrollDistance;
-        var /** @type {?} */ translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
+        /** @type {?} */
+        var scrollDistance = this.scrollDistance;
+        /** @type {?} */
+        var translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
         // Don't use `translate3d` here because we don't want to create a new layer. A new layer
         // seems to cause flickering and overflow in Internet Explorer. For example, the ink bar
         // and ripples will exceed the boundaries of the visible tab bar.
@@ -31379,7 +32116,8 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function (scrollDir) {
-        var /** @type {?} */ viewLength = this._tabListContainer.nativeElement.offsetWidth;
+        /** @type {?} */
+        var viewLength = this._tabListContainer.nativeElement.offsetWidth;
         // Move the scroll distance one-third the length of the tab list's viewport.
         this.scrollDistance += (scrollDir == 'before' ? -1 : 1) * viewLength / 3;
     };
@@ -31406,13 +32144,17 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function (labelIndex) {
-        var /** @type {?} */ selectedLabel = this._labelWrappers ? this._labelWrappers.toArray()[labelIndex] : null;
+        /** @type {?} */
+        var selectedLabel = this._labelWrappers ? this._labelWrappers.toArray()[labelIndex] : null;
         if (!selectedLabel) {
             return;
         }
-        // The view length is the visible width of the tab labels.
-        var /** @type {?} */ viewLength = this._tabListContainer.nativeElement.offsetWidth;
-        var /** @type {?} */ labelBeforePos, /** @type {?} */ labelAfterPos;
+        /** @type {?} */
+        var viewLength = this._tabListContainer.nativeElement.offsetWidth;
+        /** @type {?} */
+        var labelBeforePos;
+        /** @type {?} */
+        var labelAfterPos;
         if (this._getLayoutDirection() == 'ltr') {
             labelBeforePos = selectedLabel.getOffsetLeft();
             labelAfterPos = labelBeforePos + selectedLabel.getOffsetWidth();
@@ -31421,8 +32163,10 @@ var MatTabHeader = /** @class */ (function (_super) {
             labelAfterPos = this._tabList.nativeElement.offsetWidth - selectedLabel.getOffsetLeft();
             labelBeforePos = labelAfterPos - selectedLabel.getOffsetWidth();
         }
-        var /** @type {?} */ beforeVisiblePos = this.scrollDistance;
-        var /** @type {?} */ afterVisiblePos = this.scrollDistance + viewLength;
+        /** @type {?} */
+        var beforeVisiblePos = this.scrollDistance;
+        /** @type {?} */
+        var afterVisiblePos = this.scrollDistance + viewLength;
         if (labelBeforePos < beforeVisiblePos) {
             // Scroll header to move label to the before direction
             this.scrollDistance -= beforeVisiblePos - labelBeforePos + EXAGGERATED_OVERSCROLL;
@@ -31459,7 +32203,8 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ isEnabled = this._tabList.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
+        /** @type {?} */
+        var isEnabled = this._tabList.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
         if (!isEnabled) {
             this.scrollDistance = 0;
         }
@@ -31527,8 +32272,10 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ lengthOfTabList = this._tabList.nativeElement.scrollWidth;
-        var /** @type {?} */ viewLength = this._tabListContainer.nativeElement.offsetWidth;
+        /** @type {?} */
+        var lengthOfTabList = this._tabList.nativeElement.scrollWidth;
+        /** @type {?} */
+        var viewLength = this._tabListContainer.nativeElement.offsetWidth;
         return (lengthOfTabList - viewLength) || 0;
     };
     /** Tells the ink-bar to align itself to the current label wrapper */
@@ -31541,7 +32288,8 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
+        /** @type {?} */
+        var selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
             this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement :
             null;
         this._inkBar.alignToElement(selectedLabelWrapper);
@@ -31562,19 +32310,19 @@ var MatTabHeader = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatTabHeader.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
-        { type: scrolling.ViewportRuler, },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: scrolling.ViewportRuler },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] }
     ]; };
     MatTabHeader.propDecorators = {
-        "_labelWrappers": [{ type: core.ContentChildren, args: [MatTabLabelWrapper,] },],
-        "_inkBar": [{ type: core.ViewChild, args: [MatInkBar,] },],
-        "_tabListContainer": [{ type: core.ViewChild, args: ['tabListContainer',] },],
-        "_tabList": [{ type: core.ViewChild, args: ['tabList',] },],
-        "selectedIndex": [{ type: core.Input },],
-        "selectFocusedIndex": [{ type: core.Output },],
-        "indexFocused": [{ type: core.Output },],
+        _labelWrappers: [{ type: core.ContentChildren, args: [MatTabLabelWrapper,] }],
+        _inkBar: [{ type: core.ViewChild, args: [MatInkBar,] }],
+        _tabListContainer: [{ type: core.ViewChild, args: ['tabListContainer',] }],
+        _tabList: [{ type: core.ViewChild, args: ['tabList',] }],
+        selectedIndex: [{ type: core.Input }],
+        selectFocusedIndex: [{ type: core.Output }],
+        indexFocused: [{ type: core.Output }]
     };
     return MatTabHeader;
 }(_MatTabHeaderMixinBase));
@@ -31583,10 +32331,10 @@ var MatTabHeader = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Used to generate unique ID's for each tab component
- */
-var /** @type {?} */ nextId$1 = 0;
+  @type {?} */
+var nextId$1 = 0;
 /**
  * A simple change event emitted on focus or selection changes.
  */
@@ -31610,7 +32358,8 @@ MatTabGroupBase = /** @class */ (function () {
     }
     return MatTabGroupBase;
 }());
-var /** @type {?} */ _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupBase), 'primary');
+/** @type {?} */
+var _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupBase), 'primary');
 /**
  * Material design tab-group component.  Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
@@ -31663,6 +32412,7 @@ var MatTabGroup = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatTabGroup.prototype, "dynamicHeight", {
+        /** Whether the tab group should grow to the size of the active tab. */
         get: /**
          * Whether the tab group should grow to the size of the active tab.
          * @return {?}
@@ -31677,6 +32427,7 @@ var MatTabGroup = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatTabGroup.prototype, "selectedIndex", {
+        /** The index of the active tab. */
         get: /**
          * The index of the active tab.
          * @return {?}
@@ -31693,6 +32444,7 @@ var MatTabGroup = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatTabGroup.prototype, "backgroundColor", {
+        /** Background color of the tab group. */
         get: /**
          * Background color of the tab group.
          * @return {?}
@@ -31703,7 +32455,8 @@ var MatTabGroup = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
+            /** @type {?} */
+            var nativeElement = this._elementRef.nativeElement;
             nativeElement.classList.remove("mat-background-" + this.backgroundColor);
             if (value) {
                 nativeElement.classList.add("mat-background-" + value);
@@ -31735,13 +32488,13 @@ var MatTabGroup = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        // Don't clamp the `indexToSelect` immediately in the setter because it can happen that
-        // the amount of tabs changes before the actual change detection runs.
-        var /** @type {?} */ indexToSelect = this._indexToSelect = this._clampTabIndex(this._indexToSelect);
+        /** @type {?} */
+        var indexToSelect = this._indexToSelect = this._clampTabIndex(this._indexToSelect);
         // If there is a change in selected index, emit a change event. Should not trigger if
         // the selected index has not yet been initialized.
         if (this._selectedIndex != indexToSelect) {
-            var /** @type {?} */ isFirstRun_1 = this._selectedIndex == null;
+            /** @type {?} */
+            var isFirstRun_1 = this._selectedIndex == null;
             if (!isFirstRun_1) {
                 this.selectedTabChange.emit(this._createChangeEvent(indexToSelect));
             }
@@ -31780,12 +32533,14 @@ var MatTabGroup = /** @class */ (function (_super) {
         // Subscribe to changes in the amount of tabs, in order to be
         // able to re-render the content as new tabs are added or removed.
         this._tabsSubscription = this._tabs.changes.subscribe(function () {
-            var /** @type {?} */ indexToSelect = _this._clampTabIndex(_this._indexToSelect);
+            /** @type {?} */
+            var indexToSelect = _this._clampTabIndex(_this._indexToSelect);
             // Maintain the previously-selected tab if a new tab is added or removed and there is no
             // explicit change that selects a different tab.
             if (indexToSelect === _this._selectedIndex) {
-                var /** @type {?} */ tabs = _this._tabs.toArray();
-                for (var /** @type {?} */ i = 0; i < tabs.length; i++) {
+                /** @type {?} */
+                var tabs = _this._tabs.toArray();
+                for (var i = 0; i < tabs.length; i++) {
                     if (tabs[i].isActive) {
                         // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
                         // event, otherwise the consumer may end up in an infinite loop in some edge cases like
@@ -31846,7 +32601,8 @@ var MatTabGroup = /** @class */ (function (_super) {
      * @return {?}
      */
     function (index) {
-        var /** @type {?} */ event = new MatTabChangeEvent;
+        /** @type {?} */
+        var event = new MatTabChangeEvent;
         event.index = index;
         if (this._tabs && this._tabs.length) {
             event.tab = this._tabs.toArray()[index];
@@ -31938,7 +32694,8 @@ var MatTabGroup = /** @class */ (function (_super) {
         if (!this._dynamicHeight || !this._tabBodyWrapperHeight) {
             return;
         }
-        var /** @type {?} */ wrapper = this._tabBodyWrapper.nativeElement;
+        /** @type {?} */
+        var wrapper = this._tabBodyWrapper.nativeElement;
         wrapper.style.height = this._tabBodyWrapperHeight + 'px';
         // This conditional forces the browser to paint the height so that
         // the animation to the new height can have an origin.
@@ -32016,21 +32773,21 @@ var MatTabGroup = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatTabGroup.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef }
     ]; };
     MatTabGroup.propDecorators = {
-        "_tabs": [{ type: core.ContentChildren, args: [MatTab,] },],
-        "_tabBodyWrapper": [{ type: core.ViewChild, args: ['tabBodyWrapper',] },],
-        "_tabHeader": [{ type: core.ViewChild, args: ['tabHeader',] },],
-        "dynamicHeight": [{ type: core.Input },],
-        "selectedIndex": [{ type: core.Input },],
-        "headerPosition": [{ type: core.Input },],
-        "backgroundColor": [{ type: core.Input },],
-        "selectedIndexChange": [{ type: core.Output },],
-        "focusChange": [{ type: core.Output },],
-        "animationDone": [{ type: core.Output },],
-        "selectedTabChange": [{ type: core.Output },],
+        _tabs: [{ type: core.ContentChildren, args: [MatTab,] }],
+        _tabBodyWrapper: [{ type: core.ViewChild, args: ['tabBodyWrapper',] }],
+        _tabHeader: [{ type: core.ViewChild, args: ['tabHeader',] }],
+        dynamicHeight: [{ type: core.Input }],
+        selectedIndex: [{ type: core.Input }],
+        headerPosition: [{ type: core.Input }],
+        backgroundColor: [{ type: core.Input }],
+        selectedIndexChange: [{ type: core.Output }],
+        focusChange: [{ type: core.Output }],
+        animationDone: [{ type: core.Output }],
+        selectedTabChange: [{ type: core.Output }]
     };
     return MatTabGroup;
 }(_MatTabGroupMixinBase));
@@ -32051,7 +32808,8 @@ MatTabNavBase = /** @class */ (function () {
     }
     return MatTabNavBase;
 }());
-var /** @type {?} */ _MatTabNavMixinBase = mixinDisableRipple(mixinColor(MatTabNavBase, 'primary'));
+/** @type {?} */
+var _MatTabNavMixinBase = mixinDisableRipple(mixinColor(MatTabNavBase, 'primary'));
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -32071,6 +32829,7 @@ var MatTabNav = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatTabNav.prototype, "backgroundColor", {
+        /** Background color of the tab nav. */
         get: /**
          * Background color of the tab nav.
          * @return {?}
@@ -32081,7 +32840,8 @@ var MatTabNav = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ nativeElement = this._elementRef.nativeElement;
+            /** @type {?} */
+            var nativeElement = this._elementRef.nativeElement;
             nativeElement.classList.remove("mat-background-" + this.backgroundColor);
             if (value) {
                 nativeElement.classList.add("mat-background-" + value);
@@ -32122,7 +32882,8 @@ var MatTabNav = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
-            var /** @type {?} */ dirChange = _this._dir ? _this._dir.change : rxjs.of(null);
+            /** @type {?} */
+            var dirChange = _this._dir ? _this._dir.change : rxjs.of(null);
             return rxjs.merge(dirChange, _this._viewportRuler.change(10))
                 .pipe(operators.takeUntil(_this._onDestroy))
                 .subscribe(function () { return _this._alignInkBar(); });
@@ -32139,7 +32900,8 @@ var MatTabNav = /** @class */ (function (_super) {
      */
     function () {
         if (this._activeLinkChanged) {
-            var /** @type {?} */ activeTab = this._tabLinks.find(function (tab) { return tab.active; });
+            /** @type {?} */
+            var activeTab = this._tabLinks.find(function (tab) { return tab.active; });
             this._activeLinkElement = activeTab ? activeTab._elementRef : null;
             this._alignInkBar();
             this._activeLinkChanged = false;
@@ -32186,16 +32948,16 @@ var MatTabNav = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatTabNav.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: core.NgZone, },
-        { type: core.ChangeDetectorRef, },
-        { type: scrolling.ViewportRuler, },
+        { type: core.ElementRef },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.NgZone },
+        { type: core.ChangeDetectorRef },
+        { type: scrolling.ViewportRuler }
     ]; };
     MatTabNav.propDecorators = {
-        "_inkBar": [{ type: core.ViewChild, args: [MatInkBar,] },],
-        "_tabLinks": [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatTabLink; }), { descendants: true },] },],
-        "backgroundColor": [{ type: core.Input },],
+        _inkBar: [{ type: core.ViewChild, args: [MatInkBar,] }],
+        _tabLinks: [{ type: core.ContentChildren, args: [core.forwardRef(function () { return MatTabLink; }), { descendants: true },] }],
+        backgroundColor: [{ type: core.Input }]
     };
     return MatTabNav;
 }(_MatTabNavMixinBase));
@@ -32204,7 +32966,8 @@ var MatTabLinkBase = /** @class */ (function () {
     }
     return MatTabLinkBase;
 }());
-var /** @type {?} */ _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatTabLinkBase)));
+/** @type {?} */
+var _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatTabLinkBase)));
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
@@ -32247,6 +33010,7 @@ var MatTabLink = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatTabLink.prototype, "active", {
+        /** Whether the link is active. */
         get: /**
          * Whether the link is active.
          * @return {?}
@@ -32330,16 +33094,16 @@ var MatTabLink = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatTabLink.ctorParameters = function () { return [
-        { type: MatTabNav, },
-        { type: core.ElementRef, },
-        { type: core.NgZone, },
-        { type: platform.Platform, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
-        { type: a11y.FocusMonitor, },
+        { type: MatTabNav },
+        { type: core.ElementRef },
+        { type: core.NgZone },
+        { type: platform.Platform },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
+        { type: a11y.FocusMonitor }
     ]; };
     MatTabLink.propDecorators = {
-        "active": [{ type: core.Input },],
+        active: [{ type: core.Input }]
     };
     return MatTabLink;
 }(_MatTabLinkMixinBase));
@@ -32405,7 +33169,8 @@ MatToolbarBase = /** @class */ (function () {
     }
     return MatToolbarBase;
 }());
-var /** @type {?} */ _MatToolbarMixinBase = mixinColor(MatToolbarBase);
+/** @type {?} */
+var _MatToolbarMixinBase = mixinColor(MatToolbarBase);
 var MatToolbarRow = /** @class */ (function () {
     function MatToolbarRow() {
     }
@@ -32455,9 +33220,8 @@ var MatToolbar = /** @class */ (function (_super) {
         if (!this._toolbarRows.length) {
             return;
         }
-        // Check if there are any other DOM nodes that can display content but aren't inside of
-        // a <mat-toolbar-row> element.
-        var /** @type {?} */ isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
+        /** @type {?} */
+        var isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
             .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
             .filter(function (node) { return node.nodeType !== (_this._document ? _this._document.COMMENT_NODE : 8); })
             .some(function (node) { return node.textContent.trim(); });
@@ -32482,12 +33246,12 @@ var MatToolbar = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatToolbar.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: platform.Platform, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: core.ElementRef },
+        { type: platform.Platform },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
     MatToolbar.propDecorators = {
-        "_toolbarRows": [{ type: core.ContentChildren, args: [MatToolbarRow,] },],
+        _toolbarRows: [{ type: core.ContentChildren, args: [MatToolbarRow,] }]
     };
     return MatToolbar;
 }(_MatToolbarMixinBase));
@@ -32538,7 +33302,7 @@ var MatTreeNodeOutlet = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatTreeNodeOutlet.ctorParameters = function () { return [
-        { type: core.ViewContainerRef, },
+        { type: core.ViewContainerRef }
     ]; };
     return MatTreeNodeOutlet;
 }());
@@ -32547,10 +33311,12 @@ var MatTreeNodeOutlet = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkTreeNodeDef = tree.CdkTreeNodeDef;
-var /** @type {?} */ _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(tree.CdkTreeNode));
-var /** @type {?} */ _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(tree.CdkNestedTreeNode));
+/** @type {?} */
+var _CdkTreeNodeDef = tree.CdkTreeNodeDef;
+/** @type {?} */
+var _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(tree.CdkTreeNode));
+/** @type {?} */
+var _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(tree.CdkNestedTreeNode));
 /**
  * Wrapper for the CdkTree node with Material design styles.
  * @template T
@@ -32581,12 +33347,12 @@ var MatTreeNode = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatTreeNode.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: tree.CdkTree, },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
+        { type: core.ElementRef },
+        { type: tree.CdkTree },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] }
     ]; };
     MatTreeNode.propDecorators = {
-        "role": [{ type: core.Input },],
+        role: [{ type: core.Input }]
     };
     return MatTreeNode;
 }(_MatTreeNodeMixinBase));
@@ -32608,9 +33374,8 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
                     providers: [{ provide: tree.CdkTreeNodeDef, useExisting: MatTreeNodeDef }]
                 },] },
     ];
-    /** @nocollapse */
     MatTreeNodeDef.propDecorators = {
-        "data": [{ type: core.Input, args: ['matTreeNode',] },],
+        data: [{ type: core.Input, args: ['matTreeNode',] }]
     };
     return MatTreeNodeDef;
 }(_CdkTreeNodeDef));
@@ -32667,14 +33432,14 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatNestedTreeNode.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: tree.CdkTree, },
-        { type: core.IterableDiffers, },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
+        { type: core.ElementRef },
+        { type: tree.CdkTree },
+        { type: core.IterableDiffers },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] }
     ]; };
     MatNestedTreeNode.propDecorators = {
-        "node": [{ type: core.Input, args: ['matNestedTreeNode',] },],
-        "nodeOutlet": [{ type: core.ContentChildren, args: [MatTreeNodeOutlet,] },],
+        node: [{ type: core.Input, args: ['matNestedTreeNode',] }],
+        nodeOutlet: [{ type: core.ContentChildren, args: [MatTreeNodeOutlet,] }]
     };
     return MatNestedTreeNode;
 }(_MatNestedTreeNodeMixinBase));
@@ -32683,8 +33448,8 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkTreeNodePadding = tree.CdkTreeNodePadding;
+/** @type {?} */
+var _CdkTreeNodePadding = tree.CdkTreeNodePadding;
 /**
  * Wrapper for the CdkTree padding with Material design styles.
  * @template T
@@ -32700,10 +33465,9 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
                     providers: [{ provide: tree.CdkTreeNodePadding, useExisting: MatTreeNodePadding }]
                 },] },
     ];
-    /** @nocollapse */
     MatTreeNodePadding.propDecorators = {
-        "level": [{ type: core.Input, args: ['matTreeNodePadding',] },],
-        "indent": [{ type: core.Input, args: ['matTreeNodePaddingIndent',] },],
+        level: [{ type: core.Input, args: ['matTreeNodePadding',] }],
+        indent: [{ type: core.Input, args: ['matTreeNodePaddingIndent',] }]
     };
     return MatTreeNodePadding;
 }(_CdkTreeNodePadding));
@@ -32712,8 +33476,8 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkTree = tree.CdkTree;
+/** @type {?} */
+var _CdkTree = tree.CdkTree;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
@@ -32737,9 +33501,8 @@ var MatTree = /** @class */ (function (_super) {
                     providers: [{ provide: tree.CdkTree, useExisting: MatTree }]
                 },] },
     ];
-    /** @nocollapse */
     MatTree.propDecorators = {
-        "_nodeOutlet": [{ type: core.ViewChild, args: [MatTreeNodeOutlet,] },],
+        _nodeOutlet: [{ type: core.ViewChild, args: [MatTreeNodeOutlet,] }]
     };
     return MatTree;
 }(_CdkTree));
@@ -32748,8 +33511,8 @@ var MatTree = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkTreeNodeToggle = tree.CdkTreeNodeToggle;
+/** @type {?} */
+var _CdkTreeNodeToggle = tree.CdkTreeNodeToggle;
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  * @template T
@@ -32770,9 +33533,8 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
                     providers: [{ provide: tree.CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }]
                 },] },
     ];
-    /** @nocollapse */
     MatTreeNodeToggle.propDecorators = {
-        "recursive": [{ type: core.Input, args: ['matTreeNodeToggleRecursive',] },],
+        recursive: [{ type: core.Input, args: ['matTreeNodeToggleRecursive',] }]
     };
     return MatTreeNodeToggle;
 }(_CdkTreeNodeToggle));
@@ -32781,7 +33543,8 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ MAT_TREE_DIRECTIVES = [
+/** @type {?} */
+var MAT_TREE_DIRECTIVES = [
     MatNestedTreeNode,
     MatTreeNodeDef,
     MatTreeNodePadding,
@@ -32900,10 +33663,12 @@ MatTreeFlattener = /** @class */ (function () {
      */
     function (node, level, resultNodes, parentMap) {
         var _this = this;
-        var /** @type {?} */ flatNode = this.transformFunction(node, level);
+        /** @type {?} */
+        var flatNode = this.transformFunction(node, level);
         resultNodes.push(flatNode);
         if (this.isExpandable(flatNode)) {
-            var /** @type {?} */ childrenNodes = this.getChildren(node);
+            /** @type {?} */
+            var childrenNodes = this.getChildren(node);
             if (Array.isArray(childrenNodes)) {
                 this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
             }
@@ -32932,7 +33697,8 @@ MatTreeFlattener = /** @class */ (function () {
     function (children, level, resultNodes, parentMap) {
         var _this = this;
         children.forEach(function (child, index) {
-            var /** @type {?} */ childParentMap = parentMap.slice();
+            /** @type {?} */
+            var childParentMap = parentMap.slice();
             childParentMap.push(index != children.length - 1);
             _this._flattenNode(child, level + 1, resultNodes, childParentMap);
         });
@@ -32958,7 +33724,8 @@ MatTreeFlattener = /** @class */ (function () {
      */
     function (structuredData) {
         var _this = this;
-        var /** @type {?} */ resultNodes = [];
+        /** @type {?} */
+        var resultNodes = [];
         structuredData.forEach(function (node) { return _this._flattenNode(node, 0, resultNodes, []); });
         return resultNodes;
     };
@@ -32982,12 +33749,15 @@ MatTreeFlattener = /** @class */ (function () {
      */
     function (nodes, treeControl) {
         var _this = this;
-        var /** @type {?} */ results = [];
-        var /** @type {?} */ currentExpand = [];
+        /** @type {?} */
+        var results = [];
+        /** @type {?} */
+        var currentExpand = [];
         currentExpand[0] = true;
         nodes.forEach(function (node) {
-            var /** @type {?} */ expand = true;
-            for (var /** @type {?} */ i = 0; i <= _this.getLevel(node); i++) {
+            /** @type {?} */
+            var expand = true;
+            for (var i = 0; i <= _this.getLevel(node); i++) {
                 expand = expand && currentExpand[i];
             }
             if (expand) {
@@ -33056,7 +33826,8 @@ MatTreeFlatDataSource = /** @class */ (function (_super) {
      */
     function (collectionViewer) {
         var _this = this;
-        var /** @type {?} */ changes = [
+        /** @type {?} */
+        var changes = [
             collectionViewer.viewChange,
             /** @type {?} */ ((this.treeControl.expansionModel.onChange)),
             this._flattenedData
@@ -33150,27 +33921,27 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Current version of Angular Material.
- */
-var /** @type {?} */ VERSION = new core.Version('6.4.6-6aa7727');
+  @type {?} */
+var VERSION = new core.Version('6.4.6-d424c70');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa25 = MatAutocompleteOrigin;
+exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
 exports._MatAutocompleteMixinBase = _MatAutocompleteMixinBase;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS;
-exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocomplete = MatAutocomplete;
 exports.MatAutocompleteModule = MatAutocompleteModule;
+exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY;
+exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.AUTOCOMPLETE_OPTION_HEIGHT = AUTOCOMPLETE_OPTION_HEIGHT;
 exports.AUTOCOMPLETE_PANEL_HEIGHT = AUTOCOMPLETE_PANEL_HEIGHT;
 exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY;
-exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY;
 exports.MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_AUTOCOMPLETE_VALUE_ACCESSOR = MAT_AUTOCOMPLETE_VALUE_ACCESSOR;
-exports.getMatAutocompleteMissingPanelError = getMatAutocompleteMissingPanelError;
 exports.MatAutocompleteTrigger = MatAutocompleteTrigger;
 exports.MatBadgeModule = MatBadgeModule;
 exports.MatBadge = MatBadge;
@@ -33248,8 +34019,8 @@ exports.mixinErrorState = mixinErrorState;
 exports.mixinInitialized = mixinInitialized;
 exports.NativeDateModule = NativeDateModule;
 exports.MatNativeDateModule = MatNativeDateModule;
-exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;
 exports.MAT_DATE_LOCALE_FACTORY = MAT_DATE_LOCALE_FACTORY;
+exports.MAT_DATE_LOCALE = MAT_DATE_LOCALE;
 exports.MAT_DATE_LOCALE_PROVIDER = MAT_DATE_LOCALE_PROVIDER;
 exports.DateAdapter = DateAdapter;
 exports.MAT_DATE_FORMATS = MAT_DATE_FORMATS;
@@ -33263,11 +34034,11 @@ exports.MatLine = MatLine;
 exports.MatLineSetter = MatLineSetter;
 exports.MatLineModule = MatLineModule;
 exports.MatOptionModule = MatOptionModule;
+exports._countGroupLabelsBeforeOption = _countGroupLabelsBeforeOption;
+exports._getOptionScrollPosition = _getOptionScrollPosition;
 exports.MatOptionSelectionChange = MatOptionSelectionChange;
 exports.MAT_OPTION_PARENT_COMPONENT = MAT_OPTION_PARENT_COMPONENT;
 exports.MatOption = MatOption;
-exports._countGroupLabelsBeforeOption = _countGroupLabelsBeforeOption;
-exports._getOptionScrollPosition = _getOptionScrollPosition;
 exports.MatOptgroupBase = MatOptgroupBase;
 exports._MatOptgroupMixinBase = _MatOptgroupMixinBase;
 exports.MatOptgroup = MatOptgroup;
@@ -33299,8 +34070,8 @@ exports.MatCalendarHeader = MatCalendarHeader;
 exports.MatCalendar = MatCalendar;
 exports.MatCalendarCell = MatCalendarCell;
 exports.MatCalendarBody = MatCalendarBody;
-exports.MAT_DATEPICKER_SCROLL_STRATEGY = MAT_DATEPICKER_SCROLL_STRATEGY;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY = MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY;
+exports.MAT_DATEPICKER_SCROLL_STRATEGY = MAT_DATEPICKER_SCROLL_STRATEGY;
 exports.MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MatDatepickerContentBase = MatDatepickerContentBase;
 exports._MatDatepickerContentMixinBase = _MatDatepickerContentMixinBase;
@@ -33317,11 +34088,11 @@ exports.MatDatepickerToggle = MatDatepickerToggle;
 exports.MatMonthView = MatMonthView;
 exports.MatYearView = MatYearView;
 exports.MatDialogModule = MatDialogModule;
+exports.MAT_DIALOG_SCROLL_STRATEGY_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_FACTORY;
+exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_DIALOG_DATA = MAT_DIALOG_DATA;
 exports.MAT_DIALOG_DEFAULT_OPTIONS = MAT_DIALOG_DEFAULT_OPTIONS;
 exports.MAT_DIALOG_SCROLL_STRATEGY = MAT_DIALOG_SCROLL_STRATEGY;
-exports.MAT_DIALOG_SCROLL_STRATEGY_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_FACTORY;
-exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = MAT_DIALOG_SCROLL_STRATEGY_PROVIDER;
 exports.MatDialog = MatDialog;
 exports.throwMatDialogContentAlreadyAttachedError = throwMatDialogContentAlreadyAttachedError;
@@ -33378,8 +34149,8 @@ exports.getMatIconNameNotFoundError = getMatIconNameNotFoundError;
 exports.getMatIconNoHttpProviderError = getMatIconNoHttpProviderError;
 exports.getMatIconFailedToSanitizeUrlError = getMatIconFailedToSanitizeUrlError;
 exports.getMatIconFailedToSanitizeLiteralError = getMatIconFailedToSanitizeLiteralError;
-exports.MatIconRegistry = MatIconRegistry;
 exports.ICON_REGISTRY_PROVIDER_FACTORY = ICON_REGISTRY_PROVIDER_FACTORY;
+exports.MatIconRegistry = MatIconRegistry;
 exports.ICON_REGISTRY_PROVIDER = ICON_REGISTRY_PROVIDER;
 exports._CdkTextareaAutosize = _CdkTextareaAutosize;
 exports.MatTextareaAutosize = MatTextareaAutosize;
@@ -33408,12 +34179,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa19 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb19 = MatMenuItemBase;
-exports.ɵc19 = _MatMenuItemMixinBase;
-exports.ɵf19 = MAT_MENU_PANEL;
-exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe19 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb21 = MatMenuItemBase;
+exports.ɵc21 = _MatMenuItemMixinBase;
+exports.ɵf21 = MAT_MENU_PANEL;
+exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -33429,20 +34200,20 @@ exports.PageEvent = PageEvent;
 exports.MatPaginatorBase = MatPaginatorBase;
 exports._MatPaginatorBase = _MatPaginatorBase;
 exports.MatPaginator = MatPaginator;
-exports.MatPaginatorIntl = MatPaginatorIntl;
 exports.MAT_PAGINATOR_INTL_PROVIDER_FACTORY = MAT_PAGINATOR_INTL_PROVIDER_FACTORY;
+exports.MatPaginatorIntl = MatPaginatorIntl;
 exports.MAT_PAGINATOR_INTL_PROVIDER = MAT_PAGINATOR_INTL_PROVIDER;
 exports.MatProgressBarModule = MatProgressBarModule;
+exports.MAT_PROGRESS_BAR_LOCATION_FACTORY = MAT_PROGRESS_BAR_LOCATION_FACTORY;
 exports.MatProgressBarBase = MatProgressBarBase;
 exports._MatProgressBarMixinBase = _MatProgressBarMixinBase;
 exports.MAT_PROGRESS_BAR_LOCATION = MAT_PROGRESS_BAR_LOCATION;
-exports.MAT_PROGRESS_BAR_LOCATION_FACTORY = MAT_PROGRESS_BAR_LOCATION_FACTORY;
 exports.MatProgressBar = MatProgressBar;
 exports.MatProgressSpinnerModule = MatProgressSpinnerModule;
+exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY;
 exports.MatProgressSpinnerBase = MatProgressSpinnerBase;
 exports._MatProgressSpinnerMixinBase = _MatProgressSpinnerMixinBase;
 exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS;
-exports.MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY = MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY;
 exports.MatProgressSpinner = MatProgressSpinner;
 exports.MatSpinner = MatSpinner;
 exports.MatRadioModule = MatRadioModule;
@@ -33455,6 +34226,7 @@ exports.MatRadioButtonBase = MatRadioButtonBase;
 exports._MatRadioButtonMixinBase = _MatRadioButtonMixinBase;
 exports.MatRadioButton = MatRadioButton;
 exports.MatSelectModule = MatSelectModule;
+exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.SELECT_PANEL_MAX_HEIGHT = SELECT_PANEL_MAX_HEIGHT;
 exports.SELECT_PANEL_PADDING_X = SELECT_PANEL_PADDING_X;
 exports.SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_INDENT_PADDING_X;
@@ -33462,7 +34234,6 @@ exports.SELECT_ITEM_HEIGHT_EM = SELECT_ITEM_HEIGHT_EM;
 exports.SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_MULTIPLE_PANEL_PADDING_X;
 exports.SELECT_PANEL_VIEWPORT_PADDING = SELECT_PANEL_VIEWPORT_PADDING;
 exports.MAT_SELECT_SCROLL_STRATEGY = MAT_SELECT_SCROLL_STRATEGY;
-exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER = MAT_SELECT_SCROLL_STRATEGY_PROVIDER;
 exports.MatSelectChange = MatSelectChange;
 exports.MatSelectBase = MatSelectBase;
@@ -33474,8 +34245,8 @@ exports.transformPanel = transformPanel;
 exports.fadeInContent = fadeInContent;
 exports.MatSidenavModule = MatSidenavModule;
 exports.throwMatDuplicatedDrawerError = throwMatDuplicatedDrawerError;
-exports.MAT_DRAWER_DEFAULT_AUTOSIZE = MAT_DRAWER_DEFAULT_AUTOSIZE;
 exports.MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY = MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY;
+exports.MAT_DRAWER_DEFAULT_AUTOSIZE = MAT_DRAWER_DEFAULT_AUTOSIZE;
 exports.MatDrawerContent = MatDrawerContent;
 exports.MatDrawer = MatDrawer;
 exports.MatDrawerContainer = MatDrawerContainer;
@@ -33497,8 +34268,8 @@ exports.MatSliderBase = MatSliderBase;
 exports._MatSliderMixinBase = _MatSliderMixinBase;
 exports.MatSlider = MatSlider;
 exports.MatSnackBarModule = MatSnackBarModule;
-exports.MAT_SNACK_BAR_DEFAULT_OPTIONS = MAT_SNACK_BAR_DEFAULT_OPTIONS;
 exports.MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY = MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY;
+exports.MAT_SNACK_BAR_DEFAULT_OPTIONS = MAT_SNACK_BAR_DEFAULT_OPTIONS;
 exports.MatSnackBar = MatSnackBar;
 exports.MatSnackBarContainer = MatSnackBarContainer;
 exports.MAT_SNACK_BAR_DATA = MAT_SNACK_BAR_DATA;
@@ -33510,8 +34281,8 @@ exports.MatSortModule = MatSortModule;
 exports.MatSortHeaderBase = MatSortHeaderBase;
 exports._MatSortHeaderMixinBase = _MatSortHeaderMixinBase;
 exports.MatSortHeader = MatSortHeader;
-exports.MatSortHeaderIntl = MatSortHeaderIntl;
 exports.MAT_SORT_HEADER_INTL_PROVIDER_FACTORY = MAT_SORT_HEADER_INTL_PROVIDER_FACTORY;
+exports.MatSortHeaderIntl = MatSortHeaderIntl;
 exports.MAT_SORT_HEADER_INTL_PROVIDER = MAT_SORT_HEADER_INTL_PROVIDER;
 exports.MatSortBase = MatSortBase;
 exports._MatSortMixinBase = _MatSortMixinBase;
@@ -33585,20 +34356,20 @@ exports._MatTabGroupMixinBase = _MatTabGroupMixinBase;
 exports.MatTabGroup = MatTabGroup;
 exports.matTabsAnimations = matTabsAnimations;
 exports.MatToolbarModule = MatToolbarModule;
+exports.throwToolbarMixedModesError = throwToolbarMixedModesError;
 exports.MatToolbarBase = MatToolbarBase;
 exports._MatToolbarMixinBase = _MatToolbarMixinBase;
 exports.MatToolbarRow = MatToolbarRow;
 exports.MatToolbar = MatToolbar;
-exports.throwToolbarMixedModesError = throwToolbarMixedModesError;
 exports.MatTooltipModule = MatTooltipModule;
+exports.getMatTooltipInvalidPositionError = getMatTooltipInvalidPositionError;
+exports.MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY = MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY;
+exports.MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY = MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY;
 exports.SCROLL_THROTTLE_MS = SCROLL_THROTTLE_MS;
 exports.TOOLTIP_PANEL_CLASS = TOOLTIP_PANEL_CLASS;
-exports.getMatTooltipInvalidPositionError = getMatTooltipInvalidPositionError;
 exports.MAT_TOOLTIP_SCROLL_STRATEGY = MAT_TOOLTIP_SCROLL_STRATEGY;
-exports.MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY = MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY;
 exports.MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_TOOLTIP_DEFAULT_OPTIONS = MAT_TOOLTIP_DEFAULT_OPTIONS;
-exports.MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY = MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY;
 exports.MatTooltip = MatTooltip;
 exports.TooltipComponent = TooltipComponent;
 exports.matTooltipAnimations = matTooltipAnimations;

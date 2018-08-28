@@ -58,7 +58,8 @@ function getSortInvalidDirectionError(direction) {
  */
 class MatSortBase {
 }
-const /** @type {?} */ _MatSortMixinBase = mixinInitialized(mixinDisabled(MatSortBase));
+/** @type {?} */
+const _MatSortMixinBase = mixinInitialized(mixinDisabled(MatSortBase));
 /**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
@@ -158,11 +159,12 @@ class MatSort extends _MatSortMixinBase {
         if (!sortable) {
             return '';
         }
-        // Get the sort direction cycle with the potential sortable overrides.
-        const /** @type {?} */ disableClear = sortable.disableClear != null ? sortable.disableClear : this.disableClear;
-        let /** @type {?} */ sortDirectionCycle = getSortDirectionCycle(sortable.start || this.start, disableClear);
-        // Get and return the next direction in the cycle
-        let /** @type {?} */ nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
+        /** @type {?} */
+        const disableClear = sortable.disableClear != null ? sortable.disableClear : this.disableClear;
+        /** @type {?} */
+        let sortDirectionCycle = getSortDirectionCycle(sortable.start || this.start, disableClear);
+        /** @type {?} */
+        let nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
         if (nextDirectionIndex >= sortDirectionCycle.length) {
             nextDirectionIndex = 0;
         }
@@ -194,13 +196,12 @@ MatSort.decorators = [
                 inputs: ['disabled: matSortDisabled']
             },] },
 ];
-/** @nocollapse */
 MatSort.propDecorators = {
-    "active": [{ type: Input, args: ['matSortActive',] },],
-    "start": [{ type: Input, args: ['matSortStart',] },],
-    "direction": [{ type: Input, args: ['matSortDirection',] },],
-    "disableClear": [{ type: Input, args: ['matSortDisableClear',] },],
-    "sortChange": [{ type: Output, args: ['matSortChange',] },],
+    active: [{ type: Input, args: ['matSortActive',] }],
+    start: [{ type: Input, args: ['matSortStart',] }],
+    direction: [{ type: Input, args: ['matSortDirection',] }],
+    disableClear: [{ type: Input, args: ['matSortDisableClear',] }],
+    sortChange: [{ type: Output, args: ['matSortChange',] }]
 };
 /**
  * Returns the sort direction cycle to use given the provided parameters of order and clear.
@@ -209,7 +210,8 @@ MatSort.propDecorators = {
  * @return {?}
  */
 function getSortDirectionCycle(start, disableClear) {
-    let /** @type {?} */ sortOrder = ['asc', 'desc'];
+    /** @type {?} */
+    let sortOrder = ['asc', 'desc'];
     if (start == 'desc') {
         sortOrder.reverse();
     }
@@ -223,12 +225,13 @@ function getSortDirectionCycle(start, disableClear) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-const /** @type {?} */ SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
+/** @type {?} */
+const SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
     AnimationCurves.STANDARD_CURVE;
-/**
+/** *
  * Animations used by MatSort.
- */
-const /** @type {?} */ matSortAnimations = {
+  @type {?} */
+const matSortAnimations = {
     /** Animation that moves the sort indicator. */
     indicator: trigger('indicator', [
         state('active-asc, asc', style({ transform: 'translateY(0px)' })),
@@ -332,10 +335,10 @@ MatSortHeaderIntl.decorators = [
 function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatSortHeaderIntl();
 }
-/**
+/** *
  * \@docs-private
- */
-const /** @type {?} */ MAT_SORT_HEADER_INTL_PROVIDER = {
+  @type {?} */
+const MAT_SORT_HEADER_INTL_PROVIDER = {
     // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
     provide: MatSortHeaderIntl,
     deps: [[new Optional(), new SkipSelf(), MatSortHeaderIntl]],
@@ -351,7 +354,8 @@ const /** @type {?} */ MAT_SORT_HEADER_INTL_PROVIDER = {
  */
 class MatSortHeaderBase {
 }
-const /** @type {?} */ _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
+/** @type {?} */
+const _MatSortHeaderMixinBase = mixinDisabled(MatSortHeaderBase);
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -485,9 +489,8 @@ class MatSortHeader extends _MatSortHeaderMixinBase {
         if (this._viewState.toState === 'hint' || this._viewState.toState === 'active') {
             this._disableViewStateAnimation = true;
         }
-        // If the arrow is now sorted, animate the arrow into place. Otherwise, animate it away into
-        // the direction it is facing.
-        const /** @type {?} */ viewState = this._isSorted() ?
+        /** @type {?} */
+        const viewState = this._isSorted() ?
             { fromState: this._arrowDirection, toState: 'active' } :
             { fromState: 'active', toState: this._arrowDirection };
         this._setAnimationTransitionState(viewState);
@@ -513,7 +516,8 @@ class MatSortHeader extends _MatSortHeaderMixinBase {
      * @return {?}
      */
     _getArrowViewState() {
-        const /** @type {?} */ fromState = this._viewState.fromState;
+        /** @type {?} */
+        const fromState = this._viewState.fromState;
         return (fromState ? `${fromState}-to-` : '') + this._viewState.toState;
     }
     /**
@@ -580,16 +584,16 @@ MatSortHeader.decorators = [
 ];
 /** @nocollapse */
 MatSortHeader.ctorParameters = () => [
-    { type: MatSortHeaderIntl, },
-    { type: ChangeDetectorRef, },
-    { type: MatSort, decorators: [{ type: Optional },] },
-    { type: CdkColumnDef, decorators: [{ type: Optional },] },
+    { type: MatSortHeaderIntl },
+    { type: ChangeDetectorRef },
+    { type: MatSort, decorators: [{ type: Optional }] },
+    { type: CdkColumnDef, decorators: [{ type: Optional }] }
 ];
 MatSortHeader.propDecorators = {
-    "id": [{ type: Input, args: ['mat-sort-header',] },],
-    "arrowPosition": [{ type: Input },],
-    "start": [{ type: Input },],
-    "disableClear": [{ type: Input },],
+    id: [{ type: Input, args: ['mat-sort-header',] }],
+    arrowPosition: [{ type: Input }],
+    start: [{ type: Input }],
+    disableClear: [{ type: Input }]
 };
 
 /**
@@ -617,5 +621,5 @@ MatSortModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatSortModule, MatSortHeaderBase, _MatSortHeaderMixinBase, MatSortHeader, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MAT_SORT_HEADER_INTL_PROVIDER, MatSortBase, _MatSortMixinBase, MatSort, matSortAnimations };
+export { MatSortModule, MatSortHeaderBase, _MatSortHeaderMixinBase, MatSortHeader, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER, MatSortBase, _MatSortMixinBase, MatSort, matSortAnimations };
 //# sourceMappingURL=sort.js.map

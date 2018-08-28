@@ -21,13 +21,14 @@ import { SelectionModel } from '@angular/cdk/collections';
  */
 class MatButtonToggleGroupBase {
 }
-const /** @type {?} */ _MatButtonToggleGroupMixinBase = mixinDisabled(MatButtonToggleGroupBase);
-/**
+/** @type {?} */
+const _MatButtonToggleGroupMixinBase = mixinDisabled(MatButtonToggleGroupBase);
+/** *
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
- */
-const /** @type {?} */ MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
+  @type {?} */
+const MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatButtonToggleGroup),
     multi: true
@@ -38,7 +39,8 @@ const /** @type {?} */ MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = {
  */
 class MatButtonToggleGroupMultiple {
 }
-let /** @type {?} */ _uniqueIdCounter = 0;
+/** @type {?} */
+let _uniqueIdCounter = 0;
 /**
  * Change event object emitted by MatButtonToggle.
  */
@@ -117,7 +119,8 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      * @return {?}
      */
     get value() {
-        const /** @type {?} */ selected = this._selectionModel ? this._selectionModel.selected : [];
+        /** @type {?} */
+        const selected = this._selectionModel ? this._selectionModel.selected : [];
         if (this.multiple) {
             return selected.map(toggle => toggle.value);
         }
@@ -136,7 +139,8 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      * @return {?}
      */
     get selected() {
-        const /** @type {?} */ selected = this._selectionModel.selected;
+        /** @type {?} */
+        const selected = this._selectionModel.selected;
         return this.multiple ? selected : (selected[0] || null);
     }
     /**
@@ -201,9 +205,12 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      * @return {?}
      */
     _emitChangeEvent() {
-        const /** @type {?} */ selected = this.selected;
-        const /** @type {?} */ source = Array.isArray(selected) ? selected[selected.length - 1] : selected;
-        const /** @type {?} */ event = new MatButtonToggleChange(/** @type {?} */ ((source)), this.value);
+        /** @type {?} */
+        const selected = this.selected;
+        /** @type {?} */
+        const source = Array.isArray(selected) ? selected[selected.length - 1] : selected;
+        /** @type {?} */
+        const event = new MatButtonToggleChange(/** @type {?} */ ((source)), this.value);
         this._controlValueAccessorChangeFn(event.value);
         this.change.emit(event);
     }
@@ -292,7 +299,8 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      * @return {?}
      */
     _selectValue(value) {
-        const /** @type {?} */ correspondingOption = this._buttonToggles.find(toggle => {
+        /** @type {?} */
+        const correspondingOption = this._buttonToggles.find(toggle => {
             return toggle.value != null && toggle.value === value;
         });
         if (correspondingOption) {
@@ -320,23 +328,24 @@ MatButtonToggleGroup.decorators = [
 ];
 /** @nocollapse */
 MatButtonToggleGroup.ctorParameters = () => [
-    { type: ChangeDetectorRef, },
+    { type: ChangeDetectorRef }
 ];
 MatButtonToggleGroup.propDecorators = {
-    "_buttonToggles": [{ type: ContentChildren, args: [forwardRef(() => MatButtonToggle),] },],
-    "name": [{ type: Input },],
-    "vertical": [{ type: Input },],
-    "value": [{ type: Input },],
-    "valueChange": [{ type: Output },],
-    "multiple": [{ type: Input },],
-    "change": [{ type: Output },],
+    _buttonToggles: [{ type: ContentChildren, args: [forwardRef(() => MatButtonToggle),] }],
+    name: [{ type: Input }],
+    vertical: [{ type: Input }],
+    value: [{ type: Input }],
+    valueChange: [{ type: Output }],
+    multiple: [{ type: Input }],
+    change: [{ type: Output }]
 };
 /**
  * \@docs-private
  */
 class MatButtonToggleBase {
 }
-const /** @type {?} */ _MatButtonToggleMixinBase = mixinDisableRipple(MatButtonToggleBase);
+/** @type {?} */
+const _MatButtonToggleMixinBase = mixinDisableRipple(MatButtonToggleBase);
 /**
  * Single button inside of a toggle group.
  */
@@ -366,7 +375,8 @@ class MatButtonToggle extends _MatButtonToggleMixinBase {
          * Event emitted when the group value changes.
          */
         this.change = new EventEmitter();
-        const /** @type {?} */ parsedTabIndex = Number(defaultTabIndex);
+        /** @type {?} */
+        const parsedTabIndex = Number(defaultTabIndex);
         this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
         this.buttonToggleGroup = toggleGroup;
     }
@@ -387,7 +397,8 @@ class MatButtonToggle extends _MatButtonToggleMixinBase {
      * @return {?}
      */
     set checked(value) {
-        const /** @type {?} */ newValue = coerceBooleanProperty(value);
+        /** @type {?} */
+        const newValue = coerceBooleanProperty(value);
         if (newValue !== this._checked) {
             this._checked = newValue;
             if (this.buttonToggleGroup) {
@@ -441,7 +452,8 @@ class MatButtonToggle extends _MatButtonToggleMixinBase {
      * @return {?}
      */
     _onButtonClick() {
-        const /** @type {?} */ newChecked = this._isSingleSelector ? true : !this._checked;
+        /** @type {?} */
+        const newChecked = this._isSingleSelector ? true : !this._checked;
         if (newChecked !== this._checked) {
             this._checked = newChecked;
             if (this.buttonToggleGroup) {
@@ -485,23 +497,23 @@ MatButtonToggle.decorators = [
 ];
 /** @nocollapse */
 MatButtonToggle.ctorParameters = () => [
-    { type: MatButtonToggleGroup, decorators: [{ type: Optional },] },
-    { type: ChangeDetectorRef, },
-    { type: ElementRef, },
-    { type: FocusMonitor, },
-    { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
+    { type: MatButtonToggleGroup, decorators: [{ type: Optional }] },
+    { type: ChangeDetectorRef },
+    { type: ElementRef },
+    { type: FocusMonitor },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
 ];
 MatButtonToggle.propDecorators = {
-    "ariaLabel": [{ type: Input, args: ['aria-label',] },],
-    "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
-    "_buttonElement": [{ type: ViewChild, args: ['button',] },],
-    "id": [{ type: Input },],
-    "name": [{ type: Input },],
-    "value": [{ type: Input },],
-    "tabIndex": [{ type: Input },],
-    "checked": [{ type: Input },],
-    "disabled": [{ type: Input },],
-    "change": [{ type: Output },],
+    ariaLabel: [{ type: Input, args: ['aria-label',] }],
+    ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }],
+    _buttonElement: [{ type: ViewChild, args: ['button',] }],
+    id: [{ type: Input }],
+    name: [{ type: Input }],
+    value: [{ type: Input }],
+    tabIndex: [{ type: Input }],
+    checked: [{ type: Input }],
+    disabled: [{ type: Input }],
+    change: [{ type: Output }]
 };
 
 /**

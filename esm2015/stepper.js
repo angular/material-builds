@@ -22,8 +22,8 @@ import { MatIconModule } from '@angular/material/icon';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-const /** @type {?} */ _CdkStepLabel = CdkStepLabel;
+/** @type {?} */
+const _CdkStepLabel = CdkStepLabel;
 class MatStepLabel extends _CdkStepLabel {
 }
 MatStepLabel.decorators = [
@@ -135,29 +135,29 @@ MatStepHeader.decorators = [
 ];
 /** @nocollapse */
 MatStepHeader.ctorParameters = () => [
-    { type: MatStepperIntl, },
-    { type: FocusMonitor, },
-    { type: ElementRef, },
-    { type: ChangeDetectorRef, },
+    { type: MatStepperIntl },
+    { type: FocusMonitor },
+    { type: ElementRef },
+    { type: ChangeDetectorRef }
 ];
 MatStepHeader.propDecorators = {
-    "state": [{ type: Input },],
-    "label": [{ type: Input },],
-    "iconOverrides": [{ type: Input },],
-    "index": [{ type: Input },],
-    "selected": [{ type: Input },],
-    "active": [{ type: Input },],
-    "optional": [{ type: Input },],
+    state: [{ type: Input }],
+    label: [{ type: Input }],
+    iconOverrides: [{ type: Input }],
+    index: [{ type: Input }],
+    selected: [{ type: Input }],
+    active: [{ type: Input }],
+    optional: [{ type: Input }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material steppers.
- */
-const /** @type {?} */ matStepperAnimations = {
+  @type {?} */
+const matStepperAnimations = {
     /** Animation that transitions the step along the X axis in a horizontal stepper. */
     horizontalStepTransition: trigger('stepTransition', [
         state('previous', style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
@@ -196,18 +196,18 @@ MatStepperIcon.decorators = [
 ];
 /** @nocollapse */
 MatStepperIcon.ctorParameters = () => [
-    { type: TemplateRef, },
+    { type: TemplateRef }
 ];
 MatStepperIcon.propDecorators = {
-    "name": [{ type: Input, args: ['matStepperIcon',] },],
+    name: [{ type: Input, args: ['matStepperIcon',] }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-const /** @type {?} */ _CdkStepper = CdkStepper;
+/** @type {?} */
+const _CdkStepper = CdkStepper;
 class MatStep extends CdkStep {
     /**
      * @param {?} stepper
@@ -224,11 +224,10 @@ class MatStep extends CdkStep {
      * @return {?}
      */
     isErrorState(control, form) {
-        const /** @type {?} */ originalErrorState = this._errorStateMatcher.isErrorState(control, form);
-        // Custom error state checks for the validity of form that is not submitted or touched
-        // since user can trigger a form change by calling for another step without directly
-        // interacting with the current form.
-        const /** @type {?} */ customErrorState = !!(control && control.invalid && this.interacted);
+        /** @type {?} */
+        const originalErrorState = this._errorStateMatcher.isErrorState(control, form);
+        /** @type {?} */
+        const customErrorState = !!(control && control.invalid && this.interacted);
         return originalErrorState || customErrorState;
     }
 }
@@ -243,11 +242,11 @@ MatStep.decorators = [
 ];
 /** @nocollapse */
 MatStep.ctorParameters = () => [
-    { type: MatStepper, decorators: [{ type: Inject, args: [forwardRef(() => MatStepper),] },] },
-    { type: ErrorStateMatcher, decorators: [{ type: SkipSelf },] },
+    { type: MatStepper, decorators: [{ type: Inject, args: [forwardRef(() => MatStepper),] }] },
+    { type: ErrorStateMatcher, decorators: [{ type: SkipSelf }] }
 ];
 MatStep.propDecorators = {
-    "stepLabel": [{ type: ContentChild, args: [MatStepLabel,] },],
+    stepLabel: [{ type: ContentChild, args: [MatStepLabel,] }]
 };
 class MatStepper extends _CdkStepper {
     constructor() {
@@ -265,9 +264,11 @@ class MatStepper extends _CdkStepper {
      * @return {?}
      */
     ngAfterContentInit() {
-        const /** @type {?} */ icons = this._icons.toArray();
+        /** @type {?} */
+        const icons = this._icons.toArray();
         ['edit', 'done', 'number'].forEach(name => {
-            const /** @type {?} */ override = icons.find(icon => icon.name === name);
+            /** @type {?} */
+            const override = icons.find(icon => icon.name === name);
             if (override) {
                 this._iconOverrides[name] = override.templateRef;
             }
@@ -290,12 +291,11 @@ MatStepper.decorators = [
                 selector: '[matStepper]'
             },] },
 ];
-/** @nocollapse */
 MatStepper.propDecorators = {
-    "_stepHeader": [{ type: ViewChildren, args: [MatStepHeader,] },],
-    "_steps": [{ type: ContentChildren, args: [MatStep,] },],
-    "_icons": [{ type: ContentChildren, args: [MatStepperIcon,] },],
-    "animationDone": [{ type: Output },],
+    _stepHeader: [{ type: ViewChildren, args: [MatStepHeader,] }],
+    _steps: [{ type: ContentChildren, args: [MatStep,] }],
+    _icons: [{ type: ContentChildren, args: [MatStepperIcon,] }],
+    animationDone: [{ type: Output }]
 };
 class MatHorizontalStepper extends MatStepper {
 }
@@ -350,19 +350,20 @@ MatVerticalStepper.decorators = [
 ];
 /** @nocollapse */
 MatVerticalStepper.ctorParameters = () => [
-    { type: Directionality, decorators: [{ type: Optional },] },
-    { type: ChangeDetectorRef, },
-    { type: ElementRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: Directionality, decorators: [{ type: Optional }] },
+    { type: ChangeDetectorRef },
+    { type: ElementRef },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-const /** @type {?} */ _CdkStepperNext = CdkStepperNext;
-const /** @type {?} */ _CdkStepperPrevious = CdkStepperPrevious;
+/** @type {?} */
+const _CdkStepperNext = CdkStepperNext;
+/** @type {?} */
+const _CdkStepperPrevious = CdkStepperPrevious;
 /**
  * Button that moves to the next step in a stepper workflow.
  */

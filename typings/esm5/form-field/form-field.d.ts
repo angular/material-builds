@@ -28,7 +28,7 @@ export declare class MatFormFieldBase {
  * Base class to which we're applying the form field mixins.
  * @docs-private
  */
-export declare const _MatFormFieldMixinBase: (new (...args: any[]) => CanColor) & typeof MatFormFieldBase;
+export declare const _MatFormFieldMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatFormFieldBase;
 /** Possible appearance styles for the form field. */
 export declare type MatFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
 /**
@@ -49,8 +49,8 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
     private _changeDetectorRef;
     private _dir;
     private _defaults;
-    private _platform;
-    private _ngZone;
+    private _platform?;
+    private _ngZone?;
     private _labelOptions;
     private _outlineGapCalculationNeeded;
     /** The form-field appearance style. */
@@ -123,19 +123,19 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
      * Ensure that there is only one placeholder (either `placeholder` attribute on the child control
      * or child element with the `mat-placeholder` directive).
      */
-    private _validatePlaceholders();
+    private _validatePlaceholders;
     /** Does any extra processing that is required when handling the hints. */
-    private _processHints();
+    private _processHints;
     /**
      * Ensure that there is a maximum of one of each `<mat-hint>` alignment specified, with the
      * attribute being considered as `align="start"`.
      */
-    private _validateHints();
+    private _validateHints;
     /**
      * Sets the list of element IDs that describe the child control. This allows the control to update
      * its `aria-describedby` attribute accordingly.
      */
-    private _syncDescribedByIds();
+    private _syncDescribedByIds;
     /** Throws an error if the form field's control is missing. */
     protected _validateControlChild(): void;
     /**
@@ -144,5 +144,5 @@ export declare class MatFormField extends _MatFormFieldMixinBase implements Afte
      */
     updateOutlineGap(): void;
     /** Gets the start end of the rect considering the current directionality. */
-    private _getStartEnd(rect);
+    private _getStartEnd;
 }

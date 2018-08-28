@@ -36,7 +36,7 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     private _parentMenu;
     private _menuItemInstance;
     private _dir;
-    private _focusMonitor;
+    private _focusMonitor?;
     private _portal;
     private _overlayRef;
     private _menuOpen;
@@ -89,51 +89,51 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
      */
     focus(origin?: FocusOrigin): void;
     /** Closes the menu and does the necessary cleanup. */
-    private _destroyMenu();
+    private _destroyMenu;
     /**
      * This method sets the menu state to open and focuses the first item if
      * the menu was opened via the keyboard.
      */
-    private _initMenu();
+    private _initMenu;
     /** Updates the menu elevation based on the amount of parent menus that it has. */
-    private _setMenuElevation();
+    private _setMenuElevation;
     /**
      * This method resets the menu when it's closed, most importantly restoring
      * focus to the menu trigger if the menu was opened via the keyboard.
      */
-    private _resetMenu();
-    private _setIsMenuOpen(isOpen);
+    private _resetMenu;
+    private _setIsMenuOpen;
     /**
      * This method checks that a valid instance of MatMenu has been passed into
      * matMenuTriggerFor. If not, an exception is thrown.
      */
-    private _checkMenu();
+    private _checkMenu;
     /**
      * This method creates the overlay from the provided menu's template and saves its
      * OverlayRef so that it can be attached to the DOM when openMenu is called.
      */
-    private _createOverlay();
+    private _createOverlay;
     /**
      * This method builds the configuration object needed to create the overlay, the OverlayState.
      * @returns OverlayConfig
      */
-    private _getOverlayConfig();
+    private _getOverlayConfig;
     /**
      * Listens to changes in the position of the overlay and sets the correct classes
      * on the menu based on the new position. This ensures the animation origin is always
      * correct, even if a fallback position is used for the overlay.
      */
-    private _subscribeToPositions(position);
+    private _subscribeToPositions;
     /**
      * Sets the appropriate positions on a position strategy
      * so the overlay connects with the trigger correctly.
      * @param positionStrategy Strategy whose position to update.
      */
-    private _setPosition(positionStrategy);
+    private _setPosition;
     /** Cleans up the active subscriptions. */
-    private _cleanUpSubscriptions();
+    private _cleanUpSubscriptions;
     /** Returns a stream that emits whenever an action that should close the menu occurs. */
-    private _menuClosingActions();
+    private _menuClosingActions;
     /** Handles mouse presses on the trigger. */
     _handleMousedown(event: MouseEvent): void;
     /** Handles key presses on the trigger. */
@@ -141,5 +141,5 @@ export declare class MatMenuTrigger implements AfterContentInit, OnDestroy {
     /** Handles click events on the trigger. */
     _handleClick(event: MouseEvent): void;
     /** Handles the cases where the user hovers over the trigger. */
-    private _handleHover();
+    private _handleHover;
 }

@@ -114,7 +114,7 @@ export declare class RatioTileStyler extends TileStyler {
     setRowStyles(tile: MatGridTile, rowIndex: number, percentWidth: number, gutterWidth: number): void;
     getComputedHeight(): [string, string];
     reset(list: MatGridList): void;
-    private _parseRatio(value);
+    private _parseRatio;
 }
 /**
  * This type of styler is instantiated when the user selects a "fit" row height mode.

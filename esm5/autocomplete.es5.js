@@ -24,11 +24,11 @@ import { Subscription, defer, fromEvent, merge, of, Subject } from 'rxjs';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Autocomplete IDs need to be unique across components, so this counter exists outside of
  * the component definition.
- */
-var /** @type {?} */ _uniqueAutocompleteIdCounter = 0;
+  @type {?} */
+var _uniqueAutocompleteIdCounter = 0;
 /**
  * Event object that is emitted when an autocomplete option is selected.
  */
@@ -53,11 +53,12 @@ MatAutocompleteBase = /** @class */ (function () {
     }
     return MatAutocompleteBase;
 }());
-var /** @type {?} */ _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompleteBase);
-/**
+/** @type {?} */
+var _MatAutocompleteMixinBase = mixinDisableRipple(MatAutocompleteBase);
+/** *
  * Injection token to be used to override the default options for `mat-autocomplete`.
- */
-var /** @type {?} */ MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken('mat-autocomplete-default-options', {
+  @type {?} */
+var MAT_AUTOCOMPLETE_DEFAULT_OPTIONS = new InjectionToken('mat-autocomplete-default-options', {
     providedIn: 'root',
     factory: MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY,
 });
@@ -114,6 +115,10 @@ var MatAutocomplete = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatAutocomplete.prototype, "autoActiveFirstOption", {
+        /**
+         * Whether the first option should be highlighted when the autocomplete panel is opened.
+         * Can be configured globally through the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
+         */
         get: /**
          * Whether the first option should be highlighted when the autocomplete panel is opened.
          * Can be configured globally through the `MAT_AUTOCOMPLETE_DEFAULT_OPTIONS` token.
@@ -131,6 +136,10 @@ var MatAutocomplete = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatAutocomplete.prototype, "classList", {
+        /**
+         * Takes classes set on the host mat-autocomplete element and applies them to the panel
+         * inside the overlay container to allow for easy styling.
+         */
         set: /**
          * Takes classes set on the host mat-autocomplete element and applies them to the panel
          * inside the overlay container to allow for easy styling.
@@ -218,7 +227,8 @@ var MatAutocomplete = /** @class */ (function (_super) {
      * @return {?}
      */
     function (option) {
-        var /** @type {?} */ event = new MatAutocompleteSelectedEvent(this, option);
+        /** @type {?} */
+        var event = new MatAutocompleteSelectedEvent(this, option);
         this.optionSelected.emit(event);
     };
     MatAutocomplete.decorators = [
@@ -239,22 +249,22 @@ var MatAutocomplete = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatAutocomplete.ctorParameters = function () { return [
-        { type: ChangeDetectorRef, },
-        { type: ElementRef, },
-        { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] },] },
+        { type: ChangeDetectorRef },
+        { type: ElementRef },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_DEFAULT_OPTIONS,] }] }
     ]; };
     MatAutocomplete.propDecorators = {
-        "template": [{ type: ViewChild, args: [TemplateRef,] },],
-        "panel": [{ type: ViewChild, args: ['panel',] },],
-        "options": [{ type: ContentChildren, args: [MatOption, { descendants: true },] },],
-        "optionGroups": [{ type: ContentChildren, args: [MatOptgroup,] },],
-        "displayWith": [{ type: Input },],
-        "autoActiveFirstOption": [{ type: Input },],
-        "panelWidth": [{ type: Input },],
-        "optionSelected": [{ type: Output },],
-        "opened": [{ type: Output },],
-        "closed": [{ type: Output },],
-        "classList": [{ type: Input, args: ['class',] },],
+        template: [{ type: ViewChild, args: [TemplateRef,] }],
+        panel: [{ type: ViewChild, args: ['panel',] }],
+        options: [{ type: ContentChildren, args: [MatOption, { descendants: true },] }],
+        optionGroups: [{ type: ContentChildren, args: [MatOptgroup,] }],
+        displayWith: [{ type: Input }],
+        autoActiveFirstOption: [{ type: Input }],
+        panelWidth: [{ type: Input }],
+        optionSelected: [{ type: Output }],
+        opened: [{ type: Output }],
+        closed: [{ type: Output }],
+        classList: [{ type: Input, args: ['class',] }]
     };
     return MatAutocomplete;
 }(_MatAutocompleteMixinBase));
@@ -279,7 +289,7 @@ var MatAutocompleteOrigin = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatAutocompleteOrigin.ctorParameters = function () { return [
-        { type: ElementRef, },
+        { type: ElementRef }
     ]; };
     return MatAutocompleteOrigin;
 }());
@@ -288,18 +298,18 @@ var MatAutocompleteOrigin = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * The height of each autocomplete option.
- */
-var /** @type {?} */ AUTOCOMPLETE_OPTION_HEIGHT = 48;
-/**
+  @type {?} */
+var AUTOCOMPLETE_OPTION_HEIGHT = 48;
+/** *
  * The total height of the autocomplete panel.
- */
-var /** @type {?} */ AUTOCOMPLETE_PANEL_HEIGHT = 256;
-/**
+  @type {?} */
+var AUTOCOMPLETE_PANEL_HEIGHT = 256;
+/** *
  * Injection token that determines the scroll handling while the autocomplete panel is open.
- */
-var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-scroll-strategy');
+  @type {?} */
+var MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-autocomplete-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -308,19 +318,19 @@ var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY = new InjectionToken('mat-
 function MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY(overlay) {
     return function () { return overlay.scrollStrategies.reposition(); };
 }
-/**
+/** *
  * \@docs-private
- */
-var /** @type {?} */ MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+  @type {?} */
+var MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_AUTOCOMPLETE_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY,
 };
-/**
+/** *
  * Provider that allows the autocomplete to register as a ControlValueAccessor.
  * \@docs-private
- */
-var /** @type {?} */ MAT_AUTOCOMPLETE_VALUE_ACCESSOR = {
+  @type {?} */
+var MAT_AUTOCOMPLETE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MatAutocompleteTrigger; }),
     multi: true
@@ -416,6 +426,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         }
     }
     Object.defineProperty(MatAutocompleteTrigger.prototype, "autocompleteDisabled", {
+        /**
+         * Whether the autocomplete is disabled. When disabled, the element will
+         * act as a regular input and the user won't be able to open the panel.
+         */
         get: /**
          * Whether the autocomplete is disabled. When disabled, the element will
          * act as a regular input and the user won't be able to open the panel.
@@ -575,8 +589,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         }
         return merge(fromEvent(this._document, 'click'), fromEvent(this._document, 'touchend'))
             .pipe(filter(function (event) {
-            var /** @type {?} */ clickTarget = /** @type {?} */ (event.target);
-            var /** @type {?} */ formField = _this._formField ?
+            /** @type {?} */
+            var clickTarget = /** @type {?} */ (event.target);
+            /** @type {?} */
+            var formField = _this._formField ?
                 _this._formField._elementRef.nativeElement : null;
             return _this._overlayAttached &&
                 clickTarget !== _this._element.nativeElement &&
@@ -642,7 +658,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ keyCode = event.keyCode;
+        /** @type {?} */
+        var keyCode = event.keyCode;
         // Prevent the default action on all escape key presses. This is here primarily to bring IE
         // in line with other browsers. By default, pressing escape on IE will cause it to revert
         // the input value to the one that it had on focus, however it won't dispatch any events
@@ -663,8 +680,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             event.preventDefault();
         }
         else if (this.autocomplete) {
-            var /** @type {?} */ prevActiveItem = this.autocomplete._keyManager.activeItem;
-            var /** @type {?} */ isArrowKey = keyCode === UP_ARROW || keyCode === DOWN_ARROW;
+            /** @type {?} */
+            var prevActiveItem = this.autocomplete._keyManager.activeItem;
+            /** @type {?} */
+            var isArrowKey = keyCode === UP_ARROW || keyCode === DOWN_ARROW;
             if (this.panelOpen || keyCode === TAB) {
                 this.autocomplete._keyManager.onKeydown(event);
             }
@@ -685,8 +704,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ target = /** @type {?} */ (event.target);
-        var /** @type {?} */ value = target.value;
+        /** @type {?} */
+        var target = /** @type {?} */ (event.target);
+        /** @type {?} */
+        var value = target.value;
         // Based on `NumberValueAccessor` from forms.
         if (target.type === 'number') {
             value = value == '' ? null : parseFloat(value);
@@ -781,9 +802,12 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ index = this.autocomplete._keyManager.activeItemIndex || 0;
-        var /** @type {?} */ labelCount = _countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
-        var /** @type {?} */ newScrollPosition = _getOptionScrollPosition(index + labelCount, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
+        /** @type {?} */
+        var index = this.autocomplete._keyManager.activeItemIndex || 0;
+        /** @type {?} */
+        var labelCount = _countGroupLabelsBeforeOption(index, this.autocomplete.options, this.autocomplete.optionGroups);
+        /** @type {?} */
+        var newScrollPosition = _getOptionScrollPosition(index + labelCount, AUTOCOMPLETE_OPTION_HEIGHT, this.autocomplete._getScrollTop(), AUTOCOMPLETE_PANEL_HEIGHT);
         this.autocomplete._setScrollTop(newScrollPosition);
     };
     /**
@@ -798,8 +822,10 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ firstStable = this._zone.onStable.asObservable().pipe(take(1));
-        var /** @type {?} */ optionChanges = this.autocomplete.options.changes.pipe(tap(function () { return _this._positionStrategy.reapplyLastPosition(); }), 
+        /** @type {?} */
+        var firstStable = this._zone.onStable.asObservable().pipe(take(1));
+        /** @type {?} */
+        var optionChanges = this.autocomplete.options.changes.pipe(tap(function () { return _this._positionStrategy.reapplyLastPosition(); }), 
         // Defer emitting to the stream until the next tick, because changing
         // bindings in here will cause "changed after checked" errors.
         delay(0));
@@ -818,6 +844,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         }), 
         // when the first closing event occurs...
         take(1))
+            // set the value, close the panel, and complete.
             .subscribe(function (event) { return _this._setValueAndClose(event); });
     };
     /**
@@ -844,12 +871,12 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function (value) {
-        var /** @type {?} */ toDisplay = this.autocomplete && this.autocomplete.displayWith ?
+        /** @type {?} */
+        var toDisplay = this.autocomplete && this.autocomplete.displayWith ?
             this.autocomplete.displayWith(value) :
             value;
-        // Simply falling back to an empty string if the display value is falsy does not work properly.
-        // The display value can also be the number zero and shouldn't fall back to an empty string.
-        var /** @type {?} */ inputValue = toDisplay != null ? toDisplay : '';
+        /** @type {?} */
+        var inputValue = toDisplay != null ? toDisplay : '';
         // If it's used within a `MatFormField`, we should set it through the property so it can go
         // through change detection.
         if (this._formField) {
@@ -930,7 +957,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
             this._overlayRef.attach(this._portal);
             this._closingActionsSubscription = this._subscribeToClosingActions();
         }
-        var /** @type {?} */ wasOpen = this.panelOpen;
+        /** @type {?} */
+        var wasOpen = this.panelOpen;
         this.autocomplete._setVisibility();
         this.autocomplete._isOpen = this._overlayAttached = true;
         // We need to do an extra `panelOpen` check in here, because the
@@ -1038,7 +1066,8 @@ var MatAutocompleteTrigger = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ element = this._element.nativeElement;
+        /** @type {?} */
+        var element = this._element.nativeElement;
         return !element.readOnly && !element.disabled && !this._autocompleteDisabled;
     };
     MatAutocompleteTrigger.decorators = [
@@ -1064,22 +1093,22 @@ var MatAutocompleteTrigger = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatAutocompleteTrigger.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: Overlay, },
-        { type: ViewContainerRef, },
-        { type: NgZone, },
-        { type: ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] },] },
-        { type: Directionality, decorators: [{ type: Optional },] },
-        { type: MatFormField, decorators: [{ type: Optional }, { type: Host },] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
-        { type: ViewportRuler, },
+        { type: ElementRef },
+        { type: Overlay },
+        { type: ViewContainerRef },
+        { type: NgZone },
+        { type: ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_AUTOCOMPLETE_SCROLL_STRATEGY,] }] },
+        { type: Directionality, decorators: [{ type: Optional }] },
+        { type: MatFormField, decorators: [{ type: Optional }, { type: Host }] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+        { type: ViewportRuler }
     ]; };
     MatAutocompleteTrigger.propDecorators = {
-        "autocomplete": [{ type: Input, args: ['matAutocomplete',] },],
-        "connectedTo": [{ type: Input, args: ['matAutocompleteConnectedTo',] },],
-        "autocompleteAttribute": [{ type: Input, args: ['autocomplete',] },],
-        "autocompleteDisabled": [{ type: Input, args: ['matAutocompleteDisabled',] },],
+        autocomplete: [{ type: Input, args: ['matAutocomplete',] }],
+        connectedTo: [{ type: Input, args: ['matAutocompleteConnectedTo',] }],
+        autocompleteAttribute: [{ type: Input, args: ['autocomplete',] }],
+        autocompleteDisabled: [{ type: Input, args: ['matAutocompleteDisabled',] }]
     };
     return MatAutocompleteTrigger;
 }());
@@ -1118,5 +1147,5 @@ var MatAutocompleteModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa30 };
+export { MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MatAutocomplete, MatAutocompleteModule, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, getMatAutocompleteMissingPanelError, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa25 };
 //# sourceMappingURL=autocomplete.es5.js.map

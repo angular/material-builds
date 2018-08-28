@@ -22,10 +22,10 @@ import { Directionality } from '@angular/cdk/bidi';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to access the data that was passed in to a bottom sheet.
- */
-const /** @type {?} */ MAT_BOTTOM_SHEET_DATA = new InjectionToken('MatBottomSheetData');
+  @type {?} */
+const MAT_BOTTOM_SHEET_DATA = new InjectionToken('MatBottomSheetData');
 /**
  * Configuration used when opening a bottom sheet.
  * @template D
@@ -63,10 +63,10 @@ class MatBottomSheetConfig {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material bottom sheet.
- */
-const /** @type {?} */ matBottomSheetAnimations = {
+  @type {?} */
+const matBottomSheetAnimations = {
     /** Animation that shows and hides a bottom sheet. */
     bottomSheetState: trigger('state', [
         state('void, hidden', style({ transform: 'translateY(100%)' })),
@@ -197,7 +197,8 @@ class MatBottomSheetContainer extends BasePortalOutlet {
      * @return {?}
      */
     _toggleClass(cssClass, add) {
-        const /** @type {?} */ classList = this._elementRef.nativeElement.classList;
+        /** @type {?} */
+        const classList = this._elementRef.nativeElement.classList;
         add ? classList.add(cssClass) : classList.remove(cssClass);
     }
     /**
@@ -212,8 +213,10 @@ class MatBottomSheetContainer extends BasePortalOutlet {
      * @return {?}
      */
     _setPanelClass() {
-        const /** @type {?} */ element = this._elementRef.nativeElement;
-        const /** @type {?} */ panelClass = this.bottomSheetConfig.panelClass;
+        /** @type {?} */
+        const element = this._elementRef.nativeElement;
+        /** @type {?} */
+        const panelClass = this.bottomSheetConfig.panelClass;
         if (Array.isArray(panelClass)) {
             // Note that we can't use a spread here, because IE doesn't support multiple arguments.
             panelClass.forEach(cssClass => element.classList.add(cssClass));
@@ -237,7 +240,8 @@ class MatBottomSheetContainer extends BasePortalOutlet {
      * @return {?}
      */
     _restoreFocus() {
-        const /** @type {?} */ toFocus = this._elementFocusedBeforeOpened;
+        /** @type {?} */
+        const toFocus = this._elementFocusedBeforeOpened;
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
         if (toFocus && typeof toFocus.focus === 'function') {
             toFocus.focus();
@@ -279,15 +283,15 @@ MatBottomSheetContainer.decorators = [
 ];
 /** @nocollapse */
 MatBottomSheetContainer.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: ChangeDetectorRef, },
-    { type: FocusTrapFactory, },
-    { type: BreakpointObserver, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
-    { type: MatBottomSheetConfig, },
+    { type: ElementRef },
+    { type: ChangeDetectorRef },
+    { type: FocusTrapFactory },
+    { type: BreakpointObserver },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+    { type: MatBottomSheetConfig }
 ];
 MatBottomSheetContainer.propDecorators = {
-    "_portalOutlet": [{ type: ViewChild, args: [CdkPortalOutlet,] },],
+    _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet,] }]
 };
 
 /**
@@ -433,7 +437,8 @@ class MatBottomSheet {
      * @return {?}
      */
     get _openedBottomSheetRef() {
-        const /** @type {?} */ parent = this._parentBottomSheet;
+        /** @type {?} */
+        const parent = this._parentBottomSheet;
         return parent ? parent._openedBottomSheetRef : this._bottomSheetRefAtThisLevel;
     }
     /**
@@ -455,10 +460,14 @@ class MatBottomSheet {
      * @return {?}
      */
     open(componentOrTemplateRef, config) {
-        const /** @type {?} */ _config = _applyConfigDefaults(config);
-        const /** @type {?} */ overlayRef = this._createOverlay(_config);
-        const /** @type {?} */ container = this._attachContainer(overlayRef, _config);
-        const /** @type {?} */ ref = new MatBottomSheetRef(container, overlayRef, this._location);
+        /** @type {?} */
+        const _config = _applyConfigDefaults(config);
+        /** @type {?} */
+        const overlayRef = this._createOverlay(_config);
+        /** @type {?} */
+        const container = this._attachContainer(overlayRef, _config);
+        /** @type {?} */
+        const ref = new MatBottomSheetRef(container, overlayRef, this._location);
         if (componentOrTemplateRef instanceof TemplateRef) {
             container.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({
                 $implicit: _config.data,
@@ -466,8 +475,10 @@ class MatBottomSheet {
             })));
         }
         else {
-            const /** @type {?} */ portal = new ComponentPortal(componentOrTemplateRef, undefined, this._createInjector(_config, ref));
-            const /** @type {?} */ contentRef = container.attachComponentPortal(portal);
+            /** @type {?} */
+            const portal = new ComponentPortal(componentOrTemplateRef, undefined, this._createInjector(_config, ref));
+            /** @type {?} */
+            const contentRef = container.attachComponentPortal(portal);
             ref.instance = contentRef.instance;
         }
         // When the bottom sheet is dismissed, clear the reference to it.
@@ -506,12 +517,16 @@ class MatBottomSheet {
      * @return {?}
      */
     _attachContainer(overlayRef, config) {
-        const /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        const /** @type {?} */ injector = new PortalInjector(userInjector || this._injector, new WeakMap([
+        /** @type {?} */
+        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        /** @type {?} */
+        const injector = new PortalInjector(userInjector || this._injector, new WeakMap([
             [MatBottomSheetConfig, config]
         ]));
-        const /** @type {?} */ containerPortal = new ComponentPortal(MatBottomSheetContainer, config.viewContainerRef, injector);
-        const /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
+        /** @type {?} */
+        const containerPortal = new ComponentPortal(MatBottomSheetContainer, config.viewContainerRef, injector);
+        /** @type {?} */
+        const containerRef = overlayRef.attach(containerPortal);
         return containerRef.instance;
     }
     /**
@@ -520,7 +535,8 @@ class MatBottomSheet {
      * @return {?}
      */
     _createOverlay(config) {
-        const /** @type {?} */ overlayConfig = new OverlayConfig({
+        /** @type {?} */
+        const overlayConfig = new OverlayConfig({
             direction: config.direction,
             hasBackdrop: config.hasBackdrop,
             maxWidth: '100%',
@@ -543,8 +559,10 @@ class MatBottomSheet {
      * @return {?}
      */
     _createInjector(config, bottomSheetRef) {
-        const /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        const /** @type {?} */ injectionTokens = new WeakMap([
+        /** @type {?} */
+        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        /** @type {?} */
+        const injectionTokens = new WeakMap([
             [MatBottomSheetRef, bottomSheetRef],
             [MAT_BOTTOM_SHEET_DATA, config.data]
         ]);
@@ -563,10 +581,10 @@ MatBottomSheet.decorators = [
 ];
 /** @nocollapse */
 MatBottomSheet.ctorParameters = () => [
-    { type: Overlay, },
-    { type: Injector, },
-    { type: MatBottomSheet, decorators: [{ type: Optional }, { type: SkipSelf },] },
-    { type: Location, decorators: [{ type: Optional },] },
+    { type: Overlay },
+    { type: Injector },
+    { type: MatBottomSheet, decorators: [{ type: Optional }, { type: SkipSelf }] },
+    { type: Location, decorators: [{ type: Optional }] }
 ];
 /** @nocollapse */ MatBottomSheet.ngInjectableDef = defineInjectable({ factory: function MatBottomSheet_Factory() { return new MatBottomSheet(inject(Overlay), inject(INJECTOR), inject(MatBottomSheet, 12), inject(Location, 8)); }, token: MatBottomSheet, providedIn: MatBottomSheetModule });
 /**

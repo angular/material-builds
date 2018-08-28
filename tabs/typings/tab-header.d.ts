@@ -20,7 +20,7 @@ export declare type ScrollDirection = 'after' | 'before';
 /** @docs-private */
 export declare class MatTabHeaderBase {
 }
-export declare const _MatTabHeaderMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatTabHeaderBase;
+export declare const _MatTabHeaderMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatTabHeaderBase;
 /**
  * The header of the tab group which displays a list of all the tabs in the tab group. Includes
  * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the

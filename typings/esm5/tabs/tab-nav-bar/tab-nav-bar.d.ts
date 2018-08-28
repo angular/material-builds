@@ -17,7 +17,7 @@ export declare class MatTabNavBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatTabNavMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanColor) & typeof MatTabNavBase;
+export declare const _MatTabNavMixinBase: import("../../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatTabNavBase;
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -52,7 +52,7 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
 }
 export declare class MatTabLinkBase {
 }
-export declare const _MatTabLinkMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatTabLinkBase;
+export declare const _MatTabLinkMixinBase: import("../../core/common-behaviors/constructor").Constructor<HasTabIndex> & import("../../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatTabLinkBase;
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
@@ -63,7 +63,7 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestro
      * @deprecated
      * @breaking-change 7.0.0 `_focusMonitor` parameter to be made required.
      */
-    private _focusMonitor;
+    private _focusMonitor?;
     /** Whether the tab link is active or not. */
     protected _isActive: boolean;
     /** Reference to the RippleRenderer for the tab-link. */
@@ -83,11 +83,11 @@ export declare class MatTabLink extends _MatTabLinkMixinBase implements OnDestro
      */
     readonly rippleDisabled: boolean;
     constructor(_tabNavBar: MatTabNav, _elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions, tabIndex: string, 
-        /**
-         * @deprecated
-         * @breaking-change 7.0.0 `_focusMonitor` parameter to be made required.
-         */
-        _focusMonitor?: FocusMonitor | undefined);
+    /**
+     * @deprecated
+     * @breaking-change 7.0.0 `_focusMonitor` parameter to be made required.
+     */
+    _focusMonitor?: FocusMonitor | undefined);
     ngOnDestroy(): void;
     /**
      * Handles the click event, preventing default navigation if the tab link is disabled.

@@ -81,12 +81,12 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
     readonly _isFocusTrapEnabled: boolean;
     constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _doc: any);
     /** Traps focus inside the drawer. */
-    private _trapFocus();
+    private _trapFocus;
     /**
      * If focus is currently inside the drawer, restores it to where it was before the drawer
      * opened.
      */
-    private _restoreFocus();
+    private _restoreFocus;
     ngAfterContentInit(): void;
     ngAfterContentChecked(): void;
     ngOnDestroy(): void;
@@ -126,7 +126,7 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     private _element;
     private _ngZone;
     private _changeDetectorRef;
-    private _animationMode;
+    private _animationMode?;
     _drawers: QueryList<MatDrawer>;
     _content: MatDrawerContent;
     _userContent: MatDrawerContent;
@@ -196,28 +196,28 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
      * drawer is open and the backdrop is visible. This ensures any overflow on the container element
      * is properly hidden.
      */
-    private _watchDrawerToggle(drawer);
+    private _watchDrawerToggle;
     /**
      * Subscribes to drawer onPositionChanged event in order to
      * re-validate drawers when the position changes.
      */
-    private _watchDrawerPosition(drawer);
+    private _watchDrawerPosition;
     /** Subscribes to changes in drawer mode so we can run change detection. */
-    private _watchDrawerMode(drawer);
+    private _watchDrawerMode;
     /** Toggles the 'mat-drawer-opened' class on the main 'mat-drawer-container' element. */
-    private _setContainerClass(isAdd);
+    private _setContainerClass;
     /** Validate the state of the drawer children components. */
-    private _validateDrawers();
+    private _validateDrawers;
     /** Whether the container is being pushed to the side by one of the drawers. */
-    private _isPushed();
+    private _isPushed;
     _onBackdropClicked(): void;
     _closeModalDrawer(): void;
     _isShowingBackdrop(): boolean;
-    private _canHaveBackdrop(drawer);
-    private _isDrawerOpen(drawer);
+    private _canHaveBackdrop;
+    private _isDrawerOpen;
     /**
      * Recalculates and updates the inline styles for the content. Note that this should be used
      * sparingly, because it causes a reflow.
      */
-    private _updateContentMargins();
+    private _updateContentMargins;
 }

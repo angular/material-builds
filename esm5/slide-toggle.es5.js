@@ -21,10 +21,10 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token to be used to override the default options for `mat-slide-toggle`.
- */
-var /** @type {?} */ MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-default-options', {
+  @type {?} */
+var MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-slide-toggle-default-options', {
     providedIn: 'root',
     factory: function () { return ({ disableToggleValue: false, disableDragValue: false }); }
 });
@@ -33,9 +33,10 @@ var /** @type {?} */ MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS = new InjectionToken('mat-
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Increasing integer for generating unique ids for slide-toggle components.
-var /** @type {?} */ nextUniqueId = 0;
-var /** @type {?} */ MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
+/** @type {?} */
+var nextUniqueId = 0;
+/** @type {?} */
+var MAT_SLIDE_TOGGLE_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MatSlideToggle; }),
     multi: true
@@ -65,7 +66,8 @@ MatSlideToggleBase = /** @class */ (function () {
     }
     return MatSlideToggleBase;
 }());
-var /** @type {?} */ _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatSlideToggleBase)), 'accent'));
+/** @type {?} */
+var _MatSlideToggleMixinBase = mixinTabIndex(mixinColor(mixinDisableRipple(mixinDisabled(MatSlideToggleBase)), 'accent'));
 /**
  * Represents a slidable "switch" toggle that can be moved between on and off.
  */
@@ -137,6 +139,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatSlideToggle.prototype, "required", {
+        /** Whether the slide-toggle is required. */
         get: /**
          * Whether the slide-toggle is required.
          * @return {?}
@@ -151,6 +154,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSlideToggle.prototype, "checked", {
+        /** Whether the slide-toggle element is checked or not */
         get: /**
          * Whether the slide-toggle element is checked or not
          * @return {?}
@@ -367,7 +371,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function (distance) {
-        var /** @type {?} */ percentage = (distance / this._thumbBarWidth) * 100;
+        /** @type {?} */
+        var percentage = (distance / this._thumbBarWidth) * 100;
         // When the toggle was initially checked, then we have to start the drag at the end.
         if (this._previousChecked) {
             percentage += 100;
@@ -382,7 +387,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
      */
     function () {
         if (!this.disabled && !this._dragging) {
-            var /** @type {?} */ thumbEl = this._thumbEl.nativeElement;
+            /** @type {?} */
+            var thumbEl = this._thumbEl.nativeElement;
             this._thumbBarWidth = this._thumbBarEl.nativeElement.clientWidth - thumbEl.clientWidth;
             thumbEl.classList.add('mat-dragging');
             this._previousChecked = this.checked;
@@ -399,10 +405,11 @@ var MatSlideToggle = /** @class */ (function (_super) {
      */
     function (event) {
         if (this._dragging) {
-            var /** @type {?} */ direction = this._dir && this._dir.value === 'rtl' ? -1 : 1;
+            /** @type {?} */
+            var direction = this._dir && this._dir.value === 'rtl' ? -1 : 1;
             this._dragPercentage = this._getDragPercentage(event.deltaX * direction);
-            // Calculate the moved distance based on the thumb bar width.
-            var /** @type {?} */ dragX = (this._dragPercentage / 100) * this._thumbBarWidth * direction;
+            /** @type {?} */
+            var dragX = (this._dragPercentage / 100) * this._thumbBarWidth * direction;
             this._thumbEl.nativeElement.style.transform = "translate3d(" + dragX + "px, 0, 0)";
         }
     };
@@ -415,7 +422,8 @@ var MatSlideToggle = /** @class */ (function (_super) {
     function () {
         var _this = this;
         if (this._dragging) {
-            var /** @type {?} */ newCheckedValue = this._dragPercentage > 50;
+            /** @type {?} */
+            var newCheckedValue = this._dragPercentage > 50;
             if (newCheckedValue !== this.checked) {
                 this.dragChange.emit();
                 if (!this.defaults.disableDragValue) {
@@ -425,19 +433,17 @@ var MatSlideToggle = /** @class */ (function (_super) {
             }
             // The drag should be stopped outside of the current event handler, otherwise the
             // click event will be fired before it and will revert the drag change.
-            this._ngZone.runOutsideAngular(function () {
-                return setTimeout(function () {
-                    if (_this._dragging) {
-                        _this._dragging = false;
-                        _this._thumbEl.nativeElement.classList.remove('mat-dragging');
-                        // Reset the transform because the component will take care
-                        // of the thumb position after drag.
-                        // Reset the transform because the component will take care
-                        // of the thumb position after drag.
-                        _this._thumbEl.nativeElement.style.transform = '';
-                    }
-                });
-            });
+            this._ngZone.runOutsideAngular(function () { return setTimeout(function () {
+                if (_this._dragging) {
+                    _this._dragging = false;
+                    _this._thumbEl.nativeElement.classList.remove('mat-dragging');
+                    // Reset the transform because the component will take care
+                    // of the thumb position after drag.
+                    // Reset the transform because the component will take care
+                    // of the thumb position after drag.
+                    _this._thumbEl.nativeElement.style.transform = '';
+                }
+            }); });
         }
     };
     /** Method being called whenever the label text changes. */
@@ -476,30 +482,30 @@ var MatSlideToggle = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSlideToggle.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: Platform, },
-        { type: FocusMonitor, },
-        { type: ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
-        { type: NgZone, },
-        { type: undefined, decorators: [{ type: Inject, args: [MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,] },] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
-        { type: Directionality, decorators: [{ type: Optional },] },
+        { type: ElementRef },
+        { type: Platform },
+        { type: FocusMonitor },
+        { type: ChangeDetectorRef },
+        { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
+        { type: NgZone },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_SLIDE_TOGGLE_DEFAULT_OPTIONS,] }] },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+        { type: Directionality, decorators: [{ type: Optional }] }
     ]; };
     MatSlideToggle.propDecorators = {
-        "_thumbEl": [{ type: ViewChild, args: ['thumbContainer',] },],
-        "_thumbBarEl": [{ type: ViewChild, args: ['toggleBar',] },],
-        "name": [{ type: Input },],
-        "id": [{ type: Input },],
-        "labelPosition": [{ type: Input },],
-        "ariaLabel": [{ type: Input, args: ['aria-label',] },],
-        "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
-        "required": [{ type: Input },],
-        "checked": [{ type: Input },],
-        "change": [{ type: Output },],
-        "toggleChange": [{ type: Output },],
-        "dragChange": [{ type: Output },],
-        "_inputElement": [{ type: ViewChild, args: ['input',] },],
+        _thumbEl: [{ type: ViewChild, args: ['thumbContainer',] }],
+        _thumbBarEl: [{ type: ViewChild, args: ['toggleBar',] }],
+        name: [{ type: Input }],
+        id: [{ type: Input }],
+        labelPosition: [{ type: Input }],
+        ariaLabel: [{ type: Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }],
+        required: [{ type: Input }],
+        checked: [{ type: Input }],
+        change: [{ type: Output }],
+        toggleChange: [{ type: Output }],
+        dragChange: [{ type: Output }],
+        _inputElement: [{ type: ViewChild, args: ['input',] }]
     };
     return MatSlideToggle;
 }(_MatSlideToggleMixinBase));

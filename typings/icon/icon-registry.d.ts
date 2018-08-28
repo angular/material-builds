@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { HttpClient } from '@angular/common/http';
 import { Optional } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl, SafeHtml } from '@angular/platform-browser';
@@ -154,7 +161,7 @@ export declare class MatIconRegistry {
     /**
      * Returns the cached icon for a SvgIconConfig if available, or fetches it from its URL if not.
      */
-    private _getSvgFromConfig(config);
+    private _getSvgFromConfig;
     /**
      * Attempts to find an icon with the specified name in any of the SVG icon sets.
      * First searches the available cached icons for a nested element with a matching name, and
@@ -163,63 +170,63 @@ export declare class MatIconRegistry {
      * The returned Observable produces the SVG element if possible, and throws
      * an error if no icon with the specified name can be found.
      */
-    private _getSvgFromIconSetConfigs(name, iconSetConfigs);
+    private _getSvgFromIconSetConfigs;
     /**
      * Searches the cached SVG elements for the given icon sets for a nested icon element whose "id"
      * tag matches the specified name. If found, copies the nested element to a new SVG element and
      * returns it. Returns null if no matching element is found.
      */
-    private _extractIconWithNameFromAnySet(iconName, iconSetConfigs);
+    private _extractIconWithNameFromAnySet;
     /**
      * Loads the content of the icon URL specified in the SvgIconConfig and creates an SVG element
      * from it.
      */
-    private _loadSvgIconFromConfig(config);
+    private _loadSvgIconFromConfig;
     /**
      * Loads the content of the icon set URL specified in the SvgIconConfig and creates an SVG element
      * from it.
      */
-    private _loadSvgIconSetFromConfig(config);
+    private _loadSvgIconSetFromConfig;
     /**
      * Creates a DOM element from the given SVG string, and adds default attributes.
      */
-    private _createSvgElementForSingleIcon(responseText);
+    private _createSvgElementForSingleIcon;
     /**
      * Searches the cached element of the given SvgIconConfig for a nested icon element whose "id"
      * tag matches the specified name. If found, copies the nested element to a new SVG element and
      * returns it. Returns null if no matching element is found.
      */
-    private _extractSvgIconFromSet(iconSet, iconName);
+    private _extractSvgIconFromSet;
     /**
      * Creates a DOM element from the given SVG string.
      */
-    private _svgElementFromString(str);
+    private _svgElementFromString;
     /**
      * Converts an element into an SVG node by cloning all of its children.
      */
-    private _toSvgElement(element);
+    private _toSvgElement;
     /**
      * Sets the default attributes for an SVG element to be used as an icon.
      */
-    private _setSvgAttributes(svg);
+    private _setSvgAttributes;
     /**
      * Returns an Observable which produces the string contents of the given URL. Results may be
      * cached, so future calls with the same URL may not cause another HTTP request.
      */
-    private _fetchUrl(safeUrl);
+    private _fetchUrl;
     /**
      * Registers an icon config by name in the specified namespace.
      * @param namespace Namespace in which to register the icon config.
      * @param iconName Name under which to register the config.
      * @param config Config to be registered.
      */
-    private _addSvgIconConfig(namespace, iconName, config);
+    private _addSvgIconConfig;
     /**
      * Registers an icon set config in the specified namespace.
      * @param namespace Namespace in which to register the icon config.
      * @param config Config to be registered.
      */
-    private _addSvgIconSetConfig(namespace, config);
+    private _addSvgIconSetConfig;
 }
 /** @docs-private */
 export declare function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry: MatIconRegistry, httpClient: HttpClient, sanitizer: DomSanitizer, document?: any): MatIconRegistry;

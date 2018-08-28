@@ -15,7 +15,7 @@ export declare class MatProgressSpinnerBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatProgressSpinnerMixinBase: (new (...args: any[]) => CanColor) & typeof MatProgressSpinnerBase;
+export declare const _MatProgressSpinnerMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatProgressSpinnerBase;
 /** Default `mat-progress-spinner` options that can be overridden. */
 export interface MatProgressSpinnerDefaultOptions {
     /** Diameter of the spinner. */
@@ -38,8 +38,8 @@ export declare function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY(): MatProgr
 export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase implements CanColor {
     _elementRef: ElementRef;
     private _document;
-    private animationMode;
-    private defaults;
+    private animationMode?;
+    private defaults?;
     private _value;
     private _strokeWidth;
     private _fallbackAnimation;
@@ -73,9 +73,9 @@ export declare class MatProgressSpinner extends _MatProgressSpinnerMixinBase imp
     /** Stroke width of the circle in percent. */
     readonly _circleStrokeWidth: number;
     /** Dynamically generates a style tag containing the correct animation for this diameter. */
-    private _attachStyleNode();
+    private _attachStyleNode;
     /** Generates animation styles adjusted for the spinner's diameter. */
-    private _getAnimationText();
+    private _getAnimationText;
 }
 /**
  * `<mat-spinner>` component.

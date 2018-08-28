@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { MatPaginatorIntl } from './paginator-intl';
 import { HasInitialized, ThemePalette } from '@angular/material/core';
@@ -21,7 +28,7 @@ export declare class PageEvent {
 /** @docs-private */
 export declare class MatPaginatorBase {
 }
-export declare const _MatPaginatorBase: (new (...args: any[]) => HasInitialized) & typeof MatPaginatorBase;
+export declare const _MatPaginatorBase: import("../core/common-behaviors/constructor").Constructor<HasInitialized> & typeof MatPaginatorBase;
 /**
  * Component to provide navigation between paged information. Displays the size of the current
  * page, user-selectable options to change that size, what items are being shown, and
@@ -86,7 +93,7 @@ export declare class MatPaginator extends _MatPaginatorBase implements OnInit, O
      * Updates the list of page size options to display to the user. Includes making sure that
      * the page size is an option and that the list is sorted.
      */
-    private _updateDisplayedPageSizeOptions();
+    private _updateDisplayedPageSizeOptions;
     /** Emits an event notifying that a change of the paginator's properties has been triggered. */
-    private _emitPageEvent(previousPageIndex);
+    private _emitPageEvent;
 }

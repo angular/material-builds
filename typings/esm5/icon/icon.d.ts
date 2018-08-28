@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { ElementRef, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CanColor } from '@angular/material/core';
 import { MatIconRegistry } from './icon-registry';
@@ -6,7 +13,7 @@ export declare class MatIconBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatIconMixinBase: (new (...args: any[]) => CanColor) & typeof MatIconBase;
+export declare const _MatIconMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatIconBase;
 /**
  * Component to display an icon. It can be used in the following ways:
  *
@@ -66,17 +73,17 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
      *   null -> ['', '']
      *   'a:b:c' -> (throws Error)`
      */
-    private _splitIconName(iconName);
+    private _splitIconName;
     ngOnChanges(changes: SimpleChanges): void;
     ngOnInit(): void;
-    private _usingFontIcon();
-    private _setSvgElement(svg);
-    private _clearSvgElement();
-    private _updateFontIconClasses();
+    private _usingFontIcon;
+    private _setSvgElement;
+    private _clearSvgElement;
+    private _updateFontIconClasses;
     /**
      * Cleans up a value to be used as a fontIcon or fontSet.
      * Since the value ends up being assigned as a CSS class, we
      * have to trim the value and omit space-separated values.
      */
-    private _cleanupFontValue(value);
+    private _cleanupFontValue;
 }

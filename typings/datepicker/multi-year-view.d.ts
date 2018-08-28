@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { AfterContentInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { DateAdapter } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
@@ -11,7 +18,7 @@ export declare const yearsPerRow = 4;
 export declare class MatMultiYearView<D> implements AfterContentInit {
     private _changeDetectorRef;
     _dateAdapter: DateAdapter<D>;
-    private _dir;
+    private _dir?;
     /** The date to display in this multi-year view (everything other than the year is ignored). */
     activeDate: D;
     private _activeDate;
@@ -52,14 +59,14 @@ export declare class MatMultiYearView<D> implements AfterContentInit {
     /** Focuses the active cell after the microtask queue is empty. */
     _focusActiveCell(): void;
     /** Creates an MatCalendarCell for the given year. */
-    private _createCellForYear(year);
+    private _createCellForYear;
     /** Whether the given year is enabled. */
-    private _shouldEnableYear(year);
+    private _shouldEnableYear;
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.
      */
-    private _getValidDateOrNull(obj);
+    private _getValidDateOrNull;
     /** Determines whether the user has the RTL layout direction. */
-    private _isRtl();
+    private _isRtl;
 }

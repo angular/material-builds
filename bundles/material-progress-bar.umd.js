@@ -56,26 +56,29 @@ MatProgressBarBase = /** @class */ (function () {
     }
     return MatProgressBarBase;
 }());
-var /** @type {?} */ _MatProgressBarMixinBase = core$1.mixinColor(MatProgressBarBase, 'primary');
-/**
+/** @type {?} */
+var _MatProgressBarMixinBase = core$1.mixinColor(MatProgressBarBase, 'primary');
+/** *
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.
  * \@docs-private
- */
-var /** @type {?} */ MAT_PROGRESS_BAR_LOCATION = new core.InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
+  @type {?} */
+var MAT_PROGRESS_BAR_LOCATION = new core.InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
 /**
  * \@docs-private
  * @return {?}
  */
 function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
-    var /** @type {?} */ _document = core.inject(common.DOCUMENT);
-    var /** @type {?} */ pathname = (_document && _document.location && _document.location.pathname) || '';
+    /** @type {?} */
+    var _document = core.inject(common.DOCUMENT);
+    /** @type {?} */
+    var pathname = (_document && _document.location && _document.location.pathname) || '';
     return { pathname: pathname };
 }
-/**
+/** *
  * Counter used to generate unique IDs for progress bars.
- */
-var /** @type {?} */ progressbarId = 0;
+  @type {?} */
+var progressbarId = 0;
 /**
  * `<mat-progress-bar>` component.
  */
@@ -103,17 +106,13 @@ var MatProgressBar = /** @class */ (function (_super) {
          * ID of the progress bar.
          */
         _this.progressbarId = "mat-progress-bar-" + progressbarId++;
-        // We need to prefix the SVG reference with the current path, otherwise they won't work
-        // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
-        // because named route URLs can contain parentheses (see #12338). Also we don't use
-        // `Location` from `@angular/common` since we can't tell the difference between whether
-        // the consumer is using the hash location strategy or not, because `Location` normalizes
-        // both `/#/foo/bar` and `/foo/bar` to the same thing.
-        var /** @type {?} */ path = location && location.pathname ? location.pathname.split('#')[0] : '';
+        /** @type {?} */
+        var path = location && location.pathname ? location.pathname.split('#')[0] : '';
         _this._rectangleFillValue = "url('" + path + "#" + _this.progressbarId + "')";
         return _this;
     }
     Object.defineProperty(MatProgressBar.prototype, "value", {
+        /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
         get: /**
          * Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow.
          * @return {?}
@@ -128,6 +127,7 @@ var MatProgressBar = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatProgressBar.prototype, "bufferValue", {
+        /** Buffer value of the progress bar. Defaults to zero. */
         get: /**
          * Buffer value of the progress bar. Defaults to zero.
          * @return {?}
@@ -151,7 +151,8 @@ var MatProgressBar = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ scale = this.value / 100;
+        /** @type {?} */
+        var scale = this.value / 100;
         return { transform: "scaleX(" + scale + ")" };
     };
     /**
@@ -170,7 +171,8 @@ var MatProgressBar = /** @class */ (function (_super) {
      */
     function () {
         if (this.mode === 'buffer') {
-            var /** @type {?} */ scale = this.bufferValue / 100;
+            /** @type {?} */
+            var scale = this.bufferValue / 100;
             return { transform: "scaleX(" + scale + ")" };
         }
     };
@@ -195,14 +197,14 @@ var MatProgressBar = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatProgressBar.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_PROGRESS_BAR_LOCATION,] },] },
+        { type: core.ElementRef },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_PROGRESS_BAR_LOCATION,] }] }
     ]; };
     MatProgressBar.propDecorators = {
-        "value": [{ type: core.Input },],
-        "bufferValue": [{ type: core.Input },],
-        "mode": [{ type: core.Input },],
+        value: [{ type: core.Input }],
+        bufferValue: [{ type: core.Input }],
+        mode: [{ type: core.Input }]
     };
     return MatProgressBar;
 }(_MatProgressBarMixinBase));
@@ -237,10 +239,10 @@ var MatProgressBarModule = /** @class */ (function () {
 }());
 
 exports.MatProgressBarModule = MatProgressBarModule;
+exports.MAT_PROGRESS_BAR_LOCATION_FACTORY = MAT_PROGRESS_BAR_LOCATION_FACTORY;
 exports.MatProgressBarBase = MatProgressBarBase;
 exports._MatProgressBarMixinBase = _MatProgressBarMixinBase;
 exports.MAT_PROGRESS_BAR_LOCATION = MAT_PROGRESS_BAR_LOCATION;
-exports.MAT_PROGRESS_BAR_LOCATION_FACTORY = MAT_PROGRESS_BAR_LOCATION_FACTORY;
 exports.MatProgressBar = MatProgressBar;
 
 Object.defineProperty(exports, '__esModule', { value: true });

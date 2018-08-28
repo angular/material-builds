@@ -103,11 +103,11 @@ export declare class MatTooltip implements OnDestroy {
     /** Handles the touchend events on the host element. */
     _handleTouchend(): void;
     /** Create the overlay config and position strategy */
-    private _createOverlay();
+    private _createOverlay;
     /** Detaches the currently-attached tooltip. */
-    private _detach();
+    private _detach;
     /** Updates the position of the current tooltip. */
-    private _updatePosition();
+    private _updatePosition;
     /**
      * Returns the origin position and a fallback position based on the user's position preference.
      * The fallback position is the inverse of the origin (e.g. `'below' -> 'above'`).
@@ -122,11 +122,11 @@ export declare class MatTooltip implements OnDestroy {
         fallback: OverlayConnectionPosition;
     };
     /** Updates the tooltip message and repositions the overlay according to the new message length */
-    private _updateTooltipMessage();
+    private _updateTooltipMessage;
     /** Updates the tooltip class */
-    private _setTooltipClass(tooltipClass);
+    private _setTooltipClass;
     /** Inverts an overlay position. */
-    private _invertPosition(x, y);
+    private _invertPosition;
 }
 export declare type TooltipVisibility = 'initial' | 'visible' | 'hidden';
 /**

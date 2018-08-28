@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { Platform } from '@angular/cdk/platform';
 import { DoCheck, ElementRef, OnChanges, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -13,10 +20,10 @@ export declare class MatInputBase {
     /** @docs-private */
     ngControl: NgControl;
     constructor(_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, 
-        /** @docs-private */
-        ngControl: NgControl);
+    /** @docs-private */
+    ngControl: NgControl);
 }
-export declare const _MatInputMixinBase: (new (...args: any[]) => CanUpdateErrorState) & typeof MatInputBase;
+export declare const _MatInputMixinBase: import("../core/common-behaviors/constructor").Constructor<CanUpdateErrorState> & typeof MatInputBase;
 /** Directive that allows a native input to work inside a `MatFormField`. */
 export declare class MatInput extends _MatInputMixinBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, OnInit, DoCheck, CanUpdateErrorState {
     protected _elementRef: ElementRef;
@@ -89,8 +96,8 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     private _readonly;
     protected _neverEmptyInputTypes: string[];
     constructor(_elementRef: ElementRef, _platform: Platform, 
-        /** @docs-private */
-        ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone);
+    /** @docs-private */
+    ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone);
     ngOnInit(): void;
     ngOnChanges(): void;
     ngOnDestroy(): void;

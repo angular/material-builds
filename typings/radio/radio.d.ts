@@ -23,15 +23,15 @@ export declare class MatRadioChange {
     /** The value of the MatRadioButton. */
     value: any;
     constructor(
-        /** The MatRadioButton that emits the change event. */
-        source: MatRadioButton, 
-        /** The value of the MatRadioButton. */
-        value: any);
+    /** The MatRadioButton that emits the change event. */
+    source: MatRadioButton, 
+    /** The value of the MatRadioButton. */
+    value: any);
 }
 /** @docs-private */
 export declare class MatRadioGroupBase {
 }
-export declare const _MatRadioGroupMixinBase: (new (...args: any[]) => CanDisable) & typeof MatRadioGroupBase;
+export declare const _MatRadioGroupMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatRadioGroupBase;
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
@@ -98,9 +98,9 @@ export declare class MatRadioGroup extends _MatRadioGroupMixinBase implements Af
      * radio buttons upon their blur.
      */
     _touch(): void;
-    private _updateRadioButtonNames();
+    private _updateRadioButtonNames;
     /** Updates the `selected` radio button from the internal _value state. */
-    private _updateSelectedRadioFromValue();
+    private _updateSelectedRadioFromValue;
     /** Dispatch change event with current selection and group value. */
     _emitChangeEvent(): void;
     _markRadiosForCheck(): void;
@@ -133,7 +133,7 @@ export declare class MatRadioButtonBase {
     disabled: boolean;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatRadioButtonMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => HasTabIndex) & typeof MatRadioButtonBase;
+export declare const _MatRadioButtonMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../core/common-behaviors/constructor").Constructor<HasTabIndex> & typeof MatRadioButtonBase;
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
@@ -141,7 +141,7 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     private _changeDetector;
     private _focusMonitor;
     private _radioDispatcher;
-    _animationMode: string | undefined;
+    _animationMode?: string | undefined;
     private _uniqueId;
     /** The unique ID for the radio button. */
     id: string;
@@ -199,7 +199,7 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     ngAfterViewInit(): void;
     ngOnDestroy(): void;
     /** Dispatch change event with current value. */
-    private _emitChangeEvent();
+    private _emitChangeEvent;
     _isRippleDisabled(): boolean;
     _onInputClick(event: Event): void;
     /**

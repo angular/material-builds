@@ -24,19 +24,19 @@ export declare class MatChipSelectionChange {
     /** Whether the selection change was a result of a user interaction. */
     isUserInput: boolean;
     constructor(
-        /** Reference to the chip that emitted the event. */
-        source: MatChip, 
-        /** Whether the chip that emitted the event is selected. */
-        selected: boolean, 
-        /** Whether the selection change was a result of a user interaction. */
-        isUserInput?: boolean);
+    /** Reference to the chip that emitted the event. */
+    source: MatChip, 
+    /** Whether the chip that emitted the event is selected. */
+    selected: boolean, 
+    /** Whether the selection change was a result of a user interaction. */
+    isUserInput?: boolean);
 }
 /** @docs-private */
 export declare class MatChipBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatChipMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatChipBase;
+export declare const _MatChipMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatChipBase;
 /**
  * Dummy directive to add CSS class to chip avatar.
  * @docs-private

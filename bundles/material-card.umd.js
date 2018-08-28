@@ -85,9 +85,8 @@ var MatCardActions = /** @class */ (function () {
                     }
                 },] },
     ];
-    /** @nocollapse */
     MatCardActions.propDecorators = {
-        "align": [{ type: core.Input },],
+        align: [{ type: core.Input }]
     };
     return MatCardActions;
 }());

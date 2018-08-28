@@ -17,16 +17,16 @@ import { coerceNumberProperty } from '@angular/cdk/coercion';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Base reference size of the spinner.
  * \@docs-private
- */
-var /** @type {?} */ BASE_SIZE = 100;
-/**
+  @type {?} */
+var BASE_SIZE = 100;
+/** *
  * Base reference stroke width of the spinner.
  * \@docs-private
- */
-var /** @type {?} */ BASE_STROKE_WIDTH = 10;
+  @type {?} */
+var BASE_STROKE_WIDTH = 10;
 /**
  * \@docs-private
  */
@@ -39,11 +39,12 @@ MatProgressSpinnerBase = /** @class */ (function () {
     }
     return MatProgressSpinnerBase;
 }());
-var /** @type {?} */ _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
-/**
+/** @type {?} */
+var _MatProgressSpinnerMixinBase = mixinColor(MatProgressSpinnerBase, 'primary');
+/** *
  * Injection token to be used to override the default options for `mat-progress-spinner`.
- */
-var /** @type {?} */ MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new InjectionToken('mat-progress-spinner-default-options', {
+  @type {?} */
+var MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new InjectionToken('mat-progress-spinner-default-options', {
     providedIn: 'root',
     factory: MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY,
 });
@@ -54,11 +55,8 @@ var /** @type {?} */ MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS = new InjectionToken('
 function MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY() {
     return { diameter: BASE_SIZE };
 }
-// .0001 percentage difference is necessary in order to avoid unwanted animation frames
-// for example because the animation duration is 4 seconds, .1% accounts to 4ms
-// which are enough to see the flicker described in
-// https://github.com/angular/material2/issues/8984
-var /** @type {?} */ INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-stroke-rotate-DIAMETER {\n    0%      { stroke-dashoffset: START_VALUE;  transform: rotate(0); }\n    12.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(0); }\n    12.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(72.5deg); }\n    25%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(72.5deg); }\n\n    25.0001%   { stroke-dashoffset: START_VALUE;  transform: rotate(270deg); }\n    37.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(270deg); }\n    37.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(161.5deg); }\n    50%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(161.5deg); }\n\n    50.0001%  { stroke-dashoffset: START_VALUE;  transform: rotate(180deg); }\n    62.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(180deg); }\n    62.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(251.5deg); }\n    75%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(251.5deg); }\n\n    75.0001%  { stroke-dashoffset: START_VALUE;  transform: rotate(90deg); }\n    87.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(90deg); }\n    87.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(341.5deg); }\n    100%    { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(341.5deg); }\n  }\n";
+/** @type {?} */
+var INDETERMINATE_ANIMATION_TEMPLATE = "\n @keyframes mat-progress-spinner-stroke-rotate-DIAMETER {\n    0%      { stroke-dashoffset: START_VALUE;  transform: rotate(0); }\n    12.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(0); }\n    12.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(72.5deg); }\n    25%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(72.5deg); }\n\n    25.0001%   { stroke-dashoffset: START_VALUE;  transform: rotate(270deg); }\n    37.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(270deg); }\n    37.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(161.5deg); }\n    50%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(161.5deg); }\n\n    50.0001%  { stroke-dashoffset: START_VALUE;  transform: rotate(180deg); }\n    62.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(180deg); }\n    62.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(251.5deg); }\n    75%     { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(251.5deg); }\n\n    75.0001%  { stroke-dashoffset: START_VALUE;  transform: rotate(90deg); }\n    87.5%   { stroke-dashoffset: END_VALUE;    transform: rotate(90deg); }\n    87.5001%  { stroke-dashoffset: END_VALUE;    transform: rotateX(180deg) rotate(341.5deg); }\n    100%    { stroke-dashoffset: START_VALUE;  transform: rotateX(180deg) rotate(341.5deg); }\n  }\n";
 /**
  * `<mat-progress-spinner>` component.
  */
@@ -92,13 +90,13 @@ var MatProgressSpinner = /** @class */ (function (_super) {
                 _this.strokeWidth = defaults.strokeWidth;
             }
         }
-        // On IE and Edge, we can't animate the `stroke-dashoffset`
-        // reliably so we fall back to a non-spec animation.
-        var /** @type {?} */ animationClass = "mat-progress-spinner-indeterminate" + (_this._fallbackAnimation ? '-fallback' : '') + "-animation";
+        /** @type {?} */
+        var animationClass = "mat-progress-spinner-indeterminate" + (_this._fallbackAnimation ? '-fallback' : '') + "-animation";
         _elementRef.nativeElement.classList.add(animationClass);
         return _this;
     }
     Object.defineProperty(MatProgressSpinner.prototype, "diameter", {
+        /** The diameter of the progress spinner (will set width and height of svg). */
         get: /**
          * The diameter of the progress spinner (will set width and height of svg).
          * @return {?}
@@ -118,6 +116,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatProgressSpinner.prototype, "strokeWidth", {
+        /** Stroke width of the progress spinner. */
         get: /**
          * Stroke width of the progress spinner.
          * @return {?}
@@ -136,6 +135,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatProgressSpinner.prototype, "value", {
+        /** Value of the progress circle. */
         get: /**
          * Value of the progress circle.
          * @return {?}
@@ -172,7 +172,8 @@ var MatProgressSpinner = /** @class */ (function (_super) {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ viewBox = this._circleRadius * 2 + this.strokeWidth;
+            /** @type {?} */
+            var viewBox = this._circleRadius * 2 + this.strokeWidth;
             return "0 0 " + viewBox + " " + viewBox;
         },
         enumerable: true,
@@ -230,7 +231,8 @@ var MatProgressSpinner = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ styleTag = MatProgressSpinner.styleTag;
+        /** @type {?} */
+        var styleTag = MatProgressSpinner.styleTag;
         if (!styleTag) {
             styleTag = this._document.createElement('style');
             this._document.head.appendChild(styleTag);
@@ -251,6 +253,7 @@ var MatProgressSpinner = /** @class */ (function (_super) {
      */
     function () {
         return INDETERMINATE_ANIMATION_TEMPLATE
+            // Animation should begin at 5% and end at 80%
             .replace(/START_VALUE/g, "" + 0.95 * this._strokeCircumference)
             .replace(/END_VALUE/g, "" + 0.2 * this._strokeCircumference)
             .replace(/DIAMETER/g, "" + this.diameter);
@@ -287,17 +290,17 @@ var MatProgressSpinner = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatProgressSpinner.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: Platform, },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
-        { type: undefined, decorators: [{ type: Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] },] },
+        { type: ElementRef },
+        { type: Platform },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] }] }
     ]; };
     MatProgressSpinner.propDecorators = {
-        "diameter": [{ type: Input },],
-        "strokeWidth": [{ type: Input },],
-        "mode": [{ type: Input },],
-        "value": [{ type: Input },],
+        diameter: [{ type: Input }],
+        strokeWidth: [{ type: Input }],
+        mode: [{ type: Input }],
+        value: [{ type: Input }]
     };
     return MatProgressSpinner;
 }(_MatProgressSpinnerMixinBase));
@@ -335,11 +338,11 @@ var MatSpinner = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSpinner.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: Platform, },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
-        { type: undefined, decorators: [{ type: Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] },] },
+        { type: ElementRef },
+        { type: Platform },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS,] }] }
     ]; };
     return MatSpinner;
 }(MatProgressSpinner));
@@ -378,5 +381,5 @@ var MatProgressSpinnerModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatProgressSpinnerModule, MatProgressSpinnerBase, _MatProgressSpinnerMixinBase, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinner, MatSpinner };
+export { MatProgressSpinnerModule, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS_FACTORY, MatProgressSpinnerBase, _MatProgressSpinnerMixinBase, MAT_PROGRESS_SPINNER_DEFAULT_OPTIONS, MatProgressSpinner, MatSpinner };
 //# sourceMappingURL=progress-spinner.es5.js.map

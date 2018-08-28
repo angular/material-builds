@@ -16,7 +16,7 @@ import { HammerInstance, HammerOptions } from './gesture-annotations';
 export declare const MAT_HAMMER_OPTIONS: InjectionToken<HammerOptions>;
 /** Adjusts configuration of our gesture library, Hammer. */
 export declare class GestureConfig extends HammerGestureConfig {
-    private _hammerOptions;
+    private _hammerOptions?;
     /** List of new event names to add to the gesture support list */
     events: string[];
     constructor(_hammerOptions?: HammerOptions | undefined, commonModule?: MatCommonModule);
@@ -35,5 +35,5 @@ export declare class GestureConfig extends HammerGestureConfig {
      */
     buildHammer(element: HTMLElement): HammerInstance;
     /** Creates a new recognizer, without affecting the default recognizers of HammerJS */
-    private _createRecognizer(base, options, ...inheritances);
+    private _createRecognizer;
 }

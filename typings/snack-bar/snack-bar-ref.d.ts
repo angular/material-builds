@@ -54,7 +54,7 @@ export declare class MatSnackBarRef<T> {
     /** Marks the snackbar as opened */
     _open(): void;
     /** Cleans up the DOM after closing. */
-    private _finishDismiss();
+    private _finishDismiss;
     /** Gets an observable that is notified when the snack bar is finished closing. */
     afterDismissed(): Observable<MatSnackBarDismiss>;
     /** Gets an observable that is notified when the snack bar has opened and appeared. */

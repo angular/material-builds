@@ -14,11 +14,11 @@ import { MatListAvatarCssMatStyler } from './list';
 /** @docs-private */
 export declare class MatSelectionListBase {
 }
-export declare const _MatSelectionListMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatSelectionListBase;
+export declare const _MatSelectionListMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatSelectionListBase;
 /** @docs-private */
 export declare class MatListOptionBase {
 }
-export declare const _MatListOptionMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatListOptionBase;
+export declare const _MatListOptionMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatListOptionBase;
 /** @docs-private */
 export declare const MAT_SELECTION_LIST_VALUE_ACCESSOR: any;
 /** Change event that is being fired whenever the selected state of an option changes. */
@@ -28,10 +28,10 @@ export declare class MatSelectionListChange {
     /** Reference to the option that has been changed. */
     option: MatListOption;
     constructor(
-        /** Reference to the selection list that emitted the event. */
-        source: MatSelectionList, 
-        /** Reference to the option that has been changed. */
-        option: MatListOption);
+    /** Reference to the selection list that emitted the event. */
+    source: MatSelectionList, 
+    /** Reference to the option that has been changed. */
+    option: MatListOption);
 }
 /**
  * Component for list-options of selection-list. Each list-option can automatically
@@ -60,8 +60,8 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     /** Whether the option is selected. */
     selected: boolean;
     constructor(_element: ElementRef, _changeDetector: ChangeDetectorRef, 
-        /** @docs-private */
-        selectionList: MatSelectionList);
+    /** @docs-private */
+    selectionList: MatSelectionList);
     ngOnInit(): void;
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
@@ -150,22 +150,22 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     /** Implemented as part of ControlValueAccessor. */
     registerOnTouched(fn: () => void): void;
     /** Sets the selected options based on the specified values. */
-    private _setOptionsFromValues(values);
+    private _setOptionsFromValues;
     /** Returns the values of the selected options. */
-    private _getSelectedOptionValues();
+    private _getSelectedOptionValues;
     /** Toggles the state of the currently focused option if enabled. */
-    private _toggleFocusedOption();
+    private _toggleFocusedOption;
     /**
      * Sets the selected state on all of the options
      * and emits an event if anything changed.
      */
-    private _setAllOptionsSelected(isSelected);
+    private _setAllOptionsSelected;
     /**
      * Utility to ensure all indexes are valid.
      * @param index The index to be checked.
      * @returns True if the index is valid for our list of options.
      */
-    private _isValidIndex(index);
+    private _isValidIndex;
     /** Returns the index of the specified list option. */
-    private _getOptionIndex(option);
+    private _getOptionIndex;
 }

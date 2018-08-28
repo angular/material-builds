@@ -44,13 +44,13 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * The following are all the animations for the mat-select component, with each
  * const containing the metadata for one animation.
  *
  * The values below match the implementation of the AngularJS Material mat-select animation.
- */
-var /** @type {?} */ matSelectAnimations = {
+  @type {?} */
+var matSelectAnimations = {
     /**
        * This animation transforms the select's overlay panel on and off the page.
        *
@@ -99,16 +99,16 @@ var /** @type {?} */ matSelectAnimations = {
         ])
     ])
 };
-/**
+/** *
  * @deprecated
  * \@breaking-change 7.0.0
- */
-var /** @type {?} */ transformPanel = matSelectAnimations.transformPanel;
-/**
+  @type {?} */
+var transformPanel = matSelectAnimations.transformPanel;
+/** *
  * @deprecated
  * \@breaking-change 7.0.0
- */
-var /** @type {?} */ fadeInContent = matSelectAnimations.fadeInContent;
+  @type {?} */
+var fadeInContent = matSelectAnimations.fadeInContent;
 
 /**
  * @fileoverview added by tsickle
@@ -148,41 +148,42 @@ function getMatSelectNonFunctionValueError() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ nextUniqueId = 0;
-/**
+/** @type {?} */
+var nextUniqueId = 0;
+/** *
  * The max height of the select's overlay panel
- */
-var /** @type {?} */ SELECT_PANEL_MAX_HEIGHT = 256;
-/**
+  @type {?} */
+var SELECT_PANEL_MAX_HEIGHT = 256;
+/** *
  * The panel's padding on the x-axis
- */
-var /** @type {?} */ SELECT_PANEL_PADDING_X = 16;
-/**
+  @type {?} */
+var SELECT_PANEL_PADDING_X = 16;
+/** *
  * The panel's x axis padding if it is indented (e.g. there is an option group).
- */
-var /** @type {?} */ SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_PADDING_X * 2;
-/**
+  @type {?} */
+var SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_PADDING_X * 2;
+/** *
  * The height of the select items in `em` units.
- */
-var /** @type {?} */ SELECT_ITEM_HEIGHT_EM = 3;
-/**
+  @type {?} */
+var SELECT_ITEM_HEIGHT_EM = 3;
+/** *
  * Distance between the panel edge and the option text in
  * multi-selection mode.
  *
  * (SELECT_PANEL_PADDING_X * 1.5) + 20 = 44
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 20px.
- */
-var /** @type {?} */ SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + 20;
-/**
+  @type {?} */
+var SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + 20;
+/** *
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
- */
-var /** @type {?} */ SELECT_PANEL_VIEWPORT_PADDING = 8;
-/**
+  @type {?} */
+var SELECT_PANEL_VIEWPORT_PADDING = 8;
+/** *
  * Injection token that determines the scroll handling while a select is open.
- */
-var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy');
+  @type {?} */
+var MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-select-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -191,10 +192,10 @@ var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY = new core.InjectionToken('mat-s
 function MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay$$1) {
     return function () { return overlay$$1.scrollStrategies.reposition(); };
 }
-/**
+/** *
  * \@docs-private
- */
-var /** @type {?} */ MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
+  @type {?} */
+var MAT_SELECT_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_SELECT_SCROLL_STRATEGY,
     deps: [overlay.Overlay],
     useFactory: MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY,
@@ -228,7 +229,8 @@ MatSelectBase = /** @class */ (function () {
     }
     return MatSelectBase;
 }());
-var /** @type {?} */ _MatSelectMixinBase = core$1.mixinDisableRipple(core$1.mixinTabIndex(core$1.mixinDisabled(core$1.mixinErrorState(MatSelectBase))));
+/** @type {?} */
+var _MatSelectMixinBase = core$1.mixinDisableRipple(core$1.mixinTabIndex(core$1.mixinDisabled(core$1.mixinErrorState(MatSelectBase))));
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
@@ -424,6 +426,7 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "placeholder", {
+        /** Placeholder to be shown if no value has been selected. */
         get: /**
          * Placeholder to be shown if no value has been selected.
          * @return {?}
@@ -441,6 +444,7 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "required", {
+        /** Whether the component is required. */
         get: /**
          * Whether the component is required.
          * @return {?}
@@ -458,6 +462,7 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "multiple", {
+        /** Whether the user should be allowed to select multiple options. */
         get: /**
          * Whether the user should be allowed to select multiple options.
          * @return {?}
@@ -477,6 +482,7 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "disableOptionCentering", {
+        /** Whether to center the active option over the trigger. */
         get: /**
          * Whether to center the active option over the trigger.
          * @return {?}
@@ -493,6 +499,11 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "compareWith", {
+        /**
+         * Function to compare the option values with the selected values. The first argument
+         * is a value from an option. The second is a value from the selection. A boolean
+         * should be returned.
+         */
         get: /**
          * Function to compare the option values with the selected values. The first argument
          * is a value from an option. The second is a value from the selection. A boolean
@@ -518,6 +529,7 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "value", {
+        /** Value of the select control. */
         get: /**
          * Value of the select control.
          * @return {?}
@@ -537,6 +549,7 @@ var MatSelect = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSelect.prototype, "id", {
+        /** Unique id of the element. */
         get: /**
          * Unique id of the element.
          * @return {?}
@@ -833,7 +846,8 @@ var MatSelect = /** @class */ (function (_super) {
                 return '';
             }
             if (this._multiple) {
-                var /** @type {?} */ selectedOptions = this._selectionModel.selected.map(function (option) { return option.viewValue; });
+                /** @type {?} */
+                var selectedOptions = this._selectionModel.selected.map(function (option) { return option.viewValue; });
                 if (this._isRtl()) {
                     selectedOptions.reverse();
                 }
@@ -884,10 +898,13 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ keyCode = event.keyCode;
-        var /** @type {?} */ isArrowKey = keyCode === keycodes.DOWN_ARROW || keyCode === keycodes.UP_ARROW ||
+        /** @type {?} */
+        var keyCode = event.keyCode;
+        /** @type {?} */
+        var isArrowKey = keyCode === keycodes.DOWN_ARROW || keyCode === keycodes.UP_ARROW ||
             keyCode === keycodes.LEFT_ARROW || keyCode === keycodes.RIGHT_ARROW;
-        var /** @type {?} */ isOpenKey = keyCode === keycodes.ENTER || keyCode === keycodes.SPACE;
+        /** @type {?} */
+        var isOpenKey = keyCode === keycodes.ENTER || keyCode === keycodes.SPACE;
         // Open the select on ALT + arrow key to match the native <select>
         if (isOpenKey || ((this.multiple || event.altKey) && isArrowKey)) {
             event.preventDefault(); // prevents the page from scrolling down when pressing space
@@ -908,9 +925,12 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ keyCode = event.keyCode;
-        var /** @type {?} */ isArrowKey = keyCode === keycodes.DOWN_ARROW || keyCode === keycodes.UP_ARROW;
-        var /** @type {?} */ manager = this._keyManager;
+        /** @type {?} */
+        var keyCode = event.keyCode;
+        /** @type {?} */
+        var isArrowKey = keyCode === keycodes.DOWN_ARROW || keyCode === keycodes.UP_ARROW;
+        /** @type {?} */
+        var manager = this._keyManager;
         if (keyCode === keycodes.HOME || keyCode === keycodes.END) {
             event.preventDefault();
             keyCode === keycodes.HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
@@ -926,7 +946,8 @@ var MatSelect = /** @class */ (function (_super) {
         }
         else if (this._multiple && keyCode === keycodes.A && event.ctrlKey) {
             event.preventDefault();
-            var /** @type {?} */ hasDeselectedOptions_1 = this.options.some(function (opt) { return !opt.disabled && !opt.selected; });
+            /** @type {?} */
+            var hasDeselectedOptions_1 = this.options.some(function (opt) { return !opt.disabled && !opt.selected; });
             this.options.forEach(function (option) {
                 if (!option.disabled) {
                     hasDeselectedOptions_1 ? option.select() : option.deselect();
@@ -934,7 +955,8 @@ var MatSelect = /** @class */ (function (_super) {
             });
         }
         else {
-            var /** @type {?} */ previouslyFocusedIndex = manager.activeItemIndex;
+            /** @type {?} */
+            var previouslyFocusedIndex = manager.activeItemIndex;
             manager.onKeydown(event);
             if (this._multiple && isArrowKey && event.shiftKey && manager.activeItem &&
                 manager.activeItemIndex !== previouslyFocusedIndex) {
@@ -1075,7 +1097,8 @@ var MatSelect = /** @class */ (function (_super) {
         }
         else {
             this._selectionModel.clear();
-            var /** @type {?} */ correspondingOption = this._selectValue(value);
+            /** @type {?} */
+            var correspondingOption = this._selectValue(value);
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what option the user interacted with last.
             if (correspondingOption) {
@@ -1096,12 +1119,13 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function (value) {
         var _this = this;
-        var /** @type {?} */ correspondingOption = this.options.find(function (option) {
+        /** @type {?} */
+        var correspondingOption = this.options.find(function (option) {
             try {
                 // Treat null as a special reset value.
                 return option.value != null && _this._compareWith(option.value, value);
             }
-            catch (/** @type {?} */ error) {
+            catch (error) {
                 if (core.isDevMode()) {
                     // Notify developers of errors in their comparator.
                     console.warn(error);
@@ -1155,7 +1179,8 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ changedOrDestroyed = rxjs.merge(this.options.changes, this._destroy);
+        /** @type {?} */
+        var changedOrDestroyed = rxjs.merge(this.options.changes, this._destroy);
         this.optionSelectionChanges.pipe(operators.takeUntil(changedOrDestroyed)).subscribe(function (event) {
             _this._onSelect(event.source, event.isUserInput);
             if (event.isUserInput && !_this.multiple && _this._panelOpen) {
@@ -1185,7 +1210,8 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (option, isUserInput) {
-        var /** @type {?} */ wasSelected = this._selectionModel.isSelected(option);
+        /** @type {?} */
+        var wasSelected = this._selectionModel.isSelected(option);
         if (option.value == null && !this._multiple) {
             option.deselect();
             this._selectionModel.clear();
@@ -1223,7 +1249,8 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         var _this = this;
         if (this.multiple) {
-            var /** @type {?} */ options_1 = this.options.toArray();
+            /** @type {?} */
+            var options_1 = this.options.toArray();
             this._selectionModel.sort(function (a, b) {
                 return _this.sortComparator ? _this.sortComparator(a, b, options_1) :
                     options_1.indexOf(a) - options_1.indexOf(b);
@@ -1242,7 +1269,8 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (fallbackValue) {
-        var /** @type {?} */ valueToEmit = null;
+        /** @type {?} */
+        var valueToEmit = null;
         if (this.multiple) {
             valueToEmit = (/** @type {?} */ (this.selected)).map(function (option) { return option.value; });
         }
@@ -1295,8 +1323,10 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ activeOptionIndex = this._keyManager.activeItemIndex || 0;
-        var /** @type {?} */ labelCount = core$1._countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
+        /** @type {?} */
+        var activeOptionIndex = this._keyManager.activeItemIndex || 0;
+        /** @type {?} */
+        var labelCount = core$1._countGroupLabelsBeforeOption(activeOptionIndex, this.options, this.optionGroups);
         this.panel.nativeElement.scrollTop = core$1._getOptionScrollPosition(activeOptionIndex + labelCount, this._getItemHeight(), this.panel.nativeElement.scrollTop, SELECT_PANEL_MAX_HEIGHT);
     };
     /** Focuses the select element. */
@@ -1335,18 +1365,21 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ itemHeight = this._getItemHeight();
-        var /** @type {?} */ items = this._getItemCount();
-        var /** @type {?} */ panelHeight = Math.min(items * itemHeight, SELECT_PANEL_MAX_HEIGHT);
-        var /** @type {?} */ scrollContainerHeight = items * itemHeight;
-        // The farthest the panel can be scrolled before it hits the bottom
-        var /** @type {?} */ maxScroll = scrollContainerHeight - panelHeight;
-        // If no value is selected we open the popup to the first item.
-        var /** @type {?} */ selectedOptionOffset = this.empty ? 0 : /** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0])));
+        /** @type {?} */
+        var itemHeight = this._getItemHeight();
+        /** @type {?} */
+        var items = this._getItemCount();
+        /** @type {?} */
+        var panelHeight = Math.min(items * itemHeight, SELECT_PANEL_MAX_HEIGHT);
+        /** @type {?} */
+        var scrollContainerHeight = items * itemHeight;
+        /** @type {?} */
+        var maxScroll = scrollContainerHeight - panelHeight;
+        /** @type {?} */
+        var selectedOptionOffset = this.empty ? 0 : /** @type {?} */ ((this._getOptionIndex(this._selectionModel.selected[0])));
         selectedOptionOffset += core$1._countGroupLabelsBeforeOption(selectedOptionOffset, this.options, this.optionGroups);
-        // We must maintain a scroll buffer so the selected option will be scrolled to the
-        // center of the overlay panel rather than the top.
-        var /** @type {?} */ scrollBuffer = panelHeight / 2;
+        /** @type {?} */
+        var scrollBuffer = panelHeight / 2;
         this._scrollTop = this._calculateOverlayScroll(selectedOptionOffset, scrollBuffer, maxScroll);
         this._offsetY = this._calculateOverlayOffsetY(selectedOptionOffset, scrollBuffer, maxScroll);
         this._checkOverlayWithinViewport(maxScroll);
@@ -1381,14 +1414,14 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (selectedIndex, scrollBuffer, maxScroll) {
-        var /** @type {?} */ itemHeight = this._getItemHeight();
-        var /** @type {?} */ optionOffsetFromScrollTop = itemHeight * selectedIndex;
-        var /** @type {?} */ halfOptionHeight = itemHeight / 2;
-        // Starts at the optionOffsetFromScrollTop, which scrolls the option to the top of the
-        // scroll container, then subtracts the scroll buffer to scroll the option down to
-        // the center of the overlay panel. Half the option height must be re-added to the
-        // scrollTop so the option is centered based on its middle, not its top edge.
-        var /** @type {?} */ optimalScrollPosition = optionOffsetFromScrollTop - scrollBuffer + halfOptionHeight;
+        /** @type {?} */
+        var itemHeight = this._getItemHeight();
+        /** @type {?} */
+        var optionOffsetFromScrollTop = itemHeight * selectedIndex;
+        /** @type {?} */
+        var halfOptionHeight = itemHeight / 2;
+        /** @type {?} */
+        var optimalScrollPosition = optionOffsetFromScrollTop - scrollBuffer + halfOptionHeight;
         return Math.min(Math.max(0, optimalScrollPosition), maxScroll);
     };
     /** Returns the aria-label of the select component. */
@@ -1458,27 +1491,34 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ overlayRect = this.overlayDir.overlayRef.overlayElement.getBoundingClientRect();
-        var /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
-        var /** @type {?} */ isRtl = this._isRtl();
-        var /** @type {?} */ paddingWidth = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
+        /** @type {?} */
+        var overlayRect = this.overlayDir.overlayRef.overlayElement.getBoundingClientRect();
+        /** @type {?} */
+        var viewportSize = this._viewportRuler.getViewportSize();
+        /** @type {?} */
+        var isRtl = this._isRtl();
+        /** @type {?} */
+        var paddingWidth = this.multiple ? SELECT_MULTIPLE_PANEL_PADDING_X + SELECT_PANEL_PADDING_X :
             SELECT_PANEL_PADDING_X * 2;
-        var /** @type {?} */ offsetX;
+        /** @type {?} */
+        var offsetX;
         // Adjust the offset, depending on the option padding.
         if (this.multiple) {
             offsetX = SELECT_MULTIPLE_PANEL_PADDING_X;
         }
         else {
-            var /** @type {?} */ selected = this._selectionModel.selected[0] || this.options.first;
+            /** @type {?} */
+            var selected = this._selectionModel.selected[0] || this.options.first;
             offsetX = selected && selected.group ? SELECT_PANEL_INDENT_PADDING_X : SELECT_PANEL_PADDING_X;
         }
         // Invert the offset in LTR.
         if (!isRtl) {
             offsetX *= -1;
         }
-        // Determine how much the select overflows on each side.
-        var /** @type {?} */ leftOverflow = 0 - (overlayRect.left + offsetX - (isRtl ? paddingWidth : 0));
-        var /** @type {?} */ rightOverflow = overlayRect.right + offsetX - viewportSize.width
+        /** @type {?} */
+        var leftOverflow = 0 - (overlayRect.left + offsetX - (isRtl ? paddingWidth : 0));
+        /** @type {?} */
+        var rightOverflow = overlayRect.right + offsetX - viewportSize.width
             + (isRtl ? 0 : paddingWidth);
         // If the element overflows on either side, reduce the offset to allow it to fit.
         if (leftOverflow > 0) {
@@ -1512,10 +1552,14 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (selectedIndex, scrollBuffer, maxScroll) {
-        var /** @type {?} */ itemHeight = this._getItemHeight();
-        var /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
-        var /** @type {?} */ maxOptionsDisplayed = Math.floor(SELECT_PANEL_MAX_HEIGHT / itemHeight);
-        var /** @type {?} */ optionOffsetFromPanelTop;
+        /** @type {?} */
+        var itemHeight = this._getItemHeight();
+        /** @type {?} */
+        var optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
+        /** @type {?} */
+        var maxOptionsDisplayed = Math.floor(SELECT_PANEL_MAX_HEIGHT / itemHeight);
+        /** @type {?} */
+        var optionOffsetFromPanelTop;
         // Disable offset if requested by user by returning 0 as value to offset
         if (this._disableOptionCentering) {
             return 0;
@@ -1524,11 +1568,12 @@ var MatSelect = /** @class */ (function (_super) {
             optionOffsetFromPanelTop = selectedIndex * itemHeight;
         }
         else if (this._scrollTop === maxScroll) {
-            var /** @type {?} */ firstDisplayedIndex = this._getItemCount() - maxOptionsDisplayed;
-            var /** @type {?} */ selectedDisplayIndex = selectedIndex - firstDisplayedIndex;
-            // The first item is partially out of the viewport. Therefore we need to calculate what
-            // portion of it is shown in the viewport and account for it in our offset.
-            var /** @type {?} */ partialItemHeight = itemHeight - (this._getItemCount() * itemHeight - SELECT_PANEL_MAX_HEIGHT) % itemHeight;
+            /** @type {?} */
+            var firstDisplayedIndex = this._getItemCount() - maxOptionsDisplayed;
+            /** @type {?} */
+            var selectedDisplayIndex = selectedIndex - firstDisplayedIndex;
+            /** @type {?} */
+            var partialItemHeight = itemHeight - (this._getItemCount() * itemHeight - SELECT_PANEL_MAX_HEIGHT) % itemHeight;
             // Because the panel height is longer than the height of the options alone,
             // there is always extra padding at the top or bottom of the panel. When
             // scrolled to the very bottom, this padding is at the top of the panel and
@@ -1563,13 +1608,20 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (maxScroll) {
-        var /** @type {?} */ itemHeight = this._getItemHeight();
-        var /** @type {?} */ viewportSize = this._viewportRuler.getViewportSize();
-        var /** @type {?} */ topSpaceAvailable = this._triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
-        var /** @type {?} */ bottomSpaceAvailable = viewportSize.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
-        var /** @type {?} */ panelHeightTop = Math.abs(this._offsetY);
-        var /** @type {?} */ totalPanelHeight = Math.min(this._getItemCount() * itemHeight, SELECT_PANEL_MAX_HEIGHT);
-        var /** @type {?} */ panelHeightBottom = totalPanelHeight - panelHeightTop - this._triggerRect.height;
+        /** @type {?} */
+        var itemHeight = this._getItemHeight();
+        /** @type {?} */
+        var viewportSize = this._viewportRuler.getViewportSize();
+        /** @type {?} */
+        var topSpaceAvailable = this._triggerRect.top - SELECT_PANEL_VIEWPORT_PADDING;
+        /** @type {?} */
+        var bottomSpaceAvailable = viewportSize.height - this._triggerRect.bottom - SELECT_PANEL_VIEWPORT_PADDING;
+        /** @type {?} */
+        var panelHeightTop = Math.abs(this._offsetY);
+        /** @type {?} */
+        var totalPanelHeight = Math.min(this._getItemCount() * itemHeight, SELECT_PANEL_MAX_HEIGHT);
+        /** @type {?} */
+        var panelHeightBottom = totalPanelHeight - panelHeightTop - this._triggerRect.height;
         if (panelHeightBottom > bottomSpaceAvailable) {
             this._adjustPanelUp(panelHeightBottom, bottomSpaceAvailable);
         }
@@ -1593,8 +1645,8 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (panelHeightBottom, bottomSpaceAvailable) {
-        // Browsers ignore fractional scroll offsets, so we need to round.
-        var /** @type {?} */ distanceBelowViewport = Math.round(panelHeightBottom - bottomSpaceAvailable);
+        /** @type {?} */
+        var distanceBelowViewport = Math.round(panelHeightBottom - bottomSpaceAvailable);
         // Scrolls the panel up by the distance it was extending past the boundary, then
         // adjusts the offset by that amount to move the panel up into the viewport.
         this._scrollTop -= distanceBelowViewport;
@@ -1624,8 +1676,8 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function (panelHeightTop, topSpaceAvailable, maxScroll) {
-        // Browsers ignore fractional scroll offsets, so we need to round.
-        var /** @type {?} */ distanceAboveViewport = Math.round(panelHeightTop - topSpaceAvailable);
+        /** @type {?} */
+        var distanceAboveViewport = Math.round(panelHeightTop - topSpaceAvailable);
         // Scrolls the panel down by the distance it was extending past the boundary, then
         // adjusts the offset by that amount to move the panel down into the viewport.
         this._scrollTop += distanceAboveViewport;
@@ -1650,9 +1702,12 @@ var MatSelect = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ itemHeight = this._getItemHeight();
-        var /** @type {?} */ optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
-        var /** @type {?} */ originY = Math.abs(this._offsetY) - optionHeightAdjustment + itemHeight / 2;
+        /** @type {?} */
+        var itemHeight = this._getItemHeight();
+        /** @type {?} */
+        var optionHeightAdjustment = (itemHeight - this._triggerRect.height) / 2;
+        /** @type {?} */
+        var originY = Math.abs(this._offsetY) - optionHeightAdjustment + itemHeight / 2;
         return "50% " + originY + "px 0px";
     };
     /**
@@ -1772,43 +1827,43 @@ var MatSelect = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSelect.ctorParameters = function () { return [
-        { type: overlay.ViewportRuler, },
-        { type: core.ChangeDetectorRef, },
-        { type: core.NgZone, },
-        { type: core$1.ErrorStateMatcher, },
-        { type: core.ElementRef, },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: forms.NgForm, decorators: [{ type: core.Optional },] },
-        { type: forms.FormGroupDirective, decorators: [{ type: core.Optional },] },
-        { type: formField.MatFormField, decorators: [{ type: core.Optional },] },
-        { type: forms.NgControl, decorators: [{ type: core.Self }, { type: core.Optional },] },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
-        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] },] },
+        { type: overlay.ViewportRuler },
+        { type: core.ChangeDetectorRef },
+        { type: core.NgZone },
+        { type: core$1.ErrorStateMatcher },
+        { type: core.ElementRef },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: forms.NgForm, decorators: [{ type: core.Optional }] },
+        { type: forms.FormGroupDirective, decorators: [{ type: core.Optional }] },
+        { type: formField.MatFormField, decorators: [{ type: core.Optional }] },
+        { type: forms.NgControl, decorators: [{ type: core.Self }, { type: core.Optional }] },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
+        { type: undefined, decorators: [{ type: core.Inject, args: [MAT_SELECT_SCROLL_STRATEGY,] }] }
     ]; };
     MatSelect.propDecorators = {
-        "trigger": [{ type: core.ViewChild, args: ['trigger',] },],
-        "panel": [{ type: core.ViewChild, args: ['panel',] },],
-        "overlayDir": [{ type: core.ViewChild, args: [overlay.CdkConnectedOverlay,] },],
-        "options": [{ type: core.ContentChildren, args: [core$1.MatOption, { descendants: true },] },],
-        "optionGroups": [{ type: core.ContentChildren, args: [core$1.MatOptgroup,] },],
-        "panelClass": [{ type: core.Input },],
-        "customTrigger": [{ type: core.ContentChild, args: [MatSelectTrigger,] },],
-        "placeholder": [{ type: core.Input },],
-        "required": [{ type: core.Input },],
-        "multiple": [{ type: core.Input },],
-        "disableOptionCentering": [{ type: core.Input },],
-        "compareWith": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
-        "ariaLabel": [{ type: core.Input, args: ['aria-label',] },],
-        "ariaLabelledby": [{ type: core.Input, args: ['aria-labelledby',] },],
-        "errorStateMatcher": [{ type: core.Input },],
-        "sortComparator": [{ type: core.Input },],
-        "id": [{ type: core.Input },],
-        "openedChange": [{ type: core.Output },],
-        "_openedStream": [{ type: core.Output, args: ['opened',] },],
-        "_closedStream": [{ type: core.Output, args: ['closed',] },],
-        "selectionChange": [{ type: core.Output },],
-        "valueChange": [{ type: core.Output },],
+        trigger: [{ type: core.ViewChild, args: ['trigger',] }],
+        panel: [{ type: core.ViewChild, args: ['panel',] }],
+        overlayDir: [{ type: core.ViewChild, args: [overlay.CdkConnectedOverlay,] }],
+        options: [{ type: core.ContentChildren, args: [core$1.MatOption, { descendants: true },] }],
+        optionGroups: [{ type: core.ContentChildren, args: [core$1.MatOptgroup,] }],
+        panelClass: [{ type: core.Input }],
+        customTrigger: [{ type: core.ContentChild, args: [MatSelectTrigger,] }],
+        placeholder: [{ type: core.Input }],
+        required: [{ type: core.Input }],
+        multiple: [{ type: core.Input }],
+        disableOptionCentering: [{ type: core.Input }],
+        compareWith: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
+        errorStateMatcher: [{ type: core.Input }],
+        sortComparator: [{ type: core.Input }],
+        id: [{ type: core.Input }],
+        openedChange: [{ type: core.Output }],
+        _openedStream: [{ type: core.Output, args: ['opened',] }],
+        _closedStream: [{ type: core.Output, args: ['closed',] }],
+        selectionChange: [{ type: core.Output }],
+        valueChange: [{ type: core.Output }]
     };
     return MatSelect;
 }(_MatSelectMixinBase));
@@ -1837,6 +1892,7 @@ var MatSelectModule = /** @class */ (function () {
 }());
 
 exports.MatSelectModule = MatSelectModule;
+exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.SELECT_PANEL_MAX_HEIGHT = SELECT_PANEL_MAX_HEIGHT;
 exports.SELECT_PANEL_PADDING_X = SELECT_PANEL_PADDING_X;
 exports.SELECT_PANEL_INDENT_PADDING_X = SELECT_PANEL_INDENT_PADDING_X;
@@ -1844,7 +1900,6 @@ exports.SELECT_ITEM_HEIGHT_EM = SELECT_ITEM_HEIGHT_EM;
 exports.SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_MULTIPLE_PANEL_PADDING_X;
 exports.SELECT_PANEL_VIEWPORT_PADDING = SELECT_PANEL_VIEWPORT_PADDING;
 exports.MAT_SELECT_SCROLL_STRATEGY = MAT_SELECT_SCROLL_STRATEGY;
-exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY = MAT_SELECT_SCROLL_STRATEGY_PROVIDER_FACTORY;
 exports.MAT_SELECT_SCROLL_STRATEGY_PROVIDER = MAT_SELECT_SCROLL_STRATEGY_PROVIDER;
 exports.MatSelectChange = MatSelectChange;
 exports.MatSelectBase = MatSelectBase;

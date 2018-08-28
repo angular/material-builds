@@ -24,10 +24,10 @@ import { MatCommonModule } from '@angular/material/core';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by MatTooltip.
- */
-const /** @type {?} */ matTooltipAnimations = {
+  @type {?} */
+const matTooltipAnimations = {
     /** Animation that transitions a tooltip in and out. */
     tooltipState: trigger('state', [
         state('initial, void, hidden', style({ opacity: 0, transform: 'scale(0)' })),
@@ -45,14 +45,14 @@ const /** @type {?} */ matTooltipAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Time in ms to throttle repositioning after scroll events.
- */
-const /** @type {?} */ SCROLL_THROTTLE_MS = 20;
-/**
+  @type {?} */
+const SCROLL_THROTTLE_MS = 20;
+/** *
  * CSS class that will be attached to the overlay panel.
- */
-const /** @type {?} */ TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
+  @type {?} */
+const TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
 /**
  * Creates an error to be thrown if the user supplied an invalid tooltip position.
  * \@docs-private
@@ -62,10 +62,10 @@ const /** @type {?} */ TOOLTIP_PANEL_CLASS = 'mat-tooltip-panel';
 function getMatTooltipInvalidPositionError(position) {
     return Error(`Tooltip position "${position}" is invalid.`);
 }
-/**
+/** *
  * Injection token that determines the scroll handling while a tooltip is visible.
- */
-const /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strategy');
+  @type {?} */
+const MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-tooltip-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -74,18 +74,18 @@ const /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY = new InjectionToken('mat-too
 function MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition({ scrollThrottle: SCROLL_THROTTLE_MS });
 }
-/**
+/** *
  * \@docs-private
- */
-const /** @type {?} */ MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+  @type {?} */
+const MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_TOOLTIP_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY,
 };
-/**
+/** *
  * Injection token to be used to override the default options for `matTooltip`.
- */
-const /** @type {?} */ MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-options', {
+  @type {?} */
+const MAT_TOOLTIP_DEFAULT_OPTIONS = new InjectionToken('mat-tooltip-default-options', {
     providedIn: 'root',
     factory: MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY
 });
@@ -148,7 +148,8 @@ class MatTooltip {
          * Emits when the component is destroyed.
          */
         this._destroyed = new Subject();
-        const /** @type {?} */ element = _elementRef.nativeElement;
+        /** @type {?} */
+        const element = _elementRef.nativeElement;
         // The mouse events shouldn't be bound on mobile devices, because they can prevent the
         // first tap from firing its click event or can cause the tooltip to open for clicks.
         if (!_platform.IOS && !_platform.ANDROID) {
@@ -282,7 +283,8 @@ class MatTooltip {
         if (this.disabled || !this.message) {
             return;
         }
-        const /** @type {?} */ overlayRef = this._createOverlay();
+        /** @type {?} */
+        const overlayRef = this._createOverlay();
         this._detach();
         this._portal = this._portal || new ComponentPortal(TooltipComponent, this._viewContainerRef);
         this._tooltipInstance = overlayRef.attach(this._portal).instance;
@@ -343,13 +345,14 @@ class MatTooltip {
         if (this._overlayRef) {
             return this._overlayRef;
         }
-        // Create connected position strategy that listens for scroll events to reposition.
-        const /** @type {?} */ strategy = this._overlay.position()
+        /** @type {?} */
+        const strategy = this._overlay.position()
             .flexibleConnectedTo(this._elementRef)
             .withTransformOriginOn('.mat-tooltip')
             .withFlexibleDimensions(false)
             .withViewportMargin(8);
-        const /** @type {?} */ scrollableAncestors = this._scrollDispatcher
+        /** @type {?} */
+        const scrollableAncestors = this._scrollDispatcher
             .getAncestorScrollContainers(this._elementRef);
         strategy.withScrollableContainers(scrollableAncestors);
         strategy.positionChanges.pipe(takeUntil(this._destroyed)).subscribe(change => {
@@ -388,9 +391,12 @@ class MatTooltip {
      * @return {?}
      */
     _updatePosition() {
-        const /** @type {?} */ position = /** @type {?} */ (((this._overlayRef)).getConfig().positionStrategy);
-        const /** @type {?} */ origin = this._getOrigin();
-        const /** @type {?} */ overlay = this._getOverlayPosition();
+        /** @type {?} */
+        const position = /** @type {?} */ (((this._overlayRef)).getConfig().positionStrategy);
+        /** @type {?} */
+        const origin = this._getOrigin();
+        /** @type {?} */
+        const overlay = this._getOverlayPosition();
         position.withPositions([
             Object.assign({}, origin.main, overlay.main),
             Object.assign({}, origin.fallback, overlay.fallback)
@@ -402,9 +408,12 @@ class MatTooltip {
      * @return {?}
      */
     _getOrigin() {
-        const /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
-        const /** @type {?} */ position = this.position;
-        let /** @type {?} */ originPosition;
+        /** @type {?} */
+        const isLtr = !this._dir || this._dir.value == 'ltr';
+        /** @type {?} */
+        const position = this.position;
+        /** @type {?} */
+        let originPosition;
         if (position == 'above' || position == 'below') {
             originPosition = { originX: 'center', originY: position == 'above' ? 'top' : 'bottom' };
         }
@@ -432,9 +441,12 @@ class MatTooltip {
      * @return {?}
      */
     _getOverlayPosition() {
-        const /** @type {?} */ isLtr = !this._dir || this._dir.value == 'ltr';
-        const /** @type {?} */ position = this.position;
-        let /** @type {?} */ overlayPosition;
+        /** @type {?} */
+        const isLtr = !this._dir || this._dir.value == 'ltr';
+        /** @type {?} */
+        const position = this.position;
+        /** @type {?} */
+        let overlayPosition;
         if (position == 'above') {
             overlayPosition = { overlayX: 'center', overlayY: 'bottom' };
         }
@@ -527,25 +539,25 @@ MatTooltip.decorators = [
 ];
 /** @nocollapse */
 MatTooltip.ctorParameters = () => [
-    { type: Overlay, },
-    { type: ElementRef, },
-    { type: ScrollDispatcher, },
-    { type: ViewContainerRef, },
-    { type: NgZone, },
-    { type: Platform, },
-    { type: AriaDescriber, },
-    { type: FocusMonitor, },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] },] },
-    { type: Directionality, decorators: [{ type: Optional },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] },] },
+    { type: Overlay },
+    { type: ElementRef },
+    { type: ScrollDispatcher },
+    { type: ViewContainerRef },
+    { type: NgZone },
+    { type: Platform },
+    { type: AriaDescriber },
+    { type: FocusMonitor },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_TOOLTIP_SCROLL_STRATEGY,] }] },
+    { type: Directionality, decorators: [{ type: Optional }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_TOOLTIP_DEFAULT_OPTIONS,] }] }
 ];
 MatTooltip.propDecorators = {
-    "position": [{ type: Input, args: ['matTooltipPosition',] },],
-    "disabled": [{ type: Input, args: ['matTooltipDisabled',] },],
-    "showDelay": [{ type: Input, args: ['matTooltipShowDelay',] },],
-    "hideDelay": [{ type: Input, args: ['matTooltipHideDelay',] },],
-    "message": [{ type: Input, args: ['matTooltip',] },],
-    "tooltipClass": [{ type: Input, args: ['matTooltipClass',] },],
+    position: [{ type: Input, args: ['matTooltipPosition',] }],
+    disabled: [{ type: Input, args: ['matTooltipDisabled',] }],
+    showDelay: [{ type: Input, args: ['matTooltipShowDelay',] }],
+    hideDelay: [{ type: Input, args: ['matTooltipHideDelay',] }],
+    message: [{ type: Input, args: ['matTooltip',] }],
+    tooltipClass: [{ type: Input, args: ['matTooltipClass',] }]
 };
 /**
  * Internal component that wraps the tooltip's content.
@@ -637,7 +649,8 @@ class TooltipComponent {
      * @return {?}
      */
     _animationDone(event) {
-        const /** @type {?} */ toState = /** @type {?} */ (event.toState);
+        /** @type {?} */
+        const toState = /** @type {?} */ (event.toState);
         if (toState === 'hidden' && !this.isVisible()) {
             this._onHide.next();
         }
@@ -684,8 +697,8 @@ TooltipComponent.decorators = [
 ];
 /** @nocollapse */
 TooltipComponent.ctorParameters = () => [
-    { type: ChangeDetectorRef, },
-    { type: BreakpointObserver, },
+    { type: ChangeDetectorRef },
+    { type: BreakpointObserver }
 ];
 
 /**
@@ -719,5 +732,5 @@ MatTooltipModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatTooltipModule, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_TOOLTIP_DEFAULT_OPTIONS, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, MatTooltip, TooltipComponent, matTooltipAnimations };
+export { MatTooltipModule, getMatTooltipInvalidPositionError, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY, MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY, SCROLL_THROTTLE_MS, TOOLTIP_PANEL_CLASS, MAT_TOOLTIP_SCROLL_STRATEGY, MAT_TOOLTIP_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_TOOLTIP_DEFAULT_OPTIONS, MatTooltip, TooltipComponent, matTooltipAnimations };
 //# sourceMappingURL=tooltip.js.map

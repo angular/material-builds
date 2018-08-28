@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
 import { CanColor, CanDisableRipple, ThemePalette } from '@angular/material/core';
 import { MatTab } from './tab';
@@ -16,7 +23,7 @@ export declare class MatTabGroupBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatTabGroupMixinBase: (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & typeof MatTabGroupBase;
+export declare const _MatTabGroupMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatTabGroupBase;
 /**
  * Material design tab-group component.  Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
@@ -68,16 +75,16 @@ export declare class MatTabGroup extends _MatTabGroupMixinBase implements AfterC
     /** Re-aligns the ink bar to the selected tab element. */
     realignInkBar(): void;
     _focusChanged(index: number): void;
-    private _createChangeEvent(index);
+    private _createChangeEvent;
     /**
      * Subscribes to changes in the tab labels. This is needed, because the @Input for the label is
      * on the MatTab component, whereas the data binding is inside the MatTabGroup. In order for the
      * binding to be updated, we need to subscribe to changes in it and trigger change detection
      * manually.
      */
-    private _subscribeToTabLabels();
+    private _subscribeToTabLabels;
     /** Clamps the given index to the bounds of 0 and the tabs length. */
-    private _clampTabIndex(index);
+    private _clampTabIndex;
     /** Returns a unique id for each tab label element */
     _getTabLabelId(i: number): string;
     /** Returns a unique id for each tab content element */

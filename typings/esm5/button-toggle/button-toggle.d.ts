@@ -14,7 +14,7 @@ export declare type ToggleType = 'checkbox' | 'radio';
 /** @docs-private */
 export declare class MatButtonToggleGroupBase {
 }
-export declare const _MatButtonToggleGroupMixinBase: (new (...args: any[]) => CanDisable) & typeof MatButtonToggleGroupBase;
+export declare const _MatButtonToggleGroupMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatButtonToggleGroupBase;
 /**
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -34,10 +34,10 @@ export declare class MatButtonToggleChange {
     /** The value assigned to the MatButtonToggle. */
     value: any;
     constructor(
-        /** The MatButtonToggle that emits the event. */
-        source: MatButtonToggle, 
-        /** The value assigned to the MatButtonToggle. */
-        value: any);
+    /** The MatButtonToggle that emits the event. */
+    source: MatButtonToggle, 
+    /** The value assigned to the MatButtonToggle. */
+    value: any);
 }
 /** Exclusive selection button toggle group that behaves like a radio-button group. */
 export declare class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase implements ControlValueAccessor, CanDisable, OnInit, AfterContentInit {
@@ -105,16 +105,16 @@ export declare class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase
     /** Determines whether a button toggle should be checked on init. */
     _isPrechecked(toggle: MatButtonToggle): boolean;
     /** Updates the selection state of the toggles in the group based on a value. */
-    private _setSelectionByValue(value);
+    private _setSelectionByValue;
     /** Clears the selected toggles. */
-    private _clearSelection();
+    private _clearSelection;
     /** Selects a value if there's a toggle that corresponds to it. */
-    private _selectValue(value);
+    private _selectValue;
 }
 /** @docs-private */
 export declare class MatButtonToggleBase {
 }
-export declare const _MatButtonToggleMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatButtonToggleBase;
+export declare const _MatButtonToggleMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatButtonToggleBase;
 /** Single button inside of a toggle group. */
 export declare class MatButtonToggle extends _MatButtonToggleMixinBase implements OnInit, CanDisableRipple, OnDestroy {
     private _changeDetectorRef;

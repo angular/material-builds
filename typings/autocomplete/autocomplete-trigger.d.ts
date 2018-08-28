@@ -53,7 +53,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _dir;
     private _formField;
     private _document;
-    private _viewportRuler;
+    private _viewportRuler?;
     private _overlayRef;
     private _portal;
     private _componentDestroyed;
@@ -126,7 +126,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     /** The currently active option, coerced to MatOption type. */
     readonly activeOption: MatOption | null;
     /** Stream of clicks outside of the autocomplete panel. */
-    private _getOutsideClickStream();
+    private _getOutsideClickStream;
     writeValue(value: any): void;
     registerOnChange(fn: (value: any) => {}): void;
     registerOnTouched(fn: () => {}): void;
@@ -140,9 +140,9 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
      * This method manually floats the label until the panel can be closed.
      * @param shouldAnimate Whether the label should be animated when it is floated.
      */
-    private _floatLabel(shouldAnimate?);
+    private _floatLabel;
     /** If the label has been manually elevated, return it to its normal state. */
-    private _resetLabel();
+    private _resetLabel;
     /**
      * Given that we are not actually focusing active options, we must manually adjust scroll
      * to reveal options below the fold. First, we find the offset of the option from the top
@@ -152,37 +152,37 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
      * will become the offset. If that offset is visible within the panel already, the scrollTop is
      * not adjusted.
      */
-    private _scrollToOption();
+    private _scrollToOption;
     /**
      * This method listens to a stream of panel closing actions and resets the
      * stream every time the option list changes.
      */
-    private _subscribeToClosingActions();
+    private _subscribeToClosingActions;
     /** Destroys the autocomplete suggestion panel. */
-    private _destroyPanel();
-    private _setTriggerValue(value);
+    private _destroyPanel;
+    private _setTriggerValue;
     /**
      * This method closes the panel, and if a value is specified, also sets the associated
      * control to that value. It will also mark the control as dirty if this interaction
      * stemmed from the user.
      */
-    private _setValueAndClose(event);
+    private _setValueAndClose;
     /**
      * Clear any previous selected option and emit a selection change event for this option
      */
-    private _clearPreviousSelectedOption(skip);
-    private _attachOverlay();
-    private _getOverlayConfig();
-    private _getOverlayPosition();
-    private _getConnectedElement();
-    private _getPanelWidth();
+    private _clearPreviousSelectedOption;
+    private _attachOverlay;
+    private _getOverlayConfig;
+    private _getOverlayPosition;
+    private _getConnectedElement;
+    private _getPanelWidth;
     /** Returns the width of the input element, so the panel width can match it. */
-    private _getHostWidth();
+    private _getHostWidth;
     /**
      * Resets the active item to -1 so arrow events will activate the
      * correct options, or to 0 if the consumer opted into it.
      */
-    private _resetActiveItem();
+    private _resetActiveItem;
     /** Determines whether the panel can be opened. */
-    private _canOpen();
+    private _canOpen;
 }

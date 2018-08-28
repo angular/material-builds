@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { MatSnackBarRef } from './snack-bar-ref';
 /**
  * A component used to open as the default snack bar, matching material spec.

@@ -31,8 +31,8 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     /** The state of the snack bar animations. */
     _animationState: string;
     constructor(_ngZone: NgZone, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, 
-        /** The snack bar configuration. */
-        snackBarConfig: MatSnackBarConfig);
+    /** The snack bar configuration. */
+    snackBarConfig: MatSnackBarConfig);
     /** Attach a component portal as content to this snack bar container. */
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
     /** Attach a template portal as content to this snack bar container. */
@@ -49,9 +49,9 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
      * Waits for the zone to settle before removing the element. Helps prevent
      * errors where we end up removing an element which is in the middle of an animation.
      */
-    private _completeExit();
+    private _completeExit;
     /** Applies the various positioning and user-configured CSS classes to the snack bar. */
-    private _applySnackBarClasses();
+    private _applySnackBarClasses;
     /** Asserts that no content is already attached to the container. */
-    private _assertNotAttached();
+    private _assertNotAttached;
 }

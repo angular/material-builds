@@ -102,7 +102,7 @@ export declare class RippleRenderer {
     /** Function being called whenever the trigger is being released. */
     private onPointerUp;
     /** Runs a timeout outside of the Angular zone to avoid triggering the change detection. */
-    private runTimeoutOutsideZone(fn, delay?);
+    private runTimeoutOutsideZone;
     /** Removes previously registered event listeners from the trigger element. */
     _removeTriggerEvents(): void;
 }

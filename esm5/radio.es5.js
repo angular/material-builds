@@ -19,14 +19,14 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Increasing integer for generating unique ids for radio components.
-var /** @type {?} */ nextUniqueId = 0;
-/**
+/** @type {?} */
+var nextUniqueId = 0;
+/** *
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
  * \@docs-private
- */
-var /** @type {?} */ MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
+  @type {?} */
+var MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MatRadioGroup; }),
     multi: true
@@ -55,7 +55,8 @@ MatRadioGroupBase = /** @class */ (function () {
     }
     return MatRadioGroupBase;
 }());
-var /** @type {?} */ _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
+/** @type {?} */
+var _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
@@ -110,6 +111,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatRadioGroup.prototype, "name", {
+        /** Name of the radio button group. All radio buttons inside this group will use this name. */
         get: /**
          * Name of the radio button group. All radio buttons inside this group will use this name.
          * @return {?}
@@ -127,6 +129,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioGroup.prototype, "labelPosition", {
+        /** Whether the labels should appear after or before the radio-buttons. Defaults to 'after' */
         get: /**
          * Whether the labels should appear after or before the radio-buttons. Defaults to 'after'
          * @return {?}
@@ -146,6 +149,12 @@ var MatRadioGroup = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioGroup.prototype, "value", {
+        /**
+         * Value for the radio-group. Should equal the value of the selected radio button if there is
+         * a corresponding radio button with a matching value. If there is not such a corresponding
+         * radio button, this value persists to be applied in case a new radio button is added with a
+         * matching value.
+         */
         get: /**
          * Value for the radio-group. Should equal the value of the selected radio button if there is
          * a corresponding radio button with a matching value. If there is not such a corresponding
@@ -181,6 +190,10 @@ var MatRadioGroup = /** @class */ (function (_super) {
         }
     };
     Object.defineProperty(MatRadioGroup.prototype, "selected", {
+        /**
+         * The currently selected radio button. If set to a new radio button, the radio group value
+         * will be updated to match the new selected button.
+         */
         get: /**
          * The currently selected radio button. If set to a new radio button, the radio group value
          * will be updated to match the new selected button.
@@ -200,6 +213,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioGroup.prototype, "disabled", {
+        /** Whether the radio group is disabled */
         get: /**
          * Whether the radio group is disabled
          * @return {?}
@@ -217,6 +231,7 @@ var MatRadioGroup = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioGroup.prototype, "required", {
+        /** Whether the radio group is required */
         get: /**
          * Whether the radio group is required
          * @return {?}
@@ -296,8 +311,8 @@ var MatRadioGroup = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        // If the value already matches the selected radio, do nothing.
-        var /** @type {?} */ isAlreadySelected = this._selected !== null && this._selected.value === this._value;
+        /** @type {?} */
+        var isAlreadySelected = this._selected !== null && this._selected.value === this._value;
         if (this._radios && !isAlreadySelected) {
             this._selected = null;
             this._radios.forEach(function (radio) {
@@ -423,17 +438,17 @@ var MatRadioGroup = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatRadioGroup.ctorParameters = function () { return [
-        { type: ChangeDetectorRef, },
+        { type: ChangeDetectorRef }
     ]; };
     MatRadioGroup.propDecorators = {
-        "change": [{ type: Output },],
-        "_radios": [{ type: ContentChildren, args: [forwardRef(function () { return MatRadioButton; }), { descendants: true },] },],
-        "name": [{ type: Input },],
-        "labelPosition": [{ type: Input },],
-        "value": [{ type: Input },],
-        "selected": [{ type: Input },],
-        "disabled": [{ type: Input },],
-        "required": [{ type: Input },],
+        change: [{ type: Output }],
+        _radios: [{ type: ContentChildren, args: [forwardRef(function () { return MatRadioButton; }), { descendants: true },] }],
+        name: [{ type: Input }],
+        labelPosition: [{ type: Input }],
+        value: [{ type: Input }],
+        selected: [{ type: Input }],
+        disabled: [{ type: Input }],
+        required: [{ type: Input }]
     };
     return MatRadioGroup;
 }(_MatRadioGroupMixinBase));
@@ -449,9 +464,8 @@ MatRadioButtonBase = /** @class */ (function () {
     }
     return MatRadioButtonBase;
 }());
-// As per Material design specifications the selection control radio should use the accent color
-// palette by default. https://material.io/guidelines/components/selection-controls.html
-var /** @type {?} */ _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(mixinTabIndex(MatRadioButtonBase)), 'accent');
+/** @type {?} */
+var _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(mixinTabIndex(MatRadioButtonBase)), 'accent');
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
@@ -500,6 +514,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatRadioButton.prototype, "checked", {
+        /** Whether this radio button is checked. */
         get: /**
          * Whether this radio button is checked.
          * @return {?}
@@ -510,7 +525,8 @@ var MatRadioButton = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newCheckedState = coerceBooleanProperty(value);
+            /** @type {?} */
+            var newCheckedState = coerceBooleanProperty(value);
             if (this._checked !== newCheckedState) {
                 this._checked = newCheckedState;
                 if (newCheckedState && this.radioGroup && this.radioGroup.value !== this.value) {
@@ -532,6 +548,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioButton.prototype, "value", {
+        /** The value of this radio button. */
         get: /**
          * The value of this radio button.
          * @return {?}
@@ -559,6 +576,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioButton.prototype, "labelPosition", {
+        /** Whether the label should appear after or before the radio button. Defaults to 'after' */
         get: /**
          * Whether the label should appear after or before the radio button. Defaults to 'after'
          * @return {?}
@@ -577,6 +595,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioButton.prototype, "disabled", {
+        /** Whether the radio button is disabled. */
         get: /**
          * Whether the radio button is disabled.
          * @return {?}
@@ -589,7 +608,8 @@ var MatRadioButton = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newDisabledState = coerceBooleanProperty(value);
+            /** @type {?} */
+            var newDisabledState = coerceBooleanProperty(value);
             if (this._disabled !== newDisabledState) {
                 this._disabled = newDisabledState;
                 this._changeDetector.markForCheck();
@@ -599,6 +619,7 @@ var MatRadioButton = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatRadioButton.prototype, "required", {
+        /** Whether the radio button is required. */
         get: /**
          * Whether the radio button is required.
          * @return {?}
@@ -759,7 +780,8 @@ var MatRadioButton = /** @class */ (function (_super) {
         // Otherwise the change event, from the input element, will bubble up and
         // emit its event object to the `change` output.
         event.stopPropagation();
-        var /** @type {?} */ groupValueChanged = this.radioGroup && this.value !== this.radioGroup.value;
+        /** @type {?} */
+        var groupValueChanged = this.radioGroup && this.value !== this.radioGroup.value;
         this.checked = true;
         this._emitChangeEvent();
         if (this.radioGroup) {
@@ -793,26 +815,26 @@ var MatRadioButton = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatRadioButton.ctorParameters = function () { return [
-        { type: MatRadioGroup, decorators: [{ type: Optional },] },
-        { type: ElementRef, },
-        { type: ChangeDetectorRef, },
-        { type: FocusMonitor, },
-        { type: UniqueSelectionDispatcher, },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+        { type: MatRadioGroup, decorators: [{ type: Optional }] },
+        { type: ElementRef },
+        { type: ChangeDetectorRef },
+        { type: FocusMonitor },
+        { type: UniqueSelectionDispatcher },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatRadioButton.propDecorators = {
-        "id": [{ type: Input },],
-        "name": [{ type: Input },],
-        "ariaLabel": [{ type: Input, args: ['aria-label',] },],
-        "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
-        "ariaDescribedby": [{ type: Input, args: ['aria-describedby',] },],
-        "checked": [{ type: Input },],
-        "value": [{ type: Input },],
-        "labelPosition": [{ type: Input },],
-        "disabled": [{ type: Input },],
-        "required": [{ type: Input },],
-        "change": [{ type: Output },],
-        "_inputElement": [{ type: ViewChild, args: ['input',] },],
+        id: [{ type: Input }],
+        name: [{ type: Input }],
+        ariaLabel: [{ type: Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }],
+        ariaDescribedby: [{ type: Input, args: ['aria-describedby',] }],
+        checked: [{ type: Input }],
+        value: [{ type: Input }],
+        labelPosition: [{ type: Input }],
+        disabled: [{ type: Input }],
+        required: [{ type: Input }],
+        change: [{ type: Output }],
+        _inputElement: [{ type: ViewChild, args: ['input',] }]
     };
     return MatRadioButton;
 }(_MatRadioButtonMixinBase));

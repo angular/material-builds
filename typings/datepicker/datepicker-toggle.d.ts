@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { AfterContentInit, ChangeDetectorRef, OnChanges, OnDestroy, SimpleChanges } from '@angular/core';
 import { MatDatepicker } from './datepicker';
 import { MatDatepickerIntl } from './datepicker-intl';
@@ -22,5 +29,5 @@ export declare class MatDatepickerToggle<D> implements AfterContentInit, OnChang
     ngOnDestroy(): void;
     ngAfterContentInit(): void;
     _open(event: Event): void;
-    private _watchStateChanges();
+    private _watchStateChanges;
 }

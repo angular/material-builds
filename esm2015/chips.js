@@ -48,8 +48,10 @@ class MatChipBase {
         this._elementRef = _elementRef;
     }
 }
-const /** @type {?} */ _MatChipMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary');
-const /** @type {?} */ CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
+/** @type {?} */
+const _MatChipMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary');
+/** @type {?} */
+const CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
 /**
  * Dummy directive to add CSS class to chip avatar.
  * \@docs-private
@@ -219,7 +221,7 @@ class MatChip extends _MatChipMixinBase {
      */
     _addHostClassName() {
         // Add class for the different chips
-        for (const /** @type {?} */ attr of CHIP_ATTRIBUTE_NAMES) {
+        for (const attr of CHIP_ATTRIBUTE_NAMES) {
             if (this._elementRef.nativeElement.hasAttribute(attr) ||
                 this._elementRef.nativeElement.tagName.toLowerCase() === attr) {
                 (/** @type {?} */ (this._elementRef.nativeElement)).classList.add(attr);
@@ -389,22 +391,22 @@ MatChip.decorators = [
 ];
 /** @nocollapse */
 MatChip.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: NgZone, },
-    { type: Platform, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
+    { type: ElementRef },
+    { type: NgZone },
+    { type: Platform },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] }
 ];
 MatChip.propDecorators = {
-    "avatar": [{ type: ContentChild, args: [MatChipAvatar,] },],
-    "trailingIcon": [{ type: ContentChild, args: [MatChipTrailingIcon,] },],
-    "removeIcon": [{ type: ContentChild, args: [forwardRef(() => MatChipRemove),] },],
-    "selected": [{ type: Input },],
-    "value": [{ type: Input },],
-    "selectable": [{ type: Input },],
-    "removable": [{ type: Input },],
-    "selectionChange": [{ type: Output },],
-    "destroyed": [{ type: Output },],
-    "removed": [{ type: Output },],
+    avatar: [{ type: ContentChild, args: [MatChipAvatar,] }],
+    trailingIcon: [{ type: ContentChild, args: [MatChipTrailingIcon,] }],
+    removeIcon: [{ type: ContentChild, args: [forwardRef(() => MatChipRemove),] }],
+    selected: [{ type: Input }],
+    value: [{ type: Input }],
+    selectable: [{ type: Input }],
+    removable: [{ type: Input }],
+    selectionChange: [{ type: Output }],
+    destroyed: [{ type: Output }],
+    removed: [{ type: Output }]
 };
 /**
  * Applies proper (click) support and adds styling for use with the Material Design "cancel" icon
@@ -454,17 +456,17 @@ MatChipRemove.decorators = [
 ];
 /** @nocollapse */
 MatChipRemove.ctorParameters = () => [
-    { type: MatChip, },
+    { type: MatChip }
 ];
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token to be used to override the default options for the chips module.
- */
-const /** @type {?} */ MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options');
+  @type {?} */
+const MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options');
 
 /**
  * @fileoverview added by tsickle
@@ -487,9 +489,10 @@ class MatChipListBase {
         this.ngControl = ngControl;
     }
 }
-const /** @type {?} */ _MatChipListMixinBase = mixinErrorState(MatChipListBase);
-// Increasing integer for generating unique ids for chip-list components.
-let /** @type {?} */ nextUniqueId = 0;
+/** @type {?} */
+const _MatChipListMixinBase = mixinErrorState(MatChipListBase);
+/** @type {?} */
+let nextUniqueId = 0;
 /**
  * Change event object that is emitted when the chip list value has changed.
  */
@@ -909,7 +912,8 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     _keydown(event) {
-        const /** @type {?} */ target = /** @type {?} */ (event.target);
+        /** @type {?} */
+        const target = /** @type {?} */ (event.target);
         // If they are on an empty input and hit backspace, focus the last chip
         if (event.keyCode === BACKSPACE && this._isInputEmpty(target)) {
             this._keyManager.setLastItemActive();
@@ -945,7 +949,8 @@ class MatChipList extends _MatChipListMixinBase {
      */
     _updateFocusForDestroyedChips() {
         if (this._lastDestroyedChipIndex != null && this.chips.length) {
-            const /** @type {?} */ newChipIndex = Math.min(this._lastDestroyedChipIndex, this.chips.length - 1);
+            /** @type {?} */
+            const newChipIndex = Math.min(this._lastDestroyedChipIndex, this.chips.length - 1);
             this._keyManager.setActiveItem(newChipIndex);
         }
         this._lastDestroyedChipIndex = null;
@@ -965,7 +970,8 @@ class MatChipList extends _MatChipListMixinBase {
      */
     _isInputEmpty(element) {
         if (element && element.nodeName.toLowerCase() === 'input') {
-            let /** @type {?} */ input = /** @type {?} */ (element);
+            /** @type {?} */
+            let input = /** @type {?} */ (element);
             return !input.value;
         }
         return false;
@@ -983,7 +989,8 @@ class MatChipList extends _MatChipListMixinBase {
             this._sortValues();
         }
         else {
-            const /** @type {?} */ correspondingChip = this._selectValue(value, isUserInput);
+            /** @type {?} */
+            const correspondingChip = this._selectValue(value, isUserInput);
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what chip the user interacted with last.
             if (correspondingChip) {
@@ -1000,7 +1007,8 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?} Chip that has the corresponding value.
      */
     _selectValue(value, isUserInput = true) {
-        const /** @type {?} */ correspondingChip = this.chips.find(chip => {
+        /** @type {?} */
+        const correspondingChip = this.chips.find(chip => {
             return chip.value != null && this._compareWith(chip.value, value);
         });
         if (correspondingChip) {
@@ -1058,7 +1066,8 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     _propagateChanges(fallbackValue) {
-        let /** @type {?} */ valueToEmit = null;
+        /** @type {?} */
+        let valueToEmit = null;
         if (Array.isArray(this.selected)) {
             valueToEmit = this.selected.map(chip => chip.value);
         }
@@ -1162,7 +1171,8 @@ class MatChipList extends _MatChipListMixinBase {
      */
     _listenToChipsFocus() {
         this._chipFocusSubscription = this.chipFocusChanges.subscribe(event => {
-            let /** @type {?} */ chipIndex = this.chips.toArray().indexOf(event.chip);
+            /** @type {?} */
+            let chipIndex = this.chips.toArray().indexOf(event.chip);
             if (this._isValidIndex(chipIndex)) {
                 this._keyManager.updateActiveItemIndex(chipIndex);
             }
@@ -1178,8 +1188,10 @@ class MatChipList extends _MatChipListMixinBase {
      */
     _listenToChipsRemoved() {
         this._chipRemoveSubscription = this.chipRemoveChanges.subscribe(event => {
-            const /** @type {?} */ chip = event.chip;
-            const /** @type {?} */ chipIndex = this.chips.toArray().indexOf(event.chip);
+            /** @type {?} */
+            const chip = event.chip;
+            /** @type {?} */
+            const chipIndex = this.chips.toArray().indexOf(event.chip);
             // In case the chip that will be removed is currently focused, we temporarily store
             // the index in order to be able to determine an appropriate sibling chip that will
             // receive focus.
@@ -1219,36 +1231,36 @@ MatChipList.decorators = [
 ];
 /** @nocollapse */
 MatChipList.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: ChangeDetectorRef, },
-    { type: Directionality, decorators: [{ type: Optional },] },
-    { type: NgForm, decorators: [{ type: Optional },] },
-    { type: FormGroupDirective, decorators: [{ type: Optional },] },
-    { type: ErrorStateMatcher, },
-    { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
+    { type: ElementRef },
+    { type: ChangeDetectorRef },
+    { type: Directionality, decorators: [{ type: Optional }] },
+    { type: NgForm, decorators: [{ type: Optional }] },
+    { type: FormGroupDirective, decorators: [{ type: Optional }] },
+    { type: ErrorStateMatcher },
+    { type: NgControl, decorators: [{ type: Optional }, { type: Self }] }
 ];
 MatChipList.propDecorators = {
-    "errorStateMatcher": [{ type: Input },],
-    "multiple": [{ type: Input },],
-    "compareWith": [{ type: Input },],
-    "value": [{ type: Input },],
-    "required": [{ type: Input },],
-    "placeholder": [{ type: Input },],
-    "disabled": [{ type: Input },],
-    "ariaOrientation": [{ type: Input, args: ['aria-orientation',] },],
-    "selectable": [{ type: Input },],
-    "tabIndex": [{ type: Input },],
-    "change": [{ type: Output },],
-    "valueChange": [{ type: Output },],
-    "chips": [{ type: ContentChildren, args: [MatChip,] },],
+    errorStateMatcher: [{ type: Input }],
+    multiple: [{ type: Input }],
+    compareWith: [{ type: Input }],
+    value: [{ type: Input }],
+    required: [{ type: Input }],
+    placeholder: [{ type: Input }],
+    disabled: [{ type: Input }],
+    ariaOrientation: [{ type: Input, args: ['aria-orientation',] }],
+    selectable: [{ type: Input }],
+    tabIndex: [{ type: Input }],
+    change: [{ type: Output }],
+    valueChange: [{ type: Output }],
+    chips: [{ type: ContentChildren, args: [MatChip,] }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Increasing integer for generating unique ids.
-let /** @type {?} */ nextUniqueId$1 = 0;
+/** @type {?} */
+let nextUniqueId$1 = 0;
 /**
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
@@ -1395,7 +1407,8 @@ class MatChipInput {
      * @return {?}
      */
     _isSeparatorKey(keyCode) {
-        const /** @type {?} */ separators = this.separatorKeyCodes;
+        /** @type {?} */
+        const separators = this.separatorKeyCodes;
         return Array.isArray(separators) ? separators.indexOf(keyCode) > -1 : separators.has(keyCode);
     }
 }
@@ -1417,24 +1430,25 @@ MatChipInput.decorators = [
 ];
 /** @nocollapse */
 MatChipInput.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_CHIPS_DEFAULT_OPTIONS,] },] },
+    { type: ElementRef },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_CHIPS_DEFAULT_OPTIONS,] }] }
 ];
 MatChipInput.propDecorators = {
-    "chipList": [{ type: Input, args: ['matChipInputFor',] },],
-    "addOnBlur": [{ type: Input, args: ['matChipInputAddOnBlur',] },],
-    "separatorKeyCodes": [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] },],
-    "chipEnd": [{ type: Output, args: ['matChipInputTokenEnd',] },],
-    "placeholder": [{ type: Input },],
-    "id": [{ type: Input },],
-    "disabled": [{ type: Input },],
+    chipList: [{ type: Input, args: ['matChipInputFor',] }],
+    addOnBlur: [{ type: Input, args: ['matChipInputAddOnBlur',] }],
+    separatorKeyCodes: [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] }],
+    chipEnd: [{ type: Output, args: ['matChipInputTokenEnd',] }],
+    placeholder: [{ type: Input }],
+    id: [{ type: Input }],
+    disabled: [{ type: Input }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-const /** @type {?} */ CHIP_DECLARATIONS = [
+/** @type {?} */
+const CHIP_DECLARATIONS = [
     MatChipList,
     MatChip,
     MatChipInput,

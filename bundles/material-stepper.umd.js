@@ -44,8 +44,8 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkStepLabel = stepper.CdkStepLabel;
+/** @type {?} */
+var _CdkStepLabel = stepper.CdkStepLabel;
 var MatStepLabel = /** @class */ (function (_super) {
     __extends(MatStepLabel, _super);
     function MatStepLabel() {
@@ -182,19 +182,19 @@ var MatStepHeader = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatStepHeader.ctorParameters = function () { return [
-        { type: MatStepperIntl, },
-        { type: a11y.FocusMonitor, },
-        { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
+        { type: MatStepperIntl },
+        { type: a11y.FocusMonitor },
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef }
     ]; };
     MatStepHeader.propDecorators = {
-        "state": [{ type: core.Input },],
-        "label": [{ type: core.Input },],
-        "iconOverrides": [{ type: core.Input },],
-        "index": [{ type: core.Input },],
-        "selected": [{ type: core.Input },],
-        "active": [{ type: core.Input },],
-        "optional": [{ type: core.Input },],
+        state: [{ type: core.Input }],
+        label: [{ type: core.Input }],
+        iconOverrides: [{ type: core.Input }],
+        index: [{ type: core.Input }],
+        selected: [{ type: core.Input }],
+        active: [{ type: core.Input }],
+        optional: [{ type: core.Input }]
     };
     return MatStepHeader;
 }());
@@ -203,10 +203,10 @@ var MatStepHeader = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material steppers.
- */
-var /** @type {?} */ matStepperAnimations = {
+  @type {?} */
+var matStepperAnimations = {
     /** Animation that transitions the step along the X axis in a horizontal stepper. */
     horizontalStepTransition: animations.trigger('stepTransition', [
         animations.state('previous', animations.style({ transform: 'translate3d(-100%, 0, 0)', visibility: 'hidden' })),
@@ -241,10 +241,10 @@ var MatStepperIcon = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatStepperIcon.ctorParameters = function () { return [
-        { type: core.TemplateRef, },
+        { type: core.TemplateRef }
     ]; };
     MatStepperIcon.propDecorators = {
-        "name": [{ type: core.Input, args: ['matStepperIcon',] },],
+        name: [{ type: core.Input, args: ['matStepperIcon',] }]
     };
     return MatStepperIcon;
 }());
@@ -253,8 +253,8 @@ var MatStepperIcon = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkStepper = stepper.CdkStepper;
+/** @type {?} */
+var _CdkStepper = stepper.CdkStepper;
 var MatStep = /** @class */ (function (_super) {
     __extends(MatStep, _super);
     function MatStep(stepper$$1, _errorStateMatcher) {
@@ -276,11 +276,10 @@ var MatStep = /** @class */ (function (_super) {
      * @return {?}
      */
     function (control, form) {
-        var /** @type {?} */ originalErrorState = this._errorStateMatcher.isErrorState(control, form);
-        // Custom error state checks for the validity of form that is not submitted or touched
-        // since user can trigger a form change by calling for another step without directly
-        // interacting with the current form.
-        var /** @type {?} */ customErrorState = !!(control && control.invalid && this.interacted);
+        /** @type {?} */
+        var originalErrorState = this._errorStateMatcher.isErrorState(control, form);
+        /** @type {?} */
+        var customErrorState = !!(control && control.invalid && this.interacted);
         return originalErrorState || customErrorState;
     };
     MatStep.decorators = [
@@ -294,11 +293,11 @@ var MatStep = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatStep.ctorParameters = function () { return [
-        { type: MatStepper, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatStepper; }),] },] },
-        { type: core$1.ErrorStateMatcher, decorators: [{ type: core.SkipSelf },] },
+        { type: MatStepper, decorators: [{ type: core.Inject, args: [core.forwardRef(function () { return MatStepper; }),] }] },
+        { type: core$1.ErrorStateMatcher, decorators: [{ type: core.SkipSelf }] }
     ]; };
     MatStep.propDecorators = {
-        "stepLabel": [{ type: core.ContentChild, args: [MatStepLabel,] },],
+        stepLabel: [{ type: core.ContentChild, args: [MatStepLabel,] }]
     };
     return MatStep;
 }(stepper.CdkStep));
@@ -324,9 +323,11 @@ var MatStepper = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ icons = this._icons.toArray();
+        /** @type {?} */
+        var icons = this._icons.toArray();
         ['edit', 'done', 'number'].forEach(function (name) {
-            var /** @type {?} */ override = icons.find(function (icon$$1) { return icon$$1.name === name; });
+            /** @type {?} */
+            var override = icons.find(function (icon$$1) { return icon$$1.name === name; });
             if (override) {
                 _this._iconOverrides[name] = override.templateRef;
             }
@@ -352,12 +353,11 @@ var MatStepper = /** @class */ (function (_super) {
                     selector: '[matStepper]'
                 },] },
     ];
-    /** @nocollapse */
     MatStepper.propDecorators = {
-        "_stepHeader": [{ type: core.ViewChildren, args: [MatStepHeader,] },],
-        "_steps": [{ type: core.ContentChildren, args: [MatStep,] },],
-        "_icons": [{ type: core.ContentChildren, args: [MatStepperIcon,] },],
-        "animationDone": [{ type: core.Output },],
+        _stepHeader: [{ type: core.ViewChildren, args: [MatStepHeader,] }],
+        _steps: [{ type: core.ContentChildren, args: [MatStep,] }],
+        _icons: [{ type: core.ContentChildren, args: [MatStepperIcon,] }],
+        animationDone: [{ type: core.Output }]
     };
     return MatStepper;
 }(_CdkStepper));
@@ -414,10 +414,10 @@ var MatVerticalStepper = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatVerticalStepper.ctorParameters = function () { return [
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-        { type: core.ChangeDetectorRef, },
-        { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.ChangeDetectorRef },
+        { type: core.ElementRef },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
     return MatVerticalStepper;
 }(MatStepper));
@@ -426,9 +426,10 @@ var MatVerticalStepper = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkStepperNext = stepper.CdkStepperNext;
-var /** @type {?} */ _CdkStepperPrevious = stepper.CdkStepperPrevious;
+/** @type {?} */
+var _CdkStepperNext = stepper.CdkStepperNext;
+/** @type {?} */
+var _CdkStepperPrevious = stepper.CdkStepperPrevious;
 /**
  * Button that moves to the next step in a stepper workflow.
  */

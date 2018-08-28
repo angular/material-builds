@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { AfterViewChecked, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, OnDestroy, QueryList } from '@angular/core';
 import { Subject } from 'rxjs';
 import { MatOptgroup } from './optgroup';
@@ -8,10 +15,10 @@ export declare class MatOptionSelectionChange {
     /** Whether the change in the option's value was a result of a user action. */
     isUserInput: boolean;
     constructor(
-        /** Reference to the option that emitted the event. */
-        source: MatOption, 
-        /** Whether the change in the option's value was a result of a user action. */
-        isUserInput?: boolean);
+    /** Reference to the option that emitted the event. */
+    source: MatOption, 
+    /** Whether the change in the option's value was a result of a user action. */
+    isUserInput?: boolean);
 }
 /**
  * Describes a parent component that manages a list of options.
@@ -101,7 +108,7 @@ export declare class MatOption implements AfterViewChecked, OnDestroy {
     ngAfterViewChecked(): void;
     ngOnDestroy(): void;
     /** Emits the selection change event. */
-    private _emitSelectionChangeEvent(isUserInput?);
+    private _emitSelectionChangeEvent;
 }
 /**
  * Counts the amount of option group labels that precede the specified option.

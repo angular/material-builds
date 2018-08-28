@@ -44,15 +44,15 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
- */
-var /** @type {?} */ DEFAULT_ROUND_BUTTON_COLOR = 'accent';
-/**
+  @type {?} */
+var DEFAULT_ROUND_BUTTON_COLOR = 'accent';
+/** *
  * List of classes to add to MatButton instances based on host attributes to
  * style as different variants.
- */
-var /** @type {?} */ BUTTON_HOST_ATTRIBUTES = [
+  @type {?} */
+var BUTTON_HOST_ATTRIBUTES = [
     'mat-button',
     'mat-flat-button',
     'mat-icon-button',
@@ -73,7 +73,8 @@ MatButtonBase = /** @class */ (function () {
     }
     return MatButtonBase;
 }());
-var /** @type {?} */ _MatButtonMixinBase = core$1.mixinColor(core$1.mixinDisabled(core$1.mixinDisableRipple(MatButtonBase)));
+/** @type {?} */
+var _MatButtonMixinBase = core$1.mixinColor(core$1.mixinDisabled(core$1.mixinDisableRipple(MatButtonBase)));
 /**
  * Material design button.
  */
@@ -182,13 +183,13 @@ var MatButton = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatButton.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: platform.Platform, },
-        { type: a11y.FocusMonitor, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: core.ElementRef },
+        { type: platform.Platform },
+        { type: a11y.FocusMonitor },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatButton.propDecorators = {
-        "ripple": [{ type: core.ViewChild, args: [core$1.MatRipple,] },],
+        ripple: [{ type: core.ViewChild, args: [core$1.MatRipple,] }]
     };
     return MatButton;
 }(_MatButtonMixinBase));
@@ -239,13 +240,13 @@ var MatAnchor = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatAnchor.ctorParameters = function () { return [
-        { type: platform.Platform, },
-        { type: a11y.FocusMonitor, },
-        { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: platform.Platform },
+        { type: a11y.FocusMonitor },
+        { type: core.ElementRef },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatAnchor.propDecorators = {
-        "tabIndex": [{ type: core.Input },],
+        tabIndex: [{ type: core.Input }]
     };
     return MatAnchor;
 }(MatButton));

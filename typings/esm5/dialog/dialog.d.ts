@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { Overlay, OverlayContainer, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
 import { Location } from '@angular/common';
@@ -75,20 +82,20 @@ export declare class MatDialog {
      * @param config The dialog configuration.
      * @returns A promise resolving to the OverlayRef for the created overlay.
      */
-    private _createOverlay(config);
+    private _createOverlay;
     /**
      * Creates an overlay config from a dialog config.
      * @param dialogConfig The dialog configuration.
      * @returns The overlay configuration.
      */
-    private _getOverlayConfig(dialogConfig);
+    private _getOverlayConfig;
     /**
      * Attaches an MatDialogContainer to a dialog's already-created overlay.
      * @param overlay Reference to the dialog's underlying overlay.
      * @param config The dialog configuration.
      * @returns A promise resolving to a ComponentRef for the attached container.
      */
-    private _attachDialogContainer(overlay, config);
+    private _attachDialogContainer;
     /**
      * Attaches the user-provided component to the already-created MatDialogContainer.
      * @param componentOrTemplateRef The type of component being loaded into the dialog,
@@ -98,7 +105,7 @@ export declare class MatDialog {
      * @param config The dialog configuration.
      * @returns A promise resolving to the MatDialogRef that should be returned to the user.
      */
-    private _attachDialogContent<T, R>(componentOrTemplateRef, dialogContainer, overlayRef, config);
+    private _attachDialogContent;
     /**
      * Creates a custom injector to be used inside the dialog. This allows a component loaded inside
      * of a dialog to close itself and, optionally, to return a value.
@@ -107,14 +114,14 @@ export declare class MatDialog {
      * @param container Dialog container element that wraps all of the contents.
      * @returns The custom injector that can be used inside the dialog.
      */
-    private _createInjector<T>(config, dialogRef, dialogContainer);
+    private _createInjector;
     /**
      * Removes a dialog from the array of open dialogs.
      * @param dialogRef Dialog to be removed.
      */
-    private _removeOpenDialog(dialogRef);
+    private _removeOpenDialog;
     /**
      * Hides all of the content that isn't an overlay from assistive technology.
      */
-    private _hideNonDialogContentFromAssistiveTechnology();
+    private _hideNonDialogContentFromAssistiveTechnology;
 }

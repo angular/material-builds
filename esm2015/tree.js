@@ -36,17 +36,19 @@ MatTreeNodeOutlet.decorators = [
 ];
 /** @nocollapse */
 MatTreeNodeOutlet.ctorParameters = () => [
-    { type: ViewContainerRef, },
+    { type: ViewContainerRef }
 ];
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-const /** @type {?} */ _CdkTreeNodeDef = CdkTreeNodeDef;
-const /** @type {?} */ _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
-const /** @type {?} */ _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkNestedTreeNode));
+/** @type {?} */
+const _CdkTreeNodeDef = CdkTreeNodeDef;
+/** @type {?} */
+const _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
+/** @type {?} */
+const _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkNestedTreeNode));
 /**
  * Wrapper for the CdkTree node with Material design styles.
  * @template T
@@ -81,12 +83,12 @@ MatTreeNode.decorators = [
 ];
 /** @nocollapse */
 MatTreeNode.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: CdkTree, },
-    { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
+    { type: ElementRef },
+    { type: CdkTree },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
 ];
 MatTreeNode.propDecorators = {
-    "role": [{ type: Input },],
+    role: [{ type: Input }]
 };
 /**
  * Wrapper for the CdkTree node definition with Material design styles.
@@ -103,9 +105,8 @@ MatTreeNodeDef.decorators = [
                 providers: [{ provide: CdkTreeNodeDef, useExisting: MatTreeNodeDef }]
             },] },
 ];
-/** @nocollapse */
 MatTreeNodeDef.propDecorators = {
-    "data": [{ type: Input, args: ['matTreeNode',] },],
+    data: [{ type: Input, args: ['matTreeNode',] }]
 };
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
@@ -156,22 +157,22 @@ MatNestedTreeNode.decorators = [
 ];
 /** @nocollapse */
 MatNestedTreeNode.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: CdkTree, },
-    { type: IterableDiffers, },
-    { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
+    { type: ElementRef },
+    { type: CdkTree },
+    { type: IterableDiffers },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
 ];
 MatNestedTreeNode.propDecorators = {
-    "node": [{ type: Input, args: ['matNestedTreeNode',] },],
-    "nodeOutlet": [{ type: ContentChildren, args: [MatTreeNodeOutlet,] },],
+    node: [{ type: Input, args: ['matNestedTreeNode',] }],
+    nodeOutlet: [{ type: ContentChildren, args: [MatTreeNodeOutlet,] }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-const /** @type {?} */ _CdkTreeNodePadding = CdkTreeNodePadding;
+/** @type {?} */
+const _CdkTreeNodePadding = CdkTreeNodePadding;
 /**
  * Wrapper for the CdkTree padding with Material design styles.
  * @template T
@@ -184,18 +185,17 @@ MatTreeNodePadding.decorators = [
                 providers: [{ provide: CdkTreeNodePadding, useExisting: MatTreeNodePadding }]
             },] },
 ];
-/** @nocollapse */
 MatTreeNodePadding.propDecorators = {
-    "level": [{ type: Input, args: ['matTreeNodePadding',] },],
-    "indent": [{ type: Input, args: ['matTreeNodePaddingIndent',] },],
+    level: [{ type: Input, args: ['matTreeNodePadding',] }],
+    indent: [{ type: Input, args: ['matTreeNodePaddingIndent',] }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-const /** @type {?} */ _CdkTree = CdkTree;
+/** @type {?} */
+const _CdkTree = CdkTree;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
@@ -216,17 +216,16 @@ MatTree.decorators = [
                 providers: [{ provide: CdkTree, useExisting: MatTree }]
             },] },
 ];
-/** @nocollapse */
 MatTree.propDecorators = {
-    "_nodeOutlet": [{ type: ViewChild, args: [MatTreeNodeOutlet,] },],
+    _nodeOutlet: [{ type: ViewChild, args: [MatTreeNodeOutlet,] }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-const /** @type {?} */ _CdkTreeNodeToggle = CdkTreeNodeToggle;
+/** @type {?} */
+const _CdkTreeNodeToggle = CdkTreeNodeToggle;
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  * @template T
@@ -246,16 +245,16 @@ MatTreeNodeToggle.decorators = [
                 providers: [{ provide: CdkTreeNodeToggle, useExisting: MatTreeNodeToggle }]
             },] },
 ];
-/** @nocollapse */
 MatTreeNodeToggle.propDecorators = {
-    "recursive": [{ type: Input, args: ['matTreeNodeToggleRecursive',] },],
+    recursive: [{ type: Input, args: ['matTreeNodeToggleRecursive',] }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-const /** @type {?} */ MAT_TREE_DIRECTIVES = [
+/** @type {?} */
+const MAT_TREE_DIRECTIVES = [
     MatNestedTreeNode,
     MatTreeNodeDef,
     MatTreeNodePadding,
@@ -334,10 +333,12 @@ class MatTreeFlattener {
      * @return {?}
      */
     _flattenNode(node, level, resultNodes, parentMap) {
-        const /** @type {?} */ flatNode = this.transformFunction(node, level);
+        /** @type {?} */
+        const flatNode = this.transformFunction(node, level);
         resultNodes.push(flatNode);
         if (this.isExpandable(flatNode)) {
-            const /** @type {?} */ childrenNodes = this.getChildren(node);
+            /** @type {?} */
+            const childrenNodes = this.getChildren(node);
             if (Array.isArray(childrenNodes)) {
                 this._flattenChildren(childrenNodes, level, resultNodes, parentMap);
             }
@@ -358,7 +359,8 @@ class MatTreeFlattener {
      */
     _flattenChildren(children, level, resultNodes, parentMap) {
         children.forEach((child, index) => {
-            let /** @type {?} */ childParentMap = parentMap.slice();
+            /** @type {?} */
+            let childParentMap = parentMap.slice();
             childParentMap.push(index != children.length - 1);
             this._flattenNode(child, level + 1, resultNodes, childParentMap);
         });
@@ -371,7 +373,8 @@ class MatTreeFlattener {
      * @return {?}
      */
     flattenNodes(structuredData) {
-        let /** @type {?} */ resultNodes = [];
+        /** @type {?} */
+        let resultNodes = [];
         structuredData.forEach(node => this._flattenNode(node, 0, resultNodes, []));
         return resultNodes;
     }
@@ -383,12 +386,15 @@ class MatTreeFlattener {
      * @return {?}
      */
     expandFlattenedNodes(nodes, treeControl) {
-        let /** @type {?} */ results = [];
-        let /** @type {?} */ currentExpand = [];
+        /** @type {?} */
+        let results = [];
+        /** @type {?} */
+        let currentExpand = [];
         currentExpand[0] = true;
         nodes.forEach(node => {
-            let /** @type {?} */ expand = true;
-            for (let /** @type {?} */ i = 0; i <= this.getLevel(node); i++) {
+            /** @type {?} */
+            let expand = true;
+            for (let i = 0; i <= this.getLevel(node); i++) {
                 expand = expand && currentExpand[i];
             }
             if (expand) {
@@ -441,7 +447,8 @@ class MatTreeFlatDataSource extends DataSource {
      * @return {?}
      */
     connect(collectionViewer) {
-        const /** @type {?} */ changes = [
+        /** @type {?} */
+        const changes = [
             collectionViewer.viewChange,
             /** @type {?} */ ((this.treeControl.expansionModel.onChange)),
             this._flattenedData

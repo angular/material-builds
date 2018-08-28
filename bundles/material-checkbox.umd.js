@@ -44,23 +44,23 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to specify the checkbox click behavior.
- */
-var /** @type {?} */ MAT_CHECKBOX_CLICK_ACTION = new core.InjectionToken('mat-checkbox-click-action');
+  @type {?} */
+var MAT_CHECKBOX_CLICK_ACTION = new core.InjectionToken('mat-checkbox-click-action');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Increasing integer for generating unique ids for checkbox components.
-var /** @type {?} */ nextUniqueId = 0;
-/**
+/** @type {?} */
+var nextUniqueId = 0;
+/** *
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
  * \@docs-private
- */
-var /** @type {?} */ MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
+  @type {?} */
+var MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     provide: forms.NG_VALUE_ACCESSOR,
     useExisting: core.forwardRef(function () { return MatCheckbox; }),
     multi: true
@@ -76,10 +76,10 @@ var TransitionCheckState = {
     /** The state representing the component when it's becoming indeterminate. */
     Indeterminate: 3,
 };
-TransitionCheckState[TransitionCheckState.Init] = "Init";
-TransitionCheckState[TransitionCheckState.Checked] = "Checked";
-TransitionCheckState[TransitionCheckState.Unchecked] = "Unchecked";
-TransitionCheckState[TransitionCheckState.Indeterminate] = "Indeterminate";
+TransitionCheckState[TransitionCheckState.Init] = 'Init';
+TransitionCheckState[TransitionCheckState.Checked] = 'Checked';
+TransitionCheckState[TransitionCheckState.Unchecked] = 'Unchecked';
+TransitionCheckState[TransitionCheckState.Indeterminate] = 'Indeterminate';
 /**
  * Change event object emitted by MatCheckbox.
  */
@@ -103,7 +103,8 @@ MatCheckboxBase = /** @class */ (function () {
     }
     return MatCheckboxBase;
 }());
-var /** @type {?} */ _MatCheckboxMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(MatCheckboxBase)), 'accent'));
+/** @type {?} */
+var _MatCheckboxMixinBase = core$1.mixinTabIndex(core$1.mixinColor(core$1.mixinDisableRipple(core$1.mixinDisabled(MatCheckboxBase)), 'accent'));
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MatCheckbox can be either checked, unchecked, indeterminate, or
@@ -176,6 +177,7 @@ var MatCheckbox = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatCheckbox.prototype, "required", {
+        /** Whether the checkbox is required. */
         get: /**
          * Whether the checkbox is required.
          * @return {?}
@@ -211,6 +213,9 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._focusMonitor.stopMonitoring(this._inputElement);
     };
     Object.defineProperty(MatCheckbox.prototype, "checked", {
+        /**
+         * Whether the checkbox is checked.
+         */
         get: /**
          * Whether the checkbox is checked.
          * @return {?}
@@ -230,6 +235,10 @@ var MatCheckbox = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatCheckbox.prototype, "disabled", {
+        /**
+         * Whether the checkbox is disabled. This fully overrides the implementation provided by
+         * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
+         */
         get: /**
          * Whether the checkbox is disabled. This fully overrides the implementation provided by
          * mixinDisabled, but the mixin is still required because mixinTabIndex requires it.
@@ -250,6 +259,12 @@ var MatCheckbox = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatCheckbox.prototype, "indeterminate", {
+        /**
+         * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
+         * represent a checkbox with three states, e.g. a checkbox that represents a nested list of
+         * checkable items. Note that whenever checkbox is manually clicked, indeterminate is immediately
+         * set to false.
+         */
         get: /**
          * Whether the checkbox is indeterminate. This is also known as "mixed" mode and can be used to
          * represent a checkbox with three states, e.g. a checkbox that represents a nested list of
@@ -263,7 +278,8 @@ var MatCheckbox = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ changed = value != this._indeterminate;
+            /** @type {?} */
+            var changed = value != this._indeterminate;
             this._indeterminate = value;
             if (changed) {
                 if (this._indeterminate) {
@@ -368,8 +384,10 @@ var MatCheckbox = /** @class */ (function (_super) {
      * @return {?}
      */
     function (newState) {
-        var /** @type {?} */ oldState = this._currentCheckState;
-        var /** @type {?} */ element = this._elementRef.nativeElement;
+        /** @type {?} */
+        var oldState = this._currentCheckState;
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
         if (oldState === newState) {
             return;
         }
@@ -380,8 +398,8 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._currentCheckState = newState;
         if (this._currentAnimationClass.length > 0) {
             element.classList.add(this._currentAnimationClass);
-            // Remove the animation class to avoid animation when the checkbox is moved between containers
-            var /** @type {?} */ animationClass_1 = this._currentAnimationClass;
+            /** @type {?} */
+            var animationClass_1 = this._currentAnimationClass;
             this._ngZone.runOutsideAngular(function () {
                 setTimeout(function () {
                     element.classList.remove(animationClass_1);
@@ -396,7 +414,8 @@ var MatCheckbox = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ event = new MatCheckboxChange();
+        /** @type {?} */
+        var event = new MatCheckboxChange();
         event.source = this;
         event.checked = this.checked;
         this._controlValueAccessorChangeFn(this.checked);
@@ -540,7 +559,8 @@ var MatCheckbox = /** @class */ (function (_super) {
         if (this._animationMode === 'NoopAnimations') {
             return '';
         }
-        var /** @type {?} */ animSuffix = '';
+        /** @type {?} */
+        var animSuffix = '';
         switch (oldState) {
             case TransitionCheckState.Init:
                 // Handle edge case where user interacts with checkbox that does not have [(ngModel)] or
@@ -592,29 +612,29 @@ var MatCheckbox = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatCheckbox.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: core.ChangeDetectorRef, },
-        { type: a11y.FocusMonitor, },
-        { type: core.NgZone, },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_CHECKBOX_CLICK_ACTION,] },] },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] },] },
+        { type: core.ElementRef },
+        { type: core.ChangeDetectorRef },
+        { type: a11y.FocusMonitor },
+        { type: core.NgZone },
+        { type: String, decorators: [{ type: core.Attribute, args: ['tabindex',] }] },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [MAT_CHECKBOX_CLICK_ACTION,] }] },
+        { type: String, decorators: [{ type: core.Optional }, { type: core.Inject, args: [animations.ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatCheckbox.propDecorators = {
-        "ariaLabel": [{ type: core.Input, args: ['aria-label',] },],
-        "ariaLabelledby": [{ type: core.Input, args: ['aria-labelledby',] },],
-        "id": [{ type: core.Input },],
-        "required": [{ type: core.Input },],
-        "labelPosition": [{ type: core.Input },],
-        "name": [{ type: core.Input },],
-        "change": [{ type: core.Output },],
-        "indeterminateChange": [{ type: core.Output },],
-        "value": [{ type: core.Input },],
-        "_inputElement": [{ type: core.ViewChild, args: ['input',] },],
-        "ripple": [{ type: core.ViewChild, args: [core$1.MatRipple,] },],
-        "checked": [{ type: core.Input },],
-        "disabled": [{ type: core.Input },],
-        "indeterminate": [{ type: core.Input },],
+        ariaLabel: [{ type: core.Input, args: ['aria-label',] }],
+        ariaLabelledby: [{ type: core.Input, args: ['aria-labelledby',] }],
+        id: [{ type: core.Input }],
+        required: [{ type: core.Input }],
+        labelPosition: [{ type: core.Input }],
+        name: [{ type: core.Input }],
+        change: [{ type: core.Output }],
+        indeterminateChange: [{ type: core.Output }],
+        value: [{ type: core.Input }],
+        _inputElement: [{ type: core.ViewChild, args: ['input',] }],
+        ripple: [{ type: core.ViewChild, args: [core$1.MatRipple,] }],
+        checked: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
+        indeterminate: [{ type: core.Input }]
     };
     return MatCheckbox;
 }(_MatCheckboxMixinBase));
@@ -623,7 +643,8 @@ var MatCheckbox = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ MAT_CHECKBOX_REQUIRED_VALIDATOR = {
+/** @type {?} */
+var MAT_CHECKBOX_REQUIRED_VALIDATOR = {
     provide: forms.NG_VALIDATORS,
     useExisting: core.forwardRef(function () { return MatCheckboxRequiredValidator; }),
     multi: true

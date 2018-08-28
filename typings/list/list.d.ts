@@ -10,11 +10,11 @@ import { CanDisableRipple, MatLine } from '@angular/material/core';
 /** @docs-private */
 export declare class MatListBase {
 }
-export declare const _MatListMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatListBase;
+export declare const _MatListMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatListBase;
 /** @docs-private */
 export declare class MatListItemBase {
 }
-export declare const _MatListItemMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatListItemBase;
+export declare const _MatListItemMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatListItemBase;
 export declare class MatNavList extends _MatListMixinBase implements CanDisableRipple {
 }
 export declare class MatList extends _MatListMixinBase implements CanDisableRipple {

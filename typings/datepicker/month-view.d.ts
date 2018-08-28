@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { AfterContentInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
@@ -10,7 +17,7 @@ export declare class MatMonthView<D> implements AfterContentInit {
     private _changeDetectorRef;
     private _dateFormats;
     _dateAdapter: DateAdapter<D>;
-    private _dir;
+    private _dir?;
     /**
      * The date to display in this month view (everything other than the month and year is ignored).
      */
@@ -64,21 +71,21 @@ export declare class MatMonthView<D> implements AfterContentInit {
     /** Focuses the active cell after the microtask queue is empty. */
     _focusActiveCell(): void;
     /** Creates MatCalendarCells for the dates in this month. */
-    private _createWeekCells();
+    private _createWeekCells;
     /** Date filter for the month */
-    private _shouldEnableDate(date);
+    private _shouldEnableDate;
     /**
      * Gets the date in this month that the given Date falls on.
      * Returns null if the given Date is in another month.
      */
-    private _getDateInCurrentMonth(date);
+    private _getDateInCurrentMonth;
     /** Checks whether the 2 dates are non-null and fall within the same month of the same year. */
-    private _hasSameMonthAndYear(d1, d2);
+    private _hasSameMonthAndYear;
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.
      */
-    private _getValidDateOrNull(obj);
+    private _getValidDateOrNull;
     /** Determines whether the user has the RTL layout direction. */
-    private _isRtl();
+    private _isRtl;
 }

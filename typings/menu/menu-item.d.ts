@@ -13,15 +13,15 @@ import { MatMenuPanel } from './menu-panel';
 /** @docs-private */
 export declare class MatMenuItemBase {
 }
-export declare const _MatMenuItemMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatMenuItemBase;
+export declare const _MatMenuItemMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatMenuItemBase;
 /**
  * This directive is intended to be used inside an mat-menu tag.
  * It exists mostly to set the role attribute.
  */
 export declare class MatMenuItem extends _MatMenuItemMixinBase implements FocusableOption, CanDisable, CanDisableRipple, OnDestroy {
     private _elementRef;
-    private _focusMonitor;
-    private _parentMenu;
+    private _focusMonitor?;
+    private _parentMenu?;
     private _document;
     /** Stream that emits when the menu item is hovered. */
     readonly _hovered: Subject<MatMenuItem>;

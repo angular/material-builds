@@ -50,11 +50,11 @@ export declare class MatBadge implements OnDestroy {
     isAfter(): boolean;
     ngOnDestroy(): void;
     /** Injects a span element into the DOM with the content. */
-    private _updateTextContent();
+    private _updateTextContent;
     /** Creates the badge element */
-    private _createBadgeElement();
+    private _createBadgeElement;
     /** Sets the aria-label property on the element */
-    private _updateHostAriaDescription(newDescription, oldDescription);
+    private _updateHostAriaDescription;
     /** Adds css theme class given the color to the component host */
-    private _setColor(colorPalette);
+    private _setColor;
 }

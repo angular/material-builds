@@ -196,10 +196,10 @@ MatSnackBarRef = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to access the data that was passed in to a snack bar.
- */
-var /** @type {?} */ MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
+  @type {?} */
+var MAT_SNACK_BAR_DATA = new InjectionToken('MatSnackBarData');
 /**
  * Configuration used when opening a snack-bar.
  * @template D
@@ -289,8 +289,8 @@ var SimpleSnackBar = /** @class */ (function () {
     ];
     /** @nocollapse */
     SimpleSnackBar.ctorParameters = function () { return [
-        { type: MatSnackBarRef, },
-        { type: undefined, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DATA,] },] },
+        { type: MatSnackBarRef },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DATA,] }] }
     ]; };
     return SimpleSnackBar;
 }());
@@ -299,10 +299,10 @@ var SimpleSnackBar = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material snack bar.
- */
-var /** @type {?} */ matSnackBarAnimations = {
+  @type {?} */
+var matSnackBarAnimations = {
     /** Animation that shows and hides a snack bar. */
     snackBarState: trigger('state', [
         state('void, hidden', style({
@@ -407,9 +407,8 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
             this._completeExit();
         }
         if (toState === 'visible') {
-            // Note: we shouldn't use `this` inside the zone callback,
-            // because it can cause a memory leak.
-            var /** @type {?} */ onEnter_1 = this._onEnter;
+            /** @type {?} */
+            var onEnter_1 = this._onEnter;
             this._ngZone.run(function () {
                 onEnter_1.next();
                 onEnter_1.complete();
@@ -486,8 +485,10 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ element = this._elementRef.nativeElement;
-        var /** @type {?} */ panelClasses = this.snackBarConfig.panelClass;
+        /** @type {?} */
+        var element = this._elementRef.nativeElement;
+        /** @type {?} */
+        var panelClasses = this.snackBarConfig.panelClass;
         if (panelClasses) {
             if (Array.isArray(panelClasses)) {
                 // Note that we can't use a spread here, because IE doesn't support multiple arguments.
@@ -534,13 +535,13 @@ var MatSnackBarContainer = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSnackBarContainer.ctorParameters = function () { return [
-        { type: NgZone, },
-        { type: ElementRef, },
-        { type: ChangeDetectorRef, },
-        { type: MatSnackBarConfig, },
+        { type: NgZone },
+        { type: ElementRef },
+        { type: ChangeDetectorRef },
+        { type: MatSnackBarConfig }
     ]; };
     MatSnackBarContainer.propDecorators = {
-        "_portalOutlet": [{ type: ViewChild, args: [CdkPortalOutlet,] },],
+        _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet,] }]
     };
     return MatSnackBarContainer;
 }(BasePortalOutlet));
@@ -573,10 +574,10 @@ var MatSnackBarModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to specify default snack bar.
- */
-var /** @type {?} */ MAT_SNACK_BAR_DEFAULT_OPTIONS = new InjectionToken('mat-snack-bar-default-options', {
+  @type {?} */
+var MAT_SNACK_BAR_DEFAULT_OPTIONS = new InjectionToken('mat-snack-bar-default-options', {
     providedIn: 'root',
     factory: MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY,
 });
@@ -612,7 +613,8 @@ var MatSnackBar = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ parent = this._parentSnackBar;
+            /** @type {?} */
+            var parent = this._parentSnackBar;
             return parent ? parent._openedSnackBarRef : this._snackBarRefAtThisLevel;
         },
         set: /**
@@ -706,7 +708,8 @@ var MatSnackBar = /** @class */ (function () {
      */
     function (message, action, config) {
         if (action === void 0) { action = ''; }
-        var /** @type {?} */ _config = __assign({}, this._defaultConfig, config);
+        /** @type {?} */
+        var _config = __assign({}, this._defaultConfig, config);
         // Since the user doesn't have access to the component, we can
         // override the data to pass in our own message and action.
         _config.data = { message: message, action: action };
@@ -744,12 +747,16 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (overlayRef, config) {
-        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        var /** @type {?} */ injector = new PortalInjector(userInjector || this._injector, new WeakMap([
+        /** @type {?} */
+        var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        /** @type {?} */
+        var injector = new PortalInjector(userInjector || this._injector, new WeakMap([
             [MatSnackBarConfig, config]
         ]));
-        var /** @type {?} */ containerPortal = new ComponentPortal(MatSnackBarContainer, config.viewContainerRef, injector);
-        var /** @type {?} */ containerRef = overlayRef.attach(containerPortal);
+        /** @type {?} */
+        var containerPortal = new ComponentPortal(MatSnackBarContainer, config.viewContainerRef, injector);
+        /** @type {?} */
+        var containerRef = overlayRef.attach(containerPortal);
         containerRef.instance.snackBarConfig = config;
         return containerRef.instance;
     };
@@ -768,21 +775,29 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (content, userConfig) {
-        var /** @type {?} */ config = __assign({}, new MatSnackBarConfig(), this._defaultConfig, userConfig);
-        var /** @type {?} */ overlayRef = this._createOverlay(config);
-        var /** @type {?} */ container = this._attachSnackBarContainer(overlayRef, config);
-        var /** @type {?} */ snackBarRef = new MatSnackBarRef(container, overlayRef);
+        /** @type {?} */
+        var config = __assign({}, new MatSnackBarConfig(), this._defaultConfig, userConfig);
+        /** @type {?} */
+        var overlayRef = this._createOverlay(config);
+        /** @type {?} */
+        var container = this._attachSnackBarContainer(overlayRef, config);
+        /** @type {?} */
+        var snackBarRef = new MatSnackBarRef(container, overlayRef);
         if (content instanceof TemplateRef) {
-            var /** @type {?} */ portal = new TemplatePortal(content, /** @type {?} */ ((null)), /** @type {?} */ ({
+            /** @type {?} */
+            var portal = new TemplatePortal(content, /** @type {?} */ ((null)), /** @type {?} */ ({
                 $implicit: config.data,
                 snackBarRef: snackBarRef
             }));
             snackBarRef.instance = container.attachTemplatePortal(portal);
         }
         else {
-            var /** @type {?} */ injector = this._createInjector(config, snackBarRef);
-            var /** @type {?} */ portal = new ComponentPortal(content, undefined, injector);
-            var /** @type {?} */ contentRef = container.attachComponentPortal(portal);
+            /** @type {?} */
+            var injector = this._createInjector(config, snackBarRef);
+            /** @type {?} */
+            var portal = new ComponentPortal(content, undefined, injector);
+            /** @type {?} */
+            var contentRef = container.attachComponentPortal(portal);
             // We can't pass this via the injector, because the injector is created earlier.
             snackBarRef.instance = contentRef.instance;
         }
@@ -853,15 +868,19 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (config) {
-        var /** @type {?} */ overlayConfig = new OverlayConfig();
+        /** @type {?} */
+        var overlayConfig = new OverlayConfig();
         overlayConfig.direction = config.direction;
-        var /** @type {?} */ positionStrategy = this._overlay.position().global();
-        // Set horizontal position.
-        var /** @type {?} */ isRtl = config.direction === 'rtl';
-        var /** @type {?} */ isLeft = (config.horizontalPosition === 'left' ||
+        /** @type {?} */
+        var positionStrategy = this._overlay.position().global();
+        /** @type {?} */
+        var isRtl = config.direction === 'rtl';
+        /** @type {?} */
+        var isLeft = (config.horizontalPosition === 'left' ||
             (config.horizontalPosition === 'start' && !isRtl) ||
             (config.horizontalPosition === 'end' && isRtl));
-        var /** @type {?} */ isRight = !isLeft && config.horizontalPosition !== 'center';
+        /** @type {?} */
+        var isRight = !isLeft && config.horizontalPosition !== 'center';
         if (isLeft) {
             positionStrategy.left('0');
         }
@@ -896,7 +915,8 @@ var MatSnackBar = /** @class */ (function () {
      * @return {?}
      */
     function (config, snackBarRef) {
-        var /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        /** @type {?} */
+        var userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         return new PortalInjector(userInjector || this._injector, new WeakMap([
             [MatSnackBarRef, snackBarRef],
             [MAT_SNACK_BAR_DATA, config.data]
@@ -907,12 +927,12 @@ var MatSnackBar = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatSnackBar.ctorParameters = function () { return [
-        { type: Overlay, },
-        { type: LiveAnnouncer, },
-        { type: Injector, },
-        { type: BreakpointObserver, },
-        { type: MatSnackBar, decorators: [{ type: Optional }, { type: SkipSelf },] },
-        { type: MatSnackBarConfig, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] },] },
+        { type: Overlay },
+        { type: LiveAnnouncer },
+        { type: Injector },
+        { type: BreakpointObserver },
+        { type: MatSnackBar, decorators: [{ type: Optional }, { type: SkipSelf }] },
+        { type: MatSnackBarConfig, decorators: [{ type: Inject, args: [MAT_SNACK_BAR_DEFAULT_OPTIONS,] }] }
     ]; };
     /** @nocollapse */ MatSnackBar.ngInjectableDef = defineInjectable({ factory: function MatSnackBar_Factory() { return new MatSnackBar(inject(Overlay), inject(LiveAnnouncer), inject(INJECTOR), inject(BreakpointObserver), inject(MatSnackBar, 12), inject(MAT_SNACK_BAR_DEFAULT_OPTIONS)); }, token: MatSnackBar, providedIn: MatSnackBarModule });
     return MatSnackBar;
@@ -928,5 +948,5 @@ var MatSnackBar = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
+export { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY, MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBar, MatSnackBarContainer, MAT_SNACK_BAR_DATA, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar, matSnackBarAnimations };
 //# sourceMappingURL=snack-bar.es5.js.map

@@ -159,11 +159,13 @@ class MatIconRegistry {
      * @return {?}
      */
     addSvgIconLiteralInNamespace(namespace, iconName, literal) {
-        const /** @type {?} */ sanitizedLiteral = this._sanitizer.sanitize(SecurityContext.HTML, literal);
+        /** @type {?} */
+        const sanitizedLiteral = this._sanitizer.sanitize(SecurityContext.HTML, literal);
         if (!sanitizedLiteral) {
             throw getMatIconFailedToSanitizeLiteralError(literal);
         }
-        const /** @type {?} */ svgElement = this._createSvgElementForSingleIcon(sanitizedLiteral);
+        /** @type {?} */
+        const svgElement = this._createSvgElementForSingleIcon(sanitizedLiteral);
         return this._addSvgIconConfig(namespace, iconName, new SvgIconConfig(svgElement));
     }
     /**
@@ -198,11 +200,13 @@ class MatIconRegistry {
      * @return {?}
      */
     addSvgIconSetLiteralInNamespace(namespace, literal) {
-        const /** @type {?} */ sanitizedLiteral = this._sanitizer.sanitize(SecurityContext.HTML, literal);
+        /** @type {?} */
+        const sanitizedLiteral = this._sanitizer.sanitize(SecurityContext.HTML, literal);
         if (!sanitizedLiteral) {
             throw getMatIconFailedToSanitizeLiteralError(literal);
         }
-        const /** @type {?} */ svgElement = this._svgElementFromString(sanitizedLiteral);
+        /** @type {?} */
+        const svgElement = this._svgElementFromString(sanitizedLiteral);
         return this._addSvgIconSetConfig(namespace, new SvgIconConfig(svgElement));
     }
     /**
@@ -256,11 +260,13 @@ class MatIconRegistry {
      * @return {?}
      */
     getSvgIconFromUrl(safeUrl) {
-        const /** @type {?} */ url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
+        /** @type {?} */
+        const url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
         if (!url) {
             throw getMatIconFailedToSanitizeUrlError(safeUrl);
         }
-        const /** @type {?} */ cachedIcon = this._cachedIconsByUrl.get(url);
+        /** @type {?} */
+        const cachedIcon = this._cachedIconsByUrl.get(url);
         if (cachedIcon) {
             return of(cloneSvg(cachedIcon));
         }
@@ -276,14 +282,15 @@ class MatIconRegistry {
      * @return {?}
      */
     getNamedSvgIcon(name, namespace = '') {
-        // Return (copy of) cached icon if possible.
-        const /** @type {?} */ key = iconKey(namespace, name);
-        const /** @type {?} */ config = this._svgIconConfigs.get(key);
+        /** @type {?} */
+        const key = iconKey(namespace, name);
+        /** @type {?} */
+        const config = this._svgIconConfigs.get(key);
         if (config) {
             return this._getSvgFromConfig(config);
         }
-        // See if we have any icon sets registered for the namespace.
-        const /** @type {?} */ iconSetConfigs = this._iconSetConfigs.get(namespace);
+        /** @type {?} */
+        const iconSetConfigs = this._iconSetConfigs.get(namespace);
         if (iconSetConfigs) {
             return this._getSvgFromIconSetConfigs(name, iconSetConfigs);
         }
@@ -316,22 +323,21 @@ class MatIconRegistry {
      * @return {?}
      */
     _getSvgFromIconSetConfigs(name, iconSetConfigs) {
-        // For all the icon set SVG elements we've fetched, see if any contain an icon with the
-        // requested name.
-        const /** @type {?} */ namedIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
+        /** @type {?} */
+        const namedIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
         if (namedIcon) {
             // We could cache namedIcon in _svgIconConfigs, but since we have to make a copy every
             // time anyway, there's probably not much advantage compared to just always extracting
             // it from the icon set.
             return of(namedIcon);
         }
-        // Not found in any cached icon sets. If there are icon sets with URLs that we haven't
-        // fetched, fetch them now and look for iconName in the results.
-        const /** @type {?} */ iconSetFetchRequests = iconSetConfigs
+        /** @type {?} */
+        const iconSetFetchRequests = iconSetConfigs
             .filter(iconSetConfig => !iconSetConfig.svgElement)
             .map(iconSetConfig => {
             return this._loadSvgIconSetFromConfig(iconSetConfig).pipe(catchError((err) => {
-                const /** @type {?} */ url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
+                /** @type {?} */
+                const url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
                 // Swallow errors fetching individual URLs so the
                 // combined Observable won't necessarily fail.
                 console.error(`Loading icon set URL: ${url} failed: ${err.message}`);
@@ -341,7 +347,8 @@ class MatIconRegistry {
         // Fetch all the icon set URLs. When the requests complete, every IconSet should have a
         // cached SVG element (unless the request failed), and we can check again for the icon.
         return forkJoin(iconSetFetchRequests).pipe(map(() => {
-            const /** @type {?} */ foundIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
+            /** @type {?} */
+            const foundIcon = this._extractIconWithNameFromAnySet(name, iconSetConfigs);
             if (!foundIcon) {
                 throw getMatIconNameNotFoundError(name);
             }
@@ -358,10 +365,12 @@ class MatIconRegistry {
      */
     _extractIconWithNameFromAnySet(iconName, iconSetConfigs) {
         // Iterate backwards, so icon sets added later have precedence.
-        for (let /** @type {?} */ i = iconSetConfigs.length - 1; i >= 0; i--) {
-            const /** @type {?} */ config = iconSetConfigs[i];
+        for (let i = iconSetConfigs.length - 1; i >= 0; i--) {
+            /** @type {?} */
+            const config = iconSetConfigs[i];
             if (config.svgElement) {
-                const /** @type {?} */ foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName);
+                /** @type {?} */
+                const foundIcon = this._extractSvgIconFromSet(config.svgElement, iconName);
                 if (foundIcon) {
                     return foundIcon;
                 }
@@ -405,7 +414,8 @@ class MatIconRegistry {
      * @return {?}
      */
     _createSvgElementForSingleIcon(responseText) {
-        const /** @type {?} */ svg = this._svgElementFromString(responseText);
+        /** @type {?} */
+        const svg = this._svgElementFromString(responseText);
         this._setSvgAttributes(svg);
         return svg;
     }
@@ -418,13 +428,13 @@ class MatIconRegistry {
      * @return {?}
      */
     _extractSvgIconFromSet(iconSet, iconName) {
-        const /** @type {?} */ iconSource = iconSet.querySelector('#' + iconName);
+        /** @type {?} */
+        const iconSource = iconSet.querySelector('#' + iconName);
         if (!iconSource) {
             return null;
         }
-        // Clone the element and remove the ID to prevent multiple elements from being added
-        // to the page with the same ID.
-        const /** @type {?} */ iconElement = /** @type {?} */ (iconSource.cloneNode(true));
+        /** @type {?} */
+        const iconElement = /** @type {?} */ (iconSource.cloneNode(true));
         iconElement.removeAttribute('id');
         // If the icon node is itself an <svg> node, clone and return it directly. If not, set it as
         // the content of a new <svg> node.
@@ -437,12 +447,8 @@ class MatIconRegistry {
         if (iconElement.nodeName.toLowerCase() === 'symbol') {
             return this._setSvgAttributes(this._toSvgElement(iconElement));
         }
-        // createElement('SVG') doesn't work as expected; the DOM ends up with
-        // the correct nodes, but the SVG content doesn't render. Instead we
-        // have to create an empty SVG node using innerHTML and append its content.
-        // Elements created using DOMParser.parseFromString have the same problem.
-        // http://stackoverflow.com/questions/23003278/svg-innerhtml-in-firefox-can-not-display
-        const /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
+        /** @type {?} */
+        const svg = this._svgElementFromString('<svg></svg>');
         // Clone the node so we don't remove it from the parent icon set element.
         svg.appendChild(iconElement);
         return this._setSvgAttributes(svg);
@@ -453,9 +459,11 @@ class MatIconRegistry {
      * @return {?}
      */
     _svgElementFromString(str) {
-        const /** @type {?} */ div = this._document.createElement('DIV');
+        /** @type {?} */
+        const div = this._document.createElement('DIV');
         div.innerHTML = str;
-        const /** @type {?} */ svg = /** @type {?} */ (div.querySelector('svg'));
+        /** @type {?} */
+        const svg = /** @type {?} */ (div.querySelector('svg'));
         if (!svg) {
             throw Error('<svg> tag not found');
         }
@@ -467,8 +475,9 @@ class MatIconRegistry {
      * @return {?}
      */
     _toSvgElement(element) {
-        let /** @type {?} */ svg = this._svgElementFromString('<svg></svg>');
-        for (let /** @type {?} */ i = 0; i < element.childNodes.length; i++) {
+        /** @type {?} */
+        let svg = this._svgElementFromString('<svg></svg>');
+        for (let i = 0; i < element.childNodes.length; i++) {
             if (element.childNodes[i].nodeType === this._document.ELEMENT_NODE) {
                 svg.appendChild(element.childNodes[i].cloneNode(true));
             }
@@ -501,20 +510,18 @@ class MatIconRegistry {
         if (safeUrl == null) {
             throw Error(`Cannot fetch icon from URL "${safeUrl}".`);
         }
-        const /** @type {?} */ url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
+        /** @type {?} */
+        const url = this._sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
         if (!url) {
             throw getMatIconFailedToSanitizeUrlError(safeUrl);
         }
-        // Store in-progress fetches to avoid sending a duplicate request for a URL when there is
-        // already a request in progress for that URL. It's necessary to call share() on the
-        // Observable returned by http.get() so that multiple subscribers don't cause multiple XHRs.
-        const /** @type {?} */ inProgressFetch = this._inProgressUrlFetches.get(url);
+        /** @type {?} */
+        const inProgressFetch = this._inProgressUrlFetches.get(url);
         if (inProgressFetch) {
             return inProgressFetch;
         }
-        // TODO(jelbourn): for some reason, the `finalize` operator "loses" the generic type on the
-        // Observable. Figure out why and fix it.
-        const /** @type {?} */ req = this._httpClient.get(url, { responseType: 'text' }).pipe(finalize(() => this._inProgressUrlFetches.delete(url)), share());
+        /** @type {?} */
+        const req = this._httpClient.get(url, { responseType: 'text' }).pipe(finalize(() => this._inProgressUrlFetches.delete(url)), share());
         this._inProgressUrlFetches.set(url, req);
         return req;
     }
@@ -536,7 +543,8 @@ class MatIconRegistry {
      * @return {?}
      */
     _addSvgIconSetConfig(namespace, config) {
-        const /** @type {?} */ configNamespace = this._iconSetConfigs.get(namespace);
+        /** @type {?} */
+        const configNamespace = this._iconSetConfigs.get(namespace);
         if (configNamespace) {
             configNamespace.push(config);
         }
@@ -551,9 +559,9 @@ MatIconRegistry.decorators = [
 ];
 /** @nocollapse */
 MatIconRegistry.ctorParameters = () => [
-    { type: HttpClient, decorators: [{ type: Optional },] },
-    { type: DomSanitizer, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    { type: HttpClient, decorators: [{ type: Optional }] },
+    { type: DomSanitizer },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
 ];
 /** @nocollapse */ MatIconRegistry.ngInjectableDef = defineInjectable({ factory: function MatIconRegistry_Factory() { return new MatIconRegistry(inject(HttpClient, 8), inject(DomSanitizer), inject(DOCUMENT, 8)); }, token: MatIconRegistry, providedIn: "root" });
 /**
@@ -567,10 +575,10 @@ MatIconRegistry.ctorParameters = () => [
 function ICON_REGISTRY_PROVIDER_FACTORY(parentRegistry, httpClient, sanitizer, document) {
     return parentRegistry || new MatIconRegistry(httpClient, sanitizer, document);
 }
-/**
+/** *
  * \@docs-private
- */
-const /** @type {?} */ ICON_REGISTRY_PROVIDER = {
+  @type {?} */
+const ICON_REGISTRY_PROVIDER = {
     // If there is already an MatIconRegistry available, use that. Otherwise, provide a new one.
     provide: MatIconRegistry,
     deps: [
@@ -614,7 +622,8 @@ class MatIconBase {
         this._elementRef = _elementRef;
     }
 }
-const /** @type {?} */ _MatIconMixinBase = mixinColor(MatIconBase);
+/** @type {?} */
+const _MatIconMixinBase = mixinColor(MatIconBase);
 /**
  * Component to display an icon. It can be used in the following ways:
  *
@@ -716,7 +725,8 @@ class MatIcon extends _MatIconMixinBase {
         if (!iconName) {
             return ['', ''];
         }
-        const /** @type {?} */ parts = iconName.split(':');
+        /** @type {?} */
+        const parts = iconName.split(':');
         switch (parts.length) {
             case 1: return ['', parts[0]]; // Use default namespace.
             case 2: return /** @type {?} */ (parts);
@@ -764,11 +774,9 @@ class MatIcon extends _MatIconMixinBase {
      */
     _setSvgElement(svg) {
         this._clearSvgElement();
-        // Workaround for IE11 and Edge ignoring `style` tags inside dynamically-created SVGs.
-        // See: https://developer.microsoft.com/en-us/microsoft-edge/platform/issues/10898469/
-        // Do this before inserting the element into the DOM, in order to avoid a style recalculation.
-        const /** @type {?} */ styleTags = /** @type {?} */ (svg.querySelectorAll('style'));
-        for (let /** @type {?} */ i = 0; i < styleTags.length; i++) {
+        /** @type {?} */
+        const styleTags = /** @type {?} */ (svg.querySelectorAll('style'));
+        for (let i = 0; i < styleTags.length; i++) {
             styleTags[i].textContent += ' ';
         }
         this._elementRef.nativeElement.appendChild(svg);
@@ -777,12 +785,15 @@ class MatIcon extends _MatIconMixinBase {
      * @return {?}
      */
     _clearSvgElement() {
-        const /** @type {?} */ layoutElement = this._elementRef.nativeElement;
-        let /** @type {?} */ childCount = layoutElement.childNodes.length;
+        /** @type {?} */
+        const layoutElement = this._elementRef.nativeElement;
+        /** @type {?} */
+        let childCount = layoutElement.childNodes.length;
         // Remove existing non-element child nodes and SVGs, and add the new SVG element. Note that
         // we can't use innerHTML, because IE will throw if the element has a data binding.
         while (childCount--) {
-            const /** @type {?} */ child = layoutElement.childNodes[childCount];
+            /** @type {?} */
+            const child = layoutElement.childNodes[childCount];
             // 1 corresponds to Node.ELEMENT_NODE. We remove all non-element nodes in order to get rid
             // of any loose text nodes, as well as any SVG elements in order to remove any old icons.
             if (child.nodeType !== 1 || child.nodeName.toLowerCase() === 'svg') {
@@ -797,8 +808,10 @@ class MatIcon extends _MatIconMixinBase {
         if (!this._usingFontIcon()) {
             return;
         }
-        const /** @type {?} */ elem = this._elementRef.nativeElement;
-        const /** @type {?} */ fontSetClass = this.fontSet ?
+        /** @type {?} */
+        const elem = this._elementRef.nativeElement;
+        /** @type {?} */
+        const fontSetClass = this.fontSet ?
             this._iconRegistry.classNameForFontAlias(this.fontSet) :
             this._iconRegistry.getDefaultFontSetClass();
         if (fontSetClass != this._previousFontSetClass) {
@@ -848,15 +861,15 @@ MatIcon.decorators = [
 ];
 /** @nocollapse */
 MatIcon.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: MatIconRegistry, },
-    { type: undefined, decorators: [{ type: Attribute, args: ['aria-hidden',] },] },
+    { type: ElementRef },
+    { type: MatIconRegistry },
+    { type: String, decorators: [{ type: Attribute, args: ['aria-hidden',] }] }
 ];
 MatIcon.propDecorators = {
-    "inline": [{ type: Input },],
-    "svgIcon": [{ type: Input },],
-    "fontSet": [{ type: Input },],
-    "fontIcon": [{ type: Input },],
+    inline: [{ type: Input }],
+    svgIcon: [{ type: Input }],
+    fontSet: [{ type: Input }],
+    fontIcon: [{ type: Input }]
 };
 
 /**
@@ -883,5 +896,5 @@ MatIconModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatIconModule, MatIconBase, _MatIconMixinBase, MatIcon, getMatIconNameNotFoundError, getMatIconNoHttpProviderError, getMatIconFailedToSanitizeUrlError, getMatIconFailedToSanitizeLiteralError, MatIconRegistry, ICON_REGISTRY_PROVIDER_FACTORY, ICON_REGISTRY_PROVIDER };
+export { MatIconModule, MatIconBase, _MatIconMixinBase, MatIcon, getMatIconNameNotFoundError, getMatIconNoHttpProviderError, getMatIconFailedToSanitizeUrlError, getMatIconFailedToSanitizeLiteralError, ICON_REGISTRY_PROVIDER_FACTORY, MatIconRegistry, ICON_REGISTRY_PROVIDER };
 //# sourceMappingURL=icon.js.map

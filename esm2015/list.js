@@ -25,13 +25,15 @@ import { MatDividerModule } from '@angular/material/divider';
  */
 class MatListBase {
 }
-const /** @type {?} */ _MatListMixinBase = mixinDisableRipple(MatListBase);
+/** @type {?} */
+const _MatListMixinBase = mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
 class MatListItemBase {
 }
-const /** @type {?} */ _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
+/** @type {?} */
+const _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
 class MatNavList extends _MatListMixinBase {
 }
 MatNavList.decorators = [
@@ -166,13 +168,13 @@ MatListItem.decorators = [
 ];
 /** @nocollapse */
 MatListItem.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: MatNavList, decorators: [{ type: Optional },] },
+    { type: ElementRef },
+    { type: MatNavList, decorators: [{ type: Optional }] }
 ];
 MatListItem.propDecorators = {
-    "_lines": [{ type: ContentChildren, args: [MatLine,] },],
-    "_avatar": [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] },],
-    "_icon": [{ type: ContentChild, args: [MatListIconCssMatStyler,] },],
+    _lines: [{ type: ContentChildren, args: [MatLine,] }],
+    _avatar: [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] }],
+    _icon: [{ type: ContentChild, args: [MatListIconCssMatStyler,] }]
 };
 
 /**
@@ -184,17 +186,19 @@ MatListItem.propDecorators = {
  */
 class MatSelectionListBase {
 }
-const /** @type {?} */ _MatSelectionListMixinBase = mixinDisableRipple(MatSelectionListBase);
+/** @type {?} */
+const _MatSelectionListMixinBase = mixinDisableRipple(MatSelectionListBase);
 /**
  * \@docs-private
  */
 class MatListOptionBase {
 }
-const /** @type {?} */ _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
-/**
+/** @type {?} */
+const _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
+/** *
  * \@docs-private
- */
-const /** @type {?} */ MAT_SELECTION_LIST_VALUE_ACCESSOR = {
+  @type {?} */
+const MAT_SELECTION_LIST_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatSelectionList),
     multi: true
@@ -250,7 +254,8 @@ class MatListOption extends _MatListOptionMixinBase {
      * @return {?}
      */
     set disabled(value) {
-        const /** @type {?} */ newValue = coerceBooleanProperty(value);
+        /** @type {?} */
+        const newValue = coerceBooleanProperty(value);
         if (newValue !== this._disabled) {
             this._disabled = newValue;
             this._changeDetector.markForCheck();
@@ -266,7 +271,8 @@ class MatListOption extends _MatListOptionMixinBase {
      * @return {?}
      */
     set selected(value) {
-        const /** @type {?} */ isSelected = coerceBooleanProperty(value);
+        /** @type {?} */
+        const isSelected = coerceBooleanProperty(value);
         if (isSelected !== this._selected) {
             this._setSelected(isSelected);
             this.selectionList._reportValueChange();
@@ -276,12 +282,8 @@ class MatListOption extends _MatListOptionMixinBase {
      * @return {?}
      */
     ngOnInit() {
-        // List options that are selected at initialization can't be reported properly to the form
-        // control. This is because it takes some time until the selection-list knows about all
-        // available options. Also it can happen that the ControlValueAccessor has an initial value
-        // that should be used instead. Deferring the value change report to the next tick ensures
-        // that the form control value is not being overwritten.
-        const /** @type {?} */ wasSelected = this._selected;
+        /** @type {?} */
+        const wasSelected = this._selected;
         Promise.resolve().then(() => {
             if (this._selected || wasSelected) {
                 this.selected = true;
@@ -421,18 +423,18 @@ MatListOption.decorators = [
 ];
 /** @nocollapse */
 MatListOption.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: ChangeDetectorRef, },
-    { type: MatSelectionList, decorators: [{ type: Inject, args: [forwardRef(() => MatSelectionList),] },] },
+    { type: ElementRef },
+    { type: ChangeDetectorRef },
+    { type: MatSelectionList, decorators: [{ type: Inject, args: [forwardRef(() => MatSelectionList),] }] }
 ];
 MatListOption.propDecorators = {
-    "_avatar": [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] },],
-    "_lines": [{ type: ContentChildren, args: [MatLine,] },],
-    "_text": [{ type: ViewChild, args: ['text',] },],
-    "checkboxPosition": [{ type: Input },],
-    "value": [{ type: Input },],
-    "disabled": [{ type: Input },],
-    "selected": [{ type: Input },],
+    _avatar: [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] }],
+    _lines: [{ type: ContentChildren, args: [MatLine,] }],
+    _text: [{ type: ViewChild, args: ['text',] }],
+    checkboxPosition: [{ type: Input }],
+    value: [{ type: Input }],
+    disabled: [{ type: Input }],
+    selected: [{ type: Input }]
 };
 /**
  * Material Design list component where each item is a selectable option. Behaves as a listbox.
@@ -498,6 +500,8 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         this._keyManager = new FocusKeyManager(this.options)
             .withWrap()
             .withTypeAhead()
+            // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
+            // screenreader users, that allows reading the different options of the list.
             .skipPredicate(() => false);
         if (this._tempValues) {
             this._setOptionsFromValues(this._tempValues);
@@ -506,12 +510,12 @@ class MatSelectionList extends _MatSelectionListMixinBase {
         // Sync external changes to the model back to the options.
         this._modelChanges = /** @type {?} */ ((this.selectedOptions.onChange)).subscribe(event => {
             if (event.added) {
-                for (let /** @type {?} */ item of event.added) {
+                for (let item of event.added) {
                     item.selected = true;
                 }
             }
             if (event.removed) {
-                for (let /** @type {?} */ item of event.removed) {
+                for (let item of event.removed) {
                     item.selected = false;
                 }
             }
@@ -559,7 +563,8 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      */
     _removeOptionFromList(option) {
         if (option._hasFocus) {
-            const /** @type {?} */ optionIndex = this._getOptionIndex(option);
+            /** @type {?} */
+            const optionIndex = this._getOptionIndex(option);
             // Check whether the option is the last item
             if (optionIndex > 0) {
                 this._keyManager.setPreviousItemActive();
@@ -575,9 +580,12 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      * @return {?}
      */
     _keydown(event) {
-        const /** @type {?} */ keyCode = event.keyCode;
-        const /** @type {?} */ manager = this._keyManager;
-        const /** @type {?} */ previousFocusIndex = manager.activeItemIndex;
+        /** @type {?} */
+        const keyCode = event.keyCode;
+        /** @type {?} */
+        const manager = this._keyManager;
+        /** @type {?} */
+        const previousFocusIndex = manager.activeItemIndex;
         switch (keyCode) {
             case SPACE:
             case ENTER:
@@ -684,9 +692,11 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      * @return {?}
      */
     _toggleFocusedOption() {
-        let /** @type {?} */ focusedIndex = this._keyManager.activeItemIndex;
+        /** @type {?} */
+        let focusedIndex = this._keyManager.activeItemIndex;
         if (focusedIndex != null && this._isValidIndex(focusedIndex)) {
-            let /** @type {?} */ focusedOption = this.options.toArray()[focusedIndex];
+            /** @type {?} */
+            let focusedOption = this.options.toArray()[focusedIndex];
             if (focusedOption && !focusedOption.disabled) {
                 focusedOption.toggle();
                 // Emit a change event because the focused option changed its state through user
@@ -702,9 +712,8 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      * @return {?}
      */
     _setAllOptionsSelected(isSelected) {
-        // Keep track of whether anything changed, because we only want to
-        // emit the changed event when something actually changed.
-        let /** @type {?} */ hasChanged = false;
+        /** @type {?} */
+        let hasChanged = false;
         this.options.forEach(option => {
             if (option._setSelected(isSelected)) {
                 hasChanged = true;
@@ -753,15 +762,15 @@ MatSelectionList.decorators = [
 ];
 /** @nocollapse */
 MatSelectionList.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
+    { type: ElementRef },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
 ];
 MatSelectionList.propDecorators = {
-    "options": [{ type: ContentChildren, args: [MatListOption,] },],
-    "selectionChange": [{ type: Output },],
-    "tabIndex": [{ type: Input },],
-    "compareWith": [{ type: Input },],
-    "disabled": [{ type: Input },],
+    options: [{ type: ContentChildren, args: [MatListOption,] }],
+    selectionChange: [{ type: Output }],
+    tabIndex: [{ type: Input }],
+    compareWith: [{ type: Input }],
+    disabled: [{ type: Input }]
 };
 
 /**

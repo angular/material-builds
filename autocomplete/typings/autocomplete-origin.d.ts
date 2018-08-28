@@ -14,6 +14,6 @@ export declare class MatAutocompleteOrigin {
     /** Reference to the element on which the directive is applied. */
     elementRef: ElementRef<HTMLElement>;
     constructor(
-        /** Reference to the element on which the directive is applied. */
-        elementRef: ElementRef<HTMLElement>);
+    /** Reference to the element on which the directive is applied. */
+    elementRef: ElementRef<HTMLElement>);
 }

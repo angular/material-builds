@@ -50,8 +50,10 @@ MatChipBase = /** @class */ (function () {
     }
     return MatChipBase;
 }());
-var /** @type {?} */ _MatChipMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary');
-var /** @type {?} */ CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
+/** @type {?} */
+var _MatChipMixinBase = mixinColor(mixinDisableRipple(mixinDisabled(MatChipBase)), 'primary');
+/** @type {?} */
+var CHIP_ATTRIBUTE_NAMES = ['mat-basic-chip'];
 /**
  * Dummy directive to add CSS class to chip avatar.
  * \@docs-private
@@ -163,6 +165,7 @@ var MatChip = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChip.prototype, "selected", {
+        /** Whether the chip is selected. */
         get: /**
          * Whether the chip is selected.
          * @return {?}
@@ -184,6 +187,7 @@ var MatChip = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChip.prototype, "value", {
+        /** The value of the chip. Defaults to the content inside `<mat-chip>` tags. */
         get: /**
          * The value of the chip. Defaults to the content inside `<mat-chip>` tags.
          * @return {?}
@@ -202,6 +206,12 @@ var MatChip = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChip.prototype, "selectable", {
+        /**
+         * Whether or not the chip is selectable. When a chip is not selectable,
+         * changes to it's selected state are always ignored. By default a chip is
+         * selectable, and it becomes non-selectable if it's parent chip list is
+         * not selectable.
+         */
         get: /**
          * Whether or not the chip is selectable. When a chip is not selectable,
          * changes to it's selected state are always ignored. By default a chip is
@@ -221,6 +231,9 @@ var MatChip = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChip.prototype, "removable", {
+        /**
+         * Determines whether or not the chip displays the remove styling and emits (removed) events.
+         */
         get: /**
          * Determines whether or not the chip displays the remove styling and emits (removed) events.
          * @return {?}
@@ -485,22 +498,22 @@ var MatChip = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatChip.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: NgZone, },
-        { type: Platform, },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
+        { type: ElementRef },
+        { type: NgZone },
+        { type: Platform },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] }
     ]; };
     MatChip.propDecorators = {
-        "avatar": [{ type: ContentChild, args: [MatChipAvatar,] },],
-        "trailingIcon": [{ type: ContentChild, args: [MatChipTrailingIcon,] },],
-        "removeIcon": [{ type: ContentChild, args: [forwardRef(function () { return MatChipRemove; }),] },],
-        "selected": [{ type: Input },],
-        "value": [{ type: Input },],
-        "selectable": [{ type: Input },],
-        "removable": [{ type: Input },],
-        "selectionChange": [{ type: Output },],
-        "destroyed": [{ type: Output },],
-        "removed": [{ type: Output },],
+        avatar: [{ type: ContentChild, args: [MatChipAvatar,] }],
+        trailingIcon: [{ type: ContentChild, args: [MatChipTrailingIcon,] }],
+        removeIcon: [{ type: ContentChild, args: [forwardRef(function () { return MatChipRemove; }),] }],
+        selected: [{ type: Input }],
+        value: [{ type: Input }],
+        selectable: [{ type: Input }],
+        removable: [{ type: Input }],
+        selectionChange: [{ type: Output }],
+        destroyed: [{ type: Output }],
+        removed: [{ type: Output }]
     };
     return MatChip;
 }(_MatChipMixinBase));
@@ -554,7 +567,7 @@ var MatChipRemove = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatChipRemove.ctorParameters = function () { return [
-        { type: MatChip, },
+        { type: MatChip }
     ]; };
     return MatChipRemove;
 }());
@@ -563,10 +576,10 @@ var MatChipRemove = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token to be used to override the default options for the chips module.
- */
-var /** @type {?} */ MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options');
+  @type {?} */
+var MAT_CHIPS_DEFAULT_OPTIONS = new InjectionToken('mat-chips-default-options');
 
 /**
  * @fileoverview added by tsickle
@@ -587,9 +600,10 @@ MatChipListBase = /** @class */ (function () {
     }
     return MatChipListBase;
 }());
-var /** @type {?} */ _MatChipListMixinBase = mixinErrorState(MatChipListBase);
-// Increasing integer for generating unique ids for chip-list components.
-var /** @type {?} */ nextUniqueId = 0;
+/** @type {?} */
+var _MatChipListMixinBase = mixinErrorState(MatChipListBase);
+/** @type {?} */
+var nextUniqueId = 0;
 /**
  * Change event object that is emitted when the chip list value has changed.
  */
@@ -698,6 +712,7 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "multiple", {
+        /** Whether the user should be allowed to select multiple chips. */
         get: /**
          * Whether the user should be allowed to select multiple chips.
          * @return {?}
@@ -714,6 +729,11 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "compareWith", {
+        /**
+         * A function to compare the option values with the selected values. The first argument
+         * is a value from an option. The second is a value from the selection. A boolean
+         * should be returned.
+         */
         get: /**
          * A function to compare the option values with the selected values. The first argument
          * is a value from an option. The second is a value from the selection. A boolean
@@ -736,6 +756,10 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "value", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -770,6 +794,10 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "required", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -788,6 +816,10 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "placeholder", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -850,6 +882,10 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "disabled", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -871,6 +907,10 @@ var MatChipList = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatChipList.prototype, "selectable", {
+        /**
+         * Whether or not this chip list is selectable. When a chip list is not selectable,
+         * the selected states for all the chips inside the chip list are always ignored.
+         */
         get: /**
          * Whether or not this chip list is selectable. When a chip list is not selectable,
          * the selected states for all the chips inside the chip list are always ignored.
@@ -1178,7 +1218,8 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ target = /** @type {?} */ (event.target);
+        /** @type {?} */
+        var target = /** @type {?} */ (event.target);
         // If they are on an empty input and hit backspace, focus the last chip
         if (event.keyCode === BACKSPACE && this._isInputEmpty(target)) {
             this._keyManager.setLastItemActive();
@@ -1230,7 +1271,8 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function () {
         if (this._lastDestroyedChipIndex != null && this.chips.length) {
-            var /** @type {?} */ newChipIndex = Math.min(this._lastDestroyedChipIndex, this.chips.length - 1);
+            /** @type {?} */
+            var newChipIndex = Math.min(this._lastDestroyedChipIndex, this.chips.length - 1);
             this._keyManager.setActiveItem(newChipIndex);
         }
         this._lastDestroyedChipIndex = null;
@@ -1260,7 +1302,8 @@ var MatChipList = /** @class */ (function (_super) {
      */
     function (element) {
         if (element && element.nodeName.toLowerCase() === 'input') {
-            var /** @type {?} */ input = /** @type {?} */ (element);
+            /** @type {?} */
+            var input = /** @type {?} */ (element);
             return !input.value;
         }
         return false;
@@ -1285,7 +1328,8 @@ var MatChipList = /** @class */ (function (_super) {
             this._sortValues();
         }
         else {
-            var /** @type {?} */ correspondingChip = this._selectValue(value, isUserInput);
+            /** @type {?} */
+            var correspondingChip = this._selectValue(value, isUserInput);
             // Shift focus to the active item. Note that we shouldn't do this in multiple
             // mode, because we don't know what chip the user interacted with last.
             if (correspondingChip) {
@@ -1310,7 +1354,8 @@ var MatChipList = /** @class */ (function (_super) {
     function (value, isUserInput) {
         var _this = this;
         if (isUserInput === void 0) { isUserInput = true; }
-        var /** @type {?} */ correspondingChip = this.chips.find(function (chip) {
+        /** @type {?} */
+        var correspondingChip = this.chips.find(function (chip) {
             return chip.value != null && _this._compareWith(chip.value, value);
         });
         if (correspondingChip) {
@@ -1388,7 +1433,8 @@ var MatChipList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (fallbackValue) {
-        var /** @type {?} */ valueToEmit = null;
+        /** @type {?} */
+        var valueToEmit = null;
         if (Array.isArray(this.selected)) {
             valueToEmit = this.selected.map(function (chip) { return chip.value; });
         }
@@ -1519,7 +1565,8 @@ var MatChipList = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._chipFocusSubscription = this.chipFocusChanges.subscribe(function (event) {
-            var /** @type {?} */ chipIndex = _this.chips.toArray().indexOf(event.chip);
+            /** @type {?} */
+            var chipIndex = _this.chips.toArray().indexOf(event.chip);
             if (_this._isValidIndex(chipIndex)) {
                 _this._keyManager.updateActiveItemIndex(chipIndex);
             }
@@ -1539,8 +1586,10 @@ var MatChipList = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this._chipRemoveSubscription = this.chipRemoveChanges.subscribe(function (event) {
-            var /** @type {?} */ chip = event.chip;
-            var /** @type {?} */ chipIndex = _this.chips.toArray().indexOf(event.chip);
+            /** @type {?} */
+            var chip = event.chip;
+            /** @type {?} */
+            var chipIndex = _this.chips.toArray().indexOf(event.chip);
             // In case the chip that will be removed is currently focused, we temporarily store
             // the index in order to be able to determine an appropriate sibling chip that will
             // receive focus.
@@ -1579,28 +1628,28 @@ var MatChipList = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatChipList.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: ChangeDetectorRef, },
-        { type: Directionality, decorators: [{ type: Optional },] },
-        { type: NgForm, decorators: [{ type: Optional },] },
-        { type: FormGroupDirective, decorators: [{ type: Optional },] },
-        { type: ErrorStateMatcher, },
-        { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
+        { type: ElementRef },
+        { type: ChangeDetectorRef },
+        { type: Directionality, decorators: [{ type: Optional }] },
+        { type: NgForm, decorators: [{ type: Optional }] },
+        { type: FormGroupDirective, decorators: [{ type: Optional }] },
+        { type: ErrorStateMatcher },
+        { type: NgControl, decorators: [{ type: Optional }, { type: Self }] }
     ]; };
     MatChipList.propDecorators = {
-        "errorStateMatcher": [{ type: Input },],
-        "multiple": [{ type: Input },],
-        "compareWith": [{ type: Input },],
-        "value": [{ type: Input },],
-        "required": [{ type: Input },],
-        "placeholder": [{ type: Input },],
-        "disabled": [{ type: Input },],
-        "ariaOrientation": [{ type: Input, args: ['aria-orientation',] },],
-        "selectable": [{ type: Input },],
-        "tabIndex": [{ type: Input },],
-        "change": [{ type: Output },],
-        "valueChange": [{ type: Output },],
-        "chips": [{ type: ContentChildren, args: [MatChip,] },],
+        errorStateMatcher: [{ type: Input }],
+        multiple: [{ type: Input }],
+        compareWith: [{ type: Input }],
+        value: [{ type: Input }],
+        required: [{ type: Input }],
+        placeholder: [{ type: Input }],
+        disabled: [{ type: Input }],
+        ariaOrientation: [{ type: Input, args: ['aria-orientation',] }],
+        selectable: [{ type: Input }],
+        tabIndex: [{ type: Input }],
+        change: [{ type: Output }],
+        valueChange: [{ type: Output }],
+        chips: [{ type: ContentChildren, args: [MatChip,] }]
     };
     return MatChipList;
 }(_MatChipListMixinBase));
@@ -1609,8 +1658,8 @@ var MatChipList = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Increasing integer for generating unique ids.
-var /** @type {?} */ nextUniqueId$1 = 0;
+/** @type {?} */
+var nextUniqueId$1 = 0;
 /**
  * Directive that adds chip-specific behaviors to an input element inside `<mat-form-field>`.
  * May be placed inside or outside of an `<mat-chip-list>`.
@@ -1646,6 +1695,7 @@ var MatChipInput = /** @class */ (function () {
         this._inputElement = /** @type {?} */ (this._elementRef.nativeElement);
     }
     Object.defineProperty(MatChipInput.prototype, "chipList", {
+        /** Register input for chip list */
         set: /**
          * Register input for chip list
          * @param {?} value
@@ -1661,6 +1711,9 @@ var MatChipInput = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatChipInput.prototype, "addOnBlur", {
+        /**
+         * Whether or not the chipEnd event will be emitted when the input is blurred.
+         */
         get: /**
          * Whether or not the chipEnd event will be emitted when the input is blurred.
          * @return {?}
@@ -1675,6 +1728,7 @@ var MatChipInput = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatChipInput.prototype, "disabled", {
+        /** Whether the input is disabled. */
         get: /**
          * Whether the input is disabled.
          * @return {?}
@@ -1806,7 +1860,8 @@ var MatChipInput = /** @class */ (function () {
      * @return {?}
      */
     function (keyCode) {
-        var /** @type {?} */ separators = this.separatorKeyCodes;
+        /** @type {?} */
+        var separators = this.separatorKeyCodes;
         return Array.isArray(separators) ? separators.indexOf(keyCode) > -1 : separators.has(keyCode);
     };
     MatChipInput.decorators = [
@@ -1827,17 +1882,17 @@ var MatChipInput = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatChipInput.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: undefined, decorators: [{ type: Inject, args: [MAT_CHIPS_DEFAULT_OPTIONS,] },] },
+        { type: ElementRef },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_CHIPS_DEFAULT_OPTIONS,] }] }
     ]; };
     MatChipInput.propDecorators = {
-        "chipList": [{ type: Input, args: ['matChipInputFor',] },],
-        "addOnBlur": [{ type: Input, args: ['matChipInputAddOnBlur',] },],
-        "separatorKeyCodes": [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] },],
-        "chipEnd": [{ type: Output, args: ['matChipInputTokenEnd',] },],
-        "placeholder": [{ type: Input },],
-        "id": [{ type: Input },],
-        "disabled": [{ type: Input },],
+        chipList: [{ type: Input, args: ['matChipInputFor',] }],
+        addOnBlur: [{ type: Input, args: ['matChipInputAddOnBlur',] }],
+        separatorKeyCodes: [{ type: Input, args: ['matChipInputSeparatorKeyCodes',] }],
+        chipEnd: [{ type: Output, args: ['matChipInputTokenEnd',] }],
+        placeholder: [{ type: Input }],
+        id: [{ type: Input }],
+        disabled: [{ type: Input }]
     };
     return MatChipInput;
 }());
@@ -1846,7 +1901,8 @@ var MatChipInput = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ CHIP_DECLARATIONS = [
+/** @type {?} */
+var CHIP_DECLARATIONS = [
     MatChipList,
     MatChip,
     MatChipInput,

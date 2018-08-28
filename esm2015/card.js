@@ -74,9 +74,8 @@ MatCardActions.decorators = [
                 }
             },] },
 ];
-/** @nocollapse */
 MatCardActions.propDecorators = {
-    "align": [{ type: Input },],
+    align: [{ type: Input }]
 };
 /**
  * Footer of a card, needed as it's used as a selector in the API.

@@ -27,7 +27,8 @@ MatToolbarBase = /** @class */ (function () {
     }
     return MatToolbarBase;
 }());
-var /** @type {?} */ _MatToolbarMixinBase = mixinColor(MatToolbarBase);
+/** @type {?} */
+var _MatToolbarMixinBase = mixinColor(MatToolbarBase);
 var MatToolbarRow = /** @class */ (function () {
     function MatToolbarRow() {
     }
@@ -77,9 +78,8 @@ var MatToolbar = /** @class */ (function (_super) {
         if (!this._toolbarRows.length) {
             return;
         }
-        // Check if there are any other DOM nodes that can display content but aren't inside of
-        // a <mat-toolbar-row> element.
-        var /** @type {?} */ isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
+        /** @type {?} */
+        var isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
             .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
             .filter(function (node) { return node.nodeType !== (_this._document ? _this._document.COMMENT_NODE : 8); })
             .some(function (node) { return node.textContent.trim(); });
@@ -104,12 +104,12 @@ var MatToolbar = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatToolbar.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: Platform, },
-        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+        { type: ElementRef },
+        { type: Platform },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
     ]; };
     MatToolbar.propDecorators = {
-        "_toolbarRows": [{ type: ContentChildren, args: [MatToolbarRow,] },],
+        _toolbarRows: [{ type: ContentChildren, args: [MatToolbarRow,] }]
     };
     return MatToolbar;
 }(_MatToolbarMixinBase));
@@ -151,5 +151,5 @@ var MatToolbarModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatToolbarModule, MatToolbarBase, _MatToolbarMixinBase, MatToolbarRow, MatToolbar, throwToolbarMixedModesError };
+export { MatToolbarModule, throwToolbarMixedModesError, MatToolbarBase, _MatToolbarMixinBase, MatToolbarRow, MatToolbar };
 //# sourceMappingURL=toolbar.es5.js.map

@@ -43,8 +43,8 @@ export declare class MatDialogContainer extends BasePortalOutlet {
     /** ID for the container DOM element. */
     _id: string;
     constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _changeDetectorRef: ChangeDetectorRef, _document: any, 
-        /** The dialog configuration. */
-        _config: MatDialogConfig);
+    /** The dialog configuration. */
+    _config: MatDialogConfig);
     /**
      * Attach a ComponentPortal as content to this dialog container.
      * @param portal Portal to be attached as the dialog content.
@@ -56,11 +56,11 @@ export declare class MatDialogContainer extends BasePortalOutlet {
      */
     attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C>;
     /** Moves the focus inside the focus trap. */
-    private _trapFocus();
+    private _trapFocus;
     /** Restores focus to the element that was focused before the dialog opened. */
-    private _restoreFocus();
+    private _restoreFocus;
     /** Saves a reference to the element that was focused before the dialog was opened. */
-    private _savePreviouslyFocusedElement();
+    private _savePreviouslyFocusedElement;
     /** Callback, invoked whenever an animation on the host completes. */
     _onAnimationDone(event: AnimationEvent): void;
     /** Callback, invoked when an animation on the host starts. */

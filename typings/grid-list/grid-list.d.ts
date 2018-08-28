@@ -40,13 +40,13 @@ export declare class MatGridList implements OnInit, AfterContentChecked {
      */
     ngAfterContentChecked(): void;
     /** Throw a friendly error if cols property is missing */
-    private _checkCols();
+    private _checkCols;
     /** Default to equal width:height if rowHeight property is missing */
-    private _checkRowHeight();
+    private _checkRowHeight;
     /** Creates correct Tile Styler subtype based on rowHeight passed in by user */
-    private _setTileStyler(rowHeight);
+    private _setTileStyler;
     /** Computes and applies the size and position for all children grid tiles. */
-    private _layoutTiles();
+    private _layoutTiles;
     /** Sets style on the main grid-list element, given the style name and value. */
     _setListStyle(style: [string, string | null] | null): void;
 }

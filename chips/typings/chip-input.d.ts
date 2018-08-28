@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { ElementRef, EventEmitter, OnChanges } from '@angular/core';
 import { MatChipList } from './chip-list';
 import { MatChipsDefaultOptions } from './chip-default-options';
@@ -57,5 +64,5 @@ export declare class MatChipInput implements OnChanges {
     /** Focuses the input. */
     focus(): void;
     /** Checks whether a keycode is one of the configured separators. */
-    private _isSeparatorKey(keyCode);
+    private _isSeparatorKey;
 }

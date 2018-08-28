@@ -44,8 +44,8 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): Workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkTextareaAutosize = textField.CdkTextareaAutosize;
+/** @type {?} */
+var _CdkTextareaAutosize = textField.CdkTextareaAutosize;
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
@@ -122,12 +122,11 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
                     },
                 },] },
     ];
-    /** @nocollapse */
     MatTextareaAutosize.propDecorators = {
-        "matAutosizeMinRows": [{ type: core.Input },],
-        "matAutosizeMaxRows": [{ type: core.Input },],
-        "matAutosize": [{ type: core.Input, args: ['mat-autosize',] },],
-        "matTextareaAutosize": [{ type: core.Input },],
+        matAutosizeMinRows: [{ type: core.Input }],
+        matAutosizeMaxRows: [{ type: core.Input }],
+        matAutosize: [{ type: core.Input, args: ['mat-autosize',] }],
+        matTextareaAutosize: [{ type: core.Input }]
     };
     return MatTextareaAutosize;
 }(_CdkTextareaAutosize));
@@ -150,20 +149,20 @@ function getMatInputUnsupportedTypeError(type) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
  * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
  * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
  * value to them.
- */
-var /** @type {?} */ MAT_INPUT_VALUE_ACCESSOR = new core.InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
+  @type {?} */
+var MAT_INPUT_VALUE_ACCESSOR = new core.InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
-var /** @type {?} */ MAT_INPUT_INVALID_TYPES = [
+/** @type {?} */
+var MAT_INPUT_INVALID_TYPES = [
     'button',
     'checkbox',
     'file',
@@ -174,7 +173,8 @@ var /** @type {?} */ MAT_INPUT_INVALID_TYPES = [
     'reset',
     'submit'
 ];
-var /** @type {?} */ nextUniqueId = 0;
+/** @type {?} */
+var nextUniqueId = 0;
 /**
  * \@docs-private
  */
@@ -190,7 +190,8 @@ MatInputBase = /** @class */ (function () {
     }
     return MatInputBase;
 }());
-var /** @type {?} */ _MatInputMixinBase = core$1.mixinErrorState(MatInputBase);
+/** @type {?} */
+var _MatInputMixinBase = core$1.mixinErrorState(MatInputBase);
 /**
  * Directive that allows a native input to work inside a `MatFormField`.
  */
@@ -255,7 +256,8 @@ var MatInput = /** @class */ (function (_super) {
         if (_platform.IOS) {
             ngZone.runOutsideAngular(function () {
                 _elementRef.nativeElement.addEventListener('keyup', function (event) {
-                    var /** @type {?} */ el = /** @type {?} */ (event.target);
+                    /** @type {?} */
+                    var el = /** @type {?} */ (event.target);
                     if (!el.value && !el.selectionStart && !el.selectionEnd) {
                         // Note: Just setting `0, 0` doesn't fix the issue. Setting
                         // `1, 1` fixes it for the first time that you type text and
@@ -271,6 +273,10 @@ var MatInput = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatInput.prototype, "disabled", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -299,6 +305,10 @@ var MatInput = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatInput.prototype, "id", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -314,6 +324,10 @@ var MatInput = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatInput.prototype, "required", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -329,6 +343,7 @@ var MatInput = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatInput.prototype, "type", {
+        /** Input type of the element. */
         get: /**
          * Input type of the element.
          * @return {?}
@@ -352,6 +367,10 @@ var MatInput = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatInput.prototype, "value", {
+        /**
+         * Implemented as part of MatFormFieldControl.
+         * @docs-private
+         */
         get: /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
@@ -372,6 +391,7 @@ var MatInput = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatInput.prototype, "readonly", {
+        /** Whether the element is readonly. */
         get: /**
          * Whether the element is readonly.
          * @return {?}
@@ -491,7 +511,8 @@ var MatInput = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ newValue = this.value;
+        /** @type {?} */
+        var newValue = this.value;
         if (this._previousNativeValue !== newValue) {
             this._previousNativeValue = newValue;
             this.stateChanges.next();
@@ -533,8 +554,8 @@ var MatInput = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        // The `validity` property won't be present on platform-server.
-        var /** @type {?} */ validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
+        /** @type {?} */
+        var validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
         return validity && validity.badInput;
     };
     /** Determines if the component host is a textarea. */
@@ -641,25 +662,25 @@ var MatInput = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatInput.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: platform.Platform, },
-        { type: forms.NgControl, decorators: [{ type: core.Optional }, { type: core.Self },] },
-        { type: forms.NgForm, decorators: [{ type: core.Optional },] },
-        { type: forms.FormGroupDirective, decorators: [{ type: core.Optional },] },
-        { type: core$1.ErrorStateMatcher, },
-        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Self }, { type: core.Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] },] },
-        { type: textField.AutofillMonitor, },
-        { type: core.NgZone, },
+        { type: core.ElementRef },
+        { type: platform.Platform },
+        { type: forms.NgControl, decorators: [{ type: core.Optional }, { type: core.Self }] },
+        { type: forms.NgForm, decorators: [{ type: core.Optional }] },
+        { type: forms.FormGroupDirective, decorators: [{ type: core.Optional }] },
+        { type: core$1.ErrorStateMatcher },
+        { type: undefined, decorators: [{ type: core.Optional }, { type: core.Self }, { type: core.Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] }] },
+        { type: textField.AutofillMonitor },
+        { type: core.NgZone }
     ]; };
     MatInput.propDecorators = {
-        "disabled": [{ type: core.Input },],
-        "id": [{ type: core.Input },],
-        "placeholder": [{ type: core.Input },],
-        "required": [{ type: core.Input },],
-        "type": [{ type: core.Input },],
-        "errorStateMatcher": [{ type: core.Input },],
-        "value": [{ type: core.Input },],
-        "readonly": [{ type: core.Input },],
+        disabled: [{ type: core.Input }],
+        id: [{ type: core.Input }],
+        placeholder: [{ type: core.Input }],
+        required: [{ type: core.Input }],
+        type: [{ type: core.Input }],
+        errorStateMatcher: [{ type: core.Input }],
+        value: [{ type: core.Input }],
+        readonly: [{ type: core.Input }]
     };
     return MatInput;
 }(_MatInputMixinBase));

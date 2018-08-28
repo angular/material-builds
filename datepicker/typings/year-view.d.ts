@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { AfterContentInit, ChangeDetectorRef, EventEmitter } from '@angular/core';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
@@ -10,7 +17,7 @@ export declare class MatYearView<D> implements AfterContentInit {
     private _changeDetectorRef;
     private _dateFormats;
     _dateAdapter: DateAdapter<D>;
-    private _dir;
+    private _dir?;
     /** The date to display in this year view (everything other than the year is ignored). */
     activeDate: D;
     private _activeDate;
@@ -58,26 +65,26 @@ export declare class MatYearView<D> implements AfterContentInit {
      * Gets the month in this year that the given Date falls on.
      * Returns null if the given Date is in another year.
      */
-    private _getMonthInCurrentYear(date);
+    private _getMonthInCurrentYear;
     /** Creates an MatCalendarCell for the given month. */
-    private _createCellForMonth(month, monthName);
+    private _createCellForMonth;
     /** Whether the given month is enabled. */
-    private _shouldEnableMonth(month);
+    private _shouldEnableMonth;
     /**
      * Tests whether the combination month/year is after this.maxDate, considering
      * just the month and year of this.maxDate
      */
-    private _isYearAndMonthAfterMaxDate(year, month);
+    private _isYearAndMonthAfterMaxDate;
     /**
      * Tests whether the combination month/year is before this.minDate, considering
      * just the month and year of this.minDate
      */
-    private _isYearAndMonthBeforeMinDate(year, month);
+    private _isYearAndMonthBeforeMinDate;
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.
      */
-    private _getValidDateOrNull(obj);
+    private _getValidDateOrNull;
     /** Determines whether the user has the RTL layout direction. */
-    private _isRtl();
+    private _isRtl;
 }

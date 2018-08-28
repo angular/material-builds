@@ -12,7 +12,7 @@ export declare class MatProgressBarBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatProgressBarMixinBase: (new (...args: any[]) => CanColor) & typeof MatProgressBarBase;
+export declare const _MatProgressBarMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatProgressBarBase;
 /**
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.
@@ -33,13 +33,13 @@ export declare function MAT_PROGRESS_BAR_LOCATION_FACTORY(): MatProgressBarLocat
  */
 export declare class MatProgressBar extends _MatProgressBarMixinBase implements CanColor {
     _elementRef: ElementRef;
-    _animationMode: string | undefined;
+    _animationMode?: string | undefined;
     constructor(_elementRef: ElementRef, _animationMode?: string | undefined, 
-        /**
-         * @deprecated `location` parameter to be made required.
-         * @breaking-change 8.0.0
-         */
-        location?: MatProgressBarLocation);
+    /**
+     * @deprecated `location` parameter to be made required.
+     * @breaking-change 8.0.0
+     */
+    location?: MatProgressBarLocation);
     /** Value of the progress bar. Defaults to zero. Mirrored to aria-valuenow. */
     value: number;
     private _value;

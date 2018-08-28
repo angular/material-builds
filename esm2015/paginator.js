@@ -57,9 +57,10 @@ class MatPaginatorIntl {
                 return `0 of ${length}`;
             }
             length = Math.max(length, 0);
-            const /** @type {?} */ startIndex = page * pageSize;
-            // If the start index exceeds the list length, do not try and fix the end index to the end.
-            const /** @type {?} */ endIndex = startIndex < length ?
+            /** @type {?} */
+            const startIndex = page * pageSize;
+            /** @type {?} */
+            const endIndex = startIndex < length ?
                 Math.min(startIndex + pageSize, length) :
                 startIndex + pageSize;
             return `${startIndex + 1} - ${endIndex} of ${length}`;
@@ -78,10 +79,10 @@ MatPaginatorIntl.decorators = [
 function MAT_PAGINATOR_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatPaginatorIntl();
 }
-/**
+/** *
  * \@docs-private
- */
-const /** @type {?} */ MAT_PAGINATOR_INTL_PROVIDER = {
+  @type {?} */
+const MAT_PAGINATOR_INTL_PROVIDER = {
     // If there is already an MatPaginatorIntl available, use that. Otherwise, provide a new one.
     provide: MatPaginatorIntl,
     deps: [[new Optional(), new SkipSelf(), MatPaginatorIntl]],
@@ -92,10 +93,10 @@ const /** @type {?} */ MAT_PAGINATOR_INTL_PROVIDER = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * The default page size if there is no page size and there are no provided page size options.
- */
-const /** @type {?} */ DEFAULT_PAGE_SIZE = 50;
+  @type {?} */
+const DEFAULT_PAGE_SIZE = 50;
 /**
  * Change event object that is emitted when the user selects a
  * different page size or navigates to another page.
@@ -107,7 +108,8 @@ class PageEvent {
  */
 class MatPaginatorBase {
 }
-const /** @type {?} */ _MatPaginatorBase = mixinInitialized(MatPaginatorBase);
+/** @type {?} */
+const _MatPaginatorBase = mixinInitialized(MatPaginatorBase);
 /**
  * Component to provide navigation between paged information. Displays the size of the current
  * page, user-selectable options to change that size, what items are being shown, and
@@ -231,7 +233,8 @@ class MatPaginator extends _MatPaginatorBase {
         if (!this.hasNextPage()) {
             return;
         }
-        const /** @type {?} */ previousPageIndex = this.pageIndex;
+        /** @type {?} */
+        const previousPageIndex = this.pageIndex;
         this.pageIndex++;
         this._emitPageEvent(previousPageIndex);
     }
@@ -243,7 +246,8 @@ class MatPaginator extends _MatPaginatorBase {
         if (!this.hasPreviousPage()) {
             return;
         }
-        const /** @type {?} */ previousPageIndex = this.pageIndex;
+        /** @type {?} */
+        const previousPageIndex = this.pageIndex;
         this.pageIndex--;
         this._emitPageEvent(previousPageIndex);
     }
@@ -256,7 +260,8 @@ class MatPaginator extends _MatPaginatorBase {
         if (!this.hasPreviousPage()) {
             return;
         }
-        const /** @type {?} */ previousPageIndex = this.pageIndex;
+        /** @type {?} */
+        const previousPageIndex = this.pageIndex;
         this.pageIndex = 0;
         this._emitPageEvent(previousPageIndex);
     }
@@ -269,7 +274,8 @@ class MatPaginator extends _MatPaginatorBase {
         if (!this.hasNextPage()) {
             return;
         }
-        const /** @type {?} */ previousPageIndex = this.pageIndex;
+        /** @type {?} */
+        const previousPageIndex = this.pageIndex;
         this.pageIndex = this.getNumberOfPages();
         this._emitPageEvent(previousPageIndex);
     }
@@ -285,7 +291,8 @@ class MatPaginator extends _MatPaginatorBase {
      * @return {?}
      */
     hasNextPage() {
-        const /** @type {?} */ numberOfPages = this.getNumberOfPages();
+        /** @type {?} */
+        const numberOfPages = this.getNumberOfPages();
         return this.pageIndex < numberOfPages && this.pageSize != 0;
     }
     /**
@@ -306,10 +313,10 @@ class MatPaginator extends _MatPaginatorBase {
      * @return {?}
      */
     _changePageSize(pageSize) {
-        // Current page needs to be updated to reflect the new page size. Navigate to the page
-        // containing the previous page's first item.
-        const /** @type {?} */ startIndex = this.pageIndex * this.pageSize;
-        const /** @type {?} */ previousPageIndex = this.pageIndex;
+        /** @type {?} */
+        const startIndex = this.pageIndex * this.pageSize;
+        /** @type {?} */
+        const previousPageIndex = this.pageIndex;
         this.pageIndex = Math.floor(startIndex / pageSize) || 0;
         this.pageSize = pageSize;
         this._emitPageEvent(previousPageIndex);
@@ -365,18 +372,18 @@ MatPaginator.decorators = [
 ];
 /** @nocollapse */
 MatPaginator.ctorParameters = () => [
-    { type: MatPaginatorIntl, },
-    { type: ChangeDetectorRef, },
+    { type: MatPaginatorIntl },
+    { type: ChangeDetectorRef }
 ];
 MatPaginator.propDecorators = {
-    "color": [{ type: Input },],
-    "pageIndex": [{ type: Input },],
-    "length": [{ type: Input },],
-    "pageSize": [{ type: Input },],
-    "pageSizeOptions": [{ type: Input },],
-    "hidePageSize": [{ type: Input },],
-    "showFirstLastButtons": [{ type: Input },],
-    "page": [{ type: Output },],
+    color: [{ type: Input }],
+    pageIndex: [{ type: Input }],
+    length: [{ type: Input }],
+    pageSize: [{ type: Input }],
+    pageSizeOptions: [{ type: Input }],
+    hidePageSize: [{ type: Input }],
+    showFirstLastButtons: [{ type: Input }],
+    page: [{ type: Output }]
 };
 
 /**
@@ -409,5 +416,5 @@ MatPaginatorModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatPaginatorModule, PageEvent, MatPaginatorBase, _MatPaginatorBase, MatPaginator, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MAT_PAGINATOR_INTL_PROVIDER };
+export { MatPaginatorModule, PageEvent, MatPaginatorBase, _MatPaginatorBase, MatPaginator, MAT_PAGINATOR_INTL_PROVIDER_FACTORY, MatPaginatorIntl, MAT_PAGINATOR_INTL_PROVIDER };
 //# sourceMappingURL=paginator.js.map

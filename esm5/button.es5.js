@@ -17,15 +17,15 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
- */
-var /** @type {?} */ DEFAULT_ROUND_BUTTON_COLOR = 'accent';
-/**
+  @type {?} */
+var DEFAULT_ROUND_BUTTON_COLOR = 'accent';
+/** *
  * List of classes to add to MatButton instances based on host attributes to
  * style as different variants.
- */
-var /** @type {?} */ BUTTON_HOST_ATTRIBUTES = [
+  @type {?} */
+var BUTTON_HOST_ATTRIBUTES = [
     'mat-button',
     'mat-flat-button',
     'mat-icon-button',
@@ -46,7 +46,8 @@ MatButtonBase = /** @class */ (function () {
     }
     return MatButtonBase;
 }());
-var /** @type {?} */ _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonBase)));
+/** @type {?} */
+var _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonBase)));
 /**
  * Material design button.
  */
@@ -155,13 +156,13 @@ var MatButton = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatButton.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: Platform, },
-        { type: FocusMonitor, },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+        { type: ElementRef },
+        { type: Platform },
+        { type: FocusMonitor },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatButton.propDecorators = {
-        "ripple": [{ type: ViewChild, args: [MatRipple,] },],
+        ripple: [{ type: ViewChild, args: [MatRipple,] }]
     };
     return MatButton;
 }(_MatButtonMixinBase));
@@ -212,13 +213,13 @@ var MatAnchor = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatAnchor.ctorParameters = function () { return [
-        { type: Platform, },
-        { type: FocusMonitor, },
-        { type: ElementRef, },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+        { type: Platform },
+        { type: FocusMonitor },
+        { type: ElementRef },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatAnchor.propDecorators = {
-        "tabIndex": [{ type: Input },],
+        tabIndex: [{ type: Input }]
     };
     return MatAnchor;
 }(MatButton));

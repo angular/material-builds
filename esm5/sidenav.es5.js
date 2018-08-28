@@ -24,10 +24,10 @@ import { MatCommonModule } from '@angular/material/core';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material drawers.
- */
-var /** @type {?} */ matDrawerAnimations = {
+  @type {?} */
+var matDrawerAnimations = {
     /** Animation that slides a drawer in and out. */
     transformDrawer: trigger('transform', [
         // We remove the `transform` here completely, rather than setting it to zero, because:
@@ -61,10 +61,10 @@ var /** @type {?} */ matDrawerAnimations = {
 function throwMatDuplicatedDrawerError(position) {
     throw Error("A drawer was already declared for 'position=\"" + position + "\"'");
 }
-/**
+/** *
  * Configures whether drawers should use auto sizing by default.
- */
-var /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
+  @type {?} */
+var MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
     providedIn: 'root',
     factory: MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
 });
@@ -109,11 +109,11 @@ var MatDrawerContent = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatDrawerContent.ctorParameters = function () { return [
-        { type: ChangeDetectorRef, },
-        { type: MatDrawerContainer, decorators: [{ type: Inject, args: [forwardRef(function () { return MatDrawerContainer; }),] },] },
-        { type: ElementRef, },
-        { type: ScrollDispatcher, },
-        { type: NgZone, },
+        { type: ChangeDetectorRef },
+        { type: MatDrawerContainer, decorators: [{ type: Inject, args: [forwardRef(function () { return MatDrawerContainer; }),] }] },
+        { type: ElementRef },
+        { type: ScrollDispatcher },
+        { type: NgZone }
     ]; };
     return MatDrawerContent;
 }(CdkScrollable));
@@ -181,15 +181,14 @@ var MatDrawer = /** @class */ (function () {
              * and we don't have close disabled.
              */
         this._ngZone.runOutsideAngular(function () {
-            fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(filter(function (event) { return event.keyCode === ESCAPE && !_this.disableClose; })).subscribe(function (event) {
-                return _this._ngZone.run(function () {
-                    _this.close();
-                    event.stopPropagation();
-                });
-            });
+            fromEvent(_this._elementRef.nativeElement, 'keydown').pipe(filter(function (event) { return event.keyCode === ESCAPE && !_this.disableClose; })).subscribe(function (event) { return _this._ngZone.run(function () {
+                _this.close();
+                event.stopPropagation();
+            }); });
         });
     }
     Object.defineProperty(MatDrawer.prototype, "position", {
+        /** The side that the drawer is attached to. */
         get: /**
          * The side that the drawer is attached to.
          * @return {?}
@@ -211,6 +210,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "mode", {
+        /** Mode of the drawer; one of 'over', 'push' or 'side'. */
         get: /**
          * Mode of the drawer; one of 'over', 'push' or 'side'.
          * @return {?}
@@ -228,6 +228,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "disableClose", {
+        /** Whether the drawer can be closed with the escape key or by clicking on the backdrop. */
         get: /**
          * Whether the drawer can be closed with the escape key or by clicking on the backdrop.
          * @return {?}
@@ -242,6 +243,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "autoFocus", {
+        /** Whether the drawer should focus the first focusable element automatically when opened. */
         get: /**
          * Whether the drawer should focus the first focusable element automatically when opened.
          * @return {?}
@@ -256,6 +258,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "_openedStream", {
+        /** Event emitted when the drawer has been opened. */
         get: /**
          * Event emitted when the drawer has been opened.
          * @return {?}
@@ -267,6 +270,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "openedStart", {
+        /** Event emitted when the drawer has started opening. */
         get: /**
          * Event emitted when the drawer has started opening.
          * @return {?}
@@ -278,6 +282,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "_closedStream", {
+        /** Event emitted when the drawer has been closed. */
         get: /**
          * Event emitted when the drawer has been closed.
          * @return {?}
@@ -289,6 +294,7 @@ var MatDrawer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawer.prototype, "closedStart", {
+        /** Event emitted when the drawer has started closing. */
         get: /**
          * Event emitted when the drawer has started closing.
          * @return {?}
@@ -345,7 +351,8 @@ var MatDrawer = /** @class */ (function () {
         if (!this.autoFocus) {
             return;
         }
-        var /** @type {?} */ activeEl = this._doc && this._doc.activeElement;
+        /** @type {?} */
+        var activeEl = this._doc && this._doc.activeElement;
         if (activeEl && this._elementRef.nativeElement.contains(activeEl)) {
             if (this._elementFocusedBeforeDrawerWasOpened instanceof HTMLElement) {
                 this._focusMonitor.focusVia(this._elementFocusedBeforeDrawerWasOpened, this._openedVia);
@@ -394,6 +401,10 @@ var MatDrawer = /** @class */ (function () {
         }
     };
     Object.defineProperty(MatDrawer.prototype, "opened", {
+        /**
+         * Whether the drawer is opened. We overload this because we trigger an event when it
+         * starts or end.
+         */
         get: /**
          * Whether the drawer is opened. We overload this because we trigger an event when it
          * starts or end.
@@ -540,25 +551,25 @@ var MatDrawer = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatDrawer.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: FocusTrapFactory, },
-        { type: FocusMonitor, },
-        { type: Platform, },
-        { type: NgZone, },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+        { type: ElementRef },
+        { type: FocusTrapFactory },
+        { type: FocusMonitor },
+        { type: Platform },
+        { type: NgZone },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
     ]; };
     MatDrawer.propDecorators = {
-        "position": [{ type: Input },],
-        "mode": [{ type: Input },],
-        "disableClose": [{ type: Input },],
-        "autoFocus": [{ type: Input },],
-        "openedChange": [{ type: Output },],
-        "_openedStream": [{ type: Output, args: ['opened',] },],
-        "openedStart": [{ type: Output },],
-        "_closedStream": [{ type: Output, args: ['closed',] },],
-        "closedStart": [{ type: Output },],
-        "onPositionChanged": [{ type: Output, args: ['positionChanged',] },],
-        "opened": [{ type: Input },],
+        position: [{ type: Input }],
+        mode: [{ type: Input }],
+        disableClose: [{ type: Input }],
+        autoFocus: [{ type: Input }],
+        openedChange: [{ type: Output }],
+        _openedStream: [{ type: Output, args: ['opened',] }],
+        openedStart: [{ type: Output }],
+        _closedStream: [{ type: Output, args: ['closed',] }],
+        closedStart: [{ type: Output }],
+        onPositionChanged: [{ type: Output, args: ['positionChanged',] }],
+        opened: [{ type: Input }]
     };
     return MatDrawer;
 }());
@@ -627,6 +638,14 @@ var MatDrawerContainer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawerContainer.prototype, "autosize", {
+        /**
+         * Whether to automatically resize the container whenever
+         * the size of any of its drawers changes.
+         *
+         * **Use at your own risk!** Enabling this option can cause layout thrashing by measuring
+         * the drawers on every change detection cycle. Can be configured globally via the
+         * `MAT_DRAWER_DEFAULT_AUTOSIZE` token.
+         */
         get: /**
          * Whether to automatically resize the container whenever
          * the size of any of its drawers changes.
@@ -646,6 +665,11 @@ var MatDrawerContainer = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDrawerContainer.prototype, "hasBackdrop", {
+        /**
+         * Whether the drawer container should have a backdrop while one of the sidenavs is open.
+         * If explicitly set to `true`, the backdrop will be enabled for drawers in the `side`
+         * mode as well.
+         */
         get: /**
          * Whether the drawer container should have a backdrop while one of the sidenavs is open.
          * If explicitly set to `true`, the backdrop will be enabled for drawers in the `side`
@@ -966,20 +990,17 @@ var MatDrawerContainer = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        // 1. For drawers in `over` mode, they don't affect the content.
-        // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
-        //    left margin (for left drawer) or right margin (for right the drawer).
-        // 3. For drawers in `push` mode the should shift the content without resizing it. We do this by
-        //    adding to the left or right margin and simultaneously subtracting the same amount of
-        //    margin from the other side.
-        var /** @type {?} */ left = 0;
-        var /** @type {?} */ right = 0;
+        /** @type {?} */
+        var left = 0;
+        /** @type {?} */
+        var right = 0;
         if (this._left && this._left.opened) {
             if (this._left.mode == 'side') {
                 left += this._left._width;
             }
             else if (this._left.mode == 'push') {
-                var /** @type {?} */ width = this._left._width;
+                /** @type {?} */
+                var width = this._left._width;
                 left += width;
                 right -= width;
             }
@@ -989,7 +1010,8 @@ var MatDrawerContainer = /** @class */ (function () {
                 right += this._right._width;
             }
             else if (this._right.mode == 'push') {
-                var /** @type {?} */ width = this._right._width;
+                /** @type {?} */
+                var width = this._right._width;
                 right += width;
                 left -= width;
             }
@@ -1022,20 +1044,20 @@ var MatDrawerContainer = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatDrawerContainer.ctorParameters = function () { return [
-        { type: Directionality, decorators: [{ type: Optional },] },
-        { type: ElementRef, },
-        { type: NgZone, },
-        { type: ChangeDetectorRef, },
-        { type: undefined, decorators: [{ type: Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] },] },
-        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+        { type: Directionality, decorators: [{ type: Optional }] },
+        { type: ElementRef },
+        { type: NgZone },
+        { type: ChangeDetectorRef },
+        { type: undefined, decorators: [{ type: Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] }] },
+        { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
     ]; };
     MatDrawerContainer.propDecorators = {
-        "_drawers": [{ type: ContentChildren, args: [MatDrawer,] },],
-        "_content": [{ type: ContentChild, args: [MatDrawerContent,] },],
-        "_userContent": [{ type: ViewChild, args: [MatDrawerContent,] },],
-        "autosize": [{ type: Input },],
-        "hasBackdrop": [{ type: Input },],
-        "backdropClick": [{ type: Output },],
+        _drawers: [{ type: ContentChildren, args: [MatDrawer,] }],
+        _content: [{ type: ContentChild, args: [MatDrawerContent,] }],
+        _userContent: [{ type: ViewChild, args: [MatDrawerContent,] }],
+        autosize: [{ type: Input }],
+        hasBackdrop: [{ type: Input }],
+        backdropClick: [{ type: Output }]
     };
     return MatDrawerContainer;
 }());
@@ -1063,11 +1085,11 @@ var MatSidenavContent = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSidenavContent.ctorParameters = function () { return [
-        { type: ChangeDetectorRef, },
-        { type: MatSidenavContainer, decorators: [{ type: Inject, args: [forwardRef(function () { return MatSidenavContainer; }),] },] },
-        { type: ElementRef, },
-        { type: ScrollDispatcher, },
-        { type: NgZone, },
+        { type: ChangeDetectorRef },
+        { type: MatSidenavContainer, decorators: [{ type: Inject, args: [forwardRef(function () { return MatSidenavContainer; }),] }] },
+        { type: ElementRef },
+        { type: ScrollDispatcher },
+        { type: NgZone }
     ]; };
     return MatSidenavContent;
 }(MatDrawerContent));
@@ -1081,6 +1103,7 @@ var MatSidenav = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatSidenav.prototype, "fixedInViewport", {
+        /** Whether the sidenav is fixed in the viewport. */
         get: /**
          * Whether the sidenav is fixed in the viewport.
          * @return {?}
@@ -1095,6 +1118,10 @@ var MatSidenav = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSidenav.prototype, "fixedTopGap", {
+        /**
+         * The gap between the top of the sidenav and the top of the viewport when the sidenav is in fixed
+         * mode.
+         */
         get: /**
          * The gap between the top of the sidenav and the top of the viewport when the sidenav is in fixed
          * mode.
@@ -1110,6 +1137,10 @@ var MatSidenav = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSidenav.prototype, "fixedBottomGap", {
+        /**
+         * The gap between the bottom of the sidenav and the bottom of the viewport when the sidenav is in
+         * fixed mode.
+         */
         get: /**
          * The gap between the bottom of the sidenav and the bottom of the viewport when the sidenav is in
          * fixed mode.
@@ -1149,11 +1180,10 @@ var MatSidenav = /** @class */ (function (_super) {
                     encapsulation: ViewEncapsulation.None,
                 },] },
     ];
-    /** @nocollapse */
     MatSidenav.propDecorators = {
-        "fixedInViewport": [{ type: Input },],
-        "fixedTopGap": [{ type: Input },],
-        "fixedBottomGap": [{ type: Input },],
+        fixedInViewport: [{ type: Input }],
+        fixedTopGap: [{ type: Input }],
+        fixedBottomGap: [{ type: Input }]
     };
     return MatSidenav;
 }(MatDrawer));
@@ -1175,10 +1205,9 @@ var MatSidenavContainer = /** @class */ (function (_super) {
                     encapsulation: ViewEncapsulation.None,
                 },] },
     ];
-    /** @nocollapse */
     MatSidenavContainer.propDecorators = {
-        "_drawers": [{ type: ContentChildren, args: [MatSidenav,] },],
-        "_content": [{ type: ContentChild, args: [MatSidenavContent,] },],
+        _drawers: [{ type: ContentChildren, args: [MatSidenav,] }],
+        _content: [{ type: ContentChild, args: [MatSidenavContent,] }]
     };
     return MatSidenavContainer;
 }(MatDrawerContainer));
@@ -1230,5 +1259,5 @@ var MatSidenavModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
+export { MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
 //# sourceMappingURL=sidenav.es5.js.map

@@ -16,15 +16,15 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Default color palette for round buttons (mat-fab and mat-mini-fab)
- */
-const /** @type {?} */ DEFAULT_ROUND_BUTTON_COLOR = 'accent';
-/**
+  @type {?} */
+const DEFAULT_ROUND_BUTTON_COLOR = 'accent';
+/** *
  * List of classes to add to MatButton instances based on host attributes to
  * style as different variants.
- */
-const /** @type {?} */ BUTTON_HOST_ATTRIBUTES = [
+  @type {?} */
+const BUTTON_HOST_ATTRIBUTES = [
     'mat-button',
     'mat-flat-button',
     'mat-icon-button',
@@ -44,7 +44,8 @@ class MatButtonBase {
         this._elementRef = _elementRef;
     }
 }
-const /** @type {?} */ _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonBase)));
+/** @type {?} */
+const _MatButtonMixinBase = mixinColor(mixinDisabled(mixinDisableRipple(MatButtonBase)));
 /**
  * Material design button.
  */
@@ -72,7 +73,7 @@ class MatButton extends _MatButtonMixinBase {
         this.isIconButton = this._hasHostAttributes('mat-icon-button');
         // For each of the variant selectors that is prevent in the button's host
         // attributes, add the correct corresponding class.
-        for (const /** @type {?} */ attr of BUTTON_HOST_ATTRIBUTES) {
+        for (const attr of BUTTON_HOST_ATTRIBUTES) {
             if (this._hasHostAttributes(attr)) {
                 (/** @type {?} */ (elementRef.nativeElement)).classList.add(attr);
             }
@@ -134,13 +135,13 @@ MatButton.decorators = [
 ];
 /** @nocollapse */
 MatButton.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: Platform, },
-    { type: FocusMonitor, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+    { type: ElementRef },
+    { type: Platform },
+    { type: FocusMonitor },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 MatButton.propDecorators = {
-    "ripple": [{ type: ViewChild, args: [MatRipple,] },],
+    ripple: [{ type: ViewChild, args: [MatRipple,] }]
 };
 /**
  * Raised Material design button.
@@ -192,13 +193,13 @@ MatAnchor.decorators = [
 ];
 /** @nocollapse */
 MatAnchor.ctorParameters = () => [
-    { type: Platform, },
-    { type: FocusMonitor, },
-    { type: ElementRef, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+    { type: Platform },
+    { type: FocusMonitor },
+    { type: ElementRef },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 MatAnchor.propDecorators = {
-    "tabIndex": [{ type: Input },],
+    tabIndex: [{ type: Input }]
 };
 
 /**

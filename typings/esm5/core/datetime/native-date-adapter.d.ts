@@ -53,13 +53,13 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
     isValid(date: Date): boolean;
     invalid(): Date;
     /** Creates a date but allows the month and date to overflow. */
-    private _createDateWithOverflow(year, month, date);
+    private _createDateWithOverflow;
     /**
      * Pads a number to make it two digits.
      * @param n The number to pad.
      * @returns The padded number.
      */
-    private _2digit(n);
+    private _2digit;
     /**
      * Strip out unicode LTR and RTL characters. Edge and IE insert these into formatted dates while
      * other browsers do not. We remove them to make output consistent and because they interfere with
@@ -67,7 +67,7 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * @param str The string to strip direction characters from.
      * @returns The stripped string.
      */
-    private _stripDirectionalityCharacters(str);
+    private _stripDirectionalityCharacters;
     /**
      * When converting Date object to string, javascript built-in functions may return wrong
      * results because it applies its internal DST rules. The DST rules around the world change
@@ -79,5 +79,5 @@ export declare class NativeDateAdapter extends DateAdapter<Date> {
      * @param date Date from which we want to get the string representation according to dtf
      * @returns A Date object with its UTC representation based on the passed in date info
      */
-    private _format(dtf, date);
+    private _format;
 }

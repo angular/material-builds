@@ -27,7 +27,7 @@ export declare class MatSliderBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatSliderMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisable) & typeof MatSliderBase;
+export declare const _MatSliderMixinBase: import("../core/common-behaviors/constructor").Constructor<HasTabIndex> & import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatSliderBase;
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
@@ -36,7 +36,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     private _focusMonitor;
     private _changeDetectorRef;
     private _dir;
-    _animationMode: string | undefined;
+    _animationMode?: string | undefined;
     /** Whether the slider is inverted. */
     invert: boolean;
     private _invert;
@@ -112,7 +112,7 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      * The amount of space to leave between the slider thumb and the track fill & track background
      * elements.
      */
-    readonly _thumbGap: number;
+    readonly _thumbGap: 7 | 10 | 0;
     /** CSS styles for the track background element. */
     readonly _trackBackgroundStyles: {
         [key: string]: string;
@@ -149,9 +149,9 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
      * Whether mouse events should be converted to a slider position by calculating their distance
      * from the right or bottom edge of the slider as opposed to the top or left.
      */
-    private _shouldInvertMouseCoords();
+    private _shouldInvertMouseCoords;
     /** The language direction for this slider element. */
-    private _getDirection();
+    private _getDirection;
     constructor(elementRef: ElementRef, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, tabIndex: string, _animationMode?: string | undefined);
     ngOnInit(): void;
     ngOnDestroy(): void;
@@ -165,36 +165,36 @@ export declare class MatSlider extends _MatSliderMixinBase implements ControlVal
     _onKeydown(event: KeyboardEvent): void;
     _onKeyup(): void;
     /** Increments the slider by the given number of steps (negative number decrements). */
-    private _increment(numSteps);
+    private _increment;
     /** Calculate the new value from the new physical location. The value will always be snapped. */
-    private _updateValueFromPosition(pos);
+    private _updateValueFromPosition;
     /** Emits a change event if the current value is different from the last emitted value. */
-    private _emitChangeEvent();
+    private _emitChangeEvent;
     /** Emits an input event when the current value is different from the last emitted value. */
-    private _emitInputEvent();
+    private _emitInputEvent;
     /** Updates the amount of space between ticks as a percentage of the width of the slider. */
-    private _updateTickIntervalPercent();
+    private _updateTickIntervalPercent;
     /** Creates a slider change object from the specified value. */
-    private _createChangeEvent(value?);
+    private _createChangeEvent;
     /** Calculates the percentage of the slider that a value is. */
-    private _calculatePercentage(value);
+    private _calculatePercentage;
     /** Calculates the value a percentage of the slider corresponds to. */
-    private _calculateValue(percentage);
+    private _calculateValue;
     /** Return a number between two numbers. */
-    private _clamp(value, min?, max?);
+    private _clamp;
     /**
      * Get the bounding client rect of the slider track element.
      * The track is used rather than the native element to ignore the extra space that the thumb can
      * take up.
      */
-    private _getSliderDimensions();
+    private _getSliderDimensions;
     /**
      * Focuses the native element.
      * Currently only used to allow a blur event to fire but will be used with keyboard input later.
      */
-    private _focusHostElement();
+    private _focusHostElement;
     /** Blurs the native element. */
-    private _blurHostElement();
+    private _blurHostElement;
     /**
      * Sets the model value. Implemented as part of ControlValueAccessor.
      * @param value

@@ -21,24 +21,24 @@ import { ENTER, SPACE, HOME, END } from '@angular/cdk/keycodes';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Token used to provide a `MatAccordion` to `MatExpansionPanel`.
  * Used primarily to avoid circular imports between `MatAccordion` and `MatExpansionPanel`.
- */
-const /** @type {?} */ MAT_ACCORDION = new InjectionToken('MAT_ACCORDION');
+  @type {?} */
+const MAT_ACCORDION = new InjectionToken('MAT_ACCORDION');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Time and timing curve for expansion panel animations.
- */
-const /** @type {?} */ EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
-/**
+  @type {?} */
+const EXPANSION_PANEL_ANIMATION_TIMING = '225ms cubic-bezier(0.4,0.0,0.2,1)';
+/** *
  * Animations used by the Material expansion panel.
- */
-const /** @type {?} */ matExpansionAnimations = {
+  @type {?} */
+const matExpansionAnimations = {
     /** Animation that rotates the indicator arrow. */
     indicatorRotate: trigger('indicatorRotate', [
         state('collapsed', style({ transform: 'rotate(0deg)' })),
@@ -93,19 +93,19 @@ MatExpansionPanelContent.decorators = [
 ];
 /** @nocollapse */
 MatExpansionPanelContent.ctorParameters = () => [
-    { type: TemplateRef, },
+    { type: TemplateRef }
 ];
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-const /** @type {?} */ _CdkAccordionItem = CdkAccordionItem;
-/**
+/** @type {?} */
+const _CdkAccordionItem = CdkAccordionItem;
+/** *
  * Counter for generating unique element ids.
- */
-let /** @type {?} */ uniqueId = 0;
+  @type {?} */
+let uniqueId = 0;
 const ɵ0 = undefined;
 /**
  * `<mat-expansion-panel>`
@@ -208,8 +208,10 @@ class MatExpansionPanel extends CdkAccordionItem {
      * @return {?}
      */
     _bodyAnimation(event) {
-        const /** @type {?} */ classList = event.element.classList;
-        const /** @type {?} */ cssClass = 'mat-expanded';
+        /** @type {?} */
+        const classList = event.element.classList;
+        /** @type {?} */
+        const cssClass = 'mat-expanded';
         const { phaseName, toState, fromState } = event;
         // Toggle the body's `overflow: hidden` class when closing starts or when expansion ends in
         // order to prevent the cases where switching too early would cause the animation to jump.
@@ -234,8 +236,10 @@ class MatExpansionPanel extends CdkAccordionItem {
      */
     _containsFocus() {
         if (this._body && this._document) {
-            const /** @type {?} */ focusedElement = this._document.activeElement;
-            const /** @type {?} */ bodyElement = this._body.nativeElement;
+            /** @type {?} */
+            const focusedElement = this._document.activeElement;
+            /** @type {?} */
+            const bodyElement = this._body.nativeElement;
             return focusedElement === bodyElement || bodyElement.contains(focusedElement);
         }
         return false;
@@ -265,18 +269,18 @@ MatExpansionPanel.decorators = [
 ];
 /** @nocollapse */
 MatExpansionPanel.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [MAT_ACCORDION,] },] },
-    { type: ChangeDetectorRef, },
-    { type: UniqueSelectionDispatcher, },
-    { type: ViewContainerRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [MAT_ACCORDION,] }] },
+    { type: ChangeDetectorRef },
+    { type: UniqueSelectionDispatcher },
+    { type: ViewContainerRef },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 MatExpansionPanel.propDecorators = {
-    "hideToggle": [{ type: Input },],
-    "afterExpand": [{ type: Output },],
-    "afterCollapse": [{ type: Output },],
-    "_lazyContent": [{ type: ContentChild, args: [MatExpansionPanelContent,] },],
-    "_body": [{ type: ViewChild, args: ['body',] },],
+    hideToggle: [{ type: Input }],
+    afterExpand: [{ type: Output }],
+    afterCollapse: [{ type: Output }],
+    _lazyContent: [{ type: ContentChild, args: [MatExpansionPanelContent,] }],
+    _body: [{ type: ViewChild, args: ['body',] }]
 };
 class MatExpansionPanelActionRow {
 }
@@ -311,7 +315,8 @@ class MatExpansionPanelHeader {
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._parentChangeSubscription = Subscription.EMPTY;
-        const /** @type {?} */ accordionHideToggleChange = panel.accordion ?
+        /** @type {?} */
+        const accordionHideToggleChange = panel.accordion ?
             panel.accordion._stateChanges.pipe(filter(changes => !!changes["hideToggle"])) : EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
         // need to subscribe and trigger change detection manually.
@@ -440,14 +445,14 @@ MatExpansionPanelHeader.decorators = [
 ];
 /** @nocollapse */
 MatExpansionPanelHeader.ctorParameters = () => [
-    { type: MatExpansionPanel, decorators: [{ type: Host },] },
-    { type: ElementRef, },
-    { type: FocusMonitor, },
-    { type: ChangeDetectorRef, },
+    { type: MatExpansionPanel, decorators: [{ type: Host }] },
+    { type: ElementRef },
+    { type: FocusMonitor },
+    { type: ChangeDetectorRef }
 ];
 MatExpansionPanelHeader.propDecorators = {
-    "expandedHeight": [{ type: Input },],
-    "collapsedHeight": [{ type: Input },],
+    expandedHeight: [{ type: Input }],
+    collapsedHeight: [{ type: Input }]
 };
 /**
  * `<mat-panel-description>`
@@ -524,7 +529,8 @@ class MatAccordion extends CdkAccordion {
      */
     _handleHeaderKeydown(event) {
         const { keyCode } = event;
-        const /** @type {?} */ manager = this._keyManager;
+        /** @type {?} */
+        const manager = this._keyManager;
         if (keyCode === HOME) {
             manager.setFirstItemActive();
             event.preventDefault();
@@ -559,11 +565,10 @@ MatAccordion.decorators = [
                 }
             },] },
 ];
-/** @nocollapse */
 MatAccordion.propDecorators = {
-    "_headers": [{ type: ContentChildren, args: [MatExpansionPanelHeader, { descendants: true },] },],
-    "hideToggle": [{ type: Input },],
-    "displayMode": [{ type: Input },],
+    _headers: [{ type: ContentChildren, args: [MatExpansionPanelHeader, { descendants: true },] }],
+    hideToggle: [{ type: Input }],
+    displayMode: [{ type: Input }]
 };
 
 /**

@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, ValidationErrors, Validator } from '@angular/forms';
 import { DateAdapter, MatDateFormats } from '@angular/material/core';
@@ -18,10 +25,10 @@ export declare class MatDatepickerInputEvent<D> {
     /** The new value for the target datepicker input. */
     value: D | null;
     constructor(
-        /** Reference to the datepicker input component that emitted the event. */
-        target: MatDatepickerInput<D>, 
-        /** Reference to the native input element associated with the datepicker input. */
-        targetElement: HTMLElement);
+    /** Reference to the datepicker input component that emitted the event. */
+    target: MatDatepickerInput<D>, 
+    /** Reference to the native input element associated with the datepicker input. */
+    targetElement: HTMLElement);
 }
 /** Directive used to connect an input to a MatDatepicker. */
 export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDestroy, Validator {
@@ -96,14 +103,14 @@ export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDe
     _onInput(value: string): void;
     _onChange(): void;
     /** Returns the palette used by the input's form field, if any. */
-    _getThemePalette(): "primary" | "accent" | "warn" | undefined;
+    _getThemePalette(): import("../core/common-behaviors/color").ThemePalette;
     /** Handles blur events on the input. */
     _onBlur(): void;
     /** Formats a value and sets it on the input element. */
-    private _formatValue(value);
+    private _formatValue;
     /**
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.
      */
-    private _getValidDateOrNull(obj);
+    private _getValidDateOrNull;
 }

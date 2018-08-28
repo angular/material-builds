@@ -28,11 +28,11 @@ export declare class MatCommonModule {
     private _window;
     constructor(_sanityChecksEnabled: boolean);
     /** Whether any sanity checks are enabled */
-    private _areChecksEnabled();
+    private _areChecksEnabled;
     /** Whether the code is running in tests. */
-    private _isTestEnv();
-    private _checkDoctypeIsDefined();
-    private _checkThemeIsPresent();
+    private _isTestEnv;
+    private _checkDoctypeIsDefined;
+    private _checkThemeIsPresent;
     /** Checks whether HammerJS is available. */
     _checkHammerIsAvailable(): void;
 }

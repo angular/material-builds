@@ -15,15 +15,15 @@ export declare class MatAutocompleteSelectedEvent {
     /** Option that was selected. */
     option: MatOption;
     constructor(
-        /** Reference to the autocomplete panel that emitted the event. */
-        source: MatAutocomplete, 
-        /** Option that was selected. */
-        option: MatOption);
+    /** Reference to the autocomplete panel that emitted the event. */
+    source: MatAutocomplete, 
+    /** Option that was selected. */
+    option: MatOption);
 }
 /** @docs-private */
 export declare class MatAutocompleteBase {
 }
-export declare const _MatAutocompleteMixinBase: (new (...args: any[]) => CanDisableRipple) & typeof MatAutocompleteBase;
+export declare const _MatAutocompleteMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatAutocompleteBase;
 /** Default `mat-autocomplete` options that can be overridden. */
 export interface MatAutocompleteDefaultOptions {
     /** Whether the first option should be highlighted when an autocomplete panel is opened. */

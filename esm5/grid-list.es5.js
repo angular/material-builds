@@ -22,6 +22,7 @@ var MatGridTile = /** @class */ (function () {
         this._colspan = 1;
     }
     Object.defineProperty(MatGridTile.prototype, "rowspan", {
+        /** Amount of rows that the grid tile takes up. */
         get: /**
          * Amount of rows that the grid tile takes up.
          * @return {?}
@@ -36,6 +37,7 @@ var MatGridTile = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatGridTile.prototype, "colspan", {
+        /** Amount of columns that the grid tile takes up. */
         get: /**
          * Amount of columns that the grid tile takes up.
          * @return {?}
@@ -84,11 +86,11 @@ var MatGridTile = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatGridTile.ctorParameters = function () { return [
-        { type: ElementRef, },
+        { type: ElementRef }
     ]; };
     MatGridTile.propDecorators = {
-        "rowspan": [{ type: Input },],
-        "colspan": [{ type: Input },],
+        rowspan: [{ type: Input }],
+        colspan: [{ type: Input }]
     };
     return MatGridTile;
 }());
@@ -114,10 +116,10 @@ var MatGridTileText = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatGridTileText.ctorParameters = function () { return [
-        { type: ElementRef, },
+        { type: ElementRef }
     ]; };
     MatGridTileText.propDecorators = {
-        "_lines": [{ type: ContentChildren, args: [MatLine,] },],
+        _lines: [{ type: ContentChildren, args: [MatLine,] }]
     };
     return MatGridTileText;
 }());
@@ -242,7 +244,8 @@ TileCoordinator = /** @class */ (function () {
          * @return {?}
          */
         function () {
-            var /** @type {?} */ lastRowMax = Math.max.apply(Math, this.tracker);
+            /** @type {?} */
+            var lastRowMax = Math.max.apply(Math, this.tracker);
             // if any of the tiles has a rowspan that pushes it beyond the total row count,
             // add the difference to the rowcount
             return lastRowMax > 1 ? this.rowCount + lastRowMax - 1 : this.rowCount;
@@ -261,8 +264,8 @@ TileCoordinator = /** @class */ (function () {
      * @return {?}
      */
     function (tile) {
-        // Find a gap large enough for this tile.
-        var /** @type {?} */ gapStartIndex = this._findMatchingGap(tile.colspan);
+        /** @type {?} */
+        var gapStartIndex = this._findMatchingGap(tile.colspan);
         // Place tile in the resulting gap.
         this._markTilePosition(gapStartIndex, tile);
         // The next time we look for a gap, the search will start at columnIndex, which should be
@@ -285,9 +288,10 @@ TileCoordinator = /** @class */ (function () {
             throw Error("mat-grid-list: tile with colspan " + tileCols + " is wider than " +
                 ("grid with cols=\"" + this.tracker.length + "\"."));
         }
-        // Start index is inclusive, end index is exclusive.
-        var /** @type {?} */ gapStartIndex = -1;
-        var /** @type {?} */ gapEndIndex = -1;
+        /** @type {?} */
+        var gapStartIndex = -1;
+        /** @type {?} */
+        var gapEndIndex = -1;
         // Look for a gap large enough to fit the given tile. Empty spaces are marked with a zero.
         do {
             // If we've reached the end of the row, go to the next row.
@@ -323,7 +327,7 @@ TileCoordinator = /** @class */ (function () {
         this.columnIndex = 0;
         this.rowIndex++;
         // Decrement all spaces by one to reflect moving down one row.
-        for (var /** @type {?} */ i = 0; i < this.tracker.length; i++) {
+        for (var i = 0; i < this.tracker.length; i++) {
             this.tracker[i] = Math.max(0, this.tracker[i] - 1);
         }
     };
@@ -340,7 +344,7 @@ TileCoordinator = /** @class */ (function () {
      * @return {?}
      */
     function (gapStartIndex) {
-        for (var /** @type {?} */ i = gapStartIndex + 1; i < this.tracker.length; i++) {
+        for (var i = gapStartIndex + 1; i < this.tracker.length; i++) {
             if (this.tracker[i] != 0) {
                 return i;
             }
@@ -361,7 +365,7 @@ TileCoordinator = /** @class */ (function () {
      * @return {?}
      */
     function (start, tile) {
-        for (var /** @type {?} */ i = 0; i < tile.colspan; i++) {
+        for (var i = 0; i < tile.colspan; i++) {
             this.tracker[start + i] = tile.rowspan;
         }
     };
@@ -534,11 +538,10 @@ TileStyler = /** @class */ (function () {
      * @return {?}
      */
     function (tile, rowIndex, colIndex) {
-        // Percent of the available horizontal space that one column takes up.
-        var /** @type {?} */ percentWidthPerTile = 100 / this._cols;
-        // Fraction of the vertical gutter size that each column takes up.
-        // For example, if there are 5 columns, each column uses 4/5 = 0.8 times the gutter width.
-        var /** @type {?} */ gutterWidthFractionPerTile = (this._cols - 1) / this._cols;
+        /** @type {?} */
+        var percentWidthPerTile = 100 / this._cols;
+        /** @type {?} */
+        var gutterWidthFractionPerTile = (this._cols - 1) / this._cols;
         this.setColStyles(tile, colIndex, percentWidthPerTile, gutterWidthFractionPerTile);
         this.setRowStyles(tile, rowIndex, percentWidthPerTile, gutterWidthFractionPerTile);
     };
@@ -560,11 +563,10 @@ TileStyler = /** @class */ (function () {
      * @return {?}
      */
     function (tile, colIndex, percentWidth, gutterWidth) {
-        // Base horizontal size of a column.
-        var /** @type {?} */ baseTileWidth = this.getBaseTileSize(percentWidth, gutterWidth);
-        // The width and horizontal position of each tile is always calculated the same way, but the
-        // height and vertical position depends on the rowMode.
-        var /** @type {?} */ side = this._direction === 'rtl' ? 'right' : 'left';
+        /** @type {?} */
+        var baseTileWidth = this.getBaseTileSize(percentWidth, gutterWidth);
+        /** @type {?} */
+        var side = this._direction === 'rtl' ? 'right' : 'left';
         tile._setStyle(side, this.getTilePosition(baseTileWidth, colIndex));
         tile._setStyle('width', calc(this.getTileSize(baseTileWidth, tile.colspan)));
     };
@@ -728,7 +730,8 @@ RatioTileStyler = /** @class */ (function (_super) {
      * @return {?}
      */
     function (tile, rowIndex, percentWidth, gutterWidth) {
-        var /** @type {?} */ percentHeightPerTile = percentWidth / this.rowHeightRatio;
+        /** @type {?} */
+        var percentHeightPerTile = percentWidth / this.rowHeightRatio;
         this.baseTileHeight = this.getBaseTileSize(percentHeightPerTile, gutterWidth);
         // Use padding-top and margin-top to maintain the given aspect ratio, as
         // a percentage-based value for these properties is applied versus the *width* of the
@@ -771,7 +774,8 @@ RatioTileStyler = /** @class */ (function (_super) {
      * @return {?}
      */
     function (value) {
-        var /** @type {?} */ ratioParts = value.split(':');
+        /** @type {?} */
+        var ratioParts = value.split(':');
         if (ratioParts.length !== 2) {
             throw Error("mat-grid-list: invalid ratio given for row-height: \"" + value + "\"");
         }
@@ -809,12 +813,12 @@ FitTileStyler = /** @class */ (function (_super) {
      * @return {?}
      */
     function (tile, rowIndex) {
-        // Percent of the available vertical space that one row takes up.
-        var /** @type {?} */ percentHeightPerTile = 100 / this._rowspan;
-        // Fraction of the horizontal gutter size that each column takes up.
-        var /** @type {?} */ gutterHeightPerTile = (this._rows - 1) / this._rows;
-        // Base vertical size of a column.
-        var /** @type {?} */ baseTileHeight = this.getBaseTileSize(percentHeightPerTile, gutterHeightPerTile);
+        /** @type {?} */
+        var percentHeightPerTile = 100 / this._rowspan;
+        /** @type {?} */
+        var gutterHeightPerTile = (this._rows - 1) / this._rows;
+        /** @type {?} */
+        var baseTileHeight = this.getBaseTileSize(percentHeightPerTile, gutterHeightPerTile);
         tile._setStyle('top', this.getTilePosition(baseTileHeight, rowIndex));
         tile._setStyle('height', calc(this.getTileSize(baseTileHeight, tile.rowspan)));
     };
@@ -853,10 +857,8 @@ function normalizeUnits(value) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(kara): Conditional (responsive) column count / row size.
-// TODO(kara): Re-layout on window resize / media change (debounced).
-// TODO(kara): gridTileHeader and gridTileFooter.
-var /** @type {?} */ MAT_FIT_MODE = 'fit';
+/** @type {?} */
+var MAT_FIT_MODE = 'fit';
 var MatGridList = /** @class */ (function () {
     function MatGridList(_element, _dir) {
         this._element = _element;
@@ -867,6 +869,7 @@ var MatGridList = /** @class */ (function () {
         this._gutter = '1px';
     }
     Object.defineProperty(MatGridList.prototype, "cols", {
+        /** Amount of columns in the grid list. */
         get: /**
          * Amount of columns in the grid list.
          * @return {?}
@@ -881,6 +884,7 @@ var MatGridList = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatGridList.prototype, "gutterSize", {
+        /** Size of the grid list's gutter in pixels. */
         get: /**
          * Size of the grid list's gutter in pixels.
          * @return {?}
@@ -895,13 +899,15 @@ var MatGridList = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatGridList.prototype, "rowHeight", {
+        /** Set internal representation of row height from the user-provided value. */
         set: /**
          * Set internal representation of row height from the user-provided value.
          * @param {?} value
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newValue = "" + (value || '');
+            /** @type {?} */
+            var newValue = "" + (value || '');
             if (newValue !== this._rowHeight) {
                 this._rowHeight = newValue;
                 this._setTileStyler(this._rowHeight);
@@ -998,11 +1004,14 @@ var MatGridList = /** @class */ (function () {
      */
     function () {
         var _this = this;
-        var /** @type {?} */ tracker = new TileCoordinator(this.cols, this._tiles);
-        var /** @type {?} */ direction = this._dir ? this._dir.value : 'ltr';
+        /** @type {?} */
+        var tracker = new TileCoordinator(this.cols, this._tiles);
+        /** @type {?} */
+        var direction = this._dir ? this._dir.value : 'ltr';
         this._tileStyler.init(this.gutterSize, tracker, this.cols, direction);
         this._tiles.forEach(function (tile, index) {
-            var /** @type {?} */ pos = tracker.positions[index];
+            /** @type {?} */
+            var pos = tracker.positions[index];
             _this._tileStyler.setStyle(tile, pos.row, pos.col);
         });
         this._setListStyle(this._tileStyler.getComputedHeight());
@@ -1037,14 +1046,14 @@ var MatGridList = /** @class */ (function () {
     ];
     /** @nocollapse */
     MatGridList.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: Directionality, decorators: [{ type: Optional },] },
+        { type: ElementRef },
+        { type: Directionality, decorators: [{ type: Optional }] }
     ]; };
     MatGridList.propDecorators = {
-        "_tiles": [{ type: ContentChildren, args: [MatGridTile, { descendants: true },] },],
-        "cols": [{ type: Input },],
-        "gutterSize": [{ type: Input },],
-        "rowHeight": [{ type: Input },],
+        _tiles: [{ type: ContentChildren, args: [MatGridTile, { descendants: true },] }],
+        cols: [{ type: Input }],
+        gutterSize: [{ type: Input }],
+        rowHeight: [{ type: Input }]
     };
     return MatGridList;
 }());

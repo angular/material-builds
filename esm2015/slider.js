@@ -21,28 +21,28 @@ import { HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
  * the default separation we chose.
- */
-const /** @type {?} */ MIN_AUTO_TICK_SEPARATION = 30;
-/**
+  @type {?} */
+const MIN_AUTO_TICK_SEPARATION = 30;
+/** *
  * The thumb gap size for a disabled slider.
- */
-const /** @type {?} */ DISABLED_THUMB_GAP = 7;
-/**
+  @type {?} */
+const DISABLED_THUMB_GAP = 7;
+/** *
  * The thumb gap size for a non-active slider at its minimum value.
- */
-const /** @type {?} */ MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
-/**
+  @type {?} */
+const MIN_VALUE_NONACTIVE_THUMB_GAP = 7;
+/** *
  * The thumb gap size for an active slider at its minimum value.
- */
-const /** @type {?} */ MIN_VALUE_ACTIVE_THUMB_GAP = 10;
-/**
+  @type {?} */
+const MIN_VALUE_ACTIVE_THUMB_GAP = 10;
+/** *
  * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
- */
-const /** @type {?} */ MAT_SLIDER_VALUE_ACCESSOR = {
+  @type {?} */
+const MAT_SLIDER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatSlider),
     multi: true
@@ -63,7 +63,8 @@ class MatSliderBase {
         this._elementRef = _elementRef;
     }
 }
-const /** @type {?} */ _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisabled(MatSliderBase), 'accent'));
+/** @type {?} */
+const _MatSliderMixinBase = mixinTabIndex(mixinColor(mixinDisabled(MatSliderBase), 'accent'));
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.
@@ -248,7 +249,8 @@ class MatSlider extends _MatSliderMixinBase {
      */
     set value(v) {
         if (v !== this._value) {
-            let /** @type {?} */ value = coerceNumberProperty(v);
+            /** @type {?} */
+            let value = coerceNumberProperty(v);
             // While incrementing by a decimal we can end up with values like 33.300000000000004.
             // Truncate it to ensure that it matches the label and to make it easier to work with.
             if (this._roundToDecimal) {
@@ -343,9 +345,12 @@ class MatSlider extends _MatSliderMixinBase {
      * @return {?}
      */
     get _trackBackgroundStyles() {
-        const /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
-        const /** @type {?} */ scale = this.vertical ? `1, ${1 - this.percent}, 1` : `${1 - this.percent}, 1, 1`;
-        const /** @type {?} */ sign = this._shouldInvertMouseCoords() ? '-' : '';
+        /** @type {?} */
+        const axis = this.vertical ? 'Y' : 'X';
+        /** @type {?} */
+        const scale = this.vertical ? `1, ${1 - this.percent}, 1` : `${1 - this.percent}, 1, 1`;
+        /** @type {?} */
+        const sign = this._shouldInvertMouseCoords() ? '-' : '';
         return {
             // scale3d avoids some rendering issues in Chrome. See #12071.
             transform: `translate${axis}(${sign}${this._thumbGap}px) scale3d(${scale})`
@@ -356,9 +361,12 @@ class MatSlider extends _MatSliderMixinBase {
      * @return {?}
      */
     get _trackFillStyles() {
-        const /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
-        const /** @type {?} */ scale = this.vertical ? `1, ${this.percent}, 1` : `${this.percent}, 1, 1`;
-        const /** @type {?} */ sign = this._shouldInvertMouseCoords() ? '' : '-';
+        /** @type {?} */
+        const axis = this.vertical ? 'Y' : 'X';
+        /** @type {?} */
+        const scale = this.vertical ? `1, ${this.percent}, 1` : `${this.percent}, 1, 1`;
+        /** @type {?} */
+        const sign = this._shouldInvertMouseCoords() ? '' : '-';
         return {
             // scale3d avoids some rendering issues in Chrome. See #12071.
             transform: `translate${axis}(${sign}${this._thumbGap}px) scale3d(${scale})`
@@ -369,11 +377,12 @@ class MatSlider extends _MatSliderMixinBase {
      * @return {?}
      */
     get _ticksContainerStyles() {
-        let /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
-        // For a horizontal slider in RTL languages we push the ticks container off the left edge
-        // instead of the right edge to avoid causing a horizontal scrollbar to appear.
-        let /** @type {?} */ sign = !this.vertical && this._getDirection() == 'rtl' ? '' : '-';
-        let /** @type {?} */ offset = this._tickIntervalPercent / 2 * 100;
+        /** @type {?} */
+        let axis = this.vertical ? 'Y' : 'X';
+        /** @type {?} */
+        let sign = !this.vertical && this._getDirection() == 'rtl' ? '' : '-';
+        /** @type {?} */
+        let offset = this._tickIntervalPercent / 2 * 100;
         return {
             'transform': `translate${axis}(${sign}${offset}%)`
         };
@@ -383,21 +392,25 @@ class MatSlider extends _MatSliderMixinBase {
      * @return {?}
      */
     get _ticksStyles() {
-        let /** @type {?} */ tickSize = this._tickIntervalPercent * 100;
-        let /** @type {?} */ backgroundSize = this.vertical ? `2px ${tickSize}%` : `${tickSize}% 2px`;
-        let /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
-        // Depending on the direction we pushed the ticks container, push the ticks the opposite
-        // direction to re-center them but clip off the end edge. In RTL languages we need to flip the
-        // ticks 180 degrees so we're really cutting off the end edge abd not the start.
-        let /** @type {?} */ sign = !this.vertical && this._getDirection() == 'rtl' ? '-' : '';
-        let /** @type {?} */ rotate = !this.vertical && this._getDirection() == 'rtl' ? ' rotate(180deg)' : '';
-        let /** @type {?} */ styles = {
+        /** @type {?} */
+        let tickSize = this._tickIntervalPercent * 100;
+        /** @type {?} */
+        let backgroundSize = this.vertical ? `2px ${tickSize}%` : `${tickSize}% 2px`;
+        /** @type {?} */
+        let axis = this.vertical ? 'Y' : 'X';
+        /** @type {?} */
+        let sign = !this.vertical && this._getDirection() == 'rtl' ? '-' : '';
+        /** @type {?} */
+        let rotate = !this.vertical && this._getDirection() == 'rtl' ? ' rotate(180deg)' : '';
+        /** @type {?} */
+        let styles = {
             'backgroundSize': backgroundSize,
             // Without translateZ ticks sometimes jitter as the slider moves on Chrome & Firefox.
             'transform': `translateZ(0) translate${axis}(${sign}${tickSize / 2}%)${rotate}`
         };
         if (this._isMinValue && this._thumbGap) {
-            let /** @type {?} */ side = this.vertical ?
+            /** @type {?} */
+            let side = this.vertical ?
                 (this._invertAxis ? 'Bottom' : 'Top') :
                 (this._invertAxis ? 'Right' : 'Left');
             styles[`padding${side}`] = `${this._thumbGap}px`;
@@ -408,11 +421,12 @@ class MatSlider extends _MatSliderMixinBase {
      * @return {?}
      */
     get _thumbContainerStyles() {
-        let /** @type {?} */ axis = this.vertical ? 'Y' : 'X';
-        // For a horizontal slider in RTL languages we push the thumb container off the left edge
-        // instead of the right edge to avoid causing a horizontal scrollbar to appear.
-        let /** @type {?} */ invertOffset = (this._getDirection() == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
-        let /** @type {?} */ offset = (invertOffset ? this.percent : 1 - this.percent) * 100;
+        /** @type {?} */
+        let axis = this.vertical ? 'Y' : 'X';
+        /** @type {?} */
+        let invertOffset = (this._getDirection() == 'rtl' && !this.vertical) ? !this._invertAxis : this._invertAxis;
+        /** @type {?} */
+        let offset = (invertOffset ? this.percent : 1 - this.percent) * 100;
         return {
             'transform': `translate${axis}(-${offset}%)`
         };
@@ -475,7 +489,8 @@ class MatSlider extends _MatSliderMixinBase {
         if (this.disabled) {
             return;
         }
-        let /** @type {?} */ oldValue = this.value;
+        /** @type {?} */
+        let oldValue = this.value;
         this._isSliding = false;
         this._focusHostElement();
         this._updateValueFromPosition({ x: event.clientX, y: event.clientY });
@@ -500,7 +515,8 @@ class MatSlider extends _MatSliderMixinBase {
         }
         // Prevent the slide from selecting anything else.
         event.preventDefault();
-        let /** @type {?} */ oldValue = this.value;
+        /** @type {?} */
+        let oldValue = this.value;
         this._updateValueFromPosition({ x: event.center.x, y: event.center.y });
         // Native range elements always emit `input` events when the value changed while sliding.
         if (oldValue != this.value) {
@@ -558,7 +574,8 @@ class MatSlider extends _MatSliderMixinBase {
         if (this.disabled) {
             return;
         }
-        let /** @type {?} */ oldValue = this.value;
+        /** @type {?} */
+        let oldValue = this.value;
         switch (event.keyCode) {
             case PAGE_UP:
                 this._increment(10);
@@ -627,11 +644,14 @@ class MatSlider extends _MatSliderMixinBase {
         if (!this._sliderDimensions) {
             return;
         }
-        let /** @type {?} */ offset = this.vertical ? this._sliderDimensions.top : this._sliderDimensions.left;
-        let /** @type {?} */ size = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
-        let /** @type {?} */ posComponent = this.vertical ? pos.y : pos.x;
-        // The exact value is calculated from the event and used to find the closest snap value.
-        let /** @type {?} */ percent = this._clamp((posComponent - offset) / size);
+        /** @type {?} */
+        let offset = this.vertical ? this._sliderDimensions.top : this._sliderDimensions.left;
+        /** @type {?} */
+        let size = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
+        /** @type {?} */
+        let posComponent = this.vertical ? pos.y : pos.x;
+        /** @type {?} */
+        let percent = this._clamp((posComponent - offset) / size);
         if (this._shouldInvertMouseCoords()) {
             percent = 1 - percent;
         }
@@ -646,10 +666,10 @@ class MatSlider extends _MatSliderMixinBase {
             this.value = this.max;
         }
         else {
-            const /** @type {?} */ exactValue = this._calculateValue(percent);
-            // This calculation finds the closest step by finding the closest
-            // whole number divisible by the step relative to the min.
-            const /** @type {?} */ closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
+            /** @type {?} */
+            const exactValue = this._calculateValue(percent);
+            /** @type {?} */
+            const closestValue = Math.round((exactValue - this.min) / this.step) * this.step + this.min;
             // The value needs to snap to the min and max.
             this.value = this._clamp(closestValue, this.min, this.max);
         }
@@ -679,10 +699,14 @@ class MatSlider extends _MatSliderMixinBase {
             return;
         }
         if (this.tickInterval == 'auto') {
-            let /** @type {?} */ trackSize = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
-            let /** @type {?} */ pixelsPerStep = trackSize * this.step / (this.max - this.min);
-            let /** @type {?} */ stepsPerTick = Math.ceil(MIN_AUTO_TICK_SEPARATION / pixelsPerStep);
-            let /** @type {?} */ pixelsPerTick = stepsPerTick * this.step;
+            /** @type {?} */
+            let trackSize = this.vertical ? this._sliderDimensions.height : this._sliderDimensions.width;
+            /** @type {?} */
+            let pixelsPerStep = trackSize * this.step / (this.max - this.min);
+            /** @type {?} */
+            let stepsPerTick = Math.ceil(MIN_AUTO_TICK_SEPARATION / pixelsPerStep);
+            /** @type {?} */
+            let pixelsPerTick = stepsPerTick * this.step;
             this._tickIntervalPercent = pixelsPerTick / trackSize;
         }
         else {
@@ -695,7 +719,8 @@ class MatSlider extends _MatSliderMixinBase {
      * @return {?}
      */
     _createChangeEvent(value = this.value) {
-        let /** @type {?} */ event = new MatSliderChange();
+        /** @type {?} */
+        let event = new MatSliderChange();
         event.source = this;
         event.value = value;
         return event;
@@ -828,27 +853,27 @@ MatSlider.decorators = [
 ];
 /** @nocollapse */
 MatSlider.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: FocusMonitor, },
-    { type: ChangeDetectorRef, },
-    { type: Directionality, decorators: [{ type: Optional },] },
-    { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+    { type: ElementRef },
+    { type: FocusMonitor },
+    { type: ChangeDetectorRef },
+    { type: Directionality, decorators: [{ type: Optional }] },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 MatSlider.propDecorators = {
-    "invert": [{ type: Input },],
-    "max": [{ type: Input },],
-    "min": [{ type: Input },],
-    "step": [{ type: Input },],
-    "thumbLabel": [{ type: Input },],
-    "tickInterval": [{ type: Input },],
-    "value": [{ type: Input },],
-    "displayWith": [{ type: Input },],
-    "vertical": [{ type: Input },],
-    "change": [{ type: Output },],
-    "input": [{ type: Output },],
-    "valueChange": [{ type: Output },],
-    "_sliderWrapper": [{ type: ViewChild, args: ['sliderWrapper',] },],
+    invert: [{ type: Input }],
+    max: [{ type: Input }],
+    min: [{ type: Input }],
+    step: [{ type: Input }],
+    thumbLabel: [{ type: Input }],
+    tickInterval: [{ type: Input }],
+    value: [{ type: Input }],
+    displayWith: [{ type: Input }],
+    vertical: [{ type: Input }],
+    change: [{ type: Output }],
+    input: [{ type: Output }],
+    valueChange: [{ type: Output }],
+    _sliderWrapper: [{ type: ViewChild, args: ['sliderWrapper',] }]
 };
 
 /**

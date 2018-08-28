@@ -19,8 +19,8 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): Workaround for https://github.com/angular/material2/issues/12760
-const /** @type {?} */ _CdkTextareaAutosize = CdkTextareaAutosize;
+/** @type {?} */
+const _CdkTextareaAutosize = CdkTextareaAutosize;
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
@@ -78,12 +78,11 @@ MatTextareaAutosize.decorators = [
                 },
             },] },
 ];
-/** @nocollapse */
 MatTextareaAutosize.propDecorators = {
-    "matAutosizeMinRows": [{ type: Input },],
-    "matAutosizeMaxRows": [{ type: Input },],
-    "matAutosize": [{ type: Input, args: ['mat-autosize',] },],
-    "matTextareaAutosize": [{ type: Input },],
+    matAutosizeMinRows: [{ type: Input }],
+    matAutosizeMaxRows: [{ type: Input }],
+    matAutosize: [{ type: Input, args: ['mat-autosize',] }],
+    matTextareaAutosize: [{ type: Input }]
 };
 
 /**
@@ -104,20 +103,20 @@ function getMatInputUnsupportedTypeError(type) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
  * provided, the native `HTMLInputElement` is used. Directives like `MatDatepickerInput` can provide
  * themselves for this token, in order to make `MatInput` delegate the getting and setting of the
  * value to them.
- */
-const /** @type {?} */ MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
+  @type {?} */
+const MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Invalid input type. Using one of these will throw an MatInputUnsupportedTypeError.
-const /** @type {?} */ MAT_INPUT_INVALID_TYPES = [
+/** @type {?} */
+const MAT_INPUT_INVALID_TYPES = [
     'button',
     'checkbox',
     'file',
@@ -128,7 +127,8 @@ const /** @type {?} */ MAT_INPUT_INVALID_TYPES = [
     'reset',
     'submit'
 ];
-let /** @type {?} */ nextUniqueId = 0;
+/** @type {?} */
+let nextUniqueId = 0;
 /**
  * \@docs-private
  */
@@ -146,7 +146,8 @@ class MatInputBase {
         this.ngControl = ngControl;
     }
 }
-const /** @type {?} */ _MatInputMixinBase = mixinErrorState(MatInputBase);
+/** @type {?} */
+const _MatInputMixinBase = mixinErrorState(MatInputBase);
 /**
  * Directive that allows a native input to work inside a `MatFormField`.
  */
@@ -218,7 +219,8 @@ class MatInput extends _MatInputMixinBase {
         if (_platform.IOS) {
             ngZone.runOutsideAngular(() => {
                 _elementRef.nativeElement.addEventListener('keyup', (event) => {
-                    let /** @type {?} */ el = /** @type {?} */ (event.target);
+                    /** @type {?} */
+                    let el = /** @type {?} */ (event.target);
                     if (!el.value && !el.selectionStart && !el.selectionEnd) {
                         // Note: Just setting `0, 0` doesn't fix the issue. Setting
                         // `1, 1` fixes it for the first time that you type text and
@@ -397,7 +399,8 @@ class MatInput extends _MatInputMixinBase {
      * @return {?}
      */
     _dirtyCheckNativeValue() {
-        const /** @type {?} */ newValue = this.value;
+        /** @type {?} */
+        const newValue = this.value;
         if (this._previousNativeValue !== newValue) {
             this._previousNativeValue = newValue;
             this.stateChanges.next();
@@ -424,8 +427,8 @@ class MatInput extends _MatInputMixinBase {
      * @return {?}
      */
     _isBadInput() {
-        // The `validity` property won't be present on platform-server.
-        let /** @type {?} */ validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
+        /** @type {?} */
+        let validity = (/** @type {?} */ (this._elementRef.nativeElement)).validity;
         return validity && validity.badInput;
     }
     /**
@@ -493,25 +496,25 @@ MatInput.decorators = [
 ];
 /** @nocollapse */
 MatInput.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: Platform, },
-    { type: NgControl, decorators: [{ type: Optional }, { type: Self },] },
-    { type: NgForm, decorators: [{ type: Optional },] },
-    { type: FormGroupDirective, decorators: [{ type: Optional },] },
-    { type: ErrorStateMatcher, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Self }, { type: Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] },] },
-    { type: AutofillMonitor, },
-    { type: NgZone, },
+    { type: ElementRef },
+    { type: Platform },
+    { type: NgControl, decorators: [{ type: Optional }, { type: Self }] },
+    { type: NgForm, decorators: [{ type: Optional }] },
+    { type: FormGroupDirective, decorators: [{ type: Optional }] },
+    { type: ErrorStateMatcher },
+    { type: undefined, decorators: [{ type: Optional }, { type: Self }, { type: Inject, args: [MAT_INPUT_VALUE_ACCESSOR,] }] },
+    { type: AutofillMonitor },
+    { type: NgZone }
 ];
 MatInput.propDecorators = {
-    "disabled": [{ type: Input },],
-    "id": [{ type: Input },],
-    "placeholder": [{ type: Input },],
-    "required": [{ type: Input },],
-    "type": [{ type: Input },],
-    "errorStateMatcher": [{ type: Input },],
-    "value": [{ type: Input },],
-    "readonly": [{ type: Input },],
+    disabled: [{ type: Input }],
+    id: [{ type: Input }],
+    placeholder: [{ type: Input }],
+    required: [{ type: Input }],
+    type: [{ type: Input }],
+    errorStateMatcher: [{ type: Input }],
+    value: [{ type: Input }],
+    readonly: [{ type: Input }]
 };
 
 /**

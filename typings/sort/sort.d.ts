@@ -28,7 +28,7 @@ export interface Sort {
 /** @docs-private */
 export declare class MatSortBase {
 }
-export declare const _MatSortMixinBase: (new (...args: any[]) => HasInitialized) & (new (...args: any[]) => CanDisable) & typeof MatSortBase;
+export declare const _MatSortMixinBase: import("../core/common-behaviors/constructor").Constructor<HasInitialized> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatSortBase;
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
 export declare class MatSort extends _MatSortMixinBase implements CanDisable, HasInitialized, OnChanges, OnDestroy, OnInit {
     /** Collection of all registered sortables that this directive manages. */

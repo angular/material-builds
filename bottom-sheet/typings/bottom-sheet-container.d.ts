@@ -37,8 +37,8 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     /** Whether the component has been destroyed. */
     private _destroyed;
     constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _focusTrapFactory: FocusTrapFactory, breakpointObserver: BreakpointObserver, document: any, 
-        /** The bottom sheet configuration. */
-        bottomSheetConfig: MatBottomSheetConfig);
+    /** The bottom sheet configuration. */
+    bottomSheetConfig: MatBottomSheetConfig);
     /** Attach a component portal as content to this bottom sheet container. */
     attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T>;
     /** Attach a template portal as content to this bottom sheet container. */
@@ -50,13 +50,13 @@ export declare class MatBottomSheetContainer extends BasePortalOutlet implements
     ngOnDestroy(): void;
     _onAnimationDone(event: AnimationEvent): void;
     _onAnimationStart(event: AnimationEvent): void;
-    private _toggleClass(cssClass, add);
-    private _validatePortalAttached();
-    private _setPanelClass();
+    private _toggleClass;
+    private _validatePortalAttached;
+    private _setPanelClass;
     /** Moves the focus inside the focus trap. */
-    private _trapFocus();
+    private _trapFocus;
     /** Restores focus to the element that was focused before the bottom sheet opened. */
-    private _restoreFocus();
+    private _restoreFocus;
     /** Saves a reference to the element that was focused before the bottom sheet was opened. */
-    private _savePreviouslyFocusedElement();
+    private _savePreviouslyFocusedElement;
 }

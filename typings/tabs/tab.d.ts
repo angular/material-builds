@@ -13,7 +13,7 @@ import { MatTabLabel } from './tab-label';
 /** @docs-private */
 export declare class MatTabBase {
 }
-export declare const _MatTabMixinBase: (new (...args: any[]) => CanDisable) & typeof MatTabBase;
+export declare const _MatTabMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatTabBase;
 export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisable, OnChanges, OnDestroy {
     private _viewContainerRef;
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */

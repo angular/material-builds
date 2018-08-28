@@ -43,7 +43,7 @@ export declare class MatCalendarHeader<D> {
     /** Whether the next period button is enabled. */
     nextEnabled(): boolean;
     /** Whether the two dates represent the same view in the current view mode (month or year). */
-    private _isSameView(date1, date2);
+    private _isSameView;
 }
 /**
  * A calendar that is used as part of the datepicker.
@@ -134,7 +134,7 @@ export declare class MatCalendar<D> implements AfterContentInit, AfterViewChecke
      * @param obj The object to check.
      * @returns The given object if it is both a date instance and valid, otherwise null.
      */
-    private _getValidDateOrNull(obj);
+    private _getValidDateOrNull;
     /** Returns the component instance that corresponds to the current calendar view. */
-    private _getCurrentViewComponent();
+    private _getCurrentViewComponent;
 }

@@ -28,7 +28,7 @@ export declare enum TransitionCheckState {
     /** The state representing the component when it's becoming unchecked. */
     Unchecked = 2,
     /** The state representing the component when it's becoming indeterminate. */
-    Indeterminate = 3,
+    Indeterminate = 3
 }
 /** Change event object emitted by MatCheckbox. */
 export declare class MatCheckboxChange {
@@ -42,7 +42,7 @@ export declare class MatCheckboxBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatCheckboxMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatCheckboxBase;
+export declare const _MatCheckboxMixinBase: import("../core/common-behaviors/constructor").Constructor<HasTabIndex> & import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatCheckboxBase;
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MatCheckbox can be either checked, unchecked, indeterminate, or
@@ -56,7 +56,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     private _focusMonitor;
     private _ngZone;
     private _clickAction;
-    _animationMode: string | undefined;
+    _animationMode?: string | undefined;
     /**
      * Attached to the aria-label attribute of the host element. In most cases, arial-labelledby will
      * take precedence so this may be omitted.
@@ -128,10 +128,10 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     registerOnTouched(fn: any): void;
     setDisabledState(isDisabled: boolean): void;
     _getAriaChecked(): 'true' | 'false' | 'mixed';
-    private _transitionCheckState(newState);
-    private _emitChangeEvent();
+    private _transitionCheckState;
+    private _emitChangeEvent;
     /** Function is called whenever the focus changes for the input element. */
-    private _onInputFocusChange(focusOrigin);
+    private _onInputFocusChange;
     /** Toggles the `checked` state of the checkbox. */
     toggle(): void;
     /**
@@ -145,5 +145,5 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     /** Focuses the checkbox. */
     focus(): void;
     _onInteractionEvent(event: Event): void;
-    private _getAnimationClassForCheckStateTransition(oldState, newState);
+    private _getAnimationClassForCheckStateTransition;
 }

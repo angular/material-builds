@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -74,5 +81,5 @@ export declare class MatDialogRef<T, R = any> {
      */
     beforeClose(): Observable<R | undefined>;
     /** Fetches the position strategy object from the overlay ref. */
-    private _getPositionStrategy();
+    private _getPositionStrategy;
 }

@@ -17,8 +17,8 @@ import { map } from 'rxjs/operators';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-const /** @type {?} */ _CdkTable = CdkTable;
+/** @type {?} */
+const _CdkTable = CdkTable;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
@@ -49,10 +49,12 @@ MatTable.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-const /** @type {?} */ _CdkCellDef = CdkCellDef;
-const /** @type {?} */ _CdkHeaderCellDef = CdkHeaderCellDef;
-const /** @type {?} */ _CdkFooterCellDef = CdkFooterCellDef;
+/** @type {?} */
+const _CdkCellDef = CdkCellDef;
+/** @type {?} */
+const _CdkHeaderCellDef = CdkHeaderCellDef;
+/** @type {?} */
+const _CdkFooterCellDef = CdkFooterCellDef;
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -101,11 +103,10 @@ MatColumnDef.decorators = [
                 providers: [{ provide: CdkColumnDef, useExisting: MatColumnDef }],
             },] },
 ];
-/** @nocollapse */
 MatColumnDef.propDecorators = {
-    "name": [{ type: Input, args: ['matColumnDef',] },],
-    "sticky": [{ type: Input },],
-    "stickyEnd": [{ type: Input },],
+    name: [{ type: Input, args: ['matColumnDef',] }],
+    sticky: [{ type: Input }],
+    stickyEnd: [{ type: Input }]
 };
 /**
  * Header cell template container that adds the right classes and role.
@@ -131,8 +132,8 @@ MatHeaderCell.decorators = [
 ];
 /** @nocollapse */
 MatHeaderCell.ctorParameters = () => [
-    { type: CdkColumnDef, },
-    { type: ElementRef, },
+    { type: CdkColumnDef },
+    { type: ElementRef }
 ];
 /**
  * Footer cell template container that adds the right classes and role.
@@ -158,8 +159,8 @@ MatFooterCell.decorators = [
 ];
 /** @nocollapse */
 MatFooterCell.ctorParameters = () => [
-    { type: CdkColumnDef, },
-    { type: ElementRef, },
+    { type: CdkColumnDef },
+    { type: ElementRef }
 ];
 /**
  * Cell template container that adds the right classes and role.
@@ -185,18 +186,20 @@ MatCell.decorators = [
 ];
 /** @nocollapse */
 MatCell.ctorParameters = () => [
-    { type: CdkColumnDef, },
-    { type: ElementRef, },
+    { type: CdkColumnDef },
+    { type: ElementRef }
 ];
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-const /** @type {?} */ _CdkHeaderRowDef = CdkHeaderRowDef;
-const /** @type {?} */ _CdkFooterRowDef = CdkFooterRowDef;
-const /** @type {?} */ _CdkRowDef = CdkRowDef;
+/** @type {?} */
+const _CdkHeaderRowDef = CdkHeaderRowDef;
+/** @type {?} */
+const _CdkFooterRowDef = CdkFooterRowDef;
+/** @type {?} */
+const _CdkRowDef = CdkRowDef;
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
@@ -297,7 +300,8 @@ MatRow.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-const /** @type {?} */ EXPORTED_DECLARATIONS = [
+/** @type {?} */
+const EXPORTED_DECLARATIONS = [
     MatTable,
     MatHeaderCellDef,
     MatHeaderRowDef,
@@ -327,11 +331,11 @@ MatTableModule.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Corresponds to `Number.MAX_SAFE_INTEGER`. Moved out into a variable here due to
  * flaky browser support and the value not being defined in Closure's typings.
- */
-const /** @type {?} */ MAX_SAFE_INTEGER = 9007199254740991;
+  @type {?} */
+const MAX_SAFE_INTEGER = 9007199254740991;
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
  * sorting (using MatSort), and pagination (using MatPaginator).
@@ -370,9 +374,11 @@ class MatTableDataSource extends DataSource {
          * @param sortHeaderId The name of the column that represents the data.
          */
         this.sortingDataAccessor = (data, sortHeaderId) => {
-            const /** @type {?} */ value = data[sortHeaderId];
+            /** @type {?} */
+            const value = data[sortHeaderId];
             if (_isNumberValue(value)) {
-                const /** @type {?} */ numberValue = Number(value);
+                /** @type {?} */
+                const numberValue = Number(value);
                 // Numbers beyond `MAX_SAFE_INTEGER` can't be compared reliably so we
                 // leave them as strings. For more info: https://goo.gl/y5vbSg
                 return numberValue < MAX_SAFE_INTEGER ? numberValue : value;
@@ -389,19 +395,20 @@ class MatTableDataSource extends DataSource {
          * @param sort The connected MatSort that holds the current sort state.
          */
         this.sortData = (data, sort) => {
-            const /** @type {?} */ active = sort.active;
-            const /** @type {?} */ direction = sort.direction;
+            /** @type {?} */
+            const active = sort.active;
+            /** @type {?} */
+            const direction = sort.direction;
             if (!active || direction == '') {
                 return data;
             }
             return data.sort((a, b) => {
-                let /** @type {?} */ valueA = this.sortingDataAccessor(a, active);
-                let /** @type {?} */ valueB = this.sortingDataAccessor(b, active);
-                // If both valueA and valueB exist (truthy), then compare the two. Otherwise, check if
-                // one value exists while the other doesn't. In this case, existing value should come first.
-                // This avoids inconsistent results when comparing values to undefined/null.
-                // If neither value exists, return 0 (equal).
-                let /** @type {?} */ comparatorResult = 0;
+                /** @type {?} */
+                let valueA = this.sortingDataAccessor(a, active);
+                /** @type {?} */
+                let valueB = this.sortingDataAccessor(b, active);
+                /** @type {?} */
+                let comparatorResult = 0;
                 if (valueA != null && valueB != null) {
                     // Check if one value is greater than the other; if equal, comparatorResult should remain 0.
                     if (valueA > valueB) {
@@ -431,11 +438,12 @@ class MatTableDataSource extends DataSource {
          * @return Whether the filter matches against the data
          */
         this.filterPredicate = (data, filter) => {
-            // Transform the data into a lowercase string of all property values.
-            const /** @type {?} */ accumulator = (currentTerm, key) => currentTerm + data[key];
-            const /** @type {?} */ dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
-            // Transform the filter by converting it to lowercase and removing whitespace.
-            const /** @type {?} */ transformedFilter = filter.trim().toLowerCase();
+            /** @type {?} */
+            const accumulator = (currentTerm, key) => currentTerm + data[key];
+            /** @type {?} */
+            const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+            /** @type {?} */
+            const transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
         };
         this._data = new BehaviorSubject(initialData);
@@ -503,27 +511,24 @@ class MatTableDataSource extends DataSource {
      * @return {?}
      */
     _updateChangeSubscription() {
-        // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
-        // The events should emit whenever the component emits a change or initializes, or if no
-        // component is provided, a stream with just a null event should be provided.
-        // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the
-        // pipeline can progress to the next step. Note that the value from these streams are not used,
-        // they purely act as a signal to progress in the pipeline.
-        const /** @type {?} */ sortChange = this._sort ?
+        /** @type {?} */
+        const sortChange = this._sort ?
             merge(this._sort.sortChange, this._sort.initialized) :
             of(null);
-        const /** @type {?} */ pageChange = this._paginator ?
+        /** @type {?} */
+        const pageChange = this._paginator ?
             merge(this._paginator.page, this._paginator.initialized) :
             of(null);
-        const /** @type {?} */ dataStream = this._data;
-        // Watch for base data or filter changes to provide a filtered set of data.
-        const /** @type {?} */ filteredData = combineLatest(dataStream, this._filter)
+        /** @type {?} */
+        const dataStream = this._data;
+        /** @type {?} */
+        const filteredData = combineLatest(dataStream, this._filter)
             .pipe(map(([data]) => this._filterData(data)));
-        // Watch for filtered data or sort changes to provide an ordered set of data.
-        const /** @type {?} */ orderedData = combineLatest(filteredData, sortChange)
+        /** @type {?} */
+        const orderedData = combineLatest(filteredData, sortChange)
             .pipe(map(([data]) => this._orderData(data)));
-        // Watch for ordered data or page changes to provide a paged set of data.
-        const /** @type {?} */ paginatedData = combineLatest(orderedData, pageChange)
+        /** @type {?} */
+        const paginatedData = combineLatest(orderedData, pageChange)
             .pipe(map(([data]) => this._pageData(data)));
         // Watched for paged data changes and send the result to the table to render.
         this._renderChangesSubscription.unsubscribe();
@@ -571,7 +576,8 @@ class MatTableDataSource extends DataSource {
         if (!this.paginator) {
             return data;
         }
-        const /** @type {?} */ startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+        /** @type {?} */
+        const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         return data.slice().splice(startIndex, this.paginator.pageSize);
     }
     /**
@@ -589,7 +595,8 @@ class MatTableDataSource extends DataSource {
             this.paginator.length = filteredDataLength;
             // If the page index is set beyond the page, reduce it to the last page.
             if (this.paginator.pageIndex > 0) {
-                const /** @type {?} */ lastPageIndex = Math.ceil(this.paginator.length / this.paginator.pageSize) - 1 || 0;
+                /** @type {?} */
+                const lastPageIndex = Math.ceil(this.paginator.length / this.paginator.pageSize) - 1 || 0;
                 this.paginator.pageIndex = Math.min(this.paginator.pageIndex, lastPageIndex);
             }
         });

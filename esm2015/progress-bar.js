@@ -25,26 +25,29 @@ class MatProgressBarBase {
         this._elementRef = _elementRef;
     }
 }
-const /** @type {?} */ _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
-/**
+/** @type {?} */
+const _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
+/** *
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.
  * \@docs-private
- */
-const /** @type {?} */ MAT_PROGRESS_BAR_LOCATION = new InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
+  @type {?} */
+const MAT_PROGRESS_BAR_LOCATION = new InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
 /**
  * \@docs-private
  * @return {?}
  */
 function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
-    const /** @type {?} */ _document = inject(DOCUMENT);
-    const /** @type {?} */ pathname = (_document && _document.location && _document.location.pathname) || '';
+    /** @type {?} */
+    const _document = inject(DOCUMENT);
+    /** @type {?} */
+    const pathname = (_document && _document.location && _document.location.pathname) || '';
     return { pathname };
 }
-/**
+/** *
  * Counter used to generate unique IDs for progress bars.
- */
-let /** @type {?} */ progressbarId = 0;
+  @type {?} */
+let progressbarId = 0;
 /**
  * `<mat-progress-bar>` component.
  */
@@ -76,13 +79,8 @@ class MatProgressBar extends _MatProgressBarMixinBase {
          * ID of the progress bar.
          */
         this.progressbarId = `mat-progress-bar-${progressbarId++}`;
-        // We need to prefix the SVG reference with the current path, otherwise they won't work
-        // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
-        // because named route URLs can contain parentheses (see #12338). Also we don't use
-        // `Location` from `@angular/common` since we can't tell the difference between whether
-        // the consumer is using the hash location strategy or not, because `Location` normalizes
-        // both `/#/foo/bar` and `/foo/bar` to the same thing.
-        const /** @type {?} */ path = location && location.pathname ? location.pathname.split('#')[0] : '';
+        /** @type {?} */
+        const path = location && location.pathname ? location.pathname.split('#')[0] : '';
         this._rectangleFillValue = `url('${path}#${this.progressbarId}')`;
     }
     /**
@@ -110,7 +108,8 @@ class MatProgressBar extends _MatProgressBarMixinBase {
      * @return {?}
      */
     _primaryTransform() {
-        const /** @type {?} */ scale = this.value / 100;
+        /** @type {?} */
+        const scale = this.value / 100;
         return { transform: `scaleX(${scale})` };
     }
     /**
@@ -120,7 +119,8 @@ class MatProgressBar extends _MatProgressBarMixinBase {
      */
     _bufferTransform() {
         if (this.mode === 'buffer') {
-            const /** @type {?} */ scale = this.bufferValue / 100;
+            /** @type {?} */
+            const scale = this.bufferValue / 100;
             return { transform: `scaleX(${scale})` };
         }
     }
@@ -146,14 +146,14 @@ MatProgressBar.decorators = [
 ];
 /** @nocollapse */
 MatProgressBar.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_PROGRESS_BAR_LOCATION,] },] },
+    { type: ElementRef },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_PROGRESS_BAR_LOCATION,] }] }
 ];
 MatProgressBar.propDecorators = {
-    "value": [{ type: Input },],
-    "bufferValue": [{ type: Input },],
-    "mode": [{ type: Input },],
+    value: [{ type: Input }],
+    bufferValue: [{ type: Input }],
+    mode: [{ type: Input }]
 };
 /**
  * Clamps a value to be between two numbers, by default 0 and 100.
@@ -190,5 +190,5 @@ MatProgressBarModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatProgressBarModule, MatProgressBarBase, _MatProgressBarMixinBase, MAT_PROGRESS_BAR_LOCATION, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBar };
+export { MatProgressBarModule, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBarBase, _MatProgressBarMixinBase, MAT_PROGRESS_BAR_LOCATION, MatProgressBar };
 //# sourceMappingURL=progress-bar.js.map

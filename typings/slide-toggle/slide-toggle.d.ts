@@ -20,25 +20,25 @@ export declare class MatSlideToggleChange {
     /** The new `checked` value of the MatSlideToggle. */
     checked: boolean;
     constructor(
-        /** The source MatSlideToggle of the event. */
-        source: MatSlideToggle, 
-        /** The new `checked` value of the MatSlideToggle. */
-        checked: boolean);
+    /** The source MatSlideToggle of the event. */
+    source: MatSlideToggle, 
+    /** The new `checked` value of the MatSlideToggle. */
+    checked: boolean);
 }
 /** @docs-private */
 export declare class MatSlideToggleBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatSlideToggleMixinBase: (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanColor) & (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => CanDisable) & typeof MatSlideToggleBase;
+export declare const _MatSlideToggleMixinBase: import("../core/common-behaviors/constructor").Constructor<HasTabIndex> & import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatSlideToggleBase;
 /** Represents a slidable "switch" toggle that can be moved between on and off. */
 export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
     private _focusMonitor;
     private _changeDetectorRef;
     private _ngZone;
     defaults: MatSlideToggleDefaultOptions;
-    _animationMode: string | undefined;
-    private _dir;
+    _animationMode?: string | undefined;
+    private _dir?;
     private onChange;
     private onTouched;
     private _uniqueId;
@@ -91,11 +91,11 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     /** Reference to the underlying input element. */
     _inputElement: ElementRef;
     constructor(elementRef: ElementRef, 
-        /**
-         * @deprecated The `_platform` parameter to be removed.
-         * @breaking-change 7.0.0
-         */
-        _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone, defaults: MatSlideToggleDefaultOptions, _animationMode?: string | undefined, _dir?: Directionality | undefined);
+    /**
+     * @deprecated The `_platform` parameter to be removed.
+     * @breaking-change 7.0.0
+     */
+    _platform: Platform, _focusMonitor: FocusMonitor, _changeDetectorRef: ChangeDetectorRef, tabIndex: string, _ngZone: NgZone, defaults: MatSlideToggleDefaultOptions, _animationMode?: string | undefined, _dir?: Directionality | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Method being called whenever the underlying input emits a change event. */
@@ -117,9 +117,9 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     /**
      * Emits a change event on the `change` output. Also notifies the FormControl about the change.
      */
-    private _emitChangeEvent();
+    private _emitChangeEvent;
     /** Retrieves the percentage of thumb from the moved distance. Percentage as fraction of 100. */
-    private _getDragPercentage(distance);
+    private _getDragPercentage;
     _onDragStart(): void;
     _onDrag(event: HammerInput): void;
     _onDragEnd(): void;

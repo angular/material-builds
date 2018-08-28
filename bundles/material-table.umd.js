@@ -44,8 +44,8 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkTable = table.CdkTable;
+/** @type {?} */
+var _CdkTable = table.CdkTable;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
@@ -79,10 +79,12 @@ var MatTable = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkCellDef = table.CdkCellDef;
-var /** @type {?} */ _CdkHeaderCellDef = table.CdkHeaderCellDef;
-var /** @type {?} */ _CdkFooterCellDef = table.CdkFooterCellDef;
+/** @type {?} */
+var _CdkCellDef = table.CdkCellDef;
+/** @type {?} */
+var _CdkHeaderCellDef = table.CdkHeaderCellDef;
+/** @type {?} */
+var _CdkFooterCellDef = table.CdkFooterCellDef;
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -149,11 +151,10 @@ var MatColumnDef = /** @class */ (function (_super) {
                     providers: [{ provide: table.CdkColumnDef, useExisting: MatColumnDef }],
                 },] },
     ];
-    /** @nocollapse */
     MatColumnDef.propDecorators = {
-        "name": [{ type: core.Input, args: ['matColumnDef',] },],
-        "sticky": [{ type: core.Input },],
-        "stickyEnd": [{ type: core.Input },],
+        name: [{ type: core.Input, args: ['matColumnDef',] }],
+        sticky: [{ type: core.Input }],
+        stickyEnd: [{ type: core.Input }]
     };
     return MatColumnDef;
 }(table.CdkColumnDef));
@@ -178,8 +179,8 @@ var MatHeaderCell = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatHeaderCell.ctorParameters = function () { return [
-        { type: table.CdkColumnDef, },
-        { type: core.ElementRef, },
+        { type: table.CdkColumnDef },
+        { type: core.ElementRef }
     ]; };
     return MatHeaderCell;
 }(table.CdkHeaderCell));
@@ -204,8 +205,8 @@ var MatFooterCell = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatFooterCell.ctorParameters = function () { return [
-        { type: table.CdkColumnDef, },
-        { type: core.ElementRef, },
+        { type: table.CdkColumnDef },
+        { type: core.ElementRef }
     ]; };
     return MatFooterCell;
 }(table.CdkFooterCell));
@@ -230,8 +231,8 @@ var MatCell = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatCell.ctorParameters = function () { return [
-        { type: table.CdkColumnDef, },
-        { type: core.ElementRef, },
+        { type: table.CdkColumnDef },
+        { type: core.ElementRef }
     ]; };
     return MatCell;
 }(table.CdkCell));
@@ -240,10 +241,12 @@ var MatCell = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
-var /** @type {?} */ _CdkHeaderRowDef = table.CdkHeaderRowDef;
-var /** @type {?} */ _CdkFooterRowDef = table.CdkFooterRowDef;
-var /** @type {?} */ _CdkRowDef = table.CdkRowDef;
+/** @type {?} */
+var _CdkHeaderRowDef = table.CdkHeaderRowDef;
+/** @type {?} */
+var _CdkFooterRowDef = table.CdkFooterRowDef;
+/** @type {?} */
+var _CdkRowDef = table.CdkRowDef;
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
@@ -374,7 +377,8 @@ var MatRow = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ EXPORTED_DECLARATIONS = [
+/** @type {?} */
+var EXPORTED_DECLARATIONS = [
     MatTable,
     MatHeaderCellDef,
     MatHeaderRowDef,
@@ -407,11 +411,11 @@ var MatTableModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Corresponds to `Number.MAX_SAFE_INTEGER`. Moved out into a variable here due to
  * flaky browser support and the value not being defined in Closure's typings.
- */
-var /** @type {?} */ MAX_SAFE_INTEGER = 9007199254740991;
+  @type {?} */
+var MAX_SAFE_INTEGER = 9007199254740991;
 /**
  * Data source that accepts a client-side data array and includes native support of filtering,
  * sorting (using MatSort), and pagination (using MatPaginator).
@@ -458,9 +462,11 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @param sortHeaderId The name of the column that represents the data.
          */
         _this.sortingDataAccessor = function (data, sortHeaderId) {
-            var /** @type {?} */ value = data[sortHeaderId];
+            /** @type {?} */
+            var value = data[sortHeaderId];
             if (coercion._isNumberValue(value)) {
-                var /** @type {?} */ numberValue = Number(value);
+                /** @type {?} */
+                var numberValue = Number(value);
                 // Numbers beyond `MAX_SAFE_INTEGER` can't be compared reliably so we
                 // leave them as strings. For more info: https://goo.gl/y5vbSg
                 return numberValue < MAX_SAFE_INTEGER ? numberValue : value;
@@ -477,19 +483,20 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @param sort The connected MatSort that holds the current sort state.
          */
         _this.sortData = function (data, sort) {
-            var /** @type {?} */ active = sort.active;
-            var /** @type {?} */ direction = sort.direction;
+            /** @type {?} */
+            var active = sort.active;
+            /** @type {?} */
+            var direction = sort.direction;
             if (!active || direction == '') {
                 return data;
             }
             return data.sort(function (a, b) {
-                var /** @type {?} */ valueA = _this.sortingDataAccessor(a, active);
-                var /** @type {?} */ valueB = _this.sortingDataAccessor(b, active);
-                // If both valueA and valueB exist (truthy), then compare the two. Otherwise, check if
-                // one value exists while the other doesn't. In this case, existing value should come first.
-                // This avoids inconsistent results when comparing values to undefined/null.
-                // If neither value exists, return 0 (equal).
-                var /** @type {?} */ comparatorResult = 0;
+                /** @type {?} */
+                var valueA = _this.sortingDataAccessor(a, active);
+                /** @type {?} */
+                var valueB = _this.sortingDataAccessor(b, active);
+                /** @type {?} */
+                var comparatorResult = 0;
                 if (valueA != null && valueB != null) {
                     // Check if one value is greater than the other; if equal, comparatorResult should remain 0.
                     if (valueA > valueB) {
@@ -519,11 +526,12 @@ MatTableDataSource = /** @class */ (function (_super) {
          * @return Whether the filter matches against the data
          */
         _this.filterPredicate = function (data, filter) {
-            // Transform the data into a lowercase string of all property values.
-            var /** @type {?} */ accumulator = function (currentTerm, key) { return currentTerm + data[key]; };
-            var /** @type {?} */ dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
-            // Transform the filter by converting it to lowercase and removing whitespace.
-            var /** @type {?} */ transformedFilter = filter.trim().toLowerCase();
+            /** @type {?} */
+            var accumulator = function (currentTerm, key) { return currentTerm + data[key]; };
+            /** @type {?} */
+            var dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+            /** @type {?} */
+            var transformedFilter = filter.trim().toLowerCase();
             return dataStr.indexOf(transformedFilter) != -1;
         };
         _this._data = new rxjs.BehaviorSubject(initialData);
@@ -639,33 +647,30 @@ MatTableDataSource = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        // Sorting and/or pagination should be watched if MatSort and/or MatPaginator are provided.
-        // The events should emit whenever the component emits a change or initializes, or if no
-        // component is provided, a stream with just a null event should be provided.
-        // The `sortChange` and `pageChange` acts as a signal to the combineLatests below so that the
-        // pipeline can progress to the next step. Note that the value from these streams are not used,
-        // they purely act as a signal to progress in the pipeline.
-        var /** @type {?} */ sortChange = this._sort ?
+        /** @type {?} */
+        var sortChange = this._sort ?
             rxjs.merge(this._sort.sortChange, this._sort.initialized) :
             rxjs.of(null);
-        var /** @type {?} */ pageChange = this._paginator ?
+        /** @type {?} */
+        var pageChange = this._paginator ?
             rxjs.merge(this._paginator.page, this._paginator.initialized) :
             rxjs.of(null);
-        var /** @type {?} */ dataStream = this._data;
-        // Watch for base data or filter changes to provide a filtered set of data.
-        var /** @type {?} */ filteredData = rxjs.combineLatest(dataStream, this._filter)
+        /** @type {?} */
+        var dataStream = this._data;
+        /** @type {?} */
+        var filteredData = rxjs.combineLatest(dataStream, this._filter)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._filterData(data);
         }));
-        // Watch for filtered data or sort changes to provide an ordered set of data.
-        var /** @type {?} */ orderedData = rxjs.combineLatest(filteredData, sortChange)
+        /** @type {?} */
+        var orderedData = rxjs.combineLatest(filteredData, sortChange)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._orderData(data);
         }));
-        // Watch for ordered data or page changes to provide a paged set of data.
-        var /** @type {?} */ paginatedData = rxjs.combineLatest(orderedData, pageChange)
+        /** @type {?} */
+        var paginatedData = rxjs.combineLatest(orderedData, pageChange)
             .pipe(operators.map(function (_a) {
             var data = _a[0];
             return _this._pageData(data);
@@ -751,7 +756,8 @@ MatTableDataSource = /** @class */ (function (_super) {
         if (!this.paginator) {
             return data;
         }
-        var /** @type {?} */ startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+        /** @type {?} */
+        var startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         return data.slice().splice(startIndex, this.paginator.pageSize);
     };
     /**
@@ -782,7 +788,8 @@ MatTableDataSource = /** @class */ (function (_super) {
             _this.paginator.length = filteredDataLength;
             // If the page index is set beyond the page, reduce it to the last page.
             if (_this.paginator.pageIndex > 0) {
-                var /** @type {?} */ lastPageIndex = Math.ceil(_this.paginator.length / _this.paginator.pageSize) - 1 || 0;
+                /** @type {?} */
+                var lastPageIndex = Math.ceil(_this.paginator.length / _this.paginator.pageSize) - 1 || 0;
                 _this.paginator.pageIndex = Math.min(_this.paginator.pageIndex, lastPageIndex);
             }
         });

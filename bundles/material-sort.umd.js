@@ -91,7 +91,8 @@ MatSortBase = /** @class */ (function () {
     }
     return MatSortBase;
 }());
-var /** @type {?} */ _MatSortMixinBase = core$1.mixinInitialized(core$1.mixinDisabled(MatSortBase));
+/** @type {?} */
+var _MatSortMixinBase = core$1.mixinInitialized(core$1.mixinDisabled(MatSortBase));
 /**
  * Container for MatSortables to manage the sort state and provide default sort parameters.
  */
@@ -120,6 +121,7 @@ var MatSort = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatSort.prototype, "direction", {
+        /** The sort direction of the currently active MatSortable. */
         get: /**
          * The sort direction of the currently active MatSortable.
          * @return {?}
@@ -139,6 +141,10 @@ var MatSort = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatSort.prototype, "disableClear", {
+        /**
+         * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
+         * May be overriden by the MatSortable's disable clear input.
+         */
         get: /**
          * Whether to disable the user from clearing the sort by finishing the sort direction cycle.
          * May be overriden by the MatSortable's disable clear input.
@@ -233,11 +239,12 @@ var MatSort = /** @class */ (function (_super) {
         if (!sortable) {
             return '';
         }
-        // Get the sort direction cycle with the potential sortable overrides.
-        var /** @type {?} */ disableClear = sortable.disableClear != null ? sortable.disableClear : this.disableClear;
-        var /** @type {?} */ sortDirectionCycle = getSortDirectionCycle(sortable.start || this.start, disableClear);
-        // Get and return the next direction in the cycle
-        var /** @type {?} */ nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
+        /** @type {?} */
+        var disableClear = sortable.disableClear != null ? sortable.disableClear : this.disableClear;
+        /** @type {?} */
+        var sortDirectionCycle = getSortDirectionCycle(sortable.start || this.start, disableClear);
+        /** @type {?} */
+        var nextDirectionIndex = sortDirectionCycle.indexOf(this.direction) + 1;
         if (nextDirectionIndex >= sortDirectionCycle.length) {
             nextDirectionIndex = 0;
         }
@@ -277,13 +284,12 @@ var MatSort = /** @class */ (function (_super) {
                     inputs: ['disabled: matSortDisabled']
                 },] },
     ];
-    /** @nocollapse */
     MatSort.propDecorators = {
-        "active": [{ type: core.Input, args: ['matSortActive',] },],
-        "start": [{ type: core.Input, args: ['matSortStart',] },],
-        "direction": [{ type: core.Input, args: ['matSortDirection',] },],
-        "disableClear": [{ type: core.Input, args: ['matSortDisableClear',] },],
-        "sortChange": [{ type: core.Output, args: ['matSortChange',] },],
+        active: [{ type: core.Input, args: ['matSortActive',] }],
+        start: [{ type: core.Input, args: ['matSortStart',] }],
+        direction: [{ type: core.Input, args: ['matSortDirection',] }],
+        disableClear: [{ type: core.Input, args: ['matSortDisableClear',] }],
+        sortChange: [{ type: core.Output, args: ['matSortChange',] }]
     };
     return MatSort;
 }(_MatSortMixinBase));
@@ -294,7 +300,8 @@ var MatSort = /** @class */ (function (_super) {
  * @return {?}
  */
 function getSortDirectionCycle(start, disableClear) {
-    var /** @type {?} */ sortOrder = ['asc', 'desc'];
+    /** @type {?} */
+    var sortOrder = ['asc', 'desc'];
     if (start == 'desc') {
         sortOrder.reverse();
     }
@@ -308,12 +315,13 @@ function getSortDirectionCycle(start, disableClear) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-var /** @type {?} */ SORT_ANIMATION_TRANSITION = core$1.AnimationDurations.ENTERING + ' ' +
+/** @type {?} */
+var SORT_ANIMATION_TRANSITION = core$1.AnimationDurations.ENTERING + ' ' +
     core$1.AnimationCurves.STANDARD_CURVE;
-/**
+/** *
  * Animations used by MatSort.
- */
-var /** @type {?} */ matSortAnimations = {
+  @type {?} */
+var matSortAnimations = {
     /** Animation that moves the sort indicator. */
     indicator: animations.trigger('indicator', [
         animations.state('active-asc, asc', animations.style({ transform: 'translateY(0px)' })),
@@ -418,10 +426,10 @@ var MatSortHeaderIntl = /** @class */ (function () {
 function MAT_SORT_HEADER_INTL_PROVIDER_FACTORY(parentIntl) {
     return parentIntl || new MatSortHeaderIntl();
 }
-/**
+/** *
  * \@docs-private
- */
-var /** @type {?} */ MAT_SORT_HEADER_INTL_PROVIDER = {
+  @type {?} */
+var MAT_SORT_HEADER_INTL_PROVIDER = {
     // If there is already an MatSortHeaderIntl available, use that. Otherwise, provide a new one.
     provide: MatSortHeaderIntl,
     deps: [[new core.Optional(), new core.SkipSelf(), MatSortHeaderIntl]],
@@ -443,7 +451,8 @@ MatSortHeaderBase = /** @class */ (function () {
     }
     return MatSortHeaderBase;
 }());
-var /** @type {?} */ _MatSortHeaderMixinBase = core$1.mixinDisabled(MatSortHeaderBase);
+/** @type {?} */
+var _MatSortHeaderMixinBase = core$1.mixinDisabled(MatSortHeaderBase);
 /**
  * Applies sorting behavior (click to change sort) and styles to an element, including an
  * arrow to display the current sort direction.
@@ -495,6 +504,7 @@ var MatSortHeader = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatSortHeader.prototype, "disableClear", {
+        /** Overrides the disable clear value of the containing MatSort for this MatSortable. */
         get: /**
          * Overrides the disable clear value of the containing MatSort for this MatSortable.
          * @return {?}
@@ -610,9 +620,8 @@ var MatSortHeader = /** @class */ (function (_super) {
         if (this._viewState.toState === 'hint' || this._viewState.toState === 'active') {
             this._disableViewStateAnimation = true;
         }
-        // If the arrow is now sorted, animate the arrow into place. Otherwise, animate it away into
-        // the direction it is facing.
-        var /** @type {?} */ viewState = this._isSorted() ?
+        /** @type {?} */
+        var viewState = this._isSorted() ?
             { fromState: this._arrowDirection, toState: 'active' } :
             { fromState: 'active', toState: this._arrowDirection };
         this._setAnimationTransitionState(viewState);
@@ -653,7 +662,8 @@ var MatSortHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ fromState = this._viewState.fromState;
+        /** @type {?} */
+        var fromState = this._viewState.fromState;
         return (fromState ? fromState + "-to-" : '') + this._viewState.toState;
     };
     /**
@@ -756,16 +766,16 @@ var MatSortHeader = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSortHeader.ctorParameters = function () { return [
-        { type: MatSortHeaderIntl, },
-        { type: core.ChangeDetectorRef, },
-        { type: MatSort, decorators: [{ type: core.Optional },] },
-        { type: table.CdkColumnDef, decorators: [{ type: core.Optional },] },
+        { type: MatSortHeaderIntl },
+        { type: core.ChangeDetectorRef },
+        { type: MatSort, decorators: [{ type: core.Optional }] },
+        { type: table.CdkColumnDef, decorators: [{ type: core.Optional }] }
     ]; };
     MatSortHeader.propDecorators = {
-        "id": [{ type: core.Input, args: ['mat-sort-header',] },],
-        "arrowPosition": [{ type: core.Input },],
-        "start": [{ type: core.Input },],
-        "disableClear": [{ type: core.Input },],
+        id: [{ type: core.Input, args: ['mat-sort-header',] }],
+        arrowPosition: [{ type: core.Input }],
+        start: [{ type: core.Input }],
+        disableClear: [{ type: core.Input }]
     };
     return MatSortHeader;
 }(_MatSortHeaderMixinBase));
@@ -792,8 +802,8 @@ exports.MatSortModule = MatSortModule;
 exports.MatSortHeaderBase = MatSortHeaderBase;
 exports._MatSortHeaderMixinBase = _MatSortHeaderMixinBase;
 exports.MatSortHeader = MatSortHeader;
-exports.MatSortHeaderIntl = MatSortHeaderIntl;
 exports.MAT_SORT_HEADER_INTL_PROVIDER_FACTORY = MAT_SORT_HEADER_INTL_PROVIDER_FACTORY;
+exports.MatSortHeaderIntl = MatSortHeaderIntl;
 exports.MAT_SORT_HEADER_INTL_PROVIDER = MAT_SORT_HEADER_INTL_PROVIDER;
 exports.MatSortBase = MatSortBase;
 exports._MatSortMixinBase = _MatSortMixinBase;

@@ -60,7 +60,8 @@ class MatMenuContent {
         if (!this._outlet) {
             this._outlet = new DomPortalOutlet(this._document.createElement('div'), this._componentFactoryResolver, this._appRef, this._injector);
         }
-        const /** @type {?} */ element = this._template.elementRef.nativeElement; /** @type {?} */
+        /** @type {?} */
+        const element = this._template.elementRef.nativeElement; /** @type {?} */
         ((
         // Because we support opening the same menu from different triggers (which in turn have their
         // own `OverlayRef` panel), we have to re-insert the host element every time, otherwise we
@@ -95,24 +96,24 @@ MatMenuContent.decorators = [
 ];
 /** @nocollapse */
 MatMenuContent.ctorParameters = () => [
-    { type: TemplateRef, },
-    { type: ComponentFactoryResolver, },
-    { type: ApplicationRef, },
-    { type: Injector, },
-    { type: ViewContainerRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: TemplateRef },
+    { type: ComponentFactoryResolver },
+    { type: ApplicationRef },
+    { type: Injector },
+    { type: ViewContainerRef },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the mat-menu component.
  * Animation duration and timing values are based on:
  * https://material.io/guidelines/components/menus.html#menus-usage
- */
-const /** @type {?} */ matMenuAnimations = {
+  @type {?} */
+const matMenuAnimations = {
     /**
        * This animation controls the menu panel's entry and exit from the page.
        *
@@ -152,16 +153,16 @@ const /** @type {?} */ matMenuAnimations = {
         ])
     ])
 };
-/**
+/** *
  * @deprecated
  * \@breaking-change 7.0.0
- */
-const /** @type {?} */ fadeInItems = matMenuAnimations.fadeInItems;
-/**
+  @type {?} */
+const fadeInItems = matMenuAnimations.fadeInItems;
+/** *
  * @deprecated
  * \@breaking-change 7.0.0
- */
-const /** @type {?} */ transformMenu = matMenuAnimations.transformMenu;
+  @type {?} */
+const transformMenu = matMenuAnimations.transformMenu;
 
 /**
  * @fileoverview added by tsickle
@@ -205,11 +206,11 @@ function throwMatMenuInvalidPositionY() {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token used to provide the parent menu to menu-specific components.
  * \@docs-private
- */
-const /** @type {?} */ MAT_MENU_PANEL = new InjectionToken('MAT_MENU_PANEL');
+  @type {?} */
+const MAT_MENU_PANEL = new InjectionToken('MAT_MENU_PANEL');
 
 /**
  * @fileoverview added by tsickle
@@ -220,7 +221,8 @@ const /** @type {?} */ MAT_MENU_PANEL = new InjectionToken('MAT_MENU_PANEL');
  */
 class MatMenuItemBase {
 }
-const /** @type {?} */ _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase));
+/** @type {?} */
+const _MatMenuItemMixinBase = mixinDisableRipple(mixinDisabled(MatMenuItemBase));
 /**
  * This directive is intended to be used inside an mat-menu tag.
  * It exists mostly to set the role attribute.
@@ -323,15 +325,19 @@ class MatMenuItem extends _MatMenuItemMixinBase {
      * @return {?}
      */
     getLabel() {
-        const /** @type {?} */ element = this._elementRef.nativeElement;
-        const /** @type {?} */ textNodeType = this._document ? this._document.TEXT_NODE : 3;
-        let /** @type {?} */ output = '';
+        /** @type {?} */
+        const element = this._elementRef.nativeElement;
+        /** @type {?} */
+        const textNodeType = this._document ? this._document.TEXT_NODE : 3;
+        /** @type {?} */
+        let output = '';
         if (element.childNodes) {
-            const /** @type {?} */ length = element.childNodes.length;
+            /** @type {?} */
+            const length = element.childNodes.length;
             // Go through all the top-level text nodes and extract their text.
             // We skip anything that's not a text node to prevent the text from
             // being thrown off by something like an icon.
-            for (let /** @type {?} */ i = 0; i < length; i++) {
+            for (let i = 0; i < length; i++) {
                 if (element.childNodes[i].nodeType === textNodeType) {
                     output += element.childNodes[i].textContent;
                 }
@@ -362,20 +368,20 @@ MatMenuItem.decorators = [
 ];
 /** @nocollapse */
 MatMenuItem.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
-    { type: FocusMonitor, },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_PANEL,] }, { type: Optional },] },
+    { type: ElementRef },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] },
+    { type: FocusMonitor },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_PANEL,] }, { type: Optional }] }
 ];
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token to be used to override the default options for `mat-menu`.
- */
-const /** @type {?} */ MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options', {
+  @type {?} */
+const MAT_MENU_DEFAULT_OPTIONS = new InjectionToken('mat-menu-default-options', {
     providedIn: 'root',
     factory: MAT_MENU_DEFAULT_OPTIONS_FACTORY
 });
@@ -391,11 +397,11 @@ function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
         backdropClass: 'cdk-overlay-transparent-backdrop',
     };
 }
-/**
+/** *
  * Start elevation for the menu panel.
  * \@docs-private
- */
-const /** @type {?} */ MAT_MENU_BASE_ELEVATION = 2;
+  @type {?} */
+const MAT_MENU_BASE_ELEVATION = 2;
 class MatMenu {
     /**
      * @param {?} _elementRef
@@ -568,7 +574,8 @@ class MatMenu {
      * @return {?}
      */
     _handleKeydown(event) {
-        const /** @type {?} */ keyCode = event.keyCode;
+        /** @type {?} */
+        const keyCode = event.keyCode;
         switch (keyCode) {
             case ESCAPE:
                 this.closed.emit('keydown');
@@ -621,9 +628,10 @@ class MatMenu {
      * @return {?}
      */
     setElevation(depth) {
-        // The elevation starts at the base and increases by one for each level.
-        const /** @type {?} */ newElevation = `mat-elevation-z${MAT_MENU_BASE_ELEVATION + depth}`;
-        const /** @type {?} */ customElevation = Object.keys(this._classList).find(c => c.startsWith('mat-elevation-z'));
+        /** @type {?} */
+        const newElevation = `mat-elevation-z${MAT_MENU_BASE_ELEVATION + depth}`;
+        /** @type {?} */
+        const customElevation = Object.keys(this._classList).find(c => c.startsWith('mat-elevation-z'));
         if (!customElevation || customElevation === this._previousElevation) {
             if (this._previousElevation) {
                 this._classList[this._previousElevation] = false;
@@ -656,7 +664,8 @@ class MatMenu {
      * @return {?}
      */
     removeItem(item) {
-        const /** @type {?} */ index = this._items.indexOf(item);
+        /** @type {?} */
+        const index = this._items.indexOf(item);
         if (this._items.indexOf(item) > -1) {
             this._items.splice(index, 1);
             this._itemChanges.next(this._items);
@@ -671,7 +680,8 @@ class MatMenu {
      * @return {?}
      */
     setPositionClasses(posX = this.xPosition, posY = this.yPosition) {
-        const /** @type {?} */ classes = this._classList;
+        /** @type {?} */
+        const classes = this._classList;
         classes['mat-menu-before'] = posX === 'before';
         classes['mat-menu-after'] = posX === 'after';
         classes['mat-menu-above'] = posY === 'above';
@@ -730,33 +740,33 @@ MatMenu.decorators = [
 ];
 /** @nocollapse */
 MatMenu.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: NgZone, },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] },] },
+    { type: ElementRef },
+    { type: NgZone },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_DEFAULT_OPTIONS,] }] }
 ];
 MatMenu.propDecorators = {
-    "backdropClass": [{ type: Input },],
-    "xPosition": [{ type: Input },],
-    "yPosition": [{ type: Input },],
-    "templateRef": [{ type: ViewChild, args: [TemplateRef,] },],
-    "items": [{ type: ContentChildren, args: [MatMenuItem,] },],
-    "lazyContent": [{ type: ContentChild, args: [MatMenuContent,] },],
-    "overlapTrigger": [{ type: Input },],
-    "hasBackdrop": [{ type: Input },],
-    "panelClass": [{ type: Input, args: ['class',] },],
-    "classList": [{ type: Input },],
-    "closed": [{ type: Output },],
-    "close": [{ type: Output },],
+    backdropClass: [{ type: Input }],
+    xPosition: [{ type: Input }],
+    yPosition: [{ type: Input }],
+    templateRef: [{ type: ViewChild, args: [TemplateRef,] }],
+    items: [{ type: ContentChildren, args: [MatMenuItem,] }],
+    lazyContent: [{ type: ContentChild, args: [MatMenuContent,] }],
+    overlapTrigger: [{ type: Input }],
+    hasBackdrop: [{ type: Input }],
+    panelClass: [{ type: Input, args: ['class',] }],
+    classList: [{ type: Input }],
+    closed: [{ type: Output }],
+    close: [{ type: Output }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that determines the scroll handling while the menu is open.
- */
-const /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy');
+  @type {?} */
+const MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -765,18 +775,18 @@ const /** @type {?} */ MAT_MENU_SCROLL_STRATEGY = new InjectionToken('mat-menu-s
 function MAT_MENU_SCROLL_STRATEGY_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition();
 }
-/**
+/** *
  * \@docs-private
- */
-const /** @type {?} */ MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+  @type {?} */
+const MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_MENU_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_MENU_SCROLL_STRATEGY_FACTORY,
 };
-/**
+/** *
  * Default top padding of the menu panel.
- */
-const /** @type {?} */ MENU_PANEL_TOP_PADDING = 8;
+  @type {?} */
+const MENU_PANEL_TOP_PADDING = 8;
 /**
  * This directive is intended to be used in conjunction with an mat-menu tag.  It is
  * responsible for toggling the display of the provided menu instance.
@@ -906,7 +916,8 @@ class MatMenuTrigger {
             return;
         }
         this._checkMenu();
-        const /** @type {?} */ overlayRef = this._createOverlay();
+        /** @type {?} */
+        const overlayRef = this._createOverlay();
         this._setPosition(/** @type {?} */ (overlayRef.getConfig().positionStrategy));
         overlayRef.attach(this._portal);
         if (this.menu.lazyContent) {
@@ -946,7 +957,8 @@ class MatMenuTrigger {
         if (!this._overlayRef || !this.menuOpen) {
             return;
         }
-        const /** @type {?} */ menu = this.menu;
+        /** @type {?} */
+        const menu = this.menu;
         this._closeSubscription.unsubscribe();
         this._overlayRef.detach();
         if (menu instanceof MatMenu) {
@@ -991,8 +1003,10 @@ class MatMenuTrigger {
      */
     _setMenuElevation() {
         if (this.menu.setElevation) {
-            let /** @type {?} */ depth = 0;
-            let /** @type {?} */ parentMenu = this.menu.parentMenu;
+            /** @type {?} */
+            let depth = 0;
+            /** @type {?} */
+            let parentMenu = this.menu.parentMenu;
             while (parentMenu) {
                 depth++;
                 parentMenu = parentMenu.parentMenu;
@@ -1049,7 +1063,8 @@ class MatMenuTrigger {
     _createOverlay() {
         if (!this._overlayRef) {
             this._portal = new TemplatePortal(this.menu.templateRef, this._viewContainerRef);
-            const /** @type {?} */ config = this._getOverlayConfig();
+            /** @type {?} */
+            const config = this._getOverlayConfig();
             this._subscribeToPositions(/** @type {?} */ (config.positionStrategy));
             this._overlayRef = this._overlay.create(config);
         }
@@ -1080,8 +1095,10 @@ class MatMenuTrigger {
     _subscribeToPositions(position) {
         if (this.menu.setPositionClasses) {
             position.positionChanges.subscribe(change => {
-                const /** @type {?} */ posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
-                const /** @type {?} */ posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above'; /** @type {?} */
+                /** @type {?} */
+                const posX = change.connectionPair.overlayX === 'start' ? 'after' : 'before';
+                /** @type {?} */
+                const posY = change.connectionPair.overlayY === 'top' ? 'below' : 'above'; /** @type {?} */
                 ((this.menu.setPositionClasses))(posX, posY);
             });
         }
@@ -1097,7 +1114,8 @@ class MatMenuTrigger {
         let [overlayY, overlayFallbackY] = this.menu.yPosition === 'above' ? ['bottom', 'top'] : ['top', 'bottom'];
         let [originY, originFallbackY] = [overlayY, overlayFallbackY];
         let [overlayX, overlayFallbackX] = [originX, originFallbackX];
-        let /** @type {?} */ offsetY = 0;
+        /** @type {?} */
+        let offsetY = 0;
         if (this.triggersSubmenu()) {
             // When the menu is a sub-menu, it should always align itself
             // to the edges of the trigger, instead of overlapping it.
@@ -1141,10 +1159,14 @@ class MatMenuTrigger {
      * @return {?}
      */
     _menuClosingActions() {
-        const /** @type {?} */ backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
-        const /** @type {?} */ detachments = /** @type {?} */ ((this._overlayRef)).detachments();
-        const /** @type {?} */ parentClose = this._parentMenu ? this._parentMenu.closed : of();
-        const /** @type {?} */ hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter(active => active !== this._menuItemInstance), filter(() => this._menuOpen)) : of();
+        /** @type {?} */
+        const backdrop = /** @type {?} */ ((this._overlayRef)).backdropClick();
+        /** @type {?} */
+        const detachments = /** @type {?} */ ((this._overlayRef)).detachments();
+        /** @type {?} */
+        const parentClose = this._parentMenu ? this._parentMenu.closed : of();
+        /** @type {?} */
+        const hover = this._parentMenu ? this._parentMenu._hovered().pipe(filter(active => active !== this._menuItemInstance), filter(() => this._menuOpen)) : of();
         return merge(backdrop, parentClose, hover, detachments);
     }
     /**
@@ -1169,7 +1191,8 @@ class MatMenuTrigger {
      * @return {?}
      */
     _handleKeydown(event) {
-        const /** @type {?} */ keyCode = event.keyCode;
+        /** @type {?} */
+        const keyCode = event.keyCode;
         if (this.triggersSubmenu() && ((keyCode === RIGHT_ARROW && this.dir === 'ltr') ||
             (keyCode === LEFT_ARROW && this.dir === 'rtl'))) {
             this.openMenu();
@@ -1200,6 +1223,9 @@ class MatMenuTrigger {
             return;
         }
         this._hoverSubscription = this._parentMenu._hovered()
+            // Since we might have multiple competing triggers for the same menu (e.g. a sub-menu
+            // with different data and triggers), we have to delay it by a tick to ensure that
+            // it won't be closed immediately after it is opened.
             .pipe(filter(active => active === this._menuItemInstance && !active.disabled), delay(0, asapScheduler))
             .subscribe(() => {
             this._openedByMouse = true;
@@ -1234,23 +1260,23 @@ MatMenuTrigger.decorators = [
 ];
 /** @nocollapse */
 MatMenuTrigger.ctorParameters = () => [
-    { type: Overlay, },
-    { type: ElementRef, },
-    { type: ViewContainerRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_SCROLL_STRATEGY,] },] },
-    { type: MatMenu, decorators: [{ type: Optional },] },
-    { type: MatMenuItem, decorators: [{ type: Optional }, { type: Self },] },
-    { type: Directionality, decorators: [{ type: Optional },] },
-    { type: FocusMonitor, },
+    { type: Overlay },
+    { type: ElementRef },
+    { type: ViewContainerRef },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_MENU_SCROLL_STRATEGY,] }] },
+    { type: MatMenu, decorators: [{ type: Optional }] },
+    { type: MatMenuItem, decorators: [{ type: Optional }, { type: Self }] },
+    { type: Directionality, decorators: [{ type: Optional }] },
+    { type: FocusMonitor }
 ];
 MatMenuTrigger.propDecorators = {
-    "_deprecatedMatMenuTriggerFor": [{ type: Input, args: ['mat-menu-trigger-for',] },],
-    "menu": [{ type: Input, args: ['matMenuTriggerFor',] },],
-    "menuData": [{ type: Input, args: ['matMenuTriggerData',] },],
-    "menuOpened": [{ type: Output },],
-    "onMenuOpen": [{ type: Output },],
-    "menuClosed": [{ type: Output },],
-    "onMenuClose": [{ type: Output },],
+    _deprecatedMatMenuTriggerFor: [{ type: Input, args: ['mat-menu-trigger-for',] }],
+    menu: [{ type: Input, args: ['matMenuTriggerFor',] }],
+    menuData: [{ type: Input, args: ['matMenuTriggerData',] }],
+    menuOpened: [{ type: Output }],
+    onMenuOpen: [{ type: Output }],
+    menuClosed: [{ type: Output }],
+    onMenuClose: [{ type: Output }]
 };
 
 /**
@@ -1288,5 +1314,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa19, MatMenuItemBase as ɵb19, _MatMenuItemMixinBase as ɵc19, MAT_MENU_PANEL as ɵf19, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd19, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe19 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa21, MatMenuItemBase as ɵb21, _MatMenuItemMixinBase as ɵc21, MAT_MENU_PANEL as ɵf21, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd21, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe21 };
 //# sourceMappingURL=menu.js.map

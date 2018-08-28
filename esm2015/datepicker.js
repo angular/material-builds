@@ -180,7 +180,8 @@ class MatCalendarBody {
      * @return {?}
      */
     _isActiveCell(rowIndex, colIndex) {
-        let /** @type {?} */ cellNumber = rowIndex * this.numCols + colIndex;
+        /** @type {?} */
+        let cellNumber = rowIndex * this.numCols + colIndex;
         // Account for the fact that the first row may not have as many cells.
         if (rowIndex) {
             cellNumber -= this._firstRowOffset;
@@ -215,27 +216,28 @@ MatCalendarBody.decorators = [
 ];
 /** @nocollapse */
 MatCalendarBody.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: NgZone, },
+    { type: ElementRef },
+    { type: NgZone }
 ];
 MatCalendarBody.propDecorators = {
-    "label": [{ type: Input },],
-    "rows": [{ type: Input },],
-    "todayValue": [{ type: Input },],
-    "selectedValue": [{ type: Input },],
-    "labelMinRequiredCells": [{ type: Input },],
-    "numCols": [{ type: Input },],
-    "allowDisabledSelection": [{ type: Input },],
-    "activeCell": [{ type: Input },],
-    "cellAspectRatio": [{ type: Input },],
-    "selectedValueChange": [{ type: Output },],
+    label: [{ type: Input }],
+    rows: [{ type: Input }],
+    todayValue: [{ type: Input }],
+    selectedValue: [{ type: Input }],
+    labelMinRequiredCells: [{ type: Input }],
+    numCols: [{ type: Input }],
+    allowDisabledSelection: [{ type: Input }],
+    activeCell: [{ type: Input }],
+    cellAspectRatio: [{ type: Input }],
+    selectedValueChange: [{ type: Output }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-const /** @type {?} */ DAYS_PER_WEEK = 7;
+/** @type {?} */
+const DAYS_PER_WEEK = 7;
 /**
  * An internal component used to display a single month in the datepicker.
  * \@docs-private
@@ -271,11 +273,14 @@ class MatMonthView {
         if (!this._dateFormats) {
             throw createMissingDateImplError('MAT_DATE_FORMATS');
         }
-        const /** @type {?} */ firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
-        const /** @type {?} */ narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
-        const /** @type {?} */ longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
-        // Rotate the labels for days of the week based on the configured first day of the week.
-        let /** @type {?} */ weekdays = longWeekdays.map((long, i) => {
+        /** @type {?} */
+        const firstDayOfWeek = this._dateAdapter.getFirstDayOfWeek();
+        /** @type {?} */
+        const narrowWeekdays = this._dateAdapter.getDayOfWeekNames('narrow');
+        /** @type {?} */
+        const longWeekdays = this._dateAdapter.getDayOfWeekNames('long');
+        /** @type {?} */
+        let weekdays = longWeekdays.map((long, i) => {
             return { long, narrow: narrowWeekdays[i] };
         });
         this._weekdays = weekdays.slice(firstDayOfWeek).concat(weekdays.slice(0, firstDayOfWeek));
@@ -291,8 +296,10 @@ class MatMonthView {
      * @return {?}
      */
     set activeDate(value) {
-        const /** @type {?} */ oldActiveDate = this._activeDate;
-        const /** @type {?} */ validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+        /** @type {?} */
+        const oldActiveDate = this._activeDate;
+        /** @type {?} */
+        const validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
         this._activeDate = this._dateAdapter.clampDate(validDate, this.minDate, this.maxDate);
         if (!this._hasSameMonthAndYear(oldActiveDate, this._activeDate)) {
             this._init();
@@ -348,9 +355,12 @@ class MatMonthView {
      */
     _dateSelected(date) {
         if (this._selectedDate != date) {
-            const /** @type {?} */ selectedYear = this._dateAdapter.getYear(this.activeDate);
-            const /** @type {?} */ selectedMonth = this._dateAdapter.getMonth(this.activeDate);
-            const /** @type {?} */ selectedDate = this._dateAdapter.createDate(selectedYear, selectedMonth, date);
+            /** @type {?} */
+            const selectedYear = this._dateAdapter.getYear(this.activeDate);
+            /** @type {?} */
+            const selectedMonth = this._dateAdapter.getMonth(this.activeDate);
+            /** @type {?} */
+            const selectedDate = this._dateAdapter.createDate(selectedYear, selectedMonth, date);
             this.selectedChange.emit(selectedDate);
         }
         this._userSelection.emit();
@@ -361,11 +371,10 @@ class MatMonthView {
      * @return {?}
      */
     _handleCalendarBodyKeydown(event) {
-        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
-        // disabled ones from being selected. This may not be ideal, we should look into whether
-        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
-        const /** @type {?} */ oldActiveDate = this._activeDate;
-        const /** @type {?} */ isRtl = this._isRtl();
+        /** @type {?} */
+        const oldActiveDate = this._activeDate;
+        /** @type {?} */
+        const isRtl = this._isRtl();
         switch (event.keyCode) {
             case LEFT_ARROW:
                 this.activeDate = this._dateAdapter.addCalendarDays(this._activeDate, isRtl ? 1 : -1);
@@ -425,7 +434,8 @@ class MatMonthView {
         this._monthLabel =
             this._dateAdapter.getMonthNames('short')[this._dateAdapter.getMonth(this.activeDate)]
                 .toLocaleUpperCase();
-        let /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), 1);
+        /** @type {?} */
+        let firstOfMonth = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), 1);
         this._firstWeekOffset =
             (DAYS_PER_WEEK + this._dateAdapter.getDayOfWeek(firstOfMonth) -
                 this._dateAdapter.getFirstDayOfWeek()) % DAYS_PER_WEEK;
@@ -444,17 +454,22 @@ class MatMonthView {
      * @return {?}
      */
     _createWeekCells() {
-        const /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
-        const /** @type {?} */ dateNames = this._dateAdapter.getDateNames();
+        /** @type {?} */
+        const daysInMonth = this._dateAdapter.getNumDaysInMonth(this.activeDate);
+        /** @type {?} */
+        const dateNames = this._dateAdapter.getDateNames();
         this._weeks = [[]];
-        for (let /** @type {?} */ i = 0, /** @type {?} */ cell = this._firstWeekOffset; i < daysInMonth; i++, cell++) {
+        for (let i = 0, cell = this._firstWeekOffset; i < daysInMonth; i++, cell++) {
             if (cell == DAYS_PER_WEEK) {
                 this._weeks.push([]);
                 cell = 0;
             }
-            const /** @type {?} */ date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), i + 1);
-            const /** @type {?} */ enabled = this._shouldEnableDate(date);
-            const /** @type {?} */ ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
+            /** @type {?} */
+            const date = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), this._dateAdapter.getMonth(this.activeDate), i + 1);
+            /** @type {?} */
+            const enabled = this._shouldEnableDate(date);
+            /** @type {?} */
+            const ariaLabel = this._dateAdapter.format(date, this._dateFormats.display.dateA11yLabel);
             this._weeks[this._weeks.length - 1]
                 .push(new MatCalendarCell(i + 1, dateNames[i], ariaLabel, enabled));
         }
@@ -515,29 +530,31 @@ MatMonthView.decorators = [
 ];
 /** @nocollapse */
 MatMonthView.ctorParameters = () => [
-    { type: ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] },] },
-    { type: DateAdapter, decorators: [{ type: Optional },] },
-    { type: Directionality, decorators: [{ type: Optional },] },
+    { type: ChangeDetectorRef },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] }] },
+    { type: DateAdapter, decorators: [{ type: Optional }] },
+    { type: Directionality, decorators: [{ type: Optional }] }
 ];
 MatMonthView.propDecorators = {
-    "activeDate": [{ type: Input },],
-    "selected": [{ type: Input },],
-    "minDate": [{ type: Input },],
-    "maxDate": [{ type: Input },],
-    "dateFilter": [{ type: Input },],
-    "selectedChange": [{ type: Output },],
-    "_userSelection": [{ type: Output },],
-    "activeDateChange": [{ type: Output },],
-    "_matCalendarBody": [{ type: ViewChild, args: [MatCalendarBody,] },],
+    activeDate: [{ type: Input }],
+    selected: [{ type: Input }],
+    minDate: [{ type: Input }],
+    maxDate: [{ type: Input }],
+    dateFilter: [{ type: Input }],
+    selectedChange: [{ type: Output }],
+    _userSelection: [{ type: Output }],
+    activeDateChange: [{ type: Output }],
+    _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody,] }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-const /** @type {?} */ yearsPerPage = 24;
-const /** @type {?} */ yearsPerRow = 4;
+/** @type {?} */
+const yearsPerPage = 24;
+/** @type {?} */
+const yearsPerRow = 4;
 /**
  * An internal component used to display a year selector in the datepicker.
  * \@docs-private
@@ -580,8 +597,10 @@ class MatMultiYearView {
      * @return {?}
      */
     set activeDate(value) {
-        let /** @type {?} */ oldActiveDate = this._activeDate;
-        const /** @type {?} */ validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+        /** @type {?} */
+        let oldActiveDate = this._activeDate;
+        /** @type {?} */
+        const validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
         this._activeDate = this._dateAdapter.clampDate(validDate, this.minDate, this.maxDate);
         if (Math.floor(this._dateAdapter.getYear(oldActiveDate) / yearsPerPage) !=
             Math.floor(this._dateAdapter.getYear(this._activeDate) / yearsPerPage)) {
@@ -637,10 +656,12 @@ class MatMultiYearView {
      */
     _init() {
         this._todayYear = this._dateAdapter.getYear(this._dateAdapter.today());
-        let /** @type {?} */ activeYear = this._dateAdapter.getYear(this._activeDate);
-        let /** @type {?} */ activeOffset = activeYear % yearsPerPage;
+        /** @type {?} */
+        let activeYear = this._dateAdapter.getYear(this._activeDate);
+        /** @type {?} */
+        let activeOffset = activeYear % yearsPerPage;
         this._years = [];
-        for (let /** @type {?} */ i = 0, /** @type {?} */ row = []; i < yearsPerPage; i++) {
+        for (let i = 0, row = []; i < yearsPerPage; i++) {
             row.push(activeYear - activeOffset + i);
             if (row.length == yearsPerRow) {
                 this._years.push(row.map(year => this._createCellForYear(year)));
@@ -656,8 +677,10 @@ class MatMultiYearView {
      */
     _yearSelected(year) {
         this.yearSelected.emit(this._dateAdapter.createDate(year, 0, 1));
-        let /** @type {?} */ month = this._dateAdapter.getMonth(this.activeDate);
-        let /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(this._dateAdapter.createDate(year, month, 1));
+        /** @type {?} */
+        let month = this._dateAdapter.getMonth(this.activeDate);
+        /** @type {?} */
+        let daysInMonth = this._dateAdapter.getNumDaysInMonth(this._dateAdapter.createDate(year, month, 1));
         this.selectedChange.emit(this._dateAdapter.createDate(year, month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
     }
     /**
@@ -666,11 +689,10 @@ class MatMultiYearView {
      * @return {?}
      */
     _handleCalendarBodyKeydown(event) {
-        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
-        // disabled ones from being selected. This may not be ideal, we should look into whether
-        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
-        const /** @type {?} */ oldActiveDate = this._activeDate;
-        const /** @type {?} */ isRtl = this._isRtl();
+        /** @type {?} */
+        const oldActiveDate = this._activeDate;
+        /** @type {?} */
+        const isRtl = this._isRtl();
         switch (event.keyCode) {
             case LEFT_ARROW:
                 this.activeDate = this._dateAdapter.addCalendarYears(this._activeDate, isRtl ? 1 : -1);
@@ -731,7 +753,8 @@ class MatMultiYearView {
      * @return {?}
      */
     _createCellForYear(year) {
-        let /** @type {?} */ yearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(year, 0, 1));
+        /** @type {?} */
+        let yearName = this._dateAdapter.getYearName(this._dateAdapter.createDate(year, 0, 1));
         return new MatCalendarCell(year, yearName, yearName, this._shouldEnableYear(year));
     }
     /**
@@ -750,9 +773,10 @@ class MatMultiYearView {
         if (!this.dateFilter) {
             return true;
         }
-        const /** @type {?} */ firstOfYear = this._dateAdapter.createDate(year, 0, 1);
+        /** @type {?} */
+        const firstOfYear = this._dateAdapter.createDate(year, 0, 1);
         // If any date in the year is enabled count the year as enabled.
-        for (let /** @type {?} */ date = firstOfYear; this._dateAdapter.getYear(date) == year; date = this._dateAdapter.addCalendarDays(date, 1)) {
+        for (let date = firstOfYear; this._dateAdapter.getYear(date) == year; date = this._dateAdapter.addCalendarDays(date, 1)) {
             if (this.dateFilter(date)) {
                 return true;
             }
@@ -784,20 +808,20 @@ MatMultiYearView.decorators = [
 ];
 /** @nocollapse */
 MatMultiYearView.ctorParameters = () => [
-    { type: ChangeDetectorRef, },
-    { type: DateAdapter, decorators: [{ type: Optional },] },
-    { type: Directionality, decorators: [{ type: Optional },] },
+    { type: ChangeDetectorRef },
+    { type: DateAdapter, decorators: [{ type: Optional }] },
+    { type: Directionality, decorators: [{ type: Optional }] }
 ];
 MatMultiYearView.propDecorators = {
-    "activeDate": [{ type: Input },],
-    "selected": [{ type: Input },],
-    "minDate": [{ type: Input },],
-    "maxDate": [{ type: Input },],
-    "dateFilter": [{ type: Input },],
-    "selectedChange": [{ type: Output },],
-    "yearSelected": [{ type: Output },],
-    "activeDateChange": [{ type: Output },],
-    "_matCalendarBody": [{ type: ViewChild, args: [MatCalendarBody,] },],
+    activeDate: [{ type: Input }],
+    selected: [{ type: Input }],
+    minDate: [{ type: Input }],
+    maxDate: [{ type: Input }],
+    dateFilter: [{ type: Input }],
+    selectedChange: [{ type: Output }],
+    yearSelected: [{ type: Output }],
+    activeDateChange: [{ type: Output }],
+    _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody,] }]
 };
 
 /**
@@ -851,8 +875,10 @@ class MatYearView {
      * @return {?}
      */
     set activeDate(value) {
-        let /** @type {?} */ oldActiveDate = this._activeDate;
-        const /** @type {?} */ validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
+        /** @type {?} */
+        let oldActiveDate = this._activeDate;
+        /** @type {?} */
+        const validDate = this._getValidDateOrNull(this._dateAdapter.deserialize(value)) || this._dateAdapter.today();
         this._activeDate = this._dateAdapter.clampDate(validDate, this.minDate, this.maxDate);
         if (this._dateAdapter.getYear(oldActiveDate) !== this._dateAdapter.getYear(this._activeDate)) {
             this._init();
@@ -907,9 +933,11 @@ class MatYearView {
      * @return {?}
      */
     _monthSelected(month) {
-        const /** @type {?} */ normalizedDate = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1);
+        /** @type {?} */
+        const normalizedDate = this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1);
         this.monthSelected.emit(normalizedDate);
-        const /** @type {?} */ daysInMonth = this._dateAdapter.getNumDaysInMonth(normalizedDate);
+        /** @type {?} */
+        const daysInMonth = this._dateAdapter.getNumDaysInMonth(normalizedDate);
         this.selectedChange.emit(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, Math.min(this._dateAdapter.getDate(this.activeDate), daysInMonth)));
     }
     /**
@@ -918,11 +946,10 @@ class MatYearView {
      * @return {?}
      */
     _handleCalendarBodyKeydown(event) {
-        // TODO(mmalerba): We currently allow keyboard navigation to disabled dates, but just prevent
-        // disabled ones from being selected. This may not be ideal, we should look into whether
-        // navigation should skip over disabled dates, and if so, how to implement that efficiently.
-        const /** @type {?} */ oldActiveDate = this._activeDate;
-        const /** @type {?} */ isRtl = this._isRtl();
+        /** @type {?} */
+        const oldActiveDate = this._activeDate;
+        /** @type {?} */
+        const isRtl = this._isRtl();
         switch (event.keyCode) {
             case LEFT_ARROW:
                 this.activeDate = this._dateAdapter.addCalendarMonths(this._activeDate, isRtl ? 1 : -1);
@@ -972,7 +999,8 @@ class MatYearView {
         this._selectedMonth = this._getMonthInCurrentYear(this.selected);
         this._todayMonth = this._getMonthInCurrentYear(this._dateAdapter.today());
         this._yearLabel = this._dateAdapter.getYearName(this.activeDate);
-        let /** @type {?} */ monthNames = this._dateAdapter.getMonthNames('short');
+        /** @type {?} */
+        let monthNames = this._dateAdapter.getMonthNames('short');
         // First row of months only contains 5 elements so we can fit the year label on the same row.
         this._months = [[0, 1, 2, 3], [4, 5, 6, 7], [8, 9, 10, 11]].map(row => row.map(month => this._createCellForMonth(month, monthNames[month])));
         this._changeDetectorRef.markForCheck();
@@ -1001,7 +1029,8 @@ class MatYearView {
      * @return {?}
      */
     _createCellForMonth(month, monthName) {
-        let /** @type {?} */ ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
+        /** @type {?} */
+        let ariaLabel = this._dateAdapter.format(this._dateAdapter.createDate(this._dateAdapter.getYear(this.activeDate), month, 1), this._dateFormats.display.monthYearA11yLabel);
         return new MatCalendarCell(month, monthName.toLocaleUpperCase(), ariaLabel, this._shouldEnableMonth(month));
     }
     /**
@@ -1010,7 +1039,8 @@ class MatYearView {
      * @return {?}
      */
     _shouldEnableMonth(month) {
-        const /** @type {?} */ activeYear = this._dateAdapter.getYear(this.activeDate);
+        /** @type {?} */
+        const activeYear = this._dateAdapter.getYear(this.activeDate);
         if (month === undefined || month === null ||
             this._isYearAndMonthAfterMaxDate(activeYear, month) ||
             this._isYearAndMonthBeforeMinDate(activeYear, month)) {
@@ -1019,9 +1049,10 @@ class MatYearView {
         if (!this.dateFilter) {
             return true;
         }
-        const /** @type {?} */ firstOfMonth = this._dateAdapter.createDate(activeYear, month, 1);
+        /** @type {?} */
+        const firstOfMonth = this._dateAdapter.createDate(activeYear, month, 1);
         // If any date in the month is enabled count the month as enabled.
-        for (let /** @type {?} */ date = firstOfMonth; this._dateAdapter.getMonth(date) == month; date = this._dateAdapter.addCalendarDays(date, 1)) {
+        for (let date = firstOfMonth; this._dateAdapter.getMonth(date) == month; date = this._dateAdapter.addCalendarDays(date, 1)) {
             if (this.dateFilter(date)) {
                 return true;
             }
@@ -1037,8 +1068,10 @@ class MatYearView {
      */
     _isYearAndMonthAfterMaxDate(year, month) {
         if (this.maxDate) {
-            const /** @type {?} */ maxYear = this._dateAdapter.getYear(this.maxDate);
-            const /** @type {?} */ maxMonth = this._dateAdapter.getMonth(this.maxDate);
+            /** @type {?} */
+            const maxYear = this._dateAdapter.getYear(this.maxDate);
+            /** @type {?} */
+            const maxMonth = this._dateAdapter.getMonth(this.maxDate);
             return year > maxYear || (year === maxYear && month > maxMonth);
         }
         return false;
@@ -1052,8 +1085,10 @@ class MatYearView {
      */
     _isYearAndMonthBeforeMinDate(year, month) {
         if (this.minDate) {
-            const /** @type {?} */ minYear = this._dateAdapter.getYear(this.minDate);
-            const /** @type {?} */ minMonth = this._dateAdapter.getMonth(this.minDate);
+            /** @type {?} */
+            const minYear = this._dateAdapter.getYear(this.minDate);
+            /** @type {?} */
+            const minMonth = this._dateAdapter.getMonth(this.minDate);
             return year < minYear || (year === minYear && month < minMonth);
         }
         return false;
@@ -1083,21 +1118,21 @@ MatYearView.decorators = [
 ];
 /** @nocollapse */
 MatYearView.ctorParameters = () => [
-    { type: ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] },] },
-    { type: DateAdapter, decorators: [{ type: Optional },] },
-    { type: Directionality, decorators: [{ type: Optional },] },
+    { type: ChangeDetectorRef },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] }] },
+    { type: DateAdapter, decorators: [{ type: Optional }] },
+    { type: Directionality, decorators: [{ type: Optional }] }
 ];
 MatYearView.propDecorators = {
-    "activeDate": [{ type: Input },],
-    "selected": [{ type: Input },],
-    "minDate": [{ type: Input },],
-    "maxDate": [{ type: Input },],
-    "dateFilter": [{ type: Input },],
-    "selectedChange": [{ type: Output },],
-    "monthSelected": [{ type: Output },],
-    "activeDateChange": [{ type: Output },],
-    "_matCalendarBody": [{ type: ViewChild, args: [MatCalendarBody,] },],
+    activeDate: [{ type: Input }],
+    selected: [{ type: Input }],
+    minDate: [{ type: Input }],
+    maxDate: [{ type: Input }],
+    dateFilter: [{ type: Input }],
+    selectedChange: [{ type: Output }],
+    monthSelected: [{ type: Output }],
+    activeDateChange: [{ type: Output }],
+    _matCalendarBody: [{ type: ViewChild, args: [MatCalendarBody,] }]
 };
 
 /**
@@ -1136,9 +1171,12 @@ class MatCalendarHeader {
         if (this.calendar.currentView == 'year') {
             return this._dateAdapter.getYearName(this.calendar.activeDate);
         }
-        const /** @type {?} */ activeYear = this._dateAdapter.getYear(this.calendar.activeDate);
-        const /** @type {?} */ firstYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear - activeYear % 24, 0, 1));
-        const /** @type {?} */ lastYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear + yearsPerPage - 1 - activeYear % 24, 0, 1));
+        /** @type {?} */
+        const activeYear = this._dateAdapter.getYear(this.calendar.activeDate);
+        /** @type {?} */
+        const firstYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear - activeYear % 24, 0, 1));
+        /** @type {?} */
+        const lastYearInView = this._dateAdapter.getYearName(this._dateAdapter.createDate(activeYear + yearsPerPage - 1 - activeYear % 24, 0, 1));
         return `${firstYearInView} \u2013 ${lastYearInView}`;
     }
     /**
@@ -1243,11 +1281,11 @@ MatCalendarHeader.decorators = [
 ];
 /** @nocollapse */
 MatCalendarHeader.ctorParameters = () => [
-    { type: MatDatepickerIntl, },
-    { type: MatCalendar, decorators: [{ type: Inject, args: [forwardRef(() => MatCalendar),] },] },
-    { type: DateAdapter, decorators: [{ type: Optional },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] },] },
-    { type: ChangeDetectorRef, },
+    { type: MatDatepickerIntl },
+    { type: MatCalendar, decorators: [{ type: Inject, args: [forwardRef(() => MatCalendar),] }] },
+    { type: DateAdapter, decorators: [{ type: Optional }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] }] },
+    { type: ChangeDetectorRef }
 ];
 /**
  * A calendar that is used as part of the datepicker.
@@ -1413,9 +1451,11 @@ class MatCalendar {
      * @return {?}
      */
     ngOnChanges(changes) {
-        const /** @type {?} */ change = changes["minDate"] || changes["maxDate"] || changes["dateFilter"];
+        /** @type {?} */
+        const change = changes["minDate"] || changes["maxDate"] || changes["dateFilter"];
         if (change && !change.firstChange) {
-            const /** @type {?} */ view = this._getCurrentViewComponent();
+            /** @type {?} */
+            const view = this._getCurrentViewComponent();
             if (view) {
                 // We need to `detectChanges` manually here, because the `minDate`, `maxDate` etc. are
                 // passed down to the view via data bindings which won't be up-to-date when we call `_init`.
@@ -1436,7 +1476,8 @@ class MatCalendar {
      * @return {?}
      */
     updateTodaysDate() {
-        let /** @type {?} */ view = this.currentView == 'month' ? this.monthView :
+        /** @type {?} */
+        let view = this.currentView == 'month' ? this.monthView :
             (this.currentView == 'year' ? this.yearView : this.multiYearView);
         view.ngAfterContentInit();
     }
@@ -1511,36 +1552,36 @@ MatCalendar.decorators = [
 ];
 /** @nocollapse */
 MatCalendar.ctorParameters = () => [
-    { type: MatDatepickerIntl, },
-    { type: DateAdapter, decorators: [{ type: Optional },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] },] },
-    { type: ChangeDetectorRef, },
+    { type: MatDatepickerIntl },
+    { type: DateAdapter, decorators: [{ type: Optional }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] }] },
+    { type: ChangeDetectorRef }
 ];
 MatCalendar.propDecorators = {
-    "headerComponent": [{ type: Input },],
-    "startAt": [{ type: Input },],
-    "startView": [{ type: Input },],
-    "selected": [{ type: Input },],
-    "minDate": [{ type: Input },],
-    "maxDate": [{ type: Input },],
-    "dateFilter": [{ type: Input },],
-    "selectedChange": [{ type: Output },],
-    "yearSelected": [{ type: Output },],
-    "monthSelected": [{ type: Output },],
-    "_userSelection": [{ type: Output },],
-    "monthView": [{ type: ViewChild, args: [MatMonthView,] },],
-    "yearView": [{ type: ViewChild, args: [MatYearView,] },],
-    "multiYearView": [{ type: ViewChild, args: [MatMultiYearView,] },],
+    headerComponent: [{ type: Input }],
+    startAt: [{ type: Input }],
+    startView: [{ type: Input }],
+    selected: [{ type: Input }],
+    minDate: [{ type: Input }],
+    maxDate: [{ type: Input }],
+    dateFilter: [{ type: Input }],
+    selectedChange: [{ type: Output }],
+    yearSelected: [{ type: Output }],
+    monthSelected: [{ type: Output }],
+    _userSelection: [{ type: Output }],
+    monthView: [{ type: ViewChild, args: [MatMonthView,] }],
+    yearView: [{ type: ViewChild, args: [MatYearView,] }],
+    multiYearView: [{ type: ViewChild, args: [MatMultiYearView,] }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material datepicker.
- */
-const /** @type {?} */ matDatepickerAnimations = {
+  @type {?} */
+const matDatepickerAnimations = {
     /** Transforms the height of the datepicker's calendar. */
     transformPanel: trigger('transformPanel', [
         state('void', style({
@@ -1567,14 +1608,14 @@ const /** @type {?} */ matDatepickerAnimations = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Used to generate a unique ID for each datepicker instance.
- */
-let /** @type {?} */ datepickerUid = 0;
-/**
+  @type {?} */
+let datepickerUid = 0;
+/** *
  * Injection token that determines the scroll handling while the calendar is open.
- */
-const /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy');
+  @type {?} */
+const MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-datepicker-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -1583,10 +1624,10 @@ const /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY = new InjectionToken('mat-
 function MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY(overlay) {
     return () => overlay.scrollStrategies.reposition();
 }
-/**
+/** *
  * \@docs-private
- */
-const /** @type {?} */ MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
+  @type {?} */
+const MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER = {
     provide: MAT_DATEPICKER_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY,
@@ -1602,7 +1643,8 @@ class MatDatepickerContentBase {
         this._elementRef = _elementRef;
     }
 }
-const /** @type {?} */ _MatDatepickerContentMixinBase = mixinColor(MatDatepickerContentBase);
+/** @type {?} */
+const _MatDatepickerContentMixinBase = mixinColor(MatDatepickerContentBase);
 /**
  * Component used as the content for the datepicker dialog and popup. We use this instead of using
  * MatCalendar directly as the content so we can control the initial focus. This also gives us a
@@ -1646,10 +1688,10 @@ MatDatepickerContent.decorators = [
 ];
 /** @nocollapse */
 MatDatepickerContent.ctorParameters = () => [
-    { type: ElementRef, },
+    { type: ElementRef }
 ];
 MatDatepickerContent.propDecorators = {
-    "_calendar": [{ type: ViewChild, args: [MatCalendar,] },],
+    _calendar: [{ type: ViewChild, args: [MatCalendar,] }]
 };
 /**
  * Component responsible for managing the datepicker popup/dialog.
@@ -1781,7 +1823,8 @@ class MatDatepicker {
      * @return {?}
      */
     set disabled(value) {
-        const /** @type {?} */ newValue = coerceBooleanProperty(value);
+        /** @type {?} */
+        const newValue = coerceBooleanProperty(value);
         if (newValue !== this._disabled) {
             this._disabled = newValue;
             this._disabledChange.next(newValue);
@@ -1845,7 +1888,8 @@ class MatDatepicker {
      * @return {?}
      */
     select(date) {
-        let /** @type {?} */ oldValue = this._selected;
+        /** @type {?} */
+        let oldValue = this._selected;
         this._selected = date;
         if (!this._dateAdapter.sameDate(oldValue, this._selected)) {
             this._selectedChanged.next(date);
@@ -1916,7 +1960,8 @@ class MatDatepicker {
         if (this._calendarPortal && this._calendarPortal.isAttached) {
             this._calendarPortal.detach();
         }
-        const /** @type {?} */ completeClose = () => {
+        /** @type {?} */
+        const completeClose = () => {
             // The `_opened` could've been reset already if
             // we got two events in quick succession.
             if (this._opened) {
@@ -1986,7 +2031,8 @@ class MatDatepicker {
      * @return {?}
      */
     _createPopup() {
-        const /** @type {?} */ overlayConfig = new OverlayConfig({
+        /** @type {?} */
+        const overlayConfig = new OverlayConfig({
             positionStrategy: this._createPopupPositionStrategy(),
             hasBackdrop: true,
             backdropClass: 'mat-overlay-transparent-backdrop',
@@ -2052,7 +2098,8 @@ class MatDatepicker {
      * @return {?}
      */
     _setColor() {
-        const /** @type {?} */ color = this.color;
+        /** @type {?} */
+        const color = this.color;
         if (this._popupComponentRef) {
             this._popupComponentRef.instance.color = color;
         }
@@ -2071,40 +2118,42 @@ MatDatepicker.decorators = [
 ];
 /** @nocollapse */
 MatDatepicker.ctorParameters = () => [
-    { type: MatDialog, },
-    { type: Overlay, },
-    { type: NgZone, },
-    { type: ViewContainerRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_DATEPICKER_SCROLL_STRATEGY,] },] },
-    { type: DateAdapter, decorators: [{ type: Optional },] },
-    { type: Directionality, decorators: [{ type: Optional },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    { type: MatDialog },
+    { type: Overlay },
+    { type: NgZone },
+    { type: ViewContainerRef },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_DATEPICKER_SCROLL_STRATEGY,] }] },
+    { type: DateAdapter, decorators: [{ type: Optional }] },
+    { type: Directionality, decorators: [{ type: Optional }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
 ];
 MatDatepicker.propDecorators = {
-    "calendarHeaderComponent": [{ type: Input },],
-    "startAt": [{ type: Input },],
-    "startView": [{ type: Input },],
-    "color": [{ type: Input },],
-    "touchUi": [{ type: Input },],
-    "disabled": [{ type: Input },],
-    "yearSelected": [{ type: Output },],
-    "monthSelected": [{ type: Output },],
-    "panelClass": [{ type: Input },],
-    "openedStream": [{ type: Output, args: ['opened',] },],
-    "closedStream": [{ type: Output, args: ['closed',] },],
-    "opened": [{ type: Input },],
+    calendarHeaderComponent: [{ type: Input }],
+    startAt: [{ type: Input }],
+    startView: [{ type: Input }],
+    color: [{ type: Input }],
+    touchUi: [{ type: Input }],
+    disabled: [{ type: Input }],
+    yearSelected: [{ type: Output }],
+    monthSelected: [{ type: Output }],
+    panelClass: [{ type: Input }],
+    openedStream: [{ type: Output, args: ['opened',] }],
+    closedStream: [{ type: Output, args: ['closed',] }],
+    opened: [{ type: Input }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-const /** @type {?} */ MAT_DATEPICKER_VALUE_ACCESSOR = {
+/** @type {?} */
+const MAT_DATEPICKER_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatDatepickerInput),
     multi: true
 };
-const /** @type {?} */ MAT_DATEPICKER_VALIDATORS = {
+/** @type {?} */
+const MAT_DATEPICKER_VALIDATORS = {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => MatDatepickerInput),
     multi: true
@@ -2174,7 +2223,8 @@ class MatDatepickerInput {
          * The form control validator for the min date.
          */
         this._minValidator = (control) => {
-            const /** @type {?} */ controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+            /** @type {?} */
+            const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             return (!this.min || !controlValue ||
                 this._dateAdapter.compareDate(this.min, controlValue) <= 0) ?
                 null : { 'matDatepickerMin': { 'min': this.min, 'actual': controlValue } };
@@ -2183,7 +2233,8 @@ class MatDatepickerInput {
          * The form control validator for the max date.
          */
         this._maxValidator = (control) => {
-            const /** @type {?} */ controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+            /** @type {?} */
+            const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             return (!this.max || !controlValue ||
                 this._dateAdapter.compareDate(this.max, controlValue) >= 0) ?
                 null : { 'matDatepickerMax': { 'max': this.max, 'actual': controlValue } };
@@ -2192,7 +2243,8 @@ class MatDatepickerInput {
          * The form control validator for the date filter.
          */
         this._filterValidator = (control) => {
-            const /** @type {?} */ controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
+            /** @type {?} */
+            const controlValue = this._getValidDateOrNull(this._dateAdapter.deserialize(control.value));
             return !this._dateFilter || !controlValue || this._dateFilter(controlValue) ?
                 null : { 'matDatepickerFilter': true };
         };
@@ -2257,7 +2309,8 @@ class MatDatepickerInput {
         value = this._dateAdapter.deserialize(value);
         this._lastValueValid = !value || this._dateAdapter.isValid(value);
         value = this._getValidDateOrNull(value);
-        const /** @type {?} */ oldDate = this.value;
+        /** @type {?} */
+        const oldDate = this.value;
         this._value = value;
         this._formatValue(value);
         if (!this._dateAdapter.sameDate(oldDate, value)) {
@@ -2300,8 +2353,10 @@ class MatDatepickerInput {
      * @return {?}
      */
     set disabled(value) {
-        const /** @type {?} */ newValue = coerceBooleanProperty(value);
-        const /** @type {?} */ element = this._elementRef.nativeElement;
+        /** @type {?} */
+        const newValue = coerceBooleanProperty(value);
+        /** @type {?} */
+        const element = this._elementRef.nativeElement;
         if (this._disabled !== newValue) {
             this._disabled = newValue;
             this._disabledChange.emit(newValue);
@@ -2397,7 +2452,8 @@ class MatDatepickerInput {
      * @return {?}
      */
     _onInput(value) {
-        let /** @type {?} */ date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
+        /** @type {?} */
+        let date = this._dateAdapter.parse(value, this._dateFormats.parse.dateInput);
         this._lastValueValid = !date || this._dateAdapter.isValid(date);
         date = this._getValidDateOrNull(date);
         if (!this._dateAdapter.sameDate(date, this._value)) {
@@ -2472,20 +2528,20 @@ MatDatepickerInput.decorators = [
 ];
 /** @nocollapse */
 MatDatepickerInput.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: DateAdapter, decorators: [{ type: Optional },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] },] },
-    { type: MatFormField, decorators: [{ type: Optional },] },
+    { type: ElementRef },
+    { type: DateAdapter, decorators: [{ type: Optional }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_FORMATS,] }] },
+    { type: MatFormField, decorators: [{ type: Optional }] }
 ];
 MatDatepickerInput.propDecorators = {
-    "matDatepicker": [{ type: Input },],
-    "matDatepickerFilter": [{ type: Input },],
-    "value": [{ type: Input },],
-    "min": [{ type: Input },],
-    "max": [{ type: Input },],
-    "disabled": [{ type: Input },],
-    "dateChange": [{ type: Output },],
-    "dateInput": [{ type: Output },],
+    matDatepicker: [{ type: Input }],
+    matDatepickerFilter: [{ type: Input }],
+    value: [{ type: Input }],
+    min: [{ type: Input }],
+    max: [{ type: Input }],
+    disabled: [{ type: Input }],
+    dateChange: [{ type: Output }],
+    dateInput: [{ type: Output }]
 };
 
 /**
@@ -2515,7 +2571,8 @@ class MatDatepickerToggle {
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
         this._stateChanges = Subscription.EMPTY;
-        const /** @type {?} */ parsedTabIndex = Number(defaultTabIndex);
+        /** @type {?} */
+        const parsedTabIndex = Number(defaultTabIndex);
         this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
     }
     /**
@@ -2567,10 +2624,13 @@ class MatDatepickerToggle {
      * @return {?}
      */
     _watchStateChanges() {
-        const /** @type {?} */ datepickerDisabled = this.datepicker ? this.datepicker._disabledChange : of();
-        const /** @type {?} */ inputDisabled = this.datepicker && this.datepicker._datepickerInput ?
+        /** @type {?} */
+        const datepickerDisabled = this.datepicker ? this.datepicker._disabledChange : of();
+        /** @type {?} */
+        const inputDisabled = this.datepicker && this.datepicker._datepickerInput ?
             this.datepicker._datepickerInput._disabledChange : of();
-        const /** @type {?} */ datepickerToggled = this.datepicker ?
+        /** @type {?} */
+        const datepickerToggled = this.datepicker ?
             merge(this.datepicker.openedStream, this.datepicker.closedStream) :
             of();
         this._stateChanges.unsubscribe();
@@ -2596,15 +2656,15 @@ MatDatepickerToggle.decorators = [
 ];
 /** @nocollapse */
 MatDatepickerToggle.ctorParameters = () => [
-    { type: MatDatepickerIntl, },
-    { type: ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
+    { type: MatDatepickerIntl },
+    { type: ChangeDetectorRef },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
 ];
 MatDatepickerToggle.propDecorators = {
-    "datepicker": [{ type: Input, args: ['for',] },],
-    "tabIndex": [{ type: Input },],
-    "disabled": [{ type: Input },],
-    "_customIcon": [{ type: ContentChild, args: [MatDatepickerToggleIcon,] },],
+    datepicker: [{ type: Input, args: ['for',] }],
+    tabIndex: [{ type: Input }],
+    disabled: [{ type: Input }],
+    _customIcon: [{ type: ContentChild, args: [MatDatepickerToggleIcon,] }]
 };
 
 /**
@@ -2670,5 +2730,5 @@ MatDatepickerModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatDatepickerModule, MatCalendarHeader, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER, MatDatepickerContentBase, _MatDatepickerContentMixinBase, MatDatepickerContent, MatDatepicker, matDatepickerAnimations, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };
+export { MatDatepickerModule, MatCalendarHeader, MatCalendar, MatCalendarCell, MatCalendarBody, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY, MAT_DATEPICKER_SCROLL_STRATEGY, MAT_DATEPICKER_SCROLL_STRATEGY_FACTORY_PROVIDER, MatDatepickerContentBase, _MatDatepickerContentMixinBase, MatDatepickerContent, MatDatepicker, matDatepickerAnimations, MAT_DATEPICKER_VALUE_ACCESSOR, MAT_DATEPICKER_VALIDATORS, MatDatepickerInputEvent, MatDatepickerInput, MatDatepickerIntl, MatDatepickerToggleIcon, MatDatepickerToggle, MatMonthView, MatYearView, MatMultiYearView as ɵa34 };
 //# sourceMappingURL=datepicker.js.map

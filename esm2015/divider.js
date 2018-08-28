@@ -56,10 +56,9 @@ MatDivider.decorators = [
                 changeDetection: ChangeDetectionStrategy.OnPush,
             },] },
 ];
-/** @nocollapse */
 MatDivider.propDecorators = {
-    "vertical": [{ type: Input },],
-    "inset": [{ type: Input },],
+    vertical: [{ type: Input }],
+    inset: [{ type: Input }]
 };
 
 /**

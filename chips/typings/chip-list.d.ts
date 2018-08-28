@@ -23,10 +23,10 @@ export declare class MatChipListBase {
     /** @docs-private */
     ngControl: NgControl;
     constructor(_defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, 
-        /** @docs-private */
-        ngControl: NgControl);
+    /** @docs-private */
+    ngControl: NgControl);
 }
-export declare const _MatChipListMixinBase: (new (...args: any[]) => CanUpdateErrorState) & typeof MatChipListBase;
+export declare const _MatChipListMixinBase: import("../core/common-behaviors/constructor").Constructor<CanUpdateErrorState> & typeof MatChipListBase;
 /** Change event object that is emitted when the chip list value has changed. */
 export declare class MatChipListChange {
     /** Chip list that emitted the event. */
@@ -34,10 +34,10 @@ export declare class MatChipListChange {
     /** Value of the chip list when the event was emitted. */
     value: any;
     constructor(
-        /** Chip list that emitted the event. */
-        source: MatChipList, 
-        /** Value of the chip list when the event was emitted. */
-        value: any);
+    /** Chip list that emitted the event. */
+    source: MatChipList, 
+    /** Value of the chip list when the event was emitted. */
+    value: any);
 }
 /**
  * A material design chips component (named ChipList for it's similarity to the List component).
@@ -174,8 +174,8 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     /** The chip components contained within this chip list. */
     chips: QueryList<MatChip>;
     constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, 
-        /** @docs-private */
-        ngControl: NgControl);
+    /** @docs-private */
+    ngControl: NgControl);
     ngAfterContentInit(): void;
     ngOnInit(): void;
     ngDoCheck(): void;
@@ -222,36 +222,36 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
      * @param index The index to be checked.
      * @returns True if the index is valid for our list of chips.
      */
-    private _isValidIndex(index);
-    private _isInputEmpty(element);
+    private _isValidIndex;
+    private _isInputEmpty;
     _setSelectionByValue(value: any, isUserInput?: boolean): void;
     /**
      * Finds and selects the chip based on its value.
      * @returns Chip that has the corresponding value.
      */
-    private _selectValue(value, isUserInput?);
-    private _initializeSelection();
+    private _selectValue;
+    private _initializeSelection;
     /**
      * Deselects every chip in the list.
      * @param skip Chip that should not be deselected.
      */
-    private _clearSelection(skip?);
+    private _clearSelection;
     /**
      * Sorts the model values, ensuring that they keep the same
      * order that they have in the panel.
      */
-    private _sortValues();
+    private _sortValues;
     /** Emits change event to set the model value. */
-    private _propagateChanges(fallbackValue?);
+    private _propagateChanges;
     /** When blurred, mark the field as touched when focus moved outside the chip list. */
     _blur(): void;
     /** Mark the field as touched */
     _markAsTouched(): void;
-    private _resetChips();
-    private _dropSubscriptions();
+    private _resetChips;
+    private _dropSubscriptions;
     /** Listens to user-generated selection events on each chip. */
-    private _listenToChipsSelection();
+    private _listenToChipsSelection;
     /** Listens to user-generated selection events on each chip. */
-    private _listenToChipsFocus();
-    private _listenToChipsRemoved();
+    private _listenToChipsFocus;
+    private _listenToChipsRemoved;
 }

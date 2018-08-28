@@ -18,14 +18,14 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// Increasing integer for generating unique ids for radio components.
-let /** @type {?} */ nextUniqueId = 0;
-/**
+/** @type {?} */
+let nextUniqueId = 0;
+/** *
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
  * \@docs-private
- */
-const /** @type {?} */ MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
+  @type {?} */
+const MAT_RADIO_GROUP_CONTROL_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => MatRadioGroup),
     multi: true
@@ -48,7 +48,8 @@ class MatRadioChange {
  */
 class MatRadioGroupBase {
 }
-const /** @type {?} */ _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
+/** @type {?} */
+const _MatRadioGroupMixinBase = mixinDisabled(MatRadioGroupBase);
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
@@ -236,8 +237,8 @@ class MatRadioGroup extends _MatRadioGroupMixinBase {
      * @return {?}
      */
     _updateSelectedRadioFromValue() {
-        // If the value already matches the selected radio, do nothing.
-        const /** @type {?} */ isAlreadySelected = this._selected !== null && this._selected.value === this._value;
+        /** @type {?} */
+        const isAlreadySelected = this._selected !== null && this._selected.value === this._value;
         if (this._radios && !isAlreadySelected) {
             this._selected = null;
             this._radios.forEach(radio => {
@@ -316,17 +317,17 @@ MatRadioGroup.decorators = [
 ];
 /** @nocollapse */
 MatRadioGroup.ctorParameters = () => [
-    { type: ChangeDetectorRef, },
+    { type: ChangeDetectorRef }
 ];
 MatRadioGroup.propDecorators = {
-    "change": [{ type: Output },],
-    "_radios": [{ type: ContentChildren, args: [forwardRef(() => MatRadioButton), { descendants: true },] },],
-    "name": [{ type: Input },],
-    "labelPosition": [{ type: Input },],
-    "value": [{ type: Input },],
-    "selected": [{ type: Input },],
-    "disabled": [{ type: Input },],
-    "required": [{ type: Input },],
+    change: [{ type: Output }],
+    _radios: [{ type: ContentChildren, args: [forwardRef(() => MatRadioButton), { descendants: true },] }],
+    name: [{ type: Input }],
+    labelPosition: [{ type: Input }],
+    value: [{ type: Input }],
+    selected: [{ type: Input }],
+    disabled: [{ type: Input }],
+    required: [{ type: Input }]
 };
 /**
  * \@docs-private
@@ -339,9 +340,8 @@ class MatRadioButtonBase {
         this._elementRef = _elementRef;
     }
 }
-// As per Material design specifications the selection control radio should use the accent color
-// palette by default. https://material.io/guidelines/components/selection-controls.html
-const /** @type {?} */ _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(mixinTabIndex(MatRadioButtonBase)), 'accent');
+/** @type {?} */
+const _MatRadioButtonMixinBase = mixinColor(mixinDisableRipple(mixinTabIndex(MatRadioButtonBase)), 'accent');
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */
@@ -403,7 +403,8 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
      * @return {?}
      */
     set checked(value) {
-        const /** @type {?} */ newCheckedState = coerceBooleanProperty(value);
+        /** @type {?} */
+        const newCheckedState = coerceBooleanProperty(value);
         if (this._checked !== newCheckedState) {
             this._checked = newCheckedState;
             if (newCheckedState && this.radioGroup && this.radioGroup.value !== this.value) {
@@ -470,7 +471,8 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
      * @return {?}
      */
     set disabled(value) {
-        const /** @type {?} */ newDisabledState = coerceBooleanProperty(value);
+        /** @type {?} */
+        const newDisabledState = coerceBooleanProperty(value);
         if (this._disabled !== newDisabledState) {
             this._disabled = newDisabledState;
             this._changeDetector.markForCheck();
@@ -581,7 +583,8 @@ class MatRadioButton extends _MatRadioButtonMixinBase {
         // Otherwise the change event, from the input element, will bubble up and
         // emit its event object to the `change` output.
         event.stopPropagation();
-        const /** @type {?} */ groupValueChanged = this.radioGroup && this.value !== this.radioGroup.value;
+        /** @type {?} */
+        const groupValueChanged = this.radioGroup && this.value !== this.radioGroup.value;
         this.checked = true;
         this._emitChangeEvent();
         if (this.radioGroup) {
@@ -616,26 +619,26 @@ MatRadioButton.decorators = [
 ];
 /** @nocollapse */
 MatRadioButton.ctorParameters = () => [
-    { type: MatRadioGroup, decorators: [{ type: Optional },] },
-    { type: ElementRef, },
-    { type: ChangeDetectorRef, },
-    { type: FocusMonitor, },
-    { type: UniqueSelectionDispatcher, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+    { type: MatRadioGroup, decorators: [{ type: Optional }] },
+    { type: ElementRef },
+    { type: ChangeDetectorRef },
+    { type: FocusMonitor },
+    { type: UniqueSelectionDispatcher },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 MatRadioButton.propDecorators = {
-    "id": [{ type: Input },],
-    "name": [{ type: Input },],
-    "ariaLabel": [{ type: Input, args: ['aria-label',] },],
-    "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
-    "ariaDescribedby": [{ type: Input, args: ['aria-describedby',] },],
-    "checked": [{ type: Input },],
-    "value": [{ type: Input },],
-    "labelPosition": [{ type: Input },],
-    "disabled": [{ type: Input },],
-    "required": [{ type: Input },],
-    "change": [{ type: Output },],
-    "_inputElement": [{ type: ViewChild, args: ['input',] },],
+    id: [{ type: Input }],
+    name: [{ type: Input }],
+    ariaLabel: [{ type: Input, args: ['aria-label',] }],
+    ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }],
+    ariaDescribedby: [{ type: Input, args: ['aria-describedby',] }],
+    checked: [{ type: Input }],
+    value: [{ type: Input }],
+    labelPosition: [{ type: Input }],
+    disabled: [{ type: Input }],
+    required: [{ type: Input }],
+    change: [{ type: Output }],
+    _inputElement: [{ type: ViewChild, args: ['input',] }]
 };
 
 /**

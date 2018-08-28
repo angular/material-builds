@@ -56,7 +56,8 @@ MatToolbarBase = /** @class */ (function () {
     }
     return MatToolbarBase;
 }());
-var /** @type {?} */ _MatToolbarMixinBase = core$1.mixinColor(MatToolbarBase);
+/** @type {?} */
+var _MatToolbarMixinBase = core$1.mixinColor(MatToolbarBase);
 var MatToolbarRow = /** @class */ (function () {
     function MatToolbarRow() {
     }
@@ -106,9 +107,8 @@ var MatToolbar = /** @class */ (function (_super) {
         if (!this._toolbarRows.length) {
             return;
         }
-        // Check if there are any other DOM nodes that can display content but aren't inside of
-        // a <mat-toolbar-row> element.
-        var /** @type {?} */ isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
+        /** @type {?} */
+        var isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
             .filter(function (node) { return !(node.classList && node.classList.contains('mat-toolbar-row')); })
             .filter(function (node) { return node.nodeType !== (_this._document ? _this._document.COMMENT_NODE : 8); })
             .some(function (node) { return node.textContent.trim(); });
@@ -133,12 +133,12 @@ var MatToolbar = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatToolbar.ctorParameters = function () { return [
-        { type: core.ElementRef, },
-        { type: platform.Platform, },
-        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] },] },
+        { type: core.ElementRef },
+        { type: platform.Platform },
+        { type: undefined, decorators: [{ type: core.Inject, args: [common.DOCUMENT,] }] }
     ]; };
     MatToolbar.propDecorators = {
-        "_toolbarRows": [{ type: core.ContentChildren, args: [MatToolbarRow,] },],
+        _toolbarRows: [{ type: core.ContentChildren, args: [MatToolbarRow,] }]
     };
     return MatToolbar;
 }(_MatToolbarMixinBase));
@@ -171,11 +171,11 @@ var MatToolbarModule = /** @class */ (function () {
 }());
 
 exports.MatToolbarModule = MatToolbarModule;
+exports.throwToolbarMixedModesError = throwToolbarMixedModesError;
 exports.MatToolbarBase = MatToolbarBase;
 exports._MatToolbarMixinBase = _MatToolbarMixinBase;
 exports.MatToolbarRow = MatToolbarRow;
 exports.MatToolbar = MatToolbar;
-exports.throwToolbarMixedModesError = throwToolbarMixedModesError;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 

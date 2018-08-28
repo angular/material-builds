@@ -46,5 +46,5 @@ export declare class MatInkBar {
      * Sets the proper styles to the ink bar element.
      * @param element
      */
-    private _setStyles(element);
+    private _setStyles;
 }

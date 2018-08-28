@@ -23,10 +23,10 @@ import { MatCommonModule } from '@angular/material/core';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material drawers.
- */
-const /** @type {?} */ matDrawerAnimations = {
+  @type {?} */
+const matDrawerAnimations = {
     /** Animation that slides a drawer in and out. */
     transformDrawer: trigger('transform', [
         // We remove the `transform` here completely, rather than setting it to zero, because:
@@ -60,10 +60,10 @@ const /** @type {?} */ matDrawerAnimations = {
 function throwMatDuplicatedDrawerError(position) {
     throw Error(`A drawer was already declared for 'position="${position}"'`);
 }
-/**
+/** *
  * Configures whether drawers should use auto sizing by default.
- */
-const /** @type {?} */ MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
+  @type {?} */
+const MAT_DRAWER_DEFAULT_AUTOSIZE = new InjectionToken('MAT_DRAWER_DEFAULT_AUTOSIZE', {
     providedIn: 'root',
     factory: MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY,
 });
@@ -110,11 +110,11 @@ MatDrawerContent.decorators = [
 ];
 /** @nocollapse */
 MatDrawerContent.ctorParameters = () => [
-    { type: ChangeDetectorRef, },
-    { type: MatDrawerContainer, decorators: [{ type: Inject, args: [forwardRef(() => MatDrawerContainer),] },] },
-    { type: ElementRef, },
-    { type: ScrollDispatcher, },
-    { type: NgZone, },
+    { type: ChangeDetectorRef },
+    { type: MatDrawerContainer, decorators: [{ type: Inject, args: [forwardRef(() => MatDrawerContainer),] }] },
+    { type: ElementRef },
+    { type: ScrollDispatcher },
+    { type: NgZone }
 ];
 /**
  * This component corresponds to a drawer that can be opened on the drawer container.
@@ -187,7 +187,7 @@ class MatDrawer {
              * and we don't have close disabled.
              */
         this._ngZone.runOutsideAngular(() => {
-            fromEvent(this._elementRef.nativeElement, 'keydown').pipe(filter((event) => event.keyCode === ESCAPE && !this.disableClose)).subscribe((event) => this._ngZone.run(() => {
+            fromEvent(this._elementRef.nativeElement, 'keydown').pipe(filter(event => event.keyCode === ESCAPE && !this.disableClose)).subscribe(event => this._ngZone.run(() => {
                 this.close();
                 event.stopPropagation();
             }));
@@ -303,7 +303,8 @@ class MatDrawer {
         if (!this.autoFocus) {
             return;
         }
-        const /** @type {?} */ activeEl = this._doc && this._doc.activeElement;
+        /** @type {?} */
+        const activeEl = this._doc && this._doc.activeElement;
         if (activeEl && this._elementRef.nativeElement.contains(activeEl)) {
             if (this._elementFocusedBeforeDrawerWasOpened instanceof HTMLElement) {
                 this._focusMonitor.focusVia(this._elementFocusedBeforeDrawerWasOpened, this._openedVia);
@@ -442,25 +443,25 @@ MatDrawer.decorators = [
 ];
 /** @nocollapse */
 MatDrawer.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: FocusTrapFactory, },
-    { type: FocusMonitor, },
-    { type: Platform, },
-    { type: NgZone, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
+    { type: ElementRef },
+    { type: FocusTrapFactory },
+    { type: FocusMonitor },
+    { type: Platform },
+    { type: NgZone },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] }
 ];
 MatDrawer.propDecorators = {
-    "position": [{ type: Input },],
-    "mode": [{ type: Input },],
-    "disableClose": [{ type: Input },],
-    "autoFocus": [{ type: Input },],
-    "openedChange": [{ type: Output },],
-    "_openedStream": [{ type: Output, args: ['opened',] },],
-    "openedStart": [{ type: Output },],
-    "_closedStream": [{ type: Output, args: ['closed',] },],
-    "closedStart": [{ type: Output },],
-    "onPositionChanged": [{ type: Output, args: ['positionChanged',] },],
-    "opened": [{ type: Input },],
+    position: [{ type: Input }],
+    mode: [{ type: Input }],
+    disableClose: [{ type: Input }],
+    autoFocus: [{ type: Input }],
+    openedChange: [{ type: Output }],
+    _openedStream: [{ type: Output, args: ['opened',] }],
+    openedStart: [{ type: Output }],
+    _closedStream: [{ type: Output, args: ['closed',] }],
+    closedStart: [{ type: Output }],
+    onPositionChanged: [{ type: Output, args: ['positionChanged',] }],
+    opened: [{ type: Input }]
 };
 /**
  * `<mat-drawer-container>` component.
@@ -767,20 +768,17 @@ class MatDrawerContainer {
      * @return {?}
      */
     _updateContentMargins() {
-        // 1. For drawers in `over` mode, they don't affect the content.
-        // 2. For drawers in `side` mode they should shrink the content. We do this by adding to the
-        //    left margin (for left drawer) or right margin (for right the drawer).
-        // 3. For drawers in `push` mode the should shift the content without resizing it. We do this by
-        //    adding to the left or right margin and simultaneously subtracting the same amount of
-        //    margin from the other side.
-        let /** @type {?} */ left = 0;
-        let /** @type {?} */ right = 0;
+        /** @type {?} */
+        let left = 0;
+        /** @type {?} */
+        let right = 0;
         if (this._left && this._left.opened) {
             if (this._left.mode == 'side') {
                 left += this._left._width;
             }
             else if (this._left.mode == 'push') {
-                let /** @type {?} */ width = this._left._width;
+                /** @type {?} */
+                let width = this._left._width;
                 left += width;
                 right -= width;
             }
@@ -790,7 +788,8 @@ class MatDrawerContainer {
                 right += this._right._width;
             }
             else if (this._right.mode == 'push') {
-                let /** @type {?} */ width = this._right._width;
+                /** @type {?} */
+                let width = this._right._width;
                 right += width;
                 left -= width;
             }
@@ -824,20 +823,20 @@ MatDrawerContainer.decorators = [
 ];
 /** @nocollapse */
 MatDrawerContainer.ctorParameters = () => [
-    { type: Directionality, decorators: [{ type: Optional },] },
-    { type: ElementRef, },
-    { type: NgZone, },
-    { type: ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+    { type: Directionality, decorators: [{ type: Optional }] },
+    { type: ElementRef },
+    { type: NgZone },
+    { type: ChangeDetectorRef },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_DRAWER_DEFAULT_AUTOSIZE,] }] },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 MatDrawerContainer.propDecorators = {
-    "_drawers": [{ type: ContentChildren, args: [MatDrawer,] },],
-    "_content": [{ type: ContentChild, args: [MatDrawerContent,] },],
-    "_userContent": [{ type: ViewChild, args: [MatDrawerContent,] },],
-    "autosize": [{ type: Input },],
-    "hasBackdrop": [{ type: Input },],
-    "backdropClick": [{ type: Output },],
+    _drawers: [{ type: ContentChildren, args: [MatDrawer,] }],
+    _content: [{ type: ContentChild, args: [MatDrawerContent,] }],
+    _userContent: [{ type: ViewChild, args: [MatDrawerContent,] }],
+    autosize: [{ type: Input }],
+    hasBackdrop: [{ type: Input }],
+    backdropClick: [{ type: Output }]
 };
 
 /**
@@ -870,11 +869,11 @@ MatSidenavContent.decorators = [
 ];
 /** @nocollapse */
 MatSidenavContent.ctorParameters = () => [
-    { type: ChangeDetectorRef, },
-    { type: MatSidenavContainer, decorators: [{ type: Inject, args: [forwardRef(() => MatSidenavContainer),] },] },
-    { type: ElementRef, },
-    { type: ScrollDispatcher, },
-    { type: NgZone, },
+    { type: ChangeDetectorRef },
+    { type: MatSidenavContainer, decorators: [{ type: Inject, args: [forwardRef(() => MatSidenavContainer),] }] },
+    { type: ElementRef },
+    { type: ScrollDispatcher },
+    { type: NgZone }
 ];
 class MatSidenav extends MatDrawer {
     constructor() {
@@ -941,11 +940,10 @@ MatSidenav.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/** @nocollapse */
 MatSidenav.propDecorators = {
-    "fixedInViewport": [{ type: Input },],
-    "fixedTopGap": [{ type: Input },],
-    "fixedBottomGap": [{ type: Input },],
+    fixedInViewport: [{ type: Input }],
+    fixedTopGap: [{ type: Input }],
+    fixedBottomGap: [{ type: Input }]
 };
 class MatSidenavContainer extends MatDrawerContainer {
 }
@@ -962,10 +960,9 @@ MatSidenavContainer.decorators = [
                 encapsulation: ViewEncapsulation.None,
             },] },
 ];
-/** @nocollapse */
 MatSidenavContainer.propDecorators = {
-    "_drawers": [{ type: ContentChildren, args: [MatSidenav,] },],
-    "_content": [{ type: ContentChild, args: [MatSidenavContent,] },],
+    _drawers: [{ type: ContentChildren, args: [MatSidenav,] }],
+    _content: [{ type: ContentChild, args: [MatSidenavContent,] }]
 };
 
 /**
@@ -1012,5 +1009,5 @@ MatSidenavModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
+export { MatSidenavModule, throwMatDuplicatedDrawerError, MAT_DRAWER_DEFAULT_AUTOSIZE_FACTORY, MAT_DRAWER_DEFAULT_AUTOSIZE, MatDrawerContent, MatDrawer, MatDrawerContainer, MatSidenavContent, MatSidenav, MatSidenavContainer, matDrawerAnimations };
 //# sourceMappingURL=sidenav.js.map

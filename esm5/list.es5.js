@@ -32,7 +32,8 @@ MatListBase = /** @class */ (function () {
     }
     return MatListBase;
 }());
-var /** @type {?} */ _MatListMixinBase = mixinDisableRipple(MatListBase);
+/** @type {?} */
+var _MatListMixinBase = mixinDisableRipple(MatListBase);
 /**
  * \@docs-private
  */
@@ -44,7 +45,8 @@ MatListItemBase = /** @class */ (function () {
     }
     return MatListItemBase;
 }());
-var /** @type {?} */ _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
+/** @type {?} */
+var _MatListItemMixinBase = mixinDisableRipple(MatListItemBase);
 var MatNavList = /** @class */ (function (_super) {
     __extends(MatNavList, _super);
     function MatNavList() {
@@ -214,13 +216,13 @@ var MatListItem = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatListItem.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: MatNavList, decorators: [{ type: Optional },] },
+        { type: ElementRef },
+        { type: MatNavList, decorators: [{ type: Optional }] }
     ]; };
     MatListItem.propDecorators = {
-        "_lines": [{ type: ContentChildren, args: [MatLine,] },],
-        "_avatar": [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] },],
-        "_icon": [{ type: ContentChild, args: [MatListIconCssMatStyler,] },],
+        _lines: [{ type: ContentChildren, args: [MatLine,] }],
+        _avatar: [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] }],
+        _icon: [{ type: ContentChild, args: [MatListIconCssMatStyler,] }]
     };
     return MatListItem;
 }(_MatListItemMixinBase));
@@ -240,7 +242,8 @@ MatSelectionListBase = /** @class */ (function () {
     }
     return MatSelectionListBase;
 }());
-var /** @type {?} */ _MatSelectionListMixinBase = mixinDisableRipple(MatSelectionListBase);
+/** @type {?} */
+var _MatSelectionListMixinBase = mixinDisableRipple(MatSelectionListBase);
 /**
  * \@docs-private
  */
@@ -252,11 +255,12 @@ MatListOptionBase = /** @class */ (function () {
     }
     return MatListOptionBase;
 }());
-var /** @type {?} */ _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
-/**
+/** @type {?} */
+var _MatListOptionMixinBase = mixinDisableRipple(MatListOptionBase);
+/** *
  * \@docs-private
- */
-var /** @type {?} */ MAT_SELECTION_LIST_VALUE_ACCESSOR = {
+  @type {?} */
+var MAT_SELECTION_LIST_VALUE_ACCESSOR = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(function () { return MatSelectionList; }),
     multi: true
@@ -300,6 +304,7 @@ var MatListOption = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatListOption.prototype, "disabled", {
+        /** Whether the option is disabled. */
         get: /**
          * Whether the option is disabled.
          * @return {?}
@@ -310,7 +315,8 @@ var MatListOption = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newValue = coerceBooleanProperty(value);
+            /** @type {?} */
+            var newValue = coerceBooleanProperty(value);
             if (newValue !== this._disabled) {
                 this._disabled = newValue;
                 this._changeDetector.markForCheck();
@@ -320,6 +326,7 @@ var MatListOption = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(MatListOption.prototype, "selected", {
+        /** Whether the option is selected. */
         get: /**
          * Whether the option is selected.
          * @return {?}
@@ -330,7 +337,8 @@ var MatListOption = /** @class */ (function (_super) {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ isSelected = coerceBooleanProperty(value);
+            /** @type {?} */
+            var isSelected = coerceBooleanProperty(value);
             if (isSelected !== this._selected) {
                 this._setSelected(isSelected);
                 this.selectionList._reportValueChange();
@@ -347,12 +355,8 @@ var MatListOption = /** @class */ (function (_super) {
      */
     function () {
         var _this = this;
-        // List options that are selected at initialization can't be reported properly to the form
-        // control. This is because it takes some time until the selection-list knows about all
-        // available options. Also it can happen that the ControlValueAccessor has an initial value
-        // that should be used instead. Deferring the value change report to the next tick ensures
-        // that the form control value is not being overwritten.
-        var /** @type {?} */ wasSelected = this._selected;
+        /** @type {?} */
+        var wasSelected = this._selected;
         Promise.resolve().then(function () {
             if (_this._selected || wasSelected) {
                 _this.selected = true;
@@ -553,18 +557,18 @@ var MatListOption = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatListOption.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: ChangeDetectorRef, },
-        { type: MatSelectionList, decorators: [{ type: Inject, args: [forwardRef(function () { return MatSelectionList; }),] },] },
+        { type: ElementRef },
+        { type: ChangeDetectorRef },
+        { type: MatSelectionList, decorators: [{ type: Inject, args: [forwardRef(function () { return MatSelectionList; }),] }] }
     ]; };
     MatListOption.propDecorators = {
-        "_avatar": [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] },],
-        "_lines": [{ type: ContentChildren, args: [MatLine,] },],
-        "_text": [{ type: ViewChild, args: ['text',] },],
-        "checkboxPosition": [{ type: Input },],
-        "value": [{ type: Input },],
-        "disabled": [{ type: Input },],
-        "selected": [{ type: Input },],
+        _avatar: [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] }],
+        _lines: [{ type: ContentChildren, args: [MatLine,] }],
+        _text: [{ type: ViewChild, args: ['text',] }],
+        checkboxPosition: [{ type: Input }],
+        value: [{ type: Input }],
+        disabled: [{ type: Input }],
+        selected: [{ type: Input }]
     };
     return MatListOption;
 }(_MatListOptionMixinBase));
@@ -605,6 +609,7 @@ var MatSelectionList = /** @class */ (function (_super) {
         return _this;
     }
     Object.defineProperty(MatSelectionList.prototype, "disabled", {
+        /** Whether the selection list is disabled. */
         get: /**
          * Whether the selection list is disabled.
          * @return {?}
@@ -637,6 +642,8 @@ var MatSelectionList = /** @class */ (function (_super) {
         this._keyManager = new FocusKeyManager(this.options)
             .withWrap()
             .withTypeAhead()
+            // Allow disabled items to be focusable. For accessibility reasons, there must be a way for
+            // screenreader users, that allows reading the different options of the list.
             .skipPredicate(function () { return false; });
         if (this._tempValues) {
             this._setOptionsFromValues(this._tempValues);
@@ -730,7 +737,8 @@ var MatSelectionList = /** @class */ (function (_super) {
      */
     function (option) {
         if (option._hasFocus) {
-            var /** @type {?} */ optionIndex = this._getOptionIndex(option);
+            /** @type {?} */
+            var optionIndex = this._getOptionIndex(option);
             // Check whether the option is the last item
             if (optionIndex > 0) {
                 this._keyManager.setPreviousItemActive();
@@ -752,9 +760,12 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (event) {
-        var /** @type {?} */ keyCode = event.keyCode;
-        var /** @type {?} */ manager = this._keyManager;
-        var /** @type {?} */ previousFocusIndex = manager.activeItemIndex;
+        /** @type {?} */
+        var keyCode = event.keyCode;
+        /** @type {?} */
+        var manager = this._keyManager;
+        /** @type {?} */
+        var previousFocusIndex = manager.activeItemIndex;
         switch (keyCode) {
             case SPACE:
             case ENTER:
@@ -912,9 +923,11 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ focusedIndex = this._keyManager.activeItemIndex;
+        /** @type {?} */
+        var focusedIndex = this._keyManager.activeItemIndex;
         if (focusedIndex != null && this._isValidIndex(focusedIndex)) {
-            var /** @type {?} */ focusedOption = this.options.toArray()[focusedIndex];
+            /** @type {?} */
+            var focusedOption = this.options.toArray()[focusedIndex];
             if (focusedOption && !focusedOption.disabled) {
                 focusedOption.toggle();
                 // Emit a change event because the focused option changed its state through user
@@ -936,9 +949,8 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (isSelected) {
-        // Keep track of whether anything changed, because we only want to
-        // emit the changed event when something actually changed.
-        var /** @type {?} */ hasChanged = false;
+        /** @type {?} */
+        var hasChanged = false;
         this.options.forEach(function (option) {
             if (option._setSelected(isSelected)) {
                 hasChanged = true;
@@ -996,15 +1008,15 @@ var MatSelectionList = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSelectionList.ctorParameters = function () { return [
-        { type: ElementRef, },
-        { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
+        { type: ElementRef },
+        { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] }
     ]; };
     MatSelectionList.propDecorators = {
-        "options": [{ type: ContentChildren, args: [MatListOption,] },],
-        "selectionChange": [{ type: Output },],
-        "tabIndex": [{ type: Input },],
-        "compareWith": [{ type: Input },],
-        "disabled": [{ type: Input },],
+        options: [{ type: ContentChildren, args: [MatListOption,] }],
+        selectionChange: [{ type: Output }],
+        tabIndex: [{ type: Input }],
+        compareWith: [{ type: Input }],
+        disabled: [{ type: Input }]
     };
     return MatSelectionList;
 }(_MatSelectionListMixinBase));

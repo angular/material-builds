@@ -73,10 +73,10 @@ export declare class MatTabBody implements OnInit, OnDestroy {
     /** The shifted index position of the tab body, where zero represents the active center tab. */
     position: number;
     constructor(_elementRef: ElementRef, _dir: Directionality, 
-        /**
-         * @breaking-change 7.0.0 changeDetectorRef to be made required.
-         */
-        changeDetectorRef?: ChangeDetectorRef);
+    /**
+     * @breaking-change 7.0.0 changeDetectorRef to be made required.
+     */
+    changeDetectorRef?: ChangeDetectorRef);
     /**
      * After initialized, check if the content is centered and has an origin. If so, set the
      * special position states that transition the tab from the left or right before centering.
@@ -90,10 +90,10 @@ export declare class MatTabBody implements OnInit, OnDestroy {
     /** Whether the provided position state is considered center, regardless of origin. */
     _isCenterPosition(position: MatTabBodyPositionState | string): boolean;
     /** Computes the position state that will be used for the tab-body animation trigger. */
-    private _computePositionAnimationState(dir?);
+    private _computePositionAnimationState;
     /**
      * Computes the position state based on the specified origin position. This is used if the
      * tab is becoming visible immediately after creation.
      */
-    private _computePositionFromOrigin();
+    private _computePositionFromOrigin;
 }

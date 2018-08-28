@@ -10,7 +10,7 @@ import { CanDisable } from '@angular/material/core';
 /** @docs-private */
 export declare class MatTabLabelWrapperBase {
 }
-export declare const _MatTabLabelWrapperMixinBase: (new (...args: any[]) => CanDisable) & typeof MatTabLabelWrapperBase;
+export declare const _MatTabLabelWrapperMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatTabLabelWrapperBase;
 /**
  * Used in the `mat-tab-group` view to display tab labels.
  * @docs-private

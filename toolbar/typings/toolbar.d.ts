@@ -13,7 +13,7 @@ export declare class MatToolbarBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatToolbarMixinBase: (new (...args: any[]) => CanColor) & typeof MatToolbarBase;
+export declare const _MatToolbarMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatToolbarBase;
 export declare class MatToolbarRow {
 }
 export declare class MatToolbar extends _MatToolbarMixinBase implements CanColor, AfterViewInit {
@@ -26,7 +26,7 @@ export declare class MatToolbar extends _MatToolbarMixinBase implements CanColor
     /**
      * Throws an exception when developers are attempting to combine the different toolbar row modes.
      */
-    private _checkToolbarMixedModes();
+    private _checkToolbarMixedModes;
 }
 /**
  * Throws an exception when attempting to combine the different toolbar row modes.

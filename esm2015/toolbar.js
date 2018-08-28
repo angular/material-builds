@@ -25,7 +25,8 @@ class MatToolbarBase {
         this._elementRef = _elementRef;
     }
 }
-const /** @type {?} */ _MatToolbarMixinBase = mixinColor(MatToolbarBase);
+/** @type {?} */
+const _MatToolbarMixinBase = mixinColor(MatToolbarBase);
 class MatToolbarRow {
 }
 MatToolbarRow.decorators = [
@@ -65,9 +66,8 @@ class MatToolbar extends _MatToolbarMixinBase {
         if (!this._toolbarRows.length) {
             return;
         }
-        // Check if there are any other DOM nodes that can display content but aren't inside of
-        // a <mat-toolbar-row> element.
-        const /** @type {?} */ isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
+        /** @type {?} */
+        const isCombinedUsage = [].slice.call(this._elementRef.nativeElement.childNodes)
             .filter(node => !(node.classList && node.classList.contains('mat-toolbar-row')))
             .filter(node => node.nodeType !== (this._document ? this._document.COMMENT_NODE : 8))
             .some(node => node.textContent.trim());
@@ -93,12 +93,12 @@ MatToolbar.decorators = [
 ];
 /** @nocollapse */
 MatToolbar.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: Platform, },
-    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
+    { type: ElementRef },
+    { type: Platform },
+    { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] }] }
 ];
 MatToolbar.propDecorators = {
-    "_toolbarRows": [{ type: ContentChildren, args: [MatToolbarRow,] },],
+    _toolbarRows: [{ type: ContentChildren, args: [MatToolbarRow,] }]
 };
 /**
  * Throws an exception when attempting to combine the different toolbar row modes.
@@ -135,5 +135,5 @@ MatToolbarModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatToolbarModule, MatToolbarBase, _MatToolbarMixinBase, MatToolbarRow, MatToolbar, throwToolbarMixedModesError };
+export { MatToolbarModule, throwToolbarMixedModesError, MatToolbarBase, _MatToolbarMixinBase, MatToolbarRow, MatToolbar };
 //# sourceMappingURL=toolbar.js.map

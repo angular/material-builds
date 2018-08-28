@@ -91,10 +91,10 @@ class MatDialogConfig {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by MatDialog.
- */
-const /** @type {?} */ matDialogAnimations = {
+  @type {?} */
+const matDialogAnimations = {
     /** Animation that slides the dialog in and out of view and fades the opacity. */
     slideDialog: trigger('slideDialog', [
         // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
@@ -204,7 +204,8 @@ class MatDialogContainer extends BasePortalOutlet {
      * @return {?}
      */
     _restoreFocus() {
-        const /** @type {?} */ toFocus = this._elementFocusedBeforeDialogWasOpened;
+        /** @type {?} */
+        const toFocus = this._elementFocusedBeforeDialogWasOpened;
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
         if (this._config.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
             toFocus.focus();
@@ -288,23 +289,22 @@ MatDialogContainer.decorators = [
 ];
 /** @nocollapse */
 MatDialogContainer.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: FocusTrapFactory, },
-    { type: ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
-    { type: MatDialogConfig, },
+    { type: ElementRef },
+    { type: FocusTrapFactory },
+    { type: ChangeDetectorRef },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+    { type: MatDialogConfig }
 ];
 MatDialogContainer.propDecorators = {
-    "_portalOutlet": [{ type: ViewChild, args: [CdkPortalOutlet,] },],
+    _portalOutlet: [{ type: ViewChild, args: [CdkPortalOutlet,] }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(jelbourn): resizing
-// Counter for unique dialog ids.
-let /** @type {?} */ uniqueId = 0;
+/** @type {?} */
+let uniqueId = 0;
 /**
  * Reference to a dialog opened via the MatDialog service.
  * @template T, R
@@ -430,7 +430,8 @@ class MatDialogRef {
      * @return {?}
      */
     updatePosition(position) {
-        let /** @type {?} */ strategy = this._getPositionStrategy();
+        /** @type {?} */
+        let strategy = this._getPositionStrategy();
         if (position && (position.left || position.right)) {
             position.left ? strategy.left(position.left) : strategy.right(position.right);
         }
@@ -488,18 +489,18 @@ class MatDialogRef {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to access the data that was passed in to a dialog.
- */
-const /** @type {?} */ MAT_DIALOG_DATA = new InjectionToken('MatDialogData');
-/**
+  @type {?} */
+const MAT_DIALOG_DATA = new InjectionToken('MatDialogData');
+/** *
  * Injection token that can be used to specify default dialog options.
- */
-const /** @type {?} */ MAT_DIALOG_DEFAULT_OPTIONS = new InjectionToken('mat-dialog-default-options');
-/**
+  @type {?} */
+const MAT_DIALOG_DEFAULT_OPTIONS = new InjectionToken('mat-dialog-default-options');
+/** *
  * Injection token that determines the scroll handling while the dialog is open.
- */
-const /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy');
+  @type {?} */
+const MAT_DIALOG_SCROLL_STRATEGY = new InjectionToken('mat-dialog-scroll-strategy');
 /**
  * \@docs-private
  * @param {?} overlay
@@ -516,10 +517,10 @@ function MAT_DIALOG_SCROLL_STRATEGY_FACTORY(overlay) {
 function MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY(overlay) {
     return () => overlay.scrollStrategies.block();
 }
-/**
+/** *
  * \@docs-private
- */
-const /** @type {?} */ MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
+  @type {?} */
+const MAT_DIALOG_SCROLL_STRATEGY_PROVIDER = {
     provide: MAT_DIALOG_SCROLL_STRATEGY,
     deps: [Overlay],
     useFactory: MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY,
@@ -584,7 +585,8 @@ class MatDialog {
      * @return {?}
      */
     get _afterAllClosed() {
-        const /** @type {?} */ parent = this._parentDialog;
+        /** @type {?} */
+        const parent = this._parentDialog;
         return parent ? parent._afterAllClosed : this._afterAllClosedAtThisLevel;
     }
     /**
@@ -600,9 +602,12 @@ class MatDialog {
         if (config.id && this.getDialogById(config.id)) {
             throw Error(`Dialog with id "${config.id}" exists already. The dialog id must be unique.`);
         }
-        const /** @type {?} */ overlayRef = this._createOverlay(config);
-        const /** @type {?} */ dialogContainer = this._attachDialogContainer(overlayRef, config);
-        const /** @type {?} */ dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
+        /** @type {?} */
+        const overlayRef = this._createOverlay(config);
+        /** @type {?} */
+        const dialogContainer = this._attachDialogContainer(overlayRef, config);
+        /** @type {?} */
+        const dialogRef = this._attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config);
         // If this is the first dialog that we're opening, hide all the non-overlay content.
         if (!this.openDialogs.length) {
             this._hideNonDialogContentFromAssistiveTechnology();
@@ -617,7 +622,8 @@ class MatDialog {
      * @return {?}
      */
     closeAll() {
-        let /** @type {?} */ i = this.openDialogs.length;
+        /** @type {?} */
+        let i = this.openDialogs.length;
         while (i--) {
             // The `_openDialogs` property isn't updated after close until the rxjs subscription
             // runs on the next microtask, in addition to modifying the array as we're going
@@ -640,7 +646,8 @@ class MatDialog {
      * @return {?} A promise resolving to the OverlayRef for the created overlay.
      */
     _createOverlay(config) {
-        const /** @type {?} */ overlayConfig = this._getOverlayConfig(config);
+        /** @type {?} */
+        const overlayConfig = this._getOverlayConfig(config);
         return this._overlay.create(overlayConfig);
     }
     /**
@@ -649,7 +656,8 @@ class MatDialog {
      * @return {?} The overlay configuration.
      */
     _getOverlayConfig(dialogConfig) {
-        const /** @type {?} */ state$$1 = new OverlayConfig({
+        /** @type {?} */
+        const state$$1 = new OverlayConfig({
             positionStrategy: this._overlay.position().global(),
             scrollStrategy: dialogConfig.scrollStrategy || this._scrollStrategy(),
             panelClass: dialogConfig.panelClass,
@@ -672,12 +680,16 @@ class MatDialog {
      * @return {?} A promise resolving to a ComponentRef for the attached container.
      */
     _attachDialogContainer(overlay, config) {
-        const /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        const /** @type {?} */ injector = new PortalInjector(userInjector || this._injector, new WeakMap([
+        /** @type {?} */
+        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        /** @type {?} */
+        const injector = new PortalInjector(userInjector || this._injector, new WeakMap([
             [MatDialogConfig, config]
         ]));
-        const /** @type {?} */ containerPortal = new ComponentPortal(MatDialogContainer, config.viewContainerRef, injector);
-        const /** @type {?} */ containerRef = overlay.attach(containerPortal);
+        /** @type {?} */
+        const containerPortal = new ComponentPortal(MatDialogContainer, config.viewContainerRef, injector);
+        /** @type {?} */
+        const containerRef = overlay.attach(containerPortal);
         return containerRef.instance;
     }
     /**
@@ -691,9 +703,8 @@ class MatDialog {
      * @return {?} A promise resolving to the MatDialogRef that should be returned to the user.
      */
     _attachDialogContent(componentOrTemplateRef, dialogContainer, overlayRef, config) {
-        // Create a reference to the dialog we're creating in order to give the user a handle
-        // to modify and close it.
-        const /** @type {?} */ dialogRef = new MatDialogRef(overlayRef, dialogContainer, this._location, config.id);
+        /** @type {?} */
+        const dialogRef = new MatDialogRef(overlayRef, dialogContainer, this._location, config.id);
         // When the dialog backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(() => {
@@ -706,8 +717,10 @@ class MatDialog {
             dialogContainer.attachTemplatePortal(new TemplatePortal(componentOrTemplateRef, /** @type {?} */ ((null)), /** @type {?} */ ({ $implicit: config.data, dialogRef })));
         }
         else {
-            const /** @type {?} */ injector = this._createInjector(config, dialogRef, dialogContainer);
-            const /** @type {?} */ contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, undefined, injector));
+            /** @type {?} */
+            const injector = this._createInjector(config, dialogRef, dialogContainer);
+            /** @type {?} */
+            const contentRef = dialogContainer.attachComponentPortal(new ComponentPortal(componentOrTemplateRef, undefined, injector));
             dialogRef.componentInstance = contentRef.instance;
         }
         dialogRef
@@ -725,12 +738,10 @@ class MatDialog {
      * @return {?} The custom injector that can be used inside the dialog.
      */
     _createInjector(config, dialogRef, dialogContainer) {
-        const /** @type {?} */ userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
-        // The MatDialogContainer is injected in the portal as the MatDialogContainer and the dialog's
-        // content are created out of the same ViewContainerRef and as such, are siblings for injector
-        // purposes. To allow the hierarchy that is expected, the MatDialogContainer is explicitly
-        // added to the injection tokens.
-        const /** @type {?} */ injectionTokens = new WeakMap([
+        /** @type {?} */
+        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        /** @type {?} */
+        const injectionTokens = new WeakMap([
             [MatDialogContainer, dialogContainer],
             [MAT_DIALOG_DATA, config.data],
             [MatDialogRef, dialogRef]
@@ -750,7 +761,8 @@ class MatDialog {
      * @return {?}
      */
     _removeOpenDialog(dialogRef) {
-        const /** @type {?} */ index = this.openDialogs.indexOf(dialogRef);
+        /** @type {?} */
+        const index = this.openDialogs.indexOf(dialogRef);
         if (index > -1) {
             this.openDialogs.splice(index, 1);
             // If all the dialogs were closed, remove/restore the `aria-hidden`
@@ -774,12 +786,15 @@ class MatDialog {
      * @return {?}
      */
     _hideNonDialogContentFromAssistiveTechnology() {
-        const /** @type {?} */ overlayContainer = this._overlayContainer.getContainerElement();
+        /** @type {?} */
+        const overlayContainer = this._overlayContainer.getContainerElement();
         // Ensure that the overlay container is attached to the DOM.
         if (overlayContainer.parentElement) {
-            const /** @type {?} */ siblings = overlayContainer.parentElement.children;
-            for (let /** @type {?} */ i = siblings.length - 1; i > -1; i--) {
-                let /** @type {?} */ sibling = siblings[i];
+            /** @type {?} */
+            const siblings = overlayContainer.parentElement.children;
+            for (let i = siblings.length - 1; i > -1; i--) {
+                /** @type {?} */
+                let sibling = siblings[i];
                 if (sibling !== overlayContainer &&
                     sibling.nodeName !== 'SCRIPT' &&
                     sibling.nodeName !== 'STYLE' &&
@@ -796,13 +811,13 @@ MatDialog.decorators = [
 ];
 /** @nocollapse */
 MatDialog.ctorParameters = () => [
-    { type: Overlay, },
-    { type: Injector, },
-    { type: Location, decorators: [{ type: Optional },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] },] },
-    { type: undefined, decorators: [{ type: Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] },] },
-    { type: MatDialog, decorators: [{ type: Optional }, { type: SkipSelf },] },
-    { type: OverlayContainer, },
+    { type: Overlay },
+    { type: Injector },
+    { type: Location, decorators: [{ type: Optional }] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DIALOG_DEFAULT_OPTIONS,] }] },
+    { type: undefined, decorators: [{ type: Inject, args: [MAT_DIALOG_SCROLL_STRATEGY,] }] },
+    { type: MatDialog, decorators: [{ type: Optional }, { type: SkipSelf }] },
+    { type: OverlayContainer }
 ];
 /**
  * Applies default options to the dialog config.
@@ -818,10 +833,10 @@ function _applyConfigDefaults(config, defaultOptions) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Counter used to generate unique IDs for dialog elements.
- */
-let /** @type {?} */ dialogElementUid = 0;
+  @type {?} */
+let dialogElementUid = 0;
 /**
  * Button that will close the current dialog.
  */
@@ -858,7 +873,8 @@ class MatDialogClose {
      * @return {?}
      */
     ngOnChanges(changes) {
-        const /** @type {?} */ proxiedChange = changes["_matDialogClose"] || changes["_matDialogCloseResult"];
+        /** @type {?} */
+        const proxiedChange = changes["_matDialogClose"] || changes["_matDialogCloseResult"];
         if (proxiedChange) {
             this.dialogResult = proxiedChange.currentValue;
         }
@@ -877,14 +893,14 @@ MatDialogClose.decorators = [
 ];
 /** @nocollapse */
 MatDialogClose.ctorParameters = () => [
-    { type: MatDialogRef, decorators: [{ type: Optional },] },
-    { type: ElementRef, },
-    { type: MatDialog, },
+    { type: MatDialogRef, decorators: [{ type: Optional }] },
+    { type: ElementRef },
+    { type: MatDialog }
 ];
 MatDialogClose.propDecorators = {
-    "ariaLabel": [{ type: Input, args: ['aria-label',] },],
-    "dialogResult": [{ type: Input, args: ['mat-dialog-close',] },],
-    "_matDialogClose": [{ type: Input, args: ['matDialogClose',] },],
+    ariaLabel: [{ type: Input, args: ['aria-label',] }],
+    dialogResult: [{ type: Input, args: ['mat-dialog-close',] }],
+    _matDialogClose: [{ type: Input, args: ['matDialogClose',] }]
 };
 /**
  * Title of a dialog element. Stays fixed to the top of the dialog when scrolling.
@@ -910,7 +926,8 @@ class MatDialogTitle {
         }
         if (this._dialogRef) {
             Promise.resolve().then(() => {
-                const /** @type {?} */ container = this._dialogRef._containerInstance;
+                /** @type {?} */
+                const container = this._dialogRef._containerInstance;
                 if (container && !container._ariaLabelledBy) {
                     container._ariaLabelledBy = this.id;
                 }
@@ -930,12 +947,12 @@ MatDialogTitle.decorators = [
 ];
 /** @nocollapse */
 MatDialogTitle.ctorParameters = () => [
-    { type: MatDialogRef, decorators: [{ type: Optional },] },
-    { type: ElementRef, },
-    { type: MatDialog, },
+    { type: MatDialogRef, decorators: [{ type: Optional }] },
+    { type: ElementRef },
+    { type: MatDialog }
 ];
 MatDialogTitle.propDecorators = {
-    "id": [{ type: Input },],
+    id: [{ type: Input }]
 };
 /**
  * Scrollable content container of a dialog.
@@ -967,7 +984,8 @@ MatDialogActions.decorators = [
  * @return {?}
  */
 function getClosestDialog(element, openDialogs) {
-    let /** @type {?} */ parent = element.nativeElement.parentElement;
+    /** @type {?} */
+    let parent = element.nativeElement.parentElement;
     while (parent && !parent.classList.contains('mat-dialog-container')) {
         parent = parent.parentElement;
     }
@@ -1021,5 +1039,5 @@ MatDialogModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatDialogModule, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, throwMatDialogContentAlreadyAttachedError, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogConfig, MatDialogRef, matDialogAnimations };
+export { MatDialogModule, MAT_DIALOG_SCROLL_STRATEGY_FACTORY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER_FACTORY, MAT_DIALOG_DATA, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DIALOG_SCROLL_STRATEGY, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, throwMatDialogContentAlreadyAttachedError, MatDialogContainer, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions, MatDialogConfig, MatDialogRef, matDialogAnimations };
 //# sourceMappingURL=dialog.js.map

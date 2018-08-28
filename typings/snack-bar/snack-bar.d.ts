@@ -66,22 +66,22 @@ export declare class MatSnackBar {
     /**
      * Attaches the snack bar container component to the overlay.
      */
-    private _attachSnackBarContainer(overlayRef, config);
+    private _attachSnackBarContainer;
     /**
      * Places a new component or a template as the content of the snack bar container.
      */
-    private _attach<T>(content, userConfig?);
+    private _attach;
     /** Animates the old snack bar out and the new one in. */
-    private _animateSnackBar(snackBarRef, config);
+    private _animateSnackBar;
     /**
      * Creates a new overlay and places it in the correct location.
      * @param config The user-specified snack bar config.
      */
-    private _createOverlay(config);
+    private _createOverlay;
     /**
      * Creates an injector to be used inside of a snack bar component.
      * @param config Config that was used to create the snack bar.
      * @param snackBarRef Reference to the snack bar.
      */
-    private _createInjector<T>(config, snackBarRef);
+    private _createInjector;
 }

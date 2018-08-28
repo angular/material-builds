@@ -1,4 +1,11 @@
 /**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
+/**
  * Possible states for a pseudo checkbox.
  * @docs-private
  */
@@ -17,7 +24,7 @@ export declare type MatPseudoCheckboxState = 'unchecked' | 'checked' | 'indeterm
  * @docs-private
  */
 export declare class MatPseudoCheckbox {
-    _animationMode: string | undefined;
+    _animationMode?: string | undefined;
     /** Display state of the checkbox. */
     state: MatPseudoCheckboxState;
     /** Whether the checkbox is disabled. */

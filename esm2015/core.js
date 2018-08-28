@@ -43,10 +43,10 @@ AnimationDurations.EXITING = '195ms';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that configures whether the Material sanity checks are enabled.
- */
-const /** @type {?} */ MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks', {
+  @type {?} */
+const MATERIAL_SANITY_CHECKS = new InjectionToken('mat-sanity-checks', {
     providedIn: 'root',
     factory: MATERIAL_SANITY_CHECKS_FACTORY,
 });
@@ -121,10 +121,12 @@ class MatCommonModule {
         // We need to assert that the `body` is defined, because these checks run very early
         // and the `body` won't be defined if the consumer put their scripts in the `head`.
         if (this._document && this._document.body && typeof getComputedStyle === 'function') {
-            const /** @type {?} */ testElement = this._document.createElement('div');
+            /** @type {?} */
+            const testElement = this._document.createElement('div');
             testElement.classList.add('mat-theme-loaded-marker');
             this._document.body.appendChild(testElement);
-            const /** @type {?} */ computedStyle = getComputedStyle(testElement);
+            /** @type {?} */
+            const computedStyle = getComputedStyle(testElement);
             // In some situations the computed style of the test element can be null. For example in
             // Firefox, the computed style is null if an application is running inside of a hidden iframe.
             // See: https://bugzilla.mozilla.org/show_bug.cgi?id=548397
@@ -158,7 +160,7 @@ MatCommonModule.decorators = [
 ];
 /** @nocollapse */
 MatCommonModule.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] },] },
+    { type: Boolean, decorators: [{ type: Optional }, { type: Inject, args: [MATERIAL_SANITY_CHECKS,] }] }
 ];
 
 /**
@@ -214,7 +216,8 @@ function mixinColor(base, defaultColor) {
          * @return {?}
          */
         set color(value) {
-            const /** @type {?} */ colorPalette = value || defaultColor;
+            /** @type {?} */
+            const colorPalette = value || defaultColor;
             if (colorPalette !== this._color) {
                 if (this._color) {
                     this._elementRef.nativeElement.classList.remove(`mat-${this._color}`);
@@ -335,11 +338,16 @@ function mixinErrorState(base) {
          * @return {?}
          */
         updateErrorState() {
-            const /** @type {?} */ oldState = this.errorState;
-            const /** @type {?} */ parent = this._parentFormGroup || this._parentForm;
-            const /** @type {?} */ matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
-            const /** @type {?} */ control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
-            const /** @type {?} */ newState = matcher.isErrorState(control, parent);
+            /** @type {?} */
+            const oldState = this.errorState;
+            /** @type {?} */
+            const parent = this._parentFormGroup || this._parentForm;
+            /** @type {?} */
+            const matcher = this.errorStateMatcher || this._defaultErrorStateMatcher;
+            /** @type {?} */
+            const control = this.ngControl ? /** @type {?} */ (this.ngControl.control) : null;
+            /** @type {?} */
+            const newState = matcher.isErrorState(control, parent);
             if (newState !== oldState) {
                 this.errorState = newState;
                 this.stateChanges.next();
@@ -426,10 +434,10 @@ function mixinInitialized(base) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * InjectionToken for datepicker that can be used to override default locale code.
- */
-const /** @type {?} */ MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE', {
+  @type {?} */
+const MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE', {
     providedIn: 'root',
     factory: MAT_DATE_LOCALE_FACTORY,
 });
@@ -440,13 +448,13 @@ const /** @type {?} */ MAT_DATE_LOCALE = new InjectionToken('MAT_DATE_LOCALE', {
 function MAT_DATE_LOCALE_FACTORY() {
     return inject(LOCALE_ID);
 }
-/**
+/** *
  * No longer needed since MAT_DATE_LOCALE has been changed to a scoped injectable.
  * If you are importing and providing this in your code you can simply remove it.
  * @deprecated
  * \@breaking-change 7.0.0
- */
-const /** @type {?} */ MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID };
+  @type {?} */
+const MAT_DATE_LOCALE_PROVIDER = { provide: MAT_DATE_LOCALE, useExisting: LOCALE_ID };
 /**
  * Adapts type `D` to be usable as a date by cdk-based components that work with dates.
  * @abstract
@@ -509,8 +517,10 @@ class DateAdapter {
      */
     sameDate(first, second) {
         if (first && second) {
-            let /** @type {?} */ firstValid = this.isValid(first);
-            let /** @type {?} */ secondValid = this.isValid(second);
+            /** @type {?} */
+            let firstValid = this.isValid(first);
+            /** @type {?} */
+            let secondValid = this.isValid(second);
             if (firstValid && secondValid) {
                 return !this.compareDate(first, second);
             }
@@ -541,20 +551,21 @@ class DateAdapter {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-const /** @type {?} */ MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
+/** @type {?} */
+const MAT_DATE_FORMATS = new InjectionToken('mat-date-formats');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Whether the browser supports the Intl API.
- */
-const /** @type {?} */ SUPPORTS_INTL_API = typeof Intl != 'undefined';
-/**
+  @type {?} */
+const SUPPORTS_INTL_API = typeof Intl != 'undefined';
+/** *
  * The default month names to use if Intl API is not available.
- */
-const /** @type {?} */ DEFAULT_MONTH_NAMES = {
+  @type {?} */
+const DEFAULT_MONTH_NAMES = {
     'long': [
         'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
         'October', 'November', 'December'
@@ -563,24 +574,24 @@ const /** @type {?} */ DEFAULT_MONTH_NAMES = {
     'narrow': ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 };
 const ɵ0 = i => String(i + 1);
-/**
+/** *
  * The default date names to use if Intl API is not available.
- */
-const /** @type {?} */ DEFAULT_DATE_NAMES = range(31, ɵ0);
-/**
+  @type {?} */
+const DEFAULT_DATE_NAMES = range(31, ɵ0);
+/** *
  * The default day of the week names to use if Intl API is not available.
- */
-const /** @type {?} */ DEFAULT_DAY_OF_WEEK_NAMES = {
+  @type {?} */
+const DEFAULT_DAY_OF_WEEK_NAMES = {
     'long': ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
     'short': ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
     'narrow': ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 };
-/**
+/** *
  * Matches strings that have the form of a valid RFC 3339 string
  * (https://tools.ietf.org/html/rfc3339). Note that the string may not actually be a valid date
  * because the regex will match strings an with out of bounds month, date, etc.
- */
-const /** @type {?} */ ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
+  @type {?} */
+const ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|(?:(?:\+|-)\d{2}:\d{2}))?)?$/;
 /**
  * Creates an array and fills it with values.
  * @template T
@@ -589,8 +600,9 @@ const /** @type {?} */ ISO_8601_REGEX = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}
  * @return {?}
  */
 function range(length, valueFunction) {
-    const /** @type {?} */ valuesArray = Array(length);
-    for (let /** @type {?} */ i = 0; i < length; i++) {
+    /** @type {?} */
+    const valuesArray = Array(length);
+    for (let i = 0; i < length; i++) {
         valuesArray[i] = valueFunction(i);
     }
     return valuesArray;
@@ -656,7 +668,8 @@ class NativeDateAdapter extends DateAdapter {
      */
     getMonthNames(style) {
         if (SUPPORTS_INTL_API) {
-            const /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, { month: style, timeZone: 'utc' });
+            /** @type {?} */
+            const dtf = new Intl.DateTimeFormat(this.locale, { month: style, timeZone: 'utc' });
             return range(12, i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, i, 1))));
         }
         return DEFAULT_MONTH_NAMES[style];
@@ -666,7 +679,8 @@ class NativeDateAdapter extends DateAdapter {
      */
     getDateNames() {
         if (SUPPORTS_INTL_API) {
-            const /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, { day: 'numeric', timeZone: 'utc' });
+            /** @type {?} */
+            const dtf = new Intl.DateTimeFormat(this.locale, { day: 'numeric', timeZone: 'utc' });
             return range(31, i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, 0, i + 1))));
         }
         return DEFAULT_DATE_NAMES;
@@ -677,7 +691,8 @@ class NativeDateAdapter extends DateAdapter {
      */
     getDayOfWeekNames(style) {
         if (SUPPORTS_INTL_API) {
-            const /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, { weekday: style, timeZone: 'utc' });
+            /** @type {?} */
+            const dtf = new Intl.DateTimeFormat(this.locale, { weekday: style, timeZone: 'utc' });
             return range(7, i => this._stripDirectionalityCharacters(this._format(dtf, new Date(2017, 0, i + 1))));
         }
         return DEFAULT_DAY_OF_WEEK_NAMES[style];
@@ -688,7 +703,8 @@ class NativeDateAdapter extends DateAdapter {
      */
     getYearName(date) {
         if (SUPPORTS_INTL_API) {
-            const /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric', timeZone: 'utc' });
+            /** @type {?} */
+            const dtf = new Intl.DateTimeFormat(this.locale, { year: 'numeric', timeZone: 'utc' });
             return this._stripDirectionalityCharacters(this._format(dtf, date));
         }
         return String(this.getYear(date));
@@ -729,7 +745,8 @@ class NativeDateAdapter extends DateAdapter {
         if (date < 1) {
             throw Error(`Invalid date "${date}". Date has to be greater than 0.`);
         }
-        let /** @type {?} */ result = this._createDateWithOverflow(year, month, date);
+        /** @type {?} */
+        let result = this._createDateWithOverflow(year, month, date);
         // Check that the date wasn't above the upper bound for the month, causing the month to overflow
         if (result.getMonth() != month) {
             throw Error(`Invalid date "${date}" for month with index "${month}".`);
@@ -771,7 +788,8 @@ class NativeDateAdapter extends DateAdapter {
                 date.setFullYear(Math.max(1, Math.min(9999, date.getFullYear())));
             }
             displayFormat = Object.assign({}, displayFormat, { timeZone: 'utc' });
-            const /** @type {?} */ dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
+            /** @type {?} */
+            const dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
             return this._stripDirectionalityCharacters(this._format(dtf, date));
         }
         return this._stripDirectionalityCharacters(date.toDateString());
@@ -790,7 +808,8 @@ class NativeDateAdapter extends DateAdapter {
      * @return {?}
      */
     addCalendarMonths(date, months) {
-        let /** @type {?} */ newDate = this._createDateWithOverflow(this.getYear(date), this.getMonth(date) + months, this.getDate(date));
+        /** @type {?} */
+        let newDate = this._createDateWithOverflow(this.getYear(date), this.getMonth(date) + months, this.getDate(date));
         // It's possible to wind up in the wrong month if the original month has more days than the new
         // month. In this case we want to go to the last day of the desired month.
         // Note: the additional + 12 % 12 ensures we end up with a positive number, since JS % doesn't
@@ -834,7 +853,8 @@ class NativeDateAdapter extends DateAdapter {
             // The `Date` constructor accepts formats other than ISO 8601, so we need to make sure the
             // string is the right format first.
             if (ISO_8601_REGEX.test(value)) {
-                let /** @type {?} */ date = new Date(value);
+                /** @type {?} */
+                let date = new Date(value);
                 if (this.isValid(date)) {
                     return date;
                 }
@@ -870,7 +890,8 @@ class NativeDateAdapter extends DateAdapter {
      * @return {?}
      */
     _createDateWithOverflow(year, month, date) {
-        const /** @type {?} */ result = new Date(year, month, date);
+        /** @type {?} */
+        const result = new Date(year, month, date);
         // We need to correct for the fact that JS native Date treats years in range [0, 99] as
         // abbreviations for 19xx.
         if (year >= 0 && year < 100) {
@@ -908,7 +929,8 @@ class NativeDateAdapter extends DateAdapter {
      * @return {?} A Date object with its UTC representation based on the passed in date info
      */
     _format(dtf, date) {
-        const /** @type {?} */ d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
+        /** @type {?} */
+        const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()));
         return dtf.format(d);
     }
 }
@@ -917,8 +939,8 @@ NativeDateAdapter.decorators = [
 ];
 /** @nocollapse */
 NativeDateAdapter.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_LOCALE,] },] },
-    { type: Platform, },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [MAT_DATE_LOCALE,] }] },
+    { type: Platform }
 ];
 
 /**
@@ -926,7 +948,8 @@ NativeDateAdapter.ctorParameters = () => [
  * @suppress {checkTypes} checked by tsc
  */
 
-const /** @type {?} */ MAT_NATIVE_DATE_FORMATS = {
+/** @type {?} */
+const MAT_NATIVE_DATE_FORMATS = {
     parse: {
         dateInput: null,
     },
@@ -1004,12 +1027,13 @@ ErrorStateMatcher.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to provide options to the Hammerjs instance.
  * More info at http://hammerjs.github.io/api/.
- */
-const /** @type {?} */ MAT_HAMMER_OPTIONS = new InjectionToken('MAT_HAMMER_OPTIONS');
-const /** @type {?} */ ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
+  @type {?} */
+const MAT_HAMMER_OPTIONS = new InjectionToken('MAT_HAMMER_OPTIONS');
+/** @type {?} */
+const ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
     'longpress',
     'slide',
     'slidestart',
@@ -1018,11 +1042,11 @@ const /** @type {?} */ ANGULAR_MATERIAL_SUPPORTED_HAMMER_GESTURES = [
     'slideleft'
 ];
 const ɵ0$2 = () => { }, ɵ1 = () => { };
-/**
+/** *
  * Fake HammerInstance that is used when a Hammer instance is requested when HammerJS has not
  * been loaded on the page.
- */
-const /** @type {?} */ noopHammerInstance = {
+  @type {?} */
+const noopHammerInstance = {
     on: ɵ0$2,
     off: ɵ1,
 };
@@ -1059,7 +1083,8 @@ class GestureConfig extends HammerGestureConfig {
      * @return {?} Newly-created HammerJS instance.
      */
     buildHammer(element) {
-        const /** @type {?} */ hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
+        /** @type {?} */
+        const hammer = typeof window !== 'undefined' ? (/** @type {?} */ (window)).Hammer : null;
         if (!hammer) {
             // If HammerJS is not loaded here, return the noop HammerInstance. This is necessary to
             // ensure that omitting HammerJS completely will not cause any errors while *also* supporting
@@ -1071,16 +1096,18 @@ class GestureConfig extends HammerGestureConfig {
             // @breaking-change 7.0.0
             return noopHammerInstance;
         }
-        const /** @type {?} */ mc = new hammer(element, this._hammerOptions || undefined);
-        // Default Hammer Recognizers.
-        const /** @type {?} */ pan = new hammer.Pan();
-        const /** @type {?} */ swipe = new hammer.Swipe();
-        const /** @type {?} */ press = new hammer.Press();
-        // Notice that a HammerJS recognizer can only depend on one other recognizer once.
-        // Otherwise the previous `recognizeWith` will be dropped.
-        // TODO: Confirm threshold numbers with Material Design UX Team
-        const /** @type {?} */ slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
-        const /** @type {?} */ longpress = this._createRecognizer(press, { event: 'longpress', time: 500 });
+        /** @type {?} */
+        const mc = new hammer(element, this._hammerOptions || undefined);
+        /** @type {?} */
+        const pan = new hammer.Pan();
+        /** @type {?} */
+        const swipe = new hammer.Swipe();
+        /** @type {?} */
+        const press = new hammer.Press();
+        /** @type {?} */
+        const slide = this._createRecognizer(pan, { event: 'slide', threshold: 0 }, swipe);
+        /** @type {?} */
+        const longpress = this._createRecognizer(press, { event: 'longpress', time: 500 });
         // Overwrite the default `pan` event to use the swipe event.
         pan.recognizeWith(swipe);
         // Add customized gestures to Hammer manager
@@ -1095,7 +1122,8 @@ class GestureConfig extends HammerGestureConfig {
      * @return {?}
      */
     _createRecognizer(base, options, ...inheritances) {
-        let /** @type {?} */ recognizer = new (/** @type {?} */ (base.constructor))(options);
+        /** @type {?} */
+        let recognizer = new (/** @type {?} */ (base.constructor))(options);
         inheritances.push(base);
         inheritances.forEach(item => recognizer.recognizeWith(item));
         return recognizer;
@@ -1106,8 +1134,8 @@ GestureConfig.decorators = [
 ];
 /** @nocollapse */
 GestureConfig.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_HAMMER_OPTIONS,] },] },
-    { type: MatCommonModule, decorators: [{ type: Optional },] },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_HAMMER_OPTIONS,] }] },
+    { type: MatCommonModule, decorators: [{ type: Optional }] }
 ];
 
 /**
@@ -1196,15 +1224,12 @@ MatLineModule.decorators = [
 
 /** @enum {number} */
 const RippleState = {
-    FADING_IN: 0,
-    VISIBLE: 1,
-    FADING_OUT: 2,
-    HIDDEN: 3,
+    FADING_IN: 0, VISIBLE: 1, FADING_OUT: 2, HIDDEN: 3,
 };
-RippleState[RippleState.FADING_IN] = "FADING_IN";
-RippleState[RippleState.VISIBLE] = "VISIBLE";
-RippleState[RippleState.FADING_OUT] = "FADING_OUT";
-RippleState[RippleState.HIDDEN] = "HIDDEN";
+RippleState[RippleState.FADING_IN] = 'FADING_IN';
+RippleState[RippleState.VISIBLE] = 'VISIBLE';
+RippleState[RippleState.FADING_OUT] = 'FADING_OUT';
+RippleState[RippleState.HIDDEN] = 'HIDDEN';
 /**
  * Reference to a previously launched ripple element.
  */
@@ -1236,19 +1261,19 @@ class RippleRef {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Default ripple animation configuration for ripples without an explicit
  * animation config specified.
- */
-const /** @type {?} */ defaultRippleAnimationConfig = {
+  @type {?} */
+const defaultRippleAnimationConfig = {
     enterDuration: 450,
     exitDuration: 400
 };
-/**
+/** *
  * Timeout for ignoring mouse events. Mouse events will be temporary ignored after touch
  * events to avoid synthetic mouse events.
- */
-const /** @type {?} */ ignoreMouseEventsTimeout = 800;
+  @type {?} */
+const ignoreMouseEventsTimeout = 800;
 /**
  * Helper service that performs DOM manipulations. Not intended to be used outside this module.
  * The constructor takes a reference to the ripple directive's host element and a map of DOM
@@ -1286,10 +1311,10 @@ class RippleRenderer {
          * Function being called whenever the trigger is being pressed using mouse.
          */
         this.onMousedown = (event) => {
-            // Screen readers will fire fake mouse events for space/enter. Skip launching a
-            // ripple in this case for consistency with the non-screen-reader experience.
-            const /** @type {?} */ isFakeMousedown = isFakeMousedownFromScreenReader(event);
-            const /** @type {?} */ isSyntheticEvent = this._lastTouchStartEvent &&
+            /** @type {?} */
+            const isFakeMousedown = isFakeMousedownFromScreenReader(event);
+            /** @type {?} */
+            const isSyntheticEvent = this._lastTouchStartEvent &&
                 Date.now() < this._lastTouchStartEvent + ignoreMouseEventsTimeout;
             if (!this._target.rippleDisabled && !isFakeMousedown && !isSyntheticEvent) {
                 this._isPointerDown = true;
@@ -1306,10 +1331,9 @@ class RippleRenderer {
                 // time after a touchstart event.
                 this._lastTouchStartEvent = Date.now();
                 this._isPointerDown = true;
-                // Use `changedTouches` so we skip any touches where the user put
-                // their finger down, but used another finger to tap the element again.
-                const /** @type {?} */ touches = event.changedTouches;
-                for (let /** @type {?} */ i = 0; i < touches.length; i++) {
+                /** @type {?} */
+                const touches = event.changedTouches;
+                for (let i = 0; i < touches.length; i++) {
                     this.fadeInRipple(touches[i].clientX, touches[i].clientY, this._target.rippleConfig);
                 }
             }
@@ -1324,9 +1348,8 @@ class RippleRenderer {
             this._isPointerDown = false;
             // Fade-out all ripples that are visible and not persistent.
             this._activeRipples.forEach(ripple => {
-                // By default, only ripples that are completely visible will fade out on pointer release.
-                // If the `terminateOnPointerUp` option is set, ripples that still fade in will also fade out.
-                const /** @type {?} */ isVisible = ripple.state === RippleState.VISIBLE ||
+                /** @type {?} */
+                const isVisible = ripple.state === RippleState.VISIBLE ||
                     ripple.config.terminateOnPointerUp && ripple.state === RippleState.FADING_IN;
                 if (!ripple.config.persistent && isVisible) {
                     ripple.fadeOut();
@@ -1352,18 +1375,25 @@ class RippleRenderer {
      * @return {?}
      */
     fadeInRipple(x, y, config = {}) {
-        const /** @type {?} */ containerRect = this._containerRect =
+        /** @type {?} */
+        const containerRect = this._containerRect =
             this._containerRect || this._containerElement.getBoundingClientRect();
-        const /** @type {?} */ animationConfig = Object.assign({}, defaultRippleAnimationConfig, config.animation);
+        /** @type {?} */
+        const animationConfig = Object.assign({}, defaultRippleAnimationConfig, config.animation);
         if (config.centered) {
             x = containerRect.left + containerRect.width / 2;
             y = containerRect.top + containerRect.height / 2;
         }
-        const /** @type {?} */ radius = config.radius || distanceToFurthestCorner(x, y, containerRect);
-        const /** @type {?} */ offsetX = x - containerRect.left;
-        const /** @type {?} */ offsetY = y - containerRect.top;
-        const /** @type {?} */ duration = animationConfig.enterDuration / (config.speedFactor || 1);
-        const /** @type {?} */ ripple = document.createElement('div');
+        /** @type {?} */
+        const radius = config.radius || distanceToFurthestCorner(x, y, containerRect);
+        /** @type {?} */
+        const offsetX = x - containerRect.left;
+        /** @type {?} */
+        const offsetY = y - containerRect.top;
+        /** @type {?} */
+        const duration = animationConfig.enterDuration / (config.speedFactor || 1);
+        /** @type {?} */
+        const ripple = document.createElement('div');
         ripple.classList.add('mat-ripple-element');
         ripple.style.left = `${offsetX - radius}px`;
         ripple.style.top = `${offsetY - radius}px`;
@@ -1377,8 +1407,8 @@ class RippleRenderer {
         // ripple elements. This is critical because then the `scale` would not animate properly.
         enforceStyleRecalculation(ripple);
         ripple.style.transform = 'scale(1)';
-        // Exposed reference to the ripple that will be returned.
-        const /** @type {?} */ rippleRef = new RippleRef(this, ripple, config);
+        /** @type {?} */
+        const rippleRef = new RippleRef(this, ripple, config);
         rippleRef.state = RippleState.FADING_IN;
         // Add the ripple reference to the list of all active ripples.
         this._activeRipples.add(rippleRef);
@@ -1388,7 +1418,8 @@ class RippleRenderer {
         // Wait for the ripple element to be completely faded in.
         // Once it's faded in, the ripple can be hidden immediately if the mouse is released.
         this.runTimeoutOutsideZone(() => {
-            const /** @type {?} */ isMostRecentTransientRipple = rippleRef === this._mostRecentTransientRipple;
+            /** @type {?} */
+            const isMostRecentTransientRipple = rippleRef === this._mostRecentTransientRipple;
             rippleRef.state = RippleState.VISIBLE;
             // When the timer runs out while the user has kept their pointer down, we want to
             // keep only the persistent ripples and the latest transient ripple. We do this,
@@ -1406,7 +1437,8 @@ class RippleRenderer {
      * @return {?}
      */
     fadeOutRipple(rippleRef) {
-        const /** @type {?} */ wasActive = this._activeRipples.delete(rippleRef);
+        /** @type {?} */
+        const wasActive = this._activeRipples.delete(rippleRef);
         if (rippleRef === this._mostRecentTransientRipple) {
             this._mostRecentTransientRipple = null;
         }
@@ -1418,8 +1450,10 @@ class RippleRenderer {
         if (!wasActive) {
             return;
         }
-        const /** @type {?} */ rippleEl = rippleRef.element;
-        const /** @type {?} */ animationConfig = Object.assign({}, defaultRippleAnimationConfig, rippleRef.config.animation);
+        /** @type {?} */
+        const rippleEl = rippleRef.element;
+        /** @type {?} */
+        const animationConfig = Object.assign({}, defaultRippleAnimationConfig, rippleRef.config.animation);
         rippleEl.style.transitionDuration = `${animationConfig.exitDuration}ms`;
         rippleEl.style.opacity = '0';
         rippleRef.state = RippleState.FADING_OUT;
@@ -1492,8 +1526,10 @@ function enforceStyleRecalculation(element) {
  * @return {?}
  */
 function distanceToFurthestCorner(x, y, rect) {
-    const /** @type {?} */ distX = Math.max(Math.abs(x - rect.left), Math.abs(x - rect.right));
-    const /** @type {?} */ distY = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
+    /** @type {?} */
+    const distX = Math.max(Math.abs(x - rect.left), Math.abs(x - rect.right));
+    /** @type {?} */
+    const distY = Math.max(Math.abs(y - rect.top), Math.abs(y - rect.bottom));
     return Math.sqrt(distX * distX + distY * distY);
 }
 
@@ -1501,10 +1537,10 @@ function distanceToFurthestCorner(x, y, rect) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token that can be used to specify the global ripple options.
- */
-const /** @type {?} */ MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('mat-ripple-global-options');
+  @type {?} */
+const MAT_RIPPLE_GLOBAL_OPTIONS = new InjectionToken('mat-ripple-global-options');
 class MatRipple {
     /**
      * @param {?} _elementRef
@@ -1648,21 +1684,21 @@ MatRipple.decorators = [
 ];
 /** @nocollapse */
 MatRipple.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: NgZone, },
-    { type: Platform, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+    { type: ElementRef },
+    { type: NgZone },
+    { type: Platform },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 MatRipple.propDecorators = {
-    "color": [{ type: Input, args: ['matRippleColor',] },],
-    "unbounded": [{ type: Input, args: ['matRippleUnbounded',] },],
-    "centered": [{ type: Input, args: ['matRippleCentered',] },],
-    "radius": [{ type: Input, args: ['matRippleRadius',] },],
-    "speedFactor": [{ type: Input, args: ['matRippleSpeedFactor',] },],
-    "animation": [{ type: Input, args: ['matRippleAnimation',] },],
-    "disabled": [{ type: Input, args: ['matRippleDisabled',] },],
-    "trigger": [{ type: Input, args: ['matRippleTrigger',] },],
+    color: [{ type: Input, args: ['matRippleColor',] }],
+    unbounded: [{ type: Input, args: ['matRippleUnbounded',] }],
+    centered: [{ type: Input, args: ['matRippleCentered',] }],
+    radius: [{ type: Input, args: ['matRippleRadius',] }],
+    speedFactor: [{ type: Input, args: ['matRippleSpeedFactor',] }],
+    animation: [{ type: Input, args: ['matRippleAnimation',] }],
+    disabled: [{ type: Input, args: ['matRippleDisabled',] }],
+    trigger: [{ type: Input, args: ['matRippleTrigger',] }]
 };
 
 /**
@@ -1729,11 +1765,11 @@ MatPseudoCheckbox.decorators = [
 ];
 /** @nocollapse */
 MatPseudoCheckbox.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
+    { type: String, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] }] }
 ];
 MatPseudoCheckbox.propDecorators = {
-    "state": [{ type: Input },],
-    "disabled": [{ type: Input },],
+    state: [{ type: Input }],
+    disabled: [{ type: Input }]
 };
 
 /**
@@ -1758,9 +1794,10 @@ MatPseudoCheckboxModule.decorators = [
  */
 class MatOptgroupBase {
 }
-const /** @type {?} */ _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
-// Counter for unique group ids.
-let /** @type {?} */ _uniqueOptgroupIdCounter = 0;
+/** @type {?} */
+const _MatOptgroupMixinBase = mixinDisabled(MatOptgroupBase);
+/** @type {?} */
+let _uniqueOptgroupIdCounter = 0;
 /**
  * Component that is used to group instances of `mat-option`.
  */
@@ -1790,20 +1827,19 @@ MatOptgroup.decorators = [
                 }
             },] },
 ];
-/** @nocollapse */
 MatOptgroup.propDecorators = {
-    "label": [{ type: Input },],
+    label: [{ type: Input }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Option IDs need to be unique across components, so this counter exists outside of
  * the component definition.
- */
-let /** @type {?} */ _uniqueIdCounter = 0;
+  @type {?} */
+let _uniqueIdCounter = 0;
 /**
  * Event object emitted by MatOption when selected or deselected.
  */
@@ -1817,10 +1853,10 @@ class MatOptionSelectionChange {
         this.isUserInput = isUserInput;
     }
 }
-/**
+/** *
  * Injection token used to provide the parent component to options.
- */
-const /** @type {?} */ MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPONENT');
+  @type {?} */
+const MAT_OPTION_PARENT_COMPONENT = new InjectionToken('MAT_OPTION_PARENT_COMPONENT');
 /**
  * Single option inside of a `<mat-select>` element.
  */
@@ -1924,7 +1960,8 @@ class MatOption {
      * @return {?}
      */
     focus() {
-        const /** @type {?} */ element = this._getHostElement();
+        /** @type {?} */
+        const element = this._getHostElement();
         if (typeof element.focus === 'function') {
             element.focus();
         }
@@ -2008,7 +2045,8 @@ class MatOption {
         // relatively cheap, however we still limit them only to selected options in order to avoid
         // hitting the DOM too often.
         if (this._selected) {
-            const /** @type {?} */ viewValue = this.viewValue;
+            /** @type {?} */
+            const viewValue = this.viewValue;
             if (viewValue !== this._mostRecentViewValue) {
                 this._mostRecentViewValue = viewValue;
                 this._stateChanges.next();
@@ -2055,16 +2093,16 @@ MatOption.decorators = [
 ];
 /** @nocollapse */
 MatOption.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: ChangeDetectorRef, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_OPTION_PARENT_COMPONENT,] },] },
-    { type: MatOptgroup, decorators: [{ type: Optional },] },
+    { type: ElementRef },
+    { type: ChangeDetectorRef },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_OPTION_PARENT_COMPONENT,] }] },
+    { type: MatOptgroup, decorators: [{ type: Optional }] }
 ];
 MatOption.propDecorators = {
-    "value": [{ type: Input },],
-    "id": [{ type: Input },],
-    "disabled": [{ type: Input },],
-    "onSelectionChange": [{ type: Output },],
+    value: [{ type: Input }],
+    id: [{ type: Input }],
+    disabled: [{ type: Input }],
+    onSelectionChange: [{ type: Output }]
 };
 /**
  * Counts the amount of option group labels that precede the specified option.
@@ -2076,10 +2114,13 @@ MatOption.propDecorators = {
  */
 function _countGroupLabelsBeforeOption(optionIndex, options, optionGroups) {
     if (optionGroups.length) {
-        let /** @type {?} */ optionsArray = options.toArray();
-        let /** @type {?} */ groups = optionGroups.toArray();
-        let /** @type {?} */ groupCounter = 0;
-        for (let /** @type {?} */ i = 0; i < optionIndex + 1; i++) {
+        /** @type {?} */
+        let optionsArray = options.toArray();
+        /** @type {?} */
+        let groups = optionGroups.toArray();
+        /** @type {?} */
+        let groupCounter = 0;
+        for (let i = 0; i < optionIndex + 1; i++) {
             if (optionsArray[i].group && optionsArray[i].group === groups[groupCounter]) {
                 groupCounter++;
             }
@@ -2098,7 +2139,8 @@ function _countGroupLabelsBeforeOption(optionIndex, options, optionGroups) {
  * @return {?}
  */
 function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPosition, panelHeight) {
-    const /** @type {?} */ optionOffset = optionIndex * optionHeight;
+    /** @type {?} */
+    const optionOffset = optionIndex * optionHeight;
     if (optionOffset < currentScrollPosition) {
         return optionOffset;
     }
@@ -2126,22 +2168,76 @@ MatOptionModule.decorators = [
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * InjectionToken that can be used to specify the global label options.
- */
-const /** @type {?} */ MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
+  @type {?} */
+const MAT_LABEL_GLOBAL_OPTIONS = new InjectionToken('mat-label-global-options');
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
 
-/**
+/** *
  * When constructing a Date, the month is zero-based. This can be confusing, since people are
  * used to seeing them one-based. So we create these aliases to make writing the tests easier.
- */
-const /** @type {?} */ JAN = 0, /** @type {?} */ FEB = 1, /** @type {?} */ MAR = 2, /** @type {?} */ APR = 3, /** @type {?} */ MAY = 4, /** @type {?} */ JUN = 5, /** @type {?} */ JUL = 6, /** @type {?} */ AUG = 7, /** @type {?} */ SEP = 8, /** @type {?} */
-OCT = 9, /** @type {?} */ NOV = 10, /** @type {?} */ DEC = 11;
+  @type {?} */
+const JAN = 0;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+const FEB = 1;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+const MAR = 2;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+const APR = 3;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+const MAY = 4;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+const JUN = 5;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+const JUL = 6;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+const AUG = 7;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+const SEP = 8;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+const OCT = 9;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+const NOV = 10;
+/** *
+ * When constructing a Date, the month is zero-based. This can be confusing, since people are
+ * used to seeing them one-based. So we create these aliases to make writing the tests easier.
+  @type {?} */
+const DEC = 11;
 
 /**
  * @fileoverview added by tsickle
@@ -2153,5 +2249,5 @@ OCT = 9, /** @type {?} */ NOV = 10, /** @type {?} */ DEC = 11;
  * @suppress {checkTypes} checked by tsc
  */
 
-export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };
+export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };
 //# sourceMappingURL=core.js.map

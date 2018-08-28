@@ -15,7 +15,8 @@ import { MatCommonModule } from '@angular/material/core';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-let /** @type {?} */ nextId = 0;
+/** @type {?} */
+let nextId = 0;
 /**
  * Directive to display a text badge.
  */
@@ -157,8 +158,10 @@ class MatBadge {
      * @return {?}
      */
     _createBadgeElement() {
-        const /** @type {?} */ badgeElement = this._document.createElement('span');
-        const /** @type {?} */ activeClass = 'mat-badge-active';
+        /** @type {?} */
+        const badgeElement = this._document.createElement('span');
+        /** @type {?} */
+        const activeClass = 'mat-badge-active';
         badgeElement.setAttribute('id', `mat-badge-content-${this._id}`);
         badgeElement.classList.add('mat-badge-content');
         badgeElement.textContent = this.content;
@@ -186,8 +189,8 @@ class MatBadge {
      * @return {?}
      */
     _updateHostAriaDescription(newDescription, oldDescription) {
-        // ensure content available before setting label
-        const /** @type {?} */ content = this._updateTextContent();
+        /** @type {?} */
+        const content = this._updateTextContent();
         if (oldDescription) {
             this._ariaDescriber.removeDescription(content, oldDescription);
         }
@@ -230,19 +233,19 @@ MatBadge.decorators = [
 ];
 /** @nocollapse */
 MatBadge.ctorParameters = () => [
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] },] },
-    { type: NgZone, },
-    { type: ElementRef, },
-    { type: AriaDescriber, },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
+    { type: NgZone },
+    { type: ElementRef },
+    { type: AriaDescriber }
 ];
 MatBadge.propDecorators = {
-    "color": [{ type: Input, args: ['matBadgeColor',] },],
-    "overlap": [{ type: Input, args: ['matBadgeOverlap',] },],
-    "position": [{ type: Input, args: ['matBadgePosition',] },],
-    "content": [{ type: Input, args: ['matBadge',] },],
-    "description": [{ type: Input, args: ['matBadgeDescription',] },],
-    "size": [{ type: Input, args: ['matBadgeSize',] },],
-    "hidden": [{ type: Input, args: ['matBadgeHidden',] },],
+    color: [{ type: Input, args: ['matBadgeColor',] }],
+    overlap: [{ type: Input, args: ['matBadgeOverlap',] }],
+    position: [{ type: Input, args: ['matBadgePosition',] }],
+    content: [{ type: Input, args: ['matBadge',] }],
+    description: [{ type: Input, args: ['matBadgeDescription',] }],
+    size: [{ type: Input, args: ['matBadgeSize',] }],
+    hidden: [{ type: Input, args: ['matBadgeHidden',] }]
 };
 
 /**

@@ -42,18 +42,18 @@ export declare class TileCoordinator {
     positions: TilePosition[];
     constructor(numColumns: number, tiles: QueryList<MatGridTile>);
     /** Calculates the row and col position of a tile. */
-    private _trackTile(tile);
+    private _trackTile;
     /** Finds the next available space large enough to fit the tile. */
-    private _findMatchingGap(tileCols);
+    private _findMatchingGap;
     /** Move "down" to the next row. */
-    private _nextRow();
+    private _nextRow;
     /**
      * Finds the end index (exclusive) of a gap given the index from which to start looking.
      * The gap ends when a non-zero value is found.
      */
-    private _findGapEndIndex(gapStartIndex);
+    private _findGapEndIndex;
     /** Update the tile tracker to account for the given tile in the given space. */
-    private _markTilePosition(start, tile);
+    private _markTilePosition;
 }
 /**
  * Simple data structure for tile position (row, col).

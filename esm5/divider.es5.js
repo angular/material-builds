@@ -20,6 +20,7 @@ var MatDivider = /** @class */ (function () {
         this._inset = false;
     }
     Object.defineProperty(MatDivider.prototype, "vertical", {
+        /** Whether the divider is vertically aligned. */
         get: /**
          * Whether the divider is vertically aligned.
          * @return {?}
@@ -34,6 +35,7 @@ var MatDivider = /** @class */ (function () {
         configurable: true
     });
     Object.defineProperty(MatDivider.prototype, "inset", {
+        /** Whether the divider is an inset divider. */
         get: /**
          * Whether the divider is an inset divider.
          * @return {?}
@@ -63,10 +65,9 @@ var MatDivider = /** @class */ (function () {
                     changeDetection: ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /** @nocollapse */
     MatDivider.propDecorators = {
-        "vertical": [{ type: Input },],
-        "inset": [{ type: Input },],
+        vertical: [{ type: Input }],
+        inset: [{ type: Input }]
     };
     return MatDivider;
 }());

@@ -58,10 +58,10 @@ export declare class MatSelectChange {
     /** Current value of the select that emitted the event. */
     value: any;
     constructor(
-        /** Reference to the select that emitted the change event. */
-        source: MatSelect, 
-        /** Current value of the select that emitted the event. */
-        value: any);
+    /** Reference to the select that emitted the change event. */
+    source: MatSelect, 
+    /** Current value of the select that emitted the event. */
+    value: any);
 }
 /** @docs-private */
 export declare class MatSelectBase {
@@ -72,7 +72,7 @@ export declare class MatSelectBase {
     ngControl: NgControl;
     constructor(_elementRef: ElementRef, _defaultErrorStateMatcher: ErrorStateMatcher, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, ngControl: NgControl);
 }
-export declare const _MatSelectMixinBase: (new (...args: any[]) => CanDisableRipple) & (new (...args: any[]) => HasTabIndex) & (new (...args: any[]) => CanDisable) & (new (...args: any[]) => CanUpdateErrorState) & typeof MatSelectBase;
+export declare const _MatSelectMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../core/common-behaviors/constructor").Constructor<HasTabIndex> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & import("../core/common-behaviors/constructor").Constructor<CanUpdateErrorState> & typeof MatSelectBase;
 /**
  * Allows the user to customize the trigger that is displayed when the select has a value.
  */
@@ -148,9 +148,9 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _disableOptionCentering;
     /** Whether the select is focused. */
     /**
-     * @deprecated Setter to be removed as this property is intended to be readonly.
-     * @breaking-change 8.0.0
-     */
+    * @deprecated Setter to be removed as this property is intended to be readonly.
+    * @breaking-change 8.0.0
+    */
     focused: boolean;
     private _focused;
     /** A name for this control that can be used by `mat-form-field`. */
@@ -271,9 +271,9 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     /** Handles all keydown events on the select. */
     _handleKeydown(event: KeyboardEvent): void;
     /** Handles keyboard events while the select is closed. */
-    private _handleClosedKeydown(event);
+    private _handleClosedKeydown;
     /** Handles keyboard events when the selected is open. */
-    private _handleOpenKeydown(event);
+    private _handleOpenKeydown;
     /**
      * When the panel content is done fading in, the _panelDoneAnimating property is
      * set so the proper class can be added to the panel.
@@ -293,42 +293,42 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     _getPanelTheme(): string;
     /** Whether the select has a value. */
     readonly empty: boolean;
-    private _initializeSelection();
+    private _initializeSelection;
     /**
      * Sets the selected option based on a value. If no option can be
      * found with the designated value, the select trigger is cleared.
      */
-    private _setSelectionByValue(value);
+    private _setSelectionByValue;
     /**
      * Finds and selects and option based on its value.
      * @returns Option that has the corresponding value.
      */
-    private _selectValue(value);
+    private _selectValue;
     /** Sets up a key manager to listen to keyboard events on the overlay panel. */
-    private _initKeyManager();
+    private _initKeyManager;
     /** Drops current option subscriptions and IDs and resets from scratch. */
-    private _resetOptions();
+    private _resetOptions;
     /** Invoked when an option is clicked. */
-    private _onSelect(option, isUserInput);
+    private _onSelect;
     /** Sorts the selected values in the selected based on their order in the panel. */
-    private _sortValues();
+    private _sortValues;
     /** Emits change event to set the model value. */
-    private _propagateChanges(fallbackValue?);
+    private _propagateChanges;
     /** Records option IDs to pass to the aria-owns property. */
-    private _setOptionIds();
+    private _setOptionIds;
     /**
      * Highlights the selected item. If no option is selected, it will highlight
      * the first item instead.
      */
-    private _highlightCorrectOption();
+    private _highlightCorrectOption;
     /** Scrolls the active option into view. */
-    private _scrollActiveOptionIntoView();
+    private _scrollActiveOptionIntoView;
     /** Focuses the select element. */
     focus(): void;
     /** Gets the index of the provided option in the option list. */
-    private _getOptionIndex(option);
+    private _getOptionIndex;
     /** Calculates the scroll position and x- and y-offsets of the overlay panel. */
-    private _calculateOverlayPosition();
+    private _calculateOverlayPosition;
     /**
      * Calculates the scroll position of the select's overlay panel.
      *
@@ -350,30 +350,30 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
      * can't be calculated until the panel has been attached, because we need to know the
      * content width in order to constrain the panel within the viewport.
      */
-    private _calculateOverlayOffsetX();
+    private _calculateOverlayOffsetX;
     /**
      * Calculates the y-offset of the select's overlay panel in relation to the
      * top start corner of the trigger. It has to be adjusted in order for the
      * selected option to be aligned over the trigger when the panel opens.
      */
-    private _calculateOverlayOffsetY(selectedIndex, scrollBuffer, maxScroll);
+    private _calculateOverlayOffsetY;
     /**
      * Checks that the attempted overlay position will fit within the viewport.
      * If it will not fit, tries to adjust the scroll position and the associated
      * y-offset so the panel can open fully on-screen. If it still won't fit,
      * sets the offset back to 0 to allow the fallback position to take over.
      */
-    private _checkOverlayWithinViewport(maxScroll);
+    private _checkOverlayWithinViewport;
     /** Adjusts the overlay panel up to fit in the viewport. */
-    private _adjustPanelUp(panelHeightBottom, bottomSpaceAvailable);
+    private _adjustPanelUp;
     /** Adjusts the overlay panel down to fit in the viewport. */
-    private _adjustPanelDown(panelHeightTop, topSpaceAvailable, maxScroll);
+    private _adjustPanelDown;
     /** Sets the transform origin point based on the selected option. */
-    private _getOriginBasedOnOption();
+    private _getOriginBasedOnOption;
     /** Calculates the amount of items in the select. This includes options and group labels. */
-    private _getItemCount();
+    private _getItemCount;
     /** Calculates the height of the select's options. */
-    private _getItemHeight();
+    private _getItemHeight;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private

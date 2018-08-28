@@ -24,10 +24,10 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Injection token for the MatInkBar's Positioner.
- */
-const /** @type {?} */ _MAT_INK_BAR_POSITIONER = new InjectionToken('MatInkBarPositioner', {
+  @type {?} */
+const _MAT_INK_BAR_POSITIONER = new InjectionToken('MatInkBarPositioner', {
     providedIn: 'root',
     factory: _MAT_INK_BAR_POSITIONER_FACTORY
 });
@@ -37,7 +37,8 @@ const /** @type {?} */ _MAT_INK_BAR_POSITIONER = new InjectionToken('MatInkBarPo
  * @return {?}
  */
 function _MAT_INK_BAR_POSITIONER_FACTORY() {
-    const /** @type {?} */ method = (element) => ({
+    /** @type {?} */
+    const method = (element) => ({
         left: element ? (element.offsetLeft || 0) + 'px' : '0',
         width: element ? (element.offsetWidth || 0) + 'px' : '0',
     });
@@ -95,8 +96,10 @@ class MatInkBar {
      * @return {?}
      */
     _setStyles(element) {
-        const /** @type {?} */ positions = this._inkBarPositioner(element);
-        const /** @type {?} */ inkBar = this._elementRef.nativeElement;
+        /** @type {?} */
+        const positions = this._inkBarPositioner(element);
+        /** @type {?} */
+        const inkBar = this._elementRef.nativeElement;
         inkBar.style.left = positions.left;
         inkBar.style.width = positions.width;
     }
@@ -111,17 +114,17 @@ MatInkBar.decorators = [
 ];
 /** @nocollapse */
 MatInkBar.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: NgZone, },
-    { type: undefined, decorators: [{ type: Inject, args: [_MAT_INK_BAR_POSITIONER,] },] },
+    { type: ElementRef },
+    { type: NgZone },
+    { type: undefined, decorators: [{ type: Inject, args: [_MAT_INK_BAR_POSITIONER,] }] }
 ];
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-// TODO(devversion): Workaround for https://github.com/angular/material2/issues/12760
-const /** @type {?} */ _CdkPortal = CdkPortal;
+/** @type {?} */
+const _CdkPortal = CdkPortal;
 /**
  * Used to flag tab labels for use with the portal directive
  */
@@ -153,7 +156,7 @@ MatTabContent.decorators = [
 ];
 /** @nocollapse */
 MatTabContent.ctorParameters = () => [
-    { type: TemplateRef, },
+    { type: TemplateRef }
 ];
 
 /**
@@ -165,7 +168,8 @@ MatTabContent.ctorParameters = () => [
  */
 class MatTabBase {
 }
-const /** @type {?} */ _MatTabMixinBase = mixinDisabled(MatTabBase);
+/** @type {?} */
+const _MatTabMixinBase = mixinDisabled(MatTabBase);
 class MatTab extends _MatTabMixinBase {
     /**
      * @param {?} _viewContainerRef
@@ -240,25 +244,25 @@ MatTab.decorators = [
 ];
 /** @nocollapse */
 MatTab.ctorParameters = () => [
-    { type: ViewContainerRef, },
+    { type: ViewContainerRef }
 ];
 MatTab.propDecorators = {
-    "templateLabel": [{ type: ContentChild, args: [MatTabLabel,] },],
-    "_explicitContent": [{ type: ContentChild, args: [MatTabContent, { read: TemplateRef },] },],
-    "_implicitContent": [{ type: ViewChild, args: [TemplateRef,] },],
-    "textLabel": [{ type: Input, args: ['label',] },],
-    "ariaLabel": [{ type: Input, args: ['aria-label',] },],
-    "ariaLabelledby": [{ type: Input, args: ['aria-labelledby',] },],
+    templateLabel: [{ type: ContentChild, args: [MatTabLabel,] }],
+    _explicitContent: [{ type: ContentChild, args: [MatTabContent, { read: TemplateRef },] }],
+    _implicitContent: [{ type: ViewChild, args: [TemplateRef,] }],
+    textLabel: [{ type: Input, args: ['label',] }],
+    ariaLabel: [{ type: Input, args: ['aria-label',] }],
+    ariaLabelledby: [{ type: Input, args: ['aria-labelledby',] }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Animations used by the Material tabs.
- */
-const /** @type {?} */ matTabsAnimations = {
+  @type {?} */
+const matTabsAnimations = {
     /** Animation translates a tab along the X axis. */
     translateTab: trigger('translateTab', [
         // Note: transitions to `none` instead of 0, because some browsers might blur the content.
@@ -341,9 +345,9 @@ MatTabBodyPortal.decorators = [
 ];
 /** @nocollapse */
 MatTabBodyPortal.ctorParameters = () => [
-    { type: ComponentFactoryResolver, },
-    { type: ViewContainerRef, },
-    { type: MatTabBody, decorators: [{ type: Inject, args: [forwardRef(() => MatTabBody),] },] },
+    { type: ComponentFactoryResolver },
+    { type: ViewContainerRef },
+    { type: MatTabBody, decorators: [{ type: Inject, args: [forwardRef(() => MatTabBody),] }] }
 ];
 /**
  * Wrapper for the contents of a tab.
@@ -421,7 +425,8 @@ class MatTabBody {
      * @return {?}
      */
     _onTranslateTabStarted(e) {
-        const /** @type {?} */ isCentering = this._isCenterPosition(e.toState);
+        /** @type {?} */
+        const isCentering = this._isCenterPosition(e.toState);
         this._beforeCentering.emit(isCentering);
         if (isCentering) {
             this._onCentering.emit(this._elementRef.nativeElement.clientHeight);
@@ -479,7 +484,8 @@ class MatTabBody {
      * @return {?}
      */
     _computePositionFromOrigin() {
-        const /** @type {?} */ dir = this._getLayoutDirection();
+        /** @type {?} */
+        const dir = this._getLayoutDirection();
         if ((dir == 'ltr' && this.origin <= 0) || (dir == 'rtl' && this.origin > 0)) {
             return 'left-origin-center';
         }
@@ -500,19 +506,19 @@ MatTabBody.decorators = [
 ];
 /** @nocollapse */
 MatTabBody.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: Directionality, decorators: [{ type: Optional },] },
-    { type: ChangeDetectorRef, },
+    { type: ElementRef },
+    { type: Directionality, decorators: [{ type: Optional }] },
+    { type: ChangeDetectorRef }
 ];
 MatTabBody.propDecorators = {
-    "_onCentering": [{ type: Output },],
-    "_beforeCentering": [{ type: Output },],
-    "_afterLeavingCenter": [{ type: Output },],
-    "_onCentered": [{ type: Output },],
-    "_portalHost": [{ type: ViewChild, args: [PortalHostDirective,] },],
-    "_content": [{ type: Input, args: ['content',] },],
-    "origin": [{ type: Input },],
-    "position": [{ type: Input },],
+    _onCentering: [{ type: Output }],
+    _beforeCentering: [{ type: Output }],
+    _afterLeavingCenter: [{ type: Output }],
+    _onCentered: [{ type: Output }],
+    _portalHost: [{ type: ViewChild, args: [PortalHostDirective,] }],
+    _content: [{ type: Input, args: ['content',] }],
+    origin: [{ type: Input }],
+    position: [{ type: Input }]
 };
 
 /**
@@ -524,7 +530,8 @@ MatTabBody.propDecorators = {
  */
 class MatTabLabelWrapperBase {
 }
-const /** @type {?} */ _MatTabLabelWrapperMixinBase = mixinDisabled(MatTabLabelWrapperBase);
+/** @type {?} */
+const _MatTabLabelWrapperMixinBase = mixinDisabled(MatTabLabelWrapperBase);
 /**
  * Used in the `mat-tab-group` view to display tab labels.
  * \@docs-private
@@ -569,24 +576,25 @@ MatTabLabelWrapper.decorators = [
 ];
 /** @nocollapse */
 MatTabLabelWrapper.ctorParameters = () => [
-    { type: ElementRef, },
+    { type: ElementRef }
 ];
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
  * provide a small affordance to the label next to it.
- */
-const /** @type {?} */ EXAGGERATED_OVERSCROLL = 60;
+  @type {?} */
+const EXAGGERATED_OVERSCROLL = 60;
 /**
  * \@docs-private
  */
 class MatTabHeaderBase {
 }
-const /** @type {?} */ _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
+/** @type {?} */
+const _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
 /**
  * The header of the tab group which displays a list of all the tabs in the tab group. Includes
  * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the
@@ -713,9 +721,12 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @return {?}
      */
     ngAfterContentInit() {
-        const /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
-        const /** @type {?} */ resize = this._viewportRuler.change(150);
-        const /** @type {?} */ realign = () => {
+        /** @type {?} */
+        const dirChange = this._dir ? this._dir.change : of(null);
+        /** @type {?} */
+        const resize = this._viewportRuler.change(150);
+        /** @type {?} */
+        const realign = () => {
             this._updatePagination();
             this._alignInkBarToSelectedTab();
         };
@@ -793,7 +804,8 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         if (!this._labelWrappers) {
             return true;
         }
-        const /** @type {?} */ tab = this._labelWrappers ? this._labelWrappers.toArray()[index] : null;
+        /** @type {?} */
+        const tab = this._labelWrappers ? this._labelWrappers.toArray()[index] : null;
         return !!tab && !tab.disabled;
     }
     /**
@@ -808,11 +820,10 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
         }
         if (this._labelWrappers && this._labelWrappers.length) {
             this._labelWrappers.toArray()[tabIndex].focus();
-            // Do not let the browser manage scrolling to focus the element, this will be handled
-            // by using translation. In LTR, the scroll left should be 0. In RTL, the scroll width
-            // should be the full width minus the offset width.
-            const /** @type {?} */ containerEl = this._tabListContainer.nativeElement;
-            const /** @type {?} */ dir = this._getLayoutDirection();
+            /** @type {?} */
+            const containerEl = this._tabListContainer.nativeElement;
+            /** @type {?} */
+            const dir = this._getLayoutDirection();
             if (dir == 'ltr') {
                 containerEl.scrollLeft = 0;
             }
@@ -833,8 +844,10 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @return {?}
      */
     _updateTabScrollPosition() {
-        const /** @type {?} */ scrollDistance = this.scrollDistance;
-        const /** @type {?} */ translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
+        /** @type {?} */
+        const scrollDistance = this.scrollDistance;
+        /** @type {?} */
+        const translateX = this._getLayoutDirection() === 'ltr' ? -scrollDistance : scrollDistance;
         // Don't use `translate3d` here because we don't want to create a new layer. A new layer
         // seems to cause flickering and overflow in Internet Explorer. For example, the ink bar
         // and ripples will exceed the boundaries of the visible tab bar.
@@ -868,7 +881,8 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @return {?}
      */
     _scrollHeader(scrollDir) {
-        const /** @type {?} */ viewLength = this._tabListContainer.nativeElement.offsetWidth;
+        /** @type {?} */
+        const viewLength = this._tabListContainer.nativeElement.offsetWidth;
         // Move the scroll distance one-third the length of the tab list's viewport.
         this.scrollDistance += (scrollDir == 'before' ? -1 : 1) * viewLength / 3;
     }
@@ -881,13 +895,17 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @return {?}
      */
     _scrollToLabel(labelIndex) {
-        const /** @type {?} */ selectedLabel = this._labelWrappers ? this._labelWrappers.toArray()[labelIndex] : null;
+        /** @type {?} */
+        const selectedLabel = this._labelWrappers ? this._labelWrappers.toArray()[labelIndex] : null;
         if (!selectedLabel) {
             return;
         }
-        // The view length is the visible width of the tab labels.
-        const /** @type {?} */ viewLength = this._tabListContainer.nativeElement.offsetWidth;
-        let /** @type {?} */ labelBeforePos, /** @type {?} */ labelAfterPos;
+        /** @type {?} */
+        const viewLength = this._tabListContainer.nativeElement.offsetWidth;
+        /** @type {?} */
+        let labelBeforePos;
+        /** @type {?} */
+        let labelAfterPos;
         if (this._getLayoutDirection() == 'ltr') {
             labelBeforePos = selectedLabel.getOffsetLeft();
             labelAfterPos = labelBeforePos + selectedLabel.getOffsetWidth();
@@ -896,8 +914,10 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
             labelAfterPos = this._tabList.nativeElement.offsetWidth - selectedLabel.getOffsetLeft();
             labelBeforePos = labelAfterPos - selectedLabel.getOffsetWidth();
         }
-        const /** @type {?} */ beforeVisiblePos = this.scrollDistance;
-        const /** @type {?} */ afterVisiblePos = this.scrollDistance + viewLength;
+        /** @type {?} */
+        const beforeVisiblePos = this.scrollDistance;
+        /** @type {?} */
+        const afterVisiblePos = this.scrollDistance + viewLength;
         if (labelBeforePos < beforeVisiblePos) {
             // Scroll header to move label to the before direction
             this.scrollDistance -= beforeVisiblePos - labelBeforePos + EXAGGERATED_OVERSCROLL;
@@ -917,7 +937,8 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @return {?}
      */
     _checkPaginationEnabled() {
-        const /** @type {?} */ isEnabled = this._tabList.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
+        /** @type {?} */
+        const isEnabled = this._tabList.nativeElement.scrollWidth > this._elementRef.nativeElement.offsetWidth;
         if (!isEnabled) {
             this.scrollDistance = 0;
         }
@@ -951,8 +972,10 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @return {?}
      */
     _getMaxScrollDistance() {
-        const /** @type {?} */ lengthOfTabList = this._tabList.nativeElement.scrollWidth;
-        const /** @type {?} */ viewLength = this._tabListContainer.nativeElement.offsetWidth;
+        /** @type {?} */
+        const lengthOfTabList = this._tabList.nativeElement.scrollWidth;
+        /** @type {?} */
+        const viewLength = this._tabListContainer.nativeElement.offsetWidth;
         return (lengthOfTabList - viewLength) || 0;
     }
     /**
@@ -960,7 +983,8 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @return {?}
      */
     _alignInkBarToSelectedTab() {
-        const /** @type {?} */ selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
+        /** @type {?} */
+        const selectedLabelWrapper = this._labelWrappers && this._labelWrappers.length ?
             this._labelWrappers.toArray()[this.selectedIndex].elementRef.nativeElement :
             null;
         this._inkBar.alignToElement(selectedLabelWrapper);
@@ -982,29 +1006,29 @@ MatTabHeader.decorators = [
 ];
 /** @nocollapse */
 MatTabHeader.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: ChangeDetectorRef, },
-    { type: ViewportRuler, },
-    { type: Directionality, decorators: [{ type: Optional },] },
+    { type: ElementRef },
+    { type: ChangeDetectorRef },
+    { type: ViewportRuler },
+    { type: Directionality, decorators: [{ type: Optional }] }
 ];
 MatTabHeader.propDecorators = {
-    "_labelWrappers": [{ type: ContentChildren, args: [MatTabLabelWrapper,] },],
-    "_inkBar": [{ type: ViewChild, args: [MatInkBar,] },],
-    "_tabListContainer": [{ type: ViewChild, args: ['tabListContainer',] },],
-    "_tabList": [{ type: ViewChild, args: ['tabList',] },],
-    "selectedIndex": [{ type: Input },],
-    "selectFocusedIndex": [{ type: Output },],
-    "indexFocused": [{ type: Output },],
+    _labelWrappers: [{ type: ContentChildren, args: [MatTabLabelWrapper,] }],
+    _inkBar: [{ type: ViewChild, args: [MatInkBar,] }],
+    _tabListContainer: [{ type: ViewChild, args: ['tabListContainer',] }],
+    _tabList: [{ type: ViewChild, args: ['tabList',] }],
+    selectedIndex: [{ type: Input }],
+    selectFocusedIndex: [{ type: Output }],
+    indexFocused: [{ type: Output }]
 };
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-/**
+/** *
  * Used to generate unique ID's for each tab component
- */
-let /** @type {?} */ nextId = 0;
+  @type {?} */
+let nextId = 0;
 /**
  * A simple change event emitted on focus or selection changes.
  */
@@ -1021,7 +1045,8 @@ class MatTabGroupBase {
         this._elementRef = _elementRef;
     }
 }
-const /** @type {?} */ _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupBase), 'primary');
+/** @type {?} */
+const _MatTabGroupMixinBase = mixinColor(mixinDisableRipple(MatTabGroupBase), 'primary');
 /**
  * Material design tab-group component.  Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.
@@ -1107,7 +1132,8 @@ class MatTabGroup extends _MatTabGroupMixinBase {
      * @return {?}
      */
     set backgroundColor(value) {
-        const /** @type {?} */ nativeElement = this._elementRef.nativeElement;
+        /** @type {?} */
+        const nativeElement = this._elementRef.nativeElement;
         nativeElement.classList.remove(`mat-background-${this.backgroundColor}`);
         if (value) {
             nativeElement.classList.add(`mat-background-${value}`);
@@ -1122,13 +1148,13 @@ class MatTabGroup extends _MatTabGroupMixinBase {
      * @return {?}
      */
     ngAfterContentChecked() {
-        // Don't clamp the `indexToSelect` immediately in the setter because it can happen that
-        // the amount of tabs changes before the actual change detection runs.
-        const /** @type {?} */ indexToSelect = this._indexToSelect = this._clampTabIndex(this._indexToSelect);
+        /** @type {?} */
+        const indexToSelect = this._indexToSelect = this._clampTabIndex(this._indexToSelect);
         // If there is a change in selected index, emit a change event. Should not trigger if
         // the selected index has not yet been initialized.
         if (this._selectedIndex != indexToSelect) {
-            const /** @type {?} */ isFirstRun = this._selectedIndex == null;
+            /** @type {?} */
+            const isFirstRun = this._selectedIndex == null;
             if (!isFirstRun) {
                 this.selectedTabChange.emit(this._createChangeEvent(indexToSelect));
             }
@@ -1163,12 +1189,14 @@ class MatTabGroup extends _MatTabGroupMixinBase {
         // Subscribe to changes in the amount of tabs, in order to be
         // able to re-render the content as new tabs are added or removed.
         this._tabsSubscription = this._tabs.changes.subscribe(() => {
-            const /** @type {?} */ indexToSelect = this._clampTabIndex(this._indexToSelect);
+            /** @type {?} */
+            const indexToSelect = this._clampTabIndex(this._indexToSelect);
             // Maintain the previously-selected tab if a new tab is added or removed and there is no
             // explicit change that selects a different tab.
             if (indexToSelect === this._selectedIndex) {
-                const /** @type {?} */ tabs = this._tabs.toArray();
-                for (let /** @type {?} */ i = 0; i < tabs.length; i++) {
+                /** @type {?} */
+                const tabs = this._tabs.toArray();
+                for (let i = 0; i < tabs.length; i++) {
                     if (tabs[i].isActive) {
                         // Assign both to the `_indexToSelect` and `_selectedIndex` so we don't fire a changed
                         // event, otherwise the consumer may end up in an infinite loop in some edge cases like
@@ -1210,7 +1238,8 @@ class MatTabGroup extends _MatTabGroupMixinBase {
      * @return {?}
      */
     _createChangeEvent(index) {
-        const /** @type {?} */ event = new MatTabChangeEvent;
+        /** @type {?} */
+        const event = new MatTabChangeEvent;
         event.index = index;
         if (this._tabs && this._tabs.length) {
             event.tab = this._tabs.toArray()[index];
@@ -1268,7 +1297,8 @@ class MatTabGroup extends _MatTabGroupMixinBase {
         if (!this._dynamicHeight || !this._tabBodyWrapperHeight) {
             return;
         }
-        const /** @type {?} */ wrapper = this._tabBodyWrapper.nativeElement;
+        /** @type {?} */
+        const wrapper = this._tabBodyWrapper.nativeElement;
         wrapper.style.height = this._tabBodyWrapperHeight + 'px';
         // This conditional forces the browser to paint the height so that
         // the animation to the new height can have an origin.
@@ -1327,21 +1357,21 @@ MatTabGroup.decorators = [
 ];
 /** @nocollapse */
 MatTabGroup.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: ChangeDetectorRef, },
+    { type: ElementRef },
+    { type: ChangeDetectorRef }
 ];
 MatTabGroup.propDecorators = {
-    "_tabs": [{ type: ContentChildren, args: [MatTab,] },],
-    "_tabBodyWrapper": [{ type: ViewChild, args: ['tabBodyWrapper',] },],
-    "_tabHeader": [{ type: ViewChild, args: ['tabHeader',] },],
-    "dynamicHeight": [{ type: Input },],
-    "selectedIndex": [{ type: Input },],
-    "headerPosition": [{ type: Input },],
-    "backgroundColor": [{ type: Input },],
-    "selectedIndexChange": [{ type: Output },],
-    "focusChange": [{ type: Output },],
-    "animationDone": [{ type: Output },],
-    "selectedTabChange": [{ type: Output },],
+    _tabs: [{ type: ContentChildren, args: [MatTab,] }],
+    _tabBodyWrapper: [{ type: ViewChild, args: ['tabBodyWrapper',] }],
+    _tabHeader: [{ type: ViewChild, args: ['tabHeader',] }],
+    dynamicHeight: [{ type: Input }],
+    selectedIndex: [{ type: Input }],
+    headerPosition: [{ type: Input }],
+    backgroundColor: [{ type: Input }],
+    selectedIndexChange: [{ type: Output }],
+    focusChange: [{ type: Output }],
+    animationDone: [{ type: Output }],
+    selectedTabChange: [{ type: Output }]
 };
 
 /**
@@ -1359,7 +1389,8 @@ class MatTabNavBase {
         this._elementRef = _elementRef;
     }
 }
-const /** @type {?} */ _MatTabNavMixinBase = mixinDisableRipple(mixinColor(MatTabNavBase, 'primary'));
+/** @type {?} */
+const _MatTabNavMixinBase = mixinDisableRipple(mixinColor(MatTabNavBase, 'primary'));
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -1393,7 +1424,8 @@ class MatTabNav extends _MatTabNavMixinBase {
      * @return {?}
      */
     set backgroundColor(value) {
-        const /** @type {?} */ nativeElement = this._elementRef.nativeElement;
+        /** @type {?} */
+        const nativeElement = this._elementRef.nativeElement;
         nativeElement.classList.remove(`mat-background-${this.backgroundColor}`);
         if (value) {
             nativeElement.classList.add(`mat-background-${value}`);
@@ -1417,7 +1449,8 @@ class MatTabNav extends _MatTabNavMixinBase {
      */
     ngAfterContentInit() {
         this._ngZone.runOutsideAngular(() => {
-            const /** @type {?} */ dirChange = this._dir ? this._dir.change : of(null);
+            /** @type {?} */
+            const dirChange = this._dir ? this._dir.change : of(null);
             return merge(dirChange, this._viewportRuler.change(10))
                 .pipe(takeUntil(this._onDestroy))
                 .subscribe(() => this._alignInkBar());
@@ -1429,7 +1462,8 @@ class MatTabNav extends _MatTabNavMixinBase {
      */
     ngAfterContentChecked() {
         if (this._activeLinkChanged) {
-            const /** @type {?} */ activeTab = this._tabLinks.find(tab => tab.active);
+            /** @type {?} */
+            const activeTab = this._tabLinks.find(tab => tab.active);
             this._activeLinkElement = activeTab ? activeTab._elementRef : null;
             this._alignInkBar();
             this._activeLinkChanged = false;
@@ -1469,20 +1503,21 @@ MatTabNav.decorators = [
 ];
 /** @nocollapse */
 MatTabNav.ctorParameters = () => [
-    { type: ElementRef, },
-    { type: Directionality, decorators: [{ type: Optional },] },
-    { type: NgZone, },
-    { type: ChangeDetectorRef, },
-    { type: ViewportRuler, },
+    { type: ElementRef },
+    { type: Directionality, decorators: [{ type: Optional }] },
+    { type: NgZone },
+    { type: ChangeDetectorRef },
+    { type: ViewportRuler }
 ];
 MatTabNav.propDecorators = {
-    "_inkBar": [{ type: ViewChild, args: [MatInkBar,] },],
-    "_tabLinks": [{ type: ContentChildren, args: [forwardRef(() => MatTabLink), { descendants: true },] },],
-    "backgroundColor": [{ type: Input },],
+    _inkBar: [{ type: ViewChild, args: [MatInkBar,] }],
+    _tabLinks: [{ type: ContentChildren, args: [forwardRef(() => MatTabLink), { descendants: true },] }],
+    backgroundColor: [{ type: Input }]
 };
 class MatTabLinkBase {
 }
-const /** @type {?} */ _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatTabLinkBase)));
+/** @type {?} */
+const _MatTabLinkMixinBase = mixinTabIndex(mixinDisableRipple(mixinDisabled(MatTabLinkBase)));
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */
@@ -1592,16 +1627,16 @@ MatTabLink.decorators = [
 ];
 /** @nocollapse */
 MatTabLink.ctorParameters = () => [
-    { type: MatTabNav, },
-    { type: ElementRef, },
-    { type: NgZone, },
-    { type: Platform, },
-    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] },] },
-    { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
-    { type: FocusMonitor, },
+    { type: MatTabNav },
+    { type: ElementRef },
+    { type: NgZone },
+    { type: Platform },
+    { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_RIPPLE_GLOBAL_OPTIONS,] }] },
+    { type: String, decorators: [{ type: Attribute, args: ['tabindex',] }] },
+    { type: FocusMonitor }
 ];
 MatTabLink.propDecorators = {
-    "active": [{ type: Input },],
+    active: [{ type: Input }]
 };
 
 /**
