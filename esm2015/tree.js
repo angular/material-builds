@@ -15,7 +15,7 @@ import { map, take } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Outlet for nested CdkNode. Put `[matTreeNodeOutlet]` on a tag to place children dataNodes
@@ -41,7 +41,7 @@ MatTreeNodeOutlet.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 const _CdkTreeNodeDef = CdkTreeNodeDef;
@@ -169,7 +169,7 @@ MatNestedTreeNode.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 const _CdkTreeNodePadding = CdkTreeNodePadding;
@@ -192,7 +192,7 @@ MatTreeNodePadding.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 const _CdkTree = CdkTree;
@@ -222,7 +222,7 @@ MatTree.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 const _CdkTreeNodeToggle = CdkTreeNodeToggle;
@@ -251,7 +251,7 @@ MatTreeNodeToggle.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 const MAT_TREE_DIRECTIVES = [
@@ -275,7 +275,7 @@ MatTreeModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Tree flattener to convert a normal type of node to node with children & level information.
@@ -468,7 +468,7 @@ class MatTreeFlatDataSource extends DataSource {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Data source for nested tree.
@@ -512,12 +512,12 @@ class MatTreeNestedDataSource extends DataSource {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 export { _CdkTreeNodeDef, _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, _CdkTreeNodePadding, MatTreeNodePadding, _CdkTree, MatTree, MatTreeModule, _CdkTreeNodeToggle, MatTreeNodeToggle, MatTreeNodeOutlet, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource };

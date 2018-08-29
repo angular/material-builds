@@ -7,7 +7,7 @@
  */
 import { __extends } from 'tslib';
 import { CdkTextareaAutosize, AutofillMonitor, TextFieldModule } from '@angular/cdk/text-field';
-import { Directive, Input, InjectionToken, ElementRef, Inject, Optional, Self, NgZone, NgModule } from '@angular/core';
+import { Directive, Input, InjectionToken, ElementRef, Inject, NgZone, Optional, Self, NgModule } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { getSupportedInputTypes, Platform } from '@angular/cdk/platform';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 var _CdkTextareaAutosize = CdkTextareaAutosize;
@@ -109,7 +109,7 @@ var MatTextareaAutosize = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
@@ -123,7 +123,7 @@ function getMatInputUnsupportedTypeError(type) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * This token is used to inject the object whose value should be set into `MatInput`. If none is
@@ -135,7 +135,7 @@ var MAT_INPUT_VALUE_ACCESSOR = new InjectionToken('MAT_INPUT_VALUE_ACCESSOR');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 var MAT_INPUT_INVALID_TYPES = [
@@ -663,7 +663,7 @@ var MatInput = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var MatInputModule = /** @class */ (function () {
     function MatInputModule() {
@@ -690,12 +690,12 @@ var MatInputModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 export { _CdkTextareaAutosize, MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };

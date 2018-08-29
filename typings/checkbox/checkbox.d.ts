@@ -8,7 +8,7 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, MatRipple } from '@angular/material/core';
+import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, MatRipple } from '@angular/material/core';
 import { MatCheckboxClickAction } from './checkbox-config';
 /**
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
@@ -42,7 +42,7 @@ export declare class MatCheckboxBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatCheckboxMixinBase: import("../core/common-behaviors/constructor").Constructor<HasTabIndex> & import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatCheckboxBase;
+export declare const _MatCheckboxMixinBase: HasTabIndexCtor & CanColorCtor & CanDisableRippleCtor & CanDisableCtor & typeof MatCheckboxBase;
 /**
  * A material design checkbox component. Supports all of the functionality of an HTML5 checkbox,
  * and exposes a similar API. A MatCheckbox can be either checked, unchecked, indeterminate, or

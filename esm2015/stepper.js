@@ -20,7 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 const _CdkStepLabel = CdkStepLabel;
@@ -34,7 +34,7 @@ MatStepLabel.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Stepper data that is required for internationalization.
@@ -59,7 +59,7 @@ MatStepperIntl.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 class MatStepHeader {
     /**
@@ -152,7 +152,7 @@ MatStepHeader.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Animations used by the Material steppers.
@@ -176,7 +176,7 @@ const matStepperAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Template to be used to override the icons inside the step header.
@@ -204,7 +204,7 @@ MatStepperIcon.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 const _CdkStepper = CdkStepper;
@@ -358,7 +358,7 @@ MatVerticalStepper.ctorParameters = () => [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 const _CdkStepperNext = CdkStepperNext;
@@ -399,7 +399,7 @@ MatStepperPrevious.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 class MatStepperModule {
 }
@@ -443,12 +443,12 @@ MatStepperModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 export { MatStepperModule, _CdkStepLabel, MatStepLabel, _CdkStepper, MatStep, MatStepper, MatHorizontalStepper, MatVerticalStepper, _CdkStepperNext, _CdkStepperPrevious, MatStepperNext, MatStepperPrevious, MatStepHeader, MatStepperIntl, matStepperAnimations, MatStepperIcon };

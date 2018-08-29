@@ -7,7 +7,7 @@
  */
 import { ChangeDetectorRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { MatPaginatorIntl } from './paginator-intl';
-import { HasInitialized, ThemePalette } from '@angular/material/core';
+import { HasInitialized, HasInitializedCtor, ThemePalette } from '@angular/material/core';
 /**
  * Change event object that is emitted when the user selects a
  * different page size or navigates to another page.
@@ -28,7 +28,7 @@ export declare class PageEvent {
 /** @docs-private */
 export declare class MatPaginatorBase {
 }
-export declare const _MatPaginatorBase: import("../core/common-behaviors/constructor").Constructor<HasInitialized> & typeof MatPaginatorBase;
+export declare const _MatPaginatorBase: HasInitializedCtor & typeof MatPaginatorBase;
 /**
  * Component to provide navigation between paged information. Displays the size of the current
  * page, user-selectable options to change that size, what items are being shown, and

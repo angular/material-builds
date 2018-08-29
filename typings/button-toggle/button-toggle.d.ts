@@ -8,13 +8,13 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanDisable, CanDisableRipple } from '@angular/material/core';
+import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
 /** Acceptable types for a button toggle. */
 export declare type ToggleType = 'checkbox' | 'radio';
 /** @docs-private */
 export declare class MatButtonToggleGroupBase {
 }
-export declare const _MatButtonToggleGroupMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatButtonToggleGroupBase;
+export declare const _MatButtonToggleGroupMixinBase: CanDisableCtor & typeof MatButtonToggleGroupBase;
 /**
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -114,7 +114,7 @@ export declare class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase
 /** @docs-private */
 export declare class MatButtonToggleBase {
 }
-export declare const _MatButtonToggleMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatButtonToggleBase;
+export declare const _MatButtonToggleMixinBase: CanDisableRippleCtor & typeof MatButtonToggleBase;
 /** Single button inside of a toggle group. */
 export declare class MatButtonToggle extends _MatButtonToggleMixinBase implements OnInit, CanDisableRipple, OnDestroy {
     private _changeDetectorRef;

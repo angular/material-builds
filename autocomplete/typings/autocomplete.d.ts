@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterContentInit, ElementRef, QueryList, TemplateRef, ChangeDetectorRef, EventEmitter, InjectionToken } from '@angular/core';
-import { MatOption, MatOptgroup, CanDisableRipple } from '@angular/material/core';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, InjectionToken, QueryList, TemplateRef } from '@angular/core';
+import { CanDisableRipple, CanDisableRippleCtor, MatOptgroup, MatOption } from '@angular/material/core';
 /** Event object that is emitted when an autocomplete option is selected. */
 export declare class MatAutocompleteSelectedEvent {
     /** Reference to the autocomplete panel that emitted the event. */
@@ -23,7 +23,7 @@ export declare class MatAutocompleteSelectedEvent {
 /** @docs-private */
 export declare class MatAutocompleteBase {
 }
-export declare const _MatAutocompleteMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatAutocompleteBase;
+export declare const _MatAutocompleteMixinBase: CanDisableRippleCtor & typeof MatAutocompleteBase;
 /** Default `mat-autocomplete` options that can be overridden. */
 export interface MatAutocompleteDefaultOptions {
     /** Whether the first option should be highlighted when an autocomplete panel is opened. */

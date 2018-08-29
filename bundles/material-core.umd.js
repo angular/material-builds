@@ -53,7 +53,7 @@ var __assign = function() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
@@ -82,7 +82,7 @@ var AnimationDurations = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Injection token that configures whether the Material sanity checks are enabled.
@@ -223,7 +223,7 @@ var MatCommonModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `disabled` property.
@@ -262,7 +262,7 @@ function mixinDisabled(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `color` property.
@@ -316,7 +316,7 @@ function mixinColor(base, defaultColor) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `disableRipple` property.
@@ -357,7 +357,7 @@ function mixinDisableRipple(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with a `tabIndex` property.
@@ -401,7 +401,7 @@ function mixinTabIndex(base, defaultTabIndex) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with updateErrorState method.
@@ -458,7 +458,7 @@ function mixinErrorState(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Mixin to augment a directive with an initialized property that will emits when ngOnInit ends.
@@ -548,12 +548,12 @@ function mixinInitialized(base) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * InjectionToken for datepicker that can be used to override default locale code.
@@ -758,14 +758,14 @@ DateAdapter = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 var MAT_DATE_FORMATS = new core.InjectionToken('mat-date-formats');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Whether the browser supports the Intl API.
@@ -1291,7 +1291,7 @@ var NativeDateAdapter = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /** @type {?} */
@@ -1309,7 +1309,7 @@ var MAT_NATIVE_DATE_FORMATS = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var NativeDateModule = /** @class */ (function () {
     function NativeDateModule() {
@@ -1339,7 +1339,7 @@ var MatNativeDateModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Error state matcher that matches when a control is invalid and dirty.
@@ -1393,7 +1393,7 @@ var ErrorStateMatcher = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Injection token that can be used to provide options to the Hammerjs instance.
@@ -1544,7 +1544,7 @@ var GestureConfig = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Shared directive to count lines inside a text area, such as a list item.
@@ -1643,7 +1643,7 @@ var MatLineModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /** @enum {number} */
@@ -1687,7 +1687,7 @@ RippleRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Default ripple animation configuration for ripples without an explicit
@@ -2018,7 +2018,7 @@ function distanceToFurthestCorner(x, y, rect) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Injection token that can be used to specify the global ripple options.
@@ -2236,7 +2236,7 @@ var MatRipple = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var MatRippleModule = /** @class */ (function () {
     function MatRippleModule() {
@@ -2253,7 +2253,7 @@ var MatRippleModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Component that shows a simplified checkbox without including any kind of "real" checkbox.
@@ -2308,7 +2308,7 @@ var MatPseudoCheckbox = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var MatPseudoCheckboxModule = /** @class */ (function () {
     function MatPseudoCheckboxModule() {
@@ -2324,7 +2324,7 @@ var MatPseudoCheckboxModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -2379,7 +2379,7 @@ var MatOptgroup = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Option IDs need to be unique across components, so this counter exists outside of
@@ -2811,7 +2811,7 @@ function _getOptionScrollPosition(optionIndex, optionHeight, currentScrollPositi
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var MatOptionModule = /** @class */ (function () {
     function MatOptionModule() {
@@ -2828,7 +2828,7 @@ var MatOptionModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * InjectionToken that can be used to specify the global label options.
@@ -2837,7 +2837,7 @@ var MAT_LABEL_GLOBAL_OPTIONS = new core.InjectionToken('mat-label-global-options
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /** *

@@ -11,5 +11,7 @@ export interface CanDisable {
     /** Whether the component is disabled. */
     disabled: boolean;
 }
+/** @docs-private */
+export declare type CanDisableCtor = Constructor<CanDisable>;
 /** Mixin to augment a directive with a `disabled` property. */
-export declare function mixinDisabled<T extends Constructor<{}>>(base: T): Constructor<CanDisable> & T;
+export declare function mixinDisabled<T extends Constructor<{}>>(base: T): CanDisableCtor & T;

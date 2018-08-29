@@ -9,7 +9,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanDisable, HammerInput, HasTabIndex } from '@angular/material/core';
+import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, HammerInput, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
 /**
  * Provider Expression that allows mat-slider to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)] and [formControl].
@@ -27,7 +27,7 @@ export declare class MatSliderBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatSliderMixinBase: import("../core/common-behaviors/constructor").Constructor<HasTabIndex> & import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatSliderBase;
+export declare const _MatSliderMixinBase: HasTabIndexCtor & CanColorCtor & CanDisableCtor & typeof MatSliderBase;
 /**
  * Allows users to select from a range of values by moving the slider thumb. It is similar in
  * behavior to the native `<input type="range">` element.

@@ -8,12 +8,12 @@
 import { AriaDescriber, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
-import { Directive, ElementRef, Inject, Input, NgZone, Optional, NgModule } from '@angular/core';
+import { Directive, ElementRef, Inject, Input, NgZone, Optional, Renderer2, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 let nextId = 0;
@@ -26,12 +26,14 @@ class MatBadge {
      * @param {?} _ngZone
      * @param {?} _elementRef
      * @param {?} _ariaDescriber
+     * @param {?=} _renderer
      */
-    constructor(_document, _ngZone, _elementRef, _ariaDescriber) {
+    constructor(_document, _ngZone, _elementRef, _ariaDescriber, _renderer) {
         this._document = _document;
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._ariaDescriber = _ariaDescriber;
+        this._renderer = _renderer;
         /**
          * Whether the badge has any content.
          */
@@ -159,7 +161,9 @@ class MatBadge {
      */
     _createBadgeElement() {
         /** @type {?} */
-        const badgeElement = this._document.createElement('span');
+        const rootNode = this._renderer || this._document;
+        /** @type {?} */
+        const badgeElement = rootNode.createElement('span');
         /** @type {?} */
         const activeClass = 'mat-badge-active';
         badgeElement.setAttribute('id', `mat-badge-content-${this._id}`);
@@ -236,7 +240,8 @@ MatBadge.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
     { type: NgZone },
     { type: ElementRef },
-    { type: AriaDescriber }
+    { type: AriaDescriber },
+    { type: Renderer2 }
 ];
 MatBadge.propDecorators = {
     color: [{ type: Input, args: ['matBadgeColor',] }],
@@ -250,7 +255,7 @@ MatBadge.propDecorators = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 class MatBadgeModule {
 }
@@ -267,12 +272,12 @@ MatBadgeModule.decorators = [
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 export { MatBadgeModule, MatBadge };

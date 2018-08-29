@@ -7,11 +7,11 @@
  */
 import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef } from '@angular/cdk/tree';
 import { AfterContentInit, ElementRef, IterableDiffers, OnDestroy, QueryList } from '@angular/core';
-import { CanDisable, HasTabIndex } from '@angular/material/core';
+import { CanDisable, CanDisableCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
 import { MatTreeNodeOutlet } from './outlet';
 export declare const _CdkTreeNodeDef: typeof CdkTreeNodeDef;
-export declare const _MatTreeNodeMixinBase: import("../core/common-behaviors/constructor").Constructor<HasTabIndex> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof CdkTreeNode;
-export declare const _MatNestedTreeNodeMixinBase: import("../core/common-behaviors/constructor").Constructor<HasTabIndex> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof CdkNestedTreeNode;
+export declare const _MatTreeNodeMixinBase: HasTabIndexCtor & CanDisableCtor & typeof CdkTreeNode;
+export declare const _MatNestedTreeNodeMixinBase: HasTabIndexCtor & CanDisableCtor & typeof CdkNestedTreeNode;
 /**
  * Wrapper for the CdkTree node with Material design styles.
  */

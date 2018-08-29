@@ -6,9 +6,9 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { EventEmitter, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { CanDisable, HasInitialized } from '@angular/material/core';
-import { SortDirection } from './sort-direction';
+import { CanDisable, CanDisableCtor, HasInitialized, HasInitializedCtor } from '@angular/material/core';
 import { Subject } from 'rxjs';
+import { SortDirection } from './sort-direction';
 /** Interface for a directive that holds sorting state consumed by `MatSortHeader`. */
 export interface MatSortable {
     /** The id of the column being sorted. */
@@ -28,7 +28,7 @@ export interface Sort {
 /** @docs-private */
 export declare class MatSortBase {
 }
-export declare const _MatSortMixinBase: import("../core/common-behaviors/constructor").Constructor<HasInitialized> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatSortBase;
+export declare const _MatSortMixinBase: HasInitializedCtor & CanDisableCtor & typeof MatSortBase;
 /** Container for MatSortables to manage the sort state and provide default sort parameters. */
 export declare class MatSort extends _MatSortMixinBase implements CanDisable, HasInitialized, OnChanges, OnDestroy, OnInit {
     /** Collection of all registered sortables that this directive manages. */

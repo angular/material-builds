@@ -9,7 +9,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanDisable, CanDisableRipple, HasTabIndex } from '@angular/material/core';
+import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
 /**
  * Provider Expression that allows mat-radio-group to register as a ControlValueAccessor. This
  * allows it to support [(ngModel)] and ngControl.
@@ -31,7 +31,7 @@ export declare class MatRadioChange {
 /** @docs-private */
 export declare class MatRadioGroupBase {
 }
-export declare const _MatRadioGroupMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatRadioGroupBase;
+export declare const _MatRadioGroupMixinBase: CanDisableCtor & typeof MatRadioGroupBase;
 /**
  * A group of radio buttons. May contain one or more `<mat-radio-button>` elements.
  */
@@ -133,7 +133,7 @@ export declare class MatRadioButtonBase {
     disabled: boolean;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatRadioButtonMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../core/common-behaviors/constructor").Constructor<HasTabIndex> & typeof MatRadioButtonBase;
+export declare const _MatRadioButtonMixinBase: CanColorCtor & CanDisableRippleCtor & HasTabIndexCtor & typeof MatRadioButtonBase;
 /**
  * A Material design radio-button. Typically placed inside of `<mat-radio-group>` elements.
  */

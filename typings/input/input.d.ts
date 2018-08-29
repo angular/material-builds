@@ -6,12 +6,12 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Platform } from '@angular/cdk/platform';
-import { DoCheck, ElementRef, OnChanges, OnDestroy, OnInit, NgZone } from '@angular/core';
+import { AutofillMonitor } from '@angular/cdk/text-field';
+import { DoCheck, ElementRef, NgZone, OnChanges, OnDestroy, OnInit } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanUpdateErrorState, ErrorStateMatcher } from '@angular/material/core';
+import { CanUpdateErrorState, CanUpdateErrorStateCtor, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
-import { AutofillMonitor } from '@angular/cdk/text-field';
 /** @docs-private */
 export declare class MatInputBase {
     _defaultErrorStateMatcher: ErrorStateMatcher;
@@ -23,7 +23,7 @@ export declare class MatInputBase {
     /** @docs-private */
     ngControl: NgControl);
 }
-export declare const _MatInputMixinBase: import("../core/common-behaviors/constructor").Constructor<CanUpdateErrorState> & typeof MatInputBase;
+export declare const _MatInputMixinBase: CanUpdateErrorStateCtor & typeof MatInputBase;
 /** Directive that allows a native input to work inside a `MatFormField`. */
 export declare class MatInput extends _MatInputMixinBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, OnInit, DoCheck, CanUpdateErrorState {
     protected _elementRef: ElementRef<HTMLInputElement>;

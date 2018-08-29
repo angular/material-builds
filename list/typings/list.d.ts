@@ -6,15 +6,15 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentInit, ElementRef, QueryList } from '@angular/core';
-import { CanDisableRipple, MatLine } from '@angular/material/core';
+import { CanDisableRipple, CanDisableRippleCtor, MatLine } from '@angular/material/core';
 /** @docs-private */
 export declare class MatListBase {
 }
-export declare const _MatListMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatListBase;
+export declare const _MatListMixinBase: CanDisableRippleCtor & typeof MatListBase;
 /** @docs-private */
 export declare class MatListItemBase {
 }
-export declare const _MatListItemMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatListItemBase;
+export declare const _MatListItemMixinBase: CanDisableRippleCtor & typeof MatListItemBase;
 export declare class MatNavList extends _MatListMixinBase implements CanDisableRipple {
 }
 export declare class MatList extends _MatListMixinBase implements CanDisableRipple {

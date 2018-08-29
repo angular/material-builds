@@ -7,7 +7,7 @@
  */
 import { ElementRef, EventEmitter, OnDestroy } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, ValidationErrors, Validator } from '@angular/forms';
-import { DateAdapter, MatDateFormats } from '@angular/material/core';
+import { DateAdapter, MatDateFormats, ThemePalette } from '@angular/material/core';
 import { MatFormField } from '@angular/material/form-field';
 import { MatDatepicker } from './datepicker';
 export declare const MAT_DATEPICKER_VALUE_ACCESSOR: any;
@@ -103,7 +103,7 @@ export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDe
     _onInput(value: string): void;
     _onChange(): void;
     /** Returns the palette used by the input's form field, if any. */
-    _getThemePalette(): import("../core/common-behaviors/color").ThemePalette;
+    _getThemePalette(): ThemePalette;
     /** Handles blur events on the input. */
     _onBlur(): void;
     /** Formats a value and sets it on the input element. */

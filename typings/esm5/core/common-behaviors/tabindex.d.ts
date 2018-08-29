@@ -12,5 +12,7 @@ export interface HasTabIndex {
     /** Tabindex of the component. */
     tabIndex: number;
 }
+/** @docs-private */
+export declare type HasTabIndexCtor = Constructor<HasTabIndex>;
 /** Mixin to augment a directive with a `tabIndex` property. */
-export declare function mixinTabIndex<T extends Constructor<CanDisable>>(base: T, defaultTabIndex?: number): Constructor<HasTabIndex> & T;
+export declare function mixinTabIndex<T extends Constructor<CanDisable>>(base: T, defaultTabIndex?: number): HasTabIndexCtor & T;

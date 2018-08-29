@@ -5,9 +5,9 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { ElementRef, InjectionToken } from '@angular/core';
-import { CanColor } from '@angular/material/core';
 import { Platform } from '@angular/cdk/platform';
+import { ElementRef, InjectionToken } from '@angular/core';
+import { CanColor, CanColorCtor } from '@angular/material/core';
 /** Possible mode for a progress spinner. */
 export declare type ProgressSpinnerMode = 'determinate' | 'indeterminate';
 /** @docs-private */
@@ -15,7 +15,7 @@ export declare class MatProgressSpinnerBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatProgressSpinnerMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatProgressSpinnerBase;
+export declare const _MatProgressSpinnerMixinBase: CanColorCtor & typeof MatProgressSpinnerBase;
 /** Default `mat-progress-spinner` options that can be overridden. */
 export interface MatProgressSpinnerDefaultOptions {
     /** Diameter of the spinner. */

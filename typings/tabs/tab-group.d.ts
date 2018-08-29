@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
-import { CanColor, CanDisableRipple, ThemePalette } from '@angular/material/core';
+import { CanColor, CanColorCtor, CanDisableRipple, CanDisableRippleCtor, ThemePalette } from '@angular/material/core';
 import { MatTab } from './tab';
 import { MatTabHeader } from './tab-header';
 /** A simple change event emitted on focus or selection changes. */
@@ -23,7 +23,7 @@ export declare class MatTabGroupBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatTabGroupMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatTabGroupBase;
+export declare const _MatTabGroupMixinBase: CanColorCtor & CanDisableRippleCtor & typeof MatTabGroupBase;
 /**
  * Material design tab-group component.  Supports basic tab pairs (label + content) and includes
  * animated ink-bar, keyboard navigation, and screen reader.

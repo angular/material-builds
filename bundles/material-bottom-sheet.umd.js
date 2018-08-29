@@ -53,7 +53,7 @@ var __assign = function() {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Injection token that can be used to access the data that was passed in to a bottom sheet.
@@ -99,7 +99,7 @@ MatBottomSheetConfig = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Animations used by the Material bottom sheet.
@@ -116,7 +116,7 @@ var matBottomSheetAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Internal component that wraps user-provided bottom sheet content.
@@ -388,7 +388,7 @@ var MatBottomSheetContainer = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var MatBottomSheetModule = /** @class */ (function () {
     function MatBottomSheetModule() {
@@ -411,7 +411,7 @@ var MatBottomSheetModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Reference to a bottom sheet dispatched from the bottom sheet service.
@@ -543,7 +543,7 @@ MatBottomSheetRef = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Service to trigger Material Design bottom sheets.

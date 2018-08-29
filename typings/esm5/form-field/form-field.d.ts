@@ -7,7 +7,7 @@
  */
 import { Directionality } from '@angular/cdk/bidi';
 import { AfterContentChecked, AfterContentInit, AfterViewInit, ChangeDetectorRef, ElementRef, InjectionToken, NgZone, QueryList } from '@angular/core';
-import { CanColor, FloatLabelType, LabelOptions } from '@angular/material/core';
+import { CanColor, CanColorCtor, FloatLabelType, LabelOptions } from '@angular/material/core';
 import { MatError } from './error';
 import { MatFormFieldControl } from './form-field-control';
 import { MatHint } from './hint';
@@ -28,7 +28,7 @@ export declare class MatFormFieldBase {
  * Base class to which we're applying the form field mixins.
  * @docs-private
  */
-export declare const _MatFormFieldMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatFormFieldBase;
+export declare const _MatFormFieldMixinBase: CanColorCtor & typeof MatFormFieldBase;
 /** Possible appearance styles for the form field. */
 export declare type MatFormFieldAppearance = 'legacy' | 'standard' | 'fill' | 'outline';
 /**

@@ -24,9 +24,6 @@ function isMaterialExportDeclaration(node) {
 exports.isMaterialExportDeclaration = isMaterialExportDeclaration;
 /** Whether the declaration is part of Angular Material. */
 function isMaterialDeclaration(declaration) {
-    if (!declaration.moduleSpecifier) {
-        return false;
-    }
     const moduleSpecifier = declaration.moduleSpecifier.getText();
     return moduleSpecifier.indexOf(exports.materialModuleSpecifier) !== -1 ||
         moduleSpecifier.indexOf(exports.cdkModuleSpecifier) !== -1;

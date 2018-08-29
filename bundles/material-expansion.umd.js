@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Token used to provide a `MatAccordion` to `MatExpansionPanel`.
@@ -52,7 +52,7 @@ var MAT_ACCORDION = new core.InjectionToken('MAT_ACCORDION');
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Time and timing curve for expansion panel animations.
@@ -95,7 +95,7 @@ var matExpansionAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Expansion panel content that will be rendered lazily
@@ -119,7 +119,7 @@ var MatExpansionPanelContent = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 var _CdkAccordionItem = accordion.CdkAccordionItem;
@@ -350,7 +350,7 @@ var MatExpansionPanelActionRow = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * `<mat-expansion-panel-header>`
@@ -592,7 +592,7 @@ var MatExpansionPanelTitle = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * Directive for a Material Design Accordion.
@@ -699,7 +699,7 @@ var MatAccordion = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var MatExpansionModule = /** @class */ (function () {
     function MatExpansionModule() {

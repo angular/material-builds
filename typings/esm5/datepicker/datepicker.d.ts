@@ -8,12 +8,12 @@
 import { Directionality } from '@angular/cdk/bidi';
 import { Overlay, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
-import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, ViewContainerRef, OnDestroy } from '@angular/core';
-import { CanColor, DateAdapter, ThemePalette } from '@angular/material/core';
+import { AfterViewInit, ElementRef, EventEmitter, InjectionToken, NgZone, OnDestroy, ViewContainerRef } from '@angular/core';
+import { CanColor, CanColorCtor, DateAdapter, ThemePalette } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
-import { MatDatepickerInput } from './datepicker-input';
 import { MatCalendar } from './calendar';
+import { MatDatepickerInput } from './datepicker-input';
 /** Injection token that determines the scroll handling while the calendar is open. */
 export declare const MAT_DATEPICKER_SCROLL_STRATEGY: InjectionToken<() => ScrollStrategy>;
 /** @docs-private */
@@ -29,7 +29,7 @@ export declare class MatDatepickerContentBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatDatepickerContentMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatDatepickerContentBase;
+export declare const _MatDatepickerContentMixinBase: CanColorCtor & typeof MatDatepickerContentBase;
 /**
  * Component used as the content for the datepicker dialog and popup. We use this instead of using
  * MatCalendar directly as the content so we can control the initial focus. This also gives us a

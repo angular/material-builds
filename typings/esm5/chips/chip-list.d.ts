@@ -10,7 +10,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
-import { CanUpdateErrorState, ErrorStateMatcher } from '@angular/material/core';
+import { CanUpdateErrorState, CanUpdateErrorStateCtor, ErrorStateMatcher } from '@angular/material/core';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Observable } from 'rxjs';
 import { MatChip, MatChipEvent, MatChipSelectionChange } from './chip';
@@ -26,7 +26,7 @@ export declare class MatChipListBase {
     /** @docs-private */
     ngControl: NgControl);
 }
-export declare const _MatChipListMixinBase: import("../core/common-behaviors/constructor").Constructor<CanUpdateErrorState> & typeof MatChipListBase;
+export declare const _MatChipListMixinBase: CanUpdateErrorStateCtor & typeof MatChipListBase;
 /** Change event object that is emitted when the chip list value has changed. */
 export declare class MatChipListChange {
     /** Chip list that emitted the event. */

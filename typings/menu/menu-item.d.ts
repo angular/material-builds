@@ -7,13 +7,13 @@
  */
 import { FocusableOption, FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 import { ElementRef, OnDestroy } from '@angular/core';
-import { CanDisable, CanDisableRipple } from '@angular/material/core';
+import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { MatMenuPanel } from './menu-panel';
 /** @docs-private */
 export declare class MatMenuItemBase {
 }
-export declare const _MatMenuItemMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatMenuItemBase;
+export declare const _MatMenuItemMixinBase: CanDisableRippleCtor & CanDisableCtor & typeof MatMenuItemBase;
 /**
  * This directive is intended to be used inside an mat-menu tag.
  * It exists mostly to set the role attribute.

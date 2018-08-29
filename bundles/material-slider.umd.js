@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('rxjs'), require('@angular/platform-browser/animations'), require('@angular/common'), require('@angular/platform-browser')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/slider', ['exports', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/core', '@angular/forms', '@angular/material/core', 'rxjs', '@angular/platform-browser/animations', '@angular/common', '@angular/platform-browser'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slider = {}),global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.core,global.ng.forms,global.ng.material.core,global.rxjs,global.ng.platformBrowser.animations,global.ng.common,global.ng.platformBrowser));
-}(this, (function (exports,a11y,bidi,coercion,keycodes,core,forms,core$1,rxjs,animations,common,platformBrowser) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/platform-browser/animations'), require('rxjs'), require('@angular/common'), require('@angular/platform-browser')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/slider', ['exports', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/platform-browser/animations', 'rxjs', '@angular/common', '@angular/platform-browser'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.slider = {}),global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.core,global.ng.forms,global.ng.material.core,global.ng.platformBrowser.animations,global.rxjs,global.ng.common,global.ng.platformBrowser));
+}(this, (function (exports,a11y,bidi,coercion,keycodes,core,forms,core$1,animations,rxjs,common,platformBrowser) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Visually, a 30px separation between tick marks looks best. This is very subjective but it is
@@ -1162,7 +1162,7 @@ var MatSlider = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var MatSliderModule = /** @class */ (function () {
     function MatSliderModule() {

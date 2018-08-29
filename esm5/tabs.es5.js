@@ -23,7 +23,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Injection token for the MatInkBar's Positioner.
@@ -145,7 +145,28 @@ var MatInkBar = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
+ */
+/**
+ * Decorates the `ng-template` tags and reads out the template from it.
+ */
+var MatTabContent = /** @class */ (function () {
+    function MatTabContent(template) {
+        this.template = template;
+    }
+    MatTabContent.decorators = [
+        { type: Directive, args: [{ selector: '[matTabContent]' },] },
+    ];
+    /** @nocollapse */
+    MatTabContent.ctorParameters = function () { return [
+        { type: TemplateRef }
+    ]; };
+    return MatTabContent;
+}());
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 var _CdkPortal = CdkPortal;
@@ -167,28 +188,7 @@ var MatTabLabel = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-/**
- * Decorates the `ng-template` tags and reads out the template from it.
- */
-var MatTabContent = /** @class */ (function () {
-    function MatTabContent(template) {
-        this.template = template;
-    }
-    MatTabContent.decorators = [
-        { type: Directive, args: [{ selector: '[matTabContent]' },] },
-    ];
-    /** @nocollapse */
-    MatTabContent.ctorParameters = function () { return [
-        { type: TemplateRef }
-    ]; };
-    return MatTabContent;
-}());
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -305,7 +305,7 @@ var MatTab = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Animations used by the Material tabs.
@@ -335,7 +335,7 @@ var matTabsAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * The portal host directive for the contents of the tab.
@@ -624,7 +624,7 @@ var MatTabBody = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -699,7 +699,7 @@ var MatTabLabelWrapper = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * The distance in pixels that will be overshot when scrolling a tab label into view. This helps
@@ -1310,7 +1310,7 @@ var MatTabHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Used to generate unique ID's for each tab component
@@ -1775,7 +1775,7 @@ var MatTabGroup = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -2091,7 +2091,7 @@ var MatTabLink = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var MatTabsModule = /** @class */ (function () {
     function MatTabsModule() {
@@ -2136,18 +2136,18 @@ var MatTabsModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa19, MatTabBase as ɵf19, _MatTabMixinBase as ɵg19, MatTabHeaderBase as ɵb19, _MatTabHeaderMixinBase as ɵc19, MatTabLabelWrapperBase as ɵd19, _MatTabLabelWrapperMixinBase as ɵe19, MatTabLinkBase as ɵj19, MatTabNavBase as ɵh19, _MatTabLinkMixinBase as ɵk19, _MatTabNavMixinBase as ɵi19 };
 //# sourceMappingURL=tabs.es5.js.map

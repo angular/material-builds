@@ -13,7 +13,7 @@
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 var nextId = 0;
@@ -21,11 +21,12 @@ var nextId = 0;
  * Directive to display a text badge.
  */
 var MatBadge = /** @class */ (function () {
-    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber) {
+    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer) {
         this._document = _document;
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._ariaDescriber = _ariaDescriber;
+        this._renderer = _renderer;
         /**
          * Whether the badge has any content.
          */
@@ -199,7 +200,9 @@ var MatBadge = /** @class */ (function () {
      */
     function () {
         /** @type {?} */
-        var badgeElement = this._document.createElement('span');
+        var rootNode = this._renderer || this._document;
+        /** @type {?} */
+        var badgeElement = rootNode.createElement('span');
         /** @type {?} */
         var activeClass = 'mat-badge-active';
         badgeElement.setAttribute('id', "mat-badge-content-" + this._id);
@@ -286,7 +289,8 @@ var MatBadge = /** @class */ (function () {
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
         { type: core.NgZone },
         { type: core.ElementRef },
-        { type: a11y.AriaDescriber }
+        { type: a11y.AriaDescriber },
+        { type: core.Renderer2 }
     ]; };
     MatBadge.propDecorators = {
         color: [{ type: core.Input, args: ['matBadgeColor',] }],
@@ -302,7 +306,7 @@ var MatBadge = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var MatBadgeModule = /** @class */ (function () {
     function MatBadgeModule() {

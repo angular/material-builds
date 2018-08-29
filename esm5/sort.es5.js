@@ -6,8 +6,8 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, defineInjectable } from '@angular/core';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { Directive, EventEmitter, Input, isDevMode, Output, Injectable, SkipSelf, Optional, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation, defineInjectable } from '@angular/core';
 import { mixinDisabled, mixinInitialized, AnimationCurves, AnimationDurations } from '@angular/material/core';
 import { Subject, merge } from 'rxjs';
 import { animate, state, style, transition, trigger, keyframes, query, animateChild } from '@angular/animations';
@@ -16,7 +16,7 @@ import { CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
@@ -52,7 +52,7 @@ function getSortInvalidDirectionError(direction) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -287,7 +287,7 @@ function getSortDirectionCycle(start, disableClear) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 var SORT_ANIMATION_TRANSITION = AnimationDurations.ENTERING + ' ' +
@@ -366,7 +366,7 @@ var matSortAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
@@ -412,7 +412,7 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -756,7 +756,7 @@ var MatSortHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var MatSortModule = /** @class */ (function () {
     function MatSortModule() {
@@ -774,12 +774,12 @@ var MatSortModule = /** @class */ (function () {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 export { MatSortModule, MatSortHeaderBase, _MatSortHeaderMixinBase, MatSortHeader, MAT_SORT_HEADER_INTL_PROVIDER_FACTORY, MatSortHeaderIntl, MAT_SORT_HEADER_INTL_PROVIDER, MatSortBase, _MatSortMixinBase, MatSort, matSortAnimations };

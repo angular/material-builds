@@ -8,7 +8,7 @@
 import { FocusableOption } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
-import { CanColor, CanDisable, CanDisableRipple, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
+import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, RippleConfig, RippleGlobalOptions, RippleTarget } from '@angular/material/core';
 import { Subject } from 'rxjs';
 /** Represents an event fired on an individual `mat-chip`. */
 export interface MatChipEvent {
@@ -36,7 +36,7 @@ export declare class MatChipBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatChipMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatChipBase;
+export declare const _MatChipMixinBase: CanColorCtor & CanDisableRippleCtor & CanDisableCtor & typeof MatChipBase;
 /**
  * Dummy directive to add CSS class to chip avatar.
  * @docs-private

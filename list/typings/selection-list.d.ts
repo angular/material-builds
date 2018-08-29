@@ -8,17 +8,17 @@
 import { FocusableOption, FocusKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
-import { CanDisableRipple, MatLine } from '@angular/material/core';
+import { CanDisableRipple, CanDisableRippleCtor, MatLine } from '@angular/material/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { MatListAvatarCssMatStyler } from './list';
 /** @docs-private */
 export declare class MatSelectionListBase {
 }
-export declare const _MatSelectionListMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatSelectionListBase;
+export declare const _MatSelectionListMixinBase: CanDisableRippleCtor & typeof MatSelectionListBase;
 /** @docs-private */
 export declare class MatListOptionBase {
 }
-export declare const _MatListOptionMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatListOptionBase;
+export declare const _MatListOptionMixinBase: CanDisableRippleCtor & typeof MatListOptionBase;
 /** @docs-private */
 export declare const MAT_SELECTION_LIST_VALUE_ACCESSOR: any;
 /** Change event that is being fired whenever the selected state of an option changes. */

@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/platform-browser/animations'), require('@angular/material/core'), require('@angular/cdk/platform'), require('@angular/common'), require('@angular/cdk/coercion')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/progressSpinner', ['exports', '@angular/core', '@angular/platform-browser/animations', '@angular/material/core', '@angular/cdk/platform', '@angular/common', '@angular/cdk/coercion'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressSpinner = {}),global.ng.core,global.ng.platformBrowser.animations,global.ng.material.core,global.ng.cdk.platform,global.ng.common,global.ng.cdk.coercion));
-}(this, (function (exports,core,animations,core$1,platform,common,coercion) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/cdk/platform'), require('@angular/common'), require('@angular/core'), require('@angular/material/core'), require('@angular/platform-browser/animations')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/progressSpinner', ['exports', '@angular/cdk/coercion', '@angular/cdk/platform', '@angular/common', '@angular/core', '@angular/material/core', '@angular/platform-browser/animations'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.progressSpinner = {}),global.ng.cdk.coercion,global.ng.cdk.platform,global.ng.common,global.ng.core,global.ng.material.core,global.ng.platformBrowser.animations));
+}(this, (function (exports,coercion,platform,common,core,core$1,animations) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * Base reference size of the spinner.
@@ -376,7 +376,7 @@ var MatSpinner = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var MatProgressSpinnerModule = /** @class */ (function () {
     function MatProgressSpinnerModule() {

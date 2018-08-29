@@ -5,10 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Constructor } from './constructor';
-import { ErrorStateMatcher } from '../error/error-options';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { Subject } from 'rxjs';
+import { ErrorStateMatcher } from '../error/error-options';
+import { Constructor } from './constructor';
 /** @docs-private */
 export interface CanUpdateErrorState {
     updateErrorState(): any;
@@ -16,6 +16,8 @@ export interface CanUpdateErrorState {
     errorState: boolean;
     errorStateMatcher: ErrorStateMatcher;
 }
+/** @docs-private */
+export declare type CanUpdateErrorStateCtor = Constructor<CanUpdateErrorState>;
 /** @docs-private */
 export interface HasErrorState {
     _parentFormGroup: FormGroupDirective;
@@ -27,4 +29,4 @@ export interface HasErrorState {
  * Mixin to augment a directive with updateErrorState method.
  * For component with `errorState` and need to update `errorState`.
  */
-export declare function mixinErrorState<T extends Constructor<HasErrorState>>(base: T): Constructor<CanUpdateErrorState> & T;
+export declare function mixinErrorState<T extends Constructor<HasErrorState>>(base: T): CanUpdateErrorStateCtor & T;

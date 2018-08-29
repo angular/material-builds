@@ -6,11 +6,11 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef } from '@angular/core';
-import { CanDisable } from '@angular/material/core';
+import { CanDisable, CanDisableCtor } from '@angular/material/core';
 /** @docs-private */
 export declare class MatTabLabelWrapperBase {
 }
-export declare const _MatTabLabelWrapperMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatTabLabelWrapperBase;
+export declare const _MatTabLabelWrapperMixinBase: CanDisableCtor & typeof MatTabLabelWrapperBase;
 /**
  * Used in the `mat-tab-group` view to display tab labels.
  * @docs-private

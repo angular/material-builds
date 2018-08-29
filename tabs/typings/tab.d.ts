@@ -7,13 +7,13 @@
  */
 import { TemplatePortal } from '@angular/cdk/portal';
 import { OnChanges, OnDestroy, OnInit, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
-import { CanDisable } from '@angular/material/core';
+import { CanDisable, CanDisableCtor } from '@angular/material/core';
 import { Subject } from 'rxjs';
 import { MatTabLabel } from './tab-label';
 /** @docs-private */
 export declare class MatTabBase {
 }
-export declare const _MatTabMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatTabBase;
+export declare const _MatTabMixinBase: CanDisableCtor & typeof MatTabBase;
 export declare class MatTab extends _MatTabMixinBase implements OnInit, CanDisable, OnChanges, OnDestroy {
     private _viewContainerRef;
     /** Content for the tab label given by `<ng-template mat-tab-label>`. */

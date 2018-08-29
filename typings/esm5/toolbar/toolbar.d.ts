@@ -5,15 +5,15 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { AfterViewInit, ElementRef, QueryList } from '@angular/core';
-import { CanColor } from '@angular/material/core';
 import { Platform } from '@angular/cdk/platform';
+import { AfterViewInit, ElementRef, QueryList } from '@angular/core';
+import { CanColor, CanColorCtor } from '@angular/material/core';
 /** @docs-private */
 export declare class MatToolbarBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatToolbarMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatToolbarBase;
+export declare const _MatToolbarMixinBase: CanColorCtor & typeof MatToolbarBase;
 export declare class MatToolbarRow {
 }
 export declare class MatToolbar extends _MatToolbarMixinBase implements CanColor, AfterViewInit {

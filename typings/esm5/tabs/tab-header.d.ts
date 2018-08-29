@@ -8,7 +8,7 @@
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
-import { CanDisableRipple } from '@angular/material/core';
+import { CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
 import { MatInkBar } from './ink-bar';
 import { MatTabLabelWrapper } from './tab-label-wrapper';
 /**
@@ -20,7 +20,7 @@ export declare type ScrollDirection = 'after' | 'before';
 /** @docs-private */
 export declare class MatTabHeaderBase {
 }
-export declare const _MatTabHeaderMixinBase: import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatTabHeaderBase;
+export declare const _MatTabHeaderMixinBase: CanDisableRippleCtor & typeof MatTabHeaderBase;
 /**
  * The header of the tab group which displays a list of all the tabs in the tab group. Includes
  * an ink bar that follows the currently selected tab. When the tabs list's width exceeds the

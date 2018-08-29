@@ -6,14 +6,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { CanColor } from '@angular/material/core';
+import { CanColor, CanColorCtor } from '@angular/material/core';
 import { MatIconRegistry } from './icon-registry';
 /** @docs-private */
 export declare class MatIconBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatIconMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatIconBase;
+export declare const _MatIconMixinBase: CanColorCtor & typeof MatIconBase;
 /**
  * Component to display an icon. It can be used in the following ways:
  *

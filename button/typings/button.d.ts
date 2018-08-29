@@ -8,13 +8,13 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { ElementRef, OnDestroy } from '@angular/core';
-import { CanColor, CanDisable, CanDisableRipple, MatRipple } from '@angular/material/core';
+import { CanColor, CanDisable, CanDisableRipple, CanColorCtor, CanDisableCtor, CanDisableRippleCtor, MatRipple } from '@angular/material/core';
 /** @docs-private */
 export declare class MatButtonBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatButtonMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & typeof MatButtonBase;
+export declare const _MatButtonMixinBase: CanDisableRippleCtor & CanDisableCtor & CanColorCtor & typeof MatButtonBase;
 /**
  * Material design button.
  */

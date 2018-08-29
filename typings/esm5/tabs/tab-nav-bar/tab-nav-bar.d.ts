@@ -9,7 +9,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, NgZone, OnDestroy, QueryList } from '@angular/core';
-import { CanColor, CanDisable, CanDisableRipple, HasTabIndex, RippleConfig, RippleGlobalOptions, RippleRenderer, RippleTarget, ThemePalette } from '@angular/material/core';
+import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, RippleConfig, RippleGlobalOptions, RippleRenderer, RippleTarget, ThemePalette } from '@angular/material/core';
 import { MatInkBar } from '../ink-bar';
 import { FocusMonitor } from '@angular/cdk/a11y';
 /** @docs-private */
@@ -17,7 +17,7 @@ export declare class MatTabNavBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatTabNavMixinBase: import("../../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatTabNavBase;
+export declare const _MatTabNavMixinBase: CanDisableRippleCtor & CanColorCtor & typeof MatTabNavBase;
 /**
  * Navigation component matching the styles of the tab group header.
  * Provides anchored navigation with animated ink bar.
@@ -52,7 +52,7 @@ export declare class MatTabNav extends _MatTabNavMixinBase implements AfterConte
 }
 export declare class MatTabLinkBase {
 }
-export declare const _MatTabLinkMixinBase: import("../../core/common-behaviors/constructor").Constructor<HasTabIndex> & import("../../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatTabLinkBase;
+export declare const _MatTabLinkMixinBase: HasTabIndexCtor & CanDisableRippleCtor & CanDisableCtor & typeof MatTabLinkBase;
 /**
  * Link inside of a `mat-tab-nav-bar`.
  */

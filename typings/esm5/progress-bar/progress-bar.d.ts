@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { ElementRef, EventEmitter, NgZone, AfterViewInit, OnDestroy, InjectionToken } from '@angular/core';
-import { CanColor } from '@angular/material/core';
+import { CanColor, CanColorCtor } from '@angular/material/core';
 /** @docs-private */
 export declare class MatProgressBarBase {
     _elementRef: ElementRef;
@@ -16,7 +16,7 @@ export declare class MatProgressBarBase {
 export interface ProgressAnimationEnd {
     value: number;
 }
-export declare const _MatProgressBarMixinBase: import("../core/common-behaviors/constructor").Constructor<CanColor> & typeof MatProgressBarBase;
+export declare const _MatProgressBarMixinBase: CanColorCtor & typeof MatProgressBarBase;
 /**
  * Injection token used to provide the current location to `MatProgressBar`.
  * Used to handle server-side rendering and to stub out during unit tests.

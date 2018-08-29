@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/coercion'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/table'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/core', '@angular/cdk/coercion', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/cdk/table', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}),global.ng.core,global.ng.cdk.coercion,global.ng.material.core,global.rxjs,global.ng.animations,global.ng.cdk.table,global.ng.common));
-}(this, (function (exports,core,coercion,core$1,rxjs,animations,table,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/coercion'), require('@angular/core'), require('@angular/material/core'), require('rxjs'), require('@angular/animations'), require('@angular/cdk/table'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/sort', ['exports', '@angular/cdk/coercion', '@angular/core', '@angular/material/core', 'rxjs', '@angular/animations', '@angular/cdk/table', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.sort = {}),global.ng.cdk.coercion,global.ng.core,global.ng.material.core,global.rxjs,global.ng.animations,global.ng.cdk.table,global.ng.common));
+}(this, (function (exports,coercion,core,core$1,rxjs,animations,table,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
 /**
@@ -78,7 +78,7 @@ function getSortInvalidDirectionError(direction) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -313,7 +313,7 @@ function getSortDirectionCycle(start, disableClear) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** @type {?} */
 var SORT_ANIMATION_TRANSITION = core$1.AnimationDurations.ENTERING + ' ' +
@@ -392,7 +392,7 @@ var matSortAnimations = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatSortHeaderIntl and
@@ -438,7 +438,7 @@ var MAT_SORT_HEADER_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * \@docs-private
@@ -782,7 +782,7 @@ var MatSortHeader = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var MatSortModule = /** @class */ (function () {
     function MatSortModule() {

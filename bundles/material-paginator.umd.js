@@ -42,7 +42,7 @@ function __extends(d, b) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /**
  * To modify the labels and text displayed, create a new instance of MatPaginatorIntl and
@@ -118,7 +118,7 @@ var MAT_PAGINATOR_INTL_PROVIDER = {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 /** *
  * The default page size if there is no page size and there are no provided page size options.
@@ -526,7 +526,7 @@ var MatPaginator = /** @class */ (function (_super) {
 
 /**
  * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
+ * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 var MatPaginatorModule = /** @class */ (function () {
     function MatPaginatorModule() {

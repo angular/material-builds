@@ -10,7 +10,7 @@ import { Directionality } from '@angular/cdk/bidi';
 import { Platform } from '@angular/cdk/platform';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, NgZone } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanColor, CanDisable, CanDisableRipple, HammerInput, HasTabIndex } from '@angular/material/core';
+import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HammerInput, HasTabIndex, HasTabIndexCtor } from '@angular/material/core';
 import { MatSlideToggleDefaultOptions } from './slide-toggle-config';
 export declare const MAT_SLIDE_TOGGLE_VALUE_ACCESSOR: any;
 /** Change event object emitted by a MatSlideToggle. */
@@ -30,7 +30,7 @@ export declare class MatSlideToggleBase {
     _elementRef: ElementRef;
     constructor(_elementRef: ElementRef);
 }
-export declare const _MatSlideToggleMixinBase: import("../core/common-behaviors/constructor").Constructor<HasTabIndex> & import("../core/common-behaviors/constructor").Constructor<CanColor> & import("../core/common-behaviors/constructor").Constructor<CanDisableRipple> & import("../core/common-behaviors/constructor").Constructor<CanDisable> & typeof MatSlideToggleBase;
+export declare const _MatSlideToggleMixinBase: HasTabIndexCtor & CanColorCtor & CanDisableRippleCtor & CanDisableCtor & typeof MatSlideToggleBase;
 /** Represents a slidable "switch" toggle that can be moved between on and off. */
 export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements OnDestroy, AfterContentInit, ControlValueAccessor, CanDisable, CanColor, HasTabIndex, CanDisableRipple {
     private _focusMonitor;
