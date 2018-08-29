@@ -72,7 +72,7 @@ export declare class MatDatepickerInput<D> implements ControlValueAccessor, OnDe
     private _validator;
     /** Whether the last value set on the input was valid. */
     private _lastValueValid;
-    constructor(_elementRef: ElementRef, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, _formField: MatFormField);
+    constructor(_elementRef: ElementRef<HTMLInputElement>, _dateAdapter: DateAdapter<D>, _dateFormats: MatDateFormats, _formField: MatFormField);
     ngOnDestroy(): void;
     /** @docs-private */
     registerOnValidatorChange(fn: () => void): void;

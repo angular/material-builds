@@ -99,7 +99,7 @@ function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY() {
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
  *
- * https://material.google.com/components/tooltips.html
+ * https://material.io/design/components/tooltips.html
  */
 var MatTooltip = /** @class */ (function () {
     function MatTooltip(_overlay, _elementRef, _scrollDispatcher, _viewContainerRef, _ngZone, _platform, _ariaDescriber, _focusMonitor, _scrollStrategy, _dir, _defaultOptions) {
@@ -132,15 +132,15 @@ var MatTooltip = /** @class */ (function () {
          */
         this._destroyed = new Subject();
         var /** @type {?} */ element = _elementRef.nativeElement;
-        // The mouse events shouldn't be bound on iOS devices, because
-        // they can prevent the first tap from firing its click event.
-        if (!_platform.IOS) {
-            this._manualListeners.set('mouseenter', function () { return _this.show(); });
-            this._manualListeners.set('mouseleave', function () { return _this.hide(); });
+        // The mouse events shouldn't be bound on mobile devices, because they can prevent the
+        // first tap from firing its click event or can cause the tooltip to open for clicks.
+        if (!_platform.IOS && !_platform.ANDROID) {
             this._manualListeners
-                .forEach(function (listener, event) { return _elementRef.nativeElement.addEventListener(event, listener); });
+                .set('mouseenter', function () { return _this.show(); })
+                .set('mouseleave', function () { return _this.hide(); })
+                .forEach(function (listener, event) { return element.addEventListener(event, listener); });
         }
-        else if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
+        else if (_platform.IOS && (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA')) {
             // When we bind a gesture event on an element (in this case `longpress`), HammerJS
             // will add some inline styles by default, including `user-select: none`. This is
             // problematic on iOS, because it will prevent users from typing in inputs. If
@@ -776,18 +776,18 @@ var TooltipComponent = /** @class */ (function () {
     /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.
-     * https://material.google.com/components/tooltips.html#tooltips-interaction
+     * https://material.io/design/components/tooltips.html#behavior
      */
     /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.
-     * https://material.google.com/components/tooltips.html#tooltips-interaction
+     * https://material.io/design/components/tooltips.html#behavior
      * @return {?}
      */
     TooltipComponent.prototype._handleBodyInteraction = /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.
-     * https://material.google.com/components/tooltips.html#tooltips-interaction
+     * https://material.io/design/components/tooltips.html#behavior
      * @return {?}
      */
     function () {

@@ -31,14 +31,14 @@ export declare class MatStepHeader implements OnDestroy {
     active: boolean;
     /** Whether the given step is optional. */
     optional: boolean;
-    constructor(_intl: MatStepperIntl, _focusMonitor: FocusMonitor, _element: ElementRef, changeDetectorRef: ChangeDetectorRef);
+    constructor(_intl: MatStepperIntl, _focusMonitor: FocusMonitor, _element: ElementRef<HTMLElement>, changeDetectorRef: ChangeDetectorRef);
     ngOnDestroy(): void;
     /** Returns string label of given step if it is a text label. */
     _stringLabel(): string | null;
     /** Returns MatStepLabel if the label of given step is a template label. */
     _templateLabel(): MatStepLabel | null;
     /** Returns the host HTML element. */
-    _getHostElement(): any;
+    _getHostElement(): HTMLElement;
     /** Template context variables that are exposed to the `matStepperIcon` instances. */
     _getIconContext(): MatStepperIconContext;
     focus(): void;

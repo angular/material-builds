@@ -6,17 +6,17 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { BACKSPACE, DELETE, SPACE, ENTER } from '@angular/cdk/keycodes';
+import { BACKSPACE, DELETE, SPACE, HOME, END, ENTER } from '@angular/cdk/keycodes';
 import { Platform } from '@angular/cdk/platform';
 import { ContentChild, Directive, ElementRef, EventEmitter, forwardRef, Inject, Input, NgZone, Optional, Output, InjectionToken, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Self, ViewEncapsulation, NgModule } from '@angular/core';
 import { MAT_RIPPLE_GLOBAL_OPTIONS, mixinColor, mixinDisabled, mixinDisableRipple, RippleRenderer, ErrorStateMatcher, mixinErrorState } from '@angular/material/core';
-import { Subject, merge, Subscription } from 'rxjs';
+import { Subject, merge } from 'rxjs';
+import { take, startWith, takeUntil } from 'rxjs/operators';
 import { FocusKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
-import { startWith } from 'rxjs/operators';
 
 /**
  * @fileoverview added by tsickle
@@ -80,13 +80,14 @@ MatChipTrailingIcon.decorators = [
 class MatChip extends _MatChipMixinBase {
     /**
      * @param {?} _elementRef
-     * @param {?} ngZone
+     * @param {?} _ngZone
      * @param {?} platform
      * @param {?} globalOptions
      */
-    constructor(_elementRef, ngZone, platform, globalOptions) {
+    constructor(_elementRef, _ngZone, platform, globalOptions) {
         super(_elementRef);
         this._elementRef = _elementRef;
+        this._ngZone = _ngZone;
         /**
          * Whether the ripples are globally disabled through the RippleGlobalOptions
          */
@@ -128,7 +129,7 @@ class MatChip extends _MatChipMixinBase {
          */
         this.removed = new EventEmitter();
         this._addHostClassName();
-        this._chipRipple = new RippleRenderer(this, ngZone, _elementRef, platform);
+        this._chipRipple = new RippleRenderer(this, _ngZone, _elementRef, platform);
         this._chipRipple.setupTriggerEvents(_elementRef.nativeElement);
         if (globalOptions) {
             this._ripplesGloballyDisabled = !!globalOptions.disabled;
@@ -352,8 +353,19 @@ class MatChip extends _MatChipMixinBase {
      * @return {?}
      */
     _blur() {
-        this._hasFocus = false;
-        this._onBlur.next({ chip: this });
+        // When animations are enabled, Angular may end up removing the chip from the DOM a little
+        // earlier than usual, causing it to be blurred and throwing off the logic in the chip list
+        // that moves focus not the next item. To work around the issue, we defer marking the chip
+        // as not focused until the next time the zone stabilizes.
+        this._ngZone.onStable
+            .asObservable()
+            .pipe(take(1))
+            .subscribe(() => {
+            this._ngZone.run(() => {
+                this._hasFocus = false;
+                this._onBlur.next({ chip: this });
+            });
+        });
     }
 }
 MatChip.decorators = [
@@ -420,12 +432,19 @@ class MatChipRemove {
     }
     /**
      * Calls the parent chip's public `remove()` method if applicable.
+     * @param {?} event
      * @return {?}
      */
-    _handleClick() {
+    _handleClick(event) {
         if (this._parentChip.removable) {
             this._parentChip.remove();
         }
+        // We need to stop event propagation because otherwise the event will bubble up to the
+        // form field and cause the `onContainerClick` method to be invoked. This method would then
+        // reset the focused chip that has been focused after chip removal. Usually the parent
+        // the parent click listener of the `MatChip` would prevent propagation, but it can happen
+        // that the chip is being removed before the event bubbles up.
+        event.stopPropagation();
     }
 }
 MatChipRemove.decorators = [
@@ -433,7 +452,7 @@ MatChipRemove.decorators = [
                 selector: '[matChipRemove]',
                 host: {
                     'class': 'mat-chip-remove mat-chip-trailing-icon',
-                    '(click)': '_handleClick()',
+                    '(click)': '_handleClick($event)',
                 }
             },] },
 ];
@@ -514,17 +533,15 @@ class MatChipList extends _MatChipListMixinBase {
          */
         this.controlType = 'mat-chip-list';
         /**
-         * When a chip is destroyed, we track the index so we can focus the appropriate next chip.
+         * When a chip is destroyed, we store the index of the destroyed chip until the chips
+         * query list notifies about the update. This is necessary because we cannot determine an
+         * appropriate chip that should receive focus until the array of chips updated completely.
          */
-        this._lastDestroyedIndex = null;
+        this._lastDestroyedChipIndex = null;
         /**
-         * Track which chips we're listening to for focus/destruction.
+         * Subject that emits when the component has been destroyed.
          */
-        this._chipSet = new WeakMap();
-        /**
-         * Subscription to tabbing out from the chip list.
-         */
-        this._tabOutSubscription = Subscription.EMPTY;
+        this._destroyed = new Subject();
         /**
          * Uid of the chip list
          */
@@ -694,7 +711,12 @@ class MatChipList extends _MatChipListMixinBase {
      * @param {?} value
      * @return {?}
      */
-    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
+    set disabled(value) {
+        this._disabled = coerceBooleanProperty(value);
+        if (this.chips) {
+            this.chips.forEach(chip => chip.disabled = this._disabled);
+        }
+    }
     /**
      * Whether or not this chip list is selectable. When a chip list is not selectable,
      * the selected states for all the chips inside the chip list are always ignored.
@@ -757,12 +779,12 @@ class MatChipList extends _MatChipListMixinBase {
             .withHorizontalOrientation(this._dir ? this._dir.value : 'ltr');
         // Prevents the chip list from capturing focus and redirecting
         // it back to the first chip when the user tabs out.
-        this._tabOutSubscription = this._keyManager.tabOut.subscribe(() => {
+        this._keyManager.tabOut.pipe(takeUntil(this._destroyed)).subscribe(() => {
             this._tabIndex = -1;
             setTimeout(() => this._tabIndex = this._userTabIndex || 0);
         });
         // When the list changes, re-subscribe
-        this._changeSubscription = this.chips.changes.pipe(startWith(null)).subscribe(() => {
+        this.chips.changes.pipe(startWith(null), takeUntil(this._destroyed)).subscribe(() => {
             this._resetChips();
             // Reset chips selected/deselected status
             this._initializeSelection();
@@ -795,15 +817,10 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     ngOnDestroy() {
-        this._tabOutSubscription.unsubscribe();
-        if (this._changeSubscription) {
-            this._changeSubscription.unsubscribe();
-        }
-        if (this._chipRemoveSubscription) {
-            this._chipRemoveSubscription.unsubscribe();
-        }
-        this._dropSubscriptions();
+        this._destroyed.next();
+        this._destroyed.complete();
         this.stateChanges.complete();
+        this._dropSubscriptions();
     }
     /**
      * Associates an HTML input element with this chip list.
@@ -849,7 +866,6 @@ class MatChipList extends _MatChipListMixinBase {
      */
     setDisabledState(isDisabled) {
         this.disabled = isDisabled;
-        this._elementRef.nativeElement.disabled = isDisabled;
         this.stateChanges.next();
     }
     /**
@@ -864,6 +880,9 @@ class MatChipList extends _MatChipListMixinBase {
      * @return {?}
      */
     focus() {
+        if (this.disabled) {
+            return;
+        }
         // TODO: ARIA says this should focus the first `selected` chip if any are selected.
         // Focus on first element if there's no chipInput inside chip-list
         if (this._chipInput && this._chipInput.focused) {
@@ -900,7 +919,17 @@ class MatChipList extends _MatChipListMixinBase {
             event.preventDefault();
         }
         else if (target && target.classList.contains('mat-chip')) {
-            this._keyManager.onKeydown(event);
+            if (event.keyCode === HOME) {
+                this._keyManager.setFirstItemActive();
+                event.preventDefault();
+            }
+            else if (event.keyCode === END) {
+                this._keyManager.setLastItemActive();
+                event.preventDefault();
+            }
+            else {
+                this._keyManager.onKeydown(event);
+            }
             this.stateChanges.next();
         }
     }
@@ -913,50 +942,16 @@ class MatChipList extends _MatChipListMixinBase {
         this._tabIndex = this._userTabIndex || (this.chips.length === 0 ? -1 : 0);
     }
     /**
-     * Update key manager's active item when chip is deleted.
-     * If the deleted chip is the last chip in chip list, focus the new last chip.
-     * Otherwise focus the next chip in the list.
-     * Save `_lastDestroyedIndex` so we can set the correct focus.
-     * @param {?} chip
-     * @return {?}
-     */
-    _updateKeyManager(chip) {
-        let /** @type {?} */ chipIndex = this.chips.toArray().indexOf(chip);
-        if (this._isValidIndex(chipIndex)) {
-            if (chip._hasFocus) {
-                // Check whether the chip is not the last item
-                if (chipIndex < this.chips.length - 1) {
-                    this._keyManager.setActiveItem(chipIndex);
-                }
-                else if (chipIndex - 1 >= 0) {
-                    this._keyManager.setActiveItem(chipIndex - 1);
-                }
-            }
-            if (this._keyManager.activeItemIndex === chipIndex) {
-                this._lastDestroyedIndex = chipIndex;
-            }
-        }
-    }
-    /**
-     * Checks to see if a focus chip was recently destroyed so that we can refocus the next closest
-     * one.
+     * If the amount of chips changed, we need to update the
+     * key manager state and focus the next closest chip.
      * @return {?}
      */
     _updateFocusForDestroyedChips() {
-        const /** @type {?} */ chipsArray = this.chips.toArray();
-        if (this._lastDestroyedIndex != null && chipsArray.length > 0 && (this.focused ||
-            (this._keyManager.activeItem && chipsArray.indexOf(this._keyManager.activeItem) === -1))) {
-            // Check whether the destroyed chip was the last item
-            const /** @type {?} */ newFocusIndex = Math.min(this._lastDestroyedIndex, chipsArray.length - 1);
-            this._keyManager.setActiveItem(newFocusIndex);
-            const /** @type {?} */ focusChip = this._keyManager.activeItem;
-            // Focus the chip
-            if (focusChip) {
-                focusChip.focus();
-            }
+        if (this._lastDestroyedChipIndex != null && this.chips.length) {
+            const /** @type {?} */ newChipIndex = Math.min(this._lastDestroyedChipIndex, this.chips.length - 1);
+            this._keyManager.setActiveItem(newChipIndex);
         }
-        // Reset our destroyed index
-        this._lastDestroyedIndex = null;
+        this._lastDestroyedChipIndex = null;
     }
     /**
      * Utility to ensure all indexes are valid.
@@ -1137,6 +1132,10 @@ class MatChipList extends _MatChipListMixinBase {
             this._chipSelectionSubscription.unsubscribe();
             this._chipSelectionSubscription = null;
         }
+        if (this._chipRemoveSubscription) {
+            this._chipRemoveSubscription.unsubscribe();
+            this._chipRemoveSubscription = null;
+        }
     }
     /**
      * Listens to user-generated selection events on each chip.
@@ -1182,7 +1181,14 @@ class MatChipList extends _MatChipListMixinBase {
      */
     _listenToChipsRemoved() {
         this._chipRemoveSubscription = this.chipRemoveChanges.subscribe(event => {
-            this._updateKeyManager(event.chip);
+            const /** @type {?} */ chip = event.chip;
+            const /** @type {?} */ chipIndex = this.chips.toArray().indexOf(event.chip);
+            // In case the chip that will be removed is currently focused, we temporarily store
+            // the index in order to be able to determine an appropriate sibling chip that will
+            // receive focus.
+            if (this._isValidIndex(chipIndex) && chip._hasFocus) {
+                this._lastDestroyedChipIndex = chipIndex;
+            }
         });
     }
 }
@@ -1191,7 +1197,7 @@ MatChipList.decorators = [
                 template: `<div class="mat-chip-list-wrapper"><ng-content></ng-content></div>`,
                 exportAs: 'matChipList',
                 host: {
-                    '[attr.tabindex]': '_tabIndex',
+                    '[attr.tabindex]': 'disabled ? null : _tabIndex',
                     '[attr.aria-describedby]': '_ariaDescribedby || null',
                     '[attr.aria-required]': 'required.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
@@ -1209,7 +1215,7 @@ MatChipList.decorators = [
                     '[id]': '_uid',
                 },
                 providers: [{ provide: MatFormFieldControl, useExisting: MatChipList }],
-                styles: [".mat-chip{position:relative;overflow:hidden;box-sizing:border-box;-webkit-tap-highlight-color:transparent}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip:focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-standard-chip{outline:solid 1px}.mat-standard-chip:focus{outline:dotted 2px}}.mat-standard-chip.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:7px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:7px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:7px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:7px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:32px;height:32px;margin-right:8px;margin-left:0}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:0}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:7px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:7px;margin-left:0}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper .mat-standard-chip,.mat-chip-list-wrapper input.mat-input-element{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden}input.mat-chip-input{width:150px;margin:3px;flex:1 0 150px}"],
+                styles: [".mat-chip{position:relative;overflow:hidden;box-sizing:border-box;-webkit-tap-highlight-color:transparent}.mat-standard-chip{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);display:inline-flex;padding:7px 12px;border-radius:24px;align-items:center;cursor:default}.mat-standard-chip .mat-chip-remove.mat-icon{width:18px;height:18px}.mat-standard-chip:focus{box-shadow:0 3px 3px -2px rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12);outline:0}@media screen and (-ms-high-contrast:active){.mat-standard-chip{outline:solid 1px}.mat-standard-chip:focus{outline:dotted 2px}}.mat-standard-chip.mat-chip-with-avatar,.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-top:0;padding-bottom:0}.mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-right:7px;padding-left:0}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon.mat-chip-with-avatar{padding-left:7px;padding-right:0}.mat-standard-chip.mat-chip-with-trailing-icon{padding-top:7px;padding-bottom:7px;padding-right:7px;padding-left:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-trailing-icon{padding-left:7px;padding-right:12px}.mat-standard-chip.mat-chip-with-avatar{padding-left:0;padding-right:12px}[dir=rtl] .mat-standard-chip.mat-chip-with-avatar{padding-right:0;padding-left:12px}.mat-standard-chip .mat-chip-avatar{width:32px;height:32px;margin-right:8px;margin-left:0}[dir=rtl] .mat-standard-chip .mat-chip-avatar{margin-left:8px;margin-right:0}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{width:18px;height:18px;cursor:pointer}.mat-standard-chip .mat-chip-remove,.mat-standard-chip .mat-chip-trailing-icon{margin-left:7px;margin-right:0}[dir=rtl] .mat-standard-chip .mat-chip-remove,[dir=rtl] .mat-standard-chip .mat-chip-trailing-icon{margin-right:7px;margin-left:0}.mat-chip-list-wrapper{display:flex;flex-direction:row;flex-wrap:wrap;align-items:center;margin:-4px}.mat-chip-list-wrapper .mat-standard-chip,.mat-chip-list-wrapper input.mat-input-element{margin:4px}.mat-chip-list-stacked .mat-chip-list-wrapper{flex-direction:column;align-items:flex-start}.mat-chip-list-stacked .mat-chip-list-wrapper .mat-standard-chip{width:100%}.mat-chip-avatar{border-radius:50%;justify-content:center;align-items:center;display:flex;overflow:hidden;object-fit:cover}input.mat-chip-input{width:150px;margin:3px;flex:1 0 150px}"],
                 encapsulation: ViewEncapsulation.None,
                 changeDetection: ChangeDetectionStrategy.OnPush
             },] },
@@ -1281,6 +1287,7 @@ class MatChipInput {
          * Unique id for the input.
          */
         this.id = `mat-chip-list-input-${nextUniqueId$1++}`;
+        this._disabled = false;
         this._inputElement = /** @type {?} */ (this._elementRef.nativeElement);
     }
     /**
@@ -1304,6 +1311,16 @@ class MatChipInput {
      * @return {?}
      */
     set addOnBlur(value) { this._addOnBlur = coerceBooleanProperty(value); }
+    /**
+     * Whether the input is disabled.
+     * @return {?}
+     */
+    get disabled() { return this._disabled || (this._chipList && this._chipList.disabled); }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set disabled(value) { this._disabled = coerceBooleanProperty(value); }
     /**
      * Whether the input is empty.
      * @return {?}
@@ -1385,6 +1402,7 @@ MatChipInput.decorators = [
                     '(focus)': '_focus()',
                     '(input)': '_onInput()',
                     '[id]': 'id',
+                    '[attr.disabled]': 'disabled || null',
                     '[attr.placeholder]': 'placeholder || null',
                 }
             },] },
@@ -1401,6 +1419,7 @@ MatChipInput.propDecorators = {
     "chipEnd": [{ type: Output, args: ['matChipInputTokenEnd',] },],
     "placeholder": [{ type: Input },],
     "id": [{ type: Input },],
+    "disabled": [{ type: Input },],
 };
 
 /**

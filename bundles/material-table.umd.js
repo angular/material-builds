@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/table'), require('@angular/cdk/bidi'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/core', '@angular/cdk/table', '@angular/cdk/bidi', '@angular/common', '@angular/material/core', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}),global.ng.core,global.ng.cdk.table,global.ng.cdk.bidi,global.ng.common,global.ng.material.core,global.ng.cdk.coercion,global.rxjs,global.rxjs.operators));
-}(this, (function (exports,core,table,bidi,common,core$1,coercion,rxjs,operators) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/cdk/table'), require('@angular/core'), require('@angular/common'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('rxjs'), require('rxjs/operators')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/table', ['exports', '@angular/cdk/table', '@angular/core', '@angular/common', '@angular/material/core', '@angular/cdk/coercion', 'rxjs', 'rxjs/operators'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.table = {}),global.ng.cdk.table,global.ng.core,global.ng.common,global.ng.material.core,global.ng.cdk.coercion,global.rxjs,global.rxjs.operators));
+}(this, (function (exports,table,core,common,core$1,coercion,rxjs,operators) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -44,23 +44,16 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkTable = table.CdkTable;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
  */
 var MatTable = /** @class */ (function (_super) {
     __extends(MatTable, _super);
-    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
-    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
-    // fixed bug.
-    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
-    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
-    function MatTable(_differs, _changeDetectorRef, _elementRef, role, _dir) {
-        var _this = _super.call(this, _differs, _changeDetectorRef, _elementRef, role, _dir) || this;
-        _this._differs = _differs;
-        _this._changeDetectorRef = _changeDetectorRef;
-        _this._elementRef = _elementRef;
-        _this._dir = _dir;
+    function MatTable() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         /**
          * Overrides the sticky CSS class set by the `CdkTable`.
          */
@@ -71,7 +64,7 @@ var MatTable = /** @class */ (function (_super) {
         { type: core.Component, args: [{selector: 'mat-table, table[mat-table]',
                     exportAs: 'matTable',
                     template: table.CDK_TABLE_TEMPLATE,
-                    styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-footer-row,mat-row{min-height:48px}mat-footer-row,mat-header-row,mat-row{display:flex;border-width:0;border-bottom-width:1px;border-style:solid;align-items:center;box-sizing:border-box}mat-footer-row::after,mat-header-row::after,mat-row::after{display:inline-block;min-height:inherit;content:''}mat-cell:first-child,mat-footer-cell:first-child,mat-header-cell:first-child{padding-left:24px}[dir=rtl] mat-cell:first-child,[dir=rtl] mat-footer-cell:first-child,[dir=rtl] mat-header-cell:first-child{padding-left:0;padding-right:24px}mat-cell:last-child,mat-footer-cell:last-child,mat-header-cell:last-child{padding-right:24px}[dir=rtl] mat-cell:last-child,[dir=rtl] mat-footer-cell:last-child,[dir=rtl] mat-header-cell:last-child{padding-right:0;padding-left:24px}mat-cell,mat-footer-cell,mat-header-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-footer-row,tr.mat-row{height:48px}th.mat-header-cell{text-align:left}td.mat-cell,td.mat-footer-cell,th.mat-header-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}td.mat-cell:first-child,td.mat-footer-cell:first-child,th.mat-header-cell:first-child{padding-left:24px}td.mat-cell:last-child,td.mat-footer-cell:last-child,th.mat-header-cell:last-child{padding-right:24px}"],
+                    styles: ["mat-table{display:block}mat-header-row{min-height:56px}mat-footer-row,mat-row{min-height:48px}mat-footer-row,mat-header-row,mat-row{display:flex;border-width:0;border-bottom-width:1px;border-style:solid;align-items:center;box-sizing:border-box}mat-footer-row::after,mat-header-row::after,mat-row::after{display:inline-block;min-height:inherit;content:''}mat-cell:first-of-type,mat-footer-cell:first-of-type,mat-header-cell:first-of-type{padding-left:24px}[dir=rtl] mat-cell:first-of-type,[dir=rtl] mat-footer-cell:first-of-type,[dir=rtl] mat-header-cell:first-of-type{padding-left:0;padding-right:24px}mat-cell:last-of-type,mat-footer-cell:last-of-type,mat-header-cell:last-of-type{padding-right:24px}[dir=rtl] mat-cell:last-of-type,[dir=rtl] mat-footer-cell:last-of-type,[dir=rtl] mat-header-cell:last-of-type{padding-right:0;padding-left:24px}mat-cell,mat-footer-cell,mat-header-cell{flex:1;display:flex;align-items:center;overflow:hidden;word-wrap:break-word;min-height:inherit}table.mat-table{border-spacing:0}tr.mat-header-row{height:56px}tr.mat-footer-row,tr.mat-row{height:48px}th.mat-header-cell{text-align:left}td.mat-cell,td.mat-footer-cell,th.mat-header-cell{padding:0;border-bottom-width:1px;border-bottom-style:solid}td.mat-cell:first-of-type,td.mat-footer-cell:first-of-type,th.mat-header-cell:first-of-type{padding-left:24px}td.mat-cell:last-of-type,td.mat-footer-cell:last-of-type,th.mat-header-cell:last-of-type{padding-right:24px}"],
                     host: {
                         'class': 'mat-table',
                     },
@@ -79,21 +72,17 @@ var MatTable = /** @class */ (function (_super) {
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                 },] },
     ];
-    /** @nocollapse */
-    MatTable.ctorParameters = function () { return [
-        { type: core.IterableDiffers, },
-        { type: core.ChangeDetectorRef, },
-        { type: core.ElementRef, },
-        { type: undefined, decorators: [{ type: core.Attribute, args: ['role',] },] },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
-    ]; };
     return MatTable;
-}(table.CdkTable));
+}(_CdkTable));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkCellDef = table.CdkCellDef;
+var /** @type {?} */ _CdkHeaderCellDef = table.CdkHeaderCellDef;
+var /** @type {?} */ _CdkFooterCellDef = table.CdkFooterCellDef;
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
@@ -110,7 +99,7 @@ var MatCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatCellDef;
-}(table.CdkCellDef));
+}(_CdkCellDef));
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
@@ -127,7 +116,7 @@ var MatHeaderCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatHeaderCellDef;
-}(table.CdkHeaderCellDef));
+}(_CdkHeaderCellDef));
 /**
  * Footer cell definition for the mat-table.
  * Captures the template of a column's footer cell and as well as cell-specific properties.
@@ -144,7 +133,7 @@ var MatFooterCellDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatFooterCellDef;
-}(table.CdkFooterCellDef));
+}(_CdkFooterCellDef));
 /**
  * Column definition for the mat-table.
  * Defines a set of cells available for a table column.
@@ -251,6 +240,10 @@ var MatCell = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkHeaderRowDef = table.CdkHeaderRowDef;
+var /** @type {?} */ _CdkFooterRowDef = table.CdkFooterRowDef;
+var /** @type {?} */ _CdkRowDef = table.CdkRowDef;
 /**
  * Header row definition for the mat-table.
  * Captures the header row's template and other header properties such as the columns to display.
@@ -268,7 +261,7 @@ var MatHeaderRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatHeaderRowDef;
-}(table.CdkHeaderRowDef));
+}(_CdkHeaderRowDef));
 /**
  * Footer row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display.
@@ -286,7 +279,7 @@ var MatFooterRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatFooterRowDef;
-}(table.CdkFooterRowDef));
+}(_CdkFooterRowDef));
 /**
  * Data row definition for the mat-table.
  * Captures the footer row's template and other footer properties such as the columns to display and
@@ -306,7 +299,7 @@ var MatRowDef = /** @class */ (function (_super) {
                 },] },
     ];
     return MatRowDef;
-}(table.CdkRowDef));
+}(_CdkRowDef));
 /**
  * Footer template container that contains the cell outlet. Adds the right class and role.
  */
@@ -828,6 +821,9 @@ MatTableDataSource = /** @class */ (function (_super) {
 }(table.DataSource));
 
 exports.MatTableModule = MatTableModule;
+exports._CdkCellDef = _CdkCellDef;
+exports._CdkHeaderCellDef = _CdkHeaderCellDef;
+exports._CdkFooterCellDef = _CdkFooterCellDef;
 exports.MatCellDef = MatCellDef;
 exports.MatHeaderCellDef = MatHeaderCellDef;
 exports.MatFooterCellDef = MatFooterCellDef;
@@ -835,7 +831,11 @@ exports.MatColumnDef = MatColumnDef;
 exports.MatHeaderCell = MatHeaderCell;
 exports.MatFooterCell = MatFooterCell;
 exports.MatCell = MatCell;
+exports._CdkTable = _CdkTable;
 exports.MatTable = MatTable;
+exports._CdkHeaderRowDef = _CdkHeaderRowDef;
+exports._CdkFooterRowDef = _CdkFooterRowDef;
+exports._CdkRowDef = _CdkRowDef;
 exports.MatHeaderRowDef = MatHeaderRowDef;
 exports.MatFooterRowDef = MatFooterRowDef;
 exports.MatRowDef = MatRowDef;

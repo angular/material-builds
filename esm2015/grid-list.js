@@ -7,31 +7,8 @@
  */
 import { Component, ViewEncapsulation, ElementRef, Input, ContentChildren, Directive, ChangeDetectionStrategy, Optional, NgModule } from '@angular/core';
 import { MatLine, MatLineSetter, MatLineModule, MatCommonModule } from '@angular/material/core';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { Directionality } from '@angular/cdk/bidi';
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * Converts values into strings. Falsy values become empty strings.
- * \@docs-private
- * @param {?} value
- * @return {?}
- */
-function coerceToString(value) {
-    return `${value || ''}`;
-}
-/**
- * Converts a value that might be a string into a number.
- * \@docs-private
- * @param {?} value
- * @return {?}
- */
-function coerceToNumber(value) {
-    return typeof value === 'string' ? parseInt(value, 10) : value;
-}
 
 /**
  * @fileoverview added by tsickle
@@ -55,7 +32,7 @@ class MatGridTile {
      * @param {?} value
      * @return {?}
      */
-    set rowspan(value) { this._rowspan = coerceToNumber(value); }
+    set rowspan(value) { this._rowspan = Math.round(coerceNumberProperty(value)); }
     /**
      * Amount of columns that the grid tile takes up.
      * @return {?}
@@ -65,7 +42,7 @@ class MatGridTile {
      * @param {?} value
      * @return {?}
      */
-    set colspan(value) { this._colspan = coerceToNumber(value); }
+    set colspan(value) { this._colspan = Math.round(coerceNumberProperty(value)); }
     /**
      * Sets the style of the grid-tile element.  Needs to be set manually to avoid
      * "Changed after checked" errors that would occur with HostBinding.
@@ -639,7 +616,7 @@ class MatGridList {
      * @param {?} value
      * @return {?}
      */
-    set cols(value) { this._cols = coerceToNumber(value); }
+    set cols(value) { this._cols = Math.round(coerceNumberProperty(value)); }
     /**
      * Size of the grid list's gutter in pixels.
      * @return {?}
@@ -649,14 +626,14 @@ class MatGridList {
      * @param {?} value
      * @return {?}
      */
-    set gutterSize(value) { this._gutter = coerceToString(value); }
+    set gutterSize(value) { this._gutter = `${value || ''}`; }
     /**
      * Set internal representation of row height from the user-provided value.
      * @param {?} value
      * @return {?}
      */
     set rowHeight(value) {
-        const /** @type {?} */ newValue = coerceToString(value);
+        const /** @type {?} */ newValue = `${value || ''}`;
         if (newValue !== this._rowHeight) {
             this._rowHeight = newValue;
             this._setTileStyler(this._rowHeight);
@@ -758,7 +735,7 @@ MatGridList.ctorParameters = () => [
     { type: Directionality, decorators: [{ type: Optional },] },
 ];
 MatGridList.propDecorators = {
-    "_tiles": [{ type: ContentChildren, args: [MatGridTile,] },],
+    "_tiles": [{ type: ContentChildren, args: [MatGridTile, { descendants: true },] },],
     "cols": [{ type: Input },],
     "gutterSize": [{ type: Input },],
     "rowHeight": [{ type: Input },],

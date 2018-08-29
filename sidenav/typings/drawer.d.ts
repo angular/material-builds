@@ -76,7 +76,7 @@ export declare class MatDrawer implements AfterContentInit, AfterContentChecked,
      */
     readonly _modeChanged: Subject<{}>;
     readonly _isFocusTrapEnabled: boolean;
-    constructor(_elementRef: ElementRef, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _doc: any);
+    constructor(_elementRef: ElementRef<HTMLElement>, _focusTrapFactory: FocusTrapFactory, _focusMonitor: FocusMonitor, _platform: Platform, _ngZone: NgZone, _doc: any);
     /** Traps focus inside the drawer. */
     private _trapFocus();
     /**
@@ -179,7 +179,7 @@ export declare class MatDrawerContainer implements AfterContentInit, DoCheck, On
     }>;
     /** Reference to the CdkScrollable instance that wraps the scrollable content. */
     scrollable: CdkScrollable;
-    constructor(_dir: Directionality, _element: ElementRef, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, defaultAutosize?: boolean, _animationMode?: string | undefined);
+    constructor(_dir: Directionality, _element: ElementRef<HTMLElement>, _ngZone: NgZone, _changeDetectorRef: ChangeDetectorRef, defaultAutosize?: boolean, _animationMode?: string | undefined);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Calls `open` of both start and end drawers */

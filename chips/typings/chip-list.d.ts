@@ -43,7 +43,7 @@ export declare class MatChipListChange {
  * A material design chips component (named ChipList for it's similarity to the List component).
  */
 export declare class MatChipList extends _MatChipListMixinBase implements MatFormFieldControl<any>, ControlValueAccessor, AfterContentInit, DoCheck, OnInit, OnDestroy, CanUpdateErrorState {
-    protected _elementRef: ElementRef;
+    protected _elementRef: ElementRef<HTMLElement>;
     private _changeDetectorRef;
     private _dir;
     /** @docs-private */
@@ -53,14 +53,14 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
      * @docs-private
      */
     readonly controlType: string;
-    /** When a chip is destroyed, we track the index so we can focus the appropriate next chip. */
-    protected _lastDestroyedIndex: number | null;
-    /** Track which chips we're listening to for focus/destruction. */
-    protected _chipSet: WeakMap<MatChip, boolean>;
-    /** Subscription to tabbing out from the chip list. */
-    private _tabOutSubscription;
-    /** Subscription to changes in the chip list. */
-    private _changeSubscription;
+    /**
+     * When a chip is destroyed, we store the index of the destroyed chip until the chips
+     * query list notifies about the update. This is necessary because we cannot determine an
+     * appropriate chip that should receive focus until the array of chips updated completely.
+     */
+    private _lastDestroyedChipIndex;
+    /** Subject that emits when the component has been destroyed. */
+    private _destroyed;
     /** Subscription to focus changes in the chips. */
     private _chipFocusSubscription;
     /** Subscription to blur changes in the chips. */
@@ -173,7 +173,7 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     readonly valueChange: EventEmitter<any>;
     /** The chip components contained within this chip list. */
     chips: QueryList<MatChip>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, 
+    constructor(_elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _dir: Directionality, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, 
         /** @docs-private */
         ngControl: NgControl);
     ngAfterContentInit(): void;
@@ -212,15 +212,8 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
      */
     protected _updateTabIndex(): void;
     /**
-     * Update key manager's active item when chip is deleted.
-     * If the deleted chip is the last chip in chip list, focus the new last chip.
-     * Otherwise focus the next chip in the list.
-     * Save `_lastDestroyedIndex` so we can set the correct focus.
-     */
-    protected _updateKeyManager(chip: MatChip): void;
-    /**
-     * Checks to see if a focus chip was recently destroyed so that we can refocus the next closest
-     * one.
+     * If the amount of chips changed, we need to update the
+     * key manager state and focus the next closest chip.
      */
     protected _updateFocusForDestroyedChips(): void;
     /**

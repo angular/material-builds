@@ -72,7 +72,7 @@ export declare class MatTabBody implements OnInit, OnDestroy {
     origin: number;
     /** The shifted index position of the tab body, where zero represents the active center tab. */
     position: number;
-    constructor(_elementRef: ElementRef, _dir: Directionality, 
+    constructor(_elementRef: ElementRef<HTMLElement>, _dir: Directionality, 
         /**
          * @breaking-change 7.0.0 changeDetectorRef to be made required.
          */

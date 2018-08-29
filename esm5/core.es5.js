@@ -12,6 +12,7 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { Subject, Observable } from 'rxjs';
 import { Platform, PlatformModule, supportsPassiveEventListeners } from '@angular/cdk/platform';
 import { HammerGestureConfig } from '@angular/platform-browser';
+import { isFakeMousedownFromScreenReader } from '@angular/cdk/a11y';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { ENTER, SPACE } from '@angular/cdk/keycodes';
 import { CommonModule } from '@angular/common';
@@ -1685,9 +1686,12 @@ RippleRenderer = /** @class */ (function () {
          * Function being called whenever the trigger is being pressed using mouse.
          */
         this.onMousedown = function (event) {
+            // Screen readers will fire fake mouse events for space/enter. Skip launching a
+            // ripple in this case for consistency with the non-screen-reader experience.
+            var /** @type {?} */ isFakeMousedown = isFakeMousedownFromScreenReader(event);
             var /** @type {?} */ isSyntheticEvent = _this._lastTouchStartEvent &&
                 Date.now() < _this._lastTouchStartEvent + ignoreMouseEventsTimeout;
-            if (!_this._target.rippleDisabled && !isSyntheticEvent) {
+            if (!_this._target.rippleDisabled && !isFakeMousedown && !isSyntheticEvent) {
                 _this._isPointerDown = true;
                 _this.fadeInRipple(event.clientX, event.clientY, _this._target.rippleConfig);
             }
@@ -2325,8 +2329,11 @@ var MatOption = /** @class */ (function () {
         this._selected = false;
         this._active = false;
         this._disabled = false;
-        this._id = "mat-option-" + _uniqueIdCounter++;
         this._mostRecentViewValue = '';
+        /**
+         * The unique ID of the option.
+         */
+        this.id = "mat-option-" + _uniqueIdCounter++;
         /**
          * Event emitted when the option is selected or deselected.
          */
@@ -2343,16 +2350,6 @@ var MatOption = /** @class */ (function () {
          * @return {?}
          */
         function () { return this._parent && this._parent.multiple; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatOption.prototype, "id", {
-        /** The unique ID of the option. */
-        get: /**
-         * The unique ID of the option.
-         * @return {?}
-         */
-        function () { return this._id; },
         enumerable: true,
         configurable: true
     });
@@ -2670,6 +2667,7 @@ var MatOption = /** @class */ (function () {
     ]; };
     MatOption.propDecorators = {
         "value": [{ type: Input },],
+        "id": [{ type: Input },],
         "disabled": [{ type: Input },],
         "onSelectionChange": [{ type: Output },],
     };

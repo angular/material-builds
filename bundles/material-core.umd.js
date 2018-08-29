@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common));
-}(this, (function (exports,core,bidi,coercion,rxjs,platform,platformBrowser,animations,keycodes,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/core', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.core = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common));
+}(this, (function (exports,core,bidi,coercion,rxjs,platform,platformBrowser,a11y,animations,keycodes,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1720,9 +1720,12 @@ RippleRenderer = /** @class */ (function () {
          * Function being called whenever the trigger is being pressed using mouse.
          */
         this.onMousedown = function (event) {
+            // Screen readers will fire fake mouse events for space/enter. Skip launching a
+            // ripple in this case for consistency with the non-screen-reader experience.
+            var /** @type {?} */ isFakeMousedown = a11y.isFakeMousedownFromScreenReader(event);
             var /** @type {?} */ isSyntheticEvent = _this._lastTouchStartEvent &&
                 Date.now() < _this._lastTouchStartEvent + ignoreMouseEventsTimeout;
-            if (!_this._target.rippleDisabled && !isSyntheticEvent) {
+            if (!_this._target.rippleDisabled && !isFakeMousedown && !isSyntheticEvent) {
                 _this._isPointerDown = true;
                 _this.fadeInRipple(event.clientX, event.clientY, _this._target.rippleConfig);
             }
@@ -2360,8 +2363,11 @@ var MatOption = /** @class */ (function () {
         this._selected = false;
         this._active = false;
         this._disabled = false;
-        this._id = "mat-option-" + _uniqueIdCounter++;
         this._mostRecentViewValue = '';
+        /**
+         * The unique ID of the option.
+         */
+        this.id = "mat-option-" + _uniqueIdCounter++;
         /**
          * Event emitted when the option is selected or deselected.
          */
@@ -2378,16 +2384,6 @@ var MatOption = /** @class */ (function () {
          * @return {?}
          */
         function () { return this._parent && this._parent.multiple; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(MatOption.prototype, "id", {
-        /** The unique ID of the option. */
-        get: /**
-         * The unique ID of the option.
-         * @return {?}
-         */
-        function () { return this._id; },
         enumerable: true,
         configurable: true
     });
@@ -2705,6 +2701,7 @@ var MatOption = /** @class */ (function () {
     ]; };
     MatOption.propDecorators = {
         "value": [{ type: core.Input },],
+        "id": [{ type: core.Input },],
         "disabled": [{ type: core.Input },],
         "onSelectionChange": [{ type: core.Output },],
     };

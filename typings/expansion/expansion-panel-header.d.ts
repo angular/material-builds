@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { FocusMonitor, FocusableOption, FocusOrigin } from '@angular/cdk/a11y';
 import { ChangeDetectorRef, ElementRef, OnDestroy } from '@angular/core';
 import { MatExpansionPanel } from './expansion-panel';
 /**
@@ -13,7 +13,7 @@ import { MatExpansionPanel } from './expansion-panel';
  *
  * This component corresponds to the header element of an `<mat-expansion-panel>`.
  */
-export declare class MatExpansionPanelHeader implements OnDestroy {
+export declare class MatExpansionPanelHeader implements OnDestroy, FocusableOption {
     panel: MatExpansionPanel;
     private _element;
     private _focusMonitor;
@@ -24,6 +24,11 @@ export declare class MatExpansionPanelHeader implements OnDestroy {
     expandedHeight: string;
     /** Height of the header while the panel is collapsed. */
     collapsedHeight: string;
+    /**
+     * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
+     * @docs-private
+     */
+    readonly disabled: any;
     /** Toggles the expanded state of the panel. */
     _toggle(): void;
     /** Gets whether the panel is expanded. */
@@ -36,6 +41,12 @@ export declare class MatExpansionPanelHeader implements OnDestroy {
     _showToggle(): boolean;
     /** Handle keydown event calling to toggle() if appropriate. */
     _keydown(event: KeyboardEvent): void;
+    /**
+     * Focuses the panel header. Implemented as a part of `FocusableOption`.
+     * @param origin Origin of the action that triggered the focus.
+     * @docs-private
+     */
+    focus(origin?: FocusOrigin): void;
     ngOnDestroy(): void;
 }
 /**

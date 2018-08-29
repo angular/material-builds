@@ -50,8 +50,12 @@ function __extends(d, b) {
 var /** @type {?} */ matDrawerAnimations = {
     /** Animation that slides a drawer in and out. */
     transformDrawer: animations.trigger('transform', [
+        // We remove the `transform` here completely, rather than setting it to zero, because:
+        // 1. Having a transform can cause elements with ripples or an animated
+        //    transform to shift around in Chrome with an RTL layout (see #10023).
+        // 2. 3d transforms causes text to appear blurry on IE and Edge.
         animations.state('open, open-instant', animations.style({
-            'transform': 'translate3d(0, 0, 0)',
+            'transform': 'none',
             'visibility': 'visible',
         })),
         animations.state('void', animations.style({

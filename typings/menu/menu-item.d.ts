@@ -29,7 +29,7 @@ export declare class MatMenuItem extends _MatMenuItemMixinBase implements Focusa
     _highlighted: boolean;
     /** Whether the menu item acts as a trigger for a sub-menu. */
     _triggersSubmenu: boolean;
-    constructor(_elementRef: ElementRef, document?: any, _focusMonitor?: FocusMonitor | undefined, _parentMenu?: MatMenuPanel<MatMenuItem> | undefined);
+    constructor(_elementRef: ElementRef<HTMLElement>, document?: any, _focusMonitor?: FocusMonitor | undefined, _parentMenu?: MatMenuPanel<MatMenuItem> | undefined);
     /** Focuses the menu item. */
     focus(origin?: FocusOrigin): void;
     ngOnDestroy(): void;

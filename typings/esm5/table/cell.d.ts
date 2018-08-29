@@ -7,23 +7,26 @@
  */
 import { ElementRef } from '@angular/core';
 import { CdkCell, CdkCellDef, CdkColumnDef, CdkFooterCell, CdkFooterCellDef, CdkHeaderCell, CdkHeaderCellDef } from '@angular/cdk/table';
+export declare const _CdkCellDef: typeof CdkCellDef;
+export declare const _CdkHeaderCellDef: typeof CdkHeaderCellDef;
+export declare const _CdkFooterCellDef: typeof CdkFooterCellDef;
 /**
  * Cell definition for the mat-table.
  * Captures the template of a column's data row cell as well as cell-specific properties.
  */
-export declare class MatCellDef extends CdkCellDef {
+export declare class MatCellDef extends _CdkCellDef {
 }
 /**
  * Header cell definition for the mat-table.
  * Captures the template of a column's header cell and as well as cell-specific properties.
  */
-export declare class MatHeaderCellDef extends CdkHeaderCellDef {
+export declare class MatHeaderCellDef extends _CdkHeaderCellDef {
 }
 /**
  * Footer cell definition for the mat-table.
  * Captures the template of a column's footer cell and as well as cell-specific properties.
  */
-export declare class MatFooterCellDef extends CdkFooterCellDef {
+export declare class MatFooterCellDef extends _CdkFooterCellDef {
 }
 /**
  * Column definition for the mat-table.
@@ -39,7 +42,7 @@ export declare class MatColumnDef extends CdkColumnDef {
 }
 /** Header cell template container that adds the right classes and role. */
 export declare class MatHeaderCell extends CdkHeaderCell {
-    constructor(columnDef: CdkColumnDef, elementRef: ElementRef);
+    constructor(columnDef: CdkColumnDef, elementRef: ElementRef<HTMLElement>);
 }
 /** Footer cell template container that adds the right classes and role. */
 export declare class MatFooterCell extends CdkFooterCell {
@@ -47,5 +50,5 @@ export declare class MatFooterCell extends CdkFooterCell {
 }
 /** Cell template container that adds the right classes and role. */
 export declare class MatCell extends CdkCell {
-    constructor(columnDef: CdkColumnDef, elementRef: ElementRef);
+    constructor(columnDef: CdkColumnDef, elementRef: ElementRef<HTMLElement>);
 }

@@ -323,9 +323,26 @@ class MatAutocompleteTrigger {
          */
         this._viewportSubscription = Subscription.EMPTY;
         /**
+         * Whether the autocomplete can open the next time it is focused. Used to prevent a focused,
+         * closed autocomplete from being reopened if the user switches to another browser tab and then
+         * comes back.
+         */
+        this._canOpenOnNextFocus = true;
+        /**
          * Stream of keyboard events that can close the panel.
          */
         this._closeKeyEventStream = new Subject();
+        /**
+         * Event handler for when the window is blurred. Needs to be an
+         * arrow function in order to preserve the context.
+         */
+        this._windowBlurHandler = () => {
+            // If the user blurred the window while the autocomplete is focused, it means that it'll be
+            // refocused when they come back. In this case we want to skip the first focus event, if the
+            // pane was closed, in order to avoid reopening it unintentionally.
+            this._canOpenOnNextFocus =
+                document.activeElement !== this._element.nativeElement || this.panelOpen;
+        };
         /**
          * `View -> model callback called when value changes`
          */
@@ -353,6 +370,11 @@ class MatAutocompleteTrigger {
                 .asObservable()
                 .pipe(take(1), switchMap(() => this.optionSelections));
         });
+        if (typeof window !== 'undefined') {
+            _zone.runOutsideAngular(() => {
+                window.addEventListener('blur', this._windowBlurHandler);
+            });
+        }
     }
     /**
      * Whether the autocomplete is disabled. When disabled, the element will
@@ -371,6 +393,9 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     ngOnDestroy() {
+        if (typeof window !== 'undefined') {
+            window.removeEventListener('blur', this._windowBlurHandler);
+        }
         this._viewportSubscription.unsubscribe();
         this._componentDestroyed = true;
         this._destroyPanel();
@@ -555,7 +580,10 @@ class MatAutocompleteTrigger {
      * @return {?}
      */
     _handleFocus() {
-        if (this._canOpen()) {
+        if (!this._canOpenOnNextFocus) {
+            this._canOpenOnNextFocus = true;
+        }
+        else if (this._canOpen()) {
             this._previousValue = this._element.nativeElement.value;
             this._attachOverlay();
             this._floatLabel(true);
@@ -864,5 +892,5 @@ MatAutocompleteModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa28 };
+export { MatAutocompleteSelectedEvent, MatAutocompleteBase, _MatAutocompleteMixinBase, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS, MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY, MatAutocomplete, MatAutocompleteModule, AUTOCOMPLETE_OPTION_HEIGHT, AUTOCOMPLETE_PANEL_HEIGHT, MAT_AUTOCOMPLETE_SCROLL_STRATEGY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY, MAT_AUTOCOMPLETE_SCROLL_STRATEGY_FACTORY_PROVIDER, MAT_AUTOCOMPLETE_VALUE_ACCESSOR, getMatAutocompleteMissingPanelError, MatAutocompleteTrigger, MatAutocompleteOrigin as ɵa27 };
 //# sourceMappingURL=autocomplete.js.map

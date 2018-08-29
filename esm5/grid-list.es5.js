@@ -7,32 +7,9 @@
  */
 import { Component, ViewEncapsulation, ElementRef, Input, ContentChildren, Directive, ChangeDetectionStrategy, Optional, NgModule } from '@angular/core';
 import { MatLine, MatLineSetter, MatLineModule, MatCommonModule } from '@angular/material/core';
+import { coerceNumberProperty } from '@angular/cdk/coercion';
 import { __extends } from 'tslib';
 import { Directionality } from '@angular/cdk/bidi';
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
-
-/**
- * Converts values into strings. Falsy values become empty strings.
- * \@docs-private
- * @param {?} value
- * @return {?}
- */
-function coerceToString(value) {
-    return "" + (value || '');
-}
-/**
- * Converts a value that might be a string into a number.
- * \@docs-private
- * @param {?} value
- * @return {?}
- */
-function coerceToNumber(value) {
-    return typeof value === 'string' ? parseInt(value, 10) : value;
-}
 
 /**
  * @fileoverview added by tsickle
@@ -54,7 +31,7 @@ var MatGridTile = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._rowspan = coerceToNumber(value); },
+        function (value) { this._rowspan = Math.round(coerceNumberProperty(value)); },
         enumerable: true,
         configurable: true
     });
@@ -68,7 +45,7 @@ var MatGridTile = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._colspan = coerceToNumber(value); },
+        function (value) { this._colspan = Math.round(coerceNumberProperty(value)); },
         enumerable: true,
         configurable: true
     });
@@ -899,7 +876,7 @@ var MatGridList = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._cols = coerceToNumber(value); },
+        function (value) { this._cols = Math.round(coerceNumberProperty(value)); },
         enumerable: true,
         configurable: true
     });
@@ -913,7 +890,7 @@ var MatGridList = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._gutter = coerceToString(value); },
+        function (value) { this._gutter = "" + (value || ''); },
         enumerable: true,
         configurable: true
     });
@@ -924,7 +901,7 @@ var MatGridList = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newValue = coerceToString(value);
+            var /** @type {?} */ newValue = "" + (value || '');
             if (newValue !== this._rowHeight) {
                 this._rowHeight = newValue;
                 this._setTileStyler(this._rowHeight);
@@ -1064,7 +1041,7 @@ var MatGridList = /** @class */ (function () {
         { type: Directionality, decorators: [{ type: Optional },] },
     ]; };
     MatGridList.propDecorators = {
-        "_tiles": [{ type: ContentChildren, args: [MatGridTile,] },],
+        "_tiles": [{ type: ContentChildren, args: [MatGridTile, { descendants: true },] },],
         "cols": [{ type: Input },],
         "gutterSize": [{ type: Input },],
         "rowHeight": [{ type: Input },],

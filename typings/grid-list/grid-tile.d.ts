@@ -11,7 +11,7 @@ export declare class MatGridTile {
     private _element;
     _rowspan: number;
     _colspan: number;
-    constructor(_element: ElementRef);
+    constructor(_element: ElementRef<HTMLElement>);
     /** Amount of rows that the grid tile takes up. */
     rowspan: number;
     /** Amount of columns that the grid tile takes up. */
@@ -30,7 +30,7 @@ export declare class MatGridTileText implements AfterContentInit {
      */
     _lineSetter: MatLineSetter;
     _lines: QueryList<MatLine>;
-    constructor(_element: ElementRef);
+    constructor(_element: ElementRef<HTMLElement>);
     ngAfterContentInit(): void;
 }
 /**

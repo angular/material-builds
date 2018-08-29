@@ -20,11 +20,12 @@ var /** @type {?} */ nextId = 0;
  * Directive to display a text badge.
  */
 var MatBadge = /** @class */ (function () {
-    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber) {
+    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer) {
         this._document = _document;
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._ariaDescriber = _ariaDescriber;
+        this._renderer = _renderer;
         /**
          * Whether the badge has any content.
          */
@@ -192,7 +193,9 @@ var MatBadge = /** @class */ (function () {
      * @return {?}
      */
     function () {
-        var /** @type {?} */ badgeElement = this._document.createElement('span');
+        // @breaking-change 8.0.0 Remove null check for _renderer
+        var /** @type {?} */ rootNode = this._renderer || this._document;
+        var /** @type {?} */ badgeElement = rootNode.createElement('span');
         var /** @type {?} */ activeClass = 'mat-badge-active';
         badgeElement.setAttribute('id', "mat-badge-content-" + this._id);
         badgeElement.classList.add('mat-badge-content');
@@ -279,6 +282,7 @@ var MatBadge = /** @class */ (function () {
         { type: core.NgZone, },
         { type: core.ElementRef, },
         { type: a11y.AriaDescriber, },
+        { type: core.Renderer2, },
     ]; };
     MatBadge.propDecorators = {
         "color": [{ type: core.Input, args: ['matBadgeColor',] },],

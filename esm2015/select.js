@@ -752,8 +752,12 @@ class MatSelect extends _MatSelectMixinBase {
         }
         else if (this._multiple && keyCode === A && event.ctrlKey) {
             event.preventDefault();
-            const /** @type {?} */ hasDeselectedOptions = this.options.some(option => !option.selected);
-            this.options.forEach(option => hasDeselectedOptions ? option.select() : option.deselect());
+            const /** @type {?} */ hasDeselectedOptions = this.options.some(opt => !opt.disabled && !opt.selected);
+            this.options.forEach(option => {
+                if (!option.disabled) {
+                    hasDeselectedOptions ? option.select() : option.deselect();
+                }
+            });
         }
         else {
             const /** @type {?} */ previouslyFocusedIndex = manager.activeItemIndex;
@@ -1101,7 +1105,8 @@ class MatSelect extends _MatSelectMixinBase {
         }
         // Note: we use `_getAriaLabel` here, because we want to check whether there's a
         // computed label. `this.ariaLabel` is only the user-specified label.
-        if (!this._parentFormField || this._getAriaLabel()) {
+        if (!this._parentFormField || !this._parentFormField._hasFloatingLabel() ||
+            this._getAriaLabel()) {
             return null;
         }
         return this._parentFormField._labelId || null;

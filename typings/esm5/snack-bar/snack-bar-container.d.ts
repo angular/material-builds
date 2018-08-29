@@ -30,7 +30,7 @@ export declare class MatSnackBarContainer extends BasePortalOutlet implements On
     readonly _onEnter: Subject<any>;
     /** The state of the snack bar animations. */
     _animationState: string;
-    constructor(_ngZone: NgZone, _elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, 
+    constructor(_ngZone: NgZone, _elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, 
         /** The snack bar configuration. */
         snackBarConfig: MatSnackBarConfig);
     /** Attach a component portal as content to this snack bar container. */

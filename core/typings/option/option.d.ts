@@ -37,16 +37,15 @@ export declare class MatOption implements AfterViewChecked, OnDestroy {
     private _selected;
     private _active;
     private _disabled;
-    private _id;
     private _mostRecentViewValue;
     /** Whether the wrapping component is in multiple selection mode. */
     readonly multiple: boolean | undefined;
-    /** The unique ID of the option. */
-    readonly id: string;
     /** Whether or not the option is currently selected. */
     readonly selected: boolean;
     /** The form value of the option. */
     value: any;
+    /** The unique ID of the option. */
+    id: string;
     /** Whether the option is disabled. */
     disabled: any;
     /** Whether ripples for the option are disabled. */
@@ -55,7 +54,7 @@ export declare class MatOption implements AfterViewChecked, OnDestroy {
     readonly onSelectionChange: EventEmitter<MatOptionSelectionChange>;
     /** Emits when the state of the option changes and any parents have to be notified. */
     readonly _stateChanges: Subject<void>;
-    constructor(_element: ElementRef, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: MatOptgroup);
+    constructor(_element: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _parent: MatOptionParentComponent, group: MatOptgroup);
     /**
      * Whether or not the option is currently active and ready to be selected.
      * An active option displays styles as if it is focused, but the

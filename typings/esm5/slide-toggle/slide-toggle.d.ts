@@ -55,9 +55,9 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     /** Percentage of the thumb while dragging. Percentage as fraction of 100. */
     private _dragPercentage;
     /** Reference to the thumb HTMLElement. */
-    _thumbEl: ElementRef<HTMLElement>;
+    _thumbEl: ElementRef;
     /** Reference to the thumb bar HTMLElement. */
-    _thumbBarEl: ElementRef<HTMLElement>;
+    _thumbBarEl: ElementRef;
     /** Name value will be applied to the input element if present */
     name: string | null;
     /** A unique id for the slide-toggle input. If none is supplied, it will be auto-generated. */
@@ -91,7 +91,7 @@ export declare class MatSlideToggle extends _MatSlideToggleMixinBase implements 
     /** Returns the unique id for the visual hidden input. */
     readonly inputId: string;
     /** Reference to the underlying input element. */
-    _inputElement: ElementRef;
+    _inputElement: ElementRef<HTMLInputElement>;
     /** Reference to the ripple directive on the thumb container. */
     _ripple: MatRipple;
     constructor(elementRef: ElementRef, 

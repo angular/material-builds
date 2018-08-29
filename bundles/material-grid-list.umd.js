@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/bidi')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/gridList', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/bidi'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.gridList = {}),global.ng.core,global.ng.material.core,global.ng.cdk.bidi));
-}(this, (function (exports,core,core$1,bidi) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/material/core'), require('@angular/cdk/coercion'), require('@angular/cdk/bidi')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/gridList', ['exports', '@angular/core', '@angular/material/core', '@angular/cdk/coercion', '@angular/cdk/bidi'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.gridList = {}),global.ng.core,global.ng.material.core,global.ng.cdk.coercion,global.ng.cdk.bidi));
+}(this, (function (exports,core,core$1,coercion,bidi) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -44,30 +44,6 @@ function __extends(d, b) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
-
-/**
- * Converts values into strings. Falsy values become empty strings.
- * \@docs-private
- * @param {?} value
- * @return {?}
- */
-function coerceToString(value) {
-    return "" + (value || '');
-}
-/**
- * Converts a value that might be a string into a number.
- * \@docs-private
- * @param {?} value
- * @return {?}
- */
-function coerceToNumber(value) {
-    return typeof value === 'string' ? parseInt(value, 10) : value;
-}
-
-/**
- * @fileoverview added by tsickle
- * @suppress {checkTypes} checked by tsc
- */
 var MatGridTile = /** @class */ (function () {
     function MatGridTile(_element) {
         this._element = _element;
@@ -84,7 +60,7 @@ var MatGridTile = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._rowspan = coerceToNumber(value); },
+        function (value) { this._rowspan = Math.round(coercion.coerceNumberProperty(value)); },
         enumerable: true,
         configurable: true
     });
@@ -98,7 +74,7 @@ var MatGridTile = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._colspan = coerceToNumber(value); },
+        function (value) { this._colspan = Math.round(coercion.coerceNumberProperty(value)); },
         enumerable: true,
         configurable: true
     });
@@ -929,7 +905,7 @@ var MatGridList = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._cols = coerceToNumber(value); },
+        function (value) { this._cols = Math.round(coercion.coerceNumberProperty(value)); },
         enumerable: true,
         configurable: true
     });
@@ -943,7 +919,7 @@ var MatGridList = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._gutter = coerceToString(value); },
+        function (value) { this._gutter = "" + (value || ''); },
         enumerable: true,
         configurable: true
     });
@@ -954,7 +930,7 @@ var MatGridList = /** @class */ (function () {
          * @return {?}
          */
         function (value) {
-            var /** @type {?} */ newValue = coerceToString(value);
+            var /** @type {?} */ newValue = "" + (value || '');
             if (newValue !== this._rowHeight) {
                 this._rowHeight = newValue;
                 this._setTileStyler(this._rowHeight);
@@ -1094,7 +1070,7 @@ var MatGridList = /** @class */ (function () {
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
     ]; };
     MatGridList.propDecorators = {
-        "_tiles": [{ type: core.ContentChildren, args: [MatGridTile,] },],
+        "_tiles": [{ type: core.ContentChildren, args: [MatGridTile, { descendants: true },] },],
         "cols": [{ type: core.Input },],
         "gutterSize": [{ type: core.Input },],
         "rowHeight": [{ type: core.Input },],

@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { AriaDescriber } from '@angular/cdk/a11y';
-import { ElementRef, NgZone, OnDestroy } from '@angular/core';
+import { ElementRef, NgZone, OnDestroy, Renderer2 } from '@angular/core';
 import { ThemePalette } from '@angular/material/core';
 export declare type MatBadgePosition = 'above after' | 'above before' | 'below before' | 'below after';
 export declare type MatBadgeSize = 'small' | 'medium' | 'large';
@@ -16,6 +16,8 @@ export declare class MatBadge implements OnDestroy {
     private _ngZone;
     private _elementRef;
     private _ariaDescriber;
+    /** @breaking-change 8.0.0 Make _renderer a required param and remove _document. */
+    private _renderer;
     /** Whether the badge has any content. */
     _hasContent: boolean;
     /** The color of the badge. Can be `primary`, `accent`, or `warn`. */
@@ -43,7 +45,9 @@ export declare class MatBadge implements OnDestroy {
     /** Unique id for the badge */
     _id: number;
     private _badgeElement;
-    constructor(_document: any, _ngZone: NgZone, _elementRef: ElementRef, _ariaDescriber: AriaDescriber);
+    constructor(_document: any, _ngZone: NgZone, _elementRef: ElementRef<HTMLElement>, _ariaDescriber: AriaDescriber, 
+        /** @breaking-change 8.0.0 Make _renderer a required param and remove _document. */
+        _renderer?: Renderer2 | undefined);
     /** Whether the badge is above the host or not */
     isAbove(): boolean;
     /** Whether the badge is after the host or not */

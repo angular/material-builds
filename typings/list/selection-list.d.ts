@@ -59,7 +59,7 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     disabled: any;
     /** Whether the option is selected. */
     selected: boolean;
-    constructor(_element: ElementRef, _changeDetector: ChangeDetectorRef, 
+    constructor(_element: ElementRef<HTMLElement>, _changeDetector: ChangeDetectorRef, 
         /** @docs-private */
         selectionList: MatSelectionList);
     ngOnInit(): void;
@@ -122,7 +122,7 @@ export declare class MatSelectionList extends _MatSelectionListMixinBase impleme
     private _modelChanges;
     /** View to model callback that should be called if the list or its options lost focus. */
     _onTouched: () => void;
-    constructor(_element: ElementRef, tabIndex: string);
+    constructor(_element: ElementRef<HTMLElement>, tabIndex: string);
     ngAfterContentInit(): void;
     ngOnDestroy(): void;
     /** Focuses the last active list option. */

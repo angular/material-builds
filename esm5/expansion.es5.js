@@ -5,72 +5,28 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { __extends } from 'tslib';
-import { Directive, Input, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, Optional, SkipSelf, ViewContainerRef, ViewEncapsulation, ElementRef, Host, NgModule } from '@angular/core';
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
-import { CdkAccordion, CdkAccordionItem, CdkAccordionModule } from '@angular/cdk/accordion';
+import { InjectionToken, Directive, TemplateRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ElementRef, Inject, Input, Optional, SkipSelf, ViewChild, ViewContainerRef, ViewEncapsulation, Host, ContentChildren, NgModule } from '@angular/core';
 import { animate, animateChild, group, state, style, transition, trigger, query } from '@angular/animations';
+import { __extends } from 'tslib';
+import { CdkAccordionItem, CdkAccordion, CdkAccordionModule } from '@angular/cdk/accordion';
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { UniqueSelectionDispatcher } from '@angular/cdk/collections';
 import { TemplatePortal, PortalModule } from '@angular/cdk/portal';
-import { Subject, merge, Subscription } from 'rxjs';
+import { DOCUMENT, CommonModule } from '@angular/common';
+import { Subject, merge, Subscription, EMPTY } from 'rxjs';
 import { filter, startWith, take } from 'rxjs/operators';
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { ENTER, SPACE } from '@angular/cdk/keycodes';
-import { CommonModule } from '@angular/common';
+import { FocusMonitor, FocusKeyManager } from '@angular/cdk/a11y';
+import { ENTER, SPACE, HOME, END } from '@angular/cdk/keycodes';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
 /**
- * Directive for a Material Design Accordion.
+ * Token used to provide a `MatAccordion` to `MatExpansionPanel`.
+ * Used primarily to avoid circular imports between `MatAccordion` and `MatExpansionPanel`.
  */
-var MatAccordion = /** @class */ (function (_super) {
-    __extends(MatAccordion, _super);
-    function MatAccordion() {
-        var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this._hideToggle = false;
-        /**
-         * The display mode used for all expansion panels in the accordion. Currently two display
-         * modes exist:
-         *  default - a gutter-like spacing is placed around any expanded panel, placing the expanded
-         *     panel at a different elevation from the rest of the accordion.
-         *  flat - no spacing is placed around expanded panels, showing all panels at the same
-         *     elevation.
-         */
-        _this.displayMode = 'default';
-        return _this;
-    }
-    Object.defineProperty(MatAccordion.prototype, "hideToggle", {
-        get: /**
-         * Whether the expansion indicator should be hidden.
-         * @return {?}
-         */
-        function () { return this._hideToggle; },
-        set: /**
-         * @param {?} show
-         * @return {?}
-         */
-        function (show) { this._hideToggle = coerceBooleanProperty(show); },
-        enumerable: true,
-        configurable: true
-    });
-    MatAccordion.decorators = [
-        { type: Directive, args: [{
-                    selector: 'mat-accordion',
-                    exportAs: 'matAccordion',
-                    host: {
-                        class: 'mat-accordion'
-                    }
-                },] },
-    ];
-    /** @nocollapse */
-    MatAccordion.propDecorators = {
-        "hideToggle": [{ type: Input },],
-        "displayMode": [{ type: Input },],
-    };
-    return MatAccordion;
-}(CdkAccordion));
+var /** @type {?} */ MAT_ACCORDION = new InjectionToken('MAT_ACCORDION');
 
 /**
  * @fileoverview added by tsickle
@@ -143,6 +99,8 @@ var MatExpansionPanelContent = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkAccordionItem = CdkAccordionItem;
 /**
  * Counter for generating unique element ids.
  */
@@ -156,7 +114,7 @@ var ɵ0 = undefined;
  */
 var MatExpansionPanel = /** @class */ (function (_super) {
     __extends(MatExpansionPanel, _super);
-    function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef) {
+    function MatExpansionPanel(accordion, _changeDetectorRef, _uniqueSelectionDispatcher, _viewContainerRef, _document) {
         var _this = _super.call(this, accordion, _changeDetectorRef, _uniqueSelectionDispatcher) || this;
         _this._viewContainerRef = _viewContainerRef;
         _this._hideToggle = false;
@@ -169,6 +127,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
          */
         _this._headerId = "mat-expansion-panel-header-" + uniqueId++;
         _this.accordion = accordion;
+        _this._document = _document;
         return _this;
     }
     Object.defineProperty(MatExpansionPanel.prototype, "hideToggle", {
@@ -176,7 +135,9 @@ var MatExpansionPanel = /** @class */ (function (_super) {
          * Whether the toggle indicator should be hidden.
          * @return {?}
          */
-        function () { return this._hideToggle; },
+        function () {
+            return this._hideToggle || (this.accordion && this.accordion.hideToggle);
+        },
         set: /**
          * @param {?} value
          * @return {?}
@@ -187,21 +148,6 @@ var MatExpansionPanel = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    /** Whether the expansion indicator should be hidden. */
-    /**
-     * Whether the expansion indicator should be hidden.
-     * @return {?}
-     */
-    MatExpansionPanel.prototype._getHideToggle = /**
-     * Whether the expansion indicator should be hidden.
-     * @return {?}
-     */
-    function () {
-        if (this.accordion) {
-            return this.accordion.hideToggle;
-        }
-        return this.hideToggle;
-    };
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     /**
      * Determines whether the expansion panel should have spacing between it and its siblings.
@@ -213,6 +159,9 @@ var MatExpansionPanel = /** @class */ (function (_super) {
      */
     function () {
         if (this.accordion) {
+            // We don't need to subscribe to the `stateChanges` of the parent accordion because each time
+            // the [displayMode] input changes, the change detection will also cover the host bindings
+            // of this expansion panel.
             return (this.expanded ? this.accordion.displayMode : this._getExpandedState()) === 'default';
         }
         return false;
@@ -288,6 +237,23 @@ var MatExpansionPanel = /** @class */ (function (_super) {
             classList.remove(cssClass);
         }
     };
+    /** Checks whether the expansion panel's content contains the currently-focused element. */
+    /**
+     * Checks whether the expansion panel's content contains the currently-focused element.
+     * @return {?}
+     */
+    MatExpansionPanel.prototype._containsFocus = /**
+     * Checks whether the expansion panel's content contains the currently-focused element.
+     * @return {?}
+     */
+    function () {
+        if (this._body && this._document) {
+            var /** @type {?} */ focusedElement = this._document.activeElement;
+            var /** @type {?} */ bodyElement = this._body.nativeElement;
+            return focusedElement === bodyElement || bodyElement.contains(focusedElement);
+        }
+        return false;
+    };
     MatExpansionPanel.decorators = [
         { type: Component, args: [{styles: [".mat-expansion-panel{transition:box-shadow 280ms cubic-bezier(.4,0,.2,1);box-sizing:content-box;display:block;margin:0;transition:margin 225ms cubic-bezier(.4,0,.2,1)}.mat-expansion-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-expansion-panel{outline:solid 1px}}.mat-expansion-panel-content{overflow:hidden}.mat-expansion-panel-content.mat-expanded{overflow:visible}.mat-expansion-panel-body{padding:0 24px 16px}.mat-expansion-panel-spacing{margin:16px 0}.mat-accordion>.mat-expansion-panel-spacing:first-child,.mat-accordion>:first-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-top:0}.mat-accordion>.mat-expansion-panel-spacing:last-child,.mat-accordion>:last-child:not(.mat-expansion-panel) .mat-expansion-panel-spacing{margin-bottom:0}.mat-action-row{border-top-style:solid;border-top-width:1px;display:flex;flex-direction:row;justify-content:flex-end;padding:16px 8px 16px 24px}.mat-action-row button.mat-button{margin-left:8px}[dir=rtl] .mat-action-row button.mat-button{margin-left:0;margin-right:8px}"],
                     selector: 'mat-expansion-panel',
@@ -301,7 +267,7 @@ var MatExpansionPanel = /** @class */ (function (_super) {
                     providers: [
                         // Provide MatAccordion as undefined to prevent nested expansion panels from registering
                         // to the same accordion.
-                        { provide: MatAccordion, useValue: ɵ0 },
+                        { provide: MAT_ACCORDION, useValue: ɵ0 },
                     ],
                     host: {
                         'class': 'mat-expansion-panel',
@@ -312,14 +278,16 @@ var MatExpansionPanel = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatExpansionPanel.ctorParameters = function () { return [
-        { type: MatAccordion, decorators: [{ type: Optional }, { type: SkipSelf },] },
+        { type: undefined, decorators: [{ type: Optional }, { type: SkipSelf }, { type: Inject, args: [MAT_ACCORDION,] },] },
         { type: ChangeDetectorRef, },
         { type: UniqueSelectionDispatcher, },
         { type: ViewContainerRef, },
+        { type: undefined, decorators: [{ type: Inject, args: [DOCUMENT,] },] },
     ]; };
     MatExpansionPanel.propDecorators = {
         "hideToggle": [{ type: Input },],
         "_lazyContent": [{ type: ContentChild, args: [MatExpansionPanelContent,] },],
+        "_body": [{ type: ViewChild, args: ['body',] },],
     };
     return MatExpansionPanel;
 }(CdkAccordionItem));
@@ -354,12 +322,38 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         this._focusMonitor = _focusMonitor;
         this._changeDetectorRef = _changeDetectorRef;
         this._parentChangeSubscription = Subscription.EMPTY;
+        var /** @type {?} */ accordionHideToggleChange = panel.accordion ?
+            panel.accordion._stateChanges.pipe(filter(function (changes) { return !!changes["hideToggle"]; })) : EMPTY;
         // Since the toggle state depends on an @Input on the panel, we
-        // need to  subscribe and trigger change detection manually.
-        this._parentChangeSubscription = merge(panel.opened, panel.closed, panel._inputChanges.pipe(filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
+        // need to subscribe and trigger change detection manually.
+        this._parentChangeSubscription = merge(panel.opened, panel.closed, accordionHideToggleChange, panel._inputChanges.pipe(filter(function (changes) { return !!(changes["hideToggle"] || changes["disabled"]); })))
             .subscribe(function () { return _this._changeDetectorRef.markForCheck(); });
-        _focusMonitor.monitor(_element.nativeElement);
+        // Avoids focus being lost if the panel contained the focused element and was closed.
+        panel.closed
+            .pipe(filter(function () { return panel._containsFocus(); }))
+            .subscribe(function () { return _focusMonitor.focusVia(_element.nativeElement, 'program'); });
+        _focusMonitor.monitor(_element.nativeElement).subscribe(function (origin) {
+            if (origin && panel.accordion) {
+                panel.accordion._handleHeaderFocus(_this);
+            }
+        });
     }
+    Object.defineProperty(MatExpansionPanelHeader.prototype, "disabled", {
+        /**
+         * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
+         * @docs-private
+         */
+        get: /**
+         * Whether the associated panel is disabled. Implemented as a part of `FocusableOption`.
+         * \@docs-private
+         * @return {?}
+         */
+        function () {
+            return this.panel.disabled;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /** Toggles the expanded state of the panel. */
     /**
      * Toggles the expanded state of the panel.
@@ -440,8 +434,32 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                 this._toggle();
                 break;
             default:
+                if (this.panel.accordion) {
+                    this.panel.accordion._handleHeaderKeydown(event);
+                }
                 return;
         }
+    };
+    /**
+     * Focuses the panel header. Implemented as a part of `FocusableOption`.
+     * @param origin Origin of the action that triggered the focus.
+     * @docs-private
+     */
+    /**
+     * Focuses the panel header. Implemented as a part of `FocusableOption`.
+     * \@docs-private
+     * @param {?=} origin Origin of the action that triggered the focus.
+     * @return {?}
+     */
+    MatExpansionPanelHeader.prototype.focus = /**
+     * Focuses the panel header. Implemented as a part of `FocusableOption`.
+     * \@docs-private
+     * @param {?=} origin Origin of the action that triggered the focus.
+     * @return {?}
+     */
+    function (origin) {
+        if (origin === void 0) { origin = 'program'; }
+        this._focusMonitor.focusVia(this._element.nativeElement, origin);
     };
     /**
      * @return {?}
@@ -467,7 +485,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
                         'class': 'mat-expansion-panel-header',
                         'role': 'button',
                         '[attr.id]': 'panel._headerId',
-                        '[attr.tabindex]': 'panel.disabled ? -1 : 0',
+                        '[attr.tabindex]': 'disabled ? -1 : 0',
                         '[attr.aria-controls]': '_getPanelId()',
                         '[attr.aria-expanded]': '_isExpanded()',
                         '[attr.aria-disabled]': 'panel.disabled',
@@ -532,6 +550,112 @@ var MatExpansionPanelTitle = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * Directive for a Material Design Accordion.
+ */
+var MatAccordion = /** @class */ (function (_super) {
+    __extends(MatAccordion, _super);
+    function MatAccordion() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this._hideToggle = false;
+        /**
+         * Display mode used for all expansion panels in the accordion. Currently two display
+         * modes exist:
+         *  default - a gutter-like spacing is placed around any expanded panel, placing the expanded
+         *     panel at a different elevation from the rest of the accordion.
+         *  flat - no spacing is placed around expanded panels, showing all panels at the same
+         *     elevation.
+         */
+        _this.displayMode = 'default';
+        return _this;
+    }
+    Object.defineProperty(MatAccordion.prototype, "hideToggle", {
+        get: /**
+         * Whether the expansion indicator should be hidden.
+         * @return {?}
+         */
+        function () { return this._hideToggle; },
+        set: /**
+         * @param {?} show
+         * @return {?}
+         */
+        function (show) { this._hideToggle = coerceBooleanProperty(show); },
+        enumerable: true,
+        configurable: true
+    });
+    /**
+     * @return {?}
+     */
+    MatAccordion.prototype.ngAfterContentInit = /**
+     * @return {?}
+     */
+    function () {
+        this._keyManager = new FocusKeyManager(this._headers).withWrap();
+    };
+    /** Handles keyboard events coming in from the panel headers. */
+    /**
+     * Handles keyboard events coming in from the panel headers.
+     * @param {?} event
+     * @return {?}
+     */
+    MatAccordion.prototype._handleHeaderKeydown = /**
+     * Handles keyboard events coming in from the panel headers.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        var keyCode = event.keyCode;
+        var /** @type {?} */ manager = this._keyManager;
+        if (keyCode === HOME) {
+            manager.setFirstItemActive();
+            event.preventDefault();
+        }
+        else if (keyCode === END) {
+            manager.setLastItemActive();
+            event.preventDefault();
+        }
+        else {
+            this._keyManager.onKeydown(event);
+        }
+    };
+    /**
+     * @param {?} header
+     * @return {?}
+     */
+    MatAccordion.prototype._handleHeaderFocus = /**
+     * @param {?} header
+     * @return {?}
+     */
+    function (header) {
+        this._keyManager.updateActiveItem(header);
+    };
+    MatAccordion.decorators = [
+        { type: Directive, args: [{
+                    selector: 'mat-accordion',
+                    exportAs: 'matAccordion',
+                    inputs: ['multi'],
+                    providers: [{
+                            provide: MAT_ACCORDION,
+                            useExisting: MatAccordion
+                        }],
+                    host: {
+                        class: 'mat-accordion'
+                    }
+                },] },
+    ];
+    /** @nocollapse */
+    MatAccordion.propDecorators = {
+        "_headers": [{ type: ContentChildren, args: [MatExpansionPanelHeader, { descendants: true },] },],
+        "hideToggle": [{ type: Input },],
+        "displayMode": [{ type: Input },],
+    };
+    return MatAccordion;
+}(CdkAccordion));
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 var MatExpansionModule = /** @class */ (function () {
     function MatExpansionModule() {
     }
@@ -571,5 +695,5 @@ var MatExpansionModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatExpansionModule, MatAccordion, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
+export { MatExpansionModule, MatAccordion, MAT_ACCORDION, _CdkAccordionItem, MatExpansionPanel, MatExpansionPanelActionRow, MatExpansionPanelHeader, MatExpansionPanelDescription, MatExpansionPanelTitle, MatExpansionPanelContent, EXPANSION_PANEL_ANIMATION_TIMING, matExpansionAnimations };
 //# sourceMappingURL=expansion.es5.js.map

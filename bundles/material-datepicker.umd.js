@@ -227,7 +227,10 @@ var MatCalendarBody = /** @class */ (function () {
         var _this = this;
         this._ngZone.runOutsideAngular(function () {
             _this._ngZone.onStable.asObservable().pipe(operators.take(1)).subscribe(function () {
-                _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
+                var /** @type {?} */ activeCell = _this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
+                if (activeCell) {
+                    activeCell.focus();
+                }
             });
         });
     };
@@ -238,7 +241,7 @@ var MatCalendarBody = /** @class */ (function () {
                     host: {
                         'class': 'mat-calendar-body',
                         'role': 'grid',
-                        'attr.aria-readonly': 'true'
+                        'aria-readonly': 'true'
                     },
                     exportAs: 'matCalendarBody',
                     encapsulation: core.ViewEncapsulation.None,
@@ -2367,6 +2370,13 @@ var MatDatepicker = /** @class */ (function () {
      */
     function () {
         var _this = this;
+        // Usually this would be handled by `open` which ensures that we can only have one overlay
+        // open at a time, however since we reset the variables in async handlers some overlays
+        // may slip through if the user opens and closes multiple times in quick succession (e.g.
+        // by holding down the enter key).
+        if (this._dialogRef) {
+            this._dialogRef.close();
+        }
         this._dialogRef = this._dialog.open(MatDatepickerContent, {
             direction: this._dir ? this._dir.value : 'ltr',
             viewContainerRef: this._viewContainerRef,
@@ -3054,10 +3064,12 @@ var MatDatepickerToggleIcon = /** @class */ (function () {
  * @template D
  */
 var MatDatepickerToggle = /** @class */ (function () {
-    function MatDatepickerToggle(_intl, _changeDetectorRef) {
+    function MatDatepickerToggle(_intl, _changeDetectorRef, defaultTabIndex) {
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
         this._stateChanges = rxjs.Subscription.EMPTY;
+        var /** @type {?} */ parsedTabIndex = Number(defaultTabIndex);
+        this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
     }
     Object.defineProperty(MatDatepickerToggle.prototype, "disabled", {
         get: /**
@@ -3141,10 +3153,12 @@ var MatDatepickerToggle = /** @class */ (function () {
     };
     MatDatepickerToggle.decorators = [
         { type: core.Component, args: [{selector: 'mat-datepicker-toggle',
-                    template: "<button mat-icon-button type=\"button\" aria-haspopup=\"true\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
+                    template: "<button mat-icon-button type=\"button\" aria-haspopup=\"true\" [attr.aria-label]=\"_intl.openCalendarLabel\" [attr.tabindex]=\"disabled ? -1 : tabIndex\" [disabled]=\"disabled\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
                     styles: [".mat-form-field-appearance-legacy .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon{width:1em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-datepicker-toggle-default-icon{display:block;width:1.5em;height:1.5em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-datepicker-toggle-default-icon{margin:auto}"],
                     host: {
                         'class': 'mat-datepicker-toggle',
+                        // Clear out the native tabindex here since we forward it to the underlying button
+                        '[attr.tabindex]': 'null',
                         '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
                         '[class.mat-accent]': 'datepicker && datepicker.color === "accent"',
                         '[class.mat-warn]': 'datepicker && datepicker.color === "warn"',
@@ -3158,9 +3172,11 @@ var MatDatepickerToggle = /** @class */ (function () {
     MatDatepickerToggle.ctorParameters = function () { return [
         { type: MatDatepickerIntl, },
         { type: core.ChangeDetectorRef, },
+        { type: undefined, decorators: [{ type: core.Attribute, args: ['tabindex',] },] },
     ]; };
     MatDatepickerToggle.propDecorators = {
         "datepicker": [{ type: core.Input, args: ['for',] },],
+        "tabIndex": [{ type: core.Input },],
         "disabled": [{ type: core.Input },],
         "_customIcon": [{ type: core.ContentChild, args: [MatDatepickerToggleIcon,] },],
     };

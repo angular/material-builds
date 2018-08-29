@@ -43,7 +43,7 @@ export declare function MAT_TOOLTIP_DEFAULT_OPTIONS_FACTORY(): MatTooltipDefault
  * Directive that attaches a material design tooltip to the host element. Animates the showing and
  * hiding of a tooltip provided position (defaults to below the element).
  *
- * https://material.google.com/components/tooltips.html
+ * https://material.io/design/components/tooltips.html
  */
 export declare class MatTooltip implements OnDestroy {
     private _overlay;
@@ -81,7 +81,7 @@ export declare class MatTooltip implements OnDestroy {
     private _manualListeners;
     /** Emits when the component is destroyed. */
     private readonly _destroyed;
-    constructor(_overlay: Overlay, _elementRef: ElementRef, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, _scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions);
+    constructor(_overlay: Overlay, _elementRef: ElementRef<HTMLElement>, _scrollDispatcher: ScrollDispatcher, _viewContainerRef: ViewContainerRef, _ngZone: NgZone, _platform: Platform, _ariaDescriber: AriaDescriber, _focusMonitor: FocusMonitor, _scrollStrategy: any, _dir: Directionality, _defaultOptions: MatTooltipDefaultOptions);
     /**
      * Dispose the tooltip when destroyed.
      */
@@ -170,7 +170,7 @@ export declare class TooltipComponent {
     /**
      * Interactions on the HTML body should close the tooltip immediately as defined in the
      * material design spec.
-     * https://material.google.com/components/tooltips.html#tooltips-interaction
+     * https://material.io/design/components/tooltips.html#behavior
      */
     _handleBodyInteraction(): void;
     /**

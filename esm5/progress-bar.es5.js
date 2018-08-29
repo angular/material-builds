@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { __extends } from 'tslib';
-import { Component, ChangeDetectionStrategy, ElementRef, Inject, Input, Optional, ViewEncapsulation, NgModule } from '@angular/core';
-import { Location, CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy, ElementRef, Inject, Input, Optional, ViewEncapsulation, InjectionToken, inject, NgModule } from '@angular/core';
 import { ANIMATION_MODULE_TYPE } from '@angular/platform-browser/animations';
 import { mixinColor, MatCommonModule } from '@angular/material/core';
+import { DOCUMENT, CommonModule } from '@angular/common';
 
 /**
  * @fileoverview added by tsickle
@@ -28,6 +28,21 @@ MatProgressBarBase = /** @class */ (function () {
     return MatProgressBarBase;
 }());
 var /** @type {?} */ _MatProgressBarMixinBase = mixinColor(MatProgressBarBase, 'primary');
+/**
+ * Injection token used to provide the current location to `MatProgressBar`.
+ * Used to handle server-side rendering and to stub out during unit tests.
+ * \@docs-private
+ */
+var /** @type {?} */ MAT_PROGRESS_BAR_LOCATION = new InjectionToken('mat-progress-bar-location', { providedIn: 'root', factory: MAT_PROGRESS_BAR_LOCATION_FACTORY });
+/**
+ * \@docs-private
+ * @return {?}
+ */
+function MAT_PROGRESS_BAR_LOCATION_FACTORY() {
+    var /** @type {?} */ _document = inject(DOCUMENT);
+    var /** @type {?} */ pathname = (_document && _document.location && _document.location.pathname) || '';
+    return { pathname: pathname };
+}
 /**
  * Counter used to generate unique IDs for progress bars.
  */
@@ -61,11 +76,12 @@ var MatProgressBar = /** @class */ (function (_super) {
         _this.progressbarId = "mat-progress-bar-" + progressbarId++;
         // We need to prefix the SVG reference with the current path, otherwise they won't work
         // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
-        // because named route URLs can contain parentheses (see #12338).
-        // We need to prefix the SVG reference with the current path, otherwise they won't work
-        // in Safari if the page has a `<base>` tag. Note that we need quotes inside the `url()`,
-        // because named route URLs can contain parentheses (see #12338).
-        _this._rectangleFillValue = "url('" + (location ? location.path() : '') + "#" + _this.progressbarId + "')";
+        // because named route URLs can contain parentheses (see #12338). Also we don't use
+        // `Location` from `@angular/common` since we can't tell the difference between whether
+        // the consumer is using the hash location strategy or not, because `Location` normalizes
+        // both `/#/foo/bar` and `/foo/bar` to the same thing.
+        var /** @type {?} */ path = location && location.pathname ? location.pathname.split('#')[0] : '';
+        _this._rectangleFillValue = "url('" + path + "#" + _this.progressbarId + "')";
         return _this;
     }
     Object.defineProperty(MatProgressBar.prototype, "value", {
@@ -152,7 +168,7 @@ var MatProgressBar = /** @class */ (function (_super) {
     MatProgressBar.ctorParameters = function () { return [
         { type: ElementRef, },
         { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [ANIMATION_MODULE_TYPE,] },] },
-        { type: Location, decorators: [{ type: Optional },] },
+        { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [MAT_PROGRESS_BAR_LOCATION,] },] },
     ]; };
     MatProgressBar.propDecorators = {
         "value": [{ type: Input },],
@@ -201,5 +217,5 @@ var MatProgressBarModule = /** @class */ (function () {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatProgressBarModule, MatProgressBarBase, _MatProgressBarMixinBase, MatProgressBar };
+export { MatProgressBarModule, MatProgressBarBase, _MatProgressBarMixinBase, MAT_PROGRESS_BAR_LOCATION, MAT_PROGRESS_BAR_LOCATION_FACTORY, MatProgressBar };
 //# sourceMappingURL=progress-bar.es5.js.map

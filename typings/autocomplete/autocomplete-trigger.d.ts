@@ -67,8 +67,19 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
     private _closingActionsSubscription;
     /** Subscription to viewport size changes. */
     private _viewportSubscription;
+    /**
+     * Whether the autocomplete can open the next time it is focused. Used to prevent a focused,
+     * closed autocomplete from being reopened if the user switches to another browser tab and then
+     * comes back.
+     */
+    private _canOpenOnNextFocus;
     /** Stream of keyboard events that can close the panel. */
     private readonly _closeKeyEventStream;
+    /**
+     * Event handler for when the window is blurred. Needs to be an
+     * arrow function in order to preserve the context.
+     */
+    private _windowBlurHandler;
     /** `View -> model callback called when value changes` */
     _onChange: (value: any) => void;
     /** `View -> model callback called when autocomplete has been touched` */
@@ -90,7 +101,7 @@ export declare class MatAutocompleteTrigger implements ControlValueAccessor, OnD
      * act as a regular input and the user won't be able to open the panel.
      */
     autocompleteDisabled: boolean;
-    constructor(_element: ElementRef, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, _scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler?: ViewportRuler | undefined);
+    constructor(_element: ElementRef<HTMLInputElement>, _overlay: Overlay, _viewContainerRef: ViewContainerRef, _zone: NgZone, _changeDetectorRef: ChangeDetectorRef, _scrollStrategy: any, _dir: Directionality, _formField: MatFormField, _document: any, _viewportRuler?: ViewportRuler | undefined);
     ngOnDestroy(): void;
     /** Whether or not the autocomplete panel is open. */
     readonly panelOpen: boolean;

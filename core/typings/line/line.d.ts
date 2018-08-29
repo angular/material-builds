@@ -20,7 +20,7 @@ export declare class MatLine {
 export declare class MatLineSetter {
     private _lines;
     private _element;
-    constructor(_lines: QueryList<MatLine>, _element: ElementRef);
+    constructor(_lines: QueryList<MatLine>, _element: ElementRef<HTMLElement>);
     private _setLineClass(count);
     private _resetClasses();
     private _setClass(className, isAdd);

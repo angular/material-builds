@@ -13,7 +13,7 @@ export interface MatChipInputEvent {
  * May be placed inside or outside of an `<mat-chip-list>`.
  */
 export declare class MatChipInput implements OnChanges {
-    protected _elementRef: ElementRef;
+    protected _elementRef: ElementRef<HTMLInputElement>;
     private _defaultOptions;
     /** Whether the control is focused. */
     focused: boolean;
@@ -37,11 +37,14 @@ export declare class MatChipInput implements OnChanges {
     placeholder: string;
     /** Unique id for the input. */
     id: string;
+    /** Whether the input is disabled. */
+    disabled: boolean;
+    private _disabled;
     /** Whether the input is empty. */
     readonly empty: boolean;
     /** The native input element to which this directive is attached. */
     protected _inputElement: HTMLInputElement;
-    constructor(_elementRef: ElementRef, _defaultOptions: MatChipsDefaultOptions);
+    constructor(_elementRef: ElementRef<HTMLInputElement>, _defaultOptions: MatChipsDefaultOptions);
     ngOnChanges(): void;
     /** Utility method to make host definition/tests more clear. */
     _keydown(event?: KeyboardEvent): void;

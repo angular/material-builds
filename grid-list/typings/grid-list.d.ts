@@ -26,7 +26,7 @@ export declare class MatGridList implements OnInit, AfterContentChecked {
     private _tileStyler;
     /** Query list of tiles that are being rendered. */
     _tiles: QueryList<MatGridTile>;
-    constructor(_element: ElementRef, _dir: Directionality);
+    constructor(_element: ElementRef<HTMLElement>, _dir: Directionality);
     /** Amount of columns in the grid list. */
     cols: number;
     /** Size of the grid list's gutter in pixels. */

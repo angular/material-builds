@@ -189,7 +189,7 @@ export declare class MatRadioButton extends _MatRadioButtonMixinBase implements 
     /** Unregister function for _radioDispatcher */
     private _removeUniqueSelectionListener;
     /** The native `<input type=radio>` element */
-    _inputElement: ElementRef;
+    _inputElement: ElementRef<HTMLInputElement>;
     constructor(radioGroup: MatRadioGroup, elementRef: ElementRef, _changeDetector: ChangeDetectorRef, _focusMonitor: FocusMonitor, _radioDispatcher: UniqueSelectionDispatcher, _animationMode?: string | undefined);
     /** Focuses the radio button. */
     focus(): void;

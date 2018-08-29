@@ -52,7 +52,7 @@ export declare class MatIcon extends _MatIconMixinBase implements OnChanges, OnI
     private _fontIcon;
     private _previousFontSetClass;
     private _previousFontIconClass;
-    constructor(elementRef: ElementRef, _iconRegistry: MatIconRegistry, ariaHidden: string);
+    constructor(elementRef: ElementRef<HTMLElement>, _iconRegistry: MatIconRegistry, ariaHidden: string);
     /**
      * Splits an svgIcon binding value into its icon set and icon name components.
      * Returns a 2-element array of [(icon set), (icon name)].

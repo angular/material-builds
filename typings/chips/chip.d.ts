@@ -54,6 +54,7 @@ export declare class MatChipTrailingIcon {
  */
 export declare class MatChip extends _MatChipMixinBase implements FocusableOption, OnDestroy, CanColor, CanDisable, CanDisableRipple, RippleTarget {
     _elementRef: ElementRef;
+    private _ngZone;
     /** Reference to the RippleRenderer for the chip. */
     private _chipRipple;
     /** Whether the ripples are globally disabled through the RippleGlobalOptions */
@@ -109,7 +110,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
     readonly removed: EventEmitter<MatChipEvent>;
     /** The ARIA selected applied to the chip. */
     readonly ariaSelected: string | null;
-    constructor(_elementRef: ElementRef, ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions);
+    constructor(_elementRef: ElementRef, _ngZone: NgZone, platform: Platform, globalOptions: RippleGlobalOptions);
     _addHostClassName(): void;
     ngOnDestroy(): void;
     /** Selects the chip. */
@@ -152,5 +153,5 @@ export declare class MatChipRemove {
     protected _parentChip: MatChip;
     constructor(_parentChip: MatChip);
     /** Calls the parent chip's public `remove()` method if applicable. */
-    _handleClick(): void;
+    _handleClick(event: Event): void;
 }

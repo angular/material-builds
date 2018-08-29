@@ -19,12 +19,14 @@ import { CommonModule } from '@angular/common';
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): Workaround for https://github.com/angular/material2/issues/12760
+const /** @type {?} */ _CdkTextareaAutosize = CdkTextareaAutosize;
 /**
  * Directive to automatically resize a textarea to fit its content.
  * @deprecated Use `cdkTextareaAutosize` from `\@angular/cdk/text-field` instead.
  * \@breaking-change 7.0.0
  */
-class MatTextareaAutosize extends CdkTextareaAutosize {
+class MatTextareaAutosize extends _CdkTextareaAutosize {
     /**
      * @return {?}
      */
@@ -325,10 +327,12 @@ class MatInput extends _MatInputMixinBase {
      * @return {?}
      */
     ngOnInit() {
-        this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(event => {
-            this.autofilled = event.isAutofilled;
-            this.stateChanges.next();
-        });
+        if (this._platform.isBrowser) {
+            this._autofillMonitor.monitor(this._elementRef.nativeElement).subscribe(event => {
+                this.autofilled = event.isAutofilled;
+                this.stateChanges.next();
+            });
+        }
     }
     /**
      * @return {?}
@@ -341,7 +345,9 @@ class MatInput extends _MatInputMixinBase {
      */
     ngOnDestroy() {
         this.stateChanges.complete();
-        this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
+        if (this._platform.isBrowser) {
+            this._autofillMonitor.stopMonitoring(this._elementRef.nativeElement);
+        }
     }
     /**
      * @return {?}
@@ -542,5 +548,5 @@ MatInputModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };
+export { _CdkTextareaAutosize, MatTextareaAutosize, MatInputBase, _MatInputMixinBase, MatInput, getMatInputUnsupportedTypeError, MatInputModule, MAT_INPUT_VALUE_ACCESSOR };
 //# sourceMappingURL=input.js.map

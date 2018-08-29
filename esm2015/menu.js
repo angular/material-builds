@@ -174,7 +174,7 @@ const /** @type {?} */ transformMenu = matMenuAnimations.transformMenu;
  * @return {?}
  */
 function throwMatMenuMissingError() {
-    throw Error(`mat-menu-trigger: must pass in an mat-menu instance.
+    throw Error(`matMenuTriggerFor: must pass in an mat-menu instance.
 
     Example:
       <mat-menu #menu="matMenu"></mat-menu>
@@ -187,8 +187,8 @@ function throwMatMenuMissingError() {
  * @return {?}
  */
 function throwMatMenuInvalidPositionX() {
-    throw Error(`x-position value must be either 'before' or after'.
-      Example: <mat-menu x-position="before" #menu="matMenu"></mat-menu>`);
+    throw Error(`xPosition value must be either 'before' or after'.
+      Example: <mat-menu xPosition="before" #menu="matMenu"></mat-menu>`);
 }
 /**
  * Throws an exception for the case when menu's y-position value isn't valid.
@@ -197,8 +197,8 @@ function throwMatMenuInvalidPositionX() {
  * @return {?}
  */
 function throwMatMenuInvalidPositionY() {
-    throw Error(`y-position value must be either 'above' or below'.
-      Example: <mat-menu y-position="above" #menu="matMenu"></mat-menu>`);
+    throw Error(`yPosition value must be either 'above' or below'.
+      Example: <mat-menu yPosition="above" #menu="matMenu"></mat-menu>`);
 }
 
 /**
@@ -905,6 +905,7 @@ class MatMenuTrigger {
         if (this._menuOpen) {
             return;
         }
+        this._checkMenu();
         const /** @type {?} */ overlayRef = this._createOverlay();
         this._setPosition(/** @type {?} */ (overlayRef.getConfig().positionStrategy));
         overlayRef.attach(this._portal);
@@ -1285,5 +1286,5 @@ MatMenuModule.decorators = [
  * @suppress {checkTypes} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa23, MatMenuItemBase as ɵb23, _MatMenuItemMixinBase as ɵc23, MAT_MENU_PANEL as ɵf23, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd23, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe23 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa24, MatMenuItemBase as ɵb24, _MatMenuItemMixinBase as ɵc24, MAT_MENU_PANEL as ɵf24, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd24, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe24 };
 //# sourceMappingURL=menu.js.map

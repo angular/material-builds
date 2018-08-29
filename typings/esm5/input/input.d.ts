@@ -19,7 +19,7 @@ export declare class MatInputBase {
 export declare const _MatInputMixinBase: (new (...args: any[]) => CanUpdateErrorState) & typeof MatInputBase;
 /** Directive that allows a native input to work inside a `MatFormField`. */
 export declare class MatInput extends _MatInputMixinBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, OnInit, DoCheck, CanUpdateErrorState {
-    protected _elementRef: ElementRef;
+    protected _elementRef: ElementRef<HTMLInputElement>;
     protected _platform: Platform;
     /** @docs-private */
     ngControl: NgControl;
@@ -88,7 +88,7 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     readonly: boolean;
     private _readonly;
     protected _neverEmptyInputTypes: string[];
-    constructor(_elementRef: ElementRef, _platform: Platform, 
+    constructor(_elementRef: ElementRef<HTMLInputElement>, _platform: Platform, 
         /** @docs-private */
         ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone);
     ngOnInit(): void;

@@ -81,7 +81,7 @@ export declare class RippleRenderer {
      * ripple is shown and cleared once no more ripples are visible.
      */
     private _containerRect;
-    constructor(_target: RippleTarget, _ngZone: NgZone, elementRef: ElementRef, platform: Platform);
+    constructor(_target: RippleTarget, _ngZone: NgZone, elementRef: ElementRef<HTMLElement>, platform: Platform);
     /**
      * Fades in a ripple at the given coordinates.
      * @param x Coordinate within the element, along the X axis at which to start the ripple.

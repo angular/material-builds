@@ -5,7 +5,7 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, InjectionToken, ViewContainerRef, Directive, ContentChild, defineInjectable } from '@angular/core';
+import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, InjectionToken, ViewContainerRef, Directive, Attribute, ContentChild, defineInjectable } from '@angular/core';
 import { Subject, merge, Subscription, of } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
 import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, ESCAPE } from '@angular/cdk/keycodes';
@@ -194,7 +194,10 @@ class MatCalendarBody {
     _focusActiveCell() {
         this._ngZone.runOutsideAngular(() => {
             this._ngZone.onStable.asObservable().pipe(take(1)).subscribe(() => {
-                this._elementRef.nativeElement.querySelector('.mat-calendar-body-active').focus();
+                const /** @type {?} */ activeCell = this._elementRef.nativeElement.querySelector('.mat-calendar-body-active');
+                if (activeCell) {
+                    activeCell.focus();
+                }
             });
         });
     }
@@ -206,7 +209,7 @@ MatCalendarBody.decorators = [
                 host: {
                     'class': 'mat-calendar-body',
                     'role': 'grid',
-                    'attr.aria-readonly': 'true'
+                    'aria-readonly': 'true'
                 },
                 exportAs: 'matCalendarBody',
                 encapsulation: ViewEncapsulation.None,
@@ -1931,6 +1934,13 @@ class MatDatepicker {
      * @return {?}
      */
     _openAsDialog() {
+        // Usually this would be handled by `open` which ensures that we can only have one overlay
+        // open at a time, however since we reset the variables in async handlers some overlays
+        // may slip through if the user opens and closes multiple times in quick succession (e.g.
+        // by holding down the enter key).
+        if (this._dialogRef) {
+            this._dialogRef.close();
+        }
         this._dialogRef = this._dialog.open(MatDatepickerContent, {
             direction: this._dir ? this._dir.value : 'ltr',
             viewContainerRef: this._viewContainerRef,
@@ -2489,11 +2499,14 @@ class MatDatepickerToggle {
     /**
      * @param {?} _intl
      * @param {?} _changeDetectorRef
+     * @param {?} defaultTabIndex
      */
-    constructor(_intl, _changeDetectorRef) {
+    constructor(_intl, _changeDetectorRef, defaultTabIndex) {
         this._intl = _intl;
         this._changeDetectorRef = _changeDetectorRef;
         this._stateChanges = Subscription.EMPTY;
+        const /** @type {?} */ parsedTabIndex = Number(defaultTabIndex);
+        this.tabIndex = (parsedTabIndex || parsedTabIndex === 0) ? parsedTabIndex : null;
     }
     /**
      * Whether the toggle button is disabled.
@@ -2556,10 +2569,12 @@ class MatDatepickerToggle {
 }
 MatDatepickerToggle.decorators = [
     { type: Component, args: [{selector: 'mat-datepicker-toggle',
-                template: "<button mat-icon-button type=\"button\" aria-haspopup=\"true\" [attr.aria-label]=\"_intl.openCalendarLabel\" [disabled]=\"disabled\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
+                template: "<button mat-icon-button type=\"button\" aria-haspopup=\"true\" [attr.aria-label]=\"_intl.openCalendarLabel\" [attr.tabindex]=\"disabled ? -1 : tabIndex\" [disabled]=\"disabled\" (click)=\"_open($event)\"><svg *ngIf=\"!_customIcon\" class=\"mat-datepicker-toggle-default-icon\" viewBox=\"0 0 24 24\" width=\"24px\" height=\"24px\" fill=\"currentColor\" focusable=\"false\"><path d=\"M0 0h24v24H0z\" fill=\"none\"/><path d=\"M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM7 10h5v5H7z\"/></svg><ng-content select=\"[matDatepickerToggleIcon]\"></ng-content></button>",
                 styles: [".mat-form-field-appearance-legacy .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field-appearance-legacy .mat-form-field-suffix .mat-datepicker-toggle-default-icon{width:1em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-datepicker-toggle-default-icon{display:block;width:1.5em;height:1.5em}.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-prefix .mat-icon-button .mat-datepicker-toggle-default-icon,.mat-form-field:not(.mat-form-field-appearance-legacy) .mat-form-field-suffix .mat-icon-button .mat-datepicker-toggle-default-icon{margin:auto}"],
                 host: {
                     'class': 'mat-datepicker-toggle',
+                    // Clear out the native tabindex here since we forward it to the underlying button
+                    '[attr.tabindex]': 'null',
                     '[class.mat-datepicker-toggle-active]': 'datepicker && datepicker.opened',
                     '[class.mat-accent]': 'datepicker && datepicker.color === "accent"',
                     '[class.mat-warn]': 'datepicker && datepicker.color === "warn"',
@@ -2573,9 +2588,11 @@ MatDatepickerToggle.decorators = [
 MatDatepickerToggle.ctorParameters = () => [
     { type: MatDatepickerIntl, },
     { type: ChangeDetectorRef, },
+    { type: undefined, decorators: [{ type: Attribute, args: ['tabindex',] },] },
 ];
 MatDatepickerToggle.propDecorators = {
     "datepicker": [{ type: Input, args: ['for',] },],
+    "tabIndex": [{ type: Input },],
     "disabled": [{ type: Input },],
     "_customIcon": [{ type: ContentChild, args: [MatDatepickerToggleIcon,] },],
 };

@@ -5,11 +5,10 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-import { Directive, ViewContainerRef, Attribute, ContentChildren, ElementRef, Input, IterableDiffers, TemplateRef, Optional, Renderer2, ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
+import { Directive, ViewContainerRef, Attribute, ContentChildren, ElementRef, Input, IterableDiffers, ChangeDetectionStrategy, Component, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { __extends } from 'tslib';
 import { CdkNestedTreeNode, CdkTree, CdkTreeNode, CdkTreeNodeDef, CdkTreeNodePadding, CdkTreeNodeToggle, CdkTreeModule } from '@angular/cdk/tree';
 import { mixinDisabled, mixinTabIndex, MatCommonModule } from '@angular/material/core';
-import { Directionality } from '@angular/cdk/bidi';
 import { CommonModule } from '@angular/common';
 import { DataSource } from '@angular/cdk/collections';
 import { BehaviorSubject, merge } from 'rxjs';
@@ -43,6 +42,8 @@ var MatTreeNodeOutlet = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkTreeNodeDef = CdkTreeNodeDef;
 var /** @type {?} */ _MatTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkTreeNode));
 var /** @type {?} */ _MatNestedTreeNodeMixinBase = mixinTabIndex(mixinDisabled(CdkNestedTreeNode));
 /**
@@ -90,13 +91,8 @@ var MatTreeNode = /** @class */ (function (_super) {
  */
 var MatTreeNodeDef = /** @class */ (function (_super) {
     __extends(MatTreeNodeDef, _super);
-    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
-    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
-    // fixed bug.
-    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
-    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
-    function MatTreeNodeDef(template) {
-        return _super.call(this, template) || this;
+    function MatTreeNodeDef() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTreeNodeDef.decorators = [
         { type: Directive, args: [{
@@ -108,14 +104,11 @@ var MatTreeNodeDef = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatTreeNodeDef.ctorParameters = function () { return [
-        { type: TemplateRef, },
-    ]; };
     MatTreeNodeDef.propDecorators = {
         "data": [{ type: Input, args: ['matTreeNode',] },],
     };
     return MatTreeNodeDef;
-}(CdkTreeNodeDef));
+}(_CdkTreeNodeDef));
 /**
  * Wrapper for the CdkTree nested node with Material design styles.
  * @template T
@@ -185,19 +178,16 @@ var MatNestedTreeNode = /** @class */ (function (_super) {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkTreeNodePadding = CdkTreeNodePadding;
 /**
  * Wrapper for the CdkTree padding with Material design styles.
  * @template T
  */
 var MatTreeNodePadding = /** @class */ (function (_super) {
     __extends(MatTreeNodePadding, _super);
-    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
-    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
-    // fixed bug.
-    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
-    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
-    function MatTreeNodePadding(_treeNode, _tree, _renderer, _element, _dir) {
-        return _super.call(this, _treeNode, _tree, _renderer, _element, _dir) || this;
+    function MatTreeNodePadding() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTreeNodePadding.decorators = [
         { type: Directive, args: [{
@@ -206,37 +196,27 @@ var MatTreeNodePadding = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatTreeNodePadding.ctorParameters = function () { return [
-        { type: CdkTreeNode, },
-        { type: CdkTree, },
-        { type: Renderer2, },
-        { type: ElementRef, },
-        { type: Directionality, decorators: [{ type: Optional },] },
-    ]; };
     MatTreeNodePadding.propDecorators = {
         "level": [{ type: Input, args: ['matTreeNodePadding',] },],
         "indent": [{ type: Input, args: ['matTreeNodePaddingIndent',] },],
     };
     return MatTreeNodePadding;
-}(CdkTreeNodePadding));
+}(_CdkTreeNodePadding));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkTree = CdkTree;
 /**
  * Wrapper for the CdkTable with Material design styles.
  * @template T
  */
 var MatTree = /** @class */ (function (_super) {
     __extends(MatTree, _super);
-    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
-    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
-    // fixed bug.
-    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
-    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
-    function MatTree(_differs, _changeDetectorRef) {
-        return _super.call(this, _differs, _changeDetectorRef) || this;
+    function MatTree() {
+        return _super !== null && _super.apply(this, arguments) || this;
     }
     MatTree.decorators = [
         { type: Component, args: [{selector: 'mat-tree',
@@ -253,33 +233,26 @@ var MatTree = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatTree.ctorParameters = function () { return [
-        { type: IterableDiffers, },
-        { type: ChangeDetectorRef, },
-    ]; };
     MatTree.propDecorators = {
         "_nodeOutlet": [{ type: ViewChild, args: [MatTreeNodeOutlet,] },],
     };
     return MatTree;
-}(CdkTree));
+}(_CdkTree));
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+// TODO(devversion): workaround for https://github.com/angular/material2/issues/12760
+var /** @type {?} */ _CdkTreeNodeToggle = CdkTreeNodeToggle;
 /**
  * Wrapper for the CdkTree's toggle with Material design styles.
  * @template T
  */
 var MatTreeNodeToggle = /** @class */ (function (_super) {
     __extends(MatTreeNodeToggle, _super);
-    // TODO(andrewseguin): Remove this explicitly set constructor when the compiler knows how to
-    // properly build the es6 version of the class. Currently sets ctorParameters to empty due to a
-    // fixed bug.
-    // https://github.com/angular/tsickle/pull/760 - tsickle PR that fixed this
-    // https://github.com/angular/angular/pull/23531 - updates compiler-cli to fixed version
-    function MatTreeNodeToggle(_tree, _treeNode) {
-        var _this = _super.call(this, _tree, _treeNode) || this;
+    function MatTreeNodeToggle() {
+        var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.recursive = false;
         return _this;
     }
@@ -293,15 +266,11 @@ var MatTreeNodeToggle = /** @class */ (function (_super) {
                 },] },
     ];
     /** @nocollapse */
-    MatTreeNodeToggle.ctorParameters = function () { return [
-        { type: CdkTree, },
-        { type: CdkTreeNode, },
-    ]; };
     MatTreeNodeToggle.propDecorators = {
         "recursive": [{ type: Input, args: ['matTreeNodeToggleRecursive',] },],
     };
     return MatTreeNodeToggle;
-}(CdkTreeNodeToggle));
+}(_CdkTreeNodeToggle));
 
 /**
  * @fileoverview added by tsickle
@@ -682,5 +651,5 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
  * @suppress {checkTypes} checked by tsc
  */
 
-export { _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, MatTreeNodePadding, MatTree, MatTreeModule, MatTreeNodeToggle, MatTreeNodeOutlet, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource };
+export { _CdkTreeNodeDef, _MatTreeNodeMixinBase, _MatNestedTreeNodeMixinBase, MatTreeNode, MatTreeNodeDef, MatNestedTreeNode, _CdkTreeNodePadding, MatTreeNodePadding, _CdkTree, MatTree, MatTreeModule, _CdkTreeNodeToggle, MatTreeNodeToggle, MatTreeNodeOutlet, MatTreeFlattener, MatTreeFlatDataSource, MatTreeNestedDataSource };
 //# sourceMappingURL=tree.es5.js.map
