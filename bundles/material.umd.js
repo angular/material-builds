@@ -4895,11 +4895,12 @@ var nextId = 0;
  * Directive to display a text badge.
  */
 var MatBadge = /** @class */ (function () {
-    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber) {
+    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer) {
         this._document = _document;
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._ariaDescriber = _ariaDescriber;
+        this._renderer = _renderer;
         /**
          * Whether the badge has any content.
          */
@@ -5073,7 +5074,9 @@ var MatBadge = /** @class */ (function () {
      */
     function () {
         /** @type {?} */
-        var badgeElement = this._document.createElement('span');
+        var rootNode = this._renderer || this._document;
+        /** @type {?} */
+        var badgeElement = rootNode.createElement('span');
         /** @type {?} */
         var activeClass = 'mat-badge-active';
         badgeElement.setAttribute('id', "mat-badge-content-" + this._id);
@@ -5160,7 +5163,8 @@ var MatBadge = /** @class */ (function () {
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
         { type: core.NgZone },
         { type: core.ElementRef },
-        { type: a11y.AriaDescriber }
+        { type: a11y.AriaDescriber },
+        { type: core.Renderer2 }
     ]; };
     MatBadge.propDecorators = {
         color: [{ type: core.Input, args: ['matBadgeColor',] }],
@@ -34000,7 +34004,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('6.4.6-515912b');
+var VERSION = new core.Version('6.4.6-e4ca3cf');
 
 exports.VERSION = VERSION;
 exports.ɵa27 = MatAutocompleteOrigin;
@@ -34255,12 +34259,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa21 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb21 = MatMenuItemBase;
-exports.ɵc21 = _MatMenuItemMixinBase;
-exports.ɵf21 = MAT_MENU_PANEL;
-exports.ɵd21 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe21 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa19 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb19 = MatMenuItemBase;
+exports.ɵc19 = _MatMenuItemMixinBase;
+exports.ɵf19 = MAT_MENU_PANEL;
+exports.ɵd19 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe19 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
