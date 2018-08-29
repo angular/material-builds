@@ -4895,12 +4895,11 @@ var nextId = 0;
  * Directive to display a text badge.
  */
 var MatBadge = /** @class */ (function () {
-    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber, _renderer) {
+    function MatBadge(_document, _ngZone, _elementRef, _ariaDescriber) {
         this._document = _document;
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._ariaDescriber = _ariaDescriber;
-        this._renderer = _renderer;
         /**
          * Whether the badge has any content.
          */
@@ -5074,9 +5073,7 @@ var MatBadge = /** @class */ (function () {
      */
     function () {
         /** @type {?} */
-        var rootNode = this._renderer || this._document;
-        /** @type {?} */
-        var badgeElement = rootNode.createElement('span');
+        var badgeElement = this._document.createElement('span');
         /** @type {?} */
         var activeClass = 'mat-badge-active';
         badgeElement.setAttribute('id', "mat-badge-content-" + this._id);
@@ -5163,8 +5160,7 @@ var MatBadge = /** @class */ (function () {
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
         { type: core.NgZone },
         { type: core.ElementRef },
-        { type: a11y.AriaDescriber },
-        { type: core.Renderer2 }
+        { type: a11y.AriaDescriber }
     ]; };
     MatBadge.propDecorators = {
         color: [{ type: core.Input, args: ['matBadgeColor',] }],
@@ -34004,10 +34000,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('6.4.6-db1d51f');
+var VERSION = new core.Version('6.4.6-0d406b3');
 
 exports.VERSION = VERSION;
-exports.ɵa26 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34259,12 +34255,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa22 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb22 = MatMenuItemBase;
+exports.ɵc22 = _MatMenuItemMixinBase;
+exports.ɵf22 = MAT_MENU_PANEL;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe22 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34407,17 +34403,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa19 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf19 = MatTabBase;
-exports.ɵg19 = _MatTabMixinBase;
-exports.ɵb19 = MatTabHeaderBase;
-exports.ɵc19 = _MatTabHeaderMixinBase;
-exports.ɵd19 = MatTabLabelWrapperBase;
-exports.ɵe19 = _MatTabLabelWrapperMixinBase;
-exports.ɵj19 = MatTabLinkBase;
-exports.ɵh19 = MatTabNavBase;
-exports.ɵk19 = _MatTabLinkMixinBase;
-exports.ɵi19 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

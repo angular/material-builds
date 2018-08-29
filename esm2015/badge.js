@@ -8,7 +8,7 @@
 import { AriaDescriber, A11yModule } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
-import { Directive, ElementRef, Inject, Input, NgZone, Optional, Renderer2, NgModule } from '@angular/core';
+import { Directive, ElementRef, Inject, Input, NgZone, Optional, NgModule } from '@angular/core';
 import { MatCommonModule } from '@angular/material/core';
 
 /**
@@ -26,14 +26,12 @@ class MatBadge {
      * @param {?} _ngZone
      * @param {?} _elementRef
      * @param {?} _ariaDescriber
-     * @param {?=} _renderer
      */
-    constructor(_document, _ngZone, _elementRef, _ariaDescriber, _renderer) {
+    constructor(_document, _ngZone, _elementRef, _ariaDescriber) {
         this._document = _document;
         this._ngZone = _ngZone;
         this._elementRef = _elementRef;
         this._ariaDescriber = _ariaDescriber;
-        this._renderer = _renderer;
         /**
          * Whether the badge has any content.
          */
@@ -161,9 +159,7 @@ class MatBadge {
      */
     _createBadgeElement() {
         /** @type {?} */
-        const rootNode = this._renderer || this._document;
-        /** @type {?} */
-        const badgeElement = rootNode.createElement('span');
+        const badgeElement = this._document.createElement('span');
         /** @type {?} */
         const activeClass = 'mat-badge-active';
         badgeElement.setAttribute('id', `mat-badge-content-${this._id}`);
@@ -240,8 +236,7 @@ MatBadge.ctorParameters = () => [
     { type: undefined, decorators: [{ type: Optional }, { type: Inject, args: [DOCUMENT,] }] },
     { type: NgZone },
     { type: ElementRef },
-    { type: AriaDescriber },
-    { type: Renderer2 }
+    { type: AriaDescriber }
 ];
 MatBadge.propDecorators = {
     color: [{ type: Input, args: ['matBadgeColor',] }],
