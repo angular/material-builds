@@ -412,7 +412,7 @@ MatListOption.decorators = [
                     'tabindex': '-1',
                     '[class.mat-list-item-disabled]': 'disabled',
                     '[class.mat-list-item-focus]': '_hasFocus',
-                    '[class.mat-list-item-with-avatar]': '_avatar',
+                    '[class.mat-list-item-with-avatar]': '_avatar || _icon',
                     '[attr.aria-selected]': 'selected.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
                 },
@@ -429,6 +429,7 @@ MatListOption.ctorParameters = () => [
 ];
 MatListOption.propDecorators = {
     _avatar: [{ type: ContentChild, args: [MatListAvatarCssMatStyler,] }],
+    _icon: [{ type: ContentChild, args: [MatListIconCssMatStyler,] }],
     _lines: [{ type: ContentChildren, args: [MatLine,] }],
     _text: [{ type: ViewChild, args: ['text',] }],
     checkboxPosition: [{ type: Input }],

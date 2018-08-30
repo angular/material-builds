@@ -569,7 +569,7 @@ var MatListOption = /** @class */ (function (_super) {
                         'tabindex': '-1',
                         '[class.mat-list-item-disabled]': 'disabled',
                         '[class.mat-list-item-focus]': '_hasFocus',
-                        '[class.mat-list-item-with-avatar]': '_avatar',
+                        '[class.mat-list-item-with-avatar]': '_avatar || _icon',
                         '[attr.aria-selected]': 'selected.toString()',
                         '[attr.aria-disabled]': 'disabled.toString()',
                     },
@@ -586,6 +586,7 @@ var MatListOption = /** @class */ (function (_super) {
     ]; };
     MatListOption.propDecorators = {
         _avatar: [{ type: core.ContentChild, args: [MatListAvatarCssMatStyler,] }],
+        _icon: [{ type: core.ContentChild, args: [MatListIconCssMatStyler,] }],
         _lines: [{ type: core.ContentChildren, args: [core$1.MatLine,] }],
         _text: [{ type: core.ViewChild, args: ['text',] }],
         checkboxPosition: [{ type: core.Input }],

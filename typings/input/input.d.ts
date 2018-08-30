@@ -26,7 +26,7 @@ export declare class MatInputBase {
 export declare const _MatInputMixinBase: CanUpdateErrorStateCtor & typeof MatInputBase;
 /** Directive that allows a native input to work inside a `MatFormField`. */
 export declare class MatInput extends _MatInputMixinBase implements MatFormFieldControl<any>, OnChanges, OnDestroy, OnInit, DoCheck, CanUpdateErrorState {
-    protected _elementRef: ElementRef<HTMLInputElement>;
+    protected _elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>;
     protected _platform: Platform;
     /** @docs-private */
     ngControl: NgControl;
@@ -38,6 +38,8 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     _ariaDescribedby: string;
     /** Whether the component is being rendered on the server. */
     _isServer: boolean;
+    /** Whether the component is a native html select. */
+    _isNativeSelect: boolean;
     /**
      * Implemented as part of MatFormFieldControl.
      * @docs-private
@@ -95,7 +97,7 @@ export declare class MatInput extends _MatInputMixinBase implements MatFormField
     readonly: boolean;
     private _readonly;
     protected _neverEmptyInputTypes: string[];
-    constructor(_elementRef: ElementRef<HTMLInputElement>, _platform: Platform, 
+    constructor(_elementRef: ElementRef<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>, _platform: Platform, 
     /** @docs-private */
     ngControl: NgControl, _parentForm: NgForm, _parentFormGroup: FormGroupDirective, _defaultErrorStateMatcher: ErrorStateMatcher, inputValueAccessor: any, _autofillMonitor: AutofillMonitor, ngZone: NgZone);
     ngOnInit(): void;

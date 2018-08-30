@@ -3003,7 +3003,9 @@ var MatDatepickerInput = /** @class */ (function () {
      * @return {?}
      */
     function (event) {
-        if (this._datepicker && event.altKey && event.keyCode === DOWN_ARROW) {
+        /** @type {?} */
+        var isAltDownArrow = event.altKey && event.keyCode === DOWN_ARROW;
+        if (this._datepicker && isAltDownArrow && !this._elementRef.nativeElement.readOnly) {
             this._datepicker.open();
             event.preventDefault();
         }

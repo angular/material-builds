@@ -186,6 +186,10 @@ var MatInput = /** @class */ (function (_super) {
          */
         _this._isServer = false;
         /**
+         * Whether the component is a native html select.
+         */
+        _this._isNativeSelect = false;
+        /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
          */
@@ -246,6 +250,7 @@ var MatInput = /** @class */ (function (_super) {
             });
         }
         _this._isServer = !_this._platform.isBrowser;
+        _this._isNativeSelect = _this._elementRef.nativeElement.nodeName.toLowerCase() === 'select';
         return _this;
     }
     Object.defineProperty(MatInput.prototype, "disabled", {
@@ -336,7 +341,7 @@ var MatInput = /** @class */ (function (_super) {
             // input element. To ensure that bindings for `type` work, we need to sync the setter
             // with the native property. Textarea elements don't support the type property or attribute.
             if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
-                this._elementRef.nativeElement.type = this._type;
+                (/** @type {?} */ (this._elementRef.nativeElement)).type = this._type;
             }
         },
         enumerable: true,
@@ -573,7 +578,17 @@ var MatInput = /** @class */ (function (_super) {
          * \@docs-private
          * @return {?}
          */
-        function () { return this.focused || !this.empty; },
+        function () {
+            if (this._isNativeSelect) {
+                /** @type {?} */
+                var selectElement = /** @type {?} */ (this._elementRef.nativeElement);
+                return selectElement.multiple || !this.empty || !!selectElement.options[0].label ||
+                    this.focused;
+            }
+            else {
+                return this.focused || !this.empty;
+            }
+        },
         enumerable: true,
         configurable: true
     });
@@ -611,7 +626,7 @@ var MatInput = /** @class */ (function (_super) {
     function () { this.focus(); };
     MatInput.decorators = [
         { type: Directive, args: [{
-                    selector: "input[matInput], textarea[matInput]",
+                    selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]",
                     exportAs: 'matInput',
                     host: {
                         /**
@@ -625,7 +640,7 @@ var MatInput = /** @class */ (function (_super) {
                         '[attr.placeholder]': 'placeholder',
                         '[disabled]': 'disabled',
                         '[required]': 'required',
-                        '[readonly]': 'readonly',
+                        '[attr.readonly]': 'readonly && !_isNativeSelect || null',
                         '[attr.aria-describedby]': '_ariaDescribedby || null',
                         '[attr.aria-invalid]': 'errorState',
                         '[attr.aria-required]': 'required.toString()',

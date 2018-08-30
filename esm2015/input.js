@@ -176,6 +176,10 @@ class MatInput extends _MatInputMixinBase {
          */
         this._isServer = false;
         /**
+         * Whether the component is a native html select.
+         */
+        this._isNativeSelect = false;
+        /**
          * Implemented as part of MatFormFieldControl.
          * \@docs-private
          */
@@ -233,6 +237,7 @@ class MatInput extends _MatInputMixinBase {
             });
         }
         this._isServer = !this._platform.isBrowser;
+        this._isNativeSelect = this._elementRef.nativeElement.nodeName.toLowerCase() === 'select';
     }
     /**
      * Implemented as part of MatFormFieldControl.
@@ -296,7 +301,7 @@ class MatInput extends _MatInputMixinBase {
         // input element. To ensure that bindings for `type` work, we need to sync the setter
         // with the native property. Textarea elements don't support the type property or attribute.
         if (!this._isTextarea() && getSupportedInputTypes().has(this._type)) {
-            this._elementRef.nativeElement.type = this._type;
+            (/** @type {?} */ (this._elementRef.nativeElement)).type = this._type;
         }
     }
     /**
@@ -452,7 +457,17 @@ class MatInput extends _MatInputMixinBase {
      * \@docs-private
      * @return {?}
      */
-    get shouldLabelFloat() { return this.focused || !this.empty; }
+    get shouldLabelFloat() {
+        if (this._isNativeSelect) {
+            /** @type {?} */
+            const selectElement = /** @type {?} */ (this._elementRef.nativeElement);
+            return selectElement.multiple || !this.empty || !!selectElement.options[0].label ||
+                this.focused;
+        }
+        else {
+            return this.focused || !this.empty;
+        }
+    }
     /**
      * Implemented as part of MatFormFieldControl.
      * \@docs-private
@@ -469,7 +484,8 @@ class MatInput extends _MatInputMixinBase {
 }
 MatInput.decorators = [
     { type: Directive, args: [{
-                selector: `input[matInput], textarea[matInput]`,
+                selector: `input[matInput], textarea[matInput], select[matNativeControl],
+      input[matNativeControl], textarea[matNativeControl]`,
                 exportAs: 'matInput',
                 host: {
                     /**
@@ -483,7 +499,7 @@ MatInput.decorators = [
                     '[attr.placeholder]': 'placeholder',
                     '[disabled]': 'disabled',
                     '[required]': 'required',
-                    '[readonly]': 'readonly',
+                    '[attr.readonly]': 'readonly && !_isNativeSelect || null',
                     '[attr.aria-describedby]': '_ariaDescribedby || null',
                     '[attr.aria-invalid]': 'errorState',
                     '[attr.aria-required]': 'required.toString()',
