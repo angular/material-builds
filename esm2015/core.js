@@ -1223,7 +1223,7 @@ MatLineModule.decorators = [
  */
 
 /** @enum {number} */
-const RippleState = {
+var RippleState = {
     FADING_IN: 0, VISIBLE: 1, FADING_OUT: 2, HIDDEN: 3,
 };
 RippleState[RippleState.FADING_IN] = 'FADING_IN';

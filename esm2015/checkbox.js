@@ -40,7 +40,7 @@ const MAT_CHECKBOX_CONTROL_VALUE_ACCESSOR = {
     multi: true
 };
 /** @enum {number} */
-const TransitionCheckState = {
+var TransitionCheckState = {
     /** The initial state of the component before any user interaction. */
     Init: 0,
     /** The state representing the component when it's becoming checked. */

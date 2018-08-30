@@ -1642,5 +1642,5 @@ var MatMenuModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa21, MatMenuItemBase as ɵb21, _MatMenuItemMixinBase as ɵc21, MAT_MENU_PANEL as ɵf21, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd21, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe21 };
+export { MAT_MENU_SCROLL_STRATEGY, MatMenuModule, MatMenu, MAT_MENU_DEFAULT_OPTIONS, MatMenuItem, MatMenuTrigger, matMenuAnimations, fadeInItems, transformMenu, MatMenuContent, MAT_MENU_DEFAULT_OPTIONS_FACTORY as ɵa18, MatMenuItemBase as ɵb18, _MatMenuItemMixinBase as ɵc18, MAT_MENU_PANEL as ɵf18, MAT_MENU_SCROLL_STRATEGY_FACTORY as ɵd18, MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER as ɵe18 };
 //# sourceMappingURL=menu.es5.js.map
