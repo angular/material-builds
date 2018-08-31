@@ -2922,9 +2922,9 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 @mixin mat-menu-typography($config) {
   .mat-menu-item {
     font: {
-      family: mat-font-family($config, subheading-2);
-      size: mat-font-size($config, subheading-2);
-      weight: mat-font-weight($config, subheading-2);
+      family: mat-font-family($config, body-1);
+      size: mat-font-size($config, body-1);
+      weight: mat-font-weight($config, body-1);
     }
   }
 }

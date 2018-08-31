@@ -163,19 +163,13 @@ var matMenuAnimations = {
     transformMenu: animations.trigger('transformMenu', [
         animations.state('void', animations.style({
             opacity: 0,
-            // This starts off from 0.01, instead of 0, because there's an issue in the Angular animations
-            // as of 4.2, which causes the animation to be skipped if it starts from 0.
-            transform: 'scale(0.01, 0.01)'
+            transform: 'scale(0.8)'
         })),
-        animations.transition('void => enter', animations.sequence([
-            animations.query('.mat-menu-content', animations.style({ opacity: 0 })),
-            animations.animate('100ms linear', animations.style({ opacity: 1, transform: 'scale(1, 0.5)' })),
-            animations.group([
-                animations.query('.mat-menu-content', animations.animate('400ms cubic-bezier(0.55, 0, 0.55, 0.2)', animations.style({ opacity: 1 }))),
-                animations.animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)', animations.style({ transform: 'scale(1, 1)' })),
-            ])
+        animations.transition('void => enter', animations.group([
+            animations.query('.mat-menu-content', animations.animate('100ms linear', animations.style({ opacity: 1 }))),
+            animations.animate('120ms cubic-bezier(0, 0, 0.2, 1)', animations.style({ transform: 'scale(1)' })),
         ])),
-        animations.transition('* => void', animations.animate('150ms 50ms linear', animations.style({ opacity: 0 })))
+        animations.transition('* => void', animations.animate('100ms 25ms linear', animations.style({ opacity: 0 })))
     ]),
     /**
        * This animation fades in the background color and content of the menu panel
@@ -463,7 +457,7 @@ var MAT_MENU_DEFAULT_OPTIONS = new core.InjectionToken('mat-menu-default-options
  */
 function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
     return {
-        overlapTrigger: true,
+        overlapTrigger: false,
         xPosition: 'after',
         yPosition: 'below',
         backdropClass: 'cdk-overlay-transparent-backdrop',
@@ -473,7 +467,7 @@ function MAT_MENU_DEFAULT_OPTIONS_FACTORY() {
  * Start elevation for the menu panel.
  * \@docs-private
   @type {?} */
-var MAT_MENU_BASE_ELEVATION = 2;
+var MAT_MENU_BASE_ELEVATION = 4;
 var MatMenu = /** @class */ (function () {
     function MatMenu(_elementRef, _ngZone, _defaultOptions) {
         this._elementRef = _elementRef;
@@ -935,7 +929,7 @@ var MatMenu = /** @class */ (function () {
     MatMenu.decorators = [
         { type: core.Component, args: [{selector: 'mat-menu',
                     template: "<ng-template><div class=\"mat-menu-panel\" [ngClass]=\"_classList\" (keydown)=\"_handleKeydown($event)\" (click)=\"closed.emit('click')\" [@transformMenu]=\"_panelAnimationState\" (@transformMenu.start)=\"_isAnimating = true\" (@transformMenu.done)=\"_onAnimationDone($event)\" tabindex=\"-1\" role=\"menu\"><div class=\"mat-menu-content\"><ng-content></ng-content></div></div></ng-template>",
-                    styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:2px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content:not(:empty){padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative}.mat-menu-item::-moz-focus-inner{border:0}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}@media screen and (-ms-high-contrast:active){.mat-menu-item-highlighted,.mat-menu-item.cdk-keyboard-focused,.mat-menu-item.cdk-program-focused{outline:dotted 1px}}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}.mat-menu-panel.ng-animating .mat-menu-item-submenu-trigger{pointer-events:none}button.mat-menu-item{width:100%}.mat-menu-item .mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
+                    styles: [".mat-menu-panel{min-width:112px;max-width:280px;overflow:auto;-webkit-overflow-scrolling:touch;max-height:calc(100vh - 48px);border-radius:4px;outline:0}.mat-menu-panel:not([class*=mat-elevation-z]){box-shadow:0 2px 4px -1px rgba(0,0,0,.2),0 4px 5px 0 rgba(0,0,0,.14),0 1px 10px 0 rgba(0,0,0,.12)}@media screen and (-ms-high-contrast:active){.mat-menu-panel{outline:solid 1px}}.mat-menu-content:not(:empty){padding-top:8px;padding-bottom:8px}.mat-menu-item{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;cursor:pointer;outline:0;border:none;-webkit-tap-highlight-color:transparent;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block;line-height:48px;height:48px;padding:0 16px;text-align:left;text-decoration:none;max-width:100%;position:relative}.mat-menu-item::-moz-focus-inner{border:0}.mat-menu-item[disabled]{cursor:default}[dir=rtl] .mat-menu-item{text-align:right}.mat-menu-item .mat-icon{margin-right:16px;vertical-align:middle}.mat-menu-item .mat-icon svg{vertical-align:top}[dir=rtl] .mat-menu-item .mat-icon{margin-left:16px;margin-right:0}@media screen and (-ms-high-contrast:active){.mat-menu-item-highlighted,.mat-menu-item.cdk-keyboard-focused,.mat-menu-item.cdk-program-focused{outline:dotted 1px}}.mat-menu-item-submenu-trigger{padding-right:32px}.mat-menu-item-submenu-trigger::after{width:0;height:0;border-style:solid;border-width:5px 0 5px 5px;border-color:transparent transparent transparent currentColor;content:'';display:inline-block;position:absolute;top:50%;right:16px;transform:translateY(-50%)}[dir=rtl] .mat-menu-item-submenu-trigger{padding-right:16px;padding-left:32px}[dir=rtl] .mat-menu-item-submenu-trigger::after{right:auto;left:16px;transform:rotateY(180deg) translateY(-50%)}.mat-menu-panel.ng-animating .mat-menu-item-submenu-trigger{pointer-events:none}button.mat-menu-item{width:100%}.mat-menu-item .mat-menu-ripple{top:0;left:0;right:0;bottom:0;position:absolute;pointer-events:none}"],
                     changeDetection: core.ChangeDetectionStrategy.OnPush,
                     encapsulation: core.ViewEncapsulation.None,
                     exportAs: 'matMenu',
@@ -1658,12 +1652,12 @@ exports.matMenuAnimations = matMenuAnimations;
 exports.fadeInItems = fadeInItems;
 exports.transformMenu = transformMenu;
 exports.MatMenuContent = MatMenuContent;
-exports.ɵa18 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb18 = MatMenuItemBase;
-exports.ɵc18 = _MatMenuItemMixinBase;
-exports.ɵf18 = MAT_MENU_PANEL;
-exports.ɵd18 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe18 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
