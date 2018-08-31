@@ -17,7 +17,8 @@ const ast_1 = require("../utils/ast");
 function default_1(options) {
     return schematics_1.chain([
         build_component_1.buildComponent(Object.assign({}, options), {
-            template: './__path__/__name@dasherize@if-flat__/__name@dasherize__.component.html'
+            template: './__path__/__name@dasherize@if-flat__/__name@dasherize__.component.html',
+            stylesheet: './__path__/__name@dasherize@if-flat__/__name@dasherize__.component.__styleext__'
         }),
         options.skipImport ? schematics_1.noop() : addTableModulesToModule(options)
     ]);
