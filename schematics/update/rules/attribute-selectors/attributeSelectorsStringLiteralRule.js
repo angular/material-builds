@@ -10,6 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
 const attribute_selectors_1 = require("../../material/data/attribute-selectors");
+const transform_change_data_1 = require("../../material/transform-change-data");
 const literal_1 = require("../../typescript/literal");
 const ts = require("typescript");
 /**
@@ -23,12 +24,17 @@ class Rule extends tslint_1.Rules.AbstractRule {
 }
 exports.Rule = Rule;
 class Walker extends tslint_1.RuleWalker {
+    constructor() {
+        super(...arguments);
+        /** Change data that upgrades to the specified target version. */
+        this.data = transform_change_data_1.getChangesForTarget(this.getOptions()[0], attribute_selectors_1.attributeSelectors);
+    }
     visitStringLiteral(literal) {
         if (literal.parent && literal.parent.kind !== ts.SyntaxKind.CallExpression) {
             return;
         }
         const literalText = literal.getFullText();
-        attribute_selectors_1.attributeSelectors.forEach(selector => {
+        this.data.forEach(selector => {
             literal_1.findAllSubstringIndices(literalText, selector.replace)
                 .map(offset => literal.getStart() + offset)
                 .map(start => new tslint_1.Replacement(start, selector.replace.length, selector.replaceWith))

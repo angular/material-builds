@@ -25,9 +25,9 @@ class ComponentWalker extends tslint_1.RuleWalker {
     visitInlineStylesheet(_stylesheet) { }
     visitExternalTemplate(_template) { }
     visitExternalStylesheet(_stylesheet) { }
-    constructor(sourceFile, options, skipFiles = []) {
+    constructor(sourceFile, options, extraFiles = []) {
         super(sourceFile, options);
-        this.skipFiles = new Set(skipFiles.map(p => path_1.resolve(p)));
+        this.extraFiles = new Set(extraFiles.map(p => path_1.resolve(p)));
     }
     visitNode(node) {
         if (node.kind === ts.SyntaxKind.CallExpression) {
@@ -76,7 +76,8 @@ class ComponentWalker extends tslint_1.RuleWalker {
         styleUrls.elements.forEach(styleUrlLiteral => {
             const styleUrl = literal_1.getLiteralTextWithoutQuotes(styleUrlLiteral);
             const stylePath = path_1.resolve(path_1.join(path_1.dirname(this.getSourceFile().fileName), styleUrl));
-            if (!this.skipFiles.has(stylePath)) {
+            // Do not report the specified additional files multiple times.
+            if (!this.extraFiles.has(stylePath)) {
                 this._reportExternalStyle(stylePath);
             }
         });
@@ -84,7 +85,8 @@ class ComponentWalker extends tslint_1.RuleWalker {
     _reportExternalTemplate(templateUrlLiteral) {
         const templateUrl = literal_1.getLiteralTextWithoutQuotes(templateUrlLiteral);
         const templatePath = path_1.resolve(path_1.join(path_1.dirname(this.getSourceFile().fileName), templateUrl));
-        if (this.skipFiles.has(templatePath)) {
+        // Do not report the specified additional files multiple times.
+        if (this.extraFiles.has(templatePath)) {
             return;
         }
         // Check if the external template file exists before proceeding.
@@ -107,6 +109,12 @@ class ComponentWalker extends tslint_1.RuleWalker {
         // Create a fake TypeScript source file that includes the stylesheet content.
         const stylesheetFile = component_file_1.createComponentFile(stylePath, fs_1.readFileSync(stylePath, 'utf8'));
         this.visitExternalStylesheet(stylesheetFile);
+    }
+    /** Reports all extra files that have been specified at initialization. */
+    // TODO(devversion): this should be done automatically but deferred because
+    // the base class "data" property member is not ready at initialization.
+    _reportExtraStylesheetFiles() {
+        this.extraFiles.forEach(file => this._reportExternalStyle(file));
     }
     /**
      * Recursively searches for the metadata object literal expression inside of a directive call

@@ -11,6 +11,7 @@ const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
 const ts = require("typescript");
 const css_selectors_1 = require("../../material/data/css-selectors");
+const transform_change_data_1 = require("../../material/transform-change-data");
 const literal_1 = require("../../typescript/literal");
 /**
  * Rule that walks through every string literal that is wrapped inside of a call expression.
@@ -23,12 +24,17 @@ class Rule extends tslint_1.Rules.AbstractRule {
 }
 exports.Rule = Rule;
 class Walker extends tslint_1.RuleWalker {
+    constructor() {
+        super(...arguments);
+        /** Change data that upgrades to the specified target version. */
+        this.data = transform_change_data_1.getChangesForTarget(this.getOptions()[0], css_selectors_1.cssSelectors);
+    }
     visitStringLiteral(node) {
         if (node.parent && node.parent.kind !== ts.SyntaxKind.CallExpression) {
             return;
         }
         const textContent = node.getFullText();
-        css_selectors_1.cssSelectors.forEach(data => {
+        this.data.forEach(data => {
             if (data.whitelist && !data.whitelist.strings) {
                 return;
             }

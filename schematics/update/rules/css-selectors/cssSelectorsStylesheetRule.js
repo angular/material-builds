@@ -11,6 +11,7 @@ const chalk_1 = require("chalk");
 const glob_1 = require("glob");
 const tslint_1 = require("tslint");
 const css_selectors_1 = require("../../material/data/css-selectors");
+const transform_change_data_1 = require("../../material/transform-change-data");
 const component_walker_1 = require("../../tslint/component-walker");
 const rule_failures_1 = require("../../tslint/rule-failures");
 const literal_1 = require("../../typescript/literal");
@@ -29,9 +30,10 @@ class Walker extends component_walker_1.ComponentWalker {
         // In some applications, developers will have global stylesheets that are not specified in any
         // Angular component. Therefore we glob up all css and scss files outside of node_modules and
         // dist and check them as well.
-        const extraFiles = glob_1.sync('!(node_modules|dist)/**/*.+(css|scss)');
-        super(sourceFile, options, extraFiles);
-        extraFiles.forEach(styleUrl => this._reportExternalStyle(styleUrl));
+        super(sourceFile, options, glob_1.sync('!(node_modules|dist)/**/*.+(css|scss)'));
+        /** Change data that upgrades to the specified target version. */
+        this.data = transform_change_data_1.getChangesForTarget(this.getOptions()[0], css_selectors_1.cssSelectors);
+        this._reportExtraStylesheetFiles();
     }
     visitInlineStylesheet(literal) {
         this._createReplacementsForContent(literal, literal.getText())
@@ -48,7 +50,7 @@ class Walker extends component_walker_1.ComponentWalker {
      */
     _createReplacementsForContent(node, stylesheetContent) {
         const replacements = [];
-        css_selectors_1.cssSelectors.forEach(data => {
+        this.data.forEach(data => {
             if (data.whitelist && !data.whitelist.stylesheet) {
                 return;
             }

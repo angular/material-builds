@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 /**
  * @license
  * Copyright Google LLC All Rights Reserved.
@@ -6,14 +7,23 @@
  * Use of this source code is governed by an MIT-style license that can be
  * found in the LICENSE file at https://angular.io/license
  */
-Object.defineProperty(exports, "__esModule", { value: true });
+const index_1 = require("../index");
 /**
- * For readability and a good overview of breaking changes, the changes data always includes
- * the related Pull Request link. Since this data is not needed when performing the upgrade, this
- * data can be removed and the changes data can be flattened into a easy queryable array.
+ * Gets the changes for a given target version from the specified version changes object.
+ *
+ * For readability and a good overview of breaking changes, the version change data always
+ * includes the related Pull Request link. Since this data is not needed when performing the
+ * upgrade, this unused data can be removed and the changes data can be flattened into an
+ * easy iterable array.
  */
-function transformChanges(allChanges) {
-    return allChanges.reduce((result, changes) => result.concat(changes.changes), []);
+function getChangesForTarget(target, data) {
+    if (!data) {
+        throw new Error(`No data could be found for target version: ${index_1.TargetVersion[target]}`);
+    }
+    if (!data[target]) {
+        return [];
+    }
+    return data[target].reduce((result, changes) => result.concat(changes.changes), []);
 }
-exports.transformChanges = transformChanges;
+exports.getChangesForTarget = getChangesForTarget;
 //# sourceMappingURL=transform-change-data.js.map

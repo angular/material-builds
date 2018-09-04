@@ -10,6 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
 const property_names_1 = require("../../material/data/property-names");
+const transform_change_data_1 = require("../../material/transform-change-data");
 /**
  * Rule that walks through every property access expression and updates properties that have
  * been changed in favor of a new name.
@@ -21,10 +22,15 @@ class Rule extends tslint_1.Rules.TypedRule {
 }
 exports.Rule = Rule;
 class Walker extends tslint_1.ProgramAwareRuleWalker {
+    constructor() {
+        super(...arguments);
+        /** Change data that upgrades to the specified target version. */
+        this.data = transform_change_data_1.getChangesForTarget(this.getOptions()[0], property_names_1.propertyNames);
+    }
     visitPropertyAccessExpression(node) {
         const hostType = this.getTypeChecker().getTypeAtLocation(node.expression);
         const typeName = hostType && hostType.symbol && hostType.symbol.getName();
-        property_names_1.propertyNames.forEach(data => {
+        this.data.forEach(data => {
             if (node.name.text !== data.replace) {
                 return;
             }

@@ -12,6 +12,7 @@ const tslint_1 = require("tslint");
 const ts = require("typescript");
 const color_1 = require("../../material/color");
 const method_call_checks_1 = require("../../material/data/method-call-checks");
+const transform_change_data_1 = require("../../material/transform-change-data");
 /**
  * Rule that visits every TypeScript call expression or TypeScript new expression and checks
  * if the argument count is invalid and needs to be *manually* updated.
@@ -23,6 +24,11 @@ class Rule extends tslint_1.Rules.TypedRule {
 }
 exports.Rule = Rule;
 class Walker extends tslint_1.ProgramAwareRuleWalker {
+    constructor() {
+        super(...arguments);
+        /** Change data that upgrades to the specified target version. */
+        this.data = transform_change_data_1.getChangesForTarget(this.getOptions()[0], method_call_checks_1.methodCallChecks);
+    }
     visitNewExpression(expression) {
         const classType = this.getTypeChecker().getTypeAtLocation(expression);
         if (classType && classType.symbol) {
@@ -53,7 +59,7 @@ class Walker extends tslint_1.ProgramAwareRuleWalker {
         if (!hostTypeName) {
             return;
         }
-        const failure = method_call_checks_1.methodCallChecks
+        const failure = this.data
             .filter(data => data.method === methodName && data.className === hostTypeName)
             .map(data => data.invalidArgCounts.find(f => f.count === node.arguments.length))[0];
         if (!failure) {
@@ -64,7 +70,7 @@ class Walker extends tslint_1.ProgramAwareRuleWalker {
     }
     checkConstructor(node, className) {
         const argumentsLength = node.arguments ? node.arguments.length : 0;
-        const failure = method_call_checks_1.methodCallChecks
+        const failure = this.data
             .filter(data => data.method === 'constructor' && data.className === className)
             .map(data => data.invalidArgCounts.find(f => f.count === argumentsLength))[0];
         if (!failure) {

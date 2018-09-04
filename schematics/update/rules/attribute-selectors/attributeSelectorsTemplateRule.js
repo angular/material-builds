@@ -10,6 +10,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
 const attribute_selectors_1 = require("../../material/data/attribute-selectors");
+const transform_change_data_1 = require("../../material/transform-change-data");
 const component_walker_1 = require("../../tslint/component-walker");
 const rule_failures_1 = require("../../tslint/rule-failures");
 const literal_1 = require("../../typescript/literal");
@@ -24,6 +25,11 @@ class Rule extends tslint_1.Rules.AbstractRule {
 }
 exports.Rule = Rule;
 class Walker extends component_walker_1.ComponentWalker {
+    constructor() {
+        super(...arguments);
+        /** Change data that upgrades to the specified target version. */
+        this.data = transform_change_data_1.getChangesForTarget(this.getOptions()[0], attribute_selectors_1.attributeSelectors);
+    }
     visitInlineTemplate(template) {
         this._createReplacementsForContent(template, template.getText())
             .forEach(data => rule_failures_1.addFailureAtReplacement(this, data.failureMessage, data.replacement));
@@ -39,7 +45,7 @@ class Walker extends component_walker_1.ComponentWalker {
      */
     _createReplacementsForContent(node, templateContent) {
         const replacements = [];
-        attribute_selectors_1.attributeSelectors.forEach(selector => {
+        this.data.forEach(selector => {
             const failureMessage = `Found deprecated attribute selector "[${chalk_1.red(selector.replace)}]"` +
                 ` which has been renamed to "[${chalk_1.green(selector.replaceWith)}]"`;
             literal_1.findAllSubstringIndices(templateContent, selector.replace)

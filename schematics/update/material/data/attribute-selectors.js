@@ -7,20 +7,22 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const transform_change_data_1 = require("../transform-change-data");
-exports.attributeSelectors = transform_change_data_1.transformChanges([
-    {
-        pr: 'https://github.com/angular/material2/pull/10257',
-        changes: [
-            {
-                replace: 'cdkPortalHost',
-                replaceWith: 'cdkPortalOutlet'
-            },
-            {
-                replace: 'portalHost',
-                replaceWith: 'cdkPortalOutlet'
-            }
-        ]
-    }
-]);
+const index_1 = require("../../index");
+exports.attributeSelectors = {
+    [index_1.TargetVersion.V6]: [
+        {
+            pr: 'https://github.com/angular/material2/pull/10257',
+            changes: [
+                {
+                    replace: 'cdkPortalHost',
+                    replaceWith: 'cdkPortalOutlet'
+                },
+                {
+                    replace: 'portalHost',
+                    replaceWith: 'cdkPortalOutlet'
+                }
+            ]
+        }
+    ]
+};
 //# sourceMappingURL=attribute-selectors.js.map

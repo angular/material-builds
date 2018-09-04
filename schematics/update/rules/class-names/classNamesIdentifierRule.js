@@ -11,6 +11,7 @@ const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
 const ts = require("typescript");
 const class_names_1 = require("../../material/data/class-names");
+const transform_change_data_1 = require("../../material/transform-change-data");
 const typescript_specifiers_1 = require("../../material/typescript-specifiers");
 const imports_1 = require("../../typescript/imports");
 /**
@@ -26,6 +27,8 @@ exports.Rule = Rule;
 class Walker extends tslint_1.RuleWalker {
     constructor() {
         super(...arguments);
+        /** Change data that upgrades to the specified target version. */
+        this.data = transform_change_data_1.getChangesForTarget(this.getOptions()[0], class_names_1.classNames);
         /**
          * List of identifier names that have been imported from `@angular/material` or `@angular/cdk`
          * in the current source file and therefore can be considered trusted.
@@ -38,7 +41,7 @@ class Walker extends tslint_1.RuleWalker {
     visitIdentifier(identifier) {
         // For identifiers that aren't listed in the className data, the whole check can be
         // skipped safely.
-        if (!class_names_1.classNames.some(data => data.replace === identifier.text)) {
+        if (!this.data.some(data => data.replace === identifier.text)) {
             return;
         }
         // For namespace imports that are referring to Angular Material or the CDK, we store the
@@ -74,7 +77,7 @@ class Walker extends tslint_1.RuleWalker {
     }
     /** Creates a failure and replacement for the specified identifier. */
     _createFailureWithReplacement(identifier) {
-        const classData = class_names_1.classNames.find(data => data.replace === identifier.text);
+        const classData = this.data.find(data => data.replace === identifier.text);
         if (!classData) {
             console.error(`Could not find updated name for identifier "${identifier.text}" in ` +
                 ` in file ${this.getSourceFile().fileName}.`);
