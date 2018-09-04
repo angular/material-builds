@@ -7,7 +7,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-const path_1 = require("path");
+const glob_1 = require("glob");
 /** List of rules that need to be enabled when running the TSLint fix task. */
 const upgradeRules = [
     // Attribute selector update rules.
@@ -43,19 +43,7 @@ const upgradeRules = [
     'check-template-misc'
 ];
 /** List of absolute paths that refer to directories that contain the upgrade rules. */
-const rulesDirectory = [
-    // TODO(devversion): consider automatically resolving rule directories.
-    path_1.join(__dirname, 'rules/'),
-    path_1.join(__dirname, 'rules/attribute-selectors'),
-    path_1.join(__dirname, 'rules/class-names'),
-    path_1.join(__dirname, 'rules/class-inheritance'),
-    path_1.join(__dirname, 'rules/input-names'),
-    path_1.join(__dirname, 'rules/output-names'),
-    path_1.join(__dirname, 'rules/css-selectors'),
-    path_1.join(__dirname, 'rules/element-selectors'),
-    path_1.join(__dirname, 'rules/property-names'),
-    path_1.join(__dirname, 'rules/method-calls'),
-];
+const rulesDirectory = glob_1.sync('rules/**/', { cwd: __dirname, absolute: true });
 /**
  * Creates a TSLint configuration object that can be passed to the schematic `TSLintFixTask`.
  * Each rule will have the specified target version as option which can be used to swap out
