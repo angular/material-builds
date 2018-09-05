@@ -9,28 +9,42 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
+const ts = require("typescript");
 const typescript_specifiers_1 = require("../material/typescript-specifiers");
 /**
- * Rule that walks through every identifier that is part of Angular Material and replaces the
- * outdated name with the new one.
+ * Rule that detects import declarations that refer to outdated identifiers from Angular Material
+ * or the CDK which cannot be updated automatically.
  */
 class Rule extends tslint_1.Rules.TypedRule {
     applyWithProgram(sourceFile, program) {
-        return this.applyWithWalker(new CheckImportMiscWalker(sourceFile, this.getOptions(), program));
+        return this.applyWithWalker(new Walker(sourceFile, this.getOptions(), program));
     }
 }
 exports.Rule = Rule;
-class CheckImportMiscWalker extends tslint_1.ProgramAwareRuleWalker {
-    visitImportDeclaration(declaration) {
-        if (typescript_specifiers_1.isMaterialImportDeclaration(declaration)) {
-            declaration.importClause.namedBindings.forEachChild(n => {
-                let importName = n.getFirstToken() && n.getFirstToken().getText();
-                if (importName === 'SHOW_ANIMATION' || importName === 'HIDE_ANIMATION') {
-                    this.addFailureAtNode(n, `Found deprecated symbol "${chalk_1.red(importName)}" which has been removed`);
-                }
-            });
+class Walker extends tslint_1.ProgramAwareRuleWalker {
+    visitImportDeclaration(node) {
+        if (!typescript_specifiers_1.isMaterialImportDeclaration(node) ||
+            !node.importClause ||
+            !node.importClause.namedBindings) {
+            return;
+        }
+        const namedBindings = node.importClause.namedBindings;
+        if (ts.isNamedImports(namedBindings)) {
+            this._checkAnimationConstants(namedBindings);
         }
     }
+    /**
+     * Checks for named imports that refer to the deleted animation constants.
+     * https://github.com/angular/material2/commit/9f3bf274c4f15f0b0fbd8ab7dbf1a453076e66d9
+     */
+    _checkAnimationConstants(namedImports) {
+        namedImports.elements.filter(element => ts.isIdentifier(element.name)).forEach(element => {
+            const importName = element.name.text;
+            if (importName === 'SHOW_ANIMATION' || importName === 'HIDE_ANIMATION') {
+                this.addFailureAtNode(element, `Found deprecated symbol "${chalk_1.red(importName)}" which has been removed`);
+            }
+        });
+    }
 }
-exports.CheckImportMiscWalker = CheckImportMiscWalker;
+exports.Walker = Walker;
 //# sourceMappingURL=checkImportMiscRule.js.map
