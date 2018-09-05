@@ -33,14 +33,15 @@ const upgradeRules = [
     // Property name update rules
     'property-names-access',
     'property-names-misc',
-    // Method call checks
-    'method-calls-check',
     // Class inheritance
     'class-inheritance-check',
     'class-inheritance-misc',
+    // signature checks
+    'constructor-signature-check',
+    'method-calls-check',
     // Additional misc rules.
     'check-import-misc',
-    'check-template-misc'
+    'check-template-misc',
 ];
 /** List of absolute paths that refer to directories that contain the upgrade rules. */
 const rulesDirectory = glob_1.sync('rules/**/', { cwd: __dirname, absolute: true });
