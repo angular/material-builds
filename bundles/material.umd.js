@@ -34016,10 +34016,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-beta.0-098f25a');
+var VERSION = new core.Version('7.0.0-beta.0-7c4fa66');
 
 exports.VERSION = VERSION;
-exports.ɵa25 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34419,17 +34419,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa20 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf20 = MatTabBase;
-exports.ɵg20 = _MatTabMixinBase;
-exports.ɵb20 = MatTabHeaderBase;
-exports.ɵc20 = _MatTabHeaderMixinBase;
-exports.ɵd20 = MatTabLabelWrapperBase;
-exports.ɵe20 = _MatTabLabelWrapperMixinBase;
-exports.ɵj20 = MatTabLinkBase;
-exports.ɵh20 = MatTabNavBase;
-exports.ɵk20 = _MatTabLinkMixinBase;
-exports.ɵi20 = _MatTabNavMixinBase;
+exports.ɵa16 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf16 = MatTabBase;
+exports.ɵg16 = _MatTabMixinBase;
+exports.ɵb16 = MatTabHeaderBase;
+exports.ɵc16 = _MatTabHeaderMixinBase;
+exports.ɵd16 = MatTabLabelWrapperBase;
+exports.ɵe16 = _MatTabLabelWrapperMixinBase;
+exports.ɵj16 = MatTabLinkBase;
+exports.ɵh16 = MatTabNavBase;
+exports.ɵk16 = _MatTabLinkMixinBase;
+exports.ɵi16 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
