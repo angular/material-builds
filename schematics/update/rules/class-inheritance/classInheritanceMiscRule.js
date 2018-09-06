@@ -23,14 +23,16 @@ exports.Rule = Rule;
 class Walker extends tslint_1.ProgramAwareRuleWalker {
     visitClassDeclaration(node) {
         const baseTypes = base_types_1.determineBaseTypes(node);
+        const className = node.name ? node.name.text : '{unknown-name}';
         if (!baseTypes) {
             return;
         }
         if (baseTypes.includes('MatFormFieldControl')) {
             const hasFloatLabelMember = node.members
-                .find(member => member.name && member.name.getText() === 'shouldFloatLabel');
+                .filter(member => member.name)
+                .find(member => member.name.getText() === 'shouldFloatLabel');
             if (!hasFloatLabelMember) {
-                this.addFailureAtNode(node, `Found class "${chalk_1.bold(node.name.text)}" which extends ` +
+                this.addFailureAtNode(node, `Found class "${chalk_1.bold(className)}" which extends ` +
                     `"${chalk_1.bold('MatFormFieldControl')}". This class must define ` +
                     `"${chalk_1.green('shouldLabelFloat')}" which is now a required property.`);
             }

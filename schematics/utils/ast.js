@@ -14,6 +14,7 @@ const config_1 = require("@schematics/angular/utility/config");
 const find_module_1 = require("@schematics/angular/utility/find-module");
 const ng_ast_utils_1 = require("@schematics/angular/utility/ng-ast-utils");
 const ts = require("typescript");
+const project_main_file_1 = require("./project-main-file");
 /** Reads file given path and returns TypeScript source file. */
 function getSourceFile(host, path) {
     const buffer = host.read(path);
@@ -26,7 +27,7 @@ function getSourceFile(host, path) {
 exports.getSourceFile = getSourceFile;
 /** Import and add module to root app module. */
 function addModuleImportToRootModule(host, moduleName, src, project) {
-    const modulePath = ng_ast_utils_1.getAppModulePath(host, project.architect.build.options.main);
+    const modulePath = ng_ast_utils_1.getAppModulePath(host, project_main_file_1.getProjectMainFile(project));
     addModuleImportToModule(host, modulePath, moduleName, src);
 }
 exports.addModuleImportToRootModule = addModuleImportToRootModule;

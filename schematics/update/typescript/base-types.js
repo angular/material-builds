@@ -17,7 +17,7 @@ function determineBaseTypes(node) {
         .reduce((types, clause) => types.concat(clause.types), [])
         .map(typeExpression => typeExpression.expression)
         .filter(expression => expression && ts.isIdentifier(expression))
-        .map(identifier => identifier.text);
+        .map((identifier) => identifier.text);
 }
 exports.determineBaseTypes = determineBaseTypes;
 //# sourceMappingURL=base-types.js.map

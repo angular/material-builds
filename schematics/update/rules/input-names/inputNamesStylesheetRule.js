@@ -56,9 +56,6 @@ class Walker extends component_walker_1.ComponentWalker {
     _createReplacementsForContent(node, stylesheetContent) {
         const replacements = [];
         this.data.forEach(name => {
-            if (name.whitelist && !name.whitelist.stylesheet) {
-                return;
-            }
             const currentSelector = `[${name.replace}]`;
             const updatedSelector = `[${name.replaceWith}]`;
             const failureMessage = `Found deprecated @Input() CSS selector "${chalk_1.red(currentSelector)}" ` +

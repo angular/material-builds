@@ -50,10 +50,10 @@ class Walker extends component_walker_1.ComponentWalker {
             const relativeOffsets = [];
             const failureMessage = `Found deprecated @Input() "${chalk_1.red(name.replace)}"` +
                 ` which has been renamed to "${chalk_1.green(name.replaceWith)}"`;
-            if (!whitelist || whitelist.attributes) {
+            if (whitelist.attributes) {
                 relativeOffsets.push(...angular_1.findInputsOnElementWithAttr(templateContent, name.replace, whitelist.attributes));
             }
-            if (!whitelist || whitelist.elements) {
+            if (whitelist.elements) {
                 relativeOffsets.push(...angular_1.findInputsOnElementWithTag(templateContent, name.replace, whitelist.elements));
             }
             relativeOffsets

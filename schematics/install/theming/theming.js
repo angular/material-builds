@@ -28,7 +28,7 @@ function addThemeToAppStyles(options) {
             insertCustomTheme(project, options.project, host, workspace);
         }
         else {
-            insertPrebuiltTheme(project, host, themeName, workspace, options.project);
+            insertPrebuiltTheme(project, host, themeName, workspace);
         }
         return host;
     };
@@ -42,12 +42,17 @@ function insertCustomTheme(project, projectName, host, workspace) {
     const stylesPath = project_style_file_1.getProjectStyleFile(project, 'scss');
     const themeContent = custom_theme_1.createCustomTheme(projectName);
     if (!stylesPath) {
+        if (!project.sourceRoot) {
+            throw new Error(`Could not find source root for project: "${projectName}". Please make ` +
+                `sure that the "sourceRoot" property is set in the workspace config.`);
+        }
         // Normalize the path through the devkit utilities because we want to avoid having
         // unnecessary path segments and windows backslash delimiters.
         const customThemePath = core_1.normalize(path_1.join(project.sourceRoot, 'custom-theme.scss'));
         host.create(customThemePath, themeContent);
-        addStyleToTarget(project.architect['build'], host, customThemePath, workspace);
-        return;
+        // Architect is always defined because we initially asserted if the default builder
+        // configuration is set up or not.
+        return addStyleToTarget(project.architect['build'], host, customThemePath, workspace);
     }
     const insertion = new change_1.InsertChange(stylesPath, 0, themeContent);
     const recorder = host.beginUpdate(stylesPath);
@@ -55,16 +60,13 @@ function insertCustomTheme(project, projectName, host, workspace) {
     host.commitUpdate(recorder);
 }
 /** Insert a pre-built theme into the angular.json file. */
-function insertPrebuiltTheme(project, host, theme, workspace, projectName) {
+function insertPrebuiltTheme(project, host, theme, workspace) {
     // Path needs to be always relative to the `package.json` or workspace root.
     const themePath = `./node_modules/@angular/material/prebuilt-themes/${theme}.css`;
-    if (project.architect) {
-        addStyleToTarget(project.architect['build'], host, themePath, workspace);
-        addStyleToTarget(project.architect['test'], host, themePath, workspace);
-    }
-    else {
-        throw new schematics_1.SchematicsException(`${projectName} does not have an architect configuration`);
-    }
+    // Architect is always defined because we initially asserted if the default builder
+    // configuration is set up or not.
+    addStyleToTarget(project.architect['build'], host, themePath, workspace);
+    addStyleToTarget(project.architect['test'], host, themePath, workspace);
 }
 /** Adds a style entry to the given target. */
 function addStyleToTarget(target, host, asset, workspace) {

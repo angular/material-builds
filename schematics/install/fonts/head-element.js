@@ -26,6 +26,8 @@ function appendElementToHead(host, project, elementHtml) {
     if (!headTag) {
         throw `Could not find '<head>' element in HTML file: ${indexPath}`;
     }
+    // We always have access to the source code location here because the `getHeadTagElement`
+    // function explicitly has the `sourceCodeLocationInfo` option enabled.
     const endTagOffset = headTag.sourceCodeLocation.endTag.startOffset;
     const indentationOffset = parse5_element_1.getChildElementIndentation(headTag);
     const insertion = `${' '.repeat(indentationOffset)}${elementHtml}`;

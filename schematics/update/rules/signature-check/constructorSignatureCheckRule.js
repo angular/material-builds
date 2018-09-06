@@ -36,7 +36,8 @@ class Walker extends tslint_1.ProgramAwareRuleWalker {
         return signature.getParameters()
             .map(param => param.declarations[0])
             .map(node => node.type)
-            .map(node => this.getTypeChecker().getTypeFromTypeNode(node));
+            // TODO(devversion): handle non resolvable constructor types
+            .map(typeNode => this.getTypeChecker().getTypeFromTypeNode(typeNode));
     }
     checkExpressionSignature(node) {
         const classType = this.getTypeChecker().getTypeAtLocation(node.expression);
@@ -44,7 +45,7 @@ class Walker extends tslint_1.ProgramAwareRuleWalker {
         const isNewExpression = ts.isNewExpression(node);
         // TODO(devversion): Consider handling pass-through classes better.
         // TODO(devversion): e.g. `export class CustomCalendar extends MatCalendar {}`
-        if (!classType || !constructor_checks_1.constructorChecks.includes(className)) {
+        if (!classType || !constructor_checks_1.constructorChecks.includes(className) || !node.arguments) {
             return;
         }
         const callExpressionSignature = node.arguments
@@ -54,6 +55,8 @@ class Walker extends tslint_1.ProgramAwareRuleWalker {
         // TODO(devversion): we should check if the type is assignable to the signature
         // TODO(devversion): blocked on https://github.com/Microsoft/TypeScript/issues/9879
         const doesMatchSignature = classSignatures.some(signature => {
+            // TODO(devversion): better handling if signature item type is unresolved but assignable
+            // to everything.
             return signature.every((type, index) => callExpressionSignature[index] === type) &&
                 signature.length === callExpressionSignature.length;
         });

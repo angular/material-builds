@@ -20,6 +20,7 @@ const validation_1 = require("@schematics/angular/utility/validation");
 const fs_1 = require("fs");
 const path_1 = require("path");
 const ts = require("typescript");
+const get_project_1 = require("./get-project");
 const schematic_options_1 = require("./schematic-options");
 function readIntoSourceFile(host, modulePath) {
     const text = host.read(modulePath);
@@ -114,7 +115,7 @@ function indentTextContent(text, numSpaces) {
 function buildComponent(options, additionalFiles = {}) {
     return (host, context) => {
         const workspace = config_1.getWorkspace(host);
-        const project = workspace.projects[options.project || workspace.defaultProject];
+        const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
         const defaultComponentOptions = schematic_options_1.getDefaultComponentOptions(project);
         const schematicFilesUrl = './files';
         const schematicFilesPath = path_1.resolve(path_1.dirname(context.schematic.description.path), schematicFilesUrl);
@@ -152,6 +153,8 @@ function buildComponent(options, additionalFiles = {}) {
             // Treat the template options as any, because the type definition for the template options
             // is made unnecessarily explicit. Every type of object can be used in the EJS template.
             schematics_1.template(Object.assign({ indentTextContent, resolvedFiles }, baseTemplateContext)),
+            // TODO(devversion): figure out why we cannot just remove the first parameter
+            // See for example: angular-cli#schematics/angular/component/index.ts#L160
             schematics_1.move(null, parsedPath.path),
         ]);
         return schematics_1.chain([
@@ -163,5 +166,4 @@ function buildComponent(options, additionalFiles = {}) {
     };
 }
 exports.buildComponent = buildComponent;
-// TODO(paul): move this utility out of the `devkit-utils` because it's no longer taken from there.
 //# sourceMappingURL=build-component.js.map

@@ -36,13 +36,14 @@ class Walker extends tslint_1.ProgramAwareRuleWalker {
     }
     visitClassDeclaration(node) {
         const baseTypes = base_types_1.determineBaseTypes(node);
+        const className = node.name ? node.name.text : '{unknown-name}';
         if (!baseTypes) {
             return;
         }
         baseTypes.forEach(typeName => {
             const data = this.propertyNames.get(typeName);
             if (data) {
-                this.addFailureAtNode(node, `Found class "${chalk_1.bold(node.name.text)}" which extends class ` +
+                this.addFailureAtNode(node, `Found class "${chalk_1.bold(className)}" which extends class ` +
                     `"${chalk_1.bold(typeName)}". Please note that the base class property ` +
                     `"${chalk_1.red(data.replace)}" has changed to "${chalk_1.green(data.replaceWith)}". ` +
                     `You may need to update your class as well`);

@@ -9,7 +9,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const config_1 = require("@schematics/angular/utility/config");
 const get_project_1 = require("../../utils/get-project");
-const project_main_file_1 = require("./project-main-file");
+const project_main_file_1 = require("../../utils/project-main-file");
 const hammerjsImportStatement = `import 'hammerjs';`;
 /** Adds HammerJS to the main file of the specified Angular CLI project. */
 function addHammerJsToMain(options) {
