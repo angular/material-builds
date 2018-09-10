@@ -23,5 +23,11 @@ exports.constructorChecks = [
     'MatIconRegistry',
     // https://github.com/angular/material2/pull/9775
     'MatCalendar',
+    // TODO(devversion): The constructor check rule doesn't distinguish data based on the target
+    // TODO(devversion): version. Though it would be more readable to structure the data.
+    // https://github.com/angular/material2/pull/11706
+    'MatDrawerContent',
+    // https://github.com/angular/material2/pull/11706
+    'MatSidenavContent',
 ];
 //# sourceMappingURL=constructor-checks.js.map
