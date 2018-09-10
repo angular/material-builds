@@ -13,8 +13,8 @@ const change_1 = require("@schematics/angular/utility/change");
 const config_1 = require("@schematics/angular/utility/config");
 const find_module_1 = require("@schematics/angular/utility/find-module");
 const ng_ast_utils_1 = require("@schematics/angular/utility/ng-ast-utils");
-const ts = require("typescript");
 const project_main_file_1 = require("./project-main-file");
+const version_agnostic_typescript_1 = require("./version-agnostic-typescript");
 /** Reads file given path and returns TypeScript source file. */
 function getSourceFile(host, path) {
     const buffer = host.read(path);
@@ -22,7 +22,7 @@ function getSourceFile(host, path) {
         throw new schematics_1.SchematicsException(`Could not find file for path: ${path}`);
     }
     const content = buffer.toString();
-    return ts.createSourceFile(path, content, ts.ScriptTarget.Latest, true);
+    return version_agnostic_typescript_1.ts.createSourceFile(path, content, version_agnostic_typescript_1.ts.ScriptTarget.Latest, true);
 }
 exports.getSourceFile = getSourceFile;
 /** Import and add module to root app module. */
@@ -43,8 +43,9 @@ function addModuleImportToModule(host, modulePath, moduleName, src) {
     if (!moduleSource) {
         throw new schematics_1.SchematicsException(`Module not found: ${modulePath}`);
     }
-    // TODO: cast to any, because the types for ts.SourceFile
-    // aren't compatible with `strictFunctionTypes`.
+    // TODO(devversion): Cast to any because the Bazel typescript rules seem to incorrectly resolve
+    // the the required TypeScript version for the @schematics/angular utility functions. Meaning
+    // that is a type signature mismatch at compilation which is not valid.
     const changes = ast_utils_1.addImportToModule(moduleSource, modulePath, moduleName, src);
     const recorder = host.beginUpdate(modulePath);
     changes.forEach((change) => {

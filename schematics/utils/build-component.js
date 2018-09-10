@@ -19,16 +19,15 @@ const project_1 = require("@schematics/angular/utility/project");
 const validation_1 = require("@schematics/angular/utility/validation");
 const fs_1 = require("fs");
 const path_1 = require("path");
-const ts = require("typescript");
 const get_project_1 = require("./get-project");
 const schematic_options_1 = require("./schematic-options");
+const version_agnostic_typescript_1 = require("./version-agnostic-typescript");
 function readIntoSourceFile(host, modulePath) {
     const text = host.read(modulePath);
     if (text === null) {
         throw new schematics_1.SchematicsException(`File ${modulePath} does not exist.`);
     }
-    const sourceText = text.toString('utf-8');
-    return ts.createSourceFile(modulePath, sourceText, ts.ScriptTarget.Latest, true);
+    return version_agnostic_typescript_1.ts.createSourceFile(modulePath, text.toString('utf-8'), version_agnostic_typescript_1.ts.ScriptTarget.Latest, true);
 }
 function addDeclarationToNgModule(options) {
     return (host) => {
@@ -43,8 +42,9 @@ function addDeclarationToNgModule(options) {
             + '.component';
         const relativePath = find_module_1.buildRelativePath(modulePath, componentPath);
         const classifiedName = core_1.strings.classify(`${options.name}Component`);
-        // TODO: cast to any, because the types for ts.SourceFile
-        // aren't compatible with `strictFunctionTypes`.
+        // TODO(devversion): Cast to any because the Bazel typescript rules seem to incorrectly resolve
+        // the the required TypeScript version for the @schematics/angular utility functions. Meaning
+        // that is a type signature mismatch at compilation which is not valid.
         const declarationChanges = ast_utils_1.addDeclarationToModule(source, modulePath, classifiedName, relativePath);
         const declarationRecorder = host.beginUpdate(modulePath);
         for (const change of declarationChanges) {
@@ -57,8 +57,9 @@ function addDeclarationToNgModule(options) {
             // Need to refresh the AST because we overwrote the file in the host.
             const source = readIntoSourceFile(host, modulePath);
             const exportRecorder = host.beginUpdate(modulePath);
-            // TODO: cast to any, because the types for ts.SourceFile
-            // aren't compatible with `strictFunctionTypes`.
+            // TODO(devversion): Cast to any because the Bazel typescript rules seem to incorrectly resolve
+            // the the required TypeScript version for the @schematics/angular utility functions. Meaning
+            // that is a type signature mismatch at compilation which is not valid.
             const exportChanges = ast_utils_1.addExportToModule(source, modulePath, core_1.strings.classify(`${options.name}Component`), relativePath);
             for (const change of exportChanges) {
                 if (change instanceof change_1.InsertChange) {
@@ -71,8 +72,9 @@ function addDeclarationToNgModule(options) {
             // Need to refresh the AST because we overwrote the file in the host.
             const source = readIntoSourceFile(host, modulePath);
             const entryComponentRecorder = host.beginUpdate(modulePath);
-            // TODO: cast to any, because the types for ts.SourceFile
-            // aren't compatible with `strictFunctionTypes`.
+            // TODO(devversion): Cast to any because the Bazel typescript rules seem to incorrectly resolve
+            // the the required TypeScript version for the @schematics/angular utility functions. Meaning
+            // that is a type signature mismatch at compilation which is not valid.
             const entryComponentChanges = ast_utils_1.addEntryComponentToModule(source, modulePath, core_1.strings.classify(`${options.name}Component`), relativePath);
             for (const change of entryComponentChanges) {
                 if (change instanceof change_1.InsertChange) {
