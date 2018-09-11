@@ -42,9 +42,6 @@ function addDeclarationToNgModule(options) {
             + '.component';
         const relativePath = find_module_1.buildRelativePath(modulePath, componentPath);
         const classifiedName = core_1.strings.classify(`${options.name}Component`);
-        // TODO(devversion): Cast to any because the Bazel typescript rules seem to incorrectly resolve
-        // the the required TypeScript version for the @schematics/angular utility functions. Meaning
-        // that is a type signature mismatch at compilation which is not valid.
         const declarationChanges = ast_utils_1.addDeclarationToModule(source, modulePath, classifiedName, relativePath);
         const declarationRecorder = host.beginUpdate(modulePath);
         for (const change of declarationChanges) {
@@ -57,9 +54,6 @@ function addDeclarationToNgModule(options) {
             // Need to refresh the AST because we overwrote the file in the host.
             const source = readIntoSourceFile(host, modulePath);
             const exportRecorder = host.beginUpdate(modulePath);
-            // TODO(devversion): Cast to any because the Bazel typescript rules seem to incorrectly resolve
-            // the the required TypeScript version for the @schematics/angular utility functions. Meaning
-            // that is a type signature mismatch at compilation which is not valid.
             const exportChanges = ast_utils_1.addExportToModule(source, modulePath, core_1.strings.classify(`${options.name}Component`), relativePath);
             for (const change of exportChanges) {
                 if (change instanceof change_1.InsertChange) {
@@ -72,9 +66,6 @@ function addDeclarationToNgModule(options) {
             // Need to refresh the AST because we overwrote the file in the host.
             const source = readIntoSourceFile(host, modulePath);
             const entryComponentRecorder = host.beginUpdate(modulePath);
-            // TODO(devversion): Cast to any because the Bazel typescript rules seem to incorrectly resolve
-            // the the required TypeScript version for the @schematics/angular utility functions. Meaning
-            // that is a type signature mismatch at compilation which is not valid.
             const entryComponentChanges = ast_utils_1.addEntryComponentToModule(source, modulePath, core_1.strings.classify(`${options.name}Component`), relativePath);
             for (const change of entryComponentChanges) {
                 if (change instanceof change_1.InsertChange) {
@@ -119,8 +110,15 @@ function buildComponent(options, additionalFiles = {}) {
         const workspace = config_1.getWorkspace(host);
         const project = get_project_1.getProjectFromWorkspace(workspace, options.project);
         const defaultComponentOptions = schematic_options_1.getDefaultComponentOptions(project);
+        // TODO(devversion): Remove if we drop support for older CLI versions.
+        // This handles an unreported breaking change from the @angular-devkit/schematics. Previously
+        // the description path resolved to the factory file, but starting from 6.2.0, it resolves
+        // to the factory directory.
+        const schematicPath = fs_1.statSync(context.schematic.description.path).isDirectory() ?
+            context.schematic.description.path :
+            path_1.dirname(context.schematic.description.path);
         const schematicFilesUrl = './files';
-        const schematicFilesPath = path_1.resolve(path_1.dirname(context.schematic.description.path), schematicFilesUrl);
+        const schematicFilesPath = path_1.resolve(schematicPath, schematicFilesUrl);
         // Add the default component option values to the options if an option is not explicitly
         // specified but a default component option is available.
         Object.keys(options)
