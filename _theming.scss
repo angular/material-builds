@@ -2824,7 +2824,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
   .mat-list-option,
   .mat-nav-list .mat-list-item {
-    &:hover, &.mat-list-item-focus {
+    &:hover, &:focus {
       background: mat-color($background, 'hover');
     }
   }

@@ -657,7 +657,7 @@ var MatRadioButton = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
     };
     /**
      * Marks the radio button as needing checking for change detection.

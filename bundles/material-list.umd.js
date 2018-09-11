@@ -196,24 +196,6 @@ var MatListItem = /** @class */ (function (_super) {
     function () {
         return !this._isNavList || this.disableRipple || this._navList.disableRipple;
     };
-    /**
-     * @return {?}
-     */
-    MatListItem.prototype._handleFocus = /**
-     * @return {?}
-     */
-    function () {
-        this._element.nativeElement.classList.add('mat-list-item-focus');
-    };
-    /**
-     * @return {?}
-     */
-    MatListItem.prototype._handleBlur = /**
-     * @return {?}
-     */
-    function () {
-        this._element.nativeElement.classList.remove('mat-list-item-focus');
-    };
     /** Retrieves the DOM element of the component host. */
     /**
      * Retrieves the DOM element of the component host.
@@ -234,8 +216,6 @@ var MatListItem = /** @class */ (function (_super) {
                         // @breaking-change 7.0.0 Remove `mat-list-item-avatar` in favor of `mat-list-item-with-avatar`.
                         '[class.mat-list-item-avatar]': '_avatar || _icon',
                         '[class.mat-list-item-with-avatar]': '_avatar || _icon',
-                        '(focus)': '_handleFocus()',
-                        '(blur)': '_handleBlur()',
                     },
                     inputs: ['disableRipple'],
                     template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div><ng-content></ng-content></div>",
@@ -322,10 +302,6 @@ var MatListOption = /** @class */ (function (_super) {
         _this.selectionList = selectionList;
         _this._selected = false;
         _this._disabled = false;
-        /**
-         * Whether the option has focus.
-         */
-        _this._hasFocus = false;
         /**
          * Whether the label should appear before or after the checkbox. Defaults to 'after'
          */
@@ -492,7 +468,6 @@ var MatListOption = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._hasFocus = true;
         this.selectionList._setFocusedOption(this);
     };
     /**
@@ -502,7 +477,6 @@ var MatListOption = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._hasFocus = false;
         this.selectionList._onTouched();
     };
     /** Retrieves the DOM element of the component host. */
@@ -574,7 +548,6 @@ var MatListOption = /** @class */ (function (_super) {
                         '(click)': '_handleClick()',
                         'tabindex': '-1',
                         '[class.mat-list-item-disabled]': 'disabled',
-                        '[class.mat-list-item-focus]': '_hasFocus',
                         '[class.mat-list-item-with-avatar]': '_avatar || _icon',
                         '[attr.aria-selected]': 'selected.toString()',
                         '[attr.aria-disabled]': 'disabled.toString()',
@@ -766,9 +739,9 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (option) {
-        if (option._hasFocus) {
-            /** @type {?} */
-            var optionIndex = this._getOptionIndex(option);
+        /** @type {?} */
+        var optionIndex = this._getOptionIndex(option);
+        if (optionIndex > -1 && this._keyManager.activeItemIndex === optionIndex) {
             // Check whether the option is the last item
             if (optionIndex > 0) {
                 this._keyManager.setPreviousItemActive();

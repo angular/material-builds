@@ -1502,6 +1502,12 @@ var GestureConfig = /** @class */ (function (_super) {
         var longpress = this._createRecognizer(press, { event: 'longpress', time: 500 });
         // Overwrite the default `pan` event to use the swipe event.
         pan.recognizeWith(swipe);
+        // Since the slide event threshold is set to zero, the slide recognizer can fire and
+        // accidentally reset the longpress recognizer. In order to make sure that the two
+        // recognizers can run simultaneously but don't affect each other, we allow the slide
+        // recognizer to recognize while a longpress is being processed.
+        // See: https://github.com/hammerjs/hammer.js/blob/master/src/manager.js#L123-L124
+        longpress.recognizeWith(slide);
         // Add customized gestures to Hammer manager
         mc.add([swipe, press, pan, slide, longpress]);
         return /** @type {?} */ (mc);
@@ -3666,7 +3672,7 @@ var MatFormField = /** @class */ (function (_super) {
     MatFormField.decorators = [
         { type: core.Component, args: [{selector: 'mat-form-field',
                     exportAs: 'matFormField',
-                    template: "<div class=\"mat-form-field-wrapper\"><div class=\"mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><ng-container *ngIf=\"appearance == 'outline'\"><div class=\"mat-form-field-outline\"><div class=\"mat-form-field-outline-start\"></div><div class=\"mat-form-field-outline-gap\"></div><div class=\"mat-form-field-outline-end\"></div></div><div class=\"mat-form-field-outline mat-form-field-outline-thick\"><div class=\"mat-form-field-outline-start\"></div><div class=\"mat-form-field-outline-gap\"></div><div class=\"mat-form-field-outline-end\"></div></div></ng-container><div class=\"mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-form-field-infix\" #inputContainer><ng-content></ng-content><span class=\"mat-form-field-label-wrapper\"><label class=\"mat-form-field-label\" (cdkObserveContent)=\"updateOutlineGap()\" [id]=\"_labelId\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #label *ngIf=\"_hasFloatingLabel()\" [ngSwitch]=\"_hasLabel()\"><ng-container *ngSwitchCase=\"false\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}}</ng-container><ng-content select=\"mat-label\" *ngSwitchCase=\"true\"></ng-content><span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required && !_control.disabled\">&nbsp;*</span></label></span></div><div class=\"mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-form-field-underline\" #underline *ngIf=\"appearance != 'outline'\"><span class=\"mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
+                    template: "<div class=\"mat-form-field-wrapper\"><div class=\"mat-form-field-flex\" #connectionContainer (click)=\"_control.onContainerClick && _control.onContainerClick($event)\"><ng-container *ngIf=\"appearance == 'outline'\"><div class=\"mat-form-field-outline\"><div class=\"mat-form-field-outline-start\"></div><div class=\"mat-form-field-outline-gap\"></div><div class=\"mat-form-field-outline-end\"></div></div><div class=\"mat-form-field-outline mat-form-field-outline-thick\"><div class=\"mat-form-field-outline-start\"></div><div class=\"mat-form-field-outline-gap\"></div><div class=\"mat-form-field-outline-end\"></div></div></ng-container><div class=\"mat-form-field-prefix\" *ngIf=\"_prefixChildren.length\"><ng-content select=\"[matPrefix]\"></ng-content></div><div class=\"mat-form-field-infix\" #inputContainer><ng-content></ng-content><span class=\"mat-form-field-label-wrapper\"><label class=\"mat-form-field-label\" (cdkObserveContent)=\"updateOutlineGap()\" [cdkObserveContentDisabled]=\"appearance != 'outline'\" [id]=\"_labelId\" [attr.for]=\"_control.id\" [attr.aria-owns]=\"_control.id\" [class.mat-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-form-field-empty]=\"_control.empty && !_shouldAlwaysFloat\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\" #label *ngIf=\"_hasFloatingLabel()\" [ngSwitch]=\"_hasLabel()\"><ng-container *ngSwitchCase=\"false\"><ng-content select=\"mat-placeholder\"></ng-content>{{_control.placeholder}}</ng-container><ng-content select=\"mat-label\" *ngSwitchCase=\"true\"></ng-content><span class=\"mat-placeholder-required mat-form-field-required-marker\" aria-hidden=\"true\" *ngIf=\"!hideRequiredMarker && _control.required && !_control.disabled\">&nbsp;*</span></label></span></div><div class=\"mat-form-field-suffix\" *ngIf=\"_suffixChildren.length\"><ng-content select=\"[matSuffix]\"></ng-content></div></div><div class=\"mat-form-field-underline\" #underline *ngIf=\"appearance != 'outline'\"><span class=\"mat-form-field-ripple\" [class.mat-accent]=\"color == 'accent'\" [class.mat-warn]=\"color == 'warn'\"></span></div><div class=\"mat-form-field-subscript-wrapper\" [ngSwitch]=\"_getDisplayedMessages()\"><div *ngSwitchCase=\"'error'\" [@transitionMessages]=\"_subscriptAnimationState\"><ng-content select=\"mat-error\"></ng-content></div><div class=\"mat-form-field-hint-wrapper\" *ngSwitchCase=\"'hint'\" [@transitionMessages]=\"_subscriptAnimationState\"><div *ngIf=\"hintLabel\" [id]=\"_hintLabelId\" class=\"mat-hint\">{{hintLabel}}</div><ng-content select=\"mat-hint:not([align='end'])\"></ng-content><div class=\"mat-form-field-hint-spacer\"></div><ng-content select=\"mat-hint[align='end']\"></ng-content></div></div></div>",
                     // MatInput is a directive and can't have styles, so we need to include its styles here.
                     // The MatInput styles are fairly minimal so it shouldn't be a big deal for people who
                     // aren't using MatInput.
@@ -7597,7 +7603,7 @@ var MatCheckbox = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
     };
     /**
      * @param {?} event
@@ -15347,7 +15353,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         // Avoids focus being lost if the panel contained the focused element and was closed.
         panel.closed
             .pipe(operators.filter(function () { return panel._containsFocus(); }))
-            .subscribe(function () { return _focusMonitor.focusVia(_element.nativeElement, 'program'); });
+            .subscribe(function () { return _focusMonitor.focusVia(_element, 'program'); });
         _focusMonitor.monitor(_element).subscribe(function (origin) {
             if (origin && panel.accordion) {
                 panel.accordion._handleHeaderFocus(_this);
@@ -15475,7 +15481,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
      */
     function (origin) {
         if (origin === void 0) { origin = 'program'; }
-        this._focusMonitor.focusVia(this._element.nativeElement, origin);
+        this._focusMonitor.focusVia(this._element, origin);
     };
     /**
      * @return {?}
@@ -18132,24 +18138,6 @@ var MatListItem = /** @class */ (function (_super) {
     function () {
         return !this._isNavList || this.disableRipple || this._navList.disableRipple;
     };
-    /**
-     * @return {?}
-     */
-    MatListItem.prototype._handleFocus = /**
-     * @return {?}
-     */
-    function () {
-        this._element.nativeElement.classList.add('mat-list-item-focus');
-    };
-    /**
-     * @return {?}
-     */
-    MatListItem.prototype._handleBlur = /**
-     * @return {?}
-     */
-    function () {
-        this._element.nativeElement.classList.remove('mat-list-item-focus');
-    };
     /** Retrieves the DOM element of the component host. */
     /**
      * Retrieves the DOM element of the component host.
@@ -18170,8 +18158,6 @@ var MatListItem = /** @class */ (function (_super) {
                         // @breaking-change 7.0.0 Remove `mat-list-item-avatar` in favor of `mat-list-item-with-avatar`.
                         '[class.mat-list-item-avatar]': '_avatar || _icon',
                         '[class.mat-list-item-with-avatar]': '_avatar || _icon',
-                        '(focus)': '_handleFocus()',
-                        '(blur)': '_handleBlur()',
                     },
                     inputs: ['disableRipple'],
                     template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div><ng-content></ng-content></div>",
@@ -18258,10 +18244,6 @@ var MatListOption = /** @class */ (function (_super) {
         _this.selectionList = selectionList;
         _this._selected = false;
         _this._disabled = false;
-        /**
-         * Whether the option has focus.
-         */
-        _this._hasFocus = false;
         /**
          * Whether the label should appear before or after the checkbox. Defaults to 'after'
          */
@@ -18428,7 +18410,6 @@ var MatListOption = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._hasFocus = true;
         this.selectionList._setFocusedOption(this);
     };
     /**
@@ -18438,7 +18419,6 @@ var MatListOption = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._hasFocus = false;
         this.selectionList._onTouched();
     };
     /** Retrieves the DOM element of the component host. */
@@ -18510,7 +18490,6 @@ var MatListOption = /** @class */ (function (_super) {
                         '(click)': '_handleClick()',
                         'tabindex': '-1',
                         '[class.mat-list-item-disabled]': 'disabled',
-                        '[class.mat-list-item-focus]': '_hasFocus',
                         '[class.mat-list-item-with-avatar]': '_avatar || _icon',
                         '[attr.aria-selected]': 'selected.toString()',
                         '[attr.aria-disabled]': 'disabled.toString()',
@@ -18702,9 +18681,9 @@ var MatSelectionList = /** @class */ (function (_super) {
      * @return {?}
      */
     function (option) {
-        if (option._hasFocus) {
-            /** @type {?} */
-            var optionIndex = this._getOptionIndex(option);
+        /** @type {?} */
+        var optionIndex = this._getOptionIndex(option);
+        if (optionIndex > -1 && this._keyManager.activeItemIndex === optionIndex) {
             // Check whether the option is the last item
             if (optionIndex > 0) {
                 this._keyManager.setPreviousItemActive();
@@ -20181,7 +20160,7 @@ var MatMenuTrigger = /** @class */ (function () {
     function (origin) {
         if (origin === void 0) { origin = 'program'; }
         if (this._focusMonitor) {
-            this._focusMonitor.focusVia(this._element.nativeElement, origin);
+            this._focusMonitor.focusVia(this._element, origin);
         }
         else {
             this._element.nativeElement.focus();
@@ -22605,13 +22584,13 @@ var MatTooltip = /** @class */ (function () {
                 .set('mouseleave', function () { return _this.hide(); })
                 .forEach(function (listener, event) { return element.addEventListener(event, listener); });
         }
-        else if (_platform.IOS && (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA')) {
+        if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
             // When we bind a gesture event on an element (in this case `longpress`), HammerJS
             // will add some inline styles by default, including `user-select: none`. This is
-            // problematic on iOS, because it will prevent users from typing in inputs. If
-            // we're on iOS and the tooltip is attached on an input or textarea, we clear
-            // the `user-select` to avoid these issues.
-            element.style.webkitUserSelect = element.style.userSelect = '';
+            // problematic on iOS and in Safari, because it will prevent users from typing in inputs.
+            // Since `user-select: none` is not needed for the `longpress` event and can cause unexpected
+            // behavior for text fields, we always clear the `user-select` to avoid such issues.
+            element.style.webkitUserSelect = element.style.userSelect = element.style.msUserSelect = '';
         }
         // Hammer applies `-webkit-user-drag: none` on all elements by default,
         // which breaks the native drag&drop. If the consumer explicitly made
@@ -25117,7 +25096,7 @@ var MatRadioButton = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
     };
     /**
      * Marks the radio button as needing checking for change detection.
@@ -26861,7 +26840,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
     };
     /** Toggles the checked state of the slide-toggle. */
     /**
@@ -34025,10 +34004,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-beta.0-f39e091');
+var VERSION = new core.Version('7.0.0-beta.0-722dfb3');
 
 exports.VERSION = VERSION;
-exports.ɵa29 = MatAutocompleteOrigin;
+exports.ɵa28 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34280,12 +34259,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb23 = MatMenuItemBase;
+exports.ɵc23 = _MatMenuItemMixinBase;
+exports.ɵf23 = MAT_MENU_PANEL;
+exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34428,17 +34407,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa21 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf21 = MatTabBase;
+exports.ɵg21 = _MatTabMixinBase;
+exports.ɵb21 = MatTabHeaderBase;
+exports.ɵc21 = _MatTabHeaderMixinBase;
+exports.ɵd21 = MatTabLabelWrapperBase;
+exports.ɵe21 = _MatTabLabelWrapperMixinBase;
+exports.ɵj21 = MatTabLinkBase;
+exports.ɵh21 = MatTabNavBase;
+exports.ɵk21 = _MatTabLinkMixinBase;
+exports.ɵi21 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
