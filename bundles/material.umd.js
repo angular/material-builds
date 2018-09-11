@@ -1800,11 +1800,13 @@ RippleRenderer = /** @class */ (function () {
         if (platform$$1.isBrowser) {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
-            this._triggerEvents.set('mousedown', this.onMousedown);
-            this._triggerEvents.set('mouseup', this.onPointerUp);
-            this._triggerEvents.set('mouseleave', this.onPointerUp);
-            this._triggerEvents.set('touchstart', this.onTouchStart);
-            this._triggerEvents.set('touchend', this.onPointerUp);
+            this._triggerEvents
+                .set('mousedown', this.onMousedown)
+                .set('mouseup', this.onPointerUp)
+                .set('mouseleave', this.onPointerUp)
+                .set('touchstart', this.onTouchStart)
+                .set('touchend', this.onPointerUp)
+                .set('touchcancel', this.onPointerUp);
         }
     }
     /**
@@ -16576,7 +16578,9 @@ var MatGridList = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._cols = Math.round(coercion.coerceNumberProperty(value)); },
+        function (value) {
+            this._cols = Math.max(1, Math.round(coercion.coerceNumberProperty(value)));
+        },
         enumerable: true,
         configurable: true
     });
@@ -34004,10 +34008,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-beta.0-e24f24a');
+var VERSION = new core.Version('7.0.0-beta.0-948e563');
 
 exports.VERSION = VERSION;
-exports.ɵa27 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34407,17 +34411,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa20 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf20 = MatTabBase;
-exports.ɵg20 = _MatTabMixinBase;
-exports.ɵb20 = MatTabHeaderBase;
-exports.ɵc20 = _MatTabHeaderMixinBase;
-exports.ɵd20 = MatTabLabelWrapperBase;
-exports.ɵe20 = _MatTabLabelWrapperMixinBase;
-exports.ɵj20 = MatTabLinkBase;
-exports.ɵh20 = MatTabNavBase;
-exports.ɵk20 = _MatTabLinkMixinBase;
-exports.ɵi20 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;
