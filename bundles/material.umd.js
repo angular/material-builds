@@ -7132,6 +7132,8 @@ var MAT_CHECKBOX_CLICK_ACTION = new core.InjectionToken('mat-checkbox-click-acti
  */
 /** @type {?} */
 var nextUniqueId$3 = 0;
+/** @type {?} */
+var calculatedRippleRadius = 0;
 /** *
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -7279,6 +7281,15 @@ var MatCheckbox = /** @class */ (function (_super) {
         this._focusMonitor
             .monitor(this._inputElement)
             .subscribe(function (focusOrigin) { return _this._onInputFocusChange(focusOrigin); });
+    };
+    /**
+     * @return {?}
+     */
+    MatCheckbox.prototype.ngAfterViewChecked = /**
+     * @return {?}
+     */
+    function () {
+        this._calculateRippleRadius();
     };
     /**
      * @return {?}
@@ -7666,6 +7677,24 @@ var MatCheckbox = /** @class */ (function (_super) {
                 break;
         }
         return "mat-checkbox-anim-" + animSuffix;
+    };
+    /**
+     * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
+     * for the application.
+     * @return {?}
+     */
+    MatCheckbox.prototype._calculateRippleRadius = /**
+     * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
+     * for the application.
+     * @return {?}
+     */
+    function () {
+        if (!calculatedRippleRadius) {
+            /** @type {?} */
+            var rippleWidth = this._elementRef.nativeElement.querySelector('.mat-checkbox-ripple').clientWidth || 0;
+            calculatedRippleRadius = rippleWidth / 2;
+        }
+        this.ripple.radius = calculatedRippleRadius;
     };
     MatCheckbox.decorators = [
         { type: core.Component, args: [{selector: 'mat-checkbox',
@@ -34008,10 +34037,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-beta.0-948e563');
+var VERSION = new core.Version('7.0.0-beta.0-6575ade');
 
 exports.VERSION = VERSION;
-exports.ɵa30 = MatAutocompleteOrigin;
+exports.ɵa27 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;

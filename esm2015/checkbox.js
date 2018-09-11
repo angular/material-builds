@@ -29,6 +29,8 @@ const MAT_CHECKBOX_CLICK_ACTION = new InjectionToken('mat-checkbox-click-action'
  */
 /** @type {?} */
 let nextUniqueId = 0;
+/** @type {?} */
+let calculatedRippleRadius = 0;
 /** *
  * Provider Expression that allows mat-checkbox to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -162,6 +164,12 @@ class MatCheckbox extends _MatCheckboxMixinBase {
         this._focusMonitor
             .monitor(this._inputElement)
             .subscribe(focusOrigin => this._onInputFocusChange(focusOrigin));
+    }
+    /**
+     * @return {?}
+     */
+    ngAfterViewChecked() {
+        this._calculateRippleRadius();
     }
     /**
      * @return {?}
@@ -442,6 +450,19 @@ class MatCheckbox extends _MatCheckboxMixinBase {
                 break;
         }
         return `mat-checkbox-anim-${animSuffix}`;
+    }
+    /**
+     * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
+     * for the application.
+     * @return {?}
+     */
+    _calculateRippleRadius() {
+        if (!calculatedRippleRadius) {
+            /** @type {?} */
+            const rippleWidth = this._elementRef.nativeElement.querySelector('.mat-checkbox-ripple').clientWidth || 0;
+            calculatedRippleRadius = rippleWidth / 2;
+        }
+        this.ripple.radius = calculatedRippleRadius;
     }
 }
 MatCheckbox.decorators = [

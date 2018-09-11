@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
 import { CanColor, CanColorCtor, CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, HasTabIndex, HasTabIndexCtor, MatRipple } from '@angular/material/core';
 import { MatCheckboxClickAction } from './checkbox-config';
@@ -51,7 +51,7 @@ export declare const _MatCheckboxMixinBase: HasTabIndexCtor & CanColorCtor & Can
  * have the checkbox be accessible, you may supply an [aria-label] input.
  * See: https://material.io/design/components/selection-controls.html
  */
-export declare class MatCheckbox extends _MatCheckboxMixinBase implements ControlValueAccessor, AfterViewInit, OnDestroy, CanColor, CanDisable, HasTabIndex, CanDisableRipple {
+export declare class MatCheckbox extends _MatCheckboxMixinBase implements ControlValueAccessor, AfterViewChecked, AfterViewInit, OnDestroy, CanColor, CanDisable, HasTabIndex, CanDisableRipple {
     private _changeDetectorRef;
     private _focusMonitor;
     private _ngZone;
@@ -100,6 +100,7 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     private _focusRipple;
     constructor(elementRef: ElementRef<HTMLElement>, _changeDetectorRef: ChangeDetectorRef, _focusMonitor: FocusMonitor, _ngZone: NgZone, tabIndex: string, _clickAction: MatCheckboxClickAction, _animationMode?: string | undefined);
     ngAfterViewInit(): void;
+    ngAfterViewChecked(): void;
     ngOnDestroy(): void;
     /**
      * Whether the checkbox is checked.
@@ -146,4 +147,9 @@ export declare class MatCheckbox extends _MatCheckboxMixinBase implements Contro
     focus(): void;
     _onInteractionEvent(event: Event): void;
     private _getAnimationClassForCheckStateTransition;
+    /**
+     * Calculate the radius for the ripple based on the ripple elements width.  Only calculated once
+     * for the application.
+     */
+    private _calculateRippleRadius;
 }
