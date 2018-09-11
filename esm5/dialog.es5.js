@@ -97,21 +97,24 @@ MatDialogConfig = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
+/** @type {?} */
+var animationBody = [
+    // Note: The `enter` animation transitions to `transform: none`, because for some reason
+    // specifying the transform explicitly, causes IE both to blur the dialog content and
+    // decimate the animation performance. Leaving it as `none` solves both issues.
+    state('void, exit', style({ opacity: 0, transform: 'scale(0.7)' })),
+    state('enter', style({ transform: 'none' })),
+    transition('* => enter', animate('150ms cubic-bezier(0, 0, 0.2, 1)', style({ transform: 'none', opacity: 1 }))),
+    transition('* => void, * => exit', animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', style({ opacity: 0 }))),
+];
 /** *
  * Animations used by MatDialog.
   @type {?} */
 var matDialogAnimations = {
-    /** Animation that slides the dialog in and out of view and fades the opacity. */
-    slideDialog: trigger('slideDialog', [
-        // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
-        // scale(1)`, because for some reason specifying the transform explicitly, causes IE both
-        // to blur the dialog content and decimate the animation performance. Leaving it as `none`
-        // solves both issues.
-        state('enter', style({ transform: 'none', opacity: 1 })),
-        state('void', style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
-        state('exit', style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
-        transition('* => *', animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
-    ])
+    /** Animation that is applied on the dialog container by defalt. */
+    dialogContainer: trigger('dialogContainer', animationBody),
+    /** @deprecated @breaking-change 8.0.0 Use `matDialogAnimations.dialogContainer` instead. */
+    slideDialog: trigger('slideDialog', animationBody)
 };
 
 /**
@@ -321,7 +324,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
                     // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
                     // tslint:disable-next-line:validate-decorators
                     changeDetection: ChangeDetectionStrategy.Default,
-                    animations: [matDialogAnimations.slideDialog],
+                    animations: [matDialogAnimations.dialogContainer],
                     host: {
                         'class': 'mat-dialog-container',
                         'tabindex': '-1',
@@ -331,9 +334,9 @@ var MatDialogContainer = /** @class */ (function (_super) {
                         '[attr.aria-labelledby]': '_config.ariaLabel ? null : _ariaLabelledBy',
                         '[attr.aria-label]': '_config.ariaLabel',
                         '[attr.aria-describedby]': '_config.ariaDescribedBy || null',
-                        '[@slideDialog]': '_state',
-                        '(@slideDialog.start)': '_onAnimationStart($event)',
-                        '(@slideDialog.done)': '_onAnimationDone($event)',
+                        '[@dialogContainer]': '_state',
+                        '(@dialogContainer.start)': '_onAnimationStart($event)',
+                        '(@dialogContainer.done)': '_onAnimationDone($event)',
                     },
                 },] },
     ];

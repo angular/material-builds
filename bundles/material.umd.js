@@ -9750,21 +9750,24 @@ MatDialogConfig = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
+/** @type {?} */
+var animationBody = [
+    // Note: The `enter` animation transitions to `transform: none`, because for some reason
+    // specifying the transform explicitly, causes IE both to blur the dialog content and
+    // decimate the animation performance. Leaving it as `none` solves both issues.
+    animations$1.state('void, exit', animations$1.style({ opacity: 0, transform: 'scale(0.7)' })),
+    animations$1.state('enter', animations$1.style({ transform: 'none' })),
+    animations$1.transition('* => enter', animations$1.animate('150ms cubic-bezier(0, 0, 0.2, 1)', animations$1.style({ transform: 'none', opacity: 1 }))),
+    animations$1.transition('* => void, * => exit', animations$1.animate('75ms cubic-bezier(0.4, 0.0, 0.2, 1)', animations$1.style({ opacity: 0 }))),
+];
 /** *
  * Animations used by MatDialog.
   @type {?} */
 var matDialogAnimations = {
-    /** Animation that slides the dialog in and out of view and fades the opacity. */
-    slideDialog: animations$1.trigger('slideDialog', [
-        // Note: The `enter` animation doesn't transition to something like `translate3d(0, 0, 0)
-        // scale(1)`, because for some reason specifying the transform explicitly, causes IE both
-        // to blur the dialog content and decimate the animation performance. Leaving it as `none`
-        // solves both issues.
-        animations$1.state('enter', animations$1.style({ transform: 'none', opacity: 1 })),
-        animations$1.state('void', animations$1.style({ transform: 'translate3d(0, 25%, 0) scale(0.9)', opacity: 0 })),
-        animations$1.state('exit', animations$1.style({ transform: 'translate3d(0, 25%, 0)', opacity: 0 })),
-        animations$1.transition('* => *', animations$1.animate('400ms cubic-bezier(0.25, 0.8, 0.25, 1)')),
-    ])
+    /** Animation that is applied on the dialog container by defalt. */
+    dialogContainer: animations$1.trigger('dialogContainer', animationBody),
+    /** @deprecated @breaking-change 8.0.0 Use `matDialogAnimations.dialogContainer` instead. */
+    slideDialog: animations$1.trigger('slideDialog', animationBody)
 };
 
 /**
@@ -9974,7 +9977,7 @@ var MatDialogContainer = /** @class */ (function (_super) {
                     // Using OnPush for dialogs caused some G3 sync issues. Disabled until we can track them down.
                     // tslint:disable-next-line:validate-decorators
                     changeDetection: core.ChangeDetectionStrategy.Default,
-                    animations: [matDialogAnimations.slideDialog],
+                    animations: [matDialogAnimations.dialogContainer],
                     host: {
                         'class': 'mat-dialog-container',
                         'tabindex': '-1',
@@ -9984,9 +9987,9 @@ var MatDialogContainer = /** @class */ (function (_super) {
                         '[attr.aria-labelledby]': '_config.ariaLabel ? null : _ariaLabelledBy',
                         '[attr.aria-label]': '_config.ariaLabel',
                         '[attr.aria-describedby]': '_config.ariaDescribedBy || null',
-                        '[@slideDialog]': '_state',
-                        '(@slideDialog.start)': '_onAnimationStart($event)',
-                        '(@slideDialog.done)': '_onAnimationDone($event)',
+                        '[@dialogContainer]': '_state',
+                        '(@dialogContainer.start)': '_onAnimationStart($event)',
+                        '(@dialogContainer.done)': '_onAnimationDone($event)',
                     },
                 },] },
     ];
@@ -34016,7 +34019,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-beta.0-041a41d');
+var VERSION = new core.Version('7.0.0-beta.0-1908b3e');
 
 exports.VERSION = VERSION;
 exports.ɵa29 = MatAutocompleteOrigin;
@@ -34271,12 +34274,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa23 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb23 = MatMenuItemBase;
-exports.ɵc23 = _MatMenuItemMixinBase;
-exports.ɵf23 = MAT_MENU_PANEL;
-exports.ɵd23 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe23 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34419,17 +34422,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf24 = MatTabBase;
-exports.ɵg24 = _MatTabMixinBase;
-exports.ɵb24 = MatTabHeaderBase;
-exports.ɵc24 = _MatTabHeaderMixinBase;
-exports.ɵd24 = MatTabLabelWrapperBase;
-exports.ɵe24 = _MatTabLabelWrapperMixinBase;
-exports.ɵj24 = MatTabLinkBase;
-exports.ɵh24 = MatTabNavBase;
-exports.ɵk24 = _MatTabLinkMixinBase;
-exports.ɵi24 = _MatTabNavMixinBase;
+exports.ɵa22 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf22 = MatTabBase;
+exports.ɵg22 = _MatTabMixinBase;
+exports.ɵb22 = MatTabHeaderBase;
+exports.ɵc22 = _MatTabHeaderMixinBase;
+exports.ɵd22 = MatTabLabelWrapperBase;
+exports.ɵe22 = _MatTabLabelWrapperMixinBase;
+exports.ɵj22 = MatTabLinkBase;
+exports.ɵh22 = MatTabNavBase;
+exports.ɵk22 = _MatTabLinkMixinBase;
+exports.ɵi22 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

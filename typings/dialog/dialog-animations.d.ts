@@ -8,5 +8,6 @@
 import { AnimationTriggerMetadata } from '@angular/animations';
 /** Animations used by MatDialog. */
 export declare const matDialogAnimations: {
+    readonly dialogContainer: AnimationTriggerMetadata;
     readonly slideDialog: AnimationTriggerMetadata;
 };
