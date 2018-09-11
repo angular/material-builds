@@ -14,7 +14,6 @@ const config_1 = require("@schematics/angular/utility/config");
 const path_1 = require("path");
 const get_project_1 = require("../../utils/get-project");
 const project_style_file_1 = require("../../utils/project-style-file");
-const project_targets_1 = require("../../utils/project-targets");
 const custom_theme_1 = require("./custom-theme");
 /** Add pre-built styles to the main project style file. */
 function addThemeToAppStyles(options) {
@@ -51,7 +50,9 @@ function insertCustomTheme(project, projectName, host, workspace) {
         // unnecessary path segments and windows backslash delimiters.
         const customThemePath = core_1.normalize(path_1.join(project.sourceRoot, 'custom-theme.scss'));
         host.create(customThemePath, themeContent);
-        return addStyleToTarget(project, 'build', host, customThemePath, workspace);
+        // Architect is always defined because we initially asserted if the default builder
+        // configuration is set up or not.
+        return addStyleToTarget(project.architect['build'], host, customThemePath, workspace);
     }
     const insertion = new change_1.InsertChange(stylesPath, 0, themeContent);
     const recorder = host.beginUpdate(stylesPath);
@@ -62,39 +63,42 @@ function insertCustomTheme(project, projectName, host, workspace) {
 function insertPrebuiltTheme(project, host, theme, workspace) {
     // Path needs to be always relative to the `package.json` or workspace root.
     const themePath = `./node_modules/@angular/material/prebuilt-themes/${theme}.css`;
-    addStyleToTarget(project, 'build', host, themePath, workspace);
-    addStyleToTarget(project, 'test', host, themePath, workspace);
+    // Architect is always defined because we initially asserted if the default builder
+    // configuration is set up or not.
+    addStyleToTarget(project.architect['build'], host, themePath, workspace);
+    addStyleToTarget(project.architect['test'], host, themePath, workspace);
 }
-/** Adds a style entry to the given project target. */
-function addStyleToTarget(project, targetName, host, assetPath, workspace) {
-    const targetOptions = project_targets_1.getProjectTargetOptions(project, targetName);
-    if (!targetOptions.styles) {
-        targetOptions.styles = [assetPath];
+/** Adds a style entry to the given target. */
+function addStyleToTarget(target, host, asset, workspace) {
+    // We can't assume that any of these properties are defined, so safely add them as we go
+    // if necessary.
+    if (!target.options) {
+        target.options = { styles: [asset] };
+    }
+    else if (!target.options.styles) {
+        target.options.styles = [asset];
     }
     else {
-        const existingStyles = targetOptions.styles.map(s => typeof s === 'string' ? s : s.input);
-        const hasGivenTheme = existingStyles.find(s => s.includes(assetPath));
+        const existingStyles = target.options.styles.map(s => typeof s === 'string' ? s : s.input);
+        const hasGivenTheme = existingStyles.find(s => s.includes(asset));
         const hasOtherTheme = existingStyles.find(s => s.includes('material/prebuilt'));
         if (!hasGivenTheme && !hasOtherTheme) {
-            targetOptions.styles.unshift(assetPath);
+            target.options.styles.unshift(asset);
         }
     }
     host.overwrite('angular.json', JSON.stringify(workspace, null, 2));
 }
 /** Throws if the project is not using the default Angular devkit builders. */
 function assertDefaultBuildersConfigured(project) {
-    checkProjectTargetBuilder(project, 'build', '@angular-devkit/build-angular:browser');
-    checkProjectTargetBuilder(project, 'test', '@angular-devkit/build-angular:karma');
-}
-/**
- * Checks if the specified project target is configured with the default builders which are
- * provided by the Angular CLI.
- */
-function checkProjectTargetBuilder(project, targetName, defaultBuilder) {
-    const targetConfig = project.architect && project.architect[targetName] ||
-        project.targets && project.targets[targetName];
-    if (!targetConfig || targetConfig['builder'] !== defaultBuilder) {
-        throw new schematics_1.SchematicsException(`Your project is not using the default builders for "${targetName}". The Angular Material ` +
+    const defaultBuilder = '@angular-devkit/build-angular:browser';
+    const defaultTestBuilder = '@angular-devkit/build-angular:karma';
+    const hasDefaultBuilders = project.architect &&
+        project.architect['build'] &&
+        project.architect['build']['builder'] === defaultBuilder &&
+        project.architect['test'] &&
+        project.architect['test']['builder'] === defaultTestBuilder;
+    if (!hasDefaultBuilders) {
+        throw new schematics_1.SchematicsException('Your project is not using the default builders for build and test. The Angular Material ' +
             'schematics can only be used if the original builders from the Angular CLI are configured.');
     }
 }

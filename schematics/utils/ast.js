@@ -43,6 +43,9 @@ function addModuleImportToModule(host, modulePath, moduleName, src) {
     if (!moduleSource) {
         throw new schematics_1.SchematicsException(`Module not found: ${modulePath}`);
     }
+    // TODO(devversion): Cast to any because the Bazel typescript rules seem to incorrectly resolve
+    // the the required TypeScript version for the @schematics/angular utility functions. Meaning
+    // that is a type signature mismatch at compilation which is not valid.
     const changes = ast_utils_1.addImportToModule(moduleSource, modulePath, moduleName, src);
     const recorder = host.beginUpdate(modulePath);
     changes.forEach((change) => {

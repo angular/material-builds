@@ -8,10 +8,10 @@
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 const schematics_1 = require("@angular-devkit/schematics");
-const project_targets_1 = require("./project-targets");
+const architect_options_1 = require("./architect-options");
 /** Looks for the main TypeScript file in the given project and returns its path. */
 function getProjectMainFile(project) {
-    const buildOptions = project_targets_1.getProjectTargetOptions(project, 'build');
+    const buildOptions = architect_options_1.getArchitectOptions(project, 'build');
     if (!buildOptions.main) {
         throw new schematics_1.SchematicsException(`Could not find the project main file inside of the ` +
             `workspace config (${project.sourceRoot})`);
