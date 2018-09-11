@@ -908,7 +908,9 @@ var MatGridList = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._cols = Math.round(coercion.coerceNumberProperty(value)); },
+        function (value) {
+            this._cols = Math.max(1, Math.round(coercion.coerceNumberProperty(value)));
+        },
         enumerable: true,
         configurable: true
     });
