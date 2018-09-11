@@ -11,25 +11,12 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, forwardRef, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * \@docs-private
- */
-var  /**
- * \@docs-private
- */
-MatButtonToggleGroupBase = /** @class */ (function () {
-    function MatButtonToggleGroupBase() {
-    }
-    return MatButtonToggleGroupBase;
-}());
-/** @type {?} */
-var _MatButtonToggleGroupMixinBase = mixinDisabled(MatButtonToggleGroupBase);
 /** *
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -71,34 +58,32 @@ MatButtonToggleChange = /** @class */ (function () {
 /**
  * Exclusive selection button toggle group that behaves like a radio-button group.
  */
-var MatButtonToggleGroup = /** @class */ (function (_super) {
-    __extends(MatButtonToggleGroup, _super);
+var MatButtonToggleGroup = /** @class */ (function () {
     function MatButtonToggleGroup(_changeDetector) {
-        var _this = _super.call(this) || this;
-        _this._changeDetector = _changeDetector;
-        _this._vertical = false;
-        _this._multiple = false;
+        this._changeDetector = _changeDetector;
+        this._vertical = false;
+        this._multiple = false;
+        this._disabled = false;
         /**
          * The method to be called in order to update ngModel.
          * Now `ngModel` binding is not supported in multiple selection mode.
          */
-        _this._controlValueAccessorChangeFn = function () { };
+        this._controlValueAccessorChangeFn = function () { };
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
-        _this._onTouched = function () { };
-        _this._name = "mat-button-toggle-group-" + _uniqueIdCounter++;
+        this._onTouched = function () { };
+        this._name = "mat-button-toggle-group-" + _uniqueIdCounter++;
         /**
          * Event that emits whenever the value of the group changes.
          * Used to facilitate two-way data binding.
          * \@docs-private
          */
-        _this.valueChange = new EventEmitter();
+        this.valueChange = new EventEmitter();
         /**
          * Event emitted when the group's value changes.
          */
-        _this.change = new EventEmitter();
-        return _this;
+        this.change = new EventEmitter();
     }
     Object.defineProperty(MatButtonToggleGroup.prototype, "name", {
         /** `name` attribute for the underlying `input` element. */
@@ -194,6 +179,26 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatButtonToggleGroup.prototype, "disabled", {
+        /** Whether multiple button toggle group is disabled. */
+        get: /**
+         * Whether multiple button toggle group is disabled.
+         * @return {?}
+         */
+        function () { return this._disabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._disabled = coerceBooleanProperty(value);
+            if (this._buttonToggles) {
+                this._buttonToggles.forEach(function (toggle) { return toggle._markForCheck(); });
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -266,9 +271,6 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
      */
     function (isDisabled) {
         this.disabled = isDisabled;
-        if (this._buttonToggles) {
-            this._buttonToggles.forEach(function (toggle) { return toggle._markForCheck(); });
-        }
     };
     /** Dispatch change event with current selection and group value. */
     /**
@@ -431,7 +433,6 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
                         MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR,
                         { provide: MatButtonToggleGroupMultiple, useExisting: MatButtonToggleGroup },
                     ],
-                    inputs: ['disabled'],
                     host: {
                         'role': 'group',
                         'class': 'mat-button-toggle-group',
@@ -452,10 +453,11 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
         value: [{ type: Input }],
         valueChange: [{ type: Output }],
         multiple: [{ type: Input }],
+        disabled: [{ type: Input }],
         change: [{ type: Output }]
     };
     return MatButtonToggleGroup;
-}(_MatButtonToggleGroupMixinBase));
+}());
 /**
  * \@docs-private
  */
@@ -704,5 +706,5 @@ var MatButtonToggleModule = /** @class */ (function () {
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatButtonToggleGroupBase, _MatButtonToggleGroupMixinBase, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggleGroupMultiple, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleBase, _MatButtonToggleMixinBase, MatButtonToggle, MatButtonToggleModule };
+export { MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggleGroupMultiple, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleBase, _MatButtonToggleMixinBase, MatButtonToggle, MatButtonToggleModule };
 //# sourceMappingURL=button-toggle.es5.js.map

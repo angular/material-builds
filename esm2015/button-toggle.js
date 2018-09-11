@@ -10,19 +10,12 @@ import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChildren, Directive, ElementRef, EventEmitter, forwardRef, Input, Optional, Output, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { mixinDisabled, mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
+import { mixinDisableRipple, MatCommonModule, MatRippleModule } from '@angular/material/core';
 
 /**
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * \@docs-private
- */
-class MatButtonToggleGroupBase {
-}
-/** @type {?} */
-const _MatButtonToggleGroupMixinBase = mixinDisabled(MatButtonToggleGroupBase);
 /** *
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -57,15 +50,15 @@ class MatButtonToggleChange {
 /**
  * Exclusive selection button toggle group that behaves like a radio-button group.
  */
-class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
+class MatButtonToggleGroup {
     /**
      * @param {?} _changeDetector
      */
     constructor(_changeDetector) {
-        super();
         this._changeDetector = _changeDetector;
         this._vertical = false;
         this._multiple = false;
+        this._disabled = false;
         /**
          * The method to be called in order to update ngModel.
          * Now `ngModel` binding is not supported in multiple selection mode.
@@ -156,6 +149,21 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
         this._multiple = coerceBooleanProperty(value);
     }
     /**
+     * Whether multiple button toggle group is disabled.
+     * @return {?}
+     */
+    get disabled() { return this._disabled; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    set disabled(value) {
+        this._disabled = coerceBooleanProperty(value);
+        if (this._buttonToggles) {
+            this._buttonToggles.forEach(toggle => toggle._markForCheck());
+        }
+    }
+    /**
      * @return {?}
      */
     ngOnInit() {
@@ -196,9 +204,6 @@ class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase {
      */
     setDisabledState(isDisabled) {
         this.disabled = isDisabled;
-        if (this._buttonToggles) {
-            this._buttonToggles.forEach(toggle => toggle._markForCheck());
-        }
     }
     /**
      * Dispatch change event with current selection and group value.
@@ -316,7 +321,6 @@ MatButtonToggleGroup.decorators = [
                     MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR,
                     { provide: MatButtonToggleGroupMultiple, useExisting: MatButtonToggleGroup },
                 ],
-                inputs: ['disabled'],
                 host: {
                     'role': 'group',
                     'class': 'mat-button-toggle-group',
@@ -337,6 +341,7 @@ MatButtonToggleGroup.propDecorators = {
     value: [{ type: Input }],
     valueChange: [{ type: Output }],
     multiple: [{ type: Input }],
+    disabled: [{ type: Input }],
     change: [{ type: Output }]
 };
 /**
@@ -540,5 +545,5 @@ MatButtonToggleModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatButtonToggleGroupBase, _MatButtonToggleGroupMixinBase, MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggleGroupMultiple, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleBase, _MatButtonToggleMixinBase, MatButtonToggle, MatButtonToggleModule };
+export { MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR, MatButtonToggleGroupMultiple, MatButtonToggleChange, MatButtonToggleGroup, MatButtonToggleBase, _MatButtonToggleMixinBase, MatButtonToggle, MatButtonToggleModule };
 //# sourceMappingURL=button-toggle.js.map

@@ -6156,19 +6156,6 @@ var MatButtonModule = /** @class */ (function () {
  * @fileoverview added by tsickle
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
-/**
- * \@docs-private
- */
-var   /**
- * \@docs-private
- */
-MatButtonToggleGroupBase = /** @class */ (function () {
-    function MatButtonToggleGroupBase() {
-    }
-    return MatButtonToggleGroupBase;
-}());
-/** @type {?} */
-var _MatButtonToggleGroupMixinBase = mixinDisabled(MatButtonToggleGroupBase);
 /** *
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -6210,34 +6197,32 @@ MatButtonToggleChange = /** @class */ (function () {
 /**
  * Exclusive selection button toggle group that behaves like a radio-button group.
  */
-var MatButtonToggleGroup = /** @class */ (function (_super) {
-    __extends(MatButtonToggleGroup, _super);
+var MatButtonToggleGroup = /** @class */ (function () {
     function MatButtonToggleGroup(_changeDetector) {
-        var _this = _super.call(this) || this;
-        _this._changeDetector = _changeDetector;
-        _this._vertical = false;
-        _this._multiple = false;
+        this._changeDetector = _changeDetector;
+        this._vertical = false;
+        this._multiple = false;
+        this._disabled = false;
         /**
          * The method to be called in order to update ngModel.
          * Now `ngModel` binding is not supported in multiple selection mode.
          */
-        _this._controlValueAccessorChangeFn = function () { };
+        this._controlValueAccessorChangeFn = function () { };
         /**
          * onTouch function registered via registerOnTouch (ControlValueAccessor).
          */
-        _this._onTouched = function () { };
-        _this._name = "mat-button-toggle-group-" + _uniqueIdCounter$1++;
+        this._onTouched = function () { };
+        this._name = "mat-button-toggle-group-" + _uniqueIdCounter$1++;
         /**
          * Event that emits whenever the value of the group changes.
          * Used to facilitate two-way data binding.
          * \@docs-private
          */
-        _this.valueChange = new core.EventEmitter();
+        this.valueChange = new core.EventEmitter();
         /**
          * Event emitted when the group's value changes.
          */
-        _this.change = new core.EventEmitter();
-        return _this;
+        this.change = new core.EventEmitter();
     }
     Object.defineProperty(MatButtonToggleGroup.prototype, "name", {
         /** `name` attribute for the underlying `input` element. */
@@ -6333,6 +6318,26 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(MatButtonToggleGroup.prototype, "disabled", {
+        /** Whether multiple button toggle group is disabled. */
+        get: /**
+         * Whether multiple button toggle group is disabled.
+         * @return {?}
+         */
+        function () { return this._disabled; },
+        set: /**
+         * @param {?} value
+         * @return {?}
+         */
+        function (value) {
+            this._disabled = coercion.coerceBooleanProperty(value);
+            if (this._buttonToggles) {
+                this._buttonToggles.forEach(function (toggle) { return toggle._markForCheck(); });
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * @return {?}
      */
@@ -6405,9 +6410,6 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
      */
     function (isDisabled) {
         this.disabled = isDisabled;
-        if (this._buttonToggles) {
-            this._buttonToggles.forEach(function (toggle) { return toggle._markForCheck(); });
-        }
     };
     /** Dispatch change event with current selection and group value. */
     /**
@@ -6570,7 +6572,6 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
                         MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR,
                         { provide: MatButtonToggleGroupMultiple, useExisting: MatButtonToggleGroup },
                     ],
-                    inputs: ['disabled'],
                     host: {
                         'role': 'group',
                         'class': 'mat-button-toggle-group',
@@ -6591,10 +6592,11 @@ var MatButtonToggleGroup = /** @class */ (function (_super) {
         value: [{ type: core.Input }],
         valueChange: [{ type: core.Output }],
         multiple: [{ type: core.Input }],
+        disabled: [{ type: core.Input }],
         change: [{ type: core.Output }]
     };
     return MatButtonToggleGroup;
-}(_MatButtonToggleGroupMixinBase));
+}());
 /**
  * \@docs-private
  */
@@ -31860,12 +31862,13 @@ var _MatTabHeaderMixinBase = mixinDisableRipple(MatTabHeaderBase);
  */
 var MatTabHeader = /** @class */ (function (_super) {
     __extends(MatTabHeader, _super);
-    function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir) {
+    function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._viewportRuler = _viewportRuler;
         _this._dir = _dir;
+        _this._ngZone = _ngZone;
         /**
          * The distance in pixels that the tab labels should be translated to the left.
          */
@@ -32045,9 +32048,17 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._updatePagination();
-        this._alignInkBarToSelectedTab();
-        this._changeDetectorRef.markForCheck();
+        var _this = this;
+        /** @type {?} */
+        var zoneCallback = function () {
+            _this._updatePagination();
+            _this._alignInkBarToSelectedTab();
+            _this._changeDetectorRef.markForCheck();
+        };
+        // The content observer runs outside the `NgZone` by default, which
+        // means that we need to bring the callback back in ourselves.
+        // @breaking-change 8.0.0 Remove null check for `_ngZone` once it's a required parameter.
+        this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
     };
     /**
      * Updating the view whether pagination should be enabled or not
@@ -32426,7 +32437,8 @@ var MatTabHeader = /** @class */ (function (_super) {
         { type: core.ElementRef },
         { type: core.ChangeDetectorRef },
         { type: scrolling.ViewportRuler },
-        { type: bidi.Directionality, decorators: [{ type: core.Optional }] }
+        { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
+        { type: core.NgZone }
     ]; };
     MatTabHeader.propDecorators = {
         _labelWrappers: [{ type: core.ContentChildren, args: [MatTabLabelWrapper,] }],
@@ -34037,10 +34049,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-beta.0-5b50300');
+var VERSION = new core.Version('7.0.0-beta.0-bd21f21');
 
 exports.VERSION = VERSION;
-exports.ɵa28 = MatAutocompleteOrigin;
+exports.ɵa30 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34070,8 +34082,6 @@ exports.MatButtonBase = MatButtonBase;
 exports._MatButtonMixinBase = _MatButtonMixinBase;
 exports.MatButton = MatButton;
 exports.MatAnchor = MatAnchor;
-exports.MatButtonToggleGroupBase = MatButtonToggleGroupBase;
-exports._MatButtonToggleGroupMixinBase = _MatButtonToggleGroupMixinBase;
 exports.MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR = MAT_BUTTON_TOGGLE_GROUP_VALUE_ACCESSOR;
 exports.MatButtonToggleGroupMultiple = MatButtonToggleGroupMultiple;
 exports.MatButtonToggleChange = MatButtonToggleChange;
@@ -34119,7 +34129,7 @@ exports.MatChip = MatChip;
 exports.MatChipRemove = MatChipRemove;
 exports.MatChipInput = MatChipInput;
 exports.MAT_CHIPS_DEFAULT_OPTIONS = MAT_CHIPS_DEFAULT_OPTIONS;
-exports.ɵa1 = MATERIAL_SANITY_CHECKS_FACTORY;
+exports.ɵa0 = MATERIAL_SANITY_CHECKS_FACTORY;
 exports.AnimationCurves = AnimationCurves;
 exports.AnimationDurations = AnimationDurations;
 exports.MatCommonModule = MatCommonModule;
@@ -34292,12 +34302,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb24 = MatMenuItemBase;
-exports.ɵc24 = _MatMenuItemMixinBase;
-exports.ɵf24 = MAT_MENU_PANEL;
-exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa22 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb22 = MatMenuItemBase;
+exports.ɵc22 = _MatMenuItemMixinBase;
+exports.ɵf22 = MAT_MENU_PANEL;
+exports.ɵd22 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe22 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34440,17 +34450,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf23 = MatTabBase;
-exports.ɵg23 = _MatTabMixinBase;
-exports.ɵb23 = MatTabHeaderBase;
-exports.ɵc23 = _MatTabHeaderMixinBase;
-exports.ɵd23 = MatTabLabelWrapperBase;
-exports.ɵe23 = _MatTabLabelWrapperMixinBase;
-exports.ɵj23 = MatTabLinkBase;
-exports.ɵh23 = MatTabNavBase;
-exports.ɵk23 = _MatTabLinkMixinBase;
-exports.ɵi23 = _MatTabNavMixinBase;
+exports.ɵa24 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf24 = MatTabBase;
+exports.ɵg24 = _MatTabMixinBase;
+exports.ɵb24 = MatTabHeaderBase;
+exports.ɵc24 = _MatTabHeaderMixinBase;
+exports.ɵd24 = MatTabLabelWrapperBase;
+exports.ɵe24 = _MatTabLabelWrapperMixinBase;
+exports.ɵj24 = MatTabLinkBase;
+exports.ɵh24 = MatTabNavBase;
+exports.ɵk24 = _MatTabLinkMixinBase;
+exports.ɵi24 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

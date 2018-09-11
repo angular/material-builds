@@ -8,13 +8,9 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, OnInit, QueryList } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
+import { CanDisableRipple, CanDisableRippleCtor } from '@angular/material/core';
 /** Acceptable types for a button toggle. */
 export declare type ToggleType = 'checkbox' | 'radio';
-/** @docs-private */
-export declare class MatButtonToggleGroupBase {
-}
-export declare const _MatButtonToggleGroupMixinBase: CanDisableCtor & typeof MatButtonToggleGroupBase;
 /**
  * Provider Expression that allows mat-button-toggle-group to register as a ControlValueAccessor.
  * This allows it to support [(ngModel)].
@@ -40,10 +36,11 @@ export declare class MatButtonToggleChange {
     value: any);
 }
 /** Exclusive selection button toggle group that behaves like a radio-button group. */
-export declare class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase implements ControlValueAccessor, CanDisable, OnInit, AfterContentInit {
+export declare class MatButtonToggleGroup implements ControlValueAccessor, OnInit, AfterContentInit {
     private _changeDetector;
     private _vertical;
     private _multiple;
+    private _disabled;
     private _selectionModel;
     /**
      * Reference to the raw value that the consumer tried to assign. The real
@@ -78,6 +75,8 @@ export declare class MatButtonToggleGroup extends _MatButtonToggleGroupMixinBase
     readonly selected: MatButtonToggle | MatButtonToggle[];
     /** Whether multiple button toggles can be selected. */
     multiple: boolean;
+    /** Whether multiple button toggle group is disabled. */
+    disabled: boolean;
     /** Event emitted when the group's value changes. */
     readonly change: EventEmitter<MatButtonToggleChange>;
     constructor(_changeDetector: ChangeDetectorRef);

@@ -608,13 +608,15 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @param {?} _changeDetectorRef
      * @param {?} _viewportRuler
      * @param {?} _dir
+     * @param {?=} _ngZone
      */
-    constructor(_elementRef, _changeDetectorRef, _viewportRuler, _dir) {
+    constructor(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone) {
         super();
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._viewportRuler = _viewportRuler;
         this._dir = _dir;
+        this._ngZone = _ngZone;
         /**
          * The distance in pixels that the tab labels should be translated to the left.
          */
@@ -763,9 +765,16 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @return {?}
      */
     _onContentChanges() {
-        this._updatePagination();
-        this._alignInkBarToSelectedTab();
-        this._changeDetectorRef.markForCheck();
+        /** @type {?} */
+        const zoneCallback = () => {
+            this._updatePagination();
+            this._alignInkBarToSelectedTab();
+            this._changeDetectorRef.markForCheck();
+        };
+        // The content observer runs outside the `NgZone` by default, which
+        // means that we need to bring the callback back in ourselves.
+        // @breaking-change 8.0.0 Remove null check for `_ngZone` once it's a required parameter.
+        this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
     }
     /**
      * Updating the view whether pagination should be enabled or not
@@ -1009,7 +1018,8 @@ MatTabHeader.ctorParameters = () => [
     { type: ElementRef },
     { type: ChangeDetectorRef },
     { type: ViewportRuler },
-    { type: Directionality, decorators: [{ type: Optional }] }
+    { type: Directionality, decorators: [{ type: Optional }] },
+    { type: NgZone }
 ];
 MatTabHeader.propDecorators = {
     _labelWrappers: [{ type: ContentChildren, args: [MatTabLabelWrapper,] }],
@@ -1696,5 +1706,5 @@ MatTabsModule.decorators = [
  * @suppress {checkTypes,extraRequire,uselessCode} checked by tsc
  */
 
-export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa23, MatTabBase as ɵf23, _MatTabMixinBase as ɵg23, MatTabHeaderBase as ɵb23, _MatTabHeaderMixinBase as ɵc23, MatTabLabelWrapperBase as ɵd23, _MatTabLabelWrapperMixinBase as ɵe23, MatTabLinkBase as ɵj23, MatTabNavBase as ɵh23, _MatTabLinkMixinBase as ɵk23, _MatTabNavMixinBase as ɵi23 };
+export { MatInkBar, _MAT_INK_BAR_POSITIONER, MatTabBody, MatTabBodyPortal, MatTabHeader, MatTabLabelWrapper, MatTab, MatTabLabel, MatTabNav, MatTabLink, MatTabContent, MatTabsModule, MatTabChangeEvent, MatTabGroupBase, _MatTabGroupMixinBase, MatTabGroup, matTabsAnimations, _MAT_INK_BAR_POSITIONER_FACTORY as ɵa24, MatTabBase as ɵf24, _MatTabMixinBase as ɵg24, MatTabHeaderBase as ɵb24, _MatTabHeaderMixinBase as ɵc24, MatTabLabelWrapperBase as ɵd24, _MatTabLabelWrapperMixinBase as ɵe24, MatTabLinkBase as ɵj24, MatTabNavBase as ɵh24, _MatTabLinkMixinBase as ɵk24, _MatTabNavMixinBase as ɵi24 };
 //# sourceMappingURL=tabs.js.map
