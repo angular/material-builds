@@ -120,8 +120,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     _optionIds: string;
     /** The value of the select panel's transform-origin property. */
     _transformOrigin: string;
-    /** Whether the panel's animation is done. */
-    _panelDoneAnimating: boolean;
     /** Emits when the panel element is finished transforming in. */
     _panelDoneAnimatingStream: Subject<string>;
     /** Strategy that will be used to handle scrolling while the select panel is open. */
@@ -274,11 +272,6 @@ export declare class MatSelect extends _MatSelectMixinBase implements AfterConte
     private _handleClosedKeydown;
     /** Handles keyboard events when the selected is open. */
     private _handleOpenKeydown;
-    /**
-     * When the panel content is done fading in, the _panelDoneAnimating property is
-     * set so the proper class can be added to the panel.
-     */
-    _onFadeInDone(): void;
     _onFocus(): void;
     /**
      * Calls the touched callback only if the panel is closed. Otherwise, the trigger will
