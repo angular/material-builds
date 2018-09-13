@@ -10,7 +10,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const chalk_1 = require("chalk");
 const tslint_1 = require("tslint");
 const ts = require("typescript");
-const color_1 = require("../../material/color");
 const method_call_checks_1 = require("../../material/data/method-call-checks");
 const transform_change_data_1 = require("../../material/transform-change-data");
 /**
@@ -53,7 +52,7 @@ class Walker extends tslint_1.ProgramAwareRuleWalker {
             return;
         }
         this.addFailureAtNode(node, `Found call to "${chalk_1.bold(hostTypeName + '.' + methodName)}" ` +
-            `with ${chalk_1.bold(`${failure.count}`)} arguments. Message: ${color_1.color(failure.message)}`);
+            `with ${chalk_1.bold(`${failure.count}`)} arguments. Message: ${failure.message}`);
     }
 }
 exports.Walker = Walker;

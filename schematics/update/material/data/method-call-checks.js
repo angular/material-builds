@@ -19,7 +19,7 @@ exports.methodCallChecks = {
                     invalidArgCounts: [
                         {
                             count: 3,
-                            message: 'The "r{{renderer}}" argument has been removed'
+                            message: 'The "renderer" argument has been removed'
                         }
                     ]
                 }

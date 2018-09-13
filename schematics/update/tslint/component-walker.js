@@ -14,7 +14,6 @@ const fs_1 = require("fs");
 const path_1 = require("path");
 const tslint_1 = require("tslint");
 const ts = require("typescript");
-const literal_1 = require("../typescript/literal");
 const component_file_1 = require("./component-file");
 /**
  * Custom TSLint rule walker that identifies Angular components and visits specific parts of
@@ -73,18 +72,16 @@ class ComponentWalker extends tslint_1.RuleWalker {
         });
     }
     _visitExternalStylesArrayLiteral(styleUrls) {
-        styleUrls.elements.forEach(styleUrlLiteral => {
-            const styleUrl = literal_1.getLiteralTextWithoutQuotes(styleUrlLiteral);
-            const stylePath = path_1.resolve(path_1.join(path_1.dirname(this.getSourceFile().fileName), styleUrl));
+        styleUrls.elements.forEach((node) => {
+            const stylePath = path_1.resolve(path_1.join(path_1.dirname(this.getSourceFile().fileName), node.text));
             // Do not report the specified additional files multiple times.
             if (!this.extraFiles.has(stylePath)) {
                 this._reportExternalStyle(stylePath);
             }
         });
     }
-    _reportExternalTemplate(templateUrlLiteral) {
-        const templateUrl = literal_1.getLiteralTextWithoutQuotes(templateUrlLiteral);
-        const templatePath = path_1.resolve(path_1.join(path_1.dirname(this.getSourceFile().fileName), templateUrl));
+    _reportExternalTemplate(node) {
+        const templatePath = path_1.resolve(path_1.join(path_1.dirname(this.getSourceFile().fileName), node.text));
         // Do not report the specified additional files multiple times.
         if (this.extraFiles.has(templatePath)) {
             return;
@@ -93,7 +90,7 @@ class ComponentWalker extends tslint_1.RuleWalker {
         if (!fs_1.existsSync(templatePath)) {
             console.error(`PARSE ERROR: ${this.getSourceFile().fileName}:` +
                 ` Could not find template: "${templatePath}".`);
-            process.exit(1);
+            return;
         }
         // Create a fake TypeScript source file that includes the template content.
         const templateFile = component_file_1.createComponentFile(templatePath, fs_1.readFileSync(templatePath, 'utf8'));
@@ -102,9 +99,9 @@ class ComponentWalker extends tslint_1.RuleWalker {
     _reportExternalStyle(stylePath) {
         // Check if the external stylesheet file exists before proceeding.
         if (!fs_1.existsSync(stylePath)) {
-            console.error(`PARSE ERROR: ${this.getSourceFile().fileName}:` +
-                ` Could not find stylesheet: "${stylePath}".`);
-            process.exit(1);
+            console.error(`PARSE ERROR: ${this.getSourceFile().fileName}: ` +
+                `Could not find stylesheet: "${stylePath}".`);
+            return;
         }
         // Create a fake TypeScript source file that includes the stylesheet content.
         const stylesheetFile = component_file_1.createComponentFile(stylePath, fs_1.readFileSync(stylePath, 'utf8'));

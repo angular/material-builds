@@ -7,11 +7,6 @@
  * found in the LICENSE file at https://angular.io/license
  */
 Object.defineProperty(exports, "__esModule", { value: true });
-/** Returns the text of a string literal without the quotes. */
-function getLiteralTextWithoutQuotes(literal) {
-    return literal.getText().substring(1, literal.getText().length - 1);
-}
-exports.getLiteralTextWithoutQuotes = getLiteralTextWithoutQuotes;
 /** Finds all start indices of the given search string in the input string. */
 function findAllSubstringIndices(input, search) {
     const result = [];
