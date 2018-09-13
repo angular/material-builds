@@ -9,6 +9,20 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const index_1 = require("../../index");
 exports.propertyNames = {
+    [index_1.TargetVersion.V7]: [
+        {
+            pr: 'https://github.com/angular/material2/pull/8286',
+            changes: [
+                {
+                    replace: 'onChange',
+                    replaceWith: 'changed',
+                    whitelist: {
+                        classes: ['SelectionModel']
+                    }
+                }
+            ]
+        }
+    ],
     [index_1.TargetVersion.V6]: [
         {
             pr: 'https://github.com/angular/material2/pull/10161',

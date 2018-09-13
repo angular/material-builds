@@ -50,7 +50,7 @@ function visitSourceFile(context, program) {
     for (const diagnostic of diagnostics) {
         const node = findConstructorNode(diagnostic, sourceFile);
         if (!node) {
-            return;
+            continue;
         }
         const classType = program.getTypeChecker().getTypeAtLocation(node.expression);
         const className = classType.symbol && classType.symbol.name;
@@ -58,7 +58,7 @@ function visitSourceFile(context, program) {
         // TODO(devversion): Consider handling pass-through classes better.
         // TODO(devversion): e.g. `export class CustomCalendar extends MatCalendar {}`
         if (!constructor_checks_1.constructorChecks.includes(className)) {
-            return;
+            continue;
         }
         const classSignatures = classType.getConstructSignatures()
             .map(signature => getParameterTypesFromSignature(signature, program));
