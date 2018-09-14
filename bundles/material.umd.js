@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/cdk/scrolling'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('@angular/cdk/tree')) :
-	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/operators', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/cdk/scrolling', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/table', '@angular/cdk/stepper', '@angular/cdk/tree'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.rxjs.operators,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.cdk.scrolling,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.table,global.ng.cdk.stepper,global.ng.cdk.tree));
-}(this, (function (exports,core,bidi,coercion,rxjs,platform,platformBrowser,a11y,animations,keycodes,common,animations$1,operators,observers,overlay,portal,scrolling,forms,layout,collections,textField,accordion,http,table,stepper,tree) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/core'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('rxjs'), require('@angular/cdk/platform'), require('@angular/platform-browser'), require('@angular/cdk/a11y'), require('@angular/platform-browser/animations'), require('@angular/cdk/keycodes'), require('@angular/common'), require('@angular/animations'), require('rxjs/operators'), require('@angular/cdk/observers'), require('@angular/cdk/overlay'), require('@angular/cdk/portal'), require('@angular/forms'), require('@angular/cdk/layout'), require('@angular/cdk/collections'), require('@angular/cdk/text-field'), require('@angular/cdk/accordion'), require('@angular/common/http'), require('@angular/cdk/scrolling'), require('@angular/cdk/table'), require('@angular/cdk/stepper'), require('@angular/cdk/tree')) :
+	typeof define === 'function' && define.amd ? define('@angular/material', ['exports', '@angular/core', '@angular/cdk/bidi', '@angular/cdk/coercion', 'rxjs', '@angular/cdk/platform', '@angular/platform-browser', '@angular/cdk/a11y', '@angular/platform-browser/animations', '@angular/cdk/keycodes', '@angular/common', '@angular/animations', 'rxjs/operators', '@angular/cdk/observers', '@angular/cdk/overlay', '@angular/cdk/portal', '@angular/forms', '@angular/cdk/layout', '@angular/cdk/collections', '@angular/cdk/text-field', '@angular/cdk/accordion', '@angular/common/http', '@angular/cdk/scrolling', '@angular/cdk/table', '@angular/cdk/stepper', '@angular/cdk/tree'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = {}),global.ng.core,global.ng.cdk.bidi,global.ng.cdk.coercion,global.rxjs,global.ng.cdk.platform,global.ng.platformBrowser,global.ng.cdk.a11y,global.ng.platformBrowser.animations,global.ng.cdk.keycodes,global.ng.common,global.ng.animations,global.rxjs.operators,global.ng.cdk.observers,global.ng.cdk.overlay,global.ng.cdk.portal,global.ng.forms,global.ng.cdk.layout,global.ng.cdk.collections,global.ng.cdk.textField,global.ng.cdk.accordion,global.ng.common.http,global.ng.cdk.scrolling,global.ng.cdk.table,global.ng.cdk.stepper,global.ng.cdk.tree));
+}(this, (function (exports,core,bidi,coercion,rxjs,platform,platformBrowser,a11y,animations,keycodes,common,animations$1,operators,observers,overlay,portal,forms,layout,collections,textField,accordion,http,scrolling,table,stepper,tree) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -4858,7 +4858,7 @@ var MatAutocompleteTrigger = /** @class */ (function () {
         { type: bidi.Directionality, decorators: [{ type: core.Optional }] },
         { type: MatFormField, decorators: [{ type: core.Optional }, { type: core.Host }] },
         { type: undefined, decorators: [{ type: core.Optional }, { type: core.Inject, args: [common.DOCUMENT,] }] },
-        { type: scrolling.ViewportRuler }
+        { type: overlay.ViewportRuler }
     ]; };
     MatAutocompleteTrigger.propDecorators = {
         autocomplete: [{ type: core.Input, args: ['matAutocomplete',] }],
@@ -22463,7 +22463,7 @@ var MatSelect = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSelect.ctorParameters = function () { return [
-        { type: scrolling.ViewportRuler },
+        { type: overlay.ViewportRuler },
         { type: core.ChangeDetectorRef },
         { type: core.NgZone },
         { type: ErrorStateMatcher },
@@ -23146,7 +23146,7 @@ var MatTooltip = /** @class */ (function () {
     MatTooltip.ctorParameters = function () { return [
         { type: overlay.Overlay },
         { type: core.ElementRef },
-        { type: scrolling.ScrollDispatcher },
+        { type: overlay.ScrollDispatcher },
         { type: core.ViewContainerRef },
         { type: core.NgZone },
         { type: platform.Platform },
@@ -34083,10 +34083,10 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-beta.0-f468321');
+var VERSION = new core.Version('7.0.0-beta.0-c2e502c');
 
 exports.VERSION = VERSION;
-exports.ɵa25 = MatAutocompleteOrigin;
+exports.ɵa29 = MatAutocompleteOrigin;
 exports.MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY = MAT_AUTOCOMPLETE_DEFAULT_OPTIONS_FACTORY;
 exports.MatAutocompleteSelectedEvent = MatAutocompleteSelectedEvent;
 exports.MatAutocompleteBase = MatAutocompleteBase;
@@ -34336,12 +34336,12 @@ exports.MAT_SELECTION_LIST_VALUE_ACCESSOR = MAT_SELECTION_LIST_VALUE_ACCESSOR;
 exports.MatSelectionListChange = MatSelectionListChange;
 exports.MatListOption = MatListOption;
 exports.MatSelectionList = MatSelectionList;
-exports.ɵa17 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
-exports.ɵb17 = MatMenuItemBase;
-exports.ɵc17 = _MatMenuItemMixinBase;
-exports.ɵf17 = MAT_MENU_PANEL;
-exports.ɵd17 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
-exports.ɵe17 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
+exports.ɵa24 = MAT_MENU_DEFAULT_OPTIONS_FACTORY;
+exports.ɵb24 = MatMenuItemBase;
+exports.ɵc24 = _MatMenuItemMixinBase;
+exports.ɵf24 = MAT_MENU_PANEL;
+exports.ɵd24 = MAT_MENU_SCROLL_STRATEGY_FACTORY;
+exports.ɵe24 = MAT_MENU_SCROLL_STRATEGY_FACTORY_PROVIDER;
 exports.MAT_MENU_SCROLL_STRATEGY = MAT_MENU_SCROLL_STRATEGY;
 exports.MatMenuModule = MatMenuModule;
 exports.MatMenu = MatMenu;
@@ -34483,17 +34483,17 @@ exports.MatHeaderRow = MatHeaderRow;
 exports.MatFooterRow = MatFooterRow;
 exports.MatRow = MatRow;
 exports.MatTableDataSource = MatTableDataSource;
-exports.ɵa21 = _MAT_INK_BAR_POSITIONER_FACTORY;
-exports.ɵf21 = MatTabBase;
-exports.ɵg21 = _MatTabMixinBase;
-exports.ɵb21 = MatTabHeaderBase;
-exports.ɵc21 = _MatTabHeaderMixinBase;
-exports.ɵd21 = MatTabLabelWrapperBase;
-exports.ɵe21 = _MatTabLabelWrapperMixinBase;
-exports.ɵj21 = MatTabLinkBase;
-exports.ɵh21 = MatTabNavBase;
-exports.ɵk21 = _MatTabLinkMixinBase;
-exports.ɵi21 = _MatTabNavMixinBase;
+exports.ɵa23 = _MAT_INK_BAR_POSITIONER_FACTORY;
+exports.ɵf23 = MatTabBase;
+exports.ɵg23 = _MatTabMixinBase;
+exports.ɵb23 = MatTabHeaderBase;
+exports.ɵc23 = _MatTabHeaderMixinBase;
+exports.ɵd23 = MatTabLabelWrapperBase;
+exports.ɵe23 = _MatTabLabelWrapperMixinBase;
+exports.ɵj23 = MatTabLinkBase;
+exports.ɵh23 = MatTabNavBase;
+exports.ɵk23 = _MatTabLinkMixinBase;
+exports.ɵi23 = _MatTabNavMixinBase;
 exports.MatInkBar = MatInkBar;
 exports._MAT_INK_BAR_POSITIONER = _MAT_INK_BAR_POSITIONER;
 exports.MatTabBody = MatTabBody;

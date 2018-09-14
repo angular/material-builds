@@ -8,8 +8,7 @@
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { Directionality } from '@angular/cdk/bidi';
 import { SelectionModel } from '@angular/cdk/collections';
-import { CdkConnectedOverlay, Overlay, RepositionScrollStrategy, ScrollStrategy } from '@angular/cdk/overlay';
-import { ViewportRuler } from '@angular/cdk/scrolling';
+import { CdkConnectedOverlay, Overlay, RepositionScrollStrategy, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { AfterContentInit, ChangeDetectorRef, DoCheck, ElementRef, EventEmitter, InjectionToken, NgZone, OnChanges, OnDestroy, OnInit, QueryList, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { CanDisable, CanDisableCtor, CanDisableRipple, CanDisableRippleCtor, CanUpdateErrorState, CanUpdateErrorStateCtor, ErrorStateMatcher, HasTabIndex, HasTabIndexCtor, MatOptgroup, MatOption, MatOptionSelectionChange } from '@angular/material/core';
