@@ -735,6 +735,18 @@ var MatSnackBar = /** @class */ (function () {
         }
     };
     /**
+     * @return {?}
+     */
+    MatSnackBar.prototype.ngOnDestroy = /**
+     * @return {?}
+     */
+    function () {
+        // Only dismiss the snack bar at the current level on destroy.
+        if (this._snackBarRefAtThisLevel) {
+            this._snackBarRefAtThisLevel.dismiss();
+        }
+    };
+    /**
      * Attaches the snack bar container component to the overlay.
      * @param {?} overlayRef
      * @param {?} config

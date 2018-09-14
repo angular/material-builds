@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/cdk/overlay'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('rxjs/operators'), require('@angular/core'), require('rxjs'), require('@angular/common'), require('@angular/material/core')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/cdk/overlay', '@angular/cdk/platform', '@angular/cdk/portal', 'rxjs/operators', '@angular/core', 'rxjs', '@angular/common', '@angular/material/core'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.layout,global.ng.cdk.overlay,global.ng.cdk.platform,global.ng.cdk.portal,global.rxjs.operators,global.ng.core,global.rxjs,global.ng.common,global.ng.material.core));
-}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,layout,overlay,platform,portal,operators,core,rxjs,common,core$1) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/keycodes'), require('@angular/cdk/layout'), require('@angular/cdk/overlay'), require('@angular/cdk/scrolling'), require('@angular/cdk/platform'), require('@angular/cdk/portal'), require('rxjs/operators'), require('@angular/core'), require('rxjs'), require('@angular/common'), require('@angular/material/core')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/tooltip', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/keycodes', '@angular/cdk/layout', '@angular/cdk/overlay', '@angular/cdk/scrolling', '@angular/cdk/platform', '@angular/cdk/portal', 'rxjs/operators', '@angular/core', 'rxjs', '@angular/common', '@angular/material/core'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.tooltip = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.keycodes,global.ng.cdk.layout,global.ng.cdk.overlay,global.ng.cdk.scrolling,global.ng.cdk.platform,global.ng.cdk.portal,global.rxjs.operators,global.ng.core,global.rxjs,global.ng.common,global.ng.material.core));
+}(this, (function (exports,animations,a11y,bidi,coercion,keycodes,layout,overlay,scrolling,platform,portal,operators,core,rxjs,common,core$1) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -656,7 +656,7 @@ var MatTooltip = /** @class */ (function () {
     MatTooltip.ctorParameters = function () { return [
         { type: overlay.Overlay },
         { type: core.ElementRef },
-        { type: overlay.ScrollDispatcher },
+        { type: scrolling.ScrollDispatcher },
         { type: core.ViewContainerRef },
         { type: core.NgZone },
         { type: platform.Platform },

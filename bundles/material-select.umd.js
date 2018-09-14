@@ -6,10 +6,10 @@
  * found in the LICENSE file at https://angular.io/license
  */
 (function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs'), require('rxjs/operators'), require('@angular/common')) :
-	typeof define === 'function' && define.amd ? define('@angular/material/select', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs', 'rxjs/operators', '@angular/common'], factory) :
-	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.core,global.ng.forms,global.ng.material.core,global.ng.material.formField,global.rxjs,global.rxjs.operators,global.ng.common));
-}(this, (function (exports,animations,a11y,bidi,coercion,collections,keycodes,overlay,core,forms,core$1,formField,rxjs,operators,common) { 'use strict';
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports, require('@angular/animations'), require('@angular/cdk/a11y'), require('@angular/cdk/bidi'), require('@angular/cdk/coercion'), require('@angular/cdk/collections'), require('@angular/cdk/keycodes'), require('@angular/cdk/overlay'), require('@angular/cdk/scrolling'), require('@angular/core'), require('@angular/forms'), require('@angular/material/core'), require('@angular/material/form-field'), require('rxjs'), require('rxjs/operators'), require('@angular/common')) :
+	typeof define === 'function' && define.amd ? define('@angular/material/select', ['exports', '@angular/animations', '@angular/cdk/a11y', '@angular/cdk/bidi', '@angular/cdk/coercion', '@angular/cdk/collections', '@angular/cdk/keycodes', '@angular/cdk/overlay', '@angular/cdk/scrolling', '@angular/core', '@angular/forms', '@angular/material/core', '@angular/material/form-field', 'rxjs', 'rxjs/operators', '@angular/common'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.material = global.ng.material || {}, global.ng.material.select = {}),global.ng.animations,global.ng.cdk.a11y,global.ng.cdk.bidi,global.ng.cdk.coercion,global.ng.cdk.collections,global.ng.cdk.keycodes,global.ng.cdk.overlay,global.ng.cdk.scrolling,global.ng.core,global.ng.forms,global.ng.material.core,global.ng.material.formField,global.rxjs,global.rxjs.operators,global.ng.common));
+}(this, (function (exports,animations,a11y,bidi,coercion,collections,keycodes,overlay,scrolling,core,forms,core$1,formField,rxjs,operators,common) { 'use strict';
 
 /*! *****************************************************************************
 Copyright (c) Microsoft Corporation. All rights reserved.
@@ -1819,7 +1819,7 @@ var MatSelect = /** @class */ (function (_super) {
     ];
     /** @nocollapse */
     MatSelect.ctorParameters = function () { return [
-        { type: overlay.ViewportRuler },
+        { type: scrolling.ViewportRuler },
         { type: core.ChangeDetectorRef },
         { type: core.NgZone },
         { type: core$1.ErrorStateMatcher },

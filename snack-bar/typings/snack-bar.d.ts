@@ -9,7 +9,7 @@ import { LiveAnnouncer } from '@angular/cdk/a11y';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentType } from '@angular/cdk/portal';
-import { EmbeddedViewRef, InjectionToken, Injector, TemplateRef } from '@angular/core';
+import { EmbeddedViewRef, InjectionToken, Injector, TemplateRef, OnDestroy } from '@angular/core';
 import { SimpleSnackBar } from './simple-snack-bar';
 import { MatSnackBarConfig } from './snack-bar-config';
 import { MatSnackBarRef } from './snack-bar-ref';
@@ -20,7 +20,7 @@ export declare function MAT_SNACK_BAR_DEFAULT_OPTIONS_FACTORY(): MatSnackBarConf
 /**
  * Service to dispatch Material Design snack bar messages.
  */
-export declare class MatSnackBar {
+export declare class MatSnackBar implements OnDestroy {
     private _overlay;
     private _live;
     private _injector;
@@ -63,6 +63,7 @@ export declare class MatSnackBar {
      * Dismisses the currently-visible snack bar.
      */
     dismiss(): void;
+    ngOnDestroy(): void;
     /**
      * Attaches the snack bar container component to the overlay.
      */
