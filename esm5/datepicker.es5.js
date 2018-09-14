@@ -8,7 +8,7 @@
 import { Injectable, NgModule, ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Inject, Input, Optional, Output, ViewChild, ViewEncapsulation, ElementRef, NgZone, InjectionToken, ViewContainerRef, Directive, Attribute, ContentChild, defineInjectable } from '@angular/core';
 import { Subject, merge, Subscription, of } from 'rxjs';
 import { take, filter } from 'rxjs/operators';
-import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, ESCAPE } from '@angular/cdk/keycodes';
+import { DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, PAGE_DOWN, PAGE_UP, RIGHT_ARROW, UP_ARROW, SPACE, ESCAPE } from '@angular/cdk/keycodes';
 import { DateAdapter, MAT_DATE_FORMATS, mixinColor } from '@angular/material/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { ComponentPortal, PortalModule } from '@angular/cdk/portal';
@@ -459,6 +459,7 @@ var MatMonthView = /** @class */ (function () {
                     this._dateAdapter.addCalendarMonths(this._activeDate, 1);
                 break;
             case ENTER:
+            case SPACE:
                 if (!this.dateFilter || this.dateFilter(this._activeDate)) {
                     this._dateSelected(this._dateAdapter.getDate(this._activeDate));
                     this._userSelection.emit();
@@ -850,6 +851,7 @@ var MatMultiYearView = /** @class */ (function () {
                     this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? yearsPerPage * 10 : yearsPerPage);
                 break;
             case ENTER:
+            case SPACE:
                 this._yearSelected(this._dateAdapter.getYear(this._activeDate));
                 break;
             default:
@@ -1163,6 +1165,7 @@ var MatYearView = /** @class */ (function () {
                     this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? 10 : 1);
                 break;
             case ENTER:
+            case SPACE:
                 this._monthSelected(this._dateAdapter.getMonth(this._activeDate));
                 break;
             default:

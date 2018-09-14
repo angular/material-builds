@@ -475,6 +475,7 @@ var MatMonthView = /** @class */ (function () {
                     this._dateAdapter.addCalendarMonths(this._activeDate, 1);
                 break;
             case keycodes.ENTER:
+            case keycodes.SPACE:
                 if (!this.dateFilter || this.dateFilter(this._activeDate)) {
                     this._dateSelected(this._dateAdapter.getDate(this._activeDate));
                     this._userSelection.emit();
@@ -866,6 +867,7 @@ var MatMultiYearView = /** @class */ (function () {
                     this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? yearsPerPage * 10 : yearsPerPage);
                 break;
             case keycodes.ENTER:
+            case keycodes.SPACE:
                 this._yearSelected(this._dateAdapter.getYear(this._activeDate));
                 break;
             default:
@@ -1179,6 +1181,7 @@ var MatYearView = /** @class */ (function () {
                     this._dateAdapter.addCalendarYears(this._activeDate, event.altKey ? 10 : 1);
                 break;
             case keycodes.ENTER:
+            case keycodes.SPACE:
                 this._monthSelected(this._dateAdapter.getMonth(this._activeDate));
                 break;
             default:

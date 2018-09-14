@@ -12,7 +12,8 @@ import { Directionality } from '@angular/cdk/bidi';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { A, DOWN_ARROW, END, ENTER, HOME, LEFT_ARROW, RIGHT_ARROW, SPACE, UP_ARROW } from '@angular/cdk/keycodes';
-import { CdkConnectedOverlay, Overlay, ViewportRuler, OverlayModule } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, Overlay, OverlayModule } from '@angular/cdk/overlay';
+import { ViewportRuler } from '@angular/cdk/scrolling';
 import { Attribute, ChangeDetectionStrategy, ChangeDetectorRef, Component, ContentChild, ContentChildren, Directive, ElementRef, EventEmitter, Inject, InjectionToken, Input, isDevMode, NgZone, Optional, Output, Self, ViewChild, ViewEncapsulation, NgModule } from '@angular/core';
 import { FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { _countGroupLabelsBeforeOption, _getOptionScrollPosition, ErrorStateMatcher, MAT_OPTION_PARENT_COMPONENT, MatOptgroup, MatOption, mixinDisabled, mixinDisableRipple, mixinErrorState, mixinTabIndex, MatCommonModule, MatOptionModule } from '@angular/material/core';
@@ -148,11 +149,12 @@ var SELECT_ITEM_HEIGHT_EM = 3;
  * Distance between the panel edge and the option text in
  * multi-selection mode.
  *
+ * Calculated as:
  * (SELECT_PANEL_PADDING_X * 1.5) + 20 = 44
  * The padding is multiplied by 1.5 because the checkbox's margin is half the padding.
  * The checkbox width is 20px.
   @type {?} */
-var SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + 20;
+var SELECT_MULTIPLE_PANEL_PADDING_X = 0;
 /** *
  * The select panel will only "fit" inside the viewport if it is positioned at
  * this value or more away from the viewport boundary.
@@ -985,6 +987,7 @@ var MatSelect = /** @class */ (function (_super) {
     function () {
         var _this = this;
         this.overlayDir.positionChange.pipe(take(1)).subscribe(function () {
+            _this._setPseudoCheckboxPaddingSize();
             _this._changeDetectorRef.detectChanges();
             _this._calculateOverlayOffsetX();
             _this.panel.nativeElement.scrollTop = _this._scrollTop;
@@ -1001,6 +1004,23 @@ var MatSelect = /** @class */ (function (_super) {
      */
     function () {
         return this._parentFormField ? "mat-" + this._parentFormField.color : '';
+    };
+    /**
+     * Sets the pseudo checkbox padding size based on the width of the pseudo checkbox.
+     * @return {?}
+     */
+    MatSelect.prototype._setPseudoCheckboxPaddingSize = /**
+     * Sets the pseudo checkbox padding size based on the width of the pseudo checkbox.
+     * @return {?}
+     */
+    function () {
+        if (!SELECT_MULTIPLE_PANEL_PADDING_X && this.multiple) {
+            /** @type {?} */
+            var pseudoCheckbox = this.panel.nativeElement.querySelector('.mat-pseudo-checkbox');
+            if (pseudoCheckbox) {
+                SELECT_MULTIPLE_PANEL_PADDING_X = SELECT_PANEL_PADDING_X * 1.5 + pseudoCheckbox.offsetWidth;
+            }
+        }
     };
     Object.defineProperty(MatSelect.prototype, "empty", {
         /** Whether the select has a value. */
