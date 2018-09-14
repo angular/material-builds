@@ -6,6 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { TemplateRef } from '@angular/core';
+import { StepState } from '@angular/cdk/stepper';
 /** Template context available to an attached `matStepperIcon`. */
 export interface MatStepperIconContext {
     /** Index of the step. */
@@ -21,6 +22,6 @@ export interface MatStepperIconContext {
 export declare class MatStepperIcon {
     templateRef: TemplateRef<MatStepperIconContext>;
     /** Name of the icon to be overridden. */
-    name: 'edit' | 'done' | 'number';
+    name: StepState;
     constructor(templateRef: TemplateRef<MatStepperIconContext>);
 }

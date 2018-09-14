@@ -6,7 +6,7 @@
  * found in the LICENSE file at https://angular.io/license
  */
 import { Directionality } from '@angular/cdk/bidi';
-import { CdkStep, CdkStepper } from '@angular/cdk/stepper';
+import { CdkStep, CdkStepper, StepperOptions } from '@angular/cdk/stepper';
 import { AnimationEvent } from '@angular/animations';
 import { AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, QueryList, TemplateRef } from '@angular/core';
 import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
@@ -19,7 +19,8 @@ export declare class MatStep extends CdkStep implements ErrorStateMatcher {
     private _errorStateMatcher;
     /** Content for step label given by `<ng-template matStepLabel>`. */
     stepLabel: MatStepLabel;
-    constructor(stepper: MatStepper, _errorStateMatcher: ErrorStateMatcher);
+    /** @breaking-change 8.0.0 remove the `?` after `stepperOptions` */
+    constructor(stepper: MatStepper, _errorStateMatcher: ErrorStateMatcher, stepperOptions?: StepperOptions);
     /** Custom error state matcher that additionally checks for validity of interacted form. */
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean;
 }

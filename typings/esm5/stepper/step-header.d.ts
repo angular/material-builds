@@ -10,15 +10,18 @@ import { ChangeDetectorRef, ElementRef, OnDestroy, TemplateRef } from '@angular/
 import { MatStepLabel } from './step-label';
 import { MatStepperIntl } from './stepper-intl';
 import { MatStepperIconContext } from './stepper-icon';
+import { StepState } from '@angular/cdk/stepper';
 export declare class MatStepHeader implements OnDestroy {
     _intl: MatStepperIntl;
     private _focusMonitor;
     private _element;
     private _intlSubscription;
     /** State of the given step. */
-    state: string;
+    state: StepState;
     /** Label of the given step. */
     label: MatStepLabel | string;
+    /** Error message to display when there's an error. */
+    errorMessage: string;
     /** Overrides for the header icons, passed in via the stepper. */
     iconOverrides: {
         [key: string]: TemplateRef<MatStepperIconContext>;
