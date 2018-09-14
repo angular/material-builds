@@ -312,17 +312,17 @@ class MatChip extends _MatChipMixinBase {
         }
     }
     /**
-     * Ensures events fire properly upon click.
+     * Handles click events on the chip.
      * @param {?} event
      * @return {?}
      */
     _handleClick(event) {
-        // Check disabled
         if (this.disabled) {
-            return;
+            event.preventDefault();
         }
-        event.preventDefault();
-        event.stopPropagation();
+        else {
+            event.stopPropagation();
+        }
     }
     /**
      * Handle custom key presses.
@@ -874,9 +874,14 @@ class MatChipList extends _MatChipListMixinBase {
     /**
      * Implemented as part of MatFormFieldControl.
      * \@docs-private
+     * @param {?} event
      * @return {?}
      */
-    onContainerClick() { this.focus(); }
+    onContainerClick(event) {
+        if (!this._originatesFromChip(event)) {
+            this.focus();
+        }
+    }
     /**
      * Focuses the the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
@@ -1202,6 +1207,22 @@ class MatChipList extends _MatChipListMixinBase {
                 this._lastDestroyedChipIndex = chipIndex;
             }
         });
+    }
+    /**
+     * Checks whether an event comes from inside a chip element.
+     * @param {?} event
+     * @return {?}
+     */
+    _originatesFromChip(event) {
+        /** @type {?} */
+        let currentElement = /** @type {?} */ (event.target);
+        while (currentElement && currentElement !== this._elementRef.nativeElement) {
+            if (currentElement.classList.contains('mat-chip')) {
+                return true;
+            }
+            currentElement = currentElement.parentElement;
+        }
+        return false;
     }
 }
 MatChipList.decorators = [

@@ -424,24 +424,24 @@ var MatChip = /** @class */ (function (_super) {
             this.removed.emit({ chip: this });
         }
     };
-    /** Ensures events fire properly upon click. */
+    /** Handles click events on the chip. */
     /**
-     * Ensures events fire properly upon click.
+     * Handles click events on the chip.
      * @param {?} event
      * @return {?}
      */
     MatChip.prototype._handleClick = /**
-     * Ensures events fire properly upon click.
+     * Handles click events on the chip.
      * @param {?} event
      * @return {?}
      */
     function (event) {
-        // Check disabled
         if (this.disabled) {
-            return;
+            event.preventDefault();
         }
-        event.preventDefault();
-        event.stopPropagation();
+        else {
+            event.stopPropagation();
+        }
     };
     /** Handle custom key presses. */
     /**
@@ -1174,14 +1174,20 @@ var MatChipList = /** @class */ (function (_super) {
     /**
      * Implemented as part of MatFormFieldControl.
      * \@docs-private
+     * @param {?} event
      * @return {?}
      */
     MatChipList.prototype.onContainerClick = /**
      * Implemented as part of MatFormFieldControl.
      * \@docs-private
+     * @param {?} event
      * @return {?}
      */
-    function () { this.focus(); };
+    function (event) {
+        if (!this._originatesFromChip(event)) {
+            this.focus();
+        }
+    };
     /**
      * Focuses the the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
@@ -1621,6 +1627,27 @@ var MatChipList = /** @class */ (function (_super) {
                 _this._lastDestroyedChipIndex = chipIndex;
             }
         });
+    };
+    /**
+     * Checks whether an event comes from inside a chip element.
+     * @param {?} event
+     * @return {?}
+     */
+    MatChipList.prototype._originatesFromChip = /**
+     * Checks whether an event comes from inside a chip element.
+     * @param {?} event
+     * @return {?}
+     */
+    function (event) {
+        /** @type {?} */
+        var currentElement = /** @type {?} */ (event.target);
+        while (currentElement && currentElement !== this._elementRef.nativeElement) {
+            if (currentElement.classList.contains('mat-chip')) {
+                return true;
+            }
+            currentElement = currentElement.parentElement;
+        }
+        return false;
     };
     MatChipList.decorators = [
         { type: core.Component, args: [{selector: 'mat-chip-list',

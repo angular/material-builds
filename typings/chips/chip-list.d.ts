@@ -195,7 +195,7 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
      * Implemented as part of MatFormFieldControl.
      * @docs-private
      */
-    onContainerClick(): void;
+    onContainerClick(event: MouseEvent): void;
     /**
      * Focuses the the first non-disabled chip in this chip list, or the associated input when there
      * are no eligible chips.
@@ -254,4 +254,6 @@ export declare class MatChipList extends _MatChipListMixinBase implements MatFor
     /** Listens to user-generated selection events on each chip. */
     private _listenToChipsFocus;
     private _listenToChipsRemoved;
+    /** Checks whether an event comes from inside a chip element. */
+    private _originatesFromChip;
 }

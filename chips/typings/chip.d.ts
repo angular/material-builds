@@ -130,7 +130,7 @@ export declare class MatChip extends _MatChipMixinBase implements FocusableOptio
      * Informs any listeners of the removal request. Does not remove the chip from the DOM.
      */
     remove(): void;
-    /** Ensures events fire properly upon click. */
+    /** Handles click events on the chip. */
     _handleClick(event: Event): void;
     /** Handle custom key presses. */
     _handleKeydown(event: KeyboardEvent): void;
