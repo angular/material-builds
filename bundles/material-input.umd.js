@@ -647,7 +647,14 @@ var MatInput = /** @class */ (function (_super) {
      * \@docs-private
      * @return {?}
      */
-    function () { this.focus(); };
+    function () {
+        // Do not re-focus the input element if the element is already focused. Otherwise it can happen
+        // that someone clicks on a time input and the cursor resets to the "hours" field while the
+        // "minutes" field was actually clicked. See: https://github.com/angular/material2/issues/12849
+        if (!this.focused) {
+            this.focus();
+        }
+    };
     MatInput.decorators = [
         { type: core.Directive, args: [{
                     selector: "input[matInput], textarea[matInput], select[matNativeControl],\n      input[matNativeControl], textarea[matNativeControl]",
