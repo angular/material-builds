@@ -24,6 +24,7 @@ export declare type MatExpansionPanelState = 'expanded' | 'collapsed';
  */
 export declare class MatExpansionPanel extends CdkAccordionItem implements AfterContentInit, OnChanges, OnDestroy {
     private _viewContainerRef;
+    _animationMode?: string | undefined;
     private _document;
     /** Whether the toggle indicator should be hidden. */
     hideToggle: boolean;
@@ -44,7 +45,7 @@ export declare class MatExpansionPanel extends CdkAccordionItem implements After
     _portal: TemplatePortal;
     /** ID for the associated header element. Used for a11y labelling. */
     _headerId: string;
-    constructor(accordion: MatAccordionBase, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher, _viewContainerRef: ViewContainerRef, _document?: any);
+    constructor(accordion: MatAccordionBase, _changeDetectorRef: ChangeDetectorRef, _uniqueSelectionDispatcher: UniqueSelectionDispatcher, _viewContainerRef: ViewContainerRef, _document?: any, _animationMode?: string | undefined);
     /** Determines whether the expansion panel should have spacing between it and its siblings. */
     _hasSpacing(): boolean;
     /** Gets the expanded state string. */
