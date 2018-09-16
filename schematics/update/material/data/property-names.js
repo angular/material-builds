@@ -21,6 +21,18 @@ exports.propertyNames = {
                     }
                 }
             ]
+        },
+        {
+            pr: 'https://github.com/angular/material2/pull/12927',
+            changes: [
+                {
+                    replace: 'flexibleDiemsions',
+                    replaceWith: 'flexibleDimensions',
+                    whitelist: {
+                        classes: ['CdkConnectedOverlay']
+                    }
+                }
+            ]
         }
     ],
     [index_1.TargetVersion.V6]: [
@@ -327,19 +339,6 @@ exports.propertyNames = {
                 }
             ]
         },
-        // TODO(devversion): this should be part of the V6 to V7 upgrade
-        {
-            pr: 'https://github.com/angular/material2/pull/12927',
-            changes: [
-                {
-                    replace: 'flexibleDiemsions',
-                    replaceWith: 'flexibleDimensions',
-                    whitelist: {
-                        classes: ['CdkConnectedOverlay']
-                    }
-                }
-            ]
-        }
     ]
 };
 //# sourceMappingURL=property-names.js.map
