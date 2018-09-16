@@ -7,7 +7,7 @@
  */
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import { ViewportRuler } from '@angular/cdk/scrolling';
-import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, OnDestroy, QueryList } from '@angular/core';
+import { AfterContentChecked, AfterContentInit, ChangeDetectorRef, ElementRef, EventEmitter, NgZone, OnDestroy, QueryList } from '@angular/core';
 import { CanDisableRipple } from '@angular/material/core';
 import { MatInkBar } from './ink-bar';
 import { MatTabLabelWrapper } from './tab-label-wrapper';
@@ -33,6 +33,7 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     private _changeDetectorRef;
     private _viewportRuler;
     private _dir;
+    private _ngZone;
     _labelWrappers: QueryList<MatTabLabelWrapper>;
     _inkBar: MatInkBar;
     _tabListContainer: ElementRef;
@@ -65,7 +66,7 @@ export declare class MatTabHeader extends _MatTabHeaderMixinBase implements Afte
     readonly selectFocusedIndex: EventEmitter<{}>;
     /** Event emitted when a label is focused. */
     readonly indexFocused: EventEmitter<{}>;
-    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality);
+    constructor(_elementRef: ElementRef, _changeDetectorRef: ChangeDetectorRef, _viewportRuler: ViewportRuler, _dir: Directionality, _ngZone?: NgZone | undefined);
     ngAfterContentChecked(): void;
     _handleKeydown(event: KeyboardEvent): void;
     /**

@@ -26,15 +26,12 @@ See the Apache Version 2.0 License for specific language governing permissions
 and limitations under the License.
 ***************************************************************************** */
 
-var __assign = function() {
-    __assign = Object.assign || function __assign(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
+var __assign = Object.assign || function __assign(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+    }
+    return t;
 };
 
 /**
@@ -156,13 +153,13 @@ var MatTooltip = /** @class */ (function () {
                 .set('mouseleave', function () { return _this.hide(); })
                 .forEach(function (listener, event) { return element.addEventListener(event, listener); });
         }
-        else if (_platform.IOS && (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA')) {
+        if (element.nodeName === 'INPUT' || element.nodeName === 'TEXTAREA') {
             // When we bind a gesture event on an element (in this case `longpress`), HammerJS
             // will add some inline styles by default, including `user-select: none`. This is
-            // problematic on iOS, because it will prevent users from typing in inputs. If
-            // we're on iOS and the tooltip is attached on an input or textarea, we clear
-            // the `user-select` to avoid these issues.
-            element.style.webkitUserSelect = element.style.userSelect = '';
+            // problematic on iOS and in Safari, because it will prevent users from typing in inputs.
+            // Since `user-select: none` is not needed for the `longpress` event and can cause unexpected
+            // behavior for text fields, we always clear the `user-select` to avoid such issues.
+            element.style.webkitUserSelect = element.style.userSelect = element.style.msUserSelect = '';
         }
         // Hammer applies `-webkit-user-drag: none` on all elements by default,
         // which breaks the native drag&drop. If the consumer explicitly made

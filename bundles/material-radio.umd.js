@@ -27,12 +27,9 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics(d, b);
-};
+var extendStatics = Object.setPrototypeOf ||
+    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
 
 function __extends(d, b) {
     extendStatics(d, b);
@@ -661,7 +658,7 @@ var MatRadioButton = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
     };
     /**
      * Marks the radio button as needing checking for change detection.

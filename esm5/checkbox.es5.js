@@ -484,7 +484,7 @@ var MatCheckbox = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
     };
     /**
      * @param {?} event

@@ -27,12 +27,9 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics(d, b);
-};
+var extendStatics = Object.setPrototypeOf ||
+    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
 
 function __extends(d, b) {
     extendStatics(d, b);
@@ -353,7 +350,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
         // Avoids focus being lost if the panel contained the focused element and was closed.
         panel.closed
             .pipe(operators.filter(function () { return panel._containsFocus(); }))
-            .subscribe(function () { return _focusMonitor.focusVia(_element.nativeElement, 'program'); });
+            .subscribe(function () { return _focusMonitor.focusVia(_element, 'program'); });
         _focusMonitor.monitor(_element.nativeElement).subscribe(function (origin) {
             if (origin && panel.accordion) {
                 panel.accordion._handleHeaderFocus(_this);
@@ -481,7 +478,7 @@ var MatExpansionPanelHeader = /** @class */ (function () {
      */
     function (origin) {
         if (origin === void 0) { origin = 'program'; }
-        this._focusMonitor.focusVia(this._element.nativeElement, origin);
+        this._focusMonitor.focusVia(this._element, origin);
     };
     /**
      * @return {?}

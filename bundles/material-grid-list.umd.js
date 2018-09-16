@@ -27,12 +27,9 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics(d, b);
-};
+var extendStatics = Object.setPrototypeOf ||
+    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
 
 function __extends(d, b) {
     extendStatics(d, b);
@@ -905,7 +902,9 @@ var MatGridList = /** @class */ (function () {
          * @param {?} value
          * @return {?}
          */
-        function (value) { this._cols = Math.round(coercion.coerceNumberProperty(value)); },
+        function (value) {
+            this._cols = Math.max(1, Math.round(coercion.coerceNumberProperty(value)));
+        },
         enumerable: true,
         configurable: true
     });

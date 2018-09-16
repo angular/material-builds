@@ -320,7 +320,7 @@ var MatSlideToggle = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
     };
     /** Toggles the checked state of the slide-toggle. */
     /**

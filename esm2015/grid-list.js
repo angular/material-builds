@@ -616,7 +616,9 @@ class MatGridList {
      * @param {?} value
      * @return {?}
      */
-    set cols(value) { this._cols = Math.round(coerceNumberProperty(value)); }
+    set cols(value) {
+        this._cols = Math.max(1, Math.round(coerceNumberProperty(value)));
+    }
     /**
      * Size of the grid list's gutter in pixels.
      * @return {?}

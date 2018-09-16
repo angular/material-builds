@@ -49,8 +49,6 @@ export declare class MatListItem extends _MatListItemMixinBase implements AfterC
     ngAfterContentInit(): void;
     /** Whether this list item should show a ripple effect when clicked. */
     _isRippleDisabled(): boolean;
-    _handleFocus(): void;
-    _handleBlur(): void;
     /** Retrieves the DOM element of the component host. */
     _getHostElement(): HTMLElement;
 }

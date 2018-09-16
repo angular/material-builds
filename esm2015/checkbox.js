@@ -385,7 +385,7 @@ class MatCheckbox extends _MatCheckboxMixinBase {
      * @return {?}
      */
     focus() {
-        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
     }
     /**
      * @param {?} event

@@ -304,7 +304,7 @@ class MatExpansionPanelHeader {
         // Avoids focus being lost if the panel contained the focused element and was closed.
         panel.closed
             .pipe(filter(() => panel._containsFocus()))
-            .subscribe(() => _focusMonitor.focusVia(_element.nativeElement, 'program'));
+            .subscribe(() => _focusMonitor.focusVia(_element, 'program'));
         _focusMonitor.monitor(_element.nativeElement).subscribe(origin => {
             if (origin && panel.accordion) {
                 panel.accordion._handleHeaderFocus(this);
@@ -381,7 +381,7 @@ class MatExpansionPanelHeader {
      * @return {?}
      */
     focus(origin = 'program') {
-        this._focusMonitor.focusVia(this._element.nativeElement, origin);
+        this._focusMonitor.focusVia(this._element, origin);
     }
     /**
      * @return {?}

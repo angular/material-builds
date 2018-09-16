@@ -27,12 +27,9 @@ and limitations under the License.
 ***************************************************************************** */
 /* global Reflect, Promise */
 
-var extendStatics = function(d, b) {
-    extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return extendStatics(d, b);
-};
+var extendStatics = Object.setPrototypeOf ||
+    ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+    function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
 
 function __extends(d, b) {
     extendStatics(d, b);
@@ -740,12 +737,13 @@ var /** @type {?} */ _MatTabHeaderMixinBase = core$1.mixinDisableRipple(MatTabHe
  */
 var MatTabHeader = /** @class */ (function (_super) {
     __extends(MatTabHeader, _super);
-    function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir) {
+    function MatTabHeader(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone) {
         var _this = _super.call(this) || this;
         _this._elementRef = _elementRef;
         _this._changeDetectorRef = _changeDetectorRef;
         _this._viewportRuler = _viewportRuler;
         _this._dir = _dir;
+        _this._ngZone = _ngZone;
         /**
          * The distance in pixels that the tab labels should be translated to the left.
          */
@@ -921,9 +919,16 @@ var MatTabHeader = /** @class */ (function (_super) {
      * @return {?}
      */
     function () {
-        this._updatePagination();
-        this._alignInkBarToSelectedTab();
-        this._changeDetectorRef.markForCheck();
+        var _this = this;
+        var /** @type {?} */ zoneCallback = function () {
+            _this._updatePagination();
+            _this._alignInkBarToSelectedTab();
+            _this._changeDetectorRef.markForCheck();
+        };
+        // The content observer runs outside the `NgZone` by default, which
+        // means that we need to bring the callback back in ourselves.
+        // @breaking-change 8.0.0 Remove null check for `_ngZone` once it's a required parameter.
+        this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
     };
     /**
      * Updating the view whether pagination should be enabled or not
@@ -1290,6 +1295,7 @@ var MatTabHeader = /** @class */ (function (_super) {
         { type: core.ChangeDetectorRef, },
         { type: scrolling.ViewportRuler, },
         { type: bidi.Directionality, decorators: [{ type: core.Optional },] },
+        { type: core.NgZone, },
     ]; };
     MatTabHeader.propDecorators = {
         "_labelWrappers": [{ type: core.ContentChildren, args: [MatTabLabelWrapper,] },],

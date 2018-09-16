@@ -600,13 +600,15 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @param {?} _changeDetectorRef
      * @param {?} _viewportRuler
      * @param {?} _dir
+     * @param {?=} _ngZone
      */
-    constructor(_elementRef, _changeDetectorRef, _viewportRuler, _dir) {
+    constructor(_elementRef, _changeDetectorRef, _viewportRuler, _dir, _ngZone) {
         super();
         this._elementRef = _elementRef;
         this._changeDetectorRef = _changeDetectorRef;
         this._viewportRuler = _viewportRuler;
         this._dir = _dir;
+        this._ngZone = _ngZone;
         /**
          * The distance in pixels that the tab labels should be translated to the left.
          */
@@ -752,9 +754,15 @@ class MatTabHeader extends _MatTabHeaderMixinBase {
      * @return {?}
      */
     _onContentChanges() {
-        this._updatePagination();
-        this._alignInkBarToSelectedTab();
-        this._changeDetectorRef.markForCheck();
+        const /** @type {?} */ zoneCallback = () => {
+            this._updatePagination();
+            this._alignInkBarToSelectedTab();
+            this._changeDetectorRef.markForCheck();
+        };
+        // The content observer runs outside the `NgZone` by default, which
+        // means that we need to bring the callback back in ourselves.
+        // @breaking-change 8.0.0 Remove null check for `_ngZone` once it's a required parameter.
+        this._ngZone ? this._ngZone.run(zoneCallback) : zoneCallback();
     }
     /**
      * Updating the view whether pagination should be enabled or not
@@ -986,6 +994,7 @@ MatTabHeader.ctorParameters = () => [
     { type: ChangeDetectorRef, },
     { type: ViewportRuler, },
     { type: Directionality, decorators: [{ type: Optional },] },
+    { type: NgZone, },
 ];
 MatTabHeader.propDecorators = {
     "_labelWrappers": [{ type: ContentChildren, args: [MatTabLabelWrapper,] },],

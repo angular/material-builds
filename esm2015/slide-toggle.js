@@ -266,7 +266,7 @@ class MatSlideToggle extends _MatSlideToggleMixinBase {
      * @return {?}
      */
     focus() {
-        this._focusMonitor.focusVia(this._inputElement.nativeElement, 'keyboard');
+        this._focusMonitor.focusVia(this._inputElement, 'keyboard');
     }
     /**
      * Toggles the checked state of the slide-toggle.

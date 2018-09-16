@@ -45,8 +45,6 @@ export declare class MatListOption extends _MatListOptionMixinBase implements Af
     selectionList: MatSelectionList;
     private _selected;
     private _disabled;
-    /** Whether the option has focus. */
-    _hasFocus: boolean;
     _avatar: MatListAvatarCssMatStyler;
     _lines: QueryList<MatLine>;
     /** DOM element containing the item's text. */

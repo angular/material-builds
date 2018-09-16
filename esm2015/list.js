@@ -128,18 +128,6 @@ class MatListItem extends _MatListItemMixinBase {
         return !this._isNavList || this.disableRipple || this._navList.disableRipple;
     }
     /**
-     * @return {?}
-     */
-    _handleFocus() {
-        this._element.nativeElement.classList.add('mat-list-item-focus');
-    }
-    /**
-     * @return {?}
-     */
-    _handleBlur() {
-        this._element.nativeElement.classList.remove('mat-list-item-focus');
-    }
-    /**
      * Retrieves the DOM element of the component host.
      * @return {?}
      */
@@ -155,8 +143,6 @@ MatListItem.decorators = [
                     // @breaking-change 7.0.0 Remove `mat-list-item-avatar` in favor of `mat-list-item-with-avatar`.
                     '[class.mat-list-item-avatar]': '_avatar || _icon',
                     '[class.mat-list-item-with-avatar]': '_avatar || _icon',
-                    '(focus)': '_handleFocus()',
-                    '(blur)': '_handleBlur()',
                 },
                 inputs: ['disableRipple'],
                 template: "<div class=\"mat-list-item-content\"><div class=\"mat-list-item-ripple\" mat-ripple [matRippleTrigger]=\"_getHostElement()\" [matRippleDisabled]=\"_isRippleDisabled()\"></div><ng-content select=\"[mat-list-avatar], [mat-list-icon], [matListAvatar], [matListIcon]\"></ng-content><div class=\"mat-list-text\"><ng-content select=\"[mat-line], [matLine]\"></ng-content></div><ng-content></ng-content></div>",
@@ -231,10 +217,6 @@ class MatListOption extends _MatListOptionMixinBase {
         this.selectionList = selectionList;
         this._selected = false;
         this._disabled = false;
-        /**
-         * Whether the option has focus.
-         */
-        this._hasFocus = false;
         /**
          * Whether the label should appear before or after the checkbox. Defaults to 'after'
          */
@@ -351,14 +333,12 @@ class MatListOption extends _MatListOptionMixinBase {
      * @return {?}
      */
     _handleFocus() {
-        this._hasFocus = true;
         this.selectionList._setFocusedOption(this);
     }
     /**
      * @return {?}
      */
     _handleBlur() {
-        this._hasFocus = false;
         this.selectionList._onTouched();
     }
     /**
@@ -409,7 +389,6 @@ MatListOption.decorators = [
                     '(click)': '_handleClick()',
                     'tabindex': '-1',
                     '[class.mat-list-item-disabled]': 'disabled',
-                    '[class.mat-list-item-focus]': '_hasFocus',
                     '[class.mat-list-item-with-avatar]': '_avatar',
                     '[attr.aria-selected]': 'selected.toString()',
                     '[attr.aria-disabled]': 'disabled.toString()',
@@ -558,8 +537,8 @@ class MatSelectionList extends _MatSelectionListMixinBase {
      * @return {?}
      */
     _removeOptionFromList(option) {
-        if (option._hasFocus) {
-            const /** @type {?} */ optionIndex = this._getOptionIndex(option);
+        const /** @type {?} */ optionIndex = this._getOptionIndex(option);
+        if (optionIndex > -1 && this._keyManager.activeItemIndex === optionIndex) {
             // Check whether the option is the last item
             if (optionIndex > 0) {
                 this._keyManager.setPreviousItemActive();

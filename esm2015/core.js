@@ -942,6 +942,191 @@ const /** @type {?} */ MAT_NATIVE_DATE_FORMATS = {
  * @fileoverview added by tsickle
  * @suppress {checkTypes} checked by tsc
  */
+/**
+ * @abstract
+ * @template D
+ */
+class MatDateSelection {
+    /**
+     * @param {?} adapter
+     */
+    constructor(adapter) {
+        this.adapter = adapter;
+        this.valueChanges = new Subject();
+    }
+    /**
+     * @return {?}
+     */
+    dispose() {
+        this.valueChanges.complete();
+    }
+}
+/**
+ * Concrete implementation of a MatDateSelection that holds a single date.
+ * @template D
+ */
+class MatSingleDateSelection extends MatDateSelection {
+    /**
+     * @param {?} adapter
+     * @param {?=} date
+     */
+    constructor(adapter, date) {
+        super(adapter);
+        this.date = null;
+        if (date) {
+            this.date = date;
+        }
+    }
+    /**
+     * @param {?} date
+     * @return {?}
+     */
+    add(date) {
+        this.date = date;
+        this.valueChanges.next();
+    }
+    /**
+     * @return {?}
+     */
+    clone() {
+        return new MatSingleDateSelection(this.adapter, this.date);
+    }
+    /**
+     * @return {?}
+     */
+    getFirstSelectedDate() { return this.date; }
+    /**
+     * @return {?}
+     */
+    getLastSelectedDate() { return this.date; }
+    /**
+     * @return {?}
+     */
+    isComplete() { return !!this.date; }
+    /**
+     * @param {?} other
+     * @return {?}
+     */
+    isSame(other) {
+        return other instanceof MatSingleDateSelection &&
+            this.adapter.sameDate(other.getFirstSelectedDate(), this.getFirstSelectedDate());
+    }
+    /**
+     * @return {?}
+     */
+    isValid() {
+        return !!(this.date && this.adapter.isValid(this.date));
+    }
+    /**
+     * @return {?}
+     */
+    asDate() {
+        return this.date;
+    }
+}
+/**
+ * Concrete implementation of a MatDateSelection that holds a date range, represented by
+ * a start date and an end date.
+ * @template D
+ */
+class MatRangeDateSelection extends MatDateSelection {
+    /**
+     * @param {?} adapter
+     * @param {?=} start
+     * @param {?=} end
+     */
+    constructor(adapter, start, end) {
+        super(adapter);
+        this.start = null;
+        this.end = null;
+        if (start) {
+            this.start = start;
+        }
+        if (end) {
+            this.end = end;
+        }
+    }
+    /**
+     * Adds an additional date to the range. If no date is set thus far, it will set it to the
+     * beginning. If the beginning is set, it will set it to the end.
+     * If add is called on a complete selection, it will empty the selection and set it as the start.
+     * @param {?} date
+     * @return {?}
+     */
+    add(date) {
+        if (!this.start) {
+            this.start = date;
+        }
+        else if (!this.end) {
+            this.end = date;
+        }
+        else {
+            this.start = date;
+            this.end = null;
+        }
+        this.valueChanges.next();
+    }
+    /**
+     * @return {?}
+     */
+    clone() {
+        return new MatRangeDateSelection(this.adapter, this.start, this.end);
+    }
+    /**
+     * @return {?}
+     */
+    getFirstSelectedDate() { return this.start; }
+    /**
+     * @return {?}
+     */
+    getLastSelectedDate() { return this.end; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    setFirstSelectedDate(value) { this.start = value; }
+    /**
+     * @param {?} value
+     * @return {?}
+     */
+    setLastSelectedDate(value) { this.end = value; }
+    /**
+     * @return {?}
+     */
+    isComplete() {
+        return !!(this.start && this.end);
+    }
+    /**
+     * @param {?} other
+     * @return {?}
+     */
+    isSame(other) {
+        return other instanceof MatRangeDateSelection &&
+            this.adapter.sameDate(this.getFirstSelectedDate(), other.getFirstSelectedDate()) &&
+            this.adapter.sameDate(this.getLastSelectedDate(), other.getLastSelectedDate());
+    }
+    /**
+     * @return {?}
+     */
+    isValid() {
+        return !!(this.start && this.end &&
+            this.adapter.isValid(/** @type {?} */ ((this.start))) && this.adapter.isValid(/** @type {?} */ ((this.end))));
+    }
+    /**
+     * @return {?}
+     */
+    asRange() {
+        return {
+            start: this.start,
+            end: this.end,
+        };
+    }
+}
+
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes} checked by tsc
+ */
 class NativeDateModule {
 }
 NativeDateModule.decorators = [
@@ -1083,6 +1268,12 @@ class GestureConfig extends HammerGestureConfig {
         const /** @type {?} */ longpress = this._createRecognizer(press, { event: 'longpress', time: 500 });
         // Overwrite the default `pan` event to use the swipe event.
         pan.recognizeWith(swipe);
+        // Since the slide event threshold is set to zero, the slide recognizer can fire and
+        // accidentally reset the longpress recognizer. In order to make sure that the two
+        // recognizers can run simultaneously but don't affect each other, we allow the slide
+        // recognizer to recognize while a longpress is being processed.
+        // See: https://github.com/hammerjs/hammer.js/blob/master/src/manager.js#L123-L124
+        longpress.recognizeWith(slide);
         // Add customized gestures to Hammer manager
         mc.add([swipe, press, pan, slide, longpress]);
         return /** @type {?} */ (mc);
@@ -1332,11 +1523,13 @@ class RippleRenderer {
         if (platform.isBrowser) {
             this._containerElement = elementRef.nativeElement;
             // Specify events which need to be registered on the trigger.
-            this._triggerEvents.set('mousedown', this.onMousedown);
-            this._triggerEvents.set('mouseup', this.onPointerUp);
-            this._triggerEvents.set('mouseleave', this.onPointerUp);
-            this._triggerEvents.set('touchstart', this.onTouchStart);
-            this._triggerEvents.set('touchend', this.onPointerUp);
+            this._triggerEvents
+                .set('mousedown', this.onMousedown)
+                .set('mouseup', this.onPointerUp)
+                .set('mouseleave', this.onPointerUp)
+                .set('touchstart', this.onTouchStart)
+                .set('touchend', this.onPointerUp)
+                .set('touchcancel', this.onPointerUp);
         }
     }
     /**
@@ -2146,5 +2339,5 @@ OCT = 9, /** @type {?} */ NOV = 10, /** @type {?} */ DEC = 11;
  * @suppress {checkTypes} checked by tsc
  */
 
-export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };
+export { AnimationCurves, AnimationDurations, MatCommonModule, MATERIAL_SANITY_CHECKS, mixinDisabled, mixinColor, mixinDisableRipple, mixinTabIndex, mixinErrorState, mixinInitialized, NativeDateModule, MatNativeDateModule, MAT_DATE_LOCALE, MAT_DATE_LOCALE_FACTORY, MAT_DATE_LOCALE_PROVIDER, DateAdapter, MAT_DATE_FORMATS, NativeDateAdapter, MAT_NATIVE_DATE_FORMATS, MatDateSelection, MatSingleDateSelection, MatRangeDateSelection, ShowOnDirtyErrorStateMatcher, ErrorStateMatcher, MAT_HAMMER_OPTIONS, GestureConfig, MatLine, MatLineSetter, MatLineModule, MatOptionModule, MatOptionSelectionChange, MAT_OPTION_PARENT_COMPONENT, MatOption, _countGroupLabelsBeforeOption, _getOptionScrollPosition, MatOptgroupBase, _MatOptgroupMixinBase, MatOptgroup, MAT_LABEL_GLOBAL_OPTIONS, MatRippleModule, MAT_RIPPLE_GLOBAL_OPTIONS, MatRipple, RippleState, RippleRef, defaultRippleAnimationConfig, RippleRenderer, MatPseudoCheckboxModule, MatPseudoCheckbox, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC, MATERIAL_SANITY_CHECKS_FACTORY as ɵa1 };
 //# sourceMappingURL=core.js.map

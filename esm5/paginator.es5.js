@@ -26,8 +26,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 var MatPaginatorIntl = /** @class */ (function () {
     function MatPaginatorIntl() {
         /**
-         * Stream that emits whenever the labels here are changed. Use this to notify
-         * components if the labels have changed after initialization.
+         * Stream to emit from when labels are changed. Use this to notify components when the labels have
+         * changed after initialization.
          */
         this.changes = new Subject();
         /**

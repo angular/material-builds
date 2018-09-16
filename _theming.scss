@@ -2822,7 +2822,7 @@ $mat-calendar-weekday-table-font-size: 11px !default;
 
   .mat-list-option,
   .mat-nav-list .mat-list-item {
-    &:hover, &.mat-list-item-focus {
+    &:hover, &:focus {
       background: mat-color($background, 'hover');
     }
   }
@@ -4472,7 +4472,8 @@ $mat-form-field-dedupe: 0;
     background: mat-color($background, 'card');
   }
 
-  .mat-tree-node {
+  .mat-tree-node,
+  .mat-nested-tree-node {
     color: mat-color($foreground, text);
   }
 }
@@ -4482,7 +4483,8 @@ $mat-form-field-dedupe: 0;
     font-family: mat-font-family($config);
   }
 
-  .mat-tree-node {
+  .mat-tree-node,
+  .mat-nested-tree-node {
     font-weight: mat-font-weight($config, body-1);
     font-size: mat-font-size($config, body-1);
   }
