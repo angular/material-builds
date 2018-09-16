@@ -34095,7 +34095,7 @@ MatTreeNestedDataSource = /** @class */ (function (_super) {
 /** *
  * Current version of Angular Material.
   @type {?} */
-var VERSION = new core.Version('7.0.0-beta.0-84ae42c');
+var VERSION = new core.Version('7.0.0-beta.0-b30cf6e');
 
 exports.VERSION = VERSION;
 exports.ɵa30 = MatAutocompleteOrigin;

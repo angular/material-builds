@@ -50,35 +50,19 @@ class ComponentWalker extends tslint_1.RuleWalker {
         }
         for (const property of directiveMetadata.properties) {
             const propertyName = property.name.getText();
-            const initializerKind = property.initializer.kind;
-            if (propertyName === 'template') {
+            if (propertyName === 'template' && ts.isStringLiteralLike(property.initializer)) {
                 this.visitInlineTemplate(property.initializer);
             }
-            if (propertyName === 'templateUrl' && initializerKind === ts.SyntaxKind.StringLiteral) {
+            if (propertyName === 'templateUrl' && ts.isStringLiteralLike(property.initializer)) {
                 this._reportExternalTemplate(property.initializer);
             }
-            if (propertyName === 'styles' && initializerKind === ts.SyntaxKind.ArrayLiteralExpression) {
+            if (propertyName === 'styles' && ts.isArrayLiteralExpression(property.initializer)) {
                 this._reportInlineStyles(property.initializer);
             }
-            if (propertyName === 'styleUrls' &&
-                initializerKind === ts.SyntaxKind.ArrayLiteralExpression) {
+            if (propertyName === 'styleUrls' && ts.isArrayLiteralExpression(property.initializer)) {
                 this._visitExternalStylesArrayLiteral(property.initializer);
             }
         }
-    }
-    _reportInlineStyles(inlineStyles) {
-        inlineStyles.elements.forEach(element => {
-            this.visitInlineStylesheet(element);
-        });
-    }
-    _visitExternalStylesArrayLiteral(styleUrls) {
-        styleUrls.elements.forEach((node) => {
-            const stylePath = path_1.resolve(path_1.join(path_1.dirname(this.getSourceFile().fileName), node.text));
-            // Do not report the specified additional files multiple times.
-            if (!this.extraFiles.has(stylePath)) {
-                this._reportExternalStyle(stylePath);
-            }
-        });
     }
     _reportExternalTemplate(node) {
         const templatePath = path_1.resolve(path_1.join(path_1.dirname(this.getSourceFile().fileName), node.text));
@@ -88,21 +72,37 @@ class ComponentWalker extends tslint_1.RuleWalker {
         }
         // Check if the external template file exists before proceeding.
         if (!fs_1.existsSync(templatePath)) {
-            console.error(`PARSE ERROR: ${this.getSourceFile().fileName}:` +
-                ` Could not find template: "${templatePath}".`);
+            this._createResourceNotFoundFailure(node, templatePath);
             return;
         }
         // Create a fake TypeScript source file that includes the template content.
         const templateFile = component_file_1.createComponentFile(templatePath, fs_1.readFileSync(templatePath, 'utf8'));
         this.visitExternalTemplate(templateFile);
     }
+    _reportInlineStyles(expression) {
+        expression.elements.forEach(node => {
+            if (ts.isStringLiteralLike(node)) {
+                this.visitInlineStylesheet(node);
+            }
+        });
+    }
+    _visitExternalStylesArrayLiteral(expression) {
+        expression.elements.forEach(node => {
+            if (ts.isStringLiteralLike(node)) {
+                const stylePath = path_1.resolve(path_1.join(path_1.dirname(this.getSourceFile().fileName), node.text));
+                // Do not report the specified additional files multiple times.
+                if (this.extraFiles.has(stylePath)) {
+                    return;
+                }
+                // Check if the external stylesheet file exists before proceeding.
+                if (!fs_1.existsSync(stylePath)) {
+                    return this._createResourceNotFoundFailure(node, stylePath);
+                }
+                this._reportExternalStyle(stylePath);
+            }
+        });
+    }
     _reportExternalStyle(stylePath) {
-        // Check if the external stylesheet file exists before proceeding.
-        if (!fs_1.existsSync(stylePath)) {
-            console.error(`PARSE ERROR: ${this.getSourceFile().fileName}: ` +
-                `Could not find stylesheet: "${stylePath}".`);
-            return;
-        }
         // Create a fake TypeScript source file that includes the stylesheet content.
         const stylesheetFile = component_file_1.createComponentFile(stylePath, fs_1.readFileSync(stylePath, 'utf8'));
         this.visitExternalStylesheet(stylesheetFile);
@@ -128,6 +128,14 @@ class ComponentWalker extends tslint_1.RuleWalker {
             return this._findMetadataFromExpression(node.expression);
         }
         return null;
+    }
+    /**
+     * Creates a TSLint failure that reports that the resource file that belongs to the specified
+     * TypeScript node could not be resolved in the file system.
+     */
+    _createResourceNotFoundFailure(node, resourceUrl) {
+        this.addFailureAtNode(node, `Could not resolve resource file: "${resourceUrl}". ` +
+            `Skipping automatic upgrade for this file.`);
     }
 }
 exports.ComponentWalker = ComponentWalker;
